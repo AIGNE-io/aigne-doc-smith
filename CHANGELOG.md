@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.0.2...v0.1.0) (2025-07-31)
+
+
+### Features
+
+* add entry agents for mcp server and cli ([fa85d65](https://github.com/AIGNE-io/aigne-doc-smith/commit/fa85d651e8dc723e2b97150fc2258b115c6c5bb0))
+
+
+### Bug Fixes
+
+* polish command param ([#3](https://github.com/AIGNE-io/aigne-doc-smith/issues/3)) ([003f6b8](https://github.com/AIGNE-io/aigne-doc-smith/commit/003f6b8ae2c9e1af55ba1841458fa8567a0eb2f0))
+* polish docs mcp agent ([8654cd4](https://github.com/AIGNE-io/aigne-doc-smith/commit/8654cd4ea38034f3af0244f56b27acf66ba704e1))
+
 ## 0.0.2 (2025-07-30)
 
 
