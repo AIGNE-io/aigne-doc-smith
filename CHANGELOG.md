@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.0...v0.1.1) (2025-07-31)
+
+
+### Bug Fixes
+
+* agent add alias ([7e25014](https://github.com/AIGNE-io/aigne-doc-smith/commit/7e250147309849fe0f4cc554077134d2e443d344))
+* docs mcp add doc search ([de96e0e](https://github.com/AIGNE-io/aigne-doc-smith/commit/de96e0e08455831dc6918d5fbc59d38b6a921373))
+* polish code ([8cb0a5c](https://github.com/AIGNE-io/aigne-doc-smith/commit/8cb0a5ce67cf009c672b2fb1aa9b89ef6d965a86))
+
 ## [0.1.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.0.2...v0.1.0) (2025-07-31)
 
 
