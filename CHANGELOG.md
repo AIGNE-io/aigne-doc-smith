@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.1...v0.1.2) (2025-08-01)
+
+
+### Bug Fixes
+
+* use gemini pro model ([755e1fb](https://github.com/AIGNE-io/aigne-doc-smith/commit/755e1fba377f999106a7d39c734a6f72f047379e))
+
 ## [0.1.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.0...v0.1.1) (2025-07-31)
 
 
