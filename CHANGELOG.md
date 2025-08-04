@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.2...v0.1.3) (2025-08-04)
+
+
+### Bug Fixes
+
+* access agents from options.context instead of load a new aigne instance ([#6](https://github.com/AIGNE-io/aigne-doc-smith/issues/6)) ([0e7ce1d](https://github.com/AIGNE-io/aigne-doc-smith/commit/0e7ce1d3889aab435b029a511cb7ebdbb213ab8a))
+
 ## [0.1.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.1...v0.1.2) (2025-08-01)
 
 
