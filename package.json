@@ -1,6 +1,6 @@
 {
   "name": "@aigne/doc-smith",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "",
   "publishConfig": {
     "access": "public"
@@ -19,12 +19,12 @@
   "author": "Arcblock <blocklet@arcblock.io> https://github.com/blocklet",
   "license": "MIT",
   "dependencies": {
-    "@aigne/anthropic": "^0.10.4",
-    "@aigne/cli": "^1.29.0",
-    "@aigne/core": "^1.41.0",
-    "@aigne/gemini": "^0.8.8",
-    "@aigne/openai": "^0.10.8",
-    "@aigne/publish-docs": "^0.5.1",
+    "@aigne/anthropic": "^0.10.6",
+    "@aigne/cli": "^1.30.1",
+    "@aigne/core": "^1.43.0",
+    "@aigne/gemini": "^0.8.10",
+    "@aigne/openai": "^0.10.10",
+    "@aigne/publish-docs": "^0.5.2",
     "glob": "^11.0.3",
     "open": "^10.2.0",
     "ufo": "^1.6.1",
