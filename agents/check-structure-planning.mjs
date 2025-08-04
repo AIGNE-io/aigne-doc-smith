@@ -1,16 +1,7 @@
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-import { AnthropicChatModel } from "@aigne/anthropic";
-import { AIGNE } from "@aigne/core";
-import { GeminiChatModel } from "@aigne/gemini";
-import { OpenAIChatModel } from "@aigne/openai";
 import {
   getCurrentGitHead,
   hasFileChangesBetweenCommits,
 } from "../utils/utils.mjs";
-
-// Get current script directory
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default async function checkStructurePlanning(
   { originalStructurePlan, feedback, lastGitHead, ...rest },
@@ -46,24 +37,7 @@ export default async function checkStructurePlanning(
     };
   }
 
-  const aigne = await AIGNE.load(join(__dirname, "../"), {
-    models: [
-      {
-        name: OpenAIChatModel.name,
-        create: (params) => new OpenAIChatModel({ ...params }),
-      },
-      {
-        name: AnthropicChatModel.name,
-        create: (params) => new AnthropicChatModel({ ...params }),
-      },
-      {
-        name: GeminiChatModel.name,
-        create: (params) => new GeminiChatModel({ ...params }),
-      },
-    ],
-  });
-
-  const panningAgent = aigne.agents["reflective-structure-planner"];
+  const panningAgent = options.context.agents["reflective-structure-planner"];
 
   const result = await options.context.invoke(panningAgent, {
     feedback: feedback || "",
