@@ -3,6 +3,28 @@ import path from "node:path";
 import { execSync } from "node:child_process";
 import { existsSync, mkdirSync } from "node:fs";
 
+/**
+ * Normalize path to absolute path for consistent comparison
+ * @param {string} filePath - The path to normalize
+ * @returns {string} - Absolute path
+ */
+export function normalizePath(filePath) {
+  return path.isAbsolute(filePath)
+    ? filePath
+    : path.resolve(process.cwd(), filePath);
+}
+
+/**
+ * Convert path to relative path from current working directory
+ * @param {string} filePath - The path to convert
+ * @returns {string} - Relative path
+ */
+export function toRelativePath(filePath) {
+  return path.isAbsolute(filePath)
+    ? path.relative(process.cwd(), filePath)
+    : filePath;
+}
+
 export function processContent({ content }) {
   // Match markdown regular links [text](link), exclude images ![text](link)
   return content.replace(
@@ -191,13 +213,8 @@ export function getModifiedFilesBetweenCommits(
 
     return modifiedFiles.filter((file) =>
       filePaths.some((targetPath) => {
-        // Convert to absolute paths for reliable comparison, but check if already absolute
-        const absoluteFile = path.isAbsolute(file)
-          ? file
-          : path.resolve(process.cwd(), file);
-        const absoluteTarget = path.isAbsolute(targetPath)
-          ? targetPath
-          : path.resolve(process.cwd(), targetPath);
+        const absoluteFile = normalizePath(file);
+        const absoluteTarget = normalizePath(targetPath);
         return absoluteFile === absoluteTarget;
       })
     );
@@ -223,13 +240,8 @@ export function hasSourceFilesChanged(sourceIds, modifiedFiles) {
 
   return modifiedFiles.some((modifiedFile) =>
     sourceIds.some((sourceId) => {
-      // Convert to absolute paths for reliable comparison, but check if already absolute
-      const absoluteModifiedFile = path.isAbsolute(modifiedFile)
-        ? modifiedFile
-        : path.resolve(process.cwd(), modifiedFile);
-      const absoluteSourceId = path.isAbsolute(sourceId)
-        ? sourceId
-        : path.resolve(process.cwd(), sourceId);
+      const absoluteModifiedFile = normalizePath(modifiedFile);
+      const absoluteSourceId = normalizePath(sourceId);
       return absoluteModifiedFile === absoluteSourceId;
     })
   );
