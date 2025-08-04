@@ -5,67 +5,10 @@ import {
   getCurrentGitHead,
   getModifiedFilesBetweenCommits,
 } from "../utils/utils.mjs";
-
-// Default file patterns for inclusion and exclusion
-const DEFAULT_INCLUDE_PATTERNS = [
-  "*.py",
-  "*.js",
-  "*.jsx",
-  "*.ts",
-  "*.tsx",
-  "*.go",
-  "*.java",
-  "*.pyi",
-  "*.pyx",
-  "*.c",
-  "*.cc",
-  "*.cpp",
-  "*.h",
-  "*.md",
-  "*.rst",
-  "*.json",
-  "*Dockerfile",
-  "*Makefile",
-  "*.yaml",
-  "*.yml",
-];
-
-const DEFAULT_EXCLUDE_PATTERNS = [
-  "aigne-docs/**",
-  "doc-smith/**",
-  "assets/**",
-  "data/**",
-  "images/**",
-  "public/**",
-  "static/**",
-  "**/vendor/**",
-  "temp/**",
-  "**/*docs/**",
-  "**/*doc/**",
-  "**/*venv/**",
-  "*.venv/**",
-  "*test*",
-  "**/*test/**",
-  "**/*tests/**",
-  "**/*examples/**",
-  "**/playgrounds/**",
-  "v1/**",
-  "**/dist/**",
-  "**/*build/**",
-  "**/*experimental/**",
-  "**/*deprecated/**",
-  "**/*misc/**",
-  "**/*legacy/**",
-  ".git/**",
-  ".github/**",
-  ".next/**",
-  ".vscode/**",
-  "**/*obj/**",
-  "**/*bin/**",
-  "**/*node_modules/**",
-  "*.log",
-  "**/*test.*",
-];
+import {
+  DEFAULT_INCLUDE_PATTERNS,
+  DEFAULT_EXCLUDE_PATTERNS,
+} from "../utils/constants.mjs";
 
 /**
  * Load .gitignore patterns from a directory

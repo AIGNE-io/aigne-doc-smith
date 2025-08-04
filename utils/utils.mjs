@@ -2,6 +2,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { execSync } from "node:child_process";
 import { existsSync, mkdirSync } from "node:fs";
+import {
+  DEFAULT_INCLUDE_PATTERNS,
+  DEFAULT_EXCLUDE_PATTERNS,
+} from "./constants.mjs";
 
 /**
  * Normalize path to absolute path for consistent comparison
@@ -245,4 +249,82 @@ export function hasSourceFilesChanged(sourceIds, modifiedFiles) {
       return absoluteModifiedFile === absoluteSourceId;
     })
   );
+}
+
+/**
+ * Check if there are any added or deleted files between two git commits that match the include/exclude patterns
+ * @param {string} fromCommit - Starting commit hash
+ * @param {string} toCommit - Ending commit hash (defaults to HEAD)
+ * @param {Array<string>} includePatterns - Include patterns to match files
+ * @param {Array<string>} excludePatterns - Exclude patterns to filter files
+ * @returns {boolean} - True if there are relevant added/deleted files
+ */
+export function hasFileChangesBetweenCommits(
+  fromCommit,
+  toCommit = "HEAD",
+  includePatterns = DEFAULT_INCLUDE_PATTERNS,
+  excludePatterns = DEFAULT_EXCLUDE_PATTERNS
+) {
+  try {
+    // Get file changes with status (A=added, D=deleted, M=modified)
+    const changes = execSync(
+      `git diff --name-status ${fromCommit}..${toCommit}`,
+      {
+        encoding: "utf8",
+        stdio: ["pipe", "pipe", "ignore"],
+      }
+    )
+      .trim()
+      .split("\n")
+      .filter(Boolean);
+
+    // Only check for added (A) and deleted (D) files
+    const addedOrDeletedFiles = changes
+      .filter((line) => {
+        const [status, filePath] = line.split(/\s+/);
+        return (status === "A" || status === "D") && filePath;
+      })
+      .map((line) => line.split(/\s+/)[1]);
+
+    if (addedOrDeletedFiles.length === 0) {
+      return false;
+    }
+
+    // Check if any of the added/deleted files match the include patterns and don't match exclude patterns
+    return addedOrDeletedFiles.some((filePath) => {
+      // Check if file matches any include pattern
+      const matchesInclude = includePatterns.some((pattern) => {
+        // Convert glob pattern to regex for matching
+        const regexPattern = pattern
+          .replace(/\./g, "\\.")
+          .replace(/\*/g, ".*")
+          .replace(/\?/g, ".");
+        const regex = new RegExp(regexPattern);
+        return regex.test(filePath);
+      });
+
+      if (!matchesInclude) {
+        return false;
+      }
+
+      // Check if file matches any exclude pattern
+      const matchesExclude = excludePatterns.some((pattern) => {
+        // Convert glob pattern to regex for matching
+        const regexPattern = pattern
+          .replace(/\./g, "\\.")
+          .replace(/\*/g, ".*")
+          .replace(/\?/g, ".");
+        const regex = new RegExp(regexPattern);
+        return regex.test(filePath);
+      });
+
+      return !matchesExclude;
+    });
+  } catch (error) {
+    console.warn(
+      `Failed to check file changes between ${fromCommit} and ${toCommit}:`,
+      error.message
+    );
+    return false;
+  }
 }
