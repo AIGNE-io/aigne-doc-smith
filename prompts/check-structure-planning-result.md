@@ -17,7 +17,7 @@
 ```
 {{ feedback }}
 
-根据最新的 Data Sources 按需要更新节点的 sourceIds ,更新至状态。
+根据最新的 Data Sources 按需要更新节点的 sourceIds。
 ```
 </context>
 
