@@ -6,12 +6,22 @@ import { AIGNE, TeamAgent } from "@aigne/core";
 import { GeminiChatModel } from "@aigne/gemini";
 import { OpenAIChatModel } from "@aigne/openai";
 import checkDetailResult from "./check-detail-result.mjs";
+import { hasSourceFilesChanged } from "../utils/utils.mjs";
 
 // Get current script directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default async function checkDetailGenerated(
-  { path, docsDir, sourceIds, originalStructurePlan, structurePlan, ...rest },
+  {
+    path,
+    docsDir,
+    sourceIds,
+    originalStructurePlan,
+    structurePlan,
+    modifiedFiles,
+    lastGitHead,
+    ...rest
+  },
   options
 ) {
   // Check if the detail file already exists
@@ -64,6 +74,21 @@ export default async function checkDetailGenerated(
     }
   }
 
+  // Check if source files have changed since last generation
+  let sourceFilesChanged = false;
+  if (sourceIds && sourceIds.length > 0 && modifiedFiles) {
+    sourceFilesChanged = hasSourceFilesChanged(sourceIds, modifiedFiles);
+
+    if (sourceFilesChanged) {
+      console.log(`Source files changed for ${path}, will regenerate`);
+    }
+  }
+
+  // If lastGitHead is not set, regenerate
+  if (!lastGitHead) {
+    sourceFilesChanged = true;
+  }
+
   // If file exists, check content validation
   let contentValidationFailed = false;
   if (detailGenerated && fileContent && structurePlan) {
@@ -77,8 +102,13 @@ export default async function checkDetailGenerated(
     }
   }
 
-  // If file exists, sourceIds haven't changed, and content validation passes, no need to regenerate
-  if (detailGenerated && !sourceIdsChanged && !contentValidationFailed) {
+  // If file exists, sourceIds haven't changed, source files haven't changed, and content validation passes, no need to regenerate
+  if (
+    detailGenerated &&
+    !sourceIdsChanged &&
+    !sourceFilesChanged &&
+    !contentValidationFailed
+  ) {
     return {
       path,
       docsDir,

@@ -61,13 +61,13 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 npx --no doc-smith run --entry-agent init
 
 # 生成命令
-npx --no doc-smith run --entry-agent generator --model gemini:gemini-2.5-flash
+npx --no doc-smith run --entry-agent generate --model gemini:gemini-2.5-flash
 
 # 重新生成单篇
-npx --no doc-smith run --entry-agent regenerator --input-path bitnet-getting-started
+npx --no doc-smith run --entry-agent update --input-path bitnet-getting-started
 
 # 结构规划优化
-npx --no doc-smith run --entry-agent generator --input-feedback "补充节点的 sourceIds，确保所有节点 sourceIds 都有值" --model gemini:gemini-2.5-pro
+npx --no doc-smith run --entry-agent generate --input-feedback "补充节点的 sourceIds，确保所有节点 sourceIds 都有值" --model gemini:gemini-2.5-pro
 
 
 # 发布文档

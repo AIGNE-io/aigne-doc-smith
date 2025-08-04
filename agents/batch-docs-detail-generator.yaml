@@ -10,5 +10,9 @@ input_schema:
       type: string
       description: 结构规划的上下文，用于辅助结构规划
     structurePlanResult: ./schema/structure-plan-result.yaml
+    modifiedFiles:
+      type: array
+      items: { type: string }
+      description: Array of modified files since last generation
 iterate_on: structurePlanResult
 mode: sequential

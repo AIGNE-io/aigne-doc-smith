@@ -24,6 +24,7 @@ export default async function loadConfig({ config }) {
       sourcesPath: ["./"],
       docDir: "./doc-smith/docs",
       outputDir: "./doc-smith/output",
+      lastGitHead: parsedConfig.lastGitHead || "",
       ...parsedConfig,
     };
   } catch (error) {

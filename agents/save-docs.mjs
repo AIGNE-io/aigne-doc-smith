@@ -1,5 +1,6 @@
 import { writeFile, readdir, unlink } from "node:fs/promises";
 import { join } from "node:path";
+import { getCurrentGitHead, saveGitHeadToConfig } from "../utils/utils.mjs";
 
 /**
  * @param {Object} params
@@ -15,6 +16,14 @@ export default async function saveDocs({
   locale,
 }) {
   const results = [];
+
+  // Save current git HEAD to config.yaml for change detection
+  try {
+    const gitHead = getCurrentGitHead();
+    await saveGitHeadToConfig(gitHead);
+  } catch (err) {
+    console.warn("Failed to save git HEAD:", err.message);
+  }
 
   // Generate _sidebar.md
   try {

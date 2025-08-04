@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execSync } from "node:child_process";
+import { existsSync, mkdirSync } from "node:fs";
 
 export function processContent({ content }) {
   // Match markdown regular links [text](link), exclude images ![text](link)
@@ -94,4 +96,141 @@ export async function saveDocWithTranslations({
     results.push({ path: docPath, success: false, error: err.message });
   }
   return results;
+}
+
+/**
+ * Get current git HEAD commit hash
+ * @returns {string} - The current git HEAD commit hash
+ */
+export function getCurrentGitHead() {
+  try {
+    return execSync("git rev-parse HEAD", {
+      encoding: "utf8",
+      stdio: ["pipe", "pipe", "ignore"],
+    }).trim();
+  } catch (error) {
+    // Not in git repository or git command failed
+    console.warn("Failed to get git HEAD:", error.message);
+    return null;
+  }
+}
+
+/**
+ * Save git HEAD to config.yaml file
+ * @param {string} gitHead - The current git HEAD commit hash
+ */
+export async function saveGitHeadToConfig(gitHead) {
+  if (!gitHead) {
+    return; // Skip if no git HEAD available
+  }
+
+  try {
+    const docSmithDir = path.join(process.cwd(), "doc-smith");
+    if (!existsSync(docSmithDir)) {
+      mkdirSync(docSmithDir, { recursive: true });
+    }
+
+    const inputFilePath = path.join(docSmithDir, "config.yaml");
+    let fileContent = "";
+
+    // Read existing file content if it exists
+    if (existsSync(inputFilePath)) {
+      fileContent = await fs.readFile(inputFilePath, "utf8");
+    }
+
+    // Check if lastGitHead already exists in the file
+    const lastGitHeadRegex = /^lastGitHead:\s*.*$/m;
+    const newLastGitHeadLine = `lastGitHead: ${gitHead}`;
+
+    if (lastGitHeadRegex.test(fileContent)) {
+      // Replace existing lastGitHead line
+      fileContent = fileContent.replace(lastGitHeadRegex, newLastGitHeadLine);
+    } else {
+      // Add lastGitHead to the end of file
+      if (fileContent && !fileContent.endsWith("\n")) {
+        fileContent += "\n";
+      }
+      fileContent += newLastGitHeadLine + "\n";
+    }
+
+    await fs.writeFile(inputFilePath, fileContent);
+  } catch (error) {
+    console.warn("Failed to save git HEAD to config.yaml:", error.message);
+  }
+}
+
+/**
+ * Check if files have been modified between two git commits
+ * @param {string} fromCommit - Starting commit hash
+ * @param {string} toCommit - Ending commit hash (defaults to HEAD)
+ * @param {Array<string>} filePaths - Array of file paths to check
+ * @returns {Array<string>} - Array of modified file paths
+ */
+export function getModifiedFilesBetweenCommits(
+  fromCommit,
+  toCommit = "HEAD",
+  filePaths = []
+) {
+  try {
+    // Get all modified files between commits
+    const modifiedFiles = execSync(
+      `git diff --name-only ${fromCommit}..${toCommit}`,
+      {
+        encoding: "utf8",
+        stdio: ["pipe", "pipe", "ignore"],
+      }
+    )
+      .trim()
+      .split("\n")
+      .filter(Boolean);
+
+    // Filter to only include files we care about
+    if (filePaths.length === 0) {
+      return modifiedFiles;
+    }
+
+    return modifiedFiles.filter((file) =>
+      filePaths.some((targetPath) => {
+        // Convert to absolute paths for reliable comparison, but check if already absolute
+        const absoluteFile = path.isAbsolute(file)
+          ? file
+          : path.resolve(process.cwd(), file);
+        const absoluteTarget = path.isAbsolute(targetPath)
+          ? targetPath
+          : path.resolve(process.cwd(), targetPath);
+        return absoluteFile === absoluteTarget;
+      })
+    );
+  } catch (error) {
+    console.warn(
+      `Failed to get modified files between ${fromCommit} and ${toCommit}:`,
+      error.message
+    );
+    return [];
+  }
+}
+
+/**
+ * Check if any source files have changed based on modified files list
+ * @param {Array<string>} sourceIds - Source file paths
+ * @param {Array<string>} modifiedFiles - List of modified files between commits
+ * @returns {boolean} - True if any source files have changed
+ */
+export function hasSourceFilesChanged(sourceIds, modifiedFiles) {
+  if (!sourceIds || sourceIds.length === 0 || !modifiedFiles) {
+    return false; // No source files or no modified files
+  }
+
+  return modifiedFiles.some((modifiedFile) =>
+    sourceIds.some((sourceId) => {
+      // Convert to absolute paths for reliable comparison, but check if already absolute
+      const absoluteModifiedFile = path.isAbsolute(modifiedFile)
+        ? modifiedFile
+        : path.resolve(process.cwd(), modifiedFile);
+      const absoluteSourceId = path.isAbsolute(sourceId)
+        ? sourceId
+        : path.resolve(process.cwd(), sourceId);
+      return absoluteModifiedFile === absoluteSourceId;
+    })
+  );
 }
