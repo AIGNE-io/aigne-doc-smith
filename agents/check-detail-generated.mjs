@@ -1,10 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { AnthropicChatModel } from "@aigne/anthropic";
-import { AIGNE, TeamAgent } from "@aigne/core";
-import { GeminiChatModel } from "@aigne/gemini";
-import { OpenAIChatModel } from "@aigne/openai";
+import { TeamAgent } from "@aigne/core";
 import checkDetailResult from "./check-detail-result.mjs";
 
 // Get current script directory
@@ -87,27 +84,9 @@ export default async function checkDetailGenerated(
     };
   }
 
-  // If sourceIds have changed, regenerate even if file exists
-  const aigne = await AIGNE.load(join(__dirname, "../"), {
-    models: [
-      {
-        name: OpenAIChatModel.name,
-        create: (params) => new OpenAIChatModel({ ...params }),
-      },
-      {
-        name: AnthropicChatModel.name,
-        create: (params) => new AnthropicChatModel({ ...params }),
-      },
-      {
-        name: GeminiChatModel.name,
-        create: (params) => new GeminiChatModel({ ...params }),
-      },
-    ],
-  });
-
   const teamAgent = TeamAgent.from({
     name: "generate-detail",
-    skills: [aigne.agents["detail-generator-and-translate"]],
+    skills: [options.context.agents["detail-generator-and-translate"]],
   });
 
   const result = await options.context.invoke(teamAgent, {
