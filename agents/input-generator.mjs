@@ -44,13 +44,53 @@ export default async function init(
 
   // 4. Translation languages
   console.log("\n=== Translation Settings ===");
-  const translateInput = await options.prompts.input({
-    message:
-      "Translation language list (comma-separated, e.g., zh,en, press Enter to skip):",
+  console.log(
+    "Enter translation languages (press Enter after each language, empty line to finish):"
+  );
+  const translateLanguages = [];
+  while (true) {
+    const langInput = await options.prompts.input({
+      message: `Language ${translateLanguages.length + 1} (e.g., zh, en, ja):`,
+    });
+    if (!langInput.trim()) {
+      break;
+    }
+    translateLanguages.push(langInput.trim());
+  }
+  input.translateLanguages = translateLanguages;
+
+  // 5. Documentation directory
+  console.log("\n=== Documentation Directory ===");
+  console.log(
+    "This is the directory where generated documentation will be saved."
+  );
+  const docsDirInput = await options.prompts.input({
+    message: `Documentation directory (press Enter for default '${outputPath}/docs'):`,
   });
-  input.translateLanguages = translateInput.trim()
-    ? translateInput.split(",").map((lang) => lang.trim())
-    : [];
+  input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
+
+  // 6. Source code paths
+  console.log("\n=== Source Code Paths ===");
+  console.log(
+    "These are the paths to your source code that will be analyzed for documentation generation."
+  );
+  console.log(
+    "Enter source code paths (press Enter after each path, empty line to finish):"
+  );
+
+  const sourcePaths = [];
+  while (true) {
+    const pathInput = await options.prompts.input({
+      message: `Path ${sourcePaths.length + 1} (e.g., ./, ./src, ./lib):`,
+    });
+    if (!pathInput.trim()) {
+      break;
+    }
+    sourcePaths.push(pathInput.trim());
+  }
+
+  // If no paths entered, use default
+  input.sourcesPath = sourcePaths.length > 0 ? sourcePaths : ["./"];
 
   // Generate YAML content
   const yamlContent = generateYAML(input, outputPath);
@@ -121,11 +161,13 @@ function generateYAML(input, outputPath) {
     yaml += `#   - en  # Example: English translation\n`;
   }
 
-  // Add default directory and source path configurations
-  yaml += `docsDir: ${outputPath}/docs  # Directory to save generated documentation\n`;
+  // Add directory and source path configurations
+  yaml += `docsDir: ${input.docsDir}  # Directory to save generated documentation\n`;
   yaml += `outputDir: ${outputPath}/output  # Directory to save output files\n`;
   yaml += `sourcesPath:  # Source code paths to analyze\n`;
-  yaml += `  - ./  # Current directory\n`;
+  input.sourcesPath.forEach((path) => {
+    yaml += `  - ${path}\n`;
+  });
 
   return yaml;
 }
