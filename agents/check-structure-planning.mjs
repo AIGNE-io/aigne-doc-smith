@@ -9,9 +9,10 @@ export default async function checkStructurePlanning(
 ) {
   // Check if we need to regenerate structure plan
   let shouldRegenerate = false;
+  let finalFeedback = feedback;
 
   // If no feedback and originalStructurePlan exists, check for git changes
-  if (originalStructurePlan && !feedback) {
+  if (originalStructurePlan) {
     // If no lastGitHead, regenerate by default
     if (!lastGitHead) {
       shouldRegenerate = true;
@@ -28,6 +29,17 @@ export default async function checkStructurePlanning(
         }
       }
     }
+
+    if (shouldRegenerate) {
+      finalFeedback = `
+      ${finalFeedback || ""}
+      
+      根据最新的 DataSources 更新结构规划：
+        1. 对于新增的内容，可以根据需要新增节点，或补充到原有节点展示
+        2. 谨慎删除节点，除非节点关联 sourceIds 都被删除了
+        3. 不能修改原有节点的 path
+      `;
+    }
   }
 
   // If no regeneration needed, return original structure plan
@@ -40,7 +52,7 @@ export default async function checkStructurePlanning(
   const panningAgent = options.context.agents["reflective-structure-planner"];
 
   const result = await options.context.invoke(panningAgent, {
-    feedback: feedback || "",
+    feedback: finalFeedback || "",
     originalStructurePlan,
     ...rest,
   });
