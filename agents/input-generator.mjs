@@ -148,7 +148,7 @@ export default async function init(
     "These are the paths to your source code that will be analyzed for documentation generation."
   );
   console.log(
-    "Enter source code paths (press Enter after each path, empty line to finish):"
+    "Enter source code paths (press Enter after each path, empty line to finish). If no paths are entered, './' will be used as the default:"
   );
 
   const sourcePaths = [];
