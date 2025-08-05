@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { execSync } from "node:child_process";
 import { existsSync, mkdirSync } from "node:fs";
+import { parse } from "yaml";
 import {
   DEFAULT_INCLUDE_PATTERNS,
   DEFAULT_EXCLUDE_PATTERNS,
@@ -326,5 +327,70 @@ export function hasFileChangesBetweenCommits(
       error.message
     );
     return false;
+  }
+}
+
+/**
+ * Load config from config.yaml file
+ * @returns {Promise<Object|null>} - The config object or null if file doesn't exist
+ */
+export async function loadConfigFromFile() {
+  const configPath = path.join(process.cwd(), "doc-smith", "config.yaml");
+
+  try {
+    if (!existsSync(configPath)) {
+      return null;
+    }
+
+    const configContent = await fs.readFile(configPath, "utf8");
+    return parse(configContent);
+  } catch (error) {
+    console.warn("Failed to read config file:", error.message);
+    return null;
+  }
+}
+
+/**
+ * Save value to config.yaml file
+ * @param {string} key - The config key to save
+ * @param {string} value - The value to save
+ */
+export async function saveValueToConfig(key, value) {
+  if (!value) {
+    return; // Skip if no value provided
+  }
+
+  try {
+    const docSmithDir = path.join(process.cwd(), "doc-smith");
+    if (!existsSync(docSmithDir)) {
+      mkdirSync(docSmithDir, { recursive: true });
+    }
+
+    const configPath = path.join(docSmithDir, "config.yaml");
+    let fileContent = "";
+
+    // Read existing file content if it exists
+    if (existsSync(configPath)) {
+      fileContent = await fs.readFile(configPath, "utf8");
+    }
+
+    // Check if key already exists in the file
+    const keyRegex = new RegExp(`^${key}:\\s*.*$`, "m");
+    const newKeyLine = `${key}: ${value}`;
+
+    if (keyRegex.test(fileContent)) {
+      // Replace existing key line
+      fileContent = fileContent.replace(keyRegex, newKeyLine);
+    } else {
+      // Add key to the end of file
+      if (fileContent && !fileContent.endsWith("\n")) {
+        fileContent += "\n";
+      }
+      fileContent += newKeyLine + "\n";
+    }
+
+    await fs.writeFile(configPath, fileContent);
+  } catch (error) {
+    console.warn(`Failed to save ${key} to config.yaml:`, error.message);
   }
 }

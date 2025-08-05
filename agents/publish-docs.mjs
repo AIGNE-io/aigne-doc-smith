@@ -9,8 +9,10 @@ import { homedir } from "node:os";
 import { parse, stringify } from "yaml";
 import { execSync } from "node:child_process";
 import { basename } from "node:path";
+import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
+const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
 /**
  * Get project name from git repository or current directory
@@ -116,51 +118,50 @@ async function getAccessToken(appUrl) {
   return accessToken;
 }
 
-/**
- * Save boardId to config.yaml file if it was auto-created
- * @param {string} boardId - The original boardId (may be empty)
- * @param {string} newBoardId - The boardId returned from publishDocsFn
- */
-async function saveBoardIdToInput(boardId, newBoardId) {
-  // Only save if boardId was auto-created
-  if (!boardId && newBoardId) {
-    try {
-      const docSmithDir = join(process.cwd(), "doc-smith");
-      if (!existsSync(docSmithDir)) {
-        mkdirSync(docSmithDir, { recursive: true });
-      }
+export default async function publishDocs(
+  { docsDir, appUrl, boardId },
+  options
+) {
+  // Check if appUrl is default and not saved in config
+  const config = await loadConfigFromFile();
+  const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
+  const hasAppUrlInConfig = config && config.appUrl;
 
-      const inputFilePath = join(docSmithDir, "config.yaml");
-      let fileContent = "";
+  if (isDefaultAppUrl && !hasAppUrlInConfig) {
+    console.log("\n=== Document Publishing Platform Selection ===");
+    console.log(
+      "Please select the platform where you want to publish your documents:"
+    );
 
-      // Read existing file content if it exists
-      if (existsSync(inputFilePath)) {
-        fileContent = await readFile(inputFilePath, "utf8");
-      }
+    const choice = await options.prompts.select({
+      message: "Select publishing platform:",
+      choices: [
+        {
+          name: "Use official platform (docsmith.aigne.io) - Documents will be publicly accessible, suitable for open source projects",
+          value: "default",
+        },
+        {
+          name: "Use private platform - Deploy your own Discuss Kit instance, suitable for internal documentation",
+          value: "custom",
+        },
+      ],
+    });
 
-      // Check if boardId already exists in the file
-      const boardIdRegex = /^boardId:\s*.*$/m;
-      const newBoardIdLine = `boardId: ${newBoardId}`;
-
-      if (boardIdRegex.test(fileContent)) {
-        // Replace existing boardId line
-        fileContent = fileContent.replace(boardIdRegex, newBoardIdLine);
-      } else {
-        // Add boardId to the end of file
-        if (fileContent && !fileContent.endsWith("\n")) {
-          fileContent += "\n";
-        }
-        fileContent += newBoardIdLine + "\n";
-      }
-
-      await writeFile(inputFilePath, fileContent);
-    } catch (error) {
-      console.warn("Failed to save board ID to config.yaml:", error.message);
+    if (choice === "custom") {
+      appUrl = await options.prompts.input({
+        message: "Please enter your Discuss Kit platform URL:",
+        validate: (input) => {
+          try {
+            new URL(input);
+            return true;
+          } catch {
+            return "Please enter a valid URL";
+          }
+        },
+      });
     }
   }
-}
 
-export default async function publishDocs({ docsDir, appUrl, boardId }) {
   const accessToken = await getAccessToken(appUrl);
 
   process.env.DOC_ROOT_DIR = docsDir;
@@ -179,8 +180,16 @@ export default async function publishDocs({ docsDir, appUrl, boardId }) {
     autoCreateBoard: !boardId,
   });
 
-  // Save boardId to config.yaml if it was auto-created
-  await saveBoardIdToInput(boardId, newBoardId);
+  // Save values to config.yaml if publish was successful
+  if (success) {
+    // Save appUrl to config
+    await saveValueToConfig("appUrl", appUrl);
+
+    // Save boardId to config if it was auto-created
+    if (!boardId && newBoardId) {
+      await saveValueToConfig("boardId", newBoardId);
+    }
+  }
 
   return {
     publishResult: {
@@ -199,9 +208,7 @@ publishDocs.input_schema = {
     appUrl: {
       type: "string",
       description: "The url of the app",
-      default:
-        // "https://bbqawfllzdt3pahkdsrsone6p3wpxcwp62vlabtawfu.did.abtnet.io",
-        "https://www.staging.arcblock.io",
+      default: DEFAULT_APP_URL,
     },
     boardId: {
       type: "string",
