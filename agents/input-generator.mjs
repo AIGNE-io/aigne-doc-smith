@@ -1,6 +1,38 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 
+// Predefined document generation styles
+const DOCUMENT_STYLES = {
+  actionFirst: {
+    name: "Action-First Style",
+    rules:
+      "Action-first and task-oriented; steps first, copyable examples, minimal context; second person, active voice, short sentences",
+  },
+  conceptFirst: {
+    name: "Concept-First Style",
+    rules:
+      "Why/What before How; precise and restrained, provide trade-offs and comparisons; support with architecture/flow/sequence diagrams",
+  },
+  specReference: {
+    name: "Spec-Reference Style",
+    rules:
+      "Objective and precise, no rhetoric; tables/Schema focused, authoritative fields and defaults; clear error codes and multi-language examples",
+  },
+  custom: {
+    name: "Custom Rules",
+    rules: "Enter your own documentation generation rules",
+  },
+};
+
+// Predefined target audiences
+const TARGET_AUDIENCES = {
+  actionFirst: "Developers, Implementation Engineers, DevOps",
+  conceptFirst:
+    "Architects, Technical Leads, Developers interested in principles",
+  generalUsers: "General Users",
+  custom: "Enter your own target audience",
+};
+
 /**
  * Guide users through multi-turn dialogue to collect information and generate YAML configuration
  * @param {Object} params
@@ -20,20 +52,61 @@ export default async function init(
   // Collect user information
   const input = {};
 
-  // 1. Document generation rules
+  // 1. Document generation rules with style selection
   console.log("=== Document Generation Rules ===");
-  const rulesInput = await options.prompts.input({
-    message: "Please describe the document generation rules and requirements:",
-  });
-  input.rules = rulesInput.trim();
+  console.log(
+    "Select document generation style. You can edit the rules in the generated configuration file."
+  );
 
-  // 2. Target audience
-  console.log("\n=== Target Audience ===");
-  const targetAudienceInput = await options.prompts.input({
-    message:
-      "What is the target audience? (e.g., developers, users, press Enter for default 'developers'):",
+  // Let user select a document style
+  const styleChoice = await options.prompts.select({
+    message: "Select document generation style:",
+    choices: Object.entries(DOCUMENT_STYLES).map(([key, style]) => ({
+      name: `${style.name} - ${style.rules}`,
+      value: key,
+    })),
   });
-  input.targetAudience = targetAudienceInput.trim() || "developers";
+
+  let rules;
+  if (styleChoice === "custom") {
+    // User wants to input custom rules
+    rules = await options.prompts.input({
+      message:
+        "Please enter your custom documentation generation rules and requirements:",
+    });
+  } else {
+    // Use predefined style directly
+    rules = DOCUMENT_STYLES[styleChoice].rules;
+    console.log(`\n✅ Selected: ${DOCUMENT_STYLES[styleChoice].name}`);
+  }
+
+  input.rules = rules.trim();
+
+  // 2. Target audience selection
+  console.log("\n=== Target Audience ===");
+
+  // Let user select target audience
+  const audienceChoice = await options.prompts.select({
+    message: "Select target audience:",
+    choices: Object.entries(TARGET_AUDIENCES).map(([key, audience]) => ({
+      name: audience,
+      value: key,
+    })),
+  });
+
+  let targetAudience;
+  if (audienceChoice === "custom") {
+    // User wants to input custom audience
+    targetAudience = await options.prompts.input({
+      message: "Please enter your custom target audience:",
+    });
+  } else {
+    // Use predefined audience directly
+    targetAudience = TARGET_AUDIENCES[audienceChoice];
+    console.log(`\n✅ Selected: ${TARGET_AUDIENCES[audienceChoice]}`);
+  }
+
+  input.targetAudience = targetAudience.trim();
 
   // 3. Language settings
   console.log("\n=== Language Settings ===");
@@ -163,7 +236,7 @@ function generateYAML(input, outputPath) {
 
   // Add directory and source path configurations
   yaml += `docsDir: ${input.docsDir}  # Directory to save generated documentation\n`;
-  yaml += `outputDir: ${outputPath}/output  # Directory to save output files\n`;
+  // yaml += `outputDir: ${outputPath}/output  # Directory to save output files\n`;
   yaml += `sourcesPath:  # Source code paths to analyze\n`;
   input.sourcesPath.forEach((path) => {
     yaml += `  - ${path}\n`;
