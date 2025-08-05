@@ -167,7 +167,12 @@ export default async function init(
 
     await writeFile(filePath, yamlContent, "utf8");
     console.log(`\n🎉 Configuration saved to: ${filePath}`);
-    console.log("You can now run your documentation generation!");
+    console.log(
+      "💡 You can edit the configuration file anytime to modify settings."
+    );
+    console.log(
+      "🚀 Run 'aigne doc generate' to start documentation generation!"
+    );
 
     return {
       inputGeneratorStatus: true,
