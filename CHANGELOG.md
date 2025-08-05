@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.4...v0.2.0) (2025-08-05)
+
+
+### Features
+
+* support automatic init configuration when calling agents ([24d29db](https://github.com/AIGNE-io/aigne-doc-smith/commit/24d29db4dd86709750aa22ff649e7dacc4124126))
+* update docs when sources changed ([#9](https://github.com/AIGNE-io/aigne-doc-smith/issues/9)) ([4adcecf](https://github.com/AIGNE-io/aigne-doc-smith/commit/4adcecfb32e72c9e88d0b0bd8ce0a91022847ca7))
+
 ## [0.1.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.3...v0.1.4) (2025-08-04)
 
 
