@@ -44,23 +44,18 @@ export default async function init(
   { outputPath = "./doc-smith", fileName = "config.yaml" },
   options
 ) {
-  console.log("Welcome to AIGNE Doc Smith!");
-  console.log(
-    "I will help you generate a configuration file through several questions.\n"
-  );
+  console.log("🚀 Welcome to AIGNE Doc Smith!");
+  console.log("Let's create your documentation configuration.\n");
 
   // Collect user information
   const input = {};
 
   // 1. Document generation rules with style selection
-  console.log("=== Document Generation Rules ===");
-  console.log(
-    "Select document generation style. You can edit the rules in the generated configuration file."
-  );
+  console.log("📝 Step 1/6: Document Generation Rules");
 
   // Let user select a document style
   const styleChoice = await options.prompts.select({
-    message: "Select document generation style:",
+    message: "Choose your documentation style:",
     choices: Object.entries(DOCUMENT_STYLES).map(([key, style]) => ({
       name: `${style.name} - ${style.rules}`,
       value: key,
@@ -71,23 +66,22 @@ export default async function init(
   if (styleChoice === "custom") {
     // User wants to input custom rules
     rules = await options.prompts.input({
-      message:
-        "Please enter your custom documentation generation rules and requirements:",
+      message: "Enter your custom documentation rules:",
     });
   } else {
     // Use predefined style directly
     rules = DOCUMENT_STYLES[styleChoice].rules;
-    console.log(`\n✅ Selected: ${DOCUMENT_STYLES[styleChoice].name}`);
+    console.log(`✅ Selected: ${DOCUMENT_STYLES[styleChoice].name}`);
   }
 
   input.rules = rules.trim();
 
   // 2. Target audience selection
-  console.log("\n=== Target Audience ===");
+  console.log("\n👥 Step 2/6: Target Audience");
 
   // Let user select target audience
   const audienceChoice = await options.prompts.select({
-    message: "Select target audience:",
+    message: "Who is your target audience?",
     choices: Object.entries(TARGET_AUDIENCES).map(([key, audience]) => ({
       name: audience,
       value: key,
@@ -98,32 +92,33 @@ export default async function init(
   if (audienceChoice === "custom") {
     // User wants to input custom audience
     targetAudience = await options.prompts.input({
-      message: "Please enter your custom target audience:",
+      message: "Enter your custom target audience:",
     });
   } else {
     // Use predefined audience directly
     targetAudience = TARGET_AUDIENCES[audienceChoice];
-    console.log(`\n✅ Selected: ${TARGET_AUDIENCES[audienceChoice]}`);
+    console.log(`✅ Selected: ${TARGET_AUDIENCES[audienceChoice]}`);
   }
 
   input.targetAudience = targetAudience.trim();
 
   // 3. Language settings
-  console.log("\n=== Language Settings ===");
+  console.log("\n🌐 Step 3/6: Primary Language");
   const localeInput = await options.prompts.input({
-    message: "Primary language (e.g., en, zh, press Enter for default 'en'):",
+    message:
+      "Primary documentation language (e.g., en, zh, press Enter for 'en'):",
   });
   input.locale = localeInput.trim() || "en";
 
   // 4. Translation languages
-  console.log("\n=== Translation Settings ===");
+  console.log("\n🔄 Step 4/6: Translation Languages");
   console.log(
-    "Enter translation languages (press Enter after each language, empty line to finish):"
+    "Enter additional languages for translation (press Enter to skip):"
   );
   const translateLanguages = [];
   while (true) {
     const langInput = await options.prompts.input({
-      message: `Language ${translateLanguages.length + 1} (e.g., zh, en, ja):`,
+      message: `Language ${translateLanguages.length + 1} (e.g., zh, ja, fr):`,
     });
     if (!langInput.trim()) {
       break;
@@ -133,28 +128,22 @@ export default async function init(
   input.translateLanguages = translateLanguages;
 
   // 5. Documentation directory
-  console.log("\n=== Documentation Directory ===");
-  console.log(
-    "This is the directory where generated documentation will be saved."
-  );
+  console.log("\n📁 Step 5/6: Output Directory");
   const docsDirInput = await options.prompts.input({
-    message: `Documentation directory (press Enter for default '${outputPath}/docs'):`,
+    message: `Where to save generated docs (press Enter for '${outputPath}/docs'):`,
   });
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
 
   // 6. Source code paths
-  console.log("\n=== Source Code Paths ===");
+  console.log("\n🔍 Step 6/6: Source Code Paths");
   console.log(
-    "These are the paths to your source code that will be analyzed for documentation generation."
-  );
-  console.log(
-    "Enter source code paths (press Enter after each path, empty line to finish). If no paths are entered, './' will be used as the default:"
+    "Enter paths to analyze for documentation (press Enter to use './'):"
   );
 
   const sourcePaths = [];
   while (true) {
     const pathInput = await options.prompts.input({
-      message: `Path ${sourcePaths.length + 1} (e.g., ./, ./src, ./lib):`,
+      message: `Path ${sourcePaths.length + 1} (e.g., ./src, ./lib):`,
     });
     if (!pathInput.trim()) {
       break;
@@ -177,12 +166,12 @@ export default async function init(
     await mkdir(dirPath, { recursive: true });
 
     await writeFile(filePath, yamlContent, "utf8");
-    console.log(`\n✅ Configuration file saved to: ${filePath}`);
+    console.log(`\n🎉 Configuration saved to: ${filePath}`);
+    console.log("You can now run your documentation generation!");
 
     return {
       inputGeneratorStatus: true,
       inputGeneratorPath: filePath,
-      inputGeneratorContent: yamlContent,
     };
   } catch (error) {
     console.error(`❌ Failed to save configuration file: ${error.message}`);
