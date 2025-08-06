@@ -123,26 +123,30 @@ export default async function publishDocs(
   { docsDir, appUrl, boardId },
   options
 ) {
-  // Check if appUrl is default and not saved in config
+  // Check if DOC_DISCUSS_KIT_URL is set in environment variables
+  const envAppUrl = process.env.DOC_DISCUSS_KIT_URL;
+  const useEnvAppUrl = !!envAppUrl;
+
+  // Use environment variable if available, otherwise use the provided appUrl
+  if (useEnvAppUrl) {
+    appUrl = envAppUrl;
+  }
+
+  // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
   const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
   const hasAppUrlInConfig = config && config.appUrl;
 
-  if (isDefaultAppUrl && !hasAppUrlInConfig) {
-    console.log("\n=== Document Publishing Platform Selection ===");
-    console.log(
-      "Please select the platform where you want to publish your documents:"
-    );
-
+  if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
     const choice = await options.prompts.select({
-      message: "Select publishing platform:",
+      message: "Select platform to publish your documents:",
       choices: [
         {
-          name: "Use official platform (docsmith.aigne.io) - Documents will be publicly accessible, suitable for open source projects",
+          name: "Publish to docsmith.aigne.io - free, but your documents will be public accessible, recommended for open-source projects",
           value: "default",
         },
         {
-          name: "Use private platform - Deploy your own Discuss Kit instance, suitable for internal documentation",
+          name: "Publish to your own website - you will need to run Discuss Kit by your self ",
           value: "custom",
         },
       ],
@@ -183,8 +187,10 @@ export default async function publishDocs(
 
   // Save values to config.yaml if publish was successful
   if (success) {
-    // Save appUrl to config
-    await saveValueToConfig("appUrl", appUrl);
+    // Save appUrl to config only when not using environment variable
+    if (!useEnvAppUrl) {
+      await saveValueToConfig("appUrl", appUrl);
+    }
 
     // Save boardId to config if it was auto-created
     if (!boardId && newBoardId) {
@@ -192,11 +198,7 @@ export default async function publishDocs(
     }
   }
 
-  return {
-    publishResult: {
-      success,
-    },
-  };
+  return {};
 }
 
 publishDocs.input_schema = {
