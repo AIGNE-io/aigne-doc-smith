@@ -25,6 +25,7 @@
     "@aigne/gemini": "^0.8.12",
     "@aigne/openai": "^0.10.12",
     "@aigne/publish-docs": "^0.5.2",
+    "chalk": "^5.5.0",
     "glob": "^11.0.3",
     "open": "^10.2.0",
     "terminal-link": "^4.0.0",

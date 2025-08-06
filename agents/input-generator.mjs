@@ -1,36 +1,12 @@
 import { writeFile, mkdir, readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
-import terminalLink from "terminal-link";
+import chalk from "chalk";
 import { validatePath, getAvailablePaths } from "../utils/utils.mjs";
-
-// Predefined document generation styles
-const DOCUMENT_STYLES = {
-  developerDocs: {
-    name: "Developer Docs",
-    rules: "Steps-first; copy-paste examples; minimal context; active 'you'.",
-  },
-  userGuide: {
-    name: "User Guide",
-    rules: "Scenario-based; step-by-step; plain language; outcomes & cautions.",
-  },
-  apiReference: {
-    name: "API Reference",
-    rules: "Exact & skimmable; schema-first; clear params/errors/examples.",
-  },
-  custom: {
-    name: "Custom Rules",
-    rules: "Enter your own documentation generation rules",
-  },
-};
-
-// Predefined target audiences
-const TARGET_AUDIENCES = {
-  actionFirst: "Developers, Implementation Engineers, DevOps",
-  conceptFirst:
-    "Architects, Technical Leads, Developers interested in principles",
-  generalUsers: "General Users",
-  custom: "Enter your own target audience",
-};
+import {
+  SUPPORTED_LANGUAGES,
+  DOCUMENT_STYLES,
+  TARGET_AUDIENCES,
+} from "../utils/constants.mjs";
 
 // UI constants
 const PRESS_ENTER_TO_FINISH = "Press Enter to finish";
@@ -84,7 +60,6 @@ export default async function init(
   } else {
     // Use predefined style directly
     rules = DOCUMENT_STYLES[styleChoice].rules;
-    console.log(`✅ Selected: ${DOCUMENT_STYLES[styleChoice].name}`);
   }
 
   input.rules = rules.trim();
@@ -110,40 +85,41 @@ export default async function init(
   } else {
     // Use predefined audience directly
     targetAudience = TARGET_AUDIENCES[audienceChoice];
-    console.log(`✅ Selected: ${TARGET_AUDIENCES[audienceChoice]}`);
   }
 
   input.targetAudience = targetAudience.trim();
 
   // 3. Language settings
   console.log("\n🌐 Step 3/6: Primary Language");
-  const languageCodesUrl =
-    "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes";
-  const link = terminalLink.isSupported
-    ? terminalLink(languageCodesUrl, languageCodesUrl)
-    : languageCodesUrl;
-  console.log(`Language codes: ${link}`);
-  const localeInput = await options.prompts.input({
-    message: "Primary documentation language (e.g., en, zh):",
-    default: "en",
+
+  // Let user select primary language from supported list
+  const primaryLanguageChoice = await options.prompts.select({
+    message: "Choose primary documentation language:",
+    choices: SUPPORTED_LANGUAGES.map((lang) => ({
+      name: `${lang.label} - ${lang.sample}`,
+      value: lang.code,
+    })),
   });
-  input.locale = localeInput.trim() || "en";
+
+  input.locale = primaryLanguageChoice;
 
   // 4. Translation languages
   console.log("\n🔄 Step 4/6: Translation Languages");
-  console.log("Enter additional languages for translation (e.g., zh, ja, fr)");
-  const translateLanguages = [];
-  while (true) {
-    const langInput = await options.prompts.input({
-      message: "Language code:",
-      default: PRESS_ENTER_TO_FINISH,
-    });
-    if (langInput.trim() === PRESS_ENTER_TO_FINISH || !langInput.trim()) {
-      break;
-    }
-    translateLanguages.push(langInput.trim());
-  }
-  input.translateLanguages = translateLanguages;
+
+  // Filter out the primary language from available choices
+  const availableTranslationLanguages = SUPPORTED_LANGUAGES.filter(
+    (lang) => lang.code !== primaryLanguageChoice
+  );
+
+  const translateLanguageChoices = await options.prompts.checkbox({
+    message: "Select translation languages:",
+    choices: availableTranslationLanguages.map((lang) => ({
+      name: `${lang.label} - ${lang.sample}`,
+      value: lang.code,
+    })),
+  });
+
+  input.translateLanguages = translateLanguageChoices;
 
   // 5. Documentation directory
   console.log("\n📁 Step 5/6: Output Directory");
@@ -225,12 +201,14 @@ export default async function init(
     await mkdir(dirPath, { recursive: true });
 
     await writeFile(filePath, yamlContent, "utf8");
-    console.log(`\n🎉 Configuration saved to: ${filePath}`);
+    console.log(`\n🎉 Configuration saved to: ${chalk.cyan(filePath)}`);
     console.log(
       "💡 You can edit the configuration file anytime to modify settings."
     );
     console.log(
-      "🚀 Run 'aigne doc generate' to start documentation generation!"
+      `🚀 Run ${chalk.cyan(
+        "'aigne doc generate'"
+      )} to start documentation generation!`
     );
 
     return {};

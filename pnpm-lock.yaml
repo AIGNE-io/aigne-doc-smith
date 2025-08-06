@@ -26,6 +26,9 @@ importers:
       '@aigne/publish-docs':
         specifier: ^0.5.2
         version: 0.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
+      chalk:
+        specifier: ^5.5.0
+        version: 5.5.0
       glob:
         specifier: ^11.0.3
         version: 11.0.3
@@ -1178,8 +1181,8 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  chalk@5.4.1:
-    resolution: {integrity: sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w==}
+  chalk@5.5.0:
+    resolution: {integrity: sha512-1tm8DTaJhPBG3bIkVeZt1iZM9GfSX2lzOeDVZH9R9ffRHpmHvxZ/QhgQH/aDTkswQVt+YHdXAdS/In/30OjCbg==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
   char-regex@1.0.2:
@@ -2830,7 +2833,7 @@ snapshots:
       '@modelcontextprotocol/sdk': 1.16.0
       '@ocap/mcrypto': 1.21.0
       '@smithy/node-http-handler': 4.1.0
-      chalk: 5.4.1
+      chalk: 5.5.0
       crypto: 1.0.1
       detect-port: 2.1.0
       dotenv-flow: 4.1.0
@@ -3092,7 +3095,7 @@ snapshots:
     dependencies:
       ansi-escapes: 7.0.0
       ansi-regex: 6.1.0
-      chalk: 5.4.1
+      chalk: 5.5.0
       cli-highlight: 2.1.11
       cli-table3: 0.6.5
       marked: 16.1.1
@@ -3106,7 +3109,7 @@ snapshots:
       '@opentelemetry/core': 2.0.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-node': 0.203.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 2.0.1(@opentelemetry/api@1.9.0)
-      chalk: 5.4.1
+      chalk: 5.5.0
       cookie-parser: 1.4.7
       cors: 2.8.5
       dotenv-flow: 4.1.0
@@ -5089,7 +5092,7 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  chalk@5.4.1: {}
+  chalk@5.5.0: {}
 
   char-regex@1.0.2: {}
 
@@ -5454,7 +5457,7 @@ snapshots:
 
   gradient-string@3.0.0:
     dependencies:
-      chalk: 5.4.1
+      chalk: 5.5.0
       tinygradient: 1.1.5
 
   gray-matter@4.0.3:
