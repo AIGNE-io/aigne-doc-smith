@@ -4,7 +4,7 @@ import {
 } from "../utils/utils.mjs";
 
 export default async function checkStructurePlan(
-  { originalStructurePlan, feedback, lastGitHead, ...rest },
+  { originalStructurePlan, feedback, lastGitHead, forceRegenerate, ...rest },
   options
 ) {
   // Check if we need to regenerate structure plan
@@ -43,7 +43,12 @@ export default async function checkStructurePlan(
   }
 
   // If no regeneration needed, return original structure plan
-  if (originalStructurePlan && !feedback && !shouldRegenerate) {
+  if (
+    originalStructurePlan &&
+    !feedback &&
+    !shouldRegenerate &&
+    forceRegenerate !== "true"
+  ) {
     return {
       structurePlan: originalStructurePlan,
     };

@@ -30,7 +30,7 @@
 <structure_plan_feedback>
 {{ feedback }}
 
-根据最新的 Data Sources 按需要更新节点的 sourceIds。
+根据最新的 Data Sources 按需要更新节点的 sourceIds，如没有大的变化，可以不更新。
 </structure_plan_feedback>
 
 <review_structure_plan>

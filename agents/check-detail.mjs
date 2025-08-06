@@ -17,6 +17,7 @@ export default async function checkDetail(
     structurePlan,
     modifiedFiles,
     lastGitHead,
+    forceRegenerate,
     ...rest
   },
   options
@@ -104,7 +105,8 @@ export default async function checkDetail(
     detailGenerated &&
     !sourceIdsChanged &&
     !sourceFilesChanged &&
-    !contentValidationFailed
+    !contentValidationFailed &&
+    forceRegenerate !== "true"
   ) {
     return {
       path,
