@@ -1,5 +1,6 @@
 import { writeFile, mkdir, readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
+import terminalLink from "terminal-link";
 
 // Predefined document generation styles
 const DOCUMENT_STYLES = {
@@ -33,6 +34,9 @@ const TARGET_AUDIENCES = {
   custom: "Enter your own target audience",
 };
 
+// UI constants
+const PRESS_ENTER_TO_FINISH = "Press Enter to finish";
+
 /**
  * Guide users through multi-turn dialogue to collect information and generate YAML configuration
  * @param {Object} params
@@ -41,17 +45,21 @@ const TARGET_AUDIENCES = {
  * @returns {Promise<Object>}
  */
 export default async function init(
-  { outputPath = "./doc-smith", fileName = "config.yaml", skipIfExists = false },
+  {
+    outputPath = "./doc-smith",
+    fileName = "config.yaml",
+    skipIfExists = false,
+  },
   options
 ) {
   if (skipIfExists) {
     const filePath = join(outputPath, fileName);
     if (await readFile(filePath, "utf8").catch(() => null)) {
-      return {}
+      return {};
     }
   }
 
-  console.log("🚀 Welcome to AIGNE Doc Smith!");
+  console.log("🚀 Welcome to AIGNE DocSmith!");
   console.log("Let's create your documentation configuration.\n");
 
   // Collect user information
@@ -111,23 +119,28 @@ export default async function init(
 
   // 3. Language settings
   console.log("\n🌐 Step 3/6: Primary Language");
+  const languageCodesUrl =
+    "https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes";
+  const link = terminalLink.isSupported
+    ? terminalLink(languageCodesUrl, languageCodesUrl)
+    : languageCodesUrl;
+  console.log(`Language codes: ${link}`);
   const localeInput = await options.prompts.input({
-    message:
-      "Primary documentation language (e.g., en, zh, press Enter for 'en'):",
+    message: "Primary documentation language (e.g., en, zh):",
+    default: "en",
   });
   input.locale = localeInput.trim() || "en";
 
   // 4. Translation languages
   console.log("\n🔄 Step 4/6: Translation Languages");
-  console.log(
-    "Enter additional languages for translation (press Enter to skip):"
-  );
+  console.log("Enter additional languages for translation (e.g., zh, ja, fr)");
   const translateLanguages = [];
   while (true) {
     const langInput = await options.prompts.input({
-      message: `Language ${translateLanguages.length + 1} (e.g., zh, ja, fr):`,
+      message: "Language code:",
+      default: PRESS_ENTER_TO_FINISH,
     });
-    if (!langInput.trim()) {
+    if (langInput.trim() === PRESS_ENTER_TO_FINISH || !langInput.trim()) {
       break;
     }
     translateLanguages.push(langInput.trim());
@@ -137,22 +150,23 @@ export default async function init(
   // 5. Documentation directory
   console.log("\n📁 Step 5/6: Output Directory");
   const docsDirInput = await options.prompts.input({
-    message: `Where to save generated docs (press Enter for '${outputPath}/docs'):`,
+    message: `Where to save generated docs:`,
+    default: `${outputPath}/docs`,
   });
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
 
   // 6. Source code paths
   console.log("\n🔍 Step 6/6: Source Code Paths");
-  console.log(
-    "Enter paths to analyze for documentation (press Enter to use './'):"
-  );
+  console.log("Enter paths to analyze for documentation (e.g., ./src, ./lib)");
+  console.log("💡 If no paths are configured, './' will be used as default");
 
   const sourcePaths = [];
   while (true) {
     const pathInput = await options.prompts.input({
-      message: `Path ${sourcePaths.length + 1} (e.g., ./src, ./lib):`,
+      message: "Path:",
+      default: PRESS_ENTER_TO_FINISH,
     });
-    if (!pathInput.trim()) {
+    if (pathInput.trim() === PRESS_ENTER_TO_FINISH || !pathInput.trim()) {
       break;
     }
     sourcePaths.push(pathInput.trim());
@@ -181,10 +195,7 @@ export default async function init(
       "🚀 Run 'aigne doc generate' to start documentation generation!"
     );
 
-    return {
-      inputGeneratorStatus: true,
-      inputGeneratorPath: filePath,
-    };
+    return {};
   } catch (error) {
     console.error(`❌ Failed to save configuration file: ${error.message}`);
     return {
