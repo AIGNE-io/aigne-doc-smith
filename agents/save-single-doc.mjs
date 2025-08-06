@@ -16,5 +16,5 @@ export default async function saveSingleDoc({
     labels,
     locale,
   });
-  return { saveSingleDocResult: results };
+  return {};
 }

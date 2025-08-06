@@ -10,6 +10,7 @@ import {
   statSync,
 } from "node:fs";
 import { parse } from "yaml";
+import chalk from "chalk";
 import {
   DEFAULT_INCLUDE_PATTERNS,
   DEFAULT_EXCLUDE_PATTERNS,
@@ -108,6 +109,7 @@ export async function saveDocWithTranslations({
 
     await fs.writeFile(mainFilePath, finalContent, "utf8");
     results.push({ path: mainFilePath, success: true });
+    console.log(chalk.green(`Saved: ${chalk.cyan(mainFilePath)}`));
 
     // Process all translations
     for (const translate of translates) {
@@ -125,6 +127,7 @@ export async function saveDocWithTranslations({
 
       await fs.writeFile(translatePath, finalTranslationContent, "utf8");
       results.push({ path: translatePath, success: true });
+      console.log(chalk.green(`Saved: ${chalk.cyan(translatePath)}`));
     }
   } catch (err) {
     results.push({ path: docPath, success: false, error: err.message });
