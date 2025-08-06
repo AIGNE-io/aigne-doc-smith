@@ -15,10 +15,47 @@ const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
 /**
- * Get project name from git repository or current directory
- * @returns {string} - The project name
+ * Get GitHub repository information
+ * @param {string} repoUrl - The repository URL
+ * @returns {Promise<Object>} - Repository information
  */
-function getProjectName() {
+async function getGitHubRepoInfo(repoUrl) {
+  try {
+    // Extract owner and repo from GitHub URL
+    const match = repoUrl.match(
+      /github\.com[\/:]([^\/]+)\/([^\/]+?)(?:\.git)?$/
+    );
+    if (!match) return null;
+
+    const [, owner, repo] = match;
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
+
+    const response = await fetch(apiUrl);
+    if (!response.ok) return null;
+
+    const data = await response.json();
+    return {
+      name: data.name,
+      description: data.description || "",
+      icon: data.owner?.avatar_url || "",
+    };
+  } catch (error) {
+    console.warn("Failed to fetch GitHub repository info:", error.message);
+    return null;
+  }
+}
+
+/**
+ * Get project information with user confirmation
+ * @param {Object} options - Options object containing prompts
+ * @returns {Promise<Object>} - Project information including name, description, and icon
+ */
+async function getProjectInfo(options) {
+  let repoInfo = null;
+  let defaultName = basename(process.cwd());
+  let defaultDescription = "";
+  let defaultIcon = "";
+
   // Check if we're in a git repository
   try {
     const gitRemote = execSync("git remote get-url origin", {
@@ -28,11 +65,59 @@ function getProjectName() {
 
     // Extract repository name from git remote URL
     const repoName = gitRemote.split("/").pop().replace(".git", "");
-    return repoName;
+    defaultName = repoName;
+
+    // If it's a GitHub repository, try to get additional info
+    if (gitRemote.includes("github.com")) {
+      repoInfo = await getGitHubRepoInfo(gitRemote);
+      if (repoInfo) {
+        defaultDescription = repoInfo.description;
+        defaultIcon = repoInfo.icon;
+      }
+    }
   } catch (error) {
     // Not in git repository or no origin remote, use current directory name
-    return basename(process.cwd());
+    console.warn("No git repository found, using current directory name");
   }
+
+  // Prompt user for project information
+  console.log("\n📋 Project Information for Documentation Platform");
+
+  const projectName = await options.prompts.input({
+    message: "Project name:",
+    default: defaultName,
+    validate: (input) => {
+      if (!input || input.trim() === "") {
+        return "Project name cannot be empty";
+      }
+      return true;
+    },
+  });
+
+  const projectDescription = await options.prompts.input({
+    message: "Project description (optional):",
+    default: defaultDescription,
+  });
+
+  const projectIcon = await options.prompts.input({
+    message: "Project icon URL (optional):",
+    default: defaultIcon,
+    validate: (input) => {
+      if (!input || input.trim() === "") return true;
+      try {
+        new URL(input);
+        return true;
+      } catch {
+        return "Please enter a valid URL";
+      }
+    },
+  });
+
+  return {
+    name: projectName.trim(),
+    description: projectDescription.trim(),
+    icon: projectIcon.trim(),
+  };
 }
 
 /**
@@ -120,7 +205,7 @@ async function getAccessToken(appUrl) {
 }
 
 export default async function publishDocs(
-  { docsDir, appUrl, boardId },
+  { docsDir, appUrl, boardId, boardName, boardDesc, boardCover },
   options
 ) {
   // Check if DOC_DISCUSS_KIT_URL is set in environment variables
@@ -173,16 +258,32 @@ export default async function publishDocs(
 
   const sidebarPath = join(docsDir, "_sidebar.md");
 
-  const boardName = boardId ? "" : getProjectName();
+  let projectInfo = {
+    name: boardName,
+    description: boardDesc,
+    icon: boardCover,
+  };
+
+  // Only get project info if we need to create a new board
+  if (!boardName) {
+    projectInfo = await getProjectInfo(options);
+
+    // save project info to config
+    await saveValueToConfig("boardName", projectInfo.name);
+    await saveValueToConfig("boardDesc", projectInfo.description);
+    await saveValueToConfig("boardCover", projectInfo.icon);
+  }
 
   const { success, boardId: newBoardId } = await publishDocsFn({
     sidebarPath,
     accessToken,
     appUrl,
     boardId,
-    // If boardId is empty, use project name as boardName and auto create board
-    boardName,
-    autoCreateBoard: !boardId,
+    autoCreateBoard: true,
+    // Pass additional project information if available
+    boardName: projectInfo.name,
+    boardDesc: projectInfo.description,
+    boardCover: projectInfo.icon,
   });
 
   // Save values to config.yaml if publish was successful
@@ -193,7 +294,7 @@ export default async function publishDocs(
     }
 
     // Save boardId to config if it was auto-created
-    if (!boardId && newBoardId) {
+    if (boardId !== newBoardId) {
       await saveValueToConfig("boardId", newBoardId);
     }
   }
