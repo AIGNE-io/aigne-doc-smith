@@ -1,7 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { execSync } from "node:child_process";
-import { existsSync, mkdirSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  accessSync,
+  constants,
+  statSync,
+} from "node:fs";
 import { parse } from "yaml";
 import {
   DEFAULT_INCLUDE_PATTERNS,
@@ -392,5 +399,240 @@ export async function saveValueToConfig(key, value) {
     await fs.writeFile(configPath, fileContent);
   } catch (error) {
     console.warn(`Failed to save ${key} to config.yaml:`, error.message);
+  }
+}
+
+/**
+ * Validate if a path exists and is accessible
+ * @param {string} filePath - The path to validate (can be absolute or relative)
+ * @returns {Object} - Validation result with isValid boolean and error message
+ */
+export function validatePath(filePath) {
+  try {
+    const absolutePath = normalizePath(filePath);
+
+    // Check if path exists
+    if (!existsSync(absolutePath)) {
+      return {
+        isValid: false,
+        error: `Path does not exist: ${filePath}`,
+      };
+    }
+
+    // Check if path is accessible (readable)
+    try {
+      accessSync(absolutePath, constants.R_OK);
+    } catch (accessError) {
+      return {
+        isValid: false,
+        error: `Path is not accessible: ${filePath}`,
+      };
+    }
+
+    return {
+      isValid: true,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      isValid: false,
+      error: `Invalid path format: ${filePath}`,
+    };
+  }
+}
+
+/**
+ * Validate multiple paths and return validation results
+ * @param {Array<string>} paths - Array of paths to validate
+ * @returns {Object} - Validation results with validPaths array and errors array
+ */
+export function validatePaths(paths) {
+  const validPaths = [];
+  const errors = [];
+
+  for (const path of paths) {
+    const validation = validatePath(path);
+    if (validation.isValid) {
+      validPaths.push(path);
+    } else {
+      errors.push({
+        path: path,
+        error: validation.error,
+      });
+    }
+  }
+
+  return {
+    validPaths,
+    errors,
+  };
+}
+
+/**
+ * Check if input is a valid directory and add it to results if so
+ * @param {string} searchTerm - The search term to check
+ * @param {Array} results - The results array to modify
+ */
+function addExactDirectoryMatch(searchTerm, results) {
+  const inputValidation = validatePath(searchTerm);
+  if (inputValidation.isValid) {
+    const stats = statSync(normalizePath(searchTerm));
+    if (stats.isDirectory()) {
+      results.unshift({
+        name: searchTerm,
+        value: searchTerm,
+      });
+    }
+  }
+}
+
+/**
+ * Get available paths for search suggestions based on user input
+ * @param {string} userInput - User's input string
+ * @returns {Array<Object>} - Array of path objects with name, value, and description
+ */
+export function getAvailablePaths(userInput = "") {
+  try {
+    const searchTerm = userInput.trim();
+
+    // If no input, return current directory contents
+    if (!searchTerm) {
+      return getDirectoryContents("./");
+    }
+
+    let results = [];
+
+    // Handle absolute paths
+    if (searchTerm.startsWith("/")) {
+      const dirPath = path.dirname(searchTerm);
+      const fileName = path.basename(searchTerm);
+      results = getDirectoryContents(dirPath, fileName);
+      addExactDirectoryMatch(searchTerm, results);
+    }
+    // Handle relative paths
+    else if (searchTerm.startsWith("./") || searchTerm.startsWith("../")) {
+      // Extract directory path and search term
+      const lastSlashIndex = searchTerm.lastIndexOf("/");
+      if (lastSlashIndex === -1) {
+        // No slash found, treat as current directory search
+        results = getDirectoryContents("./", searchTerm);
+        addExactDirectoryMatch(searchTerm, results);
+      } else {
+        const dirPath = searchTerm.substring(0, lastSlashIndex + 1);
+        const fileName = searchTerm.substring(lastSlashIndex + 1);
+
+        // Validate directory path
+        const validation = validatePath(dirPath);
+        if (!validation.isValid) {
+          return [
+            {
+              name: dirPath,
+              value: dirPath,
+              description: validation.error,
+            },
+          ];
+        }
+
+        results = getDirectoryContents(dirPath, fileName);
+        addExactDirectoryMatch(searchTerm, results);
+      }
+    }
+    // Handle simple file/directory names (search in current directory)
+    else {
+      results = getDirectoryContents("./", searchTerm);
+      addExactDirectoryMatch(searchTerm, results);
+    }
+
+    // Remove duplicates based on value (path)
+    const uniqueResults = [];
+    const seenPaths = new Set();
+
+    for (const item of results) {
+      if (!seenPaths.has(item.value)) {
+        seenPaths.add(item.value);
+        uniqueResults.push(item);
+      }
+    }
+
+    return uniqueResults;
+  } catch (error) {
+    console.warn(
+      `Failed to get available paths for "${userInput}":`,
+      error.message
+    );
+    return [];
+  }
+}
+
+/**
+ * Get directory contents for a specific path
+ * @param {string} dirPath - Directory path to search in
+ * @param {string} searchTerm - Optional search term to filter results
+ * @returns {Array<Object>} - Array of path objects
+ */
+function getDirectoryContents(dirPath, searchTerm = "") {
+  try {
+    const absoluteDirPath = normalizePath(dirPath);
+
+    // Check if directory exists
+    if (!existsSync(absoluteDirPath)) {
+      return [
+        {
+          name: dirPath,
+          value: dirPath,
+          description: "Directory does not exist",
+        },
+      ];
+    }
+
+    const items = [];
+
+    // Read directory contents
+    const entries = readdirSync(absoluteDirPath, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const entryName = entry.name;
+      const relativePath = path.join(dirPath, entryName);
+
+      // Filter by search term if provided
+      if (
+        searchTerm &&
+        !entryName.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        continue;
+      }
+
+      // Skip hidden files and common ignore patterns
+      if (
+        entryName.startsWith(".") ||
+        entryName === "node_modules" ||
+        entryName === ".git" ||
+        entryName === "dist" ||
+        entryName === "build"
+      ) {
+        continue;
+      }
+
+      const isDirectory = entry.isDirectory();
+
+      // Only include directories, skip files
+      if (isDirectory) {
+        items.push({
+          name: relativePath,
+          value: relativePath,
+        });
+      }
+    }
+
+    // Sort alphabetically (all items are directories now)
+    items.sort((a, b) => a.name.localeCompare(b.name));
+
+    return items;
+  } catch (error) {
+    console.warn(
+      `Failed to get directory contents from ${dirPath}:`,
+      error.message
+    );
+    return [];
   }
 }

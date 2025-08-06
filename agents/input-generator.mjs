@@ -1,23 +1,21 @@
 import { writeFile, mkdir, readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import terminalLink from "terminal-link";
+import { validatePath, getAvailablePaths } from "../utils/utils.mjs";
 
 // Predefined document generation styles
 const DOCUMENT_STYLES = {
-  actionFirst: {
-    name: "Action-First Style",
-    rules:
-      "Action-first and task-oriented; steps first, copyable examples, minimal context; second person, active voice, short sentences",
+  developerDocs: {
+    name: "Developer Docs",
+    rules: "Steps-first; copy-paste examples; minimal context; active 'you'.",
   },
-  conceptFirst: {
-    name: "Concept-First Style",
-    rules:
-      "Why/What before How; precise and restrained, provide trade-offs and comparisons; support with architecture/flow/sequence diagrams",
+  userGuide: {
+    name: "User Guide",
+    rules: "Scenario-based; step-by-step; plain language; outcomes & cautions.",
   },
-  specReference: {
-    name: "Spec-Reference Style",
-    rules:
-      "Objective and precise, no rhetoric; tables/Schema focused, authoritative fields and defaults; clear error codes and multi-language examples",
+  apiReference: {
+    name: "API Reference",
+    rules: "Exact & skimmable; schema-first; clear params/errors/examples.",
   },
   custom: {
     name: "Custom Rules",
@@ -162,14 +160,54 @@ export default async function init(
 
   const sourcePaths = [];
   while (true) {
-    const pathInput = await options.prompts.input({
+    const selectedPath = await options.prompts.search({
       message: "Path:",
-      default: PRESS_ENTER_TO_FINISH,
+      source: async (input, { signal }) => {
+        if (!input || input.trim() === "") {
+          return [
+            {
+              name: "Press Enter to finish",
+              value: "",
+              description: "",
+            },
+          ];
+        }
+
+        const searchTerm = input.trim();
+
+        // Search for matching files and folders in current directory
+        const availablePaths = getAvailablePaths(searchTerm);
+
+        return [...availablePaths];
+      },
     });
-    if (pathInput.trim() === PRESS_ENTER_TO_FINISH || !pathInput.trim()) {
+
+    // Check if user chose to exit
+    if (
+      !selectedPath ||
+      selectedPath.trim() === "" ||
+      selectedPath === "Press Enter to finish"
+    ) {
       break;
     }
-    sourcePaths.push(pathInput.trim());
+
+    const trimmedPath = selectedPath.trim();
+
+    // Use validatePath to check if path is valid
+    const validation = validatePath(trimmedPath);
+
+    if (!validation.isValid) {
+      console.log(`⚠️ ${validation.error}`);
+      continue;
+    }
+
+    // Avoid duplicate paths
+    if (sourcePaths.includes(trimmedPath)) {
+      console.log(`⚠️ Path already exists: ${trimmedPath}`);
+      continue;
+    }
+
+    sourcePaths.push(trimmedPath);
   }
 
   // If no paths entered, use default

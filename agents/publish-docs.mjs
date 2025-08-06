@@ -79,8 +79,9 @@ async function getAccessToken(appUrl) {
       const result = await createConnect({
         connectUrl: connectUrl,
         connectAction: "gen-simple-access-key",
-        source: `@aigne/cli doc-smith connect to Discuss Kit`,
+        source: `AIGNE DocSmith connect to Discuss Kit`,
         closeOnSuccess: true,
+        appName: "AIGNE DocSmith",
         openPage: (pageUrl) => open(pageUrl),
       });
 
