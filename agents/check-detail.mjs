@@ -8,7 +8,7 @@ import { hasSourceFilesChanged } from "../utils/utils.mjs";
 // Get current script directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export default async function checkDetailGenerated(
+export default async function checkDetail(
   {
     path,
     docsDir,
@@ -115,8 +115,8 @@ export default async function checkDetailGenerated(
   }
 
   const teamAgent = TeamAgent.from({
-    name: "generate-detail",
-    skills: [options.context.agents["detail-generator-and-translate"]],
+    name: "generateDetail",
+    skills: [options.context.agents["detailGeneratorAndTranslate"]],
   });
 
   const result = await options.context.invoke(teamAgent, {

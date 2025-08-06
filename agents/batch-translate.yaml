@@ -1,5 +1,5 @@
 type: team
-name: batch-translate
+name: batchTranslate
 description: 批量翻译文档到多个语言
 skills:
   - type: team

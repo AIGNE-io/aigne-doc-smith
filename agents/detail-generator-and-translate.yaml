@@ -1,5 +1,5 @@
 type: team
-name: detail-generator-and-translate
+name: detailGeneratorAndTranslate
 description: 生成文档详情并翻译
 skills:
   - ./transform-detail-datasources.mjs

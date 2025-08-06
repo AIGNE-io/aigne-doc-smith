@@ -12,12 +12,12 @@ agents:
   - ./agents/save-docs.mjs
   - ./agents/translate.yaml
   - ./agents/detail-generator-and-translate.yaml
-  - ./agents/check-detail-generated.mjs
+  - ./agents/check-detail.mjs
   - ./agents/transform-detail-datasources.mjs
   - ./agents/batch-translate.yaml
   - ./agents/save-single-doc.mjs
   - ./agents/save-output.mjs
-  - ./agents/check-structure-planning.mjs
+  - ./agents/check-structure-plan.mjs
   - ./agents/content-detail-generator.yaml
   - ./agents/reflective-structure-planner.yaml
   - ./agents/check-structure-planning-result.yaml

@@ -1,5 +1,5 @@
 type: team
-name: reflective-structure-planner
+name: reflectiveStructurePlanner
 description: A team of agents that plan the structure of the documentation.
 skills:
   - structure-planning.yaml

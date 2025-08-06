@@ -3,7 +3,7 @@ import {
   hasFileChangesBetweenCommits,
 } from "../utils/utils.mjs";
 
-export default async function checkStructurePlanning(
+export default async function checkStructurePlan(
   { originalStructurePlan, feedback, lastGitHead, ...rest },
   options
 ) {
@@ -49,7 +49,7 @@ export default async function checkStructurePlanning(
     };
   }
 
-  const panningAgent = options.context.agents["reflective-structure-planner"];
+  const panningAgent = options.context.agents["reflectiveStructurePlanner"];
 
   const result = await options.context.invoke(panningAgent, {
     feedback: finalFeedback || "",

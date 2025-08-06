@@ -16,7 +16,6 @@ export default async function saveDocs({
   locale,
 }) {
   const results = [];
-
   // Save current git HEAD to config.yaml for change detection
   try {
     const gitHead = getCurrentGitHead();
@@ -30,25 +29,23 @@ export default async function saveDocs({
     const sidebar = generateSidebar(structurePlan);
     const sidebarPath = join(docsDir, "_sidebar.md");
     await writeFile(sidebarPath, sidebar, "utf8");
-    results.push({ path: sidebarPath, success: true });
   } catch (err) {
-    results.push({ path: "_sidebar.md", success: false, error: err.message });
+    console.error("Failed to save _sidebar.md:", err.message);
   }
 
   // Clean up invalid .md files that are no longer in the structure plan
   try {
-    const cleanupResults = await cleanupInvalidFiles(
+    await cleanupInvalidFiles(
       structurePlan,
       docsDir,
       translateLanguages,
       locale
     );
-    results.push(...cleanupResults);
   } catch (err) {
-    results.push({ path: "cleanup", success: false, error: err.message });
+    console.error("Failed to cleanup invalid .md files:", err.message);
   }
 
-  return { saveDocsResult: results };
+  return {};
 }
 
 /**
