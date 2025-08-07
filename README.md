@@ -1,114 +1,213 @@
 # AIGNE DocSmith
 
-AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the AIGNE Framework. It automates the creation of detailed, structured, and multi-language documentation directly from your source code.
+AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automates the creation of detailed, structured, and multi-language documentation directly from your source code.
+
+## AIGNE Ecosystem
+
+DocSmith is part of the [AIGNE](https://www.aigne.io) ecosystem, a comprehensive AI application development platform. Here's the architecture overview:
+
+![AIGNE Ecosystem Architecture](https://www.aigne.io/image-bin/uploads/1a609bad1b46e8bc9bbaaa2d5f587938.png)
+
+As shown in the diagram, DocSmith integrates seamlessly with other [AIGNE](https://www.aigne.io) components, leveraging the platform's AI capabilities and infrastructure.
 
 ## Features
 
 - **Automated Structure Planning:** Intelligently analyzes your codebase to generate a comprehensive and logical document structure.
 - **AI-Powered Content Generation:** Populates the document structure with detailed, high-quality content.
-- **Multi-Language Support:** Seamlessly translates your documentation into multiple languages.
-- **Smart File Management:** Automatically cleans up invalid .md files that are no longer in the structure plan, preventing file accumulation.
-- **Customizable Prompts:** Allows for fine-tuning the output by customizing the prompts used by the AI agents.
-- **Extensible Workflow:** Built with a modular agent-based architecture, making it easy to extend and customize the documentation generation process.
-
-## How It Works
-
-AIGNE DocSmith utilizes a chain of AI agents to generate documentation in a three-step process:
-
-1.  **Structure Planning (`structure-planning`):** This agent analyzes the source code and creates a structured plan for the documentation. The plan is defined in `agents/structure-planning.yaml` and uses the prompt in `prompts/structure-planning.md`.
-2.  **Content Detail Generation (`content-detail-generator`):** This agent takes the structured plan and generates detailed content for each section of the documentation. This process is defined in `agents/content-detail-generator.yaml` and guided by the prompt in `prompts/document/detail-generator.md`.
-3.  **Translation (`translate`):** This agent translates the generated documentation into different languages. The translation agent is defined in `agents/translate.yaml` and uses the prompt in `prompts/translator.md`.
-
-The main workflow is orchestrated by the `docs-generator` agent, as defined in `agents/docs-generator.yaml`.
+- **Multi-Language Support:** Seamlessly translates your documentation into 12+ languages including English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic.
+- **AIGNE Hub Integration:** Use AIGNE Hub as your LLM provider without needing your own API keys, with easy switching between different large language models.
+- **Discuss Kit Publishing:** Publish documentation to the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/) or your own independently deployed Discuss Kit instance.
+- **Document Update Mechanism:** Automatically detects source code changes and updates documentation accordingly.
+- **Individual Document Optimization:** Regenerate and optimize specific documents with targeted feedback.
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js and pnpm
-- AIGNE Framework
+- AIGNE CLI
 
 ### Installation
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/aigne-doc-smith.git
-    ```
-2.  Install the dependencies:
-    ```bash
-    pnpm install
-    ```
+Install the latest version of AIGNE CLI globally:
+
+```bash
+npm i -g @aigne/cli
+```
+
+Verify the installation:
+
+```bash
+aigne doc -h
+```
+
+That's it! You can now use DocSmith directly through the AIGNE CLI.
+
+### LLM Configuration
+
+DocSmith supports multiple LLM providers through AIGNE Hub:
+
+- **AIGNE Hub (Recommended):** No API key required, easy model switching
+- **Custom API Keys:** Support for OpenAI, Anthropic, and other providers
+
+To use AIGNE Hub, simply run commands without specifying API keys:
+
+```bash
+# Using AIGNE Hub with different models
+aigne doc generate --model google:gemini-2.5-flash
+aigne doc generate --model claude:claude-3-5-sonnet
+aigne doc generate --model openai:gpt-4o
+```
 
 ### Usage
 
-To generate documentation, run the following command:
+#### Generate Documentation
+
+To generate documentation, simply run:
 
 ```bash
-aigne run docs-generator --datasources.source-code-path=/path/to/your/code
+aigne doc generate
 ```
 
-This will initiate the documentation generation process, and the output will be saved in the `output` directory.
+**Smart Auto-Configuration:** If you haven't run `init` before, DocSmith will automatically detect this and guide you through the interactive configuration wizard first. This includes:
+- Document generation rules and style selection
+- Target audience definition
+- Primary and translation language settings
+- Source code path configuration
+- Output directory setup
+
+**Force Regeneration:** To regenerate all documentation from scratch, use:
+
+```bash
+aigne doc generate --forceRegenerate true
+```
+
+This will regenerate all documentation based on the latest source code and configuration.
+
+#### Manual Configuration (Optional)
+
+If you prefer to set up configuration manually or want to modify existing settings:
+
+```bash
+aigne doc init
+```
+
+This will start the interactive configuration wizard directly.
+
+#### Update Individual Documents
+
+Optimize specific documents with targeted feedback:
+
+```bash
+# Interactive document selection and update
+aigne doc update
+
+# Update a specific document
+aigne doc update --doc-path /faq --feedback "Add more comprehensive FAQ entries"
+```
+
+**Interactive Mode:** When run without parameters, `aigne doc update` will present an interactive menu for you to select which document to regenerate and provide feedback.
+
+#### Optimize Structure Planning
+
+Improve the overall documentation structure based on feedback:
+
+```bash
+# Optimize structure with feedback
+aigne doc generate --feedback "Remove About section and add API Reference"
+
+# Regenerate structure with specific improvements
+aigne doc generate --feedback "Add more detailed installation guide and troubleshooting section"
+```
+
+**Structure Optimization:** Use `aigne doc generate` with `--feedback` to refine the overall documentation structure, add new sections, or reorganize existing content.
+
+#### Publishing to Discuss Kit
+
+Publish your documentation to Discuss Kit platforms:
+
+```bash
+# Interactive publishing with platform selection
+aigne doc publish
+```
+
+**Interactive Publishing:** When run `aigne doc publish` will present an interactive menu for you to choose between:
+- **Official Platform:** [docsmith.aigne.io](https://docsmith.aigne.io/app/)
+- **Self-Hosted Platform:** Your own deployed Discuss Kit instance
+
+
+
+## Supported Languages
+
+DocSmith supports 12 languages with automatic translation:
+
+- English (en)
+- 简体中文 (zh-CN)
+- 繁體中文 (zh-TW)
+- 日本語 (ja)
+- 한국어 (ko)
+- Español (es)
+- Français (fr)
+- Deutsch (de)
+- Português (pt-BR)
+- Русский (ru)
+- Italiano (it)
+- العربية (ar)
+
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue if you have any suggestions or find any bugs.
 
-## Test Commands
+## Command Examples
+
+### Basic Usage
 
 ```shell
-
-# 初始化
-npx --no doc-smith run --entry-agent init
-
-# 生成命令
-npx --no doc-smith run --entry-agent generate --model gemini:gemini-2.5-flash
-
-aigne run --path /Users/lban/arcblock/code/aigne-doc-smith/ --entry-agent generate --model gemini:gemini-2.5-flash --input-forceRegenerate=true
-
-# 重新生成单篇
-npx --no doc-smith run --entry-agent update --input-doc-path bitnet-getting-started
-
-# 结构规划优化
-npx --no doc-smith run --entry-agent generate --input-feedback "补充节点的 sourceIds，确保所有节点 sourceIds 都有值" --model gemini:gemini-2.5-pro
-
-
-# 发布文档
-npx --no doc-smith run --entry-agent publish
-
-
-```
-
-使用 `aigne doc` 运行
-
-```shell
-# 初始化
+# Interactive setup and configuration
 aigne doc init
 
-# 生成文档
+# Generate documentation with default settings
 aigne doc generate
 
-# 优化结构规划
-aigne doc generate --feedback "删除 About 文档"
+# Generate with specific model
+aigne doc generate --model google:gemini-2.5-flash
 
-# 优化单篇文档
-# 可使用 structure-plan.json 中的 path ，或 Discuss Kit 中访问的 path
-aigne doc update --doc-path /faq --feedback "添加更多的 FAQ" 
+# Force regenerate all documentation from scratch
+aigne doc generate --forceRegenerate=true
+```
 
-# 发布文档
+### Advanced Usage
+
+```shell
+# Update structure with feedback
+aigne doc generate --feedback "Remove About section and add API Reference"
+
+# Update specific document
+aigne doc update --doc-path /faq --feedback "Add more comprehensive FAQ entries"
+```
+
+### Publishing and Integration
+
+```shell
+# Interactive publishing with platform selection
 aigne doc publish
 
-# 将文档作为 MCP Server 
-aigne doc serve-mcp
+# Publish to custom Discuss Kit instance
+aigne doc publish --appUrl https://your-discuss-kit-instance.com
+
 
 ```
 
-## Testing
+### Development Commands
 
-运行测试来验证功能：
-
-```bash
-# 测试 saveDocs 方法的文件清理功能
-node tests/test-save-docs.mjs
+```shell
+# Development and debugging commands using npx to run local code
+npx --no doc-smith run --entry-agent init
+npx --no doc-smith run --entry-agent generate
+npx --no doc-smith run --entry-agent update 
+npx --no doc-smith run --entry-agent publish
 ```
 
-更多测试信息请查看 [tests/README.md](tests/README.md)。
+**Development Mode:** These commands use `npx` to run the local code version for development and debugging purposes, bypassing the globally installed CLI.
+

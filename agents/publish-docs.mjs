@@ -305,12 +305,12 @@ export default async function publishDocs(
     }
   }
 
-  const message = `## ✅ Documentation Published Successfully!
+  //   const message = `## ✅ Documentation Published Successfully!
 
-Documentation is now available at: \`${docsUrl}\`
-  `;
+  // Documentation is now available at: \`${docsUrl}\`
+  //   `;
   return {
-    message,
+    // message,
   };
 }
 
