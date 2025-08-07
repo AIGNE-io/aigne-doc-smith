@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.2...v0.2.3) (2025-08-07)
+
+
+### Bug Fixes
+
+* polish process info ([#14](https://github.com/AIGNE-io/aigne-doc-smith/issues/14)) ([a4a314f](https://github.com/AIGNE-io/aigne-doc-smith/commit/a4a314f65af25f6012726b782f30895ce4124f52))
+
 ## [0.2.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.1...v0.2.2) (2025-08-07)
 
 
