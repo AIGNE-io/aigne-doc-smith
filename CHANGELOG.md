@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.3...v0.2.4) (2025-08-07)
+
+
+### Bug Fixes
+
+* polish agent output log ([40a2451](https://github.com/AIGNE-io/aigne-doc-smith/commit/40a245122ce4d8747e5b5dbe88be6986047c38ae))
+
 ## [0.2.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.2...v0.2.3) (2025-08-07)
 
 
