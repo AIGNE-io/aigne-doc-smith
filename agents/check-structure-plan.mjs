@@ -47,7 +47,7 @@ export default async function checkStructurePlan(
     originalStructurePlan &&
     !feedback &&
     !shouldRegenerate &&
-    forceRegenerate !== "true"
+    !forceRegenerate
   ) {
     return {
       structurePlan: originalStructurePlan,

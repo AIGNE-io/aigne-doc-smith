@@ -106,7 +106,7 @@ export default async function checkDetail(
     !sourceIdsChanged &&
     !sourceFilesChanged &&
     !contentValidationFailed &&
-    forceRegenerate !== "true"
+    !forceRegenerate
   ) {
     return {
       path,

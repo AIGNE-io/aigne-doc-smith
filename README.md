@@ -79,7 +79,7 @@ aigne doc generate
 **Force Regeneration:** To regenerate all documentation from scratch, use:
 
 ```bash
-aigne doc generate --forceRegenerate true
+aigne doc generate --forceRegenerate
 ```
 
 This will regenerate all documentation based on the latest source code and configuration.
@@ -174,7 +174,7 @@ aigne doc generate
 aigne doc generate --model google:gemini-2.5-flash
 
 # Force regenerate all documentation from scratch
-aigne doc generate --forceRegenerate=true
+aigne doc generate --forceRegenerate
 ```
 
 ### Advanced Usage
