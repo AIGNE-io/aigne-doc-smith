@@ -1,4 +1,4 @@
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 import {
@@ -115,50 +115,65 @@ export default async function loadSources({
 
     for (const dir of paths) {
       try {
-        // Load .gitignore for this directory
-        const gitignorePatterns = await loadGitignore(dir);
+        // Check if the path is a file or directory
+        const stats = await stat(dir);
 
-        // Prepare patterns
-        let finalIncludePatterns = null;
-        let finalExcludePatterns = null;
+        if (stats.isFile()) {
+          // If it's a file, add it directly without filtering
+          allFiles.push(dir);
+        } else if (stats.isDirectory()) {
+          // If it's a directory, use the existing glob logic
+          // Load .gitignore for this directory
+          const gitignorePatterns = await loadGitignore(dir);
 
-        if (useDefaultPatterns) {
-          // Merge with default patterns
-          const userInclude = includePatterns
-            ? Array.isArray(includePatterns)
-              ? includePatterns
-              : [includePatterns]
-            : [];
-          const userExclude = excludePatterns
-            ? Array.isArray(excludePatterns)
-              ? excludePatterns
-              : [excludePatterns]
-            : [];
+          // Prepare patterns
+          let finalIncludePatterns = null;
+          let finalExcludePatterns = null;
 
-          finalIncludePatterns = [...DEFAULT_INCLUDE_PATTERNS, ...userInclude];
-          finalExcludePatterns = [...DEFAULT_EXCLUDE_PATTERNS, ...userExclude];
-        } else {
-          // Use only user patterns
-          if (includePatterns) {
-            finalIncludePatterns = Array.isArray(includePatterns)
-              ? includePatterns
-              : [includePatterns];
+          if (useDefaultPatterns) {
+            // Merge with default patterns
+            const userInclude = includePatterns
+              ? Array.isArray(includePatterns)
+                ? includePatterns
+                : [includePatterns]
+              : [];
+            const userExclude = excludePatterns
+              ? Array.isArray(excludePatterns)
+                ? excludePatterns
+                : [excludePatterns]
+              : [];
+
+            finalIncludePatterns = [
+              ...DEFAULT_INCLUDE_PATTERNS,
+              ...userInclude,
+            ];
+            finalExcludePatterns = [
+              ...DEFAULT_EXCLUDE_PATTERNS,
+              ...userExclude,
+            ];
+          } else {
+            // Use only user patterns
+            if (includePatterns) {
+              finalIncludePatterns = Array.isArray(includePatterns)
+                ? includePatterns
+                : [includePatterns];
+            }
+            if (excludePatterns) {
+              finalExcludePatterns = Array.isArray(excludePatterns)
+                ? excludePatterns
+                : [excludePatterns];
+            }
           }
-          if (excludePatterns) {
-            finalExcludePatterns = Array.isArray(excludePatterns)
-              ? excludePatterns
-              : [excludePatterns];
-          }
+
+          // Get files using glob
+          const filesInDir = await getFilesWithGlob(
+            dir,
+            finalIncludePatterns,
+            finalExcludePatterns,
+            gitignorePatterns
+          );
+          allFiles = allFiles.concat(filesInDir);
         }
-
-        // Get files using glob
-        const filesInDir = await getFilesWithGlob(
-          dir,
-          finalIncludePatterns,
-          finalExcludePatterns,
-          gitignorePatterns
-        );
-        allFiles = allFiles.concat(filesInDir);
       } catch (err) {
         if (err.code !== "ENOENT") throw err;
       }

@@ -162,7 +162,7 @@ export async function saveGitHeadToConfig(gitHead) {
   }
 
   try {
-    const docSmithDir = path.join(process.cwd(), "doc-smith");
+    const docSmithDir = path.join(process.cwd(), "./.aigne/doc-smith");
     if (!existsSync(docSmithDir)) {
       mkdirSync(docSmithDir, { recursive: true });
     }
@@ -345,7 +345,11 @@ export function hasFileChangesBetweenCommits(
  * @returns {Promise<Object|null>} - The config object or null if file doesn't exist
  */
 export async function loadConfigFromFile() {
-  const configPath = path.join(process.cwd(), "doc-smith", "config.yaml");
+  const configPath = path.join(
+    process.cwd(),
+    "./.aigne/doc-smith",
+    "config.yaml"
+  );
 
   try {
     if (!existsSync(configPath)) {
@@ -371,7 +375,7 @@ export async function saveValueToConfig(key, value) {
   }
 
   try {
-    const docSmithDir = path.join(process.cwd(), "doc-smith");
+    const docSmithDir = path.join(process.cwd(), "./.aigne/doc-smith");
     if (!existsSync(docSmithDir)) {
       mkdirSync(docSmithDir, { recursive: true });
     }
@@ -472,20 +476,20 @@ export function validatePaths(paths) {
 }
 
 /**
- * Check if input is a valid directory and add it to results if so
+ * Check if input is a valid directory or file and add it to results if so
  * @param {string} searchTerm - The search term to check
  * @param {Array} results - The results array to modify
  */
-function addExactDirectoryMatch(searchTerm, results) {
+function addExactPathMatch(searchTerm, results) {
   const inputValidation = validatePath(searchTerm);
   if (inputValidation.isValid) {
     const stats = statSync(normalizePath(searchTerm));
-    if (stats.isDirectory()) {
-      results.unshift({
-        name: searchTerm,
-        value: searchTerm,
-      });
-    }
+    const isDirectory = stats.isDirectory();
+    results.unshift({
+      name: searchTerm,
+      value: searchTerm,
+      description: isDirectory ? "📁 Directory" : "📄 File",
+    });
   }
 }
 
@@ -510,7 +514,7 @@ export function getAvailablePaths(userInput = "") {
       const dirPath = path.dirname(searchTerm);
       const fileName = path.basename(searchTerm);
       results = getDirectoryContents(dirPath, fileName);
-      addExactDirectoryMatch(searchTerm, results);
+      addExactPathMatch(searchTerm, results);
     }
     // Handle relative paths
     else if (searchTerm.startsWith("./") || searchTerm.startsWith("../")) {
@@ -519,7 +523,7 @@ export function getAvailablePaths(userInput = "") {
       if (lastSlashIndex === -1) {
         // No slash found, treat as current directory search
         results = getDirectoryContents("./", searchTerm);
-        addExactDirectoryMatch(searchTerm, results);
+        addExactPathMatch(searchTerm, results);
       } else {
         const dirPath = searchTerm.substring(0, lastSlashIndex + 1);
         const fileName = searchTerm.substring(lastSlashIndex + 1);
@@ -537,13 +541,13 @@ export function getAvailablePaths(userInput = "") {
         }
 
         results = getDirectoryContents(dirPath, fileName);
-        addExactDirectoryMatch(searchTerm, results);
+        addExactPathMatch(searchTerm, results);
       }
     }
     // Handle simple file/directory names (search in current directory)
     else {
       results = getDirectoryContents("./", searchTerm);
-      addExactDirectoryMatch(searchTerm, results);
+      addExactPathMatch(searchTerm, results);
     }
 
     // Remove duplicates based on value (path)
@@ -571,7 +575,7 @@ export function getAvailablePaths(userInput = "") {
  * Get directory contents for a specific path
  * @param {string} dirPath - Directory path to search in
  * @param {string} searchTerm - Optional search term to filter results
- * @returns {Array<Object>} - Array of path objects
+ * @returns {Array<Object>} - Array of path objects (both files and directories)
  */
 function getDirectoryContents(dirPath, searchTerm = "") {
   try {
@@ -623,17 +627,24 @@ function getDirectoryContents(dirPath, searchTerm = "") {
 
       const isDirectory = entry.isDirectory();
 
-      // Only include directories, skip files
-      if (isDirectory) {
-        items.push({
-          name: relativePath,
-          value: relativePath,
-        });
-      }
+      // Include both directories and files
+      items.push({
+        name: relativePath,
+        value: relativePath,
+        description: isDirectory ? "📁 Directory" : "📄 File",
+      });
     }
 
-    // Sort alphabetically (all items are directories now)
-    items.sort((a, b) => a.name.localeCompare(b.name));
+    // Sort alphabetically (directories first, then files)
+    items.sort((a, b) => {
+      const aIsDir = a.description === "📁 Directory";
+      const bIsDir = b.description === "📁 Directory";
+
+      if (aIsDir && !bIsDir) return -1;
+      if (!aIsDir && bIsDir) return 1;
+
+      return a.name.localeCompare(b.name);
+    });
 
     return items;
   } catch (error) {
