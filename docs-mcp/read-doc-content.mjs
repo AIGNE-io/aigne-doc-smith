@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const docsDir = path.join(process.cwd(), "doc-smith", "docs");
+const docsDir = path.join(process.cwd(), "./.aigne/doc-smith", "docs");
 
 export default async function readDocContent({
   relevantDocPaths,

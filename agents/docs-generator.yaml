@@ -40,76 +40,19 @@ skills:
 input_schema:
   type: object
   properties:
-    config:
-      type: string
-      description: Path to the config file
-      default: ./doc-smith/config.yaml
-    # nodeName:
+    # config:
     #   type: string
-    #   description: Name of the section to generate documentation for
-    #   default: Section
-    # rules:
-    #   type: string
-    #   description: Documentation generation requirements and rules
-    # locale:
-    #   type: string
-    #   description: Primary language for documentation (e.g., zh, en)
-    # sources:
-    #   type: array
-    #   items:
-    #     type: string
-    #   description: Source code files for documentation generation
-    # sourcesPath:
-    #   type: array
-    #   description: Source code paths
-    #   items:
-    #     type: string
-    #   default:
-    #     - ./
-    # includePatterns:
-    #   type: array
-    #   description: File patterns to include
-    #   items:
-    #     type: string
-    # excludePatterns:
-    #   type: array
-    #   description: File patterns to exclude
-    #   items:
-    #     type: string
-    # docsDir:
-    #   type: string
-    #   description: Directory to save generated documentation
-    #   default: ./doc-smith/docs
-    # outputDir:
-    #   type: string
-    #   description: Output directory for intermediate files
-    #   default: ./doc-smith/output
-    # translateLanguages:
-    #   type: array
-    #   items:
-    #     type: string
-    #     description: Target languages for translation (e.g., zh, en)
+    #   description: Path to the config file
+    #   default: ./.aigne/doc-smith/config.yaml
     glossary:
       type: string
       description: Glossary of terms for consistent terminology
-    # additionalInformation:
-    #   type: string
-    #   description: Additional context or information for documentation
-    # docsType:
-    #   type: string
-    #   description: Type of documentation (general, getting-started, reference, faq)
-    #   default: general
     feedback:
       type: string
       description: Feedback for structure planning adjustments
     forceRegenerate:
       type: boolean
       description: Force regenerate all documentation
-    # labels:
-    #   type: array
-    #   items:
-    #     type: string
-    #     description: Tags or labels for categorization
   required:
     - config
 mode: sequential

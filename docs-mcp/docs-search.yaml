@@ -18,7 +18,7 @@ input_schema:
     config:
       type: string
       description: Path to the config file
-      default: ./doc-smith/config.yaml
+      default: ./.aigne/doc-smith/config.yaml
 output_schema:
   type: object
   properties:

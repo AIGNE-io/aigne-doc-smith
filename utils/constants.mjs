@@ -25,6 +25,7 @@ export const DEFAULT_INCLUDE_PATTERNS = [
 export const DEFAULT_EXCLUDE_PATTERNS = [
   "aigne-docs/**",
   "doc-smith/**",
+  ".aigne/**",
   "assets/**",
   "data/**",
   "images/**",

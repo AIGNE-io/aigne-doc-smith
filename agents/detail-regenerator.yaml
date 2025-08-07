@@ -31,20 +31,10 @@ skills:
 input_schema:
   type: object
   properties:
-    config:
-      type: string
-      description: Path to the config file
-      default: ./doc-smith/config.yaml
-    # nodeName:
+    # config:
     #   type: string
-    #   description: Name of the section to generate documentation for
-    #   default: Section
-    # locale:
-    #   type: string
-    #   description: Primary language for documentation (e.g., zh, en)
-    # targetAudience:
-    #   type: string
-    #   description: Target audience for the documentation
+    #   description: Path to the config file
+    #   default: ./.aigne/doc-smith/config.yaml
     glossary:
       type: string
       description: Glossary of terms for consistent terminology
@@ -54,49 +44,6 @@ input_schema:
     feedback:
       type: string
       description: Feedback for content improvement
-    # sources:
-    #   type: array
-    #   items:
-    #     type: string
-    #   description: Source code files for documentation generation
-    # sourcesPath:
-    #   type: array
-    #   description: Source code paths
-    #   items:
-    #     type: string
-    #   default:
-    #     - ./
-    # includePatterns:
-    #   type: array
-    #   description: File patterns to include
-    #   items:
-    #     type: string
-    # excludePatterns:
-    #   type: array
-    #   description: File patterns to exclude
-    #   items:
-    #     type: string
-    # outputDir:
-    #   type: string
-    #   description: Output directory for intermediate files
-    #   default: ./doc-smith/output
-    # docsDir:
-    #   type: string
-    #   description: Directory to save generated documentation
-    #   default: ./doc-smith/docs
-    # additionalInformation:
-    #   type: string
-    #   description: Additional context or information for documentation
-    # translateLanguages:
-    #   type: array
-    #   items:
-    #     type: string
-    #     description: Target languages for translation (e.g., zh, en)
-    # labels:
-    #   type: array
-    #   items:
-    #     type: string
-    #     description: Tags or labels for categorization
 output_schema:
   type: object
   properties:

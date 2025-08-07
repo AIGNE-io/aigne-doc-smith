@@ -22,8 +22,8 @@ export default async function loadConfig({ config }) {
       nodeName: "Section",
       locale: "en",
       sourcesPath: ["./"],
-      docDir: "./doc-smith/docs",
-      outputDir: "./doc-smith/output",
+      docsDir: "./.aigne/doc-smith/docs",
+      outputDir: "./.aigne/doc-smith/output",
       lastGitHead: parsedConfig.lastGitHead || "",
       ...parsedConfig,
     };
@@ -38,7 +38,7 @@ loadConfig.input_schema = {
   properties: {
     config: {
       type: "string",
-      default: "./doc-smith/config.yaml",
+      default: "./.aigne/doc-smith/config.yaml",
     },
   },
 };

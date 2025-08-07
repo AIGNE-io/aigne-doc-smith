@@ -20,7 +20,7 @@ const PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  */
 export default async function init(
   {
-    outputPath = "./doc-smith",
+    outputPath = ".aigne/doc-smith",
     fileName = "config.yaml",
     skipIfExists = false,
   },
