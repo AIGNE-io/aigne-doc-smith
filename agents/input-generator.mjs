@@ -40,11 +40,9 @@ export default async function init(
   const input = {};
 
   // 1. Document generation rules with style selection
-  console.log("📝 Step 1/6: Document Generation Rules");
-
   // Let user select a document style
   const styleChoice = await options.prompts.select({
-    message: "Choose your documentation style:",
+    message: "📝 Step 1/6: Choose your documentation style:",
     choices: Object.entries(DOCUMENT_STYLES).map(([key, style]) => ({
       name: `${style.name} - ${style.rules}`,
       value: key,
@@ -65,11 +63,9 @@ export default async function init(
   input.rules = rules.trim();
 
   // 2. Target audience selection
-  console.log("\n👥 Step 2/6: Target Audience");
-
   // Let user select target audience
   const audienceChoice = await options.prompts.select({
-    message: "Who is your target audience?",
+    message: "👥 Step 2/6: Who is your target audience?",
     choices: Object.entries(TARGET_AUDIENCES).map(([key, audience]) => ({
       name: audience,
       value: key,
@@ -90,11 +86,9 @@ export default async function init(
   input.targetAudience = targetAudience.trim();
 
   // 3. Language settings
-  console.log("\n🌐 Step 3/6: Primary Language");
-
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "Choose primary documentation language:",
+    message: "🌐 Step 3/6: Choose primary documentation language:",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -104,15 +98,13 @@ export default async function init(
   input.locale = primaryLanguageChoice;
 
   // 4. Translation languages
-  console.log("\n🔄 Step 4/6: Translation Languages");
-
   // Filter out the primary language from available choices
   const availableTranslationLanguages = SUPPORTED_LANGUAGES.filter(
     (lang) => lang.code !== primaryLanguageChoice
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "Select translation languages:",
+    message: "🔄 Step 4/6: Select translation languages:",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -122,9 +114,8 @@ export default async function init(
   input.translateLanguages = translateLanguageChoices;
 
   // 5. Documentation directory
-  console.log("\n📁 Step 5/6: Output Directory");
   const docsDirInput = await options.prompts.input({
-    message: `Where to save generated docs:`,
+    message: `📁 Step 5/6: Where to save generated docs:`,
     default: `${outputPath}/docs`,
   });
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
