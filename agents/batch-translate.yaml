@@ -16,6 +16,7 @@ skills:
       is_approved: isApproved
       max_iterations: 3
       return_last_on_max_iterations: true
+    task_title: Translate '{{ title }}' to '{{ language }}'
 input_schema:
   type: object
   properties:

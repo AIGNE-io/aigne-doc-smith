@@ -167,6 +167,8 @@ async function getAccessToken(appUrl) {
         source: `AIGNE DocSmith connect to Discuss Kit`,
         closeOnSuccess: true,
         appName: "AIGNE DocSmith",
+        appLogo:
+          "https://www.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
         openPage: (pageUrl) => open(pageUrl),
       });
 
@@ -274,7 +276,11 @@ export default async function publishDocs(
     await saveValueToConfig("boardCover", projectInfo.icon);
   }
 
-  const { success, boardId: newBoardId } = await publishDocsFn({
+  const {
+    success,
+    boardId: newBoardId,
+    docsUrl,
+  } = await publishDocsFn({
     sidebarPath,
     accessToken,
     appUrl,
@@ -299,7 +305,13 @@ export default async function publishDocs(
     }
   }
 
-  return {};
+  const message = `## ✅ Documentation Published Successfully!
+
+Documentation is now available at: \`${docsUrl}\`
+  `;
+  return {
+    message,
+  };
 }
 
 publishDocs.input_schema = {

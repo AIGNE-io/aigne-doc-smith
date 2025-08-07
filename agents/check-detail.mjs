@@ -137,3 +137,5 @@ export default async function checkDetail(
     result,
   };
 }
+
+checkDetail.taskTitle = "Check if '{{ title }}' needs regeneration";

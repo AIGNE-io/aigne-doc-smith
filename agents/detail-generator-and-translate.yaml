@@ -17,6 +17,7 @@ skills:
       is_approved: isApproved
       max_iterations: 3
       return_last_on_max_iterations: true
+    task_title: Generate detail for '{{ title }}'
   - ./batch-translate.yaml
   - ./save-single-doc.mjs
 input_schema:

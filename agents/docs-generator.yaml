@@ -104,7 +104,7 @@ input_schema:
       description: Feedback for structure planning adjustments
     forceRegenerate:
       type: string
-      description: Force regenerate the documentation
+      description: Force regenerate all documentation when set to 'true'
     # labels:
     #   type: array
     #   items:

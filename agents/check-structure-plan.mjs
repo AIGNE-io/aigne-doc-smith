@@ -70,3 +70,5 @@ export default async function checkStructurePlan(
       : JSON.parse(JSON.stringify(result.structurePlan || [])),
   };
 }
+
+checkStructurePlan.taskTitle = "Check if structure plan needs regeneration";
