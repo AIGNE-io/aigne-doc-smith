@@ -7,6 +7,8 @@ export default async function saveSingleDoc({
   translates,
   labels,
   locale,
+  isTranslate = false,
+  isShowMessage = false,
 }) {
   const results = await saveDocWithTranslations({
     path,
@@ -15,6 +17,15 @@ export default async function saveSingleDoc({
     translates,
     labels,
     locale,
+    isTranslate,
   });
+
+  if (isShowMessage) {
+    const message = isTranslate
+      ? `✅ Translation completed successfully`
+      : `✅ Document updated successfully`;
+    return { message };
+  }
+
   return {};
 }

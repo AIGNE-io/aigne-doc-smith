@@ -83,6 +83,7 @@ export async function saveDocWithTranslations({
   locale,
   translates = [],
   labels,
+  isTranslate = false,
 }) {
   const results = [];
   try {
@@ -96,20 +97,22 @@ export async function saveDocWithTranslations({
       return isEnglish ? `${flatName}.md` : `${flatName}.${language}.md`;
     };
 
-    // Save main content with appropriate filename based on locale
-    const mainFileName = getFileName(locale);
-    const mainFilePath = path.join(docsDir, mainFileName);
+    // Save main content with appropriate filename based on locale (skip if isTranslate is true)
+    if (!isTranslate) {
+      const mainFileName = getFileName(locale);
+      const mainFilePath = path.join(docsDir, mainFileName);
 
-    // Add labels front matter if labels are provided
-    let finalContent = processContent({ content });
-    if (labels && labels.length > 0) {
-      const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
-      finalContent = frontMatter + finalContent;
+      // Add labels front matter if labels are provided
+      let finalContent = processContent({ content });
+      if (labels && labels.length > 0) {
+        const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
+        finalContent = frontMatter + finalContent;
+      }
+
+      await fs.writeFile(mainFilePath, finalContent, "utf8");
+      results.push({ path: mainFilePath, success: true });
+      console.log(chalk.green(`Saved: ${chalk.cyan(mainFilePath)}`));
     }
-
-    await fs.writeFile(mainFilePath, finalContent, "utf8");
-    results.push({ path: mainFilePath, success: true });
-    console.log(chalk.green(`Saved: ${chalk.cyan(mainFilePath)}`));
 
     // Process all translations
     for (const translate of translates) {

@@ -61,6 +61,10 @@
 {{content}}
 </content>
 
+<translate_feedback>
+{{ feedback }}
+</translate_feedback>
+
 <review_feedback>
 {{ detailFeedback }}
 </review_feedback>

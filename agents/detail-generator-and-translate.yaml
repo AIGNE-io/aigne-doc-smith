@@ -18,6 +18,12 @@ skills:
       max_iterations: 3
       return_last_on_max_iterations: true
     task_title: Generate detail for '{{ title }}'
+  - type: transform
+    jsonata: |
+      $merge([
+        $,
+        { "feedback": "" }
+      ])
   - ./batch-translate.yaml
   - ./save-single-doc.mjs
 input_schema:

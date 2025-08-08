@@ -1,11 +1,25 @@
-import { readdir } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 
+// Helper function to get action-specific text based on isTranslate flag
+function getActionText(isTranslate, baseText) {
+  const action = isTranslate ? "retranslate" : "update";
+  return baseText.replace("{action}", action);
+}
+
 export default async function findItemByPath(
-  { "doc-path": docPath, structurePlanResult, boardId, docsDir },
+  {
+    "doc-path": docPath,
+    structurePlanResult,
+    boardId,
+    docsDir,
+    isTranslate,
+    feedback,
+  },
   options
 ) {
   let foundItem = null;
+  let selectedFileContent = null;
 
   // If docPath is empty, let user select from available documents
   if (!docPath) {
@@ -22,14 +36,12 @@ export default async function findItemByPath(
       );
 
       if (mainLanguageFiles.length === 0) {
-        throw new Error(
-          "Please provide a doc-path parameter to specify which document to update"
-        );
+        throw new Error("No documents found in the docs directory");
       }
 
       // Let user select a file
       const selectedFile = await options.prompts.search({
-        message: "Select a document to update:",
+        message: getActionText(isTranslate, "Select a document to {action}:"),
         source: async (input, { signal }) => {
           if (!input || input.trim() === "") {
             return mainLanguageFiles.map((file) => ({
@@ -51,9 +63,19 @@ export default async function findItemByPath(
       });
 
       if (!selectedFile) {
-        throw new Error(
-          "Please provide a doc-path parameter to specify which document to update"
+        throw new Error("No document selected");
+      }
+
+      // Read the selected .md file content
+      try {
+        const selectedFilePath = join(docsDir, selectedFile);
+        selectedFileContent = await readFile(selectedFilePath, "utf-8");
+      } catch (readError) {
+        console.warn(
+          `⚠️  Could not read content from ${selectedFile}:`,
+          readError.message
         );
+        selectedFileContent = null;
       }
 
       // Convert filename back to path
@@ -71,15 +93,17 @@ export default async function findItemByPath(
         return itemFlattenedPath === flatName;
       });
       if (!foundItemByFile) {
-        throw new Error(
-          "Please provide a doc-path parameter to specify which document to update"
-        );
+        throw new Error("No document found");
       }
 
       docPath = foundItemByFile.path;
     } catch (error) {
+      console.error(error);
       throw new Error(
-        "Please provide a doc-path parameter to specify which document to update"
+        getActionText(
+          isTranslate,
+          "Please provide a doc-path parameter to specify which document to {action}"
+        )
       );
     }
   }
@@ -111,8 +135,33 @@ export default async function findItemByPath(
     );
   }
 
-  // Merge the found item with originalStructurePlan
-  return {
+  // Prompt for feedback if not provided
+  let userFeedback = feedback;
+  if (!userFeedback) {
+    const feedbackMessage = getActionText(
+      isTranslate,
+      "Please provide feedback for the {action} (optional, press Enter to skip):"
+    );
+
+    userFeedback = await options.prompts.input({
+      message: feedbackMessage,
+    });
+  }
+
+  // Merge the found item with originalStructurePlan and add content if available
+  const result = {
     ...foundItem,
   };
+
+  // Add content if we read it from user selection
+  if (selectedFileContent !== null) {
+    result.content = selectedFileContent;
+  }
+
+  // Add feedback to result if provided
+  if (userFeedback && userFeedback.trim()) {
+    result.feedback = userFeedback.trim();
+  }
+
+  return result;
 }

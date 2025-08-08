@@ -14,6 +14,9 @@ input_schema:
     glossary:
       type: string
       description: 术语表
+    feedback:
+      type: string
+      description: Feedback for translation improvement
   required:
     - language
     - content

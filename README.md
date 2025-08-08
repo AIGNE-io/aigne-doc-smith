@@ -206,6 +206,7 @@ aigne doc publish --appUrl https://your-discuss-kit-instance.com
 npx --no doc-smith run --entry-agent init
 npx --no doc-smith run --entry-agent generate
 npx --no doc-smith run --entry-agent update 
+npx --no doc-smith run --entry-agent retranslate 
 npx --no doc-smith run --entry-agent publish
 ```
 
