@@ -59,7 +59,7 @@ export default async function languageSelector(
     });
 
     selectedLanguages = await options.prompts.checkbox({
-      message: "📍 Select languages to translate:",
+      message: "Select languages to translate:",
       choices: choices,
       validate: (answer) => {
         if (answer.length === 0) {

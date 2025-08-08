@@ -140,7 +140,7 @@ export default async function findItemByPath(
   if (!userFeedback) {
     const feedbackMessage = getActionText(
       isTranslate,
-      "Please provide feedback for the {action} (optional, press Enter to skip):"
+      "Please provide feedback for the {action} (press Enter to skip):"
     );
 
     userFeedback = await options.prompts.input({
