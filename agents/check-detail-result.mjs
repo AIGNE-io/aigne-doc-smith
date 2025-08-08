@@ -128,6 +128,22 @@ export default async function checkDetailResult({
             `Found backticks in Mermaid node label in ${source} at line ${lineNumber}: "${label}" - backticks in node labels cause rendering issues in Mermaid diagrams`
           );
         }
+
+        // Check for edge descriptions with numbered list format
+        // Pattern: -- "1. description" --> or similar variants
+        const edgeDescriptionRegex = /--\s*"([^"]*)"\s*-->/g;
+        let edgeMatch;
+
+        while ((edgeMatch = edgeDescriptionRegex.exec(line)) !== null) {
+          const description = edgeMatch[1];
+          // Check if description starts with number followed by period
+          if (/^\d+\.\s/.test(description)) {
+            isApproved = false;
+            detailFeedback.push(
+              `Unsupported markdown: list - Found numbered list format in Mermaid edge description in ${source} at line ${lineNumber}: "${description}" - numbered lists in edge descriptions are not supported`
+            );
+          }
+        }
       }
     }
 

@@ -63,14 +63,14 @@ export const DEFAULT_EXCLUDE_PATTERNS = [
 // Supported languages for documentation
 export const SUPPORTED_LANGUAGES = [
   { code: "en", label: "English (en)", sample: "Hello" },
-  { code: "zh-CN", label: "简体中文 (zh-CN)", sample: "你好" },
+  { code: "zh", label: "简体中文 (zh)", sample: "你好" },
   { code: "zh-TW", label: "繁體中文 (zh-TW)", sample: "你好" },
   { code: "ja", label: "日本語 (ja)", sample: "こんにちは" },
   { code: "ko", label: "한국어 (ko)", sample: "안녕하세요" },
   { code: "es", label: "Español (es)", sample: "Hola" },
   { code: "fr", label: "Français (fr)", sample: "Bonjour" },
   { code: "de", label: "Deutsch (de)", sample: "Hallo" },
-  { code: "pt-BR", label: "Português (pt-BR)", sample: "Olá" },
+  { code: "pt", label: "Português (pt)", sample: "Olá" },
   { code: "ru", label: "Русский (ru)", sample: "Привет" },
   { code: "it", label: "Italiano (it)", sample: "Ciao" },
   { code: "ar", label: "العربية (ar)", sample: "مرحبا" },
