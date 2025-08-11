@@ -14,6 +14,7 @@ export default async function saveDocs({
   docsDir,
   translateLanguages = [],
   locale,
+  projectInfoMessage,
 }) {
   const results = [];
   // Save current git HEAD to config.yaml for change detection
@@ -47,8 +48,9 @@ export default async function saveDocs({
 
   const message = `## ✅ Documentation Generated Successfully!
 
-  Successfully generated **${structurePlan.length}** documents and saved to: \`${docsDir}\`
-
+  Successfully generated **${structurePlan.length}** documents and saved to:
+  \`${docsDir}\`
+  ${projectInfoMessage || ""}
   ### 🚀 Next Steps
 
   1. Publish Documentation

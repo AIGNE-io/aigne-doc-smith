@@ -374,8 +374,8 @@ export async function loadConfigFromFile() {
  * @param {string} [comment] - Optional comment to add above the key
  */
 export async function saveValueToConfig(key, value, comment) {
-  if (!value) {
-    return; // Skip if no value provided
+  if (value === undefined) {
+    return; // Skip if value is undefined
   }
 
   try {
@@ -393,23 +393,26 @@ export async function saveValueToConfig(key, value, comment) {
     }
 
     // Check if key already exists in the file
-    const keyRegex = new RegExp(`^${key}:\\s*.*$`, "m");
-    const newKeyLine = `${key}: ${value}`;
+    const lines = fileContent.split("\n");
+    const keyRegex = new RegExp(`^${key}:\\s*.*$`);
+    const newKeyLine = `${key}: "${value}"`;
 
-    if (keyRegex.test(fileContent)) {
+    const keyIndex = lines.findIndex((line) => keyRegex.test(line));
+
+    if (keyIndex !== -1) {
       // Replace existing key line
-      fileContent = fileContent.replace(keyRegex, newKeyLine);
+      lines[keyIndex] = newKeyLine;
+      fileContent = lines.join("\n");
 
       // Add comment if provided and not already present
-      if (comment) {
-        const lines = fileContent.split("\n");
-        const keyIndex = lines.findIndex((line) => keyRegex.test(line));
-
-        if (keyIndex > 0 && !lines[keyIndex - 1].trim().startsWith("# ")) {
-          // Add comment above the key if it doesn't already have one
-          lines.splice(keyIndex, 0, `# ${comment}`);
-          fileContent = lines.join("\n");
-        }
+      if (
+        comment &&
+        keyIndex > 0 &&
+        !lines[keyIndex - 1].trim().startsWith("# ")
+      ) {
+        // Add comment above the key if it doesn't already have one
+        lines.splice(keyIndex, 0, `# ${comment}`);
+        fileContent = lines.join("\n");
       }
     } else {
       // Add key to the end of file
@@ -711,13 +714,14 @@ export async function getGitHubRepoInfo(repoUrl) {
 
 /**
  * Get project information automatically without user confirmation
- * @returns {Promise<Object>} - Project information including name, description, and icon
+ * @returns {Promise<Object>} - Project information including name, description, icon, and fromGitHub flag
  */
 export async function getProjectInfo() {
   let repoInfo = null;
   let defaultName = path.basename(process.cwd());
   let defaultDescription = "";
   let defaultIcon = "";
+  let fromGitHub = false;
 
   // Check if we're in a git repository
   try {
@@ -736,6 +740,7 @@ export async function getProjectInfo() {
       if (repoInfo) {
         defaultDescription = repoInfo.description;
         defaultIcon = repoInfo.icon;
+        fromGitHub = true;
       }
     }
   } catch (error) {
@@ -747,5 +752,6 @@ export async function getProjectInfo() {
     name: defaultName,
     description: defaultDescription,
     icon: defaultIcon,
+    fromGitHub,
   };
 }

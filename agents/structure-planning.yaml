@@ -36,6 +36,12 @@ input_schema:
 output_schema:
   type: object
   properties:
+    projectName:
+      type: string
+      description: 根据 DataSources 分析项目名称，注意是原始项目名称
+    projectDesc:
+      type: string
+      description: 根据 DataSources 分析生成当前项目描述，为原始项目生成描述，描述简洁，不超过 50 个单词
     structurePlan: ./schema/structure-plan.yaml
     structurePlanTree:
       type: string

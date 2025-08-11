@@ -1,6 +1,9 @@
 import {
   getCurrentGitHead,
   hasFileChangesBetweenCommits,
+  loadConfigFromFile,
+  saveValueToConfig,
+  getProjectInfo,
 } from "../utils/utils.mjs";
 
 export default async function checkStructurePlan(
@@ -62,9 +65,59 @@ export default async function checkStructurePlan(
     ...rest,
   });
 
+  let message = "";
+
+  // Check and save project information if user hasn't modified it
+  if (result.projectName || result.projectDesc) {
+    try {
+      const currentConfig = await loadConfigFromFile();
+      const projectInfo = await getProjectInfo();
+
+      // Check if user has modified project information
+      const userModifiedProjectName =
+        currentConfig?.projectName &&
+        currentConfig.projectName !== projectInfo.name;
+      const userModifiedProjectDesc =
+        currentConfig?.projectDesc &&
+        currentConfig.projectDesc !== projectInfo.description;
+
+      // If user hasn't modified project info and it's not from GitHub, save AI output
+      if (!userModifiedProjectName && !userModifiedProjectDesc) {
+        let hasUpdated = false;
+        // Don't update if the current info is from GitHub (meaningful repository info)
+        if (
+          result.projectName &&
+          result.projectName !== projectInfo.name &&
+          !projectInfo.fromGitHub
+        ) {
+          await saveValueToConfig("projectName", result.projectName);
+          message += `Project name: \`${result.projectName}\``;
+          hasUpdated = true;
+        }
+
+        if (
+          result.projectDesc &&
+          result.projectDesc !== projectInfo.description &&
+          !projectInfo.fromGitHub
+        ) {
+          await saveValueToConfig("projectDesc", result.projectDesc);
+          message += `\nProject description: \`${result.projectDesc}\``;
+          hasUpdated = true;
+        }
+
+        if (hasUpdated) {
+          message = `\n### Auto-updated Project Info to \`.aigne/doc-smith/config.yaml\`\n\n${message}\n\n`;
+        }
+      }
+    } catch (error) {
+      console.warn("Failed to check/save project information:", error.message);
+    }
+  }
+
   return {
     ...result,
     feedback: "", // clear feedback
+    projectInfoMessage: message,
     originalStructurePlan: originalStructurePlan
       ? originalStructurePlan
       : JSON.parse(JSON.stringify(result.structurePlan || [])),
