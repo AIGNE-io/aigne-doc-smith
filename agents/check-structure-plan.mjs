@@ -7,7 +7,7 @@ import {
 } from "../utils/utils.mjs";
 
 export default async function checkStructurePlan(
-  { originalStructurePlan, feedback, lastGitHead, forceRegenerate, ...rest },
+  { originalStructurePlan, feedback, lastGitHead, ...rest },
   options
 ) {
   // Check if we need to regenerate structure plan
@@ -41,17 +41,13 @@ export default async function checkStructurePlan(
         1. 对于新增的内容，可以根据需要新增节点，或补充到原有节点展示
         2. 谨慎删除节点，除非节点关联 sourceIds 都被删除了
         3. 不能修改原有节点的 path
+        4. 根据最新的 Data Sources 按需要更新节点的 sourceIds，如没有大的变化，可以不更新。
       `;
     }
   }
 
   // If no regeneration needed, return original structure plan
-  if (
-    originalStructurePlan &&
-    !feedback &&
-    !shouldRegenerate &&
-    !forceRegenerate
-  ) {
+  if (originalStructurePlan && !feedback && !shouldRegenerate) {
     return {
       structurePlan: originalStructurePlan,
     };

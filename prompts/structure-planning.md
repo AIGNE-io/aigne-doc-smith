@@ -27,10 +27,15 @@
 {{originalStructurePlan}}
 </last_structure_plan>
 
+<last_structure_plan_rule>
+如果提供了上一轮生成的结构规划(last_structure_plan)，需要遵循以下规则：
+  1.  **反馈的实现**：新的结构规划**必须**正确地实现用户反馈中要求的所有变更。
+  2.  **无关节点的稳定性**：没有在用户反馈中被提及的节点 ** path 属性不能被修改 **。`path` 是关联现有内容的关键标识符，其稳定性至关重要。
+    理想情况下，其他属性（如 `title`）也应保持稳定，除非这些变更是由某个被要求的变更直接导致的，或者是 DataSource 变更导致。
+</last_structure_plan_rule>
+
 <structure_plan_feedback>
 {{ feedback }}
-
-根据最新的 Data Sources 按需要更新节点的 sourceIds，如没有大的变化，可以不更新。
 </structure_plan_feedback>
 
 <review_structure_plan>

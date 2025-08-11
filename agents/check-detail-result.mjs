@@ -5,6 +5,7 @@ export default async function checkDetailResult({
   const linkRegex = /(?<!\!)\[([^\]]+)\]\(([^)]+)\)/g;
   const tableSeparatorRegex = /^\s*\|\s*-+\s*\|\s*$/;
   const codeBlockRegex = /^\s+```(?:\w+)?$/;
+  const allCodeBlockRegex = /^\s*```(?:\w+)?$/;
 
   let isApproved = true;
   const detailFeedback = [];
@@ -61,6 +62,8 @@ export default async function checkDetailResult({
     let codeBlockStartLine = 0;
     let inMermaidBlock = false;
     let mermaidStartLine = 0;
+    let inAnyCodeBlock = false;
+    let anyCodeBlockStartLine = 0;
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
@@ -74,7 +77,19 @@ export default async function checkDetailResult({
         );
       }
 
-      // Check code block markers and indentation
+      // Check for any code block markers (for incomplete code block detection)
+      if (allCodeBlockRegex.test(line)) {
+        if (!inAnyCodeBlock) {
+          // Starting a new code block
+          inAnyCodeBlock = true;
+          anyCodeBlockStartLine = lineNumber;
+        } else {
+          // Ending the code block
+          inAnyCodeBlock = false;
+        }
+      }
+
+      // Check code block markers and indentation (original logic for indented blocks)
       if (codeBlockRegex.test(line)) {
         if (!inCodeBlock) {
           // Starting a new code block
@@ -147,12 +162,33 @@ export default async function checkDetailResult({
       }
     }
 
+    // Check for incomplete code blocks (started but not closed)
+    if (inAnyCodeBlock) {
+      isApproved = false;
+      detailFeedback.push(
+        `Found incomplete code block in ${source} starting at line ${anyCodeBlockStartLine}: code block opened with \`\`\` but never closed. Please return the complete content`
+      );
+    }
+
     // Check single line content (this needs to be done after the loop)
     const newlineCount = (text.match(/\n/g) || []).length;
     if (newlineCount === 0 && text.trim().length > 0) {
       isApproved = false;
       detailFeedback.push(
         `Found single line content in ${source}: content appears to be on only one line, check for missing line breaks`
+      );
+    }
+
+    // Check if content ends with proper punctuation (indicating completeness)
+    const trimmedText = text.trim();
+    if (
+      trimmedText.length > 0 &&
+      !trimmedText.endsWith(".") &&
+      !trimmedText.endsWith("。")
+    ) {
+      isApproved = false;
+      detailFeedback.push(
+        `Found incomplete content in ${source}: content does not end with proper punctuation (. or 。). Please return the complete content`
       );
     }
   };
