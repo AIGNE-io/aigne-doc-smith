@@ -1,13 +1,16 @@
 import { writeFile, mkdir, readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import chalk from "chalk";
-import { validatePath, getAvailablePaths } from "../utils/utils.mjs";
+import {
+  validatePath,
+  getAvailablePaths,
+  getProjectInfo,
+} from "../utils/utils.mjs";
 import {
   SUPPORTED_LANGUAGES,
   DOCUMENT_STYLES,
   TARGET_AUDIENCES,
 } from "../utils/constants.mjs";
-
 // UI constants
 const PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
@@ -180,6 +183,12 @@ export default async function init(
   // If no paths entered, use default
   input.sourcesPath = sourcePaths.length > 0 ? sourcePaths : ["./"];
 
+  // Save project info to config
+  const projectInfo = await getProjectInfo();
+  input.projectName = projectInfo.name;
+  input.projectDesc = projectInfo.description;
+  input.projectLogo = projectInfo.icon;
+
   // Generate YAML content
   const yamlContent = generateYAML(input, outputPath);
 
@@ -193,13 +202,17 @@ export default async function init(
 
     await writeFile(filePath, yamlContent, "utf8");
     console.log(`\n🎉 Configuration saved to: ${chalk.cyan(filePath)}`);
+    // Print YAML content for user review
+    console.log(chalk.cyan("---"));
+    console.log(chalk.cyan(yamlContent));
+    console.log(chalk.cyan("---"));
     console.log(
-      "💡 You can edit the configuration file anytime to modify settings."
+      "💡 You can edit the configuration file anytime to modify settings.\n"
     );
     console.log(
       `🚀 Run ${chalk.cyan(
         "'aigne doc generate'"
-      )} to start documentation generation!`
+      )} to start documentation generation!\n`
     );
 
     return {};
@@ -215,11 +228,17 @@ export default async function init(
 /**
  * Generate YAML configuration content
  * @param {Object} input - Input object
- * @param {string} outputPath - Output path for directory configuration
  * @returns {string} YAML string
  */
-function generateYAML(input, outputPath) {
+function generateYAML(input) {
   let yaml = "";
+
+  // Add project information at the beginning
+  yaml += `# Project information for documentation publishing\n`;
+  yaml += `projectName: ${input.projectName || ""}\n`;
+  yaml += `projectDesc: ${input.projectDesc || ""}\n`;
+  yaml += `projectLogo: ${input.projectLogo || ""}\n`;
+  yaml += `\n`;
 
   // Add rules (required field)
   yaml += `rules: |\n`;

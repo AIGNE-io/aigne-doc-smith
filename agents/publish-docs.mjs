@@ -7,118 +7,11 @@ import { existsSync, mkdirSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { parse, stringify } from "yaml";
-import { execSync } from "node:child_process";
 import { basename } from "node:path";
 import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
-
-/**
- * Get GitHub repository information
- * @param {string} repoUrl - The repository URL
- * @returns {Promise<Object>} - Repository information
- */
-async function getGitHubRepoInfo(repoUrl) {
-  try {
-    // Extract owner and repo from GitHub URL
-    const match = repoUrl.match(
-      /github\.com[\/:]([^\/]+)\/([^\/]+?)(?:\.git)?$/
-    );
-    if (!match) return null;
-
-    const [, owner, repo] = match;
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
-
-    const response = await fetch(apiUrl);
-    if (!response.ok) return null;
-
-    const data = await response.json();
-    return {
-      name: data.name,
-      description: data.description || "",
-      icon: data.owner?.avatar_url || "",
-    };
-  } catch (error) {
-    console.warn("Failed to fetch GitHub repository info:", error.message);
-    return null;
-  }
-}
-
-/**
- * Get project information with user confirmation
- * @param {Object} options - Options object containing prompts
- * @returns {Promise<Object>} - Project information including name, description, and icon
- */
-async function getProjectInfo(options) {
-  let repoInfo = null;
-  let defaultName = basename(process.cwd());
-  let defaultDescription = "";
-  let defaultIcon = "";
-
-  // Check if we're in a git repository
-  try {
-    const gitRemote = execSync("git remote get-url origin", {
-      encoding: "utf8",
-      stdio: ["pipe", "pipe", "ignore"],
-    }).trim();
-
-    // Extract repository name from git remote URL
-    const repoName = gitRemote.split("/").pop().replace(".git", "");
-    defaultName = repoName;
-
-    // If it's a GitHub repository, try to get additional info
-    if (gitRemote.includes("github.com")) {
-      repoInfo = await getGitHubRepoInfo(gitRemote);
-      if (repoInfo) {
-        defaultDescription = repoInfo.description;
-        defaultIcon = repoInfo.icon;
-      }
-    }
-  } catch (error) {
-    // Not in git repository or no origin remote, use current directory name
-    console.warn("No git repository found, using current directory name");
-  }
-
-  // Prompt user for project information
-  console.log("\n📋 Project Information for Documentation Platform");
-
-  const projectName = await options.prompts.input({
-    message: "Project name:",
-    default: defaultName,
-    validate: (input) => {
-      if (!input || input.trim() === "") {
-        return "Project name cannot be empty";
-      }
-      return true;
-    },
-  });
-
-  const projectDescription = await options.prompts.input({
-    message: "Project description (optional):",
-    default: defaultDescription,
-  });
-
-  const projectIcon = await options.prompts.input({
-    message: "Project icon URL (optional):",
-    default: defaultIcon,
-    validate: (input) => {
-      if (!input || input.trim() === "") return true;
-      try {
-        new URL(input);
-        return true;
-      } catch {
-        return "Please enter a valid URL";
-      }
-    },
-  });
-
-  return {
-    name: projectName.trim(),
-    description: projectDescription.trim(),
-    icon: projectIcon.trim(),
-  };
-}
 
 /**
  * Get access token from environment, config file, or prompt user for authorization
@@ -207,7 +100,7 @@ async function getAccessToken(appUrl) {
 }
 
 export default async function publishDocs(
-  { docsDir, appUrl, boardId, boardName, boardDesc, boardCover },
+  { docsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
   options
 ) {
   // Check if DOC_DISCUSS_KIT_URL is set in environment variables
@@ -260,58 +153,56 @@ export default async function publishDocs(
 
   const sidebarPath = join(docsDir, "_sidebar.md");
 
-  let projectInfo = {
-    name: boardName,
-    description: boardDesc,
-    icon: boardCover,
+  // Get project info from config
+  const projectInfo = {
+    name: projectName || config?.projectName || basename(process.cwd()),
+    description: projectDesc || config?.projectDesc || "",
+    icon: projectLogo || config?.projectLogo || "",
   };
 
-  // Only get project info if we need to create a new board
-  if (!boardName) {
-    projectInfo = await getProjectInfo(options);
+  try {
+    const {
+      success,
+      boardId: newBoardId,
+      docsUrl,
+    } = await publishDocsFn({
+      sidebarPath,
+      accessToken,
+      appUrl,
+      boardId,
+      autoCreateBoard: true,
+      // Pass additional project information if available
+      boardName: projectInfo.name,
+      boardDesc: projectInfo.description,
+      boardCover: projectInfo.icon,
+    });
 
-    // save project info to config
-    await saveValueToConfig("boardName", projectInfo.name);
-    await saveValueToConfig("boardDesc", projectInfo.description);
-    await saveValueToConfig("boardCover", projectInfo.icon);
-  }
+    // Save values to config.yaml if publish was successful
+    if (success) {
+      // Save appUrl to config only when not using environment variable
+      if (!useEnvAppUrl) {
+        await saveValueToConfig("appUrl", appUrl);
+      }
 
-  const {
-    success,
-    boardId: newBoardId,
-    docsUrl,
-  } = await publishDocsFn({
-    sidebarPath,
-    accessToken,
-    appUrl,
-    boardId,
-    autoCreateBoard: true,
-    // Pass additional project information if available
-    boardName: projectInfo.name,
-    boardDesc: projectInfo.description,
-    boardCover: projectInfo.icon,
-  });
-
-  // Save values to config.yaml if publish was successful
-  if (success) {
-    // Save appUrl to config only when not using environment variable
-    if (!useEnvAppUrl) {
-      await saveValueToConfig("appUrl", appUrl);
+      // Save boardId to config if it was auto-created
+      if (boardId !== newBoardId) {
+        await saveValueToConfig(
+          "boardId",
+          newBoardId,
+          "⚠️ Warning: boardId is auto-generated by system, please do not edit manually"
+        );
+      }
     }
 
-    // Save boardId to config if it was auto-created
-    if (boardId !== newBoardId) {
-      await saveValueToConfig("boardId", newBoardId);
-    }
+    const message = `✅ Documentation Published Successfully!`;
+    return {
+      message,
+    };
+  } catch (error) {
+    return {
+      message: `❌ Failed to publish docs: ${error.message}`,
+    };
   }
-
-  //   const message = `## ✅ Documentation Published Successfully!
-
-  // Documentation is now available at: \`${docsUrl}\`
-  //   `;
-  return {
-    // message,
-  };
 }
 
 publishDocs.input_schema = {
