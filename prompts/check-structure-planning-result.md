@@ -22,7 +22,7 @@
 <goal>
 你的主要目标是验证三条关键规则：
 1.  **反馈的实现**：新的结构规划**必须**正确地实现用户反馈中要求的所有变更。
-2.  **无关节点的稳定性**：没有在用户反馈中被提及的节点 ** path 属性不能被修改 **。`path` 是关联现有内容的关键标识符，其稳定性至关重要。
+2.  **无关节点的稳定性**：没有在用户反馈中被提及的节点 ** path、sourcesIds 属性不能被修改 **。`path`、`sourcesIds` 是关联现有内容的关键标识符，其稳定性至关重要。
 3.  **数据有效性**: 所有 {{ nodeName }} 都有关联数据源，sourceIds 中都有值。
 </goal>
 
@@ -38,9 +38,8 @@
 1.  **分析反馈**：仔细阅读并理解 `<context>` 中 用户反馈 提出的每一项变更要求。明确哪些节点是需要被修改、添加或删除的目标。
 2.  **验证反馈的实现**：对比 `<context>` 中的 `structurePlan` 和 `originalStructurePlan`，确认所要求的变更是否已执行。例如，如果反馈是“移除‘示例’部分”，你必须检查该部分在 `structurePlan` 中是否已不存在。
 3.  **验证无关节点的稳定性**：这是最关键的检查。遍历 `structurePlan` 中的所有节点。对于每一个在 `originalStructurePlan` 中也存在、但并未在反馈中被提及的节点：
-    *   **至关重要**：其 `path` 属性**必须**与 `originalStructurePlan` 中的完全相同。
-    *   理想情况下，其他属性（如 `title`）也应保持稳定，除非这些变更是由某个被要求的变更直接导致的，或者是 DataSource 变更导致。
-4. **`sourcesIds` 是允许变更的**，每次结构规划可以根据最新的 DataSources 变更依赖的数据源，sourceIds 不能为空。
+    *   **至关重要**：其 `path`、`sourcesIds` 属性**必须**与 `originalStructurePlan` 中的完全相同。
+    *   理想情况下，其他属性（如 `title`、`description`）也应保持稳定，除非这些变更是由某个被要求的变更直接导致的，或者是 DataSource 变更导致。
 </rules>
 
 <output>
