@@ -99,8 +99,7 @@ export const DOCUMENT_STYLES = {
 // Predefined target audiences
 export const TARGET_AUDIENCES = {
   actionFirst: "Developers, Implementation Engineers, DevOps",
-  conceptFirst:
-    "Architects, Technical Leads, Developers interested in principles",
+  conceptFirst: "Architects, Technical Leads, Developers interested in principles",
   generalUsers: "General Users",
   custom: "Enter your own target audience",
 };

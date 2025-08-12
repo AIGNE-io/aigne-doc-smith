@@ -1,7 +1,7 @@
-import { writeFile, readdir, unlink } from "node:fs/promises";
+import { readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { getCurrentGitHead, saveGitHeadToConfig } from "../utils/utils.mjs";
 import { shutdownMermaidWorkerPool } from "../utils/mermaid-worker-pool.mjs";
+import { getCurrentGitHead, saveGitHeadToConfig } from "../utils/utils.mjs";
 
 /**
  * @param {Object} params
@@ -17,7 +17,7 @@ export default async function saveDocs({
   locale,
   projectInfoMessage,
 }) {
-  const results = [];
+  const _results = [];
   // Save current git HEAD to config.yaml for change detection
   try {
     const gitHead = getCurrentGitHead();
@@ -37,12 +37,7 @@ export default async function saveDocs({
 
   // Clean up invalid .md files that are no longer in the structure plan
   try {
-    await cleanupInvalidFiles(
-      structurePlan,
-      docsDir,
-      translateLanguages,
-      locale
-    );
+    await cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, locale);
   } catch (err) {
     console.error("Failed to cleanup invalid .md files:", err.message);
   }
@@ -112,12 +107,7 @@ function generateFileName(flatName, language) {
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-async function cleanupInvalidFiles(
-  structurePlan,
-  docsDir,
-  translateLanguages,
-  locale
-) {
+async function cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, locale) {
   const results = [];
 
   try {
@@ -145,7 +135,7 @@ async function cleanupInvalidFiles(
 
     // Find files to delete (files that are not in expectedFiles and not _sidebar.md)
     const filesToDelete = mdFiles.filter(
-      (file) => !expectedFiles.has(file) && file !== "_sidebar.md"
+      (file) => !expectedFiles.has(file) && file !== "_sidebar.md",
     );
 
     // Delete invalid files
@@ -168,9 +158,7 @@ async function cleanupInvalidFiles(
     }
 
     if (filesToDelete.length > 0) {
-      console.log(
-        `Cleaned up ${filesToDelete.length} invalid .md files from ${docsDir}`
-      );
+      console.log(`Cleaned up ${filesToDelete.length} invalid .md files from ${docsDir}`);
     }
   } catch (err) {
     // If docsDir doesn't exist or can't be read, that's okay
@@ -209,7 +197,7 @@ function generateSidebar(structurePlan) {
     for (const key of Object.keys(node)) {
       const item = node[key];
       const fullSegments = [...parentSegments, key];
-      const flatFile = fullSegments.join("-") + ".md";
+      const flatFile = `${fullSegments.join("-")}.md`;
       if (item.__title) {
         const realIndent = item.__parentId === null ? "" : indent;
         out += `${realIndent}* [${item.__title}](/${flatFile})\n`;

@@ -1,5 +1,5 @@
-import path from "node:path";
 import fs from "node:fs/promises";
+import path from "node:path";
 import { parse } from "yaml";
 
 export default async function loadConfig({ config }) {
@@ -8,7 +8,7 @@ export default async function loadConfig({ config }) {
   try {
     // Check if config file exists
     await fs.access(configPath);
-  } catch (error) {
+  } catch (_error) {
     console.log(`Config file not found: ${configPath}`);
     console.log("Please run 'aigne doc init' to create the config file.");
     throw new Error(`Config file not found: ${configPath}`);

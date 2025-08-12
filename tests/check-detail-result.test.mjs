@@ -23,28 +23,21 @@ async function runTests() {
     const content = "This contains a [dead link](/dead-link).";
     const result = await checkDetailResult({ structurePlan, content });
     assert(result.isApproved === false, "Should not be approved");
-    assert(
-      result.detailFeedback.includes("Found a dead link"),
-      "Should report dead link"
-    );
+    assert(result.detailFeedback.includes("Found a dead link"), "Should report dead link");
     console.log("✅ Test passed: should reject content with a dead link");
   }
 
   async function testRejectIncorrectTableSeparator() {
-    console.log(
-      "Testing: should reject content with incorrect table separator"
-    );
+    console.log("Testing: should reject content with incorrect table separator");
     const structurePlan = [];
     const content = "| Header | Header |\n| - | - |\n| Cell | Cell |";
     const result = await checkDetailResult({ structurePlan, content });
     assert(result.isApproved === false, "Should not be approved");
     assert(
       result.detailFeedback.includes("incorrect table separator"),
-      "Should report incorrect table separator"
+      "Should report incorrect table separator",
     );
-    console.log(
-      "✅ Test passed: should reject content with incorrect table separator"
-    );
+    console.log("✅ Test passed: should reject content with incorrect table separator");
   }
 
   async function testApproveExternalLink() {
@@ -60,17 +53,13 @@ async function runTests() {
   async function testRejectMultipleIssues() {
     console.log("Testing: should reject content with multiple issues");
     const structurePlan = [{ path: "/getting-started" }];
-    const content =
-      "This has a [dead link](/dead-link) and an incorrect table: | - |.";
+    const content = "This has a [dead link](/dead-link) and an incorrect table: | - |.";
     const result = await checkDetailResult({ structurePlan, content });
     assert(result.isApproved === false, "Should not be approved");
-    assert(
-      result.detailFeedback.includes("Found a dead link"),
-      "Should report dead link"
-    );
+    assert(result.detailFeedback.includes("Found a dead link"), "Should report dead link");
     assert(
       result.detailFeedback.includes("incorrect table separator"),
-      "Should report incorrect table separator"
+      "Should report incorrect table separator",
     );
     console.log("✅ Test passed: should reject content with multiple issues");
   }

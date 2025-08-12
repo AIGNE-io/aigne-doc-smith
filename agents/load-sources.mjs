@@ -1,14 +1,8 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
-import {
-  getCurrentGitHead,
-  getModifiedFilesBetweenCommits,
-} from "../utils/utils.mjs";
-import {
-  DEFAULT_INCLUDE_PATTERNS,
-  DEFAULT_EXCLUDE_PATTERNS,
-} from "../utils/constants.mjs";
+import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../utils/constants.mjs";
+import { getCurrentGitHead, getModifiedFilesBetweenCommits } from "../utils/utils.mjs";
 
 /**
  * Load .gitignore patterns from a directory
@@ -42,12 +36,7 @@ async function loadGitignore(dir) {
  * @param {string[]} gitignorePatterns - .gitignore patterns
  * @returns {Promise<string[]>} Array of file paths
  */
-async function getFilesWithGlob(
-  dir,
-  includePatterns,
-  excludePatterns,
-  gitignorePatterns
-) {
+async function getFilesWithGlob(dir, includePatterns, excludePatterns, gitignorePatterns) {
   // Prepare all ignore patterns
   const allIgnorePatterns = [];
 
@@ -88,9 +77,7 @@ async function getFilesWithGlob(
 
     return files;
   } catch (error) {
-    console.warn(
-      `Warning: Error during glob search in ${dir}: ${error.message}`
-    );
+    console.warn(`Warning: Error during glob search in ${dir}: ${error.message}`);
     return [];
   }
 }
@@ -143,14 +130,8 @@ export default async function loadSources({
                 : [excludePatterns]
               : [];
 
-            finalIncludePatterns = [
-              ...DEFAULT_INCLUDE_PATTERNS,
-              ...userInclude,
-            ];
-            finalExcludePatterns = [
-              ...DEFAULT_EXCLUDE_PATTERNS,
-              ...userExclude,
-            ];
+            finalIncludePatterns = [...DEFAULT_INCLUDE_PATTERNS, ...userInclude];
+            finalExcludePatterns = [...DEFAULT_EXCLUDE_PATTERNS, ...userExclude];
           } else {
             // Use only user patterns
             if (includePatterns) {
@@ -170,7 +151,7 @@ export default async function loadSources({
             dir,
             finalIncludePatterns,
             finalExcludePatterns,
-            gitignorePatterns
+            gitignorePatterns,
           );
           allFiles = allFiles.concat(filesInDir);
         }
@@ -194,7 +175,7 @@ export default async function loadSources({
         sourceId: relativePath,
         content,
       };
-    })
+    }),
   );
 
   // Get the last structure plan result
@@ -253,13 +234,8 @@ export default async function loadSources({
     try {
       currentGitHead = getCurrentGitHead();
       if (currentGitHead && currentGitHead !== lastGitHead) {
-        modifiedFiles = getModifiedFilesBetweenCommits(
-          lastGitHead,
-          currentGitHead
-        );
-        console.log(
-          `Detected ${modifiedFiles.length} modified files since last generation`
-        );
+        modifiedFiles = getModifiedFilesBetweenCommits(lastGitHead, currentGitHead);
+        console.log(`Detected ${modifiedFiles.length} modified files since last generation`);
       }
     } catch (error) {
       console.warn("Failed to detect git changes:", error.message);
@@ -290,18 +266,15 @@ loadSources.input_schema = {
     },
     includePatterns: {
       anyOf: [{ type: "string" }, { type: "array", items: { type: "string" } }],
-      description:
-        "Glob patterns to filter files by path or filename. If not set, include all.",
+      description: "Glob patterns to filter files by path or filename. If not set, include all.",
     },
     excludePatterns: {
       anyOf: [{ type: "string" }, { type: "array", items: { type: "string" } }],
-      description:
-        "Glob patterns to exclude files by path or filename. If not set, exclude none.",
+      description: "Glob patterns to exclude files by path or filename. If not set, exclude none.",
     },
     useDefaultPatterns: {
       type: "boolean",
-      description:
-        "Whether to use default include/exclude patterns. Defaults to true.",
+      description: "Whether to use default include/exclude patterns. Defaults to true.",
     },
     "doc-path": {
       type: "string",

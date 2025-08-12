@@ -1,7 +1,6 @@
-import { mkdir, rm, writeFile, readdir } from "node:fs/promises";
-import path from "node:path";
+import { mkdir, rm, writeFile } from "node:fs/promises";
+import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { dirname } from "node:path";
 import loadSources from "../agents/load-sources.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -30,118 +29,67 @@ async function runTests() {
     await mkdir(path.join(testDir, "src/config"), { recursive: true });
 
     // Create test files in root and src
-    await writeFile(
-      path.join(testDir, "package.json"),
-      JSON.stringify({ name: "test" })
-    );
+    await writeFile(path.join(testDir, "package.json"), JSON.stringify({ name: "test" }));
     await writeFile(path.join(testDir, "README.md"), "# Test Project");
-    await writeFile(
-      path.join(testDir, "src/index.js"),
-      "console.log('hello');"
-    );
-    await writeFile(
-      path.join(testDir, "src/utils.js"),
-      "export function test() {}"
-    );
+    await writeFile(path.join(testDir, "src/index.js"), "console.log('hello');");
+    await writeFile(path.join(testDir, "src/utils.js"), "export function test() {}");
 
     // Create files in multi-level directories
-    await writeFile(
-      path.join(testDir, "src/components/Button.js"),
-      "export class Button {}"
-    );
-    await writeFile(
-      path.join(testDir, "src/components/ui/Modal.js"),
-      "export class Modal {}"
-    );
-    await writeFile(
-      path.join(testDir, "src/components/ui/Input.js"),
-      "export class Input {}"
-    );
+    await writeFile(path.join(testDir, "src/components/Button.js"), "export class Button {}");
+    await writeFile(path.join(testDir, "src/components/ui/Modal.js"), "export class Modal {}");
+    await writeFile(path.join(testDir, "src/components/ui/Input.js"), "export class Input {}");
     await writeFile(
       path.join(testDir, "src/utils/helpers/format.js"),
-      "export function format() {}"
+      "export function format() {}",
     );
     await writeFile(
       path.join(testDir, "src/utils/helpers/validate.js"),
-      "export function validate() {}"
+      "export function validate() {}",
     );
-    await writeFile(
-      path.join(testDir, "src/services/api/client.js"),
-      "export class ApiClient {}"
-    );
+    await writeFile(path.join(testDir, "src/services/api/client.js"), "export class ApiClient {}");
     await writeFile(
       path.join(testDir, "src/services/api/endpoints.js"),
-      "export const endpoints = {}"
+      "export const endpoints = {}",
     );
-    await writeFile(
-      path.join(testDir, "src/config/database.js"),
-      "export const dbConfig = {}"
-    );
-    await writeFile(
-      path.join(testDir, "src/config/app.js"),
-      "export const appConfig = {}"
-    );
+    await writeFile(path.join(testDir, "src/config/database.js"), "export const dbConfig = {}");
+    await writeFile(path.join(testDir, "src/config/app.js"), "export const appConfig = {}");
 
     // Create some non-JS files to test filtering
-    await writeFile(
-      path.join(testDir, "src/components/ui/styles.css"),
-      "/* styles */"
-    );
+    await writeFile(path.join(testDir, "src/components/ui/styles.css"), "/* styles */");
     await writeFile(
       path.join(testDir, "src/config/settings.json"),
-      JSON.stringify({ theme: "dark" })
+      JSON.stringify({ theme: "dark" }),
     );
-    await writeFile(
-      path.join(testDir, "src/utils/helpers/data.yaml"),
-      "version: 1.0"
-    );
+    await writeFile(path.join(testDir, "src/utils/helpers/data.yaml"), "version: 1.0");
 
     // Create test files
-    await writeFile(
-      path.join(testDir, "test/test.js"),
-      "describe('test', () => {});"
-    );
+    await writeFile(path.join(testDir, "test/test.js"), "describe('test', () => {});");
 
     // Create files with _test pattern to test the new exclusion
-    await writeFile(
-      path.join(testDir, "src/server_test.go"),
-      "func TestServer() {}"
-    );
-    await writeFile(
-      path.join(testDir, "src/user_test.js"),
-      "describe('user', () => {});"
-    );
-    await writeFile(
-      path.join(testDir, "src/api_test.ts"),
-      "describe('api', () => {});"
-    );
-    await writeFile(
-      path.join(testDir, "src/utils_test.py"),
-      "def test_utils(): pass"
-    );
+    await writeFile(path.join(testDir, "src/server_test.go"), "func TestServer() {}");
+    await writeFile(path.join(testDir, "src/user_test.js"), "describe('user', () => {});");
+    await writeFile(path.join(testDir, "src/api_test.ts"), "describe('api', () => {});");
+    await writeFile(path.join(testDir, "src/utils_test.py"), "def test_utils(): pass");
     await writeFile(
       path.join(testDir, "src/components/Button_test.jsx"),
-      "test('button', () => {});"
+      "test('button', () => {});",
     );
     await writeFile(
       path.join(testDir, "src/utils/helpers/format_test.js"),
-      "test('format', () => {});"
+      "test('format', () => {});",
     );
 
     await mkdir(path.join(testDir, "node_modules/some-package"), {
       recursive: true,
     });
-    await writeFile(
-      path.join(testDir, "node_modules/some-package/package.json"),
-      "{}"
-    );
+    await writeFile(path.join(testDir, "node_modules/some-package/package.json"), "{}");
     await writeFile(path.join(testDir, "temp/temp.txt"), "temp file");
     await writeFile(path.join(testDir, "ignore.txt"), "should be ignored");
 
     // Create .gitignore file
     await writeFile(
       path.join(testDir, ".gitignore"),
-      "node_modules/\n" + "temp/\n" + "ignore.txt\n" + "*.log\n"
+      "node_modules/\n" + "temp/\n" + "ignore.txt\n" + "*.log\n",
     );
   }
 
@@ -159,9 +107,7 @@ async function runTests() {
   function assertIncludes(array, item, message) {
     if (!array.some((element) => element.includes(item))) {
       throw new Error(
-        `Assertion failed: ${message} - Expected to find ${item} in ${JSON.stringify(
-          array
-        )}`
+        `Assertion failed: ${message} - Expected to find ${item} in ${JSON.stringify(array)}`,
       );
     }
   }
@@ -169,9 +115,7 @@ async function runTests() {
   function assertNotIncludes(array, item, message) {
     if (array.some((element) => element.includes(item))) {
       throw new Error(
-        `Assertion failed: ${message} - Expected not to find ${item} in ${JSON.stringify(
-          array
-        )}`
+        `Assertion failed: ${message} - Expected not to find ${item} in ${JSON.stringify(array)}`,
       );
     }
   }
@@ -187,15 +131,12 @@ async function runTests() {
     });
 
     assert(result.datasourcesList, "datasourcesList should be defined");
-    assert(
-      result.datasourcesList.length > 0,
-      "datasourcesList should not be empty"
-    );
+    assert(result.datasourcesList.length > 0, "datasourcesList should not be empty");
 
     // Debug: log actual file paths
     console.log(
       "Actual file paths:",
-      result.datasourcesList.map((f) => f.sourceId)
+      result.datasourcesList.map((f) => f.sourceId),
     );
 
     // Should include package.json, README.md, src files
@@ -226,10 +167,7 @@ async function runTests() {
     });
 
     assert(result.datasourcesList, "datasourcesList should be defined");
-    assert(
-      result.datasourcesList.length > 0,
-      "datasourcesList should not be empty"
-    );
+    assert(result.datasourcesList.length > 0, "datasourcesList should not be empty");
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
     assertIncludes(filePaths, "package.json", "Should include package.json");
@@ -283,7 +221,7 @@ async function runTests() {
     // Debug: log actual file paths
     console.log(
       "Path-based patterns - Actual file paths:",
-      result.datasourcesList.map((f) => f.sourceId)
+      result.datasourcesList.map((f) => f.sourceId),
     );
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
@@ -308,10 +246,7 @@ async function runTests() {
     });
 
     assert(result.datasourcesList, "datasourcesList should be defined");
-    assert(
-      result.datasourcesList.length > 0,
-      "datasourcesList should not be empty"
-    );
+    assert(result.datasourcesList.length > 0, "datasourcesList should not be empty");
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
     assertIncludes(filePaths, "src/index.js", "Should include src/index.js");
@@ -333,12 +268,10 @@ async function runTests() {
     assert(result.datasourcesList, "datasourcesList should be defined");
     assert(
       result.datasourcesList.length === 0,
-      "datasourcesList should be empty for non-existent directory"
+      "datasourcesList should be empty for non-existent directory",
     );
 
-    console.log(
-      "✅ Test passed: should handle non-existent directories gracefully"
-    );
+    console.log("✅ Test passed: should handle non-existent directories gracefully");
   }
 
   async function testMergeUserPatternsWithDefaultPatterns() {
@@ -364,9 +297,7 @@ async function runTests() {
     // Should exclude user exclude patterns
     assertNotIncludes(filePaths, "docs/", "Should exclude docs/");
 
-    console.log(
-      "✅ Test passed: should merge user patterns with default patterns"
-    );
+    console.log("✅ Test passed: should merge user patterns with default patterns");
   }
 
   async function testHandleMultiLevelDirectoryStructure() {
@@ -382,10 +313,7 @@ async function runTests() {
     });
 
     assert(result.datasourcesList, "datasourcesList should be defined");
-    assert(
-      result.datasourcesList.length > 0,
-      "datasourcesList should not be empty"
-    );
+    assert(result.datasourcesList.length > 0, "datasourcesList should not be empty");
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
@@ -395,61 +323,47 @@ async function runTests() {
     assertIncludes(
       filePaths,
       "src/components/Button.js",
-      "Should include src/components/Button.js"
+      "Should include src/components/Button.js",
     );
     assertIncludes(
       filePaths,
       "src/components/ui/Modal.js",
-      "Should include src/components/ui/Modal.js"
+      "Should include src/components/ui/Modal.js",
     );
     assertIncludes(
       filePaths,
       "src/components/ui/Input.js",
-      "Should include src/components/ui/Input.js"
+      "Should include src/components/ui/Input.js",
     );
     assertIncludes(
       filePaths,
       "src/utils/helpers/format.js",
-      "Should include src/utils/helpers/format.js"
+      "Should include src/utils/helpers/format.js",
     );
     assertIncludes(
       filePaths,
       "src/utils/helpers/validate.js",
-      "Should include src/utils/helpers/validate.js"
+      "Should include src/utils/helpers/validate.js",
     );
     assertIncludes(
       filePaths,
       "src/services/api/client.js",
-      "Should include src/services/api/client.js"
+      "Should include src/services/api/client.js",
     );
     assertIncludes(
       filePaths,
       "src/services/api/endpoints.js",
-      "Should include src/services/api/endpoints.js"
+      "Should include src/services/api/endpoints.js",
     );
-    assertIncludes(
-      filePaths,
-      "src/config/database.js",
-      "Should include src/config/database.js"
-    );
-    assertIncludes(
-      filePaths,
-      "src/config/app.js",
-      "Should include src/config/app.js"
-    );
+    assertIncludes(filePaths, "src/config/database.js", "Should include src/config/database.js");
+    assertIncludes(filePaths, "src/config/app.js", "Should include src/config/app.js");
 
     // Should exclude non-JS files
     assertNotIncludes(filePaths, "styles.css", "Should exclude styles.css");
-    assertNotIncludes(
-      filePaths,
-      "settings.json",
-      "Should exclude settings.json"
-    );
+    assertNotIncludes(filePaths, "settings.json", "Should exclude settings.json");
     assertNotIncludes(filePaths, "data.yaml", "Should exclude data.yaml");
 
-    console.log(
-      "✅ Test passed: should handle multi-level directory structure"
-    );
+    console.log("✅ Test passed: should handle multi-level directory structure");
   }
 
   async function testFilterBySpecificSubdirectories() {
@@ -472,50 +386,44 @@ async function runTests() {
     assertIncludes(
       filePaths,
       "src/components/Button.js",
-      "Should include src/components/Button.js"
+      "Should include src/components/Button.js",
     );
     assertIncludes(
       filePaths,
       "src/utils/helpers/format.js",
-      "Should include src/utils/helpers/format.js"
+      "Should include src/utils/helpers/format.js",
     );
     assertIncludes(
       filePaths,
       "src/utils/helpers/validate.js",
-      "Should include src/utils/helpers/validate.js"
+      "Should include src/utils/helpers/validate.js",
     );
 
     // Should exclude files from excluded subdirectories
     assertNotIncludes(
       filePaths,
       "src/components/ui/Modal.js",
-      "Should exclude src/components/ui/Modal.js"
+      "Should exclude src/components/ui/Modal.js",
     );
     assertNotIncludes(
       filePaths,
       "src/components/ui/Input.js",
-      "Should exclude src/components/ui/Input.js"
+      "Should exclude src/components/ui/Input.js",
     );
 
     // Should exclude files from other directories
     assertNotIncludes(
       filePaths,
       "src/services/api/client.js",
-      "Should exclude src/services/api/client.js"
+      "Should exclude src/services/api/client.js",
     );
-    assertNotIncludes(
-      filePaths,
-      "src/config/database.js",
-      "Should exclude src/config/database.js"
-    );
+    assertNotIncludes(filePaths, "src/config/database.js", "Should exclude src/config/database.js");
 
     console.log("✅ Test passed: should filter by specific subdirectories");
   }
 
   async function testHandleMixedFileTypesInMultiLevelDirectories() {
-    console.log(
-      "Testing: should handle mixed file types in multi-level directories"
-    );
+    console.log("Testing: should handle mixed file types in multi-level directories");
 
     const result = await loadSources({
       sourcesPath: testDir,
@@ -534,24 +442,24 @@ async function runTests() {
     assertIncludes(
       filePaths,
       "src/components/Button.js",
-      "Should include src/components/Button.js"
+      "Should include src/components/Button.js",
     );
     assertIncludes(
       filePaths,
       "src/utils/helpers/format.js",
-      "Should include src/utils/helpers/format.js"
+      "Should include src/utils/helpers/format.js",
     );
 
     // Should include JSON and YAML files
     assertIncludes(
       filePaths,
       "src/config/settings.json",
-      "Should include src/config/settings.json"
+      "Should include src/config/settings.json",
     );
     assertIncludes(
       filePaths,
       "src/utils/helpers/data.yaml",
-      "Should include src/utils/helpers/data.yaml"
+      "Should include src/utils/helpers/data.yaml",
     );
 
     // Should exclude CSS files
@@ -560,15 +468,11 @@ async function runTests() {
     // Should exclude node_modules
     assertNotIncludes(filePaths, "node_modules", "Should exclude node_modules");
 
-    console.log(
-      "✅ Test passed: should handle mixed file types in multi-level directories"
-    );
+    console.log("✅ Test passed: should handle mixed file types in multi-level directories");
   }
 
   async function testExcludeFilesWithTestPatternUsingDefaultPatterns() {
-    console.log(
-      "Testing: should exclude files with _test pattern using default patterns"
-    );
+    console.log("Testing: should exclude files with _test pattern using default patterns");
 
     const result = await loadSources({
       sourcesPath: testDir,
@@ -584,7 +488,7 @@ async function runTests() {
     // Debug: log actual file paths to see what's included
     console.log(
       "Files with _test pattern - Actual file paths:",
-      result.datasourcesList.map((f) => f.sourceId)
+      result.datasourcesList.map((f) => f.sourceId),
     );
 
     // Check which _test files are actually included
@@ -600,7 +504,7 @@ async function runTests() {
     assertIncludes(
       filePaths,
       "src/components/Button.js",
-      "Should include src/components/Button.js"
+      "Should include src/components/Button.js",
     );
 
     // And verify that some expected exclusions are working
@@ -609,7 +513,7 @@ async function runTests() {
     assertNotIncludes(filePaths, "test/test.js", "Should exclude test/test.js");
 
     console.log(
-      "✅ Test passed: should exclude files with _test pattern using default patterns (adjusted expectations)"
+      "✅ Test passed: should exclude files with _test pattern using default patterns (adjusted expectations)",
     );
   }
 

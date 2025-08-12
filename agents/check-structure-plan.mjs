@@ -1,14 +1,14 @@
 import {
   getCurrentGitHead,
+  getProjectInfo,
   hasFileChangesBetweenCommits,
   loadConfigFromFile,
   saveValueToConfig,
-  getProjectInfo,
 } from "../utils/utils.mjs";
 
 export default async function checkStructurePlan(
   { originalStructurePlan, feedback, lastGitHead, ...rest },
-  options
+  options,
 ) {
   // Check if we need to regenerate structure plan
   let shouldRegenerate = false;
@@ -23,10 +23,7 @@ export default async function checkStructurePlan(
       // Check if there are relevant file changes since last generation
       const currentGitHead = getCurrentGitHead();
       if (currentGitHead && currentGitHead !== lastGitHead) {
-        const hasChanges = hasFileChangesBetweenCommits(
-          lastGitHead,
-          currentGitHead
-        );
+        const hasChanges = hasFileChangesBetweenCommits(lastGitHead, currentGitHead);
         if (hasChanges) {
           shouldRegenerate = true;
         }
@@ -71,11 +68,9 @@ export default async function checkStructurePlan(
 
       // Check if user has modified project information
       const userModifiedProjectName =
-        currentConfig?.projectName &&
-        currentConfig.projectName !== projectInfo.name;
+        currentConfig?.projectName && currentConfig.projectName !== projectInfo.name;
       const userModifiedProjectDesc =
-        currentConfig?.projectDesc &&
-        currentConfig.projectDesc !== projectInfo.description;
+        currentConfig?.projectDesc && currentConfig.projectDesc !== projectInfo.description;
 
       // If user hasn't modified project info and it's not from GitHub, save AI output
       if (!userModifiedProjectName && !userModifiedProjectDesc) {

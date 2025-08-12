@@ -1,15 +1,12 @@
 import { normalizePath, toRelativePath } from "../utils/utils.mjs";
 
-export default function transformDetailDatasources({
-  sourceIds,
-  datasourcesList,
-}) {
+export default function transformDetailDatasources({ sourceIds, datasourcesList }) {
   // Build a map for fast lookup, with path normalization for compatibility
   const dsMap = Object.fromEntries(
     (datasourcesList || []).map((ds) => {
       const normalizedSourceId = normalizePath(ds.sourceId);
       return [normalizedSourceId, ds.content];
-    })
+    }),
   );
 
   // Collect formatted contents in order, with path normalization

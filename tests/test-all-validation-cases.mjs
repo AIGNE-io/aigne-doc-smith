@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { checkMarkdown } from "../utils/markdown-checker.mjs";
 import checkDetailResult from "../agents/check-detail-result.mjs";
+import { checkMarkdown } from "../utils/markdown-checker.mjs";
 import { shutdownValidation } from "../utils/mermaid-validator.mjs";
 
 // Mock structure plan for link validation
@@ -641,11 +641,8 @@ async function runValidationTests() {
 
         // Check if expected error types are present
         if (testCase.expectedErrors) {
-          const foundExpectedErrors = testCase.expectedErrors.every(
-            (expectedError) =>
-              errors.some((error) =>
-                error.toLowerCase().includes(expectedError.toLowerCase())
-              )
+          const foundExpectedErrors = testCase.expectedErrors.every((expectedError) =>
+            errors.some((error) => error.toLowerCase().includes(expectedError.toLowerCase())),
           );
 
           if (foundExpectedErrors) {
@@ -661,7 +658,7 @@ async function runValidationTests() {
         console.log(
           `❌ FAIL - Expected ${expectPass ? "PASS" : "FAIL"} but got ${
             hasErrors ? "FAIL" : "PASS"
-          }`
+          }`,
         );
         failedTests++;
       }
@@ -686,7 +683,7 @@ async function runValidationTests() {
         console.log("✅ Direct call and wrapper consistent");
       } else {
         console.log(
-          `⚠️  Inconsistent results: direct=${errors.length}, wrapper=${wrapperErrors.length}`
+          `⚠️  Inconsistent results: direct=${errors.length}, wrapper=${wrapperErrors.length}`,
         );
       }
     } catch (error) {
@@ -696,15 +693,13 @@ async function runValidationTests() {
   }
 
   // Final summary
-  console.log("\n" + "=".repeat(80));
+  console.log(`\n${"=".repeat(80)}`);
   console.log("📊 TEST SUMMARY");
   console.log("=".repeat(80));
   console.log(`Total Tests: ${totalTests}`);
   console.log(`Passed: ${passedTests} ✅`);
   console.log(`Failed: ${failedTests} ❌`);
-  console.log(
-    `Success Rate: ${((passedTests / totalTests) * 100).toFixed(1)}%`
-  );
+  console.log(`Success Rate: ${((passedTests / totalTests) * 100).toFixed(1)}%`);
 
   console.log("\n🔍 VALIDATION COVERAGE:");
   console.log("✅ Link validation (dead links, allowed links)");
@@ -717,13 +712,9 @@ async function runValidationTests() {
   console.log("✅ Edge cases and error conditions");
 
   if (failedTests === 0) {
-    console.log(
-      "\n🎉 ALL TESTS PASSED! Validation system is working correctly."
-    );
+    console.log("\n🎉 ALL TESTS PASSED! Validation system is working correctly.");
   } else {
-    console.log(
-      `\n⚠️  ${failedTests} test(s) failed. Please review the validation logic.`
-    );
+    console.log(`\n⚠️  ${failedTests} test(s) failed. Please review the validation logic.`);
   }
 
   // Shutdown worker pool to ensure clean exit

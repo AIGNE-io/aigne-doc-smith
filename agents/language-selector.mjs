@@ -8,10 +8,7 @@ import { SUPPORTED_LANGUAGES } from "../utils/constants.mjs";
  * @param {Object} options - Options object with prompts
  * @returns {Promise<Object>} Selected languages
  */
-export default async function languageSelector(
-  { languages, translateLanguages },
-  options
-) {
+export default async function languageSelector({ languages, translateLanguages }, options) {
   let selectedLanguages = [];
 
   // Check if translateLanguages is available from config
@@ -21,24 +18,19 @@ export default async function languageSelector(
     translateLanguages.length === 0
   ) {
     throw new Error(
-      "No translation languages configured in config.yaml. Please add translateLanguages to your configuration."
+      "No translation languages configured in config.yaml. Please add translateLanguages to your configuration.",
     );
   }
 
   // If languages are provided as parameter, validate against configured languages
   if (languages && Array.isArray(languages) && languages.length > 0) {
-    const validLanguages = languages.filter((lang) =>
-      translateLanguages.includes(lang)
-    );
+    const validLanguages = languages.filter((lang) => translateLanguages.includes(lang));
 
     if (validLanguages.length > 0) {
       selectedLanguages = validLanguages;
     } else {
       console.log(`⚠️  Invalid languages provided: ${languages.join(", ")}`);
-      console.log(
-        "Available configured languages:",
-        translateLanguages.join(", ")
-      );
+      console.log("Available configured languages:", translateLanguages.join(", "));
     }
   }
 
@@ -46,13 +38,9 @@ export default async function languageSelector(
   if (selectedLanguages.length === 0) {
     // Create choices from configured languages with labels
     const choices = translateLanguages.map((langCode) => {
-      const supportedLang = SUPPORTED_LANGUAGES.find(
-        (l) => l.code === langCode
-      );
+      const supportedLang = SUPPORTED_LANGUAGES.find((l) => l.code === langCode);
       return {
-        name: supportedLang
-          ? `${supportedLang.label} (${supportedLang.sample})`
-          : langCode,
+        name: supportedLang ? `${supportedLang.label} (${supportedLang.sample})` : langCode,
         value: langCode,
         short: langCode,
       };

@@ -3,10 +3,7 @@ import path from "node:path";
 
 const docsDir = path.join(process.cwd(), "./.aigne/doc-smith", "docs");
 
-export default async function readDocContent({
-  relevantDocPaths,
-  docsDir: customDocsDir,
-}) {
+export default async function readDocContent({ relevantDocPaths, docsDir: customDocsDir }) {
   const targetDocsDir = customDocsDir || docsDir;
   const docContents = [];
 

@@ -1,20 +1,10 @@
+import { execSync } from "node:child_process";
+import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { execSync } from "node:child_process";
-import {
-  existsSync,
-  mkdirSync,
-  readdirSync,
-  accessSync,
-  constants,
-  statSync,
-} from "node:fs";
-import { parse } from "yaml";
 import chalk from "chalk";
-import {
-  DEFAULT_INCLUDE_PATTERNS,
-  DEFAULT_EXCLUDE_PATTERNS,
-} from "./constants.mjs";
+import { parse } from "yaml";
+import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "./constants.mjs";
 
 /**
  * Normalize path to absolute path for consistent comparison
@@ -22,9 +12,7 @@ import {
  * @returns {string} - Absolute path
  */
 export function normalizePath(filePath) {
-  return path.isAbsolute(filePath)
-    ? filePath
-    : path.resolve(process.cwd(), filePath);
+  return path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath);
 }
 
 /**
@@ -33,36 +21,31 @@ export function normalizePath(filePath) {
  * @returns {string} - Relative path
  */
 export function toRelativePath(filePath) {
-  return path.isAbsolute(filePath)
-    ? path.relative(process.cwd(), filePath)
-    : filePath;
+  return path.isAbsolute(filePath) ? path.relative(process.cwd(), filePath) : filePath;
 }
 
 export function processContent({ content }) {
   // Match markdown regular links [text](link), exclude images ![text](link)
-  return content.replace(
-    /(?<!!)\[([^\]]+)\]\(([^)]+)\)/g,
-    (match, text, link) => {
-      const trimLink = link.trim();
-      // Exclude external links and mailto
-      if (/^(https?:\/\/|mailto:)/.test(trimLink)) return match;
-      // Preserve anchors
-      const [path, hash] = trimLink.split("#");
-      // Skip if already has extension
-      if (/\.[a-zA-Z0-9]+$/.test(path)) return match;
-      // Only process relative paths or paths starting with /
-      if (!path) return match;
-      // Flatten to ./xxx-yyy.md
-      let finalPath = path;
-      if (path.startsWith(".")) {
-        finalPath = path.replace(/^\./, "");
-      }
-      let flatPath = finalPath.replace(/^\//, "").replace(/\//g, "-");
-      flatPath = `./${flatPath}.md`;
-      const newLink = hash ? `${flatPath}#${hash}` : flatPath;
-      return `[${text}](${newLink})`;
+  return content.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g, (match, text, link) => {
+    const trimLink = link.trim();
+    // Exclude external links and mailto
+    if (/^(https?:\/\/|mailto:)/.test(trimLink)) return match;
+    // Preserve anchors
+    const [path, hash] = trimLink.split("#");
+    // Skip if already has extension
+    if (/\.[a-zA-Z0-9]+$/.test(path)) return match;
+    // Only process relative paths or paths starting with /
+    if (!path) return match;
+    // Flatten to ./xxx-yyy.md
+    let finalPath = path;
+    if (path.startsWith(".")) {
+      finalPath = path.replace(/^\./, "");
     }
-  );
+    let flatPath = finalPath.replace(/^\//, "").replace(/\//g, "-");
+    flatPath = `./${flatPath}.md`;
+    const newLink = hash ? `${flatPath}#${hash}` : flatPath;
+    return `[${text}](${newLink})`;
+  });
 }
 
 /**
@@ -190,7 +173,7 @@ export async function saveGitHeadToConfig(gitHead) {
       if (fileContent && !fileContent.endsWith("\n")) {
         fileContent += "\n";
       }
-      fileContent += newLastGitHeadLine + "\n";
+      fileContent += `${newLastGitHeadLine}\n`;
     }
 
     await fs.writeFile(inputFilePath, fileContent);
@@ -206,20 +189,13 @@ export async function saveGitHeadToConfig(gitHead) {
  * @param {Array<string>} filePaths - Array of file paths to check
  * @returns {Array<string>} - Array of modified file paths
  */
-export function getModifiedFilesBetweenCommits(
-  fromCommit,
-  toCommit = "HEAD",
-  filePaths = []
-) {
+export function getModifiedFilesBetweenCommits(fromCommit, toCommit = "HEAD", filePaths = []) {
   try {
     // Get all modified files between commits
-    const modifiedFiles = execSync(
-      `git diff --name-only ${fromCommit}..${toCommit}`,
-      {
-        encoding: "utf8",
-        stdio: ["pipe", "pipe", "ignore"],
-      }
-    )
+    const modifiedFiles = execSync(`git diff --name-only ${fromCommit}..${toCommit}`, {
+      encoding: "utf8",
+      stdio: ["pipe", "pipe", "ignore"],
+    })
       .trim()
       .split("\n")
       .filter(Boolean);
@@ -234,12 +210,12 @@ export function getModifiedFilesBetweenCommits(
         const absoluteFile = normalizePath(file);
         const absoluteTarget = normalizePath(targetPath);
         return absoluteFile === absoluteTarget;
-      })
+      }),
     );
   } catch (error) {
     console.warn(
       `Failed to get modified files between ${fromCommit} and ${toCommit}:`,
-      error.message
+      error.message,
     );
     return [];
   }
@@ -261,7 +237,7 @@ export function hasSourceFilesChanged(sourceIds, modifiedFiles) {
       const absoluteModifiedFile = normalizePath(modifiedFile);
       const absoluteSourceId = normalizePath(sourceId);
       return absoluteModifiedFile === absoluteSourceId;
-    })
+    }),
   );
 }
 
@@ -277,17 +253,14 @@ export function hasFileChangesBetweenCommits(
   fromCommit,
   toCommit = "HEAD",
   includePatterns = DEFAULT_INCLUDE_PATTERNS,
-  excludePatterns = DEFAULT_EXCLUDE_PATTERNS
+  excludePatterns = DEFAULT_EXCLUDE_PATTERNS,
 ) {
   try {
     // Get file changes with status (A=added, D=deleted, M=modified)
-    const changes = execSync(
-      `git diff --name-status ${fromCommit}..${toCommit}`,
-      {
-        encoding: "utf8",
-        stdio: ["pipe", "pipe", "ignore"],
-      }
-    )
+    const changes = execSync(`git diff --name-status ${fromCommit}..${toCommit}`, {
+      encoding: "utf8",
+      stdio: ["pipe", "pipe", "ignore"],
+    })
       .trim()
       .split("\n")
       .filter(Boolean);
@@ -309,10 +282,7 @@ export function hasFileChangesBetweenCommits(
       // Check if file matches any include pattern
       const matchesInclude = includePatterns.some((pattern) => {
         // Convert glob pattern to regex for matching
-        const regexPattern = pattern
-          .replace(/\./g, "\\.")
-          .replace(/\*/g, ".*")
-          .replace(/\?/g, ".");
+        const regexPattern = pattern.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/\?/g, ".");
         const regex = new RegExp(regexPattern);
         return regex.test(filePath);
       });
@@ -324,10 +294,7 @@ export function hasFileChangesBetweenCommits(
       // Check if file matches any exclude pattern
       const matchesExclude = excludePatterns.some((pattern) => {
         // Convert glob pattern to regex for matching
-        const regexPattern = pattern
-          .replace(/\./g, "\\.")
-          .replace(/\*/g, ".*")
-          .replace(/\?/g, ".");
+        const regexPattern = pattern.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/\?/g, ".");
         const regex = new RegExp(regexPattern);
         return regex.test(filePath);
       });
@@ -337,7 +304,7 @@ export function hasFileChangesBetweenCommits(
   } catch (error) {
     console.warn(
       `Failed to check file changes between ${fromCommit} and ${toCommit}:`,
-      error.message
+      error.message,
     );
     return false;
   }
@@ -348,11 +315,7 @@ export function hasFileChangesBetweenCommits(
  * @returns {Promise<Object|null>} - The config object or null if file doesn't exist
  */
 export async function loadConfigFromFile() {
-  const configPath = path.join(
-    process.cwd(),
-    "./.aigne/doc-smith",
-    "config.yaml"
-  );
+  const configPath = path.join(process.cwd(), "./.aigne/doc-smith", "config.yaml");
 
   try {
     if (!existsSync(configPath)) {
@@ -405,11 +368,7 @@ export async function saveValueToConfig(key, value, comment) {
       fileContent = lines.join("\n");
 
       // Add comment if provided and not already present
-      if (
-        comment &&
-        keyIndex > 0 &&
-        !lines[keyIndex - 1].trim().startsWith("# ")
-      ) {
+      if (comment && keyIndex > 0 && !lines[keyIndex - 1].trim().startsWith("# ")) {
         // Add comment above the key if it doesn't already have one
         lines.splice(keyIndex, 0, `# ${comment}`);
         fileContent = lines.join("\n");
@@ -425,7 +384,7 @@ export async function saveValueToConfig(key, value, comment) {
         fileContent += `# ${comment}\n`;
       }
 
-      fileContent += newKeyLine + "\n";
+      fileContent += `${newKeyLine}\n`;
     }
 
     await fs.writeFile(configPath, fileContent);
@@ -454,7 +413,7 @@ export function validatePath(filePath) {
     // Check if path is accessible (readable)
     try {
       accessSync(absolutePath, constants.R_OK);
-    } catch (accessError) {
+    } catch (_accessError) {
       return {
         isValid: false,
         error: `Path is not accessible: ${filePath}`,
@@ -465,7 +424,7 @@ export function validatePath(filePath) {
       isValid: true,
       error: null,
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       isValid: false,
       error: `Invalid path format: ${filePath}`,
@@ -588,10 +547,7 @@ export function getAvailablePaths(userInput = "") {
 
     return uniqueResults;
   } catch (error) {
-    console.warn(
-      `Failed to get available paths for "${userInput}":`,
-      error.message
-    );
+    console.warn(`Failed to get available paths for "${userInput}":`, error.message);
     return [];
   }
 }
@@ -632,10 +588,7 @@ function getDirectoryContents(dirPath, searchTerm = "") {
       }
 
       // Filter by search term if provided
-      if (
-        searchTerm &&
-        !entryName.toLowerCase().includes(searchTerm.toLowerCase())
-      ) {
+      if (searchTerm && !entryName.toLowerCase().includes(searchTerm.toLowerCase())) {
         continue;
       }
 
@@ -673,10 +626,7 @@ function getDirectoryContents(dirPath, searchTerm = "") {
 
     return items;
   } catch (error) {
-    console.warn(
-      `Failed to get directory contents from ${dirPath}:`,
-      error.message
-    );
+    console.warn(`Failed to get directory contents from ${dirPath}:`, error.message);
     return [];
   }
 }
@@ -689,9 +639,7 @@ function getDirectoryContents(dirPath, searchTerm = "") {
 export async function getGitHubRepoInfo(repoUrl) {
   try {
     // Extract owner and repo from GitHub URL
-    const match = repoUrl.match(
-      /github\.com[\/:]([^\/]+)\/([^\/]+?)(?:\.git)?$/
-    );
+    const match = repoUrl.match(/github\.com[/:]([^/]+)\/([^/]+?)(?:\.git)?$/);
     if (!match) return null;
 
     const [, owner, repo] = match;
@@ -743,7 +691,7 @@ export async function getProjectInfo() {
         fromGitHub = true;
       }
     }
-  } catch (error) {
+  } catch (_error) {
     // Not in git repository or no origin remote, use current directory name
     console.warn("No git repository found, using current directory name");
   }

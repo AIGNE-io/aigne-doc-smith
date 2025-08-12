@@ -5,7 +5,7 @@ const structureDir = path.join(
   process.cwd(),
   "./.aigne/doc-smith",
   "output",
-  "structure-plan.json"
+  "structure-plan.json",
 );
 
 export default async function getDocsStructure() {

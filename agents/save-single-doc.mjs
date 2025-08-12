@@ -1,5 +1,5 @@
-import { saveDocWithTranslations } from "../utils/utils.mjs";
 import { shutdownMermaidWorkerPool } from "../utils/mermaid-worker-pool.mjs";
+import { saveDocWithTranslations } from "../utils/utils.mjs";
 
 export default async function saveSingleDoc({
   path,
@@ -11,7 +11,7 @@ export default async function saveSingleDoc({
   isTranslate = false,
   isShowMessage = false,
 }) {
-  const results = await saveDocWithTranslations({
+  const _results = await saveDocWithTranslations({
     path,
     content,
     docsDir,

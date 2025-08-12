@@ -5,7 +5,7 @@
  * Runs in isolated Worker thread to avoid global state conflicts
  */
 
-import { parentPort } from "worker_threads";
+import { parentPort } from "node:worker_threads";
 
 /**
  * Validate mermaid syntax using official parser in isolated environment
@@ -54,9 +54,7 @@ async function validateMermaidWithOfficialParser(content) {
 
     // Verify DOMPurify is working before proceeding
     if (typeof dompurify.sanitize !== "function") {
-      throw new Error(
-        "DOMPurify initialization failed - sanitize method not available"
-      );
+      throw new Error("DOMPurify initialization failed - sanitize method not available");
     }
 
     // Test DOMPurify functionality
@@ -82,10 +80,7 @@ async function validateMermaidWithOfficialParser(content) {
     const originalDOMPurifyFactory = DOMPurifyModule.default;
     try {
       // This might work: intercept the factory function itself
-      if (
-        typeof originalDOMPurifyFactory === "function" &&
-        !originalDOMPurifyFactory.sanitize
-      ) {
+      if (typeof originalDOMPurifyFactory === "function" && !originalDOMPurifyFactory.sanitize) {
         // This means DOMPurify.default is a factory function, not an instance
         // We need to make sure when mermaid calls DOMPurify.sanitize, it works
         const factoryResult = originalDOMPurifyFactory(window);
@@ -93,7 +88,7 @@ async function validateMermaidWithOfficialParser(content) {
         // Copy methods from our working instance to the factory result
         Object.assign(originalDOMPurifyFactory, factoryResult);
       }
-    } catch (factoryError) {
+    } catch (_factoryError) {
       // If factory modification fails, that's OK - we have other fallbacks
     }
 
@@ -120,9 +115,7 @@ async function validateMermaidWithOfficialParser(content) {
     }
 
     if (errorMessage.includes("Expecting ")) {
-      throw new Error(
-        "Syntax error: " + errorMessage.replace(/^.*Expecting /, "Expected ")
-      );
+      throw new Error(`Syntax error: ${errorMessage.replace(/^.*Expecting /, "Expected ")}`);
     }
 
     if (errorMessage.includes("Lexical error")) {
@@ -166,17 +159,15 @@ function validateBasicMermaidSyntax(content) {
   ];
 
   const firstLine = trimmedContent.split("\n")[0].trim();
-  const hasValidType = validDiagramTypes.some((type) =>
-    firstLine.includes(type)
-  );
+  const hasValidType = validDiagramTypes.some((type) => firstLine.includes(type));
 
   if (!hasValidType) {
     throw new Error("Invalid or missing diagram type");
   }
 
   // Basic bracket matching
-  const openBrackets = (content.match(/[\[\{\(]/g) || []).length;
-  const closeBrackets = (content.match(/[\]\}\)]/g) || []).length;
+  const openBrackets = (content.match(/[[{(]/g) || []).length;
+  const closeBrackets = (content.match(/[\]})]/g) || []).length;
 
   if (openBrackets !== closeBrackets) {
     throw new Error("Unmatched brackets in diagram");

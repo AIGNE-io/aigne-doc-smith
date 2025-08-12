@@ -1,9 +1,6 @@
 import { checkMarkdown } from "../utils/markdown-checker.mjs";
 
-export default async function checkDetailResult({
-  structurePlan,
-  reviewContent,
-}) {
+export default async function checkDetailResult({ structurePlan, reviewContent }) {
   let isApproved = true;
   const detailFeedback = [];
 
@@ -35,9 +32,7 @@ export default async function checkDetailResult({
     }
   } catch (error) {
     isApproved = false;
-    detailFeedback.push(
-      `Found markdown validation error in result: ${error.message}`
-    );
+    detailFeedback.push(`Found markdown validation error in result: ${error.message}`);
   }
 
   return {

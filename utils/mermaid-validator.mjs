@@ -3,10 +3,7 @@
  * Provides concurrent-safe validation with isolated worker environments
  */
 
-import {
-  getMermaidWorkerPool,
-  shutdownMermaidWorkerPool,
-} from "./mermaid-worker-pool.mjs";
+import { getMermaidWorkerPool, shutdownMermaidWorkerPool } from "./mermaid-worker-pool.mjs";
 
 /**
  * Worker-based mermaid validation - DEPRECATED but kept for compatibility
@@ -55,17 +52,15 @@ export function validateBasicMermaidSyntax(content) {
   ];
 
   const firstLine = trimmedContent.split("\n")[0].trim();
-  const hasValidType = validDiagramTypes.some((type) =>
-    firstLine.includes(type)
-  );
+  const hasValidType = validDiagramTypes.some((type) => firstLine.includes(type));
 
   if (!hasValidType) {
     throw new Error("Invalid or missing diagram type");
   }
 
   // Basic bracket matching
-  const openBrackets = (content.match(/[\[\{\(]/g) || []).length;
-  const closeBrackets = (content.match(/[\]\}\)]/g) || []).length;
+  const openBrackets = (content.match(/[[{(]/g) || []).length;
+  const closeBrackets = (content.match(/[\]})]/g) || []).length;
 
   if (openBrackets !== closeBrackets) {
     throw new Error("Unmatched brackets in diagram");
@@ -125,7 +120,7 @@ export async function validateMermaidSyntax(content) {
       // Fall back to basic validation for environment issues
       console.warn(
         "Worker-based mermaid validation failed, falling back to basic validation:",
-        errorMsg
+        errorMsg,
       );
       return validateBasicMermaidSyntax(content);
     }

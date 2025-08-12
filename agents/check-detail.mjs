@@ -2,8 +2,8 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
-import checkDetailResult from "./check-detail-result.mjs";
 import { hasSourceFilesChanged } from "../utils/utils.mjs";
+import checkDetailResult from "./check-detail-result.mjs";
 
 // Get current script directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -20,7 +20,7 @@ export default async function checkDetail(
     forceRegenerate,
     ...rest
   },
-  options
+  options,
 ) {
   // Check if the detail file already exists
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
@@ -41,11 +41,9 @@ export default async function checkDetail(
   let sourceIdsChanged = false;
   if (originalStructurePlan && sourceIds) {
     // Find the original node in the structure plan
-    const originalNode = originalStructurePlan.find(
-      (node) => node.path === path
-    );
+    const originalNode = originalStructurePlan.find((node) => node.path === path);
 
-    if (originalNode && originalNode.sourceIds) {
+    if (originalNode?.sourceIds) {
       const originalSourceIds = originalNode.sourceIds;
       const currentSourceIds = sourceIds;
 

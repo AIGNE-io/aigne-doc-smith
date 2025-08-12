@@ -1,7 +1,6 @@
-import { writeFile, mkdir, readdir } from "node:fs/promises";
-import { join } from "node:path";
+import { mkdir, readdir, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { dirname } from "node:path";
 import saveDocs from "../agents/save-docs.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -81,12 +80,8 @@ async function testSaveDocs() {
       "_sidebar.md",
     ];
 
-    const missingFiles = expectedFiles.filter(
-      (file) => !remainingFiles.includes(file)
-    );
-    const extraFiles = remainingFiles.filter(
-      (file) => !expectedFiles.includes(file)
-    );
+    const missingFiles = expectedFiles.filter((file) => !remainingFiles.includes(file));
+    const extraFiles = remainingFiles.filter((file) => !expectedFiles.includes(file));
 
     if (missingFiles.length === 0 && extraFiles.length === 0) {
       console.log("\n✅ Test passed! All files are as expected.");
@@ -101,14 +96,8 @@ async function testSaveDocs() {
     }
 
     // Verify that invalid files were deleted
-    const deletedFiles = [
-      "old-file.md",
-      "another-old-file.md",
-      "old-translation.zh.md",
-    ];
-    const stillExist = deletedFiles.filter((file) =>
-      remainingFiles.includes(file)
-    );
+    const deletedFiles = ["old-file.md", "another-old-file.md", "old-translation.zh.md"];
+    const stillExist = deletedFiles.filter((file) => remainingFiles.includes(file));
 
     if (stillExist.length === 0) {
       console.log("✅ All invalid files were successfully deleted.");

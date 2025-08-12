@@ -5,9 +5,9 @@
  * Manages worker threads for concurrent mermaid validation
  */
 
-import { Worker } from "worker_threads";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { Worker } from "node:worker_threads";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -51,18 +51,14 @@ class SimpleMermaidWorkerPool {
         // Handle worker errors more gracefully
         worker.on("error", (error) => {
           if (worker.currentRequest) {
-            worker.currentRequest.reject(
-              new Error(`Worker error: ${error.message}`)
-            );
+            worker.currentRequest.reject(new Error(`Worker error: ${error.message}`));
             worker.currentRequest = null;
           }
         });
 
-        worker.on("exit", (code) => {
+        worker.on("exit", (_code) => {
           if (worker.currentRequest) {
-            worker.currentRequest.reject(
-              new Error("Worker exited unexpectedly")
-            );
+            worker.currentRequest.reject(new Error("Worker exited unexpectedly"));
             worker.currentRequest = null;
           }
         });
@@ -212,7 +208,7 @@ class SimpleMermaidWorkerPool {
     const terminationPromises = this.workers.map(async (worker) => {
       try {
         await worker.terminate();
-      } catch (error) {
+      } catch (_error) {
         // Ignore termination errors
       }
     });
