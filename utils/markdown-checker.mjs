@@ -92,6 +92,94 @@ function checkDeadLinks(markdown, source, allowedLinks, errorMessages) {
 }
 
 /**
+ * Check code block content for indentation consistency issues
+ * @param {Array} codeBlockContent - Array of {line, lineNumber} objects from the code block
+ * @param {string} source - Source description for error reporting
+ * @param {Array} errorMessages - Array to push error messages to
+ */
+function checkCodeBlockIndentation(codeBlockContent, source, errorMessages) {
+  if (codeBlockContent.length === 0) return;
+
+  // Filter out empty lines for base indentation calculation
+  const nonEmptyLines = codeBlockContent.filter(
+    (item) => item.line.trim().length > 0
+  );
+  if (nonEmptyLines.length === 0) return;
+
+  // Find the base indentation from the first meaningful line
+  let baseCodeIndent = null;
+  const problematicLines = [];
+
+  for (const item of nonEmptyLines) {
+    const { line, lineNumber } = item;
+    const match = line.match(/^(\s*)/);
+    const currentIndent = match ? match[1].length : 0;
+    const trimmedLine = line.trim();
+
+    // Skip lines that are clearly comments (common pattern: # comment)
+    if (
+      trimmedLine.startsWith("#") &&
+      !trimmedLine.includes("=") &&
+      !trimmedLine.includes("{")
+    ) {
+      continue;
+    }
+
+    // Establish base indentation from the first meaningful line
+    if (baseCodeIndent === null) {
+      baseCodeIndent = currentIndent;
+      continue;
+    }
+
+    // Check if current line has less indentation than the base
+    // This indicates inconsistent indentation that may cause rendering issues
+    if (currentIndent < baseCodeIndent && baseCodeIndent > 0) {
+      problematicLines.push({
+        lineNumber,
+        line: line.trimEnd(),
+        currentIndent,
+        baseIndent: baseCodeIndent,
+      });
+    }
+  }
+
+  // Report indentation issues if found
+  if (problematicLines.length > 0) {
+    // Group consecutive issues to avoid spam
+    const groupedIssues = [];
+    let currentGroup = [problematicLines[0]];
+
+    for (let i = 1; i < problematicLines.length; i++) {
+      const current = problematicLines[i];
+      const previous = problematicLines[i - 1];
+
+      if (current.lineNumber - previous.lineNumber <= 2) {
+        currentGroup.push(current);
+      } else {
+        groupedIssues.push(currentGroup);
+        currentGroup = [current];
+      }
+    }
+    groupedIssues.push(currentGroup);
+
+    // Report the most significant groups
+    for (const group of groupedIssues.slice(0, 2)) {
+      // Limit to avoid spam
+      const firstIssue = group[0];
+      const lineNumbers =
+        group.length > 1
+          ? `lines ${group[0].lineNumber}-${group[group.length - 1].lineNumber}`
+          : `line ${firstIssue.lineNumber}`;
+
+      const issue = `inconsistent indentation: ${firstIssue.currentIndent} spaces (base: ${firstIssue.baseIndent} spaces)`;
+      errorMessages.push(
+        `Found code block with inconsistent indentation in ${source} at ${lineNumbers}: ${issue}. This may cause rendering issues`
+      );
+    }
+  }
+}
+
+/**
  * Check content structure and formatting issues
  * @param {string} markdown - The markdown content
  * @param {string} source - Source description for error reporting
@@ -103,10 +191,9 @@ function checkContentStructure(markdown, source, errorMessages) {
 
   // State variables for different checks
   let inCodeBlock = false;
-  let codeBlockIndentLevel = 0;
-  let codeBlockStartLine = 0;
   let inAnyCodeBlock = false;
   let anyCodeBlockStartLine = 0;
+  let codeBlockContent = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -118,10 +205,21 @@ function checkContentStructure(markdown, source, errorMessages) {
         // Starting a new code block
         inAnyCodeBlock = true;
         anyCodeBlockStartLine = lineNumber;
+        inCodeBlock = true;
+        codeBlockContent = [];
       } else {
         // Ending the code block
         inAnyCodeBlock = false;
+
+        if (inCodeBlock) {
+          // Check code block content for indentation issues
+          checkCodeBlockIndentation(codeBlockContent, source, errorMessages);
+          inCodeBlock = false;
+        }
       }
+    } else if (inCodeBlock) {
+      // Collect code block content for indentation analysis
+      codeBlockContent.push({ line, lineNumber });
     }
   }
 

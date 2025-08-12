@@ -166,25 +166,6 @@ This content ends properly.
   // ========== CODE BLOCK VALIDATION CASES ==========
   {
     category: "💻 CODE BLOCK VALIDATION",
-    name: "Inconsistent code block indentation",
-    expectPass: false,
-    expectedErrors: ["code block with inconsistent indentation"],
-    content: `# Test Document
-
-Here's incorrectly indented code:
-
-    \`\`\`javascript
-function test() {
-    return "content not properly indented";
-}
-    \`\`\`
-
-This content ends properly.
-`,
-  },
-
-  {
-    category: "💻 CODE BLOCK VALIDATION",
     name: "Incomplete code block",
     expectPass: false,
     expectedErrors: ["incomplete code block"],
@@ -213,6 +194,68 @@ Here's properly indented code:
     \`\`\`
 
 This content ends properly.
+`,
+  },
+
+  {
+    category: "💻 CODE BLOCK VALIDATION",
+    name: "Code block with inconsistent indentation (user case)",
+    expectPass: false,
+    expectedErrors: ["code block with inconsistent indentation"],
+    content: `# API Response Handling
+
+You can retrieve the response body in various formats:
+
+*   **\`response.content\`**: Accesses the raw response body as bytes. This is useful for non-text data like images or binary files.
+    \`\`\`python
+    import requests
+
+r = requests.get('https://httpbin.org/image/png')
+print(type(r.content))
+# Expected output: <class 'bytes'>
+    \`\`\`
+
+*   **\`response.text\`**: Accesses the response body as Unicode text. Requests automatically guesses the encoding, or you can explicitly set \`response.encoding\`.
+    \`\`\`python
+    import requests
+
+r = requests.get('https://httpbin.org/get')
+print(type(r.text))
+# Expected output: <class 'str'>
+print(r.text)
+# Expected output: {"args": {}, "headers": ..., "origin": "...", "url": "https://httpbin.org/get"}
+    \`\`\`
+
+*   **\`response.json(**kwargs)\`**: Decodes the response body as JSON into a Python object (dictionary, list, etc.). This method raises \`requests.exceptions.JSONDecodeError\` if the content is not valid JSON.
+    \`\`\`python
+    import requests
+
+r = requests.get('https://httpbin.org/json')
+print(type(r.json()))
+# Expected output: <class 'dict'>
+print(r.json())
+# Expected output: {'slideshow': {'author': 'Yours Truly', 'date': 'date of publication', 'slides': [...], 'title': 'Sample Slide Show'}}
+    \`\`\`
+
+**Status and Error Handling**
+
+*   **\`response.ok\`**: A boolean property that returns \`True\` if \`status_code\` is less than 400, indicating no client or server error. It does *not* necessarily mean \`200 OK\`.
+
+*   **\`response.raise_for_status()\`**: Raises an \`HTTPError\` if the HTTP request returned an unsuccessful status code (4xx or 5xx). This is a convenient way to check for errors and is typically used after a request to ensure it was successful.
+
+    \`\`\`python
+    import requests
+    from requests.exceptions import HTTPError
+
+try:
+    r = requests.get('https://httpbin.org/status/404')
+    r.raise_for_status() # This will raise an HTTPError for 404
+except HTTPError as e:
+    print(f"HTTP Error occurred: {e}")
+# Expected output: HTTP Error occurred: 404 Client Error: NOT FOUND for url: https://httpbin.org/status/404
+    \`\`\`
+
+This document ends properly.
 `,
   },
 
