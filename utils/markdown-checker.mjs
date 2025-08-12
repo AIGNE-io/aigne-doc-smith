@@ -99,7 +99,6 @@ function checkDeadLinks(markdown, source, allowedLinks, errorMessages) {
  */
 function checkContentStructure(markdown, source, errorMessages) {
   const lines = markdown.split("\n");
-  const codeBlockRegex = /^\s+```(?:\w+)?$/;
   const allCodeBlockRegex = /^\s*```(?:\w+)?$/;
 
   // State variables for different checks
@@ -122,38 +121,6 @@ function checkContentStructure(markdown, source, errorMessages) {
       } else {
         // Ending the code block
         inAnyCodeBlock = false;
-      }
-    }
-
-    // Check code block markers and indentation (original logic for indented blocks)
-    if (codeBlockRegex.test(line)) {
-      if (!inCodeBlock) {
-        // Starting a new code block
-        inCodeBlock = true;
-        codeBlockStartLine = lineNumber;
-        // Calculate indentation level of the code block marker
-        const match = line.match(/^(\s*)(```)/);
-        codeBlockIndentLevel = match ? match[1].length : 0;
-      } else {
-        // Ending the code block
-        inCodeBlock = false;
-        codeBlockIndentLevel = 0;
-      }
-    } else if (inCodeBlock) {
-      // If we're inside a code block, check if content has proper indentation
-      const contentIndentLevel = line.match(/^(\s*)/)[1].length;
-
-      // If code block marker has indentation, content should have at least the same indentation
-      if (
-        codeBlockIndentLevel > 0 &&
-        contentIndentLevel < codeBlockIndentLevel
-      ) {
-        errorMessages.push(
-          `Found code block with inconsistent indentation in ${source} at line ${codeBlockStartLine}: code block marker has ${codeBlockIndentLevel} spaces indentation but content at line ${lineNumber} has only ${contentIndentLevel} spaces indentation`
-        );
-        // Reset to avoid multiple errors for the same code block
-        inCodeBlock = false;
-        codeBlockIndentLevel = 0;
       }
     }
   }
@@ -229,12 +196,12 @@ export async function checkMarkdown(
         "no-reference-like-url",
         "no-unneeded-full-reference-image",
         "no-unneeded-full-reference-link",
+        "code-block-style",
 
         // Skip overly strict formatting rules that don't affect rendering:
         // - final-newline (missing newline at end)
         // - list-item-indent (flexible list spacing)
         // - table-cell-padding (flexible table spacing)
-        // - code-block-style (allow both fenced/indented)
         // - emphasis-marker (allow both * and _)
         // - strong-marker (allow both ** and __)
       ]);
@@ -327,8 +294,6 @@ export async function checkMarkdown(
         }
       }
     });
-
-    // Note: Code block checks have been moved to checkContentStructure function
 
     // Check table separators in original text (since AST normalizes them)
     const lines = markdown.split("\n");
