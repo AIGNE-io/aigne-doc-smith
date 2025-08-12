@@ -7,26 +7,54 @@ import { visit } from "unist-util-visit";
 import { validateMermaidSyntax } from "./mermaid-validator.mjs";
 
 /**
- * Count unescaped pipe characters in a line
- * Ignores \| (escaped pipes) and only counts actual table column separators
- * @param {string} line - The line to analyze
- * @returns {number} - Number of unescaped pipe characters
+ * Parse table row and count actual columns
+ * Properly handles content within cells, including pipes that are part of content
+ * @param {string} line - The table row line to analyze
+ * @returns {number} - Number of actual table columns
  */
-function countUnescapedPipes(line) {
-  let count = 0;
-  let i = 0;
+function countTableColumns(line) {
+  const trimmed = line.trim();
 
-  while (i < line.length) {
-    if (line[i] === "|") {
-      // Check if this pipe is escaped (preceded by \)
-      if (i === 0 || line[i - 1] !== "\\") {
-        count++;
-      }
+  // Remove leading and trailing pipes if present
+  const content =
+    trimmed.startsWith("|") && trimmed.endsWith("|")
+      ? trimmed.slice(1, -1)
+      : trimmed;
+
+  if (!content.trim()) {
+    return 0;
+  }
+
+  const columns = [];
+  let currentColumn = "";
+  let i = 0;
+  let inCode = false;
+
+  while (i < content.length) {
+    const char = content[i];
+    const prevChar = i > 0 ? content[i - 1] : "";
+
+    if (char === "`") {
+      // Toggle code span state
+      inCode = !inCode;
+      currentColumn += char;
+    } else if (char === "|" && !inCode && prevChar !== "\\") {
+      // This is a column separator (not escaped and not in code)
+      columns.push(currentColumn.trim());
+      currentColumn = "";
+    } else {
+      currentColumn += char;
     }
+
     i++;
   }
 
-  return count;
+  // Add the last column
+  if (currentColumn.length > 0 || content.endsWith("|")) {
+    columns.push(currentColumn.trim());
+  }
+
+  return columns.length;
 }
 
 /**
@@ -309,15 +337,15 @@ export async function checkMarkdown(
 
       // Check for table separator lines (lines with | and -)
       if (/^\s*\|.*-.*\|\s*$/.test(line)) {
-        // Count separator columns, excluding escaped pipes
-        const separatorColumns = countUnescapedPipes(line) - 1;
+        // Count separator columns
+        const separatorColumns = countTableColumns(line);
 
         // Check if previous line looks like a table header
         if (i > 0) {
           const prevLine = lines[i - 1];
           if (/^\s*\|.*\|\s*$/.test(prevLine)) {
-            // Count header columns, excluding escaped pipes
-            const headerColumns = countUnescapedPipes(prevLine) - 1;
+            // Count header columns
+            const headerColumns = countTableColumns(prevLine);
 
             // Check for column count mismatch
             if (separatorColumns !== headerColumns) {
@@ -332,7 +360,7 @@ export async function checkMarkdown(
             if (i + 1 < lines.length) {
               const nextLine = lines[i + 1];
               if (/^\s*\|.*\|\s*$/.test(nextLine)) {
-                const dataColumns = countUnescapedPipes(nextLine) - 1;
+                const dataColumns = countTableColumns(nextLine);
                 if (separatorColumns !== dataColumns) {
                   errorMessages.push(
                     `Found table data row with mismatched column count in ${source} at line ${
