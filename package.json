@@ -27,9 +27,16 @@
     "@aigne/publish-docs": "^0.5.3",
     "chalk": "^5.5.0",
     "glob": "^11.0.3",
+    "mermaid": "^11.9.0",
     "open": "^10.2.0",
+    "remark-gfm": "^4.0.1",
+    "remark-lint": "^10.0.1",
+    "remark-parse": "^11.0.0",
     "terminal-link": "^4.0.0",
     "ufo": "^1.6.1",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
+    "vfile": "^6.0.3",
     "yaml": "^2.8.0"
   }
 }
