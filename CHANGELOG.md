@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.6...v0.2.7) (2025-08-12)
+
+
+### Bug Fixes
+
+* polish detail check ([#21](https://github.com/AIGNE-io/aigne-doc-smith/issues/21)) ([0268732](https://github.com/AIGNE-io/aigne-doc-smith/commit/02687329c3507b73f9cbf1aa2ff1b87921452516))
+
+
+### Miscellaneous Chores
+
+* release 0.2.7 ([3b807fe](https://github.com/AIGNE-io/aigne-doc-smith/commit/3b807fed833a5160931747bce37aac00cf11d9ac))
+
 ## [0.2.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.5...v0.2.6) (2025-08-12)
 
 
