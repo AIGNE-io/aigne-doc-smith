@@ -427,6 +427,35 @@ export async function checkMarkdown(
             );
           }
         }
+
+        // Check for special characters in node labels that should be quoted
+        const nodeWithSpecialCharsRegex =
+          /([A-Za-z0-9_]+)\[([^\]]*[(){}:;,\-\s\.][^\]]*)\]/g;
+        let specialCharMatch;
+        while (
+          (specialCharMatch =
+            nodeWithSpecialCharsRegex.exec(mermaidContent)) !== null
+        ) {
+          const nodeId = specialCharMatch[1];
+          const label = specialCharMatch[2];
+
+          // Check if label contains special characters but is not quoted
+          if (!/^".*"$/.test(label)) {
+            // List of characters that typically need quoting
+            const specialChars = ["(", ")", "{", "}", ":", ";", ",", "-", "."];
+            const foundSpecialChars = specialChars.filter((char) =>
+              label.includes(char)
+            );
+
+            if (foundSpecialChars.length > 0) {
+              errorMessages.push(
+                `Found unquoted special characters in Mermaid node label in ${source} at line ${line}: "${label}" contains ${foundSpecialChars.join(
+                  ", "
+                )} - node labels with special characters should be quoted like ${nodeId}["${label}"]`
+              );
+            }
+          }
+        }
       }
     });
 
