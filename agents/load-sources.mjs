@@ -34,7 +34,6 @@ export default async function loadSources({
           // If it's a directory, use the existing glob logic
           // Load .gitignore for this directory
           const gitignorePatterns = await loadGitignore(dir);
-          console.log("gitignorePatterns", gitignorePatterns);
 
           // Prepare patterns
           let finalIncludePatterns = null;
