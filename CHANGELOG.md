@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.8...v0.2.9) (2025-08-13)
+
+
+### Bug Fixes
+
+* polish ignore check ([#25](https://github.com/AIGNE-io/aigne-doc-smith/issues/25)) ([90bc866](https://github.com/AIGNE-io/aigne-doc-smith/commit/90bc866513fef7b47047b1016e07bf38881c101c))
+
 ## [0.2.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.7...v0.2.8) (2025-08-13)
 
 
