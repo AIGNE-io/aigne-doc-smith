@@ -8,15 +8,8 @@ function getActionText(isTranslate, baseText) {
 }
 
 export default async function findItemByPath(
-  {
-    "doc-path": docPath,
-    structurePlanResult,
-    boardId,
-    docsDir,
-    isTranslate,
-    feedback,
-  },
-  options
+  { "doc-path": docPath, structurePlanResult, boardId, docsDir, isTranslate, feedback },
+  options,
 ) {
   let foundItem = null;
   let selectedFileContent = null;
@@ -30,9 +23,7 @@ export default async function findItemByPath(
       // Filter for main language .md files (exclude _sidebar.md and language-specific files)
       const mainLanguageFiles = files.filter(
         (file) =>
-          file.endsWith(".md") &&
-          file !== "_sidebar.md" &&
-          !file.match(/\.\w+(-\w+)?\.md$/) // Exclude language-specific files like .en.md, .zh-CN.md, etc.
+          file.endsWith(".md") && file !== "_sidebar.md" && !file.match(/\.\w+(-\w+)?\.md$/), // Exclude language-specific files like .en.md, .zh-CN.md, etc.
       );
 
       if (mainLanguageFiles.length === 0) {
@@ -52,7 +43,7 @@ export default async function findItemByPath(
 
           const searchTerm = input.trim().toLowerCase();
           const filteredFiles = mainLanguageFiles.filter((file) =>
-            file.toLowerCase().includes(searchTerm)
+            file.toLowerCase().includes(searchTerm),
           );
 
           return filteredFiles.map((file) => ({
@@ -71,10 +62,7 @@ export default async function findItemByPath(
         const selectedFilePath = join(docsDir, selectedFile);
         selectedFileContent = await readFile(selectedFilePath, "utf-8");
       } catch (readError) {
-        console.warn(
-          `⚠️  Could not read content from ${selectedFile}:`,
-          readError.message
-        );
+        console.warn(`⚠️  Could not read content from ${selectedFile}:`, readError.message);
         selectedFileContent = null;
       }
 
@@ -87,9 +75,7 @@ export default async function findItemByPath(
 
       // First try without boardId prefix
       foundItemByFile = structurePlanResult.find((item) => {
-        const itemFlattenedPath = item.path
-          .replace(/^\//, "")
-          .replace(/\//g, "-");
+        const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
         return itemFlattenedPath === flatName;
       });
       if (!foundItemByFile) {
@@ -102,8 +88,8 @@ export default async function findItemByPath(
       throw new Error(
         getActionText(
           isTranslate,
-          "Please provide a doc-path parameter to specify which document to {action}"
-        )
+          "Please provide a doc-path parameter to specify which document to {action}",
+        ),
       );
     }
   }
@@ -121,18 +107,14 @@ export default async function findItemByPath(
       // Find item by comparing flattened paths
       foundItem = structurePlanResult.find((item) => {
         // Convert item.path to flattened format (replace / with -)
-        const itemFlattenedPath = item.path
-          .replace(/^\//, "")
-          .replace(/\//g, "-");
+        const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
         return itemFlattenedPath === flattenedPath;
       });
     }
   }
 
   if (!foundItem) {
-    throw new Error(
-      `Item with path "${docPath}" not found in structurePlanResult`
-    );
+    throw new Error(`Item with path "${docPath}" not found in structurePlanResult`);
   }
 
   // Prompt for feedback if not provided
@@ -140,7 +122,7 @@ export default async function findItemByPath(
   if (!userFeedback) {
     const feedbackMessage = getActionText(
       isTranslate,
-      "Please provide feedback for the {action} (press Enter to skip):"
+      "Please provide feedback for the {action} (press Enter to skip):",
     );
 
     userFeedback = await options.prompts.input({

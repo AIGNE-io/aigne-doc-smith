@@ -1,86 +1,8 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
-import { glob } from "glob";
 import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../utils/constants.mjs";
+import { getFilesWithGlob, loadGitignore } from "../utils/file-utils.mjs";
 import { getCurrentGitHead, getModifiedFilesBetweenCommits } from "../utils/utils.mjs";
-
-/**
- * Load .gitignore patterns from a directory
- * @param {string} dir - Directory path
- * @returns {object|null} Ignore instance or null if no .gitignore found
- */
-async function loadGitignore(dir) {
-  const gitignorePath = path.join(dir, ".gitignore");
-  try {
-    await access(gitignorePath);
-    const gitignoreContent = await readFile(gitignorePath, "utf8");
-    // Create ignore patterns from .gitignore content
-    const ignorePatterns = gitignoreContent
-      .split("\n")
-      .map((line) => line.trim())
-      .filter((line) => line && !line.startsWith("#"))
-      .map((line) => line.replace(/^\//, "")); // Remove leading slash
-
-    return ignorePatterns.length > 0 ? ignorePatterns : null;
-  } catch {
-    // .gitignore file doesn't exist
-    return null;
-  }
-}
-
-/**
- * Get files using glob patterns
- * @param {string} dir - Directory to search
- * @param {string[]} includePatterns - Include patterns
- * @param {string[]} excludePatterns - Exclude patterns
- * @param {string[]} gitignorePatterns - .gitignore patterns
- * @returns {Promise<string[]>} Array of file paths
- */
-async function getFilesWithGlob(dir, includePatterns, excludePatterns, gitignorePatterns) {
-  // Prepare all ignore patterns
-  const allIgnorePatterns = [];
-
-  if (excludePatterns) {
-    allIgnorePatterns.push(...excludePatterns);
-  }
-
-  if (gitignorePatterns) {
-    allIgnorePatterns.push(...gitignorePatterns);
-  }
-
-  // Add default exclusions if not already present
-  const defaultExclusions = ["node_modules/**", "test/**", "temp/**"];
-  for (const exclusion of defaultExclusions) {
-    if (!allIgnorePatterns.includes(exclusion)) {
-      allIgnorePatterns.push(exclusion);
-    }
-  }
-
-  // Convert patterns to be relative to the directory
-  const patterns = includePatterns.map((pattern) => {
-    // If pattern doesn't start with / or **, make it relative to dir
-    if (!pattern.startsWith("/") && !pattern.startsWith("**")) {
-      return `**/${pattern}`; // Use ** to search recursively
-    }
-    return pattern;
-  });
-
-  try {
-    const files = await glob(patterns, {
-      cwd: dir,
-      ignore: allIgnorePatterns.length > 0 ? allIgnorePatterns : undefined,
-      absolute: true,
-      nodir: true, // Only return files, not directories
-      dot: false, // Don't include dot files by default
-      gitignore: true, // Enable .gitignore support
-    });
-
-    return files;
-  } catch (error) {
-    console.warn(`Warning: Error during glob search in ${dir}: ${error.message}`);
-    return [];
-  }
-}
 
 export default async function loadSources({
   sources = [],
@@ -112,6 +34,7 @@ export default async function loadSources({
           // If it's a directory, use the existing glob logic
           // Load .gitignore for this directory
           const gitignorePatterns = await loadGitignore(dir);
+          console.log("gitignorePatterns", gitignorePatterns);
 
           // Prepare patterns
           let finalIncludePatterns = null;
@@ -242,6 +165,21 @@ export default async function loadSources({
     }
   }
 
+  // Count words and lines in allSources
+  let totalWords = 0;
+  let totalLines = 0;
+
+  for (const source of Object.values(allSources)) {
+    if (typeof source === "string") {
+      // Count English words (simple regex for words containing a-zA-Z)
+      const words = source.match(/[a-zA-Z]+/g) || [];
+      totalWords += words.length;
+
+      // Count lines
+      totalLines += source.split("\n").length;
+    }
+  }
+
   return {
     datasourcesList: sourceFiles,
     datasources: allSources,
@@ -249,6 +187,8 @@ export default async function loadSources({
     originalStructurePlan,
     files,
     modifiedFiles,
+    totalWords,
+    totalLines,
   };
 }
 

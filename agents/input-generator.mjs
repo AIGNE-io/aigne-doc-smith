@@ -1,16 +1,8 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
-import {
-  DOCUMENT_STYLES,
-  SUPPORTED_LANGUAGES,
-  TARGET_AUDIENCES,
-} from "../utils/constants.mjs";
-import {
-  getAvailablePaths,
-  getProjectInfo,
-  validatePath,
-} from "../utils/utils.mjs";
+import { DOCUMENT_STYLES, SUPPORTED_LANGUAGES, TARGET_AUDIENCES } from "../utils/constants.mjs";
+import { getAvailablePaths, getProjectInfo, validatePath } from "../utils/utils.mjs";
 
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
@@ -23,12 +15,8 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @returns {Promise<Object>}
  */
 export default async function init(
-  {
-    outputPath = ".aigne/doc-smith",
-    fileName = "config.yaml",
-    skipIfExists = false,
-  },
-  options
+  { outputPath = ".aigne/doc-smith", fileName = "config.yaml", skipIfExists = false },
+  options,
 ) {
   if (skipIfExists) {
     const filePath = join(outputPath, fileName);
@@ -104,7 +92,7 @@ export default async function init(
   // 4. Translation languages
   // Filter out the primary language from available choices
   const availableTranslationLanguages = SUPPORTED_LANGUAGES.filter(
-    (lang) => lang.code !== primaryLanguageChoice
+    (lang) => lang.code !== primaryLanguageChoice,
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
@@ -154,11 +142,7 @@ export default async function init(
     });
 
     // Check if user chose to exit
-    if (
-      !selectedPath ||
-      selectedPath.trim() === "" ||
-      selectedPath === "Press Enter to finish"
-    ) {
+    if (!selectedPath || selectedPath.trim() === "" || selectedPath === "Press Enter to finish") {
       break;
     }
 
@@ -207,13 +191,9 @@ export default async function init(
     console.log(chalk.cyan("---"));
     console.log(chalk.cyan(yamlContent));
     console.log(chalk.cyan("---"));
+    console.log("💡 You can edit the configuration file anytime to modify settings.\n");
     console.log(
-      "💡 You can edit the configuration file anytime to modify settings.\n"
-    );
-    console.log(
-      `🚀 Run ${chalk.cyan(
-        "'aigne doc generate'"
-      )} to start documentation generation!\n`
+      `🚀 Run ${chalk.cyan("'aigne doc generate'")} to start documentation generation!\n`,
     );
 
     return {};
@@ -284,5 +264,4 @@ function generateYAML(input) {
   return yaml;
 }
 
-init.description =
-  "Generate a configuration file for the documentation generation process";
+init.description = "Generate a configuration file for the documentation generation process";
