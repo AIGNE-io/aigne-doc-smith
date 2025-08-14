@@ -174,8 +174,8 @@ export default async function loadSources({
       const words = source.match(/[a-zA-Z]+/g) || [];
       totalWords += words.length;
 
-      // Count lines
-      totalLines += source.split("\n").length;
+      // Count lines (excluding empty lines)
+      totalLines += source.split("\n").filter((line) => line.trim() !== "").length;
     }
   }
 
