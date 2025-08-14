@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.10](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.9...v0.2.10) (2025-08-14)
+
+
+### Bug Fixes
+
+* fix bug bush feedback ([#41](https://github.com/AIGNE-io/aigne-doc-smith/issues/41)) ([2740d1a](https://github.com/AIGNE-io/aigne-doc-smith/commit/2740d1abef70ea36780b030917a6d54f74df4327))
+
 ## [0.2.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.8...v0.2.9) (2025-08-13)
 
 

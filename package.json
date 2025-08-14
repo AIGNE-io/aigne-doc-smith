@@ -1,6 +1,6 @@
 {
   "name": "@aigne/doc-smith",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "",
   "publishConfig": {
     "access": "public"
