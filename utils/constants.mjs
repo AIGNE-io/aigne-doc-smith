@@ -78,13 +78,13 @@ export const SUPPORTED_LANGUAGES = [
 
 // Predefined document generation styles
 export const DOCUMENT_STYLES = {
-  developerDocs: {
-    name: "Developer Docs",
-    rules: "Steps-first; copy-paste examples; minimal context; active 'you'.",
-  },
   userGuide: {
     name: "User Guide",
     rules: "Scenario-based; step-by-step; plain language; outcomes & cautions.",
+  },
+  developerDocs: {
+    name: "Developer Docs",
+    rules: "Steps-first; copy-paste examples; minimal context; active 'you'.",
   },
   apiReference: {
     name: "API Reference",
@@ -98,8 +98,8 @@ export const DOCUMENT_STYLES = {
 
 // Predefined target audiences
 export const TARGET_AUDIENCES = {
+  generalUsers: "General Users",
   actionFirst: "Developers, Implementation Engineers, DevOps",
   conceptFirst: "Architects, Technical Leads, Developers interested in principles",
-  generalUsers: "General Users",
   custom: "Enter your own target audience",
 };
