@@ -47,7 +47,6 @@ export async function getAccessToken(appUrl) {
   // Check if Discuss Kit is running at the provided URL
   try {
     await getComponentMountPoint(appUrl, DISCUSS_KIT_DID);
-    console.log("✅ Discuss Kit detected at the provided URL");
   } catch {
     throw new Error(
       `Unable to find Discuss Kit running at the provided URL: ${appUrl}\n\n` +
