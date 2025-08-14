@@ -167,3 +167,6 @@ export const TARGET_AUDIENCES = {
   conceptFirst: "Architects, Technical Leads, Developers interested in principles",
   custom: "Enter your own target audience",
 };
+
+// Component mount point ID for Discuss Kit
+export const DISCUSS_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
