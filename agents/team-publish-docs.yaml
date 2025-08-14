@@ -10,10 +10,9 @@ skills:
       skipIfExists: true
   - load-config.mjs
   - publish-docs.mjs
-# input_schema:
-#   type: object
-#   properties:
-#     config:
-#       type: string
-#       description: Path to the config file
-#       default: ./.aigne/doc-smith/config.yaml
+input_schema:
+  type: object
+  properties:
+    appUrl: 
+      type: string
+      description: target website URL where the documentation will be published

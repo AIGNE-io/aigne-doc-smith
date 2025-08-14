@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
 
-export default async function loadConfig({ config }) {
+export default async function loadConfig({ config, appUrl }) {
   const configPath = path.join(process.cwd(), config);
 
   try {
@@ -18,6 +18,11 @@ export default async function loadConfig({ config }) {
     // Read and parse YAML file
     const configContent = await fs.readFile(configPath, "utf-8");
     const parsedConfig = parse(configContent);
+
+    if (appUrl) {
+      parsedConfig.appUrl = appUrl;
+    }
+
     return {
       nodeName: "Section",
       locale: "en",
@@ -39,6 +44,10 @@ loadConfig.input_schema = {
     config: {
       type: "string",
       default: "./.aigne/doc-smith/config.yaml",
+    },
+    appUrl: {
+      type: "string",
+      description: "Application URL to override config",
     },
   },
 };
