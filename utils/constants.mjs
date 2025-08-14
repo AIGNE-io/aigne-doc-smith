@@ -1,25 +1,89 @@
 // Default file patterns for inclusion and exclusion
 export const DEFAULT_INCLUDE_PATTERNS = [
+  // Python
   "*.py",
+  "*.pyi",
+  "*.pyx",
+  // JavaScript/TypeScript
   "*.js",
   "*.jsx",
   "*.ts",
   "*.tsx",
-  "*.go",
-  "*.java",
-  "*.pyi",
-  "*.pyx",
+  // C/C++
   "*.c",
   "*.cc",
   "*.cpp",
+  "*.cxx",
+  "*.c++",
   "*.h",
+  "*.hpp",
+  "*.hxx",
+  "*.h++",
+  // JVM Languages
+  "*.java",
+  "*.kt",
+  "*.scala",
+  "*.groovy",
+  "*.gvy",
+  "*.gy",
+  "*.gsh",
+  "*.clj",
+  "*.cljs",
+  "*.cljx",
+  // .NET Languages
+  "*.cs",
+  "*.vb",
+  "*.fs",
+  // Functional Languages
+  "*.f",
+  "*.ml",
+  "*.sml",
+  "*.lisp",
+  "*.lsp",
+  "*.cl",
+  // Systems Programming
+  "*.rs",
+  "*.go",
+  "*.nim",
+  "*.asm",
+  "*.s",
+  // Web Technologies
+  "*.html",
+  "*.htm",
+  "*.css",
+  "*.php",
+  // Scripting Languages
+  "*.rb",
+  "*.pl",
+  "*.ps1",
+  "*.lua",
+  "*.tcl",
+  // Mobile/Modern Languages
+  "*.swift",
+  "*.dart",
+  "*.ex",
+  "*.exs",
+  "*.erl",
+  "*.jl",
+  // Data Science
+  "*.r",
+  "*.R",
+  "*.m",
+  // Other Languages
+  "*.pas",
+  "*.cob",
+  "*.cbl",
+  "*.pro",
+  "*.prolog",
+  "*.sql",
+  // Documentation & Config
   "*.md",
   "*.rst",
   "*.json",
-  "*Dockerfile",
-  "*Makefile",
   "*.yaml",
   "*.yml",
+  "*Dockerfile",
+  "*Makefile",
 ];
 
 export const DEFAULT_EXCLUDE_PATTERNS = [

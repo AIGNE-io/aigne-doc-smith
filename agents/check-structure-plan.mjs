@@ -1,3 +1,5 @@
+import { access } from "node:fs/promises";
+import { join } from "node:path";
 import {
   getCurrentGitHead,
   getProjectInfo,
@@ -7,7 +9,7 @@ import {
 } from "../utils/utils.mjs";
 
 export default async function checkStructurePlan(
-  { originalStructurePlan, feedback, lastGitHead, ...rest },
+  { originalStructurePlan, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
   options,
 ) {
   // Check if we need to regenerate structure plan
@@ -16,9 +18,18 @@ export default async function checkStructurePlan(
 
   // If no feedback and originalStructurePlan exists, check for git changes
   if (originalStructurePlan) {
-    // If no lastGitHead, regenerate by default
+    // If no lastGitHead, check if _sidebar.md exists to determine if we should regenerate
     if (!lastGitHead) {
-      shouldRegenerate = true;
+      try {
+        // Check if _sidebar.md exists in docsDir
+        const sidebarPath = join(docsDir, "_sidebar.md");
+        await access(sidebarPath);
+        // If _sidebar.md exists, it means last execution was completed, need to regenerate
+        shouldRegenerate = true;
+      } catch {
+        // If _sidebar.md doesn't exist, it means last execution was interrupted, no need to regenerate
+        shouldRegenerate = false;
+      }
     } else {
       // Check if there are relevant file changes since last generation
       const currentGitHead = getCurrentGitHead();
@@ -41,6 +52,16 @@ export default async function checkStructurePlan(
         4. 根据最新的 Data Sources 按需要更新节点的 sourceIds，如没有大的变化，可以不更新。
       `;
     }
+  }
+
+  // user requested regeneration
+  if (forceRegenerate) {
+    shouldRegenerate = true;
+    finalFeedback = `
+    ${finalFeedback || ""}
+
+    用户请求强制重新生成结构规划，请根据最新的 Data Sources 和用户要求重生生成，**允许任何修改**。
+    `;
   }
 
   // If no regeneration needed, return original structure plan

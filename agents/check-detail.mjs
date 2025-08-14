@@ -16,7 +16,6 @@ export default async function checkDetail(
     originalStructurePlan,
     structurePlan,
     modifiedFiles,
-    lastGitHead,
     forceRegenerate,
     ...rest
   },
@@ -78,11 +77,6 @@ export default async function checkDetail(
     if (sourceFilesChanged) {
       console.log(`Source files changed for ${path}, will regenerate`);
     }
-  }
-
-  // If lastGitHead is not set, regenerate
-  if (!lastGitHead) {
-    sourceFilesChanged = true;
   }
 
   // If file exists, check content validation
