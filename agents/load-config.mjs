@@ -20,7 +20,7 @@ export default async function loadConfig({ config, appUrl }) {
     const parsedConfig = parse(configContent);
 
     if (appUrl) {
-      parsedConfig.appUrl = appUrl;
+      parsedConfig.appUrl = appUrl.includes("://") ? appUrl : `https://${appUrl}`;
     }
 
     return {
