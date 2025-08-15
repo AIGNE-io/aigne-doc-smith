@@ -3,11 +3,21 @@ import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { createConnect } from "@aigne/aigne-hub";
+import chalk from "chalk";
 import open from "open";
 import { joinURL } from "ufo";
 import { parse, stringify } from "yaml";
-import { getComponentMountPoint } from "./blocklet.mjs";
-import { DISCUSS_KIT_DID } from "./constants.mjs";
+import {
+  getComponentMountPoint,
+  InvalidBlockletError,
+  ComponentNotFoundError,
+} from "./blocklet.mjs";
+import {
+  DISCUSS_KIT_DID,
+  DISCUSS_KIT_STORE_URL,
+  BLOCKLET_LAUNCHER_DOCS_NEW,
+  BLOCKLET_LAUNCHER_DOCS_EXIST,
+} from "./constants.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
@@ -47,14 +57,37 @@ export async function getAccessToken(appUrl) {
   // Check if Discuss Kit is running at the provided URL
   try {
     await getComponentMountPoint(appUrl, DISCUSS_KIT_DID);
-  } catch {
-    throw new Error(
-      `Unable to find Discuss Kit running at the provided URL: ${appUrl}\n\n` +
-        "Please ensure that:\n" +
-        "• The URL is correct and accessible\n" +
-        "• Discuss Kit is properly installed and running\n" +
-        "If you continue to experience issues, please verify your Discuss Kit installation.",
-    );
+  } catch (error) {
+    const storeLink = chalk.cyan(DISCUSS_KIT_STORE_URL);
+    if (error instanceof InvalidBlockletError) {
+      const docsLink = chalk.cyan(BLOCKLET_LAUNCHER_DOCS_NEW);
+
+      throw new Error(
+        `${chalk.yellow("⚠️  The provided URL is not a valid Blocklet Server")}\n\n` +
+          `${chalk.bold("💡 Solution:")}\n` +
+          `1. Launch a Blocklet Server (see documentation: ${docsLink})\n` +
+          `2. Install and run Discuss Kit in the Blocklet Server\n` +
+          `3. Discuss Kit store link: ${storeLink}\n` +
+          `4. Retry with the correct Blocklet Server URL\n\n`,
+      );
+    } else if (error instanceof ComponentNotFoundError) {
+      const docsLink = chalk.cyan(BLOCKLET_LAUNCHER_DOCS_EXIST);
+      throw new Error(
+        `${chalk.yellow("⚠️  This Blocklet Server does not have Discuss Kit running")}\n\n` +
+          `${chalk.bold("💡 Solution:")}\n` +
+          `1. Install and run Discuss Kit in the Blocklet Server (see documentation: ${docsLink})\n` +
+          `2. Discuss Kit store link: ${storeLink}\n\n`,
+      );
+    } else {
+      throw new Error(
+        `${chalk.red("❌ Unable to connect to the specified address")}\n\n` +
+          `${chalk.bold("Possible causes:")}\n` +
+          `• Network connection issues\n` +
+          `• Server temporarily unavailable\n` +
+          `• Incorrect URL address\n\n` +
+          `${chalk.green("Suggestion:")} Please check your network connection and URL address, then try again`,
+      );
+    }
   }
 
   const DISCUSS_KIT_URL = appUrl;
