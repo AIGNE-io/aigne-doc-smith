@@ -39,17 +39,21 @@ export default async function publishDocs(
     });
 
     if (choice === "custom") {
-      appUrl = await options.prompts.input({
+      const userInput = await options.prompts.input({
         message: "Please enter your Discuss Kit platform URL:",
         validate: (input) => {
           try {
-            new URL(input);
+            // Check if input contains protocol, if not, prepend https://
+            const urlWithProtocol = input.includes("://") ? input : `https://${input}`;
+            new URL(urlWithProtocol);
             return true;
           } catch {
             return "Please enter a valid URL";
           }
         },
       });
+      // Ensure appUrl has protocol
+      appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
     }
   }
 
