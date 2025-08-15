@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.11](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.10...v0.2.11) (2025-08-15)
+
+
+### Bug Fixes
+
+* switch default model ([#43](https://github.com/AIGNE-io/aigne-doc-smith/issues/43)) ([203e280](https://github.com/AIGNE-io/aigne-doc-smith/commit/203e280b07d3856445b1877469ed4198db56f6f3))
+
 ## [0.2.10](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.9...v0.2.10) (2025-08-14)
 
 
