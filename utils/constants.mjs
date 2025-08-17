@@ -174,7 +174,5 @@ export const DISCUSS_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
 // Discuss Kit related URLs
 export const DISCUSS_KIT_STORE_URL =
   "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
-export const BLOCKLET_LAUNCHER_DOCS_NEW =
-  "https://www.arcblock.io/docs/launcher/en/launch-on-demand-application";
-export const BLOCKLET_LAUNCHER_DOCS_EXIST =
-  "https://www.arcblock.io/docs/launcher/en/launch-app-on-exist-server";
+export const BLOCKLET_ADD_COMPONENT_DOCS =
+  "https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s";

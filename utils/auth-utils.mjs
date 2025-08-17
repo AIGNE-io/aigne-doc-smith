@@ -15,8 +15,7 @@ import {
 import {
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
-  BLOCKLET_LAUNCHER_DOCS_NEW,
-  BLOCKLET_LAUNCHER_DOCS_EXIST,
+  BLOCKLET_ADD_COMPONENT_DOCS,
 } from "./constants.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
@@ -60,27 +59,19 @@ export async function getAccessToken(appUrl) {
   } catch (error) {
     const storeLink = chalk.cyan(DISCUSS_KIT_STORE_URL);
     if (error instanceof InvalidBlockletError) {
-      const docsLink = chalk.cyan(BLOCKLET_LAUNCHER_DOCS_NEW);
-
       throw new Error(
-        `${chalk.yellow("⚠️  The provided URL is not a valid Blocklet Server")}\n\n` +
-          `${chalk.bold("💡 Solution:")}\n` +
-          `1. Launch a Blocklet Server (see documentation: ${docsLink})\n` +
-          `2. Install and run Discuss Kit in the Blocklet Server\n` +
-          `3. Discuss Kit store link: ${storeLink}\n` +
-          `4. Retry with the correct Blocklet Server URL\n\n`,
+        `${chalk.yellow("⚠️  The provided URL is not a valid website on ArcBlock platform")}\n\n` +
+          `${chalk.bold("💡 Solution:")} Please go to Blocklet Store to launch a Discuss Kit:\n${storeLink}\n\n`,
       );
     } else if (error instanceof ComponentNotFoundError) {
-      const docsLink = chalk.cyan(BLOCKLET_LAUNCHER_DOCS_EXIST);
+      const docsLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_DOCS);
       throw new Error(
-        `${chalk.yellow("⚠️  This Blocklet Server does not have Discuss Kit running")}\n\n` +
-          `${chalk.bold("💡 Solution:")}\n` +
-          `1. Install and run Discuss Kit in the Blocklet Server (see documentation: ${docsLink})\n` +
-          `2. Discuss Kit store link: ${storeLink}\n\n`,
+        `${chalk.yellow("⚠️  This website does not have required components for publishing")}\n\n` +
+          `${chalk.bold("💡 Solution:")} Please refer to the documentation to add Discuss Kit component:\n${docsLink}\n\n`,
       );
     } else {
       throw new Error(
-        `${chalk.red("❌ Unable to connect to the specified address")}\n\n` +
+        `❌ Unable to connect to: ${chalk.cyan(appUrl)}\n\n` +
           `${chalk.bold("Possible causes:")}\n` +
           `• Network connection issues\n` +
           `• Server temporarily unavailable\n` +

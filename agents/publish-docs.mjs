@@ -3,7 +3,7 @@ import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import { getAccessToken } from "../utils/auth-utils.mjs";
 import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 import chalk from "chalk";
-import { DISCUSS_KIT_STORE_URL, BLOCKLET_LAUNCHER_DOCS_NEW } from "../utils/constants.mjs";
+import { DISCUSS_KIT_STORE_URL } from "../utils/constants.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
@@ -43,10 +43,7 @@ export default async function publishDocs(
     if (choice === "custom") {
       console.log(
         `${chalk.bold("\n💡 Tips")}\n\n` +
-          `To run your own Discuss Kit, you need to:\n\n` +
-          `1. Launch a Blocklet Server (see documentation: ${chalk.cyan(BLOCKLET_LAUNCHER_DOCS_NEW)})\n` +
-          `2. Install and run Discuss Kit in the Blocklet Server\n` +
-          `3. Discuss Kit store link: ${chalk.cyan(DISCUSS_KIT_STORE_URL)}\n`,
+          `To run your own Discuss Kit, please go to Blocklet Store to launch a Discuss Kit:\n${chalk.cyan(DISCUSS_KIT_STORE_URL)}\n`,
       );
       const userInput = await options.prompts.input({
         message: "Please enter your Discuss Kit platform URL:",
