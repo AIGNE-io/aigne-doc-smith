@@ -41,10 +41,6 @@ skills:
 input_schema:
   type: object
   properties:
-    # config:
-    #   type: string
-    #   description: Path to the config file
-    #   default: ./.aigne/doc-smith/config.yaml
     glossary:
       type: string
       description: Glossary of terms for consistent terminology, use @<file> to read from a file

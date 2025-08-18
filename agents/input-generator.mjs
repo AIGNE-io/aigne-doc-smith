@@ -316,8 +316,19 @@ function generateYAML(input) {
   yaml += `projectLogo: ${input.projectLogo || ""}\n`;
   yaml += `\n`;
 
-  // Add documentation configuration choices
-  yaml += `# Documentation configuration choices\n`;
+  // Add documentation configuration choices with all available options
+  yaml += `# =============================================================================\n`;
+  yaml += `# Documentation Configuration\n`;
+  yaml += `# =============================================================================\n\n`;
+
+  // Document Purpose with all available options
+  yaml += `# Purpose: What's the main outcome you want readers to achieve?\n`;
+  yaml += `# Available options (uncomment and modify as needed):\n`;
+  Object.entries(DOCUMENT_STYLES).forEach(([key, style]) => {
+    if (key !== "custom") {
+      yaml += `#   ${key.padEnd(16)} - ${style.name}: ${style.description}\n`;
+    }
+  });
   yaml += `documentPurpose:\n`;
   if (input.documentPurpose && input.documentPurpose.length > 0) {
     input.documentPurpose.forEach((purpose) => {
@@ -326,6 +337,14 @@ function generateYAML(input) {
   }
   yaml += `\n`;
 
+  // Target Audience Types with all available options
+  yaml += `# Target Audience: Who will be reading this most often?\n`;
+  yaml += `# Available options (uncomment and modify as needed):\n`;
+  Object.entries(TARGET_AUDIENCES).forEach(([key, audience]) => {
+    if (key !== "custom") {
+      yaml += `#   ${key.padEnd(16)} - ${audience.name}: ${audience.description}\n`;
+    }
+  });
   yaml += `targetAudienceTypes:\n`;
   if (input.targetAudienceTypes && input.targetAudienceTypes.length > 0) {
     input.targetAudienceTypes.forEach((audience) => {
@@ -334,15 +353,31 @@ function generateYAML(input) {
   }
   yaml += `\n`;
 
+  // Reader Knowledge Level with all available options
+  yaml += `# Reader Knowledge Level: What do readers typically know when they arrive?\n`;
+  yaml += `# Available options (uncomment and modify as needed):\n`;
+  Object.entries(READER_KNOWLEDGE_LEVELS).forEach(([key, level]) => {
+    yaml += `#   ${key.padEnd(20)} - ${level.name}: ${level.description}\n`;
+  });
   yaml += `readerKnowledgeLevel: ${input.readerKnowledgeLevel || ""}\n`;
+  yaml += `\n`;
+
+  // Documentation Depth with all available options
+  yaml += `# Documentation Depth: How comprehensive should the documentation be?\n`;
+  yaml += `# Available options (uncomment and modify as needed):\n`;
+  Object.entries(DOCUMENTATION_DEPTH).forEach(([key, depth]) => {
+    yaml += `#   ${key.padEnd(18)} - ${depth.name}: ${depth.description}\n`;
+  });
   yaml += `documentationDepth: ${input.documentationDepth || ""}\n`;
   yaml += `\n`;
 
-  // Keep rules field empty for now (backward compatibility)
+  // Custom Documentation Rules and Requirements
+  yaml += `# Custom Rules: Define specific documentation generation rules and requirements\n`;
   yaml += `rules: |\n`;
   yaml += `  \n\n`;
 
-  // Keep targetAudience field empty for now (backward compatibility)
+  // Target Audience Description
+  yaml += `# Target Audience: Describe your specific target audience and their characteristics\n`;
   yaml += `targetAudience: |\n`;
   yaml += `  \n\n`;
 
