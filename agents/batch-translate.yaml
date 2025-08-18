@@ -14,7 +14,7 @@ skills:
     reflection:
       reviewer: ./check-detail-result.mjs
       is_approved: isApproved
-      max_iterations: 3
+      max_iterations: 5
       return_last_on_max_iterations: true
     task_title: Translate '{{ title }}' to '{{ language }}'
 input_schema:

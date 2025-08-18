@@ -52,6 +52,8 @@ parentId: {{parentId}}
 
 <user_rules>
 {{ rules }}
+
+** 使用 {{ locale }} 语言输出内容 **
 </user_rules>
 
 <rules>
@@ -96,5 +98,5 @@ parentId: {{parentId}}
 
 1. 输内容为{{nodeName}}的详细文本。
 2. 直接输出{{nodeName}}内容，不要包含其他信息.
-3. 以用户语言 {{locale}} 输出
+3. 仅参考示例中的风格，**以语言 {{locale}} 输出内容 **
    </output_schema>
