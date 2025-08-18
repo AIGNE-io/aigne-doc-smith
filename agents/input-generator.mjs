@@ -10,7 +10,12 @@ import {
   PURPOSE_TO_KNOWLEDGE_MAPPING,
   DEPTH_RECOMMENDATION_LOGIC,
 } from "../utils/constants.mjs";
-import { getAvailablePaths, getProjectInfo, validatePath } from "../utils/utils.mjs";
+import {
+  getAvailablePaths,
+  getProjectInfo,
+  validatePath,
+  detectSystemLanguage,
+} from "../utils/utils.mjs";
 
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
@@ -164,6 +169,9 @@ export default async function init(
   input.documentationDepth = depthChoice;
 
   // 5. Language settings
+  // Detect system language and use as default
+  const systemLanguage = detectSystemLanguage();
+
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
     message: "🌐 Step 5/8: Choose primary documentation language:",
@@ -171,6 +179,7 @@ export default async function init(
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
     })),
+    default: systemLanguage,
   });
 
   input.locale = primaryLanguageChoice;

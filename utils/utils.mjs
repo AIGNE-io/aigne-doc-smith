@@ -11,6 +11,7 @@ import {
   TARGET_AUDIENCES,
   READER_KNOWLEDGE_LEVELS,
   DOCUMENTATION_DEPTH,
+  SUPPORTED_LANGUAGES,
 } from "./constants.mjs";
 
 /**
@@ -798,4 +799,56 @@ export function processConfigFields(config) {
   }
 
   return processed;
+}
+
+/**
+ * Detect system language and map to supported language code
+ * @returns {string} - Supported language code (defaults to 'en' if detection fails or unsupported)
+ */
+export function detectSystemLanguage() {
+  try {
+    // Try multiple methods to detect system language
+    let systemLocale = null;
+
+    // Method 1: Environment variables (most reliable on Unix systems)
+    systemLocale = process.env.LANG || process.env.LANGUAGE || process.env.LC_ALL;
+
+    // Method 2: Node.js Intl API (fallback)
+    if (!systemLocale) {
+      try {
+        systemLocale = Intl.DateTimeFormat().resolvedOptions().locale;
+      } catch (_error) {
+        // Intl API failed, continue to fallback
+      }
+    }
+
+    if (!systemLocale) {
+      return "en"; // Default fallback
+    }
+
+    // Extract language code from locale (e.g., 'zh_CN' -> 'zh', 'en_US' -> 'en')
+    const langCode = systemLocale.split(/[-_]/)[0].toLowerCase();
+
+    // Map to supported language codes
+    const supportedLang = SUPPORTED_LANGUAGES.find((lang) => lang.code === langCode);
+    if (supportedLang) {
+      return supportedLang.code;
+    }
+
+    // Handle special cases for Chinese variants
+    if (langCode === "zh") {
+      // Check for Traditional Chinese indicators
+      const fullLocale = systemLocale.toLowerCase();
+      if (fullLocale.includes("tw") || fullLocale.includes("hk") || fullLocale.includes("mo")) {
+        return "zh-TW";
+      }
+      return "zh"; // Default to Simplified Chinese
+    }
+
+    // Return default if no match found
+    return "en";
+  } catch (_error) {
+    // Any error in detection, return default
+    return "en";
+  }
 }
