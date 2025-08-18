@@ -87,16 +87,16 @@ export const DEFAULT_INCLUDE_PATTERNS = [
 ];
 
 export const DEFAULT_EXCLUDE_PATTERNS = [
-  "aigne-docs/**",
-  "doc-smith/**",
-  ".aigne/**",
-  "assets/**",
-  "data/**",
-  "images/**",
-  "public/**",
-  "static/**",
+  "**/aigne-docs/**",
+  "**/doc-smith/**",
+  "**/.aigne/**",
+  "**/assets/**",
+  "**/data/**",
+  "**/images/**",
+  "**/public/**",
+  "**/static/**",
   "**/vendor/**",
-  "temp/**",
+  "**/temp/**",
   "**/*docs/**",
   "**/*doc/**",
   "**/*venv/**",
@@ -140,32 +140,170 @@ export const SUPPORTED_LANGUAGES = [
   { code: "ar", label: "العربية (ar)", sample: "مرحبا" },
 ];
 
-// Predefined document generation styles
+// Predefined document generation styles based on primary purpose
 export const DOCUMENT_STYLES = {
-  userGuide: {
-    name: "User Guide",
-    rules: "Scenario-based; step-by-step; plain language; outcomes & cautions.",
+  getStarted: {
+    name: "Get started quickly",
+    description: "Help new users go from zero to working in <30 minutes",
+    content:
+      "Optimizes for: Speed, essential steps, working examples.\nSkips: Complex edge cases, theoretical background.",
   },
-  developerDocs: {
-    name: "Developer Docs",
-    rules: "Steps-first; copy-paste examples; minimal context; active 'you'.",
+  completeTasks: {
+    name: "Complete specific tasks",
+    description: "Guide users through common workflows and use cases",
+    content:
+      "Optimizes for: Step-by-step instructions, practical scenarios.\nSkips: Deep technical internals, getting started basics.",
   },
-  apiReference: {
-    name: "API Reference",
-    rules: "Exact & skimmable; schema-first; clear params/errors/examples.",
+  findAnswers: {
+    name: "Find answers fast",
+    description: "Provide searchable reference for all features and APIs",
+    content:
+      "Optimizes for: Comprehensive coverage, searchability, examples.\n Skips: Narrative flow, beginner explanations.",
   },
-  custom: {
-    name: "Custom Rules",
-    rules: "Enter your own documentation generation rules",
+  understandSystem: {
+    name: "Understand the system",
+    description: "Explain how it works, why design decisions were made",
+    content:
+      "Optimizes for: Architecture, concepts, decision rationale.\nSkips: Quick wins, copy-paste solutions.",
+  },
+  solveProblems: {
+    name: "Solve problems",
+    description: "Help users troubleshoot and fix issues",
+    content:
+      "Optimizes for: Error scenarios, diagnostics, solutions.\nSkips: Happy path tutorials, feature overviews.",
+  },
+  mixedPurpose: {
+    name: "Mix of above",
+    description: "Comprehensive documentation covering multiple needs",
+    content:
+      "Optimizes for: Balanced coverage, multiple entry points.\nTrade-off: Longer, requires good navigation.",
   },
 };
 
-// Predefined target audiences
+// Predefined target audiences based on who will read the documentation most often
 export const TARGET_AUDIENCES = {
-  generalUsers: "General Users",
-  actionFirst: "Developers, Implementation Engineers, DevOps",
-  conceptFirst: "Architects, Technical Leads, Developers interested in principles",
-  custom: "Enter your own target audience",
+  endUsers: {
+    name: "End users (non-technical)",
+    description: "People who use the product but don't code",
+    content:
+      "Writing: Plain language, UI-focused, avoid technical terms.\nExamples: Screenshots, step-by-step clicks, business outcomes.",
+  },
+  developers: {
+    name: "Developers integrating",
+    description: "Engineers adding this to their projects",
+    content:
+      "Writing: Code-first, copy-paste ready, technical accuracy.\nExamples: SDK usage, API calls, configuration snippets.",
+  },
+  devops: {
+    name: "DevOps/Infrastructure",
+    description: "Teams deploying, monitoring, maintaining systems",
+    content:
+      "Writing: Operations-focused, troubleshooting emphasis.\nExamples: Deployment configs, monitoring setup, scaling guides.",
+  },
+  decisionMakers: {
+    name: "Technical decision makers",
+    description: "Architects, leads evaluating or planning implementation",
+    content:
+      "Writing: High-level first, drill-down details available.\nExamples: Architecture diagrams, comparison tables, trade-offs.",
+  },
+  supportTeams: {
+    name: "Support teams",
+    description: "People helping others use the product",
+    content:
+      "Writing: Diagnostic-focused, common issues prominent.\nExamples: Troubleshooting flows, FAQ format, escalation paths.",
+  },
+  mixedTechnical: {
+    name: "Mixed technical audience",
+    description: "Developers, DevOps, and technical users",
+    content:
+      "Writing: Layered complexity, multiple entry points.\nExamples: Progressive disclosure, role-based navigation.",
+  },
+};
+
+// Reader knowledge level - what do readers typically know when they arrive?
+export const READER_KNOWLEDGE_LEVELS = {
+  completeBeginners: {
+    name: "Complete beginners",
+    description: "New to this domain/technology entirely",
+    content:
+      "Content: Define terms, explain concepts, assume nothing.\nStructure: Linear progression, prerequisite checks.\nTone: Patient, educational, confidence-building.",
+  },
+  domainFamiliar: {
+    name: "Domain-familiar, tool-new",
+    description: "Know the problem space, new to this specific solution",
+    content:
+      'Content: Focus on differences, migration, unique features.\nStructure: Comparison-heavy, "coming from X" sections.\nTone: Efficient, highlight advantages, skip basics.',
+  },
+  experiencedUsers: {
+    name: "Experienced users",
+    description: "Regular users needing reference/advanced topics",
+    content:
+      "Content: Dense information, edge cases, performance tips.\nStructure: Reference-style, searchable, task-oriented.\nTone: Concise, technical precision, assume competence.",
+  },
+  emergencyTroubleshooting: {
+    name: "Emergency/troubleshooting",
+    description: "Something's broken, need to fix it quickly",
+    content:
+      "Content: Symptom → diagnosis → solution format.\nStructure: Problem-first, solution-prominent, escalation paths.\nTone: Clear, actionable, confidence-inspiring.",
+  },
+  exploringEvaluating: {
+    name: "Exploring/evaluating",
+    description: "Trying to understand if this fits their needs",
+    content:
+      "Content: Use cases, comparisons, getting started quickly.\nStructure: Multiple entry points, progressive commitment.\nTone: Persuasive but honest, show value quickly.",
+  },
+};
+
+// Documentation depth - how comprehensive should the documentation be?
+export const DOCUMENTATION_DEPTH = {
+  essentialOnly: {
+    name: "Essential only",
+    description: "Cover the 80% use cases, keep it concise",
+    content:
+      "Scope: Core features, happy paths, common patterns.\nLength: Shorter sections, key examples only.\nMaintenance: Easier to keep current.",
+  },
+  balancedCoverage: {
+    name: "Balanced coverage",
+    description: "Good depth with practical examples [RECOMMENDED]",
+    content:
+      "Scope: Most features, some edge cases, multiple examples.\nLength: Moderate sections, varied example types.\nMaintenance: Reasonable update burden.",
+  },
+  comprehensive: {
+    name: "Comprehensive",
+    description: "Cover all features, edge cases, and advanced scenarios",
+    content:
+      "Scope: Everything, all parameters, extensive examples.\nLength: Detailed sections, comprehensive coverage.\nMaintenance: Higher update complexity.",
+  },
+  aiDecide: {
+    name: "Let AI decide",
+    description: "Analyze code complexity and suggest appropriate depth",
+    content:
+      "Scope: Adaptive based on codebase analysis.\nAI considers: API surface area, complexity, existing patterns.",
+  },
+};
+
+// Purpose to Knowledge Level mapping for default suggestions
+export const PURPOSE_TO_KNOWLEDGE_MAPPING = {
+  getStarted: "completeBeginners", // Get started → Complete beginners
+  findAnswers: "experiencedUsers", // Find answers → Experienced users
+  solveProblems: "emergencyTroubleshooting", // Solve problems → Emergency/troubleshooting
+  exploringEvaluating: "exploringEvaluating", // Exploring → Exploring/evaluating
+};
+
+// Documentation Depth recommendation logic
+export const DEPTH_RECOMMENDATION_LOGIC = {
+  // Purpose-based recommendations (highest priority)
+  purposes: {
+    getStarted: "essentialOnly", // Get started → Essential
+  },
+  // Audience-based recommendations (medium priority)
+  audiences: {
+    decisionMakers: "balancedCoverage", // Decision makers → Balanced
+  },
+  // Knowledge level-based recommendations (lowest priority)
+  knowledgeLevels: {
+    experiencedUsers: "comprehensive", // Experienced users → Comprehensive
+  },
 };
 
 // Component mount point ID for Discuss Kit

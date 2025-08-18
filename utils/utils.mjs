@@ -4,7 +4,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import chalk from "chalk";
 import { parse } from "yaml";
-import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "./constants.mjs";
+import {
+  DEFAULT_EXCLUDE_PATTERNS,
+  DEFAULT_INCLUDE_PATTERNS,
+  DOCUMENT_STYLES,
+  TARGET_AUDIENCES,
+  READER_KNOWLEDGE_LEVELS,
+  DOCUMENTATION_DEPTH,
+} from "./constants.mjs";
 
 /**
  * Normalize path to absolute path for consistent comparison
@@ -702,4 +709,93 @@ export async function getProjectInfo() {
     icon: defaultIcon,
     fromGitHub,
   };
+}
+
+/**
+ * Process configuration fields - convert keys to actual content
+ * @param {Object} config - Parsed configuration
+ * @returns {Object} Processed configuration with content fields
+ */
+export function processConfigFields(config) {
+  const processed = {};
+  const allRulesContent = [];
+
+  // Check if original rules field has content
+  const existingRules = config.rules?.trim();
+  if (existingRules) {
+    allRulesContent.push(existingRules);
+  }
+
+  // Process document purpose (array)
+  let purposeContents = "";
+  if (config.documentPurpose && Array.isArray(config.documentPurpose)) {
+    purposeContents = config.documentPurpose
+      .map((key) => DOCUMENT_STYLES[key]?.content)
+      .filter(Boolean)
+      .join("\n\n");
+
+    if (purposeContents) {
+      allRulesContent.push(purposeContents);
+    }
+  }
+
+  // Process target audience types (array)
+  let audienceContents = "";
+  let audienceNames = "";
+  if (config.targetAudienceTypes && Array.isArray(config.targetAudienceTypes)) {
+    // Get content for rules
+    audienceContents = config.targetAudienceTypes
+      .map((key) => TARGET_AUDIENCES[key]?.content)
+      .filter(Boolean)
+      .join("\n\n");
+
+    // Get names for targetAudience field
+    audienceNames = config.targetAudienceTypes
+      .map((key) => TARGET_AUDIENCES[key]?.name)
+      .filter(Boolean)
+      .join(", ");
+
+    if (audienceContents) {
+      allRulesContent.push(audienceContents);
+    }
+
+    if (audienceNames) {
+      // Check if original targetAudience field has content
+      const existingTargetAudience = config.targetAudience?.trim();
+      const newAudienceNames = audienceNames;
+
+      if (existingTargetAudience) {
+        processed.targetAudience = `${existingTargetAudience}\n\n${newAudienceNames}`;
+      } else {
+        processed.targetAudience = newAudienceNames;
+      }
+    }
+  }
+
+  // Process reader knowledge level (single value)
+  let knowledgeContent = "";
+  if (config.readerKnowledgeLevel) {
+    knowledgeContent = READER_KNOWLEDGE_LEVELS[config.readerKnowledgeLevel]?.content;
+    if (knowledgeContent) {
+      processed.readerKnowledgeContent = knowledgeContent;
+      allRulesContent.push(`Reader Knowledge Level:\n${knowledgeContent}`);
+    }
+  }
+
+  // Process documentation depth (single value)
+  let depthContent = "";
+  if (config.documentationDepth) {
+    depthContent = DOCUMENTATION_DEPTH[config.documentationDepth]?.content;
+    if (depthContent) {
+      processed.documentationDepthContent = depthContent;
+      allRulesContent.push(`Documentation Depth:\n${depthContent}`);
+    }
+  }
+
+  // Combine all content into rules field
+  if (allRulesContent.length > 0) {
+    processed.rules = allRulesContent.join("\n\n");
+  }
+
+  return processed;
 }

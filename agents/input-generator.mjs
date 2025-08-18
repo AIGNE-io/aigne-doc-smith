@@ -1,7 +1,15 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
-import { DOCUMENT_STYLES, SUPPORTED_LANGUAGES, TARGET_AUDIENCES } from "../utils/constants.mjs";
+import {
+  DOCUMENT_STYLES,
+  SUPPORTED_LANGUAGES,
+  TARGET_AUDIENCES,
+  READER_KNOWLEDGE_LEVELS,
+  DOCUMENTATION_DEPTH,
+  PURPOSE_TO_KNOWLEDGE_MAPPING,
+  DEPTH_RECOMMENDATION_LOGIC,
+} from "../utils/constants.mjs";
 import { getAvailablePaths, getProjectInfo, validatePath } from "../utils/utils.mjs";
 
 // UI constants
@@ -31,56 +39,134 @@ export default async function init(
   // Collect user information
   const input = {};
 
-  // 1. Document generation rules with style selection
-  // Let user select a document style
-  const styleChoice = await options.prompts.select({
-    message: "📝 Step 1/6: Choose your documentation style:",
-    choices: Object.entries(DOCUMENT_STYLES).map(([key, style]) => ({
-      name: `${style.name} - ${style.rules}`,
-      value: key,
-    })),
+  // 1. Primary purpose - what's the main outcome you want readers to achieve?
+  const purposeChoices = await options.prompts.checkbox({
+    message:
+      "📝 Step 1/8: What's the main outcome you want readers to achieve? (Select all that apply)",
+    choices: Object.entries(DOCUMENT_STYLES)
+      .filter(([key]) => key !== "custom") // Remove custom option for multiselect
+      .map(([key, style]) => ({
+        name: `${style.name}`,
+        description: style.description,
+        value: key,
+      })),
+    validate: (input) => {
+      if (input.length === 0) {
+        return "Please select at least one purpose.";
+      }
+      return true;
+    },
   });
 
-  let rules;
-  if (styleChoice === "custom") {
-    // User wants to input custom rules
-    rules = await options.prompts.input({
-      message: "Enter your custom documentation rules:",
+  // Follow-up logic: If ONLY mixedPurpose selected, ask for priority ranking
+  let prioritizedPurposes = purposeChoices;
+  if (purposeChoices.length === 1 && purposeChoices.includes("mixedPurpose")) {
+    const topPriorities = await options.prompts.checkbox({
+      message: "🎯 Which is most important? (Select top 2 priorities)",
+      choices: Object.entries(DOCUMENT_STYLES)
+        .filter(([key]) => key !== "custom" && key !== "mixedPurpose") // Filter out custom and mixedPurpose
+        .map(([key, style]) => ({
+          name: `${style.name}`,
+          description: style.description,
+          value: key,
+        })),
+      validate: (input) => {
+        if (input.length === 0) {
+          return "Please select at least one priority.";
+        }
+        if (input.length > 2) {
+          return "Please select maximum 2 priorities.";
+        }
+        return true;
+      },
     });
-  } else {
-    // Use predefined style directly
-    rules = DOCUMENT_STYLES[styleChoice].rules;
+
+    // Replace mixedPurpose with selected priorities
+    prioritizedPurposes = topPriorities;
   }
 
-  input.rules = rules.trim();
+  // Save document purpose choices as keys
+  input.documentPurpose = prioritizedPurposes;
 
-  // 2. Target audience selection
-  // Let user select target audience
-  const audienceChoice = await options.prompts.select({
-    message: "👥 Step 2/6: Who is your target audience?",
-    choices: Object.entries(TARGET_AUDIENCES).map(([key, audience]) => ({
-      name: audience,
-      value: key,
-    })),
+  // 2. Target audience - who will be reading this most often?
+  const audienceChoices = await options.prompts.checkbox({
+    message: "👥 Step 2/8: Who will be reading this most often? (Select all that apply)",
+    choices: Object.entries(TARGET_AUDIENCES)
+      .filter(([key]) => key !== "custom") // Remove custom option for multiselect
+      .map(([key, audience]) => ({
+        name: `${audience.name}`,
+        description: audience.description,
+        value: key,
+      })),
+    validate: (input) => {
+      if (input.length === 0) {
+        return "Please select at least one audience.";
+      }
+      return true;
+    },
   });
 
-  let targetAudience;
-  if (audienceChoice === "custom") {
-    // User wants to input custom audience
-    targetAudience = await options.prompts.input({
-      message: "Enter your custom target audience:",
-    });
-  } else {
-    // Use predefined audience directly
-    targetAudience = TARGET_AUDIENCES[audienceChoice];
-  }
+  // Save target audience choices as keys
+  input.targetAudienceTypes = audienceChoices;
 
-  input.targetAudience = targetAudience.trim();
+  // 3. Reader knowledge level - what do readers typically know when they arrive?
+  // Determine default based on selected purposes using mapping
+  const mappedPurpose = prioritizedPurposes.find(
+    (purpose) => PURPOSE_TO_KNOWLEDGE_MAPPING[purpose],
+  );
+  const defaultKnowledge = mappedPurpose ? PURPOSE_TO_KNOWLEDGE_MAPPING[mappedPurpose] : null;
 
-  // 3. Language settings
+  const knowledgeChoice = await options.prompts.select({
+    message: "🧠 Step 3/8: What do readers typically know when they arrive?",
+    choices: Object.entries(READER_KNOWLEDGE_LEVELS).map(([key, level]) => ({
+      name: `${level.name}`,
+      description: level.description,
+      value: key,
+    })),
+    default: defaultKnowledge,
+  });
+
+  // Save reader knowledge level choice as key
+  input.readerKnowledgeLevel = knowledgeChoice;
+
+  // 4. Documentation depth - how comprehensive should the documentation be?
+  // Determine default based on priority: Purpose > Audience > Knowledge Level
+  const getDepthDefault = () => {
+    // Check priority order: purposes -> audiences -> knowledgeLevels
+    const checks = [
+      () => {
+        const purpose = prioritizedPurposes.find((p) => DEPTH_RECOMMENDATION_LOGIC.purposes[p]);
+        return purpose ? DEPTH_RECOMMENDATION_LOGIC.purposes[purpose] : null;
+      },
+      () => {
+        const audience = audienceChoices.find((a) => DEPTH_RECOMMENDATION_LOGIC.audiences[a]);
+        return audience ? DEPTH_RECOMMENDATION_LOGIC.audiences[audience] : null;
+      },
+      () => DEPTH_RECOMMENDATION_LOGIC.knowledgeLevels[knowledgeChoice] || null,
+    ];
+
+    return checks.find((check) => check())?.() || null;
+  };
+
+  const defaultDepth = getDepthDefault();
+
+  const depthChoice = await options.prompts.select({
+    message: "📊 Step 4/8: How comprehensive should the documentation be?",
+    choices: Object.entries(DOCUMENTATION_DEPTH).map(([key, depth]) => ({
+      name: `${depth.name}`,
+      description: depth.description,
+      value: key,
+    })),
+    default: defaultDepth,
+  });
+
+  // Save documentation depth choice as key
+  input.documentationDepth = depthChoice;
+
+  // 5. Language settings
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 Step 3/6: Choose primary documentation language:",
+    message: "🌐 Step 5/8: Choose primary documentation language:",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -89,14 +175,14 @@ export default async function init(
 
   input.locale = primaryLanguageChoice;
 
-  // 4. Translation languages
+  // 6. Translation languages
   // Filter out the primary language from available choices
   const availableTranslationLanguages = SUPPORTED_LANGUAGES.filter(
     (lang) => lang.code !== primaryLanguageChoice,
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "🔄 Step 4/6: Select translation languages:",
+    message: "🔄 Step 6/8: Select translation languages:",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -105,15 +191,15 @@ export default async function init(
 
   input.translateLanguages = translateLanguageChoices;
 
-  // 5. Documentation directory
+  // 7. Documentation directory
   const docsDirInput = await options.prompts.input({
-    message: `📁 Step 5/6: Where to save generated docs:`,
+    message: `📁 Step 7/8: Where to save generated docs:`,
     default: `${outputPath}/docs`,
   });
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
 
-  // 6. Source code paths
-  console.log("\n🔍 Step 6/6: Source Code Paths");
+  // 8. Source code paths
+  console.log("\n🔍 Step 8/8: Source Code Paths");
   console.log("Enter paths to analyze for documentation (e.g., ./src, ./lib)");
   console.log("💡 If no paths are configured, './' will be used as default");
 
@@ -221,16 +307,35 @@ function generateYAML(input) {
   yaml += `projectLogo: ${input.projectLogo || ""}\n`;
   yaml += `\n`;
 
-  // Add rules (required field)
-  yaml += `rules: |\n`;
-  if (input.rules?.trim()) {
-    yaml += `  ${input.rules.split("\n").join("\n  ")}\n\n`;
-  } else {
-    yaml += `  \n\n`;
+  // Add documentation configuration choices
+  yaml += `# Documentation configuration choices\n`;
+  yaml += `documentPurpose:\n`;
+  if (input.documentPurpose && input.documentPurpose.length > 0) {
+    input.documentPurpose.forEach((purpose) => {
+      yaml += `  - ${purpose}\n`;
+    });
   }
+  yaml += `\n`;
 
-  // Add target audience
-  yaml += `targetAudience: ${input.targetAudience}\n`;
+  yaml += `targetAudienceTypes:\n`;
+  if (input.targetAudienceTypes && input.targetAudienceTypes.length > 0) {
+    input.targetAudienceTypes.forEach((audience) => {
+      yaml += `  - ${audience}\n`;
+    });
+  }
+  yaml += `\n`;
+
+  yaml += `readerKnowledgeLevel: ${input.readerKnowledgeLevel || ""}\n`;
+  yaml += `documentationDepth: ${input.documentationDepth || ""}\n`;
+  yaml += `\n`;
+
+  // Keep rules field empty for now (backward compatibility)
+  yaml += `rules: |\n`;
+  yaml += `  \n\n`;
+
+  // Keep targetAudience field empty for now (backward compatibility)
+  yaml += `targetAudience: |\n`;
+  yaml += `  \n\n`;
 
   // Add language settings
   yaml += `locale: ${input.locale}\n`;

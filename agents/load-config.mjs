@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
+import { processConfigFields } from "../utils/utils.mjs";
 
 export default async function loadConfig({ config, appUrl }) {
   const configPath = path.join(process.cwd(), config);
@@ -23,6 +24,9 @@ export default async function loadConfig({ config, appUrl }) {
       parsedConfig.appUrl = appUrl;
     }
 
+    // Parse new configuration fields and convert keys to actual content
+    const processedConfig = processConfigFields(parsedConfig);
+
     return {
       nodeName: "Section",
       locale: "en",
@@ -31,6 +35,7 @@ export default async function loadConfig({ config, appUrl }) {
       outputDir: "./.aigne/doc-smith/output",
       lastGitHead: parsedConfig.lastGitHead || "",
       ...parsedConfig,
+      ...processedConfig,
     };
   } catch (error) {
     console.error(`Error parsing config file: ${error.message}`);
