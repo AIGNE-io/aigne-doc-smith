@@ -3,11 +3,20 @@ import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { createConnect } from "@aigne/aigne-hub";
+import chalk from "chalk";
 import open from "open";
 import { joinURL } from "ufo";
 import { parse, stringify } from "yaml";
-import { getComponentMountPoint } from "./blocklet.mjs";
-import { DISCUSS_KIT_DID } from "./constants.mjs";
+import {
+  getComponentMountPoint,
+  InvalidBlockletError,
+  ComponentNotFoundError,
+} from "./blocklet.mjs";
+import {
+  DISCUSS_KIT_DID,
+  DISCUSS_KIT_STORE_URL,
+  BLOCKLET_ADD_COMPONENT_DOCS,
+} from "./constants.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
@@ -47,14 +56,29 @@ export async function getAccessToken(appUrl) {
   // Check if Discuss Kit is running at the provided URL
   try {
     await getComponentMountPoint(appUrl, DISCUSS_KIT_DID);
-  } catch {
-    throw new Error(
-      `Unable to find Discuss Kit running at the provided URL: ${appUrl}\n\n` +
-        "Please ensure that:\n" +
-        "• The URL is correct and accessible\n" +
-        "• Discuss Kit is properly installed and running\n" +
-        "If you continue to experience issues, please verify your Discuss Kit installation.",
-    );
+  } catch (error) {
+    const storeLink = chalk.cyan(DISCUSS_KIT_STORE_URL);
+    if (error instanceof InvalidBlockletError) {
+      throw new Error(
+        `${chalk.yellow("⚠️  The provided URL is not a valid website on ArcBlock platform")}\n\n` +
+          `${chalk.bold("💡 Solution:")} Start here to run your own website that can host your docs:\n${storeLink}\n\n`,
+      );
+    } else if (error instanceof ComponentNotFoundError) {
+      const docsLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_DOCS);
+      throw new Error(
+        `${chalk.yellow("⚠️  This website does not have required components for publishing")}\n\n` +
+          `${chalk.bold("💡 Solution:")} Please refer to the documentation to add Discuss Kit component:\n${docsLink}\n\n`,
+      );
+    } else {
+      throw new Error(
+        `❌ Unable to connect to: ${chalk.cyan(appUrl)}\n\n` +
+          `${chalk.bold("Possible causes:")}\n` +
+          `• Network connection issues\n` +
+          `• Server temporarily unavailable\n` +
+          `• Incorrect URL address\n\n` +
+          `${chalk.green("Suggestion:")} Please check your network connection and URL address, then try again`,
+      );
+    }
   }
 
   const DISCUSS_KIT_URL = appUrl;

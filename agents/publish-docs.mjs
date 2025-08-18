@@ -2,6 +2,8 @@ import { basename, join } from "node:path";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import { getAccessToken } from "../utils/auth-utils.mjs";
 import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
+import chalk from "chalk";
+import { DISCUSS_KIT_STORE_URL } from "../utils/constants.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
@@ -39,6 +41,10 @@ export default async function publishDocs(
     });
 
     if (choice === "custom") {
+      console.log(
+        `${chalk.bold("\n💡 Tips")}\n\n` +
+          `Start here to run your own website:\n${chalk.cyan(DISCUSS_KIT_STORE_URL)}\n`,
+      );
       const userInput = await options.prompts.input({
         message: "Please enter your Discuss Kit platform URL:",
         validate: (input) => {
