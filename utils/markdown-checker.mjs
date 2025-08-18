@@ -335,6 +335,20 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
           }
         }
 
+        // Check for numbered list format in node labels (for both [] and {} syntax)
+        const nodeLabelWithNumberRegex =
+          /[A-Za-z0-9_]+\["([^"]*\d+\.\s[^"]*)"\]|[A-Za-z0-9_]+{"([^}]*\d+\.\s[^}]*)"}/g;
+        let numberMatch;
+        while ((numberMatch = nodeLabelWithNumberRegex.exec(mermaidContent)) !== null) {
+          const label = numberMatch[1] || numberMatch[2];
+          // Check if the label contains numbered list format
+          if (/\d+\.\s/.test(label)) {
+            errorMessages.push(
+              `Unsupported markdown: list - Found numbered list format in Mermaid node label in ${source} at line ${line}: "${label}" - numbered lists in node labels cause rendering issues`,
+            );
+          }
+        }
+
         // Check for special characters in node labels that should be quoted
         const nodeWithSpecialCharsRegex = /([A-Za-z0-9_]+)\[([^\]]*[(){}:;,\-\s.][^\]]*)\]/g;
         let specialCharMatch;

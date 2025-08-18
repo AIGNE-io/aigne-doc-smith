@@ -499,6 +499,28 @@ This content ends properly.
 `,
   },
 
+  {
+    category: "🧩 MERMAID VALIDATION",
+    name: "Mermaid with numbered list format in node labels",
+    expectPass: false,
+    expectedErrors: ["numbered list format in Mermaid node label"],
+    content: `# Test Document
+
+\`\`\`mermaid
+flowchart TD
+    A["1. Create Backend Implementation<br>api/src/providers/"]
+    B["2. Add Backend Configuration<br>api/src/providers/models.ts"]
+    C["3. Update Frontend Selector<br>src/pages/config/ai-providers/"]
+    D["4. Add Provider Logo<br>public/logo/"]
+    E["5. Update Documentation"]
+
+    A --> B --> C --> D --> E
+\`\`\`
+
+This content ends properly.
+`,
+  },
+
   // ========== COMPLEX MIXED CASES ==========
   {
     category: "🔄 COMPLEX MIXED CASES",
