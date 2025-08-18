@@ -43,7 +43,7 @@ export default async function publishDocs(
     if (choice === "custom") {
       console.log(
         `${chalk.bold("\n💡 Tips")}\n\n` +
-          `To run your own Discuss Kit, please go to Blocklet Store to launch a Discuss Kit:\n${chalk.cyan(DISCUSS_KIT_STORE_URL)}\n`,
+          `Start here to run your own website:\n${chalk.cyan(DISCUSS_KIT_STORE_URL)}\n`,
       );
       const userInput = await options.prompts.input({
         message: "Please enter your Discuss Kit platform URL:",

@@ -16,9 +16,7 @@ export class InvalidBlockletError extends Error {
  */
 export class ComponentNotFoundError extends Error {
   constructor(did, appUrl) {
-    super(
-      `The application at "${appUrl}" does not have Discuss Kit running. Component "${did}" was not found.`,
-    );
+    super(`Your website "${appUrl}" missing required component to host your docs.`);
     this.name = "ComponentNotFoundError";
     this.did = did;
     this.appUrl = appUrl;

@@ -61,7 +61,7 @@ export async function getAccessToken(appUrl) {
     if (error instanceof InvalidBlockletError) {
       throw new Error(
         `${chalk.yellow("⚠️  The provided URL is not a valid website on ArcBlock platform")}\n\n` +
-          `${chalk.bold("💡 Solution:")} Please go to Blocklet Store to launch a Discuss Kit:\n${storeLink}\n\n`,
+          `${chalk.bold("💡 Solution:")} Start here to run your own website that can host your docs:\n${storeLink}\n\n`,
       );
     } else if (error instanceof ComponentNotFoundError) {
       const docsLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_DOCS);
