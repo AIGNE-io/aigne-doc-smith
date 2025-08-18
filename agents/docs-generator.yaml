@@ -47,7 +47,7 @@ input_schema:
     #   default: ./.aigne/doc-smith/config.yaml
     glossary:
       type: string
-      description: Glossary of terms for consistent terminology
+      description: Glossary of terms for consistent terminology, use @<file> to read from a file
     feedback:
       type: string
       description: Feedback for structure planning adjustments
