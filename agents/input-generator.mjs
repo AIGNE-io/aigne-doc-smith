@@ -16,6 +16,7 @@ import {
   validatePath,
   detectSystemLanguage,
 } from "../utils/utils.mjs";
+import { validateSelection, getFilteredOptions } from "../utils/conflict-detector.mjs";
 
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
@@ -59,7 +60,7 @@ export default async function init(
       if (input.length === 0) {
         return "Please select at least one purpose.";
       }
-      return true;
+      return validateSelection("documentPurpose", input);
     },
   });
 
@@ -107,7 +108,7 @@ export default async function init(
       if (input.length === 0) {
         return "Please select at least one audience.";
       }
-      return true;
+      return validateSelection("targetAudienceTypes", input);
     },
   });
 
@@ -121,9 +122,16 @@ export default async function init(
   );
   const defaultKnowledge = mappedPurpose ? PURPOSE_TO_KNOWLEDGE_MAPPING[mappedPurpose] : null;
 
+  // Filter knowledge level options based on previous selections
+  const { filteredOptions: filteredKnowledgeOptions } = getFilteredOptions(
+    "readerKnowledgeLevel",
+    { documentPurpose: prioritizedPurposes, targetAudienceTypes: audienceChoices },
+    READER_KNOWLEDGE_LEVELS,
+  );
+
   const knowledgeChoice = await options.prompts.select({
     message: "🧠 Step 3/8: What do readers typically know when they arrive?",
-    choices: Object.entries(READER_KNOWLEDGE_LEVELS).map(([key, level]) => ({
+    choices: Object.entries(filteredKnowledgeOptions).map(([key, level]) => ({
       name: `${level.name}`,
       description: level.description,
       value: key,
@@ -155,9 +163,20 @@ export default async function init(
 
   const defaultDepth = getDepthDefault();
 
+  // Filter documentation depth options based on all previous selections
+  const { filteredOptions: filteredDepthOptions } = getFilteredOptions(
+    "documentationDepth",
+    {
+      documentPurpose: prioritizedPurposes,
+      targetAudienceTypes: audienceChoices,
+      readerKnowledgeLevel: knowledgeChoice,
+    },
+    DOCUMENTATION_DEPTH,
+  );
+
   const depthChoice = await options.prompts.select({
     message: "📊 Step 4/8: How comprehensive should the documentation be?",
-    choices: Object.entries(DOCUMENTATION_DEPTH).map(([key, depth]) => ({
+    choices: Object.entries(filteredDepthOptions).map(([key, depth]) => ({
       name: `${depth.name}`,
       description: depth.description,
       value: key,

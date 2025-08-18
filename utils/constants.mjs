@@ -314,3 +314,211 @@ export const DISCUSS_KIT_STORE_URL =
   "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
 export const BLOCKLET_ADD_COMPONENT_DOCS =
   "https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s";
+
+// Conflict rules configuration for documentation generation
+export const CONFLICT_RULES = {
+  // Internal conflicts within the same question (multi-select conflicts)
+  internalConflicts: {
+    documentPurpose: [
+      {
+        conflictItems: ["getStarted", "findAnswers"],
+        severity: "severe",
+        reason:
+          "Quick start guide (skips complex cases) conflicts with comprehensive API reference (skips beginner explanations)",
+        suggestion: "Choose one as primary goal, or consider creating layered documentation",
+      },
+      {
+        conflictItems: ["getStarted", "understandSystem"],
+        severity: "severe",
+        reason: "30-minute quick start conflicts with deep architectural concept explanations",
+        suggestion: "Consider creating separate quick start and architecture design docs",
+      },
+      {
+        conflictItems: ["completeTasks", "understandSystem"],
+        severity: "moderate",
+        reason:
+          "Practical task guidance and theoretical concept explanation have different focuses",
+        suggestion:
+          "Can be handled through layered document structure: concepts first, then practice",
+      },
+      {
+        conflictItems: ["getStarted", "solveProblems"],
+        severity: "moderate",
+        reason:
+          "Quick start (success cases) and troubleshooting (error scenarios) have different focuses",
+        suggestion: "Create separate tutorial and troubleshooting guides",
+      },
+      {
+        conflictItems: ["findAnswers", "solveProblems"],
+        severity: "moderate",
+        reason: "API reference and diagnostic documentation have different organizational logic",
+        suggestion: "Add troubleshooting section to reference documentation",
+      },
+    ],
+    targetAudienceTypes: [
+      {
+        conflictItems: ["endUsers", "developers"],
+        severity: "severe",
+        reason:
+          "Non-technical users (avoid technical terms) conflict with developers (code-first approach)",
+        suggestion:
+          "Create separate documentation for different audiences or use layered content design",
+      },
+      {
+        conflictItems: ["endUsers", "devops"],
+        severity: "severe",
+        reason: "Non-technical users and operations technical personnel have very different needs",
+        suggestion: "Consider creating separate user guides and operations documentation",
+      },
+      {
+        conflictItems: ["endUsers", "decisionMakers"],
+        severity: "severe",
+        reason:
+          "Non-technical users (simple language) and decision makers (architecture diagrams) have different needs",
+        suggestion: "Create high-level overview for management and user operation manuals",
+      },
+      {
+        conflictItems: ["developers", "decisionMakers"],
+        severity: "moderate",
+        reason:
+          "Developers (code details) and decision makers (high-level overview) have different focus areas",
+        suggestion: "Use progressive disclosure: high-level first, then details",
+      },
+      {
+        conflictItems: ["supportTeams", "decisionMakers"],
+        severity: "moderate",
+        reason:
+          "Support teams (problem diagnosis) and decision makers (architecture decisions) have different focus areas",
+        suggestion: "Include operational considerations in decision documentation",
+      },
+    ],
+  },
+
+  // Cross-question conflicts (conflicts between different questions)
+  crossConflicts: [
+    {
+      conditions: {
+        documentPurpose: ["getStarted"],
+        readerKnowledgeLevel: ["experiencedUsers"],
+      },
+      severity: "severe",
+      reason:
+        "Quick start tutorials are not suitable for experienced users who need advanced features and best practices",
+      action: "filter",
+      conflictingOptions: {
+        readerKnowledgeLevel: ["experiencedUsers"],
+      },
+    },
+    {
+      conditions: {
+        documentPurpose: ["findAnswers"],
+        readerKnowledgeLevel: ["completeBeginners"],
+      },
+      severity: "severe",
+      reason:
+        "API reference documentation skips beginner explanations and is not suitable for complete beginners",
+      action: "filter",
+      conflictingOptions: {
+        readerKnowledgeLevel: ["completeBeginners"],
+      },
+    },
+    {
+      conditions: {
+        documentPurpose: ["understandSystem"],
+        readerKnowledgeLevel: ["emergencyTroubleshooting"],
+      },
+      severity: "severe",
+      reason:
+        "System architecture explanations are not suitable for emergency troubleshooting scenarios",
+      action: "filter",
+      conflictingOptions: {
+        readerKnowledgeLevel: ["emergencyTroubleshooting"],
+      },
+    },
+    {
+      conditions: {
+        targetAudienceTypes: ["endUsers"],
+        readerKnowledgeLevel: ["experiencedUsers"],
+      },
+      severity: "severe",
+      reason: "Non-technical users are typically not experienced technical users",
+      action: "filter",
+      conflictingOptions: {
+        readerKnowledgeLevel: ["experiencedUsers"],
+      },
+    },
+    {
+      conditions: {
+        targetAudienceTypes: ["decisionMakers"],
+        readerKnowledgeLevel: ["emergencyTroubleshooting"],
+      },
+      severity: "severe",
+      reason: "Decision makers typically do not directly handle emergency technical failures",
+      action: "filter",
+      conflictingOptions: {
+        readerKnowledgeLevel: ["emergencyTroubleshooting"],
+      },
+    },
+    {
+      conditions: {
+        documentPurpose: ["getStarted"],
+        documentationDepth: ["comprehensive"],
+      },
+      severity: "severe",
+      reason: "Quick start tutorials contradict comprehensive coverage documentation",
+      action: "filter",
+      conflictingOptions: {
+        documentationDepth: ["comprehensive"],
+      },
+    },
+    {
+      conditions: {
+        documentPurpose: ["solveProblems"],
+        documentationDepth: ["essentialOnly"],
+      },
+      severity: "moderate",
+      reason:
+        "Troubleshooting usually needs to cover edge cases, basic content alone may not be sufficient",
+      action: "filter",
+      conflictingOptions: {
+        documentationDepth: ["essentialOnly"],
+      },
+    },
+    {
+      conditions: {
+        targetAudienceTypes: ["endUsers"],
+        documentationDepth: ["comprehensive"],
+      },
+      severity: "moderate",
+      reason: "Non-technical users typically do not need comprehensive technical coverage",
+      action: "filter",
+      conflictingOptions: {
+        documentationDepth: ["comprehensive"],
+      },
+    },
+    {
+      conditions: {
+        targetAudienceTypes: ["decisionMakers"],
+        documentationDepth: ["essentialOnly"],
+      },
+      severity: "moderate",
+      reason: "Decision makers may need more comprehensive information to make decisions",
+      action: "filter",
+      conflictingOptions: {
+        documentationDepth: ["essentialOnly"],
+      },
+    },
+    {
+      conditions: {
+        readerKnowledgeLevel: ["completeBeginners"],
+        documentationDepth: ["essentialOnly"],
+      },
+      severity: "moderate",
+      reason: "Complete beginners may need more explanations, not just core content",
+      action: "filter",
+      conflictingOptions: {
+        documentationDepth: ["essentialOnly"],
+      },
+    },
+  ],
+};
