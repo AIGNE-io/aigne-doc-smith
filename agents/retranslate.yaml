@@ -1,8 +1,5 @@
 type: team
-name: retranslate
-alias:
-  - rt
-  - translate-again
+name: translate
 description: Re-translate individual document content to selected languages
 skills:
   - url: ./input-generator.mjs
@@ -26,7 +23,7 @@ skills:
           })
         }
       ])
-  - url: ./find-item-by-path.mjs
+  - url: ./find-items-by-paths.mjs
     default_input:
       isTranslate: true
   - ./language-selector.mjs
@@ -48,15 +45,17 @@ input_schema:
   properties:
     glossary:
       type: string
-      description: Glossary of terms for consistent terminology
-    doc-path:
-      type: string
-      description: Document path to retranslate
-    # languages:
-    #   type: array
-    #   items:
-    #     type: string
-    #   description: Languages to translate to
+      description: Glossary of terms for consistent terminology, use @<file> to read from a file
+    docs:
+      type: array
+      items:
+        type: string
+      description: Document paths to translate
+    langs:
+      type: array
+      items:
+        type: string
+      description: Languages to translate to
     feedback:
       type: string
       description: Feedback for translation improvement
