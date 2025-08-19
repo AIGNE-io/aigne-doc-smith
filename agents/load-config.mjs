@@ -56,3 +56,5 @@ loadConfig.input_schema = {
     },
   },
 };
+
+loadConfig.task_render_mode = "hide";

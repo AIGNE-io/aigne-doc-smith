@@ -1,4 +1,4 @@
-name: structurePlanning
+name: structurePlanGenerator
 description: 通用结构规划生成器，支持网站、文档、书籍、演示文稿等多种场景
 instructions:
   url: ../prompts/structure-planning.md

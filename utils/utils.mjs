@@ -2,7 +2,6 @@ import { execSync } from "node:child_process";
 import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import chalk from "chalk";
 import { parse } from "yaml";
 import {
   DEFAULT_EXCLUDE_PATTERNS,
@@ -102,7 +101,6 @@ export async function saveDocWithTranslations({
 
       await fs.writeFile(mainFilePath, finalContent, "utf8");
       results.push({ path: mainFilePath, success: true });
-      console.log(chalk.green(`Saved: ${chalk.cyan(mainFilePath)}`));
     }
 
     // Process all translations
@@ -121,7 +119,6 @@ export async function saveDocWithTranslations({
 
       await fs.writeFile(translatePath, finalTranslationContent, "utf8");
       results.push({ path: translatePath, success: true });
-      console.log(chalk.green(`Saved: ${chalk.cyan(translatePath)}`));
     }
   } catch (err) {
     results.push({ path: docPath, success: false, error: err.message });

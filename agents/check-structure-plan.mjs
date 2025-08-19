@@ -71,7 +71,7 @@ export default async function checkStructurePlan(
     };
   }
 
-  const panningAgent = options.context.agents["reflectiveStructurePlanner"];
+  const panningAgent = options.context.agents["structurePlanning"];
 
   const result = await options.context.invoke(panningAgent, {
     feedback: finalFeedback || "",

@@ -37,3 +37,5 @@ export default async function saveSingleDoc({
 
   return {};
 }
+
+saveSingleDoc.task_render_mode = "hide";

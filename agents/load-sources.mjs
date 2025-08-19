@@ -259,3 +259,5 @@ loadSources.output_schema = {
     },
   },
 };
+
+loadSources.task_render_mode = "hide";

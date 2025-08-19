@@ -10,6 +10,7 @@ skills:
   - ./load-config.mjs
   - ./load-sources.mjs
   - type: transform
+    task_render_mode: hide
     jsonata: |
       $merge([
         $,
@@ -36,7 +37,7 @@ input_schema:
     glossary:
       type: string
       description: Glossary of terms for consistent terminology, use @<file> to read from a file
-    doc-path:
+    docPath:
       type: string
       description: Document path to regenerate
     feedback:

@@ -21,3 +21,5 @@ export default async function formatStructurePlan({ structurePlan }) {
     structurePlan,
   };
 }
+
+formatStructurePlan.task_render_mode = "hide";

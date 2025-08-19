@@ -19,6 +19,7 @@ skills:
       fileName: structure-plan.json
   - type: transform
     name: transformData
+    task_render_mode: hide
     jsonata: |
       $merge([
         $,

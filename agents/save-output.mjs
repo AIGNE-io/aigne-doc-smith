@@ -22,3 +22,5 @@ export default async function saveOutput({ savePath, fileName, saveKey, ...rest 
     saveOutputPath: filePath,
   };
 }
+
+saveOutput.task_render_mode = "hide";

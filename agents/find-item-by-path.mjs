@@ -8,7 +8,7 @@ function getActionText(isTranslate, baseText) {
 }
 
 export default async function findItemByPath(
-  { "doc-path": docPath, structurePlanResult, boardId, docsDir, isTranslate, feedback },
+  { docPath, structurePlanResult, boardId, docsDir, isTranslate, feedback },
   options,
 ) {
   let foundItem = null;

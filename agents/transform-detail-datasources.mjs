@@ -23,3 +23,5 @@ export default function transformDetailDatasources({ sourceIds, datasourcesList 
 
   return { detailDataSources: contents.join("") };
 }
+
+transformDetailDatasources.task_render_mode = "hide";
