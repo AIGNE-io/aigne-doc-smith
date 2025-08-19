@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.11...v0.3.0) (2025-08-19)
+
+
+### Features
+
+* **core:** polish generation context collecting workflow ([#46](https://github.com/AIGNE-io/aigne-doc-smith/issues/46)) ([687d06a](https://github.com/AIGNE-io/aigne-doc-smith/commit/687d06afd648e0e697d25e85dcc841b17c3c311c))
+
+
+### Bug Fixes
+
+* optimizing help copy for running a self-hosted discuss kit ([#45](https://github.com/AIGNE-io/aigne-doc-smith/issues/45)) ([6841de8](https://github.com/AIGNE-io/aigne-doc-smith/commit/6841de817408d85ac8d993860ab431f7b8816aef))
+
 ## [0.2.11](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.10...v0.2.11) (2025-08-15)
 
 
