@@ -22,7 +22,7 @@ After running this command, the system will:
 3.  Once selected, the system will prompt you to enter specific optimization feedback (e.g., "add an example for parameter configuration" or "this description is unclear, please rewrite it in simpler language").
 4.  Press the Enter key, and AIGNE will regenerate only this document based on your feedback.
 
-![Interactively selecting a single document to update](https://www.aigne.io/image-bin/uploads/ac9ce10c1e9a98b5a9e834f9b3d4472e.png)
+![Interactively selecting a single document to update](https://docsmith.aigne.io/image-bin/uploads/b2bab8e5a727f168628a1cc8c5020697.png)
 
 ## Update by Specifying a Path
 

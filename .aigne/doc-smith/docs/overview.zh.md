@@ -10,7 +10,7 @@ AIGNE DocSmith 是一款基于 [AIGNE 框架](https://www.aigne.io/en/framework)
 
 DocSmith 是 [AIGNE](https://www.aigne.io) 生态系统的一部分，这是一个全面的 AI 应用开发平台。它与其他 AIGNE 组件无缝集成，充分利用了平台强大的 AI 能力和基础设施。
 
-![AIGNE 生态系统架构图](https://www.aigne.io/image-bin/uploads/1a609bad1b46e8bc9bbaaa2d5f587938.png)
+![AIGNE 生态系统架构图](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
 
 以下图表演示了 DocSmith 在整个工作流程中的核心位置：
 

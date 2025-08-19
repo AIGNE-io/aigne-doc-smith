@@ -39,7 +39,7 @@ aigne doc generate
 
 If you are running this command in your project for the first time, DocSmith's smart auto-configuration feature will detect the missing configuration file and automatically launch an interactive setup wizard.
 
-![Run the generate command for smart initialization](https://www.aigne.io/image-bin/uploads/5ed6deec17940478fc6f19f4c9496f20.png)
+![Run the generate command for smart initialization](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
 ### Step 4: Complete the Interactive Configuration
 
@@ -50,17 +50,17 @@ Next, you'll need to answer a series of questions based on the terminal prompts.
 - **Language Settings**: Choose the primary language for the documentation and any other languages for translation.
 - **Source Code Path**: Specify the source code directory to be analyzed.
 
-![Answer questions to complete the project setup](https://www.aigne.io/image-bin/uploads/f797b970e1b138219f41f1614e83c680.png)
+![Answer questions to complete the project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
 ### Step 5: Review the Generated Results
 
 Once the configuration is complete, DocSmith will automatically start analyzing your code, planning the document structure, and generating detailed content. The entire process requires no manual intervention.
 
-![Executing structure planning and document generation](https://www.aigne.io/image-bin/uploads/ab876626943f4542ca9f21267da001a8.png)
+![Executing structure planning and document generation](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
 Upon successful generation, you will see a confirmation message. All documents are saved in your configured output directory (which defaults to `.aigne/doc-smith/docs`).
 
-![Document generation successful](https://www.aigne.io/image-bin/uploads/aa887cd86b1888c458c1f90eaabdb901.png)
+![Document generation successful](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
 ### Congratulations!
 

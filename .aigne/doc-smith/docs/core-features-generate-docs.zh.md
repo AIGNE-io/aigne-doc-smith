@@ -16,19 +16,19 @@ aigne doc generate
 
 如果您尚未配置过项目，DocSmith 会自动检测并启动一个交互式的配置向导。这个过程被称为“智能自动配置”。
 
-![运行 generate 命令，智能执行初始化](https://www.aigne.io/image-bin/uploads/5ed6deec17940478fc6f19f4c9496f20.png)
+![运行 generate 命令，智能执行初始化](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
 您只需根据提示回答几个简单的问题，例如文档的目标读者、主要语言以及需要翻译的语言等，即可完成所有基本设置。
 
-![回答问题完成项目设置](https://www.aigne.io/image-bin/uploads/f797b970e1b138219f41f1614e83c680.png)
+![回答问题完成项目设置](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
 配置完成后，DocSmith 会立即开始分析您的代码库，进行结构规划，并逐篇生成文档内容。
 
-![执行结构规划和生成文档](https://www.aigne.io/image-bin/uploads/ab876626943f4542ca9f21267da001a8.png)
+![执行结构规划和生成文档](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
 整个过程完全自动化，完成后您会看到成功提示，所有文档都已保存在指定的输出目录中。
 
-![文档生成成功](https://www.aigne.io/image-bin/uploads/aa887cd86b1888c458c1f90eaabdb901.png)
+![文档生成成功](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
 ## 智能更新
 
@@ -36,7 +36,7 @@ aigne doc generate
 
 系统会根据这些变更来决定是否需要更新文档结构或重新生成与之相关的内容，从而最大限度地节省时间和资源。
 
-![智能检测，只重新生成需要的文档](https://www.aigne.io/image-bin/uploads/8770b95c5d87ca2917ccba555f011b68.png)
+![智能检测，只重新生成需要的文档](https://docsmith.aigne.io/image-bin/uploads/21a76b2f65d14d16a49c13d800f1e2c1.png)
 
 ## 强制完整重新生成
 

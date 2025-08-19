@@ -42,7 +42,7 @@ aigne doc generate --feedback "为快速入门增加更详细的安装指南，�
 
 此命令会指导 AI 重新规划并生成内容，使“快速入门”部分更加丰富，并新增一个“故障排查”页面。
 
-![DocSmith 根据您的反馈重新规划文档结构](https://www.aigne.io/image-bin/uploads/ab876626943f4542ca9f21267da001a8.png)
+![DocSmith 根据您的反馈重新规划文档结构](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
 通过这种迭代式的反馈机制，您可以轻松地指导 AI 调整文档的宏观结构，确保最终产出的文档既全面又贴合您的项目需求。
 

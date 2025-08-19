@@ -42,7 +42,7 @@ aigne doc generate --feedback "Add a more detailed installation guide to the qui
 
 This command will guide the AI to replan and generate content, enriching the "Quick Start" section and adding a new "Troubleshooting" page.
 
-![DocSmith replans the document structure based on your feedback](https://www.aigne.io/image-bin/uploads/ab876626943f4542ca9f21267da001a8.png)
+![DocSmith replans the document structure based on your feedback](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
 With this iterative feedback mechanism, you can easily guide the AI to adjust the documentation's high-level structure, ensuring the final output is both comprehensive and tailored to your project's needs.
 

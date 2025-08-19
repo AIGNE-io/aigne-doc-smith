@@ -10,7 +10,7 @@ AIGNE DocSmith is an AI-driven documentation generation tool built on the [AIGNE
 
 DocSmith is part of the [AIGNE](https://www.aigne.io) ecosystem, a comprehensive AI application development platform. It integrates seamlessly with other AIGNE components, fully leveraging the platform's powerful AI capabilities and infrastructure.
 
-![AIGNE Ecosystem Architecture Diagram](https://www.aigne.io/image-bin/uploads/1a609bad1b46e8bc9bbaaa2d5f587938.png)
+![AIGNE Ecosystem Architecture Diagram](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
 
 The following diagram illustrates DocSmith's central role in the overall workflow:
 

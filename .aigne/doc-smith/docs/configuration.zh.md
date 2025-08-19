@@ -8,7 +8,7 @@ AIGNE DocSmith 的强大之处在于其高度的可配置性。通过调整配�
 
 所有配置都集中在一个名为 `config.yaml` 的文件中，通常位于 `.aigne/doc-smith/` 目录下。您可以通过运行 `aigne doc init` 命令，以交互式问答的方式轻松生成和修改此文件。
 
-![回答问题完成项目设置](https://www.aigne.io/image-bin/uploads/f797b970e1b138219f41f1614e83c680.png)
+![回答问题完成项目设置](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
 下面我们将深入探讨 `config.yaml` 文件中的核心配置选项，帮助您更好地自定义文档生成过程。
 

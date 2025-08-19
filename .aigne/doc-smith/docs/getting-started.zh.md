@@ -39,7 +39,7 @@ aigne doc generate
 
 如果您是第一次在项目中运行此命令，DocSmith 的智能自动配置功能会检测到缺少配置文件，并自动引导您进入交互式设置向导。
 
-![运行 generate 命令，智能执行初始化](https://www.aigne.io/image-bin/uploads/5ed6deec17940478fc6f19f4c9496f20.png)
+![运行 generate 命令，智能执行初始化](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
 ### 第 4 步：完成交互式配置
 
@@ -50,17 +50,17 @@ aigne doc generate
 - **语言设置**：选择文档的主要语言以及需要翻译的其他语言。
 - **源代码路径**：指定需要分析的源代码目录。
 
-![回答问题完成项目设置](https://www.aigne.io/image-bin/uploads/f797b970e1b138219f41f1614e83c680.png)
+![回答问题完成项目设置](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
 ### 第 5 步：查看生成结果
 
 完成配置后，DocSmith 将自动开始分析您的代码、规划文档结构并生成详细内容。整个过程无需人工干预。
 
-![执行结构规划和生成文档](https://www.aigne.io/image-bin/uploads/ab876626943f4542ca9f21267da001a8.png)
+![执行结构规划和生成文档](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
 生成成功后，您会看到相应的提示信息。所有文档都已保存在您配置的输出目录中（默认为 `.aigne/doc-smith/docs`）。
 
-![文档生成成功](https://www.aigne.io/image-bin/uploads/aa887cd86b1888c458c1f90eaabdb901.png)
+![文档生成成功](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
 ### 恭喜！
 

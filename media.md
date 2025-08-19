@@ -1,15 +1,15 @@
 # 提供在文档中可使用的媒体素材
 
-![运行 generate 命令，智能执行初始化](https://www.aigne.io/image-bin/uploads/5ed6deec17940478fc6f19f4c9496f20.png)
+![运行 generate 命令，智能执行初始化](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-![回答问题完成项目设置](https://www.aigne.io/image-bin/uploads/f797b970e1b138219f41f1614e83c680.png)
+![回答问题完成项目设置](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-![执行结构规划和生成文档](https://www.aigne.io/image-bin/uploads/ab876626943f4542ca9f21267da001a8.png)
+![执行结构规划和生成文档](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-![文档生成成功](https://www.aigne.io/image-bin/uploads/aa887cd86b1888c458c1f90eaabdb901.png)
+![文档生成成功](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
-![智能检测，只重新生成需要的文档](https://www.aigne.io/image-bin/uploads/8770b95c5d87ca2917ccba555f011b68.png)
+![智能检测，只重新生成需要的文档](https://docsmith.aigne.io/image-bin/uploads/21a76b2f65d14d16a49c13d800f1e2c1.png)
 
-![交互式选择需要更新的单篇文档](https://www.aigne.io/image-bin/uploads/ac9ce10c1e9a98b5a9e834f9b3d4472e.png)
+![交互式选择需要更新的单篇文档](https://docsmith.aigne.io/image-bin/uploads/b2bab8e5a727f168628a1cc8c5020697.png)
 
-![发布文档到官方平台或自部署平台](https://www.aigne.io/image-bin/uploads/f120799c876a51a1a57f68b99fda6ebf.png)
+![发布文档到官方平台或自部署平台](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)

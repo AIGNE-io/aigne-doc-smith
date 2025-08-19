@@ -18,7 +18,7 @@ aigne doc publish
 
 After executing the command, you will be prompted to select a publishing platform.
 
-![Publishing documents to the official platform or a self-hosted platform](https://www.aigne.io/image-bin/uploads/f120799c876a51a1a57f68b99fda6ebf.png)
+![Publishing documents to the official platform or a self-hosted platform](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
 
 ### Publishing Platform Options
 

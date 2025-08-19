@@ -22,7 +22,7 @@ aigne doc update
 3.  选定后，系统会提示您输入具体的优化反馈（例如，“增加一个关于参数配置的例子”或“这段描述不够清晰，请用更简单的语言重写”）。
 4.  按下回车键，DocSmith 将会根据您的反馈，仅重新生成这一篇文档。
 
-![交互式选择需要更新的单篇文档](https://www.aigne.io/image-bin/uploads/ac9ce10c1e9a98b5a9e834f9b3d4472e.png)
+![交互式选择需要更新的单篇文档](https://docsmith.aigne.io/image-bin/uploads/b2bab8e5a727f168628a1cc8c5020697.png)
 
 ## 指定路径更新
 

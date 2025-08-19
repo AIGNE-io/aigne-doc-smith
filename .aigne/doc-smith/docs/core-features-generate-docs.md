@@ -16,19 +16,19 @@ aigne doc generate
 
 If you haven't configured your project yet, AIGNE will automatically detect this and launch an interactive configuration wizard. This process is known as "smart auto-configuration."
 
-![Running the generate command for smart initialization](https://www.aigne.io/image-bin/uploads/5ed6deec17940478fc6f19f4c9496f20.png)
+![Running the generate command for smart initialization](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
 You just need to answer a few simple questions based on the prompts, such as the documentation's target audience, primary language, and languages for translation, to complete all the basic settings.
 
-![Answering questions to complete project setup](https://www.aigne.io/image-bin/uploads/f797b970e1b138219f41f1614e83c680.png)
+![Answering questions to complete project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
 Once the configuration is complete, AIGNE will immediately begin analyzing your codebase, planning the structure, and generating the documentation content piece by piece.
 
-![Executing structure planning and document generation](https://www.aigne.io/image-bin/uploads/ab876626943f4542ca9f21267da001a8.png)
+![Executing structure planning and document generation](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
 The entire process is fully automated. Upon completion, you will see a success message, and all documents will be saved in the specified output directory.
 
-![Documentation generated successfully](https://www.aigne.io/image-bin/uploads/aa887cd86b1888c458c1f90eaabdb901.png)
+![Documentation generated successfully](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
 ## Smart Updates
 
@@ -36,7 +36,7 @@ After you modify your source code and run the `aigne doc generate` command again
 
 Based on these changes, the system decides whether to update the document structure or regenerate related content, thereby maximizing time and resource savings.
 
-![Smart detection, regenerating only necessary documents](https://www.aigne.io/image-bin/uploads/8770b95c5d87ca2917ccba555f011b68.png)
+![Smart detection, regenerating only necessary documents](https://docsmith.aigne.io/image-bin/uploads/21a76b2f65d14d16a49c13d800f1e2c1.png)
 
 ## Forcing a Complete Regeneration
 

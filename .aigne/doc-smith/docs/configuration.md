@@ -8,7 +8,7 @@ The power of AIGNE DocSmith lies in its high configurability. By adjusting the c
 
 All configurations are centralized in a file named `config.yaml`, typically located in the `.aigne/doc-smith/` directory. You can easily generate and modify this file through an interactive Q&A process by running the `aigne doc init` command.
 
-![Answer questions to complete project setup](https://www.aigne.io/image-bin/uploads/f797b970e1b138219f41f1614e83c680.png)
+![Answer questions to complete project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
 Below, we will delve into the core configuration options in the `config.yaml` file to help you better customize the documentation generation process.
 

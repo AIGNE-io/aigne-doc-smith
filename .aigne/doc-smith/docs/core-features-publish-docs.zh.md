@@ -18,7 +18,7 @@ aigne doc publish
 
 执行该命令后，系统会提示您选择一个发布平台。
 
-![发布文档到官方平台或自部署平台](https://www.aigne.io/image-bin/uploads/f120799c876a51a1a57f68b99fda6ebf.png)
+![发布文档到官方平台或自部署平台](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
 
 ### 发布平台选项
 
