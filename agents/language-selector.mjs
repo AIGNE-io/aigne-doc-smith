@@ -9,7 +9,7 @@ import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
  * @param {Object} options - Options object with prompts
  * @returns {Promise<Object>} Selected languages
  */
-export default async function languageSelector({ langs, locale }, options) {
+export default async function languageSelector({ langs, locale, selectedDocs }, options) {
   let selectedLanguages = [];
 
   // Load existing config to get current translation languages
@@ -66,23 +66,27 @@ export default async function languageSelector({ langs, locale }, options) {
     throw new Error("No languages selected for translation");
   }
 
-  // Check if translation languages have changed and save to config if needed
-  const hasChanged =
-    selectedLanguages.length !== currentTranslateLanguages.length ||
-    selectedLanguages.some((lang) => !currentTranslateLanguages.includes(lang)) ||
-    currentTranslateLanguages.some((lang) => !selectedLanguages.includes(lang));
+  // Find new languages that need to be added
+  const newLanguages = selectedLanguages.filter(
+    (lang) => !currentTranslateLanguages.includes(lang),
+  );
 
-  if (hasChanged) {
-    console.log("💾 Saving updated translation languages to config.yaml...");
-    await saveValueToConfig(
-      "translateLanguages",
-      selectedLanguages,
-      "Updated translation languages",
-    );
+  if (newLanguages.length > 0) {
+    // Add new languages to existing ones
+    const updatedTranslateLanguages = [...currentTranslateLanguages, ...newLanguages];
+    await saveValueToConfig("translateLanguages", updatedTranslateLanguages);
   }
+
+  const newSelectedDocs = selectedDocs.map((doc) => {
+    return {
+      ...doc,
+      translates: selectedLanguages.map((lang) => ({ language: lang })),
+    };
+  });
 
   return {
     selectedLanguages,
+    selectedDocs: newSelectedDocs,
   };
 }
 

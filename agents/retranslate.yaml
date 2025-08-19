@@ -1,6 +1,6 @@
 type: team
 name: translate
-description: Re-translate individual document content to selected languages
+description: Translate document content to selected languages
 skills:
   - url: ./input-generator.mjs
     default_input:
@@ -8,6 +8,7 @@ skills:
   - ./load-config.mjs
   - ./load-sources.mjs
   - type: transform
+    task_render_mode: hide
     jsonata: |
       $merge([
         $,
@@ -27,19 +28,21 @@ skills:
     default_input:
       isTranslate: true
   - ./language-selector.mjs
+  - type: team
+    name: batchDocsTranslate
+    skills:
+      - ./batch-translate.yaml
+      - url: ./save-single-doc.mjs
+        default_input:
+          isTranslate: true
+    iterate_on: selectedDocs
+    concurrency: 3
   - type: transform
+    task_render_mode: hide
     jsonata: |
       $merge([
-        $,
-        {
-          'translates': [$map(selectedLanguages, function($lang) { {"language": $lang} })]
-        }
+        { 'message': '✅ Document translated successfully' }
       ])
-  - ./batch-translate.yaml
-  - url: ./save-single-doc.mjs
-    default_input:
-      isTranslate: true
-      isShowMessage: true
 input_schema:
   type: object
   properties:
@@ -59,15 +62,4 @@ input_schema:
     feedback:
       type: string
       description: Feedback for translation improvement
-output_schema:
-  type: object
-  properties:
-    title:
-      type: string
-    description:
-      type: string
-    path:
-      type: string
-    content:
-      type: string
 mode: sequential

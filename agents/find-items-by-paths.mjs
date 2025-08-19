@@ -6,7 +6,7 @@ import {
   addFeedbackToItems,
 } from "../utils/docs-finder-utils.mjs";
 
-export default async function findItemsByPaths(
+export default async function selectedDocs(
   { docs, structurePlanResult, boardId, docsDir, isTranslate, feedback },
   options,
 ) {
@@ -89,5 +89,5 @@ export default async function findItemsByPaths(
   // Add feedback to all results if provided
   foundItems = addFeedbackToItems(foundItems, userFeedback);
 
-  return { foundItems };
+  return { selectedDocs: foundItems };
 }
