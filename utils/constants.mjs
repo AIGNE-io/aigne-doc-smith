@@ -9,6 +9,8 @@ export const DEFAULT_INCLUDE_PATTERNS = [
   "*.jsx",
   "*.ts",
   "*.tsx",
+  "*.mjs",
+  "*.mts",
   // C/C++
   "*.c",
   "*.cc",
@@ -122,6 +124,13 @@ export const DEFAULT_EXCLUDE_PATTERNS = [
   "**/*node_modules/**",
   "*.log",
   "**/*test.*",
+  "**/pnpm-lock.yaml",
+  "**/yarn.lock",
+  "**/package-lock.json",
+  "**/pnpm-lock.json",
+  "**/bun.lockb",
+  "**/bun.lock",
+  "**/bun.lockb",
 ];
 
 // Supported languages for documentation
