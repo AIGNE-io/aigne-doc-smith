@@ -4,61 +4,63 @@ labels: ["Reference"]
 
 # Generate Documentation
 
-The primary command for creating a complete set of documentation from your source code is `generate`. This single command initiates a process that analyzes your codebase, designs a logical document structure, and then writes detailed content for each section.
+Creating a complete set of documentation from your source code is the primary function of AIGNE DocSmith. This can be accomplished with a single command that intelligently handles everything from initial setup to content creation.
 
-### The Main Command
+## The Main Command
 
-To begin, navigate to your project's root directory and run the following command:
+To generate your documentation, navigate to your project's root directory and run the following command:
 
 ```bash
 aigne doc generate
 ```
 
-### Smart Auto-Configuration on First Run
+### Smart Auto-Configuration
 
-If you are running DocSmith in a project for the first time, the `generate` command will automatically detect the absence of a configuration file. It will then launch an interactive setup wizard to guide you through the initial setup.
+If this is the first time you're running the command in your project, DocSmith will automatically detect that no configuration is present and will launch an interactive setup wizard to guide you.
 
-![Running the generate command, which intelligently triggers the initialization process](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+![Running the generate command triggers the smart initialization process.](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-You will be prompted to define key aspects of your documentation, including:
+The wizard will ask you a few questions to tailor the documentation to your needs:
 
-- Document generation rules and style
-- The target audience
-- Primary and translation languages
-- Source code paths
-- The output directory
+- **Style and Rules:** Define the tone and writing style.
+- **Target Audience:** Specify who the documentation is for (e.g., developers, end-users).
+- **Languages:** Set the primary language and any additional languages for translation.
+- **Code Path:** Point to the source code directories you want to document.
+- **Output Directory:** Choose where the generated documentation files will be saved.
 
-![Answering a series of questions to complete the project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![Answering questions in the interactive wizard to complete the project setup.](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-Once the configuration is complete, DocSmith will proceed with planning the document structure and generating the content.
+Once you answer the questions, DocSmith saves your settings and proceeds with the generation process. For a detailed look at all available settings, see the [Configuration Guide](./configuration.md).
 
-![DocSmith executing the structure planning and document generation phases](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+### The Generation Process
 
-Upon completion, you will see a success message confirming that your documentation is ready.
+After configuration, DocSmith begins analyzing your code, planning a logical document structure, and writing the content for each section.
 
-![A success message indicating that the documentation has been generated](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+![The tool executing the structure planning and document generation phases.](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-### Forcing a Full Regeneration
+Upon completion, you will see a confirmation message, and your new documentation will be ready in the specified output directory.
 
-If you need to regenerate all documentation from scratch, discarding any previous versions, you can use the `--forceRegenerate` flag. This is useful after making significant changes to your source code or configuration file.
+![A success message indicating that the documentation generation is complete.](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+
+## Forcing a Full Regeneration
+
+If you have made significant changes to your source code or configuration and want to regenerate all documents from scratch, you can use the `--forceRegenerate` flag. This will ignore any existing documentation and create a completely new set.
 
 ```bash
 aigne doc generate --forceRegenerate
 ```
 
-This command ensures that the entire documentation set is rebuilt based on the latest state of your project.
+## Optimizing the Document Structure
 
-### Refining the Structure with Feedback
-
-You can also guide the AI to improve the overall document structure by providing targeted feedback during the generation process. Use the `--feedback` flag to suggest changes, such as adding or removing sections.
+You can also refine the overall documentation structure by providing feedback directly to the `generate` command. This is useful for adding, removing, or reorganizing entire sections.
 
 ```bash
-# Example: Ask the AI to add an API Reference section
-aigne doc generate --feedback "Remove About section and add API Reference"
+# Example: Refine the structure with specific feedback
+aigne doc generate --feedback "Remove the 'About' section and add a detailed 'API Reference'"
 ```
 
-This allows you to refine the high-level organization of your documents without manual intervention.
+This command will re-evaluate the structure plan based on your input before generating the content.
 
 ---
 
-Now that you understand how to generate a new set of documents, the next step is to learn how to maintain and improve them over time. For this, proceed to the [Update and Refine](./features-update-and-refine.md) guide.
+Now that you have generated your documentation, the next step is to learn how to keep it current as your project evolves. Proceed to the [Update and Refine](./features-update-and-refine.md) guide to discover how to manage updates and make targeted improvements.

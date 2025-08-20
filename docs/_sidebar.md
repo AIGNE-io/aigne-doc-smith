@@ -4,6 +4,7 @@
   * [Generate Documentation](/features-generate-documentation.md)
   * [Update and Refine](/features-update-and-refine.md)
   * [Publish Your Docs](/features-publish-your-docs.md)
+  * [Translate Documentation](/features-translate-documentation.md)
 * [Configuration Guide](/configuration.md)
   * [LLM Setup](/configuration-llm-setup.md)
   * [Language Support](/configuration-language-support.md)

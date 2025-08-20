@@ -4,70 +4,72 @@ labels: ["Reference"]
 
 # Getting Started
 
-Follow this simple guide to install AIGNE DocSmith and generate your first set of documents in just a few minutes. The process is designed to be straightforward, getting you from installation to complete documentation with a single command.
+This guide provides the quickest path to installing AIGNE DocSmith and generating your first set of documents. You'll be up and running in just a few minutes.
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed on your system:
+Before you begin, make sure you have the following installed on your system:
 
 - Node.js
 - pnpm
 
-DocSmith is distributed as part of the AIGNE Command Line Interface (CLI).
+## Step 1: Install AIGNE CLI
 
-## Step 1: Install the AIGNE CLI
-
-First, install the latest version of the AIGNE CLI globally using npm. Open your terminal and run the following command:
+First, install the AIGNE Command Line Interface (CLI) globally using npm. This single command gives you access to DocSmith and other AIGNE tools.
 
 ```bash
 npm i -g @aigne/cli
 ```
 
-Once the installation is complete, you can verify it by checking the help command for DocSmith:
+To confirm the installation was successful, run the help command:
 
 ```bash
 aigne doc -h
 ```
 
-If the command runs successfully and displays a list of options, you're ready to proceed.
+You should see a list of available `doc` commands and their options.
 
-## Step 2: Generate Your Documentation
+## Step 2: Generate Your First Documents
 
-Now for the main step. Navigate to your project's root directory in your terminal and run the generate command:
+With the CLI installed, you can now generate a complete set of documentation from your source code with a single command.
+
+Navigate to your project's root directory in your terminal and run:
 
 ```bash
 aigne doc generate
 ```
 
-### Smart Auto-Configuration
+### Automatic Configuration
 
-If this is your first time running the command in your project, DocSmith will automatically detect that no configuration exists and will launch an interactive setup wizard to guide you.
+If this is your first time running the command in your project, DocSmith will detect that there is no configuration file and automatically start an interactive setup wizard.
 
-![Running the generate command initiates smart setup](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+![Running the generate command, which intelligently triggers the initialization wizard.](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-You will be prompted to answer a series of questions to define:
+The wizard will guide you through a series of questions to understand your project and documentation needs, including:
 
-- The primary purpose of your documentation
+- The purpose of your documentation
 - Your target audience
-- Language settings
-- Source code and output directories
+- The primary language and desired translations
+- The location of your source code
 
-![Answer questions to configure your project](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+Simply answer the questions to complete the project setup.
 
-### Automatic Generation
+![Answering questions in the interactive wizard to complete project settings.](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-After you complete the configuration, DocSmith takes over. It will analyze your source code, plan a logical document structure, and then generate high-quality content for each section.
+### AI-Powered Generation
 
-![DocSmith plans the structure and generates the documents](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+Once the configuration is complete, DocSmith's AI will analyze your codebase, plan a logical document structure, and begin generating the content for each section.
 
-When the process is finished, you will see a confirmation message, and your new documentation will be available in the output directory you specified.
+![The tool showing the process of structure planning and content generation.](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-![Documentation generation successful](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+### All Done!
 
-## A Note on AI Models (LLMs)
+When the process is finished, you will see a success message. Your new documentation is now ready in the output directory you specified during setup (the default is `.aigne/doc-smith/docs`).
 
-DocSmith uses AIGNE Hub by default, which allows you to generate documentation without needing to provide your own API keys for AI models. The setup is ready to use immediately after installation. If you wish to configure custom models or use your own API keys, please refer to the [LLM Setup](./configuration-llm-setup.md) guide.
+![A success message indicating that the documentation has been generated.](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
-## What's Next?
+## Next Steps
 
-That's it! You have successfully generated a full set of documentation for your project. To learn more about what you can do with DocSmith, such as updating, refining, and publishing your documents, explore our [Core Features](./features.md).
+You have successfully generated your first set of documents! To learn more about the `generate` command and explore other features, proceed to the Core Features section.
+
+- [Explore Core Features](./features.md)

@@ -66,6 +66,19 @@
     "title": "Publish Your Docs"
   },
   {
+    "description": "Learn how to automatically translate your documentation into multiple languages to reach a global audience.",
+    "parentId": "/features",
+    "path": "/features/translate-documentation",
+    "sourceIds": [
+      "README.md",
+      "CHANGELOG.md",
+      "agents/translate.yaml",
+      "agents/retranslate.yaml",
+      "media.md"
+    ],
+    "title": "Translate Documentation"
+  },
+  {
     "description": "A detailed look at all the available settings to customize the style, audience, and languages of your documentation.",
     "parentId": null,
     "path": "/configuration",

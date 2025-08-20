@@ -4,36 +4,48 @@ labels: ["Reference"]
 
 # Core Features
 
-AIGNE DocSmith streamlines the entire documentation workflow through a set of intuitive commands. From initial creation based on your source code to ongoing updates and final publication, these core features provide a comprehensive solution for managing your project's documentation.
+AIGNE DocSmith provides a complete toolkit to manage your documentation lifecycle, from initial creation directly from your source code to publishing and translation. This section provides an overview of the main commands and capabilities you'll use to create and maintain high-quality documentation.
 
-This section provides an overview of the main capabilities. For detailed instructions, please refer to the specific sub-sections.
-
----
-
-### Generate Documentation
-
-Create a complete, well-structured set of documents from your source code with a single command. DocSmith analyzes your project and builds the documentation from the ground up. If it's your first time, an interactive wizard will guide you through the setup process automatically.
-
-![Executing structure planning and document generation](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
-
-For a detailed guide on creating your first set of documents, see the [Generate Documentation](./features-generate-documentation.md) section.
-
-### Update and Refine
-
-Keep your documentation synchronized with your codebase. DocSmith can automatically detect changes and update only the necessary files. You can also target specific documents for regeneration with feedback to refine the content, either through command-line flags or an interactive menu.
-
-![Interactively select a single document to update](https://docsmith.aigne.io/image-bin/uploads/b2bab8e5a727f168628a1cc8c5020697.png)
-
-Explore how to keep your content current in the [Update and Refine](./features-update-and-refine.md) guide.
-
-### Publish Your Docs
-
-When your documentation is ready, you can publish it to make it accessible. Choose to publish to the official DocSmith platform or to your own self-hosted Discuss Kit instance through a simple interactive menu.
-
-![Publish documentation to the official platform or a self-hosted platform](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
-
-Learn the steps to make your documentation live in the [Publish Your Docs](./features-publish-your-docs.md) section.
+Each feature is designed to be straightforward, often requiring just a single command to perform complex tasks.
 
 ---
 
-These commands form the core workflow of DocSmith, covering creation, maintenance, and distribution. To customize how your documentation is generated, proceed to the [Configuration Guide](./configuration.md).
+## Generate Documentation from Your Code
+
+The primary function of DocSmith is to automatically create a full set of documentation by analyzing your source code. The `aigne doc generate` command intelligently plans a logical structure and then writes detailed content for each section, giving you a comprehensive starting point in minutes.
+
+![Executing structure planning and generating documents](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+
+For a complete guide on creating your first set of documents, see **[Generate Documentation](./features-generate-documentation.md)**.
+
+## Update and Refine Intelligently
+
+As your code evolves, your documentation can easily keep pace. DocSmith automatically detects source code changes and updates only the necessary documents. You can also use the `aigne doc update` command to regenerate specific documents with targeted feedback, ensuring your content is always accurate and relevant.
+
+![Interactively select documents to update](https://docsmith.aigne.io/image-bin/uploads/75e9cf9823bb369c3d2b5a2e2da4ac06.png)
+
+Discover how to keep your docs current in the **[Update and Refine](./features-update-and-refine.md)** section.
+
+## Translate Documentation for a Global Audience
+
+Reach a wider audience by translating your documentation into over 12 languages, including Chinese, Spanish, German, and Japanese. The `aigne doc translate` command provides an interactive way to select which documents to translate and which languages to target.
+
+![Select documents for translation](https://docsmith.aigne.io/image-bin/uploads/e2cf5fa45aa856c406a444fb4665ed2d.png)
+
+![Choose from over 12 supported languages](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
+
+Learn the details in the **[Translate Documentation](./features-translate-documentation.md)** guide.
+
+## Publish Your Docs Online
+
+Once your documentation is ready, you can easily publish it for others to see. The `aigne doc publish` command allows you to deploy your docs to the official DocSmith platform or to your own self-hosted Discuss Kit instance, making them accessible to your team or the public.
+
+![Publish documentation to the official platform or a self-hosted instance](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
+
+Find out how to share your work by reading the **[Publish Your Docs](./features-publish-your-docs.md)** guide.
+
+---
+
+These core features work together to streamline the entire documentation process. To get started, let's dive into the most fundamental command.
+
+Next, learn how to **[Generate Documentation](./features-generate-documentation.md)**.
