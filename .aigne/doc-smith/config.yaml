@@ -58,7 +58,7 @@ targetAudience: |
 locale: zh
 translateLanguages:
   - en
-docsDir: .aigne/doc-smith/docs  # Directory to save generated documentation
+docsDir: ./docs  # Directory to save generated documentation
 sourcesPath:  # Source code paths to analyze
   - ./
 labels:
