@@ -2,69 +2,68 @@
 labels: ["Reference"]
 ---
 
-# Quick Start
+# Getting Started
 
-This guide will walk you through the installation and basic setup of AIGNE DocSmith. In just a few simple steps, you'll successfully generate your first project document.
+This guide will walk you through the entire process, from installation to generating your first set of documents with AIGNE DocSmith. You can have your documentation ready in just a few minutes.
 
-### Step 1: Prepare Your Environment
+## Step 1: Prerequisites
 
-Before you begin, make sure you have the following tools installed in your development environment:
+Before you begin, make sure you have the following installed on your system:
+- Node.js
+- pnpm
 
-- Node.js and pnpm
-- AIGNE CLI (to be installed in the next step)
+## Step 2: Install the AIGNE CLI
 
-### Step 2: Install AIGNE CLI
-
-Open your terminal and run the following command to globally install the latest version of the AIGNE CLI. This is a one-time setup, and once installed, you can use it in any project.
+AIGNE DocSmith is distributed as part of the AIGNE Command Line Interface (CLI). Open your terminal and run the following command to install it globally:
 
 ```bash
 npm i -g @aigne/cli
 ```
 
-After the installation is complete, you can verify its success by running the following command:
+After the installation is complete, you can verify it by checking the help menu for the documentation command:
 
 ```bash
 aigne doc -h
 ```
 
-If the terminal displays help information related to DocSmith, the installation was successful.
+If you see a list of available commands, the installation was successful.
 
-### Step 3: Generate Documents with One Click
+## Step 3: Generate Your Documentation
 
-Now, navigate to your project's root directory and run the following command:
+With the AIGNE CLI installed, you can now generate your documentation with a single command. Navigate to your project's root directory in your terminal and run:
 
 ```bash
 aigne doc generate
 ```
 
-If you are running this command in your project for the first time, DocSmith's smart auto-configuration feature will detect the missing configuration file and automatically launch an interactive setup wizard.
+### Smart Auto-Configuration
 
-![Run the generate command for smart initialization](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+The first time you run this command in a project, DocSmith will detect that no configuration file exists and will automatically launch an interactive setup wizard to guide you.
 
-### Step 4: Complete the Interactive Configuration
+![Running the generate command, which intelligently starts the initialization process](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-Next, you'll need to answer a series of questions based on the terminal prompts. These questions are designed to help the AI understand your documentation requirements and generate the most suitable content for you. The configuration process includes:
+This wizard will ask you a series of questions to tailor the documentation to your specific needs, including:
 
-- **Document Purpose**: What do you want readers to achieve with the documentation?
-- **Target Audience**: Who is the documentation written for?
-- **Language Settings**: Choose the primary language for the documentation and any other languages for translation.
-- **Source Code Path**: Specify the source code directory to be analyzed.
+- The main purpose of your documentation
+- Your target audience
+- The primary language and any additional languages for translation
+- The source code paths to analyze
+- The output directory for the generated files
 
-![Answer questions to complete the project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+Simply answer the prompts to complete the project setup.
 
-### Step 5: Review the Generated Results
+![Answer the questions to complete the project settings](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-Once the configuration is complete, DocSmith will automatically start analyzing your code, planning the document structure, and generating detailed content. The entire process requires no manual intervention.
+Once the configuration is complete, DocSmith will begin analyzing your code, planning the document structure, and generating the content.
 
-![Executing structure planning and document generation](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+![Executing structure planning and generating documents](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-Upon successful generation, you will see a confirmation message. All documents are saved in your configured output directory (which defaults to `.aigne/doc-smith/docs`).
+When the process is finished, you'll see a success message, and your new documentation will be available in the output directory you specified.
 
-![Document generation successful](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+![Documentation generation successful](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
-### Congratulations!
+## That's It!
 
-You have successfully generated your first document. Now you can start exploring other features of DocSmith.
+You have now successfully generated a complete set of documentation for your project. You can explore the generated files and see the results.
 
-- To learn more about the detailed usage of commands like `generate`, `update`, and `publish`, continue to the [Core Features](./core-features.md) section.
-- To dive deeper into customizing the style, language, and scope of your documentation through the configuration file, please refer to the [Configuration Guide](./configuration.md).
+To learn more about the different commands and capabilities, dive into the [Core Features](./features.md) section. If you want to customize the settings further, check out the [Configuration Guide](./configuration.md).

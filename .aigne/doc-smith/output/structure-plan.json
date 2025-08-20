@@ -1,144 +1,117 @@
 [
   {
-    "description": "了解 AIGNE DocSmith 是什么、它的主要功能以及它如何融入 AIGNE 生态系统，帮助您快速建立对工具的整体认知。",
+    "description": "Get a quick introduction to AIGNE DocSmith, what it does, its main features, and how it fits into the larger AIGNE ecosystem.",
     "parentId": null,
     "path": "/overview",
     "sourceIds": [
       "README.md",
-      "package.json",
-      "aigne.yaml"
+      "package.json"
     ],
-    "title": "概览"
+    "title": "Overview"
   },
   {
-    "description": "一份简明的分步指南，帮助您在几分钟内完成安装并成功生成您的第一份文档。",
+    "description": "Follow this simple, step-by-step guide to install the tool and generate your first set of documents in just a few minutes.",
     "parentId": null,
     "path": "/getting-started",
     "sourceIds": [
       "README.md",
-      "agents/input-generator.mjs",
-      "agents/docs-generator.yaml",
-      "media.md"
+      "media.md",
+      "agents/input-generator.mjs"
     ],
-    "title": "快速入门"
+    "title": "Getting Started"
   },
   {
-    "description": "探索 DocSmith 的核心命令，学习如何通过简单的指令来生成、更新和发布您的文档。",
+    "description": "Explore the main commands and capabilities of DocSmith, from creating new documentation to publishing it online.",
     "parentId": null,
-    "path": "/core-features",
+    "path": "/features",
     "sourceIds": [
-      "README.md",
-      "agents/docs-generator.yaml",
-      "agents/detail-regenerator.yaml",
-      "agents/team-publish-docs.yaml"
-    ],
-    "title": "核心功能"
-  },
-  {
-    "description": "学习如何通过一个命令创建和重新生成您的整个文档集，并了解如何强制更新所有内容。",
-    "parentId": "/core-features",
-    "path": "/core-features/generate-docs",
-    "sourceIds": [
-      "README.md",
-      "agents/docs-generator.yaml",
-      "agents/check-structure-plan.mjs",
-      "agents/load-sources.mjs",
-      "agents/save-docs.mjs",
-      "media.md"
-    ],
-    "title": "生成文档"
-  },
-  {
-    "description": "了解如何针对单个文档页面进行内容优化和重新生成，以满足特定的修改需求。",
-    "parentId": "/core-features",
-    "path": "/core-features/update-document",
-    "sourceIds": [
-      "README.md",
-      "agents/detail-regenerator.yaml",
-      "agents/find-item-by-path.mjs",
-      "agents/detail-generator-and-translate.yaml",
-      "media.md"
-    ],
-    "title": "更新单个文档"
-  },
-  {
-    "description": "将您生成的文档轻松发布到公共平台或您自己的网站，与他人分享。",
-    "parentId": "/core-features",
-    "path": "/core-features/publish-docs",
-    "sourceIds": [
-      "README.md",
-      "agents/team-publish-docs.yaml",
-      "agents/publish-docs.mjs",
-      "utils/auth-utils.mjs",
-      "utils/blocklet.mjs",
-      "media.md"
-    ],
-    "title": "发布文档"
-  },
-  {
-    "description": "通过提供反馈来优化和调整自动生成的文档结构，使其更符合您的预期。",
-    "parentId": "/core-features",
-    "path": "/core-features/refine-structure",
-    "sourceIds": [
-      "README.md",
-      "agents/docs-generator.yaml",
-      "agents/structure-planning.yaml",
-      "agents/reflective-structure-planner.yaml",
-      "agents/check-structure-planning-result.yaml",
-      "media.md"
-    ],
-    "title": "优化文档结构"
-  },
-  {
-    "description": "深入了解 DocSmith 的各项配置选项，以自定义文档的风格、目标读者、语言等。",
-    "parentId": null,
-    "path": "/configuration",
-    "sourceIds": [
-      "agents/input-generator.mjs",
-      "utils/constants.mjs",
-      "agents/load-config.mjs",
       "README.md",
       "aigne.yaml",
       "media.md"
     ],
-    "title": "配置指南"
+    "title": "Core Features"
   },
   {
-    "description": "学习如何配置不同的大型语言模型（LLM）提供商，包括无需API密钥的 AIGNE Hub。",
+    "description": "Learn how to use a single command to automatically create a complete set of documentation from your source code.",
+    "parentId": "/features",
+    "path": "/features/generate-documentation",
+    "sourceIds": [
+      "README.md",
+      "media.md",
+      "agents/docs-generator.yaml"
+    ],
+    "title": "Generate Documentation"
+  },
+  {
+    "description": "Discover how to intelligently update your documents when your code changes, or make specific improvements using feedback.",
+    "parentId": "/features",
+    "path": "/features/update-and-refine",
+    "sourceIds": [
+      "README.md",
+      "media.md",
+      "agents/detail-regenerator.yaml"
+    ],
+    "title": "Update and Refine"
+  },
+  {
+    "description": "A guide on how to easily publish your documentation to a public platform or your own private website.",
+    "parentId": "/features",
+    "path": "/features/publish-your-docs",
+    "sourceIds": [
+      "README.md",
+      "media.md",
+      "agents/publish-docs.mjs",
+      "utils/auth-utils.mjs"
+    ],
+    "title": "Publish Your Docs"
+  },
+  {
+    "description": "A detailed look at all the available settings to customize the style, audience, and languages of your documentation.",
+    "parentId": null,
+    "path": "/configuration",
+    "sourceIds": [
+      "README.md",
+      "agents/input-generator.mjs",
+      "utils/constants.mjs"
+    ],
+    "title": "Configuration Guide"
+  },
+  {
+    "description": "Learn how to set up DocSmith to use different AI models, including using AIGNE Hub without needing your own API keys.",
     "parentId": "/configuration",
-    "path": "/configuration/llm-providers",
+    "path": "/configuration/llm-setup",
     "sourceIds": [
       "README.md",
       "aigne.yaml"
     ],
-    "title": "AI模型提供商"
+    "title": "LLM Setup"
   },
   {
-    "description": "查看 DocSmith 支持自动翻译的所有语言列表，并了解如何为您的文档启用多语言支持。",
+    "description": "See the full list of languages that DocSmith supports for automatic translation and learn how to enable them.",
     "parentId": "/configuration",
-    "path": "/configuration/supported-languages",
+    "path": "/configuration/language-support",
     "sourceIds": [
       "README.md",
       "utils/constants.mjs"
     ],
-    "title": "支持的语言"
+    "title": "Language Support"
   },
   {
-    "description": "了解如何为 AIGNE DocSmith 项目做出贡献，帮助我们一起改进它。",
+    "description": "Dive deeper into advanced topics like contributing to the project.",
     "parentId": null,
-    "path": "/contributing",
+    "path": "/advanced",
     "sourceIds": [
       "README.md"
     ],
-    "title": "贡献指南"
+    "title": "Advanced Topics"
   },
   {
-    "description": "查看 DocSmith 每个版本的最新更新、错误修复和新增功能。",
-    "parentId": null,
-    "path": "/changelog",
+    "description": "Find out how you can contribute to the AIGNE DocSmith project and help make it even better.",
+    "parentId": "/advanced",
+    "path": "/advanced/contributing",
     "sourceIds": [
-      "CHANGELOG.md"
+      "README.md"
     ],
-    "title": "更新日志"
+    "title": "Contributing"
   }
 ]
