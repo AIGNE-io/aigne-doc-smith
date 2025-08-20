@@ -52,7 +52,6 @@ export default async function findItemByPath(
         throw new Error("No document selected");
       }
 
-      console.log("selectedFile", selectedFile);
       // Read the selected .md file content
       selectedFileContent = await readFileContent(docsDir, selectedFile);
 
