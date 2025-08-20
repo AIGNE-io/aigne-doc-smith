@@ -1,6 +1,6 @@
 import { shutdownMermaidWorkerPool } from "../utils/mermaid-worker-pool.mjs";
 
-export default async function translateSuccess() {
+export default async function actionSuccess({ action }) {
   // Shutdown mermaid worker pool to ensure clean exit
   try {
     await shutdownMermaidWorkerPool();
@@ -9,8 +9,8 @@ export default async function translateSuccess() {
   }
 
   return {
-    message: "✅ Document translated successfully",
+    message: `✅ ${action} successfully`,
   };
 }
 
-translateSuccess.task_render_mode = "hide";
+actionSuccess.task_render_mode = "hide";

@@ -37,7 +37,9 @@ skills:
           isTranslate: true
     iterate_on: selectedDocs
     concurrency: 3
-  - ./translate-success.mjs
+  - url: ./action-success.mjs
+    default_input:
+      action: "Document translated"
 input_schema:
   type: object
   properties:

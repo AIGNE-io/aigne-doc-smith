@@ -26,11 +26,17 @@ skills:
           })
         }
       ])
-  - ./find-item-by-path.mjs
+  - ./find-items-by-paths.mjs
   - ./format-structure-plan.mjs
-  - url: ./detail-generator-and-translate.yaml
+  - type: team
+    name: batchDocsUpdate
+    skills:
+      - ./detail-generator-and-translate.yaml
+    iterate_on: selectedDocs
+    concurrency: 3
+  - url: ./action-success.mjs
     default_input:
-      isShowMessage: true
+      action: "Document updated"
 input_schema:
   type: object
   properties:
