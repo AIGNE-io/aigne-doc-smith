@@ -103,7 +103,7 @@ Optimize specific documents with targeted feedback:
 aigne doc update
 
 # Update a specific document
-aigne doc update --doc-path /faq --feedback "Add more comprehensive FAQ entries"
+aigne doc update --docs overview.md --feedback "Add more comprehensive FAQ entries"
 ```
 
 **Interactive Mode:** When run without parameters, `aigne doc update` will present an interactive menu for you to select which document to regenerate and provide feedback.
@@ -121,6 +121,29 @@ aigne doc generate --feedback "Add more detailed installation guide and troubles
 ```
 
 **Structure Optimization:** Use `aigne doc generate` with `--feedback` to refine the overall documentation structure, add new sections, or reorganize existing content.
+
+#### Document Translation
+
+Translate existing documentation to multiple languages:
+
+```bash
+# Translate specific documents to multiple languages
+aigne doc translate --langs zh --langs ja --docs examples.md --docs overview.md
+
+# Interactive translation with document and language selection
+aigne doc translate
+```
+
+**Command Parameters:**
+- `--langs`: Specify target languages (can be used multiple times)
+- `--docs`: Specify document paths to translate (can be used multiple times)
+- `--feedback`: Provide feedback for translation improvement
+- `--glossary`: Use a glossary file for consistent terminology (@path/to/glossary.md)
+
+**Interactive Mode:** When run without parameters, `aigne doc translate` will present interactive menus to:
+- Select documents to translate from your documentation
+- Choose target languages from 12 supported languages
+- Add new translation languages to your configuration
 
 #### Publishing to Discuss Kit
 
@@ -185,6 +208,15 @@ aigne doc generate --feedback "Remove About section and add API Reference"
 
 # Update specific document
 aigne doc update --doc-path /faq --feedback "Add more comprehensive FAQ entries"
+
+# Translate documents to multiple languages
+aigne doc translate --langs zh --langs ja --docs examples.md --docs overview.md
+
+# Interactive translation (select documents and languages)
+aigne doc translate
+
+# Translate with custom glossary and feedback
+aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently"
 ```
 
 ### Publishing and Integration
