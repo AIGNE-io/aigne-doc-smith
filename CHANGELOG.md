@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.3.1...v0.4.0) (2025-08-20)
+
+
+### Features
+
+* brand new doc translate command ([#50](https://github.com/AIGNE-io/aigne-doc-smith/issues/50)) ([514138d](https://github.com/AIGNE-io/aigne-doc-smith/commit/514138d6b81624977171e9144ed802aad72d4a9c))
+
 ## [0.3.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.3.0...v0.3.1) (2025-08-19)
 
 
