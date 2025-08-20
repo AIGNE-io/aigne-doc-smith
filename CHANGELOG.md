@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.3.0...v0.3.1) (2025-08-19)
+
+
+### Bug Fixes
+
+* polish load sources pattern ([#48](https://github.com/AIGNE-io/aigne-doc-smith/issues/48)) ([5f83b91](https://github.com/AIGNE-io/aigne-doc-smith/commit/5f83b917ea6779ba79418e3ff2490eb692c3e48a))
+
 ## [0.3.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.11...v0.3.0) (2025-08-19)
 
 
