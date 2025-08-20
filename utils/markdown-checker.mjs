@@ -224,10 +224,13 @@ function checkContentStructure(markdown, source, errorMessages) {
   }
 
   // Check if content ends with proper punctuation (indicating completeness)
+  const validEndingPunctuation = [".", "。", ")", "|"];
   const trimmedText = markdown.trim();
-  if (trimmedText.length > 0 && !trimmedText.endsWith(".") && !trimmedText.endsWith("。")) {
+  const hasValidEnding = validEndingPunctuation.some((punct) => trimmedText.endsWith(punct));
+
+  if (trimmedText.length > 0 && !hasValidEnding) {
     errorMessages.push(
-      `Found incomplete content in ${source}: content does not end with proper punctuation (. or 。). Please return the complete content`,
+      `Found incomplete content in ${source}: content does not end with proper punctuation (${validEndingPunctuation.join(", ")}). Please return the complete content`,
     );
   }
 }
