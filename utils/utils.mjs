@@ -807,9 +807,21 @@ export function processConfigFields(config) {
   const allRulesContent = [];
 
   // Check if original rules field has content
-  const existingRules = config.rules?.trim();
-  if (existingRules) {
-    allRulesContent.push(existingRules);
+  if (config.rules) {
+    if (typeof config.rules === "string") {
+      const existingRules = config.rules.trim();
+      if (existingRules) {
+        allRulesContent.push(existingRules);
+      }
+    } else if (Array.isArray(config.rules)) {
+      // Handle array of rules - join them with newlines
+      const rulesText = config.rules
+        .filter((rule) => typeof rule === "string" && rule.trim())
+        .join("\n\n");
+      if (rulesText) {
+        allRulesContent.push(rulesText);
+      }
+    }
   }
 
   // Process document purpose (array)
@@ -884,6 +896,85 @@ export function processConfigFields(config) {
   }
 
   return processed;
+}
+
+/**
+ * Resolve file references in configuration
+ * Processes string values that start with '@' as file paths and loads their content
+ * @param {any} obj - The configuration object to process
+ * @param {string} basePath - Base path for resolving relative paths (defaults to process.cwd())
+ * @returns {Promise<any>} - The processed configuration with file content loaded
+ */
+export async function resolveFileReferences(obj, basePath = process.cwd()) {
+  if (typeof obj === "string" && obj.startsWith("@")) {
+    return await loadFileContent(obj.slice(1), basePath);
+  }
+
+  if (Array.isArray(obj)) {
+    return Promise.all(obj.map((item) => resolveFileReferences(item, basePath)));
+  }
+
+  if (obj && typeof obj === "object") {
+    const result = {};
+    for (const [key, value] of Object.entries(obj)) {
+      result[key] = await resolveFileReferences(value, basePath);
+    }
+    return result;
+  }
+
+  return obj;
+}
+
+/**
+ * Load content from a file path
+ * @param {string} filePath - The file path to load
+ * @param {string} basePath - Base path for resolving relative paths
+ * @returns {Promise<any>} - The loaded content or original path if loading fails
+ */
+async function loadFileContent(filePath, basePath) {
+  try {
+    // Resolve path - if absolute, use as is; if relative, resolve from basePath
+    const resolvedPath = path.isAbsolute(filePath) ? filePath : path.resolve(basePath, filePath);
+
+    // Check if file exists
+    if (!existsSync(resolvedPath)) {
+      return `@${filePath}`; // Return original value if file doesn't exist
+    }
+
+    // Check file extension
+    const ext = path.extname(resolvedPath).toLowerCase();
+    const supportedExtensions = [".txt", ".md", ".json", ".yaml", ".yml"];
+
+    if (!supportedExtensions.includes(ext)) {
+      return `@${filePath}`; // Return original value if unsupported file type
+    }
+
+    // Read file content
+    const content = await fs.readFile(resolvedPath, "utf-8");
+
+    // Parse JSON/YAML files
+    if (ext === ".json") {
+      try {
+        return JSON.parse(content);
+      } catch {
+        return content; // Return raw string if JSON parsing fails
+      }
+    }
+
+    if (ext === ".yaml" || ext === ".yml") {
+      try {
+        return parse(content);
+      } catch {
+        return content; // Return raw string if YAML parsing fails
+      }
+    }
+
+    // Return raw content for .txt and .md files
+    return content;
+  } catch {
+    // Return original value if any error occurs
+    return `@${filePath}`;
+  }
 }
 
 /**

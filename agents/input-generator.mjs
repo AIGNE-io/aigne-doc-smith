@@ -400,6 +400,11 @@ function generateYAML(input) {
   yaml += `targetAudience: |\n`;
   yaml += `  \n\n`;
 
+  // Glossary Configuration
+  yaml += `# Glossary: Define project-specific terms and definitions\n`;
+  yaml += `# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions\n`;
+  yaml += `\n`;
+
   // Add language settings
   yaml += `locale: ${input.locale}\n`;
 

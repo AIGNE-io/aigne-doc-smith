@@ -7,7 +7,7 @@ import {
 } from "../utils/docs-finder-utils.mjs";
 
 export default async function selectedDocs(
-  { docs, structurePlanResult, boardId, docsDir, isTranslate, feedback },
+  { docs, structurePlanResult, boardId, docsDir, isTranslate, feedback, locale },
   options,
 ) {
   let foundItems = [];
@@ -17,7 +17,7 @@ export default async function selectedDocs(
   if (!docs || docs.length === 0) {
     try {
       // Get all main language .md files in docsDir
-      const mainLanguageFiles = await getMainLanguageFiles(docsDir);
+      const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale);
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No documents found in the docs directory");
@@ -56,7 +56,13 @@ export default async function selectedDocs(
   } else {
     // Process the provided docs array
     for (const docPath of docs) {
-      const foundItem = await findItemByPath(structurePlanResult, docPath, boardId, docsDir);
+      const foundItem = await findItemByPath(
+        structurePlanResult,
+        docPath,
+        boardId,
+        docsDir,
+        locale,
+      );
 
       if (!foundItem) {
         console.warn(`⚠️  Item with path "${docPath}" not found in structurePlanResult`);

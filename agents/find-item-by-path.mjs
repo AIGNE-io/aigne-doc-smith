@@ -8,7 +8,7 @@ import {
 } from "../utils/docs-finder-utils.mjs";
 
 export default async function findItemByPath(
-  { doc, structurePlanResult, boardId, docsDir, isTranslate, feedback },
+  { doc, structurePlanResult, boardId, docsDir, isTranslate, feedback, locale },
   options,
 ) {
   let foundItem = null;
@@ -19,7 +19,7 @@ export default async function findItemByPath(
   if (!docPath) {
     try {
       // Get all main language .md files in docsDir
-      const mainLanguageFiles = await getMainLanguageFiles(docsDir);
+      const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale);
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No documents found in the docs directory");
@@ -52,6 +52,7 @@ export default async function findItemByPath(
         throw new Error("No document selected");
       }
 
+      console.log("selectedFile", selectedFile);
       // Read the selected .md file content
       selectedFileContent = await readFileContent(docsDir, selectedFile);
 
@@ -67,18 +68,18 @@ export default async function findItemByPath(
 
       docPath = foundItemByFile.path;
     } catch (error) {
-      console.error(error);
+      console.debug(error?.message);
       throw new Error(
         getActionText(
           isTranslate,
-          "Please provide a doc-path parameter to specify which document to {action}",
+          "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
         ),
       );
     }
   }
 
   // Use the utility function to find item and read content
-  foundItem = await findItemByPathUtil(structurePlanResult, docPath, boardId, docsDir);
+  foundItem = await findItemByPathUtil(structurePlanResult, docPath, boardId, docsDir, locale);
 
   if (!foundItem) {
     throw new Error(`Item with path "${docPath}" not found in structurePlanResult`);

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
-import { processConfigFields } from "../utils/utils.mjs";
+import { processConfigFields, resolveFileReferences } from "../utils/utils.mjs";
 
 export default async function loadConfig({ config, appUrl }) {
   const configPath = path.join(process.cwd(), config);
@@ -18,7 +18,10 @@ export default async function loadConfig({ config, appUrl }) {
   try {
     // Read and parse YAML file
     const configContent = await fs.readFile(configPath, "utf-8");
-    const parsedConfig = parse(configContent);
+    let parsedConfig = parse(configContent);
+
+    // Resolve file references (@ prefixed values)
+    parsedConfig = await resolveFileReferences(parsedConfig);
 
     if (appUrl) {
       parsedConfig.appUrl = appUrl.includes("://") ? appUrl : `https://${appUrl}`;

@@ -13,14 +13,32 @@ export function getActionText(isTranslate, baseText) {
 }
 
 /**
+ * Generate filename based on flattened path and locale
+ * @param {string} flatName - Flattened path name
+ * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
+ * @returns {string} Generated filename
+ */
+function generateFileName(flatName, locale) {
+  const isEnglish = locale === "en";
+  return isEnglish ? `${flatName}.md` : `${flatName}.${locale}.md`;
+}
+
+/**
  * Find a single item by path in structure plan result and read its content
  * @param {Array} structurePlanResult - Array of structure plan items
  * @param {string} docPath - Document path to find (supports .md filenames)
  * @param {string} boardId - Board ID for fallback matching
  * @param {string} docsDir - Docs directory path for reading content
+ * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Object|null>} Found item with content or null
  */
-export async function findItemByPath(structurePlanResult, docPath, boardId, docsDir) {
+export async function findItemByPath(
+  structurePlanResult,
+  docPath,
+  boardId,
+  docsDir,
+  locale = "en",
+) {
   let foundItem = null;
   let fileName = null;
 
@@ -52,7 +70,7 @@ export async function findItemByPath(structurePlanResult, docPath, boardId, docs
     // Generate filename from found item path
     if (foundItem) {
       const itemFlattenedPath = foundItem.path.replace(/^\//, "").replace(/\//g, "-");
-      fileName = `${itemFlattenedPath}.md`;
+      fileName = generateFileName(itemFlattenedPath, locale);
     }
   }
 
@@ -97,24 +115,44 @@ export async function readFileContent(docsDir, fileName) {
 /**
  * Get main language markdown files from docs directory
  * @param {string} docsDir - Docs directory path
+ * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<string[]>} Array of main language .md files
  */
-export async function getMainLanguageFiles(docsDir) {
+export async function getMainLanguageFiles(docsDir, locale) {
   const files = await readdir(docsDir);
 
-  // Filter for main language .md files (exclude _sidebar.md and language-specific files)
-  return files.filter(
-    (file) => file.endsWith(".md") && file !== "_sidebar.md" && !file.match(/\.\w+(-\w+)?\.md$/), // Exclude language-specific files like .en.md, .zh-CN.md, etc.
-  );
+  // Filter for main language .md files (exclude _sidebar.md)
+  return files.filter((file) => {
+    // Skip non-markdown files and _sidebar.md
+    if (!file.endsWith(".md") || file === "_sidebar.md") {
+      return false;
+    }
+
+    // If main language is English, return files without language suffix
+    if (locale === "en") {
+      // Return files that don't have language suffixes (e.g., overview.md, not overview.zh.md)
+      return !file.match(/\.\w+(-\w+)?\.md$/);
+    } else {
+      // For non-English main language, return files with the exact locale suffix
+      const localePattern = new RegExp(`\\.${locale}\\.md$`);
+      return localePattern.test(file);
+    }
+  });
 }
 
 /**
  * Convert filename to flattened path format
  * @param {string} fileName - File name to convert
- * @returns {string} Flattened path without .md extension
+ * @returns {string} Flattened path without .md extension and language suffix
  */
 export function fileNameToFlatPath(fileName) {
-  return fileName.replace(/\.md$/, "");
+  // Remove .md extension first
+  let flatName = fileName.replace(/\.md$/, "");
+
+  // Remove language suffix if present (e.g., .zh, .zh-CN, .fr, etc.)
+  flatName = flatName.replace(/\.\w+(-\w+)?$/, "");
+
+  return flatName;
 }
 
 /**
