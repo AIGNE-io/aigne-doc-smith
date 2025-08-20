@@ -37,12 +37,7 @@ skills:
           isTranslate: true
     iterate_on: selectedDocs
     concurrency: 3
-  - type: transform
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        { 'message': '✅ Document translated successfully' }
-      ])
+  - ./translate-success.mjs
 input_schema:
   type: object
   properties:
