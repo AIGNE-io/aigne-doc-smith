@@ -4,36 +4,36 @@ labels: ["Reference"]
 
 # Core Features
 
-AIGNE DocSmith streamlines the entire documentation lifecycle through a set of intuitive commands. This section provides an overview of the main capabilities, from initial creation to ongoing updates and final publication. Each feature is designed to automate manual tasks and integrate directly with your development workflow.
+AIGNE DocSmith streamlines the entire documentation workflow through a set of intuitive commands. From initial creation based on your source code to ongoing updates and final publication, these core features provide a comprehensive solution for managing your project's documentation.
+
+This section provides an overview of the main capabilities. For detailed instructions, please refer to the specific sub-sections.
 
 ---
 
-## Generate Documentation
+### Generate Documentation
 
-The `aigne doc generate` command is the starting point for creating your documentation. It analyzes your source code to build a logical structure and then generates detailed content for each section. If you are running it for the first time in a project, it automatically launches an interactive wizard to help you configure settings like target audience, languages, and source paths.
+Create a complete, well-structured set of documents from your source code with a single command. DocSmith analyzes your project and builds the documentation from the ground up. If it's your first time, an interactive wizard will guide you through the setup process automatically.
 
 ![Executing structure planning and document generation](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-For a complete guide on creating documents from scratch, see the [Generate Documentation](./features-generate-documentation.md) section.
+For a detailed guide on creating your first set of documents, see the [Generate Documentation](./features-generate-documentation.md) section.
 
-## Update and Refine
+### Update and Refine
 
-Keeping documentation synchronized with your code is straightforward. DocSmith automatically detects changes in your source code and updates only the necessary documents when you run the `generate` command. For more specific changes, you can use `aigne doc update` to regenerate a single document with targeted feedback. This is useful for improving clarity, adding examples, or correcting information.
+Keep your documentation synchronized with your codebase. DocSmith can automatically detect changes and update only the necessary files. You can also target specific documents for regeneration with feedback to refine the content, either through command-line flags or an interactive menu.
 
 ![Interactively select a single document to update](https://docsmith.aigne.io/image-bin/uploads/b2bab8e5a727f168628a1cc8c5020697.png)
 
-Dive deeper into the update process in the [Update and Refine](./features-update-and-refine.md) section.
+Explore how to keep your content current in the [Update and Refine](./features-update-and-refine.md) guide.
 
-## Publish Your Docs
+### Publish Your Docs
 
-Once your documentation is ready, the `aigne doc publish` command makes it available online. You can choose to publish to the official DocSmith platform or to your own self-hosted Discuss Kit instance. The command provides an interactive menu to guide you through the publishing options.
+When your documentation is ready, you can publish it to make it accessible. Choose to publish to the official DocSmith platform or to your own self-hosted Discuss Kit instance through a simple interactive menu.
 
-![Publish documentation to official or self-hosted platforms](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
+![Publish documentation to the official platform or a self-hosted platform](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
 
-Find detailed instructions in the [Publish Your Docs](./features-publish-your-docs.md) guide.
+Learn the steps to make your documentation live in the [Publish Your Docs](./features-publish-your-docs.md) section.
 
 ---
 
-These core features provide a complete toolkit for managing your project's documentation. To customize the behavior of these commands, you may want to explore the available settings next.
-
-Proceed to the [Configuration Guide](./configuration.md) to learn how to tailor DocSmith to your specific needs.
+These commands form the core workflow of DocSmith, covering creation, maintenance, and distribution. To customize how your documentation is generated, proceed to the [Configuration Guide](./configuration.md).

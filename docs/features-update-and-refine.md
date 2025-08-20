@@ -4,53 +4,59 @@ labels: ["Reference"]
 
 # Update and Refine
 
-Creating documentation is just the first step. As your source code evolves, your documentation needs to keep pace. AIGNE DocSmith provides powerful and intuitive ways to keep your documents up-to-date and continuously improve their quality, whether you're making small tweaks or significant structural changes.
+Creating documentation is just the first step. As your source code evolves, your documentation must keep pace. AIGNE DocSmith provides straightforward methods to ensure your documents remain accurate and relevant, whether you're syncing with code changes or making specific improvements based on feedback.
 
-## Intelligent Automatic Updates
+## Automatic Updates from Source Code
 
-DocSmith is designed to be efficient. After you've generated your documentation for the first time, running the `aigne doc generate` command again won't start from scratch. Instead, it intelligently detects which parts of your source code have changed and only regenerates the corresponding documents. This saves time and ensures your documentation always reflects the latest state of your project without unnecessary work.
-
-![Intelligent detection, only regenerating necessary documents](https://docsmith.aigne.io/image-bin/uploads/21a76b2f65d14d16a49c13d800f1e2c1.png)
-
-## Manually Updating a Single Document
-
-Sometimes, you may want to improve a specific document without changing any code. You might want to clarify a section, add more examples, or incorporate user feedback. For this, the `aigne doc update` command is the perfect tool.
-
-There are two ways to use this command:
-
-### 1. Interactive Mode
-
-If you're not sure of the exact document path or prefer a guided experience, simply run the command without any parameters. DocSmith will launch an interactive menu listing all your documents. You can easily select the one you want to update and then provide your feedback for improvement in the next step.
+When you modify your source code, the simplest way to update your documentation is to run the `generate` command again. DocSmith intelligently detects which files have changed and only regenerates the corresponding documents. This saves time and ensures your documentation always reflects the current state of your code.
 
 ```bash
-# Start the interactive menu to select a document and provide feedback
+aigne doc generate
+```
+
+This smart detection mechanism avoids regenerating unchanged documents, making the update process efficient.
+
+![A diagram showing DocSmith intelligently detecting changes and only regenerating the necessary documents.](https://docsmith.aigne.io/image-bin/uploads/21a76b2f65d14d16a49c13d800f1e2c1.png)
+
+
+## Targeted Regeneration with Feedback
+
+Sometimes, you may want to improve a specific document without re-analyzing the entire codebase. The `aigne doc update` command is designed for this purpose, allowing you to regenerate individual documents with targeted feedback.
+
+### Interactive Mode
+
+For an easy-to-use, guided experience, run the command without any arguments. DocSmith will launch an interactive menu where you can select the document you wish to update and then provide your feedback for improvement.
+
+```bash
 aigne doc update
 ```
 
-This mode is ideal for quickly finding and refining content without needing to remember specific commands or paths.
+This is ideal for quickly refining content without needing to remember specific file paths.
 
-![Interactively select a document to update from a list](https://docsmith.aigne.io/image-bin/uploads/b2bab8e5a727f168628a1cc8c5020697.png)
+![An interactive command-line menu allowing the user to select a specific document to update.](https://docsmith.aigne.io/image-bin/uploads/b2bab8e5a727f168628a1cc8c5020697.png)
 
-### 2. Direct Command
+### Direct Command
 
-If you already know which document you want to modify, you can specify its path and your feedback directly in the command. This is faster and particularly useful for scripting or automated workflows.
+You can also specify the document and feedback directly via command-line arguments. This is useful for scripting or making quick changes.
 
-Use the `--doc-path` flag to specify the document and the `--feedback` flag to provide instructions to the AI on how to improve the content.
+Use the `--docs` flag to specify the path of the document and the `--feedback` flag to provide instructions for the AI.
 
 ```bash
-# Update a specific document with targeted feedback
-aigne doc update --doc-path /faq --feedback "Add more comprehensive FAQ entries"
+# Update a specific document with feedback
+aigne doc update --docs overview.md --feedback "Add more comprehensive FAQ entries"
 ```
 
 ## Refining the Overall Structure
 
-Beyond improving the content of individual pages, you can also refine the entire documentation structure. If you feel a section is missing, a title is unclear, or the organization could be better, you can provide feedback to the structure planner.
-
-This is done using the `aigne doc generate` command combined with the `--feedback` flag. For a complete guide on this, please see the [Generate Documentation](./features-generate-documentation.md) section.
+Beyond content, you can also refine the overall structure of your documentation. By providing feedback to the `generate` command, you can instruct DocSmith to reorganize, add, or remove sections from the documentation plan.
 
 ```bash
-# Provide feedback to regenerate and improve the overall document structure
-aigne doc generate --feedback "Add a new section for API Reference"
+# Optimize the structure with feedback
+aigne doc generate --feedback "Remove the About section and add an API Reference"
 ```
 
-With these tools, you can ensure your documentation remains a living, accurate, and valuable resource. Once you're satisfied with your updates, the next step is to share it. Learn how in the [Publish Your Docs](./features-publish-your-docs.md) guide.
+This command will re-evaluate the structure plan based on your feedback before regenerating the content, allowing for high-level adjustments to the entire documentation set.
+
+---
+
+With these tools, you can keep your documentation current and continuously improve its quality. Once you are satisfied with your content, the next step is to make it available. Learn how in the [Publish Your Docs](./features-publish-your-docs.md) section.

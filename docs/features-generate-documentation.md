@@ -4,77 +4,61 @@ labels: ["Reference"]
 
 # Generate Documentation
 
-AIGNE DocSmith simplifies the creation of comprehensive documentation into a single, powerful command. It analyzes your source code to automatically plan a logical structure and then generates detailed content for each section. This page covers how to generate your documentation from scratch and refine the overall structure.
+The primary command for creating a complete set of documentation from your source code is `generate`. This single command initiates a process that analyzes your codebase, designs a logical document structure, and then writes detailed content for each section.
 
-## The Primary Generate Command
+### The Main Command
 
-To start the process, navigate to your project's root directory in your terminal and run the following command:
+To begin, navigate to your project's root directory and run the following command:
 
 ```bash
 aigne doc generate
 ```
 
-### Smart Auto-Configuration
+### Smart Auto-Configuration on First Run
 
-The first time you run this command in a new project, DocSmith's **Smart Auto-Configuration** will activate. It detects that no configuration file exists and automatically launches an interactive wizard to guide you through the setup.
+If you are running DocSmith in a project for the first time, the `generate` command will automatically detect the absence of a configuration file. It will then launch an interactive setup wizard to guide you through the initial setup.
 
-![Running the generate command for the first time will intelligently trigger the setup wizard.](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+![Running the generate command, which intelligently triggers the initialization process](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-You'll be asked a few simple questions to define:
+You will be prompted to define key aspects of your documentation, including:
 
-- The style and rules for generation
-- Your target audience
-- The primary language and any additional languages for translation
-- The location of your source code
-- The output directory for the generated documents
+- Document generation rules and style
+- The target audience
+- Primary and translation languages
+- Source code paths
+- The output directory
 
-![Answer a few questions to complete the initial project setup.](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![Answering a series of questions to complete the project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-Once the configuration is complete, DocSmith will proceed to analyze your code, plan the document structure, and generate the content.
+Once the configuration is complete, DocSmith will proceed with planning the document structure and generating the content.
 
-![DocSmith executing the structure planning and document generation phases.](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+![DocSmith executing the structure planning and document generation phases](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-Upon successful completion, you will see a confirmation message, and your new documentation will be ready in the specified output directory.
+Upon completion, you will see a success message confirming that your documentation is ready.
 
-![A success message indicates that your documentation has been generated.](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+![A success message indicating that the documentation has been generated](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
-## Forcing a Full Regeneration
+### Forcing a Full Regeneration
 
-If you have made significant changes to your source code or updated your configuration and want to rebuild all documents from scratch, you can use the `--forceRegenerate` flag. This ensures that all existing content is discarded and replaced with freshly generated documentation.
+If you need to regenerate all documentation from scratch, discarding any previous versions, you can use the `--forceRegenerate` flag. This is useful after making significant changes to your source code or configuration file.
 
 ```bash
 aigne doc generate --forceRegenerate
 ```
 
-## Optimizing the Document Structure with Feedback
+This command ensures that the entire documentation set is rebuilt based on the latest state of your project.
 
-You can influence the overall structure of your documentation by providing direct feedback to the AI. Use the `--feedback` flag to suggest changes, such as adding, removing, or reorganizing sections. This is useful for refining the high-level outline that DocSmith creates before the content is written.
+### Refining the Structure with Feedback
 
-**Example: Adding a New Section**
-
-```bash
-aigne doc generate --feedback "Add a more detailed installation guide and a troubleshooting section"
-```
-
-**Example: Reorganizing Content**
+You can also guide the AI to improve the overall document structure by providing targeted feedback during the generation process. Use the `--feedback` flag to suggest changes, such as adding or removing sections.
 
 ```bash
-aigne doc generate --feedback "Remove the 'About' section and add a detailed 'API Reference'"
+# Example: Ask the AI to add an API Reference section
+aigne doc generate --feedback "Remove About section and add API Reference"
 ```
 
-## Command Options
-
-Here is a summary of the available options for the `generate` command.
-
-| Parameter             | Description                                                                          | Example                                                       |
-| --------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| (none)                | Starts the generation process. Triggers the setup wizard if not configured.          | `aigne doc generate`                                          |
-| `--forceRegenerate`   | Deletes all existing documents and regenerates them from scratch.                    | `aigne doc generate --forceRegenerate`                        |
-| `--feedback "<text>"` | Provides feedback to refine and optimize the overall document structure plan.        | `aigne doc generate --feedback "Add an advanced usage guide"` |
-| `--model <provider:model>` | Specifies a particular Large Language Model to use for generation via AIGNE Hub. | `aigne doc generate --model openai:gpt-4o`                    |
+This allows you to refine the high-level organization of your documents without manual intervention.
 
 ---
 
-Now you can generate a complete set of documentation and guide the AI for better structural results. Once your documents are created, you might need to make small adjustments or update them as your code evolves.
-
-To learn how to do this efficiently, proceed to the next section: [Update and Refine](./features-update-and-refine.md).
+Now that you understand how to generate a new set of documents, the next step is to learn how to maintain and improve them over time. For this, proceed to the [Update and Refine](./features-update-and-refine.md) guide.

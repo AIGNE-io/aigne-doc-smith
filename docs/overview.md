@@ -4,55 +4,51 @@ labels: ["Reference"]
 
 # Overview
 
-AIGNE DocSmith is an AI-driven documentation generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automates the creation of detailed, structured, and multi-language documentation directly from your source code. This approach helps keep your content synchronized with your project as it evolves.
-
-## Key Features
-
-DocSmith provides a set of features to streamline the documentation process:
-
-- **Automated Structure Planning:** Analyzes your codebase to generate a logical document structure.
-- **AI-Powered Content Generation:** Populates the planned structure with detailed, high-quality content.
-- **Multi-Language Support:** Translates your documentation into more than 12 languages, including English, Chinese, Spanish, and French.
-- **AIGNE Hub Integration:** Allows you to use various large language models through AIGNE Hub without needing to configure individual API keys.
-- **Discuss Kit Publishing:** Publishes documentation directly to the official [docsmith.aigne.io](https://docsmith.aigne.io/app/) platform or your own self-hosted instance.
-- **Document Update Mechanism:** Detects source code changes and updates the corresponding documentation to reflect them.
-- **Individual Document Optimization:** Lets you regenerate specific documents with targeted feedback for continuous improvement.
+AIGNE DocSmith is an AI-driven documentation generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automates the creation of detailed, structured, and multi-language documentation directly from your source code, simplifying the entire process for developers and teams.
 
 ## The AIGNE Ecosystem
 
-DocSmith operates as part of the broader AIGNE ecosystem, a platform designed for building and deploying AI applications. It integrates with other AIGNE components to leverage the platform's shared AI capabilities and infrastructure.
-
-The following diagram illustrates how DocSmith fits within the overall architecture:
-
-```mermaid
-graph TD
-    subgraph "AIGNE Ecosystem"
-        direction TB
-        AIGNE_Platform["AIGNE Platform"]
-        AIGNE_Hub["AIGNE Hub (LLM Access)"]
-        AI_Agents["AI Agents"]
-        Knowledge_Base["Knowledge Base"]
-
-        AIGNE_Platform -- "Integrates with" --> AIGNE_Hub
-        AIGNE_Platform -- "Powers" --> AI_Agents
-        AIGNE_Platform -- "Utilizes" --> Knowledge_Base
-    end
-
-    subgraph "Applications"
-        DocSmith["AIGNE DocSmith"]
-        DiscussKit["Discuss Kit"]
-    end
-
-    DocSmith -- "Built on" --> AIGNE_Platform
-    DocSmith -- "Publishes to" --> DiscussKit
-```
-
-As the diagram shows, DocSmith utilizes the core AIGNE platform and its components, like AIGNE Hub for language model access, and can publish its output to a Discuss Kit instance.
+DocSmith is a component of the comprehensive [AIGNE](https://www.aigne.io) ecosystem, an AI application development platform. It integrates with other AIGNE tools, leveraging the platform's central AI capabilities and infrastructure to deliver its features.
 
 ![AIGNE Ecosystem Architecture](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
 
-## Next Steps
+The diagram above illustrates how DocSmith fits into the broader AIGNE architecture. The integration allows for a consistent and streamlined development experience across different tools within the ecosystem.
 
-Now that you have an idea of what DocSmith offers, the best way to learn more is to install it and generate your first set of documents.
+```mermaid
+flowchart TD
+    subgraph "Inputs"
+        A["Your Source Code"]
+    end
 
-Ready to begin? Proceed to the [Getting Started](./getting-started.md) guide.
+    subgraph "AIGNE Platform"
+        B["AIGNE DocSmith"]
+        C{"Core AI Capabilities"}
+    end
+
+    subgraph "Outputs"
+        D["Structured Documentation"]
+    end
+
+    A -- "Analyzes" --> B
+    B -- "Leverages" --> C
+    B -- "Generates" --> D
+```
+
+## Key Features
+
+DocSmith offers a range of features designed to make documentation effortless and maintainable.
+
+| Feature | Description |
+|---|---|
+| **Automated Structure Planning** | Intelligently analyzes your codebase to generate a comprehensive and logical document structure. |
+| **AI-Powered Content Generation** | Populates the document structure with detailed, high-quality content based on the source code. |
+| **Multi-Language Support** | Translates your documentation into 12+ languages, including Chinese, Japanese, Spanish, and German. |
+| **AIGNE Hub Integration** | Connects to AIGNE Hub, allowing you to use various LLMs without managing your own API keys. |
+| **Discuss Kit Publishing** | Publishes documentation directly to the official platform or your own self-hosted Discuss Kit instance. |
+| **Document Update Mechanism** | Automatically detects source code changes and updates the relevant sections of your documentation. |
+| **Individual Document Optimization** | Allows you to regenerate and refine specific documents with targeted feedback for continuous improvement. |
+
+
+This overview provides a starting point for understanding what AIGNE DocSmith can do. To start using the tool and create your first set of documents, proceed to the next section.
+
+[Next: Getting Started](./getting-started.md)
