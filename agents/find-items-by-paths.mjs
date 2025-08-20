@@ -1,9 +1,9 @@
 import {
-  getActionText,
+  addFeedbackToItems,
   findItemByPath,
+  getActionText,
   getMainLanguageFiles,
   processSelectedFiles,
-  addFeedbackToItems,
 } from "../utils/docs-finder-utils.mjs";
 
 export default async function selectedDocs(

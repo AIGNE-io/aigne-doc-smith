@@ -1,30 +1,25 @@
-import { readdir, readFile } from "node:fs/promises";
-import { join } from "node:path";
-
-// Helper function to get action-specific text based on isTranslate flag
-function getActionText(isTranslate, baseText) {
-  const action = isTranslate ? "retranslate" : "update";
-  return baseText.replace("{action}", action);
-}
+import {
+  fileNameToFlatPath,
+  findItemByFlatName,
+  findItemByPath as findItemByPathUtil,
+  getActionText,
+  getMainLanguageFiles,
+  readFileContent,
+} from "../utils/docs-finder-utils.mjs";
 
 export default async function findItemByPath(
-  { docPath, structurePlanResult, boardId, docsDir, isTranslate, feedback },
+  { doc, structurePlanResult, boardId, docsDir, isTranslate, feedback },
   options,
 ) {
   let foundItem = null;
   let selectedFileContent = null;
+  let docPath = doc;
 
   // If docPath is empty, let user select from available documents
   if (!docPath) {
     try {
-      // Get all .md files in docsDir
-      const files = await readdir(docsDir);
-
-      // Filter for main language .md files (exclude _sidebar.md and language-specific files)
-      const mainLanguageFiles = files.filter(
-        (file) =>
-          file.endsWith(".md") && file !== "_sidebar.md" && !file.match(/\.\w+(-\w+)?\.md$/), // Exclude language-specific files like .en.md, .zh-CN.md, etc.
-      );
+      // Get all main language .md files in docsDir
+      const mainLanguageFiles = await getMainLanguageFiles(docsDir);
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No documents found in the docs directory");
@@ -58,26 +53,14 @@ export default async function findItemByPath(
       }
 
       // Read the selected .md file content
-      try {
-        const selectedFilePath = join(docsDir, selectedFile);
-        selectedFileContent = await readFile(selectedFilePath, "utf-8");
-      } catch (readError) {
-        console.warn(`⚠️  Could not read content from ${selectedFile}:`, readError.message);
-        selectedFileContent = null;
-      }
+      selectedFileContent = await readFileContent(docsDir, selectedFile);
 
       // Convert filename back to path
-      // Remove .md extension
-      const flatName = selectedFile.replace(/\.md$/, "");
+      const flatName = fileNameToFlatPath(selectedFile);
 
       // Try to find matching item by comparing flattened paths
-      let foundItemByFile = null;
+      const foundItemByFile = findItemByFlatName(structurePlanResult, flatName);
 
-      // First try without boardId prefix
-      foundItemByFile = structurePlanResult.find((item) => {
-        const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
-        return itemFlattenedPath === flatName;
-      });
       if (!foundItemByFile) {
         throw new Error("No document found");
       }
@@ -94,24 +77,8 @@ export default async function findItemByPath(
     }
   }
 
-  // First try direct path matching
-  foundItem = structurePlanResult.find((item) => item.path === docPath);
-
-  // If not found and boardId is provided, try boardId-flattenedPath format matching
-  if (!foundItem && boardId) {
-    // Check if path starts with boardId followed by a dash
-    if (docPath.startsWith(`${boardId}-`)) {
-      // Extract the flattened path part after boardId-
-      const flattenedPath = docPath.substring(boardId.length + 1);
-
-      // Find item by comparing flattened paths
-      foundItem = structurePlanResult.find((item) => {
-        // Convert item.path to flattened format (replace / with -)
-        const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
-        return itemFlattenedPath === flattenedPath;
-      });
-    }
-  }
+  // Use the utility function to find item and read content
+  foundItem = await findItemByPathUtil(structurePlanResult, docPath, boardId, docsDir);
 
   if (!foundItem) {
     throw new Error(`Item with path "${docPath}" not found in structurePlanResult`);
@@ -130,12 +97,12 @@ export default async function findItemByPath(
     });
   }
 
-  // Merge the found item with originalStructurePlan and add content if available
+  // Merge the found item and ensure content is available
   const result = {
     ...foundItem,
   };
 
-  // Add content if we read it from user selection
+  // Add content if we read it from user selection (takes precedence over utility method content)
   if (selectedFileContent !== null) {
     result.content = selectedFileContent;
   }

@@ -8,14 +8,14 @@ import open from "open";
 import { joinURL } from "ufo";
 import { parse, stringify } from "yaml";
 import {
+  ComponentNotFoundError,
   getComponentMountPoint,
   InvalidBlockletError,
-  ComponentNotFoundError,
 } from "./blocklet.mjs";
 import {
+  BLOCKLET_ADD_COMPONENT_DOCS,
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
-  BLOCKLET_ADD_COMPONENT_DOCS,
 } from "./constants.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";

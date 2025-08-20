@@ -1,7 +1,7 @@
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
-import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import { existsSync } from "node:fs";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { saveValueToConfig } from "../utils/utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);

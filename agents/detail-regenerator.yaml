@@ -37,7 +37,7 @@ input_schema:
     glossary:
       type: string
       description: Glossary of terms for consistent terminology, use @<file> to read from a file
-    docPath:
+    doc:
       type: string
       description: Document path to regenerate
     feedback:

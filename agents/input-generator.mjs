@@ -1,22 +1,22 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
+import { getFilteredOptions, validateSelection } from "../utils/conflict-detector.mjs";
 import {
+  DEPTH_RECOMMENDATION_LOGIC,
   DOCUMENT_STYLES,
-  SUPPORTED_LANGUAGES,
-  TARGET_AUDIENCES,
-  READER_KNOWLEDGE_LEVELS,
   DOCUMENTATION_DEPTH,
   PURPOSE_TO_KNOWLEDGE_MAPPING,
-  DEPTH_RECOMMENDATION_LOGIC,
+  READER_KNOWLEDGE_LEVELS,
+  SUPPORTED_LANGUAGES,
+  TARGET_AUDIENCES,
 } from "../utils/constants.mjs";
 import {
+  detectSystemLanguage,
   getAvailablePaths,
   getProjectInfo,
   validatePath,
-  detectSystemLanguage,
 } from "../utils/utils.mjs";
-import { validateSelection, getFilteredOptions } from "../utils/conflict-detector.mjs";
 
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";

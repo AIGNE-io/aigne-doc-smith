@@ -1,9 +1,9 @@
 import { basename, join } from "node:path";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
-import { getAccessToken } from "../utils/auth-utils.mjs";
-import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 import chalk from "chalk";
+import { getAccessToken } from "../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL } from "../utils/constants.mjs";
+import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
