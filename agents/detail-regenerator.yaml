@@ -43,9 +43,11 @@ input_schema:
     glossary:
       type: string
       description: Glossary of terms for consistent terminology, use @<file> to read from a file
-    doc:
-      type: string
-      description: Document path to regenerate
+    docs:
+      type: array
+      items:
+        type: string
+      description: Document paths to translate
     feedback:
       type: string
       description: Feedback for content improvement
