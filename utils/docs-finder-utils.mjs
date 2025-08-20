@@ -116,13 +116,14 @@ export async function readFileContent(docsDir, fileName) {
  * Get main language markdown files from docs directory
  * @param {string} docsDir - Docs directory path
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
- * @returns {Promise<string[]>} Array of main language .md files
+ * @param {Array} structurePlanResult - Array of structure plan items to determine file order
+ * @returns {Promise<string[]>} Array of main language .md files ordered by structurePlanResult
  */
-export async function getMainLanguageFiles(docsDir, locale) {
+export async function getMainLanguageFiles(docsDir, locale, structurePlanResult = null) {
   const files = await readdir(docsDir);
 
   // Filter for main language .md files (exclude _sidebar.md)
-  return files.filter((file) => {
+  const filteredFiles = files.filter((file) => {
     // Skip non-markdown files and _sidebar.md
     if (!file.endsWith(".md") || file === "_sidebar.md") {
       return false;
@@ -138,6 +139,38 @@ export async function getMainLanguageFiles(docsDir, locale) {
       return localePattern.test(file);
     }
   });
+
+  // If structurePlanResult is provided, sort files according to the order in structurePlanResult
+  if (structurePlanResult && Array.isArray(structurePlanResult)) {
+    // Create a map from flat file name to structure plan order
+    const orderMap = new Map();
+    structurePlanResult.forEach((item, index) => {
+      const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
+      const expectedFileName = generateFileName(itemFlattenedPath, locale);
+      orderMap.set(expectedFileName, index);
+    });
+
+    // Sort filtered files based on their order in structurePlanResult
+    return filteredFiles.sort((a, b) => {
+      const orderA = orderMap.get(a);
+      const orderB = orderMap.get(b);
+
+      // If both files are in the structure plan, sort by order
+      if (orderA !== undefined && orderB !== undefined) {
+        return orderA - orderB;
+      }
+
+      // If only one file is in the structure plan, it comes first
+      if (orderA !== undefined) return -1;
+      if (orderB !== undefined) return 1;
+
+      // If neither file is in the structure plan, maintain alphabetical order
+      return a.localeCompare(b);
+    });
+  }
+
+  // If no structurePlanResult provided, return files in alphabetical order
+  return filteredFiles.sort();
 }
 
 /**
