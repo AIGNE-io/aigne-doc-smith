@@ -1,5 +1,5 @@
 # Project information for documentation publishing
-projectName: aigne-doc-smith
+projectName: AIGNE DocSmith
 projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the AIGNE Framework. It automates the creation of detailed, structured, and multi-language documentation directly from your source code.
 projectLogo: https://www.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg
 
@@ -55,9 +55,9 @@ rules: |
 targetAudience: |
   
 
-locale: zh
+locale: en
 translateLanguages:
-  - en
+  - zh
 docsDir: ./docs  # Directory to save generated documentation
 sourcesPath:  # Source code paths to analyze
   - ./
