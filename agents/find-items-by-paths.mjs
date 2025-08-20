@@ -56,7 +56,7 @@ export default async function selectedDocs(
   } else {
     // Process the provided docs array
     for (const docPath of docs) {
-      const foundItem = findItemByPath(structurePlanResult, docPath, boardId);
+      const foundItem = await findItemByPath(structurePlanResult, docPath, boardId, docsDir);
 
       if (!foundItem) {
         console.warn(`⚠️  Item with path "${docPath}" not found in structurePlanResult`);

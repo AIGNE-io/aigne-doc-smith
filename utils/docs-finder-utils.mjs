@@ -13,33 +13,69 @@ export function getActionText(isTranslate, baseText) {
 }
 
 /**
- * Find a single item by path in structure plan result
+ * Find a single item by path in structure plan result and read its content
  * @param {Array} structurePlanResult - Array of structure plan items
- * @param {string} docPath - Document path to find
+ * @param {string} docPath - Document path to find (supports .md filenames)
  * @param {string} boardId - Board ID for fallback matching
- * @returns {Object|null} Found item or null
+ * @param {string} docsDir - Docs directory path for reading content
+ * @returns {Promise<Object|null>} Found item with content or null
  */
-export function findItemByPath(structurePlanResult, docPath, boardId) {
-  // First try direct path matching
-  let foundItem = structurePlanResult.find((item) => item.path === docPath);
+export async function findItemByPath(structurePlanResult, docPath, boardId, docsDir) {
+  let foundItem = null;
+  let fileName = null;
 
-  // If not found and boardId is provided, try boardId-flattenedPath format matching
-  if (!foundItem && boardId) {
-    // Check if path starts with boardId followed by a dash
-    if (docPath.startsWith(`${boardId}-`)) {
-      // Extract the flattened path part after boardId-
-      const flattenedPath = docPath.substring(boardId.length + 1);
+  // Check if docPath is a .md filename
+  if (docPath.endsWith(".md")) {
+    fileName = docPath;
+    const flatName = fileNameToFlatPath(docPath);
+    foundItem = findItemByFlatName(structurePlanResult, flatName);
+  } else {
+    // First try direct path matching
+    foundItem = structurePlanResult.find((item) => item.path === docPath);
 
-      // Find item by comparing flattened paths
-      foundItem = structurePlanResult.find((item) => {
-        // Convert item.path to flattened format (replace / with -)
-        const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
-        return itemFlattenedPath === flattenedPath;
-      });
+    // If not found and boardId is provided, try boardId-flattenedPath format matching
+    if (!foundItem && boardId) {
+      // Check if path starts with boardId followed by a dash
+      if (docPath.startsWith(`${boardId}-`)) {
+        // Extract the flattened path part after boardId-
+        const flattenedPath = docPath.substring(boardId.length + 1);
+
+        // Find item by comparing flattened paths
+        foundItem = structurePlanResult.find((item) => {
+          // Convert item.path to flattened format (replace / with -)
+          const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
+          return itemFlattenedPath === flattenedPath;
+        });
+      }
+    }
+
+    // Generate filename from found item path
+    if (foundItem) {
+      const itemFlattenedPath = foundItem.path.replace(/^\//, "").replace(/\//g, "-");
+      fileName = `${itemFlattenedPath}.md`;
     }
   }
 
-  return foundItem;
+  if (!foundItem) {
+    return null;
+  }
+
+  // Read file content if docsDir is provided
+  let content = null;
+  if (docsDir && fileName) {
+    content = await readFileContent(docsDir, fileName);
+  }
+
+  // Return item with content
+  const result = {
+    ...foundItem,
+  };
+
+  if (content !== null) {
+    result.content = content;
+  }
+
+  return result;
 }
 
 /**
