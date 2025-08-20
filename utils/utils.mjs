@@ -8,6 +8,7 @@ import {
   DEFAULT_INCLUDE_PATTERNS,
   DOCUMENT_STYLES,
   DOCUMENTATION_DEPTH,
+  SUPPORTED_FILE_EXTENSIONS,
   READER_KNOWLEDGE_LEVELS,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
@@ -918,11 +919,28 @@ export function processConfigFields(config) {
 }
 
 /**
- * Resolve file references in configuration
- * Processes string values that start with '@' as file paths and loads their content
- * @param {any} obj - The configuration object to process
- * @param {string} basePath - Base path for resolving relative paths (defaults to process.cwd())
- * @returns {Promise<any>} - The processed configuration with file content loaded
+ * Recursively resolves file references in a configuration object.
+ *
+ * This function traverses the input object, array, or string recursively. Any string value that starts
+ * with '@' is treated as a file reference, and the file's content is loaded asynchronously. Supported
+ * file formats include .txt, .md, .json, .yaml, and .yml. For .json and .yaml/.yml files, the content
+ * is parsed into objects; for .txt and .md, the raw string is returned.
+ *
+ * If a file cannot be loaded (e.g., does not exist, is of unsupported type, or parsing fails), the
+ * original string value (with '@' prefix) is returned in place of the file content.
+ *
+ * The function processes nested arrays and objects recursively, returning a new structure with file
+ * contents loaded in place of references. The input object is not mutated.
+ *
+ * Examples of supported file reference formats:
+ *   - "@notes.txt"
+ *   - "@docs/readme.md"
+ *   - "@config/settings.json"
+ *   - "@data.yaml"
+ *
+ * @param {any} obj - The configuration object, array, or string to process.
+ * @param {string} basePath - Base path for resolving relative file paths (defaults to process.cwd()).
+ * @returns {Promise<any>} - The processed configuration with file content loaded in place of references.
  */
 export async function resolveFileReferences(obj, basePath = process.cwd()) {
   if (typeof obj === "string" && obj.startsWith("@")) {
@@ -962,9 +980,8 @@ async function loadFileContent(filePath, basePath) {
 
     // Check file extension
     const ext = path.extname(resolvedPath).toLowerCase();
-    const supportedExtensions = [".txt", ".md", ".json", ".yaml", ".yml"];
 
-    if (!supportedExtensions.includes(ext)) {
+    if (!SUPPORTED_FILE_EXTENSIONS.includes(ext)) {
       return `@${filePath}`; // Return original value if unsupported file type
     }
 

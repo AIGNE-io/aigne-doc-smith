@@ -324,6 +324,9 @@ export const DISCUSS_KIT_STORE_URL =
 export const BLOCKLET_ADD_COMPONENT_DOCS =
   "https://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s";
 
+// Supported file extensions for content reading
+export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml"];
+
 // Conflict rules configuration for documentation generation
 export const CONFLICT_RULES = {
   // Internal conflicts within the same question (multi-select conflicts)
