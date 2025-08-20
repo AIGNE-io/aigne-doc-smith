@@ -16,6 +16,17 @@ export default async function checkStructurePlan(
   let shouldRegenerate = false;
   let finalFeedback = feedback;
 
+  // Prompt for feedback if originalStructurePlan exists and no feedback provided
+  if (originalStructurePlan && !feedback) {
+    const userFeedback = await options.prompts.input({
+      message: "Please provide feedback for structure planning (press Enter to skip):",
+    });
+
+    if (userFeedback?.trim()) {
+      finalFeedback = userFeedback.trim();
+    }
+  }
+
   // If no feedback and originalStructurePlan exists, check for git changes
   if (originalStructurePlan) {
     // If no lastGitHead, check if _sidebar.md exists to determine if we should regenerate
@@ -65,7 +76,7 @@ export default async function checkStructurePlan(
   }
 
   // If no regeneration needed, return original structure plan
-  if (originalStructurePlan && !feedback && !shouldRegenerate) {
+  if (originalStructurePlan && !finalFeedback && !shouldRegenerate) {
     return {
       structurePlan: originalStructurePlan,
     };
