@@ -26,20 +26,28 @@ skills:
           })
         }
       ])
-  - ./find-item-by-path.mjs
+  - ./find-items-by-paths.mjs
   - ./format-structure-plan.mjs
-  - url: ./detail-generator-and-translate.yaml
+  - type: team
+    name: batchDocsUpdate
+    skills:
+      - ./detail-generator-and-translate.yaml
+    iterate_on: selectedDocs
+    concurrency: 3
+  - url: ./action-success.mjs
     default_input:
-      isShowMessage: true
+      action: "Document updated"
 input_schema:
   type: object
   properties:
     glossary:
       type: string
       description: Glossary of terms for consistent terminology, use @<file> to read from a file
-    docPath:
-      type: string
-      description: Document path to regenerate
+    docs:
+      type: array
+      items:
+        type: string
+      description: Document paths to translate
     feedback:
       type: string
       description: Feedback for content improvement

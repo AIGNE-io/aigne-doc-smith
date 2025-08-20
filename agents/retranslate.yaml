@@ -1,9 +1,6 @@
 type: team
-name: retranslate
-alias:
-  - rt
-  - translate-again
-description: Re-translate individual document content to selected languages
+name: translate
+description: Translate document content to selected languages
 skills:
   - url: ./input-generator.mjs
     default_input:
@@ -11,6 +8,7 @@ skills:
   - ./load-config.mjs
   - ./load-sources.mjs
   - type: transform
+    task_render_mode: hide
     jsonata: |
       $merge([
         $,
@@ -26,49 +24,39 @@ skills:
           })
         }
       ])
-  - url: ./find-item-by-path.mjs
+  - url: ./find-items-by-paths.mjs
     default_input:
       isTranslate: true
   - ./language-selector.mjs
-  - type: transform
-    jsonata: |
-      $merge([
-        $,
-        {
-          'translates': [$map(selectedLanguages, function($lang) { {"language": $lang} })]
-        }
-      ])
-  - ./batch-translate.yaml
-  - url: ./save-single-doc.mjs
+  - type: team
+    name: batchDocsTranslate
+    skills:
+      - ./batch-translate.yaml
+      - url: ./save-single-doc.mjs
+        default_input:
+          isTranslate: true
+    iterate_on: selectedDocs
+    concurrency: 3
+  - url: ./action-success.mjs
     default_input:
-      isTranslate: true
-      isShowMessage: true
+      action: "Document translated"
 input_schema:
   type: object
   properties:
     glossary:
       type: string
-      description: Glossary of terms for consistent terminology
-    doc-path:
-      type: string
-      description: Document path to retranslate
-    # languages:
-    #   type: array
-    #   items:
-    #     type: string
-    #   description: Languages to translate to
+      description: Glossary of terms for consistent terminology, use @<file> to read from a file
+    docs:
+      type: array
+      items:
+        type: string
+      description: Document paths to translate
+    langs:
+      type: array
+      items:
+        type: string
+      description: Languages to translate to
     feedback:
       type: string
       description: Feedback for translation improvement
-output_schema:
-  type: object
-  properties:
-    title:
-      type: string
-    description:
-      type: string
-    path:
-      type: string
-    content:
-      type: string
 mode: sequential

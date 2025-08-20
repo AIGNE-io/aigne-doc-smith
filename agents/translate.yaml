@@ -1,4 +1,4 @@
-name: translate
+name: translateDoc
 description: Translate the wiki article to another language
 instructions:
   url: ../prompts/translator.md

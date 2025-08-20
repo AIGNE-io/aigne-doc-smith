@@ -7,10 +7,11 @@ import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
   DOCUMENT_STYLES,
-  TARGET_AUDIENCES,
-  READER_KNOWLEDGE_LEVELS,
   DOCUMENTATION_DEPTH,
+  SUPPORTED_FILE_EXTENSIONS,
+  READER_KNOWLEDGE_LEVELS,
   SUPPORTED_LANGUAGES,
+  TARGET_AUDIENCES,
 } from "./constants.mjs";
 
 /**
@@ -344,9 +345,140 @@ export async function loadConfigFromFile() {
 /**
  * Save value to config.yaml file
  * @param {string} key - The config key to save
- * @param {string} value - The value to save
+ * @param {string|Array} value - The value to save (can be string or array)
  * @param {string} [comment] - Optional comment to add above the key
  */
+/**
+ * Handle array value formatting and updating in YAML config
+ * @param {string} key - The configuration key
+ * @param {Array} value - The array value to save
+ * @param {string} comment - Optional comment
+ * @param {string} fileContent - Current file content
+ * @returns {string} Updated file content
+ */
+function handleArrayValueUpdate(key, value, comment, fileContent) {
+  // Format array value
+  const formattedValue =
+    value.length === 0 ? `${key}: []` : `${key}:\n${value.map((item) => `  - ${item}`).join("\n")}`;
+
+  const lines = fileContent.split("\n");
+
+  // Find the start line of the key
+  const keyStartIndex = lines.findIndex((line) => line.match(new RegExp(`^${key}:\\s*`)));
+
+  if (keyStartIndex !== -1) {
+    // Find the end of the array (next non-indented line or end of file)
+    let keyEndIndex = keyStartIndex;
+    for (let i = keyStartIndex + 1; i < lines.length; i++) {
+      const line = lines[i].trim();
+      // If line is empty, starts with comment, or doesn't start with "- ", it's not part of the array
+      if (line === "" || line.startsWith("#") || (!line.startsWith("- ") && !line.match(/^\w+:/))) {
+        if (!line.startsWith("- ")) {
+          keyEndIndex = i - 1;
+          break;
+        }
+      } else if (line.match(/^\w+:/)) {
+        // Found another key, stop here
+        keyEndIndex = i - 1;
+        break;
+      } else if (line.startsWith("- ")) {
+        keyEndIndex = i;
+      }
+    }
+
+    // If we reached the end of file
+    if (keyEndIndex === keyStartIndex) {
+      // Check if the value is on the same line
+      const keyLine = lines[keyStartIndex];
+      if (keyLine.includes("[") || !keyLine.endsWith(":")) {
+        keyEndIndex = keyStartIndex;
+      } else {
+        // Find the actual end of the array
+        for (let i = keyStartIndex + 1; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (line.startsWith("- ")) {
+            keyEndIndex = i;
+          } else if (line !== "" && !line.startsWith("#")) {
+            break;
+          }
+        }
+      }
+    }
+
+    // Replace the entire array section
+    const replacementLines = formattedValue.split("\n");
+    lines.splice(keyStartIndex, keyEndIndex - keyStartIndex + 1, ...replacementLines);
+
+    // Add comment if provided and not already present
+    if (comment && keyStartIndex > 0 && !lines[keyStartIndex - 1].trim().startsWith("# ")) {
+      lines.splice(keyStartIndex, 0, `# ${comment}`);
+    }
+
+    return lines.join("\n");
+  } else {
+    // Add new array to end of file
+    let updatedContent = fileContent;
+    if (updatedContent && !updatedContent.endsWith("\n")) {
+      updatedContent += "\n";
+    }
+
+    // Add comment if provided
+    if (comment) {
+      updatedContent += `# ${comment}\n`;
+    }
+
+    updatedContent += `${formattedValue}\n`;
+    return updatedContent;
+  }
+}
+
+/**
+ * Handle string value formatting and updating in YAML config
+ * @param {string} key - The configuration key
+ * @param {string} value - The string value to save
+ * @param {string} comment - Optional comment
+ * @param {string} fileContent - Current file content
+ * @returns {string} Updated file content
+ */
+function handleStringValueUpdate(key, value, comment, fileContent) {
+  const formattedValue = `${key}: "${value}"`;
+  const lines = fileContent.split("\n");
+
+  // Handle string values (original logic)
+  const keyRegex = new RegExp(`^${key}:\\s*.*$`);
+  const keyIndex = lines.findIndex((line) => keyRegex.test(line));
+
+  if (keyIndex !== -1) {
+    // Replace existing key line
+    lines[keyIndex] = formattedValue;
+
+    // Add comment if provided and not already present
+    if (comment) {
+      const hasCommentAbove = keyIndex > 0 && lines[keyIndex - 1].trim().startsWith("# ");
+      if (!hasCommentAbove) {
+        // Add comment above the key if it doesn't already have one
+        lines.splice(keyIndex, 0, `# ${comment}`);
+      }
+    }
+
+    return lines.join("\n");
+  } else {
+    // Add key to the end of file
+    let updatedContent = fileContent;
+    if (updatedContent && !updatedContent.endsWith("\n")) {
+      updatedContent += "\n";
+    }
+
+    // Add comment if provided
+    if (comment) {
+      updatedContent += `# ${comment}\n`;
+    }
+
+    updatedContent += `${formattedValue}\n`;
+    return updatedContent;
+  }
+}
+
 export async function saveValueToConfig(key, value, comment) {
   if (value === undefined) {
     return; // Skip if value is undefined
@@ -366,39 +498,15 @@ export async function saveValueToConfig(key, value, comment) {
       fileContent = await fs.readFile(configPath, "utf8");
     }
 
-    // Check if key already exists in the file
-    const lines = fileContent.split("\n");
-    const keyRegex = new RegExp(`^${key}:\\s*.*$`);
-    const newKeyLine = `${key}: "${value}"`;
-
-    const keyIndex = lines.findIndex((line) => keyRegex.test(line));
-
-    if (keyIndex !== -1) {
-      // Replace existing key line
-      lines[keyIndex] = newKeyLine;
-      fileContent = lines.join("\n");
-
-      // Add comment if provided and not already present
-      if (comment && keyIndex > 0 && !lines[keyIndex - 1].trim().startsWith("# ")) {
-        // Add comment above the key if it doesn't already have one
-        lines.splice(keyIndex, 0, `# ${comment}`);
-        fileContent = lines.join("\n");
-      }
+    // Use extracted helper functions for better maintainability
+    let updatedContent;
+    if (Array.isArray(value)) {
+      updatedContent = handleArrayValueUpdate(key, value, comment, fileContent);
     } else {
-      // Add key to the end of file
-      if (fileContent && !fileContent.endsWith("\n")) {
-        fileContent += "\n";
-      }
-
-      // Add comment if provided
-      if (comment) {
-        fileContent += `# ${comment}\n`;
-      }
-
-      fileContent += `${newKeyLine}\n`;
+      updatedContent = handleStringValueUpdate(key, value, comment, fileContent);
     }
 
-    await fs.writeFile(configPath, fileContent);
+    await fs.writeFile(configPath, updatedContent);
   } catch (error) {
     console.warn(`Failed to save ${key} to config.yaml:`, error.message);
   }
@@ -725,9 +833,21 @@ export function processConfigFields(config) {
   const allRulesContent = [];
 
   // Check if original rules field has content
-  const existingRules = config.rules?.trim();
-  if (existingRules) {
-    allRulesContent.push(existingRules);
+  if (config.rules) {
+    if (typeof config.rules === "string") {
+      const existingRules = config.rules.trim();
+      if (existingRules) {
+        allRulesContent.push(existingRules);
+      }
+    } else if (Array.isArray(config.rules)) {
+      // Handle array of rules - join them with newlines
+      const rulesText = config.rules
+        .filter((rule) => typeof rule === "string" && rule.trim())
+        .join("\n\n");
+      if (rulesText) {
+        allRulesContent.push(rulesText);
+      }
+    }
   }
 
   // Process document purpose (array)
@@ -802,6 +922,101 @@ export function processConfigFields(config) {
   }
 
   return processed;
+}
+
+/**
+ * Recursively resolves file references in a configuration object.
+ *
+ * This function traverses the input object, array, or string recursively. Any string value that starts
+ * with '@' is treated as a file reference, and the file's content is loaded asynchronously. Supported
+ * file formats include .txt, .md, .json, .yaml, and .yml. For .json and .yaml/.yml files, the content
+ * is parsed into objects; for .txt and .md, the raw string is returned.
+ *
+ * If a file cannot be loaded (e.g., does not exist, is of unsupported type, or parsing fails), the
+ * original string value (with '@' prefix) is returned in place of the file content.
+ *
+ * The function processes nested arrays and objects recursively, returning a new structure with file
+ * contents loaded in place of references. The input object is not mutated.
+ *
+ * Examples of supported file reference formats:
+ *   - "@notes.txt"
+ *   - "@docs/readme.md"
+ *   - "@config/settings.json"
+ *   - "@data.yaml"
+ *
+ * @param {any} obj - The configuration object, array, or string to process.
+ * @param {string} basePath - Base path for resolving relative file paths (defaults to process.cwd()).
+ * @returns {Promise<any>} - The processed configuration with file content loaded in place of references.
+ */
+export async function resolveFileReferences(obj, basePath = process.cwd()) {
+  if (typeof obj === "string" && obj.startsWith("@")) {
+    return await loadFileContent(obj.slice(1), basePath);
+  }
+
+  if (Array.isArray(obj)) {
+    return Promise.all(obj.map((item) => resolveFileReferences(item, basePath)));
+  }
+
+  if (obj && typeof obj === "object") {
+    const result = {};
+    for (const [key, value] of Object.entries(obj)) {
+      result[key] = await resolveFileReferences(value, basePath);
+    }
+    return result;
+  }
+
+  return obj;
+}
+
+/**
+ * Load content from a file path
+ * @param {string} filePath - The file path to load
+ * @param {string} basePath - Base path for resolving relative paths
+ * @returns {Promise<any>} - The loaded content or original path if loading fails
+ */
+async function loadFileContent(filePath, basePath) {
+  try {
+    // Resolve path - if absolute, use as is; if relative, resolve from basePath
+    const resolvedPath = path.isAbsolute(filePath) ? filePath : path.resolve(basePath, filePath);
+
+    // Check if file exists
+    if (!existsSync(resolvedPath)) {
+      return `@${filePath}`; // Return original value if file doesn't exist
+    }
+
+    // Check file extension
+    const ext = path.extname(resolvedPath).toLowerCase();
+
+    if (!SUPPORTED_FILE_EXTENSIONS.includes(ext)) {
+      return `@${filePath}`; // Return original value if unsupported file type
+    }
+
+    // Read file content
+    const content = await fs.readFile(resolvedPath, "utf-8");
+
+    // Parse JSON/YAML files
+    if (ext === ".json") {
+      try {
+        return JSON.parse(content);
+      } catch {
+        return content; // Return raw string if JSON parsing fails
+      }
+    }
+
+    if (ext === ".yaml" || ext === ".yml") {
+      try {
+        return parse(content);
+      } catch {
+        return content; // Return raw string if YAML parsing fails
+      }
+    }
+
+    // Return raw content for .txt and .md files
+    return content;
+  } catch {
+    // Return original value if any error occurs
+    return `@${filePath}`;
+  }
 }
 
 /**
