@@ -341,6 +341,137 @@ export async function loadConfigFromFile() {
  * @param {string|Array} value - The value to save (can be string or array)
  * @param {string} [comment] - Optional comment to add above the key
  */
+/**
+ * Handle array value formatting and updating in YAML config
+ * @param {string} key - The configuration key
+ * @param {Array} value - The array value to save
+ * @param {string} comment - Optional comment
+ * @param {string} fileContent - Current file content
+ * @returns {string} Updated file content
+ */
+function handleArrayValueUpdate(key, value, comment, fileContent) {
+  // Format array value
+  const formattedValue =
+    value.length === 0 ? `${key}: []` : `${key}:\n${value.map((item) => `  - ${item}`).join("\n")}`;
+
+  const lines = fileContent.split("\n");
+
+  // Find the start line of the key
+  const keyStartIndex = lines.findIndex((line) => line.match(new RegExp(`^${key}:\\s*`)));
+
+  if (keyStartIndex !== -1) {
+    // Find the end of the array (next non-indented line or end of file)
+    let keyEndIndex = keyStartIndex;
+    for (let i = keyStartIndex + 1; i < lines.length; i++) {
+      const line = lines[i].trim();
+      // If line is empty, starts with comment, or doesn't start with "- ", it's not part of the array
+      if (line === "" || line.startsWith("#") || (!line.startsWith("- ") && !line.match(/^\w+:/))) {
+        if (!line.startsWith("- ")) {
+          keyEndIndex = i - 1;
+          break;
+        }
+      } else if (line.match(/^\w+:/)) {
+        // Found another key, stop here
+        keyEndIndex = i - 1;
+        break;
+      } else if (line.startsWith("- ")) {
+        keyEndIndex = i;
+      }
+    }
+
+    // If we reached the end of file
+    if (keyEndIndex === keyStartIndex) {
+      // Check if the value is on the same line
+      const keyLine = lines[keyStartIndex];
+      if (keyLine.includes("[") || !keyLine.endsWith(":")) {
+        keyEndIndex = keyStartIndex;
+      } else {
+        // Find the actual end of the array
+        for (let i = keyStartIndex + 1; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (line.startsWith("- ")) {
+            keyEndIndex = i;
+          } else if (line !== "" && !line.startsWith("#")) {
+            break;
+          }
+        }
+      }
+    }
+
+    // Replace the entire array section
+    const replacementLines = formattedValue.split("\n");
+    lines.splice(keyStartIndex, keyEndIndex - keyStartIndex + 1, ...replacementLines);
+
+    // Add comment if provided and not already present
+    if (comment && keyStartIndex > 0 && !lines[keyStartIndex - 1].trim().startsWith("# ")) {
+      lines.splice(keyStartIndex, 0, `# ${comment}`);
+    }
+
+    return lines.join("\n");
+  } else {
+    // Add new array to end of file
+    let updatedContent = fileContent;
+    if (updatedContent && !updatedContent.endsWith("\n")) {
+      updatedContent += "\n";
+    }
+
+    // Add comment if provided
+    if (comment) {
+      updatedContent += `# ${comment}\n`;
+    }
+
+    updatedContent += `${formattedValue}\n`;
+    return updatedContent;
+  }
+}
+
+/**
+ * Handle string value formatting and updating in YAML config
+ * @param {string} key - The configuration key
+ * @param {string} value - The string value to save
+ * @param {string} comment - Optional comment
+ * @param {string} fileContent - Current file content
+ * @returns {string} Updated file content
+ */
+function handleStringValueUpdate(key, value, comment, fileContent) {
+  const formattedValue = `${key}: "${value}"`;
+  const lines = fileContent.split("\n");
+
+  // Handle string values (original logic)
+  const keyRegex = new RegExp(`^${key}:\\s*.*$`);
+  const keyIndex = lines.findIndex((line) => keyRegex.test(line));
+
+  if (keyIndex !== -1) {
+    // Replace existing key line
+    lines[keyIndex] = formattedValue;
+
+    // Add comment if provided and not already present
+    if (comment) {
+      const hasCommentAbove = keyIndex > 0 && lines[keyIndex - 1].trim().startsWith("# ");
+      if (!hasCommentAbove) {
+        // Add comment above the key if it doesn't already have one
+        lines.splice(keyIndex, 0, `# ${comment}`);
+      }
+    }
+
+    return lines.join("\n");
+  } else {
+    // Add key to the end of file
+    let updatedContent = fileContent;
+    if (updatedContent && !updatedContent.endsWith("\n")) {
+      updatedContent += "\n";
+    }
+
+    // Add comment if provided
+    if (comment) {
+      updatedContent += `# ${comment}\n`;
+    }
+
+    updatedContent += `${formattedValue}\n`;
+    return updatedContent;
+  }
+}
+
 export async function saveValueToConfig(key, value, comment) {
   if (value === undefined) {
     return; // Skip if value is undefined
@@ -360,127 +491,15 @@ export async function saveValueToConfig(key, value, comment) {
       fileContent = await fs.readFile(configPath, "utf8");
     }
 
-    // Format value based on type
-    let formattedValue;
+    // Use extracted helper functions for better maintainability
+    let updatedContent;
     if (Array.isArray(value)) {
-      if (value.length === 0) {
-        formattedValue = `${key}: []`;
-      } else {
-        formattedValue = `${key}:\n${value.map((item) => `  - ${item}`).join("\n")}`;
-      }
+      updatedContent = handleArrayValueUpdate(key, value, comment, fileContent);
     } else {
-      formattedValue = `${key}: "${value}"`;
+      updatedContent = handleStringValueUpdate(key, value, comment, fileContent);
     }
 
-    // Check if key already exists in the file
-    const lines = fileContent.split("\n");
-
-    // For array values, we need to handle multi-line replacement
-    if (Array.isArray(value)) {
-      // Find the start line of the key
-      const keyStartIndex = lines.findIndex((line) => line.match(new RegExp(`^${key}:\\s*`)));
-
-      if (keyStartIndex !== -1) {
-        // Find the end of the array (next non-indented line or end of file)
-        let keyEndIndex = keyStartIndex;
-        for (let i = keyStartIndex + 1; i < lines.length; i++) {
-          const line = lines[i].trim();
-          // If line is empty, starts with comment, or doesn't start with "- ", it's not part of the array
-          if (
-            line === "" ||
-            line.startsWith("#") ||
-            (!line.startsWith("- ") && !line.match(/^\w+:/))
-          ) {
-            if (!line.startsWith("- ")) {
-              keyEndIndex = i - 1;
-              break;
-            }
-          } else if (line.match(/^\w+:/)) {
-            // Found another key, stop here
-            keyEndIndex = i - 1;
-            break;
-          } else if (line.startsWith("- ")) {
-            keyEndIndex = i;
-          }
-        }
-
-        // If we reached the end of file
-        if (keyEndIndex === keyStartIndex) {
-          // Check if the value is on the same line
-          const keyLine = lines[keyStartIndex];
-          if (keyLine.includes("[") || !keyLine.endsWith(":")) {
-            keyEndIndex = keyStartIndex;
-          } else {
-            // Find the actual end of the array
-            for (let i = keyStartIndex + 1; i < lines.length; i++) {
-              const line = lines[i].trim();
-              if (line.startsWith("- ")) {
-                keyEndIndex = i;
-              } else if (line !== "" && !line.startsWith("#")) {
-                break;
-              }
-            }
-          }
-        }
-
-        // Replace the entire array section
-        const replacementLines = formattedValue.split("\n");
-        lines.splice(keyStartIndex, keyEndIndex - keyStartIndex + 1, ...replacementLines);
-
-        // Add comment if provided and not already present
-        if (comment && keyStartIndex > 0 && !lines[keyStartIndex - 1].trim().startsWith("# ")) {
-          lines.splice(keyStartIndex, 0, `# ${comment}`);
-        }
-
-        fileContent = lines.join("\n");
-      } else {
-        // Add new array to end of file
-        if (fileContent && !fileContent.endsWith("\n")) {
-          fileContent += "\n";
-        }
-
-        // Add comment if provided
-        if (comment) {
-          fileContent += `# ${comment}\n`;
-        }
-
-        fileContent += `${formattedValue}\n`;
-      }
-    } else {
-      // Handle string values (original logic)
-      const keyRegex = new RegExp(`^${key}:\\s*.*$`);
-      const keyIndex = lines.findIndex((line) => keyRegex.test(line));
-
-      if (keyIndex !== -1) {
-        // Replace existing key line
-        lines[keyIndex] = formattedValue;
-
-        // Add comment if provided and not already present
-        if (comment) {
-          const hasCommentAbove = keyIndex > 0 && lines[keyIndex - 1].trim().startsWith("# ");
-          if (!hasCommentAbove) {
-            // Add comment above the key if it doesn't already have one
-            lines.splice(keyIndex, 0, `# ${comment}`);
-          }
-        }
-
-        fileContent = lines.join("\n");
-      } else {
-        // Add key to the end of file
-        if (fileContent && !fileContent.endsWith("\n")) {
-          fileContent += "\n";
-        }
-
-        // Add comment if provided
-        if (comment) {
-          fileContent += `# ${comment}\n`;
-        }
-
-        fileContent += `${formattedValue}\n`;
-      }
-    }
-
-    await fs.writeFile(configPath, fileContent);
+    await fs.writeFile(configPath, updatedContent);
   } catch (error) {
     console.warn(`Failed to save ${key} to config.yaml:`, error.message);
   }
