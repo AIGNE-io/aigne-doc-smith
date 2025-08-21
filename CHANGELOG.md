@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.0...v0.4.1) (2025-08-21)
+
+
+### Bug Fixes
+
+* support update board info ([#53](https://github.com/AIGNE-io/aigne-doc-smith/issues/53)) ([b2f7307](https://github.com/AIGNE-io/aigne-doc-smith/commit/b2f7307555c6f33d181aba408b11443700ecca71))
+
 ## [0.4.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.3.1...v0.4.0) (2025-08-20)
 
 
