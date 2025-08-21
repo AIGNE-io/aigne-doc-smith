@@ -39,6 +39,7 @@ agents:
   - ./docs-mcp/analyze-content-relevance.yaml
   - ./agents/check-feedback-refiner.mjs
   - ./agents/feedback-refiner.yaml
+  - ./agents/manage-prefs.mjs
 cli:
   agents:
     - ./agents/input-generator.mjs
@@ -46,6 +47,7 @@ cli:
     - ./agents/detail-regenerator.yaml
     - ./agents/team-publish-docs.yaml
     - ./agents/retranslate.yaml
+    - ./agents/manage-prefs.mjs
 mcp_server:
   agents:
     - ./docs-mcp/get-docs-structure.mjs
