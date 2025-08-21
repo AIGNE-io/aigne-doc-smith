@@ -2,7 +2,7 @@ import { existsSync, mkdirSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { createConnect } from "@aigne/aigne-hub";
+import { createConnect } from "@aigne/cli/utils/aigne-hub/credential.js";
 import chalk from "chalk";
 import open from "open";
 import { joinURL } from "ufo";
