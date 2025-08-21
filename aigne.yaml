@@ -37,6 +37,8 @@ agents:
   - ./docs-mcp/analyze-docs-relevance.yaml
   - ./docs-mcp/read-doc-content.mjs
   - ./docs-mcp/analyze-content-relevance.yaml
+  - ./agents/check-feedback-refiner.mjs
+  - ./agents/feedback-refiner.yaml
 cli:
   agents:
     - ./agents/input-generator.mjs

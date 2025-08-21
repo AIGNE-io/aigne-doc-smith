@@ -37,6 +37,9 @@ skills:
           isTranslate: true
     iterate_on: selectedDocs
     concurrency: 3
+  - url: ./check-feedback-refiner.mjs
+    default_input:
+      stage: translation_refine
   - url: ./action-success.mjs
     default_input:
       action: "Document translated"

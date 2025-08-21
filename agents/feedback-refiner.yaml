@@ -1,0 +1,48 @@
+name: feedbackRefiner
+description: Analyzes a user's specific feedback on generated documentation and refines it into a general, reusable preference rule for future use.
+
+# The instructions file contains the core logic (the prompt) for this Agent.
+instructions:
+  url: ../prompts/feedback-refiner.md
+
+input_schema:
+  type: object
+  properties:
+    feedback:
+      type: string
+      description: 用户原始反馈
+    stage:
+      type: string
+      description: 反馈产生的命令/场景（用于推断 scope）, 可选值：structure_planning, document_refine, translation_refine
+    paths:
+      type: array
+      items:
+        type: string
+      description: 可选。用户在本次命令中指定的文档路径
+    existingPreferences:
+      type: string
+      description: 可选。当前已保存的用户偏好规则的 YAML 格式字符串，用于避免重复保存相似的规则
+  required: 
+    - feedback
+    - stage
+
+output_schema:
+  type: object
+  properties:
+    rule:
+      type: string
+      description: 将用户的反馈提炼总结，形成一个通用的规则
+    scope:
+      type: string
+      description: 规则适用范围：global, structure, document, translation
+    save:
+      type: boolean
+      description: 是否需要保存为持久化偏好（true=保存；false=一次性不保存）
+    limitToInputPaths:
+      type: boolean
+      description: 是否仅在后续使用时限定到“本次输入的 paths 范围内”
+  required:
+    - rule
+    - scope
+    - save
+    - limitToInputPaths
