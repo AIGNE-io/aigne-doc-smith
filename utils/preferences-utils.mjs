@@ -132,10 +132,7 @@ export function getActiveRulesForScope(scope, currentPaths = []) {
       // Check if any current path matches any rule path pattern
       return rule.paths.some((rulePath) => {
         return currentPaths.some((currentPath) => {
-          // Simple pattern matching (supports ** wildcards)
-          const pattern = rulePath.replace(/\*\*/g, ".*");
-          const regex = new RegExp(`^${pattern}$`);
-          return regex.test(currentPath);
+          return rulePath === currentPath;
         });
       });
     }

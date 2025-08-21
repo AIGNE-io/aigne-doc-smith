@@ -56,6 +56,14 @@ parentId: {{parentId}}
 ** 使用 {{ locale }} 语言输出内容 **
 </user_rules>
 
+<user_preferences>
+{{userPreferences}}
+
+用户偏好使用规则：
+- 用户偏好来自用户之前操作中提供的反馈，生成结构规划中需要考虑用户的偏好，避免出现用户反馈的问题又重复出现
+- 用户偏好的权重低于本次用户提交的反馈
+</user_preferences>
+
 <rules>
 
 目标受众：{{targetAudience}}
