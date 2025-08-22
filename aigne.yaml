@@ -38,6 +38,7 @@ agents:
   - ./docs-mcp/read-doc-content.mjs
   - ./docs-mcp/analyze-content-relevance.yaml
 cli:
+  chat: ./agents/chat.yaml
   agents:
     - ./agents/input-generator.mjs
     - ./agents/docs-generator.yaml
