@@ -37,7 +37,12 @@ export default async function checkFeedbackRefiner(
         saved: true,
       };
     } catch (error) {
-      console.error("Failed to save user preference:", error.message);
+      console.error(
+        "Failed to save user preference rule:",
+        error.message,
+        "\nFeedback:",
+        feedbackToUse,
+      );
       result.savedPreference = {
         saved: false,
         error: error.message,
@@ -54,6 +59,10 @@ checkFeedbackRefiner.input_schema = {
     feedback: {
       type: "string",
       description: "User feedback to refine",
+    },
+    structurePlanFeedback: {
+      type: "string",
+      description: "Feedback from structure planning stage",
     },
     stage: {
       type: "string",

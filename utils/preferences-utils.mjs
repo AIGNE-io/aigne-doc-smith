@@ -48,7 +48,7 @@ export function readPreferences() {
     const preferences = parse(content);
     return preferences || { rules: [] };
   } catch (error) {
-    console.warn(`Warning: Failed to read preferences file: ${error.message}`);
+    console.warn(`Warning: Failed to read preferences file at ${filePath}: ${error.message}`);
     return { rules: [] };
   }
 }
@@ -130,11 +130,7 @@ export function getActiveRulesForScope(scope, currentPaths = []) {
       }
 
       // Check if any current path matches any rule path pattern
-      return rule.paths.some((rulePath) => {
-        return currentPaths.some((currentPath) => {
-          return rulePath === currentPath;
-        });
-      });
+      return currentPaths.some((currentPath) => rule.paths.includes(currentPath));
     }
 
     return true; // No path restrictions, include the rule

@@ -16,7 +16,7 @@ export default async function checkStructurePlan(
   // Check if we need to regenerate structure plan
   let shouldRegenerate = false;
   let finalFeedback = feedback;
-  let userInputFeedback = feedback;
+  let submittedFeedback = feedback;
 
   // Prompt for feedback if originalStructurePlan exists and no feedback provided
   if (originalStructurePlan && !feedback) {
@@ -26,7 +26,7 @@ export default async function checkStructurePlan(
 
     if (userFeedback?.trim()) {
       finalFeedback = userFeedback.trim();
-      userInputFeedback = userFeedback.trim();
+      submittedFeedback = userFeedback.trim();
     }
   }
 
@@ -155,7 +155,7 @@ export default async function checkStructurePlan(
   return {
     ...result,
     feedback: "", // clear feedback
-    structurePlanFeedback: userInputFeedback,
+    structurePlanFeedback: submittedFeedback,
     projectInfoMessage: message,
     originalStructurePlan: originalStructurePlan
       ? originalStructurePlan
