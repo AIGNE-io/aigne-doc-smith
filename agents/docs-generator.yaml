@@ -10,6 +10,7 @@ skills:
       skipIfExists: true
   - ./load-config.mjs
   - ./load-sources.mjs
+  - ./load-assets.mjs
   - ./check-structure-plan.mjs
   - url: ./save-output.mjs
     default_input:

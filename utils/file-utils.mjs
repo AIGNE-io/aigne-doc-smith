@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 
@@ -148,6 +148,48 @@ export async function loadGitignore(dir) {
   }
 
   return allPatterns.length > 0 ? [...new Set(allPatterns)] : null;
+}
+
+/**
+ * Traverse directory to find media files (images and videos)
+ * @param {string} dirPath - Directory path to traverse
+ * @param {string} baseDir - Base directory for calculating relative paths
+ * @param {string[]} extensions - Array of file extensions to include (with dots, e.g. ['.jpg', '.png'])
+ * @returns {Promise<Array<{name: string, path: string}>>} Array of media files with name and relative path
+ */
+export async function traverseMediaFiles(dirPath, baseDir, extensions = []) {
+  const mediaFiles = [];
+  
+  async function traverse(currentPath) {
+    try {
+      const entries = await readdir(currentPath, { withFileTypes: true });
+      
+      for (const entry of entries) {
+        const fullPath = path.join(currentPath, entry.name);
+        
+        if (entry.isDirectory()) {
+          // Recursively traverse subdirectories
+          await traverse(fullPath);
+        } else if (entry.isFile()) {
+          // Check if file has a media extension
+          const ext = path.extname(entry.name).toLowerCase();
+          if (extensions.includes(ext)) {
+            // Calculate relative path from baseDir
+            const relativePath = path.relative(baseDir, fullPath);
+            mediaFiles.push({
+              name: entry.name,
+              path: relativePath,
+            });
+          }
+        }
+      }
+    } catch {
+      // Directory doesn't exist or can't be read, skip silently
+    }
+  }
+  
+  await traverse(dirPath);
+  return mediaFiles;
 }
 
 /**

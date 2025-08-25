@@ -9,6 +9,7 @@ skills:
       skipIfExists: true
   - ./load-config.mjs
   - ./load-sources.mjs
+  - ./load-assets.mjs
   - type: transform
     task_render_mode: hide
     jsonata: |
