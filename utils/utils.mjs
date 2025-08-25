@@ -745,6 +745,29 @@ function getDirectoryContents(dirPath, searchTerm = "") {
 }
 
 /**
+ * Get GitHub repository URL from git remote
+ * @returns {string} GitHub repository URL or empty string if not a GitHub repo (e.g. git@github.com:xxxx/xxxx.git)
+ */
+export function getGithubRepoUrl() {
+  try {
+    const gitRemote = execSync("git remote get-url origin", {
+      encoding: "utf8",
+      stdio: ["pipe", "pipe", "ignore"],
+    }).trim();
+
+    // Check if it's a GitHub repository
+    if (gitRemote.includes("github.com")) {
+      return gitRemote;
+    }
+
+    return "";
+  } catch {
+    // Not in git repository or no origin remote
+    return "";
+  }
+}
+
+/**
  * Get GitHub repository information
  * @param {string} repoUrl - The repository URL
  * @returns {Promise<Object>} - Repository information

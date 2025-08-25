@@ -3,7 +3,7 @@ import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
 import { getAccessToken } from "../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL } from "../utils/constants.mjs";
-import { loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
+import { loadConfigFromFile, saveValueToConfig, getGithubRepoUrl } from "../utils/utils.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
@@ -76,6 +76,17 @@ export default async function publishDocs(
     icon: projectLogo || config?.projectLogo || "",
   };
 
+  // Construct boardMeta object
+  const boardMeta = {
+    category: config?.documentPurpose || [],
+    githubRepoUrl: getGithubRepoUrl(),
+    commitSha: config?.lastGitHead || "",
+    languages: [
+      ...(config?.locale ? [config.locale] : []),
+      ...(config?.translateLanguages || []),
+    ].filter((lang, index, arr) => arr.indexOf(lang) === index), // Remove duplicates
+  };
+
   try {
     const { success, boardId: newBoardId } = await publishDocsFn({
       sidebarPath,
@@ -87,6 +98,7 @@ export default async function publishDocs(
       boardName: projectInfo.name,
       boardDesc: projectInfo.description,
       boardCover: projectInfo.icon,
+      boardMeta,
     });
 
     // Save values to config.yaml if publish was successful
