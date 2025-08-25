@@ -87,6 +87,8 @@ export default async function publishDocs(
       boardName: projectInfo.name,
       boardDesc: projectInfo.description,
       boardCover: projectInfo.icon,
+      mediaFolder: docsDir,
+      cacheFilePath: join(".aigne/doc-smith/", "upload-cache.yaml"),
     });
 
     // Save values to config.yaml if publish was successful
