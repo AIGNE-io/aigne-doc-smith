@@ -746,7 +746,7 @@ function getDirectoryContents(dirPath, searchTerm = "") {
 
 /**
  * Get GitHub repository URL from git remote
- * @returns {string} GitHub repository URL or empty string if not a GitHub repo
+ * @returns {string} GitHub repository URL or empty string if not a GitHub repo (e.g. git@github.com:xxxx/xxxx.git)
  */
 export function getGithubRepoUrl() {
   try {
