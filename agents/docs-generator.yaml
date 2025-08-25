@@ -37,6 +37,9 @@ skills:
       ])
   - ./format-structure-plan.mjs
   - ./batch-docs-detail-generator.yaml
+  - url: ./check-feedback-refiner.mjs
+    default_input:
+      stage: structure_planning
   - ./save-docs.mjs
 
 input_schema:

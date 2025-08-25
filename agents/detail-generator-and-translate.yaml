@@ -7,6 +7,9 @@ skills:
     task_render_mode: collapse
     name: detailGenerate
     skills:
+      - url: ./find-user-preferences-by-path.mjs
+        default_input:
+          scope: document
       - ./content-detail-generator.yaml
       - type: transform
         jsonata: |

@@ -6,6 +6,9 @@ skills:
     task_render_mode: collapse
     name: translate
     skills:
+      - url: ./find-user-preferences-by-path.mjs
+        default_input:
+          scope: translation
       - ./translate.yaml
       - type: transform
         jsonata: |

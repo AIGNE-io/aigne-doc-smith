@@ -56,6 +56,14 @@
 {{ rules }}
 </user_rules>
 
+<user_preferences>
+{{userPreferences}}
+
+用户偏好使用规则：
+- 用户偏好来自用户之前操作中提供的反馈，生成结构规划中需要考虑用户的偏好，避免出现用户反馈的问题又重复出现
+- 用户偏好的权重低于本次用户提交的反馈
+</user_preferences>
+
 <rules>
 DataSources 使用规则：
 1. 结构规划时要要尽可能的把 DataSources 中的信息合理的进行规划展示，不能遗漏
