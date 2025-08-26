@@ -1,5 +1,6 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
+import { getActiveRulesForScope } from "../utils/preferences-utils.mjs";
 import {
   getCurrentGitHead,
   getProjectInfo,
@@ -7,7 +8,6 @@ import {
   loadConfigFromFile,
   saveValueToConfig,
 } from "../utils/utils.mjs";
-import { getActiveRulesForScope } from "../utils/preferences-utils.mjs";
 
 export default async function checkStructurePlan(
   { originalStructurePlan, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },

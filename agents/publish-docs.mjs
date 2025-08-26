@@ -3,7 +3,7 @@ import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
 import { getAccessToken } from "../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL } from "../utils/constants.mjs";
-import { loadConfigFromFile, saveValueToConfig, getGithubRepoUrl } from "../utils/utils.mjs";
+import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 

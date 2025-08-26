@@ -1,4 +1,4 @@
-import { test, expect, describe, beforeEach, afterEach } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { existsSync } from "node:fs";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -44,7 +44,6 @@ async function createInitialConfig(content) {
   await mkdir(TEST_CONFIG_DIR, { recursive: true });
   await writeFile(TEST_CONFIG_PATH, content, "utf8");
 }
-
 
 // Test suite
 describe("saveValueToConfig", () => {

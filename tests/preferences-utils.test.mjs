@@ -1,15 +1,15 @@
-import { test, expect, describe, beforeEach, afterEach } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { existsSync } from "node:fs";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  readPreferences,
-  writePreferences,
   addPreferenceRule,
-  getActiveRulesForScope,
   deactivateRule,
+  getActiveRulesForScope,
+  readPreferences,
   removeRule,
+  writePreferences,
 } from "../utils/preferences-utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

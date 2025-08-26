@@ -1,4 +1,4 @@
-import { test, expect, describe, beforeEach, afterEach } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -99,7 +99,6 @@ describe("loadSources", () => {
     await rm(testDir, { recursive: true, force: true });
   });
 
-
   test("should load files with default patterns", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
@@ -113,15 +112,15 @@ describe("loadSources", () => {
 
     // Should include package.json, README.md, src files
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
-    expect(filePaths.some(element => element.includes("package.json"))).toBe(true);
-    expect(filePaths.some(element => element.includes("README.md"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("package.json"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("README.md"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
 
     // Should exclude node_modules, temp, test files
-    expect(filePaths.some(element => element.includes("node_modules"))).toBe(false);
-    expect(filePaths.some(element => element.includes("temp/"))).toBe(false);
-    expect(filePaths.some(element => element.includes("test/test.js"))).toBe(false);
-    expect(filePaths.some(element => element.includes("ignore.txt"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("node_modules"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("temp/"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("test/test.js"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("ignore.txt"))).toBe(false);
   });
 
   test("should load files with custom patterns", async () => {
@@ -138,12 +137,12 @@ describe("loadSources", () => {
     expect(result.datasourcesList.length).toBeGreaterThan(0);
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
-    expect(filePaths.some(element => element.includes("package.json"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("package.json"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
 
     // Should exclude test files
-    expect(filePaths.some(element => element.includes("test/test.js"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("test/test.js"))).toBe(false);
   });
 
   test("should respect .gitignore patterns", async () => {
@@ -161,9 +160,9 @@ describe("loadSources", () => {
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should exclude files listed in .gitignore
-    expect(filePaths.some(element => element.includes("node_modules"))).toBe(false);
-    expect(filePaths.some(element => element.includes("temp/"))).toBe(false);
-    expect(filePaths.some(element => element.includes("ignore.txt"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("node_modules"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("temp/"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("ignore.txt"))).toBe(false);
   });
 
   test("should handle path-based patterns", async () => {
@@ -179,11 +178,11 @@ describe("loadSources", () => {
     expect(result.datasourcesList).toBeDefined();
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
-    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
 
     // Should exclude test files
-    expect(filePaths.some(element => element.includes("test/test.js"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("test/test.js"))).toBe(false);
   });
 
   test("should handle multiple source paths", async () => {
@@ -199,8 +198,8 @@ describe("loadSources", () => {
     expect(result.datasourcesList.length).toBeGreaterThan(0);
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
-    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
   });
 
   test("should handle non-existent directories gracefully", async () => {
@@ -230,11 +229,11 @@ describe("loadSources", () => {
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should include default patterns (package.json, README.md, etc.)
-    expect(filePaths.some(element => element.includes("package.json"))).toBe(true);
-    expect(filePaths.some(element => element.includes("README.md"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("package.json"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("README.md"))).toBe(true);
 
     // Should exclude user exclude patterns
-    expect(filePaths.some(element => element.includes("docs/"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("docs/"))).toBe(false);
   });
 
   test("should handle multi-level directory structure", async () => {
@@ -253,22 +252,26 @@ describe("loadSources", () => {
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should include files from all levels
-    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/components/Button.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/components/ui/Modal.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/components/ui/Input.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils/helpers/format.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils/helpers/validate.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/services/api/client.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/services/api/endpoints.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/config/database.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/config/app.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/ui/Modal.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/ui/Input.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils/helpers/format.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils/helpers/validate.js"))).toBe(
+      true,
+    );
+    expect(filePaths.some((element) => element.includes("src/services/api/client.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/services/api/endpoints.js"))).toBe(
+      true,
+    );
+    expect(filePaths.some((element) => element.includes("src/config/database.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/config/app.js"))).toBe(true);
 
     // Should exclude non-JS files
-    expect(filePaths.some(element => element.includes("styles.css"))).toBe(false);
-    expect(filePaths.some(element => element.includes("settings.json"))).toBe(false);
-    expect(filePaths.some(element => element.includes("data.yaml"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("styles.css"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("settings.json"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("data.yaml"))).toBe(false);
   });
 
   test("should filter by specific subdirectories", async () => {
@@ -286,17 +289,19 @@ describe("loadSources", () => {
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should include files from specified subdirectories
-    expect(filePaths.some(element => element.includes("src/components/Button.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils/helpers/format.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils/helpers/validate.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils/helpers/format.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils/helpers/validate.js"))).toBe(
+      true,
+    );
 
     // Should exclude files from excluded subdirectories
-    expect(filePaths.some(element => element.includes("src/components/ui/Modal.js"))).toBe(false);
-    expect(filePaths.some(element => element.includes("src/components/ui/Input.js"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("src/components/ui/Modal.js"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("src/components/ui/Input.js"))).toBe(false);
 
     // Should exclude files from other directories
-    expect(filePaths.some(element => element.includes("src/services/api/client.js"))).toBe(false);
-    expect(filePaths.some(element => element.includes("src/config/database.js"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("src/services/api/client.js"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("src/config/database.js"))).toBe(false);
   });
 
   test("should handle mixed file types in multi-level directories", async () => {
@@ -314,18 +319,18 @@ describe("loadSources", () => {
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should include JS files from all levels
-    expect(filePaths.some(element => element.includes("src/components/Button.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils/helpers/format.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils/helpers/format.js"))).toBe(true);
 
     // Should include JSON and YAML files
-    expect(filePaths.some(element => element.includes("src/config/settings.json"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils/helpers/data.yaml"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/config/settings.json"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils/helpers/data.yaml"))).toBe(true);
 
     // Should exclude CSS files
-    expect(filePaths.some(element => element.includes("styles.css"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("styles.css"))).toBe(false);
 
     // Should exclude node_modules
-    expect(filePaths.some(element => element.includes("node_modules"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("node_modules"))).toBe(false);
   });
 
   test("should exclude files with _test pattern using default patterns", async () => {
@@ -341,14 +346,13 @@ describe("loadSources", () => {
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // For now, let's verify that regular files are still included
-    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
-    expect(filePaths.some(element => element.includes("src/components/Button.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
 
     // And verify that some expected exclusions are working
-    expect(filePaths.some(element => element.includes("node_modules"))).toBe(false);
-    expect(filePaths.some(element => element.includes("temp/"))).toBe(false);
-    expect(filePaths.some(element => element.includes("test/test.js"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("node_modules"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("temp/"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("test/test.js"))).toBe(false);
   });
-
 });

@@ -1,5 +1,5 @@
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdir, readdir, writeFile, rm } from "node:fs/promises";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import saveDocs from "../agents/save-docs.mjs";
@@ -35,7 +35,7 @@ describe("saveDocs", () => {
     // Clean up test directory
     try {
       await rm(testDir, { recursive: true, force: true });
-    } catch (err) {
+    } catch {
       // Ignore cleanup errors
     }
   });

@@ -1,4 +1,4 @@
-import { describe, test, expect, afterAll } from "bun:test";
+import { afterAll, describe, expect, test } from "bun:test";
 import checkDetailResult from "../agents/check-detail-result.mjs";
 import { checkMarkdown } from "../utils/markdown-checker.mjs";
 import { shutdownValidation } from "../utils/mermaid-validator.mjs";
