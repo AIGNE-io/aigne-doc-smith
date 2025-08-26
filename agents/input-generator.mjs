@@ -47,8 +47,7 @@ export default async function init(
 
   // 1. Primary purpose - what's the main outcome you want readers to achieve?
   const purposeChoices = await options.prompts.checkbox({
-    message:
-      "📝 Step 1/8: What's the main outcome you want readers to achieve? (Select all that apply)",
+    message: "📝 [1/8]: What is the primary goal for your readers? (Select all that apply)",
     choices: Object.entries(DOCUMENT_STYLES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, style]) => ({
@@ -96,7 +95,7 @@ export default async function init(
 
   // 2. Target audience - who will be reading this most often?
   const audienceChoices = await options.prompts.checkbox({
-    message: "👥 Step 2/8: Who will be reading this most often? (Select all that apply)",
+    message: "👥 [2/8]: Who is the primary audience for this documentation?",
     choices: Object.entries(TARGET_AUDIENCES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, audience]) => ({
@@ -130,7 +129,7 @@ export default async function init(
   );
 
   const knowledgeChoice = await options.prompts.select({
-    message: "🧠 Step 3/8: What do readers typically know when they arrive?",
+    message: "🧠 [3/8]: What is your reader's typical starting knowledge level?",
     choices: Object.entries(filteredKnowledgeOptions).map(([key, level]) => ({
       name: `${level.name}`,
       description: level.description,
@@ -175,7 +174,7 @@ export default async function init(
   );
 
   const depthChoice = await options.prompts.select({
-    message: "📊 Step 4/8: How comprehensive should the documentation be?",
+    message: "📊 [4/8]: How comprehensive should the documentation be?",
     choices: Object.entries(filteredDepthOptions).map(([key, depth]) => ({
       name: `${depth.name}`,
       description: depth.description,
@@ -193,7 +192,7 @@ export default async function init(
 
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 Step 5/8: Choose primary documentation language:",
+    message: "🌐 [5/8]: Choose primary documentation language:",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -210,7 +209,7 @@ export default async function init(
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "🔄 Step 6/8: Select translation languages:",
+    message: "🔄 [6/8]: Select translation languages:",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -221,13 +220,13 @@ export default async function init(
 
   // 7. Documentation directory
   const docsDirInput = await options.prompts.input({
-    message: `📁 Step 7/8: Where to save generated docs:`,
+    message: `📁 [7/8]: Where to save generated docs:`,
     default: `${outputPath}/docs`,
   });
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
 
   // 8. Source code paths
-  console.log("\n🔍 Step 8/8: Source Code Paths");
+  console.log("\n🔍 [8/8]: Source Code Paths");
   console.log("Enter paths to analyze for documentation (e.g., ./src, ./lib)");
   console.log("💡 If no paths are configured, './' will be used as default");
 

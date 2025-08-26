@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.5.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.5.0...v0.5.1) (2025-08-26)
+
+
+### Miscellaneous Chores
+
+* release 0.5.1 ([892d96e](https://github.com/AIGNE-io/aigne-doc-smith/commit/892d96e939a6404a42e8d2521f95bb7acfeabe27))
+
+## [0.5.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.5...v0.5.0) (2025-08-26)
+
+
+### Features
+
+* support persistent user feedback as preferences ([#57](https://github.com/AIGNE-io/aigne-doc-smith/issues/57)) ([761a583](https://github.com/AIGNE-io/aigne-doc-smith/commit/761a583297b397a12d848d10d26cd5b675f8a9e7))
+
+
+### Bug Fixes
+
+* polish init question copy ([#65](https://github.com/AIGNE-io/aigne-doc-smith/issues/65)) ([d4e8762](https://github.com/AIGNE-io/aigne-doc-smith/commit/d4e8762f26fd757bde43427860a0c1dade384269))
+
 ## [0.4.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.4...v0.4.5) (2025-08-25)
 
 

@@ -34,6 +34,9 @@ skills:
       - ./detail-generator-and-translate.yaml
     iterate_on: selectedDocs
     concurrency: 3
+  - url: ./check-feedback-refiner.mjs
+    default_input:
+      stage: document_refine
   - url: ./action-success.mjs
     default_input:
       action: "Document updated"

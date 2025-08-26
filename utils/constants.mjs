@@ -188,13 +188,13 @@ export const DOCUMENT_STYLES = {
       "Optimizes for: Architecture, concepts, decision rationale.\nSkips: Quick wins, copy-paste solutions.",
   },
   solveProblems: {
-    name: "Solve problems",
+    name: "Troubleshoot common issues",
     description: "Help users troubleshoot and fix issues",
     content:
       "Optimizes for: Error scenarios, diagnostics, solutions.\nSkips: Happy path tutorials, feature overviews.",
   },
   mixedPurpose: {
-    name: "Mix of above",
+    name: "Serve multiple purposes",
     description: "Comprehensive documentation covering multiple needs",
     content:
       "Optimizes for: Balanced coverage, multiple entry points.\nTrade-off: Longer, requires good navigation.",
@@ -210,13 +210,13 @@ export const TARGET_AUDIENCES = {
       "Writing: Plain language, UI-focused, avoid technical terms.\nExamples: Screenshots, step-by-step clicks, business outcomes.",
   },
   developers: {
-    name: "Developers integrating",
+    name: "Developers integrating your product/API",
     description: "Engineers adding this to their projects",
     content:
       "Writing: Code-first, copy-paste ready, technical accuracy.\nExamples: SDK usage, API calls, configuration snippets.",
   },
   devops: {
-    name: "DevOps/Infrastructure",
+    name: "DevOps / SRE / Infrastructure teams",
     description: "Teams deploying, monitoring, maintaining systems",
     content:
       "Writing: Operations-focused, troubleshooting emphasis.\nExamples: Deployment configs, monitoring setup, scaling guides.",
@@ -244,19 +244,19 @@ export const TARGET_AUDIENCES = {
 // Reader knowledge level - what do readers typically know when they arrive?
 export const READER_KNOWLEDGE_LEVELS = {
   completeBeginners: {
-    name: "Complete beginners",
+    name: "Is a total beginner, starting from scratch",
     description: "New to this domain/technology entirely",
     content:
       "Content: Define terms, explain concepts, assume nothing.\nStructure: Linear progression, prerequisite checks.\nTone: Patient, educational, confidence-building.",
   },
   domainFamiliar: {
-    name: "Domain-familiar, tool-new",
+    name: "Has used similar tools before",
     description: "Know the problem space, new to this specific solution",
     content:
       'Content: Focus on differences, migration, unique features.\nStructure: Comparison-heavy, "coming from X" sections.\nTone: Efficient, highlight advantages, skip basics.',
   },
   experiencedUsers: {
-    name: "Experienced users",
+    name: "Is an expert trying to do something specific",
     description: "Regular users needing reference/advanced topics",
     content:
       "Content: Dense information, edge cases, performance tips.\nStructure: Reference-style, searchable, task-oriented.\nTone: Concise, technical precision, assume competence.",
@@ -268,7 +268,7 @@ export const READER_KNOWLEDGE_LEVELS = {
       "Content: Symptom → diagnosis → solution format.\nStructure: Problem-first, solution-prominent, escalation paths.\nTone: Clear, actionable, confidence-inspiring.",
   },
   exploringEvaluating: {
-    name: "Exploring/evaluating",
+    name: "Is evaluating this tool against others",
     description: "Trying to understand if this fits their needs",
     content:
       "Content: Use cases, comparisons, getting started quickly.\nStructure: Multiple entry points, progressive commitment.\nTone: Persuasive but honest, show value quickly.",
