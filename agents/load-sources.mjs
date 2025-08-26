@@ -86,17 +86,55 @@ export default async function loadSources({
   }
 
   files = [...new Set(files)];
+
+  // Define media file extensions
+  const mediaExtensions = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".webp",
+    ".svg",
+    ".mp4",
+    ".mov",
+    ".avi",
+    ".mkv",
+    ".webm",
+    ".m4v",
+  ];
+
+  // Separate source files from media files
+  const sourceFiles = [];
+  const mediaFiles = [];
   let allSources = "";
-  const sourceFiles = await Promise.all(
+
+  await Promise.all(
     files.map(async (file) => {
-      const content = await readFile(file, "utf8");
-      // Convert absolute path to relative path from project root
-      const relativePath = path.relative(process.cwd(), file);
-      allSources += `// sourceId: ${relativePath}\n${content}\n`;
-      return {
-        sourceId: relativePath,
-        content,
-      };
+      const ext = path.extname(file).toLowerCase();
+
+      if (mediaExtensions.includes(ext)) {
+        // This is a media file
+        const relativePath = path.relative(docsDir, file);
+        const fileName = path.basename(file);
+        const description = path.parse(fileName).name;
+
+        mediaFiles.push({
+          name: fileName,
+          path: relativePath,
+          description,
+        });
+      } else {
+        // This is a source file
+        const content = await readFile(file, "utf8");
+        const relativePath = path.relative(process.cwd(), file);
+        allSources += `// sourceId: ${relativePath}\n${content}\n`;
+
+        sourceFiles.push({
+          sourceId: relativePath,
+          content,
+        });
+      }
     }),
   );
 
@@ -164,6 +202,17 @@ export default async function loadSources({
     }
   }
 
+  // Generate assets content from media files
+  let assetsContent = "# 可用于文档生成的媒体资源\n\n";
+
+  if (mediaFiles.length > 0) {
+    const mediaMarkdown = mediaFiles
+      .map((file) => `![${file.description}](${file.path})`)
+      .join("\n\n");
+
+    assetsContent += mediaMarkdown;
+  }
+
   // Count words and lines in allSources
   let totalWords = 0;
   let totalLines = 0;
@@ -188,6 +237,7 @@ export default async function loadSources({
     modifiedFiles,
     totalWords,
     totalLines,
+    assetsContent,
   };
 }
 
@@ -256,6 +306,10 @@ loadSources.output_schema = {
       type: "array",
       items: { type: "string" },
       description: "Array of modified files since last generation",
+    },
+    assetsContent: {
+      type: "string",
+      description: "Markdown content for available media assets",
     },
   },
 };
