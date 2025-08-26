@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { access, readFile, readdir } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 
@@ -159,14 +159,14 @@ export async function loadGitignore(dir) {
  */
 export async function traverseMediaFiles(dirPath, baseDir, extensions = []) {
   const mediaFiles = [];
-  
+
   async function traverse(currentPath) {
     try {
       const entries = await readdir(currentPath, { withFileTypes: true });
-      
+
       for (const entry of entries) {
         const fullPath = path.join(currentPath, entry.name);
-        
+
         if (entry.isDirectory()) {
           // Recursively traverse subdirectories
           await traverse(fullPath);
@@ -187,7 +187,7 @@ export async function traverseMediaFiles(dirPath, baseDir, extensions = []) {
       // Directory doesn't exist or can't be read, skip silently
     }
   }
-  
+
   await traverse(dirPath);
   return mediaFiles;
 }

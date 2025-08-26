@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import remarkGfm from "remark-gfm";
 import remarkLint from "remark-lint";
 import remarkParse from "remark-parse";
@@ -160,6 +162,72 @@ function checkCodeBlockIndentation(codeBlockContent, codeBlockIndent, source, er
 }
 
 /**
+ * Check for local images and verify their existence
+ * @param {string} markdown - The markdown content
+ * @param {string} source - Source description for error reporting
+ * @param {Array} errorMessages - Array to push error messages to
+ * @param {string} [markdownFilePath] - Path to the markdown file for resolving relative paths
+ * @param {string} [baseDir] - Base directory for resolving relative paths (alternative to markdownFilePath)
+ */
+function checkLocalImages(markdown, source, errorMessages, markdownFilePath, baseDir) {
+  const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  let match;
+
+  while ((match = imageRegex.exec(markdown)) !== null) {
+    const imagePath = match[2].trim();
+    const altText = match[1];
+
+    // Skip external URLs (http/https)
+    if (/^https?:\/\//.test(imagePath)) continue;
+
+    // Skip data URLs
+    if (/^data:/.test(imagePath)) continue;
+
+    // Check if it's a local path
+    if (!imagePath.startsWith("/") && !imagePath.includes("://")) {
+      // It's a relative local path, check if file exists
+      try {
+        let resolvedPath;
+        if (markdownFilePath) {
+          // Resolve relative to the markdown file's directory
+          const markdownDir = path.dirname(markdownFilePath);
+          resolvedPath = path.resolve(markdownDir, imagePath);
+        } else if (baseDir) {
+          // Resolve relative to the provided base directory
+          resolvedPath = path.resolve(baseDir, imagePath);
+        } else {
+          // Fallback to current working directory
+          resolvedPath = path.resolve(imagePath);
+        }
+
+        if (!fs.existsSync(resolvedPath)) {
+          errorMessages.push(
+            `Found invalid local image in ${source}: ![${altText}](${imagePath}) - only valid media resources can be used`,
+          );
+        }
+      } catch {
+        errorMessages.push(
+          `Found invalid local image in ${source}: ![${altText}](${imagePath}) - only valid media resources can be used`,
+        );
+      }
+    } else if (imagePath.startsWith("/")) {
+      // Absolute local path
+      try {
+        if (!fs.existsSync(imagePath)) {
+          errorMessages.push(
+            `Found invalid local image in ${source}: ![${altText}](${imagePath}) - only valid media resources can be used`,
+          );
+        }
+      } catch {
+        errorMessages.push(
+          `Found invalid local image in ${source}: ![${altText}](${imagePath}) - only valid media resources can be used`,
+        );
+      }
+    }
+  }
+}
+
+/**
  * Check content structure and formatting issues
  * @param {string} markdown - The markdown content
  * @param {string} source - Source description for error reporting
@@ -224,7 +292,7 @@ function checkContentStructure(markdown, source, errorMessages) {
   }
 
   // Check if content ends with proper punctuation (indicating completeness)
-  const validEndingPunctuation = [".", "。", ")", "|"];
+  const validEndingPunctuation = [".", "。", ")", "|", "*"];
   const trimmedText = markdown.trim();
   const hasValidEnding = validEndingPunctuation.some((punct) => trimmedText.endsWith(punct));
 
@@ -241,6 +309,8 @@ function checkContentStructure(markdown, source, errorMessages) {
  * @param {string} [source] - Source description for error reporting (e.g., "result")
  * @param {Object} [options] - Additional options for validation
  * @param {Array} [options.allowedLinks] - Set of allowed links for link validation
+ * @param {string} [options.filePath] - Path to the markdown file for resolving relative image paths
+ * @param {string} [options.baseDir] - Base directory for resolving relative image paths (alternative to filePath)
  * @returns {Promise<Array<string>>} - Array of error messages in check-detail-result format
  */
 export async function checkMarkdown(markdown, source = "content", options = {}) {
@@ -248,8 +318,8 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
   const errorMessages = [];
 
   try {
-    // Extract allowed links from options
-    const { allowedLinks } = options;
+    // Extract allowed links, file path, and base directory from options
+    const { allowedLinks, filePath, baseDir } = options;
 
     // Create unified processor with markdown parsing and linting
     // Use individual rules instead of presets to have better control
@@ -292,7 +362,10 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
       checkDeadLinks(markdown, source, allowedLinks, errorMessages);
     }
 
-    // 2. Check content structure and formatting issues
+    // 2. Check local images existence
+    checkLocalImages(markdown, source, errorMessages, filePath, baseDir);
+
+    // 3. Check content structure and formatting issues
     checkContentStructure(markdown, source, errorMessages);
 
     // Check mermaid code blocks and other custom validations
@@ -319,30 +392,35 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
         // Check for backticks in node labels
         const nodeLabelRegex = /[A-Za-z0-9_]+\["([^"]*`[^"]*)"\]|[A-Za-z0-9_]+{"([^}]*`[^}]*)"}/g;
         let match;
-        while ((match = nodeLabelRegex.exec(mermaidContent)) !== null) {
+        match = nodeLabelRegex.exec(mermaidContent);
+        while (match !== null) {
           const label = match[1] || match[2];
           errorMessages.push(
             `Found backticks in Mermaid node label in ${source} at line ${line}: "${label}" - backticks in node labels cause rendering issues in Mermaid diagrams`,
           );
+          match = nodeLabelRegex.exec(mermaidContent);
         }
 
         // Check for numbered list format in edge descriptions
         const edgeDescriptionRegex = /--\s*"([^"]*)"\s*-->/g;
         let edgeMatch;
-        while ((edgeMatch = edgeDescriptionRegex.exec(mermaidContent)) !== null) {
+        edgeMatch = edgeDescriptionRegex.exec(mermaidContent);
+        while (edgeMatch !== null) {
           const description = edgeMatch[1];
           if (/^\d+\.\s/.test(description)) {
             errorMessages.push(
               `Unsupported markdown: list - Found numbered list format in Mermaid edge description in ${source} at line ${line}: "${description}" - numbered lists in edge descriptions are not supported`,
             );
           }
+          edgeMatch = edgeDescriptionRegex.exec(mermaidContent);
         }
 
         // Check for numbered list format in node labels (for both [] and {} syntax)
         const nodeLabelWithNumberRegex =
           /[A-Za-z0-9_]+\["([^"]*\d+\.\s[^"]*)"\]|[A-Za-z0-9_]+{"([^}]*\d+\.\s[^}]*)"}/g;
         let numberMatch;
-        while ((numberMatch = nodeLabelWithNumberRegex.exec(mermaidContent)) !== null) {
+        numberMatch = nodeLabelWithNumberRegex.exec(mermaidContent);
+        while (numberMatch !== null) {
           const label = numberMatch[1] || numberMatch[2];
           // Check if the label contains numbered list format
           if (/\d+\.\s/.test(label)) {
@@ -350,12 +428,14 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
               `Unsupported markdown: list - Found numbered list format in Mermaid node label in ${source} at line ${line}: "${label}" - numbered lists in node labels cause rendering issues`,
             );
           }
+          numberMatch = nodeLabelWithNumberRegex.exec(mermaidContent);
         }
 
         // Check for special characters in node labels that should be quoted
         const nodeWithSpecialCharsRegex = /([A-Za-z0-9_]+)\[([^\]]*[(){}:;,\-\s.][^\]]*)\]/g;
         let specialCharMatch;
-        while ((specialCharMatch = nodeWithSpecialCharsRegex.exec(mermaidContent)) !== null) {
+        specialCharMatch = nodeWithSpecialCharsRegex.exec(mermaidContent);
+        while (specialCharMatch !== null) {
           const nodeId = specialCharMatch[1];
           const label = specialCharMatch[2];
 
@@ -373,6 +453,7 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
               );
             }
           }
+          specialCharMatch = nodeWithSpecialCharsRegex.exec(mermaidContent);
         }
       }
     });
@@ -431,7 +512,6 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
     // Format messages in check-detail-result style
     file.messages.forEach((message) => {
       const line = message.line || "unknown";
-      const _column = message.column || "unknown";
       const reason = message.reason || "Unknown markdown issue";
       const ruleId = message.ruleId || message.source || "markdown";
 
