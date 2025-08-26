@@ -7,7 +7,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
     "lint": "biome check && pnpm -r run lint",
     "update:deps": "npx -y taze major -r -w -f -n '/@abtnode|@aigne|@arcblock|@blocklet|@did-connect|@did-pay|@did-space|@nft-store|@nft-studio|@ocap/' && pnpm install && pnpm run deduplicate",
     "deduplicate": "pnpm dedupe",

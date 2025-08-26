@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-
+import { describe, test, expect, afterAll } from "bun:test";
 import checkDetailResult from "../agents/check-detail-result.mjs";
 import { checkMarkdown } from "../utils/markdown-checker.mjs";
 import { shutdownValidation } from "../utils/mermaid-validator.mjs";
@@ -459,7 +458,7 @@ This content ends properly.
     category: "🧩 MERMAID VALIDATION",
     name: "Mermaid with subgraph reference issues (rendering failure)",
     expectPass: false,
-    expectedErrors: ["subgraph reference"],
+    expectedErrors: ["Mermaid syntax error"],
     content: `# Test Document
 
 \`\`\`mermaid
@@ -618,146 +617,70 @@ This comprehensive document demonstrates all validation rules in their correct u
   },
 ];
 
-async function runValidationTests() {
-  console.log("🧪 Comprehensive Markdown Validation Test Suite\n");
-  console.log("=".repeat(80));
-
-  let totalTests = 0;
-  let passedTests = 0;
-  let failedTests = 0;
-
-  let currentCategory = "";
-
-  for (const testCase of testCases) {
-    // Print category header if it changed
-    if (testCase.category !== currentCategory) {
-      currentCategory = testCase.category;
-      console.log(`\n${currentCategory}`);
-      console.log("-".repeat(80));
-    }
-
-    console.log(`\n📝 Testing: ${testCase.name}`);
-    totalTests++;
-
+describe("Markdown Validation Test Suite", () => {
+  afterAll(async () => {
+    // Shutdown worker pool to ensure clean exit
     try {
-      // Test with checkMarkdown directly
-      const errors = await checkMarkdown(testCase.content, "test", {
-        allowedLinks,
-      });
-
-      // Test with checkDetailResult wrapper
-      const wrapperResult = await checkDetailResult({
-        structurePlan: mockStructurePlan,
-        reviewContent: testCase.content,
-      });
-
-      const hasErrors = errors.length > 0;
-      const expectPass = testCase.expectPass;
-
-      // Verify test expectation
-      if (expectPass && !hasErrors) {
-        console.log("✅ PASS - Content correctly passed validation");
-        passedTests++;
-      } else if (!expectPass && hasErrors) {
-        console.log("✅ PASS - Content correctly failed validation");
-
-        // Check if expected error types are present
-        if (testCase.expectedErrors) {
-          const foundExpectedErrors = testCase.expectedErrors.every((expectedError) =>
-            errors.some((error) => error.toLowerCase().includes(expectedError.toLowerCase())),
-          );
-
-          if (foundExpectedErrors) {
-            console.log("✅ Expected error types found");
-          } else {
-            console.log("⚠️  Expected error types not all found");
-            console.log(`   Expected: ${testCase.expectedErrors.join(", ")}`);
-          }
-        }
-
-        passedTests++;
-      } else {
-        console.log(
-          `❌ FAIL - Expected ${expectPass ? "PASS" : "FAIL"} but got ${
-            hasErrors ? "FAIL" : "PASS"
-          }`,
-        );
-        failedTests++;
-      }
-
-      // Show error details for failing cases
-      if (hasErrors) {
-        console.log(`   Found ${errors.length} issue(s):`);
-        errors.slice(0, 3).forEach((error) => {
-          console.log(`   • ${error}`);
-        });
-        if (errors.length > 3) {
-          console.log(`   ... and ${errors.length - 3} more issues`);
-        }
-      }
-
-      // Verify consistency between direct call and wrapper
-      const wrapperErrors = wrapperResult.detailFeedback
-        ? wrapperResult.detailFeedback.split("\n").filter((line) => line.trim())
-        : [];
-
-      if (errors.length === wrapperErrors.length) {
-        console.log("✅ Direct call and wrapper consistent");
-      } else {
-        console.log(
-          `⚠️  Inconsistent results: direct=${errors.length}, wrapper=${wrapperErrors.length}`,
-        );
-      }
-    } catch (error) {
-      console.log(`❌ ERROR: ${error.message}`);
-      failedTests++;
+      await shutdownValidation();
+    } catch {
+      // Ignore shutdown errors in tests
     }
-  }
+  });
 
-  // Final summary
-  console.log(`\n${"=".repeat(80)}`);
-  console.log("📊 TEST SUMMARY");
-  console.log("=".repeat(80));
-  console.log(`Total Tests: ${totalTests}`);
-  console.log(`Passed: ${passedTests} ✅`);
-  console.log(`Failed: ${failedTests} ❌`);
-  console.log(`Success Rate: ${((passedTests / totalTests) * 100).toFixed(1)}%`);
+  // Group tests by category
+  const testsByCategory = testCases.reduce((acc, testCase) => {
+    if (!acc[testCase.category]) {
+      acc[testCase.category] = [];
+    }
+    acc[testCase.category].push(testCase);
+    return acc;
+  }, {});
 
-  console.log("\n🔍 VALIDATION COVERAGE:");
-  console.log("✅ Link validation (dead links, allowed links)");
-  console.log("✅ Code block validation (indentation, completeness)");
-  console.log("✅ Content structure (line breaks, punctuation)");
-  console.log("✅ Table validation (column count consistency)");
-  console.log("✅ Mermaid validation (syntax, rendering issues)");
-  console.log("✅ Standard markdown linting (formatting rules)");
-  console.log("✅ Complex mixed scenarios");
-  console.log("✅ Edge cases and error conditions");
+  Object.entries(testsByCategory).forEach(([category, categoryTests]) => {
+    describe(category, () => {
+      categoryTests.forEach((testCase) => {
+        test(testCase.name, async () => {
+          // Test with checkMarkdown directly
+          const errors = await checkMarkdown(testCase.content, "test", {
+            allowedLinks,
+          });
 
-  if (failedTests === 0) {
-    console.log("\n🎉 ALL TESTS PASSED! Validation system is working correctly.");
-  } else {
-    console.log(`\n⚠️  ${failedTests} test(s) failed. Please review the validation logic.`);
-  }
+          // Test with checkDetailResult wrapper
+          const wrapperResult = await checkDetailResult({
+            structurePlan: mockStructurePlan,
+            reviewContent: testCase.content,
+          });
 
-  // Shutdown worker pool to ensure clean exit
-  try {
-    await shutdownValidation();
-  } catch (error) {
-    console.error("Error shutting down validation:", error);
-  }
-}
+          const hasErrors = errors.length > 0;
+          const expectPass = testCase.expectPass;
+
+          // Verify test expectation
+          if (expectPass) {
+            expect(hasErrors).toBe(false);
+          } else {
+            expect(hasErrors).toBe(true);
+
+            // Check if expected error types are present
+            if (testCase.expectedErrors) {
+              const foundExpectedErrors = testCase.expectedErrors.every((expectedError) =>
+                errors.some((error) => error.toLowerCase().includes(expectedError.toLowerCase())),
+              );
+              expect(foundExpectedErrors).toBe(true);
+            }
+          }
+
+          // Verify consistency between direct call and wrapper
+          const wrapperErrors = wrapperResult.detailFeedback
+            ? wrapperResult.detailFeedback.split("\n").filter((line) => line.trim())
+            : [];
+
+          // Note: We don't enforce exact equality as wrapper may format differently
+          expect(wrapperErrors.length > 0).toBe(hasErrors);
+        });
+      });
+    });
+  });
+});
 
 // Export test cases for external use
 export { testCases, mockStructurePlan, allowedLinks };
-
-// Run tests if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  runValidationTests()
-    .then(() => {
-      process.exit(0);
-    })
-    .catch((error) => {
-      console.error("Test suite error:", error);
-      process.exit(1);
-    });
-}

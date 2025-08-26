@@ -1,3 +1,4 @@
+import { test, expect, describe, beforeEach, afterEach } from "bun:test";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -5,11 +6,11 @@ import loadSources from "../agents/load-sources.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-async function runTests() {
+describe("loadSources", () => {
   let testDir;
   let tempDir;
 
-  async function setup() {
+  beforeEach(async () => {
     // Create test directory structure
     testDir = path.join(__dirname, "test-content-generator");
     tempDir = path.join(testDir, "temp");
@@ -91,38 +92,15 @@ async function runTests() {
       path.join(testDir, ".gitignore"),
       "node_modules/\n" + "temp/\n" + "ignore.txt\n" + "*.log\n",
     );
-  }
+  });
 
-  async function cleanup() {
+  afterEach(async () => {
     // Clean up test directory
     await rm(testDir, { recursive: true, force: true });
-  }
+  });
 
-  function assert(condition, message) {
-    if (!condition) {
-      throw new Error(`Assertion failed: ${message}`);
-    }
-  }
 
-  function assertIncludes(array, item, message) {
-    if (!array.some((element) => element.includes(item))) {
-      throw new Error(
-        `Assertion failed: ${message} - Expected to find ${item} in ${JSON.stringify(array)}`,
-      );
-    }
-  }
-
-  function assertNotIncludes(array, item, message) {
-    if (array.some((element) => element.includes(item))) {
-      throw new Error(
-        `Assertion failed: ${message} - Expected not to find ${item} in ${JSON.stringify(array)}`,
-      );
-    }
-  }
-
-  async function testLoadFilesWithDefaultPatterns() {
-    console.log("Testing: should load files with default patterns");
-
+  test("should load files with default patterns", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
       useDefaultPatterns: true,
@@ -130,33 +108,23 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
-    assert(result.datasourcesList.length > 0, "datasourcesList should not be empty");
-
-    // Debug: log actual file paths
-    console.log(
-      "Actual file paths:",
-      result.datasourcesList.map((f) => f.sourceId),
-    );
+    expect(result.datasourcesList).toBeDefined();
+    expect(result.datasourcesList.length).toBeGreaterThan(0);
 
     // Should include package.json, README.md, src files
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
-    assertIncludes(filePaths, "package.json", "Should include package.json");
-    assertIncludes(filePaths, "README.md", "Should include README.md");
-    assertIncludes(filePaths, "src/index.js", "Should include src/index.js");
+    expect(filePaths.some(element => element.includes("package.json"))).toBe(true);
+    expect(filePaths.some(element => element.includes("README.md"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
 
     // Should exclude node_modules, temp, test files
-    assertNotIncludes(filePaths, "node_modules", "Should exclude node_modules");
-    assertNotIncludes(filePaths, "temp/", "Should exclude temp/");
-    assertNotIncludes(filePaths, "test/test.js", "Should exclude test/test.js");
-    assertNotIncludes(filePaths, "ignore.txt", "Should exclude ignore.txt");
+    expect(filePaths.some(element => element.includes("node_modules"))).toBe(false);
+    expect(filePaths.some(element => element.includes("temp/"))).toBe(false);
+    expect(filePaths.some(element => element.includes("test/test.js"))).toBe(false);
+    expect(filePaths.some(element => element.includes("ignore.txt"))).toBe(false);
+  });
 
-    console.log("✅ Test passed: should load files with default patterns");
-  }
-
-  async function testLoadFilesWithCustomPatterns() {
-    console.log("Testing: should load files with custom patterns");
-
+  test("should load files with custom patterns", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
       includePatterns: ["*.js", "*.json"],
@@ -166,23 +134,19 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
-    assert(result.datasourcesList.length > 0, "datasourcesList should not be empty");
+    expect(result.datasourcesList).toBeDefined();
+    expect(result.datasourcesList.length).toBeGreaterThan(0);
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
-    assertIncludes(filePaths, "package.json", "Should include package.json");
-    assertIncludes(filePaths, "src/index.js", "Should include src/index.js");
-    assertIncludes(filePaths, "src/utils.js", "Should include src/utils.js");
+    expect(filePaths.some(element => element.includes("package.json"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
 
     // Should exclude test files
-    assertNotIncludes(filePaths, "test/test.js", "Should exclude test/test.js");
+    expect(filePaths.some(element => element.includes("test/test.js"))).toBe(false);
+  });
 
-    console.log("✅ Test passed: should load files with custom patterns");
-  }
-
-  async function testRespectGitignorePatterns() {
-    console.log("Testing: should respect .gitignore patterns");
-
+  test("should respect .gitignore patterns", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
       includePatterns: ["*"],
@@ -192,21 +156,17 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
+    expect(result.datasourcesList).toBeDefined();
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should exclude files listed in .gitignore
-    assertNotIncludes(filePaths, "node_modules", "Should exclude node_modules");
-    assertNotIncludes(filePaths, "temp/", "Should exclude temp/");
-    assertNotIncludes(filePaths, "ignore.txt", "Should exclude ignore.txt");
+    expect(filePaths.some(element => element.includes("node_modules"))).toBe(false);
+    expect(filePaths.some(element => element.includes("temp/"))).toBe(false);
+    expect(filePaths.some(element => element.includes("ignore.txt"))).toBe(false);
+  });
 
-    console.log("✅ Test passed: should respect .gitignore patterns");
-  }
-
-  async function testHandlePathBasedPatterns() {
-    console.log("Testing: should handle path-based patterns");
-
+  test("should handle path-based patterns", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
       includePatterns: ["src/**/*.js"],
@@ -216,27 +176,17 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
-
-    // Debug: log actual file paths
-    console.log(
-      "Path-based patterns - Actual file paths:",
-      result.datasourcesList.map((f) => f.sourceId),
-    );
+    expect(result.datasourcesList).toBeDefined();
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
-    assertIncludes(filePaths, "src/index.js", "Should include src/index.js");
-    assertIncludes(filePaths, "src/utils.js", "Should include src/utils.js");
+    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
 
     // Should exclude test files
-    assertNotIncludes(filePaths, "test/test.js", "Should exclude test/test.js");
+    expect(filePaths.some(element => element.includes("test/test.js"))).toBe(false);
+  });
 
-    console.log("✅ Test passed: should handle path-based patterns");
-  }
-
-  async function testHandleMultipleSourcePaths() {
-    console.log("Testing: should handle multiple source paths");
-
+  test("should handle multiple source paths", async () => {
     const result = await loadSources({
       sourcesPath: [testDir, path.join(testDir, "src")],
       includePatterns: ["*.js"],
@@ -245,19 +195,15 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
-    assert(result.datasourcesList.length > 0, "datasourcesList should not be empty");
+    expect(result.datasourcesList).toBeDefined();
+    expect(result.datasourcesList.length).toBeGreaterThan(0);
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
-    assertIncludes(filePaths, "src/index.js", "Should include src/index.js");
-    assertIncludes(filePaths, "src/utils.js", "Should include src/utils.js");
+    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
+  });
 
-    console.log("✅ Test passed: should handle multiple source paths");
-  }
-
-  async function testHandleNonExistentDirectories() {
-    console.log("Testing: should handle non-existent directories gracefully");
-
+  test("should handle non-existent directories gracefully", async () => {
     const result = await loadSources({
       sourcesPath: path.join(testDir, "non-existent"),
       useDefaultPatterns: true,
@@ -265,18 +211,11 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
-    assert(
-      result.datasourcesList.length === 0,
-      "datasourcesList should be empty for non-existent directory",
-    );
+    expect(result.datasourcesList).toBeDefined();
+    expect(result.datasourcesList.length).toBe(0);
+  });
 
-    console.log("✅ Test passed: should handle non-existent directories gracefully");
-  }
-
-  async function testMergeUserPatternsWithDefaultPatterns() {
-    console.log("Testing: should merge user patterns with default patterns");
-
+  test("should merge user patterns with default patterns", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
       includePatterns: ["*.txt"],
@@ -286,23 +225,19 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
+    expect(result.datasourcesList).toBeDefined();
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should include default patterns (package.json, README.md, etc.)
-    assertIncludes(filePaths, "package.json", "Should include package.json");
-    assertIncludes(filePaths, "README.md", "Should include README.md");
+    expect(filePaths.some(element => element.includes("package.json"))).toBe(true);
+    expect(filePaths.some(element => element.includes("README.md"))).toBe(true);
 
     // Should exclude user exclude patterns
-    assertNotIncludes(filePaths, "docs/", "Should exclude docs/");
+    expect(filePaths.some(element => element.includes("docs/"))).toBe(false);
+  });
 
-    console.log("✅ Test passed: should merge user patterns with default patterns");
-  }
-
-  async function testHandleMultiLevelDirectoryStructure() {
-    console.log("Testing: should handle multi-level directory structure");
-
+  test("should handle multi-level directory structure", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
       includePatterns: ["**/*.js"],
@@ -312,63 +247,31 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
-    assert(result.datasourcesList.length > 0, "datasourcesList should not be empty");
+    expect(result.datasourcesList).toBeDefined();
+    expect(result.datasourcesList.length).toBeGreaterThan(0);
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should include files from all levels
-    assertIncludes(filePaths, "src/index.js", "Should include src/index.js");
-    assertIncludes(filePaths, "src/utils.js", "Should include src/utils.js");
-    assertIncludes(
-      filePaths,
-      "src/components/Button.js",
-      "Should include src/components/Button.js",
-    );
-    assertIncludes(
-      filePaths,
-      "src/components/ui/Modal.js",
-      "Should include src/components/ui/Modal.js",
-    );
-    assertIncludes(
-      filePaths,
-      "src/components/ui/Input.js",
-      "Should include src/components/ui/Input.js",
-    );
-    assertIncludes(
-      filePaths,
-      "src/utils/helpers/format.js",
-      "Should include src/utils/helpers/format.js",
-    );
-    assertIncludes(
-      filePaths,
-      "src/utils/helpers/validate.js",
-      "Should include src/utils/helpers/validate.js",
-    );
-    assertIncludes(
-      filePaths,
-      "src/services/api/client.js",
-      "Should include src/services/api/client.js",
-    );
-    assertIncludes(
-      filePaths,
-      "src/services/api/endpoints.js",
-      "Should include src/services/api/endpoints.js",
-    );
-    assertIncludes(filePaths, "src/config/database.js", "Should include src/config/database.js");
-    assertIncludes(filePaths, "src/config/app.js", "Should include src/config/app.js");
+    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/components/Button.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/components/ui/Modal.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/components/ui/Input.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils/helpers/format.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils/helpers/validate.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/services/api/client.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/services/api/endpoints.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/config/database.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/config/app.js"))).toBe(true);
 
     // Should exclude non-JS files
-    assertNotIncludes(filePaths, "styles.css", "Should exclude styles.css");
-    assertNotIncludes(filePaths, "settings.json", "Should exclude settings.json");
-    assertNotIncludes(filePaths, "data.yaml", "Should exclude data.yaml");
+    expect(filePaths.some(element => element.includes("styles.css"))).toBe(false);
+    expect(filePaths.some(element => element.includes("settings.json"))).toBe(false);
+    expect(filePaths.some(element => element.includes("data.yaml"))).toBe(false);
+  });
 
-    console.log("✅ Test passed: should handle multi-level directory structure");
-  }
-
-  async function testFilterBySpecificSubdirectories() {
-    console.log("Testing: should filter by specific subdirectories");
-
+  test("should filter by specific subdirectories", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
       includePatterns: ["src/components/**/*.js", "src/utils/**/*.js"],
@@ -378,53 +281,25 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
+    expect(result.datasourcesList).toBeDefined();
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should include files from specified subdirectories
-    assertIncludes(
-      filePaths,
-      "src/components/Button.js",
-      "Should include src/components/Button.js",
-    );
-    assertIncludes(
-      filePaths,
-      "src/utils/helpers/format.js",
-      "Should include src/utils/helpers/format.js",
-    );
-    assertIncludes(
-      filePaths,
-      "src/utils/helpers/validate.js",
-      "Should include src/utils/helpers/validate.js",
-    );
+    expect(filePaths.some(element => element.includes("src/components/Button.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils/helpers/format.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils/helpers/validate.js"))).toBe(true);
 
     // Should exclude files from excluded subdirectories
-    assertNotIncludes(
-      filePaths,
-      "src/components/ui/Modal.js",
-      "Should exclude src/components/ui/Modal.js",
-    );
-    assertNotIncludes(
-      filePaths,
-      "src/components/ui/Input.js",
-      "Should exclude src/components/ui/Input.js",
-    );
+    expect(filePaths.some(element => element.includes("src/components/ui/Modal.js"))).toBe(false);
+    expect(filePaths.some(element => element.includes("src/components/ui/Input.js"))).toBe(false);
 
     // Should exclude files from other directories
-    assertNotIncludes(
-      filePaths,
-      "src/services/api/client.js",
-      "Should exclude src/services/api/client.js",
-    );
-    assertNotIncludes(filePaths, "src/config/database.js", "Should exclude src/config/database.js");
+    expect(filePaths.some(element => element.includes("src/services/api/client.js"))).toBe(false);
+    expect(filePaths.some(element => element.includes("src/config/database.js"))).toBe(false);
+  });
 
-    console.log("✅ Test passed: should filter by specific subdirectories");
-  }
-
-  async function testHandleMixedFileTypesInMultiLevelDirectories() {
-    console.log("Testing: should handle mixed file types in multi-level directories");
-
+  test("should handle mixed file types in multi-level directories", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
       includePatterns: ["**/*.js", "**/*.json", "**/*.yaml"],
@@ -434,46 +309,26 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
+    expect(result.datasourcesList).toBeDefined();
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
     // Should include JS files from all levels
-    assertIncludes(
-      filePaths,
-      "src/components/Button.js",
-      "Should include src/components/Button.js",
-    );
-    assertIncludes(
-      filePaths,
-      "src/utils/helpers/format.js",
-      "Should include src/utils/helpers/format.js",
-    );
+    expect(filePaths.some(element => element.includes("src/components/Button.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils/helpers/format.js"))).toBe(true);
 
     // Should include JSON and YAML files
-    assertIncludes(
-      filePaths,
-      "src/config/settings.json",
-      "Should include src/config/settings.json",
-    );
-    assertIncludes(
-      filePaths,
-      "src/utils/helpers/data.yaml",
-      "Should include src/utils/helpers/data.yaml",
-    );
+    expect(filePaths.some(element => element.includes("src/config/settings.json"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils/helpers/data.yaml"))).toBe(true);
 
     // Should exclude CSS files
-    assertNotIncludes(filePaths, "styles.css", "Should exclude styles.css");
+    expect(filePaths.some(element => element.includes("styles.css"))).toBe(false);
 
     // Should exclude node_modules
-    assertNotIncludes(filePaths, "node_modules", "Should exclude node_modules");
+    expect(filePaths.some(element => element.includes("node_modules"))).toBe(false);
+  });
 
-    console.log("✅ Test passed: should handle mixed file types in multi-level directories");
-  }
-
-  async function testExcludeFilesWithTestPatternUsingDefaultPatterns() {
-    console.log("Testing: should exclude files with _test pattern using default patterns");
-
+  test("should exclude files with _test pattern using default patterns", async () => {
     const result = await loadSources({
       sourcesPath: testDir,
       useDefaultPatterns: true,
@@ -481,66 +336,19 @@ async function runTests() {
       docsDir: path.join(testDir, "docs"),
     });
 
-    assert(result.datasourcesList, "datasourcesList should be defined");
+    expect(result.datasourcesList).toBeDefined();
 
     const filePaths = result.datasourcesList.map((f) => f.sourceId);
 
-    // Debug: log actual file paths to see what's included
-    console.log(
-      "Files with _test pattern - Actual file paths:",
-      result.datasourcesList.map((f) => f.sourceId),
-    );
-
-    // Check which _test files are actually included
-    const testFiles = filePaths.filter((path) => path.includes("_test"));
-    console.log("Found _test files:", testFiles);
-
-    // Note: The current implementation may not be correctly excluding _test files
-    // due to glob pattern matching issues. Let's adjust our expectations based on actual behavior.
-
     // For now, let's verify that regular files are still included
-    assertIncludes(filePaths, "src/index.js", "Should include src/index.js");
-    assertIncludes(filePaths, "src/utils.js", "Should include src/utils.js");
-    assertIncludes(
-      filePaths,
-      "src/components/Button.js",
-      "Should include src/components/Button.js",
-    );
+    expect(filePaths.some(element => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/utils.js"))).toBe(true);
+    expect(filePaths.some(element => element.includes("src/components/Button.js"))).toBe(true);
 
     // And verify that some expected exclusions are working
-    assertNotIncludes(filePaths, "node_modules", "Should exclude node_modules");
-    assertNotIncludes(filePaths, "temp/", "Should exclude temp/");
-    assertNotIncludes(filePaths, "test/test.js", "Should exclude test/test.js");
+    expect(filePaths.some(element => element.includes("node_modules"))).toBe(false);
+    expect(filePaths.some(element => element.includes("temp/"))).toBe(false);
+    expect(filePaths.some(element => element.includes("test/test.js"))).toBe(false);
+  });
 
-    console.log(
-      "✅ Test passed: should exclude files with _test pattern using default patterns (adjusted expectations)",
-    );
-  }
-
-  try {
-    console.log("🚀 Starting loadSources tests...");
-
-    await setup();
-
-    await testLoadFilesWithDefaultPatterns();
-    await testLoadFilesWithCustomPatterns();
-    await testRespectGitignorePatterns();
-    await testHandlePathBasedPatterns();
-    await testHandleMultipleSourcePaths();
-    await testHandleNonExistentDirectories();
-    await testMergeUserPatternsWithDefaultPatterns();
-    await testHandleMultiLevelDirectoryStructure();
-    await testFilterBySpecificSubdirectories();
-    await testHandleMixedFileTypesInMultiLevelDirectories();
-    await testExcludeFilesWithTestPatternUsingDefaultPatterns();
-
-    console.log("🎉 All tests passed!");
-  } catch (error) {
-    console.error("❌ Test failed:", error.message);
-    process.exit(1);
-  } finally {
-    await cleanup();
-  }
-}
-
-runTests();
+});
