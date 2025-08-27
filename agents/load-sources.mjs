@@ -203,7 +203,7 @@ export default async function loadSources({
   }
 
   // Generate assets content from media files
-  let assetsContent = "# 可用于文档生成的媒体资源\n\n";
+  let assetsContent = "# Available Media Assets for Documentation\n\n";
 
   if (mediaFiles.length > 0) {
     const mediaMarkdown = mediaFiles

@@ -99,7 +99,7 @@ export default async function publishDocs(
       boardDesc: projectInfo.description,
       boardCover: projectInfo.icon,
       mediaFolder: docsDir,
-      cacheFilePath: join(".aigne/doc-smith/", "upload-cache.yaml"),
+      cacheFilePath: join(".aigne", "doc-smith", "upload-cache.yaml"),
       boardMeta,
     });
 

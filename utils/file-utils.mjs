@@ -183,7 +183,10 @@ export async function traverseMediaFiles(dirPath, baseDir, extensions = []) {
           }
         }
       }
-    } catch {
+    } catch (error) {
+      if (error.code !== "ENOENT") {
+        console.warn(`Failed to read directory ${currentPath}:`, error);
+      }
       // Directory doesn't exist or can't be read, skip silently
     }
   }
