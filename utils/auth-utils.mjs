@@ -91,7 +91,7 @@ export async function getAccessToken(appUrl) {
       source: `AIGNE DocSmith connect to Discuss Kit`,
       closeOnSuccess: true,
       appName: "AIGNE DocSmith",
-      appLogo: "https://www.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
+      appLogo: "https://docsmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
       openPage: (pageUrl) => open(pageUrl),
     });
 

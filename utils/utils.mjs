@@ -149,8 +149,8 @@ export function getCurrentGitHead() {
  * @param {string} gitHead - The current git HEAD commit hash
  */
 export async function saveGitHeadToConfig(gitHead) {
-  if (!gitHead) {
-    return; // Skip if no git HEAD available
+  if (!gitHead || process.env.NODE_ENV === 'test' || process.env.BUN_TEST) {
+    return; // Skip if no git HEAD available or in test environment
   }
 
   try {

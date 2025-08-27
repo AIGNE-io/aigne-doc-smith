@@ -16,6 +16,11 @@
 {{ detailDataSources }}
 
 {{ additionalInformation }}
+
+<media_list>
+{{ assetsContent }}
+</media_list>
+
 </datasources>
 
 <terms>
@@ -93,7 +98,6 @@ parentId: {{parentId}}
 - 媒体资源以 markdown 格式提供，示例：![资源描述](https://xxxx)
 - 在生成结果中以 markdown 格式展示图片
 - 根据资源描述，在上下文相关的位置，合理的展示图片，让结果展示效果更丰富
-- 只使用完整的远程图片URL（如 https://example.com/image.jpg），禁止使用相对路径（如 ./images/photo.png 或 ../assets/logo.png），确保发布后图片能正常访问
 
 </media_rules>
 
