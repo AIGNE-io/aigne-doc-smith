@@ -4,6 +4,10 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
 import {
+  detectResolvableConflicts,
+  generateConflictResolutionRules,
+} from "./conflict-detector.mjs";
+import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
   DOCUMENT_STYLES,
@@ -149,7 +153,7 @@ export function getCurrentGitHead() {
  * @param {string} gitHead - The current git HEAD commit hash
  */
 export async function saveGitHeadToConfig(gitHead) {
-  if (!gitHead || process.env.NODE_ENV === 'test' || process.env.BUN_TEST) {
+  if (!gitHead || process.env.NODE_ENV === "test" || process.env.BUN_TEST) {
     return; // Skip if no git HEAD available or in test environment
   }
 
@@ -845,6 +849,7 @@ export async function getProjectInfo() {
  * @param {Object} config - Parsed configuration
  * @returns {Object} Processed configuration with content fields
  */
+
 export function processConfigFields(config) {
   const processed = {};
   const allRulesContent = [];
@@ -868,37 +873,41 @@ export function processConfigFields(config) {
   }
 
   // Process document purpose (array)
-  let purposeContents = "";
   if (config.documentPurpose && Array.isArray(config.documentPurpose)) {
-    purposeContents = config.documentPurpose
-      .map((key) => DOCUMENT_STYLES[key]?.content)
-      .filter(Boolean)
-      .join("\n\n");
+    const purposeRules = config.documentPurpose
+      .map((key) => {
+        const style = DOCUMENT_STYLES[key];
+        if (!style) return null;
+        return `Document Purpose - ${style.name}:\n${style.description}\n${style.content}`;
+      })
+      .filter(Boolean);
 
-    if (purposeContents) {
-      allRulesContent.push(purposeContents);
+    if (purposeRules.length > 0) {
+      allRulesContent.push(purposeRules.join("\n\n"));
     }
   }
 
   // Process target audience types (array)
-  let audienceContents = "";
   let audienceNames = "";
   if (config.targetAudienceTypes && Array.isArray(config.targetAudienceTypes)) {
-    // Get content for rules
-    audienceContents = config.targetAudienceTypes
-      .map((key) => TARGET_AUDIENCES[key]?.content)
-      .filter(Boolean)
-      .join("\n\n");
+    // Get structured content for rules
+    const audienceRules = config.targetAudienceTypes
+      .map((key) => {
+        const audience = TARGET_AUDIENCES[key];
+        if (!audience) return null;
+        return `Target Audience - ${audience.name}:\n${audience.description}\n${audience.content}`;
+      })
+      .filter(Boolean);
+
+    if (audienceRules.length > 0) {
+      allRulesContent.push(audienceRules.join("\n\n"));
+    }
 
     // Get names for targetAudience field
     audienceNames = config.targetAudienceTypes
       .map((key) => TARGET_AUDIENCES[key]?.name)
       .filter(Boolean)
       .join(", ");
-
-    if (audienceContents) {
-      allRulesContent.push(audienceContents);
-    }
 
     if (audienceNames) {
       // Check if original targetAudience field has content
@@ -931,6 +940,16 @@ export function processConfigFields(config) {
       processed.documentationDepthContent = depthContent;
       allRulesContent.push(`Documentation Depth:\n${depthContent}`);
     }
+  }
+
+  // Detect and handle conflicts in user selections
+  const conflicts = detectResolvableConflicts(config);
+  if (conflicts.length > 0) {
+    const conflictResolutionRules = generateConflictResolutionRules(conflicts);
+    allRulesContent.push(conflictResolutionRules);
+
+    // Store conflict information for debugging/logging
+    processed.detectedConflicts = conflicts;
   }
 
   // Combine all content into rules field

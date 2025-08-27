@@ -414,3 +414,94 @@ export const CONFLICT_RULES = {
     },
   ],
 };
+
+// Conflict resolution rules - defines how to handle conflicts when users select conflicting options
+export const CONFLICT_RESOLUTION_RULES = {
+  // Document purpose conflicts that can be resolved through structure planning
+  documentPurpose: [
+    {
+      conflictItems: ["getStarted", "findAnswers"],
+      strategy: "layered_structure",
+      description: "Quick start and API reference conflict, resolved through layered structure",
+    },
+    {
+      conflictItems: ["getStarted", "understandSystem"],
+      strategy: "separate_sections",
+      description: "Quick start and system understanding conflict, resolved through separate sections",
+    },
+    {
+      conflictItems: ["completeTasks", "understandSystem"],
+      strategy: "concepts_then_practice",
+      description: "Task guidance and system understanding conflict, resolved through concepts-then-practice structure",
+    },
+    {
+      conflictItems: ["findAnswers", "solveProblems"],
+      strategy: "reference_with_troubleshooting",
+      description: "API reference and problem solving conflict, resolved through reference with troubleshooting",
+    },
+  ],
+
+  // Target audience conflicts that can be resolved through structure planning
+  targetAudienceTypes: [
+    {
+      conflictItems: ["endUsers", "developers"],
+      strategy: "separate_user_paths",
+      description: "End users and developers conflict, resolved through separate user paths",
+    },
+    {
+      conflictItems: ["endUsers", "devops"],
+      strategy: "role_based_sections",
+      description: "End users and DevOps conflict, resolved through role-based sections",
+    },
+    {
+      conflictItems: ["developers", "decisionMakers"],
+      strategy: "progressive_disclosure",
+      description: "Developers and decision makers conflict, resolved through progressive disclosure",
+    },
+  ],
+};
+
+// Resolution strategy descriptions
+export const RESOLUTION_STRATEGIES = {
+  layered_structure: (items) =>
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create layered document structure
+- Quick start section: Uses "get started" style - optimizes for speed, key steps, working examples, skips complex edge cases
+- API reference section: Uses "find answers" style - comprehensive coverage, searchability, rich examples, skips narrative flow
+- Ensure sections complement rather than conflict with each other`,
+
+  separate_sections: (items) =>
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create separate sections
+- Quick start section: Uses "get started" style - focuses on practical operations, completable within 30 minutes
+- System understanding section: Uses "understand system" style - dedicated to explaining architecture, concepts, design decision rationale
+- Meet different depth needs through clear section separation`,
+
+  concepts_then_practice: (items) =>
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Use progressive "concepts-then-practice" structure
+- Concepts section: Uses "understand system" style - first explains core concepts and architecture principles
+- Practice section: Uses "complete tasks" style - then provides specific step guidance and practical scenarios
+- Ensure smooth transition between theory and practice`,
+
+  reference_with_troubleshooting: (items) =>
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Integrate troubleshooting into API reference
+- API reference section: Uses "find answers" style - comprehensive feature documentation and parameter descriptions
+- Troubleshooting section: Uses "solve problems" style - add common issues and diagnostic methods for each feature
+- Create dedicated problem diagnosis index for quick location`,
+
+  separate_user_paths: (items) =>
+    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Create separate user paths
+- User guide path: Uses "end users" style - simple language, UI operations, screenshot instructions, business outcome oriented
+- Developer guide path: Uses "developers" style - code-first, technical precision, SDK examples, configuration snippets
+- Provide clear path navigation for users to choose appropriate entry point`,
+
+  role_based_sections: (items) =>
+    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Organize content by role
+- Create dedicated sections for different roles, each section uses corresponding audience style
+- Ensure content depth and expression precisely match the needs and background of corresponding audience
+- Provide cross-references between sections to facilitate collaborative understanding between roles`,
+
+  progressive_disclosure: (items) =>
+    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Use progressive information disclosure
+- Overview level: Uses "decision makers" style - high-level architecture diagrams, decision points, business value
+- Detail level: Uses "developers" style - technical implementation details, code examples, best practices
+- Ensure smooth transition from strategic to tactical`,
+};
