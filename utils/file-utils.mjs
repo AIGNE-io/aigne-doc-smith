@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { access, readdir, readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 
