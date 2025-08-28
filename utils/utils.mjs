@@ -298,8 +298,10 @@ export function hasFileChangesBetweenCommits(
     return addedOrDeletedFiles.some((filePath) => {
       // Check if file matches any include pattern
       const matchesInclude = includePatterns.some((pattern) => {
-        // Convert glob pattern to regex for matching
-        const regexPattern = pattern.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/\?/g, ".");
+        // First escape all regex special characters except * and ?
+        const escapedPattern = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
+        // Then convert glob wildcards to regex
+        const regexPattern = escapedPattern.replace(/\*/g, ".*").replace(/\?/g, ".");
         const regex = new RegExp(regexPattern);
         return regex.test(filePath);
       });
@@ -310,8 +312,10 @@ export function hasFileChangesBetweenCommits(
 
       // Check if file matches any exclude pattern
       const matchesExclude = excludePatterns.some((pattern) => {
-        // Convert glob pattern to regex for matching
-        const regexPattern = pattern.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/\?/g, ".");
+        // First escape all regex special characters except * and ?
+        const escapedPattern = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
+        // Then convert glob wildcards to regex
+        const regexPattern = escapedPattern.replace(/\*/g, ".*").replace(/\?/g, ".");
         const regex = new RegExp(regexPattern);
         return regex.test(filePath);
       });
