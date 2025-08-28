@@ -95,13 +95,15 @@ export async function saveDocWithTranslations({
 
       // Add labels front matter if labels are provided
       let finalContent = processContent({ content });
+
       if (labels && labels.length > 0) {
         const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
         finalContent = frontMatter + finalContent;
       }
 
-      await fs.writeFile(mainFilePath, finalContent, "utf8");
       results.push({ path: mainFilePath, success: true });
+
+      await fs.writeFile(mainFilePath, finalContent, "utf8");
     }
 
     // Process all translations
@@ -113,13 +115,15 @@ export async function saveDocWithTranslations({
       let finalTranslationContent = processContent({
         content: translate.translation,
       });
+
       if (labels && labels.length > 0) {
         const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
         finalTranslationContent = frontMatter + finalTranslationContent;
       }
 
-      await fs.writeFile(translatePath, finalTranslationContent, "utf8");
       results.push({ path: translatePath, success: true });
+
+      await fs.writeFile(translatePath, finalTranslationContent, "utf8");
     }
   } catch (err) {
     results.push({ path: docPath, success: false, error: err.message });
@@ -149,7 +153,7 @@ export function getCurrentGitHead() {
  * @param {string} gitHead - The current git HEAD commit hash
  */
 export async function saveGitHeadToConfig(gitHead) {
-  if (!gitHead || process.env.NODE_ENV === 'test' || process.env.BUN_TEST) {
+  if (!gitHead || process.env.NODE_ENV === "test" || process.env.BUN_TEST) {
     return; // Skip if no git HEAD available or in test environment
   }
 
