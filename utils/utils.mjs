@@ -125,9 +125,8 @@ export async function saveDocWithTranslations({
         finalTranslationContent = frontMatter + finalTranslationContent;
       }
 
-      results.push({ path: translatePath, success: true });
-
       await fs.writeFile(translatePath, finalTranslationContent, "utf8");
+      results.push({ path: translatePath, success: true });
     }
   } catch (err) {
     results.push({ path: docPath, success: false, error: err.message });

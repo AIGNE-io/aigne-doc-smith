@@ -59,19 +59,14 @@ export const saveD2Assets = async ({ markdown, baseName, docsDir }) => {
     for (let index = 0; index < d2Blocks.length; index++) {
       const d2Content = [D2_CONFIG, d2Blocks[index]].join("\n");
       const svgPath = path.join(assetDir, `d2-${index + 1}.svg`);
-      const d2Path = path.join(assetDir, `d2-${index + 1}.d2`);
       try {
         const svg = await getD2Svg({ content: d2Content });
         if (svg) {
           await fs.writeFile(svgPath, svg, "utf8");
           saved.push({ path: svgPath, success: true });
         }
-        // 保存 d2 源文件
-        await fs.writeFile(d2Path, d2Content, "utf8");
-        saved.push({ path: d2Path, success: true });
       } catch (e) {
         saved.push({ path: svgPath, success: false, error: e.message });
-        saved.push({ path: d2Path, success: false, error: e.message });
       }
     }
     return saved;
@@ -85,7 +80,7 @@ export const appendD2ImageRefs = (markdown, baseName) => {
   if (!markdown) return markdown;
   const codeBlockRegex = /```d2\n([\s\S]*?)```/g;
   let blockIndex = 1;
-  // 替换 d2 代码块为 img 标签（不保留 d2 内容）
+  // Replace d2 code blocks with img tags (without preserving d2 content)
   const replaced = markdown.replace(codeBlockRegex, (_match, _code) => {
     return `![](./assets/${baseName}/d2-${blockIndex++}.svg)`;
   });
