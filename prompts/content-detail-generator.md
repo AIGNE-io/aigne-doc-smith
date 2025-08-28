@@ -102,6 +102,8 @@ parentId: {{parentId}}
 </media_rules>
 
 {% include "../prompts/document/detail-generator.md" %}
+
+{% include "../prompts/document/custom-component.md" %}
 </rules>
 
 {% include "../prompts/document/detail-example.md" %}
