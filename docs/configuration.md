@@ -4,26 +4,19 @@ labels: ["Reference"]
 
 # Configuration Guide
 
-AIGNE DocSmith's strength lies in its ability to be tailored to your specific needs. Proper configuration ensures the AI generates documentation with the right style, tone, and depth for your audience. This guide provides a detailed look at all the available settings.
+AIGNE DocSmith's behavior is controlled by a central configuration file, `config.yaml`, located in the `.aigne/doc-smith/` directory of your project. This file allows you to precisely define the style, audience, scope, and languages for your documentation, ensuring the generated content perfectly matches your needs. 
 
-You can set up your project in two main ways:
+You can create and modify this file using the interactive `aigne doc init` command or by editing it manually.
 
-1.  **Interactive Setup**: Run the `aigne doc init` command. This will launch a step-by-step wizard that asks you questions and creates the configuration file for you. This is the recommended method for getting started.
-2.  **Manual Editing**: Directly modify the `config.yaml` file located in the `.aigne/doc-smith/` directory of your project. This is useful for making quick changes or for advanced adjustments.
+## The `config.yaml` File Structure
 
-This guide covers the core settings you'll find in the `config.yaml` file. For more specific topics, please see our guides on [LLM Setup](./configuration-llm-setup.md) and [Language Support](./configuration-language-support.md).
-
-## The `config.yaml` File
-
-All settings are stored in a single `config.yaml` file. When you run `aigne doc init`, this file is generated with helpful comments explaining each option. You can edit it at any time.
-
-A typical configuration file looks like this:
+Here is an example of a complete `config.yaml` file. It includes comments explaining each available option, which you can uncomment and modify to suit your project.
 
 ```yaml
 # Project information for documentation publishing
 projectName: My Awesome Project
 projectDesc: A brief description of what this project does.
-projectLogo: ""
+projectLogo: "path/to/your/logo.png"
 
 # =============================================================================
 # Documentation Configuration
@@ -32,102 +25,111 @@ projectLogo: ""
 # Purpose: What's the main outcome you want readers to achieve?
 documentPurpose:
   - getStarted
+  - completeTasks
 
 # Target Audience: Who will be reading this most often?
 targetAudienceTypes:
   - developers
 
 # Reader Knowledge Level: What do readers typically know when they arrive?
-readerKnowledgeLevel: completeBeginners
+readerKnowledgeLevel: domainFamiliar
 
 # Documentation Depth: How comprehensive should the documentation be?
 documentationDepth: balancedCoverage
 
 # Custom Rules: Define specific documentation generation rules and requirements
 rules: |
-
+  - Always include a 'Troubleshooting' section in 'How-to' guides.
+  - Code examples must be compatible with Node.js v18 and later.
 
 # Target Audience: Describe your specific target audience and their characteristics
 targetAudience: |
-
+  Mid-level software engineers who are familiar with JavaScript and REST APIs but are new to our specific platform.
 
 # Glossary: Define project-specific terms and definitions
-# glossary: "@glossary.md"
+# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
 
+# Primary language for the documentation
 locale: en
+
+# List of languages to translate the documentation into
 translateLanguages:
   - zh
+  - ja
 
-docsDir: .aigne/doc-smith/docs  # Directory to save generated documentation
-sourcesPath:  # Source code paths to analyze
-  - ./
+# Directory to save generated documentation
+docsDir: .aigne/doc-smith/docs
+
+# Source code paths to analyze
+sourcesPath:
+  - ./src
+  - ./lib
 ```
 
-## Core Configuration Settings
+## Documentation Strategy
 
-Let's break down the key settings you can customize.
+These core settings define the AI's approach to generating content, influencing its tone, structure, and depth.
 
-### Document Purpose
+### Document Purpose (`documentPurpose`)
 
-This setting tells the AI what the primary goal of your documentation is. This influences the structure and content to best serve the reader's intent.
-
-| Option | Name | Description |
-| :--- | :--- | :--- |
-| `getStarted` | Get started quickly | Help new users go from zero to working in <30 minutes. |
-| `completeTasks` | Complete specific tasks | Guide users through common workflows and use cases. |
-| `findAnswers` | Find answers fast | Provide searchable reference for all features and APIs. |
-| `understandSystem` | Understand the system | Explain how it works and why design decisions were made. |
-| `solveProblems` | Solve problems | Help users troubleshoot and fix issues. |
-| `mixedPurpose` | Mix of above | Comprehensive documentation covering multiple needs. |
-
-### Target Audience
-
-Define who will be reading the documentation most often. This adjusts the writing style, technical language, and types of examples used.
+This setting specifies the primary goal of your documentation. You can select one or more options.
 
 | Option | Name | Description |
-| :--- | :--- | :--- |
-| `endUsers` | End users (non-technical) | People who use the product but don't code. |
-| `developers` | Developers integrating | Engineers adding this to their projects. |
-| `devops` | DevOps/Infrastructure | Teams deploying, monitoring, and maintaining systems. |
-| `decisionMakers` | Technical decision makers | Architects or leads evaluating the implementation. |
-| `supportTeams` | Support teams | People helping others use the product. |
-| `mixedTechnical` | Mixed technical audience | Developers, DevOps, and other technical users. |
+|---|---|---|
+| `getStarted` | Get started quickly | Help new users go from zero to working in <30 minutes. Optimizes for speed and essential steps. |
+| `completeTasks` | Complete specific tasks | Guide users through common workflows and use cases with step-by-step instructions. |
+| `findAnswers` | Find answers fast | Provide a searchable, comprehensive reference for all features and APIs. |
+| `understandSystem` | Understand the system | Explain how the system works, its architecture, and the rationale behind design decisions. |
+| `solveProblems` | Troubleshoot common issues | Help users diagnose and fix common problems with a focus on error scenarios. |
+| `mixedPurpose` | Serve multiple purposes | Create comprehensive documentation covering multiple needs, balancing different goals. |
 
-### Reader Knowledge Level
+### Target Audience (`targetAudienceTypes`)
 
-Specify the assumed knowledge level of your audience. This helps the AI decide whether to explain basic concepts or dive straight into advanced topics.
-
-| Option | Name | Description |
-| :--- | :--- | :--- |
-| `completeBeginners` | Complete beginners | New to this domain or technology entirely. |
-| `domainFamiliar` | Domain-familiar, tool-new | Know the problem space, but new to this specific solution. |
-| `experiencedUsers` | Experienced users | Regular users needing reference or advanced topics. |
-| `emergencyTroubleshooting` | Emergency/troubleshooting | Something's broken and needs a quick fix. |
-| `exploringEvaluating` | Exploring/evaluating | Trying to understand if this product fits their needs. |
-
-### Documentation Depth
-
-Control how comprehensive the documentation should be. You can choose to cover just the essentials or every possible detail.
+Define who will be reading the documentation. This helps tailor the language, examples, and technical depth appropriately.
 
 | Option | Name | Description |
-| :--- | :--- | :--- |
-| `essentialOnly` | Essential only | Cover the 80% use cases, keeping it concise. |
-| `balancedCoverage` | Balanced coverage | Good depth with practical examples (Recommended). |
-| `comprehensive` | Comprehensive | Cover all features, edge cases, and advanced scenarios. |
-| `aiDecide` | Let AI decide | Analyze code complexity and suggest appropriate depth. |
+|---|---|---|
+| `endUsers` | End users (non-technical) | People who use the product but don't code. Content will use plain language and focus on UI. |
+| `developers` | Developers | Engineers integrating your product/API. Content will be code-first with technical accuracy. |
+| `devops` | DevOps / SRE | Teams deploying and maintaining the system. Content will focus on operations and troubleshooting. |
+| `decisionMakers` | Technical decision makers | Architects and leads evaluating the product. Content will be high-level with architecture diagrams. |
+| `supportTeams` | Support teams | People helping others use the product. Content will focus on diagnostics and common issues. |
+| `mixedTechnical` | Mixed technical audience | A combination of developers, DevOps, and other technical users. Content will be layered. |
 
-### File and Directory Paths
+### Reader Knowledge Level (`readerKnowledgeLevel`)
 
-- `docsDir`: The directory where your generated Markdown documentation files will be saved. The default is `.aigne/doc-smith/docs`.
-- `sourcesPath`: A list of the source code files and directories that DocSmith should analyze to generate documentation. If left empty, it defaults to the entire project (`./`).
+Specify the assumed starting knowledge of your audience.
+
+| Option | Name | Description |
+|---|---|---|
+| `completeBeginners` | Is a total beginner | New to the domain entirely. Content will define all terms and assume no prior knowledge. |
+| `domainFamiliar` | Has used similar tools | Knows the problem space but is new to your solution. Content focuses on differences and unique features. |
+| `experiencedUsers` | Is an expert | Regular users needing reference or advanced topics. Content is dense and technically precise. |
+| `emergencyTroubleshooting` | Emergency/troubleshooting | Someone needs to fix a problem quickly. Content is structured as symptom -> diagnosis -> solution. |
+| `exploringEvaluating` | Is evaluating this tool | Trying to understand if the tool fits their needs. Content focuses on use cases and quick starts. |
+
+### Documentation Depth (`documentationDepth`)
+
+Control how comprehensive the generated documentation should be.
+
+| Option | Name | Description |
+|---|---|---|
+| `essentialOnly` | Essential only | Covers the core features and most common use cases to keep it concise. |
+| `balancedCoverage` | Balanced coverage | Good depth with practical examples for most features. [RECOMMENDED] |
+| `comprehensive` | Comprehensive | Covers all features, edge cases, and advanced scenarios with extensive examples. |
+| `aiDecide` | Let AI decide | The AI analyzes your code complexity and API surface to suggest an appropriate depth. |
+
+## Customization and Content Control
+
+Beyond the core strategy, you can provide more specific guidance.
+
+*   **`rules`**: A free-text field where you can provide specific, persistent instructions for the AI to follow during generation (e.g., "Always include a 'Prerequisites' section").
+*   **`targetAudience`**: A free-text field to describe your audience in more detail than the presets allow.
+*   **`glossary`**: Path to a Markdown file containing project-specific terms. This ensures consistent terminology in all generated and translated content.
 
 ---
 
-## Detailed Configuration Topics
+This guide provides an overview of the main configuration options. For more specific setups, see the following sections:
 
-For a deeper dive into specific areas of configuration, refer to the following sections:
-
-- **[LLM Setup](./configuration-llm-setup.md)**: Learn how to connect DocSmith to different large language models, including using AIGNE Hub for key-free access.
-- **[Language Support](./configuration-language-support.md)**: See the full list of supported languages and learn how to configure your primary language and enable automatic translations.
-
-After configuring your project, the next step is to explore the core features. Learn more in the [Generate Documentation](./features-generate-documentation.md) guide.
+*   **For AI models:** Learn how to connect to different LLMs in the [LLM Setup](./configuration-llm-setup.md) guide.
+*   **For translations:** See the full list of supported languages and how to configure them in [Language Support](./configuration-language-support.md).

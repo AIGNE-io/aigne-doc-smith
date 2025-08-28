@@ -1,130 +1,177 @@
 [
   {
+    "title": "Overview",
     "description": "Get a quick introduction to AIGNE DocSmith, what it does, its main features, and how it fits into the larger AIGNE ecosystem.",
-    "parentId": null,
     "path": "/overview",
+    "parentId": null,
     "sourceIds": [
       "README.md",
       "package.json"
-    ],
-    "title": "Overview"
+    ]
   },
   {
-    "description": "Follow this simple, step-by-step guide to install the tool and generate your first set of documents in just a few minutes.",
-    "parentId": null,
+    "title": "Getting Started",
+    "description": "Follow this simple, step-by-step guide to install the tool, configure your project, and generate your first set of documents in minutes.",
     "path": "/getting-started",
+    "parentId": null,
     "sourceIds": [
       "README.md",
       "media.md",
       "agents/input-generator.mjs"
-    ],
-    "title": "Getting Started"
+    ]
   },
   {
+    "title": "Core Features",
     "description": "Explore the main commands and capabilities of DocSmith, from creating new documentation to publishing it online.",
-    "parentId": null,
     "path": "/features",
+    "parentId": null,
     "sourceIds": [
       "README.md",
       "aigne.yaml",
       "media.md"
-    ],
-    "title": "Core Features"
+    ]
   },
   {
+    "title": "Generate Documentation",
     "description": "Learn how to use a single command to automatically create a complete set of documentation from your source code.",
-    "parentId": "/features",
     "path": "/features/generate-documentation",
+    "parentId": "/features",
     "sourceIds": [
       "README.md",
       "media.md",
       "agents/docs-generator.yaml"
-    ],
-    "title": "Generate Documentation"
+    ]
   },
   {
+    "title": "Update and Refine",
     "description": "Discover how to intelligently update your documents when your code changes, or make specific improvements using feedback.",
-    "parentId": "/features",
     "path": "/features/update-and-refine",
+    "parentId": "/features",
     "sourceIds": [
       "README.md",
       "media.md",
       "agents/detail-regenerator.yaml"
-    ],
-    "title": "Update and Refine"
+    ]
   },
   {
-    "description": "A guide on how to easily publish your documentation to a public platform or your own private website.",
-    "parentId": "/features",
-    "path": "/features/publish-your-docs",
-    "sourceIds": [
-      "README.md",
-      "media.md",
-      "agents/publish-docs.mjs",
-      "utils/auth-utils.mjs"
-    ],
-    "title": "Publish Your Docs"
-  },
-  {
+    "title": "Translate Documentation",
     "description": "Learn how to automatically translate your documentation into multiple languages to reach a global audience.",
-    "parentId": "/features",
     "path": "/features/translate-documentation",
+    "parentId": "/features",
     "sourceIds": [
       "README.md",
       "CHANGELOG.md",
       "agents/translate.yaml",
       "agents/retranslate.yaml",
       "media.md"
-    ],
-    "title": "Translate Documentation"
+    ]
   },
   {
-    "description": "A detailed look at all the available settings to customize the style, audience, and languages of your documentation.",
+    "title": "Publish Your Docs",
+    "description": "A guide on how to easily publish your documentation to a public platform or your own private website.",
+    "path": "/features/publish-your-docs",
+    "parentId": "/features",
+    "sourceIds": [
+      "README.md",
+      "media.md",
+      "agents/publish-docs.mjs",
+      "utils/auth-utils.mjs"
+    ]
+  },
+  {
+    "title": "CLI Command Reference",
+    "description": "A comprehensive reference for all available `aigne doc` commands, their arguments, and options.",
+    "path": "/cli-reference",
     "parentId": null,
+    "sourceIds": [
+      "README.md",
+      "package.json",
+      "agents/docs-generator.yaml",
+      "agents/detail-regenerator.yaml",
+      "agents/retranslate.yaml",
+      "agents/team-publish-docs.yaml",
+      "agents/manage-prefs.mjs"
+    ]
+  },
+  {
+    "title": "Configuration Guide",
+    "description": "A detailed look at all the available settings to customize the style, audience, and languages of your documentation.",
     "path": "/configuration",
+    "parentId": null,
     "sourceIds": [
       "README.md",
       "agents/input-generator.mjs",
-      "utils/constants.mjs"
-    ],
-    "title": "Configuration Guide"
+      "utils/constants.mjs",
+      "biome.json"
+    ]
   },
   {
+    "title": "LLM Setup",
     "description": "Learn how to set up DocSmith to use different AI models, including using AIGNE Hub without needing your own API keys.",
-    "parentId": "/configuration",
     "path": "/configuration/llm-setup",
+    "parentId": "/configuration",
     "sourceIds": [
       "README.md",
       "aigne.yaml"
-    ],
-    "title": "LLM Setup"
+    ]
   },
   {
+    "title": "Language Support",
     "description": "See the full list of languages that DocSmith supports for automatic translation and learn how to enable them.",
-    "parentId": "/configuration",
     "path": "/configuration/language-support",
+    "parentId": "/configuration",
     "sourceIds": [
       "README.md",
       "utils/constants.mjs"
-    ],
-    "title": "Language Support"
+    ]
   },
   {
-    "description": "Dive deeper into advanced topics like contributing to the project.",
-    "parentId": null,
+    "title": "Managing Preferences",
+    "description": "Understand how DocSmith learns from your feedback to create persistent rules and how to manage them via the CLI.",
+    "path": "/configuration/preferences",
+    "parentId": "/configuration",
+    "sourceIds": [
+      "utils/preferences-utils.mjs",
+      "agents/manage-prefs.mjs",
+      "prompts/feedback-refiner.md"
+    ]
+  },
+  {
+    "title": "Advanced Topics",
+    "description": "Dive deeper into the architecture of DocSmith, learn how to contribute, and explore its internal workings.",
     "path": "/advanced",
+    "parentId": null,
     "sourceIds": [
       "README.md"
-    ],
-    "title": "Advanced Topics"
+    ]
   },
   {
-    "description": "Find out how you can contribute to the AIGNE DocSmith project and help make it even better.",
+    "title": "How It Works",
+    "description": "An architectural overview of DocSmith, explaining the role of AI agents in the documentation generation pipeline.",
+    "path": "/advanced/how-it-works",
     "parentId": "/advanced",
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/structure-planning.yaml",
+      "agents/content-detail-generator.yaml"
+    ]
+  },
+  {
+    "title": "Contributing",
+    "description": "Find out how you can contribute to the AIGNE DocSmith project and help make it even better.",
     "path": "/advanced/contributing",
+    "parentId": "/advanced",
     "sourceIds": [
       "README.md"
-    ],
-    "title": "Contributing"
+    ]
+  },
+  {
+    "title": "Changelog",
+    "description": "A detailed log of all notable changes, features, and bug fixes for each version of the project.",
+    "path": "/changelog",
+    "parentId": null,
+    "sourceIds": [
+      "CHANGELOG.md"
+    ]
   }
 ]

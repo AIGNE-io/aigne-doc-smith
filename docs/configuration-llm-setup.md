@@ -4,39 +4,41 @@ labels: ["Reference"]
 
 # LLM Setup
 
-AIGNE DocSmith uses Large Language Models (LLMs) to generate high-quality documentation content. You have the flexibility to choose from various LLM providers, and this guide will walk you through the setup options.
+DocSmith is designed to work with various Large Language Models (LLMs) to generate your documentation content. You have the flexibility to choose the model that best suits your needs. Configuration can be handled in two primary ways: using the integrated AIGNE Hub service or by providing your own custom API keys.
 
 ## Using AIGNE Hub (Recommended)
 
-The simplest way to get started is by using AIGNE Hub. This is the recommended approach for most users because it doesn't require you to provide your own API keys and allows you to easily switch between different models from various providers.
+The simplest and recommended method for connecting to an LLM is through AIGNE Hub. This approach offers significant advantages:
 
-To use a specific model via AIGNE Hub, simply add the `--model` flag to your command. No prior API key configuration is needed.
+- **No API Key Required:** You don't need to sign up for separate AI services or manage your own API keys.
+- **Easy Model Switching:** You can easily switch between different LLMs from leading providers directly via the command line, allowing you to experiment and find the best model for your project.
 
-**Examples of Switching Models:**
+To specify a model from AIGNE Hub, use the `--model` flag with the `generate` command. 
+
+### Examples
+
+Here are a few examples of how to generate documentation using different models available through AIGNE Hub:
 
 ```bash
-# Generate documentation using Google's Gemini 1.5 Flash
+# Using Google's Gemini 2.5 Flash
 aigne doc generate --model google:gemini-2.5-flash
 
-# Generate documentation using Anthropic's Claude 3.5 Sonnet
+# Using Anthropic's Claude 3.5 Sonnet
 aigne doc generate --model claude:claude-3-5-sonnet
 
-# Generate documentation using OpenAI's GPT-4o
+# Using OpenAI's GPT-4o
 aigne doc generate --model openai:gpt-4o
 ```
 
+
 ## Using Custom API Keys
 
-If you prefer to use your personal or enterprise accounts with LLM providers like OpenAI or Anthropic, you can configure DocSmith with your own API keys.
+If you prefer to use your own API keys for services like OpenAI, Anthropic, or others, you can configure them during the setup process. DocSmith will prompt you for your API keys when you run the interactive configuration wizard.
 
-This setup is handled through the interactive configuration wizard. To start, run the `init` command:
+To set up or modify your LLM provider settings with custom keys, run the `init` command:
 
 ```bash
 aigne doc init
 ```
 
-This wizard will guide you through the process of selecting your LLM provider and securely entering your API key. This is a one-time setup, and the settings will be saved for all future commands.
-
----
-
-Whether you choose the convenience of AIGNE Hub or the control of custom API keys, DocSmith makes it easy to leverage powerful AI for your documentation. Once you have your LLM configured, you are ready to [Generate Documentation](./features-generate-documentation.md).
+This will guide you through all necessary configuration steps, including selecting your LLM provider and entering the corresponding API key. For more detailed information on the setup wizard, see the [Configuration Guide](./configuration.md).

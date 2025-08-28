@@ -4,63 +4,73 @@ labels: ["Reference"]
 
 # Publish Your Docs
 
-Once your documentation is generated, the next step is to make it accessible online. AIGNE DocSmith provides a streamlined process to publish your content to either the official, free AIGNE platform or your own self-hosted website. This guide walks you through the simple `publish` command.
+Once your documentation is generated locally, the final step is to publish it to a live website. AIGNE DocSmith streamlines this process, allowing you to publish to either the official, free AIGNE platform or your own self-hosted website with a single command.
 
 ## The Publishing Command
 
-The entire publishing process is handled by a single command:
+To begin the publishing process, run the following command in your project's root directory:
 
 ```bash
 aigne doc publish
 ```
 
-Running this command initiates an interactive wizard that guides you through the necessary steps, making it the recommended method for most users.
+This command initiates an interactive wizard that will guide you through the necessary steps.
 
-### The Interactive Wizard
+## Step 1: Choose Your Publishing Platform
 
-When you run `aigne doc publish` for the first time, you will be prompted to choose where you want your documentation to live.
+If this is your first time publishing, you'll be prompted to choose where to host your documentation.
 
-![Choose where to publish your documentation](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
+![Select a platform to publish your documents](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
 
-You have two main options:
+You have two options:
 
-1.  **Official Platform (`docsmith.aigne.io`)**: This is a free-to-use option where your documentation will be publicly accessible. It's an excellent choice for open-source projects or any documentation you want to share widely without managing your own infrastructure.
+1.  **Official Platform (`docsmith.aigne.io`)**: This is the recommended choice for open-source projects. It's free to use, requires no setup, and your documentation will be publicly accessible.
+2.  **Self-Hosted Platform**: If you need to host documentation on your own private website, you can select this option. This requires you to have your own instance of [Discuss Kit](https://docsmith.aigne.io) running. The wizard will then ask you to provide the URL of your instance.
 
-2.  **Self-Hosted Platform**: This option allows you to publish documentation to your own website. This is ideal for private, internal, or commercial project documentation. To use this, you must have an instance of [Discuss Kit](https://www.npmjs.com/package/@arcblock/discuss-kit) running on your site.
+## Step 2: One-Time Authorization
 
-### Authorization
+To publish documents on your behalf, the CLI needs your permission. The first time you publish to a new platform, a browser window will open, prompting you to authorize the AIGNE DocSmith application. This is a secure, one-time process.
 
-The first time you publish to a specific URL, DocSmith will need to get your authorization to post content on your behalf. This is a secure, one-time process per platform:
+Once authorized, an access token is saved securely on your local machine, so you won't need to repeat this step for subsequent publishes to the same platform.
 
-1.  A browser window will automatically open.
-2.  You will be prompted to connect and approve the access request from AIGNE DocSmith.
-3.  Once approved, an access token is securely saved on your local machine for all future publications to that URL, so you won't have to repeat this step.
+## Step 3: Upload and Publish
 
-After a successful publication, you will see a confirmation message:
+After authorization is complete, the CLI will automatically upload your markdown files and associated media assets to the selected platform. It will then create or update the documentation board.
 
+Once finished, the command will output a confirmation message and the URL where you can view your live documentation.
+
+## Publishing Workflow
+
+The following diagram illustrates the publishing and authorization flow:
+
+```mermaid
+flowchart TD
+    A["Start"] --> B["Run 'aigne doc publish'"];
+    B --> C{"Platform Configured?"};
+    C -- "No" --> D["Choose Platform"];
+    D -- "Official Platform" --> E{"Auth Token Exists?"};
+    D -- "Self-Hosted" --> F["Enter Platform URL"];
+    F --> E;
+    C -- "Yes" --> E;
+    E -- "No" --> G["Authorize in Browser"];
+    G --> H["Save Auth Token Locally"];
+    H --> I["Upload & Publish Docs"];
+    E -- "Yes" --> I;
+    I --> J["Publish Complete"];
+    J --> K["End"];
 ```
-✅ Documentation Published Successfully!
-```
 
-## Publishing to a Custom URL Directly
+## Non-Interactive Publishing
 
-For automated workflows or to bypass the interactive prompts, you can specify the target URL directly using the `--appUrl` flag.
+For automated environments like CI/CD pipelines, you can publish non-interactively by providing the application URL directly. Note that a valid access token must already be configured for this to work.
 
 ```bash
 # Publish to a custom Discuss Kit instance
 aigne doc publish --appUrl https://your-discuss-kit-instance.com
 ```
 
-## Troubleshooting
-
-If you encounter issues during the publishing process, here are some common problems and their solutions:
-
-*   **Error: `The provided URL is not a valid website`**: This means the URL does not point to a website built on the correct underlying platform. You can get started with your own compatible website by following the guide at the [Discuss Kit Store](https://www.npmjs.com/package/@arcblock/discuss-kit).
-
-*   **Error: `This website does not have required components for publishing`**: The target website is valid, but it's missing the necessary "Discuss Kit" component to host the documentation. Please refer to the [documentation on adding components](https://www.npmjs.com/package/@arcblock/discuss-kit) to resolve this.
-
-*   **Error: `Unable to connect to...`**: This is typically a network issue. Check that the URL is correct and that the server is online and accessible from your network.
+This bypasses the interactive prompts, making it suitable for scripts and automated workflows.
 
 ---
 
-With your documentation now published, you might want to make it accessible to a global audience. Continue to the next section to learn how to [Translate Documentation](./features-translate-documentation.md).
+With your documentation published, you can share it with your audience. For a complete list of all commands and their options, proceed to the [CLI Command Reference](./cli-reference.md).

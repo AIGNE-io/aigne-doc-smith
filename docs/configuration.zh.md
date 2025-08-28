@@ -4,130 +4,132 @@ labels: ["Reference"]
 
 # 配置指南
 
-AIGNE DocSmith 的优势在于其能够根据您的特定需求进行定制。正确的配置可确保 AI 生成的文档具有适合您受众的风格、语调和深度。本指南详细介绍了所有可用设置。
+AIGNE DocSmith 的行为由一个位于项目 `.aigne/doc-smith/` 目录下的中央配置文件 `config.yaml` 控制。该文件允许你精确定义文档的风格、受众、范围和语言，确保生成的内容完全符合你的需求。
 
-您可以通过两种主要方式设置您的项目：
+你可以使用交互式命令 `aigne doc init` 创建和修改此文件，也可以手动编辑。
 
-1.  **交互式设置**：运行 `aigne doc init` 命令。这将启动一个分步向导，向您提问并为您创建配置文件。这是推荐的入门方法。
-2.  **手动编辑**：直接修改位于项目 `.aigne/doc-smith/` 目录中的 `config.yaml` 文件。这对于进行快速更改或高级调整非常有用。
+## `config.yaml` 文件结构
 
-本指南涵盖了您将在 `config.yaml` 文件中找到的核心设置。有关更具体的主题，请参阅我们的 [LLM 设置](./configuration-llm-setup.md) 和 [语言支持](./configuration-language-support.md) 指南。
-
-## config.yaml 文件
-
-所有设置都存储在单个 `config.yaml` 文件中。当您运行 `aigne doc init` 时，会生成此文件，并附有说明每个选项的有用注释。您可以随时编辑它。
-
-一个典型的配置文件如下所示：
+以下是一个完整的 `config.yaml` 文件示例。其中包含解释每个可用选项的注释，你可以取消注释并修改这些选项以适应你的项目。
 
 ```yaml
 # 用于文档发布的项目信息
 projectName: My Awesome Project
-projectDesc: A brief description of what this project does.
-projectLogo: ""
+projectDesc: 对该项目功能的简要描述。
+projectLogo: "path/to/your/logo.png"
 
 # =============================================================================
 # 文档配置
 # =============================================================================
 
-# 目的：您希望读者实现的主要成果是什么？
+# 目的：你希望读者实现的主要成果是什么？
 documentPurpose:
   - getStarted
+  - completeTasks
 
 # 目标受众：谁会最常阅读本文档？
 targetAudienceTypes:
   - developers
 
-# 读者知识水平：读者通常具备哪些知识？
-readerKnowledgeLevel: completeBeginners
+# 读者知识水平：读者在阅读时通常具备哪些知识？
+readerKnowledgeLevel: domainFamiliar
 
-# 文档深度：文档应该有多全面？
+# 文档深度：文档应有多全面？
 documentationDepth: balancedCoverage
 
-# 自定义规则：定义特定的文档生成规则和要求
+# 自定义规则：定义具体的文档生成规则和要求
 rules: |
+  - 始终在“操作指南”中包含“故障排除”部分。
+  - 代码示例必须与 Node.js v18 及更高版本兼容。
 
-
-# 目标受众：描述您的特定目标受众及其特征
+# 目标受众：描述你的特定目标受众及其特征
 targetAudience: |
-
+  熟悉 JavaScript 和 REST API 但对我们的特定平台不熟悉的中级软件工程师。
 
 # 术语表：定义项目特定的术语和定义
-# glossary: "@glossary.md"
+# glossary: "@glossary.md"  # 包含术语表定义的 Markdown 文件路径
 
+# 文档的主要语言
 locale: en
+
+# 要将文档翻译成的语言列表
 translateLanguages:
   - zh
+  - ja
 
-docsDir: .aigne/doc-smith/docs  # 保存生成文档的目录
-sourcesPath:  # 要分析的源代码路径
-  - ./
+# 保存生成的文档的目录
+docsDir: .aigne/doc-smith/docs
+
+# 要分析的源代码路径
+sourcesPath:
+  - ./src
+  - ./lib
 ```
 
-## 核心配置设置
+## 文档策略
 
-让我们来分解一下您可以自定义的关键设置。
+这些核心设置定义了 AI 生成内容的方法，影响其语调、结构和深度。
 
-### 文档目的
+### 文档目的 (`documentPurpose`)
 
-此设置告诉 AI 您的文档的主要目标是什么。这会影响结构和内容，以最好地服务于读者的意图。
-
-| 选项 | 名称 | 描述 |
-| :--- | :--- | :--- |
-| `getStarted` | 快速入门 | 帮助新用户在 30 分钟内从零开始上手。 |
-| `completeTasks` | 完成特定任务 | 引导用户完成常见的工作流程和用例。 |
-| `findAnswers` | 快速查找答案 | 为所有功能和 API 提供可搜索的参考。 |
-| `understandSystem` | 理解系统 | 解释其工作原理以及做出设计决策的原因。 |
-| `solveProblems` | 解决问题 | 帮助用户排查和修复问题。 |
-| `mixedPurpose` | 以上混合 | 涵盖多种需求的综合性文档。 |
-
-### 目标受众
-
-定义最常阅读文档的受众。这将调整写作风格、技术语言和所用示例的类型。
+此设置指定文档的主要目标。你可以选择一个或多个选项。
 
 | 选项 | 名称 | 描述 |
-| :--- | :--- | :--- |
-| `endUsers` | 最终用户（非技术人员） | 使用产品但不编写代码的人员。 |
-| `developers` | 集成开发者 | 将此产品添加到其项目中的工程师。 |
-| `devops` | DevOps/基础设施 | 部署、监控和维护系统的团队。 |
-| `decisionMakers` | 技术决策者 | 评估实施方案的架构师或负责人。 |
-| `supportTeams` | 支持团队 | 帮助他人使用产品的人员。 |
-| `mixedTechnical` | 混合技术受众 | 开发人员、DevOps 和其他技术用户。 |
+|---|---|---|
+| `getStarted` | 快速入门 | 帮助新用户在 30 分钟内从零开始上手。针对速度和基本步骤进行优化。 |
+| `completeTasks` | 完成特定任务 | 通过分步说明指导用户完成常见工作流程和用例。 |
+| `findAnswers` | 快速查找答案 | 为所有功能和 API 提供可搜索的全面参考。 |
+| `understandSystem` | 理解系统 | 解释系统的工作原理、其架构以及设计决策背后的基本原理。 |
+| `solveProblems` | 解决常见问题 | 帮助用户诊断和修复常见问题，重点关注错误场景。 |
+| `mixedPurpose` | 服务于多种目的 | 创建涵盖多种需求的综合性文档，平衡不同目标。 |
 
-### 读者知识水平
+### 目标受众 (`targetAudienceTypes`)
 
-指定您受众的假定知识水平。这有助于 AI 决定是解释基本概念还是直接深入探讨高级主题。
-
-| 选项 | 名称 | 描述 |
-| :--- | :--- | :--- |
-| `completeBeginners` | 完全初学者 | 完全不熟悉该领域或技术。 |
-| `domainFamiliar` | 熟悉领域，不熟悉工具 | 了解问题领域，但对这个特定解决方案不熟悉。 |
-| `experiencedUsers` | 有经验的用户 | 需要参考或高级主题的常规用户。 |
-| `emergencyTroubleshooting` | 紧急情况/故障排除 | 出现问题，需要快速修复。 |
-| `exploringEvaluating` | 探索/评估 | 试图了解该产品是否满足其需求。 |
-
-### 文档深度
-
-控制文档的全面程度。您可以选择只涵盖基本内容，也可以涵盖所有可能的细节。
+定义文档的阅读对象。这有助于适当地调整语言、示例和技术深度。
 
 | 选项 | 名称 | 描述 |
-| :--- | :--- | :--- |
-| `essentialOnly` | 仅核心内容 | 涵盖 80% 的用例，保持简洁。 |
-| `balancedCoverage` | 均衡覆盖 | 具有良好深度和实际示例（推荐）。 |
-| `comprehensive` | 全面 | 涵盖所有功能、边缘情况和高级场景。 |
-| `aiDecide` | 由 AI 决定 | 分析代码复杂性并建议适当的深度。 |
+|---|---|---|
+| `endUsers` | 最终用户（非技术人员） | 使用产品但不编写代码的人员。内容将使用通俗易懂的语言并侧重于用户界面。 |
+| `developers` | 开发者 | 集成你的产品/API 的工程师。内容将以代码为先，并保证技术准确性。 |
+| `devops` | DevOps / SRE | 部署和维护系统的团队。内容将侧重于运维和故障排除。 |
+| `decisionMakers` | 技术决策者 | 评估产品的架构师和负责人。内容将是高层次的，并附有架构图。 |
+| `supportTeams` | 支持团队 | 帮助他人使用产品的人员。内容将侧重于诊断和常见问题。 |
+| `mixedTechnical` | 混合技术受众 | 开发者、DevOps 和其他技术用户的组合。内容将分层呈现。 |
 
-### 文件和目录路径
+### 读者知识水平 (`readerKnowledgeLevel`)
 
-- `docsDir`：生成的 Markdown 文档文件将保存到的目录。默认为 `.aigne/doc-smith/docs`。
-- `sourcesPath`：DocSmith 应分析以生成文档的源代码文件和目录列表。如果为空，则默认为整个项目（`./`）。
+指定你的受众所具备的初始知识水平。
+
+| 选项 | 名称 | 描述 |
+|---|---|---|
+| `completeBeginners` | 完全是初学者 | 完全不熟悉该领域。内容将定义所有术语，并假定读者不具备任何先验知识。 |
+| `domainFamiliar` | 使用过类似工具 | 了解问题领域，但对你的解决方案不熟悉。内容侧重于差异和独特功能。 |
+| `experiencedUsers` | 是专家 | 需要参考或高级主题的常规用户。内容紧凑且技术上精确。 |
+| `emergencyTroubleshooting` | 紧急/故障排除 | 需要快速解决问题的人员。内容结构为：症状 -> 诊断 -> 解决方案。 |
+| `exploringEvaluating` | 正在评估此工具 | 试图了解该工具是否满足其需求。内容侧重于用例和快速入门。 |
+
+### 文档深度 (`documentationDepth`)
+
+控制生成的文档的全面程度。
+
+| 选项 | 名称 | 描述 |
+|---|---|---|
+| `essentialOnly` | 仅包含基本内容 | 涵盖核心功能和最常见的用例，以保持简洁。 |
+| `balancedCoverage` | 均衡覆盖 | 为大多数功能提供具有良好深度和实用示例。 [推荐] |
+| `comprehensive` | 全面 | 涵盖所有功能、边缘情况和高级场景，并提供大量示例。 |
+| `aiDecide` | 由 AI 决定 | AI 会分析你的代码复杂度和 API 表面，以建议合适的深度。 |
+
+## 自定义和内容控制
+
+除了核心策略，你还可以提供更具体的指导。
+
+*   **`rules`**：一个自由文本字段，你可以在其中提供具体、持久的指令，供 AI 在生成期间遵循（例如，“始终包含‘先决条件’部分”）。
+*   **`targetAudience`**：一个自由文本字段，用于比预设更详细地描述你的受众。
+*   **`glossary`**：指向包含项目特定术语的 Markdown 文件的路径。这可确保在所有生成和翻译的内容中使用一致的术语。
 
 ---
 
-## 详细配置主题
+本指南概述了主要配置选项。有关更具体的设置，请参阅以下部分：
 
-要深入了解特定配置领域，请参阅以下部分：
-
-- **[LLM 设置](./configuration-llm-setup.md)**：了解如何将 DocSmith 连接到不同的大型语言模型，包括使用 AIGNE Hub 实现无密钥访问。
-- **[语言支持](./configuration-language-support.md)**：查看支持的语言完整列表，并了解如何配置您的主语言及启用自动翻译。
-
-配置项目后，下一步是探索核心功能。在[生成文档](./features-generate-documentation.md)指南中了解更多信息。
+*   **对于 AI 模型：** 在 [LLM 设置](./configuration-llm-setup.md) 指南中了解如何连接到不同的 LLM。
+*   **对于翻译：** 在 [语言支持](./configuration-language-support.md) 中查看支持的语言完整列表以及如何配置它们。

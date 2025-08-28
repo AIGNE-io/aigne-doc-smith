@@ -4,67 +4,75 @@ labels: ["Reference"]
 
 # 翻译文档
 
-DocSmith 通过将您的文档翻译成多种语言，让您轻松触达全球受众。此过程利用 AI 提供超过 12 种语言的翻译，确保全球用户都能访问您的内容。
+通过自动将您的文档翻译成多种语言，触达全球受众。AIGNE DocSmith 通过 `aigne doc translate` 命令简化了此过程，该命令既可以交互式运行，也可以通过指定命令行选项进行自动化操作。
 
-此功能的主要命令是 `aigne doc translate`。
+### 交互式翻译
 
-## 交互式翻译
-
-要获得引导式体验，只需运行不带任何参数的命令即可。这是我们向大多数用户推荐的方法。
+最直接的方法是，在不带任何参数的情况下运行该命令。这将启动一个交互式向导，引导您完成整个过程。
 
 ```bash
 aigne doc translate
 ```
 
-这将启动一个交互式向导，引导您完成整个过程：
-
-1.  **选择文档：** 首先，系统将提示您从现有文档列表中选择要翻译的文档。
+交互模式将提示您：
+1.  **选择要翻译的文档：** 系统将为您呈现一个现有文档列表供您选择。
 
     ![选择要翻译的文档](https://docsmith.aigne.io/image-bin/uploads/e2cf5fa45aa856c406a444fb4665ed2d.png)
 
-2.  **选择语言：** 接下来，您可以从支持的语言列表中选择一种或多种目标语言。
+2.  **选择目标语言：** 从 12 种以上支持的语言中选择一种或多种进行翻译。
 
-    ![选择要翻译的目标语言](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
+    ![选择要翻译的语言](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
 
-该向导还允许您直接将新的翻译语言添加到项目配置中。
+如果您希望在开始翻译过程前直观地确认所做选择，此模式是理想之选。
 
-## 使用命令行参数进行翻译
+### 命令行翻译
 
-为了更直接地控制或在自动化脚本中使用，您可以直接在命令行中指定所有选项。这使您可以精确地定义要翻译哪些文档、翻译成哪些语言以及使用哪些特定指令。
+对于脚本编写或更具体的需求，您可以使用命令行参数直接定义翻译任务。
 
-### 命令参数
+#### 命令参数
 
-| 参数 | 描述 | 示例 |
-|---|---|---|
-| `--langs` | 指定一种或多种目标语言。此标志可以多次使用。 | `--langs zh --langs ja` |
-| `--docs` | 指定要翻译的一个或多个文档路径。此标志可以多次使用。 | `--docs overview.md` |
-| `--feedback` | 向 AI 提供反馈以提高翻译质量。 | `--feedback "使用正式语气"` |
-| `--glossary` | 使用术语表文件以确保术语一致。路径必须以 `@` 为前缀。 | `--glossary @path/to/glossary.md` |
+| 参数 | 描述 |
+| --- | --- |
+| `--langs` | 指定目标语言。此选项可多次使用以选择多种语言（例如，`--langs zh --langs ja`）。 |
+| `--docs` | 指定要翻译的文档路径。此选项也可多次使用以选择多个文档。 |
+| `--feedback` | 提供具体说明以指导和提高翻译质量。 |
+| `--glossary` | 使用术语表文件以确保术语一致。路径应以 `@` 为前缀（例如，`--glossary @path/to/glossary.md`）。 |
 
-### 示例
+#### 示例
 
-#### 翻译特定文档
+**将特定文档翻译成多种语言**
 
-要将 `examples.md` 和 `overview.md` 文件翻译成中文和日文：
-
+此命令可将 `examples.md` 和 `overview.md` 翻译成中文和日文。
 ```bash
 aigne doc translate --langs zh --langs ja --docs examples.md --docs overview.md
 ```
 
-#### 提高翻译质量
+**使用自定义术语表进行翻译**
 
-您可以通过提供术语表以确保术语一致，并向 AI 模型提供反馈来提高翻译准确性：
-
+此命令使用一个术语表文件来确保品牌名称和技术术语的翻译保持一致，并结合反馈信息来指导翻译的语气。
 ```bash
 aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently"
 ```
 
-## 语言支持
+### 支持的语言
 
-DocSmith 支持多种语言的自动翻译，包括中文、西班牙语、法语、德语和日语。有关所有支持的语言及其代码的完整最新列表，请参阅 [语言支持](./configuration-language-support.md) 指南。
+DocSmith 为以下语言提供自动翻译：
 
-## 后续步骤
+| 语言 | 代码 |
+| --- | --- |
+| English | en |
+| 简体中文 (Simplified Chinese) | zh-CN |
+| 繁體中文 (Traditional Chinese) | zh-TW |
+| 日本語 (Japanese) | ja |
+| 한국어 (Korean) | ko |
+| Español (Spanish) | es |
+| Français (French) | fr |
+| Deutsch (German) | de |
+| Português (Portuguese) | pt-BR |
+| Русский (Russian) | ru |
+| Italiano (Italian) | it |
+| العربية (Arabic) | ar |
 
-文档翻译完成后，您就可以与世界分享了。在下一节中，您将学习如何公开您的文档。
+---
 
-继续阅读 [发布您的文档](./features-publish-your-docs.md)。
+文档翻译完成后，下一步就是将其提供给您的受众。在[发布您的文档](./features-publish-your-docs.md)指南中了解如何操作。
