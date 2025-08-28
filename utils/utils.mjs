@@ -17,7 +17,6 @@ import {
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
 } from "./constants.mjs";
-import { appendD2ImageRefs, saveD2Assets } from "./kroki-utils.mjs";
 
 /**
  * Normalize path to absolute path for consistent comparison
@@ -106,13 +105,6 @@ export async function saveDocWithTranslations({
         finalContent = frontMatter + finalContent;
       }
 
-      // generate d2 assets for main content
-      results.push(
-        ...(await saveD2Assets({ markdown: finalContent, baseName: flatName, docsDir })),
-      );
-      // Append d2 image references after code blocks
-      finalContent = appendD2ImageRefs(finalContent, flatName);
-
       results.push({ path: mainFilePath, success: true });
 
       await fs.writeFile(mainFilePath, finalContent, "utf8");
@@ -133,12 +125,6 @@ export async function saveDocWithTranslations({
         finalTranslationContent = frontMatter + finalTranslationContent;
       }
 
-      // generate d2 assets for translation content
-      // results.push(
-      //   ...(await saveD2Assets({ markdown: finalTranslationContent, baseName: flatName })),
-      // );
-      // Append d2 image references after code blocks
-      // finalTranslationContent = appendD2ImageRefs(finalTranslationContent, flatName);
       results.push({ path: translatePath, success: true });
 
       await fs.writeFile(translatePath, finalTranslationContent, "utf8");
