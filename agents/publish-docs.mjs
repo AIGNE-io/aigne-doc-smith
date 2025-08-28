@@ -15,6 +15,7 @@ export default async function publishDocs(
   options,
 ) {
   const docsDir = join(".aigne", "doc-smith", ".tmp-docs");
+  await fs.rm(docsDir, { recursive: true, force: true });
   await fs.mkdir(docsDir, {
     recursive: true,
   });
@@ -28,7 +29,7 @@ export default async function publishDocs(
     const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
     await saveD2Assets({ markdown: finalContent, baseName: flatName, docsDir });
     finalContent = appendD2ImageRefs(finalContent, flatName);
-    await fs.writeFile(filePath, finalContent, "utf8");
+    await fs.writeFile(join(docsDir, filePath), finalContent, "utf8");
   }
 
   // Check if DOC_DISCUSS_KIT_URL is set in environment variables
