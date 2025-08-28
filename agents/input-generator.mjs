@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
+import { stringify as yamlStringify } from "yaml";
 import { getFilteredOptions, validateSelection } from "../utils/conflict-detector.mjs";
 import {
   DEPTH_RECOMMENDATION_LOGIC,
@@ -325,113 +326,133 @@ export default async function init(
  * @returns {string} YAML string
  */
 function generateYAML(input) {
-  let yaml = "";
+  // Create the main configuration object that will be safely serialized
+  const config = {
+    // Project information (safely handled by yaml library)
+    projectName: input.projectName || "",
+    projectDesc: input.projectDesc || "",
+    projectLogo: input.projectLogo || "",
+    
+    // Documentation configuration
+    documentPurpose: input.documentPurpose || [],
+    targetAudienceTypes: input.targetAudienceTypes || [],
+    readerKnowledgeLevel: input.readerKnowledgeLevel || "",
+    documentationDepth: input.documentationDepth || "",
+    
+    // Custom rules and target audience (empty for user to fill)
+    rules: "",
+    targetAudience: "",
+    
+    // Language settings
+    locale: input.locale,
+    translateLanguages: input.translateLanguages?.filter(lang => lang.trim()) || [],
+    
+    // Paths
+    docsDir: input.docsDir,
+    sourcesPath: input.sourcesPath || []
+  };
 
-  // Add project information at the beginning
-  yaml += `# Project information for documentation publishing\n`;
-  yaml += `projectName: ${input.projectName || ""}\n`;
-  yaml += `projectDesc: ${input.projectDesc || ""}\n`;
-  yaml += `projectLogo: ${input.projectLogo || ""}\n`;
-  yaml += `\n`;
+  // Generate comments and structure
+  let yaml = "# Project information for documentation publishing\n";
+  
+  // Serialize the project info section safely
+  const projectSection = yamlStringify({
+    projectName: config.projectName,
+    projectDesc: config.projectDesc,
+    projectLogo: config.projectLogo
+  }).trim();
+  
+  yaml += `${projectSection}\n\n`;
 
-  // Add documentation configuration choices with all available options
-  yaml += `# =============================================================================\n`;
-  yaml += `# Documentation Configuration\n`;
-  yaml += `# =============================================================================\n\n`;
+  // Add documentation configuration with comments
+  yaml += "# =============================================================================\n";
+  yaml += "# Documentation Configuration\n";
+  yaml += "# =============================================================================\n\n";
 
   // Document Purpose with all available options
-  yaml += `# Purpose: What's the main outcome you want readers to achieve?\n`;
-  yaml += `# Available options (uncomment and modify as needed):\n`;
+  yaml += "# Purpose: What's the main outcome you want readers to achieve?\n";
+  yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(DOCUMENT_STYLES).forEach(([key, style]) => {
     if (key !== "custom") {
       yaml += `#   ${key.padEnd(16)} - ${style.name}: ${style.description}\n`;
     }
   });
-  yaml += `documentPurpose:\n`;
-  if (input.documentPurpose && input.documentPurpose.length > 0) {
-    input.documentPurpose.forEach((purpose) => {
-      yaml += `  - ${purpose}\n`;
-    });
-  }
-  yaml += `\n`;
+  
+  // Safely serialize documentPurpose
+  const documentPurposeSection = yamlStringify({ documentPurpose: config.documentPurpose }).trim();
+  yaml += `${documentPurposeSection.replace(/^documentPurpose:/, "documentPurpose:")}\n\n`;
 
   // Target Audience Types with all available options
-  yaml += `# Target Audience: Who will be reading this most often?\n`;
-  yaml += `# Available options (uncomment and modify as needed):\n`;
+  yaml += "# Target Audience: Who will be reading this most often?\n";
+  yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(TARGET_AUDIENCES).forEach(([key, audience]) => {
     if (key !== "custom") {
       yaml += `#   ${key.padEnd(16)} - ${audience.name}: ${audience.description}\n`;
     }
   });
-  yaml += `targetAudienceTypes:\n`;
-  if (input.targetAudienceTypes && input.targetAudienceTypes.length > 0) {
-    input.targetAudienceTypes.forEach((audience) => {
-      yaml += `  - ${audience}\n`;
-    });
-  }
-  yaml += `\n`;
+  
+  // Safely serialize targetAudienceTypes
+  const targetAudienceTypesSection = yamlStringify({ targetAudienceTypes: config.targetAudienceTypes }).trim();
+  yaml += `${targetAudienceTypesSection.replace(/^targetAudienceTypes:/, "targetAudienceTypes:")}\n\n`;
 
   // Reader Knowledge Level with all available options
-  yaml += `# Reader Knowledge Level: What do readers typically know when they arrive?\n`;
-  yaml += `# Available options (uncomment and modify as needed):\n`;
+  yaml += "# Reader Knowledge Level: What do readers typically know when they arrive?\n";
+  yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(READER_KNOWLEDGE_LEVELS).forEach(([key, level]) => {
     yaml += `#   ${key.padEnd(20)} - ${level.name}: ${level.description}\n`;
   });
-  yaml += `readerKnowledgeLevel: ${input.readerKnowledgeLevel || ""}\n`;
-  yaml += `\n`;
+  
+  // Safely serialize readerKnowledgeLevel
+  const readerKnowledgeLevelSection = yamlStringify({ readerKnowledgeLevel: config.readerKnowledgeLevel }).trim();
+  yaml += `${readerKnowledgeLevelSection.replace(/^readerKnowledgeLevel:/, "readerKnowledgeLevel:")}\n\n`;
 
   // Documentation Depth with all available options
-  yaml += `# Documentation Depth: How comprehensive should the documentation be?\n`;
-  yaml += `# Available options (uncomment and modify as needed):\n`;
+  yaml += "# Documentation Depth: How comprehensive should the documentation be?\n";
+  yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(DOCUMENTATION_DEPTH).forEach(([key, depth]) => {
     yaml += `#   ${key.padEnd(18)} - ${depth.name}: ${depth.description}\n`;
   });
-  yaml += `documentationDepth: ${input.documentationDepth || ""}\n`;
-  yaml += `\n`;
+  
+  // Safely serialize documentationDepth
+  const documentationDepthSection = yamlStringify({ documentationDepth: config.documentationDepth }).trim();
+  yaml += `${documentationDepthSection.replace(/^documentationDepth:/, "documentationDepth:")}\n\n`;
 
   // Custom Documentation Rules and Requirements
-  yaml += `# Custom Rules: Define specific documentation generation rules and requirements\n`;
-  yaml += `rules: |\n`;
-  yaml += `  \n\n`;
+  yaml += "# Custom Rules: Define specific documentation generation rules and requirements\n";
+  const rulesSection = yamlStringify({ rules: config.rules }).trim();
+  // Use literal style for multiline strings
+  yaml += `${rulesSection.replace(/rules: ''/, "rules: |\n  ")}\n\n`;
 
   // Target Audience Description
-  yaml += `# Target Audience: Describe your specific target audience and their characteristics\n`;
-  yaml += `targetAudience: |\n`;
-  yaml += `  \n\n`;
+  yaml += "# Target Audience: Describe your specific target audience and their characteristics\n";
+  const targetAudienceSection = yamlStringify({ targetAudience: config.targetAudience }).trim();
+  // Use literal style for multiline strings
+  yaml += `${targetAudienceSection.replace(/targetAudience: ''/, "targetAudience: |\n  ")}\n\n`;
 
   // Glossary Configuration
-  yaml += `# Glossary: Define project-specific terms and definitions\n`;
-  yaml += `# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions\n`;
-  yaml += `\n`;
+  yaml += "# Glossary: Define project-specific terms and definitions\n";
+  yaml += "# glossary: \"@glossary.md\"  # Path to markdown file containing glossary definitions\n\n";
 
-  // Add language settings
-  yaml += `locale: ${input.locale}\n`;
+  // Language settings - safely serialize
+  const localeSection = yamlStringify({ locale: config.locale }).trim();
+  yaml += `${localeSection.replace(/^locale:/, "locale:")}\n`;
 
-  // Add translation languages
-  if (
-    input.translateLanguages &&
-    input.translateLanguages.length > 0 &&
-    input.translateLanguages.some((lang) => lang.trim())
-  ) {
-    yaml += `translateLanguages:\n`;
-    input.translateLanguages.forEach((lang) => {
-      if (lang.trim()) {
-        yaml += `  - ${lang}\n`;
-      }
-    });
+  // Translation languages
+  if (config.translateLanguages.length > 0) {
+    const translateLanguagesSection = yamlStringify({ translateLanguages: config.translateLanguages }).trim();
+    yaml += `${translateLanguagesSection.replace(/^translateLanguages:/, "translateLanguages:")}\n`;
   } else {
-    yaml += `# translateLanguages:  # List of languages to translate the documentation to\n`;
-    yaml += `#   - zh  # Example: Chinese translation\n`;
-    yaml += `#   - en  # Example: English translation\n`;
+    yaml += "# translateLanguages:  # List of languages to translate the documentation to\n";
+    yaml += "#   - zh  # Example: Chinese translation\n";
+    yaml += "#   - en  # Example: English translation\n";
   }
 
-  // Add directory and source path configurations
-  yaml += `docsDir: ${input.docsDir}  # Directory to save generated documentation\n`;
-  // yaml += `outputDir: ${outputPath}/output  # Directory to save output files\n`;
-  yaml += `sourcesPath:  # Source code paths to analyze\n`;
-  input.sourcesPath.forEach((path) => {
-    yaml += `  - ${path}\n`;
-  });
+  // Directory and source path configurations - safely serialize
+  const docsDirSection = yamlStringify({ docsDir: config.docsDir }).trim();
+  yaml += `${docsDirSection.replace(/^docsDir:/, "docsDir:")}  # Directory to save generated documentation\n`;
+  
+  const sourcesPathSection = yamlStringify({ sourcesPath: config.sourcesPath }).trim();
+  yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # Source code paths to analyze")}\n`;
 
   return yaml;
 }
