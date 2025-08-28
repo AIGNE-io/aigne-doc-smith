@@ -1,5 +1,66 @@
 # Changelog
 
+## [0.6.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.5.1...v0.6.0) (2025-08-27)
+
+
+### Features
+
+* complete support for media processing before publish ([#63](https://github.com/AIGNE-io/aigne-doc-smith/issues/63)) ([5257ca1](https://github.com/AIGNE-io/aigne-doc-smith/commit/5257ca1756f47487b65a1813949e547b6fc51aca))
+
+## [0.5.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.5.0...v0.5.1) (2025-08-26)
+
+
+### Miscellaneous Chores
+
+* release 0.5.1 ([892d96e](https://github.com/AIGNE-io/aigne-doc-smith/commit/892d96e939a6404a42e8d2521f95bb7acfeabe27))
+
+## [0.5.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.5...v0.5.0) (2025-08-26)
+
+
+### Features
+
+* support persistent user feedback as preferences ([#57](https://github.com/AIGNE-io/aigne-doc-smith/issues/57)) ([761a583](https://github.com/AIGNE-io/aigne-doc-smith/commit/761a583297b397a12d848d10d26cd5b675f8a9e7))
+
+
+### Bug Fixes
+
+* polish init question copy ([#65](https://github.com/AIGNE-io/aigne-doc-smith/issues/65)) ([d4e8762](https://github.com/AIGNE-io/aigne-doc-smith/commit/d4e8762f26fd757bde43427860a0c1dade384269))
+
+## [0.4.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.4...v0.4.5) (2025-08-25)
+
+
+### Miscellaneous Chores
+
+* release 0.4.5 ([12aa6c3](https://github.com/AIGNE-io/aigne-doc-smith/commit/12aa6c340fdd95cbd74833662f4c3a80f19dfa30))
+
+## [0.4.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.3...v0.4.4) (2025-08-22)
+
+
+### Bug Fixes
+
+* support assign board id ([#58](https://github.com/AIGNE-io/aigne-doc-smith/issues/58)) ([0bcc196](https://github.com/AIGNE-io/aigne-doc-smith/commit/0bcc1969131f70caf2b1bc9303a3811be1b000ab))
+
+## [0.4.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.2...v0.4.3) (2025-08-21)
+
+
+### Miscellaneous Chores
+
+* release 0.4.3 ([f37ac7c](https://github.com/AIGNE-io/aigne-doc-smith/commit/f37ac7cd1fd129d8e3019cc7e952a0cf7dcb3db7))
+
+## [0.4.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.1...v0.4.2) (2025-08-21)
+
+
+### Miscellaneous Chores
+
+* release 0.4.2 ([9e36cf6](https://github.com/AIGNE-io/aigne-doc-smith/commit/9e36cf678ac51a0f4e7b3c19e4b5248e42b80437))
+
+## [0.4.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.0...v0.4.1) (2025-08-21)
+
+
+### Bug Fixes
+
+* support update board info ([#53](https://github.com/AIGNE-io/aigne-doc-smith/issues/53)) ([b2f7307](https://github.com/AIGNE-io/aigne-doc-smith/commit/b2f7307555c6f33d181aba408b11443700ecca71))
+
 ## [0.4.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.3.1...v0.4.0) (2025-08-20)
 
 

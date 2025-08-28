@@ -1,5 +1,6 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
+import { getActiveRulesForScope } from "../utils/preferences-utils.mjs";
 import {
   getCurrentGitHead,
   getProjectInfo,
@@ -15,6 +16,7 @@ export default async function checkStructurePlan(
   // Check if we need to regenerate structure plan
   let shouldRegenerate = false;
   let finalFeedback = feedback;
+  let submittedFeedback = feedback;
 
   // Prompt for feedback if originalStructurePlan exists and no feedback provided
   if (originalStructurePlan && !feedback) {
@@ -24,6 +26,7 @@ export default async function checkStructurePlan(
 
     if (userFeedback?.trim()) {
       finalFeedback = userFeedback.trim();
+      submittedFeedback = userFeedback.trim();
     }
   }
 
@@ -84,9 +87,21 @@ export default async function checkStructurePlan(
 
   const panningAgent = options.context.agents["structurePlanning"];
 
+  // Get user preferences for structure planning and global scope
+  const structureRules = getActiveRulesForScope("structure", []);
+  const globalRules = getActiveRulesForScope("global", []);
+
+  // Combine structure and global rules, extract only rule text
+  const allApplicableRules = [...structureRules, ...globalRules];
+  const ruleTexts = allApplicableRules.map((rule) => rule.rule);
+
+  // Convert rule texts to string format for passing to the agent
+  const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
+
   const result = await options.context.invoke(panningAgent, {
     feedback: finalFeedback || "",
     originalStructurePlan,
+    userPreferences,
     ...rest,
   });
 
@@ -140,6 +155,7 @@ export default async function checkStructurePlan(
   return {
     ...result,
     feedback: "", // clear feedback
+    structurePlanFeedback: submittedFeedback,
     projectInfoMessage: message,
     originalStructurePlan: originalStructurePlan
       ? originalStructurePlan

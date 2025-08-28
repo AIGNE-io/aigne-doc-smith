@@ -8,8 +8,8 @@ import {
   DEFAULT_INCLUDE_PATTERNS,
   DOCUMENT_STYLES,
   DOCUMENTATION_DEPTH,
-  SUPPORTED_FILE_EXTENSIONS,
   READER_KNOWLEDGE_LEVELS,
+  SUPPORTED_FILE_EXTENSIONS,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
 } from "./constants.mjs";
@@ -149,8 +149,8 @@ export function getCurrentGitHead() {
  * @param {string} gitHead - The current git HEAD commit hash
  */
 export async function saveGitHeadToConfig(gitHead) {
-  if (!gitHead) {
-    return; // Skip if no git HEAD available
+  if (!gitHead || process.env.NODE_ENV === 'test' || process.env.BUN_TEST) {
+    return; // Skip if no git HEAD available or in test environment
   }
 
   try {
@@ -747,6 +747,29 @@ function getDirectoryContents(dirPath, searchTerm = "") {
   } catch (error) {
     console.warn(`Failed to get directory contents from ${dirPath}:`, error.message);
     return [];
+  }
+}
+
+/**
+ * Get GitHub repository URL from git remote
+ * @returns {string} GitHub repository URL or empty string if not a GitHub repo (e.g. git@github.com:xxxx/xxxx.git)
+ */
+export function getGithubRepoUrl() {
+  try {
+    const gitRemote = execSync("git remote get-url origin", {
+      encoding: "utf8",
+      stdio: ["pipe", "pipe", "ignore"],
+    }).trim();
+
+    // Check if it's a GitHub repository
+    if (gitRemote.includes("github.com")) {
+      return gitRemote;
+    }
+
+    return "";
+  } catch {
+    // Not in git repository or no origin remote
+    return "";
   }
 }
 
