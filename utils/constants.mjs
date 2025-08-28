@@ -539,7 +539,4 @@ export const D2_CONFIG = `vars: {
       AB5: "#E3F8FA"
     }
   }
-}
-style: {
-  fill: transparent
 }`;
