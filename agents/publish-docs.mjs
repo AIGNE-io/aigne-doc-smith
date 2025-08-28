@@ -1,16 +1,36 @@
+import fs from "node:fs/promises";
 import { basename, join } from "node:path";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
+import { glob } from "glob";
 import { getAccessToken } from "../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL } from "../utils/constants.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
+import { appendD2ImageRefs, saveD2Assets } from "../utils/kroki-utils.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
 export default async function publishDocs(
-  { docsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
+  { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
   options,
 ) {
+  const docsDir = join(".aigne", "doc-smith", ".tmp-docs");
+  await fs.mkdir(docsDir, {
+    recursive: true,
+  });
+  await fs.cp(rawDocsDir, docsDir, { recursive: true });
+
+  // Example: process each markdown file (replace with your logic)
+  const mdFilePaths = await glob("**/*.md", { cwd: docsDir });
+  for (const filePath of mdFilePaths) {
+    let finalContent = await fs.readFile(join(docsDir, filePath), "utf8");
+    const docPath = filePath.replace(docsDir, "").replace(".md", "");
+    const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
+    await saveD2Assets({ markdown: finalContent, baseName: flatName, docsDir });
+    finalContent = appendD2ImageRefs(finalContent, flatName);
+    await fs.writeFile(filePath, finalContent, "utf8");
+  }
+
   // Check if DOC_DISCUSS_KIT_URL is set in environment variables
   const envAppUrl = process.env.DOC_DISCUSS_KIT_URL;
   const useEnvAppUrl = !!envAppUrl;
@@ -119,9 +139,11 @@ export default async function publishDocs(
         message,
       };
     }
+    await fs.rmdir(docsDir);
 
     return {};
   } catch (error) {
+    await fs.rmdir(docsDir);
     return {
       message: `❌ Failed to publish docs: ${error.message}`,
     };
