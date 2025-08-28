@@ -355,4 +355,140 @@ describe("loadSources", () => {
     expect(filePaths.some((element) => element.includes("temp/"))).toBe(false);
     expect(filePaths.some((element) => element.includes("test/test.js"))).toBe(false);
   });
+
+  test("should handle glob patterns in sourcesPath", async () => {
+    const result = await loadSources({
+      sourcesPath: [`${testDir}/src/**/*.js`],
+      useDefaultPatterns: false,
+      outputDir: tempDir,
+      docsDir: path.join(testDir, "docs"),
+    });
+
+    expect(result.datasourcesList).toBeDefined();
+    expect(result.datasourcesList.length).toBeGreaterThan(0);
+
+    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+
+    // Should include JS files from src directory and subdirectories
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/ui/Modal.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils/helpers/format.js"))).toBe(true);
+
+    // Should exclude non-JS files and files outside src
+    expect(filePaths.some((element) => element.includes("package.json"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("README.md"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("styles.css"))).toBe(false);
+  });
+
+  test("should handle multiple glob patterns in sourcesPath", async () => {
+    const result = await loadSources({
+      sourcesPath: [`${testDir}/src/**/*.js`, `${testDir}/*.json`, `${testDir}/*.md`],
+      useDefaultPatterns: false,
+      outputDir: tempDir,
+      docsDir: path.join(testDir, "docs"),
+    });
+
+    expect(result.datasourcesList).toBeDefined();
+    expect(result.datasourcesList.length).toBeGreaterThan(0);
+
+    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+
+    // Should include JS files from src directory
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
+
+    // Should include JSON files from root
+    expect(filePaths.some((element) => element.includes("package.json"))).toBe(true);
+
+    // Should include Markdown files from root
+    expect(filePaths.some((element) => element.includes("README.md"))).toBe(true);
+
+    // Should exclude CSS files
+    expect(filePaths.some((element) => element.includes("styles.css"))).toBe(false);
+  });
+
+  test("should handle glob pattern with specific file extensions", async () => {
+    const result = await loadSources({
+      sourcesPath: [`${testDir}/src/**/*.{js,json,yaml}`],
+      useDefaultPatterns: false,
+      outputDir: tempDir,
+      docsDir: path.join(testDir, "docs"),
+    });
+
+    expect(result.datasourcesList).toBeDefined();
+
+    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+
+    // Should include JS files
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
+
+    // Should include JSON files
+    expect(filePaths.some((element) => element.includes("src/config/settings.json"))).toBe(true);
+
+    // Should include YAML files
+    expect(filePaths.some((element) => element.includes("src/utils/helpers/data.yaml"))).toBe(true);
+
+    // Should exclude CSS files
+    expect(filePaths.some((element) => element.includes("styles.css"))).toBe(false);
+  });
+
+  test("should handle glob pattern that matches no files", async () => {
+    const result = await loadSources({
+      sourcesPath: [`${testDir}/nonexistent/**/*.xyz`],
+      useDefaultPatterns: false,
+      outputDir: tempDir,
+      docsDir: path.join(testDir, "docs"),
+    });
+
+    expect(result.datasourcesList).toBeDefined();
+    expect(result.datasourcesList.length).toBe(0);
+  });
+
+  test("should handle mixed regular paths and glob patterns", async () => {
+    const result = await loadSources({
+      sourcesPath: [testDir, `${testDir}/src/**/*.js`],
+      includePatterns: ["*.md"],
+      useDefaultPatterns: false,
+      outputDir: tempDir,
+      docsDir: path.join(testDir, "docs"),
+    });
+
+    expect(result.datasourcesList).toBeDefined();
+    expect(result.datasourcesList.length).toBeGreaterThan(0);
+
+    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+
+    // Should include markdown files from directory scan
+    expect(filePaths.some((element) => element.includes("README.md"))).toBe(true);
+
+    // Should include JS files from glob pattern
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
+    expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
+  });
+
+  test("should handle glob patterns with wildcards and character classes", async () => {
+    const result = await loadSources({
+      sourcesPath: [`${testDir}/src/**/[Bb]utton.js`, `${testDir}/src/**/?odal.js`],
+      useDefaultPatterns: false,
+      outputDir: tempDir,
+      docsDir: path.join(testDir, "docs"),
+    });
+
+    expect(result.datasourcesList).toBeDefined();
+
+    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+
+    // Should match Button.js with character class
+    expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
+
+    // Should match Modal.js with single character wildcard
+    expect(filePaths.some((element) => element.includes("src/components/ui/Modal.js"))).toBe(true);
+
+    // Should not match other files
+    expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(false);
+    expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(false);
+  });
 });

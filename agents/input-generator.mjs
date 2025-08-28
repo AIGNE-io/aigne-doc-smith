@@ -16,6 +16,7 @@ import {
   detectSystemLanguage,
   getAvailablePaths,
   getProjectInfo,
+  isGlobPattern,
   validatePath,
 } from "../utils/utils.mjs";
 
@@ -229,12 +230,13 @@ export default async function init(
   // 8. Source code paths
   console.log("\n🔍 [8/8]: Source Code Paths");
   console.log("Enter paths to analyze for documentation (e.g., ./src, ./lib)");
+  console.log("💡 You can also enter glob patterns (e.g., src/**/*.js, **/*.md)");
   console.log("💡 If no paths are configured, './' will be used as default");
 
   const sourcePaths = [];
   while (true) {
     const selectedPath = await options.prompts.search({
-      message: "Path:",
+      message: "Path or glob pattern:",
       source: async (input) => {
         if (!input || input.trim() === "") {
           return [
@@ -248,10 +250,34 @@ export default async function init(
 
         const searchTerm = input.trim();
 
+        // Check if input looks like a glob pattern
+        const isGlobPatternResult = isGlobPattern(searchTerm);
+
+        if (isGlobPatternResult) {
+          // If it looks like a glob pattern, allow direct input
+          return [
+            {
+              name: `Use glob pattern: ${searchTerm}`,
+              value: searchTerm,
+              description: "Glob pattern for file matching",
+            },
+          ];
+        }
+
         // Search for matching files and folders in current directory
         const availablePaths = getAvailablePaths(searchTerm);
 
-        return [...availablePaths];
+        // Also add option to use as glob pattern
+        const options = [...availablePaths];
+        if (searchTerm.length > 0) {
+          options.unshift({
+            name: `Use as glob pattern: ${searchTerm}`,
+            value: searchTerm,
+            description: "Treat input as glob pattern",
+          });
+        }
+
+        return options;
       },
     });
 
@@ -262,21 +288,34 @@ export default async function init(
 
     const trimmedPath = selectedPath.trim();
 
-    // Use validatePath to check if path is valid
-    const validation = validatePath(trimmedPath);
+    // Check if it's a glob pattern
+    const isGlobPatternResult = isGlobPattern(trimmedPath);
 
-    if (!validation.isValid) {
-      console.log(`⚠️ ${validation.error}`);
-      continue;
+    if (isGlobPatternResult) {
+      // For glob patterns, just add them without validation
+      if (sourcePaths.includes(trimmedPath)) {
+        console.log(`⚠️ Pattern already exists: ${trimmedPath}`);
+        continue;
+      }
+      sourcePaths.push(trimmedPath);
+      console.log(`✅ Added glob pattern: ${trimmedPath}`);
+    } else {
+      // Use validatePath to check if path is valid for regular paths
+      const validation = validatePath(trimmedPath);
+
+      if (!validation.isValid) {
+        console.log(`⚠️ ${validation.error}`);
+        continue;
+      }
+
+      // Avoid duplicate paths
+      if (sourcePaths.includes(trimmedPath)) {
+        console.log(`⚠️ Path already exists: ${trimmedPath}`);
+        continue;
+      }
+
+      sourcePaths.push(trimmedPath);
     }
-
-    // Avoid duplicate paths
-    if (sourcePaths.includes(trimmedPath)) {
-      console.log(`⚠️ Path already exists: ${trimmedPath}`);
-      continue;
-    }
-
-    sourcePaths.push(trimmedPath);
   }
 
   // If no paths entered, use default
@@ -332,36 +371,36 @@ function generateYAML(input) {
     projectName: input.projectName || "",
     projectDesc: input.projectDesc || "",
     projectLogo: input.projectLogo || "",
-    
+
     // Documentation configuration
     documentPurpose: input.documentPurpose || [],
     targetAudienceTypes: input.targetAudienceTypes || [],
     readerKnowledgeLevel: input.readerKnowledgeLevel || "",
     documentationDepth: input.documentationDepth || "",
-    
+
     // Custom rules and target audience (empty for user to fill)
     rules: "",
     targetAudience: "",
-    
+
     // Language settings
     locale: input.locale,
-    translateLanguages: input.translateLanguages?.filter(lang => lang.trim()) || [],
-    
+    translateLanguages: input.translateLanguages?.filter((lang) => lang.trim()) || [],
+
     // Paths
     docsDir: input.docsDir,
-    sourcesPath: input.sourcesPath || []
+    sourcesPath: input.sourcesPath || [],
   };
 
   // Generate comments and structure
   let yaml = "# Project information for documentation publishing\n";
-  
+
   // Serialize the project info section safely
   const projectSection = yamlStringify({
     projectName: config.projectName,
     projectDesc: config.projectDesc,
-    projectLogo: config.projectLogo
+    projectLogo: config.projectLogo,
   }).trim();
-  
+
   yaml += `${projectSection}\n\n`;
 
   // Add documentation configuration with comments
@@ -377,7 +416,7 @@ function generateYAML(input) {
       yaml += `#   ${key.padEnd(16)} - ${style.name}: ${style.description}\n`;
     }
   });
-  
+
   // Safely serialize documentPurpose
   const documentPurposeSection = yamlStringify({ documentPurpose: config.documentPurpose }).trim();
   yaml += `${documentPurposeSection.replace(/^documentPurpose:/, "documentPurpose:")}\n\n`;
@@ -390,9 +429,11 @@ function generateYAML(input) {
       yaml += `#   ${key.padEnd(16)} - ${audience.name}: ${audience.description}\n`;
     }
   });
-  
+
   // Safely serialize targetAudienceTypes
-  const targetAudienceTypesSection = yamlStringify({ targetAudienceTypes: config.targetAudienceTypes }).trim();
+  const targetAudienceTypesSection = yamlStringify({
+    targetAudienceTypes: config.targetAudienceTypes,
+  }).trim();
   yaml += `${targetAudienceTypesSection.replace(/^targetAudienceTypes:/, "targetAudienceTypes:")}\n\n`;
 
   // Reader Knowledge Level with all available options
@@ -401,9 +442,11 @@ function generateYAML(input) {
   Object.entries(READER_KNOWLEDGE_LEVELS).forEach(([key, level]) => {
     yaml += `#   ${key.padEnd(20)} - ${level.name}: ${level.description}\n`;
   });
-  
+
   // Safely serialize readerKnowledgeLevel
-  const readerKnowledgeLevelSection = yamlStringify({ readerKnowledgeLevel: config.readerKnowledgeLevel }).trim();
+  const readerKnowledgeLevelSection = yamlStringify({
+    readerKnowledgeLevel: config.readerKnowledgeLevel,
+  }).trim();
   yaml += `${readerKnowledgeLevelSection.replace(/^readerKnowledgeLevel:/, "readerKnowledgeLevel:")}\n\n`;
 
   // Documentation Depth with all available options
@@ -412,9 +455,11 @@ function generateYAML(input) {
   Object.entries(DOCUMENTATION_DEPTH).forEach(([key, depth]) => {
     yaml += `#   ${key.padEnd(18)} - ${depth.name}: ${depth.description}\n`;
   });
-  
+
   // Safely serialize documentationDepth
-  const documentationDepthSection = yamlStringify({ documentationDepth: config.documentationDepth }).trim();
+  const documentationDepthSection = yamlStringify({
+    documentationDepth: config.documentationDepth,
+  }).trim();
   yaml += `${documentationDepthSection.replace(/^documentationDepth:/, "documentationDepth:")}\n\n`;
 
   // Custom Documentation Rules and Requirements
@@ -431,7 +476,7 @@ function generateYAML(input) {
 
   // Glossary Configuration
   yaml += "# Glossary: Define project-specific terms and definitions\n";
-  yaml += "# glossary: \"@glossary.md\"  # Path to markdown file containing glossary definitions\n\n";
+  yaml += '# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions\n\n';
 
   // Language settings - safely serialize
   const localeSection = yamlStringify({ locale: config.locale }).trim();
@@ -439,7 +484,9 @@ function generateYAML(input) {
 
   // Translation languages
   if (config.translateLanguages.length > 0) {
-    const translateLanguagesSection = yamlStringify({ translateLanguages: config.translateLanguages }).trim();
+    const translateLanguagesSection = yamlStringify({
+      translateLanguages: config.translateLanguages,
+    }).trim();
     yaml += `${translateLanguagesSection.replace(/^translateLanguages:/, "translateLanguages:")}\n`;
   } else {
     yaml += "# translateLanguages:  # List of languages to translate the documentation to\n";
@@ -450,7 +497,7 @@ function generateYAML(input) {
   // Directory and source path configurations - safely serialize
   const docsDirSection = yamlStringify({ docsDir: config.docsDir }).trim();
   yaml += `${docsDirSection.replace(/^docsDir:/, "docsDir:")}  # Directory to save generated documentation\n`;
-  
+
   const sourcesPathSection = yamlStringify({ sourcesPath: config.sourcesPath }).trim();
   yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # Source code paths to analyze")}\n`;
 

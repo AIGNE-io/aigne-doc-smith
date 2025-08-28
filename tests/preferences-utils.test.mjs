@@ -190,16 +190,20 @@ describe("preferences-utils", () => {
 
     test("should handle rules with special characters and colons", () => {
       const ruleData = {
-        rule: "Always use proper punctuation: semicolons, colons, and quotes\"like this\"",
+        rule: 'Always use proper punctuation: semicolons, colons, and quotes"like this"',
         scope: "document",
         limitToInputPaths: false,
       };
-      const feedback = "Please ensure proper punctuation: don't forget quotes\"and colons\"";
+      const feedback = 'Please ensure proper punctuation: don\'t forget quotes"and colons"';
 
       const newRule = addPreferenceRule(ruleData, feedback);
 
-      expect(newRule.rule).toBe("Always use proper punctuation: semicolons, colons, and quotes\"like this\"");
-      expect(newRule.feedback).toBe("Please ensure proper punctuation: don't forget quotes\"and colons\"");
+      expect(newRule.rule).toBe(
+        'Always use proper punctuation: semicolons, colons, and quotes"like this"',
+      );
+      expect(newRule.feedback).toBe(
+        'Please ensure proper punctuation: don\'t forget quotes"and colons"',
+      );
 
       // Verify it was saved and can be read back
       const preferences = readPreferences();
@@ -214,7 +218,8 @@ describe("preferences-utils", () => {
         scope: "structure",
         limitToInputPaths: false,
       };
-      const feedback = "Multi-line feedback:\\n- Check formatting\\n- Validate | pipes\\n- Handle > symbols\\n- Process 'single quotes' and \"double quotes\"";
+      const feedback =
+        "Multi-line feedback:\\n- Check formatting\\n- Validate | pipes\\n- Handle > symbols\\n- Process 'single quotes' and \"double quotes\"";
 
       const newRule = addPreferenceRule(ruleData, feedback);
 
@@ -234,12 +239,14 @@ describe("preferences-utils", () => {
         scope: "document",
         limitToInputPaths: false,
       };
-      const feedback = "请确保正确使用标点：引号\"这样\"和冒号：还有各种符号！@#$%";
+      const feedback = '请确保正确使用标点：引号"这样"和冒号：还有各种符号！@#$%';
 
       const newRule = addPreferenceRule(ruleData, feedback);
 
-      expect(newRule.rule).toBe("使用正确的中文标点符号：逗号，句号。还有emoji 🔥 和特殊符号 @#$%^&*()");
-      expect(newRule.feedback).toBe("请确保正确使用标点：引号\"这样\"和冒号：还有各种符号！@#$%");
+      expect(newRule.rule).toBe(
+        "使用正确的中文标点符号：逗号，句号。还有emoji 🔥 和特殊符号 @#$%^&*()",
+      );
+      expect(newRule.feedback).toBe('请确保正确使用标点：引号"这样"和冒号：还有各种符号！@#$%');
 
       // Verify it was saved and can be read back
       const preferences = readPreferences();
@@ -255,7 +262,12 @@ describe("preferences-utils", () => {
         limitToInputPaths: true,
       };
       const feedback = "Apply to special paths only";
-      const paths = ["/docs/api: advanced", "/docs/guide-中文", "/path with spaces", "/symbols@#$%/file"];
+      const paths = [
+        "/docs/api: advanced",
+        "/docs/guide-中文",
+        "/path with spaces",
+        "/symbols@#$%/file",
+      ];
 
       const newRule = addPreferenceRule(ruleData, feedback, paths);
 

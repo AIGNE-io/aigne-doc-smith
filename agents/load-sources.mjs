@@ -2,7 +2,11 @@ import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../utils/constants.mjs";
 import { getFilesWithGlob, loadGitignore } from "../utils/file-utils.mjs";
-import { getCurrentGitHead, getModifiedFilesBetweenCommits } from "../utils/utils.mjs";
+import {
+  getCurrentGitHead,
+  getModifiedFilesBetweenCommits,
+  isGlobPattern,
+} from "../utils/utils.mjs";
 
 export default async function loadSources({
   sources = [],
@@ -24,7 +28,7 @@ export default async function loadSources({
 
     for (const dir of paths) {
       try {
-        // Check if the path is a file or directory
+        // First try to access as a file or directory
         const stats = await stat(dir);
 
         if (stats.isFile()) {
@@ -78,7 +82,31 @@ export default async function loadSources({
           allFiles = allFiles.concat(filesInDir);
         }
       } catch (err) {
-        if (err.code !== "ENOENT") throw err;
+        if (err.code === "ENOENT") {
+          // Path doesn't exist as file or directory, try as glob pattern
+          try {
+            // Check if it looks like a glob pattern
+            const isGlobPatternResult = isGlobPattern(dir);
+
+            if (isGlobPatternResult) {
+              // Use glob to find matching files from current working directory
+              const { glob } = await import("glob");
+              const matchedFiles = await glob(dir, {
+                absolute: true,
+                nodir: true, // Only files, not directories
+                dot: false, // Don't include hidden files
+              });
+
+              if (matchedFiles.length > 0) {
+                allFiles = allFiles.concat(matchedFiles);
+              }
+            }
+          } catch (globErr) {
+            console.warn(`Error processing glob pattern "${dir}": ${globErr.message}`);
+          }
+        } else {
+          throw err;
+        }
       }
     }
 

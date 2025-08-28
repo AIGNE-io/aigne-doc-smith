@@ -59,7 +59,7 @@ describe("saveValueToConfig", () => {
     await saveValueToConfig("projectName", "test-project");
     const content = await readConfigFile();
 
-    expect(content).toContain('projectName: test-project');
+    expect(content).toContain("projectName: test-project");
   });
 
   test("Save string value with comment to empty file", async () => {
@@ -67,7 +67,7 @@ describe("saveValueToConfig", () => {
     const content = await readConfigFile();
 
     expect(content).toContain("# Project description");
-    expect(content).toContain('projectDesc: A test project');
+    expect(content).toContain("projectDesc: A test project");
   });
 
   test("Save array value to empty file", async () => {
@@ -103,7 +103,7 @@ describe("saveValueToConfig", () => {
     await saveValueToConfig("projectName", "new-project");
     const content = await readConfigFile();
 
-    expect(content).toContain('projectName: new-project');
+    expect(content).toContain("projectName: new-project");
     expect(content).toContain('version: "1.0.0"');
     expect(content).not.toContain("old-project");
   });
@@ -160,7 +160,7 @@ version: "1.0.0"`);
     const content = await readConfigFile();
 
     expect(content).toContain("# Updated project name");
-    expect(content).toContain('projectName: updated-project');
+    expect(content).toContain("projectName: updated-project");
   });
 
   test("Update value that already has comment", async () => {
@@ -172,7 +172,7 @@ version: "1.0.0"`);
     const content = await readConfigFile();
 
     expect(content).toContain("# Project information");
-    expect(content).toContain('projectName: new-project');
+    expect(content).toContain("projectName: new-project");
     expect(content).not.toContain("# Updated project info");
   });
 
@@ -266,7 +266,10 @@ version: "1.0.0"`);
     });
 
     test("Save string with colons and special YAML characters", async () => {
-      await saveValueToConfig("rule", "Use proper formatting: semicolons; colons: and pipes | symbols");
+      await saveValueToConfig(
+        "rule",
+        "Use proper formatting: semicolons; colons: and pipes | symbols",
+      );
       const content = await readConfigFile();
 
       expect(content).toContain("Use proper formatting: semicolons; colons: and pipes | symbols");
@@ -274,7 +277,8 @@ version: "1.0.0"`);
     });
 
     test("Save multiline string with newlines", async () => {
-      const multilineValue = "Line 1: First line\nLine 2: Second line\nLine 3: Third line with: special characters";
+      const multilineValue =
+        "Line 1: First line\nLine 2: Second line\nLine 3: Third line with: special characters";
       await saveValueToConfig("multilineRule", multilineValue);
       const content = await readConfigFile();
 
@@ -284,15 +288,21 @@ version: "1.0.0"`);
     });
 
     test("Save string with Chinese characters and symbols", async () => {
-      await saveValueToConfig("chineseProject", "中文项目：包含特殊符号！@#￥%…（）—— quotes\"and\" colons:");
+      await saveValueToConfig(
+        "chineseProject",
+        '中文项目：包含特殊符号！@#￥%…（）—— quotes"and" colons:',
+      );
       const content = await readConfigFile();
 
-      expect(content).toContain("中文项目：包含特殊符号！@#￥%…（）—— quotes\"and\" colons:");
+      expect(content).toContain('中文项目：包含特殊符号！@#￥%…（）—— quotes"and" colons:');
       expect(content).toContain("chineseProject:");
     });
 
     test("Save string with emoji and Unicode", async () => {
-      await saveValueToConfig("emojiProject", "🚀 Project with emoji: 🔥 hot features 💯 and symbols ⭐ ✨ 🎉");
+      await saveValueToConfig(
+        "emojiProject",
+        "🚀 Project with emoji: 🔥 hot features 💯 and symbols ⭐ ✨ 🎉",
+      );
       const content = await readConfigFile();
 
       expect(content).toContain("🚀 Project with emoji: 🔥 hot features 💯 and symbols ⭐ ✨ 🎉");
@@ -306,13 +316,13 @@ version: "1.0.0"`);
         "./docs-中文/guide",
         "./path with spaces/file",
         "./symbols@#$%/directory",
-        "./quotes\"and\"colons:/path"
+        './quotes"and"colons:/path',
       ];
       await saveValueToConfig("specialPaths", specialPaths);
       const content = await readConfigFile();
 
       expect(content).toContain("specialPaths:");
-      specialPaths.forEach(path => {
+      specialPaths.forEach((path) => {
         expect(content).toContain(path);
       });
     });
@@ -320,8 +330,8 @@ version: "1.0.0"`);
     test("Save array with multiline items", async () => {
       const multilineArray = [
         "Item 1:\nWith newline content",
-        "Item 2: Simple item", 
-        "Item 3:\nMultiple\nLines\nWith: colons and | pipes"
+        "Item 2: Simple item",
+        "Item 3:\nMultiple\nLines\nWith: colons and | pipes",
       ];
       await saveValueToConfig("multilineArray", multilineArray);
       const content = await readConfigFile();
@@ -336,7 +346,7 @@ version: "1.0.0"`);
     test("Update existing value containing special characters", async () => {
       await createInitialConfig('projectName: "old: project with | pipes"\nversion: "1.0.0"');
 
-      await saveValueToConfig("projectName", "new: project with \"quotes\" and | pipes: updated");
+      await saveValueToConfig("projectName", 'new: project with "quotes" and | pipes: updated');
       const content = await readConfigFile();
 
       expect(content).toContain('new: project with "quotes" and | pipes: updated');
@@ -345,7 +355,8 @@ version: "1.0.0"`);
     });
 
     test("Save very long string with special characters", async () => {
-      const longString = "A very long project description that contains many special characters: colons, semicolons; quotes \"like this\", single quotes 'like this', pipes | symbols, Chinese characters 中文内容：包含各种符号！@#￥%…（）——, emojis 🚀🔥💯⭐✨🎉, and newlines\nSecond line with more content\nThird line: even more special content with all sorts of symbols @#$%^&*()_+-=[]{}|\\;':./?,<>~`";
+      const longString =
+        "A very long project description that contains many special characters: colons, semicolons; quotes \"like this\", single quotes 'like this', pipes | symbols, Chinese characters 中文内容：包含各种符号！@#￥%…（）——, emojis 🚀🔥💯⭐✨🎉, and newlines\nSecond line with more content\nThird line: even more special content with all sorts of symbols @#$%^&*()_+-=[]{}|\\;':./?,<>~`";
       await saveValueToConfig("veryLongDesc", longString);
       const content = await readConfigFile();
 
@@ -381,9 +392,16 @@ projectName: "original: project"
 locale: zh`);
 
       // Update with various special character content
-      await saveValueToConfig("projectDesc", "Updated description: with \"quotes\" and | pipes");
-      await saveValueToConfig("specialArray", ["path: with colons", "中文路径/文件", "emoji 🔥 path"]);
-      await saveValueToConfig("multilineContent", "Line 1: content\nLine 2: more content\nLine 3: final content");
+      await saveValueToConfig("projectDesc", 'Updated description: with "quotes" and | pipes');
+      await saveValueToConfig("specialArray", [
+        "path: with colons",
+        "中文路径/文件",
+        "emoji 🔥 path",
+      ]);
+      await saveValueToConfig(
+        "multilineContent",
+        "Line 1: content\nLine 2: more content\nLine 3: final content",
+      );
 
       const content = await readConfigFile();
 

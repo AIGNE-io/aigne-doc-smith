@@ -32,6 +32,15 @@ export function toRelativePath(filePath) {
   return path.isAbsolute(filePath) ? path.relative(process.cwd(), filePath) : filePath;
 }
 
+/**
+ * Check if a string looks like a glob pattern
+ * @param {string} pattern - The string to check
+ * @returns {boolean} - True if the string contains glob pattern characters
+ */
+export function isGlobPattern(pattern) {
+  return /[*?[\]]|(\*\*)/.test(pattern);
+}
+
 export function processContent({ content }) {
   // Match markdown regular links [text](link), exclude images ![text](link)
   return content.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g, (match, text, link) => {
@@ -149,7 +158,7 @@ export function getCurrentGitHead() {
  * @param {string} gitHead - The current git HEAD commit hash
  */
 export async function saveGitHeadToConfig(gitHead) {
-  if (!gitHead || process.env.NODE_ENV === 'test' || process.env.BUN_TEST) {
+  if (!gitHead || process.env.NODE_ENV === "test" || process.env.BUN_TEST) {
     return; // Skip if no git HEAD available or in test environment
   }
 
@@ -353,7 +362,7 @@ export async function loadConfigFromFile() {
  * @returns {string} Updated file content
  */
 function handleArrayValueUpdate(key, value, comment, fileContent) {
-  // Use yaml library to safely serialize the key-value pair  
+  // Use yaml library to safely serialize the key-value pair
   const yamlObject = { [key]: value };
   const yamlContent = yamlStringify(yamlObject).trim();
   const formattedValue = yamlContent;
