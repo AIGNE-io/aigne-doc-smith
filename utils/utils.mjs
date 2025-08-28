@@ -868,6 +868,29 @@ export function processConfigFields(config) {
   const processed = {};
   const allRulesContent = [];
 
+  // Set default values for missing or empty fields
+  const defaults = {
+    nodeName: "Section",
+    locale: "en",
+    sourcesPath: ["./"],
+    docsDir: "./.aigne/doc-smith/docs",
+    outputDir: "./.aigne/doc-smith/output",
+    translateLanguages: [],
+    rules: "",
+    targetAudience: "",
+  };
+
+  // Apply defaults for missing or empty fields
+  for (const [key, defaultValue] of Object.entries(defaults)) {
+    if (
+      !config[key] ||
+      (Array.isArray(defaultValue) && (!config[key] || config[key].length === 0)) ||
+      (typeof defaultValue === "string" && (!config[key] || config[key].trim() === ""))
+    ) {
+      processed[key] = defaultValue;
+    }
+  }
+
   // Check if original rules field has content
   if (config.rules) {
     if (typeof config.rules === "string") {

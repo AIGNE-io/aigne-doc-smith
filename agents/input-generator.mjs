@@ -36,7 +36,9 @@ export default async function init(
 ) {
   if (skipIfExists) {
     const filePath = join(outputPath, fileName);
-    if (await readFile(filePath, "utf8").catch(() => null)) {
+    const configContent = await readFile(filePath, "utf8").catch(() => null);
+    // Only skip if file exists AND has non-empty content
+    if (configContent && configContent.trim() !== "") {
       return {};
     }
   }
