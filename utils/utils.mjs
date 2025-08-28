@@ -849,7 +849,6 @@ export async function getProjectInfo() {
  * @param {Object} config - Parsed configuration
  * @returns {Object} Processed configuration with content fields
  */
-
 export function processConfigFields(config) {
   const processed = {};
   const allRulesContent = [];

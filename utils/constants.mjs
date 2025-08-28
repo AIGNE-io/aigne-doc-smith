@@ -427,17 +427,20 @@ export const CONFLICT_RESOLUTION_RULES = {
     {
       conflictItems: ["getStarted", "understandSystem"],
       strategy: "separate_sections",
-      description: "Quick start and system understanding conflict, resolved through separate sections",
+      description:
+        "Quick start and system understanding conflict, resolved through separate sections",
     },
     {
       conflictItems: ["completeTasks", "understandSystem"],
       strategy: "concepts_then_practice",
-      description: "Task guidance and system understanding conflict, resolved through concepts-then-practice structure",
+      description:
+        "Task guidance and system understanding conflict, resolved through concepts-then-practice structure",
     },
     {
       conflictItems: ["findAnswers", "solveProblems"],
       strategy: "reference_with_troubleshooting",
-      description: "API reference and problem solving conflict, resolved through reference with troubleshooting",
+      description:
+        "API reference and problem solving conflict, resolved through reference with troubleshooting",
     },
   ],
 
@@ -456,7 +459,8 @@ export const CONFLICT_RESOLUTION_RULES = {
     {
       conflictItems: ["developers", "decisionMakers"],
       strategy: "progressive_disclosure",
-      description: "Developers and decision makers conflict, resolved through progressive disclosure",
+      description:
+        "Developers and decision makers conflict, resolved through progressive disclosure",
     },
   ],
 };
