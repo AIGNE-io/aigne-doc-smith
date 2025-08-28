@@ -2,7 +2,7 @@ import { execSync } from "node:child_process";
 import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { parse } from "yaml";
+import { parse, stringify as yamlStringify } from "yaml";
 import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
@@ -169,7 +169,9 @@ export async function saveGitHeadToConfig(gitHead) {
 
     // Check if lastGitHead already exists in the file
     const lastGitHeadRegex = /^lastGitHead:\s*.*$/m;
-    const newLastGitHeadLine = `lastGitHead: ${gitHead}`;
+    // Use yaml library to safely serialize the git head value
+    const yamlContent = yamlStringify({ lastGitHead: gitHead }).trim();
+    const newLastGitHeadLine = yamlContent;
 
     if (lastGitHeadRegex.test(fileContent)) {
       // Replace existing lastGitHead line
@@ -351,9 +353,10 @@ export async function loadConfigFromFile() {
  * @returns {string} Updated file content
  */
 function handleArrayValueUpdate(key, value, comment, fileContent) {
-  // Format array value
-  const formattedValue =
-    value.length === 0 ? `${key}: []` : `${key}:\n${value.map((item) => `  - ${item}`).join("\n")}`;
+  // Use yaml library to safely serialize the key-value pair  
+  const yamlObject = { [key]: value };
+  const yamlContent = yamlStringify(yamlObject).trim();
+  const formattedValue = yamlContent;
 
   const lines = fileContent.split("\n");
 
@@ -435,7 +438,10 @@ function handleArrayValueUpdate(key, value, comment, fileContent) {
  * @returns {string} Updated file content
  */
 function handleStringValueUpdate(key, value, comment, fileContent) {
-  const formattedValue = `${key}: "${value}"`;
+  // Use yaml library to safely serialize the key-value pair
+  const yamlObject = { [key]: value };
+  const yamlContent = yamlStringify(yamlObject).trim();
+  const formattedValue = yamlContent;
   const lines = fileContent.split("\n");
 
   // Handle string values (original logic)
