@@ -135,15 +135,16 @@ export default async function publishDocs(
         await saveValueToConfig("boardId", newBoardId);
       }
       const message = `✅ Documentation Published Successfully!`;
+      await fs.rm(docsDir, { recursive: true, force: true });
       return {
         message,
       };
     }
-    await fs.rmdir(docsDir);
+    await fs.rm(docsDir, { recursive: true, force: true });
 
     return {};
   } catch (error) {
-    await fs.rmdir(docsDir);
+    await fs.rm(docsDir, { recursive: true, force: true });
     return {
       message: `❌ Failed to publish docs: ${error.message}`,
     };
