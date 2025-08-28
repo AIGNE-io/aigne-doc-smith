@@ -57,20 +57,20 @@
 </user_rules>
 
 <conflict_resolution_guidance>
-当用户选择了可能冲突的选项时，在 user_rules 中会提供冲突解决指导。请仔细阅读这些指导并在结构规划中实施相应的解决策略。
+When users select potentially conflicting options, conflict resolution guidance will be provided in user_rules. Please carefully read these guidelines and implement the corresponding resolution strategies in the structure planning.
 
-冲突解决核心原则：
-1. **分层满足需求**：通过合理的文档结构层次，同时满足多种目的和受众
-2. **清晰的导航路径**：为不同需求的用户提供明确的文档使用路径
-3. **避免内容重复**：确保不同章节间内容互补而非重复
-4. **渐进式披露**：从高层概览到具体细节，满足不同深度的需求
+Core principles for conflict resolution:
+1. **Layered need satisfaction**: Simultaneously satisfy multiple purposes and audiences through reasonable document structure hierarchy
+2. **Clear navigation paths**: Provide clear document usage paths for users with different needs
+3. **Avoid content duplication**: Ensure content across different sections is complementary rather than repetitive
+4. **Progressive disclosure**: From high-level overview to specific details, meeting needs at different depth levels
 
-常见冲突解决模式：
-- **目的冲突**：创建分层结构
-- **受众冲突**：设计角色导向的章节或路径
-- **深度冲突**：采用渐进式结构，让用户可以选择合适的深度层级
+Common conflict resolution patterns:
+- **Purpose conflicts**: Create hierarchical structures
+- **Audience conflicts**: Design role-oriented sections or paths
+- **Depth conflicts**: Adopt progressive structures that allow users to choose appropriate depth levels
 
-在规划结构时，优先考虑冲突解决策略，确保最终结构能够和谐地满足所有用户需求。
+When planning structure, prioritize conflict resolution strategies to ensure the final structure can harmoniously satisfy all user needs.
 </conflict_resolution_guidance>
 
 <user_preferences>
