@@ -77,8 +77,7 @@ describe("checkDetailResult", () => {
 
   test("should approve content with absolute image path that exists", async () => {
     const structurePlan = [];
-    const reviewContent =
-      `This is an absolute image ![Test Image](${process.cwd()}/README.md).\n\nThis has proper structure.`;
+    const reviewContent = `This is an absolute image ![Test Image](${process.cwd()}/README.md).\n\nThis has proper structure.`;
     const result = await checkDetailResult({ structurePlan, reviewContent });
     expect(result.isApproved).toBe(true);
     expect(result.detailFeedback).toBe("");
