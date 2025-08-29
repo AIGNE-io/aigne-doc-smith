@@ -102,7 +102,7 @@ export default async function loadSources({
               }
             }
           } catch (globErr) {
-            console.warn(`Error processing glob pattern "${dir}": ${globErr.message}`);
+            console.warn(`Failed to process glob pattern "${dir}": ${globErr.message}`);
           }
         } else {
           throw err;

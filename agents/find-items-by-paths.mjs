@@ -31,12 +31,10 @@ export default async function selectedDocs(
             name: file,
             value: file,
           }));
-          
+
           if (!term) return choices;
-          
-          return choices.filter(choice => 
-            choice.name.toLowerCase().includes(term.toLowerCase())
-          );
+
+          return choices.filter((choice) => choice.name.toLowerCase().includes(term.toLowerCase()));
         },
         validate: (answer) => {
           if (answer.length === 0) {
