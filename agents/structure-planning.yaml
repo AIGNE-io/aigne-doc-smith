@@ -26,6 +26,9 @@ input_schema:
     feedback:
       type: string
       description: 结构规划的反馈
+    userPreferences:
+      type: string
+      description: 用户偏好规则，YAML格式的结构规划和全局范围偏好
     docsType:
       type: string
       description: 文档类型，支持：general、getting-started、reference、faq

@@ -1,13 +1,14 @@
 {
   "name": "@aigne/doc-smith",
-  "version": "0.4.4",
+  "version": "0.6.0",
   "description": "",
   "publishConfig": {
     "access": "public"
   },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
     "lint": "biome check && pnpm -r run lint",
     "update:deps": "npx -y taze major -r -w -f -n '/@abtnode|@aigne|@arcblock|@blocklet|@did-connect|@did-pay|@did-space|@nft-store|@nft-studio|@ocap/' && pnpm install && pnpm run deduplicate",
     "deduplicate": "pnpm dedupe",
@@ -19,13 +20,13 @@
   "author": "Arcblock <blocklet@arcblock.io> https://github.com/blocklet",
   "license": "MIT",
   "dependencies": {
-    "@aigne/aigne-hub": "^0.6.8",
-    "@aigne/anthropic": "^0.11.8",
-    "@aigne/cli": "^1.39.1",
-    "@aigne/core": "^1.55.0",
-    "@aigne/gemini": "^0.9.8",
-    "@aigne/openai": "^0.12.2",
-    "@aigne/publish-docs": "^0.5.6",
+    "@aigne/aigne-hub": "^0.6.10",
+    "@aigne/anthropic": "^0.11.10",
+    "@aigne/cli": "^1.41.1",
+    "@aigne/core": "^1.55.1",
+    "@aigne/gemini": "^0.9.10",
+    "@aigne/openai": "^0.12.4",
+    "@aigne/publish-docs": "^0.6.0",
     "chalk": "^5.5.0",
     "dompurify": "^3.2.6",
     "glob": "^11.0.3",

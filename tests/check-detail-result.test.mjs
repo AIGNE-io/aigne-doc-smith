@@ -1,92 +1,105 @@
+import { describe, expect, test } from "bun:test";
 import checkDetailResult from "../agents/check-detail-result.mjs";
 
-async function runTests() {
-  function assert(condition, message) {
-    if (!condition) {
-      throw new Error(`Assertion failed: ${message}`);
-    }
-  }
-
-  async function testApproveValidContent() {
-    console.log("Testing: should approve valid content");
+describe("checkDetailResult", () => {
+  test("should approve valid content", async () => {
     const structurePlan = [{ path: "/getting-started" }];
-    const content = "This is a test with a [valid link](/getting-started).";
-    const result = await checkDetailResult({ structurePlan, content });
-    assert(result.isApproved === true, "Should be approved");
-    assert(result.detailFeedback === "", "Feedback should be empty");
-    console.log("✅ Test passed: should approve valid content");
-  }
+    const reviewContent =
+      "This is a test with a [valid link](/getting-started).\n\nThis has proper structure with multiple lines.";
+    const result = await checkDetailResult({ structurePlan, reviewContent });
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
 
-  async function testRejectDeadLink() {
-    console.log("Testing: should reject content with a dead link");
+  test("should reject content with a dead link", async () => {
     const structurePlan = [{ path: "/getting-started" }];
-    const content = "This contains a [dead link](/dead-link).";
-    const result = await checkDetailResult({ structurePlan, content });
-    assert(result.isApproved === false, "Should not be approved");
-    assert(result.detailFeedback.includes("Found a dead link"), "Should report dead link");
-    console.log("✅ Test passed: should reject content with a dead link");
-  }
+    const reviewContent = "This contains a [dead link](/dead-link).";
+    const result = await checkDetailResult({ structurePlan, reviewContent });
+    expect(result.isApproved).toBe(false);
+    expect(result.detailFeedback).toContain("Found a dead link");
+  });
 
-  async function testRejectIncorrectTableSeparator() {
-    console.log("Testing: should reject content with incorrect table separator");
+  test("should accept valid table format", async () => {
     const structurePlan = [];
-    const content = "| Header | Header |\n| - | - |\n| Cell | Cell |";
-    const result = await checkDetailResult({ structurePlan, content });
-    assert(result.isApproved === false, "Should not be approved");
-    assert(
-      result.detailFeedback.includes("incorrect table separator"),
-      "Should report incorrect table separator",
-    );
-    console.log("✅ Test passed: should reject content with incorrect table separator");
-  }
+    const reviewContent =
+      "| Header | Header |\n|--------|--------|\n| Cell | Cell |\n\nThis table is properly formatted.";
+    const result = await checkDetailResult({ structurePlan, reviewContent });
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
 
-  async function testApproveExternalLink() {
-    console.log("Testing: should approve content with an external link");
+  test("should approve content with an external link", async () => {
     const structurePlan = [];
-    const content = "This is a [valid external link](https://example.com).";
-    const result = await checkDetailResult({ structurePlan, content });
-    assert(result.isApproved === true, "Should be approved");
-    assert(result.detailFeedback === "", "Feedback should be empty");
-    console.log("✅ Test passed: should approve content with an external link");
-  }
+    const reviewContent =
+      "This is a [valid external link](https://example.com).\n\nThis has proper multi-line structure.";
+    const result = await checkDetailResult({ structurePlan, reviewContent });
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
 
-  async function testRejectMultipleIssues() {
-    console.log("Testing: should reject content with multiple issues");
+  test("should reject content with multiple issues", async () => {
     const structurePlan = [{ path: "/getting-started" }];
-    const content = "This has a [dead link](/dead-link) and an incorrect table: | - |.";
-    const result = await checkDetailResult({ structurePlan, content });
-    assert(result.isApproved === false, "Should not be approved");
-    assert(result.detailFeedback.includes("Found a dead link"), "Should report dead link");
-    assert(
-      result.detailFeedback.includes("incorrect table separator"),
-      "Should report incorrect table separator",
-    );
-    console.log("✅ Test passed: should reject content with multiple issues");
-  }
+    const reviewContent = "This has a [dead link](/dead-link).";
+    const result = await checkDetailResult({ structurePlan, reviewContent });
+    expect(result.isApproved).toBe(false);
+    expect(result.detailFeedback).toContain("dead link");
+  });
 
-  async function testApproveImageSyntax() {
-    console.log("Testing: should approve content with image syntax");
+  test("should approve content with external image syntax", async () => {
     const structurePlan = [];
-    const content = "This is an image ![MCP Go Logo](/logo.png).";
-    const result = await checkDetailResult({ structurePlan, content });
-    assert(result.isApproved === true, "Should be approved");
-    assert(result.detailFeedback === "", "Feedback should be empty");
-    console.log("✅ Test passed: should approve content with image syntax");
-  }
+    const reviewContent =
+      "This is an image ![MCP Go Logo](https://example.com/logo.png).\n\nThis has proper structure.";
+    const result = await checkDetailResult({ structurePlan, reviewContent });
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
 
-  try {
-    console.log("🚀 Starting checkDetailResult tests...");
-    await testApproveValidContent();
-    await testRejectDeadLink();
-    await testRejectIncorrectTableSeparator();
-    await testApproveExternalLink();
-    await testRejectMultipleIssues();
-    await testApproveImageSyntax();
-    console.log("🎉 All tests passed!");
-  } catch (error) {
-    console.error("❌ Test failed:", error.message);
-    process.exit(1);
-  }
-}
+  test("should approve content with valid local image path", async () => {
+    const structurePlan = [];
+    const reviewContent =
+      "This is a valid image ![Test Image](./README.md).\n\nThis has proper structure.";
+    const docsDir = "/Users/lban/arcblock/code/aigne-doc-smith";
+    const result = await checkDetailResult({ structurePlan, reviewContent, docsDir });
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
 
-runTests();
+  test("should reject content with invalid local image path", async () => {
+    const structurePlan = [];
+    const reviewContent =
+      "This is an invalid image ![Non-existent Image](./nonexistent.png).\n\nThis has proper structure.";
+    const docsDir = "/Users/lban/arcblock/code/aigne-doc-smith";
+    const result = await checkDetailResult({ structurePlan, reviewContent, docsDir });
+    expect(result.isApproved).toBe(false);
+    expect(result.detailFeedback).toContain("Found invalid local image");
+    expect(result.detailFeedback).toContain("only valid media resources can be used");
+  });
+
+  test("should approve content with absolute image path that exists", async () => {
+    const structurePlan = [];
+    const reviewContent =
+      "This is an absolute image ![Test Image](/Users/lban/arcblock/code/aigne-doc-smith/README.md).\n\nThis has proper structure.";
+    const result = await checkDetailResult({ structurePlan, reviewContent });
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
+
+  test("should reject content with absolute image path that doesn't exist", async () => {
+    const structurePlan = [];
+    const reviewContent =
+      "This is an invalid absolute image ![Non-existent Image](/path/to/nonexistent.png).\n\nThis has proper structure.";
+    const result = await checkDetailResult({ structurePlan, reviewContent });
+    expect(result.isApproved).toBe(false);
+    expect(result.detailFeedback).toContain("Found invalid local image");
+    expect(result.detailFeedback).toContain("only valid media resources can be used");
+  });
+
+  test("should approve content with external image URL", async () => {
+    const structurePlan = [];
+    const reviewContent =
+      "This is an external image ![External Image](https://example.com/image.png).\n\nThis has proper structure.";
+    const result = await checkDetailResult({ structurePlan, reviewContent });
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
+});

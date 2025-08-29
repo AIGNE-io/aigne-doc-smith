@@ -95,5 +95,9 @@ export default async function selectedDocs(
   // Add feedback to all results if provided
   foundItems = addFeedbackToItems(foundItems, userFeedback);
 
-  return { selectedDocs: foundItems };
+  return {
+    selectedDocs: foundItems,
+    feedback: userFeedback,
+    selectedPaths: foundItems.map((item) => item.path),
+  };
 }

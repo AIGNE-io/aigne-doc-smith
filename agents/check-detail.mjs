@@ -85,6 +85,7 @@ export default async function checkDetail(
     const validationResult = await checkDetailResult({
       structurePlan,
       reviewContent: fileContent,
+      docsDir,
     });
 
     if (!validationResult.isApproved) {
