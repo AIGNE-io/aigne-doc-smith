@@ -58,7 +58,7 @@ describe("checkDetailResult", () => {
     const structurePlan = [];
     const reviewContent =
       "This is a valid image ![Test Image](./README.md).\n\nThis has proper structure.";
-    const docsDir = "/Users/lban/arcblock/code/aigne-doc-smith";
+    const docsDir = process.cwd();
     const result = await checkDetailResult({ structurePlan, reviewContent, docsDir });
     expect(result.isApproved).toBe(true);
     expect(result.detailFeedback).toBe("");
@@ -68,7 +68,7 @@ describe("checkDetailResult", () => {
     const structurePlan = [];
     const reviewContent =
       "This is an invalid image ![Non-existent Image](./nonexistent.png).\n\nThis has proper structure.";
-    const docsDir = "/Users/lban/arcblock/code/aigne-doc-smith";
+    const docsDir = process.cwd();
     const result = await checkDetailResult({ structurePlan, reviewContent, docsDir });
     expect(result.isApproved).toBe(false);
     expect(result.detailFeedback).toContain("Found invalid local image");
@@ -78,7 +78,7 @@ describe("checkDetailResult", () => {
   test("should approve content with absolute image path that exists", async () => {
     const structurePlan = [];
     const reviewContent =
-      "This is an absolute image ![Test Image](/Users/lban/arcblock/code/aigne-doc-smith/README.md).\n\nThis has proper structure.";
+      `This is an absolute image ![Test Image](${process.cwd()}/README.md).\n\nThis has proper structure.`;
     const result = await checkDetailResult({ structurePlan, reviewContent });
     expect(result.isApproved).toBe(true);
     expect(result.detailFeedback).toBe("");
