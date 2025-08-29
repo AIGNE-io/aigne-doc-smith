@@ -1,10 +1,10 @@
-import fs from "node:fs/promises";
+import fs from "fs-extra";
 import { basename, join } from "node:path";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
 
 import { getAccessToken } from "../utils/auth-utils.mjs";
-import { DISCUSS_KIT_STORE_URL, TMP_DIR } from "../utils/constants.mjs";
+import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../utils/constants.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 import { beforePublishHook } from "../utils/kroki-utils.mjs";
 
@@ -15,12 +15,17 @@ export default async function publishDocs(
   options,
 ) {
   // move work dir to tmp-dir
-  const docsDir = join(".aigne", "doc-smith", TMP_DIR);
+  const tmpDir = join(".aigne", "doc-smith", TMP_DIR);
+  if (!(await fs.pathExists(join(tmpDir, ".gitignore")))) {
+    await fs.ensureDir(tmpDir);
+    await fs.writeFile(join(tmpDir, ".gitignore"), "**/*", { encoding: "utf8" });
+  }
+
+  const docsDir = join(tmpDir, TMP_DOCS_DIR);
   await fs.rm(docsDir, { recursive: true, force: true });
   await fs.mkdir(docsDir, {
     recursive: true,
   });
-  await fs.writeFile(join(docsDir, ".gitignore"), "**/*", "utf8");
   await fs.cp(rawDocsDir, docsDir, { recursive: true });
 
   // ----------------- trigger beforePublishHook -----------------------------
@@ -103,6 +108,8 @@ export default async function publishDocs(
     ].filter((lang, index, arr) => arr.indexOf(lang) === index), // Remove duplicates
   };
 
+  let message;
+
   try {
     const { success, boardId: newBoardId } = await publishDocsFn({
       sidebarPath,
@@ -130,23 +137,14 @@ export default async function publishDocs(
       if (boardId !== newBoardId) {
         await saveValueToConfig("boardId", newBoardId);
       }
-      const message = `✅ Documentation Published Successfully!`;
-      await fs.rm(docsDir, { recursive: true, force: true });
-      return {
-        message,
-      };
+      message = `✅ Documentation Published Successfully!`;
     }
-    // clean up tmp work dir
-    await fs.rm(docsDir, { recursive: true, force: true });
-
-    return {};
   } catch (error) {
-    // clean up tmp work dir
-    await fs.rm(docsDir, { recursive: true, force: true });
-    return {
-      message: `❌ Failed to publish docs: ${error.message}`,
-    };
+    message = `❌ Failed to publish docs: ${error.message}`;
   }
+  // clean up tmp work dir
+  await fs.rm(docsDir, { recursive: true, force: true });
+  return message ? { message } : {};
 }
 
 publishDocs.input_schema = {

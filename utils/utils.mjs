@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
+import crypto from "node:crypto";
 import { parse } from "yaml";
 import {
   detectResolvableConflicts,
@@ -1107,4 +1108,8 @@ export function detectSystemLanguage() {
     // Any error in detection, return default
     return "en";
   }
+}
+
+export function getContentHash(str) {
+  return crypto.createHash("sha256").update(str).digest("hex");
 }
