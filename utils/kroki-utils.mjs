@@ -1,9 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { joinURL } from "ufo";
+import { glob } from "glob";
 import pMap from "p-map";
 
-import { D2_CONFIG, KROKI_CONCURRENCY } from "./constants.mjs";
+import { D2_CONFIG, KROKI_CONCURRENCY, FILE_CONCURRENCY } from "./constants.mjs";
 
 export async function getChart({ chart = "d2", format = "svg", content }) {
   const baseUrl = "https://chart.abtnet.io";
@@ -35,7 +36,7 @@ export async function getD2Svg({ content }) {
 }
 
 // Helper: extract d2 code blocks
-const extractD2Blocks = (markdown) => {
+function extractD2Blocks(markdown) {
   if (!markdown) return [];
   const regex = /```d2\n([\s\S]*?)```/g;
   const blocks = [];
@@ -44,10 +45,10 @@ const extractD2Blocks = (markdown) => {
     blocks.push(match[1]);
   }
   return blocks;
-};
+}
 
 // Helper: save d2 svg assets alongside document
-export const saveD2Assets = async ({ markdown, baseName, docsDir }) => {
+export async function saveD2Assets({ markdown, baseName, docsDir }) {
   try {
     const { getD2Svg } = await import("./kroki-utils.mjs");
     const d2Blocks = extractD2Blocks(markdown);
@@ -78,10 +79,10 @@ export const saveD2Assets = async ({ markdown, baseName, docsDir }) => {
   } catch (e) {
     return [{ path: path.join(docsDir, "assets", baseName), success: false, error: e.message }];
   }
-};
+}
 
 // Helper: append image refs after each d2 block if missing
-export const appendD2ImageRefs = (markdown, baseName) => {
+export function appendD2ImageRefs(markdown, baseName) {
   if (!markdown) return markdown;
   const codeBlockRegex = /```d2\n([\s\S]*?)```/g;
   let blockIndex = 1;
@@ -90,4 +91,21 @@ export const appendD2ImageRefs = (markdown, baseName) => {
     return `![](./assets/${baseName}/d2-${blockIndex++}.svg)`;
   });
   return replaced;
-};
+}
+
+export async function beforePublishHook({ docsDir }) {
+  // Example: process each markdown file (replace with your logic)
+  const mdFilePaths = await glob("**/*.md", { cwd: docsDir });
+  await pMap(
+    mdFilePaths,
+    async (filePath) => {
+      let finalContent = await fs.readFile(path.join(docsDir, filePath), "utf8");
+      const docPath = filePath.replace(docsDir, "").replace(".md", "");
+      const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
+      await saveD2Assets({ markdown: finalContent, baseName: flatName, docsDir });
+      finalContent = appendD2ImageRefs(finalContent, flatName);
+      await fs.writeFile(path.join(docsDir, filePath), finalContent, "utf8");
+    },
+    { concurrency: FILE_CONCURRENCY },
+  );
+}

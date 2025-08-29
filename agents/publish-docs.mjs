@@ -2,12 +2,11 @@ import fs from "node:fs/promises";
 import { basename, join } from "node:path";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
-import { glob } from "glob";
+
 import { getAccessToken } from "../utils/auth-utils.mjs";
-import { DISCUSS_KIT_STORE_URL, FILE_CONCURRENCY } from "../utils/constants.mjs";
+import { DISCUSS_KIT_STORE_URL, TMP_DIR } from "../utils/constants.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
-import { appendD2ImageRefs, saveD2Assets } from "../utils/kroki-utils.mjs";
-import pMap from "p-map";
+import { beforePublishHook } from "../utils/kroki-utils.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
@@ -15,28 +14,19 @@ export default async function publishDocs(
   { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
   options,
 ) {
-  const docsDir = join(".aigne", "doc-smith", ".tmp-docs");
+  // move work dir to tmp-dir
+  const docsDir = join(".aigne", "doc-smith", TMP_DIR);
   await fs.rm(docsDir, { recursive: true, force: true });
   await fs.mkdir(docsDir, {
     recursive: true,
   });
+  await fs.writeFile(join(docsDir, ".gitignore"), "**/*", "utf8");
   await fs.cp(rawDocsDir, docsDir, { recursive: true });
 
-  // Example: process each markdown file (replace with your logic)
-  const mdFilePaths = await glob("**/*.md", { cwd: docsDir });
-  await pMap(
-    mdFilePaths,
-    async (filePath) => {
-      let finalContent = await fs.readFile(join(docsDir, filePath), "utf8");
-      const docPath = filePath.replace(docsDir, "").replace(".md", "");
-      const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
-      await saveD2Assets({ markdown: finalContent, baseName: flatName, docsDir });
-      finalContent = appendD2ImageRefs(finalContent, flatName);
-      await fs.writeFile(join(docsDir, filePath), finalContent, "utf8");
-    },
-    { concurrency: FILE_CONCURRENCY },
-  );
+  // ----------------- trigger beforePublishHook -----------------------------
+  await beforePublishHook({ docsDir });
 
+  // ----------------- main publish process flow -----------------------------
   // Check if DOC_DISCUSS_KIT_URL is set in environment variables
   const envAppUrl = process.env.DOC_DISCUSS_KIT_URL;
   const useEnvAppUrl = !!envAppUrl;
@@ -146,10 +136,12 @@ export default async function publishDocs(
         message,
       };
     }
+    // clean up tmp work dir
     await fs.rm(docsDir, { recursive: true, force: true });
 
     return {};
   } catch (error) {
+    // clean up tmp work dir
     await fs.rm(docsDir, { recursive: true, force: true });
     return {
       message: `❌ Failed to publish docs: ${error.message}`,
