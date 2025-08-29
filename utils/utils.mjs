@@ -38,6 +38,7 @@ export function toRelativePath(filePath) {
  * @returns {boolean} - True if the string contains glob pattern characters
  */
 export function isGlobPattern(pattern) {
+  if (pattern == null) return false;
   return /[*?[\]]|(\*\*)/.test(pattern);
 }
 
