@@ -234,11 +234,31 @@ export default async function loadSources({
   let assetsContent = "# Available Media Assets for Documentation\n\n";
 
   if (mediaFiles.length > 0) {
-    const mediaMarkdown = mediaFiles
-      .map((file) => `![${file.description}](${file.path})`)
-      .join("\n\n");
+    // Helper function to determine file type from extension
+    const getFileType = (filePath) => {
+      const ext = path.extname(filePath).toLowerCase();
+      const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
+      const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
 
-    assetsContent += mediaMarkdown;
+      if (imageExts.includes(ext)) return "image";
+      if (videoExts.includes(ext)) return "video";
+      return "media";
+    };
+
+    const mediaYaml = mediaFiles.map((file) => ({
+      name: file.name,
+      path: file.path,
+      type: getFileType(file.path),
+    }));
+
+    assetsContent += "```yaml\n";
+    assetsContent += "assets:\n";
+    mediaYaml.forEach((asset) => {
+      assetsContent += `  - name: "${asset.name}"\n`;
+      assetsContent += `    path: "${asset.path}"\n`;
+      assetsContent += `    type: "${asset.type}"\n`;
+    });
+    assetsContent += "```\n";
   }
 
   // Count words and lines in allSources

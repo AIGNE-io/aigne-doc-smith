@@ -63,7 +63,7 @@ export default async function checkStructurePlan(
         1. 对于新增的内容，可以根据需要新增节点，或补充到原有节点展示
         2. 谨慎删除节点，除非节点关联 sourceIds 都被删除了
         3. 不能修改原有节点的 path
-        4. 根据最新的 Data Sources 按需要更新节点的 sourceIds，如没有大的变化，可以不更新。
+        4. 根据最新的 Data Sources 可以按需要更新节点的 sourceIds。
       `;
     }
   }
