@@ -243,7 +243,7 @@ export default async function init(
         if (!input || input.trim() === "") {
           return [
             {
-              name: "Press Enter to finish",
+              name: _PRESS_ENTER_TO_FINISH,
               value: "",
               description: "",
             },
@@ -284,7 +284,7 @@ export default async function init(
     });
 
     // Check if user chose to exit
-    if (!selectedPath || selectedPath.trim() === "" || selectedPath === "Press Enter to finish") {
+    if (!selectedPath || selectedPath.trim() === "" || selectedPath === _PRESS_ENTER_TO_FINISH) {
       break;
     }
 
@@ -300,7 +300,6 @@ export default async function init(
         continue;
       }
       sourcePaths.push(trimmedPath);
-      console.log(`✅ Added glob pattern: ${trimmedPath}`);
     } else {
       // Use validatePath to check if path is valid for regular paths
       const validation = validatePath(trimmedPath);
@@ -366,7 +365,7 @@ export default async function init(
  * @param {Object} input - Input object
  * @returns {string} YAML string
  */
-function generateYAML(input) {
+export function generateYAML(input) {
   // Create the main configuration object that will be safely serialized
   const config = {
     // Project information (safely handled by yaml library)
