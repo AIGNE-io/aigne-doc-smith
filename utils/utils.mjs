@@ -106,9 +106,8 @@ export async function saveDocWithTranslations({
         finalContent = frontMatter + finalContent;
       }
 
-      results.push({ path: mainFilePath, success: true });
-
       await fs.writeFile(mainFilePath, finalContent, "utf8");
+      results.push({ path: mainFilePath, success: true });
     }
 
     // Process all translations

@@ -66,15 +66,22 @@ export async function saveD2Assets({ markdown, docsDir }) {
       const svgPath = path.join(assetDir, fileName);
 
       if (await fs.pathExists(svgPath)) {
-        console.log("Find assets cache, skip generating", svgPath);
+        if (process.env.DEBUG) {
+          console.log("Found assets cache, skipping generation", svgPath);
+        }
       } else {
-        console.log("start generate d2 chart", svgPath);
+        if (process.env.DEBUG) {
+          console.log("start generate d2 chart", svgPath);
+        }
         try {
           const svg = await getD2Svg({ content: d2Content });
           if (svg) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
-        } catch {
+        } catch (error) {
+          if (process.env.DEBUG) {
+            console.warn("Failed to generate D2 chart:", error);
+          }
           return _code;
         }
       }
@@ -135,7 +142,9 @@ export async function checkD2Content({ content }) {
   const fileName = `${getContentHash(d2Content)}.svg`;
   const svgPath = path.join(assetDir, fileName);
   if (await fs.pathExists(svgPath)) {
-    console.log("Find assets cache, skip generating", svgPath);
+    if (process.env.DEBUG) {
+      console.log("Found assets cache, skipping generation", svgPath);
+    }
     return;
   }
 

@@ -523,7 +523,7 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
       d2ChecksList,
       async ({ content, line }) =>
         checkD2Content({ content }).catch((err) => {
-          const errorMessage = err?.message || String(err) || "Unknown mermaid syntax error";
+          const errorMessage = err?.message || String(err) || "Unknown d2 syntax error";
           errorMessages.push(`Found D2 syntax error in ${source} at line ${line}: ${errorMessage}`);
         }),
       { concurrency: KROKI_CONCURRENCY },
