@@ -7,6 +7,9 @@ import { unified } from "unified";
 import { visit } from "unist-util-visit";
 import { VFile } from "vfile";
 import { validateMermaidSyntax } from "./mermaid-validator.mjs";
+import { checkD2Content } from "./kroki-utils.mjs";
+import pMap from "p-map";
+import { KROKI_CONCURRENCY } from "./constants.mjs";
 
 /**
  * Parse table row and count actual columns
@@ -370,91 +373,102 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
 
     // Check mermaid code blocks and other custom validations
     const mermaidChecks = [];
+    const d2ChecksList = [];
     visit(ast, "code", (node) => {
-      if (node.lang && node.lang.toLowerCase() === "mermaid") {
-        // Check for mermaid syntax errors
-        mermaidChecks.push(
-          validateMermaidSyntax(node.value).catch((error) => {
-            const errorMessage = error?.message || String(error) || "Unknown mermaid syntax error";
-
-            // Format mermaid error in check-detail-result style
-            const line = node.position?.start?.line || "unknown";
-            errorMessages.push(
-              `Found Mermaid syntax error in ${source} at line ${line}: ${errorMessage}`,
-            );
-          }),
-        );
-
-        // Check for specific mermaid rendering issues
-        const mermaidContent = node.value;
+      if (node.lang) {
         const line = node.position?.start?.line || "unknown";
 
-        // Check for backticks in node labels
-        const nodeLabelRegex = /[A-Za-z0-9_]+\["([^"]*`[^"]*)"\]|[A-Za-z0-9_]+{"([^}]*`[^}]*)"}/g;
-        let match;
-        match = nodeLabelRegex.exec(mermaidContent);
-        while (match !== null) {
-          const label = match[1] || match[2];
-          errorMessages.push(
-            `Found backticks in Mermaid node label in ${source} at line ${line}: "${label}" - backticks in node labels cause rendering issues in Mermaid diagrams`,
-          );
-          match = nodeLabelRegex.exec(mermaidContent);
-        }
+        if (node.lang.toLowerCase() === "mermaid") {
+          // Check for mermaid syntax errors
+          mermaidChecks.push(
+            validateMermaidSyntax(node.value).catch((error) => {
+              const errorMessage =
+                error?.message || String(error) || "Unknown mermaid syntax error";
 
-        // Check for numbered list format in edge descriptions
-        const edgeDescriptionRegex = /--\s*"([^"]*)"\s*-->/g;
-        let edgeMatch;
-        edgeMatch = edgeDescriptionRegex.exec(mermaidContent);
-        while (edgeMatch !== null) {
-          const description = edgeMatch[1];
-          if (/^\d+\.\s/.test(description)) {
-            errorMessages.push(
-              `Unsupported markdown: list - Found numbered list format in Mermaid edge description in ${source} at line ${line}: "${description}" - numbered lists in edge descriptions are not supported`,
-            );
-          }
-          edgeMatch = edgeDescriptionRegex.exec(mermaidContent);
-        }
-
-        // Check for numbered list format in node labels (for both [] and {} syntax)
-        const nodeLabelWithNumberRegex =
-          /[A-Za-z0-9_]+\["([^"]*\d+\.\s[^"]*)"\]|[A-Za-z0-9_]+{"([^}]*\d+\.\s[^}]*)"}/g;
-        let numberMatch;
-        numberMatch = nodeLabelWithNumberRegex.exec(mermaidContent);
-        while (numberMatch !== null) {
-          const label = numberMatch[1] || numberMatch[2];
-          // Check if the label contains numbered list format
-          if (/\d+\.\s/.test(label)) {
-            errorMessages.push(
-              `Unsupported markdown: list - Found numbered list format in Mermaid node label in ${source} at line ${line}: "${label}" - numbered lists in node labels cause rendering issues`,
-            );
-          }
-          numberMatch = nodeLabelWithNumberRegex.exec(mermaidContent);
-        }
-
-        // Check for special characters in node labels that should be quoted
-        const nodeWithSpecialCharsRegex = /([A-Za-z0-9_]+)\[([^\]]*[(){}:;,\-\s.][^\]]*)\]/g;
-        let specialCharMatch;
-        specialCharMatch = nodeWithSpecialCharsRegex.exec(mermaidContent);
-        while (specialCharMatch !== null) {
-          const nodeId = specialCharMatch[1];
-          const label = specialCharMatch[2];
-
-          // Check if label contains special characters but is not quoted
-          if (!/^".*"$/.test(label)) {
-            // List of characters that typically need quoting
-            const specialChars = ["(", ")", "{", "}", ":", ";", ",", "-", "."];
-            const foundSpecialChars = specialChars.filter((char) => label.includes(char));
-
-            if (foundSpecialChars.length > 0) {
+              // Format mermaid error in check-detail-result style
               errorMessages.push(
-                `Found unquoted special characters in Mermaid node label in ${source} at line ${line}: "${label}" contains ${foundSpecialChars.join(
-                  ", ",
-                )} - node labels with special characters should be quoted like ${nodeId}["${label}"]`,
+                `Found Mermaid syntax error in ${source} at line ${line}: ${errorMessage}`,
+              );
+            }),
+          );
+
+          // Check for specific mermaid rendering issues
+          const mermaidContent = node.value;
+
+          // Check for backticks in node labels
+          const nodeLabelRegex = /[A-Za-z0-9_]+\["([^"]*`[^"]*)"\]|[A-Za-z0-9_]+{"([^}]*`[^}]*)"}/g;
+          let match;
+          match = nodeLabelRegex.exec(mermaidContent);
+          while (match !== null) {
+            const label = match[1] || match[2];
+            errorMessages.push(
+              `Found backticks in Mermaid node label in ${source} at line ${line}: "${label}" - backticks in node labels cause rendering issues in Mermaid diagrams`,
+            );
+            match = nodeLabelRegex.exec(mermaidContent);
+          }
+
+          // Check for numbered list format in edge descriptions
+          const edgeDescriptionRegex = /--\s*"([^"]*)"\s*-->/g;
+          let edgeMatch;
+          edgeMatch = edgeDescriptionRegex.exec(mermaidContent);
+          while (edgeMatch !== null) {
+            const description = edgeMatch[1];
+            if (/^\d+\.\s/.test(description)) {
+              errorMessages.push(
+                `Unsupported markdown: list - Found numbered list format in Mermaid edge description in ${source} at line ${line}: "${description}" - numbered lists in edge descriptions are not supported`,
               );
             }
+            edgeMatch = edgeDescriptionRegex.exec(mermaidContent);
           }
+
+          // Check for numbered list format in node labels (for both [] and {} syntax)
+          const nodeLabelWithNumberRegex =
+            /[A-Za-z0-9_]+\["([^"]*\d+\.\s[^"]*)"\]|[A-Za-z0-9_]+{"([^}]*\d+\.\s[^}]*)"}/g;
+          let numberMatch;
+          numberMatch = nodeLabelWithNumberRegex.exec(mermaidContent);
+          while (numberMatch !== null) {
+            const label = numberMatch[1] || numberMatch[2];
+            // Check if the label contains numbered list format
+            if (/\d+\.\s/.test(label)) {
+              errorMessages.push(
+                `Unsupported markdown: list - Found numbered list format in Mermaid node label in ${source} at line ${line}: "${label}" - numbered lists in node labels cause rendering issues`,
+              );
+            }
+            numberMatch = nodeLabelWithNumberRegex.exec(mermaidContent);
+          }
+
+          // Check for special characters in node labels that should be quoted
+          const nodeWithSpecialCharsRegex = /([A-Za-z0-9_]+)\[([^\]]*[(){}:;,\-\s.][^\]]*)\]/g;
+          let specialCharMatch;
           specialCharMatch = nodeWithSpecialCharsRegex.exec(mermaidContent);
+          while (specialCharMatch !== null) {
+            const nodeId = specialCharMatch[1];
+            const label = specialCharMatch[2];
+
+            // Check if label contains special characters but is not quoted
+            if (!/^".*"$/.test(label)) {
+              // List of characters that typically need quoting
+              const specialChars = ["(", ")", "{", "}", ":", ";", ",", "-", "."];
+              const foundSpecialChars = specialChars.filter((char) => label.includes(char));
+
+              if (foundSpecialChars.length > 0) {
+                errorMessages.push(
+                  `Found unquoted special characters in Mermaid node label in ${source} at line ${line}: "${label}" contains ${foundSpecialChars.join(
+                    ", ",
+                  )} - node labels with special characters should be quoted like ${nodeId}["${label}"]`,
+                );
+              }
+            }
+            specialCharMatch = nodeWithSpecialCharsRegex.exec(mermaidContent);
+          }
         }
+        if (node.lang.toLowerCase() === "d2") {
+          d2ChecksList.push({
+            content: node.value,
+            line,
+          });
+        }
+        // TODO: @zhanghan need to check correctness of every code language
       }
     });
 
@@ -505,6 +519,15 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
 
     // Wait for all mermaid checks to complete
     await Promise.all(mermaidChecks);
+    await pMap(
+      d2ChecksList,
+      async ({ content, line }) =>
+        checkD2Content({ content }).catch((err) => {
+          const errorMessage = err?.message || String(err) || "Unknown mermaid syntax error";
+          errorMessages.push(`Found D2 syntax error in ${source} at line ${line}: ${errorMessage}`);
+        }),
+      { concurrency: KROKI_CONCURRENCY },
+    );
 
     // Run markdown linting rules
     await processor.run(ast, file);
