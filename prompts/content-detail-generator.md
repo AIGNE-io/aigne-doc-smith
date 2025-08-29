@@ -103,7 +103,7 @@ parentId: {{parentId}}
 
 {% include "../prompts/document/detail-generator.md" %}
 
-{% include "../prompts/document/custom-component.md" %}
+{% include "../prompts/document/custom-components.md" %}
 </rules>
 
 {% include "../prompts/document/detail-example.md" %}
