@@ -1,8 +1,9 @@
-import { joinURL } from "ufo";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { joinURL } from "ufo";
+import pMap from "p-map";
 
-import { D2_CONFIG } from "./constants.mjs";
+import { D2_CONFIG, KROKI_CONCURRENCY } from "./constants.mjs";
 
 export async function getChart({ chart = "d2", format = "svg", content }) {
   const baseUrl = "https://chart.abtnet.io";
@@ -56,19 +57,23 @@ export const saveD2Assets = async ({ markdown, baseName, docsDir }) => {
     await fs.mkdir(assetDir, { recursive: true });
 
     const saved = [];
-    for (let index = 0; index < d2Blocks.length; index++) {
-      const d2Content = [D2_CONFIG, d2Blocks[index]].join("\n");
-      const svgPath = path.join(assetDir, `d2-${index + 1}.svg`);
-      try {
-        const svg = await getD2Svg({ content: d2Content });
-        if (svg) {
-          await fs.writeFile(svgPath, svg, "utf8");
-          saved.push({ path: svgPath, success: true });
+    await pMap(
+      d2Blocks,
+      async (d2Block, index) => {
+        const d2Content = [D2_CONFIG, d2Block].join("\n");
+        const svgPath = path.join(assetDir, `d2-${index + 1}.svg`);
+        try {
+          const svg = await getD2Svg({ content: d2Content });
+          if (svg) {
+            await fs.writeFile(svgPath, svg, "utf8");
+            saved.push({ path: svgPath, success: true, index });
+          }
+        } catch (e) {
+          saved.push({ path: svgPath, success: false, error: e.message, index });
         }
-      } catch (e) {
-        saved.push({ path: svgPath, success: false, error: e.message });
-      }
-    }
+      },
+      { concurrency: KROKI_CONCURRENCY },
+    );
     return saved;
   } catch (e) {
     return [{ path: path.join(docsDir, "assets", baseName), success: false, error: e.message }];

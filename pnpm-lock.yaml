@@ -47,6 +47,9 @@ importers:
       open:
         specifier: ^10.2.0
         version: 10.2.0
+      p-map:
+        specifier: ^7.0.3
+        version: 7.0.3
       remark-gfm:
         specifier: ^4.0.1
         version: 4.0.1
@@ -2712,6 +2715,10 @@ packages:
   p-limit@7.1.0:
     resolution: {integrity: sha512-7LbrpOjbzBWFHFgRtVrIAwBwW1bB7c7n914Q2+CXr1TvOfbTrVHAEH1Ya9PwDwAoKLeiRrczymYWPwaHNOQ0vA==}
     engines: {node: '>=20'}
+
+  p-map@7.0.3:
+    resolution: {integrity: sha512-VkndIv2fIB99swvQoA65bm+fsmt6UNdGeIB0oxBs+WhAhdh08QA04JXpI7rbB9r08/nkbysKoya9rtDERYOYMA==}
+    engines: {node: '>=18'}
 
   p-retry@6.2.1:
     resolution: {integrity: sha512-hEt02O4hUct5wtwg4H4KcWgDdm+l1bOaEy/hWzd8xtXB9BqxTWBBhb+2ImAtH4Cv4rPjV76xN3Zumqk3k3AhhQ==}
@@ -7621,6 +7628,8 @@ snapshots:
   p-limit@7.1.0:
     dependencies:
       yocto-queue: 1.2.1
+
+  p-map@7.0.3: {}
 
   p-retry@6.2.1:
     dependencies:

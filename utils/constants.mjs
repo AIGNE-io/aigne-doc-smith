@@ -540,3 +540,6 @@ export const D2_CONFIG = `vars: {
     }
   }
 }`;
+
+export const KROKI_CONCURRENCY = 5;
+export const FILE_CONCURRENCY = 3;

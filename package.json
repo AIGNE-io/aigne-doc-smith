@@ -33,6 +33,7 @@
     "jsdom": "^26.1.0",
     "mermaid": "^11.9.0",
     "open": "^10.2.0",
+    "p-map": "^7.0.3",
     "remark-gfm": "^4.0.1",
     "remark-lint": "^10.0.1",
     "remark-parse": "^11.0.0",
