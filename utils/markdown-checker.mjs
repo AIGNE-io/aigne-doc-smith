@@ -67,7 +67,10 @@ function checkDeadLinks(markdown, source, allowedLinks, errorMessages) {
   const linkRegex = /(?<!!)\[([^\]]+)\]\(([^)]+)\)/g;
   let match;
 
-  while ((match = linkRegex.exec(markdown)) !== null) {
+  while (true) {
+    match = linkRegex.exec(markdown);
+    if (match === null) break;
+
     const link = match[2];
     const trimLink = link.trim();
 
@@ -173,7 +176,9 @@ function checkLocalImages(markdown, source, errorMessages, markdownFilePath, bas
   const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
   let match;
 
-  while ((match = imageRegex.exec(markdown)) !== null) {
+  while (true) {
+    match = imageRegex.exec(markdown);
+    if (match === null) break;
     const imagePath = match[2].trim();
     const altText = match[1];
 

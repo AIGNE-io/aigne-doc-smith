@@ -10,10 +10,10 @@
     "test": "bun test",
     "test:coverage": "bun test --coverage --coverage-reporter=lcov --coverage-reporter=text",
     "test:watch": "bun test --watch",
-    "lint": "biome check && pnpm -r run lint",
+    "lint": "biome check",
     "update:deps": "npx -y taze major -r -w -f -n '/@abtnode|@aigne|@arcblock|@blocklet|@did-connect|@did-pay|@did-space|@nft-store|@nft-studio|@ocap/' && pnpm install && pnpm run deduplicate",
     "deduplicate": "pnpm dedupe",
-    "lint:fix": "biome check --write && pnpm -r run lint"
+    "lint:fix": "biome check --write"
   },
   "type": "module",
   "bin": "aigne.yaml",
