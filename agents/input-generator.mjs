@@ -384,11 +384,11 @@ export function generateYAML(input) {
     targetAudience: "",
 
     // Language settings
-    locale: input.locale,
+    locale: input.locale || "en",
     translateLanguages: input.translateLanguages?.filter((lang) => lang.trim()) || [],
 
     // Paths
-    docsDir: input.docsDir,
+    docsDir: input.docsDir || "./aigne/doc-smith/docs",
     sourcesPath: input.sourcesPath || [],
   };
 
