@@ -1,4 +1,4 @@
-import { CONFLICT_RULES } from "./constants.mjs";
+import { CONFLICT_RESOLUTION_RULES, CONFLICT_RULES, RESOLUTION_STRATEGIES } from "./constants.mjs";
 
 /**
  * Detect internal conflicts within the same question (multi-select conflicts)
@@ -128,4 +128,75 @@ export function validateSelection(questionType, selectedValues) {
 
   // For moderate conflicts, allow but warn
   return true;
+}
+
+/**
+ * Detect conflicts in user configuration selections that can be resolved through structure planning
+ * @param {Object} config - User configuration
+ * @returns {Array} Array of detected conflicts with resolution strategies
+ */
+export function detectResolvableConflicts(config) {
+  const conflicts = [];
+
+  // Check each question type for conflicts
+  Object.entries(CONFLICT_RESOLUTION_RULES).forEach(([questionType, rules]) => {
+    const selectedValues = config[questionType];
+
+    if (!selectedValues || !Array.isArray(selectedValues) || selectedValues.length < 2) {
+      return; // Skip if not multi-select or less than 2 items
+    }
+
+    // Extract values from the selected items (handle both string arrays and object arrays)
+    const selectedValueStrings = selectedValues.map((item) =>
+      typeof item === "object" && item.value ? item.value : item,
+    );
+
+    // Check each conflict rule
+    rules.forEach((rule) => {
+      // Check if all conflict items are selected
+      const hasConflict = rule.conflictItems.every((item) => selectedValueStrings.includes(item));
+
+      if (hasConflict) {
+        conflicts.push({
+          type: questionType,
+          items: rule.conflictItems,
+          strategy: rule.strategy,
+          description: rule.description,
+        });
+      }
+    });
+  });
+
+  return conflicts;
+}
+
+/**
+ * Generate conflict resolution rules based on detected conflicts
+ * @param {Array} conflicts - Array of detected conflicts
+ * @returns {string} Conflict resolution instructions
+ */
+export function generateConflictResolutionRules(conflicts) {
+  if (conflicts.length === 0) return "";
+
+  const rules = ["=== Conflict Resolution Guidelines ==="];
+
+  conflicts.forEach((conflict) => {
+    const strategy = RESOLUTION_STRATEGIES[conflict.strategy];
+    if (strategy) {
+      rules.push(strategy(conflict.items));
+    }
+  });
+
+  rules.push("");
+  rules.push("Conflict Resolution Principles:");
+  rules.push(
+    "1. Meet diverse needs through intelligent structural design, not simple concatenation",
+  );
+  rules.push("2. Create clear navigation paths for different purposes and audiences");
+  rules.push(
+    "3. Ensure content hierarchy is reasonable, avoid information duplication or contradiction",
+  );
+  rules.push("4. Prioritize user experience, enable users to quickly find needed information");
+
+  return rules.join("\n");
 }

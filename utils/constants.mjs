@@ -343,79 +343,8 @@ export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml
 export const CONFLICT_RULES = {
   // Internal conflicts within the same question (multi-select conflicts)
   internalConflicts: {
-    documentPurpose: [
-      {
-        conflictItems: ["getStarted", "findAnswers"],
-        severity: "severe",
-        reason:
-          "Quick start guide (skips complex cases) conflicts with comprehensive API reference (skips beginner explanations)",
-        suggestion: "Choose one as primary goal, or consider creating layered documentation",
-      },
-      {
-        conflictItems: ["getStarted", "understandSystem"],
-        severity: "severe",
-        reason: "30-minute quick start conflicts with deep architectural concept explanations",
-        suggestion: "Consider creating separate quick start and architecture design docs",
-      },
-      {
-        conflictItems: ["completeTasks", "understandSystem"],
-        severity: "moderate",
-        reason:
-          "Practical task guidance and theoretical concept explanation have different focuses",
-        suggestion:
-          "Can be handled through layered document structure: concepts first, then practice",
-      },
-      {
-        conflictItems: ["getStarted", "solveProblems"],
-        severity: "moderate",
-        reason:
-          "Quick start (success cases) and troubleshooting (error scenarios) have different focuses",
-        suggestion: "Create separate tutorial and troubleshooting guides",
-      },
-      {
-        conflictItems: ["findAnswers", "solveProblems"],
-        severity: "moderate",
-        reason: "API reference and diagnostic documentation have different organizational logic",
-        suggestion: "Add troubleshooting section to reference documentation",
-      },
-    ],
-    targetAudienceTypes: [
-      {
-        conflictItems: ["endUsers", "developers"],
-        severity: "severe",
-        reason:
-          "Non-technical users (avoid technical terms) conflict with developers (code-first approach)",
-        suggestion:
-          "Create separate documentation for different audiences or use layered content design",
-      },
-      {
-        conflictItems: ["endUsers", "devops"],
-        severity: "severe",
-        reason: "Non-technical users and operations technical personnel have very different needs",
-        suggestion: "Consider creating separate user guides and operations documentation",
-      },
-      {
-        conflictItems: ["endUsers", "decisionMakers"],
-        severity: "severe",
-        reason:
-          "Non-technical users (simple language) and decision makers (architecture diagrams) have different needs",
-        suggestion: "Create high-level overview for management and user operation manuals",
-      },
-      {
-        conflictItems: ["developers", "decisionMakers"],
-        severity: "moderate",
-        reason:
-          "Developers (code details) and decision makers (high-level overview) have different focus areas",
-        suggestion: "Use progressive disclosure: high-level first, then details",
-      },
-      {
-        conflictItems: ["supportTeams", "decisionMakers"],
-        severity: "moderate",
-        reason:
-          "Support teams (problem diagnosis) and decision makers (architecture decisions) have different focus areas",
-        suggestion: "Include operational considerations in decision documentation",
-      },
-    ],
+    // Note: Most conflicts can be resolved through intelligent document structure planning
+    // Only keeping conflicts that represent fundamental incompatibilities
   },
 
   // Cross-question conflicts (conflicts between different questions)
@@ -483,66 +412,100 @@ export const CONFLICT_RULES = {
         readerKnowledgeLevel: ["emergencyTroubleshooting"],
       },
     },
+  ],
+};
+
+// Conflict resolution rules - defines how to handle conflicts when users select conflicting options
+export const CONFLICT_RESOLUTION_RULES = {
+  // Document purpose conflicts that can be resolved through structure planning
+  documentPurpose: [
     {
-      conditions: {
-        documentPurpose: ["getStarted"],
-        documentationDepth: ["comprehensive"],
-      },
-      severity: "severe",
-      reason: "Quick start tutorials contradict comprehensive coverage documentation",
-      action: "filter",
-      conflictingOptions: {
-        documentationDepth: ["comprehensive"],
-      },
+      conflictItems: ["getStarted", "findAnswers"],
+      strategy: "layered_structure",
+      description: "Quick start and API reference conflict, resolved through layered structure",
     },
     {
-      conditions: {
-        documentPurpose: ["solveProblems"],
-        documentationDepth: ["essentialOnly"],
-      },
-      severity: "moderate",
-      reason:
-        "Troubleshooting usually needs to cover edge cases, basic content alone may not be sufficient",
-      action: "filter",
-      conflictingOptions: {
-        documentationDepth: ["essentialOnly"],
-      },
+      conflictItems: ["getStarted", "understandSystem"],
+      strategy: "separate_sections",
+      description:
+        "Quick start and system understanding conflict, resolved through separate sections",
     },
     {
-      conditions: {
-        targetAudienceTypes: ["endUsers"],
-        documentationDepth: ["comprehensive"],
-      },
-      severity: "moderate",
-      reason: "Non-technical users typically do not need comprehensive technical coverage",
-      action: "filter",
-      conflictingOptions: {
-        documentationDepth: ["comprehensive"],
-      },
+      conflictItems: ["completeTasks", "understandSystem"],
+      strategy: "concepts_then_practice",
+      description:
+        "Task guidance and system understanding conflict, resolved through concepts-then-practice structure",
     },
     {
-      conditions: {
-        targetAudienceTypes: ["decisionMakers"],
-        documentationDepth: ["essentialOnly"],
-      },
-      severity: "moderate",
-      reason: "Decision makers may need more comprehensive information to make decisions",
-      action: "filter",
-      conflictingOptions: {
-        documentationDepth: ["essentialOnly"],
-      },
-    },
-    {
-      conditions: {
-        readerKnowledgeLevel: ["completeBeginners"],
-        documentationDepth: ["essentialOnly"],
-      },
-      severity: "moderate",
-      reason: "Complete beginners may need more explanations, not just core content",
-      action: "filter",
-      conflictingOptions: {
-        documentationDepth: ["essentialOnly"],
-      },
+      conflictItems: ["findAnswers", "solveProblems"],
+      strategy: "reference_with_troubleshooting",
+      description:
+        "API reference and problem solving conflict, resolved through reference with troubleshooting",
     },
   ],
+
+  // Target audience conflicts that can be resolved through structure planning
+  targetAudienceTypes: [
+    {
+      conflictItems: ["endUsers", "developers"],
+      strategy: "separate_user_paths",
+      description: "End users and developers conflict, resolved through separate user paths",
+    },
+    {
+      conflictItems: ["endUsers", "devops"],
+      strategy: "role_based_sections",
+      description: "End users and DevOps conflict, resolved through role-based sections",
+    },
+    {
+      conflictItems: ["developers", "decisionMakers"],
+      strategy: "progressive_disclosure",
+      description:
+        "Developers and decision makers conflict, resolved through progressive disclosure",
+    },
+  ],
+};
+
+// Resolution strategy descriptions
+export const RESOLUTION_STRATEGIES = {
+  layered_structure: (items) =>
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create layered document structure
+- Quick start section: Uses "get started" style - optimizes for speed, key steps, working examples, skips complex edge cases
+- API reference section: Uses "find answers" style - comprehensive coverage, searchability, rich examples, skips narrative flow
+- Ensure sections complement rather than conflict with each other`,
+
+  separate_sections: (items) =>
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create separate sections
+- Quick start section: Uses "get started" style - focuses on practical operations, completable within 30 minutes
+- System understanding section: Uses "understand system" style - dedicated to explaining architecture, concepts, design decision rationale
+- Meet different depth needs through clear section separation`,
+
+  concepts_then_practice: (items) =>
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Use progressive "concepts-then-practice" structure
+- Concepts section: Uses "understand system" style - first explains core concepts and architecture principles
+- Practice section: Uses "complete tasks" style - then provides specific step guidance and practical scenarios
+- Ensure smooth transition between theory and practice`,
+
+  reference_with_troubleshooting: (items) =>
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Integrate troubleshooting into API reference
+- API reference section: Uses "find answers" style - comprehensive feature documentation and parameter descriptions
+- Troubleshooting section: Uses "solve problems" style - add common issues and diagnostic methods for each feature
+- Create dedicated problem diagnosis index for quick location`,
+
+  separate_user_paths: (items) =>
+    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Create separate user paths
+- User guide path: Uses "end users" style - simple language, UI operations, screenshot instructions, business outcome oriented
+- Developer guide path: Uses "developers" style - code-first, technical precision, SDK examples, configuration snippets
+- Provide clear path navigation for users to choose appropriate entry point`,
+
+  role_based_sections: (items) =>
+    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Organize content by role
+- Create dedicated sections for different roles, each section uses corresponding audience style
+- Ensure content depth and expression precisely match the needs and background of corresponding audience
+- Provide cross-references between sections to facilitate collaborative understanding between roles`,
+
+  progressive_disclosure: (items) =>
+    `Detected "${items.join('" and "')}" audience conflict. Resolution strategy: Use progressive information disclosure
+- Overview level: Uses "decision makers" style - high-level architecture diagrams, decision points, business value
+- Detail level: Uses "developers" style - technical implementation details, code examples, best practices
+- Ensure smooth transition from strategic to tactical`,
 };
