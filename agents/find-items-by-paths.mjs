@@ -26,10 +26,18 @@ export default async function selectedDocs(
       // Let user select multiple files
       selectedFiles = await options.prompts.checkbox({
         message: getActionText(isTranslate, "Select documents to {action}:"),
-        choices: mainLanguageFiles.map((file) => ({
-          name: file,
-          value: file,
-        })),
+        source: (term) => {
+          const choices = mainLanguageFiles.map((file) => ({
+            name: file,
+            value: file,
+          }));
+          
+          if (!term) return choices;
+          
+          return choices.filter(choice => 
+            choice.name.toLowerCase().includes(term.toLowerCase())
+          );
+        },
         validate: (answer) => {
           if (answer.length === 0) {
             return "Please select at least one document";
