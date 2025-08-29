@@ -28,6 +28,11 @@ export default async function loadSources({
 
     for (const dir of paths) {
       try {
+        if (typeof dir !== "string") {
+          console.warn(`Invalid source path: ${dir}`);
+          continue;
+        }
+
         // First try to access as a file or directory
         const stats = await stat(dir);
 
