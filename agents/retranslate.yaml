@@ -58,7 +58,7 @@ input_schema:
       type: array
       items:
         type: string
-      description: Languages to translate to
+      description: "Languages to translate to, available languages are: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar"
     feedback:
       type: string
       description: Feedback for translation improvement

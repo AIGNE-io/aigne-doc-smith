@@ -26,3 +26,5 @@ skills:
   - ./detail-regenerator.yaml
   - ./team-publish-docs.yaml
   - ./retranslate.yaml
+  - ./docs-fs.yaml
+  - ./exit.mjs
