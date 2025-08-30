@@ -101,14 +101,18 @@ parentId: {{parentId}}
 
 </media_rules>
 
-{% include "../prompts/document/detail-generator.md" %}
+{% include "document/detail-generator.md" %}
+
+{% include "document/custom-components.md" %}
+
 </rules>
 
-{% include "../prompts/document/detail-example.md" %}
+{% include "document/detail-example.md" %}
 
 <output_schema>
 
 1. 输内容为{{nodeName}}的详细文本。
 2. 直接输出{{nodeName}}内容，不要包含其他信息.
 3. 仅参考示例中的风格，**以语言 {{locale}} 输出内容 **
-   </output_schema>
+
+</output_schema>

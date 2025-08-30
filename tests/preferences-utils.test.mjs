@@ -187,6 +187,100 @@ describe("preferences-utils", () => {
       expect(preferences.rules[0]).toEqual(rule2); // Most recent first
       expect(preferences.rules[1]).toEqual(rule1);
     });
+
+    test("should handle rules with special characters and colons", () => {
+      const ruleData = {
+        rule: 'Always use proper punctuation: semicolons, colons, and quotes"like this"',
+        scope: "document",
+        limitToInputPaths: false,
+      };
+      const feedback = 'Please ensure proper punctuation: don\'t forget quotes"and colons"';
+
+      const newRule = addPreferenceRule(ruleData, feedback);
+
+      expect(newRule.rule).toBe(
+        'Always use proper punctuation: semicolons, colons, and quotes"like this"',
+      );
+      expect(newRule.feedback).toBe(
+        'Please ensure proper punctuation: don\'t forget quotes"and colons"',
+      );
+
+      // Verify it was saved and can be read back
+      const preferences = readPreferences();
+      expect(preferences.rules).toHaveLength(1);
+      expect(preferences.rules[0].rule).toEqual(newRule.rule);
+      expect(preferences.rules[0].feedback).toEqual(newRule.feedback);
+    });
+
+    test("should handle rules with multiline content and special YAML characters", () => {
+      const ruleData = {
+        rule: "Multi-line rule:\\nLine 1: Use proper formatting\\nLine 2: Handle | pipe characters\\nLine 3: And > greater than symbols",
+        scope: "structure",
+        limitToInputPaths: false,
+      };
+      const feedback =
+        "Multi-line feedback:\\n- Check formatting\\n- Validate | pipes\\n- Handle > symbols\\n- Process 'single quotes' and \"double quotes\"";
+
+      const newRule = addPreferenceRule(ruleData, feedback);
+
+      expect(newRule.rule).toContain("Multi-line rule:\\nLine 1");
+      expect(newRule.feedback).toContain("Multi-line feedback:\\n- Check");
+
+      // Verify it was saved and can be read back correctly
+      const preferences = readPreferences();
+      expect(preferences.rules).toHaveLength(1);
+      expect(preferences.rules[0].rule).toEqual(ruleData.rule);
+      expect(preferences.rules[0].feedback).toEqual(feedback);
+    });
+
+    test("should handle rules with Chinese and Unicode characters", () => {
+      const ruleData = {
+        rule: "使用正确的中文标点符号：逗号，句号。还有emoji 🔥 和特殊符号 @#$%^&*()",
+        scope: "document",
+        limitToInputPaths: false,
+      };
+      const feedback = '请确保正确使用标点：引号"这样"和冒号：还有各种符号！@#$%';
+
+      const newRule = addPreferenceRule(ruleData, feedback);
+
+      expect(newRule.rule).toBe(
+        "使用正确的中文标点符号：逗号，句号。还有emoji 🔥 和特殊符号 @#$%^&*()",
+      );
+      expect(newRule.feedback).toBe('请确保正确使用标点：引号"这样"和冒号：还有各种符号！@#$%');
+
+      // Verify it was saved and can be read back
+      const preferences = readPreferences();
+      expect(preferences.rules).toHaveLength(1);
+      expect(preferences.rules[0].rule).toEqual(newRule.rule);
+      expect(preferences.rules[0].feedback).toEqual(newRule.feedback);
+    });
+
+    test("should handle paths with special characters", () => {
+      const ruleData = {
+        rule: "Path-specific rule for special directories",
+        scope: "structure",
+        limitToInputPaths: true,
+      };
+      const feedback = "Apply to special paths only";
+      const paths = [
+        "/docs/api: advanced",
+        "/docs/guide-中文",
+        "/path with spaces",
+        "/symbols@#$%/file",
+      ];
+
+      const newRule = addPreferenceRule(ruleData, feedback, paths);
+
+      expect(newRule.paths).toEqual(paths);
+
+      // Verify it was saved with all special character paths
+      const preferences = readPreferences();
+      expect(preferences.rules[0].paths).toEqual(paths);
+      expect(preferences.rules[0].paths).toContain("/docs/api: advanced");
+      expect(preferences.rules[0].paths).toContain("/docs/guide-中文");
+      expect(preferences.rules[0].paths).toContain("/path with spaces");
+      expect(preferences.rules[0].paths).toContain("/symbols@#$%/file");
+    });
   });
 
   describe("getActiveRulesForScope", () => {

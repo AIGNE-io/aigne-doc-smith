@@ -1,0 +1,25 @@
+type: team
+name: docs_fs_actor
+description: File system operations for documentation management
+skills:
+  - ./load-config.mjs
+  - url: ./fs.mjs
+    default_input:
+      rootDir:
+        $get: docsDir
+input_schema:
+  type: object
+  properties:
+    action:
+      type: "string"
+      enum: ["read_file", "write_file", "delete_file", "list_directory"]
+      description:
+        "The file system action to perform, available actions are: read_file, write_file, delete_file, list_directory"
+    path:
+      type: "string"
+      description: "The path to the file or directory to operate on"
+    content:
+      type: "string"
+      description: "The content to write to the file, required for write_file action"
+  required: ["action", "path"]
+task_render_mode: hide

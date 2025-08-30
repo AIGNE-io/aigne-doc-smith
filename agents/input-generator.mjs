@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
+import { stringify as yamlStringify } from "yaml";
 import { getFilteredOptions, validateSelection } from "../utils/conflict-detector.mjs";
 import {
   DEPTH_RECOMMENDATION_LOGIC,
@@ -15,6 +16,7 @@ import {
   detectSystemLanguage,
   getAvailablePaths,
   getProjectInfo,
+  isGlobPattern,
   validatePath,
 } from "../utils/utils.mjs";
 
@@ -34,7 +36,9 @@ export default async function init(
 ) {
   if (skipIfExists) {
     const filePath = join(outputPath, fileName);
-    if (await readFile(filePath, "utf8").catch(() => null)) {
+    const configContent = await readFile(filePath, "utf8").catch(() => null);
+    // Only skip if file exists AND has non-empty content
+    if (configContent && configContent.trim() !== "") {
       return {};
     }
   }
@@ -228,17 +232,18 @@ export default async function init(
   // 8. Source code paths
   console.log("\n🔍 [8/8]: Source Code Paths");
   console.log("Enter paths to analyze for documentation (e.g., ./src, ./lib)");
+  console.log("💡 You can also enter glob patterns (e.g., src/**/*.js, **/*.md)");
   console.log("💡 If no paths are configured, './' will be used as default");
 
   const sourcePaths = [];
   while (true) {
     const selectedPath = await options.prompts.search({
-      message: "Path:",
+      message: "Path or glob pattern:",
       source: async (input) => {
         if (!input || input.trim() === "") {
           return [
             {
-              name: "Press Enter to finish",
+              name: _PRESS_ENTER_TO_FINISH,
               value: "",
               description: "",
             },
@@ -247,35 +252,71 @@ export default async function init(
 
         const searchTerm = input.trim();
 
+        // Check if input looks like a glob pattern
+        const isGlobPatternResult = isGlobPattern(searchTerm);
+
+        if (isGlobPatternResult) {
+          // If it looks like a glob pattern, allow direct input
+          return [
+            {
+              name: `Use glob pattern: ${searchTerm}`,
+              value: searchTerm,
+              description: "Glob pattern for file matching",
+            },
+          ];
+        }
+
         // Search for matching files and folders in current directory
         const availablePaths = getAvailablePaths(searchTerm);
 
-        return [...availablePaths];
+        // Also add option to use as glob pattern
+        const options = [...availablePaths];
+        if (searchTerm.length > 0) {
+          options.unshift({
+            name: `Use as glob pattern: ${searchTerm}`,
+            value: searchTerm,
+            description: "Treat input as glob pattern",
+          });
+        }
+
+        return options;
       },
     });
 
     // Check if user chose to exit
-    if (!selectedPath || selectedPath.trim() === "" || selectedPath === "Press Enter to finish") {
+    if (!selectedPath || selectedPath.trim() === "" || selectedPath === _PRESS_ENTER_TO_FINISH) {
       break;
     }
 
     const trimmedPath = selectedPath.trim();
 
-    // Use validatePath to check if path is valid
-    const validation = validatePath(trimmedPath);
+    // Check if it's a glob pattern
+    const isGlobPatternResult = isGlobPattern(trimmedPath);
 
-    if (!validation.isValid) {
-      console.log(`⚠️ ${validation.error}`);
-      continue;
+    if (isGlobPatternResult) {
+      // For glob patterns, just add them without validation
+      if (sourcePaths.includes(trimmedPath)) {
+        console.log(`⚠️ Pattern already exists: ${trimmedPath}`);
+        continue;
+      }
+      sourcePaths.push(trimmedPath);
+    } else {
+      // Use validatePath to check if path is valid for regular paths
+      const validation = validatePath(trimmedPath);
+
+      if (!validation.isValid) {
+        console.log(`⚠️ ${validation.error}`);
+        continue;
+      }
+
+      // Avoid duplicate paths
+      if (sourcePaths.includes(trimmedPath)) {
+        console.log(`⚠️ Path already exists: ${trimmedPath}`);
+        continue;
+      }
+
+      sourcePaths.push(trimmedPath);
     }
-
-    // Avoid duplicate paths
-    if (sourcePaths.includes(trimmedPath)) {
-      console.log(`⚠️ Path already exists: ${trimmedPath}`);
-      continue;
-    }
-
-    sourcePaths.push(trimmedPath);
   }
 
   // If no paths entered, use default
@@ -324,114 +365,142 @@ export default async function init(
  * @param {Object} input - Input object
  * @returns {string} YAML string
  */
-function generateYAML(input) {
-  let yaml = "";
+export function generateYAML(input) {
+  // Create the main configuration object that will be safely serialized
+  const config = {
+    // Project information (safely handled by yaml library)
+    projectName: input.projectName || "",
+    projectDesc: input.projectDesc || "",
+    projectLogo: input.projectLogo || "",
 
-  // Add project information at the beginning
-  yaml += `# Project information for documentation publishing\n`;
-  yaml += `projectName: ${input.projectName || ""}\n`;
-  yaml += `projectDesc: ${input.projectDesc || ""}\n`;
-  yaml += `projectLogo: ${input.projectLogo || ""}\n`;
-  yaml += `\n`;
+    // Documentation configuration
+    documentPurpose: input.documentPurpose || [],
+    targetAudienceTypes: input.targetAudienceTypes || [],
+    readerKnowledgeLevel: input.readerKnowledgeLevel || "",
+    documentationDepth: input.documentationDepth || "",
 
-  // Add documentation configuration choices with all available options
-  yaml += `# =============================================================================\n`;
-  yaml += `# Documentation Configuration\n`;
-  yaml += `# =============================================================================\n\n`;
+    // Custom rules and target audience (empty for user to fill)
+    rules: "",
+    targetAudience: "",
+
+    // Language settings
+    locale: input.locale || "en",
+    translateLanguages: input.translateLanguages?.filter((lang) => lang.trim()) || [],
+
+    // Paths
+    docsDir: input.docsDir || "./aigne/doc-smith/docs",
+    sourcesPath: input.sourcesPath || [],
+  };
+
+  // Generate comments and structure
+  let yaml = "# Project information for documentation publishing\n";
+
+  // Serialize the project info section safely
+  const projectSection = yamlStringify({
+    projectName: config.projectName,
+    projectDesc: config.projectDesc,
+    projectLogo: config.projectLogo,
+  }).trim();
+
+  yaml += `${projectSection}\n\n`;
+
+  // Add documentation configuration with comments
+  yaml += "# =============================================================================\n";
+  yaml += "# Documentation Configuration\n";
+  yaml += "# =============================================================================\n\n";
 
   // Document Purpose with all available options
-  yaml += `# Purpose: What's the main outcome you want readers to achieve?\n`;
-  yaml += `# Available options (uncomment and modify as needed):\n`;
+  yaml += "# Purpose: What's the main outcome you want readers to achieve?\n";
+  yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(DOCUMENT_STYLES).forEach(([key, style]) => {
     if (key !== "custom") {
       yaml += `#   ${key.padEnd(16)} - ${style.name}: ${style.description}\n`;
     }
   });
-  yaml += `documentPurpose:\n`;
-  if (input.documentPurpose && input.documentPurpose.length > 0) {
-    input.documentPurpose.forEach((purpose) => {
-      yaml += `  - ${purpose}\n`;
-    });
-  }
-  yaml += `\n`;
+
+  // Safely serialize documentPurpose
+  const documentPurposeSection = yamlStringify({ documentPurpose: config.documentPurpose }).trim();
+  yaml += `${documentPurposeSection.replace(/^documentPurpose:/, "documentPurpose:")}\n\n`;
 
   // Target Audience Types with all available options
-  yaml += `# Target Audience: Who will be reading this most often?\n`;
-  yaml += `# Available options (uncomment and modify as needed):\n`;
+  yaml += "# Target Audience: Who will be reading this most often?\n";
+  yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(TARGET_AUDIENCES).forEach(([key, audience]) => {
     if (key !== "custom") {
       yaml += `#   ${key.padEnd(16)} - ${audience.name}: ${audience.description}\n`;
     }
   });
-  yaml += `targetAudienceTypes:\n`;
-  if (input.targetAudienceTypes && input.targetAudienceTypes.length > 0) {
-    input.targetAudienceTypes.forEach((audience) => {
-      yaml += `  - ${audience}\n`;
-    });
-  }
-  yaml += `\n`;
+
+  // Safely serialize targetAudienceTypes
+  const targetAudienceTypesSection = yamlStringify({
+    targetAudienceTypes: config.targetAudienceTypes,
+  }).trim();
+  yaml += `${targetAudienceTypesSection.replace(/^targetAudienceTypes:/, "targetAudienceTypes:")}\n\n`;
 
   // Reader Knowledge Level with all available options
-  yaml += `# Reader Knowledge Level: What do readers typically know when they arrive?\n`;
-  yaml += `# Available options (uncomment and modify as needed):\n`;
+  yaml += "# Reader Knowledge Level: What do readers typically know when they arrive?\n";
+  yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(READER_KNOWLEDGE_LEVELS).forEach(([key, level]) => {
     yaml += `#   ${key.padEnd(20)} - ${level.name}: ${level.description}\n`;
   });
-  yaml += `readerKnowledgeLevel: ${input.readerKnowledgeLevel || ""}\n`;
-  yaml += `\n`;
+
+  // Safely serialize readerKnowledgeLevel
+  const readerKnowledgeLevelSection = yamlStringify({
+    readerKnowledgeLevel: config.readerKnowledgeLevel,
+  }).trim();
+  yaml += `${readerKnowledgeLevelSection.replace(/^readerKnowledgeLevel:/, "readerKnowledgeLevel:")}\n\n`;
 
   // Documentation Depth with all available options
-  yaml += `# Documentation Depth: How comprehensive should the documentation be?\n`;
-  yaml += `# Available options (uncomment and modify as needed):\n`;
+  yaml += "# Documentation Depth: How comprehensive should the documentation be?\n";
+  yaml += "# Available options (uncomment and modify as needed):\n";
   Object.entries(DOCUMENTATION_DEPTH).forEach(([key, depth]) => {
     yaml += `#   ${key.padEnd(18)} - ${depth.name}: ${depth.description}\n`;
   });
-  yaml += `documentationDepth: ${input.documentationDepth || ""}\n`;
-  yaml += `\n`;
+
+  // Safely serialize documentationDepth
+  const documentationDepthSection = yamlStringify({
+    documentationDepth: config.documentationDepth,
+  }).trim();
+  yaml += `${documentationDepthSection.replace(/^documentationDepth:/, "documentationDepth:")}\n\n`;
 
   // Custom Documentation Rules and Requirements
-  yaml += `# Custom Rules: Define specific documentation generation rules and requirements\n`;
-  yaml += `rules: |\n`;
-  yaml += `  \n\n`;
+  yaml += "# Custom Rules: Define specific documentation generation rules and requirements\n";
+  const rulesSection = yamlStringify({ rules: config.rules }).trim();
+  // Use literal style for multiline strings
+  yaml += `${rulesSection.replace(/rules: ''/, "rules: |\n  ")}\n\n`;
 
   // Target Audience Description
-  yaml += `# Target Audience: Describe your specific target audience and their characteristics\n`;
-  yaml += `targetAudience: |\n`;
-  yaml += `  \n\n`;
+  yaml += "# Target Audience: Describe your specific target audience and their characteristics\n";
+  const targetAudienceSection = yamlStringify({ targetAudience: config.targetAudience }).trim();
+  // Use literal style for multiline strings
+  yaml += `${targetAudienceSection.replace(/targetAudience: ''/, "targetAudience: |\n  ")}\n\n`;
 
   // Glossary Configuration
-  yaml += `# Glossary: Define project-specific terms and definitions\n`;
-  yaml += `# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions\n`;
-  yaml += `\n`;
+  yaml += "# Glossary: Define project-specific terms and definitions\n";
+  yaml += '# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions\n\n';
 
-  // Add language settings
-  yaml += `locale: ${input.locale}\n`;
+  // Language settings - safely serialize
+  const localeSection = yamlStringify({ locale: config.locale }).trim();
+  yaml += `${localeSection.replace(/^locale:/, "locale:")}\n`;
 
-  // Add translation languages
-  if (
-    input.translateLanguages &&
-    input.translateLanguages.length > 0 &&
-    input.translateLanguages.some((lang) => lang.trim())
-  ) {
-    yaml += `translateLanguages:\n`;
-    input.translateLanguages.forEach((lang) => {
-      if (lang.trim()) {
-        yaml += `  - ${lang}\n`;
-      }
-    });
+  // Translation languages
+  if (config.translateLanguages.length > 0) {
+    const translateLanguagesSection = yamlStringify({
+      translateLanguages: config.translateLanguages,
+    }).trim();
+    yaml += `${translateLanguagesSection.replace(/^translateLanguages:/, "translateLanguages:")}\n`;
   } else {
-    yaml += `# translateLanguages:  # List of languages to translate the documentation to\n`;
-    yaml += `#   - zh  # Example: Chinese translation\n`;
-    yaml += `#   - en  # Example: English translation\n`;
+    yaml += "# translateLanguages:  # List of languages to translate the documentation to\n";
+    yaml += "#   - zh  # Example: Chinese translation\n";
+    yaml += "#   - en  # Example: English translation\n";
   }
 
-  // Add directory and source path configurations
-  yaml += `docsDir: ${input.docsDir}  # Directory to save generated documentation\n`;
-  // yaml += `outputDir: ${outputPath}/output  # Directory to save output files\n`;
-  yaml += `sourcesPath:  # Source code paths to analyze\n`;
-  input.sourcesPath.forEach((path) => {
-    yaml += `  - ${path}\n`;
-  });
+  // Directory and source path configurations - safely serialize
+  const docsDirSection = yamlStringify({ docsDir: config.docsDir }).trim();
+  yaml += `${docsDirSection.replace(/^docsDir:/, "docsDir:")}  # Directory to save generated documentation\n`;
+
+  const sourcesPathSection = yamlStringify({ sourcesPath: config.sourcesPath }).trim();
+  yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # Source code paths to analyze")}\n`;
 
   return yaml;
 }

@@ -41,8 +41,12 @@ output_schema:
     limitToInputPaths:
       type: boolean
       description: Whether to limit to the "paths specified in current input" when used subsequently
+    reason:
+      type: string
+      description: Explanation of why the save decision was made and how the rule and scope were derived
   required:
     - rule
     - scope
     - save
     - limitToInputPaths
+    - reason

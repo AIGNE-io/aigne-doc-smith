@@ -1,8 +1,13 @@
 import { execSync } from "node:child_process";
+import crypto from "node:crypto";
 import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { parse } from "yaml";
+import { parse, stringify as yamlStringify } from "yaml";
+import {
+  detectResolvableConflicts,
+  generateConflictResolutionRules,
+} from "./conflict-detector.mjs";
 import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
@@ -30,6 +35,16 @@ export function normalizePath(filePath) {
  */
 export function toRelativePath(filePath) {
   return path.isAbsolute(filePath) ? path.relative(process.cwd(), filePath) : filePath;
+}
+
+/**
+ * Check if a string looks like a glob pattern
+ * @param {string} pattern - The string to check
+ * @returns {boolean} - True if the string contains glob pattern characters
+ */
+export function isGlobPattern(pattern) {
+  if (pattern == null) return false;
+  return /[*?[\]]|(\*\*)/.test(pattern);
 }
 
 export function processContent({ content }) {
@@ -95,6 +110,7 @@ export async function saveDocWithTranslations({
 
       // Add labels front matter if labels are provided
       let finalContent = processContent({ content });
+
       if (labels && labels.length > 0) {
         const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
         finalContent = frontMatter + finalContent;
@@ -113,6 +129,7 @@ export async function saveDocWithTranslations({
       let finalTranslationContent = processContent({
         content: translate.translation,
       });
+
       if (labels && labels.length > 0) {
         const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
         finalTranslationContent = frontMatter + finalTranslationContent;
@@ -149,7 +166,7 @@ export function getCurrentGitHead() {
  * @param {string} gitHead - The current git HEAD commit hash
  */
 export async function saveGitHeadToConfig(gitHead) {
-  if (!gitHead || process.env.NODE_ENV === 'test' || process.env.BUN_TEST) {
+  if (!gitHead || process.env.NODE_ENV === "test" || process.env.BUN_TEST) {
     return; // Skip if no git HEAD available or in test environment
   }
 
@@ -169,7 +186,9 @@ export async function saveGitHeadToConfig(gitHead) {
 
     // Check if lastGitHead already exists in the file
     const lastGitHeadRegex = /^lastGitHead:\s*.*$/m;
-    const newLastGitHeadLine = `lastGitHead: ${gitHead}`;
+    // Use yaml library to safely serialize the git head value
+    const yamlContent = yamlStringify({ lastGitHead: gitHead }).trim();
+    const newLastGitHeadLine = yamlContent;
 
     if (lastGitHeadRegex.test(fileContent)) {
       // Replace existing lastGitHead line
@@ -287,7 +306,6 @@ export function hasFileChangesBetweenCommits(
     return addedOrDeletedFiles.some((filePath) => {
       // Check if file matches any include pattern
       const matchesInclude = includePatterns.some((pattern) => {
-        // Convert glob pattern to regex for matching
         // First escape all regex special characters except * and ?
         const escapedPattern = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
         // Then convert glob wildcards to regex
@@ -302,7 +320,6 @@ export function hasFileChangesBetweenCommits(
 
       // Check if file matches any exclude pattern
       const matchesExclude = excludePatterns.some((pattern) => {
-        // Convert glob pattern to regex for matching
         // First escape all regex special characters except * and ?
         const escapedPattern = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
         // Then convert glob wildcards to regex
@@ -357,9 +374,10 @@ export async function loadConfigFromFile() {
  * @returns {string} Updated file content
  */
 function handleArrayValueUpdate(key, value, comment, fileContent) {
-  // Format array value
-  const formattedValue =
-    value.length === 0 ? `${key}: []` : `${key}:\n${value.map((item) => `  - ${item}`).join("\n")}`;
+  // Use yaml library to safely serialize the key-value pair
+  const yamlObject = { [key]: value };
+  const yamlContent = yamlStringify(yamlObject).trim();
+  const formattedValue = yamlContent;
 
   const lines = fileContent.split("\n");
 
@@ -441,7 +459,10 @@ function handleArrayValueUpdate(key, value, comment, fileContent) {
  * @returns {string} Updated file content
  */
 function handleStringValueUpdate(key, value, comment, fileContent) {
-  const formattedValue = `${key}: "${value}"`;
+  // Use yaml library to safely serialize the key-value pair
+  const yamlObject = { [key]: value };
+  const yamlContent = yamlStringify(yamlObject).trim();
+  const formattedValue = yamlContent;
   const lines = fileContent.split("\n");
 
   // Handle string values (original logic)
@@ -855,6 +876,29 @@ export function processConfigFields(config) {
   const processed = {};
   const allRulesContent = [];
 
+  // Set default values for missing or empty fields
+  const defaults = {
+    nodeName: "Section",
+    locale: "en",
+    sourcesPath: ["./"],
+    docsDir: "./.aigne/doc-smith/docs",
+    outputDir: "./.aigne/doc-smith/output",
+    translateLanguages: [],
+    rules: "",
+    targetAudience: "",
+  };
+
+  // Apply defaults for missing or empty fields
+  for (const [key, defaultValue] of Object.entries(defaults)) {
+    if (
+      !config[key] ||
+      (Array.isArray(defaultValue) && (!config[key] || config[key].length === 0)) ||
+      (typeof defaultValue === "string" && (!config[key] || config[key].trim() === ""))
+    ) {
+      processed[key] = defaultValue;
+    }
+  }
+
   // Check if original rules field has content
   if (config.rules) {
     if (typeof config.rules === "string") {
@@ -874,37 +918,41 @@ export function processConfigFields(config) {
   }
 
   // Process document purpose (array)
-  let purposeContents = "";
   if (config.documentPurpose && Array.isArray(config.documentPurpose)) {
-    purposeContents = config.documentPurpose
-      .map((key) => DOCUMENT_STYLES[key]?.content)
-      .filter(Boolean)
-      .join("\n\n");
+    const purposeRules = config.documentPurpose
+      .map((key) => {
+        const style = DOCUMENT_STYLES[key];
+        if (!style) return null;
+        return `Document Purpose - ${style.name}:\n${style.description}\n${style.content}`;
+      })
+      .filter(Boolean);
 
-    if (purposeContents) {
-      allRulesContent.push(purposeContents);
+    if (purposeRules.length > 0) {
+      allRulesContent.push(purposeRules.join("\n\n"));
     }
   }
 
   // Process target audience types (array)
-  let audienceContents = "";
   let audienceNames = "";
   if (config.targetAudienceTypes && Array.isArray(config.targetAudienceTypes)) {
-    // Get content for rules
-    audienceContents = config.targetAudienceTypes
-      .map((key) => TARGET_AUDIENCES[key]?.content)
-      .filter(Boolean)
-      .join("\n\n");
+    // Get structured content for rules
+    const audienceRules = config.targetAudienceTypes
+      .map((key) => {
+        const audience = TARGET_AUDIENCES[key];
+        if (!audience) return null;
+        return `Target Audience - ${audience.name}:\n${audience.description}\n${audience.content}`;
+      })
+      .filter(Boolean);
+
+    if (audienceRules.length > 0) {
+      allRulesContent.push(audienceRules.join("\n\n"));
+    }
 
     // Get names for targetAudience field
     audienceNames = config.targetAudienceTypes
       .map((key) => TARGET_AUDIENCES[key]?.name)
       .filter(Boolean)
       .join(", ");
-
-    if (audienceContents) {
-      allRulesContent.push(audienceContents);
-    }
 
     if (audienceNames) {
       // Check if original targetAudience field has content
@@ -937,6 +985,16 @@ export function processConfigFields(config) {
       processed.documentationDepthContent = depthContent;
       allRulesContent.push(`Documentation Depth:\n${depthContent}`);
     }
+  }
+
+  // Detect and handle conflicts in user selections
+  const conflicts = detectResolvableConflicts(config);
+  if (conflicts.length > 0) {
+    const conflictResolutionRules = generateConflictResolutionRules(conflicts);
+    allRulesContent.push(conflictResolutionRules);
+
+    // Store conflict information for debugging/logging
+    processed.detectedConflicts = conflicts;
   }
 
   // Combine all content into rules field
@@ -1092,4 +1150,8 @@ export function detectSystemLanguage() {
     // Any error in detection, return default
     return "en";
   }
+}
+
+export function getContentHash(str) {
+  return crypto.createHash("sha256").update(str).digest("hex");
 }

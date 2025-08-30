@@ -31,11 +31,6 @@ export default async function loadConfig({ config, appUrl }) {
     const processedConfig = processConfigFields(parsedConfig);
 
     return {
-      nodeName: "Section",
-      locale: "en",
-      sourcesPath: ["./"],
-      docsDir: "./.aigne/doc-smith/docs",
-      outputDir: "./.aigne/doc-smith/output",
       lastGitHead: parsedConfig.lastGitHead || "",
       ...parsedConfig,
       ...processedConfig,

@@ -41,6 +41,7 @@ agents:
   - ./agents/feedback-refiner.yaml
   - ./agents/manage-prefs.mjs
 cli:
+  chat: ./agents/chat.yaml
   agents:
     - ./agents/input-generator.mjs
     - ./agents/docs-generator.yaml

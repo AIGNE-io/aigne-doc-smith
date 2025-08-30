@@ -1,6 +1,6 @@
 {
   "name": "@aigne/doc-smith",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "",
   "publishConfig": {
     "access": "public"
@@ -8,11 +8,12 @@
   "main": "index.js",
   "scripts": {
     "test": "bun test",
+    "test:coverage": "bun test --coverage --coverage-reporter=lcov --coverage-reporter=text",
     "test:watch": "bun test --watch",
-    "lint": "biome check && pnpm -r run lint",
+    "lint": "biome check",
     "update:deps": "npx -y taze major -r -w -f -n '/@abtnode|@aigne|@arcblock|@blocklet|@did-connect|@did-pay|@did-space|@nft-store|@nft-studio|@ocap/' && pnpm install && pnpm run deduplicate",
     "deduplicate": "pnpm dedupe",
-    "lint:fix": "biome check --write && pnpm -r run lint"
+    "lint:fix": "biome check --write"
   },
   "type": "module",
   "bin": "aigne.yaml",
@@ -20,19 +21,21 @@
   "author": "Arcblock <blocklet@arcblock.io> https://github.com/blocklet",
   "license": "MIT",
   "dependencies": {
-    "@aigne/aigne-hub": "^0.6.10",
-    "@aigne/anthropic": "^0.11.10",
-    "@aigne/cli": "^1.41.1",
-    "@aigne/core": "^1.55.1",
-    "@aigne/gemini": "^0.9.10",
-    "@aigne/openai": "^0.12.4",
-    "@aigne/publish-docs": "^0.6.0",
+    "@aigne/aigne-hub": "^0.8.1",
+    "@aigne/anthropic": "^0.11.12",
+    "@aigne/cli": "^1.42.0",
+    "@aigne/core": "^1.57.0",
+    "@aigne/gemini": "^0.11.1",
+    "@aigne/openai": "^0.13.2",
+    "@aigne/publish-docs": "^0.8.0",
     "chalk": "^5.5.0",
     "dompurify": "^3.2.6",
+    "fs-extra": "^11.3.1",
     "glob": "^11.0.3",
     "jsdom": "^26.1.0",
     "mermaid": "^11.9.0",
     "open": "^10.2.0",
+    "p-map": "^7.0.3",
     "remark-gfm": "^4.0.1",
     "remark-lint": "^10.0.1",
     "remark-parse": "^11.0.0",

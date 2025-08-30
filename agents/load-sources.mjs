@@ -2,7 +2,11 @@ import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../utils/constants.mjs";
 import { getFilesWithGlob, loadGitignore } from "../utils/file-utils.mjs";
-import { getCurrentGitHead, getModifiedFilesBetweenCommits } from "../utils/utils.mjs";
+import {
+  getCurrentGitHead,
+  getModifiedFilesBetweenCommits,
+  isGlobPattern,
+} from "../utils/utils.mjs";
 
 export default async function loadSources({
   sources = [],
@@ -24,7 +28,12 @@ export default async function loadSources({
 
     for (const dir of paths) {
       try {
-        // Check if the path is a file or directory
+        if (typeof dir !== "string") {
+          console.warn(`Invalid source path: ${dir}`);
+          continue;
+        }
+
+        // First try to access as a file or directory
         const stats = await stat(dir);
 
         if (stats.isFile()) {
@@ -78,7 +87,31 @@ export default async function loadSources({
           allFiles = allFiles.concat(filesInDir);
         }
       } catch (err) {
-        if (err.code !== "ENOENT") throw err;
+        if (err.code === "ENOENT") {
+          // Path doesn't exist as file or directory, try as glob pattern
+          try {
+            // Check if it looks like a glob pattern
+            const isGlobPatternResult = isGlobPattern(dir);
+
+            if (isGlobPatternResult) {
+              // Use glob to find matching files from current working directory
+              const { glob } = await import("glob");
+              const matchedFiles = await glob(dir, {
+                absolute: true,
+                nodir: true, // Only files, not directories
+                dot: false, // Don't include hidden files
+              });
+
+              if (matchedFiles.length > 0) {
+                allFiles = allFiles.concat(matchedFiles);
+              }
+            }
+          } catch (globErr) {
+            console.warn(`Failed to process glob pattern "${dir}": ${globErr.message}`);
+          }
+        } else {
+          throw err;
+        }
       }
     }
 
@@ -206,11 +239,31 @@ export default async function loadSources({
   let assetsContent = "# Available Media Assets for Documentation\n\n";
 
   if (mediaFiles.length > 0) {
-    const mediaMarkdown = mediaFiles
-      .map((file) => `![${file.description}](${file.path})`)
-      .join("\n\n");
+    // Helper function to determine file type from extension
+    const getFileType = (filePath) => {
+      const ext = path.extname(filePath).toLowerCase();
+      const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
+      const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
 
-    assetsContent += mediaMarkdown;
+      if (imageExts.includes(ext)) return "image";
+      if (videoExts.includes(ext)) return "video";
+      return "media";
+    };
+
+    const mediaYaml = mediaFiles.map((file) => ({
+      name: file.name,
+      path: file.path,
+      type: getFileType(file.path),
+    }));
+
+    assetsContent += "```yaml\n";
+    assetsContent += "assets:\n";
+    mediaYaml.forEach((asset) => {
+      assetsContent += `  - name: "${asset.name}"\n`;
+      assetsContent += `    path: "${asset.path}"\n`;
+      assetsContent += `    type: "${asset.type}"\n`;
+    });
+    assetsContent += "```\n";
   }
 
   // Count words and lines in allSources
