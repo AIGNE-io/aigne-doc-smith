@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.7.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.6.0...v0.7.0) (2025-08-30)
+
+
+### Features
+
+* add chat mode support ([#60](https://github.com/AIGNE-io/aigne-doc-smith/issues/60)) ([9b2ce50](https://github.com/AIGNE-io/aigne-doc-smith/commit/9b2ce50014d1894a4e41bf043e699fdc4f1d74b7))
+* support custom components and more robust config handling ([#70](https://github.com/AIGNE-io/aigne-doc-smith/issues/70)) ([727ab42](https://github.com/AIGNE-io/aigne-doc-smith/commit/727ab429b00f924ef605530b35d2a12b4be77e3a))
+* support d2 chart in doc generate and publish workflow ([#69](https://github.com/AIGNE-io/aigne-doc-smith/issues/69)) ([bf95889](https://github.com/AIGNE-io/aigne-doc-smith/commit/bf958891516973636c4847b084c6fe75d1ea124b))
+* support multi purpose doc planning and generating ([#68](https://github.com/AIGNE-io/aigne-doc-smith/issues/68)) ([44152c5](https://github.com/AIGNE-io/aigne-doc-smith/commit/44152c53b7e8f82e3af1245a1affd77b9817486d))
+
 ## [0.6.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.5.1...v0.6.0) (2025-08-27)
 
 
