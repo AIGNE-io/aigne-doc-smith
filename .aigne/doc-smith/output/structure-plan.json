@@ -6,7 +6,8 @@
     "parentId": null,
     "sourceIds": [
       "README.md",
-      "package.json"
+      "package.json",
+      "aigne.yaml"
     ]
   },
   {
@@ -26,9 +27,7 @@
     "path": "/features",
     "parentId": null,
     "sourceIds": [
-      "README.md",
-      "aigne.yaml",
-      "media.md"
+      "README.md"
     ]
   },
   {
@@ -60,10 +59,9 @@
     "parentId": "/features",
     "sourceIds": [
       "README.md",
-      "CHANGELOG.md",
+      "media.md",
       "agents/translate.yaml",
-      "agents/retranslate.yaml",
-      "media.md"
+      "agents/retranslate.yaml"
     ]
   },
   {
@@ -75,7 +73,8 @@
       "README.md",
       "media.md",
       "agents/publish-docs.mjs",
-      "utils/auth-utils.mjs"
+      "utils/auth-utils.mjs",
+      "utils/blocklet.mjs"
     ]
   },
   {
@@ -85,7 +84,7 @@
     "parentId": null,
     "sourceIds": [
       "README.md",
-      "package.json",
+      "aigne.yaml",
       "agents/docs-generator.yaml",
       "agents/detail-regenerator.yaml",
       "agents/retranslate.yaml",
@@ -101,8 +100,7 @@
     "sourceIds": [
       "README.md",
       "agents/input-generator.mjs",
-      "utils/constants.mjs",
-      "biome.json"
+      "utils/constants.mjs"
     ]
   },
   {
@@ -137,8 +135,19 @@
     ]
   },
   {
+    "title": "Interactive Setup",
+    "description": "Learn about the guided setup wizard that helps you configure your documentation project, including intelligent conflict detection for your settings.",
+    "path": "/configuration/interactive-setup",
+    "parentId": "/configuration",
+    "sourceIds": [
+      "agents/input-generator.mjs",
+      "utils/conflict-detector.mjs",
+      "utils/constants.mjs"
+    ]
+  },
+  {
     "title": "Advanced Topics",
-    "description": "Dive deeper into the architecture of DocSmith, learn how to contribute, and explore its internal workings.",
+    "description": "Dive deeper into the architecture of DocSmith, learn how it works, and explore its internal mechanisms.",
     "path": "/advanced",
     "parentId": null,
     "sourceIds": [
@@ -151,18 +160,21 @@
     "path": "/advanced/how-it-works",
     "parentId": "/advanced",
     "sourceIds": [
+      "README.md",
       "aigne.yaml",
       "agents/structure-planning.yaml",
       "agents/content-detail-generator.yaml"
     ]
   },
   {
-    "title": "Contributing",
-    "description": "Find out how you can contribute to the AIGNE DocSmith project and help make it even better.",
-    "path": "/advanced/contributing",
+    "title": "Quality Assurance",
+    "description": "Understand the built-in checks DocSmith performs to ensure high-quality, well-formatted, and error-free documentation, including link checking and diagram validation.",
+    "path": "/advanced/quality-assurance",
     "parentId": "/advanced",
     "sourceIds": [
-      "README.md"
+      "utils/markdown-checker.mjs",
+      "utils/mermaid-validator.mjs",
+      "utils/kroki-utils.mjs"
     ]
   },
   {

@@ -4,75 +4,80 @@ labels: ["Reference"]
 
 # Translate Documentation
 
-Reach a global audience by automatically translating your documentation into multiple languages. AIGNE DocSmith simplifies this process with the `aigne doc translate` command, which can be run interactively or with specific command-line options for automation.
+AIGNE DocSmith helps you reach a global audience by automatically translating your documentation into over 12 languages. This feature streamlines the localization process, ensuring your content is accessible to users worldwide with a single command.
 
-### Interactive Translation
+## Easy Translation with Interactive Mode
 
-For the most straightforward approach, you can run the command without any arguments. This will launch an interactive wizard that guides you through the process.
+For a guided experience, the simplest way to start is by running the `translate` command without any arguments:
 
 ```bash
 aigne doc translate
 ```
 
-The interactive mode will prompt you to:
-1.  **Select documents to translate:** You'll be presented with a list of your existing documents to choose from.
+This will launch an interactive wizard that walks you through the process:
+
+1.  **Select Documents to Translate:** You'll be presented with a list of your existing documents. Simply choose the ones you want to translate.
 
     ![Select documents to translate](https://docsmith.aigne.io/image-bin/uploads/e2cf5fa45aa856c406a444fb4665ed2d.png)
 
-2.  **Choose target languages:** Select one or more of the 12+ supported languages for translation.
+2.  **Choose Target Languages:** After selecting your documents, you can pick one or more target languages from the list of supported options.
 
-    ![Select languages to translate](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
+    ![Select languages to translate into](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
 
-This mode is ideal when you want to visually confirm your choices before starting the translation process.
+3.  **Confirm and Run:** DocSmith will then handle the translation, generating new versions of your selected files for each language.
 
-### Command-Line Translation
+## Advanced Control with Command-Line Flags
 
-For scripting or more specific needs, you can use command-line parameters to define the translation task directly.
+For automation or more specific tasks, you can use command-line flags to control the translation process directly. This is ideal for integrating into CI/CD pipelines or for power users who prefer the command line.
 
-#### Command Parameters
+Here are the primary options available:
 
 | Parameter | Description |
-| --- | --- |
-| `--langs` | Specify a target language. This option can be used multiple times to select several languages (e.g., `--langs zh --langs ja`). |
-| `--docs` | Specify a document path to translate. This can also be used multiple times to select several documents. |
-| `--feedback` | Provide specific instructions to guide and improve the quality of the translation. |
-| `--glossary` | Use a glossary file for consistent terminology. The path should be prefixed with `@` (e.g., `--glossary @path/to/glossary.md`). |
+|---|---|
+| `--langs` | Specify one or more target languages. This flag can be used multiple times (e.g., `--langs zh --langs ja`). |
+| `--docs` | Specify the paths of the documents to translate. This flag can also be used multiple times. |
+| `--feedback` | Provide feedback to the AI to improve the quality of future translations (e.g., `--feedback "Use formal tone"`). |
+| `--glossary` | Use a glossary file in markdown format to ensure consistent terminology for specific terms (e.g., `--glossary @path/to/glossary.md`). |
 
-#### Examples
+### Example: Translating Specific Documents
 
-**Translate Specific Documents to Multiple Languages**
+To translate `overview.md` and `examples.md` into Chinese and Japanese, you would run:
 
-This command translates `examples.md` and `overview.md` into Chinese and Japanese.
 ```bash
-aigne doc translate --langs zh --langs ja --docs examples.md --docs overview.md
+aigne doc translate --langs zh --langs ja --docs overview.md --docs examples.md
 ```
 
-**Translate with a Custom Glossary**
+### Example: Using a Glossary and Feedback
 
-This command uses a glossary file to ensure brand names and technical terms are translated consistently, along with feedback to guide the tone.
+To ensure brand names and technical terms are translated correctly, you can provide a glossary file. You can also give feedback to refine the translation style.
+
 ```bash
-aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently"
+aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently" --docs overview.md --langs de
 ```
 
-### Supported Languages
+## Supported Languages
 
-DocSmith provides automatic translation for the following languages:
+DocSmith supports automatic translation for the following languages:
 
 | Language | Code |
-| --- | --- |
+|---|---|
 | English | en |
-| 简体中文 (Simplified Chinese) | zh-CN |
-| 繁體中文 (Traditional Chinese) | zh-TW |
-| 日本語 (Japanese) | ja |
-| 한국어 (Korean) | ko |
-| Español (Spanish) | es |
-| Français (French) | fr |
-| Deutsch (German) | de |
-| Português (Portuguese) | pt-BR |
-| Русский (Russian) | ru |
-| Italiano (Italian) | it |
-| العربية (Arabic) | ar |
+| Simplified Chinese | zh-CN |
+| Traditional Chinese | zh-TW |
+| Japanese | ja |
+| Korean | ko |
+| Spanish | es |
+| French | fr |
+| German | de |
+| Portuguese | pt-BR |
+| Russian | ru |
+| Italian | it |
+| Arabic | ar |
 
 ---
 
-Once your documentation is translated, the next step is to make it available to your audience. Learn how in the [Publish Your Docs](./features-publish-your-docs.md) guide.
+Once your documentation is translated, you're ready to share it with the world. Learn how in the next section.
+
+<x-card data-title="Next: Publish Your Docs" data-icon="lucide:upload-cloud" data-href="/features/publish-your-docs" data-cta="Read More">
+  A guide on how to easily publish your documentation to a public platform or your own private website.
+</x-card>

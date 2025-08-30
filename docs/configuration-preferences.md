@@ -4,68 +4,57 @@ labels: ["Reference"]
 
 # Managing Preferences
 
-As you refine your documentation using feedback, AIGNE DocSmith learns your style and structural requirements. It saves these learnings as persistent rules, called 'preferences,' to ensure consistency in all future document generation. This system allows the tool to adapt to your specific needs over time.
+DocSmith is designed to learn from your feedback. When you refine documents and provide corrections, the system can convert that feedback into persistent, reusable rules called "preferences". This ensures that your stylistic choices, structural conventions, and specific instructions are remembered and applied consistently in future operations.
 
-This guide explains how preferences are created from your feedback and how you can manage them using the command-line interface (CLI). All preferences are stored in a human-readable YAML file located at `.aigne/doc-smith/preferences.yml` in your project's root directory.
+All preferences are stored in a human-readable YAML file located at `.aigne/doc-smith/preferences.yml` in your project root. While you can view this file, it's recommended to manage your preferences using the dedicated `aigne doc prefs` command-line interface.
 
 ## How Preferences Are Created
 
-Preferences are generated automatically when you provide feedback using the `--feedback` flag during commands like `aigne doc update`. An internal agent, the "Feedback Refiner," analyzes your natural language input and performs several key actions:
+Preferences are automatically generated during the feedback cycle of commands like `aigne doc refine`. The process works as follows:
 
-1.  **Distills Feedback**: It converts your feedback (e.g., "Make the code examples simpler") into a concise, reusable instruction (e.g., "Simplify code examples to be minimal and runnable.").
-2.  **Determines Scope**: It assigns a scope to the rule to control when it's applied:
-    *   `global`: A general writing or style rule that applies everywhere.
-    *   `structure`: A rule related to the overall document structure, like adding specific sections.
-    *   `document`: A rule for content generation within a specific document.
-    *   `translation`: A rule that applies only during the translation process.
-3.  **Sets Path Limitations**: If your feedback clearly targets a specific set of files (e.g., "In the `examples/` directory..."), the rule can be limited to apply only to those paths.
+```d2
+direction: right
 
-## The Preference Rule Structure
+User: {
+  shape: person
+}
 
-Each rule saved in the `preferences.yml` file contains several fields that define its behavior and origin.
+Refine: "`aigne doc refine` command"
 
-Here is an example of a single preference rule:
+FeedbackRefiner: "Feedback→Rule Converter"
 
-```yaml
-- id: pref_a1b2c3d4e5f67890
-  active: true
-  scope: document
-  rule: "Code comments must be written in English."
-  feedback: "The code comments should be in English, not Chinese."
-  createdAt: "2023-10-27T10:00:00.000Z"
-  paths:
-    - "src/utils/"
+PreferencesFile: "preferences.yml" {
+  shape: document
+}
+
+User -> Refine: "Provide feedback, e.g., 'Don't translate variable names'"
+Refine -> FeedbackRefiner: "Sends feedback for analysis"
+FeedbackRefiner -> PreferencesFile: "Saves new, reusable rule" {
+  style.animated: true
+}
+
 ```
 
-**Rule Fields**
+1.  **Feedback Input**: You provide natural language feedback during a refinement session.
+2.  **Rule Generation**: An internal agent analyzes your feedback to determine if it represents a reusable policy rather than a one-time fix.
+3.  **Rule Creation**: If deemed reusable, it creates a structured rule with a specific scope (e.g., `document`, `translation`), a unique ID, and the instruction itself.
+4.  **Persistence**: The new rule is saved to the `preferences.yml` file, making it active for future tasks.
 
-| Field         | Description                                                                                                |
-|---------------|------------------------------------------------------------------------------------------------------------|
-| `id`          | A unique identifier for the preference, prefixed with `pref_`.                                               |
-| `active`      | A boolean (`true` or `false`) indicating if the rule is currently enabled.                                   |
-| `scope`       | The context in which the rule applies (`global`, `structure`, `document`, or `translation`).               |
-| `rule`        | The concise, machine-readable instruction distilled from the feedback.                                     |
-| `feedback`    | The original, raw feedback provided by the user.                                                           |
-| `createdAt`   | An ISO 8601 timestamp indicating when the rule was created.                                                |
-| `paths`       | (Optional) An array of file or directory paths to which this rule is restricted.                           |
+## Managing Preferences via CLI
 
-## Managing Preferences via the CLI
-
-The `aigne doc prefs` command is your primary tool for interacting with saved preferences. It allows you to list, activate, deactivate, and remove rules.
+The `aigne doc prefs` command is your primary tool for viewing and managing all saved preferences.
 
 ### List All Preferences
 
-To see a formatted list of all your saved preferences, run:
+To see a formatted list of all your preferences, use the `--list` flag.
 
 ```bash
 aigne doc prefs --list
 ```
 
-The output provides a clear summary of each rule, making it easy to see what's active and what each rule does.
+The output provides a clear overview of each rule:
 
-**Example Output:**
-
-```
+```text
 # User Preferences
 
 **Format explanation:**
@@ -74,43 +63,60 @@ The output provides a clear summary of each rule, making it easy to see what's a
 - ID = Unique preference identifier
 - Paths = Specific file paths (if applicable)
 
-🟢 [document] pref_a1b2c3d4e5f67890 | Paths: src/utils/
-   Code comments must be written in English.
+🟢 [translation] pref_1a2b3c4d
+   Keep code and identifiers unchanged during translation, must not translate them.
 
-⚪ [structure] pref_b2c3d4e5f67890a1
-   In overview and tutorial documents, add a 'Next Steps' section at the end...
+⚪ [structure] pref_5e6f7g8h | Paths: overview.md, tutorials.md
+   Add 'Next Steps' section at the end of overview and tutorial documents with 2-3 links within the repository.
 ```
 
-### Activate or Deactivate Preferences
+- **Status (🟢 / ⚪)**: Shows whether a rule is currently active or inactive.
+- **Scope**: Indicates where the rule applies (e.g., `translation`, `structure`).
+- **ID**: A unique identifier used to manage the rule.
+- **Paths**: If a rule is limited to specific files, they will be listed here.
 
-Instead of permanently deleting a rule, you can temporarily deactivate it. This is useful for testing or when a rule is not currently needed. Use the `--toggle` flag to switch a rule's `active` status.
+### Toggle Preference Status
 
-To toggle specific rules by providing their IDs:
+You can activate or deactivate preferences using the `--toggle` flag. This is useful for temporarily disabling a rule without deleting it permanently.
 
-```bash
-aigne doc prefs --toggle --id pref_a1b2c3d4e5f67890
-```
+**Interactive Mode**
 
-If you run the command without an `--id` flag, an interactive menu will appear, allowing you to select multiple preferences to toggle at once.
+If you run the command without specifying an ID, an interactive prompt will appear, allowing you to select multiple rules to toggle.
 
 ```bash
 aigne doc prefs --toggle
 ```
 
-### Permanently Remove Preferences
+**By ID**
 
-To permanently delete one or more preferences, use the `--remove` flag. **This action cannot be undone.**
-
-To remove a specific rule by its ID:
+To toggle specific rules, provide their IDs using the `--id` option.
 
 ```bash
-aigne doc prefs --remove --id pref_a1b2c3d4e5f67890
+aigne doc prefs --toggle --id pref_5e6f7g8h
 ```
 
-For an interactive selection menu to choose which rules to delete, run the command without specifying an ID:
+### Remove Preferences
+
+To permanently delete one or more preferences, use the `--remove` flag.
+
+**Interactive Mode**
+
+Running the command without an ID will launch an interactive selection prompt.
 
 ```bash
 aigne doc prefs --remove
 ```
 
-By managing your preferences, you can refine DocSmith's behavior over time, ensuring your documentation consistently meets your evolving standards. For more customization options, see the main [Configuration Guide](./configuration.md).
+**By ID**
+
+To remove a specific rule, pass its ID.
+
+```bash
+aigne doc prefs --remove --id pref_1a2b3c4d
+```
+
+This action is irreversible, so use it with care.
+
+---
+
+By managing your preferences, you can fine-tune DocSmith's behavior over time, making the documentation process increasingly automated and aligned with your project's specific needs. To see how feedback is provided, you can learn more in the [Update and Refine](./features-update-and-refine.md) guide.

@@ -4,132 +4,170 @@ labels: ["Reference"]
 
 # Configuration Guide
 
-AIGNE DocSmith's behavior is controlled by a central configuration file, `config.yaml`, located in the `.aigne/doc-smith/` directory of your project. This file allows you to precisely define the style, audience, scope, and languages for your documentation, ensuring the generated content perfectly matches your needs. 
+AIGNE DocSmith's behavior is controlled by a single, powerful configuration file: `config.yaml`. This file, located in the `.aigne/doc-smith` directory of your project, allows you to customize every aspect of the documentation generation process—from the intended audience and style to language support and file structure.
 
-You can create and modify this file using the interactive `aigne doc init` command or by editing it manually.
+This guide provides a detailed reference for all available settings. While you can edit this file manually at any time, we recommend using the [Interactive Setup](./configuration-interactive-setup.md) wizard for your initial configuration.
 
-## The `config.yaml` File Structure
+## Configuration Overview
 
-Here is an example of a complete `config.yaml` file. It includes comments explaining each available option, which you can uncomment and modify to suit your project.
+DocSmith offers a flexible configuration system to match your project's unique needs. You can define the goals of your documentation, specify your audience, set up AI models, and manage multiple languages. Explore the key areas of configuration below.
+
+<x-cards data-columns="2">
+  <x-card data-title="Interactive Setup" data-href="/configuration/interactive-setup" data-icon="lucide:wand-2">
+    Learn how to use the `aigne doc init` command to run a guided wizard that creates your initial configuration file effortlessly.
+  </x-card>
+  <x-card data-title="LLM Setup" data-href="/configuration/llm-setup" data-icon="lucide:brain-circuit">
+    Configure different Large Language Models, including using the integrated AIGNE Hub for key-free access to popular models.
+  </x-card>
+  <x-card data-title="Language Support" data-href="/configuration/language-support" data-icon="lucide:languages">
+    Set your primary documentation language and choose from over 12 supported languages for automatic translation.
+  </x-card>
+  <x-card data-title="Managing Preferences" data-href="/configuration/preferences" data-icon="lucide:sliders-horizontal">
+    Understand how DocSmith learns from your feedback to create persistent rules and how to manage them.
+  </x-card>
+</x-cards>
+
+## Parameter Reference
+
+The `config.yaml` file contains several key sections that define how your documentation is generated. Below is a comprehensive breakdown of each parameter.
+
+### Project Information
+
+These settings are used for display purposes when you publish your documentation.
 
 ```yaml
 # Project information for documentation publishing
-projectName: My Awesome Project
-projectDesc: A brief description of what this project does.
-projectLogo: "path/to/your/logo.png"
+projectName: AIGNE DocSmith
+projectDesc: An AI-driven documentation generation tool.
+projectLogo: https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png
+```
 
-# =============================================================================
-# Documentation Configuration
-# =============================================================================
+- `projectName`: The name of your project.
+- `projectDesc`: A short description of your project.
+- `projectLogo`: A URL to your project's logo.
 
-# Purpose: What's the main outcome you want readers to achieve?
+### Documentation Style
+
+These parameters define the purpose, audience, and overall tone of your documentation.
+
+#### `documentPurpose`
+
+Defines the primary goal for your readers. You can select multiple purposes.
+
+| Key | Name | Description |
+|---|---|---|
+| `getStarted` | Get started quickly | Help new users go from zero to working in <30 minutes. |
+| `completeTasks` | Complete specific tasks | Guide users through common workflows and use cases. |
+| `findAnswers` | Find answers fast | Provide searchable reference for all features and APIs. |
+| `understandSystem` | Understand the system | Explain how it works, why design decisions were made. |
+| `solveProblems` | Troubleshoot common issues | Help users troubleshoot and fix issues. |
+| `mixedPurpose` | Serve multiple purposes | Comprehensive documentation covering multiple needs. |
+
+**Example:**
+```yaml
 documentPurpose:
   - getStarted
-  - completeTasks
+  - findAnswers
+```
 
-# Target Audience: Who will be reading this most often?
+#### `targetAudienceTypes`
+
+Specifies the primary audience for the documentation.
+
+| Key | Name | Description |
+|---|---|---|
+| `endUsers` | End users (non-technical) | People who use the product but don't code. |
+| `developers` | Developers integrating your product/API | Engineers adding this to their projects. |
+| `devops` | DevOps / SRE / Infrastructure teams | Teams deploying, monitoring, maintaining systems. |
+| `decisionMakers` | Technical decision makers | Architects, leads evaluating or planning implementation. |
+| `supportTeams` | Support teams | People helping others use the product. |
+| `mixedTechnical` | Mixed technical audience | Developers, DevOps, and technical users. |
+
+**Example:**
+```yaml
 targetAudienceTypes:
   - developers
+```
 
-# Reader Knowledge Level: What do readers typically know when they arrive?
-readerKnowledgeLevel: domainFamiliar
+#### `readerKnowledgeLevel`
 
-# Documentation Depth: How comprehensive should the documentation be?
+Describes the typical starting knowledge level of your readers.
+
+| Key | Name | Description |
+|---|---|---|
+| `completeBeginners` | Is a total beginner, starting from scratch | New to this domain/technology entirely. |
+| `domainFamiliar` | Has used similar tools before | Knows the problem space, new to this specific solution. |
+| `experiencedUsers` | Is an expert trying to do something specific | Regular users needing reference/advanced topics. |
+| `emergencyTroubleshooting` | Emergency/troubleshooting | Something's broken, need to fix it quickly. |
+| `exploringEvaluating` | Is evaluating this tool against others | Trying to understand if this fits their needs. |
+
+**Example:**
+```yaml
+readerKnowledgeLevel: completeBeginners
+```
+
+#### `documentationDepth`
+
+Controls how comprehensive the documentation should be.
+
+| Key | Name | Description |
+|---|---|---|
+| `essentialOnly` | Essential only | Cover the 80% use cases, keep it concise. |
+| `balancedCoverage` | Balanced coverage | Good depth with practical examples [RECOMMENDED]. |
+| `comprehensive` | Comprehensive | Cover all features, edge cases, and advanced scenarios. |
+| `aiDecide` | Let AI decide | Analyze code complexity and suggest appropriate depth. |
+
+**Example:**
+```yaml
 documentationDepth: balancedCoverage
+```
 
-# Custom Rules: Define specific documentation generation rules and requirements
+### Custom Rules & Descriptions
+
+These fields allow for more specific instructions to the AI.
+
+- `rules`: A multi-line string where you can define specific rules and requirements for generation, such as "Always include a 'Prerequisites' section in tutorials."
+- `targetAudience`: A multi-line string to describe your target audience in more detail than the presets allow.
+
+**Example:**
+```yaml
 rules: |
-  - Always include a 'Troubleshooting' section in 'How-to' guides.
-  - Code examples must be compatible with Node.js v18 and later.
-
-# Target Audience: Describe your specific target audience and their characteristics
+  - All code examples must be complete and copy-paste ready.
+  - Avoid using technical jargon without explaining it first.
 targetAudience: |
-  Mid-level software engineers who are familiar with JavaScript and REST APIs but are new to our specific platform.
+  Our audience consists of front-end developers who are familiar with JavaScript but may be new to backend concepts. They value clear, practical examples.
+```
 
-# Glossary: Define project-specific terms and definitions
-# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
+### Language and Path Settings
 
-# Primary language for the documentation
+These parameters configure the languages and file locations for your documentation.
+
+- `locale`: The primary language for the documentation (e.g., `en`, `zh`).
+- `translateLanguages`: A list of language codes to translate the documentation into.
+- `glossary`: Path to a Markdown file containing project-specific terms to ensure consistent translations.
+- `docsDir`: The directory where the generated documentation will be saved.
+- `sourcesPath`: A list of source code paths or glob patterns for the AI to analyze.
+
+**Example:**
+```yaml
+# Language settings
 locale: en
-
-# List of languages to translate the documentation into
 translateLanguages:
   - zh
   - ja
 
-# Directory to save generated documentation
-docsDir: .aigne/doc-smith/docs
+# Glossary for consistent terminology
+glossary: "@glossary.md"
 
-# Source code paths to analyze
-sourcesPath:
+# Directory and source path configurations
+docsDir: .aigne/doc-smith/docs  # Directory to save generated documentation
+sourcesPath:  # Source code paths to analyze
   - ./src
-  - ./lib
+  - ./README.md
 ```
-
-## Documentation Strategy
-
-These core settings define the AI's approach to generating content, influencing its tone, structure, and depth.
-
-### Document Purpose (`documentPurpose`)
-
-This setting specifies the primary goal of your documentation. You can select one or more options.
-
-| Option | Name | Description |
-|---|---|---|
-| `getStarted` | Get started quickly | Help new users go from zero to working in <30 minutes. Optimizes for speed and essential steps. |
-| `completeTasks` | Complete specific tasks | Guide users through common workflows and use cases with step-by-step instructions. |
-| `findAnswers` | Find answers fast | Provide a searchable, comprehensive reference for all features and APIs. |
-| `understandSystem` | Understand the system | Explain how the system works, its architecture, and the rationale behind design decisions. |
-| `solveProblems` | Troubleshoot common issues | Help users diagnose and fix common problems with a focus on error scenarios. |
-| `mixedPurpose` | Serve multiple purposes | Create comprehensive documentation covering multiple needs, balancing different goals. |
-
-### Target Audience (`targetAudienceTypes`)
-
-Define who will be reading the documentation. This helps tailor the language, examples, and technical depth appropriately.
-
-| Option | Name | Description |
-|---|---|---|
-| `endUsers` | End users (non-technical) | People who use the product but don't code. Content will use plain language and focus on UI. |
-| `developers` | Developers | Engineers integrating your product/API. Content will be code-first with technical accuracy. |
-| `devops` | DevOps / SRE | Teams deploying and maintaining the system. Content will focus on operations and troubleshooting. |
-| `decisionMakers` | Technical decision makers | Architects and leads evaluating the product. Content will be high-level with architecture diagrams. |
-| `supportTeams` | Support teams | People helping others use the product. Content will focus on diagnostics and common issues. |
-| `mixedTechnical` | Mixed technical audience | A combination of developers, DevOps, and other technical users. Content will be layered. |
-
-### Reader Knowledge Level (`readerKnowledgeLevel`)
-
-Specify the assumed starting knowledge of your audience.
-
-| Option | Name | Description |
-|---|---|---|
-| `completeBeginners` | Is a total beginner | New to the domain entirely. Content will define all terms and assume no prior knowledge. |
-| `domainFamiliar` | Has used similar tools | Knows the problem space but is new to your solution. Content focuses on differences and unique features. |
-| `experiencedUsers` | Is an expert | Regular users needing reference or advanced topics. Content is dense and technically precise. |
-| `emergencyTroubleshooting` | Emergency/troubleshooting | Someone needs to fix a problem quickly. Content is structured as symptom -> diagnosis -> solution. |
-| `exploringEvaluating` | Is evaluating this tool | Trying to understand if the tool fits their needs. Content focuses on use cases and quick starts. |
-
-### Documentation Depth (`documentationDepth`)
-
-Control how comprehensive the generated documentation should be.
-
-| Option | Name | Description |
-|---|---|---|
-| `essentialOnly` | Essential only | Covers the core features and most common use cases to keep it concise. |
-| `balancedCoverage` | Balanced coverage | Good depth with practical examples for most features. [RECOMMENDED] |
-| `comprehensive` | Comprehensive | Covers all features, edge cases, and advanced scenarios with extensive examples. |
-| `aiDecide` | Let AI decide | The AI analyzes your code complexity and API surface to suggest an appropriate depth. |
-
-## Customization and Content Control
-
-Beyond the core strategy, you can provide more specific guidance.
-
-*   **`rules`**: A free-text field where you can provide specific, persistent instructions for the AI to follow during generation (e.g., "Always include a 'Prerequisites' section").
-*   **`targetAudience`**: A free-text field to describe your audience in more detail than the presets allow.
-*   **`glossary`**: Path to a Markdown file containing project-specific terms. This ensures consistent terminology in all generated and translated content.
 
 ---
 
-This guide provides an overview of the main configuration options. For more specific setups, see the following sections:
+With your `config.yaml` file tailored to your project, you're ready to create your documentation. The next step is to run the generation command.
 
-*   **For AI models:** Learn how to connect to different LLMs in the [LLM Setup](./configuration-llm-setup.md) guide.
-*   **For translations:** See the full list of supported languages and how to configure them in [Language Support](./configuration-language-support.md).
+➡️ **Next:** Learn how to [Generate Documentation](./features-generate-documentation.md).

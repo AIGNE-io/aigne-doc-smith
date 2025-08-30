@@ -4,75 +4,80 @@ labels: ["Reference"]
 
 # 翻译文档
 
-通过自动将您的文档翻译成多种语言，触达全球受众。AIGNE DocSmith 通过 `aigne doc translate` 命令简化了此过程，该命令既可以交互式运行，也可以通过指定命令行选项进行自动化操作。
+AIGNE DocSmith 可将您的文档自动翻译成 12 种以上的语言，帮助您触及全球受众。该功能简化了本地化流程，确保您的内容仅需一条命令即可触达全球用户。
 
-### 交互式翻译
+## 使用交互模式轻松翻译
 
-最直接的方法是，在不带任何参数的情况下运行该命令。这将启动一个交互式向导，引导您完成整个过程。
+如需引导式体验，最简单的方式是直接运行 `translate` 命令，无需添加任何参数：
 
 ```bash
 aigne doc translate
 ```
 
-交互模式将提示您：
-1.  **选择要翻译的文档：** 系统将为您呈现一个现有文档列表供您选择。
+这将启动一个交互式向导，逐步引导您完成整个过程：
+
+1.  **选择待翻译文档：** 系统将列出您现有的所有文档。您只需选择想要翻译的文档即可。
 
     ![选择要翻译的文档](https://docsmith.aigne.io/image-bin/uploads/e2cf5fa45aa856c406a444fb4665ed2d.png)
 
-2.  **选择目标语言：** 从 12 种以上支持的语言中选择一种或多种进行翻译。
+2.  **选择目标语言：** 选择文档后，您可以从支持的语言列表中选择一个或多个目标语言。
 
-    ![选择要翻译的语言](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
+    ![选择要翻译成的语言](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
 
-如果您希望在开始翻译过程前直观地确认所做选择，此模式是理想之选。
+3.  **确认并运行：** DocSmith 随后将处理翻译任务，为每种选定的语言生成相应的文件新版本。
 
-### 命令行翻译
+## 使用命令行标志进行高级控制
 
-对于脚本编写或更具体的需求，您可以使用命令行参数直接定义翻译任务。
+对于自动化或更具体的任务，您可以使用命令行标志直接控制翻译过程。这非常适合集成到 CI/CD 流程中，也适合偏好使用命令行的资深用户。
 
-#### 命令参数
+以下是可用的主要选项：
 
 | 参数 | 描述 |
-| --- | --- |
-| `--langs` | 指定目标语言。此选项可多次使用以选择多种语言（例如，`--langs zh --langs ja`）。 |
-| `--docs` | 指定要翻译的文档路径。此选项也可多次使用以选择多个文档。 |
-| `--feedback` | 提供具体说明以指导和提高翻译质量。 |
-| `--glossary` | 使用术语表文件以确保术语一致。路径应以 `@` 为前缀（例如，`--glossary @path/to/glossary.md`）。 |
+|---|---|
+| `--langs` | 指定一个或多个目标语言。此标志可以多次使用（例如，--langs zh --langs ja）。 |
+| `--docs` | 指定要翻译的文档的路径。此标志也可以多次使用。 |
+| `--feedback` | 向 AI 提供反馈，以提升未来翻译的质量（例如，--feedback "Use formal tone"）。 |
+| `--glossary` | 使用 Markdown 格式的术语表文件，以确保特定术语的翻译保持一致（例如，--glossary @path/to/glossary.md）。 |
 
-#### 示例
+### 示例：翻译特定文档
 
-**将特定文档翻译成多种语言**
+要将 `overview.md` 和 `examples.md` 翻译成中文和日文，您需要运行：
 
-此命令可将 `examples.md` 和 `overview.md` 翻译成中文和日文。
 ```bash
-aigne doc translate --langs zh --langs ja --docs examples.md --docs overview.md
+aigne doc translate --langs zh --langs ja --docs overview.md --docs examples.md
 ```
 
-**使用自定义术语表进行翻译**
+### 示例：使用术语表和反馈
 
-此命令使用一个术语表文件来确保品牌名称和技术术语的翻译保持一致，并结合反馈信息来指导翻译的语气。
+为确保品牌名称和技术术语翻译准确，您可以提供一个术语表文件。您还可以提供反馈以优化翻译风格。
+
 ```bash
-aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently"
+aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently" --docs overview.md --langs de
 ```
 
-### 支持的语言
+## 支持的语言
 
-DocSmith 为以下语言提供自动翻译：
+DocSmith 支持以下语言的自动翻译：
 
 | 语言 | 代码 |
-| --- | --- |
-| English | en |
-| 简体中文 (Simplified Chinese) | zh-CN |
-| 繁體中文 (Traditional Chinese) | zh-TW |
-| 日本語 (Japanese) | ja |
-| 한국어 (Korean) | ko |
-| Español (Spanish) | es |
-| Français (French) | fr |
-| Deutsch (German) | de |
-| Português (Portuguese) | pt-BR |
-| Русский (Russian) | ru |
-| Italiano (Italian) | it |
-| العربية (Arabic) | ar |
+|---|---|
+| 英语 | en |
+| 简体中文 | zh-CN |
+| 繁体中文 | zh-TW |
+| 日语 | ja |
+| 韩语 | ko |
+| 西班牙语 | es |
+| 法语 | fr |
+| 德语 | de |
+| 葡萄牙语 | pt-BR |
+| 俄语 | ru |
+| 意大利语 | it |
+| 阿拉伯语 | ar |
 
 ---
 
-文档翻译完成后，下一步就是将其提供给您的受众。在[发布您的文档](./features-publish-your-docs.md)指南中了解如何操作。
+文档翻译完成后，您就可以与世界分享了。请在下一节中了解如何操作。
+
+<x-card data-title="下一步：发布您的文档" data-icon="lucide:upload-cloud" data-href="/features/publish-your-docs" data-cta="阅读更多">
+  一份关于如何轻松将您的文档发布到公共平台或您自己的私人网站的指南。
+</x-card>

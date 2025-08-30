@@ -4,27 +4,25 @@ labels: ["Reference"]
 
 # Advanced Topics
 
-This section is for users who want to go beyond the standard features of AIGNE DocSmith. Here you will find information on how to contribute to the project and use commands for local development and testing.
+For those who wish to look under the hood, this section provides a deeper dive into the architecture of AIGNE DocSmith. Here, you'll learn how the tool functions, its place within the AIGNE ecosystem, and the internal mechanisms it uses to generate high-quality documentation.
 
-## Contributing
+While a deep understanding of these topics isn't necessary for general use, it can be valuable for customizing behavior, troubleshooting issues, or contributing to the project.
 
-Contributions to AIGNE DocSmith are welcome. If you have suggestions, find a bug, or want to improve the tool, we encourage you to get involved. For detailed guidelines on how to submit a pull request or open an issue, please see our dedicated guide.
+## The AIGNE Ecosystem
 
-[Learn more about Contributing](./advanced-contributing.md)
+AIGNE DocSmith is not a standalone tool; it is a key component of the [AIGNE Framework](https://www.aigne.io/en/framework), a comprehensive platform for AI application development. This integration allows DocSmith to leverage the platform's advanced AI capabilities and robust infrastructure. The following diagram illustrates how DocSmith fits into the broader ecosystem.
 
-## Development Commands
+![AIGNE Ecosystem Architecture](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
 
-If you are working on the DocSmith source code locally, you can use `npx` to run your local version for development and debugging. This bypasses the globally installed AIGNE CLI and ensures you are testing your own changes.
+To better understand the internal processes and quality controls, explore the following sections.
 
-Use the following commands to test different agents:
+<x-cards data-columns="2">
+  <x-card data-title="How It Works" data-href="/advanced/how-it-works" data-icon="lucide:cpu">
+    An architectural overview of DocSmith, explaining the role of AI agents in the documentation generation pipeline.
+  </x-card>
+  <x-card data-title="Quality Assurance" data-href="/advanced/quality-assurance" data-icon="lucide:shield-check">
+    Understand the built-in checks DocSmith performs to ensure high-quality, well-formatted, and error-free documentation.
+  </x-card>
+</x-cards>
 
-```shell
-# Development and debugging commands using npx to run local code
-npx --no doc-smith run --entry-agent init
-npx --no doc-smith run --entry-agent generate
-npx --no doc-smith run --entry-agent update 
-npx --no doc-smith run --entry-agent translate 
-npx --no doc-smith run --entry-agent publish
-```
-
-These commands are essential for testing changes before creating a contribution.
+By exploring these topics, you can gain a more complete understanding of DocSmith's capabilities. For a detailed breakdown of all available commands and their options, proceed to the [CLI Command Reference](./cli-reference.md).

@@ -4,82 +4,79 @@ labels: ["Reference"]
 
 # Generate Documentation
 
-The `aigne doc generate` command is the core of DocSmith. It automates the entire process of creating a complete documentation set by analyzing your source code, planning a logical structure, and then writing detailed content for each section. This process is designed to be both powerful and simple, often requiring just a single command.
+The `aigne doc generate` command is the core function of DocSmith, designed to transform your source code into a comprehensive and well-structured documentation suite with a single command.
 
-## The Smart Generation Process
+This process involves analyzing your codebase, planning a logical document structure, and then generating detailed content for each section. It's the primary way to create your documentation from scratch.
 
-Running the `generate` command kicks off a multi-step process handled by AI agents. For the user, the experience is straightforward.
+## Your First Generation
 
-To start, navigate to your project's root directory and run:
+To begin, navigate to your project's root directory and run the following command:
 
 ```bash
 aigne doc generate
 ```
 
-### Automatic Configuration
+### Smart Auto-Configuration
 
-If this is your first time running DocSmith in the project, it will intelligently detect that no configuration exists and automatically launch the interactive setup wizard. You don't need to run `aigne doc init` manually first. This ensures you have a proper setup before generation begins.
+If you're running this command for the first time in a project, DocSmith will intelligently detect that no configuration exists. It will automatically launch an interactive setup wizard to guide you through the initial setup. This ensures you have a properly configured environment before generation begins.
 
-![Running the generate command, which intelligently triggers the initialization wizard if needed.](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+![Running the generate command for the first time triggers the setup wizard](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-You will be guided through a series of questions to define the documentation's scope, style, target audience, and languages.
+You will be asked a series of questions to define:
+- Document generation rules and style
+- The target audience
+- Primary and translation languages
+- Source code and output paths
 
-![Answering questions in the interactive wizard to complete the project setup.](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![Answer a few questions to configure your documentation style, languages, and source paths](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-### Structure Planning and Content Creation
+Once the configuration is complete, DocSmith proceeds with the documentation generation.
 
-Once configured, DocSmith analyzes your source code to create a `structure-plan.json`. This file outlines the entire documentation hierarchy. Immediately after, it proceeds to generate the detailed Markdown content for each planned document.
+![DocSmith analyzes your code, plans the structure, and generates each document](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-![The console showing the execution of structure planning and document generation steps.](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+Upon successful completion, your newly created documentation will be available in the output directory you specified.
 
-Upon completion, you will find the generated files in your designated output directory, ready to be published.
+![Once complete, you'll find your new documentation in the specified output directory](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
-![A success message in the console indicating that the documentation has been generated successfully.](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+## The Generation Process
 
-### Generation Workflow
+The `generate` command follows a clear, automated workflow to ensure consistent and high-quality results. The process can be visualized as follows:
 
-The entire workflow can be visualized as follows:
+```d2
+direction: down
 
-```mermaid
-flowchart TD
-    A["Run 'aigne doc generate'"] --> B{"Configuration file exists?"};
-    B -- "No" --> C["Launch Interactive Setup Wizard"];
-    C --> D["Save Configuration"];
-    B -- "Yes" --> E["Load Existing Configuration"];
-    D --> E;
-    E --> F["Analyze Source Code & Create Structure Plan"];
-    F --> G["Generate Content for Each Document"];
-    G --> H["Save Documentation Files"];
+start: "Start"
+run_cmd: "Run `aigne doc generate`"
+check_config: "Configuration exists?" {
+  shape: diamond
+}
+interactive_setup: "Interactive Setup Wizard"
+plan_structure: "Analyze Code & Plan Structure"
+gen_content: "Generate Document Content"
+save_docs: "Save Documents to Output Directory"
+end: "End"
+
+start -> run_cmd -> check_config
+check_config -> interactive_setup: "No"
+interactive_setup -> plan_structure
+check_config -> plan_structure: "Yes"
+plan_structure -> gen_content -> save_docs -> end
 ```
 
-## Forcing a Complete Regeneration
+## Fine-Tuning Your Generation
 
-By default, `aigne doc generate` is intelligent and will only update documents affected by code changes. If you need to discard all existing documentation and regenerate everything from scratch, use the `--forceRegenerate` flag.
+While the default `generate` command is sufficient for most use cases, you can use several options to control the generation process. These are particularly useful for regenerating content or refining the document structure.
 
-This is useful after making significant changes to your configuration (`aigne.doc.yaml`) or when you want a completely fresh start.
+| Option              | Description                                                                                                                              | Example                                                              |
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| `--forceRegenerate` | Deletes all existing documents and regenerates them from scratch. Use this after making significant changes to your source code or configuration. | `aigne doc generate --forceRegenerate`                                 |
+| `--feedback`        | Provides high-level feedback to refine the overall document structure plan, such as adding, removing, or reorganizing sections.           | `aigne doc generate --feedback "Add an API Reference section"`         |
+| `--model`           | Specifies a particular Large Language Model from AIGNE Hub to use for content generation, allowing you to switch between models easily.       | `aigne doc generate --model claude:claude-3-5-sonnet`                |
 
-```bash
-# Regenerate all documentation based on the latest source code and configuration
-aigne doc generate --forceRegenerate
-```
+## What's Next?
 
-## Refining the Structure with Feedback
+Now that you have generated your initial documentation, your project will continue to evolve. To keep your documents synchronized with your code, you will need to update them. Proceed to the next section to learn how to make targeted changes and regenerate specific files.
 
-You can guide the AI's structure planning by providing direct feedback. Use the `--feedback` flag with the `generate` command to suggest changes, additions, or removals to the documentation structure itself.
-
-For example, if you want to add a more detailed installation guide, you could run:
-
-```bash
-# Regenerate the structure with specific improvements
-aigne doc generate --feedback "Add more detailed installation guide and troubleshooting section"
-```
-
-DocSmith will take this feedback into account when it creates or updates the `structure-plan.json` file, leading to a more refined documentation outline.
-
----
-
-Now that you have generated your documentation, the next steps are to keep it current or share it with your audience.
-
-*   Learn how to make targeted changes in [Update and Refine](./features-update-and-refine.md).
-*   To reach a global audience, see how to [Translate Documentation](./features-translate-documentation.md).
-*   When you are ready to go live, follow the guide to [Publish Your Docs](./features-publish-your-docs.md).
+<x-card data-title="Update and Refine" data-icon="lucide:file-edit" data-href="/features/update-and-refine">
+  Discover how to intelligently update documents when your code changes or make specific improvements using feedback.
+</x-card>.

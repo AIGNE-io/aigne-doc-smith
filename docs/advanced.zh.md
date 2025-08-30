@@ -4,27 +4,25 @@ labels: ["Reference"]
 
 # 高级主题
 
-本节适用于希望使用 AIGNE DocSmith 标准功能之外内容的用户。你将在这里找到有关如何为项目做贡献以及使用命令进行本地开发和测试的信息。
+对于希望深入了解其内部机制的用户，本节将深入解析 AIGNE DocSmith 的架构。在这里，你将了解到该工具的运作方式、其在 AIGNE 生态系统中的定位，以及它用于生成高质量文档的内部机制。
 
-## 贡献
+虽然深入理解这些主题对于一般使用并非必要，但它对于自定义行为、排查问题或为项目做出贡献非常有价值。
 
-我们欢迎对 AIGNE DocSmith 的贡献。如果你有任何建议、发现错误或希望改进该工具，我们都鼓励你参与进来。关于如何提交拉取请求或开启问题的详细指南，请参阅我们的专门指南。
+## AIGNE 生态系统
 
-[了解更多关于贡献的信息](./advanced-contributing.md)
+AIGNE DocSmith 并非一个独立的工具，而是 [AIGNE 框架](https://www.aigne.io/en/framework) 的关键组件，该框架是一个用于 AI 应用开发的综合平台。这种集成使 DocSmith 能够利用该平台的先进 AI 功能和强大的基础设施。下图展示了 DocSmith 如何融入更广泛的生态系统。
 
-## 开发命令
+![AIGNE 生态系统架构](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
 
-如果你在本地开发 DocSmith 源代码，可以使用 `npx` 运行本地版本以进行开发和调试。这将绕过全局安装的 AIGNE CLI，并确保你测试的是自己的更改。
+要更好地了解其内部流程和质量控制，请浏览以下章节。
 
-使用以下命令测试不同的 Agent：
+<x-cards data-columns="2">
+  <x-card data-title="工作原理" data-href="/advanced/how-it-works" data-icon="lucide:cpu">
+    DocSmith 的架构概览，解释了 AI Agent 在文档生成流程中的作用。
+  </x-card>
+  <x-card data-title="质量保证" data-href="/advanced/quality-assurance" data-icon="lucide:shield-check">
+    了解 DocSmith 为确保文档高质量、格式良好且无错误而执行的内置检查。
+  </x-card>
+</x-cards>
 
-```shell
-# 使用 npx 运行本地代码进行开发和调试的命令
-npx --no doc-smith run --entry-agent init
-npx --no doc-smith run --entry-agent generate
-npx --no doc-smith run --entry-agent update 
-npx --no doc-smith run --entry-agent translate 
-npx --no doc-smith run --entry-agent publish
-```
-
-这些命令对于在提交贡献前测试所做更改至关重要。
+通过探索这些主题，你可以更全面地了解 DocSmith 的功能。要获取所有可用命令及其选项的详细说明，请参阅 [CLI 命令参考](./cli-reference.md)。

@@ -4,73 +4,95 @@ labels: ["Reference"]
 
 # Publish Your Docs
 
-Once your documentation is generated locally, the final step is to publish it to a live website. AIGNE DocSmith streamlines this process, allowing you to publish to either the official, free AIGNE platform or your own self-hosted website with a single command.
+Once your documentation is generated, the next step is to make it accessible online. AIGNE DocSmith simplifies this process with the `aigne doc publish` command, which uploads your content to a Discuss Kit platform, making it instantly available to your audience.
 
-## The Publishing Command
+This guide covers how to publish your documentation, whether you're using the free official platform or your own self-hosted instance.
 
-To begin the publishing process, run the following command in your project's root directory:
+## The Publishing Process
+
+The `aigne doc publish` command initiates an interactive process that guides you through the necessary steps. The diagram below shows the typical workflow for publishing your documentation for the first time.
+
+```d2
+shape: sequence_diagram
+
+User; CLI; "Discuss Kit Platform"
+
+User -> CLI: runs `aigne doc publish`
+
+alt "First time or not configured"
+  CLI -> User: "Prompt: Select platform"
+  User -> CLI: "Selects Official or Self-Hosted"
+  CLI -> User: "Opens browser for authentication"
+  User -> "Discuss Kit Platform": "Logs in and authorizes"
+  "Discuss Kit Platform" -> CLI: "Provides access token"
+  CLI -> CLI: "Saves token for future use"
+end
+
+CLI -> "Discuss Kit Platform": "Uploads documentation & media"
+"Discuss Kit Platform" -> CLI: "Confirms success"
+CLI -> User: "✅ Documentation Published Successfully!"
+```
+
+## Publishing Options
+
+You have two primary options for hosting your documentation, catering to different needs for visibility and control.
+
+<x-cards data-columns="2">
+  <x-card data-title="Official Platform" data-icon="lucide:globe">
+    Publish to docsmith.aigne.io, the official hosting platform. This option is free, ideal for open-source projects, and makes your documentation publicly accessible.
+  </x-card>
+  <x-card data-title="Self-Hosted Platform" data-icon="lucide:server">
+    Publish to your own private instance of Discuss Kit. This gives you full control over who can access your documentation, making it suitable for internal or private projects.
+  </x-card>
+</x-cards>
+
+## Step-by-Step Guide
+
+Publishing your documentation for the first time is a simple, interactive process.
+
+### 1. Run the Publish Command
+
+Navigate to your project's root directory in your terminal and run the following command:
 
 ```bash
 aigne doc publish
 ```
 
-This command initiates an interactive wizard that will guide you through the necessary steps.
+### 2. Choose Your Platform
 
-## Step 1: Choose Your Publishing Platform
+If you haven't configured a publishing destination before, you will be prompted to choose between the official platform and a self-hosted one. Select the option that best suits your needs.
 
-If this is your first time publishing, you'll be prompted to choose where to host your documentation.
+![Choose between the official platform or a self-hosted instance](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
 
-![Select a platform to publish your documents](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
+If you select the self-hosted option, you will be asked to enter the URL for your Discuss Kit instance.
 
-You have two options:
+### 3. Authenticate Your Account
 
-1.  **Official Platform (`docsmith.aigne.io`)**: This is the recommended choice for open-source projects. It's free to use, requires no setup, and your documentation will be publicly accessible.
-2.  **Self-Hosted Platform**: If you need to host documentation on your own private website, you can select this option. This requires you to have your own instance of [Discuss Kit](https://docsmith.aigne.io) running. The wizard will then ask you to provide the URL of your instance.
+For the first connection to a new platform, DocSmith will automatically open a browser window for you to log in and authorize the CLI. This is a one-time step; your access token will be saved locally for all future publishes to that platform.
 
-## Step 2: One-Time Authorization
+### 4. Confirmation
 
-To publish documents on your behalf, the CLI needs your permission. The first time you publish to a new platform, a browser window will open, prompting you to authorize the AIGNE DocSmith application. This is a secure, one-time process.
+Once the upload is complete, you will see a success message in your terminal, and your documentation will be live.
 
-Once authorized, an access token is saved securely on your local machine, so you won't need to repeat this step for subsequent publishes to the same platform.
-
-## Step 3: Upload and Publish
-
-After authorization is complete, the CLI will automatically upload your markdown files and associated media assets to the selected platform. It will then create or update the documentation board.
-
-Once finished, the command will output a confirmation message and the URL where you can view your live documentation.
-
-## Publishing Workflow
-
-The following diagram illustrates the publishing and authorization flow:
-
-```mermaid
-flowchart TD
-    A["Start"] --> B["Run 'aigne doc publish'"];
-    B --> C{"Platform Configured?"};
-    C -- "No" --> D["Choose Platform"];
-    D -- "Official Platform" --> E{"Auth Token Exists?"};
-    D -- "Self-Hosted" --> F["Enter Platform URL"];
-    F --> E;
-    C -- "Yes" --> E;
-    E -- "No" --> G["Authorize in Browser"];
-    G --> H["Save Auth Token Locally"];
-    H --> I["Upload & Publish Docs"];
-    E -- "Yes" --> I;
-    I --> J["Publish Complete"];
-    J --> K["End"];
+```
+✅ Documentation Published Successfully!
 ```
 
-## Non-Interactive Publishing
+## Publishing in CI/CD Environments
 
-For automated environments like CI/CD pipelines, you can publish non-interactively by providing the application URL directly. Note that a valid access token must already be configured for this to work.
+For automated workflows, you can bypass the interactive prompts by using command-line arguments or environment variables.
 
-```bash
-# Publish to a custom Discuss Kit instance
-aigne doc publish --appUrl https://your-discuss-kit-instance.com
-```
+| Method | Name | Description | Example |
+|---|---|---|---|
+| **Argument** | `--appUrl` | Specifies the URL of your self-hosted Discuss Kit instance directly. | `aigne doc publish --appUrl https://docs.mycompany.com` |
+| **Env Var** | `DOC_DISCUSS_KIT_URL` | Sets the target platform URL, overriding any other configuration. | `export DOC_DISCUSS_KIT_URL=...` |
+| **Env Var** | `DOC_DISCUSS_KIT_ACCESS_TOKEN` | Provides the access token directly, skipping the interactive login. | `export DOC_DISCUSS_KIT_ACCESS_TOKEN=...` |
 
-This bypasses the interactive prompts, making it suitable for scripts and automated workflows.
+## Troubleshooting
 
----
+If you encounter issues during the publishing process, here are some common causes and their solutions:
 
-With your documentation published, you can share it with your audience. For a complete list of all commands and their options, proceed to the [CLI Command Reference](./cli-reference.md).
+-   **Invalid URL or Connection Error**: This often happens if the provided URL for a self-hosted instance is incorrect or the server is not reachable. Double-check the URL and your network connection.
+-   **Missing Required Components**: The destination website must have the Discuss Kit component installed to host the documentation. If it's missing, the CLI will return an error with guidance on how to install it.
+
+For a complete list of commands and options, please refer to the [CLI Command Reference](./cli-reference.md).

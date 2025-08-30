@@ -4,36 +4,34 @@ labels: ["Reference"]
 
 # Getting Started
 
-This guide will walk you through installing AIGNE DocSmith and generating your first set of documents. You can get from a fresh start to a fully documented project in just a few minutes.
+This guide will walk you through installing AIGNE DocSmith, configuring your first project, and generating a complete set of documentation in just a few minutes. The process is designed to be straightforward, with a single command to get you started.
 
-## Step 1: Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
 
-- Node.js
-- pnpm
+- [Node.js](https://nodejs.org/)
+- [pnpm](https://pnpm.io/)
 
-DocSmith is distributed as part of the AIGNE Command Line Interface (CLI).
+## Step 1: Install AIGNE CLI
 
-## Step 2: Installation
-
-Install the latest version of the AIGNE CLI globally using npm. This single package includes all DocSmith commands.
+DocSmith is available through the AIGNE Command Line Interface (CLI). Install the latest version globally using npm:
 
 ```bash
 npm i -g @aigne/cli
 ```
 
-After the installation is complete, verify it by checking the help message for the `doc` command:
+Once the installation is complete, verify that it was successful by checking the help command for the documentation tool:
 
 ```bash
 aigne doc -h
 ```
 
-If you see a list of available commands and options, the installation was successful.
+This command should display a list of available `doc` commands and their options.
 
-## Step 3: Generate Your First Docs
+## Step 2: Generate Your Documentation
 
-With the AIGNE CLI installed, navigate to your project's root directory and run a single command:
+With the AIGNE CLI installed, you can generate your documentation with a single command. Navigate to your project's root directory and run:
 
 ```bash
 aigne doc generate
@@ -41,51 +39,36 @@ aigne doc generate
 
 ### Smart Auto-Configuration
 
-If this is your first time running DocSmith in the project, it will automatically detect that no configuration exists and launch an interactive setup wizard.
+If this is your first time running DocSmith in the project, it will automatically detect that no configuration exists and launch an interactive setup wizard to guide you.
 
-![Running the generate command, which intelligently triggers initialization](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+![Running the generate command triggers the smart initialization wizard](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-The wizard will ask you a series of questions to understand your documentation goals, target audience, and project structure. This helps the AI tailor the content and style to your specific needs.
+## Step 3: Configure Your Project
 
-![Answering questions to complete the project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+The interactive wizard will ask a series of questions to tailor the documentation to your specific needs. You will be prompted to define:
 
-### Document Generation
+- The primary purpose and style of the documentation.
+- Your target audience and their technical knowledge level.
+- The primary language and any additional languages for translation.
+- The source code paths for the AI to analyze.
+- The output directory where the documents will be saved.
 
-Once the configuration is complete, DocSmith proceeds to:
-1.  Analyze your source code.
-2.  Plan a logical document structure.
-3.  Generate detailed content for each section.
+![Answer a series of questions to complete your project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-![Executing structure planning and generating documents](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+## Step 4: Review Your New Docs
 
-When the process is finished, you will find the generated markdown files in the output directory specified during setup (default is `.aigne/doc-smith/docs`).
+After you complete the configuration, DocSmith will begin the generation process. It analyzes your code, plans a logical document structure, and writes the content for each section.
 
-![Successful documentation generation](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+![DocSmith plans the document structure and generates content](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-## A Note on LLM Configuration
+Once finished, you'll see a success message in your terminal. Your new documentation is now ready in the output directory you specified (e.g., `.aigne/doc-smith/docs`).
 
-DocSmith uses Large Language Models (LLMs) to generate content. By default, it connects to **AIGNE Hub**, which requires no API keys and allows you to easily switch between different models.
-
-You can specify a model for a single run using the `--model` flag:
-
-```bash
-# Use Google's Gemini 1.5 Flash
-aigne doc generate --model google:gemini-1.5-flash
-
-# Use Anthropic's Claude 3.5 Sonnet
-aigne doc generate --model claude:claude-3-5-sonnet
-
-# Use OpenAI's GPT-4o
-aigne doc generate --model openai:gpt-4o
-```
-
-For more advanced options, including how to use your own API keys, see the [LLM Setup](./configuration-llm-setup.md) guide.
+![A success message confirms your documentation is ready](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
 ## What's Next?
 
-You have now successfully generated a full set of documentation for your project. You can explore the generated files and see how DocSmith has interpreted your codebase.
+You've successfully installed DocSmith and generated your first set of documents. Now you're ready to explore its capabilities in more detail.
 
-From here, you can learn more about how to manage your new documentation:
-
--   Explore the [Core Features](./features.md) to understand how to update, translate, and publish your docs.
--   Consult the [CLI Command Reference](./cli-reference.md) for a detailed list of all available commands and options.
+<x-card data-title="Explore Core Features" data-icon="lucide:compass" data-href="/features" data-cta="Learn More">
+  Dive deeper into the main commands and capabilities of DocSmith, from updating documents to publishing them online.
+</x-card>

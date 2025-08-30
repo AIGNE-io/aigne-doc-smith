@@ -4,56 +4,101 @@ labels: ["Reference"]
 
 # How It Works
 
-AIGNE DocSmith operates on a sophisticated, agent-based architecture. Instead of a single monolithic program, it uses a collection of specialized AI agents that collaborate in a pipeline to analyze your project, structure the content, generate detailed documentation, and publish the results. This modular approach allows for flexibility and extensibility.
-
-This document provides a high-level architectural overview of this documentation generation pipeline.
+AIGNE DocSmith provides a sophisticated, automated documentation solution by leveraging a multi-agent system built on the AIGNE Framework. Instead of relying on a single, monolithic AI, DocSmith orchestrates a pipeline of specialized AI agents, each an expert in its specific task. This collaborative approach ensures the generation of structured, detailed, and high-quality documentation directly from your source code.
 
 ## Architectural Overview
 
-The core of DocSmith is a pipeline of agents orchestrated by the main AIGNE engine. When you run a command like `aigne doc gen`, the engine invokes a series of agents in a specific order. Each agent performs a distinct task, passing its output to the next agent in the chain.
+DocSmith is an integral part of the AIGNE ecosystem, a comprehensive platform for AI application development. It seamlessly integrates with other AIGNE components, utilizing the platform's core AI capabilities and infrastructure.
 
-The following diagram illustrates the typical workflow for generating documentation:
+![AIGNE Ecosystem Architecture](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
 
-```mermaid
-flowchart TD
-    A["User executes aigne doc gen"] --> B["Load Sources Agent"];
-    B -- "Project files & config" --> C{"Structure Planning Agent"};
-    C -- "Generates structurePlan.yaml" --> D["Batch Detail Generator"];
-    
-    subgraph "Content Generation Loop"
-        direction LR
-        D -- "For each page in plan" --> E["Content Detail Agent"];
-        E -- "Generates Markdown content" --> F["Generated Pages"];
-    end
-    
-    D -- "All pages generated" --> G{"Translate Agent (Optional)"};
-    G -- "Translated Markdown" --> H["Save Docs Agent"];
-    F -- "If no translation" --> H;
-    H -- "Writes files to output dir" --> I["Publish Docs Agent (Optional)"];
-    I -- "Publishes to platform" --> J["Published Documentation"];
+At its core, DocSmith operates as a pipeline, processing your source code through several distinct stages, each managed by one or more dedicated AI agents.
+
+## The Documentation Generation Pipeline
+
+The entire process, from analyzing your code to publishing the final documents, follows a structured pipeline. This ensures consistency and allows for targeted refinements at any stage.
+
+```d2
+direction: down
+
+"Source Code & Config": {
+  shape: step
+  label: "Input: Source Code & Configuration"
+}
+
+"Structure Planning": {
+  shape: step
+  label: "1. Structure Planning"
+}
+
+"Content Generation": {
+  shape: step
+  label: "2. Content Generation"
+}
+
+"Saving & Output": {
+  shape: step
+  label: "3. Saving & Output"
+}
+
+"Optional Processes": {
+  shape: diamond
+  label: "4. Optional Processes"
+}
+
+"Translation": {
+  shape: step
+  label: "Translation"
+}
+
+"Publishing": {
+  shape: step
+  label: "Publishing"
+}
+
+"Feedback Loop": {
+  shape: callout
+  label: "User Feedback Loop"
+}
+
+"Source Code & Config" -> "Structure Planning"
+"Structure Planning" -> "Content Generation"
+"Content Generation" -> "Saving & Output"
+"Saving & Output" -> "Optional Processes"
+
+"Optional Processes" -> "Translation": "Translate Docs"
+"Optional Processes" -> "Publishing": "Publish Docs"
+
+"Structure Planning" <- "Feedback Loop": "Refine Structure"
+"Content Generation" <- "Feedback Loop": "Regenerate Content"
+
 ```
 
-## The Core Agents
+1.  **Input Analysis**: The process begins with agents like `load-sources` and `load-config`, which gather your source code, configuration files (`aigne.yaml`), and any user-defined rules.
 
-While many specialized agents are involved, the process relies on a few core agents that handle the primary stages of documentation creation. Each is designed for a specific purpose, ensuring high-quality output at every step.
+2.  **Structure Planning**: The `reflective-structure-planner` agent analyzes the codebase to propose a comprehensive and logical document structure. It considers your specified target audience, rules, and feedback to create an optimal outline.
 
-| Agent Name | Role in the Pipeline |
-| --- | --- |
-| `load-sources` | The first step in the chain. This agent scans your project directory, reads configuration files, and gathers all necessary context. |
-| `structure-planning` | Analyzes the loaded sources to create a logical hierarchy for the documentation. It outputs the `structurePlan`, the blueprint for the entire docset. |
-| `content-detail-generator` | Takes an individual item from the `structurePlan` and generates its detailed Markdown content based on the source data and rules. |
-| `batch-docs-detail-generator` | Orchestrates the `content-detail-generator`, running it for every page defined in the `structurePlan` to build the complete set of documents. |
-| `translate` | If configured, this agent takes the generated content and translates it into the specified target languages. |
-| `publish-docs` | Handles the final step of making your documentation public, interfacing with publishing platforms or deployment scripts. |
+3.  **Content Generation**: Once the structure is approved, the `content-detail-generator` and `batch-docs-detail-generator` agents take over. They populate each section of the document plan with detailed, high-quality content, ensuring technical accuracy and adherence to the defined style.
 
-## The Process in Action
+4.  **Refinement and Updates**: If you provide feedback using `aigne doc update` or `aigne doc generate --feedback`, the `detail-regenerator` and `feedback-refiner` agents are activated. They intelligently update specific documents or adjust the overall structure based on your input.
 
-When you initiate a generation command, the AIGNE engine starts the pipeline:
+5.  **Translation and Publishing**: Finally, optional agents like `translate` and `publish-docs` handle multi-language translation and publishing to Discuss Kit platforms, completing the end-to-end workflow.
 
-1.  **Loading:** The `load-sources` agent gathers all relevant information.
-2.  **Planning:** The `structure-planning` agent designs the documentation's table of contents.
-3.  **Generating:** The `batch-docs-detail-generator` iterates through the plan, calling the `content-detail-generator` for each section to write the actual content.
-4.  **Finalizing:** The content is then passed through optional steps like translation before being saved to your local filesystem by the `save-docs` agent.
-5.  **Publishing:** If you use the publish command, the `publish-docs` agent takes the final output and deploys it.
+## Key AI Agents
 
-This agent-based system means you can customize the pipeline or even swap out agents to fit unique workflows. For more information on how you can contribute to this ecosystem, see our [Contributing Guide](./advanced-contributing.md).
+DocSmith's power comes from its team of specialized agents. While many agents work behind the scenes, here are some of the key players in the documentation pipeline:
+
+| Agent Role | Primary Function | Governing File(s) |
+|---|---|---|
+| **Structure Planner** | Analyzes source code and rules to generate the overall documentation outline. | `structure-planning.yaml`, `reflective-structure-planner.yaml` |
+| **Content Generator** | Writes detailed content for each individual document section based on the plan. | `content-detail-generator.yaml`, `batch-docs-detail-generator.yaml` |
+| **Translation Agent** | Translates generated documentation into multiple target languages. | `translate.yaml`, `batch-translate.yaml` |
+| **Refinement Agent** | Regenerates or modifies content and structure based on user feedback. | `detail-regenerator.yaml`, `feedback-refiner.yaml` |
+| **Publishing Agent** | Manages the process of publishing documents to Discuss Kit instances. | `publish-docs.mjs`, `team-publish-docs.yaml` |
+| **Configuration Loader** | Reads and interprets the project's configuration from `aigne.yaml`. | `load-config.mjs` |
+
+This modular, agent-based architecture makes DocSmith highly flexible and robust, allowing each step of the process to be optimized independently.
+
+---
+
+Now that you understand the mechanics behind DocSmith, learn about the measures in place to guarantee high-quality output in the [Quality Assurance](./advanced-quality-assurance.md) section.

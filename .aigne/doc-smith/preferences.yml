@@ -1,0 +1,31 @@
+rules:
+  - id: pref_b826d60409e88585
+    active: true
+    scope: document
+    rule: 自定义组件的描述中只能使用普通文本，不能使用 Markdown 语法。
+    feedback: 不可以在自定义组件的描述中使用 markdown 语法，只能使用普通文本
+    createdAt: 2025-08-30T14:59:26.086Z
+  - id: pref_6da200d8e6fec09e
+    active: true
+    scope: structure
+    rule: 不要生成关于贡献指南的文档。
+    feedback: 删除贡献指南相关的文档，这部分内容还没有准备好
+    createdAt: 2025-08-30T14:46:32.741Z
+  - id: pref_8c619b5228f791e5
+    active: true
+    scope: document
+    rule: 不要生成关于 Mermaid 图表验证的内容，因为图表已改为使用 D2。
+    feedback: 删除 mermaid 图表验证相关的描述，现在图表已改为使用 D2
+    createdAt: 2025-08-30T14:29:04.068Z
+  - id: pref_0e154f58c22329fb
+    active: true
+    scope: document
+    rule: 不要生成关于已不再支持的开发命令的文档内容。
+    feedback: 删除开发命令相关的文档，这些开发命令已经不支持了
+    createdAt: 2025-08-30T14:13:50.446Z
+  - id: pref_0112657e4103ba88
+    active: true
+    scope: structure
+    rule: 根据最新的源码更新文档结构，可以新增文档和修改文档对源码的依赖，但禁止修改任何现有文档的路径。
+    feedback: 基于最新的源码更新文档结构,允许新增文档、修改文档依赖源码,不可以修改现有文档的路径
+    createdAt: 2025-08-30T14:03:47.434Z

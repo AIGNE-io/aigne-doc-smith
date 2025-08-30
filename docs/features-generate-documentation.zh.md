@@ -4,82 +4,79 @@ labels: ["Reference"]
 
 # 生成文档
 
-`aigne doc generate` 命令是 DocSmith 的核心。它通过分析您的源代码、规划逻辑结构，然后为每个部分编写详细内容，从而自动化创建完整文档集的整个过程。该过程旨在做到既强大又简单，通常只需一个命令即可完成。
+`aigne doc generate` 命令是 DocSmith 的核心功能，旨在通过一个命令将您的源代码转换为内容全面、结构清晰的文档套件。
 
-## 智能生成过程
+该过程包括分析您的代码库、规划合理的文档结构，然后为每个部分生成详细内容。这是从零开始创建文档的主要方式。
 
-运行 `generate` 命令会启动一个由 AI agent 处理的多步骤过程。对于用户而言，体验非常简单。
+## 首次生成
 
-首先，请导航至您项目的根目录并运行：
+首先，请进入您项目的根目录并运行以下命令：
 
 ```bash
 aigne doc generate
 ```
 
-### 自动配置
+### 智能自动配置
 
-如果这是您首次在项目中运行 DocSmith，它会智能检测到尚无配置文件，并自动启动交互式设置向导。您无需预先手动运行 `aigne doc init`。这确保了在生成开始前，您已完成正确的配置。
+如果您首次在项目中运行此命令，DocSmith 将智能地检测到尚无配置。它会自动启动一个交互式设置向导，引导您完成初始设置。这能确保在生成开始前，您已拥有一个正确配置的环境。
 
-![运行 generate 命令，如果需要，它会智能地触发初始化向导。](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d4945965.png)
+![首次运行 generate 命令会触发设置向导](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-系统将引导您回答一系列问题，以定义文档的范围、风格、目标受众和语言。
+系统将询问您一系列问题以定义：
+- 文档生成规则和风格
+- 目标受众
+- 主要语言和翻译语言
+- 源代码和输出路径
 
-![在交互式向导中回答问题以完成项目设置。](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![回答几个问题以配置您的文档风格、语言和源路径](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-### 结构规划和内容创建
+配置完成后，DocSmith 会继续进行文档生成。
 
-配置完成后，DocSmith 会分析您的源代码，以创建一个 `structure-plan.json` 文件。该文件概述了整个文档的层级结构。随后，它将立即为每个已规划的文档生成详细的 Markdown 内容。
+![DocSmith 分析您的代码、规划结构并生成每个文档](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-![控制台显示正在执行结构规划和文档生成步骤。](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+成功完成后，您新创建的文档将位于您指定的输出目录中。
 
-完成后，您将在指定的输出目录中找到已生成的文件，这些文件可随时发布。
+![完成后，您将在指定的输出目录中找到新文档](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
-![控制台中的成功消息，表明文档已成功生成。](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+## 生成过程
 
-### 生成工作流程
+`generate` 命令遵循一个清晰、自动化的工作流程，以确保结果的一致性和高质量。该过程的可视化流程如下：
 
-整个工作流程可直观地表示如下：
+```d2
+direction: down
 
-```mermaid
-flowchart TD
-    A["运行 'aigne doc generate'"] --> B{"配置文件是否存在？"};
-    B -- "否" --> C["启动交互式设置向导"];
-    C --> D["保存配置"];
-    B -- "是" --> E["加载现有配置"];
-    D --> E;
-    E --> F["分析源代码并创建结构规划"];
-    F --> G["为每个文档生成内容"];
-    G --> H["保存文档文件"];
+start: "开始"
+run_cmd: "运行 `aigne doc generate`"
+check_config: "配置是否存在？" {
+  shape: diamond
+}
+interactive_setup: "交互式设置向导"
+plan_structure: "分析代码并规划结构"
+gen_content: "生成文档内容"
+save_docs: "将文档保存到输出目录"
+end: "结束"
+
+start -> run_cmd -> check_config
+check_config -> interactive_setup: "否"
+interactive_setup -> plan_structure
+check_config -> plan_structure: "是"
+plan_structure -> gen_content -> save_docs -> end
 ```
 
-## 强制完全重新生成
+## 微调生成过程
 
-默认情况下，`aigne doc generate` 是智能的，仅会更新受代码变更影响的文档。如果您需要舍弃所有现有文档并从头开始重新生成所有内容，请使用 `--forceRegenerate` 标志。
+虽然默认的 `generate` 命令足以满足大多数使用场景，但您也可以使用一些选项来控制生成过程。这些选项在重新生成内容或优化文档结构时尤其有用。
 
-当您对配置文件（`aigne.doc.yaml`）做出重大更改，或希望完全重新开始时，此功能非常有用。
+| 选项              | 描述                                                                                                                             | 示例                                                              | 
+|---------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| `--forceRegenerate` | 删除所有现有文档并从头开始重新生成。在对源代码或配置进行重大更改后使用此选项。                                                           | `aigne doc generate --forceRegenerate`                                 |
+| `--feedback`        | 提供高级反馈以优化整体文档结构规划，例如添加、删除或重组章节。                                                                           | `aigne doc generate --feedback "添加一个 API 参考部分"`         |
+| `--model`           | 指定 AIGNE Hub 中的特定大语言模型用于内容生成，让您可以轻松切换模型。                                                                      | `aigne doc generate --model claude:claude-3-5-sonnet`                |
 
-```bash
-# 基于最新的源代码和配置重新生成所有文档
-aigne doc generate --forceRegenerate
-```
+## 下一步
 
-## 通过反馈优化结构
+既然您已经生成了初始文档，您的项目还将继续迭代。为了使文档与代码保持同步，您需要更新文档。请继续阅读下一章节，了解如何进行针对性修改和重新生成特定文件。
 
-您可以通过提供直接反馈来指导 AI 的结构规划。使用带 `--feedback` 标志的 `generate` 命令，可以建议对文档结构本身进行更改、添加或删除。
-
-例如，如果您希望添加更详细的安装指南，可以运行：
-
-```bash
-# 重新生成结构并进行特定改进
-aigne doc generate --feedback "添加更详细的安装指南和故障排除部分"
-```
-
-DocSmith 在创建或更新 `structure-plan.json` 文件时会采纳此反馈，从而生成更精炼的文档大纲。
-
----
-
-既然您已经生成了文档，接下来的步骤就是保持其内容更新或与您的受众分享。
-
-*   在 [更新与优化](./features-update-and-refine.md) 中了解如何进行针对性修改。
-*   要覆盖全球受众，请参阅如何 [翻译文档](./features-translate-documentation.md)。
-*   当您准备好上线时，请遵循指南 [发布您的文档](./features-publish-your-docs.md)。
+<x-card data-title="更新和优化" data-icon="lucide:file-edit" data-href="/features/update-and-refine">
+  了解当代码发生变化时如何智能更新文档，或利用反馈进行特定改进。
+</x-card>.
