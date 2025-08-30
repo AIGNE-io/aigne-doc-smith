@@ -101,11 +101,11 @@ parentId: {{parentId}}
 
 </media_rules>
 
-{% include "./document/detail-generator.md" %}
+{% include "document/detail-generator.md" %}
 
 </rules>
 
-{% include "./document/detail-example.md" %}
+{% include "document/detail-example.md" %}
 
 <output_schema>
 

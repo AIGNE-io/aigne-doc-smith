@@ -3,9 +3,9 @@
   - d2 代码块必须完整且可渲染，避免使用未闭合的语法与奇异字符
   - d2 图表使用补充说明：
     - 示例：
-      {% include "./diy-examples.md" %}
+      {% include "diy-examples.md" %}
     - 官方示例：
-      {% include "./official-examples.md" %}
+      {% include "official-examples.md" %}
     - 其他注意事项：
       - 图表应简洁明了，节点和连线命名准确。
       - 每个 d2 代码块必须完整闭合，避免语法错误。
