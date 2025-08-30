@@ -230,17 +230,3 @@ aigne doc publish --appUrl https://your-discuss-kit-instance.com
 
 
 ```
-
-### Development Commands
-
-```shell
-# Development and debugging commands using npx to run local code
-npx --no doc-smith run --entry-agent init
-npx --no doc-smith run --entry-agent generate
-npx --no doc-smith run --entry-agent update 
-npx --no doc-smith run --entry-agent translate 
-npx --no doc-smith run --entry-agent publish
-```
-
-**Development Mode:** These commands use `npx` to run the local code version for development and debugging purposes, bypassing the globally installed CLI.
-
