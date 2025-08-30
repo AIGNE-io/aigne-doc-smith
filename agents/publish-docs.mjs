@@ -6,7 +6,7 @@ import chalk from "chalk";
 import { getAccessToken } from "../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../utils/constants.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
-import { beforePublishHook } from "../utils/kroki-utils.mjs";
+import { beforePublishHook, ensureTmpDir } from "../utils/kroki-utils.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
@@ -15,13 +15,9 @@ export default async function publishDocs(
   options,
 ) {
   // move work dir to tmp-dir
-  const tmpDir = join(".aigne", "doc-smith", TMP_DIR);
-  if (!(await fs.pathExists(join(tmpDir, ".gitignore")))) {
-    await fs.ensureDir(tmpDir);
-    await fs.writeFile(join(tmpDir, ".gitignore"), "**/*", { encoding: "utf8" });
-  }
+  await ensureTmpDir();
 
-  const docsDir = join(tmpDir, TMP_DOCS_DIR);
+  const docsDir = join(".aigne", "doc-smith", TMP_DIR, TMP_DOCS_DIR);
   await fs.rm(docsDir, { recursive: true, force: true });
   await fs.mkdir(docsDir, {
     recursive: true,

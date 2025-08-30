@@ -136,6 +136,7 @@ async function runIterator({ input, regexp, fn = () => {}, options, replace = fa
 }
 
 export async function checkD2Content({ content }) {
+  await ensureTmpDir();
   const assetDir = path.join(".aigne", "doc-smith", TMP_DIR, TMP_ASSETS_DIR, "d2");
   await fs.ensureDir(assetDir);
   const d2Content = [D2_CONFIG, content].join("\n");
@@ -150,4 +151,12 @@ export async function checkD2Content({ content }) {
 
   const svg = await getD2Svg({ content: d2Content, strict: true });
   await fs.writeFile(svgPath, svg, { encoding: "utf8" });
+}
+
+export async function ensureTmpDir() {
+  const tmpDir = path.join(".aigne", "doc-smith", TMP_DIR);
+  if (!(await fs.pathExists(path.join(tmpDir, ".gitignore")))) {
+    await fs.ensureDir(tmpDir);
+    await fs.writeFile(path.join(tmpDir, ".gitignore"), "**/*", { encoding: "utf8" });
+  }
 }
