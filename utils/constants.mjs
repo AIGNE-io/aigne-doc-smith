@@ -509,3 +509,41 @@ export const RESOLUTION_STRATEGIES = {
 - Detail level: Uses "developers" style - technical implementation details, code examples, best practices
 - Ensure smooth transition from strategic to tactical`,
 };
+
+export const D2_CONFIG = `vars: {
+  d2-config: {
+    layout-engine: elk
+    theme-id: 0
+    theme-overrides: {
+      N1: "#2AA7A1"
+      N2: "#73808C"
+
+      N4: "#FFFFFF"
+      N5: "#FAFBFC"
+
+      N7: "#ffffff"
+
+      B1: "#8EDDD9"
+      B2: "#C9DCE6"
+      B3: "#EEF9F9"
+      B4: "#F7F8FA"
+      B5: "#FCFDFD"
+      B6: "#E3E9F0"
+
+
+      AA2: "#9EB7C5"
+      AA4: "#E3EBF2"
+      AA5: "#F6FAFC"
+
+      AB4: "#B8F1F6"
+      AB5: "#E3F8FA"
+    }
+  }
+}`;
+
+export const KROKI_CONCURRENCY = 5;
+export const FILE_CONCURRENCY = 3;
+export const TMP_DIR = ".tmp";
+export const TMP_DOCS_DIR = "docs";
+
+export const TMP_ASSETS_DIR = "assets";

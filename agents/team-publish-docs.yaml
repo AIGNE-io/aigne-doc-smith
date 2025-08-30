@@ -13,6 +13,6 @@ skills:
 input_schema:
   type: object
   properties:
-    appUrl: 
+    appUrl:
       type: string
-      description: target website URL where the documentation will be published
+      description: target website URL where the documentation will be published (optional - if not provided, will prompt for interactive input)

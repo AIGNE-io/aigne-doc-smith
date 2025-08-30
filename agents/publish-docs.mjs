@@ -1,16 +1,33 @@
 import { basename, join } from "node:path";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
+import fs from "fs-extra";
+
 import { getAccessToken } from "../utils/auth-utils.mjs";
-import { DISCUSS_KIT_STORE_URL } from "../utils/constants.mjs";
+import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../utils/constants.mjs";
+import { beforePublishHook, ensureTmpDir } from "../utils/kroki-utils.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
 export default async function publishDocs(
-  { docsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
+  { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
   options,
 ) {
+  // move work dir to tmp-dir
+  await ensureTmpDir();
+
+  const docsDir = join(".aigne", "doc-smith", TMP_DIR, TMP_DOCS_DIR);
+  await fs.rm(docsDir, { recursive: true, force: true });
+  await fs.mkdir(docsDir, {
+    recursive: true,
+  });
+  await fs.cp(rawDocsDir, docsDir, { recursive: true });
+
+  // ----------------- trigger beforePublishHook -----------------------------
+  await beforePublishHook({ docsDir });
+
+  // ----------------- main publish process flow -----------------------------
   // Check if DOC_DISCUSS_KIT_URL is set in environment variables
   const envAppUrl = process.env.DOC_DISCUSS_KIT_URL;
   const useEnvAppUrl = !!envAppUrl;
@@ -87,6 +104,8 @@ export default async function publishDocs(
     ].filter((lang, index, arr) => arr.indexOf(lang) === index), // Remove duplicates
   };
 
+  let message;
+
   try {
     const { success, boardId: newBoardId } = await publishDocsFn({
       sidebarPath,
@@ -114,18 +133,14 @@ export default async function publishDocs(
       if (boardId !== newBoardId) {
         await saveValueToConfig("boardId", newBoardId);
       }
-      const message = `✅ Documentation Published Successfully!`;
-      return {
-        message,
-      };
+      message = `✅ Documentation Published Successfully!`;
     }
-
-    return {};
   } catch (error) {
-    return {
-      message: `❌ Failed to publish docs: ${error.message}`,
-    };
+    message = `❌ Failed to publish docs: ${error.message}`;
   }
+  // clean up tmp work dir
+  await fs.rm(docsDir, { recursive: true, force: true });
+  return message ? { message } : {};
 }
 
 publishDocs.input_schema = {

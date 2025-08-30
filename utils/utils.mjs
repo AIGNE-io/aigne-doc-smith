@@ -1,4 +1,5 @@
 import { execSync } from "node:child_process";
+import crypto from "node:crypto";
 import { accessSync, constants, existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -109,6 +110,7 @@ export async function saveDocWithTranslations({
 
       // Add labels front matter if labels are provided
       let finalContent = processContent({ content });
+
       if (labels && labels.length > 0) {
         const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
         finalContent = frontMatter + finalContent;
@@ -127,6 +129,7 @@ export async function saveDocWithTranslations({
       let finalTranslationContent = processContent({
         content: translate.translation,
       });
+
       if (labels && labels.length > 0) {
         const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
         finalTranslationContent = frontMatter + finalTranslationContent;
@@ -1147,4 +1150,8 @@ export function detectSystemLanguage() {
     // Any error in detection, return default
     return "en";
   }
+}
+
+export function getContentHash(str) {
+  return crypto.createHash("sha256").update(str).digest("hex");
 }
