@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.0...v0.7.1) (2025-08-31)
+
+
+### Bug Fixes
+
+* fix tab key path selection bug ([#72](https://github.com/AIGNE-io/aigne-doc-smith/issues/72)) ([369b342](https://github.com/AIGNE-io/aigne-doc-smith/commit/369b342d8ab8ce95b61a3b72e367157d2f71cce4))
+
 ## [0.7.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.6.0...v0.7.0) (2025-08-30)
 
 
