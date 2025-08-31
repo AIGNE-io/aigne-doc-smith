@@ -265,7 +265,7 @@ export default async function init(
           options.push({
             name: searchTerm,
             value: searchTerm,
-            description: "Glob pattern for file matching",
+            description: "This input will be used as a glob pattern for file matching",
           });
         }
 
