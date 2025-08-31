@@ -243,39 +243,29 @@ export default async function init(
         if (!input || input.trim() === "") {
           return [
             {
-              name: _PRESS_ENTER_TO_FINISH,
+              name: "",
               value: "",
-              description: "",
+              description: _PRESS_ENTER_TO_FINISH,
             },
           ];
         }
 
         const searchTerm = input.trim();
 
-        // Check if input looks like a glob pattern
-        const isGlobPatternResult = isGlobPattern(searchTerm);
-
-        if (isGlobPatternResult) {
-          // If it looks like a glob pattern, allow direct input
-          return [
-            {
-              name: `Use glob pattern: ${searchTerm}`,
-              value: searchTerm,
-              description: "Glob pattern for file matching",
-            },
-          ];
-        }
-
         // Search for matching files and folders in current directory
         const availablePaths = getAvailablePaths(searchTerm);
 
         // Also add option to use as glob pattern
         const options = [...availablePaths];
-        if (searchTerm.length > 0) {
-          options.unshift({
-            name: `Use as glob pattern: ${searchTerm}`,
+
+        // Check if input looks like a glob pattern
+        const isGlobPatternResult = isGlobPattern(searchTerm);
+        if (isGlobPatternResult) {
+          // If it looks like a glob pattern, allow direct input
+          options.push({
+            name: searchTerm,
             value: searchTerm,
-            description: "Treat input as glob pattern",
+            description: "Glob pattern for file matching",
           });
         }
 
