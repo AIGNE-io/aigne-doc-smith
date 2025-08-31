@@ -4,65 +4,42 @@
     "description": "Get a quick introduction to AIGNE DocSmith, what it does, its main features, and how it fits into the larger AIGNE ecosystem.",
     "path": "/overview",
     "parentId": null,
-    "sourceIds": [
-      "README.md",
-      "package.json",
-      "aigne.yaml"
-    ]
+    "sourceIds": ["README.md", "package.json", "aigne.yaml"]
   },
   {
     "title": "Getting Started",
     "description": "Follow this simple, step-by-step guide to install the tool, configure your project, and generate your first set of documents in minutes.",
     "path": "/getting-started",
     "parentId": null,
-    "sourceIds": [
-      "README.md",
-      "media.md",
-      "agents/input-generator.mjs"
-    ]
+    "sourceIds": ["README.md", "media.md", "agents/input-generator.mjs"]
   },
   {
     "title": "Core Features",
     "description": "Explore the main commands and capabilities of DocSmith, from creating new documentation to publishing it online.",
     "path": "/features",
     "parentId": null,
-    "sourceIds": [
-      "README.md"
-    ]
+    "sourceIds": ["README.md"]
   },
   {
     "title": "Generate Documentation",
     "description": "Learn how to use a single command to automatically create a complete set of documentation from your source code.",
     "path": "/features/generate-documentation",
     "parentId": "/features",
-    "sourceIds": [
-      "README.md",
-      "media.md",
-      "agents/docs-generator.yaml"
-    ]
+    "sourceIds": ["README.md", "media.md", "agents/docs-generator.yaml"]
   },
   {
     "title": "Update and Refine",
     "description": "Discover how to intelligently update your documents when your code changes, or make specific improvements using feedback.",
     "path": "/features/update-and-refine",
     "parentId": "/features",
-    "sourceIds": [
-      "README.md",
-      "media.md",
-      "agents/detail-regenerator.yaml"
-    ]
+    "sourceIds": ["README.md", "media.md", "agents/detail-regenerator.yaml"]
   },
   {
     "title": "Translate Documentation",
     "description": "Learn how to automatically translate your documentation into multiple languages to reach a global audience.",
     "path": "/features/translate-documentation",
     "parentId": "/features",
-    "sourceIds": [
-      "README.md",
-      "media.md",
-      "agents/translate.yaml",
-      "agents/retranslate.yaml"
-    ]
+    "sourceIds": ["README.md", "media.md", "agents/translate.yaml", "agents/retranslate.yaml"]
   },
   {
     "title": "Publish Your Docs",
@@ -97,31 +74,21 @@
     "description": "A detailed look at all the available settings to customize the style, audience, and languages of your documentation.",
     "path": "/configuration",
     "parentId": null,
-    "sourceIds": [
-      "README.md",
-      "agents/input-generator.mjs",
-      "utils/constants.mjs"
-    ]
+    "sourceIds": ["README.md", "agents/input-generator.mjs", "utils/constants.mjs"]
   },
   {
     "title": "LLM Setup",
     "description": "Learn how to set up DocSmith to use different AI models, including using AIGNE Hub without needing your own API keys.",
     "path": "/configuration/llm-setup",
     "parentId": "/configuration",
-    "sourceIds": [
-      "README.md",
-      "aigne.yaml"
-    ]
+    "sourceIds": ["README.md", "aigne.yaml"]
   },
   {
     "title": "Language Support",
     "description": "See the full list of languages that DocSmith supports for automatic translation and learn how to enable them.",
     "path": "/configuration/language-support",
     "parentId": "/configuration",
-    "sourceIds": [
-      "README.md",
-      "utils/constants.mjs"
-    ]
+    "sourceIds": ["README.md", "utils/constants.mjs"]
   },
   {
     "title": "Managing Preferences",
@@ -150,9 +117,7 @@
     "description": "Dive deeper into the architecture of DocSmith, learn how it works, and explore its internal mechanisms.",
     "path": "/advanced",
     "parentId": null,
-    "sourceIds": [
-      "README.md"
-    ]
+    "sourceIds": ["README.md"]
   },
   {
     "title": "How It Works",
@@ -182,8 +147,6 @@
     "description": "A detailed log of all notable changes, features, and bug fixes for each version of the project.",
     "path": "/changelog",
     "parentId": null,
-    "sourceIds": [
-      "CHANGELOG.md"
-    ]
+    "sourceIds": ["CHANGELOG.md"]
   }
 ]
