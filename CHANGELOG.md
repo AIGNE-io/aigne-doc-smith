@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.1...v0.7.2) (2025-09-01)
+
+
+### Miscellaneous Chores
+
+* release 0.7.2 ([c3be232](https://github.com/AIGNE-io/aigne-doc-smith/commit/c3be2323e885cf5d11d654629fe30cc3720f79d3))
+
 ## [0.7.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.0...v0.7.1) (2025-08-31)
 
 
