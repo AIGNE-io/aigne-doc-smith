@@ -1,6 +1,9 @@
 import { describe, expect, test } from "bun:test";
+import { promises as fs } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { parse as parseYAML } from "yaml";
-import { generateYAML } from "../agents/input-generator.mjs";
+import init, { generateYAML } from "../agents/input-generator.mjs";
 
 describe("generateYAML", () => {
   // Helper function to parse YAML and verify it's valid
@@ -935,6 +938,584 @@ describe("generateYAML", () => {
       expect(result).toContain("# Documentation Depth:");
       expect(result).toContain("# Custom Rules:");
       expect(result).toContain("# Glossary:");
+    });
+  });
+});
+
+describe("init", () => {
+  // Helper function to create mock prompts
+  function createMockPrompts(responses) {
+    return {
+      checkbox: (options) => {
+        const key = options.message.match(/\[(\d+)\/\d+\]/)?.[1] || "default";
+        const response = responses[`checkbox_${key}`] || responses["checkbox"] || [];
+        return Promise.resolve(response);
+      },
+      select: (options) => {
+        const key = options.message.match(/\[(\d+)\/\d+\]/)?.[1] || "default";
+        const response = responses[`select_${key}`] || responses["select"] || "";
+        return Promise.resolve(response);
+      },
+      input: (options) => {
+        const key = options.message.match(/\[(\d+)\/\d+\]/)?.[1] || "default";
+        const response = responses[`input_${key}`] || responses["input"] || options.default || "";
+        return Promise.resolve(response);
+      },
+      search: () => {
+        const response = responses["search"] || "";
+        return Promise.resolve(response);
+      },
+    };
+  }
+
+  // Helper function to create temporary directory
+  async function createTempDir() {
+    const tempDir = join(tmpdir(), `aigne-test-${Date.now()}`);
+    await fs.mkdir(tempDir, { recursive: true });
+    return tempDir;
+  }
+
+  // Helper function to cleanup temp directory
+  async function cleanupTempDir(tempDir) {
+    try {
+      await fs.rm(tempDir, { recursive: true, force: true });
+    } catch {
+      // Ignore cleanup errors
+    }
+  }
+
+  describe("Complete init workflow", () => {
+    test("should complete full init workflow with typical developer responses", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        const mockResponses = {
+          checkbox_1: ["getStarted", "findAnswers"], // Document purpose
+          checkbox_2: ["developers"], // Target audience
+          select_3: "domainFamiliar", // Reader knowledge level
+          select_4: "balancedCoverage", // Documentation depth
+          select_5: "en", // Primary language
+          checkbox_6: ["zh", "ja"], // Translation languages
+          input_7: join(tempDir, "docs"), // Documentation directory
+          search: "", // Source paths (empty to finish)
+        };
+
+        const mockPrompts = createMockPrompts(mockResponses);
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          {
+            outputPath: tempDir,
+            fileName: "config.yaml",
+            skipIfExists: false,
+          },
+          options,
+        );
+
+        // Check that function completed successfully
+        expect(result).toEqual({});
+
+        // Check that config file was created
+        const configPath = join(tempDir, "config.yaml");
+        const configExists = await fs
+          .access(configPath)
+          .then(() => true)
+          .catch(() => false);
+        expect(configExists).toBe(true);
+
+        // Verify the generated config content
+        const configContent = await fs.readFile(configPath, "utf8");
+        const config = parseYAML(configContent);
+
+        expect(config.documentPurpose).toEqual(["getStarted", "findAnswers"]);
+        expect(config.targetAudienceTypes).toEqual(["developers"]);
+        expect(config.readerKnowledgeLevel).toBe("domainFamiliar");
+        expect(config.documentationDepth).toBe("balancedCoverage");
+        expect(config.locale).toBe("en");
+        expect(config.translateLanguages).toEqual(["zh", "ja"]);
+        expect(config.docsDir).toBe(join(tempDir, "docs"));
+        expect(config.sourcesPath).toEqual(["./"]); // Default when no paths provided
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should handle mixed purpose workflow with priority selection", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        const mockResponses = {
+          checkbox_1: ["mixedPurpose"], // Document purpose - triggers follow-up
+          checkbox: ["completeTasks", "findAnswers"], // Top priorities after mixedPurpose
+          checkbox_2: ["developers", "devops"], // Target audience
+          select_3: "experiencedUsers", // Reader knowledge level
+          select_4: "comprehensive", // Documentation depth
+          select_5: "zh-CN", // Primary language
+          checkbox_6: ["en"], // Translation languages
+          input_7: join(tempDir, "documentation"), // Documentation directory
+          search: "", // Source paths (empty to finish)
+        };
+
+        const mockPrompts = createMockPrompts(mockResponses);
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          {
+            outputPath: tempDir,
+            fileName: "test-config.yaml",
+            skipIfExists: false,
+          },
+          options,
+        );
+
+        expect(result).toEqual({});
+
+        // Verify the generated config
+        const configPath = join(tempDir, "test-config.yaml");
+        const configContent = await fs.readFile(configPath, "utf8");
+        const config = parseYAML(configContent);
+
+        expect(config.documentPurpose).toEqual(["completeTasks", "findAnswers"]);
+        expect(config.targetAudienceTypes).toEqual(["developers", "devops"]);
+        expect(config.readerKnowledgeLevel).toBe("experiencedUsers");
+        expect(config.documentationDepth).toBe("comprehensive");
+        expect(config.locale).toBe("zh-CN");
+        expect(config.translateLanguages).toEqual(["en"]);
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should handle end-user focused minimal configuration", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        const mockResponses = {
+          checkbox_1: ["getStarted"], // Document purpose
+          checkbox_2: ["endUsers"], // Target audience
+          select_3: "completeBeginners", // Reader knowledge level
+          select_4: "essentialOnly", // Documentation depth
+          select_5: "en", // Primary language
+          checkbox_6: [], // No translation languages
+          input_7: join(tempDir, "simple-docs"), // Documentation directory
+          search: "", // Source paths (empty to finish)
+        };
+
+        const mockPrompts = createMockPrompts(mockResponses);
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          {
+            outputPath: tempDir,
+            fileName: "simple-config.yaml",
+            skipIfExists: false,
+          },
+          options,
+        );
+
+        expect(result).toEqual({});
+
+        const configPath = join(tempDir, "simple-config.yaml");
+        const configContent = await fs.readFile(configPath, "utf8");
+        const config = parseYAML(configContent);
+
+        expect(config.documentPurpose).toEqual(["getStarted"]);
+        expect(config.targetAudienceTypes).toEqual(["endUsers"]);
+        expect(config.readerKnowledgeLevel).toBe("completeBeginners");
+        expect(config.documentationDepth).toBe("essentialOnly");
+        expect(config.locale).toBe("en");
+        expect(config.translateLanguages).toBeUndefined();
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+  });
+
+  describe("Source paths handling", () => {
+    test("should handle multiple source paths input when search returns valid paths", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        let searchCallCount = 0;
+        const sourcePaths = ["./src", "./lib", "./packages", ""];
+
+        const mockPrompts = {
+          checkbox: () => Promise.resolve(["getStarted"]),
+          select: () => Promise.resolve("en"),
+          input: () => Promise.resolve(join(tempDir, "docs")),
+          search: () => {
+            const response = sourcePaths[searchCallCount];
+            searchCallCount++;
+            return Promise.resolve(response);
+          },
+        };
+
+        const options = { prompts: mockPrompts };
+
+        // First let's create the directories that will be searched for
+        await fs.mkdir(join(process.cwd(), "src"), { recursive: true }).catch(() => {});
+        await fs.mkdir(join(process.cwd(), "lib"), { recursive: true }).catch(() => {});
+        await fs.mkdir(join(process.cwd(), "packages"), { recursive: true }).catch(() => {});
+
+        try {
+          const result = await init(
+            { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
+            options,
+          );
+
+          expect(result).toEqual({});
+
+          const configPath = join(tempDir, "config.yaml");
+          const configContent = await fs.readFile(configPath, "utf8");
+          const config = parseYAML(configContent);
+
+          // Should contain the paths that were added before empty string
+          expect(config.sourcesPath.length).toBeGreaterThan(0);
+        } finally {
+          // Clean up test directories
+          await fs.rm(join(process.cwd(), "src"), { recursive: true, force: true }).catch(() => {});
+          await fs.rm(join(process.cwd(), "lib"), { recursive: true, force: true }).catch(() => {});
+          await fs
+            .rm(join(process.cwd(), "packages"), { recursive: true, force: true })
+            .catch(() => {});
+        }
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should use default source path when no paths provided", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        const mockPrompts = {
+          checkbox: () => Promise.resolve(["getStarted"]),
+          select: () => Promise.resolve("en"),
+          input: () => Promise.resolve(join(tempDir, "docs")),
+          search: () => Promise.resolve(""), // Immediately finish without adding paths
+        };
+
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
+          options,
+        );
+
+        expect(result).toEqual({});
+
+        const configPath = join(tempDir, "config.yaml");
+        const configContent = await fs.readFile(configPath, "utf8");
+        const config = parseYAML(configContent);
+
+        expect(config.sourcesPath).toEqual(["./"]); // Default value
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+  });
+
+  describe("Skip existing configuration", () => {
+    test("should skip if config exists and skipIfExists is true", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        // Create existing config file
+        const configPath = join(tempDir, "config.yaml");
+        const existingConfig = 'projectName: "Existing Project"\nlocale: "zh"';
+        await fs.writeFile(configPath, existingConfig, "utf8");
+
+        const mockPrompts = {
+          checkbox: () => Promise.resolve(["getStarted"]),
+          select: () => Promise.resolve("en"),
+          input: () => Promise.resolve("docs"),
+          search: () => Promise.resolve(""),
+        };
+
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          { outputPath: tempDir, fileName: "config.yaml", skipIfExists: true },
+          options,
+        );
+
+        expect(result).toEqual({});
+
+        // Config should remain unchanged
+        const configContent = await fs.readFile(configPath, "utf8");
+        expect(configContent).toBe(existingConfig);
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should not skip if config file is empty even when skipIfExists is true", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        // Create empty config file
+        const configPath = join(tempDir, "config.yaml");
+        await fs.writeFile(configPath, "", "utf8");
+
+        const mockPrompts = {
+          checkbox: () => Promise.resolve(["getStarted"]),
+          select: () => Promise.resolve("en"),
+          input: () => Promise.resolve(join(tempDir, "docs")),
+          search: () => Promise.resolve(""),
+        };
+
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          { outputPath: tempDir, fileName: "config.yaml", skipIfExists: true },
+          options,
+        );
+
+        expect(result).toEqual({});
+
+        // Config should be generated since original was empty
+        const configContent = await fs.readFile(configPath, "utf8");
+        expect(configContent).toContain("projectName:");
+        expect(configContent).toContain("locale: en");
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+  });
+
+  describe("Validation error handling", () => {
+    test("should handle empty document purpose validation", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        // Mock prompts that will trigger validation errors by calling validate function
+        let validateCalled = false;
+        const mockPrompts = {
+          checkbox: (options) => {
+            if (options.message.includes("[1/8]") && options.validate) {
+              // Test the validation function directly
+              const validationResult = options.validate([]);
+              expect(validationResult).toBe("Please select at least one purpose.");
+              validateCalled = true;
+              // Return valid result after testing validation
+              return Promise.resolve(["getStarted"]);
+            }
+            return Promise.resolve(["getStarted"]);
+          },
+          select: () => Promise.resolve("en"),
+          input: () => Promise.resolve(join(tempDir, "docs")),
+          search: () => Promise.resolve(""),
+        };
+
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
+          options,
+        );
+
+        expect(result).toEqual({});
+        expect(validateCalled).toBe(true);
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should handle empty target audience validation", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        let audienceValidateCalled = false;
+        const mockPrompts = {
+          checkbox: (options) => {
+            if (options.message.includes("[1/8]")) {
+              return Promise.resolve(["getStarted"]); // Valid document purpose
+            }
+            if (options.message.includes("[2/8]") && options.validate) {
+              // Test the validation function for target audience
+              const validationResult = options.validate([]);
+              expect(validationResult).toBe("Please select at least one audience.");
+              audienceValidateCalled = true;
+              return Promise.resolve(["developers"]); // Valid result after testing
+            }
+            return Promise.resolve(["developers"]);
+          },
+          select: () => Promise.resolve("en"),
+          input: () => Promise.resolve(join(tempDir, "docs")),
+          search: () => Promise.resolve(""),
+        };
+
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
+          options,
+        );
+
+        expect(result).toEqual({});
+        expect(audienceValidateCalled).toBe(true);
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should handle mixed purpose priority validation errors", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        let priorityValidateCalled = false;
+        const mockPrompts = {
+          checkbox: (options) => {
+            if (options.message.includes("[1/8]")) {
+              return Promise.resolve(["mixedPurpose"]); // Trigger follow-up question
+            }
+            // This is the follow-up priority selection
+            if (options.message.includes("Which is most important?") && options.validate) {
+              // Test validation for empty selection
+              let validationResult = options.validate([]);
+              expect(validationResult).toBe("Please select at least one priority.");
+
+              // Test validation for too many selections
+              validationResult = options.validate(["getStarted", "completeTasks", "findAnswers"]);
+              expect(validationResult).toBe("Please select maximum 2 priorities.");
+
+              // Test validation for valid selection
+              validationResult = options.validate(["getStarted", "completeTasks"]);
+              expect(validationResult).toBe(true);
+
+              priorityValidateCalled = true;
+              return Promise.resolve(["getStarted", "completeTasks"]); // Valid selection
+            }
+            return Promise.resolve(["getStarted", "completeTasks"]);
+          },
+          select: () => Promise.resolve("en"),
+          input: () => Promise.resolve(join(tempDir, "docs")),
+          search: () => Promise.resolve(""),
+        };
+
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
+          options,
+        );
+
+        expect(result).toEqual({});
+        expect(priorityValidateCalled).toBe(true);
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should handle file write errors", async () => {
+      const invalidPath = "/invalid/path/that/does/not/exist";
+
+      const mockPrompts = {
+        checkbox: () => Promise.resolve(["getStarted"]),
+        select: () => Promise.resolve("en"),
+        input: () => Promise.resolve("docs"),
+        search: () => Promise.resolve(""),
+      };
+
+      const options = { prompts: mockPrompts };
+
+      const result = await init(
+        { outputPath: invalidPath, fileName: "config.yaml", skipIfExists: false },
+        options,
+      );
+
+      expect(result).toHaveProperty("inputGeneratorStatus", false);
+      expect(result).toHaveProperty("inputGeneratorError");
+      expect(typeof result.inputGeneratorError).toBe("string");
+    });
+  });
+
+  describe("Advanced source path scenarios", () => {
+    test("should handle source path validation and duplicate detection", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        let searchCallCount = 0;
+        const responses = [
+          "invalid/path/that/does/not/exist", // Should trigger validation error
+          "invalid/path/that/does/not/exist", // Duplicate path
+          join(tempDir, "valid-path"), // Valid path after creating it
+          join(tempDir, "valid-path"), // Duplicate of valid path
+          "**/*.glob", // Glob pattern (should be accepted)
+          "**/*.glob", // Duplicate glob pattern
+          "", // End input
+        ];
+
+        // Create a valid directory for testing
+        await fs.mkdir(join(tempDir, "valid-path"), { recursive: true });
+
+        const mockPrompts = {
+          checkbox: () => Promise.resolve(["getStarted"]),
+          select: () => Promise.resolve("en"),
+          input: () => Promise.resolve(join(tempDir, "docs")),
+          search: () => {
+            const response = responses[searchCallCount];
+            searchCallCount++;
+            return Promise.resolve(response);
+          },
+        };
+
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
+          options,
+        );
+
+        expect(result).toEqual({});
+
+        const configPath = join(tempDir, "config.yaml");
+        const configContent = await fs.readFile(configPath, "utf8");
+        const config = parseYAML(configContent);
+
+        // Should contain the valid paths that were successfully added
+        expect(config.sourcesPath.length).toBeGreaterThan(0);
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should handle search source function callback", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        const mockPrompts = {
+          checkbox: () => Promise.resolve(["getStarted"]),
+          select: () => Promise.resolve("en"),
+          input: () => Promise.resolve(join(tempDir, "docs")),
+          search: (options) => {
+            // Test the source callback function
+            if (options?.source) {
+              // Call the source function with different inputs to test the logic
+              const sourceResults1 = options.source("");
+              const sourceResults2 = options.source("src");
+              const sourceResults3 = options.source("**/*.js");
+
+              // Verify these are promises
+              expect(sourceResults1).toBeInstanceOf(Promise);
+              expect(sourceResults2).toBeInstanceOf(Promise);
+              expect(sourceResults3).toBeInstanceOf(Promise);
+            }
+            return Promise.resolve(""); // End input
+          },
+        };
+
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
+          options,
+        );
+
+        expect(result).toEqual({});
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
     });
   });
 });
