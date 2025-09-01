@@ -81,8 +81,9 @@ export default async function checkDetail(
 
   // If file exists, check content validation
   let contentValidationFailed = false;
+  let validationResult = {};
   if (detailGenerated && fileContent && structurePlan) {
-    const validationResult = await checkDetailResult({
+    validationResult = await checkDetailResult({
       structurePlan,
       reviewContent: fileContent,
       docsDir,
@@ -121,6 +122,7 @@ export default async function checkDetail(
     sourceIds,
     originalStructurePlan,
     structurePlan,
+    detailFeedback: contentValidationFailed ? validationResult.detailFeedback : "",
   });
 
   return {

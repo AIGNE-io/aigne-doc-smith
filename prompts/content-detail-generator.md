@@ -98,6 +98,7 @@ parentId: {{parentId}}
 - 媒体资源以 markdown 格式提供，示例：![资源描述](https://xxxx)
 - 在生成结果中以 markdown 格式展示图片
 - 根据资源描述，在上下文相关的位置，合理的展示图片，让结果展示效果更丰富
+- 为了确保媒体资源路径正确，** 只能使用 media_list 中提供媒体资源或提供远程 URL 的媒体资源 **
 
 </media_rules>
 
