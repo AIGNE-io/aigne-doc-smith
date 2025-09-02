@@ -1,3 +1,11 @@
+coverage:
+  status:
+    project: #add everything under here, more options at https://docs.codecov.com/docs/commit-status
+      default:
+        # basic
+        target: auto #default
+        threshold: 0%
+        base: auto 
 comment:
   layout: "header, changes, diff, flags, files"
   behavior: default
