@@ -6,19 +6,6 @@
 import { getMermaidWorkerPool, shutdownMermaidWorkerPool } from "./mermaid-worker-pool.mjs";
 
 /**
- * Worker-based mermaid validation - DEPRECATED but kept for compatibility
- * This function now delegates to the worker pool implementation
- * @param {string} content - Mermaid diagram content
- * @returns {boolean} - True if syntax is valid
- * @throws {Error} - If syntax is invalid
- * @deprecated Use validateMermaidSyntax instead which uses worker pool
- */
-export async function validateMermaidWithOfficialParser(content) {
-  // Delegate to the new worker-based implementation
-  return await validateMermaidSyntax(content);
-}
-
-/**
  * Basic mermaid syntax validation fallback
  * Used when worker validation fails due to environment issues
  * @param {string} content - Mermaid diagram content

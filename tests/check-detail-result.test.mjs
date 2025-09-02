@@ -105,7 +105,7 @@ describe("checkDetailResult", () => {
   describe("Table validation", () => {
     test("should reject table with mismatched column count", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "| Header 1 | Header 2 | Header 3 |\n" +
         "|----------|----------|\n" + // Only 2 separator columns but 3 header columns
         "| Cell 1 | Cell 2 | Cell 3 |";
@@ -116,18 +116,18 @@ describe("checkDetailResult", () => {
 
     test("should reject table with data row column mismatch", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "| Header 1 | Header 2 |\n" +
-        "|----------|----------|\n" +
-        "| Cell 1 | Cell 2 | Cell 3 |"; // Data row has 3 columns but separator defines 2
+      const reviewContent =
+        "| Header 1 | Header 2 |\n" + "|----------|----------|\n" + "| Cell 1 | Cell 2 | Cell 3 |"; // Data row has 3 columns but separator defines 2
       const result = await checkDetailResult({ structurePlan, reviewContent });
       expect(result.isApproved).toBe(false);
-      expect(result.detailFeedback).toContain("data row has 3 columns but separator defines 2 columns");
+      expect(result.detailFeedback).toContain(
+        "data row has 3 columns but separator defines 2 columns",
+      );
     });
 
     test("should handle complex table with pipes in content", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "| Code | Description |\n" +
         "|------|-------------|\n" +
         "| `a \\| b` | This has escaped pipe |\n" +
@@ -140,7 +140,7 @@ describe("checkDetailResult", () => {
   describe("Code block validation", () => {
     test("should reject incomplete code blocks", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "Here is some code:\n\n" +
         "```javascript\n" +
         "function test() {\n" +
@@ -153,7 +153,7 @@ describe("checkDetailResult", () => {
 
     test("should detect code block indentation issues", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "  ```javascript\n" +
         "function test() {\n" + // This line has insufficient indentation
         "    return 'test';\n" +
@@ -193,11 +193,8 @@ describe("checkDetailResult", () => {
   describe("Mermaid syntax validation", () => {
     test("should reject Mermaid with backticks in node labels", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "```mermaid\n" +
-        "graph TD\n" +
-        '  A["Contains `backticks` in label"]\n' +
-        "```";
+      const reviewContent =
+        "```mermaid\n" + "graph TD\n" + '  A["Contains `backticks` in label"]\n' + "```";
       const result = await checkDetailResult({ structurePlan, reviewContent });
       expect(result.isApproved).toBe(false);
       expect(result.detailFeedback).toContain("backticks in Mermaid node label");
@@ -205,11 +202,8 @@ describe("checkDetailResult", () => {
 
     test("should reject Mermaid with numbered lists in node labels", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "```mermaid\n" +
-        "graph TD\n" +
-        '  A["1. First item\\n2. Second item"]\n' +
-        "```";
+      const reviewContent =
+        "```mermaid\n" + "graph TD\n" + '  A["1. First item\\n2. Second item"]\n' + "```";
       const result = await checkDetailResult({ structurePlan, reviewContent });
       expect(result.isApproved).toBe(false);
       expect(result.detailFeedback).toContain("numbered list format in Mermaid node label");
@@ -217,11 +211,8 @@ describe("checkDetailResult", () => {
 
     test("should reject Mermaid with numbered lists in edge descriptions", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "```mermaid\n" +
-        "graph TD\n" +
-        '  A -- "1. First step" --> B\n' +
-        "```";
+      const reviewContent =
+        "```mermaid\n" + "graph TD\n" + '  A -- "1. First step" --> B\n' + "```";
       const result = await checkDetailResult({ structurePlan, reviewContent });
       expect(result.isApproved).toBe(false);
       expect(result.detailFeedback).toContain("numbered list format in Mermaid edge description");
@@ -229,11 +220,8 @@ describe("checkDetailResult", () => {
 
     test("should reject Mermaid with unquoted special characters", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "```mermaid\n" +
-        "graph TD\n" +
-        "  A[Node with: special chars]\n" +
-        "```";
+      const reviewContent =
+        "```mermaid\n" + "graph TD\n" + "  A[Node with: special chars]\n" + "```";
       const result = await checkDetailResult({ structurePlan, reviewContent });
       expect(result.isApproved).toBe(false);
       expect(result.detailFeedback).toContain("unquoted special characters in Mermaid node label");
@@ -241,12 +229,12 @@ describe("checkDetailResult", () => {
 
     test("should approve properly formatted Mermaid", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "```mermaid\n" +
         "graph TD\n" +
         '  A["Properly quoted label"]\n' +
         '  B["Another node"]\n' +
-        '  A --> B\n' +
+        "  A --> B\n" +
         "```\n\n" +
         "This diagram is properly formatted.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
@@ -257,7 +245,7 @@ describe("checkDetailResult", () => {
   describe("D2 syntax validation", () => {
     test("should handle D2 syntax errors", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "```d2\n" +
         "invalid d2 syntax {{\n" + // Malformed D2
         "```\n\n" +
@@ -271,7 +259,7 @@ describe("checkDetailResult", () => {
   describe("Markdown lint rules validation", () => {
     test("should handle duplicate headings check", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "# Section\n\n" +
         "Content here.\n\n" +
         "# Section\n\n" + // Duplicate heading
@@ -284,18 +272,17 @@ describe("checkDetailResult", () => {
 
     test("should handle undefined references check", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "This has an [undefined reference][nonexistent].\n\n" +
-        "This has proper structure.";
+      const reviewContent =
+        "This has an [undefined reference][nonexistent].\n\n" + "This has proper structure.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
-      // Test that the function handles this case - might pass or fail depending on lint rules  
+      // Test that the function handles this case - might pass or fail depending on lint rules
       expect(typeof result.isApproved).toBe("boolean");
       expect(typeof result.detailFeedback).toBe("string");
     });
 
     test("should reject content with unused definitions", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "This is content with proper structure.\n\n" +
         "[unused]: http://example.com 'This definition is never used'\n\n" +
         "Content continues here.";
@@ -311,7 +298,7 @@ describe("checkDetailResult", () => {
   describe("Advanced table edge cases", () => {
     test("should handle empty table cells correctly", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "| Header 1 | Header 2 | Header 3 |\n" +
         "|----------|----------|----------|\n" +
         "| Cell 1 | | Cell 3 |\n" +
@@ -322,7 +309,7 @@ describe("checkDetailResult", () => {
 
     test("should handle tables with code spans containing pipes", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "| Function | Code Example |\n" +
         "|----------|---------------|\n" +
         "| pipe | `a \\| b` |\n" +
@@ -335,7 +322,7 @@ describe("checkDetailResult", () => {
   describe("Code block edge cases", () => {
     test("should handle nested code blocks properly", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "Here's a markdown example:\n\n" +
         "```markdown\n" +
         "# Title\n" +
@@ -351,7 +338,7 @@ describe("checkDetailResult", () => {
 
     test("should handle code blocks with unusual indentation patterns", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "    ```javascript\n" +
         "    function test() {\n" +
         "        return 'properly indented';\n" +
@@ -366,7 +353,7 @@ describe("checkDetailResult", () => {
   describe("Complex Mermaid scenarios", () => {
     test("should handle Mermaid with curly brace syntax", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "```mermaid\n" +
         "graph TD\n" +
         '  A{"Decision point"}\n' +
@@ -380,11 +367,8 @@ describe("checkDetailResult", () => {
 
     test("should reject Mermaid with problematic curly brace labels", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "```mermaid\n" +
-        "graph TD\n" +
-        '  A{"Contains `backticks` problem"}\n' +
-        "```";
+      const reviewContent =
+        "```mermaid\n" + "graph TD\n" + '  A{"Contains `backticks` problem"}\n' + "```";
       const result = await checkDetailResult({ structurePlan, reviewContent });
       expect(result.isApproved).toBe(false);
       expect(result.detailFeedback).toContain("backticks in Mermaid node label");
@@ -394,7 +378,7 @@ describe("checkDetailResult", () => {
   describe("Image validation edge cases", () => {
     test("should approve data URLs in images", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "Here's an inline image ![Inline](data:image/svg+xml;base64,PHN2Zz4KPC9zdmc+).\n\n" +
         "This has proper structure.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
@@ -403,7 +387,7 @@ describe("checkDetailResult", () => {
 
     test("should handle images with complex alt text", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "![Complex alt text with [brackets] and (parentheses)](https://example.com/image.png)\n\n" +
         "This has proper structure.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
@@ -414,16 +398,15 @@ describe("checkDetailResult", () => {
   describe("Link validation edge cases", () => {
     test("should handle mailto links correctly", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "Contact us at [email](mailto:test@example.com).\n\n" +
-        "This has proper structure.";
+      const reviewContent =
+        "Contact us at [email](mailto:test@example.com).\n\n" + "This has proper structure.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
       expect(result.isApproved).toBe(true);
     });
 
     test("should handle links with anchors", async () => {
       const structurePlan = [{ path: "/getting-started" }];
-      const reviewContent = 
+      const reviewContent =
         "See the [installation section](/getting-started#installation).\n\n" +
         "This has proper structure.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
@@ -436,9 +419,8 @@ describe("checkDetailResult", () => {
 
     test("should reject anchor-only links without base path", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "See the [section](#non-existent-anchor).\n\n" +
-        "This has proper structure.";
+      const reviewContent =
+        "See the [section](#non-existent-anchor).\n\n" + "This has proper structure.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
       // This should be allowed since it's just an anchor
       expect(result.isApproved).toBe(true);
@@ -448,7 +430,7 @@ describe("checkDetailResult", () => {
   describe("Content structure edge cases", () => {
     test("should approve content ending with table", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "Here's a data table:\n\n" +
         "| Column 1 | Column 2 |\n" +
         "|----------|----------|\n" +
@@ -459,7 +441,7 @@ describe("checkDetailResult", () => {
 
     test("should approve content ending with list", async () => {
       const structurePlan = [];
-      const reviewContent = 
+      const reviewContent =
         "Here are the requirements:\n\n" +
         "- First requirement\n" +
         "- Second requirement\n" +
@@ -470,9 +452,8 @@ describe("checkDetailResult", () => {
 
     test("should approve content ending with blockquote", async () => {
       const structurePlan = [];
-      const reviewContent = 
-        "As they say:\n\n" +
-        "> This is a famous quote that ends with proper punctuation.";
+      const reviewContent =
+        "As they say:\n\n" + "> This is a famous quote that ends with proper punctuation.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
       expect(result.isApproved).toBe(true);
     });
@@ -483,7 +464,7 @@ describe("checkDetailResult", () => {
       const structurePlan = [
         { path: "./getting-started" },
         { path: "/api/overview" },
-        { path: "./advanced/configuration" }
+        { path: "./advanced/configuration" },
       ];
       const reviewContent = `# Getting Started Guide
 
