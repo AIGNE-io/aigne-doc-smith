@@ -1,41 +1,6 @@
 import { CONFLICT_RESOLUTION_RULES, CONFLICT_RULES, RESOLUTION_STRATEGIES } from "./constants.mjs";
 
 /**
- * Detect internal conflicts within the same question (multi-select conflicts)
- * @param {string} questionType - Question type (documentPurpose, targetAudienceTypes)
- * @param {Array} selectedValues - User selected values
- * @returns {Array} List of conflicts
- */
-export function detectInternalConflicts(questionType, selectedValues) {
-  const rules = CONFLICT_RULES.internalConflicts[questionType] || [];
-
-  // Extract values from the selected items (handle both string arrays and object arrays)
-  const selectedValueStrings = selectedValues.map((item) =>
-    typeof item === "object" && item.value ? item.value : item,
-  );
-
-  const conflicts = [];
-
-  rules.forEach((rule) => {
-    // Check if all conflict items are selected
-    const hasConflict = rule.conflictItems.every((item) => selectedValueStrings.includes(item));
-
-    if (hasConflict) {
-      conflicts.push({
-        type: "internal",
-        questionType,
-        severity: rule.severity,
-        reason: rule.reason,
-        suggestion: rule.suggestion,
-        items: rule.conflictItems,
-      });
-    }
-  });
-
-  return conflicts;
-}
-
-/**
  * Get filtered options based on cross-question conflict rules
  * @param {string} targetQuestion - Target question type to filter
  * @param {Object} currentSelections - Current user selections across all questions
@@ -104,30 +69,6 @@ export function getFilteredOptions(targetQuestion, currentSelections, allOptions
     filteredOptions,
     appliedFilters,
   };
-}
-
-/**
- * Validate user selection for internal conflicts and return validation message
- * @param {string} questionType - Question type (documentPurpose, targetAudienceTypes)
- * @param {Array} selectedValues - User selected values
- * @returns {string|boolean} Error message if conflicts exist, true if valid
- */
-export function validateSelection(questionType, selectedValues) {
-  const conflicts = detectInternalConflicts(questionType, selectedValues);
-
-  if (conflicts.length === 0) {
-    return true;
-  }
-
-  // Return error message for severe conflicts
-  const severeConflicts = conflicts.filter((c) => c.severity === "severe");
-  if (severeConflicts.length > 0) {
-    const conflict = severeConflicts[0];
-    return `Conflict detected: ${conflict.reason}. ${conflict.suggestion}`;
-  }
-
-  // For moderate conflicts, allow but warn
-  return true;
 }
 
 /**

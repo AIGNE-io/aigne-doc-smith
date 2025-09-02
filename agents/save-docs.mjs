@@ -149,11 +149,7 @@ async function cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, l
           message: `Deleted invalid file: ${file}`,
         });
       } catch (err) {
-        results.push({
-          path: file,
-          success: false,
-          error: `Failed to delete ${file}: ${err.message}`,
-        });
+        console.warn(`Failed to delete invalid file: ${file}, error: ${err.message}`);
       }
     }
 

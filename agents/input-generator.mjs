@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import chalk from "chalk";
 import { stringify as yamlStringify } from "yaml";
-import { getFilteredOptions, validateSelection } from "../utils/conflict-detector.mjs";
+import { getFilteredOptions } from "../utils/conflict-detector.mjs";
 import {
   DEPTH_RECOMMENDATION_LOGIC,
   DOCUMENT_STYLES,
@@ -63,7 +63,7 @@ export default async function init(
       if (input.length === 0) {
         return "Please select at least one purpose.";
       }
-      return validateSelection("documentPurpose", input);
+      return true;
     },
   });
 
@@ -111,7 +111,7 @@ export default async function init(
       if (input.length === 0) {
         return "Please select at least one audience.";
       }
-      return validateSelection("targetAudienceTypes", input);
+      return true;
     },
   });
 

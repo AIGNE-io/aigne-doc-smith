@@ -1,50 +1,12 @@
 import { describe, expect, test } from "bun:test";
 import {
-  detectInternalConflicts,
   detectResolvableConflicts,
   generateConflictResolutionRules,
   getFilteredOptions,
-  validateSelection,
 } from "../utils/conflict-detector.mjs";
 import { processConfigFields } from "../utils/utils.mjs";
 
 describe("conflict resolution", () => {
-  describe("detectInternalConflicts", () => {
-    test("should return empty array when no internal conflict rules defined", () => {
-      const conflicts = detectInternalConflicts("documentPurpose", ["getStarted", "findAnswers"]);
-      expect(conflicts).toHaveLength(0);
-    });
-
-    test("should handle object arrays with value property", () => {
-      const conflicts = detectInternalConflicts("documentPurpose", [
-        { value: "getStarted", label: "Get Started" },
-        { value: "findAnswers", label: "Find Answers" },
-      ]);
-
-      expect(conflicts).toHaveLength(0);
-    });
-
-    test("should return empty array for single selections", () => {
-      const conflicts = detectInternalConflicts("documentPurpose", ["getStarted"]);
-      expect(conflicts).toHaveLength(0);
-    });
-
-    test("should handle unknown question type", () => {
-      const conflicts = detectInternalConflicts("unknownType", ["value1", "value2"]);
-      expect(conflicts).toHaveLength(0);
-    });
-
-    test("should return empty array for targetAudienceTypes", () => {
-      const conflicts = detectInternalConflicts("targetAudienceTypes", ["endUsers", "developers"]);
-      expect(conflicts).toHaveLength(0);
-    });
-
-    test("should handle empty selected values", () => {
-      const conflicts = detectInternalConflicts("documentPurpose", []);
-      expect(conflicts).toHaveLength(0);
-    });
-  });
-
   describe("getFilteredOptions", () => {
     test("should filter experiencedUsers when documentPurpose is getStarted", () => {
       const allOptions = {
@@ -162,43 +124,6 @@ describe("conflict resolution", () => {
     });
   });
 
-  describe("validateSelection", () => {
-    test("should return true for valid selections", () => {
-      const result = validateSelection("documentPurpose", ["getStarted"]);
-      expect(result).toBe(true);
-    });
-
-    test("should return error message for severe conflicts", () => {
-      const result = validateSelection("documentPurpose", ["getStarted", "findAnswers"]);
-
-      if (typeof result === "string") {
-        expect(result).toContain("Conflict detected:");
-      } else {
-        // If conflicts are moderate, should still return true
-        expect(result).toBe(true);
-      }
-    });
-
-    test("should return true for moderate conflicts", () => {
-      // This tests the moderate conflict path
-      const result = validateSelection("targetAudienceTypes", ["endUsers", "developers"]);
-
-      // Should allow moderate conflicts but return true
-      expect(result).toBe(true);
-    });
-
-    test("should handle empty selections", () => {
-      const result = validateSelection("documentPurpose", []);
-      expect(result).toBe(true);
-    });
-
-    test("should handle object arrays", () => {
-      const result = validateSelection("documentPurpose", [
-        { value: "getStarted", label: "Get Started" },
-      ]);
-      expect(result).toBe(true);
-    });
-  });
   describe("detectResolvableConflicts", () => {
     test("should detect document purpose conflicts", () => {
       const config = {
