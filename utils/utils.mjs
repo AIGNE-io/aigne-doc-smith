@@ -674,13 +674,15 @@ export function getAvailablePaths(userInput = "") {
       addExactPathMatch(searchTerm, results);
     }
 
-    // Remove duplicates based on value (path)
+    // Remove duplicates based on absolute path (real deduplication)
     const uniqueResults = [];
-    const seenPaths = new Set();
+    const seenAbsolutePaths = new Set();
 
     for (const item of results) {
-      if (!seenPaths.has(item.value)) {
-        seenPaths.add(item.value);
+      // Normalize to absolute path for proper deduplication
+      const absolutePath = normalizePath(item.value);
+      if (!seenAbsolutePaths.has(absolutePath)) {
+        seenAbsolutePaths.add(absolutePath);
         uniqueResults.push(item);
       }
     }
