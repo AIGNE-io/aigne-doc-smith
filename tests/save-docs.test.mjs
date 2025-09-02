@@ -36,7 +36,7 @@ describe("saveDocs", () => {
     try {
       await rm(testDir, { recursive: true, force: true });
     } catch {
-      // Ignore cleanup errors
+      // Ignore cleanup errors since they don't affect test results
     }
   });
 

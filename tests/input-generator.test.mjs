@@ -980,7 +980,7 @@ describe("init", () => {
     try {
       await fs.rm(tempDir, { recursive: true, force: true });
     } catch {
-      // Ignore cleanup errors
+      // Ignore cleanup errors since they don't affect test results
     }
   }
 
@@ -1153,9 +1153,15 @@ describe("init", () => {
         const options = { prompts: mockPrompts };
 
         // First let's create the directories that will be searched for
-        await fs.mkdir(join(process.cwd(), "src"), { recursive: true }).catch(() => {});
-        await fs.mkdir(join(process.cwd(), "lib"), { recursive: true }).catch(() => {});
-        await fs.mkdir(join(process.cwd(), "packages"), { recursive: true }).catch(() => {});
+        await fs.mkdir(join(process.cwd(), "src"), { recursive: true }).catch(() => {
+          // Ignore if directory already exists
+        });
+        await fs.mkdir(join(process.cwd(), "lib"), { recursive: true }).catch(() => {
+          // Ignore if directory already exists
+        });
+        await fs.mkdir(join(process.cwd(), "packages"), { recursive: true }).catch(() => {
+          // Ignore if directory already exists
+        });
 
         try {
           const result = await init(
@@ -1173,11 +1179,17 @@ describe("init", () => {
           expect(config.sourcesPath.length).toBeGreaterThan(0);
         } finally {
           // Clean up test directories
-          await fs.rm(join(process.cwd(), "src"), { recursive: true, force: true }).catch(() => {});
-          await fs.rm(join(process.cwd(), "lib"), { recursive: true, force: true }).catch(() => {});
+          await fs.rm(join(process.cwd(), "src"), { recursive: true, force: true }).catch(() => {
+            // Ignore cleanup errors since directories may not exist
+          });
+          await fs.rm(join(process.cwd(), "lib"), { recursive: true, force: true }).catch(() => {
+            // Ignore cleanup errors since directories may not exist
+          });
           await fs
             .rm(join(process.cwd(), "packages"), { recursive: true, force: true })
-            .catch(() => {});
+            .catch(() => {
+              // Ignore cleanup errors since directories may not exist
+            });
         }
       } finally {
         await cleanupTempDir(tempDir);

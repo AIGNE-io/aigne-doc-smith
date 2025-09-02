@@ -923,12 +923,12 @@ describe("loadSources", () => {
         try {
           await unlink(link1);
         } catch {
-          // Ignore cleanup errors
+          // Ignore cleanup errors since they don't affect test results
         }
         try {
           await unlink(link2);
         } catch {
-          // Ignore cleanup errors
+          // Ignore cleanup errors since they don't affect test results
         }
       } catch {
         // Skip on systems that don't support symlinks
