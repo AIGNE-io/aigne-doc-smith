@@ -233,9 +233,6 @@ E -> F
       await mkdir(docsDir, { recursive: true });
 
       const result = await saveD2Assets({ markdown: "", docsDir });
-      // BUG FOUND: This returns undefined instead of empty string
-      // The runIterator function returns input when !input is true,
-      // but saveD2Assets destructures { replaced } which becomes undefined
       expect(result).toBe("");
     });
 
@@ -270,9 +267,7 @@ E -> F
       try {
         const result = await saveD2Assets({ markdown, docsDir });
 
-        // BUG FOUND: Even when D2 generation fails, the function still
-        // generates an image reference instead of falling back to original code
-        // This might indicate the error handling is not working as expected
+        // TODO: When retry still fails, it will use a non-existent image
         expect(result).toContain("![](../assets/d2/");
       } finally {
         global.fetch = originalFetch;
@@ -335,12 +330,8 @@ E -> F
     test("should handle non-existent directory", async () => {
       const nonExistentDir = path.join(tempDir, "non-existent");
 
-      // This reveals a potential issue: glob doesn't fail on non-existent directories
-      // It just returns empty results, which may not be the desired behavior
       const result = await beforePublishHook({ docsDir: nonExistentDir });
 
-      // Function completes without error, but this might be a problem:
-      // Should we validate directory existence first?
       expect(result).toBeUndefined();
     });
   });
@@ -365,7 +356,7 @@ E -> F
       const endTime = Date.now();
 
       // Cache hit should be very fast (< 100ms)
-      expect(endTime - startTime).toBeLessThan(1000);
+      expect(endTime - startTime).toBeLessThan(100);
     });
 
     test("should handle generation errors in strict mode", async () => {

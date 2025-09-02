@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { execSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -438,14 +439,12 @@ describe("utils", () => {
   });
 
   describe("getCurrentGitHead", () => {
-    test("should return git HEAD hash or null", () => {
+    test("should return current git HEAD hash in real git repository", () => {
       const result = getCurrentGitHead();
-      if (result) {
-        expect(typeof result).toBe("string");
-        expect(result.length).toBe(40); // Git SHA-1 hash length
-      } else {
-        expect(result).toBe(null);
-      }
+      // In our real git repository, should return a valid hash
+      expect(typeof result).toBe("string");
+      expect(result.length).toBe(40); // Git SHA-1 hash length
+      expect(result).toMatch(/^[a-f0-9]{40}$/); // Valid hex hash
     });
 
     test("should handle git command errors gracefully", () => {
@@ -473,14 +472,88 @@ describe("utils", () => {
   });
 
   describe("getModifiedFilesBetweenCommits", () => {
-    test("should return array even with invalid commits", () => {
-      const result = getModifiedFilesBetweenCommits("invalid-commit1", "invalid-commit2");
+    test("should return modified files between recent commits", () => {
+      // Dynamically get the last few commits to avoid hardcoded commit issues
+      const currentHead = getCurrentGitHead();
+      if (!currentHead) {
+        // Skip test if not in a git repository
+        return;
+      }
+
+      // Try to get the previous commit (HEAD~1)
+      let previousCommit;
+      try {
+        previousCommit = execSync("git rev-parse HEAD~1", {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "ignore"],
+        }).trim();
+      } catch {
+        // If there's no previous commit, skip this test
+        return;
+      }
+
+      const result = getModifiedFilesBetweenCommits(previousCommit, currentHead);
       expect(Array.isArray(result)).toBe(true);
+
+      // Validate file format if any files are returned
+      result.forEach((file) => {
+        expect(typeof file).toBe("string");
+        expect(file.length).toBeGreaterThan(0);
+      });
     });
 
-    test("should filter by provided file paths", () => {
-      const result = getModifiedFilesBetweenCommits("invalid-commit", "HEAD", ["package.json"]);
+    test("should detect changes between commits with more history", () => {
+      // Try to find commits that are further apart by checking if we have enough history
+      let olderCommit;
+      try {
+        olderCommit = execSync("git rev-parse HEAD~3", {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "ignore"],
+        }).trim();
+      } catch {
+        // If we don't have enough history, skip this test
+        return;
+      }
+
+      const result = getModifiedFilesBetweenCommits(olderCommit, "HEAD");
       expect(Array.isArray(result)).toBe(true);
+      // With 3+ commits difference, there should usually be some changes
+      // But we won't enforce this since it depends on the actual history
+    });
+
+    test("should filter by provided file paths when files exist in changes", () => {
+      // First try to get some modified files
+      let olderCommit;
+      try {
+        olderCommit = execSync("git rev-parse HEAD~2", {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "ignore"],
+        }).trim();
+      } catch {
+        return; // Skip if not enough history
+      }
+
+      const allModified = getModifiedFilesBetweenCommits(olderCommit, "HEAD");
+
+      if (allModified.length > 0) {
+        // Test filtering with actual modified file
+        const testFile = allModified[0];
+        const result = getModifiedFilesBetweenCommits(olderCommit, "HEAD", [testFile]);
+        expect(Array.isArray(result)).toBe(true);
+        expect(result).toContain(testFile);
+      }
+    });
+
+    test("should return empty array for same commit", () => {
+      const result = getModifiedFilesBetweenCommits("HEAD", "HEAD");
+      expect(Array.isArray(result)).toBe(true);
+      expect(result.length).toBe(0);
+    });
+
+    test("should handle invalid commits gracefully", () => {
+      const result = getModifiedFilesBetweenCommits("invalid-commit1", "invalid-commit2");
+      expect(Array.isArray(result)).toBe(true);
+      expect(result.length).toBe(0); // Should return empty array for invalid commits
     });
   });
 
@@ -505,19 +578,138 @@ describe("utils", () => {
   });
 
   describe("hasFileChangesBetweenCommits", () => {
+    test("should detect file additions/deletions with dynamic commits", () => {
+      // hasFileChangesBetweenCommits only checks for added (A) and deleted (D) files, not modified (M) files
+      // It also excludes test files by default since they don't affect documentation structure
+
+      // Try to get commits dynamically
+      let olderCommit;
+      try {
+        olderCommit = execSync("git rev-parse HEAD~3", {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "ignore"],
+        }).trim();
+      } catch {
+        // If we don't have enough history, skip this test
+        return;
+      }
+
+      const result = hasFileChangesBetweenCommits(olderCommit, "HEAD");
+      expect(typeof result).toBe("boolean");
+
+      // The result depends on actual git history, so we just verify it's a boolean
+      // In most cases with test files being excluded, it might be false
+    });
+
+    test("should detect changes when exclude patterns are empty", () => {
+      // Test with empty exclude patterns to verify detection mechanism works
+      let olderCommit;
+      try {
+        olderCommit = execSync("git rev-parse HEAD~2", {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "ignore"],
+        }).trim();
+      } catch {
+        return; // Skip if not enough history
+      }
+
+      const result = hasFileChangesBetweenCommits(olderCommit, "HEAD", ["*.mjs", "*.js"], []);
+      expect(typeof result).toBe("boolean");
+
+      // With no exclusions and broad include patterns, more likely to detect changes
+    });
+
+    test("should return false for same commit", () => {
+      const result = hasFileChangesBetweenCommits("HEAD", "HEAD");
+      expect(result).toBe(false);
+    });
+
+    test("should respect include patterns for JavaScript files", () => {
+      // Try with recent commits
+      let olderCommit;
+      try {
+        olderCommit = execSync("git rev-parse HEAD~1", {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "ignore"],
+        }).trim();
+      } catch {
+        return;
+      }
+
+      const result = hasFileChangesBetweenCommits(
+        olderCommit,
+        "HEAD",
+        ["*.js", "*.mjs", "*.ts"], // Include JS-related files
+        [],
+      );
+      expect(typeof result).toBe("boolean");
+    });
+
+    test("should respect exclude patterns", () => {
+      // Test excluding test files but including other JS files
+      let olderCommit;
+      try {
+        olderCommit = execSync("git rev-parse HEAD~2", {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "ignore"],
+        }).trim();
+      } catch {
+        return;
+      }
+
+      const result = hasFileChangesBetweenCommits(
+        olderCommit,
+        "HEAD",
+        ["*.mjs"], // Include mjs files
+        ["tests/**"], // But exclude test directory
+      );
+      expect(typeof result).toBe("boolean");
+    });
+
+    test("should handle complex include/exclude pattern combinations", () => {
+      // Test with a broader range if available
+      let olderCommit;
+      try {
+        olderCommit = execSync("git rev-parse HEAD~4", {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "ignore"],
+        }).trim();
+      } catch {
+        return;
+      }
+
+      const result = hasFileChangesBetweenCommits(
+        olderCommit,
+        "HEAD",
+        ["*.mjs", "*.js"], // Include JS files
+        ["node_modules/**", "dist/**"], // Exclude build artifacts
+      );
+      expect(typeof result).toBe("boolean");
+    });
+
     test("should return false for invalid commits", () => {
       const result = hasFileChangesBetweenCommits("invalid-commit1", "invalid-commit2");
       expect(result).toBe(false);
     });
 
-    test("should accept include and exclude patterns", () => {
+    test("should handle commits with no matching file patterns", () => {
+      let olderCommit;
+      try {
+        olderCommit = execSync("git rev-parse HEAD~1", {
+          encoding: "utf8",
+          stdio: ["pipe", "pipe", "ignore"],
+        }).trim();
+      } catch {
+        return;
+      }
+
       const result = hasFileChangesBetweenCommits(
-        "invalid-commit",
+        olderCommit,
         "HEAD",
-        ["*.js"],
-        ["node_modules/**"],
+        ["*.nonexistent"], // Pattern that won't match any files
+        [],
       );
-      expect(typeof result).toBe("boolean");
+      expect(result).toBe(false);
     });
   });
 
@@ -1220,27 +1412,6 @@ describe("utils", () => {
       }
     });
 
-    test("hasFileChangesBetweenCommits should return false when no files match patterns", () => {
-      const result = hasFileChangesBetweenCommits(
-        "invalid-commit1",
-        "invalid-commit2",
-        ["*.nonexistent"],
-        ["*.excluded"],
-      );
-      expect(result).toBe(false);
-    });
-
-    test("hasFileChangesBetweenCommits should handle include/exclude pattern matching", () => {
-      // Test with specific include patterns that won't match anything
-      const result = hasFileChangesBetweenCommits(
-        "invalid-commit1",
-        "HEAD",
-        ["*.xyz"], // Pattern that won't match
-        ["*.js"], // Exclude pattern
-      );
-      expect(result).toBe(false);
-    });
-
     test("loadConfigFromFile should handle existing config file", async () => {
       const originalCwd = process.cwd;
       process.cwd = () => tempDir;
@@ -1353,51 +1524,6 @@ sourcesPath:
       const translationContent = readFileSync(translationPath, "utf8");
       expect(translationContent).toContain('labels: ["test","translation"]');
       expect(translationContent).toContain("# 主要内容");
-    });
-
-    test("getModifiedFilesBetweenCommits should return filtered files when filePaths provided", () => {
-      // Create a test file to ensure it matches filter
-      const testFile = path.join(tempDir, "filter-test.js");
-      writeFileSync(testFile, "console.log('test');");
-
-      const result = getModifiedFilesBetweenCommits("invalid-commit1", "HEAD", [testFile]);
-
-      expect(Array.isArray(result)).toBe(true);
-      // Even with invalid commits, function should return array
-    });
-
-    test("getModifiedFilesBetweenCommits should return all files when no filePaths filter", () => {
-      // Test the case where filePaths.length === 0
-      const result = getModifiedFilesBetweenCommits("invalid-commit1", "invalid-commit2", []);
-      expect(Array.isArray(result)).toBe(true);
-    });
-
-    test("hasFileChangesBetweenCommits should handle empty file list", () => {
-      const result = hasFileChangesBetweenCommits(
-        "invalid-commit1",
-        "invalid-commit2",
-        [], // Empty file list should return false
-        [],
-      );
-      expect(result).toBe(false);
-    });
-
-    test("hasFileChangesBetweenCommits should handle files that don't match include patterns", () => {
-      // Mock successful git command that returns some file changes
-      const originalWarn = console.warn;
-      console.warn = () => {}; // Suppress warning for this test
-
-      try {
-        const result = hasFileChangesBetweenCommits(
-          "invalid-commit1",
-          "invalid-commit2",
-          ["*.nonexistent"], // Pattern that won't match any files
-          [],
-        );
-        expect(result).toBe(false);
-      } finally {
-        console.warn = originalWarn;
-      }
     });
 
     test("saveGitHeadToConfig should handle file replacement scenario", async () => {
@@ -1605,17 +1731,6 @@ testArray:
       } finally {
         process.cwd = originalCwd;
       }
-    });
-
-    test("hasFileChangesBetweenCommits should handle complex pattern matching", () => {
-      // Test regex special characters in patterns
-      const result = hasFileChangesBetweenCommits(
-        "invalid-commit1",
-        "HEAD",
-        ["*.{js,ts}"], // Pattern with curly braces
-        ["test.*"], // Pattern with dot
-      );
-      expect(typeof result).toBe("boolean");
     });
 
     test("saveDocWithTranslations should skip main content when isTranslate is true", async () => {
