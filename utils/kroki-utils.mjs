@@ -52,6 +52,10 @@ export async function getD2Svg({ content, strict = false }) {
 
 // Helper: save d2 svg assets alongside document
 export async function saveD2Assets({ markdown, docsDir }) {
+  if (!markdown) {
+    return markdown;
+  }
+
   const codeBlockRegex = /```d2\n([\s\S]*?)```/g;
 
   const { replaced } = await runIterator({
