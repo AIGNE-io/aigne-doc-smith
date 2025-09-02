@@ -1109,6 +1109,24 @@ describe("loadSources", () => {
 
       expect(result.content).toBeUndefined();
     });
+
+    test("should handle includePatterns empty gracefully", async () => {
+      const docsDir = path.join(testDir, "docs");
+      const docContent = "# API Documentation\n\nThis is the API documentation content.";
+
+      await writeFile(path.join(docsDir, "api-overview.md"), docContent);
+
+      const result = await loadSources({
+        sourcesPath: testDir,
+        "doc-path": "/api/overview",
+        includePatterns: null,
+        useDefaultPatterns: false,
+        outputDir: tempDir,
+        docsDir: docsDir,
+      });
+
+      expect(result.files?.length).toBe(0);
+    });
   });
 
   describe("Word and line counting", () => {
