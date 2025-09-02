@@ -1012,7 +1012,7 @@ describe("loadSources", () => {
 
     test("should handle glob pattern errors gracefully", async () => {
       // Test lines 109,112: glob error handling
-      const invalidGlobPattern = "/root/invalid/**/*.{unclosed";
+      const invalidGlobPattern = "./invalid/**/*.{unclosed";
 
       const result = await loadSources({
         sourcesPath: [invalidGlobPattern],
