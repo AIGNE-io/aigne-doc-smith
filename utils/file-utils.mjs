@@ -159,6 +159,11 @@ export async function loadGitignore(dir) {
  * @returns {Promise<string[]>} Array of file paths
  */
 export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gitignorePatterns) {
+  if (!includePatterns || includePatterns.length === 0) {
+    console.warn("No include patterns provided");
+    return [];
+  }
+
   // Prepare all ignore patterns
   const allIgnorePatterns = [];
 
