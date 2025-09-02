@@ -1,16 +1,16 @@
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdtemp, rmdir, existsSync } from "node:fs";
-import { mkdir, writeFile, readFile } from "node:fs/promises";
-import path from "node:path";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { existsSync, mkdtemp, rmdir } from "node:fs";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
+import path from "node:path";
 
 import {
-  getChart,
-  getD2Svg,
-  saveD2Assets,
   beforePublishHook,
   checkD2Content,
   ensureTmpDir,
+  getChart,
+  getD2Svg,
+  saveD2Assets,
 } from "../utils/kroki-utils.mjs";
 
 describe("kroki-utils", () => {

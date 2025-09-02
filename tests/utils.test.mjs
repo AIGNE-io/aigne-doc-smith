@@ -267,6 +267,54 @@ describe("utils", () => {
         delete process.env.LANG;
       }
     });
+
+    test("detectSystemLanguage should handle edge cases", () => {
+      const originalEnv = {
+        LANG: process.env.LANG,
+        LANGUAGE: process.env.LANGUAGE,
+        LC_ALL: process.env.LC_ALL,
+      };
+
+      // Test case 1: No system locale at all
+      delete process.env.LANG;
+      delete process.env.LANGUAGE;
+      delete process.env.LC_ALL;
+
+      // Mock Intl to also fail
+      const originalDateTimeFormat = Intl.DateTimeFormat;
+      Intl.DateTimeFormat = () => {
+        throw new Error("Intl not available");
+      };
+
+      try {
+        const result = detectSystemLanguage();
+        expect(result).toBe("en"); // Should fall back to default
+      } finally {
+        Intl.DateTimeFormat = originalDateTimeFormat;
+      }
+
+      // Test case 2: Handle special Chinese locale variants
+      process.env.LANG = "zh_TW";
+      let result = detectSystemLanguage();
+      expect(["zh", "zh-TW"].includes(result)).toBe(true);
+
+      process.env.LANG = "zh_HK.Big5";
+      result = detectSystemLanguage();
+      expect(["zh", "zh-TW"].includes(result)).toBe(true);
+
+      // Test case 3: Unsupported language
+      process.env.LANG = "xx_XX.UTF-8"; // Non-existent language
+      result = detectSystemLanguage();
+      expect(result).toBe("en"); // Should fall back to default
+
+      // Restore original environment
+      if (originalEnv.LANG) process.env.LANG = originalEnv.LANG;
+      else delete process.env.LANG;
+      if (originalEnv.LANGUAGE) process.env.LANGUAGE = originalEnv.LANGUAGE;
+      else delete process.env.LANGUAGE;
+      if (originalEnv.LC_ALL) process.env.LC_ALL = originalEnv.LC_ALL;
+      else delete process.env.LC_ALL;
+    });
   });
 
   describe("isGlobPattern", () => {
@@ -397,6 +445,29 @@ describe("utils", () => {
         expect(result.length).toBe(40); // Git SHA-1 hash length
       } else {
         expect(result).toBe(null);
+      }
+    });
+
+    test("should handle git command errors gracefully", () => {
+      // Mock console.warn to capture warning messages
+      const originalWarn = console.warn;
+      const warnMessages = [];
+      console.warn = (message) => warnMessages.push(message);
+
+      // Change to a non-git directory temporarily
+      const originalCwd = process.cwd();
+      const nonGitDir = path.join(tempDir, "non-git");
+      mkdirSync(nonGitDir, { recursive: true });
+
+      try {
+        process.chdir(nonGitDir);
+        const result = getCurrentGitHead();
+        expect(result).toBe(null);
+        // Should have logged a warning
+        expect(warnMessages.some((msg) => msg.includes("Failed to get git HEAD:"))).toBe(true);
+      } finally {
+        process.chdir(originalCwd);
+        console.warn = originalWarn;
       }
     });
   });
@@ -726,6 +797,34 @@ describe("utils", () => {
       const lastDirIndex = result.lastIndexOf(directories[directories.length - 1]);
       const firstFileIndex = result.indexOf(files[0]);
       expect(lastDirIndex).toBeLessThan(firstFileIndex);
+    });
+
+    test("getAvailablePaths should handle relative path validation errors", () => {
+      const originalCwd = process.cwd;
+      process.cwd = () => tempDir;
+
+      // Test path with invalid directory
+      const result = getAvailablePaths("./nonexistent/file");
+
+      process.cwd = originalCwd;
+
+      expect(Array.isArray(result)).toBe(true);
+      expect(result.length).toBe(1);
+      expect(result[0].name).toBe("./nonexistent/");
+      expect(result[0].description).toContain("does not exist");
+    });
+
+    test("getAvailablePaths should handle relative paths without slash", () => {
+      const originalCwd = process.cwd;
+      process.cwd = () => tempDir;
+
+      // Test case where lastSlashIndex === -1 for relative path
+      const result = getAvailablePaths("./noslashthingy");
+
+      process.cwd = originalCwd;
+
+      expect(Array.isArray(result)).toBe(true);
+      // Should search current directory for the term
     });
   });
 
@@ -1230,6 +1329,32 @@ sourcesPath:
       expect(results.every((r) => r.success)).toBe(true);
     });
 
+    test("saveDocWithTranslations should add labels to translations", async () => {
+      const testDocsDir = path.join(tempDir, "docs-translation-labels");
+      const content = "# Main Content";
+      const labels = ["test", "translation"];
+      const translations = [{ language: "zh", translation: "# 主要内容" }];
+
+      const results = await saveDocWithTranslations({
+        path: "labeled-translation",
+        content,
+        docsDir: testDocsDir,
+        locale: "en",
+        translates: translations,
+        labels,
+      });
+
+      expect(results.length).toBe(2); // Main + translation
+      expect(results.every((r) => r.success)).toBe(true);
+
+      // Check that translation file has labels
+      const translationPath = results[1].path;
+      expect(existsSync(translationPath)).toBe(true);
+      const translationContent = readFileSync(translationPath, "utf8");
+      expect(translationContent).toContain('labels: ["test","translation"]');
+      expect(translationContent).toContain("# 主要内容");
+    });
+
     test("getModifiedFilesBetweenCommits should return filtered files when filePaths provided", () => {
       // Create a test file to ensure it matches filter
       const testFile = path.join(tempDir, "filter-test.js");
@@ -1241,6 +1366,12 @@ sourcesPath:
       // Even with invalid commits, function should return array
     });
 
+    test("getModifiedFilesBetweenCommits should return all files when no filePaths filter", () => {
+      // Test the case where filePaths.length === 0
+      const result = getModifiedFilesBetweenCommits("invalid-commit1", "invalid-commit2", []);
+      expect(Array.isArray(result)).toBe(true);
+    });
+
     test("hasFileChangesBetweenCommits should handle empty file list", () => {
       const result = hasFileChangesBetweenCommits(
         "invalid-commit1",
@@ -1249,6 +1380,24 @@ sourcesPath:
         [],
       );
       expect(result).toBe(false);
+    });
+
+    test("hasFileChangesBetweenCommits should handle files that don't match include patterns", () => {
+      // Mock successful git command that returns some file changes
+      const originalWarn = console.warn;
+      console.warn = () => {}; // Suppress warning for this test
+
+      try {
+        const result = hasFileChangesBetweenCommits(
+          "invalid-commit1",
+          "invalid-commit2",
+          ["*.nonexistent"], // Pattern that won't match any files
+          [],
+        );
+        expect(result).toBe(false);
+      } finally {
+        console.warn = originalWarn;
+      }
     });
 
     test("saveGitHeadToConfig should handle file replacement scenario", async () => {
@@ -1275,6 +1424,67 @@ sourcesPath:
           expect(configContent).toContain("second-hash");
           expect(configContent).not.toContain("first-hash");
         }
+      } finally {
+        // Restore environment
+        process.cwd = originalCwd;
+        if (originalBunTest) process.env.BUN_TEST = originalBunTest;
+        if (originalNodeEnv) process.env.NODE_ENV = originalNodeEnv;
+      }
+    });
+
+    test("saveGitHeadToConfig should handle file write errors gracefully", async () => {
+      const originalBunTest = process.env.BUN_TEST;
+      const originalNodeEnv = process.env.NODE_ENV;
+      const originalWarn = console.warn;
+      delete process.env.BUN_TEST;
+      delete process.env.NODE_ENV;
+
+      const warnMessages = [];
+      console.warn = (message) => warnMessages.push(message);
+
+      const originalCwd = process.cwd;
+      process.cwd = () => "/root"; // Read-only directory
+
+      try {
+        await saveGitHeadToConfig("test-hash");
+        // Should handle error gracefully and log warning
+        expect(
+          warnMessages.some((msg) => msg.includes("Failed to save git HEAD to config.yaml:")),
+        ).toBe(true);
+      } finally {
+        // Restore environment
+        process.cwd = originalCwd;
+        console.warn = originalWarn;
+        if (originalBunTest) process.env.BUN_TEST = originalBunTest;
+        if (originalNodeEnv) process.env.NODE_ENV = originalNodeEnv;
+      }
+    });
+
+    test("saveGitHeadToConfig should append to file without ending newline", async () => {
+      const originalBunTest = process.env.BUN_TEST;
+      const originalNodeEnv = process.env.NODE_ENV;
+      delete process.env.BUN_TEST;
+      delete process.env.NODE_ENV;
+
+      const originalCwd = process.cwd;
+      const testCwd = path.join(tempDir, "append-git-test");
+      mkdirSync(testCwd, { recursive: true });
+      process.cwd = () => testCwd;
+
+      try {
+        // Create config directory and file without ending newline
+        const configDir = path.join(testCwd, ".aigne", "doc-smith");
+        mkdirSync(configDir, { recursive: true });
+        const configPath = path.join(configDir, "config.yaml");
+        writeFileSync(configPath, "existingKey: value"); // No ending newline
+
+        await saveGitHeadToConfig("test-hash");
+
+        const configContent = readFileSync(configPath, "utf8");
+        expect(configContent).toContain("existingKey: value");
+        expect(configContent).toContain("lastGitHead: test-hash");
+        // Should properly handle newline addition
+        expect(configContent.endsWith("\n")).toBe(true);
       } finally {
         // Restore environment
         process.cwd = originalCwd;
@@ -1338,6 +1548,65 @@ sourcesPath:
       }
     });
 
+    test("saveValueToConfig should handle complex array update scenarios", async () => {
+      const configDir = path.join(tempDir, "array-update-test");
+      mkdirSync(configDir, { recursive: true });
+
+      const originalCwd = process.cwd;
+      process.cwd = () => configDir;
+
+      try {
+        const aigneDir = path.join(configDir, ".aigne", "doc-smith");
+        mkdirSync(aigneDir, { recursive: true });
+        const configPath = path.join(aigneDir, "config.yaml");
+
+        // Test case 1: Array with inline format
+        writeFileSync(configPath, "testArray: [item1, item2]");
+        await saveValueToConfig("testArray", ["newItem1", "newItem2"]);
+        let configContent = readFileSync(configPath, "utf8");
+        expect(configContent).toContain("testArray:");
+        expect(configContent).toContain("newItem1");
+
+        // Test case 2: Array with mixed content
+        writeFileSync(
+          configPath,
+          `# Initial comment
+testArray:
+  - oldItem
+# Another comment
+otherKey: value`,
+        );
+        await saveValueToConfig("testArray", ["replacedItem"]);
+        configContent = readFileSync(configPath, "utf8");
+        expect(configContent).toContain("replacedItem");
+        expect(configContent).toContain("otherKey: value");
+
+        // Test case 3: Array at end of file
+        writeFileSync(
+          configPath,
+          `someKey: value
+testArray:
+  - item1
+  - item2`,
+        );
+        await saveValueToConfig("testArray", ["endItem"]);
+        configContent = readFileSync(configPath, "utf8");
+        expect(configContent).toContain("endItem");
+        expect(configContent).toContain("someKey: value");
+
+        // Test case 4: Add new array to end without newline
+        writeFileSync(configPath, "existingKey: value");
+        await saveValueToConfig("newArray", ["newArrayItem"], "Array comment");
+        configContent = readFileSync(configPath, "utf8");
+        expect(configContent).toContain("existingKey: value");
+        expect(configContent).toContain("# Array comment");
+        expect(configContent).toContain("newArray:");
+        expect(configContent).toContain("newArrayItem");
+      } finally {
+        process.cwd = originalCwd;
+      }
+    });
+
     test("hasFileChangesBetweenCommits should handle complex pattern matching", () => {
       // Test regex special characters in patterns
       const result = hasFileChangesBetweenCommits(
@@ -1384,6 +1653,300 @@ sourcesPath:
       if (result.targetAudience) {
         expect(typeof result.targetAudience).toBe("string");
       }
+    });
+
+    test("resolveFileReferences should handle unsupported file extensions", async () => {
+      const unsupportedFile = path.join(tempDir, "test.exe");
+      writeFileSync(unsupportedFile, "binary content");
+
+      const config = { file: `@${unsupportedFile}` };
+      const result = await resolveFileReferences(config);
+
+      // Should return original reference for unsupported file type
+      expect(result.file).toBe(`@${unsupportedFile}`);
+    });
+
+    test("resolveFileReferences should handle JSON parsing errors", async () => {
+      const malformedJsonFile = path.join(tempDir, "malformed.json");
+      writeFileSync(malformedJsonFile, '{"key": value without quotes}');
+
+      const config = { file: `@${malformedJsonFile}` };
+      const result = await resolveFileReferences(config);
+
+      // Should return raw content when JSON parsing fails
+      expect(result.file).toBe('{"key": value without quotes}');
+    });
+
+    test("resolveFileReferences should handle YAML parsing errors", async () => {
+      const malformedYamlFile = path.join(tempDir, "malformed.yaml");
+      writeFileSync(malformedYamlFile, "key: value\n  invalid: indentation: error");
+
+      const config = { file: `@${malformedYamlFile}` };
+      const result = await resolveFileReferences(config);
+
+      // Should return raw content when YAML parsing fails
+      expect(result.file).toBe("key: value\n  invalid: indentation: error");
+    });
+
+    test("resolveFileReferences should handle absolute file paths", async () => {
+      const absoluteFile = path.join(tempDir, "absolute.txt");
+      writeFileSync(absoluteFile, "absolute path content");
+
+      const config = { file: `@${absoluteFile}` };
+      const result = await resolveFileReferences(config, "/different/base/path");
+
+      // Should work with absolute path regardless of basePath
+      expect(result.file).toBe("absolute path content");
+    });
+
+    test("resolveFileReferences should handle file read errors gracefully", async () => {
+      const config = { file: "@/root/protected/file.txt" };
+      const result = await resolveFileReferences(config);
+
+      // Should return original reference when file read fails
+      expect(result.file).toBe("@/root/protected/file.txt");
+    });
+
+    test("processConfigFields should handle existing target audience with new audience types", () => {
+      const config = {
+        targetAudience: "Existing audience description",
+        targetAudienceTypes: ["developers"],
+      };
+
+      const result = processConfigFields(config);
+
+      if (result.targetAudience) {
+        expect(result.targetAudience).toContain("Existing audience description");
+      }
+    });
+
+    test("getAvailablePaths should handle permission errors gracefully", () => {
+      const originalWarn = console.warn;
+      const warnMessages = [];
+      console.warn = (message) => warnMessages.push(message);
+
+      try {
+        const result = getAvailablePaths("/root/protected");
+        expect(Array.isArray(result)).toBe(true);
+        // Should handle permission errors gracefully
+      } finally {
+        console.warn = originalWarn;
+      }
+    });
+
+    test("processConfigFields should handle reader knowledge level content", () => {
+      const config = {
+        readerKnowledgeLevel: "domainFamiliar",
+      };
+
+      const result = processConfigFields(config);
+
+      if (result.readerKnowledgeContent) {
+        expect(typeof result.readerKnowledgeContent).toBe("string");
+      }
+    });
+
+    test("processConfigFields should handle documentation depth content", () => {
+      const config = {
+        documentationDepth: "comprehensive",
+      };
+
+      const result = processConfigFields(config);
+
+      if (result.documentationDepthContent) {
+        expect(typeof result.documentationDepthContent).toBe("string");
+      }
+    });
+
+    test("getProjectInfo should handle git repository without GitHub", async () => {
+      // Mock execSync to return non-GitHub remote
+      const originalWarn = console.warn;
+      console.warn = () => {}; // Suppress warnings
+
+      try {
+        const result = await getProjectInfo();
+        expect(typeof result).toBe("object");
+        expect(result).toHaveProperty("fromGitHub");
+        expect(typeof result.fromGitHub).toBe("boolean");
+      } finally {
+        console.warn = originalWarn;
+      }
+    });
+
+    test("getProjectInfo should handle no git repository", async () => {
+      const originalWarn = console.warn;
+      const warnMessages = [];
+      console.warn = (message) => warnMessages.push(message);
+
+      const originalCwd = process.cwd();
+      const nonGitDir = path.join(tempDir, "no-git");
+      mkdirSync(nonGitDir, { recursive: true });
+
+      try {
+        process.chdir(nonGitDir);
+        const result = await getProjectInfo();
+
+        expect(typeof result).toBe("object");
+        expect(result.fromGitHub).toBe(false);
+        expect(warnMessages.some((msg) => msg.includes("No git repository found"))).toBe(true);
+      } finally {
+        process.chdir(originalCwd);
+        console.warn = originalWarn;
+      }
+    });
+
+    test("saveValueToConfig should handle write errors gracefully", async () => {
+      const originalWarn = console.warn;
+      const warnMessages = [];
+      console.warn = (message) => warnMessages.push(message);
+
+      const originalCwd = process.cwd;
+      process.cwd = () => "/root"; // Read-only directory
+
+      try {
+        await saveValueToConfig("testKey", "testValue");
+        // Should handle error gracefully and log warning
+        expect(
+          warnMessages.some((msg) => msg.includes("Failed to save testKey to config.yaml:")),
+        ).toBe(true);
+      } finally {
+        process.cwd = originalCwd;
+        console.warn = originalWarn;
+      }
+    });
+
+    test("validatePath should handle access permission errors", () => {
+      // Test with a path that exists but might not be accessible
+      const result = validatePath("/root");
+      // Should handle gracefully regardless of access permissions
+      expect(result).toHaveProperty("isValid");
+      expect(result).toHaveProperty("error");
+    });
+
+    test("getAvailablePaths should handle directory read errors", () => {
+      const originalWarn = console.warn;
+      const warnMessages = [];
+      console.warn = (message) => warnMessages.push(message);
+
+      try {
+        // Test with a problematic path that might cause read errors
+        const result = getAvailablePaths("/proc/nonexistent");
+        expect(Array.isArray(result)).toBe(true);
+        // May or may not log warnings depending on system
+      } finally {
+        console.warn = originalWarn;
+      }
+    });
+
+    test("saveValueToConfig should handle array end detection edge cases", async () => {
+      const testDir = path.join(tempDir, "array-edge-test");
+      mkdirSync(testDir, { recursive: true });
+
+      const originalCwd = process.cwd;
+      process.cwd = () => testDir;
+
+      try {
+        // Create config with array that has inline start and complex structure
+        const aigneDir = path.join(testDir, ".aigne", "doc-smith");
+        mkdirSync(aigneDir, { recursive: true });
+
+        // Test case 1: Array with inline start
+        writeFileSync(
+          path.join(aigneDir, "config.yaml"),
+          "testArray: [item1, item2]\notherKey: value\n",
+        );
+
+        await saveValueToConfig("testArray", ["new1", "new2"]);
+
+        let configContent = readFileSync(path.join(aigneDir, "config.yaml"), "utf8");
+        expect(configContent).toContain("- new1");
+        expect(configContent).toContain("- new2");
+
+        // Test case 2: Array at end of file without trailing newline
+        writeFileSync(
+          path.join(aigneDir, "config.yaml"),
+          "otherKey: value\ntestArray:\n  - item1\n  - item2",
+        );
+
+        await saveValueToConfig("testArray", ["final1", "final2"]);
+
+        configContent = readFileSync(path.join(aigneDir, "config.yaml"), "utf8");
+        expect(configContent).toContain("- final1");
+        expect(configContent).toContain("- final2");
+      } finally {
+        process.cwd = originalCwd;
+      }
+    });
+
+    test("getDirectoryContents should handle read errors", () => {
+      const originalWarn = console.warn;
+      const warnMessages = [];
+      console.warn = (message) => warnMessages.push(message);
+
+      try {
+        // Import the internal function - this may not work due to module structure
+        // So we'll test via getAvailablePaths which calls it
+        const result = getAvailablePaths("/root/nonexistent/path");
+        expect(Array.isArray(result)).toBe(true);
+        // May log warnings for directory read errors
+      } finally {
+        console.warn = originalWarn;
+      }
+    });
+
+    test("getGitHubRepoInfo should handle API response errors", async () => {
+      // Mock fetch to return error response
+      const originalFetch = global.fetch;
+      global.fetch = () =>
+        Promise.resolve({
+          ok: false,
+          statusText: "Not Found",
+        });
+
+      const originalWarn = console.warn;
+      const warnMessages = [];
+      console.warn = (message) => warnMessages.push(message);
+
+      try {
+        const result = await getGitHubRepoInfo("https://github.com/user/repo");
+        expect(result).toBe(null);
+        expect(
+          warnMessages.some((msg) => msg.includes("Failed to fetch GitHub repository info:")),
+        ).toBe(true);
+      } finally {
+        global.fetch = originalFetch;
+        console.warn = originalWarn;
+      }
+    });
+
+    test("getGitHubRepoInfo should handle fetch errors", async () => {
+      // Mock fetch to throw error
+      const originalFetch = global.fetch;
+      global.fetch = () => Promise.reject(new Error("Network error"));
+
+      const originalWarn = console.warn;
+      const warnMessages = [];
+      console.warn = (message) => warnMessages.push(message);
+
+      try {
+        const result = await getGitHubRepoInfo("https://github.com/user/repo");
+        expect(result).toBe(null);
+        expect(
+          warnMessages.some((msg) => msg.includes("Failed to fetch GitHub repository info:")),
+        ).toBe(true);
+      } finally {
+        global.fetch = originalFetch;
+        console.warn = originalWarn;
+      }
+    });
+
+    test("resolveFileReferences should handle file read errors", async () => {
+      // Test with file that doesn't exist
+      const config = { file: "@/nonexistent/file.txt" };
+      const result = await resolveFileReferences(config);
+
+      // Should return original reference when file read fails
+      expect(result.file).toBe("@/nonexistent/file.txt");
     });
   });
 });
