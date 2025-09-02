@@ -88,7 +88,7 @@ function checkDeadLinks(markdown, source, allowedLinks, errorMessages) {
     if (!path) continue;
 
     // Check if this link is in the allowed links set
-    if (!allowedLinks.has(trimLink)) {
+    if (!allowedLinks.has(path)) {
       errorMessages.push(
         `Found a dead link in ${source}: [${match[1]}](${trimLink}), ensure the link exists in the structure plan path`,
       );

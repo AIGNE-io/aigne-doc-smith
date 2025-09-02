@@ -1,6 +1,13 @@
 import { checkMarkdown } from "../utils/markdown-checker.mjs";
 
 export default async function checkDetailResult({ structurePlan, reviewContent, docsDir }) {
+  if (!reviewContent || reviewContent.trim() === "") {
+    return {
+      isApproved: false,
+      detailFeedback: "Review content is empty",
+    };
+  }
+
   let isApproved = true;
   const detailFeedback = [];
 

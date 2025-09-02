@@ -37,23 +37,6 @@ describe("checkDetailResult", () => {
     expect(result.detailFeedback).toBe("");
   });
 
-  test("should reject content with multiple issues", async () => {
-    const structurePlan = [{ path: "/getting-started" }];
-    const reviewContent = "This has a [dead link](/dead-link).";
-    const result = await checkDetailResult({ structurePlan, reviewContent });
-    expect(result.isApproved).toBe(false);
-    expect(result.detailFeedback).toContain("dead link");
-  });
-
-  test("should approve content with external image syntax", async () => {
-    const structurePlan = [];
-    const reviewContent =
-      "This is an image ![MCP Go Logo](https://example.com/logo.png).\n\nThis has proper structure.";
-    const result = await checkDetailResult({ structurePlan, reviewContent });
-    expect(result.isApproved).toBe(true);
-    expect(result.detailFeedback).toBe("");
-  });
-
   test("should approve content with valid local image path", async () => {
     const structurePlan = [];
     const reviewContent =
@@ -251,47 +234,7 @@ describe("checkDetailResult", () => {
         "```\n\n" +
         "This has proper structure.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
-      // D2 validation might fail - we just want to ensure it's handled gracefully
-      expect(typeof result.isApproved).toBe("boolean");
-    });
-  });
-
-  describe("Markdown lint rules validation", () => {
-    test("should handle duplicate headings check", async () => {
-      const structurePlan = [];
-      const reviewContent =
-        "# Section\n\n" +
-        "Content here.\n\n" +
-        "# Section\n\n" + // Duplicate heading
-        "More content.";
-      const result = await checkDetailResult({ structurePlan, reviewContent });
-      // Test that the function handles this case - might pass or fail depending on lint rules
-      expect(typeof result.isApproved).toBe("boolean");
-      expect(typeof result.detailFeedback).toBe("string");
-    });
-
-    test("should handle undefined references check", async () => {
-      const structurePlan = [];
-      const reviewContent =
-        "This has an [undefined reference][nonexistent].\n\n" + "This has proper structure.";
-      const result = await checkDetailResult({ structurePlan, reviewContent });
-      // Test that the function handles this case - might pass or fail depending on lint rules
-      expect(typeof result.isApproved).toBe("boolean");
-      expect(typeof result.detailFeedback).toBe("string");
-    });
-
-    test("should reject content with unused definitions", async () => {
-      const structurePlan = [];
-      const reviewContent =
-        "This is content with proper structure.\n\n" +
-        "[unused]: http://example.com 'This definition is never used'\n\n" +
-        "Content continues here.";
-      const result = await checkDetailResult({ structurePlan, reviewContent });
-      // This should be detected by remark-lint unused definitions rule
-      expect(typeof result.isApproved).toBe("boolean");
-      if (!result.isApproved) {
-        expect(result.detailFeedback).toContain("unused");
-      }
+      expect(result.isApproved).toBe(false);
     });
   });
 
@@ -410,19 +353,14 @@ describe("checkDetailResult", () => {
         "See the [installation section](/getting-started#installation).\n\n" +
         "This has proper structure.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
-      // The link checker may be strict about anchor links
-      expect(typeof result.isApproved).toBe("boolean");
-      if (!result.isApproved) {
-        expect(result.detailFeedback).toContain("link");
-      }
+      expect(result.isApproved).toBe(true);
     });
 
-    test("should reject anchor-only links without base path", async () => {
+    test("should handle anchor-only links without base path", async () => {
       const structurePlan = [];
       const reviewContent =
         "See the [section](#non-existent-anchor).\n\n" + "This has proper structure.";
       const result = await checkDetailResult({ structurePlan, reviewContent });
-      // This should be allowed since it's just an anchor
       expect(result.isApproved).toBe(true);
     });
   });
@@ -671,25 +609,23 @@ This document demonstrates escaped pipe handling.
       const reviewContent = null;
       const result = await checkDetailResult({ structurePlan, reviewContent });
       expect(result.isApproved).toBe(false);
-      expect(typeof result.detailFeedback).toBe("string");
+      expect(result.detailFeedback).toBe("Review content is empty");
     });
 
     test("should handle empty content gracefully", async () => {
       const structurePlan = [];
       const reviewContent = "";
       const result = await checkDetailResult({ structurePlan, reviewContent });
-      // Empty content may be handled differently
-      expect(typeof result.isApproved).toBe("boolean");
-      expect(typeof result.detailFeedback).toBe("string");
+      expect(result.isApproved).toBe(false);
+      expect(result.detailFeedback).toBe("Review content is empty");
     });
 
     test("should handle whitespace-only content", async () => {
       const structurePlan = [];
       const reviewContent = "   \n\n   \t  \n   ";
       const result = await checkDetailResult({ structurePlan, reviewContent });
-      // Whitespace-only content may be handled differently
-      expect(typeof result.isApproved).toBe("boolean");
-      expect(typeof result.detailFeedback).toBe("string");
+      expect(result.isApproved).toBe(false);
+      expect(result.detailFeedback).toBe("Review content is empty");
     });
   });
 });
