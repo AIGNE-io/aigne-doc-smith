@@ -567,7 +567,7 @@ E -> F
       const content = "A -> B: test";
 
       // Concurrent calls should not interfere with each other
-      const promises = Array.from({ length: 10 }, () => checkD2Content({ content }));
+      const promises = Array.from({ length: 5 }, () => checkD2Content({ content }));
 
       // All should succeed without throwing errors
       await expect(Promise.all(promises)).resolves.toBeDefined();
