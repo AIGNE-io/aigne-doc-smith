@@ -7,6 +7,7 @@ import { getAccessToken } from "../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../utils/constants.mjs";
 import { beforePublishHook, ensureTmpDir } from "../utils/kroki-utils.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
+import { deployDiscussKit } from "../utils/deploy-discuss-kit.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
@@ -51,8 +52,12 @@ export default async function publishDocs(
           value: "default",
         },
         {
-          name: "Publish to your own website - you will need to run Discuss Kit by your self ",
+          name: "Publish to your existing website - use your current Discuss Kit service",
           value: "custom",
+        },
+        {
+          name: "Deploy a new Discuss Kit service - we'll help you set up a new service",
+          value: "new-custom",
         },
       ],
     });
@@ -77,6 +82,14 @@ export default async function publishDocs(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
+    } else if (choice === "new-custom") {
+      // Deploy a new Discuss Kit service
+      try {
+        appUrl = await deployDiscussKit(options);
+      } catch (error) {
+        console.error(`${chalk.red("❌ Failed to deploy service:")} ${error.message}`);
+        return { message: `❌ Deployment failed: ${error.message}` };
+      }
     }
   }
 
