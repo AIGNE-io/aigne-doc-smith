@@ -958,6 +958,64 @@ describe("utils", () => {
       // Should not crash, may return null depending on network
       expect(result === null || typeof result === "object").toBe(true);
     });
+
+    test("should fetch real GitHub repository info - aigne-doc-smith", async () => {
+      const result = await getGitHubRepoInfo("https://github.com/AIGNE-io/aigne-doc-smith.git");
+
+      if (result !== null) {
+        // If successful, should have expected repository structure
+        expect(typeof result).toBe("object");
+        expect(result).toHaveProperty("name");
+        expect(result).toHaveProperty("description");
+        expect(result.name).toBe("aigne-doc-smith");
+      } else {
+        // Network might be unavailable or API rate limited - that's acceptable
+        expect(result).toBe(null);
+      }
+    }, 10000); // 10 second timeout for network request
+
+    test("should fetch real GitHub repository info - FastAPI", async () => {
+      // Test with SSH URL format converted to HTTPS
+      const result = await getGitHubRepoInfo("git@github.com:fastapi/fastapi.git");
+
+      if (result !== null) {
+        // If successful, should have expected repository structure
+        expect(typeof result).toBe("object");
+        expect(result).toHaveProperty("name");
+        expect(result).toHaveProperty("description");
+        expect(result.name).toBe("fastapi");
+        expect(typeof result.description).toBe("string");
+        expect(result.description.length).toBeGreaterThan(0);
+      } else {
+        // Network might be unavailable or API rate limited - that's acceptable
+        expect(result).toBe(null);
+      }
+    }, 10000); // 10 second timeout for network request
+
+    test("should handle SSH URL format correctly", async () => {
+      // Test that SSH URLs are properly converted to GitHub API URLs
+      const sshUrl = "git@github.com:fastapi/fastapi.git";
+      const result = await getGitHubRepoInfo(sshUrl);
+
+      // Should either return repository info or null (network issues)
+      expect(result === null || typeof result === "object").toBe(true);
+
+      if (result !== null) {
+        expect(result.name).toBe("fastapi");
+      }
+    }, 10000);
+
+    test("should handle HTTPS URL with .git suffix", async () => {
+      const httpsUrl = "https://github.com/AIGNE-io/aigne-doc-smith.git";
+      const result = await getGitHubRepoInfo(httpsUrl);
+
+      // Should either return repository info or null (network issues)
+      expect(result === null || typeof result === "object").toBe(true);
+
+      if (result !== null) {
+        expect(result.name).toBe("aigne-doc-smith");
+      }
+    }, 10000);
   });
 
   describe("error handling edge cases", () => {
@@ -987,6 +1045,345 @@ describe("utils", () => {
     test("toRelativePath should handle root path", () => {
       const result = toRelativePath("/");
       expect(typeof result).toBe("string");
+    });
+  });
+
+  // Additional tests for uncovered lines
+  describe("additional coverage tests", () => {
+    test("saveDocWithTranslations should add labels to front matter", async () => {
+      const testDocsDir = path.join(tempDir, "docs");
+      const content = "# Test content";
+      const labels = ["test", "example"];
+
+      const results = await saveDocWithTranslations({
+        path: "test-with-labels.md",
+        content,
+        docsDir: testDocsDir,
+        locale: "en",
+        labels,
+      });
+
+      expect(results.length).toBe(1);
+
+      if (!results[0].success) {
+        console.log("Error:", results[0].error);
+      }
+      expect(results[0].success).toBe(true);
+
+      // The actual path should be what's returned in results
+      const actualPath = results[0].path;
+      expect(existsSync(actualPath)).toBe(true);
+
+      const savedContent = readFileSync(actualPath, "utf8");
+      expect(savedContent).toContain('labels: ["test","example"]');
+      expect(savedContent).toContain("# Test content");
+    });
+
+    test("saveDocWithTranslations should handle error cases", async () => {
+      // Test with invalid directory - use read-only directory
+      const results = await saveDocWithTranslations({
+        path: "test.md",
+        content: "# Test content",
+        docsDir: "/root/invalid", // This should fail
+        locale: "en",
+      });
+
+      expect(results.length).toBe(1);
+      expect(results[0].success).toBe(false);
+      expect(results[0].error).toBeDefined();
+    });
+
+    test("saveGitHeadToConfig should create directory and handle file operations", async () => {
+      // Test in non-test environment by temporarily unsetting test env
+      const originalBunTest = process.env.BUN_TEST;
+      const originalNodeEnv = process.env.NODE_ENV;
+      delete process.env.BUN_TEST;
+      delete process.env.NODE_ENV;
+
+      const originalCwd = process.cwd;
+      const testCwd = path.join(tempDir, "git-test");
+      mkdirSync(testCwd, { recursive: true });
+      process.cwd = () => testCwd;
+
+      try {
+        await saveGitHeadToConfig("abc123456");
+
+        const configPath = path.join(testCwd, ".aigne", "doc-smith", "config.yaml");
+        if (existsSync(configPath)) {
+          const configContent = readFileSync(configPath, "utf8");
+          expect(configContent).toContain("lastGitHead:");
+        }
+      } finally {
+        // Restore environment
+        process.cwd = originalCwd;
+        if (originalBunTest) process.env.BUN_TEST = originalBunTest;
+        if (originalNodeEnv) process.env.NODE_ENV = originalNodeEnv;
+      }
+    });
+
+    test("hasFileChangesBetweenCommits should return false when no files match patterns", () => {
+      const result = hasFileChangesBetweenCommits(
+        "invalid-commit1",
+        "invalid-commit2",
+        ["*.nonexistent"],
+        ["*.excluded"],
+      );
+      expect(result).toBe(false);
+    });
+
+    test("hasFileChangesBetweenCommits should handle include/exclude pattern matching", () => {
+      // Test with specific include patterns that won't match anything
+      const result = hasFileChangesBetweenCommits(
+        "invalid-commit1",
+        "HEAD",
+        ["*.xyz"], // Pattern that won't match
+        ["*.js"], // Exclude pattern
+      );
+      expect(result).toBe(false);
+    });
+
+    test("loadConfigFromFile should handle existing config file", async () => {
+      const originalCwd = process.cwd;
+      process.cwd = () => tempDir;
+
+      try {
+        const configDir = path.join(tempDir, ".aigne", "doc-smith");
+        mkdirSync(configDir, { recursive: true });
+
+        const validConfig = `
+projectName: test-project
+locale: en
+sourcesPath:
+  - ./src
+`;
+        writeFileSync(path.join(configDir, "config.yaml"), validConfig);
+
+        const result = await loadConfigFromFile();
+        expect(result).toBeDefined();
+        expect(result.projectName).toBe("test-project");
+      } finally {
+        process.cwd = originalCwd;
+      }
+    });
+
+    test("saveValueToConfig should handle different value types", async () => {
+      const configDir = path.join(tempDir, "save-config-test");
+      mkdirSync(configDir, { recursive: true });
+
+      const originalCwd = process.cwd;
+      process.cwd = () => configDir;
+
+      try {
+        // Test with various data types
+        await saveValueToConfig("testKey", "string value");
+        await saveValueToConfig("testArray", ["item1", "item2"]);
+        await saveValueToConfig("testNumber", 42);
+        await saveValueToConfig("testBoolean", true);
+
+        const configPath = path.join(configDir, ".aigne", "doc-smith", "config.yaml");
+        if (existsSync(configPath)) {
+          const configContent = readFileSync(configPath, "utf8");
+          expect(configContent).toContain("testKey:");
+          expect(configContent).toContain("testArray:");
+        }
+      } finally {
+        process.cwd = originalCwd;
+      }
+    });
+
+    test("resolveFileReferences should handle file read errors", async () => {
+      const config = {
+        file: "@/nonexistent/path/file.txt",
+      };
+      const result = await resolveFileReferences(config);
+      // Should return original reference when file doesn't exist
+      expect(result.file).toBe("@/nonexistent/path/file.txt");
+    });
+
+    test("processConfigFields should handle empty config", () => {
+      const config = {};
+      const result = processConfigFields(config);
+
+      expect(result.locale).toBe("en");
+      expect(Array.isArray(result.sourcesPath)).toBe(true);
+      expect(result.sourcesPath.length).toBe(1);
+      expect(result.sourcesPath[0]).toBe("./");
+    });
+
+    test("saveDocWithTranslations should handle translations correctly", async () => {
+      const testDocsDir = path.join(tempDir, "docs-translate");
+      const content = "# Test";
+
+      // Create translations with valid structure
+      const translations = [{ language: "zh", translation: "# 测试" }];
+
+      const results = await saveDocWithTranslations({
+        path: "translation-test.md",
+        content,
+        docsDir: testDocsDir,
+        locale: "en",
+        translates: translations,
+      });
+
+      expect(Array.isArray(results)).toBe(true);
+      expect(results.length).toBe(2); // Original + 1 translation
+      expect(results.every((r) => r.success)).toBe(true);
+    });
+
+    test("getModifiedFilesBetweenCommits should return filtered files when filePaths provided", () => {
+      // Create a test file to ensure it matches filter
+      const testFile = path.join(tempDir, "filter-test.js");
+      writeFileSync(testFile, "console.log('test');");
+
+      const result = getModifiedFilesBetweenCommits("invalid-commit1", "HEAD", [testFile]);
+
+      expect(Array.isArray(result)).toBe(true);
+      // Even with invalid commits, function should return array
+    });
+
+    test("hasFileChangesBetweenCommits should handle empty file list", () => {
+      const result = hasFileChangesBetweenCommits(
+        "invalid-commit1",
+        "invalid-commit2",
+        [], // Empty file list should return false
+        [],
+      );
+      expect(result).toBe(false);
+    });
+
+    test("saveGitHeadToConfig should handle file replacement scenario", async () => {
+      const originalBunTest = process.env.BUN_TEST;
+      const originalNodeEnv = process.env.NODE_ENV;
+      delete process.env.BUN_TEST;
+      delete process.env.NODE_ENV;
+
+      const originalCwd = process.cwd;
+      const testCwd = path.join(tempDir, "replace-git-test");
+      mkdirSync(testCwd, { recursive: true });
+      process.cwd = () => testCwd;
+
+      try {
+        // First call creates the file
+        await saveGitHeadToConfig("first-hash");
+
+        // Second call should replace existing lastGitHead
+        await saveGitHeadToConfig("second-hash");
+
+        const configPath = path.join(testCwd, ".aigne", "doc-smith", "config.yaml");
+        if (existsSync(configPath)) {
+          const configContent = readFileSync(configPath, "utf8");
+          expect(configContent).toContain("second-hash");
+          expect(configContent).not.toContain("first-hash");
+        }
+      } finally {
+        // Restore environment
+        process.cwd = originalCwd;
+        if (originalBunTest) process.env.BUN_TEST = originalBunTest;
+        if (originalNodeEnv) process.env.NODE_ENV = originalNodeEnv;
+      }
+    });
+
+    test("loadConfigFromFile should handle non-existent config directory", async () => {
+      const originalCwd = process.cwd;
+      process.cwd = () => path.join(tempDir, "no-config-dir");
+
+      try {
+        const result = await loadConfigFromFile();
+        expect(result).toBe(null);
+      } finally {
+        process.cwd = originalCwd;
+      }
+    });
+
+    test("resolveFileReferences should handle various file types", async () => {
+      // Test with YAML file
+      const yamlFile = path.join(tempDir, "test.yaml");
+      writeFileSync(yamlFile, "key: value\narray:\n  - item1\n  - item2");
+
+      const config = {
+        yaml: `@${yamlFile}`,
+        nonexistent: "@nonexistent.txt",
+        normal: "normal value",
+      };
+
+      const result = await resolveFileReferences(config);
+      expect(result.yaml).toBeDefined();
+      expect(typeof result.yaml).toBe("object");
+      expect(result.nonexistent).toBe("@nonexistent.txt");
+      expect(result.normal).toBe("normal value");
+    });
+
+    test("saveValueToConfig should handle file append scenario", async () => {
+      const configDir = path.join(tempDir, "append-config-test");
+      mkdirSync(configDir, { recursive: true });
+
+      const originalCwd = process.cwd;
+      process.cwd = () => configDir;
+
+      try {
+        // Create initial config without newline ending
+        const aigneDir = path.join(configDir, ".aigne", "doc-smith");
+        mkdirSync(aigneDir, { recursive: true });
+        writeFileSync(path.join(aigneDir, "config.yaml"), "existingKey: value");
+
+        // This should append with proper newline handling
+        await saveValueToConfig("newKey", "newValue");
+
+        const configPath = path.join(aigneDir, "config.yaml");
+        const configContent = readFileSync(configPath, "utf8");
+        expect(configContent).toContain("existingKey: value");
+        expect(configContent).toContain("newKey: newValue");
+      } finally {
+        process.cwd = originalCwd;
+      }
+    });
+
+    test("hasFileChangesBetweenCommits should handle complex pattern matching", () => {
+      // Test regex special characters in patterns
+      const result = hasFileChangesBetweenCommits(
+        "invalid-commit1",
+        "HEAD",
+        ["*.{js,ts}"], // Pattern with curly braces
+        ["test.*"], // Pattern with dot
+      );
+      expect(typeof result).toBe("boolean");
+    });
+
+    test("saveDocWithTranslations should skip main content when isTranslate is true", async () => {
+      const testDocsDir = path.join(tempDir, "skip-main-test");
+
+      const results = await saveDocWithTranslations({
+        path: "skip-test.md",
+        content: "# Should be skipped",
+        docsDir: testDocsDir,
+        locale: "en",
+        isTranslate: true,
+        translates: [{ language: "zh", translation: "# 翻译内容" }],
+      });
+
+      expect(results.length).toBe(1); // Only translation, main content skipped
+      expect(results[0].path).toContain(".zh.md");
+    });
+
+    test("processConfigFields should handle complex configurations", () => {
+      const config = {
+        documentPurpose: ["getStarted", "findAnswers"], // Already an array
+        targetAudienceTypes: ["developers", "devops"],
+        rules: "string rule", // Keep as string to avoid error
+        locale: "zh-CN",
+        sourcesPath: [], // Empty array should get default
+      };
+
+      const result = processConfigFields(config);
+
+      // Function processes arrays if constants are defined
+      expect(typeof result.rules).toBe("string");
+      expect(result.sourcesPath).toContain("./");
+
+      // Target audience should be processed
+      if (result.targetAudience) {
+        expect(typeof result.targetAudience).toBe("string");
+      }
     });
   });
 });

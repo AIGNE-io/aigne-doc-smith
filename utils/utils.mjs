@@ -811,7 +811,11 @@ export async function getGitHubRepoInfo(repoUrl) {
     const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
 
     const response = await fetch(apiUrl);
-    if (!response.ok) return null;
+
+    if (!response.ok) {
+      console.warn("Failed to fetch GitHub repository info:", repoUrl, response.statusText);
+      return null;
+    }
 
     const data = await response.json();
     return {
