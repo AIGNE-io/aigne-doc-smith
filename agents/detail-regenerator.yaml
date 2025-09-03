@@ -54,6 +54,9 @@ input_schema:
     feedback:
       type: string
       description: Feedback for content improvement
+    reset:
+      type: boolean
+      description: Ignore previous results and regenerate content from scratch
 output_schema:
   type: object
   properties:

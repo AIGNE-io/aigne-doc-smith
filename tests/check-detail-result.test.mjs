@@ -146,6 +146,118 @@ describe("checkDetailResult", () => {
       expect(result.isApproved).toBe(false);
       expect(result.detailFeedback).toContain("insufficient indentation");
     });
+
+    test("should approve various programming language code blocks with proper detection", async () => {
+      const structurePlan = [];
+      const reviewContent = `Programming Language Examples:
+
+## Rust with Configuration
+\`\`\`rust,no_run
+use tokio::signal::windows::ctrl_shutdown;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut signal = ctrl_shutdown()?;
+    signal.recv().await;
+    println!("got CTRL-SHUTDOWN. Cleaning up before exiting");
+    Ok(())
+}
+\`\`\`
+
+## C# .NET Example
+\`\`\`c#
+using System;
+using System.Threading.Tasks;
+
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        Console.WriteLine("Hello C#!");
+        await Task.Delay(1000);
+    }
+}
+\`\`\`
+
+## C++ with CLI Extension
+\`\`\`c++/cli
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> numbers = {1, 2, 3, 4, 5};
+    for (const auto& num : numbers) {
+        std::cout << num << " ";
+    }
+    return 0;
+}
+\`\`\`
+
+## TypeScript with Extension
+\`\`\`typescript.tsx
+interface Props {
+    title: string;
+    count: number;
+}
+
+const Component: React.FC<Props> = ({ title, count }) => {
+    return <div>{title}: {count}</div>;
+};
+
+export default Component;
+\`\`\`
+
+## Python with Version
+\`\`\`python,version=3.9
+import asyncio
+from typing import List, Optional
+
+async def fetch_data(urls: List[str]) -> Optional[dict]:
+    tasks = [asyncio.create_task(process_url(url)) for url in urls]
+    results = await asyncio.gather(*tasks)
+    return {"results": results}
+
+if __name__ == "__main__":
+    asyncio.run(fetch_data(["http://example.com"]))
+\`\`\`
+
+## Shell Script with Latest Tag
+\`\`\`bash:latest
+#!/bin/bash
+set -euo pipefail
+
+function deploy_app() {
+    local app_name="$1"
+    local version="$2"
+    
+    echo "Deploying $app_name version $version"
+    docker run --rm "$app_name:$version"
+}
+
+deploy_app "my-app" "v1.0.0"
+\`\`\`
+
+## Node.js Configuration
+\`\`\`node.js
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+app.listen(PORT, () => {
+    console.log(\`Server running on port \${PORT}\`);
+});
+\`\`\`
+
+This document demonstrates various programming language code blocks.`;
+
+      const result = await checkDetailResult({ structurePlan, reviewContent });
+      expect(result.isApproved).toBe(true);
+      expect(result.detailFeedback).toBe("");
+    });
   });
 
   describe("Content structure validation", () => {

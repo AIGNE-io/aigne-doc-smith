@@ -243,7 +243,7 @@ function checkLocalImages(markdown, source, errorMessages, markdownFilePath, bas
  */
 function checkContentStructure(markdown, source, errorMessages) {
   const lines = markdown.split("\n");
-  const allCodeBlockRegex = /^\s*```(?:\w+)?$/;
+  const allCodeBlockRegex = /^\s*```(?:[a-zA-Z0-9_,\-+.#/:=]+)?$/;
 
   // State variables for different checks
   let inCodeBlock = false;
@@ -300,7 +300,7 @@ function checkContentStructure(markdown, source, errorMessages) {
   }
 
   // Check if content ends with proper punctuation (indicating completeness)
-  const validEndingPunctuation = [".", "。", ")", "|", "*", ">"];
+  const validEndingPunctuation = [".", "。", ")", "|", "*", ">", "`"];
   const trimmedText = markdown.trim();
   const hasValidEnding = validEndingPunctuation.some((punct) => trimmedText.endsWith(punct));
 

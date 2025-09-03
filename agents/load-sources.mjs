@@ -19,6 +19,7 @@ export default async function loadSources({
   boardId,
   useDefaultPatterns = true,
   lastGitHead,
+  reset = false,
 } = {}) {
   let files = Array.isArray(sources) ? [...sources] : [];
 
@@ -190,7 +191,7 @@ export default async function loadSources({
 
   // Get the last output result of the specified path
   let content;
-  if (docPath) {
+  if (docPath && !reset) {
     let fileFullName;
 
     // First try direct path matching (original format)
