@@ -1,3 +1,4 @@
+<custom_component>
 When generating document details, you can use the following custom components at appropriate locations based on their descriptions and functionality to enhance document presentation:
 - `<x-card>`
 - `<x-cards>`
@@ -24,7 +25,11 @@ Attribute Rules:
 -	data-href (optional): Navigation link for clicking the card or button.
 -	data-horizontal (optional): Whether to use horizontal layout.
 -	data-cta (optional): Button text (call to action).
--	Body content: Must be written within <x-card>...</x-card> children.
+-	Body content: 
+  - Must be written within <x-card>...</x-card> children.
+  - **Markdown format rendering is not supported**
+  - **Code block rendering is not supported**
+  - Only supports plain text format without styling
 
 
 ### 2. `<x-cards>` Card List Component
@@ -49,32 +54,51 @@ Attribute Rules:
     -	Or all cards should have data-image.
     -	Avoid mixing (some with icons, some with only images).
 
-
-### 3. Examples
+<good_example>
+Use plain text without any styling
+<x-card data-title="alarm()" data-icon="lucide:alarm-clock"> SIGALRM: Sent when a real-time timer has expired.  </x-card>
 
 Single card:
-
-```
 <x-card data-title="Horizontal card" data-icon="lucide:atom" data-horizontal="true">
   This is an example of a horizontal card.
 </x-card>
-```
 
 Card list (all using icons, recommended approach):
-
-```
 <x-cards data-columns="3">
   <x-card data-title="Feature 1" data-icon="lucide:rocket">Description of Feature 1.</x-card>
   <x-card data-title="Feature 2" data-icon="lucide:bolt">Description of Feature 2.</x-card>
   <x-card data-title="Feature 3" data-icon="material-symbols:rocket-outline">Description of Feature 3.</x-card>
 </x-cards>
-```
 
 Card list (all using images):
-
-```
 <x-cards data-columns="2">
   <x-card data-title="Card A" data-image="https://picsum.photos/id/10/300/300">Content A</x-card>
   <x-card data-title="Card B" data-image="https://picsum.photos/id/11/300/300">Content B</x-card>
 </x-cards>
+</good_example>
+
+<bad_example>
+
+`x-card` component body does not support markdown formatting inline code block
+<x-card data-title="alarm()" data-icon="lucide:alarm-clock"> `SIGALRM`: Sent when a real-time timer has expired.  </x-card>
+
+
+`x-card` component body does not support code blocks
+<x-card data-title="ctrl_break()" data-icon="lucide:keyboard">
+Creates a listener for "ctrl-break" events.
+```rust,no_run
+use tokio::signal::windows::ctrl_break;
+
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+let mut stream = ctrl_break()?;
+stream.recv().await;
+println!("got ctrl-break");
+Ok(())
+}
 ```
+</x-card>
+
+</bad_example>
+
+</custom_component>
