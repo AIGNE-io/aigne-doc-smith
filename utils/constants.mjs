@@ -513,30 +513,10 @@ export const RESOLUTION_STRATEGIES = {
 export const D2_CONFIG = `vars: {
   d2-config: {
     layout-engine: elk
-    theme-id: 0
+    theme-id: 300
     theme-overrides: {
-      N1: "#2AA7A1"
-      N2: "#73808C"
-
-      N4: "#FFFFFF"
-      N5: "#FAFBFC"
-
-      N7: "#ffffff"
-
-      B1: "#8EDDD9"
-      B2: "#C9DCE6"
-      B3: "#EEF9F9"
-      B4: "#F7F8FA"
-      B5: "#FCFDFD"
-      B6: "#E3E9F0"
-
-
-      AA2: "#9EB7C5"
-      AA4: "#E3EBF2"
-      AA5: "#F6FAFC"
-
-      AB4: "#B8F1F6"
-      AB5: "#E3F8FA"
+      AA4: "#90EFDF"
+      AA5: "#D2FFF7"
     }
   }
 }`;
