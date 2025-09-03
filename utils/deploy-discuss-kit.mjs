@@ -1,9 +1,11 @@
 import chalk from "chalk";
 import { joinURL } from "ufo";
+import { getComponentInfoWithMountPoint, getComponentInfo } from "./blocklet.mjs";
+import { PAYMENT_KIT_DID } from "./constants.mjs";
+import { saveValueToConfig } from "./utils.mjs";
 
 // ==================== 配置 URL ====================
 const BASE_URL = process.env.DOC_PAYMENT_BASE_URL || "";
-const PAYMENT_LINK_ID = process.env.DOC_PAYMENT_LINK_ID || "";
 
 // ==================== 超时配置 ====================
 const TIMEOUT_CONFIG = {
@@ -19,72 +21,108 @@ const API_ENDPOINTS = {
   paymentPage: `/checkout/pay/{id}`,
   orderStatus: `/api/vendors/order/{id}/status`,
   orderDetail: `/api/vendors/order/{id}/detail`,
-  blockletStatus: `/__blocklet__.js?type=json`,
 };
 
+let prefix = ''
+let paymentLinkId = ''
 /**
  * Deploy a new Discuss Kit service and return the installation URL
- * @param {Object} options - Options object with prompts
  * @returns {Promise<string>} - The URL of the deployed service
  */
-export async function deployDiscussKit(options) {
-  console.log(`Creating a new Discuss Kit service for your documentation...\n`);
-
-  const serviceName = "my-discuss-kit"; // 固定名称
-
+export async function deployDiscussKit(id) {
+  const { mountPoint, PAYMENT_LINK_ID_KEY } = await getComponentInfoWithMountPoint(BASE_URL, PAYMENT_KIT_DID);
+  prefix = mountPoint;
+  paymentLinkId = PAYMENT_LINK_ID_KEY;
+  
   try {
     // 步骤1: 创建支付链接并打开
-    const { paymentUrl, checkoutId } = await createPaymentSession(serviceName);
-    await openBrowser(paymentUrl);
+    const cachedCheckoutId = await checkCacheCheckoutId(id);
+    const checkoutId = cachedCheckoutId || await createPaymentSession();
+    const paymentUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.paymentPage.replace('{id}', checkoutId));
+    if (cachedCheckoutId !== checkoutId) {
+      await openBrowser(paymentUrl);
+    }
 
     // 步骤2: 等待支付完成
-    console.log(`${chalk.blue("⏳")} Step 1: Waiting for payment...`);
+    console.log(`${chalk.blue("⏳")} Step 1/4: Waiting for payment...`);
     console.log(`${chalk.blue("🔗")} Payment link: ${chalk.cyan(paymentUrl)}\n`);
-    const vendors = await pollPaymentStatus(checkoutId);
+    await pollPaymentStatus(checkoutId);
+    saveValueToConfig('checkoutId', checkoutId, 'Checkout ID for document deployment service');
 
     // 步骤3: 等待服务安装
-    console.log(`${chalk.blue("📦")} Step 2: Installing service...`);
-    const readyVendors = await waitInstallation(vendors);
+    console.log(`${chalk.blue("📦")} Step 2/4: Installing service...`);
+    const readyVendors = await waitInstallation(checkoutId);
     
     // 步骤4: 等待服务启动
-    console.log(`${chalk.blue("🔍")} Step 3: Starting service...`);
+    console.log(`${chalk.blue("🚀")} Step 3/4: Starting service...`);
     const runningVendors = await waitServiceRunning(readyVendors);
     
     // 步骤5: 获取最终URL
-    console.log(`${chalk.blue("🌐")} Step 4: Getting service URL...`);
+    console.log(`${chalk.blue("🌐")} Step 4/4: Getting service URL...`);
     const urlInfo = await getDashboardAndUrl(checkoutId, runningVendors);
-    const { appUrl, homeUrl } = urlInfo || {};
+    const { appUrl, homeUrl, token } = urlInfo || {};
 
-    console.log(`Your service is available at: ${chalk.cyan(homeUrl)}\n`);
+    console.log(`\n${chalk.blue("🔗")} Your website is available at: ${chalk.cyan(homeUrl || appUrl)}\n`);
     
-    return appUrl;
-    
+    return {
+      appUrl,
+      homeUrl,
+      token,
+    };
   } catch (error) {
     throw error;
   }
 }
 
+/**
+ * 检查是否有缓存 checkoutId
+ */
+async function checkCacheCheckoutId(checkoutId) {
+  try {
+    if (!checkoutId) {
+      return '';
+    }
+    
+    const orderStatusUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.orderStatus.replace('{id}', checkoutId));
+    const response = await fetch(orderStatusUrl);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error);
+    }
+    
+    // 检查支付状态和 vendors 状态
+    const isPaid = data.payment_status === 'paid';
+
+    return isPaid ? checkoutId : '';
+    
+  } catch (error) {
+    saveValueToConfig('checkoutId', '', 'Checkout ID for document deployment service');
+    return '';
+  }
+}
+
+
 
 /**
  * 创建支付链接 - 步骤1
  */
-async function createPaymentSession(serviceName) {
+async function createPaymentSession() {
   // 1. 调用支付 API
-  const createCheckoutUrl = joinURL(BASE_URL, API_ENDPOINTS.createCheckout, PAYMENT_LINK_ID);
+  if (!paymentLinkId) {
+    throw new Error("Payment link ID not found");
+  }
+
+  const createCheckoutId = joinURL(BASE_URL, prefix, API_ENDPOINTS.createCheckout, paymentLinkId);
   try {
-    const response = await fetch(createCheckoutUrl, {
+    const response = await fetch(createCheckoutId, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ livemode: true, metadata: {
-        page_info: {
-          form_purpose_description: {
-            en: 'After successful payment, we will automatically install the Discuss Kit service for you.',
-            zh: '支付成功后，我们会自动为您安装 Discuss Kit 服务。',
-          },
-        },
-      }})
+      headers: { 'Content-Type': 'application/json' },
     });
     
     if (!response.ok) {
@@ -93,13 +131,9 @@ async function createPaymentSession(serviceName) {
     
     const data = await response.json();
     const checkoutId = data.checkoutSession.id;
-    
-    // 2. 返回支付页面链接
-    const paymentUrl = joinURL(BASE_URL, API_ENDPOINTS.paymentPage.replace('{id}', checkoutId));
-    return { paymentUrl, checkoutId };
-    
+    return  checkoutId;
   } catch (error) {
-    console.error(`${chalk.red("❌")} Failed to create payment session:`, error.message, createCheckoutUrl);
+    console.error(`${chalk.red("❌")} Failed to create payment session:`, error.message, createCheckoutId);
     throw new Error(`Failed to create payment session: ${error.message}`);
   }
 }
@@ -128,7 +162,7 @@ async function pollPaymentStatus(checkoutId) {
     attempts++;
     
     try {
-      const orderStatusUrl = joinURL(BASE_URL, API_ENDPOINTS.orderStatus.replace('{id}', checkoutId));
+      const orderStatusUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.orderStatus.replace('{id}', checkoutId));
       const response = await fetch(orderStatusUrl);
       
       if (!response.ok) {
@@ -164,22 +198,32 @@ async function pollPaymentStatus(checkoutId) {
 /**
  * 等待安装完成 - 步骤3
  */
-async function waitInstallation(vendors) {
+async function waitInstallation(checkoutId) {
   const maxAttempts = TIMEOUT_CONFIG.installation; // 5分钟超时 (60 * 5秒)
   let attempts = 0;
   
   while (attempts < maxAttempts) {
     attempts++;
+
+    const orderStatusUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.orderStatus.replace('{id}', checkoutId));
+    const response = await fetch(orderStatusUrl);
     
-    // 检查所有 vendor 是否满足条件：progress >= 80 且 appUrl 存在
-    const readyVendors = vendors.filter(vendor => 
-      vendor.progress >= 80 && vendor.appUrl
-    );
-    
-    if (readyVendors.length === vendors.length) {
-      return readyVendors;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
     
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error);
+    }
+    
+    // 检查所有 vendor 是否满足条件：progress >= 80 且 appUrl 存在
+    const isInstalled = data.vendors?.every(vendor => vendor.progress >= 80 && vendor.appUrl);
+    if (isInstalled) {
+      return data.vendors;
+    }
+      
     // 如果是最后一次尝试，抛出错误
     if (attempts === maxAttempts) {
       throw new Error("Installation timeout - services failed to install within 5 minutes");
@@ -206,12 +250,10 @@ async function waitServiceRunning(readyVendors) {
       // 并发检查所有 vendor 的运行状态
       const vendorChecks = readyVendors.map(async (vendor) => {
         try {
-          const statusEndpoint = joinURL(vendor.appUrl, API_ENDPOINTS.blockletStatus);
-          const response = await fetch(statusEndpoint);
+          const blockletInfo = await getComponentInfo(vendor.appUrl);
           
-          if (response.ok) {
-            const data = await response.json();
-            return data.status === 'running' ? vendor : null;
+          if (blockletInfo.status === 'running') {
+            return vendor;
           }
           return null;
         } catch (error) {
@@ -252,7 +294,7 @@ async function waitServiceRunning(readyVendors) {
 async function getDashboardAndUrl(checkoutId, runningVendors) {
   try {
     // 5. 获取订单详情
-    const orderDetailUrl = joinURL(BASE_URL, API_ENDPOINTS.orderDetail.replace('{id}', checkoutId));
+    const orderDetailUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.orderDetail.replace('{id}', checkoutId));
     const response = await fetch(orderDetailUrl);
     
     if (!response.ok) {
@@ -261,17 +303,10 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
     
     const data = await response.json();
 
-    // 打开所有 vendor 的 dashboard
-    for (const vendor of data.vendors) {
-      if (vendor.dashboardUrl) {
-        try {
-          await openBrowser(vendor.dashboardUrl);
-        } catch (error) {
-          // 静默处理，不打印错误
-        }
-      }
+    if (data.vendors.length === 0) {
+      throw new Error("No vendors found in order details");
     }
-    
+
     // 延时 3 秒
     await new Promise(resolve => setTimeout(resolve, 3000));
     
@@ -283,10 +318,11 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
     
     return {
       appUrl,
-      dashboardUrl: runningVendors[0]?.dashboardUrl,
-      homeUrl: runningVendors[0]?.homeUrl,
+      dashboardUrl: data.vendors[0]?.dashboardUrl,
+      homeUrl: data.vendors[0]?.homeUrl,
+      token: data.vendors[0]?.token,
     };
-    
+     
   } catch (error) {
     console.error(`${chalk.red("❌")} Failed to get order details:`, error.message);
     // 如果获取详情失败，使用运行中的 vendor 的 appUrl
@@ -294,6 +330,7 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
       appUrl: runningVendors[0]?.appUrl || null,
       dashboardUrl: runningVendors[0]?.dashboardUrl || null,
       homeUrl: runningVendors[0]?.homeUrl || null,
+      token: runningVendors[0]?.token || null,
     };
   }
 }
