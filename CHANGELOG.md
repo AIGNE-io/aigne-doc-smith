@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.0...v0.8.1) (2025-09-03)
+
+
+### Features
+
+* tune d2 chart generating with comprehensive examples ([#80](https://github.com/AIGNE-io/aigne-doc-smith/issues/80)) ([3423e4c](https://github.com/AIGNE-io/aigne-doc-smith/commit/3423e4cff24335552503916694a3489e5d91bf6c))
+
+
+### Miscellaneous Chores
+
+* release 0.8.1 ([21f64d4](https://github.com/AIGNE-io/aigne-doc-smith/commit/21f64d450377b1aef00f12613ba3b87aa4ef1d31))
+
 ## [0.8.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.2...v0.8.0) (2025-09-03)
 
 
