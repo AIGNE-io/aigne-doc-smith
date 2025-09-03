@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.2...v0.8.0) (2025-09-03)
+
+
+### Features
+
+* **tests:** add comprehensive workflow test coverage ([#76](https://github.com/AIGNE-io/aigne-doc-smith/issues/76)) ([d5f6062](https://github.com/AIGNE-io/aigne-doc-smith/commit/d5f6062311f36dc5b6394ae0768583fb8f3853a4))
+* update custom component guidelines with formatting restrictions ([#79](https://github.com/AIGNE-io/aigne-doc-smith/issues/79)) ([76158de](https://github.com/AIGNE-io/aigne-doc-smith/commit/76158de236696e68c63c057f5ea4b8458a15e787))
+
 ## [0.7.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.1...v0.7.2) (2025-09-01)
 
 
