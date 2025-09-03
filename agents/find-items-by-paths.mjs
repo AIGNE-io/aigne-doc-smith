@@ -7,7 +7,7 @@ import {
 } from "../utils/docs-finder-utils.mjs";
 
 export default async function selectedDocs(
-  { docs, structurePlanResult, boardId, docsDir, isTranslate, feedback, locale },
+  { docs, structurePlanResult, boardId, docsDir, isTranslate, feedback, locale, reset = false },
   options,
 ) {
   let foundItems = [];
@@ -100,6 +100,14 @@ export default async function selectedDocs(
 
   // Add feedback to all results if provided
   foundItems = addFeedbackToItems(foundItems, userFeedback);
+
+  // if reset is true, set content to null for all items
+  if (reset) {
+    foundItems = foundItems.map((item) => ({
+      ...item,
+      content: null,
+    }));
+  }
 
   return {
     selectedDocs: foundItems,
