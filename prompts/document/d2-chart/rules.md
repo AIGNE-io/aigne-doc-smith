@@ -235,7 +235,7 @@
       "SDK" -> "Blocklet Services": "Authenticated Requests"
       "Blocklet Services" -> "SDK": "Responses & Tokens"
       ```
-  - 尽量保证一个图中，所有的节点都是有关联的，不需要为图表设置 legend，有必要的情况下，可以拆分多个图表，而不是聚合在一个图表中
+  - 必须保证一个图中，所有的节点都是有关联的，不需要为图表设置 legend，如果就是有节点不存在关联性，则应该移除这些节点，或者拆分成多个独立的图表
     - bad:
       ```d2
       direction: down
@@ -343,7 +343,7 @@
         }
       }
       ```
-  - 尽量确保每个子节点是有名称的
+  - 必须确保每个节点和子节点是有名称的
     - bad:
       ```d2
       "SDK Core Instance": {
@@ -441,7 +441,85 @@
         "HTTP Clients" -> "Core Services": "Configured with"
       }
       ```
-  - 如果一个容器节点本身没有什么特别的含义，就不要增加这个容器节点
+    - bad:
+      ```d2
+      direction: down
+
+      "Your App": {
+        shape: rectangle
+      }
+
+      "SDK Request Helper": {
+        label: "@blocklet/js-sdk (createAxios / createFetch)"
+        shape: package
+      }
+
+      "Blocklet Service": {
+        shape: cylinder
+      }
+
+
+      "Your App" -> "SDK Request Helper": "1. Make API Call (e.g., /api/profile)"
+
+      "SDK Request Helper" -> "Blocklet Service": "2. Adds Auth Header & Sends Request" {
+        style {
+          stroke-dash: 2
+        }
+      }
+
+      "Token Renewal Path": {
+        style.stroke: "#faad14"
+
+        "Blocklet Service" -> "SDK Request Helper": "3. 401 Unauthorized (Token Expired)"
+        "SDK Request Helper" -> "Token Refresh Endpoint": "4. Request New Token"
+        "Token Refresh Endpoint" -> "SDK Request Helper": "5. New Tokens Received"
+        "SDK Request Helper" -> "Blocklet Service": "6. Retry Original Request with New Token"
+        "Blocklet Service" -> "SDK Request Helper": "7. 200 OK" {
+          style.stroke: "#52c41a"
+        }
+        "SDK Request Helper" -> "Your App": "8. Returns Data Transparently" {
+          style.stroke: "#52c41a"
+        }
+      }
+      ```
+    - good:
+      ```d2
+      direction: down
+
+      "Your App": {
+        shape: rectangle
+      }
+
+      "SDK Request Helper": {
+        label: "@blocklet/js-sdk (createAxios / createFetch)"
+        shape: package
+      }
+
+      "Blocklet Service": {
+        shape: cylinder
+      }
+
+
+      "Your App" -> "SDK Request Helper": "1. Make API Call (e.g., /api/profile)"
+
+      "SDK Request Helper" -> "Blocklet Service": "2. Adds Auth Header & Sends Request" {
+        style {
+          stroke-dash: 2
+        }
+      }
+
+      "Blocklet Service" -> "SDK Request Helper": "3. 401 Unauthorized (Token Expired)"
+      "SDK Request Helper" -> "Token Refresh Endpoint": "4. Request New Token"
+      "Token Refresh Endpoint" -> "SDK Request Helper": "5. New Tokens Received"
+      "SDK Request Helper" -> "Blocklet Service": "6. Retry Original Request with New Token"
+      "Blocklet Service" -> "SDK Request Helper": "7. 200 OK" {
+        style.stroke: "#52c41a"
+      }
+      "SDK Request Helper" -> "Your App": "8. Returns Data Transparently" {
+        style.stroke: "#52c41a"
+      }
+      ```
+  - 如果整个图表只有一个容器节点，就不要增加这个容器节点，直接将内部的节点放在最外层
     - bad:
       ```d2
       direction: down
@@ -860,6 +938,20 @@
 
       "Your Application" -> "SDK: @blocklet/js-sdk": "Imports & Initializes"
       "SDK: @blocklet/js-sdk" -> "Blocklet Services": "Makes authenticated requests"
+      ```
+  - 如果节点的 `shape: person`，则不要加任何其他内部的文字
+    - bad:
+      ```d2
+      "User Account": {
+        shape: person
+        "did:z... (John Doe)"
+      }
+      ```
+    - good:
+      ```d2
+      "User Account": {
+        shape: person
+      }
       ```
   - 示例参考：
     {% include "diy-examples.md" %}
