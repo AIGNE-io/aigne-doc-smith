@@ -123,6 +123,17 @@ async function createPaymentSession() {
     const response = await fetch(createCheckoutId, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        metadata: {
+          page_info: {
+            has_vendor: true,
+            success_message: {
+              en: 'Congratulations! Your website has been successfully installed. You can return to the command-line tool to continue the next steps.',
+              zh: '恭喜您，你的网站已安装成功！可以返回命令行工具继续后续操作！',
+            },
+          },
+        },
+      }),
     });
     
     if (!response.ok) {
