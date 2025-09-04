@@ -4,18 +4,18 @@ import { getComponentInfoWithMountPoint, getComponentInfo } from "./blocklet.mjs
 import { PAYMENT_KIT_DID } from "./constants.mjs";
 import { saveValueToConfig } from "./utils.mjs";
 
-// ==================== 配置 URL ====================
+// ==================== URL Configuration ====================
 const BASE_URL = process.env.DOC_PAYMENT_BASE_URL || "";
 
-// ==================== 超时配置 ====================
+// ==================== Timeout Configuration ====================
 const TIMEOUT_CONFIG = {
-  paymentWait: 60,      // 步骤2: 支付等待 5分钟 (60 * 5秒)
-  installation: 60,     // 步骤3: 安装等待 5分钟 (60 * 5秒)  
-  serviceStart: 60,     // 步骤4: 服务启动 5分钟 (60 * 5秒)
-  intervalMs: 5000,     // 轮询间隔 5秒
+  paymentWait: 60,      // Step 2: Payment wait 5 minutes (60 * 5 seconds)
+  installation: 60,     // Step 3: Installation wait 5 minutes (60 * 5 seconds)  
+  serviceStart: 60,     // Step 4: Service startup 5 minutes (60 * 5 seconds)
+  intervalMs: 5000,     // Polling interval 5 seconds
 };
 
-// ==================== API 端点 ====================
+// ==================== API Endpoints ====================
 const API_ENDPOINTS = {
   createCheckout: `/api/checkout-sessions/start`,
   paymentPage: `/checkout/pay/{id}`,
@@ -35,7 +35,7 @@ export async function deployDiscussKit(id) {
   paymentLinkId = PAYMENT_LINK_ID_KEY;
   
   try {
-    // 步骤1: 创建支付链接并打开
+    // Step 1: Create payment link and open
     const cachedCheckoutId = await checkCacheCheckoutId(id);
     const checkoutId = cachedCheckoutId || await createPaymentSession();
     const paymentUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.paymentPage.replace('{id}', checkoutId));
@@ -43,21 +43,21 @@ export async function deployDiscussKit(id) {
       await openBrowser(paymentUrl);
     }
 
-    // 步骤2: 等待支付完成
+    // Step 2: Wait for payment completion
     console.log(`${chalk.blue("⏳")} Step 1/4: Waiting for payment...`);
     console.log(`${chalk.blue("🔗")} Payment link: ${chalk.cyan(paymentUrl)}\n`);
     await pollPaymentStatus(checkoutId);
     saveValueToConfig('checkoutId', checkoutId, 'Checkout ID for document deployment service');
 
-    // 步骤3: 等待服务安装
+    // Step 3: Wait for service installation
     console.log(`${chalk.blue("📦")} Step 2/4: Installing service...`);
     const readyVendors = await waitInstallation(checkoutId);
     
-    // 步骤4: 等待服务启动
+    // Step 4: Wait for service startup
     console.log(`${chalk.blue("🚀")} Step 3/4: Starting service...`);
     const runningVendors = await waitServiceRunning(readyVendors);
     
-    // 步骤5: 获取最终URL
+    // Step 5: Get final URL
     console.log(`${chalk.blue("🌐")} Step 4/4: Getting service URL...`);
     const urlInfo = await getDashboardAndUrl(checkoutId, runningVendors);
     const { appUrl, homeUrl, token } = urlInfo || {};
@@ -75,7 +75,7 @@ export async function deployDiscussKit(id) {
 }
 
 /**
- * 检查是否有缓存 checkoutId
+ * Check if there is a cached checkoutId
  */
 async function checkCacheCheckoutId(checkoutId) {
   try {
@@ -96,7 +96,7 @@ async function checkCacheCheckoutId(checkoutId) {
       throw new Error(data.error);
     }
     
-    // 检查支付状态和 vendors 状态
+    // Check payment status and vendors status
     const isPaid = data.payment_status === 'paid';
 
     return isPaid ? checkoutId : '';
@@ -110,10 +110,10 @@ async function checkCacheCheckoutId(checkoutId) {
 
 
 /**
- * 创建支付链接 - 步骤1
+ * Create payment session - Step 1
  */
 async function createPaymentSession() {
-  // 1. 调用支付 API
+  // 1. Call payment API
   if (!paymentLinkId) {
     throw new Error("Payment link ID not found");
   }
@@ -150,7 +150,7 @@ async function createPaymentSession() {
 }
 
 /**
- * 打开浏览器
+ * Open browser with payment URL
  */
 async function openBrowser(paymentUrl) {
   const { default: open } = await import('open');
@@ -163,10 +163,10 @@ async function openBrowser(paymentUrl) {
 }
 
 /**
- * 等待支付完成 - 步骤2 (5分钟超时)
+ * Wait for payment completion - Step 2 (5 minute timeout)
  */
 async function pollPaymentStatus(checkoutId) {
-  const maxAttempts = TIMEOUT_CONFIG.paymentWait; // 5分钟超时 (60 * 5秒)
+  const maxAttempts = TIMEOUT_CONFIG.paymentWait; // 5 minute timeout (60 * 5 seconds)
   let attempts = 0;
   
   while (attempts < maxAttempts) {
@@ -186,20 +186,20 @@ async function pollPaymentStatus(checkoutId) {
         throw new Error(data.error);
       }
       
-      // 检查支付状态和 vendors 状态
+      // Check payment status and vendors status
       const isPaid = data.payment_status === 'paid';
       if (isPaid) {
         return data.vendors;
       }
       
     } catch (error) {
-      // 如果是最后一次尝试，抛出错误
+      // If this is the last attempt, throw error
       if (attempts === maxAttempts) {
         throw new Error("Payment timeout - please complete payment within 5 minutes");
       }
     }
     
-    // 等待后重试
+    // Wait before retry
     await new Promise(resolve => setTimeout(resolve, TIMEOUT_CONFIG.intervalMs));
   }
   
@@ -207,10 +207,10 @@ async function pollPaymentStatus(checkoutId) {
 }
 
 /**
- * 等待安装完成 - 步骤3
+ * Wait for installation completion - Step 3
  */
 async function waitInstallation(checkoutId) {
-  const maxAttempts = TIMEOUT_CONFIG.installation; // 5分钟超时 (60 * 5秒)
+  const maxAttempts = TIMEOUT_CONFIG.installation; // 5 minute timeout (60 * 5 seconds)
   let attempts = 0;
   
   while (attempts < maxAttempts) {
@@ -229,18 +229,18 @@ async function waitInstallation(checkoutId) {
       throw new Error(data.error);
     }
     
-    // 检查所有 vendor 是否满足条件：progress >= 80 且 appUrl 存在
+    // Check if all vendors meet conditions: progress >= 80 and appUrl exists
     const isInstalled = data.vendors?.every(vendor => vendor.progress >= 80 && vendor.appUrl);
     if (isInstalled) {
       return data.vendors;
     }
       
-    // 如果是最后一次尝试，抛出错误
+    // If this is the last attempt, throw error
     if (attempts === maxAttempts) {
       throw new Error("Installation timeout - services failed to install within 5 minutes");
     }
     
-    // 等待后重试
+    // Wait before retry
     await new Promise(resolve => setTimeout(resolve, TIMEOUT_CONFIG.intervalMs));
   }
   
@@ -248,17 +248,17 @@ async function waitInstallation(checkoutId) {
 }
 
 /**
- * 等待服务运行 - 步骤4
+ * Wait for service to start running - Step 4
  */
 async function waitServiceRunning(readyVendors) {
-  const maxAttempts = TIMEOUT_CONFIG.serviceStart; // 5分钟超时 (60 * 5秒)
+  const maxAttempts = TIMEOUT_CONFIG.serviceStart; // 5 minute timeout (60 * 5 seconds)
   let attempts = 0;
   
   while (attempts < maxAttempts) {
     attempts++;
     
     try {
-      // 并发检查所有 vendor 的运行状态
+      // Check running status of all vendors concurrently
       const vendorChecks = readyVendors.map(async (vendor) => {
         try {
           const blockletInfo = await getComponentInfo(vendor.appUrl);
@@ -280,15 +280,15 @@ async function waitServiceRunning(readyVendors) {
       }
       
     } catch (error) {
-      // 继续重试
+      // Continue retrying
     }
     
-    // 如果是最后一次尝试，抛出错误
+    // If this is the last attempt, throw error
     if (attempts === maxAttempts) {
       throw new Error("Service start timeout - services failed to start within 5 minutes");
     }
     
-    // 等待后重试
+    // Wait before retry
     await new Promise(resolve => setTimeout(resolve, TIMEOUT_CONFIG.intervalMs));
   }
   
@@ -300,11 +300,11 @@ async function waitServiceRunning(readyVendors) {
 
 
 /**
- * 获取最终URL - 步骤5
+ * Get final URL - Step 5
  */
 async function getDashboardAndUrl(checkoutId, runningVendors) {
   try {
-    // 5. 获取订单详情
+    // 5. Get order details
     const orderDetailUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.orderDetail.replace('{id}', checkoutId));
     const response = await fetch(orderDetailUrl);
     
@@ -318,10 +318,10 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
       throw new Error("No vendors found in order details");
     }
 
-    // 延时 3 秒
+    // Wait 3 seconds
     await new Promise(resolve => setTimeout(resolve, 3000));
     
-    // 返回第一个 vendor 的 appUrl（通常只有一个）
+    // Return the appUrl of the first vendor (usually only one)
     const appUrl = runningVendors[0]?.appUrl;
     if (!appUrl) {
       throw new Error("No app URL found in order details");
@@ -336,7 +336,7 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
      
   } catch (error) {
     console.error(`${chalk.red("❌")} Failed to get order details:`, error.message);
-    // 如果获取详情失败，使用运行中的 vendor 的 appUrl
+    // If getting details fails, use the appUrl of running vendor
     return {
       appUrl: runningVendors[0]?.appUrl || null,
       dashboardUrl: runningVendors[0]?.dashboardUrl || null,
