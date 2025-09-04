@@ -8,12 +8,62 @@ import { saveValueToConfig } from "./utils.mjs";
 const BASE_URL = process.env.DOC_PAYMENT_BASE_URL || "";
 
 // ==================== Timeout Configuration ====================
-const TIMEOUT_CONFIG = {
-  paymentWait: 60, // Step 2: Payment wait 5 minutes (60 * 5 seconds)
-  installation: 60, // Step 3: Installation wait 5 minutes (60 * 5 seconds)
-  serviceStart: 60, // Step 4: Service startup 5 minutes (60 * 5 seconds)
-  intervalMs: 5000, // Polling interval 5 seconds
+const INTERVAL_MS = 3000;
+const TIMES = {
+  paymentWait: 100, // Step 2: Payment wait for 100 intervals (100 * 3s = 300s = 5 minutes)
+  installation: 100, // Step 3: Installation for 100 intervals (100 * 3s = 300s = 5 minutes)
+  serviceStart: 100, // Step 4: Service startup for 100 intervals (100 * 3s = 300s = 5 minutes)
 };
+
+// ==================== Utility Functions ====================
+
+/**
+ * Generic polling utility with timeout and retry logic
+ * @param {Object} options - Polling configuration
+ * @param {Function} options.checkCondition - Async function that returns result if condition met, null/false if not
+ * @param {number} options.maxAttempts - Maximum number of attempts
+ * @param {number} options.intervalMs - Interval between attempts in milliseconds
+ * @param {string} options.timeoutMessage - Error message for timeout
+ * @param {string} options.stepName - Name of the step for logging (optional)
+ * @returns {Promise<any>} Result from checkCondition when successful
+ */
+async function pollWithTimeout({
+  checkCondition,
+  maxAttempts,
+  intervalMs = INTERVAL_MS,
+  timeoutMessage,
+  stepName = "Operation",
+}) {
+  let attempts = 0;
+
+  while (attempts < maxAttempts) {
+    attempts++;
+
+    try {
+      const result = await checkCondition();
+      if (result !== null && result !== false) {
+        return result;
+      }
+    } catch (_error) {
+      // Log error for debugging but continue retrying unless it's the last attempt
+      if (attempts === maxAttempts) {
+        throw new Error(`${timeoutMessage} (${stepName} failed after ${maxAttempts} attempts)`);
+      }
+      // Continue retrying for non-fatal errors
+    }
+
+    // If this is the last attempt, don't wait - just exit the loop
+    if (attempts === maxAttempts) {
+      break;
+    }
+
+    // Wait before retry
+    await new Promise((resolve) => setTimeout(resolve, intervalMs));
+  }
+
+  // If we reach here, all attempts were exhausted
+  throw new Error(`${timeoutMessage} (${stepName} timed out after ${maxAttempts} attempts)`);
+}
 
 // ==================== API Endpoints ====================
 const API_ENDPOINTS = {
@@ -175,13 +225,8 @@ async function openBrowser(paymentUrl) {
  * Wait for payment completion - Step 2 (5 minute timeout)
  */
 async function pollPaymentStatus(checkoutId) {
-  const maxAttempts = TIMEOUT_CONFIG.paymentWait; // 5 minute timeout (60 * 5 seconds)
-  let attempts = 0;
-
-  while (attempts < maxAttempts) {
-    attempts++;
-
-    try {
+  return pollWithTimeout({
+    checkCondition: async () => {
       const orderStatusUrl = joinURL(
         BASE_URL,
         prefix,
@@ -204,76 +249,60 @@ async function pollPaymentStatus(checkoutId) {
       if (isPaid) {
         return data.vendors;
       }
-    } catch (_error) {
-      // If this is the last attempt, throw error
-      if (attempts === maxAttempts) {
-        throw new Error("Payment timeout - please complete payment within 5 minutes");
-      }
-    }
 
-    // Wait before retry
-    await new Promise((resolve) => setTimeout(resolve, TIMEOUT_CONFIG.intervalMs));
-  }
-
-  throw new Error("Payment timeout");
+      return null; // Not ready yet, continue polling
+    },
+    maxAttempts: TIMES.paymentWait,
+    intervalMs: INTERVAL_MS,
+    timeoutMessage: "Payment timeout - please complete payment within 5 minutes",
+    stepName: "Payment",
+  });
 }
 
 /**
  * Wait for installation completion - Step 3
  */
 async function waitInstallation(checkoutId) {
-  const maxAttempts = TIMEOUT_CONFIG.installation; // 5 minute timeout (60 * 5 seconds)
-  let attempts = 0;
+  return pollWithTimeout({
+    checkCondition: async () => {
+      const orderStatusUrl = joinURL(
+        BASE_URL,
+        prefix,
+        API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
+      );
+      const response = await fetch(orderStatusUrl);
 
-  while (attempts < maxAttempts) {
-    attempts++;
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    const orderStatusUrl = joinURL(
-      BASE_URL,
-      prefix,
-      API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
-    );
-    const response = await fetch(orderStatusUrl);
+      const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+      if (data.error) {
+        throw new Error(data.error);
+      }
 
-    const data = await response.json();
+      // Check if all vendors meet conditions: progress >= 80 and appUrl exists
+      const isInstalled = data.vendors?.every((vendor) => vendor.progress >= 80 && vendor.appUrl);
+      if (isInstalled) {
+        return data.vendors;
+      }
 
-    if (data.error) {
-      throw new Error(data.error);
-    }
-
-    // Check if all vendors meet conditions: progress >= 80 and appUrl exists
-    const isInstalled = data.vendors?.every((vendor) => vendor.progress >= 80 && vendor.appUrl);
-    if (isInstalled) {
-      return data.vendors;
-    }
-
-    // If this is the last attempt, throw error
-    if (attempts === maxAttempts) {
-      throw new Error("Installation timeout - services failed to install within 5 minutes");
-    }
-
-    // Wait before retry
-    await new Promise((resolve) => setTimeout(resolve, TIMEOUT_CONFIG.intervalMs));
-  }
-
-  throw new Error("Installation timeout");
+      return null; // Not ready yet, continue polling
+    },
+    maxAttempts: TIMES.installation,
+    intervalMs: INTERVAL_MS,
+    timeoutMessage: "Installation timeout - services failed to install within 5 minutes",
+    stepName: "Installation",
+  });
 }
 
 /**
  * Wait for service to start running - Step 4
  */
 async function waitServiceRunning(readyVendors) {
-  const maxAttempts = TIMEOUT_CONFIG.serviceStart; // 5 minute timeout (60 * 5 seconds)
-  let attempts = 0;
-
-  while (attempts < maxAttempts) {
-    attempts++;
-
-    try {
+  return pollWithTimeout({
+    checkCondition: async () => {
       // Check running status of all vendors concurrently
       const vendorChecks = readyVendors.map(async (vendor) => {
         try {
@@ -294,20 +323,14 @@ async function waitServiceRunning(readyVendors) {
       if (runningVendors.length === readyVendors.length) {
         return runningVendors;
       }
-    } catch (_error) {
-      // Continue retrying
-    }
 
-    // If this is the last attempt, throw error
-    if (attempts === maxAttempts) {
-      throw new Error("Service start timeout - services failed to start within 5 minutes");
-    }
-
-    // Wait before retry
-    await new Promise((resolve) => setTimeout(resolve, TIMEOUT_CONFIG.intervalMs));
-  }
-
-  throw new Error("Service start timeout");
+      return null; // Not ready yet, continue polling
+    },
+    maxAttempts: TIMES.serviceStart,
+    intervalMs: INTERVAL_MS,
+    timeoutMessage: "Service start timeout - services failed to start within 5 minutes",
+    stepName: "Service Start",
+  });
 }
 
 /**
