@@ -1,3 +1,4 @@
+- 使用 d2 展示架构关系、流程与组件交互
 - 使用 d2 图表解释复杂的概念 (```d2``` format)，让页面内容展示形式更丰富
   - 使用的 d2 的版本是 0.7.x，d2 官方的文档请查看 https://d2lang.com/tour/intro/
   - 图表应简洁明了，节点和连线命名准确，节点与连线文案保持简洁，不要太长
@@ -15,8 +16,79 @@
         shape: class
       }
       ```
-  - 使用 d2 展示架构关系、流程与组件交互
+  - 连线上的文字描述，尽量简洁明了，一般来说只需要使用单个词或两个词即可
+    - bad:
+      ```d2
+      "User Login" -> "Session Creation": "User submits login form with credentials"
+      ```
+    - good:
+      ```d2
+      "User Login" -> "Session Creation": "login"
+      ```
   - d2 代码块必须完整且可渲染，避免使用未闭合的语法与奇异字符，避免语法错误
+  - 确保每一个节点都有 label 属性，用来表达节点的名称
+  - 如果节点的 label 过长，则应该使用 `\n` 来进行换行
+    - bad
+      ```d2
+      "AuthService": {
+        label: "AuthService (Handles user authentication, profile management, privacy settings, and related actions)"
+        shape: class
+      }
+      ```
+    - good
+      ```d2
+      "AuthService": {
+        label: "AuthService\n(Handles user authentication,\nprofile management, privacy settings,\nand related actions)"
+        shape: class
+      }
+      ```
+  - **非常重要** 如果节点的名称包含了特殊字符（如 `@`、` `、`/`, 空格等），请将名称中的特殊字符转换为 `-`，然后使用 label 来表达原始的名称，确保节点的名称一定不要使用 `"` 包裹
+    - bad:
+      ```d2
+      "@blocklet/js-sdk": {
+        shape: package
+
+        TokenService: {
+          shape: class
+        }
+      }
+      ```
+    - good:
+      ```d2
+      "blocklet-js-sdk": {
+        shape: package
+        label: "@blocklet/js-sdk
+
+        TokenService: {
+          shape: class
+        }
+      }
+      ```
+  - 必须确保每个节点和子节点是有名称的
+    - bad:
+      ```d2
+      "SDK Core Instance": {
+        shape: package
+        "TokenService": "Manages session and refresh tokens"
+        "Services": {
+          grid-columns: 2
+          "AuthService": ""
+          "BlockletService": ""
+        }
+      }
+      ```
+    - good:
+      ```d2
+      "SDK Core Instance": {
+        shape: package
+        "TokenService": "Manages session and refresh tokens"
+        "Services": {
+          grid-columns: 2
+          "AuthService": "AuthService"
+          "BlockletService": "BlockletService"
+        }
+      }
+      ```
   - 不要为节点添加 `tooltip`，保持简单即可
     - bad
       ```d2
@@ -33,10 +105,7 @@
         shape: class
       }
       ```
-  - 节点的名称尽量使用 `"` 进行包裹，避免出现渲染异常
-    - bad: `SDK: @blocklet/js-sdk`
-    - good: `SDK: "@blocklet/js-sdk"`
-  - 不要随意给节点填充颜色，除非节点有明确的 yes/no 的状态，此时可以给节点 fill `error`, `warning`, `success` 之类的颜色
+  - 不要随意给节点/连线填充颜色，除非节点/连线有明确的 yes/no 的状态，此时可以添加 `error`, `warning`, `success` 之类的颜色
     - bad
       ```d2
       "TokenService" {
@@ -50,9 +119,9 @@
         shape: class
       }
       ```
-  - 对于单个节点和连线，可以使用 `animate: true` 可以让图表增加动画效果，看起来效果更好
-  - 对于节点 shape 的选择，可以参考
-    {% include "shape-rules.md" %}
+  - 对于单个节点和连线，不要使用 `animate: true`，避免有些地方有，但有些地方没有的情况（看起来会很奇怪）
+  - 连线的箭头方向必须正确，确保箭头指向关系的下游端
+  - 连线的样式，尽量保持一致，不要有些实线，有些虚线的情况，除非有明确的区分意义
   - 页面的整体布局使用 `direction: down`，这样能确保图表适合在网页中进行阅读；子图中可以根据情况来使用其他的方向布局，需要确保图表的整体效果看起来不会太宽
     - bad:
       ```d2
@@ -235,7 +304,7 @@
       "SDK" -> "Blocklet Services": "Authenticated Requests"
       "Blocklet Services" -> "SDK": "Responses & Tokens"
       ```
-  - 必须保证一个图中，所有的节点都是有关联的，不需要为图表设置 legend，如果就是有节点不存在关联性，则应该移除这些节点，或者拆分成多个独立的图表
+  - 必须保证一个图中，所有的节点都是有关联的，不需要为图表设置 legend，如果有节点不存在关联性，则应该移除这些节点，或者拆分成多个独立的图表
     - bad:
       ```d2
       direction: down
@@ -340,31 +409,6 @@
         }
         "SDK Request Helper" -> "Your App": "8b. Returns Data Transparently" {
           style.stroke: "#52c41a"
-        }
-      }
-      ```
-  - 必须确保每个节点和子节点是有名称的
-    - bad:
-      ```d2
-      "SDK Core Instance": {
-        shape: package
-        "TokenService": "Manages session and refresh tokens"
-        "Services": {
-          grid-columns: 2
-          "AuthService": ""
-          "BlockletService": ""
-        }
-      }
-      ```
-    - good:
-      ```d2
-      "SDK Core Instance": {
-        shape: package
-        "TokenService": "Manages session and refresh tokens"
-        "Services": {
-          grid-columns: 2
-          "AuthService": "AuthService"
-          "BlockletService": "BlockletService"
         }
       }
       ```
@@ -661,7 +705,7 @@
       "Your Application" -> "@blocklet/js-sdk".AuthService: "e.g., sdk.auth.getProfile()"
       "@blocklet/js-sdk".AuthService -> "Blocklet API Endpoints": "Makes authenticated API calls"
       ```
-  - 当节点中子节点个数与 `grid-columns` 值相同时，则应该去掉 `grid-columns` 字段
+  - **非常重要** 当容器节点中子节点个数与 `grid-columns` 值相同时，则应该去掉容器节点中的 `grid-columns` 字段
     - bad:
       ```d2
       "@blocklet/js-sdk": {
@@ -784,7 +828,7 @@
       }
 
       ```
-  - 当存在多层容器节点嵌套时，外层的容器节点应该使用 `grid-columns: 1`，这一点非常重要
+  - **非常重要** 当存在多层容器节点嵌套时，外层的容器节点应该使用 `grid-columns: 1`
     - bad:
       ```d2
       direction: down
@@ -857,7 +901,7 @@
 
       "User Account" -> "Sessions": "Has multiple"
       ```
-  - 当一个节点容器中包含了其他的节点容器，建议使用 `grid-gap` 来增加各个节点容器的距离，尽量大于 100
+  - 当一个节点容器中包含了其他的节点容器，建议使用 `grid-gap` 来增加各个节点容器的距离，尽量大于 `100`
     - bad:
       ```d2
       direction: down
@@ -953,5 +997,92 @@
         shape: person
       }
       ```
+  - **非常重要** 在绘制连线的时候，一定要注意连接的节点的 ID 到底是什么，它可能有多个层级，但一定要弄清楚关系才能添加连线
+    - bad:
+      ```d2
+      direction: down
+
+      "User-Browser": {
+        label: "User's Browser"
+        shape: rectangle
+
+        "React-App": {
+          label: "Your React App"
+          shape: rectangle
+
+          "Uploader-Component": {
+            label: "@blocklet/uploader"
+            shape: package
+          }
+        }
+      }
+
+      "Blocklet-Server": {
+        label: "Your Blocklet Server"
+        shape: rectangle
+
+        "Express-App": {
+          label: "Your Express App"
+          shape: rectangle
+
+          "Uploader-Middleware": {
+            label: "@blocklet/uploader-server"
+            shape: package
+          }
+        }
+      }
+
+      "File-System": {
+        label: "Storage\n(e.g., File System)"
+        shape: cylinder
+      }
+
+      "Uploader-Component" -> "Uploader-Middleware": "HTTP POST Request\n(File Upload)"
+      "Uploader-Middleware" -> "File-System": "Saves File"
+      ```
+    - good:
+      ```d2
+      direction: down
+
+      "User-Browser": {
+        label: "User's Browser"
+        shape: rectangle
+
+        "React-App": {
+          label: "Your React App"
+          shape: rectangle
+
+          "Uploader-Component": {
+            label: "@blocklet/uploader"
+            shape: package
+          }
+        }
+      }
+
+      "Blocklet-Server": {
+        label: "Your Blocklet Server"
+        shape: rectangle
+
+        "Express-App": {
+          label: "Your Express App"
+          shape: rectangle
+
+          "Uploader-Middleware": {
+            label: "@blocklet/uploader-server"
+            shape: package
+          }
+        }
+      }
+
+      "File-System": {
+        label: "Storage\n(e.g., File System)"
+        shape: cylinder
+      }
+
+      User-Browser.React-App.Uploader-Component -> Blocklet-Server.Express-App.Uploader-Middleware: "HTTP POST Request\n(File Upload)"
+      Blocklet-Server.Express-App.Uploader-Middleware -> "File-System": "Saves File"
+      ```
+  - 对于节点 shape 的选择，可以参考
+    {% include "shape-rules.md" %}
   - 示例参考：
     {% include "diy-examples.md" %}
