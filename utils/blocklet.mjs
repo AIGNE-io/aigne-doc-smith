@@ -62,7 +62,6 @@ export async function getComponentMountPoint(appUrl, did) {
   return component.mountPoint;
 }
 
-
 export async function getComponentInfoWithMountPoint(appUrl, did) {
   const config = await getComponentInfo(appUrl);
 
