@@ -47,6 +47,9 @@ Explore the main capabilities of DocSmith in the following sections:
   <x-card data-title="Publish Your Docs" data-icon="lucide:send" data-href="/features/publish-your-docs">
     Publish your generated documentation to the official DocSmith platform or your own self-hosted instance.
   </x-card>
+  <x-card data-title="Deploy Discuss Kit Service" data-icon="lucide:rocket" data-href="/features/deploy-discuss-kit">
+    Automatically deploy a new, dedicated Discuss Kit service for hosting your documentation with zero manual configuration.
+  </x-card>
 </x-cards>
 
 These features provide a structured workflow for documentation. For a detailed list of all available commands and their options, see the [CLI Command Reference](./cli-reference.md).

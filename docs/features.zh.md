@@ -47,6 +47,9 @@ Generate -> Refine -> Translate -> Publish
   <x-card data-title="发布您的文档" data-icon="lucide:send" data-href="/features/publish-your-docs">
     将您生成的文档发布到官方 DocSmith 平台或您自己的自托管实例。
   </x-card>
+  <x-card data-title="部署 Discuss Kit 服务" data-icon="lucide:rocket" data-href="/features/deploy-discuss-kit">
+    自动部署新的专用 Discuss Kit 服务来托管您的文档，无需任何手动配置。
+  </x-card>
 </x-cards>
 
 这些功能为文档管理提供了一个结构化的工作流。要获取所有可用命令及其选项的详细列表，请参阅 [CLI 命令参考](./cli-reference.md)。
