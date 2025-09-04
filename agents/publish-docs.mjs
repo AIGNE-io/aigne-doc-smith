@@ -5,9 +5,9 @@ import fs from "fs-extra";
 
 import { getAccessToken } from "../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../utils/constants.mjs";
+import { deployDiscussKit } from "../utils/deploy-discuss-kit.mjs";
 import { beforePublishHook, ensureTmpDir } from "../utils/kroki-utils.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
-import { deployDiscussKit } from "../utils/deploy-discuss-kit.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
@@ -43,32 +43,39 @@ export default async function publishDocs(
   const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
   const hasAppUrlInConfig = config?.appUrl;
 
-  let token = ''
+  let token = "";
 
   if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
     const hasCachedCheckoutId = !!config?.checkoutId;
     const choice = await options.prompts.select({
       message: "Select platform to publish your documents:",
       choices: [
-          {
-            name: chalk.blue("Publish to docsmith.aigne.io") + " - free, but your documents will be publicly accessible, recommended for open-source projects",
-            value: "default",
-          },
-          {
-            name: chalk.blue("Publish to your existing website") + " - use your current website",
-            value: "custom",
-          },
-          ...(hasCachedCheckoutId ? [{
-            name: chalk.yellow("Continue your previous website setup") + " - resume from where you left off",
-            value: "new-custom-continue",
-          }] : []),
-          {
-            name: chalk.blue("Publish to a new website") + " - we'll help you set up a new website",
-            value: "new-custom",
-          },
+        {
+          name:
+            chalk.blue("Publish to docsmith.aigne.io") +
+            " - free, but your documents will be publicly accessible, recommended for open-source projects",
+          value: "default",
+        },
+        {
+          name: `${chalk.blue("Publish to your existing website")} - use your current website`,
+          value: "custom",
+        },
+        ...(hasCachedCheckoutId
+          ? [
+              {
+                name:
+                  chalk.yellow("Continue your previous website setup") +
+                  " - resume from where you left off",
+                value: "new-custom-continue",
+              },
+            ]
+          : []),
+        {
+          name: `${chalk.blue("Publish to a new website")} - we'll help you set up a new website`,
+          value: "new-custom",
+        },
       ],
     });
-
 
     if (choice === "custom") {
       console.log(
@@ -93,7 +100,7 @@ export default async function publishDocs(
     } else if (["new-custom", "new-custom-continue"].includes(choice)) {
       // Deploy a new Discuss Kit service
       try {
-        let id = '';
+        let id = "";
         if (choice === "new-custom-continue") {
           id = config?.checkoutId;
           console.log(`\nResuming your previous website setup...`);
@@ -105,7 +112,7 @@ export default async function publishDocs(
         appUrl = homeUrl;
         token = ltToken;
       } catch (error) {
-        const errorMsg = error?.message || 'Unknown error occurred';
+        const errorMsg = error?.message || "Unknown error occurred";
         console.error(`${chalk.red("❌ Failed to publish to website:")} ${errorMsg}`);
         return { message: `❌ Publish failed: ${errorMsg}` };
       }
@@ -170,7 +177,7 @@ export default async function publishDocs(
   } catch (error) {
     message = `❌ Failed to publish docs: ${error.message}`;
   }
-  saveValueToConfig('checkoutId', '', 'Checkout ID for document deployment service');
+  saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
 
   // clean up tmp work dir
   await fs.rm(docsDir, { recursive: true, force: true });
