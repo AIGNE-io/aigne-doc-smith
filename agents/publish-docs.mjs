@@ -51,7 +51,7 @@ export default async function publishDocs(
       message: "Select platform to publish your documents:",
       choices: [
           {
-            name: chalk.blue("Publish to docsmith.aigne.io") + " - free, but your documents will be public accessible, recommended for open-source projects",
+            name: chalk.blue("Publish to docsmith.aigne.io") + " - free, but your documents will be publicly accessible, recommended for open-source projects",
             value: "default",
           },
           {
@@ -105,8 +105,9 @@ export default async function publishDocs(
         appUrl = homeUrl;
         token = ltToken;
       } catch (error) {
-        console.error(`${chalk.red("❌ Failed to publish to website:")} ${error.message}`);
-        return { message: `❌ Publish failed: ${error.message}` };
+        const errorMsg = error?.message || 'Unknown error occurred';
+        console.error(`${chalk.red("❌ Failed to publish to website:")} ${errorMsg}`);
+        return { message: `❌ Publish failed: ${errorMsg}` };
       }
     }
   }
