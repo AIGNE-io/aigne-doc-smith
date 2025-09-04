@@ -4,34 +4,68 @@ labels: ["Reference"]
 
 # 语言支持
 
-AIGNE DocSmith 面向全球用户设计，提供十几种语言的自动翻译功能。这使你能够以最少的工作量生成和维护多语言文档，确保你的项目能够被世界各地的用户访问。该翻译功能由 `aigne doc translate` 命令提供支持。
+AIGNE DocSmith 专为全球用户设计，提供十几种语言的自动翻译功能。这使你能够以最小的精力生成和维护多语言文档，确保你的项目能够触达世界各地的用户。整个翻译过程由 `aigne doc translate` 命令处理。
+
+### 翻译工作流
+
+翻译过程会接收你的源文档，通过 AIGNE AI 引擎进行处理，并生成你所指定目标语言的高质量版本。
+
+```d2
+direction: down
+
+Source-Doc: {
+  label: "源文档\n（例如，英语）"
+  shape: document
+}
+
+AI-Engine: {
+  label: "AIGNE DocSmith\nAI 翻译引擎"
+  shape: hexagon
+}
+
+Translated-Docs: {
+  label: "翻译后文档"
+  shape: package
+  grid-columns: 3
+
+  zh: "简体中文"
+  ja: "日本語"
+  es: "Español"
+  fr: "Français"
+  de: "Deutsch"
+  more: "..."
+}
+
+Source-Doc -> AI-Engine: "`aigne doc translate`"
+AI-Engine -> Translated-Docs: "生成"
+```
 
 ## 支持的语言
 
-DocSmith 为以下语言提供高质量的 AI 翻译。你可以在项目设置期间选择你的主要文档语言和任意数量的目标翻译语言。
+DocSmith 为以下语言提供 AI 驱动的翻译。你可以在项目初始化设置时或之后的任何时间，选择你的主要文档语言以及任意数量的目标翻译语言。
 
 | 语言 | 语言代码 |
 |---|---|
-| 英语 (en) | `en` |
+| English (en) | `en` |
 | 简体中文 (zh) | `zh` |
 | 繁體中文 (zh-TW) | `zh-TW` |
-| 日语 (ja) | `ja` |
-| 韩语 (ko) | `ko` |
-| 西班牙语 (es) | `es` |
-| 法语 (fr) | `fr` |
-| 德语 (de) | `de` |
-| 葡萄牙语 (pt) | `pt` |
-| 俄语 (ru) | `ru` |
-| 意大利语 (it) | `it` |
-| 阿拉伯语 (ar) | `ar` |
+| 日本語 (ja) | `ja` |
+| 한국어 (ko) | `ko` |
+| Español (es) | `es` |
+| Français (fr) | `fr` |
+| Deutsch (de) | `de` |
+| Português (pt) | `pt` |
+| Русский (ru) | `ru` |
+| Italiano (it) | `it` |
+| العربية (ar) | `ar` |
 
 ## 如何启用和使用翻译
 
-翻译语言通常在首次使用 `aigne doc init` 初始化项目时进行配置。但是，你可以随时使用 `aigne doc translate` 命令轻松添加新语言或翻译文档。
+翻译语言通常在首次使用 `aigne doc init` 初始化项目时进行配置，但你也可以随时使用 `aigne doc translate` 命令轻松添加新语言或翻译文档。
 
-### 交互模式
+### 便于翻译的交互模式
 
-翻译文档最简单的方法是直接运行该命令，不带任何参数。这将启动一个交互式向导。
+翻译文档最简单的方法是直接运行不带任何参数的命令。该操作会启动一个适合所有用户的交互式向导。
 
 ```bash
 aigne doc translate
@@ -39,13 +73,13 @@ aigne doc translate
 
 交互模式将引导你完成以下操作：
 
-- 选择要翻译的现有文档。
+- 选择你想要翻译的现有文档。
 - 从支持的语言列表中选择目标语言。
-- 将新的翻译语言添加到你的项目配置中。
+- 如果需要，将新的翻译语言添加到你的项目配置中。
 
-### 命令行模式
+### 用于自动化的命令行
 
-为了实现自动化或更直接的控制，你可以将文档和语言指定为命令行参数。这非常适合在脚本或 CI/CD 环境中使用。
+对于需要更直接控制或希望将翻译功能集成到自动化脚本（如 CI/CD 流水线）中的开发者，可以将文档和语言指定为命令行参数。
 
 ```bash
 # 将 overview.md 和 examples.md 翻译成中文和日文
@@ -54,11 +88,11 @@ aigne doc translate --langs zh --langs ja --docs overview.md --docs examples.md
 
 关键参数包括：
 
-- `--langs`: 指定目标语言代码。你可以多次使用此标志以指定多种语言。
-- `--docs`: 指定要翻译的文档的路径。此标志也可以多次使用。
-- `--feedback`: 提供具体说明以提高翻译质量。
-- `--glossary`: 使用自定义术语表文件以确保术语的一致性。
+- `--langs`: 指定目标语言代码。你可以多次使用该标志来指定多种语言。
+- `--docs`: 指定要翻译的文档路径。该参数也可以多次使用。
+- `--feedback`: 提供具体指令以提高翻译质量（例如，“使用正式语气”）。
+- `--glossary`: 使用自定义术语表文件（`@path/to/glossary.md`），以确保项目特定术语的表达一致。
 
 ---
 
-现在你已经了解了支持哪些语言以及如何启用它们，可以开始覆盖更广泛的受众了。有关翻译工作流程及其高级功能的更详细演练，请参阅 [翻译文档](./features-translate-documentation.md) 指南。
+借助此多语言支持，你可以有效地触达更广泛的受众。关于翻译工作流及其高级功能的更详细说明，请参阅 [翻译文档](./features-translate-documentation.md) 指南。

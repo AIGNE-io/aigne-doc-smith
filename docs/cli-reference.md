@@ -12,6 +12,75 @@ The general syntax is:
 aigne doc <command> [options]
 ```
 
+### Command Workflow
+
+The following diagram illustrates the typical lifecycle of creating and maintaining documentation with DocSmith's CLI commands:
+
+```d2
+direction: down
+
+Start: {
+  label: "Project Setup"
+  shape: circle
+}
+
+init: {
+  label: "aigne doc init\n(Interactive Setup)"
+  shape: step
+}
+
+generate: {
+  label: "aigne doc generate\n(Create/Update All Docs)"
+  shape: step
+}
+
+refinement-cycle: {
+  label: "Refinement Cycle"
+  shape: package
+  grid-columns: 2
+
+  update: {
+    label: "aigne doc update\n(Refine Single Doc)"
+  }
+  translate: {
+    label: "aigne doc translate\n(Localize Content)"
+  }
+}
+
+publish: {
+  label: "aigne doc publish\n(Deploy Docs)"
+  shape: step
+}
+
+End: {
+  label: "Docs Live"
+  shape: circle
+  style.fill: "#a2eeaf"
+}
+
+prefs: {
+  label: "aigne doc prefs\n(Manage Learned Rules)"
+  shape: stored_data
+}
+
+Start -> init: "Optional" {
+  style.stroke-dash: 4
+}
+init -> generate: "Configure"
+Start -> generate: "Direct"
+generate -> refinement-cycle: "Refine"
+refinement-cycle -> publish: "Ready"
+generate -> publish: "Direct Deploy"
+publish -> End
+
+prefs <-> generate: "Influences" {
+  style.stroke-dash: 2
+}
+prefs <-> refinement-cycle: "Influences" {
+  style.stroke-dash: 2
+}
+```
+
 ---
 
 ## `aigne doc generate`
@@ -26,7 +95,7 @@ Automatically analyzes your source code and generates a complete set of document
 |---|---|---|
 | `--feedback` | string | Provides feedback to adjust and refine the overall document structure plan. |
 | `--forceRegenerate` | boolean | Discards existing content and regenerates all documentation from scratch. |
-| `--model` | string | Specifies a particular LLM to use for generation (e.g., `openai:gpt-4o`, `claude:claude-3-5-sonnet`). Overrides the default model. |
+| `--model` | string | Specifies a particular LLM to use for generation (e.g., `openai:gpt-4o`). Overrides the default model. |
 | `--glossary` | string | Path to a glossary file for consistent terminology. Use the format `@path/to/glossary.md`. |
 
 ### Usage Examples
@@ -63,9 +132,10 @@ Optimizes and regenerates specific documents. You can run it interactively to se
 
 | Option | Type | Description |
 |---|---|---|
-| `--docs` | array | A list of document paths to regenerate (e.g., `--docs overview.md --docs /features/authentication.md`). |
+| `--docs` | array | A list of document paths to regenerate (e.g., `--docs overview.md`). Can be used multiple times. |
 | `--feedback` | string | Provides specific feedback to improve the content of the selected document(s). |
 | `--glossary` | string | Path to a glossary file for consistent terminology. Use the format `@path/to/glossary.md`. |
+| `--reset` | boolean | Ignores previous results and regenerates content from scratch for the selected documents. |
 
 ### Usage Examples
 
@@ -89,8 +159,8 @@ Translates existing documentation into one or more languages. It can be run inte
 
 | Option | Type | Description |
 |---|---|---|
-| `--docs` | array | A list of document paths to translate. If omitted in interactive mode, you can select them. |
-| `--langs` | array | A list of target language codes (e.g., `zh`, `ja`, `es`). If omitted, you can select them interactively. |
+| `--docs` | array | A list of document paths to translate. Can be used multiple times. |
+| `--langs` | array | A list of target language codes (e.g., `zh`, `ja`, `es`). Can be used multiple times. |
 | `--feedback` | string | Provides feedback to improve the quality of the translation. |
 | `--glossary` | string | Path to a glossary file to ensure consistent terminology across languages. Use `@path/to/glossary.md`. |
 
@@ -123,7 +193,7 @@ Publishes your generated documentation to a Discuss Kit platform. You can publis
 
 | Option | Type | Description |
 |---|---|---|
-| `--appUrl` | string | The URL of your self-hosted Discuss Kit instance. If not provided, the command runs interactively, allowing you to choose between the official platform and a custom URL. |
+| `--appUrl` | string | The URL of your self-hosted Discuss Kit instance. If not provided, the command runs interactively. |
 
 ### Usage Examples
 
@@ -163,7 +233,7 @@ Manages user preferences that DocSmith learns from your feedback over time. Thes
 | `--list` | boolean | Lists all saved preferences, showing their status (active/inactive), scope, and content. |
 | `--remove` | boolean | Removes one or more preferences. Runs interactively if `--id` is not provided. |
 | `--toggle` | boolean | Toggles the active status of one or more preferences. Runs interactively if `--id` is not provided. |
-| `--id` | array | Specifies the preference ID(s) to act upon for `--remove` or `--toggle`. |
+| `--id` | array | Specifies the preference ID(s) to act upon for `--remove` or `--toggle`. Can be used multiple times. |
 
 ### Usage Examples
 

@@ -21,57 +21,60 @@ The entire process, from analyzing your code to publishing the final documents, 
 ```d2
 direction: down
 
-"Source Code & Config": {
-  shape: step
-  label: "Input: Source Code & Configuration"
+Input: {
+  label: "Source Code & Config"
+  shape: package
 }
 
-"Structure Planning": {
-  shape: step
-  label: "1. Structure Planning"
+Pipeline: {
+  label: "Documentation Generation Pipeline"
+  grid-columns: 1
+  grid-gap: 40
+
+  Structure-Planning: {
+    label: "1. Structure Planning\n(reflective-structure-planner)"
+    shape: step
+  }
+
+  Content-Generation: {
+    label: "2. Content Generation\n(content-detail-generator)"
+    shape: step
+  }
+
+  Saving: {
+    label: "3. Save Documents\n(save-docs)"
+    shape: step
+  }
 }
 
-"Content Generation": {
-  shape: step
-  label: "2. Content Generation"
-}
-
-"Saving & Output": {
-  shape: step
-  label: "3. Saving & Output"
-}
-
-"Optional Processes": {
-  shape: diamond
-  label: "4. Optional Processes"
-}
-
-"Translation": {
-  shape: step
-  label: "Translation"
-}
-
-"Publishing": {
-  shape: step
-  label: "Publishing"
-}
-
-"Feedback Loop": {
+User-Feedback: {
+  label: "User Feedback Loop\n(via --feedback flag)"
   shape: callout
-  label: "User Feedback Loop"
 }
 
-"Source Code & Config" -> "Structure Planning"
-"Structure Planning" -> "Content Generation"
-"Content Generation" -> "Saving & Output"
-"Saving & Output" -> "Optional Processes"
+Optional-Steps: {
+  label: "Optional Steps"
+  grid-columns: 2
+  grid-gap: 40
+  
+  Translation: {
+    label: "Translate\n(aigne doc translate)"
+    shape: step
+  }
 
-"Optional Processes" -> "Translation": "Translate Docs"
-"Optional Processes" -> "Publishing": "Publish Docs"
+  Publishing: {
+    label: "Publish\n(aigne doc publish)"
+    shape: step
+  }
+}
 
-"Structure Planning" <- "Feedback Loop": "Refine Structure"
-"Content Generation" <- "Feedback Loop": "Regenerate Content"
+Input -> Pipeline.Structure-Planning
+Pipeline.Structure-Planning -> Pipeline.Content-Generation
+Pipeline.Content-Generation -> Pipeline.Saving
+Pipeline.Saving -> Optional-Steps
 
+User-Feedback -> Pipeline.Structure-Planning: "Refine Structure"
+User-Feedback -> Pipeline.Content-Generation: "Regenerate Content"
 ```
 
 1.  **Input Analysis**: The process begins with agents like `load-sources` and `load-config`, which gather your source code, configuration files (`aigne.yaml`), and any user-defined rules.
@@ -95,7 +98,7 @@ DocSmith's power comes from its team of specialized agents. While many agents wo
 | **Translation Agent** | Translates generated documentation into multiple target languages. | `translate.yaml`, `batch-translate.yaml` |
 | **Refinement Agent** | Regenerates or modifies content and structure based on user feedback. | `detail-regenerator.yaml`, `feedback-refiner.yaml` |
 | **Publishing Agent** | Manages the process of publishing documents to Discuss Kit instances. | `publish-docs.mjs`, `team-publish-docs.yaml` |
-| **Configuration Loader** | Reads and interprets the project's configuration from `aigne.yaml`. | `load-config.mjs` |
+| **Configuration Loader** | Reads and interprets the project's configuration and source files. | `load-config.mjs`, `load-sources.mjs` |
 
 This modular, agent-based architecture makes DocSmith highly flexible and robust, allowing each step of the process to be optimized independently.
 

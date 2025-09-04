@@ -4,7 +4,67 @@ labels: ["Reference"]
 
 # Translate Documentation
 
-AIGNE DocSmith helps you reach a global audience by automatically translating your documentation into over 12 languages. This feature streamlines the localization process, ensuring your content is accessible to users worldwide with a single command.
+AIGNE DocSmith helps you reach a global audience by automatically translating your documentation into over 12 languages. This feature streamlines the localization process, ensuring your content is accessible to users worldwide. You can translate documents easily through an interactive wizard or automate the process using command-line flags for more advanced control.
+
+### Translation Workflow Overview
+
+The `aigne doc translate` command offers two primary modes of operation, as illustrated below:
+
+```d2
+direction: down
+
+start: {
+  label: "Run 'aigne doc translate'"
+  shape: rectangle
+}
+
+interactive_vs_cli: {
+  label: "With or without\narguments?"
+  shape: diamond
+}
+
+interactive_path: {
+  label: "Interactive Mode"
+  shape: package
+  grid-columns: 1
+
+  select_docs: {
+    label: "1. Select Documents"
+    shape: step
+  }
+  select_langs: {
+    label: "2. Choose Languages"
+    shape: step
+  }
+}
+
+cli_path: {
+  label: "CLI Mode"
+  shape: package
+
+  flags: {
+    label: "Provide arguments\n--docs, --langs, etc."
+    shape: step
+  }
+}
+
+ai_translation: {
+  label: "AI-Powered Translation"
+  shape: rectangle
+}
+
+end: {
+  label: "Translated Documents\nSaved"
+  shape: document
+}
+
+start -> interactive_vs_cli
+interactive_vs_cli -> interactive_path: "Without args"
+interactive_vs_cli -> cli_path: "With args"
+interactive_path -> ai_translation
+cli_path -> ai_translation
+ai_translation -> end
+```
 
 ## Easy Translation with Interactive Mode
 

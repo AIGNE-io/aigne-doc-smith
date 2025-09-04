@@ -11,6 +11,61 @@ This guide covers how to:
 - Manually regenerate specific documents with targeted feedback.
 - Optimize the overall documentation structure.
 
+### Update Workflows
+
+The following diagram illustrates the different paths you can take to update your documentation:
+
+```d2
+direction: down
+
+Start: {
+  shape: circle
+  label: "Start"
+}
+
+Code-Change: {
+  label: "Source Code or\nConfig Changes"
+  shape: document
+}
+
+Content-Tweak: {
+  label: "Need Content\nImprovement?"
+  shape: document
+}
+
+Structure-Tweak: {
+  label: "Need Structure\nImprovement?"
+  shape: document
+}
+
+Start -> Code-Change
+Start -> Content-Tweak
+Start -> Structure-Tweak
+
+Code-Change -> Generate-Command: "`aigne doc generate`"
+
+Generate-Command -> Smart-Detection: {
+  label: "Smart Detection\n(Analyzes Changes)"
+  shape: diamond
+}
+Smart-Detection -> Auto-Regen: "Regenerates\nAffected Docs"
+
+Content-Tweak -> Update-Command: "`aigne doc update --feedback`"
+Update-Command -> Manual-Regen: "Regenerates\nSpecific Doc"
+
+Structure-Tweak -> Generate-Feedback-Command: "`aigne doc generate --feedback`"
+Generate-Feedback-Command -> Replan: "Re-plans Document\nStructure"
+
+End: {
+  shape: circle
+  label: "Docs Updated"
+}
+
+Auto-Regen -> End
+Manual-Regen -> End
+Replan -> End
+```
+
 ---
 
 ## Automatic Updates with Smart Detection
@@ -63,10 +118,10 @@ aigne doc update --docs overview.md --feedback "Add a more comprehensive FAQ sec
 
 Key parameters for the `update` command:
 
-| Parameter | Description |
-|---|---|
-| `--docs` | The path to the document you want to update. You can use this flag multiple times for multiple documents. |
-| `--feedback` | The specific feedback or instructions for the AI to use when regenerating the content. |
+| Parameter  | Description                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------ |
+| `--docs`     | The path to the document you want to update. You can use this flag multiple times.                 |
+| `--feedback` | The specific feedback or instructions for the AI to use when regenerating the content.           |
 
 ---
 

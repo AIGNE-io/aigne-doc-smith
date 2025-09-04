@@ -13,24 +13,28 @@ This guide covers how to publish your documentation, whether you're using the fr
 The `aigne doc publish` command initiates an interactive process that guides you through the necessary steps. The diagram below shows the typical workflow for publishing your documentation for the first time.
 
 ```d2
-shape: sequence_diagram
+direction: down
 
-User; CLI; "Discuss Kit Platform"
+User: { shape: person }
+CLI: { label: "AIGNE CLI" }
+Browser: { label: "Browser" }
+Platform: { label: "Discuss Kit Platform" }
 
-User -> CLI: runs `aigne doc publish`
+User -> CLI: aigne doc publish
 
-alt "First time or not configured"
-  CLI -> User: "Prompt: Select platform"
-  User -> CLI: "Selects Official or Self-Hosted"
-  CLI -> User: "Opens browser for authentication"
-  User -> "Discuss Kit Platform": "Logs in and authorizes"
-  "Discuss Kit Platform" -> CLI: "Provides access token"
-  CLI -> CLI: "Saves token for future use"
-end
+alt: "First-time publish or missing config" {
+  CLI -> User: "Select Platform\n(Official / Self-Hosted)"
+  User -> CLI: "Provides selection"
+  CLI -> Browser: "Opens authentication URL"
+  User -> Browser: "Logs in & authorizes"
+  Browser -> Platform: "Sends credentials"
+  Platform -> CLI: "Returns Access Token"
+  CLI -> CLI: "Saves Token for future use"
+}
 
-CLI -> "Discuss Kit Platform": "Uploads documentation & media"
-"Discuss Kit Platform" -> CLI: "Confirms success"
-CLI -> User: "✅ Documentation Published Successfully!"
+CLI -> Platform: "Uploads docs & media files"
+Platform -> CLI: "Success response"
+CLI -> User: "✅ Published Successfully!"
 ```
 
 ## Publishing Options

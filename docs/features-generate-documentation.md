@@ -45,22 +45,46 @@ The `generate` command follows a clear, automated workflow to ensure consistent 
 ```d2
 direction: down
 
-start: "Start"
-run_cmd: "Run `aigne doc generate`"
-check_config: "Configuration exists?" {
+start: "Start" {
+  shape: oval
+}
+
+run_cmd: "Run `aigne doc generate`" {
+  shape: rectangle
+}
+
+check_config: "Configuration Found?" {
   shape: diamond
 }
-interactive_setup: "Interactive Setup Wizard"
-plan_structure: "Analyze Code & Plan Structure"
-gen_content: "Generate Document Content"
-save_docs: "Save Documents to Output Directory"
-end: "End"
 
-start -> run_cmd -> check_config
+interactive_setup: "Launch Interactive Setup Wizard" {
+  shape: rectangle
+}
+
+plan_structure: "1. Analyze Code & Plan Structure" {
+  shape: rectangle
+}
+
+gen_content: "2. Generate Document Content" {
+  shape: rectangle
+}
+
+save_docs: "3. Save Documents" {
+  shape: rectangle
+}
+
+end: "End" {
+  shape: oval
+}
+
+start -> run_cmd
+run_cmd -> check_config
 check_config -> interactive_setup: "No"
 interactive_setup -> plan_structure
 check_config -> plan_structure: "Yes"
-plan_structure -> gen_content -> save_docs -> end
+plan_structure -> gen_content
+gen_content -> save_docs
+save_docs -> end
 ```
 
 ## Fine-Tuning Your Generation
@@ -79,4 +103,4 @@ Now that you have generated your initial documentation, your project will contin
 
 <x-card data-title="Update and Refine" data-icon="lucide:file-edit" data-href="/features/update-and-refine">
   Discover how to intelligently update documents when your code changes or make specific improvements using feedback.
-</x-card>.
+</x-card>

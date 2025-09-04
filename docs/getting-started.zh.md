@@ -1,37 +1,33 @@
----
-labels: ["Reference"]
----
-
 # 快速入门
 
-本指南将引导你完成 AIGNE DocSmith 的安装、首个项目的配置，并在短短几分钟内生成一套完整的文档。整个过程设计得非常简单，只需一个命令即可开始。
+本指南将引导您完成安装 AIGNE DocSmith、配置您的第一个项目以及在几分钟内生成一套完整文档的基本步骤。
 
-## 前提条件
+## 第 1 步：先决条件
 
-在开始之前，请确保你的系统上已安装以下软件：
+在开始之前，请确保您的系统上已安装 Node.js 和 pnpm。AIGNE DocSmith 是一个基于此生态系统构建的命令行工具。
 
 - [Node.js](https://nodejs.org/)
 - [pnpm](https://pnpm.io/)
 
-## 第 1 步：安装 AIGNE CLI
+## 第 2 步：安装 AIGNE CLI
 
-DocSmith 通过 AIGNE 命令行界面 (CLI) 提供。使用 npm 全局安装最新版本：
+使用 npm 全局安装最新版本的 AIGNE CLI。这个单一的软件包让您可以访问全套的 AIGNE 工具，包括 DocSmith。
 
 ```bash
 npm i -g @aigne/cli
 ```
 
-安装完成后，通过检查文档工具的帮助命令来验证是否安装成功：
+要验证安装是否成功，请运行帮助命令：
 
 ```bash
 aigne doc -h
 ```
 
-该命令应显示可用的 `doc` 命令及其选项列表。
+此命令会显示 DocSmith 的帮助菜单，确认其已准备就绪。
 
-## 第 2 步：生成文档
+## 第 3 步：生成您的文档
 
-安装 AIGNE CLI 后，你只需一个命令即可生成文档。进入项目根目录并运行：
+安装 CLI 后，您可以通过一个命令生成您的第一套文档。导航到您项目的根目录并运行：
 
 ```bash
 aigne doc generate
@@ -39,36 +35,44 @@ aigne doc generate
 
 ### 智能自动配置
 
-如果你是首次在项目中运行 DocSmith，它会自动检测到尚无配置，并启动一个交互式设置向导来引导你完成配置。
+当您在一个新项目中首次运行此命令时，DocSmith 的交互式设置向导将自动启动，引导您完成配置。
 
-![运行 generate 命令会触发智能初始化向导](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+![运行 generate 命令会启动智能设置](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-## 第 3 步：配置项目
+系统会询问您几个问题，以根据您的需求定制文档，包括：
 
-交互式向导将提出一系列问题，以根据你的具体需求定制文档。系统将提示你定义以下内容：
-
-- 文档的主要用途和风格。
-- 目标受众及其技术知识水平。
-- 主要语言以及任何需要翻译的其他语言。
+- 文档的主要目的和风格。
+- 您为之写作的目标受众。
+- 主要语言以及用于翻译的其他语言。
 - 供 AI 分析的源代码路径。
 - 用于保存文档的输出目录。
 
-![回答一系列问题以完成项目设置](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![回答问题以完成项目设置](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-## 第 4 步：查看新文档
+配置完成后，DocSmith 将分析您的源代码，规划文档结构，并开始生成内容。
 
-完成配置后，DocSmith 将开始生成过程。它会分析你的代码，规划出逻辑清晰的文档结构，并为每个部分撰写内容。
+![DocSmith 规划结构并生成文档](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-![DocSmith 规划文档结构并生成内容](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+## 第 4 步：查看您的输出
 
-完成后，你将在终端中看到一条成功消息。你的新文档现已在你指定的输出目录（例如 `.aigne/doc-smith/docs`）中准备就绪。
+就是这样！流程结束后，您会看到一条确认消息。
 
-![成功消息确认你的文档已准备就绪](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+![文档生成成功](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
-## 接下来呢？
+您可以在设置期间指定的输出目录中找到新创建的文档。默认情况下，该目录是 `.aigne/doc-smith/docs`。
 
-你已成功安装 DocSmith 并生成了第一套文档。现在，你可以开始更详细地探索其功能了。
+## 接下来做什么？
 
-<x-card data-title="探索核心功能" data-icon="lucide:compass" data-href="/features" data-cta="了解更多">
-  深入了解 DocSmith 的主要命令和功能，从更新文档到在线发布。
-</x-card>
+您已成功生成第一套文档。接下来，您可能想了解以下内容：
+
+<x-cards>
+  <x-card data-title="核心功能" data-icon="lucide:box" data-href="/features">
+    探索主要命令和功能，从更新文档到在线发布。
+  </x-card>
+  <x-card data-title="配置指南" data-icon="lucide:settings" data-href="/configuration">
+    深入了解 config.yaml 文件，以微调文档的风格、受众和语言。
+  </x-card>
+  <x-card data-title="CLI 命令参考" data-icon="lucide:terminal" data-href="/cli-reference">
+    获取所有可用的 `aigne doc` 命令及其选项的完整参考。
+  </x-card>
+</x-cards>
