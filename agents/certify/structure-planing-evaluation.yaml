@@ -1,0 +1,93 @@
+name: structurePlanEvaluation
+description: 对 structure-planning agent 生成的结果进行评估，确保其符合预期，特别是在有上一轮生成结果和用户反馈的场景下。
+instructions:
+  url: ../../prompts/certify/structure-planing-evaluation.md
+input_schema:
+  type: object
+  properties:
+    structurePlanYaml:
+      type: string
+      description: 结构规划
+    purposes:
+      type: string
+      description: 用户选择的文档目标
+    audiences:
+      type: string
+      description: 用户选择的受众群体
+    coverageDepth:
+      type: string
+      description: 用户选择的内容深度
+  required:
+    - structurePlanYaml
+    - purposes
+    - audiences
+    - coverageDepth
+output_schema:
+  type: object
+  properties:
+    purposeCoverage:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: 文档目标覆盖度评分，1-5分
+        reason:
+          type: string
+          description: 简明解释覆盖情况与影响
+        covered:
+          type: array
+          items:
+            type: string
+          description: 已覆盖的目标列表
+        missing:
+          type: array
+          items:
+            type: string
+          description: 未覆盖的目标列表
+      required:
+        - score
+        - reason
+    audienceCoverage:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: 目标受众覆盖度评分，1-5分
+        reason:
+          type: string
+          description: 简明解释覆盖情况与影响
+        covered:
+          type: array
+          items:
+            type: string
+          description: 已覆盖的受众列表
+        missing:
+          type: array
+          items:
+            type: string
+          description: 未覆盖的受众列表
+      required:
+        - score
+        - reason
+    coverageDepthAlignment:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: 全面程度符合度评分，1-5分
+        reason:
+          type: string
+          description: 简明解释覆盖情况与影响
+      required:
+        - score
+        - reason
+  required:
+    - purposeCoverage
+    - audienceCoverage
+    - coverageDepthAlignment

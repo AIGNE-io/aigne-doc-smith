@@ -1,8 +1,12 @@
 import { stringify } from "yaml";
 
-export default async function formatStructurePlan({ structurePlan }) {
+export default async function formatStructurePlan({ structurePlan, originalStructurePlan }) {
+  if (!structurePlan && !originalStructurePlan) {
+    throw new Error("Please run 'aigne doc generate' to generate documentation first!");
+  }
+
   // Extract required fields from each item in structurePlan
-  const formattedData = structurePlan.map((item) => ({
+  const formattedData = (structurePlan || originalStructurePlan)?.map((item) => ({
     title: item.title,
     path: item.path,
     parentId: item.parentId,

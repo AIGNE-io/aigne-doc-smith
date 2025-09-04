@@ -934,7 +934,10 @@ export function processConfigFields(config) {
       .filter(Boolean);
 
     if (purposeRules.length > 0) {
-      allRulesContent.push(purposeRules.join("\n\n"));
+      const purposes = purposeRules.join("\n\n");
+      allRulesContent.push(purposes);
+
+      processed.purposes = purposes;
     }
   }
 
@@ -951,7 +954,10 @@ export function processConfigFields(config) {
       .filter(Boolean);
 
     if (audienceRules.length > 0) {
-      allRulesContent.push(audienceRules.join("\n\n"));
+      const audiences = audienceRules.join("\n\n");
+      allRulesContent.push(audiences);
+
+      processed.audiences = audiences;
     }
 
     // Get names for targetAudience field
@@ -976,20 +982,26 @@ export function processConfigFields(config) {
   // Process reader knowledge level (single value)
   let knowledgeContent = "";
   if (config.readerKnowledgeLevel) {
-    knowledgeContent = READER_KNOWLEDGE_LEVELS[config.readerKnowledgeLevel]?.content;
-    if (knowledgeContent) {
+    const knowledgeLevel = READER_KNOWLEDGE_LEVELS[config.readerKnowledgeLevel];
+    if (knowledgeLevel) {
+      knowledgeContent = knowledgeLevel.content;
       processed.readerKnowledgeContent = knowledgeContent;
       allRulesContent.push(`Reader Knowledge Level:\n${knowledgeContent}`);
+
+      processed.readerKnowledgeLevel = `Reader Knowledge Level - ${knowledgeLevel.name} : ${knowledgeLevel.description} \n${knowledgeContent}`;
     }
   }
 
   // Process documentation depth (single value)
   let depthContent = "";
   if (config.documentationDepth) {
-    depthContent = DOCUMENTATION_DEPTH[config.documentationDepth]?.content;
-    if (depthContent) {
+    const depthLevel = DOCUMENTATION_DEPTH[config.documentationDepth];
+    if (depthLevel) {
+      depthContent = depthLevel.content;
       processed.documentationDepthContent = depthContent;
       allRulesContent.push(`Documentation Depth:\n${depthContent}`);
+
+      processed.coverageDepth = `Documentation Depth - ${depthLevel.name} : ${depthLevel.description} \n${depthContent}`;
     }
   }
 
