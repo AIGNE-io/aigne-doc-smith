@@ -51,6 +51,9 @@ direction: right
   <x-card data-title="发布您的文档" data-icon="lucide:send" data-href="/features/publish-your-docs">
     通过一个交互式命令，将您生成的文档发布到 DocSmith 官方平台或您自己托管的实例上。
   </x-card>
+  <x-card data-title="部署 Discuss Kit 服务" data-icon="lucide:rocket" data-href="/features/deploy-discuss-kit">
+    自动部署新的专用 Discuss Kit 服务来托管您的文档，无需任何手动配置。
+  </x-card>
 </x-cards>
 
-这些核心功能协同工作，共同打造无缝的文档工作流。要详细了解所有可用命令及其选项，请参阅 [CLI 命令参考](./cli-reference.md)。
+这些核心功能协同工作，共同打造无缝的文档工作流。要详细了解所有可用命令及其选项，请参阅 [CLI 命令参考](./cli-reference.md).
