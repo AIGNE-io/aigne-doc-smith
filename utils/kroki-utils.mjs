@@ -145,7 +145,9 @@ export async function checkD2Content({ content }) {
   await fs.ensureDir(assetDir);
   const d2Content = [D2_CONFIG, content].join("\n");
   const fileName = `${getContentHash(d2Content)}.svg`;
+  const d2FileName = `${getContentHash(d2Content)}.d2`;
   const svgPath = path.join(assetDir, fileName);
+  const d2Path = path.join(assetDir, d2FileName);
   if (await fs.pathExists(svgPath)) {
     if (process.env.DEBUG) {
       console.log("Found assets cache, skipping generation", svgPath);
@@ -155,6 +157,7 @@ export async function checkD2Content({ content }) {
 
   const svg = await getD2Svg({ content: d2Content, strict: true });
   await fs.writeFile(svgPath, svg, { encoding: "utf8" });
+  await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
 }
 
 export async function ensureTmpDir() {
