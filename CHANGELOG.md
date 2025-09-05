@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.3...v0.8.4) (2025-09-05)
+
+
+### Bug Fixes
+
+* parse markdown code blocks into custom x-code element ([#89](https://github.com/AIGNE-io/aigne-doc-smith/issues/89)) ([96ea776](https://github.com/AIGNE-io/aigne-doc-smith/commit/96ea7761299b93ea406abe04193f531fc406ccfa))
+
 ## [0.8.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.2...v0.8.3) (2025-09-05)
 
 
