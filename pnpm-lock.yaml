@@ -27,8 +27,8 @@ importers:
         specifier: ^0.14.0
         version: 0.14.0(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/publish-docs':
-        specifier: ^0.9.2
-        version: 0.9.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
+        specifier: ^0.9.3
+        version: 0.9.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
       chalk:
         specifier: ^5.5.0
         version: 5.5.0
@@ -157,8 +157,8 @@ packages:
   '@aigne/poe@1.0.17':
     resolution: {integrity: sha512-lsPIjbQMz6zTK/ByHH9wr1z8ZALSp/qsGsAOYl9ha5kYWMx5+aihFRoPTwWjlp63+RaVkNGcIGpVYhrEHwCr1w==}
 
-  '@aigne/publish-docs@0.9.2':
-    resolution: {integrity: sha512-tI8mh49o9xLfT41mSy8n02DGbATL84IauDFRDh/Mm0dy5389acT6TNJtJlmow5FAggNOLoiaLHl5l9KtO3WiHA==}
+  '@aigne/publish-docs@0.9.3':
+    resolution: {integrity: sha512-0lIkkQKquDJacUn6K8lAKuH2immLWMl+xpcPVC0tgk3fkrK+ynYVcpVDbkoqZUAxvKZtMdWlko5+PsMEFavfqQ==}
 
   '@aigne/sqlite@0.4.1':
     resolution: {integrity: sha512-npOrVQSUMuq8hZIMRuwEOynUAu1R/h0f27gI6CmPLo2T43zqg/w/sakR2sJyjL/jO/KZw3YDkcw9APzErO5sXw==}
@@ -2590,6 +2590,10 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
+  he@1.2.0:
+    resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
+    hasBin: true
+
   highlight.js@10.7.3:
     resolution: {integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==}
 
@@ -4916,7 +4920,7 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/publish-docs@0.9.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)':
+  '@aigne/publish-docs@0.9.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)':
     dependencies:
       '@lexical/code': 0.33.1
       '@lexical/headless': 0.33.1
@@ -4928,6 +4932,7 @@ snapshots:
       '@lexical/table': 0.33.1
       chalk: 5.5.0
       gray-matter: 4.0.3
+      he: 1.2.0
       image-size: 2.0.2
       jsdom: 26.1.0
       jsonwebtoken: 9.0.2
@@ -8191,6 +8196,8 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  he@1.2.0: {}
 
   highlight.js@10.7.3: {}
 
