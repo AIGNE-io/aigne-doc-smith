@@ -14,6 +14,8 @@ import {
 } from "./constants.mjs";
 import { getContentHash } from "./utils.mjs";
 
+const isDebug = process.env.DEBUG?.includes("doc-smith");
+
 export async function getChart({ chart = "d2", format = "svg", content, strict }) {
   const baseUrl = "https://chart.abtnet.io";
 
@@ -70,20 +72,27 @@ export async function saveD2Assets({ markdown, docsDir }) {
       const svgPath = path.join(assetDir, fileName);
 
       if (await fs.pathExists(svgPath)) {
-        if (process.env.DEBUG) {
+        if (isDebug) {
           console.log("Found assets cache, skipping generation", svgPath);
         }
       } else {
-        if (process.env.DEBUG) {
-          console.log("start generate d2 chart", svgPath);
-        }
         try {
+          if (isDebug) {
+            console.log("start generate d2 chart", svgPath);
+            const d2FileName = `${getContentHash(d2Content)}.d2`;
+            const d2Path = path.join(assetDir, d2FileName);
+            await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
+          }
+
+          const d2FileName = `${getContentHash(d2Content)}.d2`;
+          const d2Path = path.join(assetDir, d2FileName);
+          await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
           const svg = await getD2Svg({ content: d2Content });
           if (svg) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
         } catch (error) {
-          if (process.env.DEBUG) {
+          if (isDebug) {
             console.warn("Failed to generate D2 chart:", error);
           }
           return _code;
@@ -145,13 +154,16 @@ export async function checkD2Content({ content }) {
   await fs.ensureDir(assetDir);
   const d2Content = [D2_CONFIG, content].join("\n");
   const fileName = `${getContentHash(d2Content)}.svg`;
-  const d2FileName = `${getContentHash(d2Content)}.d2`;
   const svgPath = path.join(assetDir, fileName);
-  const d2Path = path.join(assetDir, d2FileName);
-  await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
+
+  if (isDebug) {
+    const d2FileName = `${getContentHash(d2Content)}.d2`;
+    const d2Path = path.join(assetDir, d2FileName);
+    await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
+  }
 
   if (await fs.pathExists(svgPath)) {
-    if (process.env.DEBUG) {
+    if (isDebug) {
       console.log("Found assets cache, skipping generation", svgPath);
     }
     return;
