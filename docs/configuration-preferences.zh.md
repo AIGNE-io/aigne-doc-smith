@@ -1,123 +1,86 @@
----
-labels: ["Reference"]
----
-
 # 管理偏好
 
-DocSmith 旨在通过您的反馈进行学习。当您优化文档并提供更正时，系统可以将这些反馈转化为称为“偏好”的持久、可重用的规则。这确保了您的风格选择、结构约定和具体指令在未来的操作中能够被记住并一致地应用。
+AIGNE DocSmith 旨在通过学习你的反馈进行优化。当你优化或修正生成的内容时，DocSmith 会将这些反馈转化为持久的规则，称为偏好。这些规则确保了你在未来的文档任务中能够始终应用你特定的风格、结构要求和内容策略。所有偏好都存储在项目根目录下的人类可读的 YAML 文件中，路径为 `.aigne/doc-smith/preferences.yml`。
 
-所有偏好都存储在项目根目录下名为 `.aigne/doc-smith/preferences.yml` 的人类可读 YAML 文件中。虽然您可以查看此文件，但建议使用专用的 `aigne doc prefs` 命令行界面来管理您的偏好。
+## DocSmith 如何从反馈中学习
 
-## 偏好是如何创建的
+当你在 `refine` 或 `translate` 阶段提供反馈时，一个名为“Feedback Refiner”的内部 Agent 会分析你的输入。其目标是区分一次性修复（例如，修正一个拼写错误）和可重用的策略（例如，“代码注释必须用英文编写”）。如果它判断该反馈代表一个长期有效的指令，就会创建一条新的偏好规则。
 
-偏好在 `aigne doc refine` 等命令的反馈周期中自动生成。其过程如下：
+每条规则都有几个关键属性来定义其行为：
 
-```d2
-direction: right
-
-User: {
-  shape: person
-  label: "用户"
-}
-
-Refine: "`aigne doc refine` 命令"
-
-FeedbackRefiner: "反馈→规则转换器"
-
-PreferencesFile: "preferences.yml" {
-  shape: document
-}
-
-User -> Refine: "提供反馈，例如‘不要翻译变量名’"
-Refine -> FeedbackRefiner: "发送反馈进行分析"
-FeedbackRefiner -> PreferencesFile: "保存新的可重用规则" {
-  style.animated: true
-}
-
-```
-
-1.  **反馈输入**：您在优化会话期间提供自然语言反馈。
-2.  **规则生成**：一个内部 Agent 会分析您的反馈，以确定它代表的是可重用策略还是一次性修复。
-3.  **规则创建**：如果被认为是可重用的，它会创建一个结构化规则，包含特定的作用域（例如，`document`、`translation`）、唯一的 ID 以及指令本身。
-4.  **持久化**：新规则被保存到 `preferences.yml` 文件中，使其在未来的任务中生效。
+| 属性 | 描述 |
+|---|---|
+| **ID** | 规则的唯一标识符（例如，`pref_a1b2c3d4`）。 |
+| **Rule** | 在未来任务中将传递给 AI 的实际指令。 |
+| **Scope** | 定义规则的应用时机：`global`、`structure`、`document` 或 `translation`。 |
+| **Active** | 一个布尔值（`true`/`false`），指示规则当前是否启用。 |
+| **Paths** | 一个可选的文件或目录路径列表。如果存在，该规则仅适用于为这些特定路径生成的内容。 |
+| **Feedback** | 你提供的原始自然语言反馈。 |
 
 ## 通过 CLI 管理偏好
 
-`aigne doc prefs` 命令是您查看和管理所有已保存偏好的主要工具。
+你可以使用 `aigne doc prefs` 命令轻松查看和管理所有已保存的偏好。该命令允许你列出、激活、停用或永久删除规则。
 
 ### 列出所有偏好
 
-要查看所有偏好的格式化列表，请使用 `--list` 标志。
+要查看所有已保存的偏好（包括激活和未激活的），请使用 `--list` 标志。
 
 ```bash
 aigne doc prefs --list
 ```
 
-输出清晰地展示了每个规则的概览：
+该命令会显示一个格式化的列表，解释每条规则的状态、作用域、ID 以及任何路径限制。
+
+**输出示例：**
 
 ```text
 # 用户偏好
 
 **格式说明：**
-- 🟢 = 活动偏好, ⚪ = 非活动偏好
+- 🟢 = 激活的偏好, ⚪ = 未激活的偏好
 - [scope] = 偏好作用域 (global, structure, document, translation)
-- ID = 唯一偏好标识符
-- Paths = 特定文件路径 (如果适用)
+- ID = 偏好唯一标识符
+- Paths = 特定文件路径 (如适用)
 
-🟢 [translation] pref_1a2b3c4d
-   在翻译期间保持代码和标识符不变，不得翻译它们。
+🟢 [structure] pref_a1b2c3d4e5f6g7h8 | Paths: overview.md
+   在概览文档末尾添加“后续步骤”部分。
 
-⚪ [structure] pref_5e6f7g8h | 路径：overview.md, tutorials.md
-   在概述和教程文档末尾添加“后续步骤”部分，并附上 2-3 个仓库内的链接。
+⚪ [document] pref_i9j0k1l2m3n4o5p6
+   代码注释必须用英文编写。
 ```
-
-- **状态 (🟢 / ⚪)**：显示规则当前是活动还是非活动状态。
-- **作用域**：指明规则的应用范围（例如，`translation`、`structure`）。
-- **ID**：用于管理规则的唯一标识符。
-- **路径**：如果规则仅限于特定文件，这些文件将在此处列出。
 
 ### 切换偏好状态
 
-您可以使用 `--toggle` 标志来激活或停用偏好。这在临时禁用某个规则而不想永久删除它时非常有用。
+如果你想临时禁用某条规则而不删除它，可以切换其激活状态。请使用 `--toggle` 标志。
 
-**交互模式**
-
-如果您在运行命令时未指定 ID，将会出现一个交互式提示，允许您选择多个规则进行切换。
+在不带 ID 的情况下运行该命令将启动交互模式，允许你选择一个或多个偏好来切换状态：
 
 ```bash
 aigne doc prefs --toggle
 ```
 
-**按 ID 操作**
-
-要切换特定规则的状态，请使用 `--id` 选项提供其 ID。
+要直接切换特定规则的状态，请使用 `--id` 标志提供其 ID：
 
 ```bash
-aigne doc prefs --toggle --id pref_5e6f7g8h
+aigne doc prefs --toggle --id pref_i9j0k1l2m3n4o5p6
 ```
 
 ### 删除偏好
 
-要永久删除一个或多个偏好，请使用 `--remove` 标志。
+要永久删除一个或多个偏好，请使用 `--remove` 标志。此操作无法撤销。
 
-**交互模式**
-
-在不带 ID 的情况下运行该命令将启动一个交互式选择提示。
+要进入交互式选择提示，请在不带 ID 的情况下运行该命令：
 
 ```bash
 aigne doc prefs --remove
 ```
 
-**按 ID 操作**
-
-要删除特定规则，请传递其 ID。
+要通过 ID 直接删除特定规则，请使用 `--id` 标志：
 
 ```bash
-aigne doc prefs --remove --id pref_1a2b3c4d
+aigne doc prefs --remove --id pref_i9j0k1l2m3n4o5p6
 ```
 
-此操作不可逆，请谨慎使用。
+## 后续步骤
 
----
-
-通过管理您的偏好，您可以随着时间的推移微调 DocSmith 的行为，使文档处理过程越来越自动化，并与您项目的特定需求保持一致。要了解如何提供反馈，您可以在 [更新与优化](./features-update-and-refine.md) 指南中了解更多信息。
+管理偏好是根据项目特定需求定制 DocSmith 的关键部分。要了解更多自定义选项，请查阅主[配置指南](./configuration.md)。

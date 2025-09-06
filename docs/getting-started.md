@@ -1,37 +1,33 @@
----
-labels: ["Reference"]
----
-
 # Getting Started
 
-This guide will walk you through installing AIGNE DocSmith, configuring your first project, and generating a complete set of documentation in just a few minutes. The process is designed to be straightforward, with a single command to get you started.
+This guide will walk you through the essential steps to install AIGNE DocSmith, configure your first project, and generate a complete set of documentation in just a few minutes.
 
-## Prerequisites
+## Step 1: Prerequisites
 
-Before you begin, ensure you have the following installed on your system:
+Before you begin, ensure you have Node.js and pnpm installed on your system. AIGNE DocSmith is a command-line tool built on this ecosystem.
 
 - [Node.js](https://nodejs.org/)
 - [pnpm](https://pnpm.io/)
 
-## Step 1: Install AIGNE CLI
+## Step 2: Install AIGNE CLI
 
-DocSmith is available through the AIGNE Command Line Interface (CLI). Install the latest version globally using npm:
+Install the latest version of the AIGNE CLI globally using npm. This single package gives you access to the full suite of AIGNE tools, including DocSmith.
 
 ```bash
 npm i -g @aigne/cli
 ```
 
-Once the installation is complete, verify that it was successful by checking the help command for the documentation tool:
+To verify that the installation was successful, run the help command:
 
 ```bash
 aigne doc -h
 ```
 
-This command should display a list of available `doc` commands and their options.
+This command displays the help menu for DocSmith, confirming it's ready to use.
 
-## Step 2: Generate Your Documentation
+## Step 3: Generate Your Documentation
 
-With the AIGNE CLI installed, you can generate your documentation with a single command. Navigate to your project's root directory and run:
+With the CLI installed, you can generate your first set of documents with a single command. Navigate to your project's root directory and run:
 
 ```bash
 aigne doc generate
@@ -39,36 +35,44 @@ aigne doc generate
 
 ### Smart Auto-Configuration
 
-If this is your first time running DocSmith in the project, it will automatically detect that no configuration exists and launch an interactive setup wizard to guide you.
+The first time you run this command in a new project, DocSmith's interactive setup wizard will automatically launch to guide you through the configuration.
 
-![Running the generate command triggers the smart initialization wizard](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+![Running the generate command initiates the smart setup](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-## Step 3: Configure Your Project
+You'll be asked a few questions to tailor the documentation to your needs, including:
 
-The interactive wizard will ask a series of questions to tailor the documentation to your specific needs. You will be prompted to define:
-
-- The primary purpose and style of the documentation.
-- Your target audience and their technical knowledge level.
+- The primary purpose and style of your documentation.
+- The target audience you are writing for.
 - The primary language and any additional languages for translation.
 - The source code paths for the AI to analyze.
 - The output directory where the documents will be saved.
 
-![Answer a series of questions to complete your project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![Answer questions to complete the project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-## Step 4: Review Your New Docs
+Once the configuration is complete, DocSmith will analyze your source code, plan the document structure, and begin generating the content.
 
-After you complete the configuration, DocSmith will begin the generation process. It analyzes your code, plans a logical document structure, and writes the content for each section.
+![DocSmith plans the structure and generates the documents](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-![DocSmith plans the document structure and generates content](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+## Step 4: Review Your Output
 
-Once finished, you'll see a success message in your terminal. Your new documentation is now ready in the output directory you specified (e.g., `.aigne/doc-smith/docs`).
+That's it! Once the process is finished, you will see a confirmation message.
 
-![A success message confirms your documentation is ready](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+![Documentation generation successful](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+
+You can find your newly created documentation in the output directory specified during setup. By default, this is `.aigne/doc-smith/docs`.
 
 ## What's Next?
 
-You've successfully installed DocSmith and generated your first set of documents. Now you're ready to explore its capabilities in more detail.
+You have successfully generated your first set of documents. Here are a few places you might want to go next:
 
-<x-card data-title="Explore Core Features" data-icon="lucide:compass" data-href="/features" data-cta="Learn More">
-  Dive deeper into the main commands and capabilities of DocSmith, from updating documents to publishing them online.
-</x-card>
+<x-cards>
+  <x-card data-title="Core Features" data-icon="lucide:box" data-href="/features">
+    Explore the main commands and capabilities, from updating documents to publishing them online.
+  </x-card>
+  <x-card data-title="Configuration Guide" data-icon="lucide:settings" data-href="/configuration">
+    Dive deeper into the config.yaml file to fine-tune your documentation's style, audience, and languages.
+  </x-card>
+  <x-card data-title="CLI Command Reference" data-icon="lucide:terminal" data-href="/cli-reference">
+    Get a complete reference for all available `aigne doc` commands and their options.
+  </x-card>
+</x-cards>

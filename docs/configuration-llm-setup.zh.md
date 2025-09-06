@@ -1,90 +1,56 @@
----
-labels: ["Reference"]
----
-
 # LLM 设置
 
-AIGNE DocSmith 利用大型语言模型 (LLMs) 生成高质量的文档。你可以通过两种主要方法配置 DocSmith 以使用不同的 AI 模型：推荐的 AIGNE Hub 服务，或提供你自己的自定义 API 密钥。
+AIGNE DocSmith 利用大型语言模型 (LLM) 生成高质量的文档。该平台设计灵活，允许您连接各种 AI 模型提供商。您可以使用集成的 AIGNE Hub 以获得免设置体验，或配置自己的 API 密钥以进行更直接的控制。
 
-本指南将引导你了解这两种选项。
+## AIGNE Hub (推荐)
 
-## 使用 AIGNE Hub (推荐)
+最简单的入门方法是使用 AIGNE Hub。它充当多个领先 LLM 提供商的网关，具有以下几个主要优点：
 
-通过 AIGNE Hub 是将 DocSmith 与 LLMs 结合使用的最直接方法。该方法具有以下显著优势：
+- **无需 API 密钥：** 您可以立即开始生成文档，而无需注册单独的 AI 服务或管理密钥。
+- **轻松切换模型：** 您可以通过在命令行参数中指定不同模型来轻松进行试验。这使您可以为特定任务选择最佳模型。
 
-- **无需 API 密钥：** 你无需注册单独的 AI 服务或管理自己的 API 密钥。
-- **轻松切换模型：** 你可以通过一个简单的命令行标志，在 Google、Anthropic 和 OpenAI 等提供商提供的不同顶尖模型之间进行切换。
+要通过 AIGNE Hub 使用特定模型，只需在 `generate` 命令中使用 `--model` 标志即可：
 
-要指定模型，请在 `generate` 命令中使用 `--model` 标志。DocSmith 将通过 AIGNE Hub 处理 API 请求。
-
-### 示例
-
-以下示例展示了如何通过 AIGNE Hub 使用不同的模型生成文档：
-
-**使用 Google 的 Gemini 1.5 Flash：**
 ```bash
+# 使用谷歌的 Gemini 2.5 Flash 生成内容
 aigne doc generate --model google:gemini-2.5-flash
-```
 
-**使用 Anthropic 的 Claude 3.5 Sonnet：**
-```bash
+# 使用 Anthropic 的 Claude 3.5 Sonnet 生成内容
 aigne doc generate --model claude:claude-3-5-sonnet
-```
 
-**使用 OpenAI 的 GPT-4o：**
-```bash
+# 使用 OpenAI 的 GPT-4o 生成内容
 aigne doc generate --model openai:gpt-4o
 ```
 
-## 配置自定义 API 密钥
+如果未指定模型，DocSmith 将使用为您的项目配置的默认模型。
 
-如果你希望为 OpenAI 或 Anthropic 等提供商使用自己的 API 密钥，可以通过交互式设置向导进行配置。
+## 使用自定义 API 密钥
 
-运行 `init` 命令启动向导，它将指导你完成 LLM 提供商、凭据以及其他项目设置。
+如果您倾向于使用自己从 OpenAI、Anthropic 等提供商处获取的 API 密钥，DocSmith 也支持此方式。这种方法让您可以直接控制您在所选提供商的 API 使用和计费。
+
+自定义 API 密钥的配置是通过交互式设置向导完成的。您可以通过运行以下命令来启动它：
 
 ```bash
-# 启动交互式配置向导
 aigne doc init
 ```
 
-该过程可确保你的密钥被正确存储，以便用于所有后续的文档生成和更新任务。
+该向导将指导您完成选择提供商和输入必要凭据的过程。要获取完整的操作指南，请参阅 [交互式设置](./configuration-interactive-setup.md) 指南。
 
-## 工作原理
+## 默认模型配置
 
-下图说明了 DocSmith 在不同 LLM 配置下处理请求的流程。
+为确保项目范围内的一致性，您可以在项目的 `aigne.yaml` 配置文件中定义一个默认的 LLM。该模型将用于所有生成任务，除非在命令中通过 `--model` 标志指定了其他模型。
 
-```d2
-direction: down
+以下是在 `aigne.yaml` 中设置默认模型的示例：
 
-User: {
-  shape: person
-  label: "开发者"
-}
-
-CLI: "`aigne doc generate`"
-
-DocSmith: {
-  shape: package
-  "配置检查": {
-    "AIGNE Hub (默认)": "无需 API 密钥"
-    "自定义提供商": "找到用户 API 密钥"
-  }
-}
-
-LLM_Providers: {
-  label: "LLM 提供商"
-  shape: cloud
-  "AIGNE Hub": "管理对多个模型的访问"
-  "直接 API (例如 OpenAI)": "使用自定义密钥"
-}
-
-User -> CLI: "运行命令"
-CLI -> DocSmith: "启动流程"
-DocSmith."配置检查"."AIGNE Hub (默认)" -> LLM_Providers."AIGNE Hub" : "通过 Hub 路由请求"
-DocSmith."配置检查"."自定义提供商" -> LLM_Providers."直接 API (例如 OpenAI)" : "使用用户密钥路由请求"
-
+```yaml
+chat_model:
+  provider: google
+  name: gemini-2.5-pro
+  temperature: 0.8
 ```
+
+在此示例中，所有文档生成任务将默认使用谷歌的 `gemini-2.5-pro` 模型，并将 `temperature` 设置为 `0.8`。
 
 ---
 
-配置好 LLM 提供商后，你就可以为文档自定义语言设置了。请在 [语言支持](./configuration-language-support.md) 指南中了解更多信息。
+配置好 LLM 提供商后，您就可以生成各种语言的内容了。要查看支持语言的完整列表以及启用方法，请参阅 [语言支持](./configuration-language-support.md) 指南。

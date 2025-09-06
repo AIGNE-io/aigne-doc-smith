@@ -4,7 +4,7 @@ labels: ["Reference"]
 
 # Overview
 
-AIGNE DocSmith is an AI-driven documentation generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automates the creation of detailed, structured, and multi-language documentation directly from your source code, streamlining the entire workflow from planning to publishing.
+AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automates the creation of detailed, structured, and multi-language documentation directly from your source code, streamlining the entire workflow from planning to publishing.
 
 ## Part of the AIGNE Ecosystem
 

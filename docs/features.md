@@ -9,31 +9,33 @@ AIGNE DocSmith provides a comprehensive suite of tools to manage your documentat
 The typical workflow follows a logical progression, allowing you to generate, refine, translate, and finally publish your documentation.
 
 ```d2
-direction: right
+direction: down
 
-"Generate Docs": {
+Generate: {
+  label: "1. Generate\naigne doc generate"
   shape: step
-  description: "Automated creation from source code"
+  description: "Create a full documentation set from your source code."
 }
 
-"Update & Refine": {
+Refine: {
+  label: "2. Update & Refine\naigne doc update"
   shape: step
-  description: "Sync with code changes and apply feedback"
+  description: "Keep docs in sync with code and apply targeted feedback."
 }
 
-"Translate": {
+Translate: {
+  label: "3. Translate\naigne doc translate"
   shape: step
-  description: "Reach a global audience with 12+ languages"
+  description: "Localize content into 12+ languages for a global audience."
 }
 
-"Publish": {
+Publish: {
+  label: "4. Publish\naigne doc publish"
   shape: step
-  description: "Share your docs on public or private platforms"
+  description: "Deploy your documentation to public or private platforms."
 }
 
-"Generate Docs" -> "Update & Refine" -> "Translate" -> "Publish" {
-  style.animated: true
-}
+Generate -> Refine -> Translate -> Publish
 ```
 
 Explore the main capabilities of DocSmith in the following sections:
