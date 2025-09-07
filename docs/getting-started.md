@@ -4,10 +4,32 @@ This guide will walk you through the essential steps to install AIGNE DocSmith, 
 
 ## Step 1: Prerequisites
 
-Before you begin, ensure you have Node.js and pnpm installed on your system. AIGNE DocSmith is a command-line tool built on this ecosystem.
+Before you begin, ensure you have Node.js installed on your system. AIGNE DocSmith is a command-line tool that requires Node.js to run. The installation also includes npm (Node Package Manager), which you will use in the next step.
 
-- [Node.js](https://nodejs.org/)
-- [pnpm](https://pnpm.io/)
+Below are brief instructions for common operating systems.
+
+### macOS
+
+The recommended way to install Node.js on macOS is by using [Homebrew](https://brew.sh/).
+
+```bash
+brew install node
+```
+
+### Windows
+
+Visit the [official Node.js website](https://nodejs.org/) and download the recommended LTS (Long-Term Support) installer for Windows. Run the installer and follow the on-screen instructions.
+
+### Linux
+
+You can install Node.js using your distribution's package manager. For Debian and Ubuntu-based systems, use the following commands:
+
+```bash
+sudo apt-get update
+sudo apt-get install nodejs npm
+```
+
+For detailed instructions for other distributions, please visit the [official Node.js website](https://nodejs.org/).
 
 ## Step 2: Install AIGNE CLI
 
@@ -33,7 +55,7 @@ With the CLI installed, you can generate your first set of documents with a sing
 aigne doc generate
 ```
 
-### Smart Auto-Configuration
+### Auto-Configuration
 
 The first time you run this command in a new project, DocSmith's interactive setup wizard will automatically launch to guide you through the configuration.
 
