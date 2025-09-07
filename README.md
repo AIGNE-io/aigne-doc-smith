@@ -19,9 +19,9 @@ As shown in the diagram, DocSmith integrates seamlessly with other [AIGNE](https
 
 - **Automated Structure Planning:** Intelligently analyzes your codebase to generate a comprehensive and logical document structure.
 - **AI-Powered Content Generation:** Populates the document structure with detailed, high-quality content.
-- **Multi-Language Support:** Seamlessly translates your documentation into 12+ languages including English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic.
-- **AIGNE Hub Integration:** Use AIGNE Hub as your LLM provider without needing your own API keys, with easy switching between different large language models.
-- **Discuss Kit Publishing:** Publish documentation to the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/) or your own independently deployed Discuss Kit instance.
+- **Multi-Language Support:** Seamlessly translates your documentation into 12 languages including English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic.
+- **AIGNE Hub Integration:** Use [AIGNE Hub](https://www.aigne.io/en/hub) as your LLM provider without needing your own API keys, with easy switching between different large language models.
+- **Document Publishing:** Preview your documentation on the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/), or publish to your own [Discuss Kit](https://www.arcblock.io/docs/web3-kit/en/discuss-kit) instance for full control.
 - **Document Update Mechanism:** Automatically detects source code changes and updates documentation accordingly.
 - **Individual Document Optimization:** Regenerate and optimize specific documents with targeted feedback.
 
