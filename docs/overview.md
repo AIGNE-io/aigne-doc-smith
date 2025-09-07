@@ -1,6 +1,6 @@
 # Overview
 
-AIGNE DocSmith is an AI-driven tool that generates documentation directly from your source code. Built on the [AIGNE Framework](https://www.aigne.io/en/framework), it automates the creation of structured, multi-language documents. This process reduces the manual effort of writing and maintaining documentation, allowing developers to focus on building features while ensuring documentation stays synchronized with the codebase.
+AIGNE DocSmith is an AI-driven tool that generates documentation directly from your source code. Built on the [AIGNE Framework](https://www.aigne.io/en/framework), it automates the creation of structured, multi-language documents. This process reduces the manual effort of writing and maintaining documentation, ensuring it stays synchronized with the codebase.
 
 ## Part of the AIGNE Ecosystem
 
@@ -12,19 +12,14 @@ The following diagram illustrates how DocSmith fits within the AIGNE architectur
 
 ## Core Features
 
-DocSmith provides a set of features designed to automate and simplify the documentation process:
+DocSmith provides a set of features to automate and simplify the documentation process:
 
-*   **Automated Structure Planning:** Analyzes your codebase to propose a logical document structure. This saves developers the initial effort of outlining the documentation from scratch.
-
-*   **AI-Powered Content Generation:** Populates the document structure with detailed content by interpreting your source code, providing a complete first draft to accelerate the writing process.
-
-*   **Multi-Language Support:** Translates documentation into 12 languages, including English, Chinese, and Japanese, helping developers reach a global audience with minimal effort.
-
-*   **AIGNE Hub Integration:** Connects to [AIGNE Hub](https://www.aigne.io/en/hub), a service that acts as a central provider for various Large Language Models (LLMs). This allows you to switch between models from providers like OpenAI, Google, and Anthropic without managing individual API keys, which simplifies configuration.
-
-*   **Document Publishing:** Publishes generated documentation to the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/) or your own [Discuss Kit](https://www.arcblock.io/docs/web3-kit/en/discuss-kit) instance. This gives you flexible options for previewing and distributing your documentation.
-
-*   **Iterative Updates:** Detects source code changes to update documentation and allows for targeted regeneration based on specific feedback. This helps keep docs consistently in sync with the code.
+*   **Automated Structure Planning:** Analyzes a codebase to generate a logical document structure.
+*   **AI-Powered Content Generation:** Populates the planned document structure with content generated from the source code.
+*   **Multi-Language Support:** Translates documentation into 12 languages, including English, Chinese, Japanese, and Spanish.
+*   **AIGNE Hub Integration:** Uses [AIGNE Hub](https://www.aigne.io/en/hub) as an LLM provider, allowing model switching without managing individual API keys.
+*   **Document Publishing:** Publishes documentation to the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/) or to a user's own [Discuss Kit](https://www.arcblock.io/docs/web3-kit/en/discuss-kit) instance.
+*   **Iterative Updates:** Detects source code changes to update documentation and supports targeted regeneration of specific documents based on user feedback.
 
 ## Get Started
 

@@ -50,7 +50,8 @@ documentationDepth: comprehensive
 
 # Custom Rules: Define specific documentation generation rules and requirements
 rules: |
-  Avoid using vague, empty words that don't provide measurable or specific details, such as 'intelligently', 'seamlessly', 'comprehensive' or 'high-quality'. Focus on concrete, verifiable facts and information.
+  Avoid using vague or empty words that don't provide measurable or specific details, such as 'intelligently', 'seamlessly', 'comprehensive', or 'high-quality'. Focus on concrete, verifiable facts and information.
+  Focus on concrete, verifiable facts and information.
   
 
 # Target Audience: Describe your specific target audience and their characteristics

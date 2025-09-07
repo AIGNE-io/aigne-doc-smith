@@ -1,22 +1,22 @@
 # LLM Setup
 
-AIGNE DocSmith leverages Large Language Models (LLMs) to generate high-quality documentation. The platform is designed for flexibility, allowing you to connect to various AI model providers. You can use the integrated AIGNE Hub for a setup-free experience or configure your own API keys for more direct control.
+AIGNE DocSmith uses Large Language Models (LLMs) to generate documentation. The platform is designed for flexibility, allowing you to connect to various AI model providers. You can use the integrated AIGNE Hub for a setup-free experience or configure your own API keys for direct control.
 
 ## AIGNE Hub (Recommended)
 
 The simplest way to get started is by using AIGNE Hub. It acts as a gateway to multiple leading LLM providers, offering several key benefits:
 
 - **No API Key Required:** You can start generating documents immediately without signing up for separate AI services or managing secret keys.
-- **Easy Model Switching:** You can easily experiment with different models by specifying them as a command-line argument. This allows you to choose the best model for a specific task.
+- **Easy Model Switching:** You can experiment with different models by specifying them as a command-line argument. This allows you to choose the best model for a specific task.
 
-To use a specific model via AIGNE Hub, simply use the `--model` flag with the `generate` command:
+To use a specific model via AIGNE Hub, use the `--model` flag with the `generate` command:
 
 ```bash
 # Generate content using Google's Gemini 2.5 Flash
 aigne doc generate --model google:gemini-2.5-flash
 
 # Generate content using Anthropic's Claude 3.5 Sonnet
-aigne doc generate --model claude:claude-3-5-sonnet
+aigne doc generate --model anthropic:claude-3-5-sonnet
 
 # Generate content using OpenAI's GPT-4o
 aigne doc generate --model openai:gpt-4o
