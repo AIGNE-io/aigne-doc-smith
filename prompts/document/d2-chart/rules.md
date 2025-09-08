@@ -867,76 +867,92 @@ Ensure that the shape names used in connections are accurate and match the actua
   User -> CLI: "blocklet init"
   ```
 
-#### Don't use alt for diffrent condition
+#### If have alt, don't forget to add `shape: sequence_diagram`
 
 - **Bad Practice:**
   ```d2
   direction: down
-
-  Developer: {
+  Client: {
     shape: c4-person
   }
 
-  CLI: {
-    label: "Blocklet CLI"
-  }
-
-  blocklet-yml: {
-    label: "blocklet.yml"
+  Application: {
+    label: "Your Blocklet (Express.js)"
     shape: rectangle
+
+    Session-Middleware: {
+      label: "session()"
+    }
+    Auth-Middleware: {
+      label: "auth()"
+    }
+    Protected-Route: {
+      label: "Route Handler"
+    }
   }
 
-  Blocklet-Store: {
-    label: "Blocklet Store"
+  Blocklet-Service: {
+    label: "Blocklet Service"
     shape: cylinder
   }
 
-  Component-URL: {
-    label: "Direct URL"
-    shape: cylinder
+  Client -> Application.Session-Middleware: "1. Request to /protected"
+  Application.Session-Middleware -> Application.Auth-Middleware: "2. next() with req.user"
+  Application.Auth-Middleware -> Blocklet-Service: "3. Get permissions for role\n(if needed)"
+  Blocklet-Service -> Application.Auth-Middleware: "4. Return permissions"
+  Application.Auth-Middleware -> Application.Auth-Middleware: "5. Evaluate all rules"
+
+  alt "If Authorized" {
+    Application.Auth-Middleware -> Application.Protected-Route: "6a. next()"
+    Application.Protected-Route -> Client: "7a. 200 OK Response"
   }
 
-  Developer -> CLI: "blocklet add <component>"
-  alt "By Name" {
-    CLI -> Blocklet-Store: "1. Fetch metadata"
-    Blocklet-Store -> CLI: "2. Return metadata"
+  alt "If Forbidden" {
+    Application.Auth-Middleware -> Client: "6b. 403 Forbidden Response"
   }
-  alt "By URL" {
-    CLI -> Component-URL: "1. Fetch metadata"
-    Component-URL -> CLI: "2. Return metadata"
-  }
-  CLI -> blocklet-yml: "3. Update components array"
-  CLI -> Developer: "4. Success message"
   ```
 - **Good Practice:**
   ```d2
   direction: down
-
-  Developer: {
+  shape: sequence_diagram
+  Client: {
     shape: c4-person
   }
 
-  CLI: {
-    label: "Blocklet CLI"
-  }
-
-  blocklet-yml: {
-    label: "blocklet.yml"
+  Application: {
+    label: "Your Blocklet (Express.js)"
     shape: rectangle
+
+    Session-Middleware: {
+      label: "session()"
+    }
+    Auth-Middleware: {
+      label: "auth()"
+    }
+    Protected-Route: {
+      label: "Route Handler"
+    }
   }
 
-  Blocklet-Store: {
-    label: "Blocklet Store"
+  Blocklet-Service: {
+    label: "Blocklet Service"
     shape: cylinder
-    icon: "https://store.blocklet.dev/assets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ/logo.png"
   }
 
-  Developer -> CLI: "blocklet add <component>"
+  Client -> Application.Session-Middleware: "1. Request to /protected"
+  Application.Session-Middleware -> Application.Auth-Middleware: "2. next() with req.user"
+  Application.Auth-Middleware -> Blocklet-Service: "3. Get permissions for role\n(if needed)"
+  Blocklet-Service -> Application.Auth-Middleware: "4. Return permissions"
+  Application.Auth-Middleware -> Application.Auth-Middleware: "5. Evaluate all rules"
 
-  CLI -> Blocklet-Store: "1. Fetch metadata"
-  Blocklet-Store -> CLI: "2. Return metadata"
-  CLI -> blocklet-yml: "3. Update components array"
-  CLI -> Developer: "4. Success message"
+  alt "If Authorized" {
+    Application.Auth-Middleware -> Application.Protected-Route: "6a. next()"
+    Application.Protected-Route -> Client: "7a. 200 OK Response"
+  }
+
+  alt "If Forbidden" {
+    Application.Auth-Middleware -> Client: "6b. 403 Forbidden Response"
+  }
   ```
 
 ## Chapter 3: Official Best Practices
