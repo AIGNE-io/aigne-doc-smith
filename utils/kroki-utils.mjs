@@ -14,9 +14,9 @@ import {
 } from "./constants.mjs";
 import { getContentHash } from "./utils.mjs";
 
-import debug from "debug";
+import Debug from "debug";
 
-const logger = debug("doc-smith");
+const debug = Debug("doc-smith");
 
 export async function getChart({ chart = "d2", format = "svg", content, strict }) {
   const baseUrl = "https://chart.abtnet.io";
@@ -74,11 +74,11 @@ export async function saveD2Assets({ markdown, docsDir }) {
       const svgPath = path.join(assetDir, fileName);
 
       if (await fs.pathExists(svgPath)) {
-        logger.log("Found assets cache, skipping generation", svgPath);
+        debug("Found assets cache, skipping generation", svgPath);
       } else {
         try {
-          if (logger.enabled) {
-            logger.log("start generate d2 chart", svgPath);
+          if (debug.enabled) {
+            debug("start generate d2 chart", svgPath);
             const d2FileName = `${getContentHash(d2Content)}.d2`;
             const d2Path = path.join(assetDir, d2FileName);
             await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
@@ -89,7 +89,7 @@ export async function saveD2Assets({ markdown, docsDir }) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
         } catch (error) {
-          logger.warn("Failed to generate D2 chart:", error);
+          debug("Failed to generate D2 chart:", error);
           return _code;
         }
       }
@@ -151,14 +151,14 @@ export async function checkD2Content({ content }) {
   const fileName = `${getContentHash(d2Content)}.svg`;
   const svgPath = path.join(assetDir, fileName);
 
-  if (logger.enabled) {
+  if (debug.enabled) {
     const d2FileName = `${getContentHash(d2Content)}.d2`;
     const d2Path = path.join(assetDir, d2FileName);
     await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
   }
 
   if (await fs.pathExists(svgPath)) {
-    logger.log("Found assets cache, skipping generation", svgPath);
+    debug("Found assets cache, skipping generation", svgPath);
     return;
   }
 
