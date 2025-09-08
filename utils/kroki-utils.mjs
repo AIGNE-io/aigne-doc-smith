@@ -1,5 +1,6 @@
 import path from "node:path";
 
+import Debug from "debug";
 import fs from "fs-extra";
 import { glob } from "glob";
 import pMap from "p-map";
@@ -13,6 +14,8 @@ import {
   TMP_DIR,
 } from "./constants.mjs";
 import { getContentHash } from "./utils.mjs";
+
+const debug = Debug("doc-smith");
 
 export async function getChart({ chart = "d2", format = "svg", content, strict }) {
   const baseUrl = "https://chart.abtnet.io";
@@ -56,7 +59,7 @@ export async function saveD2Assets({ markdown, docsDir }) {
     return markdown;
   }
 
-  const codeBlockRegex = /```d2\n([\s\S]*?)```/g;
+  const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 
   const { replaced } = await runIterator({
     input: markdown,
@@ -70,26 +73,26 @@ export async function saveD2Assets({ markdown, docsDir }) {
       const svgPath = path.join(assetDir, fileName);
 
       if (await fs.pathExists(svgPath)) {
-        if (process.env.DEBUG) {
-          console.log("Found assets cache, skipping generation", svgPath);
-        }
+        debug("Found assets cache, skipping generation", svgPath);
       } else {
-        if (process.env.DEBUG) {
-          console.log("start generate d2 chart", svgPath);
-        }
         try {
+          debug("start generate d2 chart", svgPath);
+          if (debug.enabled) {
+            const d2FileName = `${getContentHash(d2Content)}.d2`;
+            const d2Path = path.join(assetDir, d2FileName);
+            await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
+          }
+
           const svg = await getD2Svg({ content: d2Content });
           if (svg) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
         } catch (error) {
-          if (process.env.DEBUG) {
-            console.warn("Failed to generate D2 chart:", error);
-          }
+          debug("Failed to generate D2 chart:", error);
           return _code;
         }
       }
-      return `![](../${TMP_ASSETS_DIR}/d2/${fileName})`;
+      return `![](${path.posix.join("..", TMP_ASSETS_DIR, "d2", fileName)})`;
     },
     options: { concurrency: KROKI_CONCURRENCY },
   });
@@ -146,10 +149,15 @@ export async function checkD2Content({ content }) {
   const d2Content = [D2_CONFIG, content].join("\n");
   const fileName = `${getContentHash(d2Content)}.svg`;
   const svgPath = path.join(assetDir, fileName);
+
+  if (debug.enabled) {
+    const d2FileName = `${getContentHash(d2Content)}.d2`;
+    const d2Path = path.join(assetDir, d2FileName);
+    await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
+  }
+
   if (await fs.pathExists(svgPath)) {
-    if (process.env.DEBUG) {
-      console.log("Found assets cache, skipping generation", svgPath);
-    }
+    debug("Found assets cache, skipping generation", svgPath);
     return;
   }
 

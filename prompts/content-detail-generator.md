@@ -106,6 +106,7 @@ parentId: {{parentId}}
 
 {% include "document/custom-components.md" %}
 
+{% include "document/custom-code-block.md" %}
 </rules>
 
 {% include "document/detail-example.md" %}

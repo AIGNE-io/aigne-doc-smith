@@ -1,9 +1,12 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { existsSync, mkdtemp, rmdir } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+import Debug from "debug";
+
+import { TMP_ASSETS_DIR } from "../utils/constants.mjs";
 import {
   beforePublishHook,
   checkD2Content,
@@ -238,20 +241,33 @@ E -> F
 
     test("should skip generation if SVG file already exists", async () => {
       const docsDir = path.join(tempDir, "docs");
-      const assetsDir = path.join(docsDir, "../assets/d2");
-      await mkdir(assetsDir, { recursive: true });
-
+      await mkdir(docsDir, { recursive: true });
       const markdown = `\`\`\`d2\nA -> B\n\`\`\``;
 
-      // Pre-create a cached SVG file
-      const testSvgContent = "<svg>test</svg>";
-      await writeFile(path.join(assetsDir, "test.svg"), testSvgContent);
+      // 1. First run to generate the file
+      await saveD2Assets({ markdown, docsDir });
 
-      // This would normally generate the same filename for the same content
-      const result = await saveD2Assets({ markdown, docsDir });
+      // 2. Second run to check if cache is used
+      const debugLogs = [];
+      const originalWrite = process.stderr.write;
+      process.stderr.write = (chunk) => {
+        debugLogs.push(chunk.toString());
+        return true;
+      };
+      Debug.enable("doc-smith");
 
-      expect(typeof result).toBe("string");
-      expect(result).toContain("![](../assets/d2/");
+      try {
+        const result = await saveD2Assets({ markdown, docsDir });
+
+        expect(typeof result).toBe("string");
+        expect(result).toContain(`![](${path.posix.join("..", TMP_ASSETS_DIR, "d2")}`);
+        expect(
+          debugLogs.some((log) => log.includes("Found assets cache, skipping generation")),
+        ).toBe(true);
+      } finally {
+        process.stderr.write = originalWrite;
+        Debug.disable();
+      }
     });
 
     test("should handle D2 generation errors gracefully", async () => {
@@ -271,6 +287,28 @@ E -> F
         expect(result).toContain("![](../assets/d2/");
       } finally {
         global.fetch = originalFetch;
+      }
+    });
+
+    test("should write .d2 file when debug is enabled", async () => {
+      const docsDir = path.join(tempDir, "docs");
+      await mkdir(docsDir, { recursive: true });
+
+      const markdown = `\`\`\`d2\nA -> B\n\`\`\``;
+
+      // Enable debug mode
+      Debug.enable("doc-smith");
+
+      try {
+        await saveD2Assets({ markdown, docsDir });
+
+        const assetDir = path.join(docsDir, "../", TMP_ASSETS_DIR, "d2");
+        const files = await readdir(assetDir);
+        const d2File = files.find((file) => file.endsWith(".d2"));
+        expect(d2File).toBeDefined();
+      } finally {
+        // Restore debug mode
+        Debug.disable();
       }
     });
   });
@@ -350,13 +388,29 @@ E -> F
       // First call should generate
       await checkD2Content({ content });
 
-      // Second call should use cache (should be faster)
-      const startTime = Date.now();
-      await checkD2Content({ content });
-      const endTime = Date.now();
+      // Second call should use cache
+      const debugLogs = [];
+      const originalWrite = process.stderr.write;
+      process.stderr.write = (chunk) => {
+        debugLogs.push(chunk.toString());
+        return true;
+      };
+      Debug.enable("doc-smith");
 
-      // Cache hit should be very fast (< 100ms)
-      expect(endTime - startTime).toBeLessThan(100);
+      try {
+        const startTime = Date.now();
+        await checkD2Content({ content });
+        const endTime = Date.now();
+
+        // Cache hit should be very fast (< 100ms)
+        expect(endTime - startTime).toBeLessThan(100);
+        expect(
+          debugLogs.some((log) => log.includes("Found assets cache, skipping generation")),
+        ).toBe(true);
+      } finally {
+        process.stderr.write = originalWrite;
+        Debug.disable();
+      }
     });
 
     test("should handle generation errors in strict mode", async () => {
@@ -389,6 +443,23 @@ E -> F
         await checkD2Content({ content: malformedContent });
       } catch (error) {
         expect(error).toBeDefined();
+      }
+    });
+
+    test("should write .d2 file when debug is enabled", async () => {
+      const content = "A -> B: debug test";
+
+      Debug.enable("doc-smith");
+
+      try {
+        await checkD2Content({ content });
+
+        const assetDir = path.join(process.cwd(), ".aigne", "doc-smith", ".tmp", "assets", "d2");
+        const files = await readdir(assetDir);
+        const d2File = files.find((file) => file.endsWith(".d2"));
+        expect(d2File).toBeDefined();
+      } finally {
+        Debug.disable();
       }
     });
   });
