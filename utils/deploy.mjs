@@ -8,11 +8,11 @@ import { saveValueToConfig } from "./utils.mjs";
 const BASE_URL = process.env.DOC_PAYMENT_BASE_URL || "";
 
 // ==================== Timeout Configuration ====================
-const INTERVAL_MS = 3000;
-const TIMES = {
-  paymentWait: 100, // Step 2: Payment wait for 100 intervals (100 * 3s = 300s = 5 minutes)
-  installation: 100, // Step 3: Installation for 100 intervals (100 * 3s = 300s = 5 minutes)
-  serviceStart: 100, // Step 4: Service startup for 100 intervals (100 * 3s = 300s = 5 minutes)
+const INTERVAL_MS = 3000; // 3 seconds between each check
+const TIMEOUTS = {
+  paymentWait: 300,    // Step 2: Payment wait timeout (5 minutes)
+  installation: 300,   // Step 3: Installation timeout (5 minutes)  
+  serviceStart: 300,   // Step 4: Service startup timeout (5 minutes)
 };
 
 // ==================== Utility Functions ====================
@@ -79,7 +79,7 @@ let paymentLinkId = "";
  * Deploy a new Discuss Kit service and return the installation URL
  * @returns {Promise<string>} - The URL of the deployed service
  */
-export async function deployDiscussKit(id) {
+export async function deploy(id) {
   const { mountPoint, PAYMENT_LINK_ID_KEY } = await getComponentInfoWithMountPoint(
     BASE_URL,
     PAYMENT_KIT_DID,
@@ -252,7 +252,7 @@ async function pollPaymentStatus(checkoutId) {
 
       return null; // Not ready yet, continue polling
     },
-    maxAttempts: TIMES.paymentWait,
+    maxAttempts: Math.ceil(TIMEOUTS.paymentWait * 1000 / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
     timeoutMessage: "Payment timeout - please complete payment within 5 minutes",
     stepName: "Payment",
@@ -290,7 +290,7 @@ async function waitInstallation(checkoutId) {
 
       return null; // Not ready yet, continue polling
     },
-    maxAttempts: TIMES.installation,
+    maxAttempts: Math.ceil(TIMEOUTS.installation * 1000 / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
     timeoutMessage: "Installation timeout - services failed to install within 5 minutes",
     stepName: "Installation",
@@ -326,7 +326,7 @@ async function waitServiceRunning(readyVendors) {
 
       return null; // Not ready yet, continue polling
     },
-    maxAttempts: TIMES.serviceStart,
+    maxAttempts: Math.ceil(TIMEOUTS.serviceStart * 1000 / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
     timeoutMessage: "Service start timeout - services failed to start within 5 minutes",
     stepName: "Service Start",
@@ -383,4 +383,4 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
   }
 }
 
-export default deployDiscussKit;
+export default deploy;

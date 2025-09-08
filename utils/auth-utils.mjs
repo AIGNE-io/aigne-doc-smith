@@ -98,7 +98,6 @@ export async function getAccessToken(appUrl, ltToken = "") {
           url.searchParams.set("__lt", ltToken);
         }
 
-        console.log(`${chalk.blue("🔗")} Connecting to website: ${chalk.cyan(url.toString())}\n`);
         open(url.toString());
       },
     });

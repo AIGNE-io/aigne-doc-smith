@@ -5,7 +5,7 @@ import fs from "fs-extra";
 
 import { getAccessToken } from "../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../utils/constants.mjs";
-import { deployDiscussKit } from "../utils/deploy-discuss-kit.mjs";
+import { deploy } from "../utils/deploy.mjs";
 import { beforePublishHook, ensureTmpDir } from "../utils/kroki-utils.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../utils/utils.mjs";
 
@@ -66,13 +66,13 @@ export default async function publishDocs(
                 name:
                   chalk.yellow("Continue your previous website setup") +
                   " - resume from where you left off",
-                value: "new-custom-continue",
+                value: "new-instance-continue",
               },
             ]
           : []),
         {
           name: `${chalk.blue("Publish to a new website")} - we'll help you set up a new website`,
-          value: "new-custom",
+          value: "new-instance",
         },
       ],
     });
@@ -97,17 +97,17 @@ export default async function publishDocs(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
-    } else if (["new-custom", "new-custom-continue"].includes(choice)) {
+    } else if (["new-instance", "new-instance-continue"].includes(choice)) {
       // Deploy a new Discuss Kit service
       try {
         let id = "";
-        if (choice === "new-custom-continue") {
+        if (choice === "new-instance-continue") {
           id = config?.checkoutId;
           console.log(`\nResuming your previous website setup...`);
         } else {
           console.log(`\nCreating a new doc website for your documentation...`);
         }
-        const { appUrl: homeUrl, token: ltToken } = (await deployDiscussKit(id)) || {};
+        const { appUrl: homeUrl, token: ltToken } = (await deploy(id)) || {};
 
         appUrl = homeUrl;
         token = ltToken;

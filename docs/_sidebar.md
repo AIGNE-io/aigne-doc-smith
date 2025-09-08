@@ -5,7 +5,6 @@
   * [Update and Refine](/features-update-and-refine.md)
   * [Translate Documentation](/features-translate-documentation.md)
   * [Publish Your Docs](/features-publish-your-docs.md)
-  * [Deploy Discuss Kit Service](/features-deploy-discuss-kit.md)
 * [CLI Command Reference](/cli-reference.md)
 * [Configuration Guide](/configuration.md)
   * [LLM Setup](/configuration-llm-setup.md)
