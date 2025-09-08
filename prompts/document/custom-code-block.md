@@ -20,6 +20,7 @@ The following are the available enhanced attributes and their descriptions:
 
 ### Examples
 
+<good_example>
 The following are some examples of Markdown code blocks using enhanced attributes:
 
 **Example 1: Code block with title and icon**
@@ -69,4 +70,43 @@ class ShoppingCart {
   }
 }
 ```
+</good_example>
+
+<bad_example>
+**Example 1**
+
+There are two errors in this example:
+- Language name should not include suffixes, like ',no_run' in the example
+- Title does not need a key specified, just configure the value directly
+
+```rust,no_run title="main.rs" icon=logos:rust
+use tokio::runtime::Runtime;
+use tokio::net::TcpListener;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Create the runtime
+    let rt  = Runtime::new()?;
+
+    // Spawn the root task
+    rt.block_on(async {
+        let listener = TcpListener::bind("127.0.0.1:8080").await.unwrap();
+        println!("Listening on: {}", listener.local_addr().unwrap());
+        // ... application logic ...
+    });
+    Ok(())
+}
+```
+
+**Example 2: title 不需要指定 key ，应该支配值**
+
+```javascript title="Shopping Cart Class" icon=logos:javascript
+class ShoppingCart {
+  constructor() {
+    this.items = [];
+    this.discounts = [];
+    this.taxRate = 0.08;
+  }
+}
+```
+</bad_example>
 </custom_code_block>
