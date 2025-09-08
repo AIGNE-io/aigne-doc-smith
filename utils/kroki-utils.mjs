@@ -56,7 +56,7 @@ export async function saveD2Assets({ markdown, docsDir }) {
     return markdown;
   }
 
-  const codeBlockRegex = /```d2\n([\s\S]*?)```/g;
+  const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 
   const { replaced } = await runIterator({
     input: markdown,
