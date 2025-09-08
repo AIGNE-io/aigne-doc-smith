@@ -516,18 +516,20 @@ export const D2_CONFIG = `vars: {
     theme-id: 105
     theme-overrides: {
       N1: "#18181B"
+      N2: "#421E0B"
+      N4: "#E6E8EC"
+      N5: "#E6E8EC"
+      N7: "#FFFFFF"
+
+      B3: "#FFE9D1"
+      B4: "#FFE9D1"
+      B6: "#FFFFFF"
+
+      AA2: "#421E0B"
       AA4: "#FFE9D1"
       AA5: "#fff"
-      B4: "#FFE9D1"
-      B3: "#DAFF"
-      N7: "#FFFFFF"
-      N2: "#421E0B"
-      N4: "#E9E5FF"
-      N5: "#E4FFF0"
-      B3: "#FFE9D1"
+
       AB4: "#FBF4E4"
-      AA2: "#421E0B"
-      B6: "#FFFFFF"
       AB5: "#FFFFFF"
     }
   }

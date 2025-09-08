@@ -29,7 +29,7 @@
 <document_rules>
 
 D2 Diagram Generation Expert Guide:
-{% include "d2-chart/v2.md" %}
+{% include "d2-chart/rules.md" %}
 
 </document_rules>
 

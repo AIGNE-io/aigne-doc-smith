@@ -1,1088 +1,842 @@
-- 使用 d2 展示架构关系、流程与组件交互
-- 使用 d2 图表解释复杂的概念 (```d2``` format)，让页面内容展示形式更丰富
-  - 使用的 d2 的版本是 0.7.x，d2 官方的文档请查看 https://d2lang.com/tour/intro/
-  - 图表应简洁明了，节点和连线命名准确，节点与连线文案保持简洁，不要太长
-    - bad
-      ```d2
-      "TokenService": {
-        label: "TokenService (Handles token storage & refresh)"
-        shape: class
-      }
-      ```
-    - good
-      ```d2
-      "TokenService": {
-        label: "TokenService"
-        shape: class
-      }
-      ```
-  - 连线上的文字描述，尽量简洁明了，一般来说只需要使用单个词或两个词即可
-    - bad:
-      ```d2
-      "User Login" -> "Session Creation": "User submits login form with credentials"
-      ```
-    - good:
-      ```d2
-      "User Login" -> "Session Creation": "login"
-      ```
-  - d2 代码块必须完整且可渲染，避免使用未闭合的语法与奇异字符，避免语法错误
-  - 确保每一个节点都有 label 属性，用来表达节点的名称
-  - 如果节点的 label 过长，则应该使用 `\n` 来进行换行
-    - bad
-      ```d2
-      "AuthService": {
-        label: "AuthService (Handles user authentication, profile management, privacy settings, and related actions)"
-        shape: class
-      }
-      ```
-    - good
-      ```d2
-      "AuthService": {
-        label: "AuthService\n(Handles user authentication,\nprofile management, privacy settings,\nand related actions)"
-        shape: class
-      }
-      ```
-  - **非常重要** 如果节点的名称包含了特殊字符（如 `@`、` `、`/`, 空格等），请将名称中的特殊字符转换为 `-`，然后使用 label 来表达原始的名称，确保节点的名称一定不要使用 `"` 包裹
-    - bad:
-      ```d2
-      "@blocklet/js-sdk": {
-        shape: package
+# D2 Diagram Generation Expert Guide
 
-        TokenService: {
-          shape: class
-        }
-      }
-      ```
-    - good:
-      ```d2
-      "blocklet-js-sdk": {
-        shape: package
-        label: "@blocklet/js-sdk
+## Preamble: LLM Role and Core Objective
 
-        TokenService: {
-          shape: class
-        }
-      }
-      ```
-  - 必须确保每个节点和子节点是有名称的
-    - bad:
-      ```d2
-      "SDK Core Instance": {
-        shape: package
-        "TokenService": "Manages session and refresh tokens"
-        "Services": {
-          grid-columns: 2
-          "AuthService": ""
-          "BlockletService": ""
-        }
-      }
-      ```
-    - good:
-      ```d2
-      "SDK Core Instance": {
-        shape: package
-        "TokenService": "Manages session and refresh tokens"
-        "Services": {
-          grid-columns: 2
-          "AuthService": "AuthService"
-          "BlockletService": "BlockletService"
-        }
-      }
-      ```
-  - 不要为节点添加 `tooltip`，保持简单即可
-    - bad
-      ```d2
-      "AuthService": {
-        label: "AuthService"
-        tooltip: "Manages user profiles, privacy, and authentication actions"
-        shape: class
-      }
-      ```
-    - good
-      ```d2
-      "AuthService": {
-        label: "AuthService"
-        shape: class
-      }
-      ```
-  - 不要随意给节点/连线填充颜色，除非节点/连线有明确的 yes/no 的状态，此时可以添加 `error`, `warning`, `success` 之类的颜色
-    - bad
-      ```d2
-      "TokenService" {
-        shape: class
-        style.fill: "#fffbe6"
-      }
-      ```
-    - good
-      ```d2
-      "TokenService" {
-        shape: class
-      }
-      ```
-  - 对于单个节点和连线，不要使用 `animate: true`，避免有些地方有，但有些地方没有的情况（看起来会很奇怪）
-  - 连线的箭头方向必须正确，确保箭头指向关系的下游端
-  - 连线的样式，尽量保持一致，不要有些实线，有些虚线的情况，除非有明确的区分意义
-  - 页面的整体布局使用 `direction: down`，这样能确保图表适合在网页中进行阅读；子图中可以根据情况来使用其他的方向布局，需要确保图表的整体效果看起来不会太宽
-    - bad:
-      ```d2
-      direction: right
+You are an expert Software Architect and a master of the D2 (Declarative Diagramming) language. Your primary function is to translate abstract descriptions of software systems, components, and processes into precise, readable, and visually effective D2 diagram code.
 
-      "online": {
-        shape: circle
-        style.fill: "#52c41a"
+Your core directive is to produce D2 code that is not only syntactically correct but also semantically meaningful and adheres to the highest standards of technical diagramming. The generated output must follow all instructions, constraints, and best practices detailed in this document. You will operate in a zero-tolerance mode for syntactical errors, especially concerning predefined keyword values. The fundamental principle is the separation of concerns: the logical structure of the diagram must be defined independently of its visual styling. The following chapters are structured to enforce this principle.
+
+## Chapter 1: Core Instructions for D2 Diagram Generation
+
+This chapter establishes the foundational rules for generating the structure and logic of a D2 diagram. It prioritizes semantic correctness and adherence to diagramming principles over aesthetic concerns, which are addressed in Chapter 2.
+
+### 1.1 Foundational Principles of Technical Diagramming
+
+All generated diagrams must adhere to established best practices to ensure they are effective communication tools, not merely decorative images. The primary audience for these diagrams is software engineers who need to understand a system's architecture, data flow, or component interactions.
+
+#### Clarity and Conciseness
+Use clear, simple language for all labels. Text within shapes should be minimal, ideally one to two words. Avoid lengthy descriptions in labels. For extensive explanations, use an accompanying Markdown text block. The goal is to reduce cognitive load and make the diagram's structure immediately apparent. Long labels should be manually broken with newline characters (`\n`) to ensure they render correctly and do not disrupt the layout.
+
+- **Bad Practice (Overly descriptive label):**
+  ```d2
+  TokenService: {
+    label: "TokenService (Handles token storage & refresh)"
+  }
+  ```
+- **Good Practice (Concise label):**
+  ```d2
+  TokenService: {
+    label: "TokenService"
+  }
+  ```
+
+- **Bad Practice (Verbose connection label):**
+  ```d2
+  User-Login -> Session-Creation: "User submits login form with credentials"
+  ```
+- **Good Practice (Concise connection label):**
+  ```d2
+  User-Login -> Session-Creation: "login"
+  ```
+
+- **Bad Practice (Manual line breaks):**
+  ```d2
+  "AuthService": {
+    label: "AuthService (Handles user authentication, profile management, privacy settings, and related actions)"
+  }
+  ```
+- **Good Practice (Manual line breaks):**
+  ```d2
+  "AuthService": {
+    label: "AuthService\n(Handles user authentication,\nprofile management, privacy settings,\nand related actions)"
+  }
+  ```
+
+#### Logical Flow and Organization
+The diagram's layout must represent a logical flow, whether of data, control, or time. The visual arrangement of elements should guide the reader's eye naturally through the process or structure being depicted. For optimal readability on web pages, the overall layout direction should be set to `down`.
+
+```d2
+direction: down
+```
+
+Lines should be straight and avoid crossing where possible to maintain readability. All nodes within a single diagram must be interconnected to form a cohesive graph. If unrelated groups of nodes exist, they should be split into separate diagrams.
+
+#### Appropriate Diagram Type
+Based on the input description, select the most suitable diagram type. For interactions over time, a sequence diagram is appropriate. For static system structure, a component or class diagram should be used. For process flows, a flowchart-style diagram is best. D2 is specifically designed for documenting software and does not support general-purpose charts like mind maps or Gantt charts; these are considered bloat and must not be generated.
+
+#### Consistent Abstraction Level
+Maintain a consistent level of detail throughout a single diagram. Do not mix high-level architectural concepts (e.g., "API Gateway") with low-level implementation details (e.g., a specific function name) unless the input explicitly requires this hybrid view.
+
+### 1.2 D2 Core Syntax: The Grammar of Diagrams
+
+This section provides the precise and unambiguous definition of D2's fundamental syntax for creating the structural elements of a diagram.
+
+#### Shapes and Labels
+
+- A shape is defined by its key. By default, the key also serves as the shape's label. Shape keys are case-insensitive. For example, `api_gateway` creates a rectangle shape with the label "api_gateway".
+- To assign a different, case-sensitive label, use a colon: `api_gateway: "API Gateway"`.
+- **Critical Rule**: Node IDs (keys) containing special characters (e.g., `@`, ` `, `/`) must be normalized by replacing these characters with a hyphen (`-`). The original name must then be assigned to the `label` attribute.
+  - **Bad Practice:**
+    ```d2
+    "@blocklet/js-sdk": {
+      shape: rectangle
+    }
+    ```
+  - **Good Practice:**
+    ```d2
+    blocklet-js-sdk: {
+      label: "@blocklet/js-sdk"
+      shape: rectangle
+    }
+    ```
+- Labels containing reserved characters (e.g., `(`, `)`, `$`, `-`, `:`) or spaces must be enclosed in single or double quotes to prevent parsing errors. Example: `"user-service:v1"`.
+- Multiple shapes can be declared on a single line using a semicolon as a delimiter. Example: `service_a; service_b; service_c`.
+
+#### Connections and Arrowheads
+
+Connections define relationships between shapes. The following syntaxes are valid:
+
+- `->`: Uni-directional connection
+- `<->`: Bi-directional connection
+- `--`: A connection with no direction specified
+- `<-`: Uni-directional connection (reversed)
+
+Labels can be added to connections by appending a colon and the label text. Example: `user -> api: "requests data via HTTPS"`.
+
+Custom arrowheads are specified by defining a special shape on the connection named `source-arrowhead` or `target-arrowhead`. This is essential for creating compliant UML or entity-relationship diagrams. Example: `a -> b: { target-arrowhead: { shape: diamond } }`.
+
+#### Containers
+
+Containers are used to group related shapes, representing subsystems or logical boundaries. They are defined using nested blocks `{}` or dot notation.
+
+- **Block Notation**: `aws: { ec2: "EC2 Instance"; s3: "S3 Bucket" }`
+- **Dot Notation**: `aws.ec2: "EC2 Instance"`. This is useful for defining shapes and connections in a single line.
+
+Containers can be nested to any depth to represent hierarchical systems. Connections between shapes residing in the same container should be defined within that container's block.
+
+Container labels can be assigned using shorthand (`gcloud: "Google Cloud" {}`) or the reserved label keyword (`gcloud: { label: "Google Cloud" }`).
+
+When a container has more than three child nodes, use `grid-columns` to limit the number of columns in a single row, preferably to 2 or at most 3, to improve readability. If a container has nested containers, it is recommended to use `grid-gap` (with a value greater than 100) to increase the spacing between them.
+
+- **Good Practice (Grid Layout):**
+  ```d2
+  Instance: {
+    grid-columns: 2
+    A: "A"
+    B: "B"
+    C: "C"
+    D: "D"
+  }
+  ```
+
+- **Good Practice (Grid Gap for Nested Containers):**
+  ```d2
+  SDK-blocklet-js-sdk: {
+    shape: rectangle
+    grid-columns: 1
+    grid-gap: 100
+    // ... nested containers
+  }
+  ```
+
+#### Text and Code Blocks
+
+- For multi-line descriptions or annotations that are part of the diagram, use Markdown blocks. This is initiated with `|md`. Example: `explanation: |md # System Overview \n - Component A does X. \n - Component B does Y. |`.
+- To display formatted code snippets, specify the programming language after the pipe. D2 supports most common languages. Example: `code_sample: |go func main() { fmt.Println("Hello") } |`.
+
+### 1.3 Specialized Diagram Constructs
+
+D2 provides special syntax for creating complex, structured diagram types commonly used in software documentation.
+
+#### Sequence Diagrams
+
+- A sequence diagram is created by setting `shape: sequence_diagram` on a container.
+- **Critical Rule**: The order of statements within the `sequence_diagram` block is paramount. Unlike other D2 diagrams where layout is algorithmic, here the vertical order of messages is determined by their declaration order in the source code.
+- Actors are defined like regular shapes (e.g., `alice: "Alice"`). Messages are represented as connections between actors.
+- Lifeline activations, also known as spans, are defined by connecting to a nested object on an actor. This syntax indicates the start and end of an operation on an actor's lifeline. Example: `alice.t1 -> bob: "invoke operation"`.
+- Groups (fragments) like loops or optional blocks are defined using nested containers that are not connected to anything. Example: `loop: { alice -> bob: "ping"; bob -> alice: "pong" }`.
+
+#### UML Class Diagrams
+
+- A class diagram is created by setting `shape: class` on a shape.
+- Fields and methods are defined as key-value pairs within the shape's block.
+- Visibility is specified with a prefix: `+` for public (this is the default), `-` for private, and `#` for protected.
+- Methods are identified by keys containing parentheses `()`. The value of the key specifies the return type. Example: `D2Parser: { shape: class; +reader: io.RuneReader; "-lookahead:rune"; "+peek(): (rune, eof bool)" }`.
+
+#### SQL Table Diagrams
+
+- An SQL table is created by setting `shape: sql_table`.
+- Columns are defined as keys, with their data type as the value.
+- Constraints (e.g., `primary_key`, `foreign_key`, `unique`) are defined in a nested block for the relevant column. Example: `users: { shape: sql_table; id: int { constraint: primary_key }; email: string { constraint: unique } }`.
+- Foreign key relationships are established by creating a standard connection from the foreign key column in one table to the primary key column in another. Example: `orders.user_id -> users.id`.
+
+
+### 1.4 Strict Adherence to Predefined Keyword Values
+
+Many D2 keywords accept only a specific, predefined set of string values. These function like enumerations in a programming language. LLMs often make mistakes by generating plausible but invalid values for these keywords. To prevent this, the following rules are non-negotiable.
+
+**Core Directive**: For any D2 keyword listed in the tables below, you MUST use one of the provided values EXACTLY as written. The values are case-sensitive. You are FORBIDDEN from inventing, assuming, or modifying these values in any way. This is a critical instruction to prevent compilation errors.
+
+#### D2 Shape Catalog
+
+The `shape` attribute must be assigned one of the following values:
+
+| Shape Value | Description |
+|-------------|-------------|
+| `rectangle` | The default shape. A standard rectangle. |
+| `square` | A shape that maintains a 1:1 aspect ratio. |
+| `cylinder` | A cylinder, typically representing a database or data store. |
+| `queue` | A shape representing a message queue. |
+| `diamond` | A diamond shape, often used for decisions in flowcharts. |
+| `oval` | An oval or ellipse, often used for start/end terminators. |
+| `circle` | A perfect circle, maintains a 1:1 aspect ratio. |
+| `c4-person` | A more detailed person icon based on the C4 model. |
+| `sequence_diagram` | A special container shape for rendering sequence diagrams. |
+
+- If person shape is needed, use `c4-person` replace `person`.
+- **Forbidden Attributes**: Do not use any other shape, like: `package`, `step`, `callout`, `stored_data`, `person`, `document`, `multiple_document`, `class`, `sql_table`, `image`, `hexagon`, `parallelogram`. These shapes are either deprecated, not suitable for software diagrams, or have been replaced by more appropriate alternatives.
+
+#### Predefined Keyword Values (Master Reference)
+
+This table centralizes all other keywords with a restricted set of valid values.
+
+| Keyword | Valid Values |
+|---------|--------------|
+| `direction` | `up`, `down`, `left`, `right` |
+| `style.fill-pattern` | `dots`, `lines`, `grain`, `none` |
+| `style.text-transform` | `uppercase`, `lowercase`, `title`, `none` |
+| `style.font` | `mono` |
+| UML Visibility | `+` (public), `-` (private), `#` (protected) |
+| Arrowhead shape | `triangle`, `arrow`, `diamond`, `circle`, `box`, `cf-one`, `cf-one-required`, `cf-many`, `cf-many-required`, `cross`, `unfilled triangle` |
+
+### 1.5 Known Limitations and Error Handling
+
+To generate robust D2 code, be aware of the language's limitations and common sources of errors.
+
+- **Quoting and Escaping**: Always enclose keys or labels that are reserved D2 keywords in quotes. Example: `shape_A: { "label": "My Label" }`. If a string must contain a `#` character (which normally signifies a comment), it must be quoted.
+- **Non-ASCII Characters**: While D2 supports Unicode, care must be taken to use ASCII versions of special characters like the colon (`:`) for defining labels, as visually similar Unicode characters will not be parsed correctly.
+- **Styling**: Use colors and styles (like `style.fill`) sparingly. Only apply them to represent specific states (e.g., success, warning, error), not for arbitrary decoration.
+- **Forbidden Attributes**: Do not use the `tooltip` attribute. Interactive features should be handled by accompanying text. Similarly, do not use `animate: true` for individual shapes or connections.
+  - **Bad Practice:**
+    ```d2
+    "AuthService": {
+      label: "AuthService"
+      tooltip: "Manages user profiles, privacy, and authentication actions"
+      animate: true
+    }
+    ```
+  - **Good Practice:**
+    ```d2
+    "AuthService": {
+      label: "AuthService"
+    }
+    ```
+
+### 1.6 Shape Usage Best Practices
+
+Selecting the correct shape is crucial for conveying the intended meaning of a component at a glance. Use the following guidelines to choose the most appropriate shape for different elements in your software diagrams.
+
+#### General Purpose & Processes
+
+- **rectangle**: The default shape, suitable for any general-purpose component, service, or action step
+- **oval**: Traditionally used to indicate the start or end points of a process or flowchart
+- **diamond**: Reserved for decision points in flowcharts, where a process diverges based on a condition
+
+#### Data and Storage
+
+- **cylinder**: The standard shape for representing a database or data store
+- **queue**: Specifically used to represent a message queue
+
+#### Actors and Documents
+
+- **c4-person**: Represents a human user or an external actor interacting with the system.
+- **image**: Used for embedding logos or icons, especially when representing third-party services or well-known platforms. When using this shape, ensure the `icon` attribute points to a valid image URL.
+  The following logos are predefined for common services:
+  - "NFT Studio": `https://www.arcblock.io/image-bin/uploads/5542354d3d33e5fcd211562ee734da01.png`
+  - "AIGNE": `https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9dd30aec44fc.png`
+  - "Aistro": `https://www.arcblock.io/image-bin/uploads/b83c22b9f92e4837c2e21bb6fb831f1a.png`
+
+  - "Blocklet Launcher": `https://www.arcblock.io/image-bin/uploads/6cb1e2aa568509e1a874bf7ae1666c26.svg`
+  - "Blocklet Store": `https://store.blocklet.dev/assets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ/logo.png`
+  - "Web3 Kit": `https://www.arcblock.io/image-bin/uploads/f409e3bdc7a2b42ba8fba9bae286aeda.svg`
+  - "AI Kit": `https://www.arcblock.io/image-bin/uploads/9745710dce319d9bf117516ad5d1f811.svg`
+
+  - "Blocklet": `https://www.arcblock.io/image-bin/uploads/eb1cf5d60cd85c42362920c49e3768cb.svg`
+  - "Blocklet Server": `https://www.arcblock.io/image-bin/uploads/eb1cf5d60cd85c42362920c49e3768cb.svg`
+  - "DID Spaces": `https://www.arcblock.io/image-bin/uploads/fb3d25d6fcd3f35c5431782a35bef879.svg`
+
+  - "DID": `https://www.arcblock.io/image-bin/uploads/71eea946246150766324008427d2f63d.svg`
+  - "DID Wallet": `https://www.arcblock.io/image-bin/uploads/37198ddc4a0b9e91e5c1c821ab895a34.svg`
+  - "DID Connect": `https://www.arcblock.io/image-bin/uploads/71eea946246150766324008427d2f63d.svg`
+  - "DID Names": `https://www.arcblock.io/image-bin/uploads/db36f9832a99d4dccb21a30ff269bb22.svg`
+
+- **Bad Practice:**
+  ```d2
+  DID-Wallet: {
+    shape: image
+    icon: https://www.arcblock.io/image-bin/uploads/37198ddc4a0b9e91e5c1c821ab895a34.svg
+  }
+  Blocklet-Store: {
+    shape: image
+    icon: https://store.blocklet.dev/assets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ/logo.png
+  }
+  DID-Wallet -> Blocklet-Store: "Login"
+  ```
+- **Good Practice:**
+  ```d2
+  DID-Wallet: {
+    label: "DID Wallet"
+    icon: https://www.arcblock.io/image-bin/uploads/37198ddc4a0b9e91e5c1c821ab895a34.svg
+  }
+  Blocklet-Store: {
+    label: "Blocklet Store"
+    icon: https://store.blocklet.dev/assets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ/logo.png
+  }
+  DID-Wallet -> Blocklet-Store: "Login"
+  ```
+
+#### Specialized Diagram Types
+
+- **sequence_diagram**: These are not general-purpose shapes. They are special containers that render specific, structured diagram types and must be used exclusively for that purpose.
+
+## Chapter 2: Best Practices for real case
+
+#### connections between shapes
+
+Ensure all connections are defined at the root level of the diagram, not nested within containers. This maintains clarity and prevents layout issues.
+Ensure that the shape names used in connections are accurate and match the actual node identifiers. When connecting shapes nested within containers, always use the full, qualified name (including all parent containers) to reference the target shape correctly.
+
+- **Bad Practice:**
+  ```d2
+  direction: down
+
+  User: { 
+    shape: c4-person 
+  }
+
+  App: {
+    label: "Your Blocklet Application"
+    shape: rectangle
+
+    Uploader-Component: {
+      label: "Uploader Component"
+      shape: rectangle
+    }
+
+    Backend-Server: {
+      label: "Backend Server"
+      shape: rectangle
+
+      Uploader-Server: {
+        label: "@blocklet/uploader-server"
       }
 
-      "offline": {
-        shape: circle
-        style.fill: "#faad14"
-      }
-
-      "expired": {
-        shape: circle
-        style.fill: "#ff4d4f"
-      }
-
-      "New Login" -> "online": "User authenticates"
-      "online" -> "offline": "User closes app/browser"
-      "online" -> "expired": "Token expires"
-      "offline" -> "online": "User returns"
-      "offline" -> "expired": "Extended inactivity"
-      ```
-    - good:
-      ```d2
-      direction: down
-
-      "online": {
-        shape: circle
-        style.fill: "#52c41a"
-      }
-
-      "offline": {
-        shape: circle
-        style.fill: "#faad14"
-      }
-
-      "expired": {
-        shape: circle
-        style.fill: "#ff4d4f"
-      }
-
-      "New Login" -> "online": "User authenticates"
-      "online" -> "offline": "User closes app/browser"
-      "online" -> "expired": "Token expires"
-      "offline" -> "online": "User returns"
-      "offline" -> "expired": "Extended inactivity"
-      ```
-  - 如果一个节点中的字节点太多了(超过3个)，请使用 `grid-columns` 限制一下单行的列数，`grid-columns` 的值优先使用2，最大不要超过 3，例如
-    - good:
-      ```d2
-      "Instance": {
-        grid-columns: 3
-        "A": "A"
-        "B": "B"
-        "C": "C"
-        "D": "D"
-        "E": "E"
-      }
-      ```
-      ```d2
-      "Instance": {
-        grid-columns: 2
-        "A": "A"
-        "B": "B"
-        "C": "C"
-        "D": "D"
-      }
-      ```
-  - 每一个容器节点中，最好设置 `grid-columns`
-    - bad:
-      ```d2
-      direction: down
-
-      "SDK": "@blocklet/js-sdk" {
-        shape: package
-        
-        "Core Instance": {
-          shape: rectangle
-          "BlockletSDK": "Main SDK Class"
-        }
-        
-        "Services": {
-          grid-columns: 3
-          "AuthService": "User Authentication" {
-            shape: class
-          }
-          "TokenService": "Token Management" {
-            shape: class  
-          }
-          "UserSessionService": "Session Management" {
-            shape: class
-          }
-          "BlockletService": "Blocklet Metadata" {
-            shape: class
-          }
-          "FederatedService": "Federated Login" {
-            shape: class
-          }
-        }
-        
-        "HTTP Clients": {
-          grid-columns: 2
-          "createAxios": "Axios-based Client" {
-            shape: rectangle
-          }
-          "createFetch": "Fetch-based Client" {
-            shape: rectangle
-          }
-        }
-      }
-
-      "Your App": "Application Code" {
-        shape: rectangle
-      }
-
-      "Blocklet Services": "Remote APIs" {
+      DB: {
+        label: "Database"
         shape: cylinder
       }
 
-      "Your App" -> "SDK": "Import & Use"
-      "SDK" -> "Blocklet Services": "Authenticated Requests"
-      "Blocklet Services" -> "SDK": "Responses & Tokens"
-      ```
-    - good:
-      ```d2
-      direction: down
+      Uploader-Server -> DB: "4. Save metadata"
+      DB -> Uploader-Server: "5. Return DB record"
+    }
 
-      "SDK": "@blocklet/js-sdk" {
-        shape: package
-        grid-columns: 1
-        
-        "Core Instance": {
-          shape: rectangle
-          "BlockletSDK": "Main SDK Class"
-        }
-        
-        "Services": {
-          grid-columns: 3
-          "AuthService": "User Authentication" {
-            shape: class
-          }
-          "TokenService": "Token Management" {
-            shape: class  
-          }
-          "UserSessionService": "Session Management" {
-            shape: class
-          }
-          "BlockletService": "Blocklet Metadata" {
-            shape: class
-          }
-          "FederatedService": "Federated Login" {
-            shape: class
-          }
-        }
-        
-        "HTTP Clients": {
-          grid-columns: 2
-          "createAxios": "Axios-based Client" {
-            shape: rectangle
-          }
-          "createFetch": "Fetch-based Client" {
-            shape: rectangle
-          }
-        }
+    User -> Uploader-Component: "1. Drop file"
+    Uploader-Component -> Backend-Server.Uploader-Server: "2. Upload file chunks (Tus)"
+    Backend-Server.Uploader-Server -> Backend-Server.Uploader-Server: "3. Trigger backend onUploadFinish"
+    Backend-Server.Uploader-Server -> Uploader-Component: "6. Send JSON response"
+    Uploader-Component -> Uploader-Component: "7. Trigger frontend onUploadFinish"
+    Uploader-Component -> User: "8. Update UI with file URL"
+  }
+  ```
+- **Good Practice:**
+  ```d2
+  direction: down
+
+  User: { 
+    shape: c4-person 
+  }
+
+  App: {
+    label: "Your Blocklet Application"
+    shape: rectangle
+
+    Uploader-Component: {
+      label: "Uploader Component"
+      shape: rectangle
+    }
+
+    Backend-Server: {
+      label: "Backend Server"
+      shape: rectangle
+
+      Uploader-Server: {
+        label: "@blocklet/uploader-server"
       }
 
-      "Your App": "Application Code" {
-        shape: rectangle
-      }
-
-      "Blocklet Services": "Remote APIs" {
+      DB: {
+        label: "Database"
         shape: cylinder
       }
-
-      "Your App" -> "SDK": "Import & Use"
-      "SDK" -> "Blocklet Services": "Authenticated Requests"
-      "Blocklet Services" -> "SDK": "Responses & Tokens"
-      ```
-  - 必须保证一个图中，所有的节点都是有关联的，不需要为图表设置 legend，如果有节点不存在关联性，则应该移除这些节点，或者拆分成多个独立的图表
-    - bad:
-      ```d2
-      direction: down
-
-      "Your App": {
-        shape: rectangle
-      }
-
-      "SDK Request Helper": {
-        label: "@blocklet/js-sdk (createAxios / createFetch)"
-        shape: package
-      }
-
-      "Blocklet Service": {
-        shape: cylinder
-      }
-
-      "Token Refresh Endpoint": {
-        label: "/api/did/refreshSession"
-        shape: rectangle
-      }
-
-      "Your App" -> "SDK Request Helper": "1. Make API Call (e.g., /api/profile)"
-
-      "SDK Request Helper" -> "Blocklet Service": "2. Adds Auth Header & Sends Request" {
-        style {
-          stroke-dash: 2
-        }
-      }
-
-      "Success Path": {
-        style.stroke: "#52c41a"
-
-        "Blocklet Service" -> "SDK Request Helper": "3a. 200 OK (Token Valid)"
-        "SDK Request Helper" -> "Your App": "4a. Returns Data"
-      }
-
-
-      "Token Renewal Path": {
-        style.stroke: "#faad14"
-
-        "Blocklet Service" -> "SDK Request Helper": "3b. 401 Unauthorized (Token Expired)"
-        "SDK Request Helper" -> "Token Refresh Endpoint": "4b. Request New Token"
-        "Token Refresh Endpoint" -> "SDK Request Helper": "5b. New Tokens"
-        "SDK Request Helper" -> "Blocklet Service": "6b. Retry Original Request"
-        "Blocklet Service" -> "SDK Request Helper": "7b. 200 OK" {
-          style.stroke: "#52c41a"
-        }
-        "SDK Request Helper" -> "Your App": "8b. Returns Data Transparently" {
-          style.stroke: "#52c41a"
-        }
-      }
-      ```
-    - good:
-      ```d2
-      direction: down
-
-      "Your App": {
-        shape: rectangle
-      }
-
-      "SDK Request Helper": {
-        label: "@blocklet/js-sdk (createAxios / createFetch)"
-        shape: package
-      }
-
-      "Blocklet Service": {
-        shape: cylinder
-      }
-
-      "Token Refresh Endpoint": {
-        label: "/api/did/refreshSession"
-        shape: rectangle
-      }
-
-      "Your App" -> "SDK Request Helper": "1. Make API Call (e.g., /api/profile)"
-
-      "SDK Request Helper" -> "Blocklet Service": "2. Adds Auth Header & Sends Request" {
-        style {
-          stroke-dash: 2
-        }
-      }
-      ```
-      ```d2
-      "Success Path": {
-        style.stroke: "#52c41a"
-
-        "Blocklet Service" -> "SDK Request Helper": "3a. 200 OK (Token Valid)"
-        "SDK Request Helper" -> "Your App": "4a. Returns Data"
-      }
-      ```
-      ```d2
-      "Token Renewal Path": {
-        style.stroke: "#faad14"
-
-        "Blocklet Service" -> "SDK Request Helper": "3b. 401 Unauthorized (Token Expired)"
-        "SDK Request Helper" -> "Token Refresh Endpoint": "4b. Request New Token"
-        "Token Refresh Endpoint" -> "SDK Request Helper": "5b. New Tokens"
-        "SDK Request Helper" -> "Blocklet Service": "6b. Retry Original Request"
-        "Blocklet Service" -> "SDK Request Helper": "7b. 200 OK" {
-          style.stroke: "#52c41a"
-        }
-        "SDK Request Helper" -> "Your App": "8b. Returns Data Transparently" {
-          style.stroke: "#52c41a"
-        }
-      }
-      ```
-  - 当有关联关系的节点，处于一个节点内部时，则它们的关联关系也应该写在节点内部
-    - bad
-      ```d2
-      direction: down
-
-      "@blocklet/js-sdk": {
-        shape: package
-        
-        "Main SDK Instance": {
-          shape: rectangle
-          "BlockletSDK Class": "Main entry point"
-          "getBlockletSDK()": "Singleton factory"
-        }
-        
-        "HTTP Clients": {
-          shape: rectangle
-          grid-columns: 2
-          "createAxios()": "Axios-based client"
-          "createFetch()": "Fetch-based client"
-        }
-        
-        "Core Services": {
-          shape: rectangle
-          grid-columns: 3
-          "AuthService": "User authentication"
-          "TokenService": "Token management"
-          "BlockletService": "Blocklet metadata"
-          "UserSessionService": "Session management"
-          "FederatedService": "Federated login"
-          "ComponentService": "Component utilities"
-        }
-      }
-
-      "Main SDK Instance" -> "HTTP Clients": "Uses for requests"
-      "Main SDK Instance" -> "Core Services": "Provides access to"
-      "HTTP Clients" -> "Core Services": "Configured with"
-      ```
-    - good
-      ```d2
-      direction: down
-
-      "@blocklet/js-sdk": {
-        shape: package
-        
-        "Main SDK Instance": {
-          shape: rectangle
-          "BlockletSDK Class": "Main entry point"
-          "getBlockletSDK()": "Singleton factory"
-        }
-        
-        "HTTP Clients": {
-          shape: rectangle
-          grid-columns: 2
-          "createAxios()": "Axios-based client"
-          "createFetch()": "Fetch-based client"
-        }
-        
-        "Core Services": {
-          shape: rectangle
-          grid-columns: 3
-          "AuthService": "User authentication"
-          "TokenService": "Token management"
-          "BlockletService": "Blocklet metadata"
-          "UserSessionService": "Session management"
-          "FederatedService": "Federated login"
-          "ComponentService": "Component utilities"
-        }
-
-        "Main SDK Instance" -> "HTTP Clients": "Uses for requests"
-        "Main SDK Instance" -> "Core Services": "Provides access to"
-        "HTTP Clients" -> "Core Services": "Configured with"
-      }
-      ```
-    - bad:
-      ```d2
-      direction: down
-
-      "Your App": {
-        shape: rectangle
-      }
-
-      "SDK Request Helper": {
-        label: "@blocklet/js-sdk (createAxios / createFetch)"
-        shape: package
-      }
-
-      "Blocklet Service": {
-        shape: cylinder
-      }
-
-
-      "Your App" -> "SDK Request Helper": "1. Make API Call (e.g., /api/profile)"
-
-      "SDK Request Helper" -> "Blocklet Service": "2. Adds Auth Header & Sends Request" {
-        style {
-          stroke-dash: 2
-        }
-      }
-
-      "Token Renewal Path": {
-        style.stroke: "#faad14"
-
-        "Blocklet Service" -> "SDK Request Helper": "3. 401 Unauthorized (Token Expired)"
-        "SDK Request Helper" -> "Token Refresh Endpoint": "4. Request New Token"
-        "Token Refresh Endpoint" -> "SDK Request Helper": "5. New Tokens Received"
-        "SDK Request Helper" -> "Blocklet Service": "6. Retry Original Request with New Token"
-        "Blocklet Service" -> "SDK Request Helper": "7. 200 OK" {
-          style.stroke: "#52c41a"
-        }
-        "SDK Request Helper" -> "Your App": "8. Returns Data Transparently" {
-          style.stroke: "#52c41a"
-        }
-      }
-      ```
-    - good:
-      ```d2
-      direction: down
-
-      "Your App": {
-        shape: rectangle
-      }
-
-      "SDK Request Helper": {
-        label: "@blocklet/js-sdk (createAxios / createFetch)"
-        shape: package
-      }
-
-      "Blocklet Service": {
-        shape: cylinder
-      }
-
-
-      "Your App" -> "SDK Request Helper": "1. Make API Call (e.g., /api/profile)"
-
-      "SDK Request Helper" -> "Blocklet Service": "2. Adds Auth Header & Sends Request" {
-        style {
-          stroke-dash: 2
-        }
-      }
-
-      "Blocklet Service" -> "SDK Request Helper": "3. 401 Unauthorized (Token Expired)"
-      "SDK Request Helper" -> "Token Refresh Endpoint": "4. Request New Token"
-      "Token Refresh Endpoint" -> "SDK Request Helper": "5. New Tokens Received"
-      "SDK Request Helper" -> "Blocklet Service": "6. Retry Original Request with New Token"
-      "Blocklet Service" -> "SDK Request Helper": "7. 200 OK" {
-        style.stroke: "#52c41a"
-      }
-      "SDK Request Helper" -> "Your App": "8. Returns Data Transparently" {
-        style.stroke: "#52c41a"
-      }
-      ```
-  - 如果整个图表只有一个容器节点，就不要增加这个容器节点，直接将内部的节点放在最外层
-    - bad:
-      ```d2
-      direction: down
-
-      "User Sessions Flow": {
-        shape: package
-        grid-columns: 1
-        
-        "User Login": {
-          shape: person
-          style.fill: "#e6f7ff"
-        }
-        
-        "Session Creation": {
-          shape: rectangle
-          style.fill: "#f6ffed"
-        }
-        
-        "Session Storage": {
-          shape: cylinder
-          style.fill: "#fff7e6"
-        }
-        
-        "Multi-Device Access": {
-          shape: package
-          grid-columns: 3
-          "Web Browser": {
-            shape: rectangle
-          }
-          "Mobile App": {
-            shape: rectangle
-          }
-          "Desktop App": {
-            shape: rectangle
-          }
-        }
-        "User Login" -> "Session Creation": "Authenticate"
-        "Session Creation" -> "Session Storage": "Store session"
-        "Session Storage" -> "Multi-Device Access": "Access from devices"
-      }
-      ```
-    - good:
-      ```d2
-      direction: down
-
-      "User Login": {
-        shape: person
-        style.fill: "#e6f7ff"
-      }
-      
-      "Session Creation": {
-        shape: rectangle
-        style.fill: "#f6ffed"
-      }
-      
-      "Session Storage": {
-        shape: cylinder
-        style.fill: "#fff7e6"
-      }
-      
-      "Multi-Device Access": {
-        shape: package
-        grid-columns: 3
-        "Web Browser": {
-          shape: rectangle
-        }
-        "Mobile App": {
-          shape: rectangle
-        }
-        "Desktop App": {
-          shape: rectangle
-        }
-      }
-      "User Login" -> "Session Creation": "Authenticate"
-      "Session Creation" -> "Session Storage": "Store session"
-      "Session Storage" -> "Multi-Device Access": "Access from devices"
-      ```
-  - 某些情况下，单纯的设置 `direction: down` 还无法控制图表的整体方向，可以再结合 `grid-columns: 1` 来进行设置
-    - bad:
-      ```d2
-      direction: down
-
-      "Your Application": {
-        shape: rectangle
-      }
-
-      "@blocklet/js-sdk": {
-        shape: package
-        grid-columns: 1
-
-        "AuthService": {
-          shape: class
-        }
-      }
-
-      "Blocklet API Endpoints": {
-        shape: cylinder
-        grid-columns: 2
-        "/api/user/profile": {}
-        "/api/user/privacy/config": {}
-        "/api/user/notification/config": {}
-        "/api/user/logout": {}
-        "/api/user/follow/{did}": {}
-        "/api/user": {}
-      }
-
-      "Your Application" -> "@blocklet/js-sdk".AuthService: "e.g., sdk.auth.getProfile()"
-      "@blocklet/js-sdk".AuthService -> "Blocklet API Endpoints": "Makes authenticated API calls"
-      ```
-    - good:
-      ```d2
-      direction: down
-      grid-columns: 1
-
-      "Your Application": {
-        shape: rectangle
-      }
-
-      "@blocklet/js-sdk": {
-        shape: package
-        grid-columns: 1
-
-        "AuthService": {
-          shape: class
-        }
-      }
-
-      "Blocklet API Endpoints": {
-        shape: cylinder
-        grid-columns: 2
-        "/api/user/profile": {}
-        "/api/user/privacy/config": {}
-        "/api/user/notification/config": {}
-        "/api/user/logout": {}
-        "/api/user/follow/{did}": {}
-        "/api/user": {}
-      }
-
-      "Your Application" -> "@blocklet/js-sdk".AuthService: "e.g., sdk.auth.getProfile()"
-      "@blocklet/js-sdk".AuthService -> "Blocklet API Endpoints": "Makes authenticated API calls"
-      ```
-  - **非常重要** 当容器节点中子节点个数与 `grid-columns` 值相同时，则应该去掉容器节点中的 `grid-columns` 字段
-    - bad:
-      ```d2
-      "@blocklet/js-sdk": {
-        shape: package
-        grid-columns: 1
-
-        "AuthService": {
-          shape: class
-        }
-      }
-      ```
-    - good:
-      ```d2
-      "@blocklet/js-sdk": {
-        shape: package
-
-        "AuthService": {
-          shape: class
-        }
-      }
-      ```
-    - bad:
-      ```d2
-      "Browser Storage": {
-        shape: package
-        grid-columns: 2
-
-        "Cookies": {
-          shape: document
-          "Session Token": {}
-        }
-
-        "LocalStorage": {
-          shape: stored_data
-          "Refresh Token": {}
-        }
-      }
-      ```
-    - good:
-      ```d2
-      "Browser Storage": {
-        shape: package
-
-        "Cookies": {
-          shape: document
-          "Session Token": {}
-        }
-
-        "LocalStorage": {
-          shape: stored_data
-          "Refresh Token": {}
-        }
-      }
-      ```
-  - 当一个容器节点外部有节点与当前容器节点内部节点相互关联时，应该将这些节点放在同一层级
-    - bad:
-      ```d2
-      direction: down
-
-      "Federated Login Group": {
-        shape: package
-
-        "Master App": {
-          shape: rectangle
-          style.stroke: "#0052cc"
-          style.stroke-width: 2
-          "Provides central authentication"
-        }
-
-        "Member App 1 (Current App)": {
-          shape: rectangle
-          "User interacts here"
-        }
-
-        "Member App 2": {
-          shape: rectangle
-        }
-
-        "Master App" -> "Member App 1 (Current App)": "Shares user session"
-        "Master App" -> "Member App 2": "Shares user session"
-      }
-
-      User: {
-        shape: person
-      }
-
-      User -> "Member App 1 (Current App)": "Logs in via Master App"
-      ```
-    - good:
-      ```d2
-      direction: down
-
-      "Federated Login Group": {
-        shape: package
-
-        "Master App": {
-          shape: rectangle
-          style.stroke: "#0052cc"
-          style.stroke-width: 2
-          "Provides central authentication"
-        }
-
-        "Member App 1 (Current App)": {
-          shape: rectangle
-          "User interacts here"
-        }
-
-        "Member App 2": {
-          shape: rectangle
-        }
-
-        "Master App" -> "Member App 1 (Current App)": "Shares user session"
-        "Master App" -> "Member App 2": "Shares user session"
-
-        User: {
-          shape: person
-        }
-
-        User -> "Member App 1 (Current App)": "Logs in via Master App"
-      }
-
-      ```
-  - **非常重要** 当存在多层容器节点嵌套时，外层的容器节点应该使用 `grid-columns: 1`
-    - bad:
-      ```d2
-      direction: down
-
-      "User Account": {
-        shape: person
-      }
-
-      "Sessions": {
-        shape: package
-        grid-columns: 3
-
-        "Web Browser Session": {
-          shape: rectangle
-          "IP: 192.168.1.10"
-          "UA: Chrome on macOS"
-          "Status: online"
-        }
-
-        "iOS App Session": {
-          shape: rectangle
-          "IP: 10.0.0.5"
-          "UA: MyApp/1.2 iOS"
-          "Status: online"
-        }
-
-        "Old Laptop Session": {
-          shape: rectangle
-          "IP: 172.16.0.20"
-          "UA: Firefox on Windows"
-          "Status: expired"
-        }
-      }
-
-      "User Account" -> "Sessions": "Has multiple"
-      ```
-    - good:
-      ```d2
-      direction: down
-
-      "User Account": {
-        shape: person
-      }
-
-      "Sessions": {
-        shape: package
-        grid-columns: 1
-
-        "Web Browser Session": {
-          shape: rectangle
-          "IP: 192.168.1.10"
-          "UA: Chrome on macOS"
-          "Status: online"
-        }
-
-        "iOS App Session": {
-          shape: rectangle
-          "IP: 10.0.0.5"
-          "UA: MyApp/1.2 iOS"
-          "Status: online"
-        }
-
-        "Old Laptop Session": {
-          shape: rectangle
-          "IP: 172.16.0.20"
-          "UA: Firefox on Windows"
-          "Status: expired"
-        }
-      }
-
-      "User Account" -> "Sessions": "Has multiple"
-      ```
-  - 当一个节点容器中包含了其他的节点容器，建议使用 `grid-gap` 来增加各个节点容器的距离，尽量大于 `100`
-    - bad:
-      ```d2
-      direction: down
-
-      "Your Application": {
-        shape: rectangle
-      }
-
-      "SDK: @blocklet/js-sdk": {
-        shape: package
-        grid-columns: 1
-
-        "HTTP Clients": {
-          shape: rectangle
-          grid-columns: 2
-          "createAxios()": "Axios-based client"
-          "createFetch()": "Fetch-based client"
-        }
-
-        "Core Services": {
-          shape: rectangle
-          grid-columns: 3
-          "AuthService": "User & Auth"
-          "TokenService": "Token Management"
-          "UserSessionService": "Session Data"
-          "BlockletService": "Blocklet Metadata"
-          "FederatedService": "Federated Login"
-        }
-
-        "HTTP Clients" -> "Core Services".TokenService: "Uses for auth tokens"
-      }
-
-      "Blocklet Services": {
-        shape: cylinder
-        "Remote APIs"
-      }
-
-      "Your Application" -> "SDK: @blocklet/js-sdk": "Imports & Initializes"
-      "SDK: @blocklet/js-sdk" -> "Blocklet Services": "Makes authenticated requests"
-      ```
-    - bad:
-      ```d2
-      direction: down
-
-      "Your Application": {
-        shape: rectangle
-      }
-
-      "SDK: @blocklet/js-sdk": {
-        shape: package
-        grid-columns: 1
-        grid-gap: 100
-
-        "HTTP Clients": {
-          shape: rectangle
-          grid-columns: 2
-          "createAxios()": "Axios-based client"
-          "createFetch()": "Fetch-based client"
-        }
-
-        "Core Services": {
-          shape: rectangle
-          grid-columns: 3
-          "AuthService": "User & Auth"
-          "TokenService": "Token Management"
-          "UserSessionService": "Session Data"
-          "BlockletService": "Blocklet Metadata"
-          "FederatedService": "Federated Login"
-        }
-
-        "HTTP Clients" -> "Core Services".TokenService: "Uses for auth tokens"
-      }
-
-      "Blocklet Services": {
-        shape: cylinder
-        "Remote APIs"
-      }
-
-      "Your Application" -> "SDK: @blocklet/js-sdk": "Imports & Initializes"
-      "SDK: @blocklet/js-sdk" -> "Blocklet Services": "Makes authenticated requests"
-      ```
-  - 如果节点的 `shape: person`，则不要加任何其他内部的文字
-    - bad:
-      ```d2
-      "User Account": {
-        shape: person
-        "did:z... (John Doe)"
-      }
-      ```
-    - good:
-      ```d2
-      "User Account": {
-        shape: person
-      }
-      ```
-  - **非常重要** 在绘制连线的时候，一定要注意连接的节点的 ID 到底是什么，它可能有多个层级，但一定要弄清楚关系才能添加连线
-    - bad:
-      ```d2
-      direction: down
-
-      "User-Browser": {
-        label: "User's Browser"
+    }
+  }
+
+  User -> App.Uploader-Component: "1. Drop file"
+  App.Uploader-Component -> App.Backend-Server.Uploader-Server: "2. Upload file"
+  App.Backend-Server.Uploader-Server -> App.Backend-Server.Uploader-Server: "3. Backend onUploadFinish"
+  App.Backend-Server.Uploader-Server -> App.Backend-Server.DB: "4. Save metadata"
+  App.Backend-Server.DB -> App.Backend-Server.Uploader-Server: "5. Return DB record"
+  App.Backend-Server.Uploader-Server -> App.Uploader-Component: "6. Send JSON response"
+  App.Uploader-Component -> App.Uploader-Component: "7. Frontend onUploadFinish"
+  App.Uploader-Component -> User: "8. Update UI"
+  ```
+
+> Move all connections to root, and the `User` shape is outside the `App` container, so the connection must reference the full path `App.Uploader-Component`.
+
+#### shape name should not contain special characters or quotes
+- **Bad Practice:**
+  ```d2
+  direction: down
+
+  "@blocklet/app": {
+    label: "Your Blocklet Application"
+    shape: rectangle
+
+    "uploader-component": {
+      label: "<Uploader /> Component"
+      shape: rectangle
+
+      "uppy-ecosystem": {
+        label: "Uppy Ecosystem"
         shape: rectangle
 
-        "React-App": {
-          label: "Your React App"
-          shape: rectangle
-
-          "Uploader-Component": {
-            label: "@blocklet/uploader"
-            shape: package
-          }
+        "uppy-core": {
+          label: "Uppy Core Instance"
         }
-      }
 
-      "Blocklet-Server": {
-        label: "Your Blocklet Server"
+        "standard-plugins": {
+          label: "Standard Uppy Plugins"
+          shape: rectangle
+          "Dashboard": {}
+          "Tus": {}
+          "Webcam": {}
+          "Url": {}
+        }
+
+        "custom-plugins": {
+          label: "Custom Blocklet Plugins"
+          shape: rectangle
+          "AIImage": {}
+          "Resources": {}
+          "Uploaded": {}
+        }
+
+        "uppy-core" -> "standard-plugins"
+        "uppy-core" -> "custom-plugins"
+      }
+    }
+  }
+
+  "media-kit": {
+    label: "Media Kit Blocklet"
+    shape: cylinder
+  }
+
+  "@blocklet/app.uploader-component" <-> media-kit: "Provides Config & Plugins"
+  ```
+- **Good Practice:**
+  ```d2
+  direction: down
+
+  blocklet-app: {
+    label: "Your Blocklet Application"
+    shape: rectangle
+
+    uploader-component: {
+      label: "<Uploader /> Component"
+      shape: rectangle
+
+      uppy-ecosystem: {
+        label: "Uppy Ecosystem"
         shape: rectangle
 
-        "Express-App": {
-          label: "Your Express App"
-          shape: rectangle
+        uppy-core: {
+          label: "Uppy Core Instance"
+        }
 
-          "Uploader-Middleware": {
-            label: "@blocklet/uploader-server"
-            shape: package
-          }
+        standard-plugins: {
+          label: "Standard Uppy Plugins"
+          shape: rectangle
+          Dashboard: {}
+          Tus: {}
+          Webcam: {}
+          Url: {}
+        }
+
+        custom-plugins: {
+          label: "Custom Blocklet Plugins"
+          shape: rectangle
+          AIImage: {}
+          Resources: {}
+          Uploaded: {}
         }
       }
+    }
+  }
 
-      "File-System": {
-        label: "Storage\n(e.g., File System)"
-        shape: cylinder
+  media-kit: {
+    label: "Media Kit Blocklet"
+    shape: cylinder
+  }
+
+  blocklet-app.uploader-component.uppy-ecosystem.uppy-core -> blocklet-app.uploader-component.uppy-ecosystem.standard-plugins
+  blocklet-app.uploader-component.uppy-ecosystem.uppy-core -> blocklet-app.uploader-component.uppy-ecosystem.custom-plugins
+  blocklet-app.uploader-component <-> media-kit: "Provides Config & Plugins"
+  ```
+
+#### shape should not contain both label and remark
+- **Bad Practice:**
+  ```d2
+  uploader-trigger: {
+    label: "UploaderTrigger"
+    shape: rectangle
+    style.fill: "#e6f7ff"
+    "A wrapper to create a clickable element (e.g., a button) that opens the Uploader UI."
+  }
+  ```
+- **Good Practice:**
+  ```d2
+  uploader-trigger: {
+    label: "UploaderTrigger"
+    shape: rectangle
+    style.fill: "#e6f7ff"
+  }
+  ```
+
+#### Shorten long connections text
+- **Bad Practice:**
+  ```d2
+  direction: down
+
+  User: {
+    shape: c4-person
+  }
+
+  Frontend: {
+    label: "Frontend (Browser)"
+    shape: rectangle
+
+    Uploader-Component: {
+      label: "Uploader Component"
+      shape: rectangle
+    }
+  }
+
+  Backend: {
+    label: "Backend Server"
+    shape: rectangle
+
+    Companion-Middleware: {
+      label: "Companion Middleware\n(@blocklet/uploader-server)"
+    }
+
+    Local-Storage-Middleware: {
+      label: "Local Storage Middleware"
+      shape: rectangle
+    }
+  }
+
+  Remote-Source: {
+    label: "Remote Source\n(e.g., Unsplash, URL)"
+    shape: cylinder
+  }
+
+  User -> Frontend.Uploader-Component: "1. Selects remote file"
+  Frontend.Uploader-Component -> Backend.Companion-Middleware: "2. Request file from remote source via Companion URL"
+  Backend.Companion-Middleware -> Remote-Source: "3. Fetch file"
+  Remote-Source -> Backend.Companion-Middleware: "4. Stream file data"
+  Backend.Companion-Middleware -> Frontend.Uploader-Component: "5. Stream file back to browser"
+  Frontend.Uploader-Component -> Backend.Local-Storage-Middleware: "6. Upload file via Tus protocol"
+  ```
+- **Good Practice:**
+  ```d2
+  direction: down
+
+  User: {
+    shape: c4-person
+  }
+
+  Frontend: {
+    label: "Frontend (Browser)"
+    shape: rectangle
+
+    Uploader-Component: {
+      label: "Uploader Component"
+      shape: rectangle
+    }
+  }
+
+  Backend: {
+    label: "Backend Server"
+    shape: rectangle
+
+    Companion-Middleware: {
+      label: "Companion Middleware\n(@blocklet/uploader-server)"
+    }
+
+    Local-Storage-Middleware: {
+      label: "Local Storage Middleware"
+      shape: rectangle
+    }
+  }
+
+  Remote-Source: {
+    label: "Remote Source\n(e.g., Unsplash, URL)"
+    shape: cylinder
+  }
+
+  User -> Frontend.Uploader-Component: "1. Selects file"
+  Frontend.Uploader-Component -> Backend.Companion-Middleware: "2. Request file"
+  Backend.Companion-Middleware -> Remote-Source: "3. Fetch file"
+  Remote-Source -> Backend.Companion-Middleware: "4. Stream file data"
+  Backend.Companion-Middleware -> Frontend.Uploader-Component: "5. Back to browser"
+  Frontend.Uploader-Component -> Backend.Local-Storage-Middleware: "6. Upload file"
+  ```
+
+#### Remove unnecessary grid-columns
+- **Bad Practice:**
+  ```d2
+  direction: down
+
+  User: { 
+    shape: c4-person 
+  }
+
+  Checkout-Flow: {
+    label: "Checkout Flow"
+    shape: rectangle
+
+    Entry-Points: {
+      label: "User-Facing Components"
+      shape: rectangle
+      grid-columns: 2
+
+      CheckoutTable: {
+        label: "CheckoutTable"
+        "Renders pricing plans"
       }
 
-      "Uploader-Component" -> "Uploader-Middleware": "HTTP POST Request\n(File Upload)"
-      "Uploader-Middleware" -> "File-System": "Saves File"
-      ```
-    - good:
-      ```d2
-      direction: down
+      CheckoutDonate: {
+        label: "CheckoutDonate"
+        "Manages donation flow"
+      }
+    }
 
-      "User-Browser": {
-        label: "User's Browser"
-        shape: rectangle
+    Core-Processor: {
+      label: "Core Payment Processor"
+      shape: rectangle
 
-        "React-App": {
-          label: "Your React App"
-          shape: rectangle
+      CheckoutForm: {
+        label: "CheckoutForm"
+        "Processes the final payment"
+      }
+    }
+    Entry-Points.CheckoutTable -> Core-Processor.CheckoutForm: "On plan selection"
+    Entry-Points.CheckoutDonate -> Core-Processor.CheckoutForm: "On donate action"
+  }
 
-          "Uploader-Component": {
-            label: "@blocklet/uploader"
-            shape: package
-          }
-        }
+  User -> Checkout-Flow.Entry-Points.CheckoutTable: "Selects a subscription"
+  User -> Checkout-Flow.Entry-Points.CheckoutDonate: "Makes a donation"
+  ```
+- **Good Practice:**
+  ```d2
+  direction: down
+
+  User: { 
+    shape: c4-person 
+  }
+
+  Checkout-Flow: {
+    label: "Checkout Flow"
+    shape: rectangle
+
+    Entry-Points: {
+      label: "User-Facing Components"
+      shape: rectangle
+
+      CheckoutTable: {
+        label: "CheckoutTable"
       }
 
-      "Blocklet-Server": {
-        label: "Your Blocklet Server"
-        shape: rectangle
-
-        "Express-App": {
-          label: "Your Express App"
-          shape: rectangle
-
-          "Uploader-Middleware": {
-            label: "@blocklet/uploader-server"
-            shape: package
-          }
-        }
+      CheckoutDonate: {
+        label: "CheckoutDonate"
       }
+    }
 
-      "File-System": {
-        label: "Storage\n(e.g., File System)"
-        shape: cylinder
+    Core-Processor: {
+      label: "Core Payment Processor"
+      shape: rectangle
+
+      CheckoutForm: {
+        label: "CheckoutForm"
       }
+    }
 
-      User-Browser.React-App.Uploader-Component -> Blocklet-Server.Express-App.Uploader-Middleware: "HTTP POST Request\n(File Upload)"
-      Blocklet-Server.Express-App.Uploader-Middleware -> "File-System": "Saves File"
-      ```
-  - 对于节点 shape 的选择，可以参考
-    {% include "shape-rules.md" %}
-  - 示例参考：
-    {% include "diy-examples.md" %}
+  }
+
+  Checkout-Flow.Entry-Points.CheckoutTable -> Checkout-Flow.Core-Processor.CheckoutForm: "On plan selection"
+  Checkout-Flow.Entry-Points.CheckoutDonate -> Checkout-Flow.Core-Processor.CheckoutForm: "On donate action"
+  User -> Checkout-Flow.Entry-Points.CheckoutTable: "Selects a subscription"
+  User -> Checkout-Flow.Entry-Points.CheckoutDonate: "Makes a donation"
+  ```
+
+> Checkout-Flow.Entry-Points has only two child nodes, and `grid-columns` is set to `2`, so `grid-columns` is unnecessary.
+
+#### ensure style properties are valid
+- **Bad Practice:**
+  ```d2
+  App: {
+    shape: rectangle
+    style: {
+      stroke: "#888"
+      "stroke-width": 2
+      dashed: true
+    }
+  }
+  ```
+- **Good Practice:**
+  ```d2
+  App: {
+    shape: rectangle
+    style: {
+      stroke: "#888"
+      stroke-width: 2
+      stroke-dash: 2
+    }
+  }
+  ```
+
+#### Sequence Diagram
+- **Bad Practice:**
+  ```d2
+  direction: down
+
+  User: { 
+    shape: c4-person 
+  }
+
+  App: {
+    label: "Your Application"
+    shape: rectangle
+
+    ResumeSubscription: {
+      label: "ResumeSubscription Component"
+    }
+  }
+
+  Payment-API: {
+    label: "Payment Backend API"
+    shape: rectangle
+  }
+
+  DID-Wallet: {
+    label: "DID Wallet"
+    icon: "https://www.arcblock.io/image-bin/uploads/37198ddc4a0b9e91e5c1c821ab895a34.svg"
+  }
+
+  sequence: {
+    shape: sequence_diagram
+
+    User -> App.ResumeSubscription: "1. Triggers resume action"
+
+    App.ResumeSubscription -> Payment-API: "2. Fetch recovery info\n(GET /recover-info)"
+    Payment-API -> App.ResumeSubscription: "3. Return status (e.g., needStake: true)"
+
+    App.ResumeSubscription.t1 -> User: "4. Display confirmation dialog"
+    User -> App.ResumeSubscription.t1: "5. Clicks 'Confirm'"
+
+    alt: "If Re-Staking is Required" {
+      App.ResumeSubscription.t1 -> DID-Wallet: "6a. Open 're-stake' session"
+      User -> DID-Wallet: "7a. Approve in wallet"
+      DID-Wallet -> App.ResumeSubscription.t1: "8a. Send success callback"
+    }
+
+    alt: "If No Staking is Required" {
+      App.ResumeSubscription.t1 -> Payment-API: "6b. Call recover endpoint\n(PUT /recover)"
+      Payment-API -> App.ResumeSubscription.t1: "7b. Return success"
+    }
+
+    App.ResumeSubscription.t1 -> Payment-API: "9. Fetch updated subscription details"
+    Payment-API -> App.ResumeSubscription.t1: "10. Return latest subscription"
+    App.ResumeSubscription.t1 -> App.ResumeSubscription: "11. Call onResumed() & close dialog"
+  }
+
+  ```
+- **Good Practice:**
+  ```d2
+  shape: sequence_diagram
+
+  User -> App.ResumeSubscription: "1. Triggers resume action"
+
+  App.ResumeSubscription -> Payment-API: "2. Fetch recovery info\n(GET /recover-info)"
+  Payment-API -> App.ResumeSubscription: "3. Return status (e.g., needStake: true)"
+
+  App.ResumeSubscription.t1 -> User: "4. Display confirmation dialog"
+  User -> App.ResumeSubscription.t1: "5. Clicks 'Confirm'"
+
+  alt: "If Re-Staking is Required" {
+    App.ResumeSubscription.t1 -> DID-Wallet: "6a. Open 're-stake' session"
+    User -> DID-Wallet: "7a. Approve in wallet"
+    DID-Wallet -> App.ResumeSubscription.t1: "8a. Send success callback"
+  }
+
+  alt: "If No Staking is Required" {
+    App.ResumeSubscription.t1 -> Payment-API: "6b. Call recover endpoint\n(PUT /recover)"
+    Payment-API -> App.ResumeSubscription.t1: "7b. Return success"
+  }
+
+  App.ResumeSubscription.t1 -> Payment-API: "9. Fetch updated subscription details"
+  Payment-API -> App.ResumeSubscription.t1: "10. Return latest subscription"
+  App.ResumeSubscription.t1 -> App.ResumeSubscription: "11. Call onResumed() & close dialog"
+  ```
+
+> If using sequence diagram, remove all other shapes, and only keep the sequence diagram part.
+
+## Chapter 3: Official Best Practices
+
+##### Game State Sequence
+```d2
+shape: sequence_diagram
+
+User
+Session
+Lua
+
+User."Init"
+
+User.t1 -> Session.t1: "SetupFight()"
+Session.t1 -> Session.t1: "Create clean fight state"
+Session.t1 -> Lua: "Trigger OnPlayerTurn"
+User.t1 <- Session.t1
+
+User."Repeat"
+
+User.mid -> Session.mid: "PlayerCastHand() etc."
+Session.mid -> Lua: "Trigger OnDamage etc."
+User.mid <- Session.mid
+
+User.t2 -> Session.t2: "FinishPlayerTurn()"
+Session.t2 -> Lua: "Trigger OnTurn"
+Session.t2 -> Session.t2: "Update and remove status effects"
+Session.t2 -> Lua: "Trigger OnPlayerTurn"
+User.t2 <- Session.t2
+```
+
+#### Avoid unexpected characters
+- **Bad Practice:**
+  ```d2
+  User -> CLI: "$ blocklet init"
+  ```
+- **Good Practice:**
+  ```d2
+  User -> CLI: "blocklet init"
+  ```

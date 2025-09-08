@@ -14,7 +14,9 @@ import {
 } from "./constants.mjs";
 import { getContentHash } from "./utils.mjs";
 
-const isDebug = process.env.DEBUG?.includes("doc-smith");
+import debug from "debug";
+
+const logger = debug("doc-smith");
 
 export async function getChart({ chart = "d2", format = "svg", content, strict }) {
   const baseUrl = "https://chart.abtnet.io";
@@ -72,29 +74,22 @@ export async function saveD2Assets({ markdown, docsDir }) {
       const svgPath = path.join(assetDir, fileName);
 
       if (await fs.pathExists(svgPath)) {
-        if (isDebug) {
-          console.log("Found assets cache, skipping generation", svgPath);
-        }
+        logger.log("Found assets cache, skipping generation", svgPath);
       } else {
         try {
-          if (isDebug) {
-            console.log("start generate d2 chart", svgPath);
+          if (logger.enabled) {
+            logger.log("start generate d2 chart", svgPath);
             const d2FileName = `${getContentHash(d2Content)}.d2`;
             const d2Path = path.join(assetDir, d2FileName);
             await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
           }
 
-          const d2FileName = `${getContentHash(d2Content)}.d2`;
-          const d2Path = path.join(assetDir, d2FileName);
-          await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
           const svg = await getD2Svg({ content: d2Content });
           if (svg) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
         } catch (error) {
-          if (isDebug) {
-            console.warn("Failed to generate D2 chart:", error);
-          }
+          logger.warn("Failed to generate D2 chart:", error);
           return _code;
         }
       }
@@ -156,16 +151,14 @@ export async function checkD2Content({ content }) {
   const fileName = `${getContentHash(d2Content)}.svg`;
   const svgPath = path.join(assetDir, fileName);
 
-  if (isDebug) {
+  if (logger.enabled) {
     const d2FileName = `${getContentHash(d2Content)}.d2`;
     const d2Path = path.join(assetDir, d2FileName);
     await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
   }
 
   if (await fs.pathExists(svgPath)) {
-    if (isDebug) {
-      console.log("Found assets cache, skipping generation", svgPath);
-    }
+    logger.log("Found assets cache, skipping generation", svgPath);
     return;
   }
 
