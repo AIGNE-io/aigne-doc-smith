@@ -9,26 +9,26 @@ importers:
   .:
     dependencies:
       '@aigne/aigne-hub':
-        specifier: ^0.8.9
-        version: 0.8.9(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+        specifier: ^0.8.10
+        version: 0.8.10(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/anthropic':
-        specifier: ^0.12.2
-        version: 0.12.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+        specifier: ^0.12.3
+        version: 0.12.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/cli':
-        specifier: ^1.44.2
+        specifier: ^1.44.3
         version: 1.44.3(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(debug@4.4.1)(listr2@9.0.1)(ws@8.18.3)
       '@aigne/core':
-        specifier: ^1.58.2
-        version: 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+        specifier: ^1.58.3
+        version: 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/gemini':
-        specifier: ^0.12.2
-        version: 0.12.2(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+        specifier: ^0.12.3
+        version: 0.12.3(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/openai':
-        specifier: ^0.14.2
-        version: 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+        specifier: ^0.14.3
+        version: 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/publish-docs':
-        specifier: ^0.9.4
-        version: 0.9.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
+        specifier: ^0.9.5
+        version: 0.9.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
       chalk:
         specifier: ^5.5.0
         version: 5.5.0
@@ -99,17 +99,8 @@ packages:
   '@aigne/aigne-hub@0.8.10':
     resolution: {integrity: sha512-1FVfuLbd3C453g951D/UTiy5u+DSuZNsS7zOAW2SvponNixgm0W1xnzC6f7IojmBh0sunUIu1wKIKwMGtYHkug==}
 
-  '@aigne/aigne-hub@0.8.9':
-    resolution: {integrity: sha512-zAu/z6VKDJUOZbFUrOLxd2e5qrAaoxEBkGSYZcv9KTclCNtol9IWtZ2jxlVXEvJf64IAR+7+l54xxeGZQF0ZhQ==}
-
-  '@aigne/anthropic@0.12.2':
-    resolution: {integrity: sha512-c4WqnqspRYeIccGfn6NIzD9orFmBKdWvYOghUOXhWU9436k3dWf4P+O+saOOefWPeOAmfrwVUIch0E5ISaqRdQ==}
-
   '@aigne/anthropic@0.12.3':
     resolution: {integrity: sha512-gOfohMmHL8zzpgLCUCl5hjBIEKvKeZd4sAWHwGhBXCoLWHGVzMevx8tPPbdFAtxBxbggfYSw+r/NvwZhnjojoQ==}
-
-  '@aigne/bedrock@0.9.20':
-    resolution: {integrity: sha512-vMtfQQJBzzgjJrPxWg99BBMv0/9lyVw/avfIxzkJkFcgPvktcEpFFnZKvunhIEe0UszPiz2wNBlJq6P2AWpwLw==}
 
   '@aigne/bedrock@0.9.21':
     resolution: {integrity: sha512-abO3rcYXtjrt9KOqN6emYzmo8BUZSbepLanRw+vOsfUFyrPZUkR+RWHwN0YCYFclO1Z3obJwHwH2zEitd6A54Q==}
@@ -118,14 +109,8 @@ packages:
     resolution: {integrity: sha512-VsI+bCN7a5udmZ/YbTkuzu/cEGdLmySi8gyIxIZ+SuRQwqEaWyhGgwWqJIxcaAQ9w0XBUwdhAzgE3XOtML/n2w==}
     hasBin: true
 
-  '@aigne/core@1.58.2':
-    resolution: {integrity: sha512-Y6mUzxiCiWXr2zVCon2is4Sek1iza8w5oKMW5VSyvqK2h7cPmVnnvFvkB4ccsFzYb3xvR4Rc0XkIZF8jB/JMJQ==}
-
   '@aigne/core@1.58.3':
     resolution: {integrity: sha512-+rHzcwvc1gIurkw7rR7VS2b7ccPt19f132eMH2QcNJwy0Rdr0F1ubYSCIQysCO1pNffFitIUAi0Ap63W8TjGqw==}
-
-  '@aigne/deepseek@0.7.39':
-    resolution: {integrity: sha512-lGhLimz98sZqYH1x7zur/g3URkE4slRQY+mE+FHTVbrDqZL8Kt1ElEG7lxd8NJe0TzE4QDz/Q3qgoOvZO30pzQ==}
 
   '@aigne/deepseek@0.7.40':
     resolution: {integrity: sha512-WDVev+5QH8E8gaWuFzxbSQSVgqTWD1jW7xgoX4OOiraK/xNwUfkRJGTEJ3fP3KfLvtcQUPM1GlvE1xY4hSpDqQ==}
@@ -133,23 +118,14 @@ packages:
   '@aigne/default-memory@1.2.3':
     resolution: {integrity: sha512-1Y6s9+R1IXqGpVZaNNJ8eNDvXVBd5DocfAYSEWuSZHvz1z2CeWiXjXarZSXTIEiAw/Z4ZHZdYI2WLz08qu0wUQ==}
 
-  '@aigne/doubao@1.0.33':
-    resolution: {integrity: sha512-wjA56vwIi4PM+P6h6WvLgc5fLfB2CqM02orvpiHfiUtJAx07x+jHURnq90WFc7Ro4kwd8v8AvFXEpQnrY0ewDg==}
-
   '@aigne/doubao@1.0.34':
     resolution: {integrity: sha512-U80dLQXYmyj2kx9WtzCFWj7o6qzrk9/flCsk321Dh/Hwlk0947RCk5ms4nOQIpKQO1oMw2mGyLYkl8vtnh5zhg==}
-
-  '@aigne/gemini@0.12.2':
-    resolution: {integrity: sha512-Ke3MU132/0rjS+aAj1E3NYw9y2gIXQEzJLQhzez9LWcNjeVFGpZq4Z74bT/mecjhV2YBqyNBCzaMV3sXT7aDwg==}
 
   '@aigne/gemini@0.12.3':
     resolution: {integrity: sha512-tKrOweMtTq6PnUgABFwFdvnQPminDP5zZEcMoUJHlniS20WLwhs5DsVJlzEIRRoc6CMZLg0TUYHNcsT486iIkQ==}
 
   '@aigne/ideogram@0.3.10':
     resolution: {integrity: sha512-W7IrmgcHhuxAVgpphmR+TM4JQhORz9EgrvQp/vB11H1cJFMKilpFUvoGtF1H7R1mK0qrYl8coaS/2qamdr/c8w==}
-
-  '@aigne/ideogram@0.3.9':
-    resolution: {integrity: sha512-E5JPgLlBeXEBDCaORZgNqHVLsQpSCYUOQCN0ID+q9Cd4RNFx1NSYqveR32L7Rk8NX8e1ajQnxOo52vKuBOAfJg==}
 
   '@aigne/json-schema-to-zod@1.3.3':
     resolution: {integrity: sha512-8QsF5Vm/Znj16KAvfNIoXghSB7XzGGp+HHoI3CWyuFLX6DbI0YrzRm3EpKo87OhbpdtiWQurC0bidkH2cbsYNQ==}
@@ -169,20 +145,11 @@ packages:
   '@aigne/observability-api@0.10.2':
     resolution: {integrity: sha512-DRJg2QHrCJpoGxAHMQtBVkC40/QrURFCm5jFWmKU1Ae4Z88QbCI7Hds6rq8svPxZ59TiUTX7IJZfCsRxPDbJOw==}
 
-  '@aigne/ollama@0.7.39':
-    resolution: {integrity: sha512-Um84ubaaAC88AUdHDBN+erkpuGl487sRPm082L14gxx2YYjhB3Lvq2mI7T0XCytNC7kBYngSs6ex7TP1mxBeXw==}
-
   '@aigne/ollama@0.7.40':
     resolution: {integrity: sha512-Khs3w+tdciUN+/Y/MPIgMG5uEumD3mDuA8zMA/PeP+E0QBUpkTuEqd8bufKycWJftEoA0fxkFgDGxSTw1nk5zA==}
 
-  '@aigne/open-router@0.7.39':
-    resolution: {integrity: sha512-THmzaZ1C8Y60YeIx2ihJ1y7y2LGWghTDHABpW8/YVnRTZgZBEKIpOT9uqg2KiIPsVug+icmHCzSrb1Olo36A8w==}
-
   '@aigne/open-router@0.7.40':
     resolution: {integrity: sha512-LBDAcXs51dD8XUdriLVKA797eCZCHyM09hOJimtMNba0lMJfc6nBo2zcB4GH6/jfGNKqRnKjG8E/BqarhbMVXg==}
-
-  '@aigne/openai@0.14.2':
-    resolution: {integrity: sha512-QLDUv45zcNRLRaaXKIo2jMVEHeGRayN132omrcfncEDoSGidtm0oOITf/VJRBOs27okcYpS6t5nF9GBtcPUn0w==}
 
   '@aigne/openai@0.14.3':
     resolution: {integrity: sha512-zAZjK8Fm3Ej3cER6oclf5apOF1cyrivneRUrGX4ndqLR2v80d7pPi3T6mGP23ULjg9NWj9nIIqmUw4hSVM37/Q==}
@@ -190,26 +157,17 @@ packages:
   '@aigne/platform-helpers@0.6.2':
     resolution: {integrity: sha512-UFp8siwBCfhfRL188i/0SQYsctJIeaN6dqVAzt+tvID59UQDUXGNdLpcP48fPSf+dI0aIjNi2TVsTn5itgl3Uw==}
 
-  '@aigne/poe@1.0.19':
-    resolution: {integrity: sha512-nnyVmj4w8bjyFYVW2KPdIMH32KsTVtXwk4S11aTaWSINXfaUMK9vigchrlj162KYSYCdWYcB3bkivZkZDKjeTA==}
-
   '@aigne/poe@1.0.20':
     resolution: {integrity: sha512-9HDwwmMXGZcyx8cFJjSJZNr/w34YsNmyEaPLszfvz13IaYBdfN9RNBDwBfRV2wgO+9rEpPioqls5xoY8/1Dkpg==}
 
-  '@aigne/publish-docs@0.9.4':
-    resolution: {integrity: sha512-PtI0e5KVVzLTKLdrP6kqi6lDP2sAG//8NX8xy/SUm2GtceJaufCHT+8TYpGUkd5DwDPgJImdFJmLacI1U0aH8Q==}
+  '@aigne/publish-docs@0.9.5':
+    resolution: {integrity: sha512-L8MiYUAotHUpJ5YIR5ep6PZP9SDCGues866/n08BAd+DV8cg6yiH9bG+pqrF27JzbD5iyABCcGgl/0OPGl4Czw==}
 
   '@aigne/sqlite@0.4.1':
     resolution: {integrity: sha512-npOrVQSUMuq8hZIMRuwEOynUAu1R/h0f27gI6CmPLo2T43zqg/w/sakR2sJyjL/jO/KZw3YDkcw9APzErO5sXw==}
 
-  '@aigne/transport@0.15.2':
-    resolution: {integrity: sha512-eVvk6MwVGFoDaXtWKcJPjC8G7sYGOgmwFDp0Y0lsmtvy+5IQ8rVEpTOokvGx71I5Qi/SMMQtpm9h1cVG9pIf/w==}
-
   '@aigne/transport@0.15.3':
     resolution: {integrity: sha512-SzckJ02MnXQak8hWmMVXgu/mw7woHaNgHksRN/0QTQLs8KLjtSMzWsOzt9nDU1DIN5ebeSv5Ezr6NeiOWJMtJg==}
-
-  '@aigne/xai@0.7.39':
-    resolution: {integrity: sha512-f8PkYsYWEwB/aGJcQh3eKfAWOMNc3j6D044IM7Y9Q/hfhgI2Rmr1T4SkZ122zfM6FYneQYRqZoqcismUl9mWOA==}
 
   '@aigne/xai@0.7.40':
     resolution: {integrity: sha512-VwqPkAfkMXLhCpESQXxN3N/Uasl56HdTG0/5rWZRWp9Z3W6DPdV2xsOyX8KvUa8hW8OG9chpPhssgebfzEEeJA==}
@@ -4317,107 +4275,6 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/aigne-hub@0.8.9(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/anthropic': 0.12.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/bedrock': 0.9.20(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/deepseek': 0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/doubao': 1.0.33(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/gemini': 0.12.2(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/ideogram': 0.3.9(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/ollama': 0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/open-router': 0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/platform-helpers': 0.6.2
-      '@aigne/poe': 1.0.19(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/transport': 0.15.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/xai': 0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@smithy/node-http-handler': 4.1.0
-      https-proxy-agent: 7.0.6
-      ufo: 1.6.1
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@modelcontextprotocol/sdk'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - aws-crt
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - encoding
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
-  '@aigne/anthropic@0.12.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
-    dependencies:
-      '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/platform-helpers': 0.6.2
-      '@anthropic-ai/sdk': 0.56.0
-      ajv: 8.17.1
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-
   '@aigne/anthropic@0.12.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
       '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
@@ -4443,48 +4300,6 @@ snapshots:
       - '@upstash/redis'
       - '@vercel/postgres'
       - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-
-  '@aigne/bedrock@0.9.20(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
-    dependencies:
-      '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aws-sdk/client-bedrock-runtime': 3.848.0
-      uuid: 11.1.0
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - aws-crt
       - better-sqlite3
       - bufferutil
       - bun-types
@@ -4630,72 +4445,6 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/core@1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
-    dependencies:
-      '@aigne/json-schema-to-zod': 1.3.3(zod@3.25.76)
-      '@aigne/observability-api': 0.10.2(@libsql/client@0.15.10)
-      '@aigne/platform-helpers': 0.6.2
-      '@inquirer/prompts': 7.8.4(@types/node@24.0.15)
-      '@modelcontextprotocol/sdk': 1.16.0
-      '@opentelemetry/api': 1.9.0
-      '@opentelemetry/sdk-trace-base': 2.0.1(@opentelemetry/api@1.9.0)
-      '@types/debug': 4.1.12
-      ajv: 8.17.1
-      camelize-ts: 3.0.0
-      content-type: 1.0.5
-      debug: 4.4.1
-      eventsource-parser: 3.0.3
-      fast-deep-equal: 3.1.3
-      fastq: 1.19.1
-      immer: 10.1.1
-      is-network-error: 1.1.0
-      jaison: 2.0.2
-      jsonata: 2.0.6
-      mime: 4.0.7
-      nunjucks: 3.2.4(chokidar@3.6.0)
-      p-retry: 6.2.1
-      raw-body: 3.0.0
-      strict-event-emitter: 0.5.1
-      ufo: 1.6.1
-      uuid: 11.1.0
-      yaml: 2.8.0
-      zod: 3.25.76
-      zod-to-json-schema: 3.24.6(zod@3.25.76)
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-
   '@aigne/core@1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
       '@aigne/json-schema-to-zod': 1.3.3(zod@3.25.76)
@@ -4761,45 +4510,6 @@ snapshots:
       - sqlite3
       - supports-color
       - utf-8-validate
-
-  '@aigne/deepseek@0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
 
   '@aigne/deepseek@0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
@@ -4884,45 +4594,6 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@aigne/doubao@1.0.33(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
   '@aigne/doubao@1.0.34(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
@@ -4948,51 +4619,6 @@ snapshots:
       - bufferutil
       - bun-types
       - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
-  '@aigne/gemini@0.12.2(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/platform-helpers': 0.6.2
-      '@google/genai': 1.16.0(@modelcontextprotocol/sdk@1.16.0)
-      uuid: 11.1.0
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@modelcontextprotocol/sdk'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - encoding
       - expo-sqlite
       - gel
       - knex
@@ -5055,45 +4681,6 @@ snapshots:
   '@aigne/ideogram@0.3.10(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
       '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      ufo: 1.6.1
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-
-  '@aigne/ideogram@0.3.9(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
-    dependencies:
-      '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
       ufo: 1.6.1
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
@@ -5206,45 +4793,6 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@aigne/ollama@0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
   '@aigne/ollama@0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
@@ -5284,92 +4832,9 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/open-router@0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
   '@aigne/open-router@0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
-  '@aigne/openai@0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/platform-helpers': 0.6.2
-      ajv: 8.17.1
-      openai: 5.10.1(ws@8.18.3)(zod@3.25.76)
-      uuid: 11.1.0
-      zod: 3.25.76
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -5456,45 +4921,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@aigne/poe@1.0.19(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
   '@aigne/poe@1.0.20(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
@@ -5534,7 +4960,7 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/publish-docs@0.9.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)':
+  '@aigne/publish-docs@0.9.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)':
     dependencies:
       '@lexical/code': 0.33.1
       '@lexical/headless': 0.33.1
@@ -5606,49 +5032,6 @@ snapshots:
       - sqlite3
       - utf-8-validate
 
-  '@aigne/transport@0.15.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      content-type: 1.0.5
-      p-retry: 6.2.1
-      raw-body: 3.0.0
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
   '@aigne/transport@0.15.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
@@ -5656,45 +5039,6 @@ snapshots:
       p-retry: 6.2.1
       raw-body: 3.0.0
       zod: 3.25.76
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
-  '@aigne/xai@0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
