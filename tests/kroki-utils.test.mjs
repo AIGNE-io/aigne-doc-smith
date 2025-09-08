@@ -1,9 +1,10 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import Debug from "debug";
 import { existsSync, mkdtemp, rmdir } from "node:fs";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
+
+import Debug from "debug";
 
 import { TMP_ASSETS_DIR } from "../utils/constants.mjs";
 import {
