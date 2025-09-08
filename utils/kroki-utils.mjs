@@ -1,5 +1,6 @@
 import path from "node:path";
 
+import Debug from "debug";
 import fs from "fs-extra";
 import { glob } from "glob";
 import pMap from "p-map";
@@ -13,8 +14,6 @@ import {
   TMP_DIR,
 } from "./constants.mjs";
 import { getContentHash } from "./utils.mjs";
-
-import Debug from "debug";
 
 const debug = Debug("doc-smith");
 
