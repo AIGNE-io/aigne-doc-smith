@@ -249,8 +249,8 @@ E -> F
 
       // 2. Second run to check if cache is used
       const debugLogs = [];
-      const originalWrite = process.stdout.write;
-      process.stdout.write = (chunk) => {
+      const originalWrite = process.stderr.write;
+      process.stderr.write = (chunk) => {
         debugLogs.push(chunk.toString());
         return true;
       };
@@ -265,7 +265,7 @@ E -> F
           debugLogs.some((log) => log.includes("Found assets cache, skipping generation")),
         ).toBe(true);
       } finally {
-        process.stdout.write = originalWrite;
+        process.stderr.write = originalWrite;
         Debug.disable();
       }
     });
@@ -390,8 +390,8 @@ E -> F
 
       // Second call should use cache
       const debugLogs = [];
-      const originalWrite = process.stdout.write;
-      process.stdout.write = (chunk) => {
+      const originalWrite = process.stderr.write;
+      process.stderr.write = (chunk) => {
         debugLogs.push(chunk.toString());
         return true;
       };
@@ -408,7 +408,7 @@ E -> F
           debugLogs.some((log) => log.includes("Found assets cache, skipping generation")),
         ).toBe(true);
       } finally {
-        process.stdout.write = originalWrite;
+        process.stderr.write = originalWrite;
         Debug.disable();
       }
     });
