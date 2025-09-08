@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import Debug from "debug";
 import { existsSync, mkdtemp, rmdir } from "node:fs";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -282,8 +283,7 @@ E -> F
       const markdown = `\`\`\`d2\nA -> B\n\`\`\``;
 
       // Enable debug mode
-      const originalDebug = process.env.DEBUG;
-      process.env.DEBUG = "doc-smith";
+      Debug.enable("doc-smith");
 
       try {
         await saveD2Assets({ markdown, docsDir });
@@ -294,11 +294,7 @@ E -> F
         expect(d2File).toBeDefined();
       } finally {
         // Restore debug mode
-        if (originalDebug) {
-          process.env.DEBUG = originalDebug;
-        } else {
-          delete process.env.DEBUG;
-        }
+        Debug.disable();
       }
     });
   });
