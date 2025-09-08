@@ -16,7 +16,7 @@ importers:
         version: 0.12.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/cli':
         specifier: ^1.44.2
-        version: 1.44.2(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)
+        version: 1.44.3(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(debug@4.4.1)(listr2@9.0.1)(ws@8.18.3)
       '@aigne/core':
         specifier: ^1.58.2
         version: 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
@@ -32,6 +32,9 @@ importers:
       chalk:
         specifier: ^5.5.0
         version: 5.5.0
+      debug:
+        specifier: ^4.4.1
+        version: 4.4.1
       dompurify:
         specifier: ^3.2.6
         version: 3.2.6
@@ -87,11 +90,14 @@ importers:
 
 packages:
 
-  '@aigne/agent-library@1.21.39':
-    resolution: {integrity: sha512-b1a2VUFZJyfsZ4piJH3F+YGc9tr05vMQ6Z2pHukkyHEiTpA1a5Bd/N9kG8dCyCh4W6pgrPSn2z/WixkpCNC4Uw==}
+  '@aigne/agent-library@1.21.40':
+    resolution: {integrity: sha512-0yU5pMAdhlvQq+Ilwyv6WxDwgDDwd5Owvx5ihPQjr+eYfjcrfgxv/N7y5pU3NsSKfiFmkjtYbFK6jwxWB8b8YQ==}
 
-  '@aigne/agentic-memory@1.0.39':
-    resolution: {integrity: sha512-nmr/NcNAf03JIcBffZNynzLkR/rNJiFKNYrAEtUq9l+8bqFryRjr4utPHBxSkCO5GUwP+bSGl4G2ylNxHRCLbg==}
+  '@aigne/agentic-memory@1.0.40':
+    resolution: {integrity: sha512-nKm9qR/B8bJPrPXPP279rx16OBe9F6W+Nc+8whwOQOyqGFpLbC4p3X10pF4pRCMuInF8DjXffg67NKM2YBfT/A==}
+
+  '@aigne/aigne-hub@0.8.10':
+    resolution: {integrity: sha512-1FVfuLbd3C453g951D/UTiy5u+DSuZNsS7zOAW2SvponNixgm0W1xnzC6f7IojmBh0sunUIu1wKIKwMGtYHkug==}
 
   '@aigne/aigne-hub@0.8.9':
     resolution: {integrity: sha512-zAu/z6VKDJUOZbFUrOLxd2e5qrAaoxEBkGSYZcv9KTclCNtol9IWtZ2jxlVXEvJf64IAR+7+l54xxeGZQF0ZhQ==}
@@ -99,27 +105,48 @@ packages:
   '@aigne/anthropic@0.12.2':
     resolution: {integrity: sha512-c4WqnqspRYeIccGfn6NIzD9orFmBKdWvYOghUOXhWU9436k3dWf4P+O+saOOefWPeOAmfrwVUIch0E5ISaqRdQ==}
 
+  '@aigne/anthropic@0.12.3':
+    resolution: {integrity: sha512-gOfohMmHL8zzpgLCUCl5hjBIEKvKeZd4sAWHwGhBXCoLWHGVzMevx8tPPbdFAtxBxbggfYSw+r/NvwZhnjojoQ==}
+
   '@aigne/bedrock@0.9.20':
     resolution: {integrity: sha512-vMtfQQJBzzgjJrPxWg99BBMv0/9lyVw/avfIxzkJkFcgPvktcEpFFnZKvunhIEe0UszPiz2wNBlJq6P2AWpwLw==}
 
-  '@aigne/cli@1.44.2':
-    resolution: {integrity: sha512-zNjVGneRzdvnvuaxFUVx7u0XmqdbyoEJI21tU7K0SUwv9rym/vKBS2EwlwSsRh86Rdrsr20/B/sdxm6z4epMdA==}
+  '@aigne/bedrock@0.9.21':
+    resolution: {integrity: sha512-abO3rcYXtjrt9KOqN6emYzmo8BUZSbepLanRw+vOsfUFyrPZUkR+RWHwN0YCYFclO1Z3obJwHwH2zEitd6A54Q==}
+
+  '@aigne/cli@1.44.3':
+    resolution: {integrity: sha512-VsI+bCN7a5udmZ/YbTkuzu/cEGdLmySi8gyIxIZ+SuRQwqEaWyhGgwWqJIxcaAQ9w0XBUwdhAzgE3XOtML/n2w==}
     hasBin: true
 
   '@aigne/core@1.58.2':
     resolution: {integrity: sha512-Y6mUzxiCiWXr2zVCon2is4Sek1iza8w5oKMW5VSyvqK2h7cPmVnnvFvkB4ccsFzYb3xvR4Rc0XkIZF8jB/JMJQ==}
 
+  '@aigne/core@1.58.3':
+    resolution: {integrity: sha512-+rHzcwvc1gIurkw7rR7VS2b7ccPt19f132eMH2QcNJwy0Rdr0F1ubYSCIQysCO1pNffFitIUAi0Ap63W8TjGqw==}
+
   '@aigne/deepseek@0.7.39':
     resolution: {integrity: sha512-lGhLimz98sZqYH1x7zur/g3URkE4slRQY+mE+FHTVbrDqZL8Kt1ElEG7lxd8NJe0TzE4QDz/Q3qgoOvZO30pzQ==}
 
-  '@aigne/default-memory@1.2.2':
-    resolution: {integrity: sha512-mkQB+P9iUvQAgcyzzW32QyVOIdQ/P7do32kua4Hy82Y2xlrHsh9ZpasEhc53FatDHGPhXr4pQYihomBN5X3i/g==}
+  '@aigne/deepseek@0.7.40':
+    resolution: {integrity: sha512-WDVev+5QH8E8gaWuFzxbSQSVgqTWD1jW7xgoX4OOiraK/xNwUfkRJGTEJ3fP3KfLvtcQUPM1GlvE1xY4hSpDqQ==}
+
+  '@aigne/default-memory@1.2.3':
+    resolution: {integrity: sha512-1Y6s9+R1IXqGpVZaNNJ8eNDvXVBd5DocfAYSEWuSZHvz1z2CeWiXjXarZSXTIEiAw/Z4ZHZdYI2WLz08qu0wUQ==}
 
   '@aigne/doubao@1.0.33':
     resolution: {integrity: sha512-wjA56vwIi4PM+P6h6WvLgc5fLfB2CqM02orvpiHfiUtJAx07x+jHURnq90WFc7Ro4kwd8v8AvFXEpQnrY0ewDg==}
 
+  '@aigne/doubao@1.0.34':
+    resolution: {integrity: sha512-U80dLQXYmyj2kx9WtzCFWj7o6qzrk9/flCsk321Dh/Hwlk0947RCk5ms4nOQIpKQO1oMw2mGyLYkl8vtnh5zhg==}
+
   '@aigne/gemini@0.12.2':
     resolution: {integrity: sha512-Ke3MU132/0rjS+aAj1E3NYw9y2gIXQEzJLQhzez9LWcNjeVFGpZq4Z74bT/mecjhV2YBqyNBCzaMV3sXT7aDwg==}
+
+  '@aigne/gemini@0.12.3':
+    resolution: {integrity: sha512-tKrOweMtTq6PnUgABFwFdvnQPminDP5zZEcMoUJHlniS20WLwhs5DsVJlzEIRRoc6CMZLg0TUYHNcsT486iIkQ==}
+
+  '@aigne/ideogram@0.3.10':
+    resolution: {integrity: sha512-W7IrmgcHhuxAVgpphmR+TM4JQhORz9EgrvQp/vB11H1cJFMKilpFUvoGtF1H7R1mK0qrYl8coaS/2qamdr/c8w==}
 
   '@aigne/ideogram@0.3.9':
     resolution: {integrity: sha512-E5JPgLlBeXEBDCaORZgNqHVLsQpSCYUOQCN0ID+q9Cd4RNFx1NSYqveR32L7Rk8NX8e1ajQnxOo52vKuBOAfJg==}
@@ -145,17 +172,29 @@ packages:
   '@aigne/ollama@0.7.39':
     resolution: {integrity: sha512-Um84ubaaAC88AUdHDBN+erkpuGl487sRPm082L14gxx2YYjhB3Lvq2mI7T0XCytNC7kBYngSs6ex7TP1mxBeXw==}
 
+  '@aigne/ollama@0.7.40':
+    resolution: {integrity: sha512-Khs3w+tdciUN+/Y/MPIgMG5uEumD3mDuA8zMA/PeP+E0QBUpkTuEqd8bufKycWJftEoA0fxkFgDGxSTw1nk5zA==}
+
   '@aigne/open-router@0.7.39':
     resolution: {integrity: sha512-THmzaZ1C8Y60YeIx2ihJ1y7y2LGWghTDHABpW8/YVnRTZgZBEKIpOT9uqg2KiIPsVug+icmHCzSrb1Olo36A8w==}
 
+  '@aigne/open-router@0.7.40':
+    resolution: {integrity: sha512-LBDAcXs51dD8XUdriLVKA797eCZCHyM09hOJimtMNba0lMJfc6nBo2zcB4GH6/jfGNKqRnKjG8E/BqarhbMVXg==}
+
   '@aigne/openai@0.14.2':
     resolution: {integrity: sha512-QLDUv45zcNRLRaaXKIo2jMVEHeGRayN132omrcfncEDoSGidtm0oOITf/VJRBOs27okcYpS6t5nF9GBtcPUn0w==}
+
+  '@aigne/openai@0.14.3':
+    resolution: {integrity: sha512-zAZjK8Fm3Ej3cER6oclf5apOF1cyrivneRUrGX4ndqLR2v80d7pPi3T6mGP23ULjg9NWj9nIIqmUw4hSVM37/Q==}
 
   '@aigne/platform-helpers@0.6.2':
     resolution: {integrity: sha512-UFp8siwBCfhfRL188i/0SQYsctJIeaN6dqVAzt+tvID59UQDUXGNdLpcP48fPSf+dI0aIjNi2TVsTn5itgl3Uw==}
 
   '@aigne/poe@1.0.19':
     resolution: {integrity: sha512-nnyVmj4w8bjyFYVW2KPdIMH32KsTVtXwk4S11aTaWSINXfaUMK9vigchrlj162KYSYCdWYcB3bkivZkZDKjeTA==}
+
+  '@aigne/poe@1.0.20':
+    resolution: {integrity: sha512-9HDwwmMXGZcyx8cFJjSJZNr/w34YsNmyEaPLszfvz13IaYBdfN9RNBDwBfRV2wgO+9rEpPioqls5xoY8/1Dkpg==}
 
   '@aigne/publish-docs@0.9.4':
     resolution: {integrity: sha512-PtI0e5KVVzLTKLdrP6kqi6lDP2sAG//8NX8xy/SUm2GtceJaufCHT+8TYpGUkd5DwDPgJImdFJmLacI1U0aH8Q==}
@@ -166,8 +205,14 @@ packages:
   '@aigne/transport@0.15.2':
     resolution: {integrity: sha512-eVvk6MwVGFoDaXtWKcJPjC8G7sYGOgmwFDp0Y0lsmtvy+5IQ8rVEpTOokvGx71I5Qi/SMMQtpm9h1cVG9pIf/w==}
 
+  '@aigne/transport@0.15.3':
+    resolution: {integrity: sha512-SzckJ02MnXQak8hWmMVXgu/mw7woHaNgHksRN/0QTQLs8KLjtSMzWsOzt9nDU1DIN5ebeSv5Ezr6NeiOWJMtJg==}
+
   '@aigne/xai@0.7.39':
     resolution: {integrity: sha512-f8PkYsYWEwB/aGJcQh3eKfAWOMNc3j6D044IM7Y9Q/hfhgI2Rmr1T4SkZ122zfM6FYneQYRqZoqcismUl9mWOA==}
+
+  '@aigne/xai@0.7.40':
+    resolution: {integrity: sha512-VwqPkAfkMXLhCpESQXxN3N/Uasl56HdTG0/5rWZRWp9Z3W6DPdV2xsOyX8KvUa8hW8OG9chpPhssgebfzEEeJA==}
 
   '@antfu/install-pkg@1.1.0':
     resolution: {integrity: sha512-MGQsmw10ZyI+EJo45CdSER4zEb+p31LpDAFp2Z3gkSd1yqVZGi0Ebx++YTEMonJy4oChEMLsxZ64j8FH6sSqtQ==}
@@ -4121,10 +4166,10 @@ packages:
 
 snapshots:
 
-  '@aigne/agent-library@1.21.39(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/agent-library@1.21.40(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/sqlite': 0.4.1(@opentelemetry/api@1.9.0)
       drizzle-orm: 0.44.3(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)
       fastq: 1.19.1
@@ -4170,11 +4215,11 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/agentic-memory@1.0.39(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+  '@aigne/agentic-memory@1.0.40(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/default-memory': 1.2.2(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/default-memory': 1.2.3(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       zod: 3.25.76
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
@@ -4199,6 +4244,65 @@ snapshots:
       - bufferutil
       - bun-types
       - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
+  '@aigne/aigne-hub@0.8.10(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+    dependencies:
+      '@aigne/anthropic': 0.12.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/bedrock': 0.9.21(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/deepseek': 0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/doubao': 1.0.34(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/gemini': 0.12.3(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/ideogram': 0.3.10(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/ollama': 0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/open-router': 0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/platform-helpers': 0.6.2
+      '@aigne/poe': 1.0.20(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/transport': 0.15.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/xai': 0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@smithy/node-http-handler': 4.1.0
+      https-proxy-agent: 7.0.6
+      ufo: 1.6.1
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@modelcontextprotocol/sdk'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - aws-crt
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - encoding
       - expo-sqlite
       - gel
       - knex
@@ -4314,6 +4418,48 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  '@aigne/anthropic@0.12.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
+    dependencies:
+      '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/platform-helpers': 0.6.2
+      '@anthropic-ai/sdk': 0.56.0
+      ajv: 8.17.1
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+
   '@aigne/bedrock@0.9.20(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
       '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
@@ -4356,17 +4502,59 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@aigne/cli@1.44.2(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(listr2@9.0.1)(ws@8.18.3)':
+  '@aigne/bedrock@0.9.21(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
-      '@aigne/agent-library': 1.21.39(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/agentic-memory': 1.0.39(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/aigne-hub': 0.8.9(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/default-memory': 1.2.2(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aws-sdk/client-bedrock-runtime': 3.848.0
+      uuid: 11.1.0
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - aws-crt
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+
+  '@aigne/cli@1.44.3(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(debug@4.4.1)(listr2@9.0.1)(ws@8.18.3)':
+    dependencies:
+      '@aigne/agent-library': 1.21.40(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/agentic-memory': 1.0.40(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/aigne-hub': 0.8.10(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/default-memory': 1.2.3(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/listr2': 1.0.10
       '@aigne/marked-terminal': 7.3.2(marked@16.1.1)
       '@aigne/observability-api': 0.10.2(@libsql/client@0.15.10)
-      '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@inquirer/core': 10.2.0(@types/node@24.0.15)
       '@inquirer/figures': 1.0.13
       '@inquirer/prompts': 7.8.4(@types/node@24.0.15)
@@ -4394,7 +4582,7 @@ snapshots:
       p-wait-for: 5.0.2
       prettier: 3.6.2
       tar: 7.4.3
-      terminal-image: 3.1.1
+      terminal-image: 3.1.1(debug@4.4.1)
       terminal-link: 4.0.0
       wrap-ansi: 9.0.0
       yaml: 2.8.0
@@ -4508,6 +4696,72 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  '@aigne/core@1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
+    dependencies:
+      '@aigne/json-schema-to-zod': 1.3.3(zod@3.25.76)
+      '@aigne/observability-api': 0.10.2(@libsql/client@0.15.10)
+      '@aigne/platform-helpers': 0.6.2
+      '@inquirer/prompts': 7.8.4(@types/node@24.0.15)
+      '@modelcontextprotocol/sdk': 1.16.0
+      '@opentelemetry/api': 1.9.0
+      '@opentelemetry/sdk-trace-base': 2.0.1(@opentelemetry/api@1.9.0)
+      '@types/debug': 4.1.12
+      ajv: 8.17.1
+      camelize-ts: 3.0.0
+      content-type: 1.0.5
+      debug: 4.4.1
+      eventsource-parser: 3.0.3
+      fast-deep-equal: 3.1.3
+      fastq: 1.19.1
+      immer: 10.1.1
+      is-network-error: 1.1.0
+      jaison: 2.0.2
+      jsonata: 2.0.6
+      mime: 4.0.7
+      nunjucks: 3.2.4(chokidar@3.6.0)
+      p-retry: 6.2.1
+      raw-body: 3.0.0
+      strict-event-emitter: 0.5.1
+      ufo: 1.6.1
+      uuid: 11.1.0
+      yaml: 2.8.0
+      zod: 3.25.76
+      zod-to-json-schema: 3.24.6(zod@3.25.76)
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+
   '@aigne/deepseek@0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
@@ -4547,9 +4801,48 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/default-memory@1.2.2(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)':
+  '@aigne/deepseek@0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
-      '@aigne/core': 1.58.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
+  '@aigne/default-memory@1.2.3(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)':
+    dependencies:
+      '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/sqlite': 0.4.1(@opentelemetry/api@1.9.0)
       drizzle-orm: 0.44.3(@libsql/client@0.15.10)(@opentelemetry/api@1.9.0)
       uuid: 11.1.0
@@ -4630,6 +4923,45 @@ snapshots:
       - utf-8-validate
       - ws
 
+  '@aigne/doubao@1.0.34(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+    dependencies:
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
   '@aigne/gemini@0.12.2(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
@@ -4674,6 +5006,90 @@ snapshots:
       - supports-color
       - utf-8-validate
       - ws
+
+  '@aigne/gemini@0.12.3(@libsql/client@0.15.10)(@modelcontextprotocol/sdk@1.16.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+    dependencies:
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/platform-helpers': 0.6.2
+      '@google/genai': 1.16.0(@modelcontextprotocol/sdk@1.16.0)
+      uuid: 11.1.0
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@modelcontextprotocol/sdk'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - encoding
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
+  '@aigne/ideogram@0.3.10(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
+    dependencies:
+      '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      ufo: 1.6.1
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
 
   '@aigne/ideogram@0.3.9(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)':
     dependencies:
@@ -4829,9 +5245,87 @@ snapshots:
       - utf-8-validate
       - ws
 
+  '@aigne/ollama@0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+    dependencies:
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
   '@aigne/open-router@0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
+  '@aigne/open-router@0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+    dependencies:
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -4912,6 +5406,50 @@ snapshots:
       - utf-8-validate
       - ws
 
+  '@aigne/openai@0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+    dependencies:
+      '@aigne/core': 1.58.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@aigne/platform-helpers': 0.6.2
+      ajv: 8.17.1
+      openai: 5.10.1(ws@8.18.3)(zod@3.25.76)
+      uuid: 11.1.0
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
   '@aigne/platform-helpers@0.6.2':
     dependencies:
       '@modelcontextprotocol/sdk': 1.16.0
@@ -4921,6 +5459,45 @@ snapshots:
   '@aigne/poe@1.0.19(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
+  '@aigne/poe@1.0.20(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+    dependencies:
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -5072,9 +5649,91 @@ snapshots:
       - utf-8-validate
       - ws
 
+  '@aigne/transport@0.15.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+    dependencies:
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      content-type: 1.0.5
+      p-retry: 6.2.1
+      raw-body: 3.0.0
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
   '@aigne/xai@0.7.39(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/openai': 0.14.2(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+      - ws
+
+  '@aigne/xai@0.7.40(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
+    dependencies:
+      '@aigne/openai': 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@cloudflare/workers-types'
@@ -5816,14 +6475,14 @@ snapshots:
     dependencies:
       minipass: 7.1.2
 
-  '@jimp/bmp@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/bmp@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
       bmp-js: 0.1.0
 
-  '@jimp/core@0.14.0':
+  '@jimp/core@0.14.0(debug@4.4.1)':
     dependencies:
       '@babel/runtime': 7.28.2
       '@jimp/utils': 0.14.0
@@ -5831,7 +6490,7 @@ snapshots:
       buffer: 5.7.1
       exif-parser: 0.1.12
       file-type: 9.0.0
-      load-bmfont: 1.4.2
+      load-bmfont: 1.4.2(debug@4.4.1)
       mkdirp: 0.5.6
       phin: 2.9.3
       pixelmatch: 4.0.2
@@ -5849,10 +6508,10 @@ snapshots:
       file-type: 16.5.4
       mime: 3.0.0
 
-  '@jimp/custom@0.14.0':
+  '@jimp/custom@0.14.0(debug@4.4.1)':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/core': 0.14.0
+      '@jimp/core': 0.14.0(debug@4.4.1)
     transitivePeerDependencies:
       - debug
 
@@ -5865,18 +6524,18 @@ snapshots:
 
   '@jimp/file-ops@1.6.0': {}
 
-  '@jimp/gif@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/gif@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
       gifwrap: 0.9.4
       omggif: 1.0.10
 
-  '@jimp/jpeg@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/jpeg@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
       jpeg-js: 0.4.4
 
@@ -5912,10 +6571,10 @@ snapshots:
       '@jimp/types': 1.6.0
       utif2: 4.1.0
 
-  '@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-blit@1.6.0':
@@ -5924,10 +6583,10 @@ snapshots:
       '@jimp/utils': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-blur@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-blur@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-blur@1.6.0':
@@ -5935,10 +6594,10 @@ snapshots:
       '@jimp/core': 1.6.0
       '@jimp/utils': 1.6.0
 
-  '@jimp/plugin-circle@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-circle@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-circle@1.6.0':
@@ -5946,10 +6605,10 @@ snapshots:
       '@jimp/types': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-color@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-color@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
       tinycolor2: 1.6.0
 
@@ -5961,13 +6620,13 @@ snapshots:
       tinycolor2: 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-contain@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0)))':
+  '@jimp/plugin-contain@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugin-blit': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-scale': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugin-blit': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-scale': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-contain@1.6.0':
@@ -5979,13 +6638,13 @@ snapshots:
       '@jimp/utils': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-cover@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0)))':
+  '@jimp/plugin-cover@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugin-crop': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-scale': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugin-crop': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-scale': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-cover@1.6.0':
@@ -5996,10 +6655,10 @@ snapshots:
       '@jimp/types': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-crop@1.6.0':
@@ -6009,10 +6668,10 @@ snapshots:
       '@jimp/utils': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-displace@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-displace@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-displace@1.6.0':
@@ -6021,20 +6680,20 @@ snapshots:
       '@jimp/utils': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-dither@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-dither@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-dither@1.6.0':
     dependencies:
       '@jimp/types': 1.6.0
 
-  '@jimp/plugin-fisheye@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-fisheye@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-fisheye@1.6.0':
@@ -6043,11 +6702,11 @@ snapshots:
       '@jimp/utils': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-flip@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-rotate@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0)))':
+  '@jimp/plugin-flip@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-rotate@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugin-rotate': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugin-rotate': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-flip@1.6.0':
@@ -6055,10 +6714,10 @@ snapshots:
       '@jimp/types': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-gaussian@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-gaussian@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-hash@1.6.0':
@@ -6074,16 +6733,16 @@ snapshots:
       '@jimp/utils': 1.6.0
       any-base: 1.1.0
 
-  '@jimp/plugin-invert@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-invert@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
-  '@jimp/plugin-mask@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-mask@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-mask@1.6.0':
@@ -6091,19 +6750,19 @@ snapshots:
       '@jimp/types': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-normalize@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-normalize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
-  '@jimp/plugin-print@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0))':
+  '@jimp/plugin-print@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(debug@4.4.1)':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugin-blit': 0.14.0(@jimp/custom@0.14.0)
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugin-blit': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
       '@jimp/utils': 0.14.0
-      load-bmfont: 1.4.2
+      load-bmfont: 1.4.2(debug@4.4.1)
     transitivePeerDependencies:
       - debug
 
@@ -6125,10 +6784,10 @@ snapshots:
       image-q: 4.0.0
       zod: 3.25.76
 
-  '@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-resize@1.6.0':
@@ -6137,13 +6796,13 @@ snapshots:
       '@jimp/types': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-rotate@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))':
+  '@jimp/plugin-rotate@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugin-blit': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-crop': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0)
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugin-blit': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-crop': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-rotate@1.6.0':
@@ -6155,27 +6814,27 @@ snapshots:
       '@jimp/utils': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))':
+  '@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0)
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
       '@jimp/utils': 0.14.0
 
-  '@jimp/plugin-shadow@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blur@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))':
+  '@jimp/plugin-shadow@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blur@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugin-blur': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0)
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugin-blur': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
       '@jimp/utils': 0.14.0
 
-  '@jimp/plugin-threshold@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-color@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))':
+  '@jimp/plugin-threshold@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-color@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugin-color': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0)
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugin-color': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
       '@jimp/utils': 0.14.0
 
   '@jimp/plugin-threshold@1.6.0':
@@ -6187,57 +6846,57 @@ snapshots:
       '@jimp/utils': 1.6.0
       zod: 3.25.76
 
-  '@jimp/plugins@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/plugins@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(debug@4.4.1)':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugin-blit': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-blur': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-circle': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-color': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-contain': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0)))
-      '@jimp/plugin-cover': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0)))
-      '@jimp/plugin-crop': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-displace': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-dither': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-fisheye': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-flip': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-rotate@0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0)))
-      '@jimp/plugin-gaussian': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-invert': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-mask': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-normalize': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-print': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0))
-      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/plugin-rotate': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))
-      '@jimp/plugin-scale': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))
-      '@jimp/plugin-shadow': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-blur@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))
-      '@jimp/plugin-threshold': 0.14.0(@jimp/custom@0.14.0)(@jimp/plugin-color@0.14.0(@jimp/custom@0.14.0))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0))
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugin-blit': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-blur': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-circle': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-color': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-contain': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))))
+      '@jimp/plugin-cover': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-scale@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))))
+      '@jimp/plugin-crop': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-displace': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-dither': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-fisheye': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-flip': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-rotate@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))))
+      '@jimp/plugin-gaussian': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-invert': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-mask': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-normalize': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-print': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(debug@4.4.1)
+      '@jimp/plugin-resize': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/plugin-rotate': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blit@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-crop@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))
+      '@jimp/plugin-scale': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))
+      '@jimp/plugin-shadow': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-blur@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))
+      '@jimp/plugin-threshold': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(@jimp/plugin-color@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))(@jimp/plugin-resize@0.14.0(@jimp/custom@0.14.0(debug@4.4.1)))
       timm: 1.7.1
     transitivePeerDependencies:
       - debug
 
-  '@jimp/png@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/png@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       '@jimp/utils': 0.14.0
       pngjs: 3.4.0
 
-  '@jimp/tiff@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/tiff@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
+      '@jimp/custom': 0.14.0(debug@4.4.1)
       utif: 2.0.1
 
-  '@jimp/types@0.14.0(@jimp/custom@0.14.0)':
+  '@jimp/types@0.14.0(@jimp/custom@0.14.0(debug@4.4.1))':
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/bmp': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/custom': 0.14.0
-      '@jimp/gif': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/jpeg': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/png': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/tiff': 0.14.0(@jimp/custom@0.14.0)
+      '@jimp/bmp': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/gif': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/jpeg': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/png': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
+      '@jimp/tiff': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
       timm: 1.7.1
 
   '@jimp/types@1.6.0':
@@ -7471,9 +8130,9 @@ snapshots:
 
   ccount@2.0.1: {}
 
-  centra@2.7.0:
+  centra@2.7.0(debug@4.4.1):
     dependencies:
-      follow-redirects: 1.15.11
+      follow-redirects: 1.15.11(debug@4.4.1)
     transitivePeerDependencies:
       - debug
 
@@ -8087,7 +8746,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  follow-redirects@1.15.11: {}
+  follow-redirects@1.15.11(debug@4.4.1):
+    optionalDependencies:
+      debug: 4.4.1
 
   foreground-child@3.3.1:
     dependencies:
@@ -8397,12 +9058,12 @@ snapshots:
 
   jaison@2.0.2: {}
 
-  jimp@0.14.0:
+  jimp@0.14.0(debug@4.4.1):
     dependencies:
       '@babel/runtime': 7.28.2
-      '@jimp/custom': 0.14.0
-      '@jimp/plugins': 0.14.0(@jimp/custom@0.14.0)
-      '@jimp/types': 0.14.0(@jimp/custom@0.14.0)
+      '@jimp/custom': 0.14.0(debug@4.4.1)
+      '@jimp/plugins': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))(debug@4.4.1)
+      '@jimp/types': 0.14.0(@jimp/custom@0.14.0(debug@4.4.1))
       regenerator-runtime: 0.13.11
     transitivePeerDependencies:
       - debug
@@ -8580,14 +9241,14 @@ snapshots:
       rfdc: 1.4.1
       wrap-ansi: 9.0.0
 
-  load-bmfont@1.4.2:
+  load-bmfont@1.4.2(debug@4.4.1):
     dependencies:
       buffer-equal: 0.0.1
       mime: 1.6.0
       parse-bmfont-ascii: 1.0.6
       parse-bmfont-binary: 1.0.6
       parse-bmfont-xml: 1.1.6
-      phin: 3.7.1
+      phin: 3.7.1(debug@4.4.1)
       xhr: 2.6.0
       xtend: 4.0.2
     transitivePeerDependencies:
@@ -9202,9 +9863,9 @@ snapshots:
 
   phin@2.9.3: {}
 
-  phin@3.7.1:
+  phin@3.7.1(debug@4.4.1):
     dependencies:
-      centra: 2.7.0
+      centra: 2.7.0(debug@4.4.1)
     transitivePeerDependencies:
       - debug
 
@@ -9397,12 +10058,12 @@ snapshots:
       mdast-util-to-markdown: 2.1.2
       unified: 11.0.5
 
-  render-gif@2.0.4:
+  render-gif@2.0.4(debug@4.4.1):
     dependencies:
       cycled: 1.2.0
       decode-gif: 1.0.1
       delay: 4.4.1
-      jimp: 0.14.0
+      jimp: 0.14.0(debug@4.4.1)
     transitivePeerDependencies:
       - debug
 
@@ -9674,13 +10335,13 @@ snapshots:
       ansi-escapes: 7.0.0
       iterm2-version: 5.0.0
 
-  terminal-image@3.1.1:
+  terminal-image@3.1.1(debug@4.4.1):
     dependencies:
       chalk: 5.5.0
       image-dimensions: 2.4.0
       jimp: 1.6.0
       log-update: 6.1.0
-      render-gif: 2.0.4
+      render-gif: 2.0.4(debug@4.4.1)
       term-img: 7.0.0
     transitivePeerDependencies:
       - debug

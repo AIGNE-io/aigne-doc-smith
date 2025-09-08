@@ -29,6 +29,7 @@
     "@aigne/openai": "^0.14.2",
     "@aigne/publish-docs": "^0.9.4",
     "chalk": "^5.5.0",
+    "debug": "^4.4.1",
     "dompurify": "^3.2.6",
     "fs-extra": "^11.3.1",
     "glob": "^11.0.3",

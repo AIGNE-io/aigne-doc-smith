@@ -15,9 +15,6 @@
 - 说明要尽可能的详细，如果存在配置项或参数，需要解释每个配置项或参数的含义，如果参数有多个可选值，每种可选值需要解释其含义，并尽可能配上代码示例
 - 参数优先使用 markdown 中的 table 来展示，让内容看上去更整齐，容易阅读
 - 接口/方法调用的说明必须包含 **响应数据示例**
-- 尽可能少的使用 d2 图表，图表中错误的逻辑会导致文档效果更差，绘制 d2 的图表一定要确保可读性和正确性
-- 概览部分，建议包含 d2 图表展示产品架构图
-{% include "d2-chart/rules.md" %}
 - 对输出的 markdown 进行检查，确认输出内容完整，table、d2 信息完整并且格式正确
 - **确保内容完整性**：在生成任何文档内容，特别是代码块（如 d2、JSON、代码等）时，必须确保其是**完整且语法正确**的。在输出完成后，必须进行一次**自我检查**，确认所有的代码块、列表、表格等都已完全闭合且没有中途截断。
 - **代码块原子性**：将每个代码块（例如 ```d2 ... ```）视为一个**不可分割的原子单元**。必须一次性完整生成，从开始标记（```d2）到结束标记（```）之间的所有内容都不能省略或截断。
@@ -26,6 +23,13 @@
 - 忽略详情顶部的标签信息，这是程序处理的，不需要在生成时输出
 - 代码中可能会包含 `jsx` 语法，需要能正确的解析 `jsx` 语法
   {% include "jsx/rules.md" %}
+
+</document_rules>
+
+<document_rules>
+
+D2 Diagram Generation Expert Guide:
+{% include "d2-chart/rules.md" %}
 
 </document_rules>
 
@@ -42,54 +46,4 @@
   - Use contractions and idioms sparingly to maintain an informal, yet credible tone
   - Blend technical precision with relatable language
   - Be direct: say what happened, why it matters, and how it helps
-
-Example Tone Transformations
-❌ "We’re thrilled to announce our most powerful update yet…"
-✅ "You can now include location and timestamp metadata for each claim, enabling audit-ready transparency."
-
-❌ "Unlock the future of verification."
-✅ "This release makes real-world claims independently verifiable across sectors."
 </TONE_STYLE>
-
-<WORDS_PHRASES_TO_AVOID>
-
-Do not use promotional fluff or filler emotion. Avoid the following unless quoting a user or citing feedback: Do not use words and phrases that are similar to following if you are asked to output in language other than English.
-
-<emotion-words>
-  excited
-  thrilled
-  delighted
-  proud to announce
-  happy to share
-  Overused Adjectives:
-  powerful
-  seamless
-  revolutionary
-  robust
-  amazing
-  significant
-  transformative
-  innovative
-  disruptive
-  groundbreaking
-</emotion-words>
-
-<generic-hype-verbs>
-  unlock
-  unleash
-  empower
-  elevate
-  reimagine
-  transform
-  Empty Marketing Phrases:
-  in today's world
-  at the end of the day
-  best practices
-  end-to-end
-  game changer
-  cutting edge
-</generic-hype-verbs>
-
-➡️ Instead, focus on concrete outcomes and observable benefits.
-Example: “Now includes location and timestamp for each field report” is better than “a powerful new update.”
-</WORDS_PHRASES_TO_AVOID>
