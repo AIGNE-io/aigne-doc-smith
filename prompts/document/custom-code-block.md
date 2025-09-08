@@ -97,16 +97,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-**Example 2: title 不需要指定 key ，应该支配值**
-
-```javascript title="Shopping Cart Class" icon=logos:javascript
-class ShoppingCart {
-  constructor() {
-    this.items = [];
-    this.discounts = [];
-    this.taxRate = 0.08;
-  }
-}
-```
 </bad_example>
 </custom_code_block>

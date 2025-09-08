@@ -243,7 +243,7 @@ function checkLocalImages(markdown, source, errorMessages, markdownFilePath, bas
  */
 function checkContentStructure(markdown, source, errorMessages) {
   const lines = markdown.split("\n");
-  const allCodeBlockRegex = /^\s*```(?:[a-zA-Z0-9_,\-+.#/:=\s{}"\[\]]+)?$/;
+  const allCodeBlockRegex = /^\s*```(?:[a-zA-Z0-9_,\-+.#/:=\s{}"\[\]\(\)]+)?$/;
 
   // State variables for different checks
   let inCodeBlock = false;
