@@ -92,7 +92,7 @@ export async function saveD2Assets({ markdown, docsDir }) {
           return _code;
         }
       }
-      return `![](../${TMP_ASSETS_DIR}/d2/${fileName})`;
+      return `![](${path.posix.join("..", TMP_ASSETS_DIR, "d2", fileName)})`;
     },
     options: { concurrency: KROKI_CONCURRENCY },
   });

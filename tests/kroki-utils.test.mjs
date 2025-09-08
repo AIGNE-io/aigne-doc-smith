@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { existsSync, mkdtemp, rmdir } from "node:fs";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
@@ -12,6 +12,7 @@ import {
   getD2Svg,
   saveD2Assets,
 } from "../utils/kroki-utils.mjs";
+import { TMP_ASSETS_DIR } from "../utils/constants.mjs";
 
 describe("kroki-utils", () => {
   let tempDir;
@@ -271,6 +272,33 @@ E -> F
         expect(result).toContain("![](../assets/d2/");
       } finally {
         global.fetch = originalFetch;
+      }
+    });
+
+    test("should write .d2 file when debug is enabled", async () => {
+      const docsDir = path.join(tempDir, "docs");
+      await mkdir(docsDir, { recursive: true });
+
+      const markdown = `\`\`\`d2\nA -> B\n\`\`\``;
+
+      // Enable debug mode
+      const originalDebug = process.env.DEBUG;
+      process.env.DEBUG = "doc-smith";
+
+      try {
+        await saveD2Assets({ markdown, docsDir });
+
+        const assetDir = path.join(docsDir, "../", TMP_ASSETS_DIR, "d2");
+        const files = await readdir(assetDir);
+        const d2File = files.find((file) => file.endsWith(".d2"));
+        expect(d2File).toBeDefined();
+      } finally {
+        // Restore debug mode
+        if (originalDebug) {
+          process.env.DEBUG = originalDebug;
+        } else {
+          delete process.env.DEBUG;
+        }
       }
     });
   });
