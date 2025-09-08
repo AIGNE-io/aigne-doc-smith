@@ -4,6 +4,7 @@ import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+import { TMP_ASSETS_DIR } from "../utils/constants.mjs";
 import {
   beforePublishHook,
   checkD2Content,
@@ -12,7 +13,6 @@ import {
   getD2Svg,
   saveD2Assets,
 } from "../utils/kroki-utils.mjs";
-import { TMP_ASSETS_DIR } from "../utils/constants.mjs";
 
 describe("kroki-utils", () => {
   let tempDir;
