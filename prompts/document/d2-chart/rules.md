@@ -215,7 +215,7 @@ To generate robust D2 code, be aware of the language's limitations and common so
 
 - **Quoting and Escaping**: Always enclose keys or labels that are reserved D2 keywords in quotes. Example: `shape_A: { "label": "My Label" }`. If a string must contain a `#` character (which normally signifies a comment), it must be quoted.
 - **Non-ASCII Characters**: While D2 supports Unicode, care must be taken to use ASCII versions of special characters like the colon (`:`) for defining labels, as visually similar Unicode characters will not be parsed correctly.
-- **Styling**: Use colors and styles (like `style.fill`) sparingly. Only apply them to represent specific states (e.g., success, warning, error), not for arbitrary decoration.
+- **Styling**: Use colors and styles (like `style.fill`) sparingly. Should apply them to represent specific states (e.g., success, warning, error), should apply theme to diffrent purpose shape (Use colors with less contrast, not too prominent), not for arbitrary decoration.
 - **Forbidden Attributes**: Do not use the `tooltip` attribute. Interactive features should be handled by accompanying text. Similarly, do not use `animate: true` for individual shapes or connections.
   - **Bad Practice:**
     ```d2
@@ -227,7 +227,7 @@ To generate robust D2 code, be aware of the language's limitations and common so
     ```
   - **Good Practice:**
     ```d2
-    "AuthService": {
+    AuthService: {
       label: "AuthService"
     }
     ```
@@ -301,7 +301,7 @@ Selecting the correct shape is crucial for conveying the intended meaning of a c
 
 ## Chapter 2: Best Practices for real case
 
-#### connections between shapes
+#### Connections between shapes
 
 Ensure all connections are defined at the root level of the diagram, not nested within containers. This maintains clarity and prevents layout issues.
 Ensure that the shape names used in connections are accurate and match the actual node identifiers. When connecting shapes nested within containers, always use the full, qualified name (including all parent containers) to reference the target shape correctly.
@@ -392,7 +392,7 @@ Ensure that the shape names used in connections are accurate and match the actua
 
 > Move all connections to root, and the `User` shape is outside the `App` container, so the connection must reference the full path `App.Uploader-Component`.
 
-#### shape name should not contain special characters or quotes
+#### Shape name should not contain special characters or quotes
 - **Bad Practice:**
   ```d2
   direction: down
@@ -493,7 +493,7 @@ Ensure that the shape names used in connections are accurate and match the actua
   blocklet-app.uploader-component <-> media-kit: "Provides Config & Plugins"
   ```
 
-#### shape should not contain both label and remark
+#### Shape should not contain both label and remark
 - **Bad Practice:**
   ```d2
   uploader-trigger: {
@@ -691,7 +691,7 @@ Ensure that the shape names used in connections are accurate and match the actua
 
 > Checkout-Flow.Entry-Points has only two child nodes, and `grid-columns` is set to `2`, so `grid-columns` is unnecessary.
 
-#### ensure style properties are valid
+#### Ensure style properties are valid
 - **Bad Practice:**
   ```d2
   App: {
@@ -783,16 +783,12 @@ Ensure that the shape names used in connections are accurate and match the actua
   App.ResumeSubscription.t1 -> User: "4. Display confirmation dialog"
   User -> App.ResumeSubscription.t1: "5. Clicks 'Confirm'"
 
-  alt: "If Re-Staking is Required" {
-    App.ResumeSubscription.t1 -> DID-Wallet: "6a. Open 're-stake' session"
-    User -> DID-Wallet: "7a. Approve in wallet"
-    DID-Wallet -> App.ResumeSubscription.t1: "8a. Send success callback"
-  }
+  App.ResumeSubscription.t1 -> DID-Wallet: "6a. Open 're-stake' session"
+  User -> DID-Wallet: "7a. Approve in wallet"
+  DID-Wallet -> App.ResumeSubscription.t1: "8a. Send success callback"
 
-  alt: "If No Staking is Required" {
-    App.ResumeSubscription.t1 -> Payment-API: "6b. Call recover endpoint\n(PUT /recover)"
-    Payment-API -> App.ResumeSubscription.t1: "7b. Return success"
-  }
+  App.ResumeSubscription.t1 -> Payment-API: "6b. Call recover endpoint\n(PUT /recover)"
+  Payment-API -> App.ResumeSubscription.t1: "7b. Return success"
 
   App.ResumeSubscription.t1 -> Payment-API: "9. Fetch updated subscription details"
   Payment-API -> App.ResumeSubscription.t1: "10. Return latest subscription"
@@ -800,6 +796,148 @@ Ensure that the shape names used in connections are accurate and match the actua
   ```
 
 > If using sequence diagram, remove all other shapes, and only keep the sequence diagram part.
+
+#### Don't use icon in Sequence Diagram
+
+- **Bad Practice:**
+  ```d2
+  shape: sequence_diagram
+
+  Developer: {
+    shape: c4-person
+  }
+
+  CLI: {
+    label: "CLI"
+  }
+
+  Blocklet-Store: {
+    label: "Blocklet Store"
+    icon: "https://store.blocklet.dev/assets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ/logo.png"
+  }
+
+  Local-Config: {
+    label: "Local Config"
+    shape: cylinder
+  }
+
+  Developer -> CLI: "blocklet connect https://..."
+  CLI -> Blocklet-Store: "1. Opens auth URL in browser"
+  Developer -> Blocklet-Store: "2. Authenticates & authorizes CLI"
+  Blocklet-Store -> CLI: "3. Sends token & developer info"
+  CLI -> Local-Config: "4. Saves credentials"
+  CLI -> Developer: "5. Displays success message"
+  ```
+- **Good Practice:**
+  ```d2
+  shape: sequence_diagram
+
+  Developer: {
+    shape: c4-person
+  }
+
+  CLI: {
+    label: "CLI"
+  }
+
+  Blocklet-Store: {
+    label: "Blocklet Store"
+  }
+
+  Local-Config: {
+    label: "Local Config"
+    shape: cylinder
+  }
+
+  Developer -> CLI: "blocklet connect"
+  CLI -> Blocklet-Store: "1. Opens auth URL"
+  Developer -> Blocklet-Store: "2. Authenticates CLI"
+  Blocklet-Store -> CLI: "3. Sends token"
+  CLI -> Local-Config: "4. Saves credentials"
+  CLI -> Developer: "5. Success"
+  ```
+
+#### Avoid unexpected characters
+- **Bad Practice:**
+  ```d2
+  User -> CLI: "$ blocklet init"
+  ```
+- **Good Practice:**
+  ```d2
+  User -> CLI: "blocklet init"
+  ```
+
+#### Don't use alt for diffrent condition
+
+- **Bad Practice:**
+  ```d2
+  direction: down
+
+  Developer: {
+    shape: c4-person
+  }
+
+  CLI: {
+    label: "Blocklet CLI"
+  }
+
+  blocklet-yml: {
+    label: "blocklet.yml"
+    shape: rectangle
+  }
+
+  Blocklet-Store: {
+    label: "Blocklet Store"
+    shape: cylinder
+  }
+
+  Component-URL: {
+    label: "Direct URL"
+    shape: cylinder
+  }
+
+  Developer -> CLI: "blocklet add <component>"
+  alt "By Name" {
+    CLI -> Blocklet-Store: "1. Fetch metadata"
+    Blocklet-Store -> CLI: "2. Return metadata"
+  }
+  alt "By URL" {
+    CLI -> Component-URL: "1. Fetch metadata"
+    Component-URL -> CLI: "2. Return metadata"
+  }
+  CLI -> blocklet-yml: "3. Update components array"
+  CLI -> Developer: "4. Success message"
+  ```
+- **Good Practice:**
+  ```d2
+  direction: down
+
+  Developer: {
+    shape: c4-person
+  }
+
+  CLI: {
+    label: "Blocklet CLI"
+  }
+
+  blocklet-yml: {
+    label: "blocklet.yml"
+    shape: rectangle
+  }
+
+  Blocklet-Store: {
+    label: "Blocklet Store"
+    shape: cylinder
+    icon: "https://store.blocklet.dev/assets/z8ia29UsENBg6tLZUKi2HABj38Cw1LmHZocbQ/logo.png"
+  }
+
+  Developer -> CLI: "blocklet add <component>"
+
+  CLI -> Blocklet-Store: "1. Fetch metadata"
+  Blocklet-Store -> CLI: "2. Return metadata"
+  CLI -> blocklet-yml: "3. Update components array"
+  CLI -> Developer: "4. Success message"
+  ```
 
 ## Chapter 3: Official Best Practices
 
@@ -811,14 +949,14 @@ User
 Session
 Lua
 
-User."Init"
+User.Init
 
 User.t1 -> Session.t1: "SetupFight()"
 Session.t1 -> Session.t1: "Create clean fight state"
 Session.t1 -> Lua: "Trigger OnPlayerTurn"
 User.t1 <- Session.t1
 
-User."Repeat"
+User.Repeat
 
 User.mid -> Session.mid: "PlayerCastHand() etc."
 Session.mid -> Lua: "Trigger OnDamage etc."
@@ -831,12 +969,3 @@ Session.t2 -> Lua: "Trigger OnPlayerTurn"
 User.t2 <- Session.t2
 ```
 
-#### Avoid unexpected characters
-- **Bad Practice:**
-  ```d2
-  User -> CLI: "$ blocklet init"
-  ```
-- **Good Practice:**
-  ```d2
-  User -> CLI: "blocklet init"
-  ```

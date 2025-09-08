@@ -519,18 +519,14 @@ export const D2_CONFIG = `vars: {
       N2: "#421E0B"
       N4: "#E6E8EC"
       N5: "#E6E8EC"
-      N7: "#FFFFFF"
 
       B3: "#FFE9D1"
       B4: "#FFE9D1"
-      B6: "#FFFFFF"
 
       AA2: "#421E0B"
       AA4: "#FFE9D1"
-      AA5: "#fff"
 
       AB4: "#FBF4E4"
-      AB5: "#FFFFFF"
     }
   }
 }`;
