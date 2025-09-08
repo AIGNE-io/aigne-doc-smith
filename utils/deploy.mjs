@@ -10,9 +10,9 @@ const BASE_URL = process.env.DOC_PAYMENT_BASE_URL || "";
 // ==================== Timeout Configuration ====================
 const INTERVAL_MS = 3000; // 3 seconds between each check
 const TIMEOUTS = {
-  paymentWait: 300,    // Step 2: Payment wait timeout (5 minutes)
-  installation: 300,   // Step 3: Installation timeout (5 minutes)  
-  serviceStart: 300,   // Step 4: Service startup timeout (5 minutes)
+  paymentWait: 300, // Step 2: Payment wait timeout (5 minutes)
+  installation: 300, // Step 3: Installation timeout (5 minutes)
+  serviceStart: 300, // Step 4: Service startup timeout (5 minutes)
 };
 
 // ==================== Utility Functions ====================
@@ -252,7 +252,7 @@ async function pollPaymentStatus(checkoutId) {
 
       return null; // Not ready yet, continue polling
     },
-    maxAttempts: Math.ceil(TIMEOUTS.paymentWait * 1000 / INTERVAL_MS),
+    maxAttempts: Math.ceil((TIMEOUTS.paymentWait * 1000) / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
     timeoutMessage: "Payment timeout - please complete payment within 5 minutes",
     stepName: "Payment",
@@ -290,7 +290,7 @@ async function waitInstallation(checkoutId) {
 
       return null; // Not ready yet, continue polling
     },
-    maxAttempts: Math.ceil(TIMEOUTS.installation * 1000 / INTERVAL_MS),
+    maxAttempts: Math.ceil((TIMEOUTS.installation * 1000) / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
     timeoutMessage: "Installation timeout - services failed to install within 5 minutes",
     stepName: "Installation",
@@ -326,7 +326,7 @@ async function waitServiceRunning(readyVendors) {
 
       return null; // Not ready yet, continue polling
     },
-    maxAttempts: Math.ceil(TIMEOUTS.serviceStart * 1000 / INTERVAL_MS),
+    maxAttempts: Math.ceil((TIMEOUTS.serviceStart * 1000) / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
     timeoutMessage: "Service start timeout - services failed to start within 5 minutes",
     stepName: "Service Start",
