@@ -79,14 +79,14 @@ let paymentLinkId = "";
  * Deploy a new Discuss Kit service and return the installation URL
  * @returns {Promise<string>} - The URL of the deployed service
  */
-export async function deploy(id) {
+export async function deploy(id, cachedUrl) {
   const { mountPoint, PAYMENT_LINK_ID } = await getComponentInfoWithMountPoint(
     BASE_URL,
     PAYMENT_KIT_DID,
   );
   prefix = mountPoint;
   paymentLinkId = PAYMENT_LINK_ID;
-  
+
   if (!PAYMENT_LINK_ID) {
     const { PAYMENT_LINK_ID: id } = await getComponentInfoWithMountPoint(
       joinURL(BASE_URL, mountPoint),
@@ -94,15 +94,20 @@ export async function deploy(id) {
     );
     paymentLinkId = id;
   }
-  
+
   // Step 1: Create payment link and open
   const cachedCheckoutId = await checkCacheCheckoutId(id);
-  const checkoutId = cachedCheckoutId || (await createPaymentSession());
-  const paymentUrl = joinURL(
-    BASE_URL,
-    prefix,
-    API_ENDPOINTS.paymentPage.replace("{id}", checkoutId),
-  );
+  let checkoutId = cachedCheckoutId;
+  let paymentUrl = cachedUrl;
+  if (!cachedCheckoutId) {
+    const { checkoutId: newCheckoutId, paymentUrl: newPaymentUrl } = await createPaymentSession();
+    checkoutId = newCheckoutId;
+    paymentUrl = newPaymentUrl;
+  }
+
+  if (!paymentUrl) {
+    paymentUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.paymentPage.replace("{id}", checkoutId));
+  }
   if (cachedCheckoutId !== checkoutId) {
     await openBrowser(paymentUrl);
   }
@@ -112,6 +117,7 @@ export async function deploy(id) {
   console.log(`${chalk.blue("🔗")} Payment link: ${chalk.cyan(paymentUrl)}\n`);
   await pollPaymentStatus(checkoutId);
   saveValueToConfig("checkoutId", checkoutId, "Checkout ID for document deployment service");
+  saveValueToConfig("paymentUrl", paymentUrl, "Payment URL for document deployment service");
 
   // Step 3: Wait for service installation
   console.log(`${chalk.blue("📦")} Step 2/4: Installing service...`);
@@ -188,6 +194,7 @@ async function createPaymentSession() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        needShortUrl: true,
         metadata: {
           page_info: {
             has_vendor: true,
@@ -206,7 +213,9 @@ async function createPaymentSession() {
 
     const data = await response.json();
     const checkoutId = data.checkoutSession.id;
-    return checkoutId;
+    const paymentUrl = data.paymentUrl;
+
+    return { checkoutId, paymentUrl };
   } catch (error) {
     console.error(
       `${chalk.red("❌")} Failed to create payment session:`,

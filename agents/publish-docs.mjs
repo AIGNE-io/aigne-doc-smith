@@ -101,13 +101,15 @@ export default async function publishDocs(
       // Deploy a new Discuss Kit service
       try {
         let id = "";
+        let paymentUrl = "";
         if (choice === "new-instance-continue") {
           id = config?.checkoutId;
+          paymentUrl = config?.paymentUrl;
           console.log(`\nResuming your previous website setup...`);
         } else {
           console.log(`\nCreating a new doc website for your documentation...`);
         }
-        const { appUrl: homeUrl, token: ltToken } = (await deploy(id)) || {};
+        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentUrl)) || {};
 
         appUrl = homeUrl;
         token = ltToken;
