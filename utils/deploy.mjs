@@ -80,12 +80,21 @@ let paymentLinkId = "";
  * @returns {Promise<string>} - The URL of the deployed service
  */
 export async function deploy(id) {
-  const { mountPoint, PAYMENT_LINK_ID_KEY } = await getComponentInfoWithMountPoint(
+  const { mountPoint, PAYMENT_LINK_ID } = await getComponentInfoWithMountPoint(
     BASE_URL,
     PAYMENT_KIT_DID,
   );
   prefix = mountPoint;
-  paymentLinkId = PAYMENT_LINK_ID_KEY;
+  paymentLinkId = PAYMENT_LINK_ID;
+  
+  if (!PAYMENT_LINK_ID) {
+    const { PAYMENT_LINK_ID: id } = await getComponentInfoWithMountPoint(
+      joinURL(BASE_URL, mountPoint),
+      PAYMENT_KIT_DID,
+    );
+    paymentLinkId = id;
+  }
+  
   // Step 1: Create payment link and open
   const cachedCheckoutId = await checkCacheCheckoutId(id);
   const checkoutId = cachedCheckoutId || (await createPaymentSession());

@@ -1,3 +1,5 @@
+import { joinURL } from "ufo";
+
 /**
  * Custom error class for invalid blocklet application URLs
  */
@@ -24,8 +26,7 @@ export class ComponentNotFoundError extends Error {
 }
 
 export async function getComponentInfo(appUrl) {
-  const url = new URL(appUrl);
-  const blockletJsUrl = `${url.origin}/__blocklet__.js?type=json`;
+  const blockletJsUrl = joinURL(appUrl, "__blocklet__.js?type=json");
 
   let blockletJs;
   try {
