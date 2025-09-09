@@ -59,7 +59,6 @@ Guided-Experience: {
 
 Final-Config: {
   label: "4. Final Configuration"
-  shape: document
   content: "config.yaml is generated with\nconflict resolution strategies"
 }
 

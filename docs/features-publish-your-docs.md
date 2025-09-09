@@ -10,6 +10,7 @@ The `aigne doc publish` command initiates an interactive process that guides you
 
 ```d2
 direction: down
+shape: sequence_diagram
 
 User: { shape: c4-person }
 CLI: { label: "AIGNE CLI" }

@@ -10,6 +10,7 @@
 
 ```d2
 direction: down
+shape: sequence_diagram
 
 User: { shape: c4-person }
 CLI: { label: "AIGNE CLI" }

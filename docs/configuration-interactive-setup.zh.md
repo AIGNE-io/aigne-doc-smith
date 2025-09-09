@@ -59,7 +59,6 @@ Guided-Experience: {
 
 Final-Config: {
   label: "4. 最终配置"
-  shape: document
   content: "config.yaml 根据\n冲突解决策略生成"
 }
 
