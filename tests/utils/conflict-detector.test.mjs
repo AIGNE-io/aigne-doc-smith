@@ -3,8 +3,8 @@ import {
   detectResolvableConflicts,
   generateConflictResolutionRules,
   getFilteredOptions,
-} from "../utils/conflict-detector.mjs";
-import { processConfigFields } from "../utils/utils.mjs";
+} from "../../utils/conflict-detector.mjs";
+import { processConfigFields } from "../../utils/utils.mjs";
 
 describe("conflict resolution", () => {
   describe("getFilteredOptions", () => {

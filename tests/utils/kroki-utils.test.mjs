@@ -6,7 +6,7 @@ import path from "node:path";
 
 import Debug from "debug";
 
-import { TMP_ASSETS_DIR } from "../utils/constants.mjs";
+import { TMP_ASSETS_DIR } from "../../utils/constants.mjs";
 import {
   beforePublishHook,
   checkD2Content,
@@ -14,7 +14,7 @@ import {
   getChart,
   getD2Svg,
   saveD2Assets,
-} from "../utils/kroki-utils.mjs";
+} from "../../utils/kroki-utils.mjs";
 
 describe("kroki-utils", () => {
   let tempDir;

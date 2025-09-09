@@ -12,6 +12,7 @@ import {
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
 } from "../../utils/constants.mjs";
+import loadConfig from "../../utils/load-config.mjs";
 import {
   detectSystemLanguage,
   getAvailablePaths,
@@ -19,7 +20,6 @@ import {
   isGlobPattern,
   validatePath,
 } from "../../utils/utils.mjs";
-import loadConfig from "../../utils/load-config.mjs";
 
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";

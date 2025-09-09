@@ -10,7 +10,7 @@ import {
   readPreferences,
   removeRule,
   writePreferences,
-} from "../utils/preferences-utils.mjs";
+} from "../../utils/preferences-utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import checkDetailResult from "../agents/utils/check-detail-result.mjs";
+import checkDetailResult from "../../../agents/utils/check-detail-result.mjs";
 
 describe("checkDetailResult", () => {
   test("should approve valid content", async () => {

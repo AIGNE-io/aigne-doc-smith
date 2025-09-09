@@ -6,12 +6,12 @@ import {
   shutdownValidation,
   validateBasicMermaidSyntax,
   validateMermaidSyntax,
-} from "../utils/mermaid-validator.mjs";
+} from "../../utils/mermaid-validator.mjs";
 import {
   getMermaidWorkerPool,
   SimpleMermaidWorkerPool,
   shutdownMermaidWorkerPool,
-} from "../utils/mermaid-worker-pool.mjs";
+} from "../../utils/mermaid-worker-pool.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

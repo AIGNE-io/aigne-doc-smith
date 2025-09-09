@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { saveValueToConfig } from "../utils/utils.mjs";
+import { saveValueToConfig } from "../../utils/utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,8 +13,14 @@ const TEST_DIR = join(__dirname, "temp-config-test");
 const TEST_CONFIG_DIR = join(TEST_DIR, ".aigne", "doc-smith");
 const TEST_CONFIG_PATH = join(TEST_CONFIG_DIR, "config.yaml");
 
+// Store original working directory
+let originalCwd;
+
 // Setup and teardown helpers
 async function setupTestDir() {
+  // Save original working directory
+  originalCwd = process.cwd();
+
   if (existsSync(TEST_DIR)) {
     await rm(TEST_DIR, { recursive: true, force: true });
   }
@@ -26,7 +32,7 @@ async function setupTestDir() {
 
 async function teardownTestDir() {
   // Change back to original directory
-  process.chdir(dirname(TEST_DIR));
+  process.chdir(originalCwd);
 
   if (existsSync(TEST_DIR)) {
     await rm(TEST_DIR, { recursive: true, force: true });

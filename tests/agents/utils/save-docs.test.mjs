@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { mkdir, readdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import saveDocs from "../agents/utils/save-docs.mjs";
+import saveDocs from "../../../agents/utils/save-docs.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
