@@ -27,8 +27,8 @@ importers:
         specifier: ^0.14.3
         version: 0.14.3(@libsql/client@0.15.10)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/publish-docs':
-        specifier: ^0.9.5
-        version: 0.9.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
+        specifier: ^0.9.6
+        version: 0.9.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
       chalk:
         specifier: ^5.5.0
         version: 5.5.0
@@ -160,8 +160,8 @@ packages:
   '@aigne/poe@1.0.20':
     resolution: {integrity: sha512-9HDwwmMXGZcyx8cFJjSJZNr/w34YsNmyEaPLszfvz13IaYBdfN9RNBDwBfRV2wgO+9rEpPioqls5xoY8/1Dkpg==}
 
-  '@aigne/publish-docs@0.9.5':
-    resolution: {integrity: sha512-L8MiYUAotHUpJ5YIR5ep6PZP9SDCGues866/n08BAd+DV8cg6yiH9bG+pqrF27JzbD5iyABCcGgl/0OPGl4Czw==}
+  '@aigne/publish-docs@0.9.6':
+    resolution: {integrity: sha512-H19PwoSEgFRS9LjPoIkFicbvOuUhpXfNZnGBBRgSTn6eTAQLOKtlQtqJtQC0VQdDw9JUB35eYrZDTwW2XRgXww==}
 
   '@aigne/sqlite@0.4.1':
     resolution: {integrity: sha512-npOrVQSUMuq8hZIMRuwEOynUAu1R/h0f27gI6CmPLo2T43zqg/w/sakR2sJyjL/jO/KZw3YDkcw9APzErO5sXw==}
@@ -4960,7 +4960,7 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/publish-docs@0.9.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)':
+  '@aigne/publish-docs@0.9.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)':
     dependencies:
       '@lexical/code': 0.33.1
       '@lexical/headless': 0.33.1

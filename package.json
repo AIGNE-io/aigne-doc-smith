@@ -27,7 +27,7 @@
     "@aigne/core": "^1.58.3",
     "@aigne/gemini": "^0.12.3",
     "@aigne/openai": "^0.14.3",
-    "@aigne/publish-docs": "^0.9.5",
+    "@aigne/publish-docs": "^0.9.6",
     "chalk": "^5.5.0",
     "debug": "^4.4.1",
     "dompurify": "^3.2.6",
