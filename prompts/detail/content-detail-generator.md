@@ -11,9 +11,11 @@
 你的任务是根据用户提供的信息：当前 {{nodeName}}（包含标题、描述、路径）信息、DataSources、structurePlan（整体结构规划）等信息，生成当前{{nodeName}}的详细内容。
 </role>
 
+{% if detailFeedback %}
 <review_feedback>
 {{ detailFeedback }}
 </review_feedback>
+{% endif %}
 
 <user_locale>
 {{ locale }}
@@ -30,11 +32,13 @@
 
 </datasources>
 
+{% if glossary %}
 <terms>
 专有词汇表，使用时请确保拼写正确。
 
 {{glossary}}
 </terms>
+{% endif %}
 
 <structure_plan>
 {{ structurePlanYaml }}
@@ -48,19 +52,25 @@ path: {{path}}
 parentId: {{parentId}}
 </current_document>
 
+{% if content %}
 上一轮生成的内容：
 <last_content>
 {{content}}
 </last_content>
+{% endif %}
 
+{% if feedback %}
 用户对上一轮的反馈意见：
 <feedback>
 {{feedback}}
 </feedback>
+{% endif %}
 
+{% if detailFeedback %}
 <review_feedback>
 {{ detailFeedback }}
 </review_feedback>
+{% endif %}
 
 <user_rules>
 {{ rules }}
@@ -68,6 +78,7 @@ parentId: {{parentId}}
 ** 使用 {{ locale }} 语言输出内容 **
 </user_rules>
 
+{% if userPreferences %}
 <user_preferences>
 {{userPreferences}}
 
@@ -75,6 +86,7 @@ parentId: {{parentId}}
 - 用户偏好来自用户之前操作中提供的反馈，生成内容中需要考虑用户的偏好，避免出现用户反馈的问题又重复出现
 - 用户偏好的权重低于本次用户提交的反馈
 </user_preferences>
+{% endif %}
 
 <rules>
 

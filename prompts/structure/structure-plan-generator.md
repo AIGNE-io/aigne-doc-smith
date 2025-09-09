@@ -28,6 +28,7 @@
 {{ datasources }}
 </datasources>
 
+{% if originalStructurePlan %}
 <last_structure_plan>
 {{originalStructurePlan}}
 </last_structure_plan>
@@ -38,28 +39,40 @@
   2.  **无关节点的稳定性**：没有在用户反馈中被提及的节点 ** path、sourcesIds 属性不能被修改 **。`path`、`sourcesIds` 是关联现有内容的关键标识符，其稳定性至关重要。
     理想情况下，其他属性（如 `title`、`description`）也应保持稳定，除非这些变更是由某个被要求的变更直接导致的，或者是 DataSource 变更导致。
 </last_structure_plan_rule>
+{% endif %}
 
+
+{% if feedback %}
 <structure_plan_feedback>
 {{ feedback }}
 </structure_plan_feedback>
+{% endif %}
 
+{% if structurePlan %}
 <review_structure_plan>
 {{ structurePlan }}
 </review_structure_plan>
+{% endif %}
 
+{% if structureReviewFeedback %}
 <structure_review_feedback>
 {{ structureReviewFeedback }}
 </structure_review_feedback>
+{% endif %}
 
+{% if glossary %}
 <terms>
 专有词汇表，使用时请确保拼写正确。
 
 {{glossary}}
 </terms>
+{% endif %}
 
+{% if rules %}
 <user_rules>
 {{ rules }}
 </user_rules>
+{% endif %}
 
 <conflict_resolution_guidance>
 When users select potentially conflicting options, conflict resolution guidance will be provided in user_rules. Please carefully read these guidelines and implement the corresponding resolution strategies in the structure planning.
@@ -78,6 +91,7 @@ Common conflict resolution patterns:
 When planning structure, prioritize conflict resolution strategies to ensure the final structure can harmoniously satisfy all user needs.
 </conflict_resolution_guidance>
 
+{% if userPreferences %}
 <user_preferences>
 {{userPreferences}}
 
@@ -85,6 +99,7 @@ When planning structure, prioritize conflict resolution strategies to ensure the
 - 用户偏好来自用户之前操作中提供的反馈，生成结构规划中需要考虑用户的偏好，避免出现用户反馈的问题又重复出现
 - 用户偏好的权重低于本次用户提交的反馈
 </user_preferences>
+{% endif %}
 
 <rules>
 这份文档的目标受众是：{{targetAudience}}

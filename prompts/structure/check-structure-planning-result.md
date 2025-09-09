@@ -13,10 +13,12 @@
 {{ structurePlan }}
 ```
 
+{% if feedback %}
 - **用户反馈**:
 ```
 {{ feedback }}
 ```
+{% endif %}
 </context>
 
 <goal>

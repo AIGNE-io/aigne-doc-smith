@@ -56,14 +56,19 @@
 {{content}}
 </content>
 
+{% if feedback %}
 <translate_feedback>
 {{ feedback }}
 </translate_feedback>
+{% endif %}
 
+{% if detailFeedback %}
 <review_feedback>
 {{ detailFeedback }}
 </review_feedback>
+{% endif %}
 
+{% if userPreferences %}
 <user_preferences>
 {{userPreferences}}
 
@@ -71,6 +76,7 @@
 - 用户偏好来自用户之前操作中提供的反馈，生成结构规划中需要考虑用户的偏好，避免出现用户反馈的问题又重复出现
 - 用户偏好的权重低于本次用户提交的反馈
 </user_preferences>
+{% endif %}
 
 指令：
 请将 <content> 中的内容（不包含最外层的 <content> 标签） **准确** 地翻译成 **{{ language }}**，并严格遵循翻译要求。
