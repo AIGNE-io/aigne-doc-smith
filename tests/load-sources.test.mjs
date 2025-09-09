@@ -2,7 +2,7 @@ import { afterAll, afterEach, beforeEach, describe, expect, test } from "bun:tes
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import loadSources from "../agents/load-sources.mjs";
+import loadSources from "../agents/utils/load-sources.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

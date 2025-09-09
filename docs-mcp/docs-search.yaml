@@ -2,8 +2,8 @@ type: team
 name: docs-search
 description: Search relevant documents based on user query
 skills:
-  - ../agents/load-config.mjs
-  - ../agents/load-sources.mjs
+  - ../agents/utils/load-config.mjs
+  - ../agents/utils/load-sources.mjs
   - analyze-docs-relevance.yaml
   - read-doc-content.mjs
   - analyze-content-relevance.yaml

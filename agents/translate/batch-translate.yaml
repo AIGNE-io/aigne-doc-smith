@@ -1,0 +1,50 @@
+type: team
+name: batchTranslate
+description: 批量翻译文档到多个语言
+skills:
+  - type: team
+    task_render_mode: collapse
+    name: translate
+    skills:
+      - url: ../utils/find-user-preferences-by-path.mjs
+        default_input:
+          scope: translation
+      - ../translate/translate-doc.yaml
+      - type: transform
+        jsonata: |
+          $merge([
+            $,
+            { "reviewContent": translation }
+          ])
+    reflection:
+      reviewer: ../utils/check-detail-result.mjs
+      is_approved: isApproved
+      max_iterations: 5
+      return_last_on_max_iterations: true
+    task_title: Translate '{{ title }}' to '{{ language }}'
+input_schema:
+  type: object
+  properties:
+    translates:
+      type: array
+      items:
+        type: object
+        properties:
+          language:
+            type: string
+    content:
+      type: string
+output_schema:
+  type: object
+  properties:
+    translates:
+      type: array
+      items:
+        type: object
+        properties:
+          language:
+            type: string
+          translation:
+            type: string
+iterate_on: translates
+mode: sequential

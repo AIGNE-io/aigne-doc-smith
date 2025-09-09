@@ -1,0 +1,59 @@
+type: team
+name: generate
+alias:
+  - gen
+  - g
+description: Automatically generates comprehensive project documentation
+skills:
+  - url: ../init/init.mjs
+    default_input:
+      skipIfExists: true
+  - ../utils/load-config.mjs
+  - ../utils/load-sources.mjs
+  - ./check-structure-plan.mjs
+  - url: ../utils/save-output.mjs
+    default_input:
+      saveKey: structurePlan
+      savePath:
+        $get: outputDir
+      fileName: structure-plan.json
+  - type: transform
+    name: transformData
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          'structurePlanResult': $map(structurePlan, function($item) {
+            $merge([
+              $item,
+              {
+                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
+              }
+            ])
+          }),
+          "datasources": ""
+        }
+      ])
+  - ../utils/format-structure-plan.mjs
+  - ../update/batch-docs-detail-generator.yaml
+  - url: ../utils/check-feedback-refiner.mjs
+    default_input:
+      stage: structure_planning
+  - ../utils/save-docs.mjs
+
+input_schema:
+  type: object
+  properties:
+    glossary:
+      type: string
+      description: Glossary of terms for consistent terminology, use @<file> to read from a file
+    feedback:
+      type: string
+      description: Feedback for structure planning adjustments
+    forceRegenerate:
+      type: boolean
+      description: Force regenerate all documentation
+  required:
+    - config
+mode: sequential

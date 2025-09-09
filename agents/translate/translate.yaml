@@ -1,0 +1,65 @@
+type: team
+name: translate
+description: Translate document content to selected languages
+skills:
+  - url: ../init/init.mjs
+    default_input:
+      skipIfExists: true
+  - ../utils/load-config.mjs
+  - ../utils/load-sources.mjs
+  - type: transform
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          'structurePlan': originalStructurePlan,
+          'structurePlanResult': $map(originalStructurePlan, function($item) {
+            $merge([
+              $item,
+              {
+                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
+              }
+            ])
+          })
+        }
+      ])
+  - url: ../utils/selected-docs.mjs
+    default_input:
+      isTranslate: true
+  - ../translate/language-selector.mjs
+  - type: team
+    name: batchDocsTranslate
+    skills:
+      - ../translate/batch-translate.yaml
+      - url: ../utils/save-single-doc.mjs
+        default_input:
+          isTranslate: true
+    iterate_on: selectedDocs
+    concurrency: 3
+  - url: ../utils/check-feedback-refiner.mjs
+    default_input:
+      stage: translation_refine
+  - url: ../utils/action-success.mjs
+    default_input:
+      action: "Document translated"
+input_schema:
+  type: object
+  properties:
+    glossary:
+      type: string
+      description: Glossary of terms for consistent terminology, use @<file> to read from a file
+    docs:
+      type: array
+      items:
+        type: string
+      description: Document paths to translate
+    langs:
+      type: array
+      items:
+        type: string
+      description: "Languages to translate to, available languages are: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar"
+    feedback:
+      type: string
+      description: Feedback for translation improvement
+mode: sequential

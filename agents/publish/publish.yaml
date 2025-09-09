@@ -1,0 +1,18 @@
+type: team
+name: publish
+alias:
+  - pub
+  - p
+description: Publish the documentation to Discuss Kit
+skills:
+  - url: ../init/init.mjs
+    default_input:
+      skipIfExists: true
+  - ../utils/load-config.mjs
+  - publish-docs.mjs
+input_schema:
+  type: object
+  properties:
+    appUrl:
+      type: string
+      description: target website URL where the documentation will be published (optional - if not provided, will prompt for interactive input)
