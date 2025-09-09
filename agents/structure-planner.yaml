@@ -1,8 +1,8 @@
 type: team
-name: structurePlanning
+name: structurePlanner
 description: A team of agents that plan the structure of the documentation.
 skills:
-  - structure-planning.yaml
+  - structure-plan-generator.yaml
 task_title: Plan the structure of the documentation
 task_render_mode: collapse
 reflection:

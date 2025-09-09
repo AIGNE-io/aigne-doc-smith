@@ -19,7 +19,7 @@ export default async function languageSelector({ langs, locale, selectedDocs }, 
   // Get primary language from config or parameter
   const primaryLanguage = locale || existingConfig?.locale || "en";
 
-  // Filter out the primary language from available choices (like input-generator.mjs)
+  // Filter out the primary language from available choices (like init.mjs)
   const availableTranslationLanguages = SUPPORTED_LANGUAGES.filter(
     (lang) => lang.code !== primaryLanguage,
   );

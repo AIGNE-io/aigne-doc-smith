@@ -1,31 +1,65 @@
-name: translateDoc
-description: Translate the wiki article to another language
-instructions:
-  url: ../prompts/translator.md
+type: team
+name: translate
+description: Translate document content to selected languages
+skills:
+  - url: ./init.mjs
+    default_input:
+      skipIfExists: true
+  - ./load-config.mjs
+  - ./load-sources.mjs
+  - type: transform
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          'structurePlan': originalStructurePlan,
+          'structurePlanResult': $map(originalStructurePlan, function($item) {
+            $merge([
+              $item,
+              {
+                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
+              }
+            ])
+          })
+        }
+      ])
+  - url: ./selected-docs.mjs
+    default_input:
+      isTranslate: true
+  - ./language-selector.mjs
+  - type: team
+    name: batchDocsTranslate
+    skills:
+      - ./batch-translate.yaml
+      - url: ./save-single-doc.mjs
+        default_input:
+          isTranslate: true
+    iterate_on: selectedDocs
+    concurrency: 3
+  - url: ./check-feedback-refiner.mjs
+    default_input:
+      stage: translation_refine
+  - url: ./action-success.mjs
+    default_input:
+      action: "Document translated"
 input_schema:
   type: object
   properties:
-    language:
-      type: string
-      description: Language to translate the article into (e.g., 'zh_CN' for Chinese)
-    content:
-      type: string
-      description: Content to translate
     glossary:
       type: string
-      description: 术语表
+      description: Glossary of terms for consistent terminology, use @<file> to read from a file
+    docs:
+      type: array
+      items:
+        type: string
+      description: Document paths to translate
+    langs:
+      type: array
+      items:
+        type: string
+      description: "Languages to translate to, available languages are: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar"
     feedback:
       type: string
       description: Feedback for translation improvement
-  required:
-    - language
-    - content
-output_schema:
-  type: object
-  properties:
-    translation:
-      type: string
-      description: Translation of the content
-    language:
-      type: string
-      description: Language of the translation
+mode: sequential

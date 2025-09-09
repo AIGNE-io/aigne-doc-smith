@@ -1,8 +1,10 @@
 type: team
-name: translate
-description: Translate document content to selected languages
+name: update
+alias:
+  - up
+description: Optimize and regenerate individual document content and translations
 skills:
-  - url: ./input-generator.mjs
+  - url: ./init.mjs
     default_input:
       skipIfExists: true
   - ./load-config.mjs
@@ -24,25 +26,20 @@ skills:
           })
         }
       ])
-  - url: ./find-items-by-paths.mjs
-    default_input:
-      isTranslate: true
-  - ./language-selector.mjs
+  - ./selected-docs.mjs
+  - ./format-structure-plan.mjs
   - type: team
-    name: batchDocsTranslate
+    name: batchDocsUpdate
     skills:
-      - ./batch-translate.yaml
-      - url: ./save-single-doc.mjs
-        default_input:
-          isTranslate: true
+      - ./detail-generator-and-translate.yaml
     iterate_on: selectedDocs
     concurrency: 3
   - url: ./check-feedback-refiner.mjs
     default_input:
-      stage: translation_refine
+      stage: document_refine
   - url: ./action-success.mjs
     default_input:
-      action: "Document translated"
+      action: "Document updated"
 input_schema:
   type: object
   properties:
@@ -54,12 +51,21 @@ input_schema:
       items:
         type: string
       description: Document paths to translate
-    langs:
-      type: array
-      items:
-        type: string
-      description: "Languages to translate to, available languages are: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar"
     feedback:
       type: string
-      description: Feedback for translation improvement
+      description: Feedback for content improvement
+    reset:
+      type: boolean
+      description: Ignore previous results and regenerate content from scratch
+output_schema:
+  type: object
+  properties:
+    title:
+      type: string
+    description:
+      type: string
+    path:
+      type: string
+    content:
+      type: string
 mode: sequential

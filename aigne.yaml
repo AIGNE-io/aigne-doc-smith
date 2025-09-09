@@ -6,11 +6,11 @@ chat_model:
   # name: gemini-2.5-flash
   temperature: 0.8
 agents:
-  - ./agents/structure-planning.yaml
+  - ./agents/structure-plan-generator.yaml
   - ./agents/batch-docs-detail-generator.yaml
   - ./agents/load-sources.mjs
   - ./agents/save-docs.mjs
-  - ./agents/translate.yaml
+  - ./agents/translate-doc.yaml
   - ./agents/detail-generator-and-translate.yaml
   - ./agents/check-detail.mjs
   - ./agents/transform-detail-datasources.mjs
@@ -19,17 +19,17 @@ agents:
   - ./agents/save-output.mjs
   - ./agents/check-structure-plan.mjs
   - ./agents/content-detail-generator.yaml
-  - ./agents/reflective-structure-planner.yaml
+  - ./agents/structure-planner.yaml
   - ./agents/check-structure-planning-result.yaml
-  - ./agents/input-generator.mjs
-  - ./agents/docs-generator.yaml
-  - ./agents/detail-regenerator.yaml
+  - ./agents/init.mjs
+  - ./agents/generate.yaml
+  - ./agents/update.yaml
   - ./agents/publish-docs.mjs
   - ./agents/format-structure-plan.mjs
   - ./agents/load-config.mjs
-  - ./agents/team-publish-docs.yaml
+  - ./agents/publish.yaml
   - ./agents/find-item-by-path.mjs
-  - ./agents/retranslate.yaml
+  - ./agents/translate.yaml
   - ./agents/language-selector.mjs
   - ./docs-mcp/get-docs-structure.mjs
   - ./docs-mcp/get-docs-detail.mjs
@@ -39,16 +39,16 @@ agents:
   - ./docs-mcp/analyze-content-relevance.yaml
   - ./agents/check-feedback-refiner.mjs
   - ./agents/feedback-refiner.yaml
-  - ./agents/manage-prefs.mjs
+  - ./agents/prefs.mjs
 cli:
   chat: ./agents/chat.yaml
   agents:
-    - ./agents/input-generator.mjs
-    - ./agents/docs-generator.yaml
-    - ./agents/detail-regenerator.yaml
-    - ./agents/team-publish-docs.yaml
-    - ./agents/retranslate.yaml
-    - ./agents/manage-prefs.mjs
+    - ./agents/init.mjs
+    - ./agents/generate.yaml
+    - ./agents/update.yaml
+    - ./agents/publish.yaml
+    - ./agents/translate.yaml
+    - ./agents/prefs.mjs
 mcp_server:
   agents:
     - ./docs-mcp/get-docs-structure.mjs
