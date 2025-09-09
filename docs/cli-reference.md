@@ -4,182 +4,246 @@ labels: ["Reference"]
 
 # CLI Command Reference
 
-This guide provides a comprehensive reference for all available `aigne doc` sub-commands, their arguments, and options. It's designed for users who want to understand the full capabilities of the command-line interface.
+AIGNE DocSmith is operated through the `aigne doc` command-line interface (CLI). This reference provides a comprehensive overview of all available commands, their options, and usage examples. All documentation tasks, from initial setup to final publication, are managed through these commands.
 
-The general syntax is:
+For installation instructions, please see the [Getting Started](./getting-started.md) guide.
 
-```bash
-aigne doc <command> [options]
-```
+## Command Overview
+
+Here is a quick summary of the primary commands available in DocSmith:
+
+| Command | Aliases | Description |
+| --- | --- | --- |
+| `generate` | `gen`, `g` | Generates a complete set of documentation from your source code. |
+| `update` | `up` | Optimizes and regenerates individual documents based on feedback. |
+| `translate` | | Translates existing documentation into one or more languages. |
+| `publish` | `pub`, `p` | Publishes your documentation to a Discuss Kit platform. |
+| `init` | | Starts an interactive wizard to configure your documentation project. |
+| `prefs` | | Manages user preferences learned from your feedback over time. |
+| `chat` | | Starts an interactive chat assistant for a guided documentation experience. |
 
 ---
 
-## `aigne doc generate`
+## `generate`
 
-**Aliases:** `gen`, `g`
+Automatically analyzes your codebase, plans the document structure, and generates high-quality content for the entire project.
 
-Automatically analyzes your source code and generates a complete set of documentation based on your configuration. If no configuration is found, it will automatically launch the interactive setup wizard.
+This is the primary command for creating your documentation from scratch or regenerating it after significant source code changes.
 
-### Options
+### Usage
 
-| Option | Type | Description |
-|---|---|---|
-| `--feedback` | string | Provides feedback to adjust and refine the overall document structure plan. |
-| `--forceRegenerate` | boolean | Discards existing content and regenerates all documentation from scratch. |
-| `--model` | string | Specifies a particular LLM to use for generation (e.g., `openai:gpt-4o`, `claude:claude-3-5-sonnet`). Overrides the default model. |
-| `--glossary` | string | Path to a glossary file for consistent terminology. Use the format `@path/to/glossary.md`. |
-
-### Usage Examples
-
-**Generate documentation for the first time or update it:**
-```bash
+```bash Basic Usage
 aigne doc generate
 ```
 
-**Force a complete regeneration of all documents:**
-```bash
+### Options
+
+| Option | Type | Description |
+| --- | --- | --- |
+| `--forceRegenerate` | boolean | Deletes all existing documentation and regenerates everything from scratch. |
+| `--feedback` | string | Provides feedback to refine the overall document structure plan (e.g., "Add a section on API authentication"). |
+| `--model` | string | Specifies which large language model to use for generation (e.g., `openai:gpt-4o`, `google:gemini-1.5-flash`). |
+| `--glossary` | string | Path to a glossary file (`@path/to/glossary.md`) to ensure consistent terminology. |
+
+### Examples
+
+**Force a complete regeneration**
+
+```bash icon=lucide:refresh-cw
 aigne doc generate --forceRegenerate
 ```
 
-**Refine the document structure with feedback:**
-```bash
-aigne doc generate --feedback "Add a new section for API examples and remove the 'About' page."
+**Refine the structure with feedback**
+
+```bash icon=lucide:edit
+aigne doc generate --feedback "Remove the 'About' section and add a detailed API Reference."
 ```
 
-**Generate using a specific model from AIGNE Hub:**
-```bash
-aigne doc generate --model google:gemini-1.5-flash
+**Generate using a specific model**
+
+```bash icon=lucide:bot
+aigne doc generate --model claude:claude-3-5-sonnet
 ```
 
 ---
 
-## `aigne doc update`
+## `update`
 
-**Alias:** `up`
+Optimizes and regenerates specific documents. This is useful for making targeted improvements based on feedback or updating a single page after minor code changes.
 
-Optimizes and regenerates specific documents. You can run it interactively to select documents or specify them directly with options. This is useful for making targeted improvements based on feedback without regenerating the entire project.
+Running this command without any options will launch an interactive mode, allowing you to select which document to update.
 
-### Options
+### Usage
 
-| Option | Type | Description |
-|---|---|---|
-| `--docs` | array | A list of document paths to regenerate (e.g., `--docs overview.md --docs /features/authentication.md`). |
-| `--feedback` | string | Provides specific feedback to improve the content of the selected document(s). |
-| `--glossary` | string | Path to a glossary file for consistent terminology. Use the format `@path/to/glossary.md`. |
-
-### Usage Examples
-
-**Start an interactive session to select which document to update:**
-```bash
+```bash Basic Usage
 aigne doc update
 ```
 
-**Update a specific document with targeted feedback:**
-```bash
-aigne doc update --docs /cli-reference.md --feedback "Clarify the difference between the --docs and --langs options."
+### Options
+
+| Option | Type | Description |
+| --- | --- | --- |
+| `--docs` | array | The path(s) of the document(s) to update (e.g., `--docs overview.md`). Can be used multiple times. |
+| `--feedback` | string | Specific feedback for improving the content of the selected document(s). |
+| `--reset` | boolean | Ignores previous results and regenerates the document content from scratch. |
+| `--glossary` | string | Path to a glossary file (`@path/to/glossary.md`) for consistent terminology. |
+
+### Examples
+
+**Start interactive update mode**
+
+```bash icon=lucide:mouse-pointer-click
+aigne doc update
+```
+
+**Update a specific document with feedback**
+
+```bash icon=lucide:file-edit
+aigne doc update --docs /features/generate-documentation.md --feedback "Add more details about the --forceRegenerate flag."
 ```
 
 ---
 
-## `aigne doc translate`
+## `translate`
 
-Translates existing documentation into one or more languages. It can be run interactively to select documents and languages, or non-interactively by specifying them as arguments.
+Translates existing documentation into one or more of the 12+ supported languages.
 
-### Options
+Running the command without options starts an interactive wizard to help you select documents and target languages.
 
-| Option | Type | Description |
-|---|---|---|
-| `--docs` | array | A list of document paths to translate. If omitted in interactive mode, you can select them. |
-| `--langs` | array | A list of target language codes (e.g., `zh`, `ja`, `es`). If omitted, you can select them interactively. |
-| `--feedback` | string | Provides feedback to improve the quality of the translation. |
-| `--glossary` | string | Path to a glossary file to ensure consistent terminology across languages. Use `@path/to/glossary.md`. |
+### Usage
 
-### Usage Examples
-
-**Start an interactive translation session:**
-```bash
+```bash Basic Usage
 aigne doc translate
 ```
 
-**Translate specific documents into Chinese and Japanese:**
-```bash
+### Options
+
+| Option | Type | Description |
+| --- | --- | --- |
+| `--langs` | array | Specify one or more target language codes (e.g., `zh`, `ja`, `fr`). Can be used multiple times. |
+| `--docs` | array | The path(s) of the document(s) to translate. If omitted, all documents are considered. |
+| `--feedback` | string | Feedback to improve the quality and style of the translation. |
+| `--glossary` | string | Path to a glossary file (`@path/to/glossary.md`) to ensure consistent terminology across languages. |
+
+### Examples
+
+**Start interactive translation mode**
+
+```bash icon=lucide:languages
+aigne doc translate
+```
+
+**Translate specific documents into Chinese and Japanese**
+
+```bash icon=lucide:globe
 aigne doc translate --docs overview.md --docs getting-started.md --langs zh --langs ja
 ```
 
-**Translate with a glossary and feedback for better quality:**
-```bash
-aigne doc translate --glossary @glossary.md --feedback "Use formal language for the Japanese translation."
+**Improve a translation using a glossary and feedback**
+
+```bash icon=lucide:book-check
+aigne doc translate --docs cli-reference.md --langs de --glossary @glossary.md --feedback "Use formal address ('Sie') instead of informal ('du')."
 ```
 
 ---
 
-## `aigne doc publish`
+## `publish`
 
-**Aliases:** `pub`, `p`
+Publishes your generated documentation to a Discuss Kit platform. This can be the official public platform or your own self-hosted instance.
 
-Publishes your generated documentation to a Discuss Kit platform. You can publish to the official AIGNE DocSmith platform or to your own self-hosted instance.
+Running the command without options starts an interactive wizard to select the publishing destination.
+
+### Usage
+
+```bash Basic Usage
+aigne doc publish
+```
 
 ### Options
 
 | Option | Type | Description |
-|---|---|---|
-| `--appUrl` | string | The URL of your self-hosted Discuss Kit instance. If not provided, the command runs interactively, allowing you to choose between the official platform and a custom URL. |
+| --- | --- | --- |
+| `--appUrl` | string | The URL of your self-hosted Discuss Kit instance. |
 
-### Usage Examples
+### Examples
 
-**Start an interactive publishing session:**
-```bash
+**Publish to the official platform (interactive)**
+
+```bash icon=lucide:rocket
 aigne doc publish
 ```
 
-**Publish directly to a self-hosted instance:**
-```bash
+**Publish to a self-hosted instance**
+
+```bash icon=lucide:server
 aigne doc publish --appUrl https://docs.my-company.com
 ```
 
 ---
 
-## `aigne doc init`
+## `init`
 
-Manually starts the interactive configuration wizard. This is useful for setting up a new project or modifying the configuration of an existing one. The wizard guides you through defining source code paths, setting output directories, choosing languages, and defining the documentation's style and target audience.
+Starts an interactive wizard to create or update the `aigne-doc.json` configuration file for your project. This is the recommended way to set up your documentation preferences, including source paths, output directories, languages, and style.
 
-### Usage Example
+### Usage
 
-**Launch the setup wizard:**
-```bash
+```bash Basic Usage
 aigne doc init
 ```
 
+This command has no options as it is fully interactive.
+
 ---
 
-## `aigne doc prefs`
+## `prefs`
 
-Manages user preferences that DocSmith learns from your feedback over time. These preferences are applied as rules in future generation and update tasks to maintain consistency with your style.
+Manages user preferences that DocSmith learns from your feedback. These preferences are stored as rules that are applied to future generation, update, and translation tasks to continuously improve quality and align with your style.
+
+### Usage
+
+```bash Basic Usage
+aigne doc prefs --list
+```
 
 ### Options
 
 | Option | Type | Description |
-|---|---|---|
+| --- | --- | --- |
 | `--list` | boolean | Lists all saved preferences, showing their status (active/inactive), scope, and content. |
-| `--remove` | boolean | Removes one or more preferences. Runs interactively if `--id` is not provided. |
-| `--toggle` | boolean | Toggles the active status of one or more preferences. Runs interactively if `--id` is not provided. |
-| `--id` | array | Specifies the preference ID(s) to act upon for `--remove` or `--toggle`. |
+| `--remove` | boolean | Interactively select and remove one or more preferences. |
+| `--toggle` | boolean | Interactively select and toggle the active status of one or more preferences. |
+| `--id` | array | Specifies preference ID(s) to apply the `--remove` or `--toggle` action to directly. |
 
-### Usage Examples
+### Examples
 
-**List all your saved preferences:**
-```bash
+**List all saved preferences**
+
+```bash icon=lucide:list
 aigne doc prefs --list
 ```
 
-**Interactively select preferences to remove:**
-```bash
+**Interactively remove preferences**
+
+```bash icon=lucide:trash-2
 aigne doc prefs --remove
 ```
 
-**Toggle the status of a specific preference by its ID:**
-```bash
-aigne doc prefs --toggle --id <preference-id>
+**Toggle the status of a specific preference by ID**
+
+```bash icon=lucide:toggle-right
+aigne doc prefs --toggle --id "pref_abc123"
 ```
 
-For more details on how to tailor DocSmith to your needs, see the [Configuration Guide](./configuration.md).
+---
+
+## `chat`
+
+Starts an interactive chat assistant that can help you with all documentation tasks. You can ask the assistant to generate, update, or translate documents in a conversational way.
+
+### Usage
+
+```bash Basic Usage
+aigne doc chat
+```
+
+This command provides a powerful, guided alternative to using the individual commands and options.

@@ -4,61 +4,70 @@ labels: ["Reference"]
 
 # Quality Assurance
 
-To ensure your documentation is consistently high-quality, DocSmith includes a powerful automated quality assurance pipeline. These built-in checks run automatically during the generation and update processes to detect and report common issues—from broken links to formatting errors—before they reach your readers.
+To ensure every piece of documentation is high-quality, well-formatted, and error-free, DocSmith includes a powerful built-in Quality Assurance (QA) engine. This engine automatically scans generated content for common issues, from broken links to malformed diagrams, catching potential errors before you publish. This automated process is built on the robust `unified` and `remark-lint` ecosystem, tailored with specific checks to maintain professional standards.
 
-The process validates multiple aspects of your content to maintain structural integrity and accuracy.
+### Core Validation Checks
 
-```d2
-direction: right
+DocSmith's QA engine performs a series of targeted checks to cover the most common sources of documentation errors:
 
-Input: "Markdown Content"
+<x-cards data-columns="2">
+  <x-card data-title="Structural Integrity" data-icon="lucide:scan-line">
+    DocSmith verifies the overall structure of your Markdown. It detects incomplete code blocks, checks for consistent indentation within code, and ensures content ends properly to prevent abrupt cutoffs.
+  </x-card>
+  <x-card data-title="Link & Asset Validation" data-icon="lucide:link">
+    All internal links are cross-referenced with your project's structure plan to catch dead links. The engine also confirms that any local images referenced in your documents exist on the filesystem.
+  </x-card>
+  <x-card data-title="D2 Diagram Validation" data-icon="lucide:network">
+    To prevent broken diagrams, DocSmith validates the syntax of all D2 code blocks. It communicates with an external rendering service to confirm the diagram code is valid and can be successfully generated.
+  </x-card>
+  <x-card data-title="Table Formatting" data-icon="lucide:table">
+    Malformed tables are a common rendering issue. The QA engine checks that the number of columns in a table's header, separator line, and data rows are consistent, preventing display failures.
+  </x-card>
+</x-cards>
 
-QA_Pipeline: "DocSmith QA Pipeline" {
-  shape: package
-  
-  Checks: {
+### The QA Pipeline
+
+When documentation is generated or updated, the content passes through a multi-stage validation pipeline. This process is designed to be fast and comprehensive, identifying a wide range of potential issues as illustrated below.
+
+```d2 The DocSmith QA Pipeline
+direction: down
+
+markdown-content: {
+  label: "Markdown Content"
+  shape: rectangle
+}
+
+qa-engine: {
+  label: "DocSmith QA Engine\n(checkMarkdown)"
+  shape: rectangle
+
+  checks: {
     grid-columns: 2
-    "Structural Integrity": "Incomplete code blocks & inconsistent indentation"
-    "Link & Asset Health": "Dead links & missing local images"
-    "Diagram Validation": "D2 syntax checks"
-    "Markdown Linting": "Table formatting & standard rules"
+    grid-gap: 40
+
+    link-check: "Dead Link Check"
+    image-check: "Local Image Check"
+    structure-check: "Structural Integrity"
+    diagram-check: "D2 Diagram Validation"
+    table-check: "Table Formatting"
+    lint-check: "General Linting"
   }
 }
 
-Output: "Validated Documentation"
+output: {
+  label: "Validation Result"
+  shape: diamond
+}
 
-Input -> QA_Pipeline: "Analyzed"
-QA_Pipeline -> Output: "Generated"
+success: "Valid Content"
+errors: "List of Errors"
+
+markdown-content -> qa-engine
+qa-engine -> output
+output -> success: "Pass"
+output -> errors: "Fail"
 ```
 
-### Content and Structural Integrity
+By automating these checks, DocSmith helps maintain a high standard of quality with minimal effort, allowing you to focus on writing great content rather than fixing formatting errors. The results of these checks are often surfaced through CLI feedback, enabling quick corrections.
 
-DocSmith analyzes the fundamental structure of your markdown files to catch issues that often lead to rendering failures or confusing output.
-
-- **Incomplete Code Blocks**: The validator ensures that every code block opened with ` ``` ` is properly closed. Unclosed blocks can cause large portions of a document to render incorrectly.
-- **Inconsistent Indentation**: Code blocks with inconsistent indentation are flagged. This is particularly important for code samples where indentation is syntactically significant and for preventing unexpected rendering issues.
-- **Content Completeness**: The system checks if the content appears to be truncated by verifying that it ends with appropriate punctuation (e.g., `.`, `)`, `|`). This helps catch incomplete generation results.
-
-### Link and Asset Validation
-
-Broken links and missing images can degrade the user experience. DocSmith validates these resources automatically to ensure they are always available to the reader.
-
-- **Dead Link Checking**: All internal links are cross-referenced against the paths defined in your project's structure plan. Any link pointing to a non-existent page is reported as a dead link.
-- **Local Image Verification**: For local images (i.e., those not hosted on an external server), the system checks that the referenced image file exists at the specified relative or absolute path.
-
-### Diagram Validation
-
-To ensure that all diagrams render correctly, DocSmith specifically validates the syntax of D2 code blocks. Before processing, the D2 content is checked for syntactical correctness. If an error is found, it is flagged to prevent a broken diagram from being published.
-
-### Markdown Formatting and Linting
-
-Beyond major structural issues, DocSmith lints the markdown for formatting consistency and correctness, leveraging established standards to enforce a clean and readable style. Key checks include:
-
-| Check Category | Description |
-|---|---|
-| **Table Formatting** | Verifies that the number of columns in a table's header, separator line, and data rows are consistent. Mismatched column counts are a common cause of broken tables. |
-| **Heading Issues** | Detects duplicate headings within the same document or headings that use improper indentation, which can break the document outline. |
-| **Reference Validation** | Checks for undefined references, such as using a link reference `[text][ref]` without defining `[ref]: url` elsewhere. |
-| **Code Block Style** | Ensures consistent usage of code block markers for better readability and parsing. |
-
-This automated quality assurance layer is a core part of DocSmith's architecture, designed to minimize manual review and ensure that your documentation is always accurate, professional, and reliable. To learn more about the overall generation process, see [How It Works](./advanced-how-it-works.md).
+To learn more about the underlying architecture that powers these features, see the [How It Works](./advanced-how-it-works.md) section.

@@ -4,95 +4,93 @@ labels: ["Reference"]
 
 # Publish Your Docs
 
-Once your documentation is generated, the next step is to make it accessible online. AIGNE DocSmith simplifies this process with the `aigne doc publish` command, which uploads your content to a Discuss Kit platform, making it instantly available to your audience.
+Once your documentation is generated and refined, the final step is to share it with your audience. AIGNE DocSmith simplifies this process with a single command, allowing you to publish your content to either the official public platform or your own self-hosted website.
 
-This guide covers how to publish your documentation, whether you're using the free official platform or your own self-hosted instance.
+## The Publishing Command
 
-## The Publishing Process
+Publishing is handled through an interactive wizard initiated by the `aigne doc publish` command. This guided process makes it easy to get your documentation online without complex configuration.
 
-The `aigne doc publish` command initiates an interactive process that guides you through the necessary steps. The diagram below shows the typical workflow for publishing your documentation for the first time.
-
-```d2
-shape: sequence_diagram
-
-User; CLI; "Discuss Kit Platform"
-
-User -> CLI: runs `aigne doc publish`
-
-alt "First time or not configured"
-  CLI -> User: "Prompt: Select platform"
-  User -> CLI: "Selects Official or Self-Hosted"
-  CLI -> User: "Opens browser for authentication"
-  User -> "Discuss Kit Platform": "Logs in and authorizes"
-  "Discuss Kit Platform" -> CLI: "Provides access token"
-  CLI -> CLI: "Saves token for future use"
-end
-
-CLI -> "Discuss Kit Platform": "Uploads documentation & media"
-"Discuss Kit Platform" -> CLI: "Confirms success"
-CLI -> User: "✅ Documentation Published Successfully!"
-```
-
-## Publishing Options
-
-You have two primary options for hosting your documentation, catering to different needs for visibility and control.
-
-<x-cards data-columns="2">
-  <x-card data-title="Official Platform" data-icon="lucide:globe">
-    Publish to docsmith.aigne.io, the official hosting platform. This option is free, ideal for open-source projects, and makes your documentation publicly accessible.
-  </x-card>
-  <x-card data-title="Self-Hosted Platform" data-icon="lucide:server">
-    Publish to your own private instance of Discuss Kit. This gives you full control over who can access your documentation, making it suitable for internal or private projects.
-  </x-card>
-</x-cards>
-
-## Step-by-Step Guide
-
-Publishing your documentation for the first time is a simple, interactive process.
-
-### 1. Run the Publish Command
-
-Navigate to your project's root directory in your terminal and run the following command:
-
-```bash
+```bash CLI Command icon=lucide:terminal
+# Start the interactive publishing wizard
 aigne doc publish
 ```
 
-### 2. Choose Your Platform
+When you run this command for the first time, you'll be prompted to choose where you want to publish your documentation.
 
-If you haven't configured a publishing destination before, you will be prompted to choose between the official platform and a self-hosted one. Select the option that best suits your needs.
+![Choosing between the official platform or a self-hosted one](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
 
-![Choose between the official platform or a self-hosted instance](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
+### Publishing Destinations
 
-If you select the self-hosted option, you will be asked to enter the URL for your Discuss Kit instance.
+You have two primary options for hosting your documentation:
 
-### 3. Authenticate Your Account
+<x-cards>
+  <x-card data-title="Official DocSmith Platform" data-icon="lucide:cloud">
+    Publish to docsmith.aigne.io. This option is free, requires no server setup, and is ideal for open-source projects. Note that your documentation will be publicly accessible.
+  </x-card>
+  <x-card data-title="Self-Hosted Platform" data-icon="lucide:server">
+    Publish to your own website powered by Discuss Kit. This gives you full control over privacy and branding. You will need to deploy and manage your own Discuss Kit instance.
+  </x-card>
+</x-cards>
 
-For the first connection to a new platform, DocSmith will automatically open a browser window for you to log in and authorize the CLI. This is a one-time step; your access token will be saved locally for all future publishes to that platform.
+### Authentication
 
-### 4. Confirmation
+The first time you publish to a specific platform, DocSmith will automatically open a browser window to authenticate and authorize the CLI. This is a one-time process. A secure access token is then saved locally in your home directory (`~/.aigne/doc-smith-connected.yaml`), so you won't need to log in again for subsequent publishes to the same platform.
 
-Once the upload is complete, you will see a success message in your terminal, and your documentation will be live.
+### Publishing Workflow
 
+The diagram below illustrates the entire process, from running the command to seeing your documentation live.
+
+```d2 Publishing Workflow
+direction: down
+
+shape: sequence_diagram
+
+User: { 
+  shape: c4-person 
+}
+
+CLI: { 
+  label: "AIGNE CLI"
+}
+
+Platform: { 
+  label: "Discuss Kit Platform\n(Official or Self-Hosted)" 
+}
+
+User -> CLI: "aigne doc publish"
+CLI -> User: "1. Prompt to select platform"
+User -> CLI: "2. Choose platform"
+
+opt "If not authenticated" {
+  CLI -> Platform: "3a. Request auth URL"
+  Platform -> CLI: "3b. Return auth URL"
+  CLI -> User: "4. Open auth URL in browser"
+  User -> Platform: "5. Authenticate & Authorize"
+  Platform -> CLI: "6. Send access token"
+  CLI -> CLI: "7. Save token locally"
+}
+
+CLI -> Platform: "8. Upload documentation files"
+Platform -> CLI: "9. Confirm success"
+CLI -> User: "10. Display success message"
 ```
-✅ Documentation Published Successfully!
+
+## Command Line Options
+
+While the interactive mode is recommended for most users, you can also specify the publishing destination directly via command-line arguments for automation or scripting purposes.
+
+| Option | Description |
+|---|---|
+| `--appUrl <url>` | Specifies the URL of your self-hosted Discuss Kit instance. This bypasses the interactive platform selection. |
+| `--boardId <id>` | The unique ID of the documentation board on the Discuss Kit platform. If not provided, a new one will be created automatically. |
+
+**Example for Self-Hosted Publishing:**
+
+```bash Publish to a custom URL icon=lucide:terminal
+# Publish directly to a specific self-hosted Discuss Kit instance
+aigne doc publish --appUrl https://docs.my-company.com
 ```
 
-## Publishing in CI/CD Environments
+---
 
-For automated workflows, you can bypass the interactive prompts by using command-line arguments or environment variables.
-
-| Method | Name | Description | Example |
-|---|---|---|---|
-| **Argument** | `--appUrl` | Specifies the URL of your self-hosted Discuss Kit instance directly. | `aigne doc publish --appUrl https://docs.mycompany.com` |
-| **Env Var** | `DOC_DISCUSS_KIT_URL` | Sets the target platform URL, overriding any other configuration. | `export DOC_DISCUSS_KIT_URL=...` |
-| **Env Var** | `DOC_DISCUSS_KIT_ACCESS_TOKEN` | Provides the access token directly, skipping the interactive login. | `export DOC_DISCUSS_KIT_ACCESS_TOKEN=...` |
-
-## Troubleshooting
-
-If you encounter issues during the publishing process, here are some common causes and their solutions:
-
--   **Invalid URL or Connection Error**: This often happens if the provided URL for a self-hosted instance is incorrect or the server is not reachable. Double-check the URL and your network connection.
--   **Missing Required Components**: The destination website must have the Discuss Kit component installed to host the documentation. If it's missing, the CLI will return an error with guidance on how to install it.
-
-For a complete list of commands and options, please refer to the [CLI Command Reference](./cli-reference.md).
+With your documentation published, you have successfully completed the entire lifecycle from code to live, multi-language docs. For a complete list of all commands and their options, you can explore the [CLI Command Reference](./cli-reference.md).

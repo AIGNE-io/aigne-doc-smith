@@ -14,4 +14,5 @@
 * [Advanced Topics](/advanced.md)
   * [How It Works](/advanced-how-it-works.md)
   * [Quality Assurance](/advanced-quality-assurance.md)
+  * [Extending with MCP](/advanced-extending-with-mcp.md)
 * [Changelog](/changelog.md)

@@ -4,79 +4,133 @@ labels: ["Reference"]
 
 # Interactive Setup
 
-Setting up a new documentation project is straightforward with the interactive setup wizard. By running a single command, `aigne doc init`, you can generate a comprehensive `config.yaml` file tailored to your project's needs. The wizard guides you through a series of questions, provides intelligent defaults, and helps prevent configuration mistakes.
+The `aigne doc init` command is a guided setup wizard designed to help you create a comprehensive `config.yaml` file for your documentation project. By answering a series of questions, you can quickly define your documentation's goals, audience, and structure. The wizard also includes intelligent conflict detection to prevent misconfigurations and ensure your settings are logical and effective.
 
-This is the recommended way to start a new DocSmith project, as it ensures all necessary settings are considered from the beginning.
+This is the recommended starting point for any new DocSmith project.
+
+## Starting the Wizard
+
+To begin the interactive setup process, run the following command in your project's root directory:
+
+```bash AIGNE DocSmith Initialization icon=lucide:terminal
+aigne doc init
+```
+
+This will launch the wizard, which will guide you through the configuration questions step-by-step.
 
 ## The Setup Process
 
-The `init` command launches a guided, 8-step process to understand your documentation goals. At each step, it asks a question and often suggests a default based on your previous answers.
+The wizard asks a series of eight questions to tailor the documentation generation to your specific needs. It provides smart defaults based on your previous answers to speed up the process.
 
-```d2
+<br/>
+
+```d2 The Interactive Setup Flow
 direction: down
 
-start: "Start: `aigne doc init`" {
-  shape: hexagon
+User: { 
+  shape: c4-person 
 }
 
-step1: "[1/8] Define Primary Goal"
-step2: "[2/8] Select Target Audience"
-step3: "[3/8] Set Reader Knowledge Level"
-step4: "[4/8] Choose Documentation Depth"
-step5: "[5/8] Select Primary Language"
-step6: "[6/8] Add Translation Languages"
-step7: "[7/8] Specify Output Directory"
-step8: "[8/8] Configure Source Paths"
+CLI: {
+  label: "AIGNE CLI"
+  shape: rectangle
 
-finish: "config.yaml is generated!" {
-  shape: hexagon
+  Wizard: {
+    label: "Interactive Wizard"
+  }
+
+  Detector: {
+    label: "Conflict Detector"
+  }
 }
 
-start -> step1 -> step2 -> step3 -> step4 -> step5 -> step6 -> step7 -> step8 -> finish
-
-subsystem: "Throughout the process, DocSmith provides intelligent defaults and detects potential configuration conflicts to ensure a coherent setup." {
-    shape: callout
+ConfigFile: {
+  label: "config.yaml"
+  shape: rectangle
 }
 
-subsystem -- step3
-subsystem -- step4
+User -> CLI.Wizard: "1. aigne doc init"
+CLI.Wizard <-> User: "2. Asks configuration questions"
+CLI.Wizard -> CLI.Detector: "3. Validate selections"
+CLI.Detector -> CLI.Wizard: "4. Return filtered options"
+CLI.Wizard -> ConfigFile: "5. Generate config.yaml"
+User -> CLI: "6. aigne doc generate"
 ```
 
-Here is a breakdown of each step:
+### Step-by-Step Questions
 
-1.  **Primary Goal**: Define the main purpose of your documentation. This choice heavily influences the style and structure of the generated content.
-2.  **Target Audience**: Specify who will be reading the documentation. This helps tailor the tone, language, and examples to the right audience.
-3.  **Reader Knowledge Level**: Indicate the typical starting knowledge of your readers. The wizard filters this list to show only options compatible with your previous selections.
-4.  **Documentation Depth**: Decide how comprehensive the documentation should be. A recommended default is provided based on your goal and audience.
-5.  **Primary Language**: Choose the main language for your documentation. It defaults to your detected system language.
-6.  **Translation Languages**: Select any additional languages you want to translate the documentation into.
-7.  **Documentation Directory**: Set the output folder for the generated documentation files.
-8.  **Source Code Paths**: Specify which files and folders DocSmith should analyze to generate documentation. You can use both direct paths (e.g., `./src`) and glob patterns (e.g., `src/**/*.js`).
+1.  **Primary Goal (`documentPurpose`):** What is the main outcome you want readers to achieve? Your selection here determines the overall style and focus of the documentation.
+2.  **Primary Audience (`targetAudienceTypes`):** Who will be reading this documentation most often? This influences the writing style, tone, and technical depth.
+3.  **Reader's Knowledge Level (`readerKnowledgeLevel`):** What do readers typically know when they arrive? This helps tailor the content to the appropriate starting point, from complete beginners to experts.
+4.  **Documentation Depth (`documentationDepth`):** How comprehensive should the documentation be? This controls the scope, from covering only essential use cases to exhaustive detail on every feature.
+5.  **Primary Language (`locale`):** What is the main language for the documentation? The wizard will detect your system's language as a default.
+6.  **Translation Languages (`translateLanguages`):** Do you want to provide translations? You can select additional languages to generate.
+7.  **Documentation Directory (`docsDir`):** Where should the generated documentation files be saved?
+8.  **Source Code Paths (`sourcesPath`):** What files and directories should be analyzed to generate the documentation? You can provide specific paths or use glob patterns (e.g., `src/**/*.js`).
 
-## Intelligent Conflict Prevention
+## Intelligent Conflict Detection
 
-A key feature of the interactive setup is its ability to prevent conflicting configurations. As you make selections, the wizard intelligently filters the options in subsequent steps to ensure your final configuration is logical and effective.
+A key feature of the interactive setup is its ability to identify and help resolve conflicting configuration choices. This ensures that the generated documentation structure is coherent and serves your audience effectively.
 
-For example, if you select **"Get started quickly"** as your primary goal, the wizard will prevent you from choosing **"Is an expert trying to do something specific"** as the reader's knowledge level. A quick-start guide is fundamentally incompatible with the needs of an expert who requires advanced, in-depth reference material. This mechanism guides you toward creating a coherent documentation strategy without requiring you to memorize every possible combination of settings.
+### Filtering Incompatible Options
 
-## Handling Complex Scenarios
+As you answer questions, the wizard dynamically filters options in subsequent steps to prevent logical contradictions. For example, if you select the primary goal as **"Get started quickly,"** which is for new users, the wizard will remove **"Is an expert trying to do something specific"** from the reader knowledge level choices. The system understands that these two goals are fundamentally incompatible.
 
-Sometimes, you may want to target multiple, distinct audiences. For instance, you might need documentation for both non-technical **End Users** and expert **Developers**. While these audiences have conflicting needs, the setup wizard allows you to select both.
+### Resolving Complex Scenarios
 
-Instead of treating this as an error, DocSmith uses this information as a guideline for the documentation's structure. It will resolve the conflict by planning separate user paths:
+Sometimes, you may want to target multiple, seemingly conflicting audiences or purposes (e.g., both non-technical **End Users** and **Developers**). Instead of preventing this, the wizard allows it and then generates specific guidelines in your `config.yaml` file to resolve the conflict through intelligent document structure.
 
-*   **A User Guide**: Written in plain language, focusing on UI and business outcomes.
-*   **A Developer Guide**: Featuring code snippets, API references, and technical details.
+For instance, if you select both `endUsers` and `developers`, the generated configuration might include a recommendation to create separate user paths:
+- A **User Guide** written in simple language with UI-focused examples.
+- A **Developer Guide** that is code-first, technically precise, and includes API examples.
 
-This approach ensures that the final documentation can serve diverse needs effectively through intelligent structural design rather than simple concatenation.
+## Generated Configuration File
 
-After completing the wizard, your configuration will be saved, and you'll be ready to generate your first set of documents.
+After you answer all the questions, the wizard saves your choices to a `config.yaml` file in the `.aigne/doc-smith` directory. This file is heavily commented, explaining each option and listing all available choices, making it easy to review and modify later.
 
-<x-cards>
-  <x-card data-title="Configuration Guide" data-icon="lucide:file-cog" data-href="/configuration">
-    Learn how to manually edit the `config.yaml` file for advanced customization.
+Here is a snippet of what a generated `config.yaml` might look like:
+
+```yaml config.yaml icon=logos:yaml
+# Project information for documentation publishing
+projectName: my-awesome-project
+projectDesc: A description of my awesome project.
+projectLogo: ''
+
+# =============================================================================
+# Documentation Configuration
+# =============================================================================
+
+# Purpose: What's the main outcome you want readers to achieve?
+# Available options (uncomment and modify as needed):
+#   getStarted       - Get started quickly: Help new users go from zero to working in <30 minutes
+#   completeTasks    - Complete specific tasks: Guide users through common workflows and use cases
+documentPurpose:
+  - getStarted
+
+# Target Audience: Who will be reading this most often?
+# Available options (uncomment and modify as needed):
+#   endUsers         - End users (non-technical): People who use the product but don't code
+#   developers       - Developers integrating your product/API: Engineers adding this to their projects
+targetAudienceTypes:
+  - developers
+
+# ... and so on for other settings
+
+# Paths
+docsDir: .aigne/doc-smith/docs  # Directory to save generated documentation
+sourcesPath:  # Source code paths to analyze
+  - src/
+```
+
+## Next Steps
+
+Once your configuration is set up, you're ready to move on. You can either fine-tune the settings manually or proceed directly to generating your documentation.
+
+<x-cards data-columns="2">
+  <x-card data-title="Configuration Guide" data-icon="lucide:settings" data-href="/configuration">
+    Review and manually edit all available settings in the config.yaml file.
   </x-card>
   <x-card data-title="Generate Documentation" data-icon="lucide:play-circle" data-href="/features/generate-documentation">
-    Run the command to generate your first set of documents based on your new configuration.
+    Now that your project is configured, learn how to generate your first set of documents.
   </x-card>
 </x-cards>

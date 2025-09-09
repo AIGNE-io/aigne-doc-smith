@@ -4,170 +4,143 @@ labels: ["Reference"]
 
 # 配置指南
 
-AIGNE DocSmith 的行为由一个强大的配置文件 `config.yaml` 控制。该文件位于项目的 `.aigne/doc-smith` 目录中，你可以通过它自定义文档生成过程的各个方面，从目标受众、风格到语言支持和文件结构。
+AIGNE DocSmith 提供了一个强大而灵活的配置系统，可根据您的特定需求定制文档生成过程。所有设置都通过一个中央文件 `config.yaml` 进行管理，该文件位于项目的 `.aigne/doc-smith/` 目录中。
 
-本指南为所有可用设置提供了详细的参考。虽然你可以随时手动编辑此文件，但我们建议使用 [交互式设置](./configuration-interactive-setup.md) 向导来完成初始配置。
+尽管推荐通过 [交互式设置向导](./configuration-interactive-setup.md) 创建和管理此文件，但本指南为所有可用选项提供了详细参考，让您可以直接微调文档的风格、受众和结构。
 
-## 配置概览
+## 配置文件结构
 
-DocSmith 提供灵活的配置系统，以满足你项目的独特需求。你可以定义文档的目标、指定受众、设置 AI 模型以及管理多种语言。请在下方探索主要的配置领域。
+`config.yaml` 文件是您文档项目的核心。它定义了从项目名称到 AI 应生成内容的具体风格和深度的所有内容。以下是一个完整的配置文件示例，随后是对每个部分的详细说明。
 
-<x-cards data-columns="2">
-  <x-card data-title="交互式设置" data-href="/configuration/interactive-setup" data-icon="lucide:wand-2">
-    了解如何使用 `aigne doc init` 命令运行引导式向导，轻松创建初始配置文件。
-  </x-card>
-  <x-card data-title="LLM 设置" data-href="/configuration/llm-setup" data-icon="lucide:brain-circuit">
-    配置不同的大语言模型，包括使用集成的 AIGNE Hub 免密钥访问热门模型。
-  </x-card>
-  <x-card data-title="语言支持" data-href="/configuration/language-support" data-icon="lucide:languages">
-    设置你的主要文档语言，并从超过 12 种支持的语言中选择进行自动翻译。
-  </x-card>
-  <x-card data-title="管理偏好" data-href="/configuration/preferences" data-icon="lucide:sliders-horizontal">
-    了解 DocSmith 如何从你的反馈中学习以创建持久化规则，以及如何管理这些规则。
-  </x-card>
-</x-cards>
-
-## 参数参考
-
-`config.yaml` 文件包含几个关键部分，用于定义文档的生成方式。以下是每个参数的详细说明。
-
-### 项目信息
-
-这些设置用于发布文档时的信息展示。
-
-```yaml
+```yaml config.yaml icon=mdi:file-cog-outline
 # 用于文档发布的项目信息
 projectName: AIGNE DocSmith
-projectDesc: 一款 AI 驱动的文档生成工具。
+projectDesc: 一款强大的、由 AI 驱动的文档生成工具。
 projectLogo: https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png
+
+# =============================================================================
+# 文档配置
+# =============================================================================
+
+# 目的：您希望读者达成的最主要成果是什么？
+documentPurpose:
+  - getStarted
+  - findAnswers
+
+# 目标受众：谁会最常阅读本文档？
+targetAudienceTypes:
+  - developers
+  - endUsers
+
+# 读者知识水平：读者通常具备哪些背景知识？
+readerKnowledgeLevel: completeBeginners
+
+# 文档深度：文档应达到何种详细程度？
+documentationDepth: balancedCoverage
+
+# 自定义规则：定义具体的文档生成规则和要求
+rules: |
+  - 强调实用、可直接复制粘贴的代码示例。
+  - 尽可能避免使用行话，但要保持技术准确性。
+
+# 目标受众：描述您的具体目标受众及其特征
+targetAudience: |
+  主要受众是希望将 DocSmith 集成到其工作流程中的开发人员。次要受众是希望了解该工具功能的非技术用户。
+
+# 术语表：定义项目特定的术语和定义
+# glossary: "@glossary.md"
+
+# 语言和路径设置
+locale: en
+translateLanguages:
+  - zh
+  - ja
+docsDir: .aigne/doc-smith/docs  # 保存生成文档的目录
+sourcesPath:  # 需要分析的源代码路径
+  - ./src
+  - README.md
 ```
 
-- `projectName`: 你的项目名称。
-- `projectDesc`: 你的项目的简短描述。
-- `projectLogo`: 你的项目徽标的 URL。
+## 关键配置参数
 
-### 文档风格
+### 文档策略
 
-这些参数定义了文档的用途、受众和整体基调。
+这组设置定义了 AI 的高层策略，用于指导其语调、风格和内容重点。
 
 #### `documentPurpose`
+指定您希望读者实现的主要目标。您可以选择多个目的。
 
-定义读者的主要目标。你可以选择多个用途。
-
-| Key | Name | Description |
+| 选项 | 名称 | 描述 |
 |---|---|---|
 | `getStarted` | 快速入门 | 帮助新用户在 30 分钟内从零开始上手。 |
 | `completeTasks` | 完成特定任务 | 引导用户完成常见的工作流程和用例。 |
 | `findAnswers` | 快速查找答案 | 为所有功能和 API 提供可搜索的参考。 |
 | `understandSystem` | 理解系统 | 解释其工作原理以及做出设计决策的原因。 |
-| `solveProblems` | 排查常见问题 | 帮助用户排查和修复问题。 |
-| `mixedPurpose` | 满足多种用途 | 涵盖多种需求的综合性文档。 |
-
-**示例：**
-```yaml
-documentPurpose:
-  - getStarted
-  - findAnswers
-```
+| `solveProblems` | 解决常见问题 | 帮助用户排查和修复问题。 |
+| `mixedPurpose` | 满足多种目的 | 涵盖多种需求的综合性文档。 |
 
 #### `targetAudienceTypes`
+定义最常阅读文档的受众。这会影响写作风格和示例。
 
-指定文档的主要受众。
-
-| Key | Name | Description |
+| 选项 | 名称 | 描述 |
 |---|---|---|
 | `endUsers` | 最终用户（非技术人员） | 使用产品但不编写代码的人员。 |
-| `developers` | 集成你的产品/API 的开发者 | 将此产品添加到其项目中的工程师。 |
-| `devops` | DevOps / SRE / 基础设施团队 | 负责部署、监控和维护系统的团队。 |
-| `decisionMakers` | 技术决策者 | 评估或规划实施方案的架构师和负责人。 |
+| `developers` | 开发人员 | 将此项目添加到其工程中的工程师。 |
+| `devops` | DevOps / SRE | 负责部署、监控和维护系统的团队。 |
+| `decisionMakers` | 技术决策者 | 评估实施方案的架构师或负责人。 |
 | `supportTeams` | 支持团队 | 帮助他人使用产品的人员。 |
-| `mixedTechnical` | 混合技术受众 | 开发者、DevOps 和技术用户。 |
-
-**示例：**
-```yaml
-targetAudienceTypes:
-  - developers
-```
+| `mixedTechnical` | 混合技术受众 | 开发人员、DevOps 和其他技术用户。 |
 
 #### `readerKnowledgeLevel`
-
 描述读者的典型初始知识水平。
 
-| Key | Name | Description |
+| 选项 | 名称 | 描述 |
 |---|---|---|
-| `completeBeginners` | 完全的初学者，从零开始 | 完全不了解该领域/技术。 |
-| `domainFamiliar` | 以前使用过类似的工具 | 了解问题领域，但对这个具体解决方案不熟悉。 |
-| `experiencedUsers` | 试图做特定事情的专家 | 需要参考/高级主题的普通用户。 |
-| `emergencyTroubleshooting` | 紧急情况/故障排查 | 出现问题，需要快速修复。 |
-| `exploringEvaluating` | 正在评估此工具并与其他工具进行比较 | 试图了解这是否满足他们的需求。 |
-
-**示例：**
-```yaml
-readerKnowledgeLevel: completeBeginners
-```
+| `completeBeginners` | 完全的初学者 | 完全不熟悉该领域/技术。 |
+| `domainFamiliar` | 熟悉领域 | 了解问题领域，但对这个具体解决方案不熟悉。 |
+| `experiencedUsers` | 经验丰富的用户 | 需要参考或高级主题的常规用户。 |
+| `emergencyTroubleshooting` | 紧急/故障排查 | 出现问题，需要快速修复。 |
+| `exploringEvaluating` | 正在评估此工具 | 试图了解这是否符合他们的需求。 |
 
 #### `documentationDepth`
+控制文档的详尽程度。
 
-控制文档的全面程度。
-
-| Key | Name | Description |
+| 选项 | 名称 | 描述 |
 |---|---|---|
-| `essentialOnly` | 仅包含基本内容 | 覆盖 80% 的用例，保持简洁。 |
-| `balancedCoverage` | 平衡的覆盖范围 | 具有良好深度和实际示例 [推荐]。 |
-| `comprehensive` | 全面 | 覆盖所有功能、边缘情况和高级场景。 |
-| `aiDecide` | 让 AI 决定 | 分析代码复杂性并建议适当的深度。 |
+| `essentialOnly` | 仅含基本内容 | 涵盖 80% 的用例，保持简洁。 |
+| `balancedCoverage` | 均衡覆盖 | 具有良好深度和实用示例（推荐）。 |
+| `comprehensive` | 全面详尽 | 涵盖所有功能、边缘情况和高级场景。 |
+| `aiDecide` | 由 AI 决定 | 分析代码复杂度以建议合适的深度。 |
 
-**示例：**
-```yaml
-documentationDepth: balancedCoverage
-```
+### 自定义与微调
 
-### 自定义规则和描述
+- **`rules`**：一个多行字符串，您可以在其中为 AI 提供自定义的持久指令。这对于定义标准选项未涵盖的特定格式规则、内容要求或所需基调非常有用。
+- **`targetAudience`**：一个多行字符串，用于提供更详细的目标受众自由文本描述，以补充 `targetAudienceTypes` 的选择。
+- **`glossary`**：包含术语表的 Markdown 文件的路径。这有助于 AI 在所有文档和翻译中一致地使用项目特定的术语。
 
-这些字段允许你向 AI 提供更具体的指令。
+### 路径和语言
 
-- `rules`: 一个多行字符串，你可以在其中定义具体的生成规则和要求，例如“在教程中始终包含‘先决条件’部分”。
-- `targetAudience`: 一个多行字符串，用于比预设选项更详细地描述你的目标受众。
-
-**示例：**
-```yaml
-rules: |
-  - 所有代码示例必须是完整的，并且可以直接复制粘贴。
-  - 避免使用未加解释的技术术语。
-targetAudience: |
-  我们的受众是熟悉 JavaScript 但可能不熟悉后端概念的前端开发者。他们重视清晰、实用的示例。
-```
-
-### 语言和路径设置
-
-这些参数用于配置文档的语言和文件位置。
-
-- `locale`: 文档的主要语言（例如 `en`、`zh`）。
-- `translateLanguages`: 要将文档翻译成的目标语言代码列表。
-- `glossary`: 指向一个 Markdown 文件的路径，该文件包含项目特定术语，以确保翻译的一致性。
-- `docsDir`: 用于保存生成的文档的目录。
-- `sourcesPath`: 供 AI 分析的源代码路径或 glob 模式列表。
-
-**示例：**
-```yaml
-# 语言设置
-locale: en
-translateLanguages:
-  - zh
-  - ja
-
-# 用于确保术语一致性的词汇表
-glossary: "@glossary.md"
-
-# 目录和源路径配置
-docsDir: .aigne/doc-smith/docs  # 保存生成文档的目录
-sourcesPath:  # 需要分析的源代码路径
-  - ./src
-  - ./README.md
-```
+- **`locale`**：文档的主要语言（例如 `en`、`zh`）。
+- **`translateLanguages`**：要将文档翻译成的语言代码列表。
+- **`docsDir`**：保存生成的文档文件的输出目录。
+- **`sourcesPath`**：供 AI 分析的源代码路径或 glob 模式列表。如果留空，则默认为整个项目 (`./`)。
 
 ---
 
-根据你的项目定制好 `config.yaml` 文件后，你就可以开始创建文档了。下一步是运行生成命令。
+## 深入了解
 
-➡️ **下一步：** 学习如何 [生成文档](./features-generate-documentation.md)。
+有关特定配置区域的更多详细信息，请浏览以下部分：
+
+<x-cards data-columns="3">
+  <x-card data-title="交互式设置" data-icon="lucide:wand-2" data-href="/configuration/interactive-setup">
+    了解引导式设置向导如何帮助您配置项目并智能检测冲突的设置。
+  </x-card>
+  <x-card data-title="LLM 设置" data-icon="lucide:brain-circuit" data-href="/configuration/llm-setup">
+    了解如何连接不同的 AI 模型，包括在无需您自己的 API 密钥的情况下使用 AIGNE Hub。
+  </x-card>
+  <x-card data-title="语言支持" data-icon="lucide:languages" data-href="/configuration/language-support">
+    查看支持的语言完整列表，并了解如何为您的项目启用自动翻译。
+  </x-card>
+</x-cards>
+
+配置好您的项目后，您就可以 [生成您的第一套文档](./features-generate-documentation.md) 了。

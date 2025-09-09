@@ -4,87 +4,42 @@ labels: ["Reference"]
 
 # LLM Setup
 
-AIGNE DocSmith leverages Large Language Models (LLMs) to generate high-quality documentation. You can configure DocSmith to use different AI models through two primary methods: the recommended AIGNE Hub service or by providing your own custom API keys.
+AIGNE DocSmith leverages the power of Large Language Models (LLMs) to generate high-quality documentation. You have the flexibility to choose from various LLM providers to best suit your project's needs. This guide will walk you through the available configuration options.
 
-This guide will walk you through both options.
+## AIGNE Hub (Recommended)
 
-## Using AIGNE Hub (Recommended)
+The simplest and most recommended way to configure your LLM is through AIGNE Hub. This integrated service acts as a gateway to multiple state-of-the-art models without requiring you to manage your own API keys.
 
-The most straightforward way to use LLMs with DocSmith is through AIGNE Hub. This approach offers significant advantages:
+**Key Benefits:**
 
-- **No API Key Required:** You don't need to sign up for separate AI services or manage your own API keys.
-- **Easy Model Switching:** You can switch between different state-of-the-art models from providers like Google, Anthropic, and OpenAI with a simple command-line flag.
+- **No API Key Required:** Start generating documentation immediately without signing up for third-party AI services.
+- **Easy Model Switching:** Effortlessly switch between different LLMs using a simple command-line flag to find the best fit for your content style and complexity.
 
-To specify a model, use the `--model` flag with the `generate` command. DocSmith will handle the API requests through the AIGNE Hub.
+To use a specific model via AIGNE Hub, simply use the `--model` flag with the `aigne doc generate` command. This allows you to experiment with different models on-the-fly.
 
-### Examples
-
-Here are some examples of how to generate documentation using different models available via AIGNE Hub:
-
-**Using Google's Gemini 1.5 Flash:**
-```bash
+```bash Using AIGNE Hub with different models icon=lucide:terminal
+# Generate documentation using Google's Gemini 1.5 Flash
 aigne doc generate --model google:gemini-2.5-flash
-```
 
-**Using Anthropic's Claude 3.5 Sonnet:**
-```bash
+# Generate documentation using Anthropic's Claude 3.5 Sonnet
 aigne doc generate --model claude:claude-3-5-sonnet
-```
 
-**Using OpenAI's GPT-4o:**
-```bash
+# Generate documentation using OpenAI's GPT-4o
 aigne doc generate --model openai:gpt-4o
 ```
 
-## Configuring Custom API Keys
+## Using Custom API Keys
 
-If you prefer to use your own API keys for providers like OpenAI or Anthropic, you can configure them using the interactive setup wizard.
+If you prefer to use your own API keys for providers like OpenAI, Anthropic, or others, DocSmith supports this as well. You can configure your custom keys during the project setup using the interactive configuration wizard.
 
-Run the `init` command to launch the wizard, which will guide you through setting up your LLM provider and credentials, among other project settings.
+To set up your custom API keys, run the `init` command:
 
-```bash
-# Launch the interactive configuration wizard
+```bash Start Interactive Configuration icon=lucide:terminal
 aigne doc init
 ```
 
-This process ensures your keys are stored correctly for all subsequent documentation generation and update tasks.
-
-## How It Works
-
-The following diagram illustrates how DocSmith processes requests with different LLM configurations.
-
-```d2
-direction: down
-
-User: {
-  shape: person
-  label: "Developer"
-}
-
-CLI: "`aigne doc generate`"
-
-DocSmith: {
-  shape: package
-  "Configuration Check": {
-    "AIGNE Hub (Default)": "No API Key Needed"
-    "Custom Provider": "User API Key Found"
-  }
-}
-
-LLM_Providers: {
-  label: "LLM Providers"
-  shape: cloud
-  "AIGNE Hub": "Manages access to multiple models"
-  "Direct API (e.g., OpenAI)": "Uses custom key"
-}
-
-User -> CLI: "Runs command"
-CLI -> DocSmith: "Initiates process"
-DocSmith."Configuration Check"."AIGNE Hub (Default)" -> LLM_Providers."AIGNE Hub" : "Routes request via Hub"
-DocSmith."Configuration Check"."Custom Provider" -> LLM_Providers."Direct API (e.g., OpenAI)" : "Routes request with user's key"
-
-```
+The wizard will guide you through selecting your preferred LLM provider and entering the necessary credentials. For a complete walkthrough of the guided setup, please see the [Interactive Setup](./configuration-interactive-setup.md) guide.
 
 ---
 
-With your LLM provider configured, you are ready to customize language settings for your documentation. Learn more in the [Language Support](./configuration-language-support.md) guide.
+With your LLM configured, you're ready to start creating documentation. Learn more about the core generation process in the [Generate Documentation](./features-generate-documentation.md) section.

@@ -4,13 +4,15 @@ labels: ["Reference"]
 
 # Language Support
 
-AIGNE DocSmith is designed for a global audience, offering automated translation capabilities for over a dozen languages. This allows you to generate and maintain documentation in multiple languages with minimal effort, ensuring your project is accessible to users worldwide. The translation feature is powered by the `aigne doc translate` command.
+AIGNE DocSmith is designed to help your project reach a global audience by providing powerful, AI-driven translation capabilities. It can automatically translate your documentation into over a dozen languages, ensuring that users from different regions can understand and use your work effectively.
+
+This guide provides a complete list of all supported languages and explains how to enable and manage translations for your project.
 
 ## Supported Languages
 
-DocSmith provides high-quality, AI-powered translations for the following languages. You can select your primary documentation language and any number of target languages for translation during the project setup.
+DocSmith supports a wide range of languages for automatic translation. The table below lists all currently available languages along with their corresponding language codes, which are used in the configuration and command-line interface.
 
-| Language | Language Code |
+| Language | Code |
 |---|---|
 | English (en) | `en` |
 | 简体中文 (zh) | `zh` |
@@ -27,38 +29,59 @@ DocSmith provides high-quality, AI-powered translations for the following langua
 
 ## How to Enable and Use Translation
 
-Translation languages are typically configured when you first initialize your project using `aigne doc init`. However, you can easily add new languages or translate documents at any time using the `aigne doc translate` command.
+You can configure languages during the initial project setup or add them later. The primary tool for translation is the `aigne doc translate` command.
 
-### Interactive Mode
+### During Initial Setup
 
-The simplest way to translate your documents is by running the command without any arguments. This will launch an interactive wizard.
+When you first run `aigne doc init` or `aigne doc generate` in a new project, you'll enter an interactive setup wizard. The wizard will prompt you to:
 
-```bash
+1.  Select a **primary language** for your documentation.
+2.  Choose one or more **additional languages** for translation from the supported list.
+
+Your selections are saved in the project's configuration file, making them available for future translation tasks.
+
+### Using the `translate` Command
+
+Once your languages are configured, you can translate your documents using the `aigne doc translate` command.
+
+#### Interactive Mode
+
+For a user-friendly, guided experience, simply run the command without any arguments. This is ideal for most users.
+
+```bash Interactive Translation icon=lucide:mouse-pointer-click
 aigne doc translate
 ```
 
-The interactive mode will guide you through:
+This will launch an interactive menu that allows you to:
+- Select which of your existing documents you want to translate.
+- Choose the target languages from your configured list.
+- Add new languages to your project configuration if needed.
 
-- Selecting which existing documents you want to translate.
-- Choosing target languages from the supported list.
-- Adding new translation languages to your project's configuration.
+#### Command-Line Mode
 
-### Command-Line Mode
+For scripting, automation, or more advanced control, you can specify all options as arguments. This is particularly useful for developers and in CI/CD pipelines.
 
-For automation or more direct control, you can specify documents and languages as command-line arguments. This is ideal for use in scripts or CI/CD environments.
-
-```bash
+```bash Translate Specific Documents icon=lucide:terminal
 # Translate overview.md and examples.md into Chinese and Japanese
 aigne doc translate --langs zh --langs ja --docs overview.md --docs examples.md
 ```
 
-Key parameters include:
+You can also provide feedback or a glossary to improve the quality and consistency of the translation.
 
-- `--langs`: Specify a target language code. You can use this flag multiple times for multiple languages.
-- `--docs`: Specify the path to a document you want to translate. This can also be used multiple times.
-- `--feedback`: Provide specific instructions to improve the quality of the translation.
-- `--glossary`: Use a custom glossary file to ensure consistent terminology.
+```bash Translation with a Glossary icon=lucide:book-check
+# Use a glossary file for consistent terminology
+aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently"
+```
+
+### Key Command Parameters
+
+| Parameter | Description |
+|---|---|
+| `--langs` | Specify a target language code. You can use this option multiple times for multiple languages. |
+| `--docs` | Specify the path to a document to translate. You can use this option multiple times. |
+| `--feedback` | Provide feedback to the AI to improve the translation quality. |
+| `--glossary` | Provide a path to a glossary file (e.g., `@path/to/glossary.md`) to ensure consistent terminology. |
 
 ---
 
-Now that you know which languages are supported and how to enable them, you can start reaching a broader audience. For a more detailed walkthrough of the translation workflow and its advanced features, see the [Translate Documentation](./features-translate-documentation.md) guide.
+With DocSmith's built-in translation features, maintaining multi-language documentation becomes a seamless part of your development workflow. To dive deeper into the translation process with more detailed examples, see the [Translate Documentation](./features-translate-documentation.md) guide.

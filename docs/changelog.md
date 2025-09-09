@@ -4,10 +4,40 @@ labels: ["Reference"]
 
 # Changelog
 
-A detailed log of all notable changes, features, and bug fixes for each version of the project.
+This page provides a detailed log of all notable changes, new features, and bug fixes for each version of AIGNE DocSmith.
+
+## [0.8.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.2...v0.8.3) (2025-09-05)
+
+### Bug Fixes
+
+* add image dimension detection and auto-setting for local images ([#87](https://github.com/AIGNE-io/aigne-doc-smith/issues/87)) ([2d139e6](https://github.com/AIGNE-io/aigne-doc-smith/commit/2d139e60c55fbfd204b08f427807ffeecdae14df))
+
+## [0.8.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.1...v0.8.2) (2025-09-04)
+
+### Miscellaneous Chores
+
+* release 0.8.2 ([849bc69](https://github.com/AIGNE-io/aigne-doc-smith/commit/849bc694edf167187f65cb34f1dd9a3966efd96c))
+
+## [0.8.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.0...v0.8.1) (2025-09-03)
+
+### Features
+
+* tune d2 chart generating with comprehensive examples ([#80](https://github.com/AIGNE-io/aigne-doc-smith/issues/80)) ([3423e4c](https://github.com/AIGNE-io/aigne-doc-smith/commit/3423e4cff24335552503916694a3489e5d91bf6c))
+
+## [0.8.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.2...v0.8.0) (2025-09-03)
+
+### Features
+
+* **tests:** add comprehensive workflow test coverage ([#76](https://github.com/AIGNE-io/aigne-doc-smith/issues/76)) ([d5f6062](https://github.com/AIGNE-io/aigne-doc-smith/commit/d5f6062311f36dc5b6394ae0768583fb8f3853a4))
+* update custom component guidelines with formatting restrictions ([#79](https://github.com/AIGNE-io/aigne-doc-smith/issues/79)) ([76158de](https://github.com/AIGNE-io/aigne-doc-smith/commit/76158de236696e68c63c057f5ea4b8458a15e787))
+
+## [0.7.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.0...v0.7.1) (2025-08-31)
+
+### Bug Fixes
+
+* fix tab key path selection bug ([#72](https://github.com/AIGNE-io/aigne-doc-smith/issues/72)) ([369b342](https://github.com/AIGNE-io/aigne-doc-smith/commit/369b342d8ab8ce95b61a3b72e367157d2f71cce4))
 
 ## [0.7.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.6.0...v0.7.0) (2025-08-30)
-
 
 ### Features
 
@@ -18,60 +48,27 @@ A detailed log of all notable changes, features, and bug fixes for each version 
 
 ## [0.6.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.5.1...v0.6.0) (2025-08-27)
 
-
 ### Features
 
 * complete support for media processing before publish ([#63](https://github.com/AIGNE-io/aigne-doc-smith/issues/63)) ([5257ca1](https://github.com/AIGNE-io/aigne-doc-smith/commit/5257ca1756f47487b65a1813949e547b6fc51aca))
 
-## [0.5.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.5.0...v0.5.1) (2025-08-26)
-
-
-### Miscellaneous Chores
-
-* release 0.5.1 ([892d96e](https://github.com/AIGNE-io/aigne-doc-smith/commit/892d96e939a6404a42e8d2521f95bb7acfeabe27))
-
 ## [0.5.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.5...v0.5.0) (2025-08-26)
-
 
 ### Features
 
 * support persistent user feedback as preferences ([#57](https://github.com/AIGNE-io/aigne-doc-smith/issues/57)) ([761a583](https://github.com/AIGNE-io/aigne-doc-smith/commit/761a583297b397a12d848d10d26cd5b675f8a9e7))
 
-
 ### Bug Fixes
 
 * polish init question copy ([#65](https://github.com/AIGNE-io/aigne-doc-smith/issues/65)) ([d4e8762](https://github.com/AIGNE-io/aigne-doc-smith/commit/d4e8762f26fd757bde43427860a0c1dade384269))
 
-## [0.4.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.4...v0.4.5) (2025-08-25)
-
-
-### Miscellaneous Chores
-
-* release 0.4.5 ([12aa6c3](https://github.com/AIGNE-io/aigne-doc-smith/commit/12aa6c340fdd95cbd74833662f4c3a80f19dfa30))
-
 ## [0.4.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.3...v0.4.4) (2025-08-22)
-
 
 ### Bug Fixes
 
 * support assign board id ([#58](https://github.com/AIGNE-io/aigne-doc-smith/issues/58)) ([0bcc196](https://github.com/AIGNE-io/aigne-doc-smith/commit/0bcc1969131f70caf2b1bc9303a3811be1b000ab))
 
-## [0.4.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.2...v0.4.3) (2025-08-21)
-
-
-### Miscellaneous Chores
-
-* release 0.4.3 ([f37ac7c](https://github.com/AIGNE-io/aigne-doc-smith/commit/f37ac7cd1fd129d8e3019cc7e952a0cf7dcb3db7))
-
-## [0.4.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.1...v0.4.2) (2025-08-21)
-
-
-### Miscellaneous Chores
-
-* release 0.4.2 ([9e36cf6](https://github.com/AIGNE-io/aigne-doc-smith/commit/9e36cf678ac51a0f4e7b3c19e4b5248e42b80437))
-
 ## [0.4.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.0...v0.4.1) (2025-08-21)
-
 
 ### Bug Fixes
 
@@ -79,157 +76,32 @@ A detailed log of all notable changes, features, and bug fixes for each version 
 
 ## [0.4.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.3.1...v0.4.0) (2025-08-20)
 
-
 ### Features
 
 * brand new doc translate command ([#50](https://github.com/AIGNE-io/aigne-doc-smith/issues/50)) ([514138d](https://github.com/AIGNE-io/aigne-doc-smith/commit/514138d6b81624977171e9144ed802aad72d4a9c))
 
-## [0.3.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.3.0...v0.3.1) (2025-08-19)
-
-
-### Bug Fixes
-
-* polish load sources pattern ([#48](https://github.com/AIGNE-io/aigne-doc-smith/issues/48)) ([5f83b91](https://github.com/AIGNE-io/aigne-doc-smith/commit/5f83b917ea6779ba79418e3ff2490eb692c3e48a))
-
 ## [0.3.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.11...v0.3.0) (2025-08-19)
-
 
 ### Features
 
 * **core:** polish generation context collecting workflow ([#46](https://github.com/AIGNE-io/aigne-doc-smith/issues/46)) ([687d06a](https://github.com/AIGNE-io/aigne-doc-smith/commit/687d06afd648e0e697d25e85dcc841b17c3c311c))
 
-
 ### Bug Fixes
 
 * optimizing help copy for running a self-hosted discuss kit ([#45](https://github.com/AIGNE-io/aigne-doc-smith/issues/45)) ([6841de8](https://github.com/AIGNE-io/aigne-doc-smith/commit/6841de817408d85ac8d993860ab431f7b8816aef))
 
-## [0.2.11](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.10...v0.2.11) (2025-08-15)
-
-
-### Bug Fixes
-
-* switch default model ([#43](https://github.com/AIGNE-io/aigne-doc-smith/issues/43)) ([203e280](https://github.com/AIGNE-io/aigne-doc-smith/commit/203e280b07d3856445b1877469ed4198db56f6f3))
-
-## [0.2.10](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.9...v0.2.10) (2025-08-14)
-
-
-### Bug Fixes
-
-* fix bug bush feedback ([#41](https://github.com/AIGNE-io/aigne-doc-smith/issues/41)) ([2740d1a](https://github.com/AIGNE-io/aigne-doc-smith/commit/2740d1abef70ea36780b030917a6d54f74df4327))
-
-## [0.2.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.8...v0.2.9) (2025-08-13)
-
-
-### Bug Fixes
-
-* polish ignore check ([#25](https://github.com/AIGNE-io/aigne-doc-smith/issues/25)) ([90bc866](https://github.com/AIGNE-io/aigne-doc-smith/commit/90bc866513fef7b47047b1016e07bf38881c101c))
-
-## [0.2.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.7...v0.2.8) (2025-08-13)
-
-
-### Miscellaneous Chores
-
-* release 0.2.8 ([da19bc0](https://github.com/AIGNE-io/aigne-doc-smith/commit/da19bc0b2c6c4e5fddaff84b4fa85c9d495b3ba0))
-
-## [0.2.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.6...v0.2.7) (2025-08-12)
-
-
-### Bug Fixes
-
-* polish detail check ([#21](https://github.com/AIGNE-io/aigne-doc-smith/issues/21)) ([0268732](https://github.com/AIGNE-io/aigne-doc-smith/commit/02687329c3507b73f9cbf1aa2ff1b87921452516))
-
-
-### Miscellaneous Chores
-
-* release 0.2.7 ([3b807fe](https://github.com/AIGNE-io/aigne-doc-smith/commit/3b807fed833a5160931747bce37aac00cf11d9ac))
-
-## [0.2.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.5...v0.2.6) (2025-08-12)
-
-
-### Miscellaneous Chores
-
-* release 0.2.6 ([c5b5ea5](https://github.com/AIGNE-io/aigne-doc-smith/commit/c5b5ea5c404d44f3b0d420f0b57e4ae64ae5d624))
-
-## [0.2.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.4...v0.2.5) (2025-08-08)
-
-
-### Bug Fixes
-
-* polish cli process ([#17](https://github.com/AIGNE-io/aigne-doc-smith/issues/17)) ([4c94263](https://github.com/AIGNE-io/aigne-doc-smith/commit/4c9426378dff9ca3270bd0e455aa6fb1045f6abb))
-
-## [0.2.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.3...v0.2.4) (2025-08-07)
-
-
-### Bug Fixes
-
-* polish agent output log ([40a2451](https://github.com/AIGNE-io/aigne-doc-smith/commit/40a245122ce4d8747e5b5dbe88be6986047c38ae))
-
-## [0.2.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.2...v0.2.3) (2025-08-07)
-
-
-### Bug Fixes
-
-* polish process info ([#14](https://github.com/AIGNE-io/aigne-doc-smith/issues/14)) ([a4a314f](https://github.com/AIGNE-io/aigne-doc-smith/commit/a4a314f65af25f6012726b782f30895ce4124f52))
-
-## [0.2.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.1...v0.2.2) (2025-08-07)
-
-
-### Miscellaneous Chores
-
-* release 0.2.2 ([c3fb52a](https://github.com/AIGNE-io/aigne-doc-smith/commit/c3fb52a78b95676e1c13361b30ebec2914a89fa8))
-
-## [0.2.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.0...v0.2.1) (2025-08-06)
-
-
-### Miscellaneous Chores
-
-* release 0.2.1 ([e3a39ae](https://github.com/AIGNE-io/aigne-doc-smith/commit/e3a39aedcee129deae424e96942f9798b9191663))
-
 ## [0.2.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.4...v0.2.0) (2025-08-05)
-
 
 ### Features
 
 * support automatic init configuration when calling agents ([24d29db](https://github.com/AIGNE-io/aigne-doc-smith/commit/24d29db4dd86709750aa22ff649e7dacc4124126))
 * update docs when sources changed ([#9](https://github.com/AIGNE-io/aigne-doc-smith/issues/9)) ([4adcecf](https://github.com/AIGNE-io/aigne-doc-smith/commit/4adcecfb32e72c9e88d0b0bd8ce0a91022847ca7))
 
-## [0.1.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.3...v0.1.4) (2025-08-04)
-
-
-### Miscellaneous Chores
-
-* release 0.1.4 ([4122cf5](https://github.com/AIGNE-io/aigne-doc-smith/commit/4122cf5cc0285bef2b96803f393e744121d22acf))
-
-## [0.1.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.2...v0.1.3) (2025-08-04)
-
-
-### Bug Fixes
-
-* access agents from options.context instead of load a new aigne instance ([#6](https://github.com/AIGNE-io/aigne-doc-smith/issues/6)) ([0e7ce1d](https://github.com/AIGNE-io/aigne-doc-smith/commit/0e7ce1d3889aab435b029a511cb7ebdbb213ab8a))
-
-## [0.1.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.1...v0.1.2) (2025-08-01)
-
-
-### Bug Fixes
-
-* use gemini pro model ([755e1fb](https://github.com/AIGNE-io/aigne-doc-smith/commit/755e1fba377f999106a7d39c734a6f72f047379e))
-
-## [0.1.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.0...v0.1.1) (2025-07-31)
-
-
-### Bug Fixes
-
-* agent add alias ([7e25014](https://github.com/AIGNE-io/aigne-doc-smith/commit/7e250147309849fe0f4cc554077134d2e443d344))
-* docs mcp add doc search ([de96e0e](https://github.com/AIGNE-io/aigne-doc-smith/commit/de96e0e08455831dc6918d5fbc59d38b6a921373))
-* polish code ([8cb0a5c](https://github.com/AIGNE-io/aigne-doc-smith/commit/8cb0a5ce67cf009c672b2fb1aa9b89ef6d965a86))
-
 ## [0.1.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.0.2...v0.1.0) (2025-07-31)
-
 
 ### Features
 
 * add entry agents for mcp server and cli ([fa85d65](https://github.com/AIGNE-io/aigne-doc-smith/commit/fa85d651e8dc723e2b97150fc2258b115c6c5bb0))
-
 
 ### Bug Fixes
 
@@ -237,7 +109,6 @@ A detailed log of all notable changes, features, and bug fixes for each version 
 * polish docs mcp agent ([8654cd4](https://github.com/AIGNE-io/aigne-doc-smith/commit/8654cd4ea38034f3af0244f56b27acf66ba704e1))
 
 ## 0.0.2 (2025-07-30)
-
 
 ### Features
 
@@ -250,23 +121,10 @@ A detailed log of all notable changes, features, and bug fixes for each version 
 * init commit ([dafc40e](https://github.com/AIGNE-io/aigne-doc-smith/commit/dafc40e94f3c407e50b2c46ecb46237f23a15cf7))
 * structure plan add review ([b56e83e](https://github.com/AIGNE-io/aigne-doc-smith/commit/b56e83e558f509302b422205f30e9b2adb42d452))
 
-
 ### Bug Fixes
 
 * polish agent name ([25875a0](https://github.com/AIGNE-io/aigne-doc-smith/commit/25875a0688ebbca71f6c25bf4bd5246361f3dd2d))
 * polish agent param and description ([290eb24](https://github.com/AIGNE-io/aigne-doc-smith/commit/290eb240ce986b0f1f406bf42824ce1235df11e5))
 * polish code ([34f9a24](https://github.com/AIGNE-io/aigne-doc-smith/commit/34f9a24fc3748b4177cad2b5330fe6b3ccd99175))
 * polish code ([0343486](https://github.com/AIGNE-io/aigne-doc-smith/commit/0343486aa086bbe2ced8de849de6a4a42567719c))
-* polish code ([7b7dfb9](https://github.com/AIGNE-io/aigne-doc-smith/commit/7b7dfb925b3aa55956ef7a99ededc749fb6a42d7))
-* polish code ([4fa4694](https://github.com/AIGNE-io/aigne-doc-smith/commit/4fa4694dbbd5880d501883a7cf3c0d3494509fb4))
-* polish code ([74fee51](https://github.com/AIGNE-io/aigne-doc-smith/commit/74fee51ad6337af8811a35f2a4334b67ec109439))
-* polish code ([7fa1675](https://github.com/AIGNE-io/aigne-doc-smith/commit/7fa1675b2cab6144d1fb9d4388130209c6cfa0bc))
 * polish docs review ([70374ab](https://github.com/AIGNE-io/aigne-doc-smith/commit/70374abed74946eafa7b0f87331c2e496fa61592))
-* polish input generator agent ([ae908bb](https://github.com/AIGNE-io/aigne-doc-smith/commit/ae908bbc0cb98b9b196e8b08f23149e5693e0abe))
-* polish structure plan ([3a0a196](https://github.com/AIGNE-io/aigne-doc-smith/commit/3a0a196a97196ba445c4709d3466ff355917ac53))
-* save docs remove useless docs ([bec5ba3](https://github.com/AIGNE-io/aigne-doc-smith/commit/bec5ba3afd462c990a0aa813bbe38ce9a61363ee))
-
-
-### Miscellaneous Chores
-
-* release 0.0.2 ([73bf26a](https://github.com/AIGNE-io/aigne-doc-smith/commit/73bf26a5c55fa4726d866cff64bd48d1ca37a3b3))

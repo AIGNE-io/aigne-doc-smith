@@ -2,97 +2,95 @@
 labels: ["Reference"]
 ---
 
-# 发布文档
+# 发布您的文档
 
-文档生成后，下一步是将其发布到线上。AIGNE DocSmith 通过 `aigne doc publish` 命令简化了这一过程，该命令会将您的内容上传到 Discuss Kit 平台，使其即时对您的受众可用。
+当您的文档生成并完善后，最后一步是与您的受众分享。AIGNE DocSmith 通过一个简单的命令简化了这一过程，让您可以将内容发布到官方公共平台或您自己的自托管网站。
 
-本指南将介绍如何发布您的文档，无论您使用的是免费的官方平台还是自托管的实例。
+## 发布命令
 
-## 发布流程
+发布过程通过 `aigne doc publish` 命令启动的交互式向导进行处理。该引导式流程让您无需复杂的配置即可轻松地将文档发布上线。
 
-`aigne doc publish` 命令会启动一个交互式流程，引导您完成必要的步骤。下图展示了首次发布文档的典型工作流程。
-
-```d2
-shape: sequence_diagram
-
-用户; CLI; "Discuss Kit 平台"
-
-用户 -> CLI: 运行 `aigne doc publish`
-
-alt "首次使用或未配置"
-  CLI -> 用户: "提示：选择平台"
-  用户 -> CLI: "选择官方或自托管"
-  CLI -> 用户: "打开浏览器进行身份验证"
-  用户 -> "Discuss Kit 平台": "登录并授权"
-  "Discuss Kit 平台" -> CLI: "提供访问令牌"
-  CLI -> CLI: "保存令牌供将来使用"
-end
-
-CLI -> "Discuss Kit 平台": "上传文档和媒体文件"
-"Discuss Kit 平台" -> CLI: "确认成功"
-CLI -> 用户: "✅ 文档发布成功！"
-```
-
-## 发布选项
-
-您有两种主要选项来托管您的文档，以满足不同的可见性和控制需求。
-
-<x-cards data-columns="2">
-  <x-card data-title="官方平台" data-icon="lucide:globe">
-    发布到官方托管平台 docsmith.aigne.io。该选项免费，非常适合开源项目，并能让您的文档公开访问。
-  </x-card>
-  <x-card data-title="自托管平台" data-icon="lucide:server">
-    发布到您自己的 Discuss Kit 私有实例。这使您可以完全控制谁可以访问您的文档，适合内部或私有项目。
-  </x-card>
-</x-cards>
-
-## 分步指南
-
-首次发布文档是一个简单的交互式过程。
-
-### 1. 运行发布命令
-
-在终端中，导航到您项目的根目录并运行以下命令：
-
-```bash
+```bash CLI Command icon=lucide:terminal
+# 启动交互式发布向导
 aigne doc publish
 ```
 
-### 2. 选择您的平台
+首次运行此命令时，系统将提示您选择要将文档发布到何处。
 
-如果您之前没有配置过发布目标，系统将提示您在官方平台和自托管平台之间进行选择。请选择最适合您需求的选项。
+![选择官方平台或自托管平台](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
 
-![在官方平台或自托管实例之间选择](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
+### 发布目的地
 
-如果您选择自托管选项，系统将要求您输入您的 Discuss Kit 实例的 URL。
+您有两个主要选项来托管您的文档：
 
-### 3. 验证您的账户
+<x-cards>
+  <x-card data-title="官方 DocSmith 平台" data-icon="lucide:cloud">
+    发布到 docsmith.aigne.io。此选项免费，无需服务器设置，是开源项目的理想选择。请注意，您的文档将可公开访问。
+  </x-card>
+  <x-card data-title="自托管平台" data-icon="lucide:server">
+    发布到由 Discuss Kit 驱动的您自己的网站。这让您可以完全控制隐私和品牌。您需要部署和管理自己的 Discuss Kit 实例。
+  </x-card>
+</x-cards>
 
-首次连接到新平台时，DocSmith 会自动打开一个浏览器窗口，供您登录并授权 CLI。这是一个一次性步骤；您的访问令牌将被保存在本地，用于将来向该平台进行的所有发布。
+### 身份验证
 
-### 4. 确认
+首次发布到特定平台时，DocSmith 会自动打开浏览器窗口对 CLI 进行身份验证和授权。这是一个一次性的过程。然后，一个安全访问令牌会保存在您本地的主目录中 (`~/.aigne/doc-smith-connected.yaml`)，因此后续发布到同一平台时无需再次登录。
 
-上传完成后，您将在终端中看到一条成功消息，您的文档即已上线。
+### 发布工作流
 
+下图说明了从运行命令到看到文档上线的整个过程。
+
+```d2 发布工作流
+direction: down
+
+shape: sequence_diagram
+
+User: { 
+  shape: c4-person 
+}
+
+CLI: { 
+  label: "AIGNE CLI"
+}
+
+Platform: { 
+  label: "Discuss Kit 平台\n（官方或自托管）" 
+}
+
+User -> CLI: "aigne doc publish"
+CLI -> User: "1. 提示选择平台"
+User -> CLI: "2. 选择平台"
+
+opt "如果未认证" {
+  CLI -> Platform: "3a. 请求认证 URL"
+  Platform -> CLI: "3b. 返回认证 URL"
+  CLI -> User: "4. 在浏览器中打开认证 URL"
+  User -> Platform: "5. 认证并授权"
+  Platform -> CLI: "6. 发送访问令牌"
+  CLI -> CLI: "7. 本地保存令牌"
+}
+
+CLI -> Platform: "8. 上传文档文件"
+Platform -> CLI: "9. 确认成功"
+CLI -> User: "10. 显示成功消息"
 ```
-✅ 文档发布成功！
+
+## 命令行选项
+
+虽然我们推荐大多数用户使用交互模式，但您也可以通过命令行参数直接指定发布目的地，以用于自动化或脚本编写。
+
+| 选项 | 描述 |
+|---|---|
+| `--appUrl <url>` | 指定您的自托管 Discuss Kit 实例的 URL。此选项将绕过交互式平台选择。 |
+| `--boardId <id>` | Discuss Kit 平台上的文档板的唯一 ID。如果未提供，将自动创建一个新的。 |
+
+**自托管发布示例：**
+
+```bash 发布到自定义 URL icon=lucide:terminal
+# 直接发布到指定的自托管 Discuss Kit 实例
+aigne doc publish --appUrl https://docs.my-company.com
 ```
 
-## 在 CI/CD 环境中发布
+---
 
-对于自动化工作流，您可以通过使用命令行参数或环境变量来绕过交互式提示。
-
-| 方法 | 名称 | 描述 | 示例 |
-|---|---|---|---|
-| **参数** | `--appUrl` | 直接指定您自托管的 Discuss Kit 实例的 URL。 | `aigne doc publish --appUrl https://docs.mycompany.com` |
-| **环境变量** | `DOC_DISCUSS_KIT_URL` | 设置目标平台 URL，覆盖任何其他配置。 | `export DOC_DISCUSS_KIT_URL=...` |
-| **环境变量** | `DOC_DISCUSS_KIT_ACCESS_TOKEN` | 直接提供访问令牌，跳过交互式登录。 | `export DOC_DISCUSS_KIT_ACCESS_TOKEN=...` |
-
-## 故障排除
-
-如果您在发布过程中遇到问题，以下是一些常见原因及其解决方案：
-
--   **无效的 URL 或连接错误**：这通常发生在为自托管实例提供的 URL 不正确或服务器无法访问时。请仔细检查 URL 和您的网络连接。
--   **缺少必需组件**：目标网站必须安装 Discuss Kit 组件才能托管文档。如果缺少该组件，CLI 将返回错误并提供安装指导。
-
-有关命令和选项的完整列表，请参阅 [CLI 命令参考](./cli-reference.md)。
+文档发布后，您就成功完成了从代码到实时多语言文档的整个生命周期。要获取所有命令及其选项的完整列表，您可以浏览 [CLI 命令参考](./cli-reference.md)。

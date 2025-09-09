@@ -4,57 +4,33 @@ labels: ["Reference"]
 
 # Managing Preferences
 
-DocSmith is designed to learn from your feedback. When you refine documents and provide corrections, the system can convert that feedback into persistent, reusable rules called "preferences". This ensures that your stylistic choices, structural conventions, and specific instructions are remembered and applied consistently in future operations.
+DocSmith is designed to learn from your feedback. Instead of you having to repeat the same instructions, the tool can create persistent rules, called preferences, to ensure that future documentation consistently follows your style and requirements. This section explains how these preferences are created and how you can manage them using the command-line interface (CLI).
 
-All preferences are stored in a human-readable YAML file located at `.aigne/doc-smith/preferences.yml` in your project root. While you can view this file, it's recommended to manage your preferences using the dedicated `aigne doc prefs` command-line interface.
+## How DocSmith Learns from Feedback
 
-## How Preferences Are Created
+When you provide feedback during a refinement process (e.g., using `aigne doc refine`), an AI agent called the "Feedback Refiner" analyzes your input. It determines whether your feedback is a one-time fix or a reusable policy that should be saved for future use. If it's a reusable policy, it's converted into a clear, executable rule.
 
-Preferences are automatically generated during the feedback cycle of commands like `aigne doc refine`. The process works as follows:
+This process involves a few key decisions:
 
-```d2
-direction: right
+1.  **Save or Discard**: The agent first decides if the feedback represents a lasting policy (e.g., "Always use formal language") or a temporary correction (e.g., "Fix this specific typo"). Only reusable policies are saved.
+2.  **Determine Scope**: It then assigns a scope to the rule, which dictates when it should be applied:
+    *   `global`: Applies to all stages of generation and refinement.
+    *   `structure`: Applies only when planning the document structure.
+    *   `document`: Applies when writing or refining the main content of documents.
+    *   `translation`: Applies specifically to the translation process.
+3.  **Path Limitation**: If your feedback is clearly about a specific file or set of files, the rule can be limited to apply only to those paths.
 
-User: {
-  shape: person
-}
+## Managing Preferences with the CLI
 
-Refine: "`aigne doc refine` command"
+You have full control over your saved preferences through the `aigne doc prefs` command. This allows you to list, activate, deactivate, and delete rules as needed.
 
-FeedbackRefiner: "Feedback→Rule Converter"
+### Listing All Preferences
 
-PreferencesFile: "preferences.yml" {
-  shape: document
-}
+To see all the rules DocSmith has learned, run the `--list` command.
 
-User -> Refine: "Provide feedback, e.g., 'Don't translate variable names'"
-Refine -> FeedbackRefiner: "Sends feedback for analysis"
-FeedbackRefiner -> PreferencesFile: "Saves new, reusable rule" {
-  style.animated: true
-}
+```bash aigne doc prefs --list icon=lucide:list
+$ aigne doc prefs --list
 
-```
-
-1.  **Feedback Input**: You provide natural language feedback during a refinement session.
-2.  **Rule Generation**: An internal agent analyzes your feedback to determine if it represents a reusable policy rather than a one-time fix.
-3.  **Rule Creation**: If deemed reusable, it creates a structured rule with a specific scope (e.g., `document`, `translation`), a unique ID, and the instruction itself.
-4.  **Persistence**: The new rule is saved to the `preferences.yml` file, making it active for future tasks.
-
-## Managing Preferences via CLI
-
-The `aigne doc prefs` command is your primary tool for viewing and managing all saved preferences.
-
-### List All Preferences
-
-To see a formatted list of all your preferences, use the `--list` flag.
-
-```bash
-aigne doc prefs --list
-```
-
-The output provides a clear overview of each rule:
-
-```text
 # User Preferences
 
 **Format explanation:**
@@ -63,60 +39,62 @@ The output provides a clear overview of each rule:
 - ID = Unique preference identifier
 - Paths = Specific file paths (if applicable)
 
-🟢 [translation] pref_1a2b3c4d
-   Keep code and identifiers unchanged during translation, must not translate them.
+🟢 [document] pref_a1b2c3d4e5f6a7b8 | Paths: docs/api/v1.md
+   Endpoint strings with 'spaceDid' in code examples should not use ellipsis for abbreviation.
 
-⚪ [structure] pref_5e6f7g8h | Paths: overview.md, tutorials.md
-   Add 'Next Steps' section at the end of overview and tutorial documents with 2-3 links within the repository.
+🟢 [structure] pref_f9e8d7c6b5a4b3c2
+   Add a 'Next Steps' section at the end of overview and tutorial documents with 2-3 internal links.
+
+⚪ [translation] pref_1a2b3c4d5e6f7a8b
+   Keep code and identifiers unchanged during translation; they must not be translated.
 ```
 
-- **Status (🟢 / ⚪)**: Shows whether a rule is currently active or inactive.
-- **Scope**: Indicates where the rule applies (e.g., `translation`, `structure`).
-- **ID**: A unique identifier used to manage the rule.
-- **Paths**: If a rule is limited to specific files, they will be listed here.
+The output shows each rule's status (active or inactive), its scope, a unique ID, any associated paths, and the rule's content.
 
-### Toggle Preference Status
+### Toggling Rule Status (Active/Inactive)
 
-You can activate or deactivate preferences using the `--toggle` flag. This is useful for temporarily disabling a rule without deleting it permanently.
+If you want to temporarily disable a rule without deleting it, you can toggle its status. Run the `prefs` command with the `--toggle` flag. You can either provide specific rule IDs or run it without IDs to enter an interactive mode where you can select the rules to toggle from a list.
 
-**Interactive Mode**
+**Toggle by ID:**
 
-If you run the command without specifying an ID, an interactive prompt will appear, allowing you to select multiple rules to toggle.
+```bash aigne doc prefs --toggle --id icon=lucide:toggle-right
+$ aigne doc prefs --toggle --id pref_1a2b3c4d5e6f7a8b
 
-```bash
-aigne doc prefs --toggle
+Successfully toggled 1 preferences.
 ```
 
-**By ID**
+**Interactive Mode:**
 
-To toggle specific rules, provide their IDs using the `--id` option.
+```bash aigne doc prefs --toggle icon=lucide:mouse-pointer-click
+$ aigne doc prefs --toggle
 
-```bash
-aigne doc prefs --toggle --id pref_5e6f7g8h
+# You will be presented with a checklist of all preferences to select from.
 ```
 
-### Remove Preferences
+### Removing Preferences
 
-To permanently delete one or more preferences, use the `--remove` flag.
+To permanently delete a rule, use the `--remove` flag. Similar to toggling, you can specify IDs directly or use the interactive selection mode.
 
-**Interactive Mode**
+**Remove by ID:**
 
-Running the command without an ID will launch an interactive selection prompt.
+```bash aigne doc prefs --remove --id icon=lucide:trash-2
+$ aigne doc prefs --remove --id pref_1a2b3c4d5e6f7a8b
 
-```bash
-aigne doc prefs --remove
+Successfully removed 1 preferences.
 ```
 
-**By ID**
+**Interactive Mode:**
 
-To remove a specific rule, pass its ID.
+```bash aigne doc prefs --remove icon=lucide:mouse-pointer-click
+$ aigne doc prefs --remove
 
-```bash
-aigne doc prefs --remove --id pref_1a2b3c4d
+# You will be presented with a checklist of all preferences to select for removal.
 ```
 
-This action is irreversible, so use it with care.
+## Direct File Access
+
+For advanced users, all preferences are stored in a human-readable YAML file located at `.aigne/doc-smith/preferences.yml` in your project's root directory. While you can edit this file directly, we recommend using the CLI commands to avoid formatting errors.
 
 ---
 
-By managing your preferences, you can fine-tune DocSmith's behavior over time, making the documentation process increasingly automated and aligned with your project's specific needs. To see how feedback is provided, you can learn more in the [Update and Refine](./features-update-and-refine.md) guide.
+By managing preferences, you can fine-tune DocSmith's behavior over time, making it an increasingly intelligent partner in your documentation workflow. To further customize the generation process, you may want to explore the [LLM Setup](./configuration-llm-setup.md).

@@ -4,55 +4,55 @@ labels: ["Reference"]
 
 # Translate Documentation
 
-AIGNE DocSmith helps you reach a global audience by automatically translating your documentation into over 12 languages. This feature streamlines the localization process, ensuring your content is accessible to users worldwide with a single command.
+AIGNE DocSmith breaks down language barriers, allowing you to automatically translate your documentation into over 12 languages. This powerful feature helps you reach a global audience with minimal effort, ensuring your content is accessible to users and developers worldwide.
 
-## Easy Translation with Interactive Mode
+## Translating with the Interactive Wizard
 
-For a guided experience, the simplest way to start is by running the `translate` command without any arguments:
+The easiest way to translate your documents is by using the interactive mode. Simply run the command without any arguments:
 
-```bash
+```bash Command icon=lucide:terminal
 aigne doc translate
 ```
 
-This will launch an interactive wizard that walks you through the process:
+This will launch a step-by-step wizard that guides you through the process:
 
-1.  **Select Documents to Translate:** You'll be presented with a list of your existing documents. Simply choose the ones you want to translate.
+1.  **Select Documents:** You'll be presented with a list of your existing documents to choose from.
 
     ![Select documents to translate](https://docsmith.aigne.io/image-bin/uploads/e2cf5fa45aa856c406a444fb4665ed2d.png)
 
-2.  **Choose Target Languages:** After selecting your documents, you can pick one or more target languages from the list of supported options.
+2.  **Choose Languages:** Next, select one or more target languages from the list of supported options.
 
-    ![Select languages to translate into](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
+    ![Select languages for translation](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
 
-3.  **Confirm and Run:** DocSmith will then handle the translation, generating new versions of your selected files for each language.
+DocSmith will then handle the translation and save the new language-specific files in your output directory.
 
-## Advanced Control with Command-Line Flags
+## Translating via Command Line
 
-For automation or more specific tasks, you can use command-line flags to control the translation process directly. This is ideal for integrating into CI/CD pipelines or for power users who prefer the command line.
+For more control or for use in automated scripts, you can specify documents and languages directly using command-line arguments.
 
-Here are the primary options available:
+### Command Parameters
 
 | Parameter | Description |
 |---|---|
-| `--langs` | Specify one or more target languages. This flag can be used multiple times (e.g., `--langs zh --langs ja`). |
-| `--docs` | Specify the paths of the documents to translate. This flag can also be used multiple times. |
-| `--feedback` | Provide feedback to the AI to improve the quality of future translations (e.g., `--feedback "Use formal tone"`). |
-| `--glossary` | Use a glossary file in markdown format to ensure consistent terminology for specific terms (e.g., `--glossary @path/to/glossary.md`). |
+| `--langs` | Specify a target language. You can use this flag multiple times for multiple languages (e.g., `--langs zh --langs ja`). |
+| `--docs` | Specify the path of a document to translate. Use this flag multiple times for multiple documents. |
+| `--feedback` | Provide specific instructions or feedback to the AI to improve the quality of the translation. |
+| `--glossary` | Use a glossary file for consistent terminology. The path should be prefixed with `@` (e.g., `--glossary @/path/to/glossary.md`). |
 
-### Example: Translating Specific Documents
+### Examples
 
-To translate `overview.md` and `examples.md` into Chinese and Japanese, you would run:
+**Translate specific documents into multiple languages:**
 
-```bash
+```bash Command icon=lucide:terminal
 aigne doc translate --langs zh --langs ja --docs overview.md --docs examples.md
 ```
 
-### Example: Using a Glossary and Feedback
+**Translate with a custom glossary and feedback:**
 
-To ensure brand names and technical terms are translated correctly, you can provide a glossary file. You can also give feedback to refine the translation style.
+This is useful when you need to ensure specific technical terms are translated consistently and want to guide the AI's tone.
 
-```bash
-aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently" --docs overview.md --langs de
+```bash Command icon=lucide:terminal
+aigne doc translate --glossary @glossary.md --feedback "Use formal and technical terminology consistently" --docs overview.md --langs de
 ```
 
 ## Supported Languages
@@ -61,23 +61,19 @@ DocSmith supports automatic translation for the following languages:
 
 | Language | Code |
 |---|---|
-| English | en |
-| Simplified Chinese | zh-CN |
-| Traditional Chinese | zh-TW |
-| Japanese | ja |
-| Korean | ko |
-| Spanish | es |
-| French | fr |
-| German | de |
-| Portuguese | pt-BR |
-| Russian | ru |
-| Italian | it |
-| Arabic | ar |
+| English | `en` |
+| Simplified Chinese | `zh-CN` |
+| Traditional Chinese | `zh-TW` |
+| Japanese | `ja` |
+| Korean | `ko` |
+| Spanish | `es` |
+| French | `fr` |
+| German | `de` |
+| Portuguese | `pt-BR` |
+| Russian | `ru` |
+| Italian | `it` |
+| Arabic | `ar` |
 
 ---
 
-Once your documentation is translated, you're ready to share it with the world. Learn how in the next section.
-
-<x-card data-title="Next: Publish Your Docs" data-icon="lucide:upload-cloud" data-href="/features/publish-your-docs" data-cta="Read More">
-  A guide on how to easily publish your documentation to a public platform or your own private website.
-</x-card>
+Now that you've learned how to make your documentation multilingual, the next step is to share it with the world. Learn how in the [Publish Your Docs](./features-publish-your-docs.md) guide.

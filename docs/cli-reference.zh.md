@@ -4,182 +4,246 @@ labels: ["Reference"]
 
 # CLI 命令参考
 
-本指南为所有可用的 `aigne doc` 子命令及其参数和选项提供了全面的参考。它专为希望了解命令行界面全部功能的用户设计。
+AIGNE DocSmith 通过 `aigne doc` 命令行界面 (CLI) 进行操作。本参考提供了所有可用命令、其选项和用法示例的全面概述。从初始设置到最终发布的所有文档任务都通过这些命令进行管理。
 
-通用语法如下：
+有关安装说明，请参阅[快速入门](./getting-started.md)指南。
 
-```bash
-aigne doc <command> [options]
-```
+## 命令概述
+
+以下是 DocSmith 中主要命令的快速摘要：
+
+| 命令 | 别名 | 描述 |
+| --- | --- | --- |
+| `generate` | `gen`, `g` | 从源代码生成一套完整的文档。 |
+| `update` | `up` | 根据反馈优化并重新生成单个文档。 |
+| `translate` | | 将现有文档翻译成一种或多种语言。 |
+| `publish` | `pub`, `p` | 将您的文档发布到 Discuss Kit 平台。 |
+| `init` | | 启动一个交互式向导来配置您的文档项目。 |
+| `prefs` | | 管理从您的反馈中随时间学习到的用户偏好。 |
+| `chat` | | 启动一个交互式聊天助手，以获得引导式的文档编写体验。 |
 
 ---
 
-## `aigne doc generate`
+## `generate`
 
-**别名：** `gen`, `g`
+自动分析您的代码库，规划文档结构，并为整个项目生成高质量的内容。
 
-自动分析您的源代码，并根据您的配置生成一整套文档。如果未找到配置，它将自动启动交互式设置向导。
+这是从头创建文档或在源代码发生重大更改后重新生成文档的主要命令。
 
-### 选项
+### 用法
 
-| 选项 | 类型 | 描述 |
-|---|---|---|
-| `--feedback` | string | 提供反馈以调整和优化整体文档结构规划。 |
-| `--forceRegenerate` | boolean | 丢弃现有内容并从头开始重新生成所有文档。 |
-| `--model` | string | 指定用于生成的特定 LLM（例如，`openai:gpt-4o`、`claude:claude-3-5-sonnet`）。这将覆盖默认模型。 |
-| `--glossary` | string | 用于保持术语一致性的术语表文件路径。使用 `@path/to/glossary.md` 格式。 |
-
-### 使用示例
-
-**首次生成或更新文档：**
-```bash
+```bash Basic Usage
 aigne doc generate
 ```
 
-**强制完全重新生成所有文档：**
-```bash
+### 选项
+
+| 选项 | 类型 | 描述 |
+| --- | --- | --- |
+| `--forceRegenerate` | boolean | 删除所有现有文档并从头开始重新生成所有内容。 |
+| `--feedback` | string | 提供反馈以优化整体文档结构规划（例如，“添加一个关于 API 身份验证的部分”）。 |
+| `--model` | string | 指定用于生成的语言大模型（例如，`openai:gpt-4o`、`google:gemini-1.5-flash`）。 |
+| `--glossary` | string | 指向术语表文件（`@path/to/glossary.md`）的路径，以确保术语一致性。 |
+
+### 示例
+
+**强制完全重新生成**
+
+```bash icon=lucide:refresh-cw
 aigne doc generate --forceRegenerate
 ```
 
-**通过反馈优化文档结构：**
-```bash
-aigne doc generate --feedback "为 API 示例添加一个新部分，并删除‘关于’页面。"
+**通过反馈优化结构**
+
+```bash icon=lucide:edit
+aigne doc generate --feedback "Remove the 'About' section and add a detailed API Reference."
 ```
 
-**使用 AIGNE Hub 中的特定模型进行生成：**
-```bash
-aigne doc generate --model google:gemini-1.5-flash
+**使用特定模型生成**
+
+```bash icon=lucide:bot
+aigne doc generate --model claude:claude-3-5-sonnet
 ```
 
 ---
 
-## `aigne doc update`
+## `update`
 
-**别名：** `up`
+优化并重新生成特定文档。这对于根据反馈进行有针对性的改进或在代码发生微小更改后更新单个页面非常有用。
 
-优化并重新生成特定文档。您可以以交互方式运行它来选择文档，或直接使用选项指定文档。这对于根据反馈进行有针对性的改进非常有用，而无需重新生成整个项目。
+不带任何选项运行此命令将启动交互模式，允许您选择要更新的文档。
 
-### 选项
+### 用法
 
-| 选项 | 类型 | 描述 |
-|---|---|---|
-| `--docs` | array | 要重新生成的文档路径列表（例如，`--docs overview.md --docs /features/authentication.md`）。 |
-| `--feedback` | string | 提供具体反馈以改进所选文档的内容。 |
-| `--glossary` | string | 用于保持术语一致性的术语表文件路径。使用 `@path/to/glossary.md` 格式。 |
-
-### 使用示例
-
-**启动交互式会话以选择要更新的文档：**
-```bash
+```bash Basic Usage
 aigne doc update
 ```
 
-**使用有针对性的反馈更新特定文档：**
-```bash
-aigne doc update --docs /cli-reference.md --feedback "阐明 --docs 和 --langs 选项之间的区别。"
+### 选项
+
+| 选项 | 类型 | 描述 |
+| --- | --- | --- |
+| `--docs` | array | 要更新的一个或多个文档的路径（例如，`--docs overview.md`）。可多次使用。 |
+| `--feedback` | string | 用于改进所选文档内容的具体反馈。 |
+| `--reset` | boolean | 忽略之前的结果，从头开始重新生成文档内容。 |
+| `--glossary` | string | 指向术语表文件（`@path/to/glossary.md`）的路径，以确保术语一致性。 |
+
+### 示例
+
+**启动交互式更新模式**
+
+```bash icon=lucide:mouse-pointer-click
+aigne doc update
+```
+
+**使用反馈更新特定文档**
+
+```bash icon=lucide:file-edit
+aigne doc update --docs /features/generate-documentation.md --feedback "Add more details about the --forceRegenerate flag."
 ```
 
 ---
 
-## `aigne doc translate`
+## `translate`
 
-将现有文档翻译成一种或多种语言。可以以交互方式运行以选择文档和语言，也可以通过将它们指定为参数以非交互方式运行。
+将现有文档翻译成 12 种以上受支持语言中的一种或多种。
 
-### 选项
+不带选项运行该命令会启动一个交互式向导，帮助您选择文档和目标语言。
 
-| 选项 | 类型 | 描述 |
-|---|---|---|
-| `--docs` | array | 要翻译的文档路径列表。如果在交互模式下省略，您可以进行选择。 |
-| `--langs` | array | 目标语言代码列表（例如，`zh`、`ja`、`es`）。如果省略，您可以以交互方式选择它们。 |
-| `--feedback` | string | 提供反馈以提高翻译质量。 |
-| `--glossary` | string | 用于确保跨语言术语一致性的术语表文件路径。使用 `@path/to/glossary.md`。 |
+### 用法
 
-### 使用示例
-
-**启动交互式翻译会话：**
-```bash
+```bash Basic Usage
 aigne doc translate
 ```
 
-**将特定文档翻译成中文和日文：**
-```bash
+### 选项
+
+| 选项 | 类型 | 描述 |
+| --- | --- | --- |
+| `--langs` | array | 指定一个或多个目标语言代码（例如 `zh`、`ja`、`fr`）。可多次使用。 |
+| `--docs` | array | 要翻译的一个或多个文档的路径。如果省略，则视为所有文档。 |
+| `--feedback` | string | 用于提高翻译质量和风格的反馈。 |
+| `--glossary` | string | 指向术语表文件（`@path/to/glossary.md`）的路径，以确保跨语言的术语一致性。 |
+
+### 示例
+
+**启动交互式翻译模式**
+
+```bash icon=lucide:languages
+aigne doc translate
+```
+
+**将特定文档翻译成中文和日文**
+
+```bash icon=lucide:globe
 aigne doc translate --docs overview.md --docs getting-started.md --langs zh --langs ja
 ```
 
-**结合使用术语表和反馈以获得更高质量的翻译：**
-```bash
-aigne doc translate --glossary @glossary.md --feedback "日语翻译请使用正式语言。"
+**使用术语表和反馈改进翻译**
+
+```bash icon=lucide:book-check
+aigne doc translate --docs cli-reference.md --langs de --glossary @glossary.md --feedback "Use formal address ('Sie') instead of informal ('du')."
 ```
 
 ---
 
-## `aigne doc publish`
+## `publish`
 
-**别名：** `pub`, `p`
+将您生成的文档发布到 Discuss Kit 平台。这可以是官方公共平台或您自己自托管的实例。
 
-将您生成的文档发布到 Discuss Kit 平台。您可以发布到官方的 AIGNE DocSmith 平台，也可以发布到您自己自托管的实例。
+不带选项运行该命令会启动一个交互式向导，以选择发布目的地。
+
+### 用法
+
+```bash Basic Usage
+aigne doc publish
+```
 
 ### 选项
 
 | 选项 | 类型 | 描述 |
-|---|---|---|
-| `--appUrl` | string | 您自托管的 Discuss Kit 实例的 URL。如果未提供，该命令将以交互方式运行，允许您在官方平台和自定义 URL 之间进行选择。 |
+| --- | --- | --- |
+| `--appUrl` | string | 您的自托管 Discuss Kit 实例的 URL。 |
 
-### 使用示例
+### 示例
 
-**启动交互式发布会话：**
-```bash
+**发布到官方平台（交互式）**
+
+```bash icon=lucide:rocket
 aigne doc publish
 ```
 
-**直接发布到自托管实例：**
-```bash
+**发布到自托管实例**
+
+```bash icon=lucide:server
 aigne doc publish --appUrl https://docs.my-company.com
 ```
 
 ---
 
-## `aigne doc init`
+## `init`
 
-手动启动交互式配置向导。这对于设置新项目或修改现有项目的配置非常有用。该向导会引导您定义源代码路径、设置输出目录、选择语言以及定义文档的风格和目标受众。
+启动一个交互式向导，为您的项目创建或更新 `aigne-doc.json` 配置文件。这是设置文档偏好的推荐方式，包括源路径、输出目录、语言和风格。
 
-### 使用示例
+### 用法
 
-**启动设置向导：**
-```bash
+```bash Basic Usage
 aigne doc init
 ```
 
+此命令没有选项，因为它是完全交互式的。
+
 ---
 
-## `aigne doc prefs`
+## `prefs`
 
-管理 DocSmith 随着时间的推移从您的反馈中学习到的用户偏好。这些偏好将在未来的生成和更新任务中作为规则应用，以保持与您的风格一致。
+管理 DocSmith 从您的反馈中学习到的用户偏好。这些偏好被存储为规则，应用于未来的生成、更新和翻译任务，以持续提高质量并与您的风格保持一致。
+
+### 用法
+
+```bash Basic Usage
+aigne doc prefs --list
+```
 
 ### 选项
 
 | 选项 | 类型 | 描述 |
-|---|---|---|
+| --- | --- | --- |
 | `--list` | boolean | 列出所有已保存的偏好，显示其状态（激活/未激活）、范围和内容。 |
-| `--remove` | boolean | 移除一个或多个偏好。如果未提供 `--id`，则以交互方式运行。 |
-| `--toggle` | boolean | 切换一个或多个偏好的激活状态。如果未提供 `--id`，则以交互方式运行。 |
-| `--id` | array | 指定要执行 `--remove` 或 `--toggle` 操作的偏好 ID。 |
+| `--remove` | boolean | 以交互方式选择并删除一个或多个偏好。 |
+| `--toggle` | boolean | 以交互方式选择并切换一个或多个偏好的激活状态。 |
+| `--id` | array | 指定偏好 ID，以直接应用 `--remove` 或 `--toggle` 操作。 |
 
-### 使用示例
+### 示例
 
-**列出所有已保存的偏好：**
-```bash
+**列出所有已保存的偏好**
+
+```bash icon=lucide:list
 aigne doc prefs --list
 ```
 
-**以交互方式选择要移除的偏好：**
-```bash
+**交互式删除偏好**
+
+```bash icon=lucide:trash-2
 aigne doc prefs --remove
 ```
 
-**通过 ID 切换特定偏好的状态：**
-```bash
-aigne doc prefs --toggle --id <preference-id>
+**通过 ID 切换特定偏好的状态**
+
+```bash icon=lucide:toggle-right
+aigne doc prefs --toggle --id "pref_abc123"
 ```
 
-有关如何根据您的需求定制 DocSmith 的更多详细信息，请参阅 [配置指南](./configuration.md)。
+---
+
+## `chat`
+
+启动一个交互式聊天助手，可以帮助您完成所有文档任务。您可以用对话的方式要求助手生成、更新或翻译文档。
+
+### 用法
+
+```bash Basic Usage
+aigne doc chat
+```
+
+该命令为使用单个命令和选项提供了一个强大的、引导式的替代方案。
