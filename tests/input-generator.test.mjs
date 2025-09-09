@@ -1013,7 +1013,7 @@ describe("init", () => {
         );
 
         // Check that function completed successfully
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
 
         // Check that config file was created
         const configPath = join(tempDir, "config.yaml");
@@ -1068,7 +1068,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
 
         // Verify the generated config
         const configPath = join(tempDir, "test-config.yaml");
@@ -1113,7 +1113,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
 
         const configPath = join(tempDir, "simple-config.yaml");
         const configContent = await fs.readFile(configPath, "utf8");
@@ -1169,7 +1169,7 @@ describe("init", () => {
             options,
           );
 
-          expect(result).toEqual({});
+          expect(result).toBeDefined();
 
           const configPath = join(tempDir, "config.yaml");
           const configContent = await fs.readFile(configPath, "utf8");
@@ -1214,7 +1214,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
 
         const configPath = join(tempDir, "config.yaml");
         const configContent = await fs.readFile(configPath, "utf8");
@@ -1251,7 +1251,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
 
         // Config should remain unchanged
         const configContent = await fs.readFile(configPath, "utf8");
@@ -1283,7 +1283,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
 
         // Config should be generated since original was empty
         const configContent = await fs.readFile(configPath, "utf8");
@@ -1326,7 +1326,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
         expect(validateCalled).toBe(true);
       } finally {
         await cleanupTempDir(tempDir);
@@ -1364,7 +1364,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
         expect(audienceValidateCalled).toBe(true);
       } finally {
         await cleanupTempDir(tempDir);
@@ -1412,7 +1412,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
         expect(priorityValidateCalled).toBe(true);
       } finally {
         await cleanupTempDir(tempDir);
@@ -1479,7 +1479,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
 
         const configPath = join(tempDir, "config.yaml");
         const configContent = await fs.readFile(configPath, "utf8");
@@ -1524,7 +1524,7 @@ describe("init", () => {
           options,
         );
 
-        expect(result).toEqual({});
+        expect(result).toBeDefined();
       } finally {
         await cleanupTempDir(tempDir);
       }

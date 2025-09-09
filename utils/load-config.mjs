@@ -4,7 +4,7 @@ import { parse } from "yaml";
 import { processConfigFields, resolveFileReferences } from "./utils.mjs";
 
 export default async function loadConfig({ config, appUrl }) {
-  const configPath = path.join(process.cwd(), config);
+  const configPath = path.isAbsolute(config) ? config : path.join(process.cwd(), config);
 
   try {
     // Check if config file exists
