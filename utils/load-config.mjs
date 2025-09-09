@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { parse } from "yaml";
-import { processConfigFields, resolveFileReferences } from "../../utils/utils.mjs";
+import { processConfigFields, resolveFileReferences } from "./utils.mjs";
 
 export default async function loadConfig({ config, appUrl }) {
   const configPath = path.join(process.cwd(), config);
@@ -40,19 +40,3 @@ export default async function loadConfig({ config, appUrl }) {
     throw new Error(`Failed to parse config file: ${error.message}`);
   }
 }
-
-loadConfig.input_schema = {
-  type: "object",
-  properties: {
-    config: {
-      type: "string",
-      default: "./.aigne/doc-smith/config.yaml",
-    },
-    appUrl: {
-      type: "string",
-      description: "Application URL to override config",
-    },
-  },
-};
-
-loadConfig.task_render_mode = "hide";

@@ -8,7 +8,6 @@ skills:
   - url: ../init/init.mjs
     default_input:
       skipIfExists: true
-  - ../utils/load-config.mjs
   - publish-docs.mjs
 input_schema:
   type: object

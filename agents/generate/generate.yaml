@@ -8,7 +8,6 @@ skills:
   - url: ../init/init.mjs
     default_input:
       skipIfExists: true
-  - ../utils/load-config.mjs
   - ../utils/load-sources.mjs
   - ./check-structure-plan.mjs
   - url: ../utils/save-output.mjs

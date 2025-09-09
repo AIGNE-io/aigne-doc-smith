@@ -7,7 +7,6 @@ skills:
   - url: ../init/init.mjs
     default_input:
       skipIfExists: true
-  - ../utils/load-config.mjs
   - ../utils/load-sources.mjs
   - type: transform
     task_render_mode: hide

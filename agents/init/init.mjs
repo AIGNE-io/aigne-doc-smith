@@ -19,6 +19,7 @@ import {
   isGlobPattern,
   validatePath,
 } from "../../utils/utils.mjs";
+import loadConfig from "../../utils/load-config.mjs";
 
 // UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
@@ -31,7 +32,7 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @returns {Promise<Object>}
  */
 export default async function init(
-  { outputPath = ".aigne/doc-smith", fileName = "config.yaml", skipIfExists = false },
+  { outputPath = ".aigne/doc-smith", fileName = "config.yaml", skipIfExists = false, appUrl },
   options,
 ) {
   if (skipIfExists) {
@@ -39,7 +40,8 @@ export default async function init(
     const configContent = await readFile(filePath, "utf8").catch(() => null);
     // Only skip if file exists AND has non-empty content
     if (configContent && configContent.trim() !== "") {
-      return {};
+      // load config from file
+      return loadConfig({ config: filePath, appUrl });
     }
   }
 
@@ -340,7 +342,8 @@ export default async function init(
       `🚀 Run ${chalk.cyan("'aigne doc generate'")} to start documentation generation!\n`,
     );
 
-    return {};
+    // load config from file
+    return loadConfig({ config: filePath, appUrl });
   } catch (error) {
     console.error(`❌ Failed to save configuration file: ${error.message}`);
     return {
