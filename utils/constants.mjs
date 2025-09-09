@@ -521,7 +521,7 @@ export const D2_CONFIG = `vars: {
       N5: "#E6E8EC"
 
       B3: "#FFE9D1"
-      B4: "#FFE9D1"
+      B4: "transparent"
 
       AA2: "#421E0B"
       AA4: "#FFE9D1"
