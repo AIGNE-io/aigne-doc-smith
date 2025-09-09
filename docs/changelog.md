@@ -1,7 +1,3 @@
----
-labels: ["Reference"]
----
-
 # Changelog
 
 A detailed log of all notable changes, features, and bug fixes for each version of the project.

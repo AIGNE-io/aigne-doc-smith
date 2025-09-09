@@ -1,12 +1,8 @@
----
-labels: ["Reference"]
----
-
 # Generate Documentation
 
-The `aigne doc generate` command is the core function of DocSmith, designed to transform your source code into a comprehensive and well-structured documentation suite with a single command.
+The `aigne doc generate` command is the core function of DocSmith, designed to transform your source code into a structured documentation suite with a single command.
 
-This process involves analyzing your codebase, planning a logical document structure, and then generating detailed content for each section. It's the primary way to create your documentation from scratch.
+This process analyzes your codebase, plans a logical document structure, and then generates content for each section. It's the primary way to create your documentation from scratch.
 
 ## Your First Generation
 
@@ -16,9 +12,9 @@ To begin, navigate to your project's root directory and run the following comman
 aigne doc generate
 ```
 
-### Smart Auto-Configuration
+### Automatic Configuration
 
-If you're running this command for the first time in a project, DocSmith will intelligently detect that no configuration exists. It will automatically launch an interactive setup wizard to guide you through the initial setup. This ensures you have a properly configured environment before generation begins.
+If you're running this command for the first time in a project, DocSmith will detect that no configuration exists. It will automatically launch an interactive setup wizard to guide you through the initial setup. This ensures you have a properly configured environment before generation begins.
 
 ![Running the generate command for the first time triggers the setup wizard](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
@@ -40,7 +36,7 @@ Upon successful completion, your newly created documentation will be available i
 
 ## The Generation Process
 
-The `generate` command follows a clear, automated workflow to ensure consistent and high-quality results. The process can be visualized as follows:
+The `generate` command follows an automated workflow to ensure consistent results. The process can be visualized as follows:
 
 ```d2
 direction: down
@@ -87,20 +83,20 @@ gen_content -> save_docs
 save_docs -> end
 ```
 
-## Fine-Tuning Your Generation
+## Command Options
 
-While the default `generate` command is sufficient for most use cases, you can use several options to control the generation process. These are particularly useful for regenerating content or refining the document structure.
+While the default `generate` command is sufficient for most use cases, you can use several options to control the generation process. These are useful for regenerating content or refining the document structure.
 
 | Option              | Description                                                                                                                              | Example                                                              |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
 | `--forceRegenerate` | Deletes all existing documents and regenerates them from scratch. Use this after making significant changes to your source code or configuration. | `aigne doc generate --forceRegenerate`                                 |
 | `--feedback`        | Provides high-level feedback to refine the overall document structure plan, such as adding, removing, or reorganizing sections.           | `aigne doc generate --feedback "Add an API Reference section"`         |
-| `--model`           | Specifies a particular Large Language Model from AIGNE Hub to use for content generation, allowing you to switch between models easily.       | `aigne doc generate --model claude:claude-3-5-sonnet`                |
+| `--model`           | Specifies a particular Large Language Model from AIGNE Hub to use for content generation, allowing you to switch between models.       | `aigne doc generate --model claude:claude-3-5-sonnet`                |
 
 ## What's Next?
 
 Now that you have generated your initial documentation, your project will continue to evolve. To keep your documents synchronized with your code, you will need to update them. Proceed to the next section to learn how to make targeted changes and regenerate specific files.
 
 <x-card data-title="Update and Refine" data-icon="lucide:file-edit" data-href="/features/update-and-refine">
-  Discover how to intelligently update documents when your code changes or make specific improvements using feedback.
+  Discover how to update documents when your code changes or make specific improvements using feedback.
 </x-card>

@@ -1,31 +1,25 @@
----
-labels: ["Reference"]
----
-
 # 语言支持
 
-AIGNE DocSmith 专为全球用户设计，提供十几种语言的自动翻译功能。这使你能够以最小的精力生成和维护多语言文档，确保你的项目能够触达世界各地的用户。整个翻译过程由 `aigne doc translate` 命令处理。
+AIGNE DocSmith 提供 12 种语言的自动翻译功能，让你能够为全球用户生成和维护文档。整个过程由 `aigne doc translate` 命令处理，该命令使用 AI 引擎处理你的源文档并创建本地化版本。
 
-### 翻译工作流
-
-翻译过程会接收你的源文档，通过 AIGNE AI 引擎进行处理，并生成你所指定目标语言的高质量版本。
+翻译工作流通过 AIGNE AI 引擎处理你的源文档，以在你选择的目标语言中生成本地化版本。
 
 ```d2
 direction: down
 
 Source-Doc: {
   label: "源文档\n（例如，英语）"
-  shape: document
+  shape: rectangle
 }
 
 AI-Engine: {
   label: "AIGNE DocSmith\nAI 翻译引擎"
-  shape: hexagon
+  shape: rectangle
 }
 
 Translated-Docs: {
   label: "翻译后文档"
-  shape: package
+  shape: rectangle
   grid-columns: 3
 
   zh: "简体中文"
@@ -42,57 +36,59 @@ AI-Engine -> Translated-Docs: "生成"
 
 ## 支持的语言
 
-DocSmith 为以下语言提供 AI 驱动的翻译。你可以在项目初始化设置时或之后的任何时间，选择你的主要文档语言以及任意数量的目标翻译语言。
+DocSmith 为以下语言提供 AI 翻译功能。你可以在初始设置期间定义项目的主要语言，并选择任意数量的目标语言进行翻译。
 
-| 语言 | 语言代码 |
-|---|---|
-| English (en) | `en` |
-| 简体中文 (zh) | `zh` |
-| 繁體中文 (zh-TW) | `zh-TW` |
-| 日本語 (ja) | `ja` |
-| 한국어 (ko) | `ko` |
-| Español (es) | `es` |
-| Français (fr) | `fr` |
-| Deutsch (de) | `de` |
-| Português (pt) | `pt` |
-| Русский (ru) | `ru` |
-| Italiano (it) | `it` |
-| العربية (ar) | `ar` |
+| 语言 | 语言代码 | 示例文本 |
+|---|---|---|
+| 英语 | `en` | Hello |
+| 简体中文 | `zh` | 你好 |
+| 繁體中文 | `zh-TW` | 你好 |
+| 日本語 | `ja` | こんにちは |
+| 한국어 | `ko` | 안녕하세요 |
+| Español | `es` | Hola |
+| Français | `fr` | Bonjour |
+| Deutsch | `de` | Hallo |
+| Português | `pt` | Olá |
+| Русский | `ru` | Привет |
+| Italiano | `it` | Ciao |
+| العربية | `ar` | مرحبا |
 
-## 如何启用和使用翻译
+## 如何配置和使用翻译功能
 
-翻译语言通常在首次使用 `aigne doc init` 初始化项目时进行配置，但你也可以随时使用 `aigne doc translate` 命令轻松添加新语言或翻译文档。
+翻译语言在你使用 `aigne doc init` 初始化项目时设置。你可以随时使用 `aigne doc translate` 命令添加新语言或翻译文档，该命令提供两种操作模式。
 
-### 便于翻译的交互模式
+### 交互模式
 
-翻译文档最简单的方法是直接运行不带任何参数的命令。该操作会启动一个适合所有用户的交互式向导。
+如需引导式体验，请在不带任何参数的情况下运行该命令。这是为大多数用户推荐的方法。
 
-```bash
+```bash Interactive Translation icon=lucide:wand
 aigne doc translate
 ```
 
-交互模式将引导你完成以下操作：
+交互模式将提示你：
 
-- 选择你想要翻译的现有文档。
-- 从支持的语言列表中选择目标语言。
-- 如果需要，将新的翻译语言添加到你的项目配置中。
+- 选择要翻译的现有文档。
+- 从支持的语言列表中选择一个或多个目标语言。
+- 如果项目中尚未包含新的翻译语言，则将其添加到项目配置中。
 
-### 用于自动化的命令行
+### 命令行参数
 
-对于需要更直接控制或希望将翻译功能集成到自动化脚本（如 CI/CD 流水线）中的开发者，可以将文档和语言指定为命令行参数。
+为了直接控制或在自动化脚本（如 CI/CD 流水线）中使用，你可以直接将文档和语言指定为命令行参数。
 
-```bash
+```bash Command Example icon=lucide:terminal
 # 将 overview.md 和 examples.md 翻译成中文和日文
 aigne doc translate --langs zh --langs ja --docs overview.md --docs examples.md
 ```
 
-关键参数包括：
+该命令的关键参数包括：
 
-- `--langs`: 指定目标语言代码。你可以多次使用该标志来指定多种语言。
-- `--docs`: 指定要翻译的文档路径。该参数也可以多次使用。
-- `--feedback`: 提供具体指令以提高翻译质量（例如，“使用正式语气”）。
-- `--glossary`: 使用自定义术语表文件（`@path/to/glossary.md`），以确保项目特定术语的表达一致。
+| 参数 | 描述 |
+|---|---|
+| `--langs` | 指定目标语言代码。该标志可以多次使用以选择多种语言。 |
+| `--docs` | 指定要翻译的文档路径（例如 `overview.md`）。该标志也可以多次使用。 |
+| `--feedback` | 提供具体指令以指导翻译模型（例如，`"Use a formal tone"`）。 |
+| `--glossary` | 使用自定义术语表文件（例如 `@path/to/glossary.md`）以确保项目特定术语的翻译一致性。 |
 
 ---
 
-借助此多语言支持，你可以有效地触达更广泛的受众。关于翻译工作流及其高级功能的更详细说明，请参阅 [翻译文档](./features-translate-documentation.md) 指南。
+本节介绍了可用语言以及如何启用它们。有关翻译工作流的完整指南，包括高级选项和最佳实践，请参阅[翻译文档](./features-translate-documentation.md)指南。

@@ -1,10 +1,6 @@
----
-labels: ["Reference"]
----
-
 # CLI Command Reference
 
-This guide provides a comprehensive reference for all available `aigne doc` sub-commands, their arguments, and options. It's designed for users who want to understand the full capabilities of the command-line interface.
+This guide provides a reference for all available `aigne doc` sub-commands, their arguments, and options. It is intended for users who want to use the command-line interface to its full potential.
 
 The general syntax is:
 
@@ -26,17 +22,17 @@ Start: {
 
 init: {
   label: "aigne doc init\n(Interactive Setup)"
-  shape: step
+  shape: rectangle
 }
 
 generate: {
   label: "aigne doc generate\n(Create/Update All Docs)"
-  shape: step
+  shape: rectangle
 }
 
 refinement-cycle: {
   label: "Refinement Cycle"
-  shape: package
+  shape: rectangle
   grid-columns: 2
 
   update: {
@@ -49,7 +45,7 @@ refinement-cycle: {
 
 publish: {
   label: "aigne doc publish\n(Deploy Docs)"
-  shape: step
+  shape: rectangle
 }
 
 End: {
@@ -60,7 +56,7 @@ End: {
 
 prefs: {
   label: "aigne doc prefs\n(Manage Learned Rules)"
-  shape: stored_data
+  shape: cylinder
 }
 
 Start -> init: "Optional" {
@@ -87,7 +83,7 @@ prefs <-> refinement-cycle: "Influences" {
 
 **Aliases:** `gen`, `g`
 
-Automatically analyzes your source code and generates a complete set of documentation based on your configuration. If no configuration is found, it will automatically launch the interactive setup wizard.
+Analyzes your source code and generates a complete set of documentation based on your configuration. If no configuration is found, it automatically launches the interactive setup wizard.
 
 ### Options
 
@@ -146,7 +142,7 @@ aigne doc update
 
 **Update a specific document with targeted feedback:**
 ```bash
-aigne doc update --docs /cli-reference.md --feedback "Clarify the difference between the --docs and --langs options."
+aigne doc update --docs /cli-reference --feedback "Clarify the difference between the --docs and --langs options."
 ```
 
 ---

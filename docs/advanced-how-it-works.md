@@ -1,6 +1,6 @@
 # How It Works
 
-AIGNE DocSmith provides an automated documentation solution by using a multi-agent system. Instead of relying on a single AI model, DocSmith orchestrates a pipeline of specialized AI agents, each an expert in its specific task. This collaborative approach generates structured and detailed documentation directly from your source code.
+AIGNE DocSmith automates documentation using a multi-agent system. Instead of a single AI model, DocSmith orchestrates a pipeline of specialized AI agents, where each agent is an expert in a specific task. This collaborative approach generates structured and detailed documentation directly from your source code.
 
 At its core, DocSmith operates as a pipeline, processing your source code through several distinct stages, each managed by one or more dedicated AI agents.
 
@@ -13,48 +13,50 @@ direction: down
 
 Input: {
   label: "Source Code & Config"
-  shape: package
+  shape: rectangle
 }
 
 Pipeline: {
   label: "Documentation Generation Pipeline"
+  shape: rectangle
   grid-columns: 1
   grid-gap: 40
 
   Structure-Planning: {
     label: "1. Structure Planning\n(reflective-structure-planner)"
-    shape: step
+    shape: rectangle
   }
 
   Content-Generation: {
     label: "2. Content Generation\n(content-detail-generator)"
-    shape: step
+    shape: rectangle
   }
 
   Saving: {
     label: "3. Save Documents\n(save-docs)"
-    shape: step
+    shape: rectangle
   }
 }
 
 User-Feedback: {
   label: "User Feedback Loop\n(via --feedback flag)"
-  shape: callout
+  shape: rectangle
 }
 
 Optional-Steps: {
   label: "Optional Steps"
+  shape: rectangle
   grid-columns: 2
   grid-gap: 40
   
   Translation: {
     label: "Translate\n(aigne doc translate)"
-    shape: step
+    shape: rectangle
   }
 
   Publishing: {
     label: "Publish\n(aigne doc publish)"
-    shape: step
+    shape: rectangle
   }
 }
 
@@ -71,7 +73,7 @@ User-Feedback -> Pipeline.Content-Generation: "Regenerate Content"
 
 2.  **Structure Planning**: The `reflective-structure-planner` agent analyzes the codebase to propose a logical document structure. It considers your specified target audience, rules, and feedback to create an optimal outline.
 
-3.  **Content Generation**: Once the structure is approved, the `content-detail-generator` and `batch-docs-detail-generator` agents take over. They populate each section of the document plan with detailed content, ensuring technical accuracy and adherence to the defined style.
+3.  **Content Generation**: Once the structure is defined, the `content-detail-generator` and `batch-docs-detail-generator` agents take over. They populate each section of the document plan with detailed content, ensuring technical accuracy and adherence to the defined style.
 
 4.  **Refinement and Updates**: If you provide feedback using `aigne doc update` or `aigne doc generate --feedback`, the `detail-regenerator` and `feedback-refiner` agents are activated. They update specific documents or adjust the overall structure based on your input.
 

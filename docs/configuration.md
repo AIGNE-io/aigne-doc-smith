@@ -1,8 +1,8 @@
 # Configuration Guide
 
-AIGNE DocSmith's power lies in its ability to be tailored to your specific project's needs. This is all managed through a central configuration file, typically located at `.aigne/doc-smith/config.yaml`. This guide provides a comprehensive look at all available settings, allowing you to customize the style, target audience, languages, and structure of your documentation.
+AIGNE DocSmith's behavior is controlled by a central file, `config.yaml`, typically located at `.aigne/doc-smith/config.yaml`. This file dictates the style, target audience, languages, and structure of your documentation.
 
-You can create and manage this file easily using the interactive setup wizard by running `aigne doc init`. For more details, see the [Interactive Setup](./configuration-interactive-setup.md) guide.
+You can create and manage this file using the interactive setup wizard by running `aigne doc init`. For a step-by-step walkthrough, see the [Interactive Setup](./configuration-interactive-setup.md) guide.
 
 ## Core Configuration Areas
 
@@ -10,7 +10,7 @@ Your documentation is shaped by several key areas of configuration. Explore thes
 
 <x-cards data-columns="2">
   <x-card data-title="Interactive Setup" data-icon="lucide:wand-2" data-href="/configuration/interactive-setup">
-    Learn about the guided wizard that helps you configure your documentation project from scratch, including intelligent setting recommendations.
+    Learn about the guided wizard that helps you configure your documentation project from scratch, including setting recommendations.
   </x-card>
   <x-card data-title="LLM Setup" data-icon="lucide:brain-circuit" data-href="/configuration/llm-setup">
     Discover how to connect different AI models, including using the built-in AIGNE Hub which requires no API keys.
@@ -19,7 +19,7 @@ Your documentation is shaped by several key areas of configuration. Explore thes
     See the full list of supported languages and learn how to set a primary language and enable automatic translations.
   </x-card>
   <x-card data-title="Managing Preferences" data-icon="lucide:sliders-horizontal" data-href="/configuration/preferences">
-    Understand how DocSmith learns from your feedback to create persistent rules and how to manage them via the CLI.
+    Understand how DocSmith uses your feedback to create persistent rules and how to manage them via the CLI.
   </x-card>
 </x-cards>
 
@@ -51,7 +51,7 @@ What is the main outcome you want readers to achieve? This setting influences th
 | `findAnswers` | Find answers fast | Provide searchable reference for all features and APIs. |
 | `understandSystem`| Understand the system | Explain how it works and why design decisions were made. |
 | `solveProblems` | Troubleshoot common issues | Help users troubleshoot and fix issues. |
-| `mixedPurpose` | Serve multiple purposes | Comprehensive documentation covering multiple needs. |
+| `mixedPurpose` | Serve multiple purposes | Documentation covering multiple needs. |
 
 #### `targetAudienceTypes`
 Who will be reading this documentation most often? This choice affects the writing style and examples.
@@ -59,8 +59,8 @@ Who will be reading this documentation most often? This choice affects the writi
 | Option | Name | Description |
 |---|---|---|
 | `endUsers` | End users (non-technical) | People who use the product but don't code. |
-| `developers` | Developers | Engineers integrating your product/API into their projects. |
-| `devops` | DevOps / SRE / Infrastructure | Teams deploying, monitoring, and maintaining systems. |
+| `developers` | Developers integrating your product/API | Engineers adding this to their projects. |
+| `devops` | DevOps / SRE / Infrastructure teams | Teams deploying, monitoring, and maintaining systems. |
 | `decisionMakers`| Technical decision makers | Architects or leads evaluating or planning implementation. |
 | `supportTeams` | Support teams | People helping others use the product. |
 | `mixedTechnical`| Mixed technical audience | Developers, DevOps, and other technical users. |
@@ -70,11 +70,11 @@ What do readers typically know when they arrive? This adjusts how much foundatio
 
 | Option | Name | Description |
 |---|---|---|
-| `completeBeginners` | Total beginner | New to this domain/technology entirely. |
-| `domainFamiliar` | Has used similar tools | Knows the problem space, but new to this specific solution. |
-| `experiencedUsers` | Expert doing something specific | Regular users needing reference or advanced topics. |
+| `completeBeginners` | Is a total beginner, starting from scratch | New to this domain/technology entirely. |
+| `domainFamiliar` | Has used similar tools before | Knows the problem space, but new to this specific solution. |
+| `experiencedUsers` | Is an expert trying to do something specific | Regular users needing reference or advanced topics. |
 | `emergencyTroubleshooting`| Emergency/troubleshooting | Something is broken and needs to be fixed quickly. |
-| `exploringEvaluating` | Evaluating this tool | Trying to understand if this fits their needs. |
+| `exploringEvaluating` | Is evaluating this tool against others | Trying to understand if this fits their needs. |
 
 #### `documentationDepth`
 How comprehensive should the documentation be?
@@ -111,7 +111,7 @@ These settings control localization and file locations.
 
 Here is an example of a complete configuration file with comments explaining each section. You can edit this file directly to change settings at any time.
 
-```yaml
+```yaml Example config.yaml icon=logos:yaml
 # Project information for documentation publishing
 projectName: AIGNE DocSmith
 projectDesc: A powerful, AI-driven documentation generation tool.
@@ -162,11 +162,11 @@ readerKnowledgeLevel: domainFamiliar
 documentationDepth: balancedCoverage
 
 # Custom Rules: Define specific documentation generation rules and requirements
-rules: |
+rules: |+
   
 
 # Target Audience: Describe your specific target audience and their characteristics
-targetAudience: |
+targetAudience: |+
   
 
 # Glossary: Define project-specific terms and definitions
@@ -181,6 +181,6 @@ sourcesPath:  # Source code paths to analyze
   - ./
 ```
 
-With your configuration fine-tuned, you are ready to create documentation that perfectly matches your project's needs. The next step is to run the generation command.
+With your configuration set, you are ready to create documentation that matches your project's needs. The next step is to run the generation command.
 
 ➡️ **Next:** [Generate Documentation](./features-generate-documentation.md)

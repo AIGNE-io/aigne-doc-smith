@@ -1,8 +1,8 @@
 # 发布你的文档
 
-文档生成后，下一步就是使其可以在线访问。AIGNE DocSmith 通过 `aigne doc publish` 命令简化了这一过程，该命令会将你的内容上传到 Discuss Kit 平台，让你的受众可以立即访问。
+文档生成后，下一步是使其可以在线访问。AIGNE DocSmith 通过 `aigne doc publish` 命令简化了这一过程，该命令会将你的内容上传到 Discuss Kit 平台，供你的受众访问。
 
-本指南将介绍如何发布你的文档，无论你是使用免费的官方平台还是你自己的网站。
+本指南将介绍如何发布文档，无论你是使用官方平台还是自己的网站。
 
 ## 发布流程
 
@@ -11,15 +11,15 @@
 ```d2
 direction: down
 
-User: { shape: person }
+User: { shape: c4-person }
 CLI: { label: "AIGNE CLI" }
-Browser: { label: "浏览器" }
-Platform: { label: "Discuss Kit 平台" }
+Browser: { label: "Browser" }
+Platform: { label: "Discuss Kit Platform" }
 
-User -> CLI: aigne doc publish
+User -> CLI: "aigne doc publish"
 
 alt: "首次发布或缺少配置" {
-  CLI -> User: "选择平台\n(官方 / 自托管)"
+  CLI -> User: "选择平台\n（官方/自托管）"
   User -> CLI: "提供选择"
   CLI -> Browser: "打开认证 URL"
   User -> Browser: "登录并授权"
@@ -35,7 +35,7 @@ CLI -> User: "✅ 发布成功！"
 
 ## 发布选项
 
-你有两个主要选项来托管你的文档，以满足对可见性和控制的不同需求。
+你有两种主要选项来托管文档，以满足对可见性和控制的不同需求。
 
 ### 官方平台
 
@@ -43,7 +43,7 @@ CLI -> User: "✅ 发布成功！"
 
 ### 你自己的网站
 
-通过运行 Discuss Kit 实例来发布到你自己的网站。这让你能够完全控制谁可以访问你的文档，使其适用于内部或私有项目。你可以从[官方文档](https://www.arcblock.io/docs/web3-kit/en/discuss-kit)开始运行你自己的 Discuss Kit。
+通过运行 Discuss Kit 实例发布到你自己的网站。这使你可以完全控制谁能访问你的文档，适合内部或私有项目。你可以从[官方商店](https://www.arcblock.io/store/z8iZhf67n368m2k5a9fXvCL778jAnf3e5n2b)开始运行你自己的 Discuss Kit。
 
 ## 分步指南
 
@@ -51,7 +51,7 @@ CLI -> User: "✅ 发布成功！"
 
 ### 1. 运行发布命令
 
-在终端中进入你项目的根目录，并运行以下命令：
+在终端中导航到项目根目录，并运行以下命令：
 
 ```bash
 aigne doc publish
@@ -63,15 +63,15 @@ aigne doc publish
 
 ![在官方平台或自托管实例之间选择](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
 
-如果你选择自己的网站，系统会要求你输入 Discuss Kit 实例的 URL。
+如果你选择自己的网站，系统将要求你输入 Discuss Kit 实例的 URL。
 
 ### 3. 认证你的账户
 
-首次连接到新平台时，DocSmith 会自动打开一个浏览器窗口，供你登录并授权 CLI。这是一个一次性步骤；你的访问令牌将被保存在本地，用于将来对该平台的所有发布。
+首次连接到新平台时，DocSmith 会自动打开浏览器窗口，以便你登录并授权 CLI。这是一个一次性步骤；你的访问令牌将保存在本地，用于将来对该平台的所有发布操作。
 
 ### 4. 确认
 
-上传完成后，你将在终端中看到一条成功消息，你的文档即已上线。
+上传完成后，你将在终端看到一条成功消息，你的文档即已上线。
 
 ```
 ✅ 文档发布成功！
@@ -81,17 +81,18 @@ aigne doc publish
 
 对于自动化工作流，你可以使用命令行参数或环境变量来绕过交互式提示。
 
-| 方法 | 名称 | 描述 | 示例 |
-|---|---|---|---|
-| **参数** | `--appUrl` | 直接指定你的 Discuss Kit 实例的 URL。 | `aigne doc publish --appUrl https://docs.mycompany.com` |
-| **环境变量** | `DOC_DISCUSS_KIT_URL` | 设置目标平台 URL，覆盖任何其他配置。 | `export DOC_DISCUSS_KIT_URL=...` |
-| **环境变量** | `DOC_DISCUSS_KIT_ACCESS_TOKEN` | 直接提供访问令牌，跳过交互式登录。 | `export DOC_DISCUSS_KIT_ACCESS_TOKEN=...` |
+| Method     | Name                           | Description                                                                              | Example                                                     |
+| ---------- | ------------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| **Argument** | `--appUrl`                     | 直接指定你的 Discuss Kit 实例的 URL。                                 | `aigne doc publish --appUrl https://docs.mycompany.com`       |
+| **Env Var**  | `DOC_DISCUSS_KIT_URL`          | 设置目标平台 URL，覆盖任何其他配置。                        | `export DOC_DISCUSS_KIT_URL=...`                              |
+| **Env Var**  | `DOC_DISCUSS_KIT_ACCESS_TOKEN` | 直接提供访问令牌，跳过交互式登录。                      | `export DOC_DISCUSS_KIT_ACCESS_TOKEN=...`                     |
 
-## 故障排查
+## 故障排除
 
 如果你在发布过程中遇到问题，以下是一些常见原因及其解决方案：
 
--   **无效的 URL 或连接错误**：如果你为自己的实例提供的 URL 不正确或服务器无法访问，通常会出现此问题。请仔细检查 URL 和你的网络连接。
--   **缺少必需组件**：目标网站必须安装 Discuss Kit 组件才能托管文档。如果缺少该组件，CLI 将返回错误并提供安装指导。
+-   **连接错误**：如果提供的自有实例 URL 不正确或服务器无法访问，可能会发生此问题。请检查 URL 和你的网络连接。
+-   **无效的网站 URL**：提供的 URL 不是 ArcBlock 平台上的有效网站。要托管你的文档，你需要一个在该平台上运行的网站。你可以从访问 [Discuss Kit 商店](https://www.arcblock.io/store/z8iZhf67n368m2k5a9fXvCL778jAnf3e5n2b) 开始。
+-   **缺少必需组件**：目标网站必须安装 Discuss Kit 组件才能托管文档。如果缺少该组件，CLI 将返回错误并提供有关如何添加该组件的指导。你可以在 [Discuss Kit 文档](https://www.arcblock.io/docs/web3-kit/en/discuss-kit) 中找到相关说明。
 
-有关命令和选项的完整列表，请参阅 [CLI 命令参考](./cli-reference.md)。
+如需完整的命令和选项列表，请参阅 [CLI 命令参考](./cli-reference.md)。
