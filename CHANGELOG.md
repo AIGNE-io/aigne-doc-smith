@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.8.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.3...v0.8.4) (2025-09-09)
+
+
+### Bug Fixes
+
+* parse markdown code blocks into custom x-code element ([#89](https://github.com/AIGNE-io/aigne-doc-smith/issues/89)) ([96ea776](https://github.com/AIGNE-io/aigne-doc-smith/commit/96ea7761299b93ea406abe04193f531fc406ccfa))
+* **utils:** update code block regex to support enhanced attributes ([#92](https://github.com/AIGNE-io/aigne-doc-smith/issues/92)) ([bf1fbab](https://github.com/AIGNE-io/aigne-doc-smith/commit/bf1fbabf193e90a83ed6e83e4ff4c5b3b2930477))
+* **ux:** make background transparent for d2 diagrams ([13eed81](https://github.com/AIGNE-io/aigne-doc-smith/commit/13eed81cb6be13c64ad04c41505d9d76f34d54bb))
+* **ux:** make background transparent for d2 diagrams ([#96](https://github.com/AIGNE-io/aigne-doc-smith/issues/96)) ([13eed81](https://github.com/AIGNE-io/aigne-doc-smith/commit/13eed81cb6be13c64ad04c41505d9d76f34d54bb))
+
 ## [0.8.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.2...v0.8.3) (2025-09-05)
 
 
