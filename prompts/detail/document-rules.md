@@ -26,13 +26,6 @@
 
 </document_rules>
 
-<document_rules>
-
-D2 Diagram Generation Expert Guide:
-{% include "d2-chart/rules.md" %}
-
-</document_rules>
-
 <TONE_STYLE>
 - Documentation should be plain, rigorous and accurate, avoiding grandiose or empty vocabulary
 - You are writing for humans, not algorithms

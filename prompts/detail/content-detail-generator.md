@@ -33,12 +33,13 @@
 {{ structurePlanYaml }}
 </structure_plan>
 
-<current>
+<current_document>
 当前{{nodeName}}信息：
 title: {{title}}
 description: {{description}}
 path: {{path}}
 parentId: {{parentId}}
+</current_document>
 
 上一轮生成的内容：
 <last_content>
@@ -53,7 +54,6 @@ parentId: {{parentId}}
 <review_feedback>
 {{ detailFeedback }}
 </review_feedback>
-</current>
 
 <user_rules>
 {{ rules }}
@@ -65,7 +65,7 @@ parentId: {{parentId}}
 {{userPreferences}}
 
 用户偏好使用规则：
-- 用户偏好来自用户之前操作中提供的反馈，生成结构规划中需要考虑用户的偏好，避免出现用户反馈的问题又重复出现
+- 用户偏好来自用户之前操作中提供的反馈，生成内容中需要考虑用户的偏好，避免出现用户反馈的问题又重复出现
 - 用户偏好的权重低于本次用户提交的反馈
 </user_preferences>
 
@@ -91,7 +91,6 @@ parentId: {{parentId}}
 - 不要在输出中直接 Data Sources 中的文件路径，这对用户是没有意义的
 - 不要出现 '当前{{nodeName}}' 这种说法
 
-<media_rules>
 媒体资源使用规则：
 
 - DataSource 中如果包含媒体资源文件，在生成的结果需要合理的使用
@@ -100,16 +99,21 @@ parentId: {{parentId}}
 - 根据资源描述，在上下文相关的位置，合理的展示图片，让结果展示效果更丰富
 - 为了确保媒体资源路径正确，** 只能使用 media_list 中提供媒体资源或提供远程 URL 的媒体资源 **
 
-</media_rules>
 
-{% include "document/detail-generator.md" %}
+文档类型内容生成规则：
+{% include "./document-rules.md" %}
 
-{% include "document/custom-components.md" %}
+自定义组件生成规则：
+{% include "custom/custom-components.md" %}
 
-{% include "document/custom-code-block.md" %}
+自定义代码块生成规则：
+{% include "custom/custom-code-block.md" %}
+
+D2 Diagram Generation Expert Guide:
+{% include "d2-chart/rules.md" %}
 </rules>
 
-{% include "document/detail-example.md" %}
+{% include "./detail-example.md" %}
 
 <output_schema>
 

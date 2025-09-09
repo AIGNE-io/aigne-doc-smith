@@ -1,7 +1,7 @@
 name: contentDetailGenerator
 description: 通用内容详情生成器，支持网站、文档、书籍、演示文稿等多种场景
 instructions:
-  url: ../../prompts/content-detail-generator.md
+  url: ../../prompts/detail/content-detail-generator.md
 input_schema:
   type: object
   properties:

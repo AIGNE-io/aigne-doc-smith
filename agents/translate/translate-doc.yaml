@@ -1,7 +1,7 @@
 name: translateDoc
 description: Translate the wiki article to another language
 instructions:
-  url: ../../prompts/translate-doc.md
+  url: ../../prompts/translate/translate-doc.md
 task_render_mode: collapse
 input_schema:
   type: object

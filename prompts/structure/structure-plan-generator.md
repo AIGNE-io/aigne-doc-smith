@@ -111,12 +111,12 @@ DataSources 使用规则：
 2. 内容规划优先展示用户提供的 DataSources 中的信息，或者使用你拥有的知识进行补充，不可以随意虚构信息。
 
 {% ifAsync docsType == 'general' %}
-  {% include "document/structure-planning.md" %}
+  {% include "./document-rules.md" %}
 
 {% endif %}
 
 {% ifAsync docsType == 'getting-started' %}
-  {% include "document/structure-getting-started.md" %}
+  {% include "./structure-getting-started.md" %}
 {% endif %}
 
 其他：
@@ -126,7 +126,7 @@ DataSources 使用规则：
    </rules>
 
 {% ifAsync docsType == 'general' %}
-  {% include "document/structure-example.md" %}
+  {% include "./structure-example.md" %}
 {% endif %}
 
 <output_rules>
