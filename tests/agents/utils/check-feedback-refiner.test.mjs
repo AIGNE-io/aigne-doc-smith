@@ -1,18 +1,14 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import * as yaml from "yaml";
 import checkFeedbackRefiner from "../../../agents/utils/check-feedback-refiner.mjs";
 
 import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
 
-// Mock external dependencies
-const mockYaml = {
-  stringify: mock(() => "mocked yaml"),
-};
-
-// Apply mocks for external dependencies
-mock.module("yaml", () => mockYaml);
-
 describe("checkFeedbackRefiner", () => {
   let mockOptions;
+
+  // Spies for external dependencies
+  let yamlStringifySpy;
 
   // Spies for internal utils
   let readPreferencesSpy;
@@ -40,9 +36,8 @@ describe("checkFeedbackRefiner", () => {
     });
     consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
 
-    // Reset external mocks
-    mockYaml.stringify.mockClear();
-    mockYaml.stringify.mockImplementation(() => "mocked yaml");
+    // Set up spy for external dependencies
+    yamlStringifySpy = spyOn(yaml, "stringify").mockImplementation(() => "mocked yaml");
 
     // Clear context mock call history
     mockOptions.context.invoke.mockClear();
@@ -50,6 +45,7 @@ describe("checkFeedbackRefiner", () => {
 
   afterEach(() => {
     // Restore all spies
+    yamlStringifySpy?.mockRestore();
     readPreferencesSpy?.mockRestore();
     addPreferenceRuleSpy?.mockRestore();
     consoleErrorSpy?.mockRestore();
@@ -173,7 +169,7 @@ describe("checkFeedbackRefiner", () => {
       ],
     });
 
-    mockYaml.stringify.mockReturnValue("yaml_preferences");
+    yamlStringifySpy.mockReturnValue("yaml_preferences");
 
     await checkFeedbackRefiner(
       {
@@ -184,7 +180,7 @@ describe("checkFeedbackRefiner", () => {
       mockOptions,
     );
 
-    expect(mockYaml.stringify).toHaveBeenCalledWith(
+    expect(yamlStringifySpy).toHaveBeenCalledWith(
       {
         rules: [
           { id: "rule1", active: true, rule: "Active rule 1" },
@@ -373,7 +369,7 @@ describe("checkFeedbackRefiner", () => {
     readPreferencesSpy.mockReturnValue({
       rules: [{ id: "rule1", active: true, rule: "Test rule" }],
     });
-    mockYaml.stringify.mockReturnValue("test_yaml");
+    yamlStringifySpy.mockReturnValue("test_yaml");
 
     await checkFeedbackRefiner(
       {

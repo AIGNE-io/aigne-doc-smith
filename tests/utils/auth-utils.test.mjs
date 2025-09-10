@@ -1,4 +1,14 @@
-import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  mock,
+  spyOn,
+  test,
+} from "bun:test";
 import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import * as os from "node:os";
@@ -12,14 +22,10 @@ const mockCreateConnect = mock(() => Promise.resolve({ accessKeySecret: "new-acc
 const mockOpen = mock(() => Promise.resolve());
 const mockJoinURL = mock((base, path) => `${base}${path}`);
 
-mock.module("@aigne/cli/utils/aigne-hub/credential.js", () => ({
-  createConnect: mockCreateConnect,
-}));
-mock.module("open", () => ({ default: mockOpen }));
-mock.module("join-url", () => ({ default: mockJoinURL }));
-
 describe("auth-utils", () => {
   let originalEnv;
+
+  // Spies for internal operations
   let existsSyncSpy;
   let readFileSpy;
   let writeFileSpy;
@@ -32,11 +38,25 @@ describe("auth-utils", () => {
   let consoleWarnSpy;
   let consoleDebugSpy;
 
+  beforeAll(() => {
+    // Apply mocks for external dependencies that involve network requests
+    mock.module("@aigne/cli/utils/aigne-hub/credential.js", () => ({
+      createConnect: mockCreateConnect,
+    }));
+    mock.module("open", () => ({ default: mockOpen }));
+    mock.module("join-url", () => ({ default: mockJoinURL }));
+  });
+
+  afterAll(() => {
+    // Restore all mocks when this test file is complete
+    mock.restore();
+  });
+
   beforeEach(() => {
     originalEnv = { ...process.env };
     delete process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
 
-    // Reset mock implementations
+    // Reset external mocks
     mockCreateConnect.mockClear();
     mockCreateConnect.mockImplementation(() =>
       Promise.resolve({ accessKeySecret: "new-access-token" }),

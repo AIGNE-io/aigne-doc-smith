@@ -1,4 +1,14 @@
-import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  mock,
+  spyOn,
+  test,
+} from "bun:test";
 import publishDocs from "../../../agents/publish/publish-docs.mjs";
 
 // Import internal utils for selective spying
@@ -28,12 +38,6 @@ const mockPath = {
   join: mock((...paths) => paths.join("/")),
 };
 
-// Apply mocks for external dependencies only
-mock.module("@aigne/publish-docs", () => mockPublishDocs);
-mock.module("chalk", () => ({ default: mockChalk }));
-mock.module("fs-extra", () => ({ default: mockFsExtra }));
-mock.module("node:path", () => mockPath);
-
 describe("publishDocs", () => {
   let mockOptions;
   let originalEnv;
@@ -46,9 +50,20 @@ describe("publishDocs", () => {
   let loadConfigFromFileSpy;
   let saveValueToConfigSpy;
 
-  beforeEach(() => {
-    mock.restore();
+  beforeAll(() => {
+    // Apply mocks for external dependencies only
+    mock.module("@aigne/publish-docs", () => mockPublishDocs);
+    mock.module("chalk", () => ({ default: mockChalk }));
+    mock.module("fs-extra", () => ({ default: mockFsExtra }));
+    mock.module("node:path", () => mockPath);
+  });
 
+  afterAll(() => {
+    // Restore all mocks when this test file is complete
+    mock.restore();
+  });
+
+  beforeEach(() => {
     // Save original environment
     originalEnv = { ...process.env };
 

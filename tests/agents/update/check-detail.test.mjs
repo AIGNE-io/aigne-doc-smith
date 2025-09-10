@@ -1,15 +1,15 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import * as fsPromises from "node:fs/promises";
+import * as aigneCore from "@aigne/core";
 import checkDetail from "../../../agents/update/check-detail.mjs";
 import * as checkDetailResultModule from "../../../agents/utils/check-detail-result.mjs";
 import * as utils from "../../../utils/utils.mjs";
 
-const mockTeamAgent = {
-  from: mock(() => ({ mockTeamAgent: true })),
-};
-
 describe("checkDetail", () => {
   let mockOptions;
+
+  // Spies for external dependencies
+  let teamAgentFromSpy;
 
   // Spies for internal utils and fs operations
   let hasSourceFilesChangedSpy;
@@ -19,10 +19,8 @@ describe("checkDetail", () => {
   let readFileSpy;
 
   beforeEach(() => {
-    mock.restore();
-
-    // Apply mocks for external dependencies inside beforeEach
-    mock.module("@aigne/core", () => ({ TeamAgent: mockTeamAgent }));
+    // Set up spy for external dependencies
+    teamAgentFromSpy = spyOn(aigneCore.TeamAgent, "from").mockReturnValue({ mockTeamAgent: true });
 
     mockOptions = {
       context: {
@@ -45,23 +43,18 @@ describe("checkDetail", () => {
     accessSpy = spyOn(fsPromises, "access").mockResolvedValue(undefined);
     readFileSpy = spyOn(fsPromises, "readFile").mockResolvedValue("# Test Content\n\nSome content");
 
-    mockTeamAgent.from.mockClear();
-    mockTeamAgent.from.mockImplementation(() => ({ mockTeamAgent: true }));
-
     // Clear context mock call history
     mockOptions.context.invoke.mockClear();
   });
 
   afterEach(() => {
     // Restore all spies
+    teamAgentFromSpy?.mockRestore();
     hasSourceFilesChangedSpy?.mockRestore();
     checkDetailResultSpy?.mockRestore();
     consoleSpy?.mockRestore();
     accessSpy?.mockRestore();
     readFileSpy?.mockRestore();
-
-    // Critical: Restore all module mocks to prevent test pollution
-    mock.restore();
   });
 
   // FILE EXISTENCE TESTS
@@ -365,7 +358,7 @@ describe("checkDetail", () => {
       mockOptions,
     );
 
-    expect(mockTeamAgent.from).toHaveBeenCalledWith({
+    expect(teamAgentFromSpy).toHaveBeenCalledWith({
       name: "generateDetail",
       skills: [{ mockAgent: true }],
     });

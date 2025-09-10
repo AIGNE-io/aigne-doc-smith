@@ -1,20 +1,16 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import * as fsPromises from "node:fs/promises";
 import checkStructurePlan from "../../../agents/generate/check-structure-plan.mjs";
 
 import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
 import * as utils from "../../../utils/utils.mjs";
 
-// Mock external/system dependencies only
-const mockFsPromises = {
-  access: mock(() => Promise.reject(new Error("File not found"))),
-};
-
-// Apply mocks for external dependencies only
-mock.module("node:fs/promises", () => mockFsPromises);
-
 describe("checkStructurePlan", () => {
   let mockOptions;
   let originalStructurePlan;
+
+  // Spies for external dependencies
+  let accessSpy;
 
   // Spies for internal utils
   let getActiveRulesForScopeSpy;
@@ -63,9 +59,10 @@ describe("checkStructurePlan", () => {
     loadConfigFromFileSpy = spyOn(utils, "loadConfigFromFile").mockResolvedValue({});
     saveValueToConfigSpy = spyOn(utils, "saveValueToConfig").mockResolvedValue();
 
-    // Reset external mocks
-    mockFsPromises.access.mockClear();
-    mockFsPromises.access.mockImplementation(() => Promise.reject(new Error("File not found")));
+    // Set up spy for external dependencies
+    accessSpy = spyOn(fsPromises, "access").mockImplementation(() =>
+      Promise.reject(new Error("File not found")),
+    );
 
     // Clear prompts mock call history
     mockOptions.prompts.input.mockClear();
@@ -74,6 +71,7 @@ describe("checkStructurePlan", () => {
 
   afterEach(() => {
     // Restore all spies
+    accessSpy?.mockRestore();
     getActiveRulesForScopeSpy?.mockRestore();
     getCurrentGitHeadSpy?.mockRestore();
     hasFileChangesBetweenCommitsSpy?.mockRestore();
@@ -132,7 +130,7 @@ describe("checkStructurePlan", () => {
   });
 
   test("should regenerate when _sidebar.md exists", async () => {
-    mockFsPromises.access.mockImplementation(() => Promise.resolve());
+    accessSpy.mockImplementation(() => Promise.resolve());
 
     await checkStructurePlan({ originalStructurePlan, docsDir: "./docs" }, mockOptions);
 
