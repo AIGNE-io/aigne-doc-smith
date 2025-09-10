@@ -1,48 +1,30 @@
----
-labels: ["Reference"]
----
-
 # 概述
 
-AIGNE DocSmith 是一款基于 [AIGNE 框架](https://www.aigne.io/en/framework) 构建的 AI 驱动的文档生成工具。它可以直接根据您的源代码自动创建详细、结构化且支持多语言的文档，从而简化从规划到发布的整个工作流程。
+AIGNE DocSmith 是一款 AI 驱动的工具，可直接从源代码生成文档。它基于 [AIGNE 框架](https://www.aigne.io/en/framework)，可自动创建结构化的多语言文档。此过程减少了编写和维护文档的人工工作量，确保文档与代码库保持同步。
 
 ## AIGNE 生态系统的一部分
 
-DocSmith 是 [AIGNE](https://www.aigne.io) 生态系统的重要组成部分，该生态系统是一个用于开发 AI 应用的综合平台。它能与其他 AIGNE 组件无缝集成，充分利用平台的 AI 能力和基础设施。
+DocSmith 是 [AIGNE](https://www.aigne.io) 生态系统的一个关键组件，该生态系统是一个用于开发 AI 应用的平台。它与其他 AIGNE 组件集成，以使用该平台的 AI 功能和基础设施。
 
-下图说明了 DocSmith 在 AIGNE 架构中的位置：
+下图说明了 DocSmith 如何融入 AIGNE 架构：
 
 ![AIGNE 生态系统架构](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
 
-## 主要特性
+## 核心功能
 
-DocSmith 提供了一系列旨在使文档编写工作变得轻松智能的功能。
+DocSmith 提供了一系列功能来自动化和简化文档流程：
 
-<x-cards data-columns="3">
-  <x-card data-title="自动化结构规划" data-icon="lucide:file-cog">
-    智能分析您的代码库，生成全面且逻辑清晰的文档结构。
-  </x-card>
-  <x-card data-title="AI 驱动的内容生成" data-icon="lucide:bot">
-    直接从您的源代码中提取详细、高质量的内容，并填充到文档结构中。
-  </x-card>
-  <x-card data-title="多语言支持" data-icon="lucide:languages">
-    将文档无缝翻译成 12 种以上的语言，以触达全球受众。
-  </x-card>
-  <x-card data-title="AIGNE Hub 集成" data-icon="lucide:plug-zap">
-    通过 AIGNE Hub 使用各种大语言模型，无需您自己的 API 密钥，并可轻松切换模型。
-  </x-card>
-  <x-card data-title="Discuss Kit 发布" data-icon="lucide:send">
-    将生成的文档发布到官方平台或您自己托管的 Discuss Kit 实例。
-  </x-card>
-  <x-card data-title="智能更新" data-icon="lucide:git-pull-request-arrow">
-    自动检测源代码变更以更新文档，或允许您通过有针对性的反馈来优化特定文档。
-  </x-card>
-</x-cards>
+*   **结构规划：** 分析代码库以生成逻辑化的文档结构。
+*   **内容生成：** 使用从源代码生成的内容填充规划好的文档结构。
+*   **多语言支持：** 将文档翻译成 12 种语言，包括英语、中文、日语和西班牙语。
+*   **AIGNE Hub 集成：** 使用 [AIGNE Hub](https://www.aigne.io/en/hub) 作为 LLM 提供商，无需管理独立的 API 密钥即可切换模型。
+*   **文档发布：** 将文档发布到官方平台 [docsmith.aigne.io](https://docsmith.aigne.io/app/) 或用户自己的 [Discuss Kit](https://www.arcblock.io/docs/web3-kit/en/discuss-kit) 实例。
+*   **迭代更新：** 检测源代码变更以更新文档，并支持根据用户反馈对特定文档进行定向重新生成。
 
-## 开始入门
+## 后续步骤
 
-无论您是希望摆脱手动编写文档工作的开发者，还是追求一致、高质量用户指南的项目经理，DocSmith 都能为您提供高效完成这些任务的工具。
+要开始使用 DocSmith，请继续阅读安装和配置指南。
 
 <x-card data-title="下一步：开始入门" data-href="/getting-started" data-icon="lucide:arrow-right-circle" data-cta="开始阅读指南">
-  遵循我们的分步指南，安装工具、配置您的第一个项目，并在几分钟内生成文档。
+  按照分步指南安装工具、配置你的第一个项目并生成文档。
 </x-card>

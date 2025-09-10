@@ -7,6 +7,7 @@ import { getAccessToken } from "../../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../../utils/constants.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/kroki-utils.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+import { deploy } from "../../utils/deploy.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
@@ -16,6 +17,8 @@ export default async function publishDocs(
 ) {
   // move work dir to tmp-dir
   await ensureTmpDir();
+
+  const hasDocSmithBaseUrl = !!process.env.DOC_SMITH_BASE_URL;
 
   const docsDir = join(".aigne", "doc-smith", TMP_DIR, TMP_DOCS_DIR);
   await fs.rm(docsDir, { recursive: true, force: true });
@@ -42,18 +45,41 @@ export default async function publishDocs(
   const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
   const hasAppUrlInConfig = config?.appUrl;
 
+  let token = "";
+
   if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
+    const hasCachedCheckoutId = !!config?.checkoutId;
     const choice = await options.prompts.select({
       message: "Select platform to publish your documents:",
       choices: [
         {
-          name: "Publish to docsmith.aigne.io - free, but your documents will be public accessible, recommended for open-source projects",
+          name:
+            chalk.blue("Publish to docsmith.aigne.io") +
+            " - free, but your documents will be publicly accessible, recommended for open-source projects",
           value: "default",
         },
         {
-          name: "Publish to your own website - you will need to run Discuss Kit by your self ",
+          name: `${chalk.blue("Publish to your existing website")} - use your current website`,
           value: "custom",
         },
+        ...(hasCachedCheckoutId && hasDocSmithBaseUrl
+          ? [
+              {
+                name:
+                  chalk.yellow("Continue your previous website setup") +
+                  " - resume from where you left off",
+                value: "new-instance-continue",
+              },
+            ]
+          : []),
+        ...(hasDocSmithBaseUrl
+          ? [
+              {
+                name: `${chalk.blue("Publish to a new website")} - we'll help you set up a new website`,
+                value: "new-instance",
+              },
+            ]
+          : []),
       ],
     });
 
@@ -63,7 +89,7 @@ export default async function publishDocs(
           `Start here to run your own website:\n${chalk.cyan(DISCUSS_KIT_STORE_URL)}\n`,
       );
       const userInput = await options.prompts.input({
-        message: "Please enter your Discuss Kit platform URL:",
+        message: "Please enter your website URL:",
         validate: (input) => {
           try {
             // Check if input contains protocol, if not, prepend https://
@@ -77,10 +103,31 @@ export default async function publishDocs(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
+    } else if (hasDocSmithBaseUrl && ["new-instance", "new-instance-continue"].includes(choice)) {
+      // Deploy a new Discuss Kit service
+      try {
+        let id = "";
+        let paymentUrl = "";
+        if (choice === "new-instance-continue") {
+          id = config?.checkoutId;
+          paymentUrl = config?.paymentUrl;
+          console.log(`\nResuming your previous website setup...`);
+        } else {
+          console.log(`\nCreating a new doc website for your documentation...`);
+        }
+        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentUrl)) || {};
+
+        appUrl = homeUrl;
+        token = ltToken;
+      } catch (error) {
+        const errorMsg = error?.message || "Unknown error occurred";
+        console.error(`${chalk.red("❌ Failed to publish to website:")} ${errorMsg}`);
+        return { message: `❌ Publish failed: ${errorMsg}` };
+      }
     }
   }
 
-  const accessToken = await getAccessToken(appUrl);
+  const accessToken = await getAccessToken(appUrl, token);
 
   process.env.DOC_ROOT_DIR = docsDir;
 
@@ -138,6 +185,8 @@ export default async function publishDocs(
   } catch (error) {
     message = `❌ Failed to publish docs: ${error.message}`;
   }
+  saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
+
   // clean up tmp work dir
   await fs.rm(docsDir, { recursive: true, force: true });
   return message ? { message } : {};

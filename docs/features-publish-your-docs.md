@@ -1,50 +1,50 @@
----
-labels: ["Reference"]
----
-
 # Publish Your Docs
 
-Once your documentation is generated, the next step is to make it accessible online. AIGNE DocSmith simplifies this process with the `aigne doc publish` command, which uploads your content to a Discuss Kit platform, making it instantly available to your audience.
+Once your documentation is generated, the next step is to make it accessible online. AIGNE DocSmith simplifies this process with the `aigne doc publish` command, which uploads your content to a Discuss Kit platform, making it available to your audience.
 
-This guide covers how to publish your documentation, whether you're using the free official platform or your own self-hosted instance.
+This guide covers how to publish your documentation, whether you are using the official platform or your own website.
 
 ## The Publishing Process
 
 The `aigne doc publish` command initiates an interactive process that guides you through the necessary steps. The diagram below shows the typical workflow for publishing your documentation for the first time.
 
 ```d2
+direction: down
 shape: sequence_diagram
 
-User; CLI; "Discuss Kit Platform"
+User: { shape: c4-person }
+CLI: { label: "AIGNE CLI" }
+Browser: { label: "Browser" }
+Platform: { label: "Discuss Kit Platform" }
 
-User -> CLI: runs `aigne doc publish`
+User -> CLI: "aigne doc publish"
 
-alt "First time or not configured"
-  CLI -> User: "Prompt: Select platform"
-  User -> CLI: "Selects Official or Self-Hosted"
-  CLI -> User: "Opens browser for authentication"
-  User -> "Discuss Kit Platform": "Logs in and authorizes"
-  "Discuss Kit Platform" -> CLI: "Provides access token"
-  CLI -> CLI: "Saves token for future use"
-end
+alt: "First-time publish or missing config" {
+  CLI -> User: "Select Platform\n(Official / Self-Hosted)"
+  User -> CLI: "Provides selection"
+  CLI -> Browser: "Opens authentication URL"
+  User -> Browser: "Logs in & authorizes"
+  Browser -> Platform: "Sends credentials"
+  Platform -> CLI: "Returns Access Token"
+  CLI -> CLI: "Saves Token for future use"
+}
 
-CLI -> "Discuss Kit Platform": "Uploads documentation & media"
-"Discuss Kit Platform" -> CLI: "Confirms success"
-CLI -> User: "✅ Documentation Published Successfully!"
+CLI -> Platform: "Uploads docs & media files"
+Platform -> CLI: "Success response"
+CLI -> User: "✅ Published Successfully!"
 ```
 
 ## Publishing Options
 
 You have two primary options for hosting your documentation, catering to different needs for visibility and control.
 
-<x-cards data-columns="2">
-  <x-card data-title="Official Platform" data-icon="lucide:globe">
-    Publish to docsmith.aigne.io, the official hosting platform. This option is free, ideal for open-source projects, and makes your documentation publicly accessible.
-  </x-card>
-  <x-card data-title="Self-Hosted Platform" data-icon="lucide:server">
-    Publish to your own private instance of Discuss Kit. This gives you full control over who can access your documentation, making it suitable for internal or private projects.
-  </x-card>
-</x-cards>
+### Official Platform
+
+Publish to [docsmith.aigne.io](https://docsmith.aigne.io), the official hosting platform. This option is free, makes your documentation publicly accessible, and is recommended for open-source projects.
+
+### Your Own Website
+
+Publish to your own website by running a Discuss Kit instance. This gives you full control over who can access your documentation, making it suitable for internal or private projects. You can get started with running your own Discuss Kit from the [official store](https://www.arcblock.io/store/z8iZhf67n368m2k5a9fXvCL778jAnf3e5n2b).
 
 ## Step-by-Step Guide
 
@@ -60,11 +60,11 @@ aigne doc publish
 
 ### 2. Choose Your Platform
 
-If you haven't configured a publishing destination before, you will be prompted to choose between the official platform and a self-hosted one. Select the option that best suits your needs.
+If you have not configured a publishing destination before, you will be prompted to choose between the official platform and a self-hosted one. Select the option that best suits your needs.
 
 ![Choose between the official platform or a self-hosted instance](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d03cf5eb7aea85aa.png)
 
-If you select the self-hosted option, you will be asked to enter the URL for your Discuss Kit instance.
+If you select your own website, you will be asked to enter the URL for your Discuss Kit instance.
 
 ### 3. Authenticate Your Account
 
@@ -82,17 +82,18 @@ Once the upload is complete, you will see a success message in your terminal, an
 
 For automated workflows, you can bypass the interactive prompts by using command-line arguments or environment variables.
 
-| Method | Name | Description | Example |
-|---|---|---|---|
-| **Argument** | `--appUrl` | Specifies the URL of your self-hosted Discuss Kit instance directly. | `aigne doc publish --appUrl https://docs.mycompany.com` |
-| **Env Var** | `DOC_DISCUSS_KIT_URL` | Sets the target platform URL, overriding any other configuration. | `export DOC_DISCUSS_KIT_URL=...` |
-| **Env Var** | `DOC_DISCUSS_KIT_ACCESS_TOKEN` | Provides the access token directly, skipping the interactive login. | `export DOC_DISCUSS_KIT_ACCESS_TOKEN=...` |
+| Method     | Name                           | Description                                                                              | Example                                                     |
+| ---------- | ------------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| **Argument** | `--appUrl`                     | Specifies the URL of your Discuss Kit instance directly.                                 | `aigne doc publish --appUrl https://docs.mycompany.com`       |
+| **Env Var**  | `DOC_DISCUSS_KIT_URL`          | Sets the target platform URL, overriding any other configuration.                        | `export DOC_DISCUSS_KIT_URL=...`                              |
+| **Env Var**  | `DOC_DISCUSS_KIT_ACCESS_TOKEN` | Provides the access token directly, skipping the interactive login.                      | `export DOC_DISCUSS_KIT_ACCESS_TOKEN=...`                     |
 
 ## Troubleshooting
 
 If you encounter issues during the publishing process, here are some common causes and their solutions:
 
--   **Invalid URL or Connection Error**: This often happens if the provided URL for a self-hosted instance is incorrect or the server is not reachable. Double-check the URL and your network connection.
--   **Missing Required Components**: The destination website must have the Discuss Kit component installed to host the documentation. If it's missing, the CLI will return an error with guidance on how to install it.
+-   **Connection Error**: This can happen if the provided URL for your own instance is incorrect or the server is not reachable. Check the URL and your network connection.
+-   **Invalid Website URL**: The provided URL is not a valid website on the ArcBlock platform. To host your documentation, you need a website running on this platform. You can start by visiting the [Discuss Kit Store](https://www.arcblock.io/store/z8iZhf67n368m2k5a9fXvCL778jAnf3e5n2b).
+-   **Missing Required Components**: The destination website must have the Discuss Kit component installed to host the documentation. If it is missing, the CLI will return an error with guidance on how to add the component. You can find instructions in the [Discuss Kit documentation](https://www.arcblock.io/docs/web3-kit/en/discuss-kit).
 
-For a complete list of commands and options, please refer to the [CLI Command Reference](./cli-reference.md).
+For a complete list of commands and options, refer to the [CLI Command Reference](./cli-reference.md).

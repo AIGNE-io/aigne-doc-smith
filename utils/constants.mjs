@@ -330,6 +330,8 @@ export const DEPTH_RECOMMENDATION_LOGIC = {
 // Component mount point ID for Discuss Kit
 export const DISCUSS_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
 
+export const PAYMENT_KIT_DID = "z2qaCNvKMv5GjouKdcDWexv6WqtHbpNPQDnAk";
+
 // Discuss Kit related URLs
 export const DISCUSS_KIT_STORE_URL =
   "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
@@ -521,7 +523,7 @@ export const D2_CONFIG = `vars: {
       N5: "#E6E8EC"
 
       B3: "#FFE9D1"
-      B4: "#FFE9D1"
+      B4: "transparent"
 
       AA2: "#421E0B"
       AA4: "#FFE9D1"

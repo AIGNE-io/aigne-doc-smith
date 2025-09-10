@@ -118,6 +118,17 @@ Container labels can be assigned using shorthand (`gcloud: "Google Cloud" {}`) o
 
 When a container has more than three child nodes, use `grid-columns` to limit the number of columns in a single row, preferably to 2 or at most 3, to improve readability. If a container has nested containers, it is recommended to use `grid-gap` (with a value greater than 100) to increase the spacing between them.
 
+- **Bad Practice (Grid Layout):**
+  ```d2
+  Instance: {
+    A: "A"
+    B: "B"
+    C: "C"
+    D: "D"
+    E: "E"
+    F: "F"
+  }
+  ```
 - **Good Practice (Grid Layout):**
   ```d2
   Instance: {

@@ -1,74 +1,123 @@
----
-labels: ["Reference"]
----
+# 入门指南
 
-# 快速入门
+本指南将引导您逐步完成 AIGNE DocSmith 的安装、项目配置，并从源代码生成一套完整的文档。
 
-本指南将引导你完成 AIGNE DocSmith 的安装、首个项目的配置，并在短短几分钟内生成一套完整的文档。整个过程设计得非常简单，只需一个命令即可开始。
+## 第 1 步：准备工作
 
-## 前提条件
+在开始之前，请确保您的系统中已安装 Node.js 及其包管理器 npm。DocSmith 是一个在 Node.js 环境下运行的命令行工具。
 
-在开始之前，请确保你的系统上已安装以下软件：
+### 安装 Node.js
 
-- [Node.js](https://nodejs.org/)
-- [pnpm](https://pnpm.io/)
+以下是在各种操作系统上安装 Node.js 的简要说明。
 
-## 第 1 步：安装 AIGNE CLI
+**Windows**
+1.  从 [Node.js 官网](https://nodejs.org/) 下载安装程序。
+2.  运行 `.msi` 安装程序，并按照安装向导的步骤进行操作。
 
-DocSmith 通过 AIGNE 命令行界面 (CLI) 提供。使用 npm 全局安装最新版本：
+**macOS**
 
-```bash
+推荐使用 [Homebrew](https://brew.sh/) 进行安装：
+
+```bash Terminal icon=lucide:apple
+# Install Homebrew if you don't have it
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install Node.js
+brew install node
+```
+
+或者，您也可以从 [Node.js 网站](https://nodejs.org/) 下载 `.pkg` 安装程序。
+
+**Linux**
+
+对于基于 Ubuntu/Debian 的系统：
+
+```bash Terminal icon=lucide:laptop
+sudo apt update
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+对于基于 CentOS/RHEL/Fedora 的系统：
+
+```bash Terminal icon=lucide:laptop
+curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+sudo yum install nodejs
+```
+
+### 验证
+
+安装完成后，在终端中运行以下命令，验证 Node.js 和 npm 是否可用：
+
+```bash Terminal
+node --version
+npm --version
+```
+
+## 第 2 步：安装 AIGNE CLI
+
+DocSmith 工具包含在 AIGNE 命令行界面 (CLI) 中。使用 npm 全局安装最新版本的 AIGNE CLI：
+
+```bash Terminal icon=logos:npm
 npm i -g @aigne/cli
 ```
 
-安装完成后，通过检查文档工具的帮助命令来验证是否安装成功：
+安装完成后，运行文档工具的帮助命令进行验证：
 
-```bash
+```bash Terminal
 aigne doc -h
 ```
 
-该命令应显示可用的 `doc` 命令及其选项列表。
+该命令将显示 DocSmith 的帮助菜单，确认其已准备就绪。
 
-## 第 2 步：生成文档
+## 第 3 步：生成您的文档
 
-安装 AIGNE CLI 后，你只需一个命令即可生成文档。进入项目根目录并运行：
+安装 CLI 后，您只需一个命令即可生成文档。在终端中导航到您项目的根目录并运行：
 
-```bash
+```bash Terminal icon=lucide:sparkles
 aigne doc generate
 ```
 
-### 智能自动配置
+### 自动配置
 
-如果你是首次在项目中运行 DocSmith，它会自动检测到尚无配置，并启动一个交互式设置向导来引导你完成配置。
+当您首次在项目中运行此命令时，DocSmith 会检测到尚无配置，并自动启动一个交互式设置向导。
 
-![运行 generate 命令会触发智能初始化向导](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+![运行 generate 命令会启动设置向导](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-## 第 3 步：配置项目
+系统将提示您回答一系列问题，以定义文档的特性，包括：
 
-交互式向导将提出一系列问题，以根据你的具体需求定制文档。系统将提示你定义以下内容：
-
-- 文档的主要用途和风格。
-- 目标受众及其技术知识水平。
-- 主要语言以及任何需要翻译的其他语言。
+- 主要目的和风格。
+- 目标受众。
+- 主要语言及其他需要翻译的语言。
 - 供 AI 分析的源代码路径。
-- 用于保存文档的输出目录。
+- 生成文档的输出目录。
 
-![回答一系列问题以完成项目设置](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![回答提示以完成项目设置](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-## 第 4 步：查看新文档
+配置完成后，DocSmith 将开始分析您的源代码、规划文档结构并生成内容。
 
-完成配置后，DocSmith 将开始生成过程。它会分析你的代码，规划出逻辑清晰的文档结构，并为每个部分撰写内容。
+![DocSmith 正在规划结构并生成文档](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-![DocSmith 规划文档结构并生成内容](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+## 第 4 步：查看您的输出
 
-完成后，你将在终端中看到一条成功消息。你的新文档现已在你指定的输出目录（例如 `.aigne/doc-smith/docs`）中准备就绪。
+生成过程结束后，您的终端将显示一条确认消息。
 
-![成功消息确认你的文档已准备就绪](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+![文档生成成功消息](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
-## 接下来呢？
+您的新文档现已位于您在设置过程中指定的输出目录中。默认位置是 `.aigne/doc-smith/docs`。
 
-你已成功安装 DocSmith 并生成了第一套文档。现在，你可以开始更详细地探索其功能了。
+## 下一步？
 
-<x-card data-title="探索核心功能" data-icon="lucide:compass" data-href="/features" data-cta="了解更多">
-  深入了解 DocSmith 的主要命令和功能，从更新文档到在线发布。
-</x-card>
+既然您已经生成了第一套文档，可以探索其他功能：
+
+<x-cards>
+  <x-card data-title="核心功能" data-icon="lucide:box" data-href="/features">
+    探索主要命令和功能，从更新文档到在线发布。
+  </x-card>
+  <x-card data-title="配置指南" data-icon="lucide:settings" data-href="/configuration">
+    了解如何通过编辑 config.yaml 文件来微调文档的风格、受众和语言。
+  </x-card>
+  <x-card data-title="CLI 命令参考" data-icon="lucide:terminal" data-href="/cli-reference">
+    获取所有可用 `aigne doc` 命令及其选项的完整参考。
+  </x-card>
+</x-cards>

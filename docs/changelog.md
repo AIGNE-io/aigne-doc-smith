@@ -1,10 +1,47 @@
----
-labels: ["Reference"]
----
-
 # Changelog
 
 A detailed log of all notable changes, features, and bug fixes for each version of the project.
+
+## [0.8.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.1...v0.8.2) (2025-09-04)
+
+
+### Miscellaneous Chores
+
+* release 0.8.2 ([849bc69](https://github.com/AIGNE-io/aigne-doc-smith/commit/849bc694edf167187f65cb34f1dd9a3966efd96c))
+
+## [0.8.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.0...v0.8.1) (2025-09-03)
+
+
+### Features
+
+* tune d2 chart generating with comprehensive examples ([#80](https://github.com/AIGNE-io/aigne-doc-smith/issues/80)) ([3423e4c](https://github.com/AIGNE-io/aigne-doc-smith/commit/3423e4cff24335552503916694a3489e5d91bf6c))
+
+
+### Miscellaneous Chores
+
+* release 0.8.1 ([21f64d4](https://github.com/AIGNE-io/aigne-doc-smith/commit/21f64d450377b1aef00f12613ba3b87aa4ef1d31))
+
+## [0.8.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.2...v0.8.0) (2025-09-03)
+
+
+### Features
+
+* **tests:** add comprehensive workflow test coverage ([#76](https://github.com/AIGNE-io/aigne-doc-smith/issues/76)) ([d5f6062](https://github.com/AIGNE-io/aigne-doc-smith/commit/d5f6062311f36dc5b6394ae0768583fb8f3853a4))
+* update custom component guidelines with formatting restrictions ([#79](https://github.com/AIGNE-io/aigne-doc-smith/issues/79)) ([76158de](https://github.com/AIGNE-io/aigne-doc-smith/commit/76158de236696e68c63c057f5ea4b8458a15e787))
+
+## [0.7.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.1...v0.7.2) (2025-09-01)
+
+
+### Miscellaneous Chores
+
+* release 0.7.2 ([c3be232](https://github.com/AIGNE-io/aigne-doc-smith/commit/c3be2323e885cf5d11d654629fe30cc3720f79d3))
+
+## [0.7.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.0...v0.7.1) (2025-08-31)
+
+
+### Bug Fixes
+
+* fix tab key path selection bug ([#72](https://github.com/AIGNE-io/aigne-doc-smith/issues/72)) ([369b342](https://github.com/AIGNE-io/aigne-doc-smith/commit/369b342d8ab8ce95b61a3b72e367157d2f71cce4))
 
 ## [0.7.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.6.0...v0.7.0) (2025-08-30)
 

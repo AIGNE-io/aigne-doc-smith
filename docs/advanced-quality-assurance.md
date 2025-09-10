@@ -1,64 +1,99 @@
----
-labels: ["Reference"]
----
-
 # Quality Assurance
 
-To ensure your documentation is consistently high-quality, DocSmith includes a powerful automated quality assurance pipeline. These built-in checks run automatically during the generation and update processes to detect and report common issues—from broken links to formatting errors—before they reach your readers.
+To ensure all generated documentation is functional, clear, and professional, DocSmith incorporates an automated quality assurance process. This process executes a series of checks on the Markdown content to detect and report common issues, from broken links to malformed diagrams, before publication.
 
-The process validates multiple aspects of your content to maintain structural integrity and accuracy.
+This automated pipeline validates content structure, links, media, and syntax to maintain a consistent standard of quality.
 
 ```d2
-direction: right
+direction: down
 
-Input: "Markdown Content"
+Input-Markdown-Content: {
+  label: "Input: Markdown Content"
+  shape: rectangle
+}
 
-QA_Pipeline: "DocSmith QA Pipeline" {
-  shape: package
-  
-  Checks: {
+QA-Pipeline: {
+  label: "QA Pipeline"
+  shape: rectangle
+  grid-columns: 1
+  grid-gap: 50
+
+  Structural-Checks: {
+    label: "Structural Checks"
+    shape: rectangle
     grid-columns: 2
-    "Structural Integrity": "Incomplete code blocks & inconsistent indentation"
-    "Link & Asset Health": "Dead links & missing local images"
-    "Diagram Validation": "D2 syntax checks"
-    "Markdown Linting": "Table formatting & standard rules"
+    Completeness: "Ensures content is not truncated"
+    Code-Blocks: "Validates block syntax & indentation"
+  }
+
+  Content-Validation: {
+    label: "Content Validation"
+    shape: rectangle
+    grid-columns: 2
+    Link-Integrity: "Verifies internal links"
+    Image-Paths: "Checks local image existence"
+    Table-Formatting: "Matches column counts"
+  }
+
+  Syntax-Validation: {
+    label: "Syntax Validation"
+    shape: rectangle
+    grid-columns: 2
+    D2-Diagrams: "Validates D2 syntax"
+    Mermaid-Diagrams: "Validates Mermaid syntax"
+    Markdown-Linting: "Enforces style rules"
   }
 }
 
-Output: "Validated Documentation"
+Output-Validated-Content-or-Error-Report: {
+  label: "Output: Validated Content or Error Report"
+  shape: rectangle
+}
 
-Input -> QA_Pipeline: "Analyzed"
-QA_Pipeline -> Output: "Generated"
+Input-Markdown-Content -> QA-Pipeline
+QA-Pipeline -> Output-Validated-Content-or-Error-Report
 ```
 
-### Content and Structural Integrity
+### Core Validation Areas
 
-DocSmith analyzes the fundamental structure of your markdown files to catch issues that often lead to rendering failures or confusing output.
+DocSmith's quality assurance process covers several key areas to ensure document integrity.
 
-- **Incomplete Code Blocks**: The validator ensures that every code block opened with ` ``` ` is properly closed. Unclosed blocks can cause large portions of a document to render incorrectly.
-- **Inconsistent Indentation**: Code blocks with inconsistent indentation are flagged. This is particularly important for code samples where indentation is syntactically significant and for preventing unexpected rendering issues.
-- **Content Completeness**: The system checks if the content appears to be truncated by verifying that it ends with appropriate punctuation (e.g., `.`, `)`, `|`). This helps catch incomplete generation results.
+#### Content Structure & Completeness
 
-### Link and Asset Validation
+DocSmith performs several checks to ensure the structural integrity of the content:
 
-Broken links and missing images can degrade the user experience. DocSmith validates these resources automatically to ensure they are always available to the reader.
+- **Incomplete Code Blocks**: Detects code blocks that are opened with ```` ``` ```` but never closed.
+- **Missing Line Breaks**: Identifies content that appears on a single line, which may indicate missing newlines.
+- **Content Endings**: Verifies that the content ends with appropriate punctuation (e.g., `.`, `)`, `|`, `>`) to prevent truncated output.
 
-- **Dead Link Checking**: All internal links are cross-referenced against the paths defined in your project's structure plan. Any link pointing to a non-existent page is reported as a dead link.
-- **Local Image Verification**: For local images (i.e., those not hosted on an external server), the system checks that the referenced image file exists at the specified relative or absolute path.
+#### Link and Media Integrity
 
-### Diagram Validation
+- **Link Integrity**: All relative links within the documentation are validated against the project's `structurePlan` to prevent dead links. This ensures that all internal navigation works as expected. The checker ignores external links (starting with `http://` or `https://`) and `mailto:` links.
 
-To ensure that all diagrams render correctly, DocSmith specifically validates the syntax of D2 code blocks. Before processing, the D2 content is checked for syntactical correctness. If an error is found, it is flagged to prevent a broken diagram from being published.
+- **Image Validation**: To avoid broken images, the checker verifies that any local image file referenced in the documentation exists on the file system. It resolves both relative and absolute paths to confirm the file is present. External image URLs and data URLs are not checked.
 
-### Markdown Formatting and Linting
+#### Diagram Syntax Validation
 
-Beyond major structural issues, DocSmith lints the markdown for formatting consistency and correctness, leveraging established standards to enforce a clean and readable style. Key checks include:
+- **D2 Diagrams**: DocSmith validates D2 diagram syntax by sending the code to a rendering service. This process confirms that the diagram can be successfully compiled into an SVG image, catching any syntax errors before they result in a broken graphic.
 
-| Check Category | Description |
+- **Mermaid Diagrams**: Mermaid diagrams undergo several checks: a primary syntax validation, and specific checks for patterns known to cause rendering issues, such as backticks or numbered lists within node labels, and unquoted special characters that require quotes.
+
+#### Formatting and Style Enforcement
+
+- **Table Formatting**: Tables are inspected for mismatched column counts between the header, the separator line, and the data rows. This check prevents common table rendering failures.
+
+- **Code Block Indentation**: The checker analyzes code blocks for inconsistent indentation. If a line of code has less indentation than the opening ```` ``` ```` marker, it can cause rendering problems. This check helps maintain correct code presentation.
+
+- **Markdown Linting**: A built-in linter enforces a consistent Markdown structure. Key rules include:
+
+| Rule ID | Description |
 |---|---|
-| **Table Formatting** | Verifies that the number of columns in a table's header, separator line, and data rows are consistent. Mismatched column counts are a common cause of broken tables. |
-| **Heading Issues** | Detects duplicate headings within the same document or headings that use improper indentation, which can break the document outline. |
-| **Reference Validation** | Checks for undefined references, such as using a link reference `[text][ref]` without defining `[ref]: url` elsewhere. |
-| **Code Block Style** | Ensures consistent usage of code block markers for better readability and parsing. |
+| `no-duplicate-headings` | Prevents multiple headings with the same content in the same section. |
+| `no-undefined-references` | Ensures all link and image references are defined. |
+| `no-heading-content-indent` | Disallows indentation before heading content. |
+| `no-multiple-toplevel-headings` | Allows only one top-level heading (H1) per document. |
+| `code-block-style` | Enforces a consistent style for code blocks (e.g., using backticks). |
 
-This automated quality assurance layer is a core part of DocSmith's architecture, designed to minimize manual review and ensure that your documentation is always accurate, professional, and reliable. To learn more about the overall generation process, see [How It Works](./advanced-how-it-works.md).
+By automating these checks, DocSmith maintains a consistent standard for documentation, ensuring the final output is accurate and navigable.
+
+To learn more about the overall architecture, see the [How It Works](./advanced-how-it-works.md) section.

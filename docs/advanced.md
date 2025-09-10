@@ -1,18 +1,6 @@
----
-labels: ["Reference"]
----
-
 # Advanced Topics
 
-For those who wish to look under the hood, this section provides a deeper dive into the architecture of AIGNE DocSmith. Here, you'll learn how the tool functions, its place within the AIGNE ecosystem, and the internal mechanisms it uses to generate high-quality documentation.
-
-While a deep understanding of these topics isn't necessary for general use, it can be valuable for customizing behavior, troubleshooting issues, or contributing to the project.
-
-## The AIGNE Ecosystem
-
-AIGNE DocSmith is not a standalone tool; it is a key component of the [AIGNE Framework](https://www.aigne.io/en/framework), a comprehensive platform for AI application development. This integration allows DocSmith to leverage the platform's advanced AI capabilities and robust infrastructure. The following diagram illustrates how DocSmith fits into the broader ecosystem.
-
-![AIGNE Ecosystem Architecture](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
+For users who wish to understand the internal mechanics, this section provides a deeper look into the architecture of AIGNE DocSmith. It explains how the tool functions behind the scenes. While this level of detail is not required for general use, it can be valuable for customizing behavior or contributing to the project.
 
 To better understand the internal processes and quality controls, explore the following sections.
 
@@ -21,7 +9,7 @@ To better understand the internal processes and quality controls, explore the fo
     An architectural overview of DocSmith, explaining the role of AI agents in the documentation generation pipeline.
   </x-card>
   <x-card data-title="Quality Assurance" data-href="/advanced/quality-assurance" data-icon="lucide:shield-check">
-    Understand the built-in checks DocSmith performs to ensure high-quality, well-formatted, and error-free documentation.
+    Understand the built-in checks DocSmith performs to ensure well-formatted and error-free documentation, including link checking and diagram validation.
   </x-card>
 </x-cards>
 
