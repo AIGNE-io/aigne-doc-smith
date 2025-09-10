@@ -81,10 +81,10 @@ export default async function init(
         })),
       validate: (input) => {
         if (input.length === 0) {
-          return "Please select at least one priority.";
+          return "Please choose at least one priority.";
         }
         if (input.length > 2) {
-          return "Please select maximum 2 priorities.";
+          return "Please choose maximum 2 priorities.";
         }
         return true;
       },
@@ -109,7 +109,7 @@ export default async function init(
       })),
     validate: (input) => {
       if (input.length === 0) {
-        return "Please select at least one audience.";
+        return "Please choose at least one audience.";
       }
       return true;
     },

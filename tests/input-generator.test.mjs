@@ -1307,7 +1307,7 @@ describe("init", () => {
             if (options.message.includes("[1/8]") && options.validate) {
               // Test the validation function directly
               const validationResult = options.validate([]);
-              expect(validationResult).toBe("Please select at least one purpose.");
+              expect(validationResult).toBe("Please choose at least one goal for your documentation.");
               validateCalled = true;
               // Return valid result after testing validation
               return Promise.resolve(["getStarted"]);
@@ -1346,7 +1346,7 @@ describe("init", () => {
             if (options.message.includes("[2/8]") && options.validate) {
               // Test the validation function for target audience
               const validationResult = options.validate([]);
-              expect(validationResult).toBe("Please select at least one audience.");
+              expect(validationResult).toBe("Please choose at least one audience.");
               audienceValidateCalled = true;
               return Promise.resolve(["developers"]); // Valid result after testing
             }
@@ -1385,11 +1385,11 @@ describe("init", () => {
             if (options.message.includes("Which is most important?") && options.validate) {
               // Test validation for empty selection
               let validationResult = options.validate([]);
-              expect(validationResult).toBe("Please select at least one priority.");
+              expect(validationResult).toBe("Please choose at least one priority.");
 
               // Test validation for too many selections
               validationResult = options.validate(["getStarted", "completeTasks", "findAnswers"]);
-              expect(validationResult).toBe("Please select maximum 2 priorities.");
+              expect(validationResult).toBe("Please choose maximum 2 priorities.");
 
               // Test validation for valid selection
               validationResult = options.validate(["getStarted", "completeTasks"]);
