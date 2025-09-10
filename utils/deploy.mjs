@@ -5,7 +5,7 @@ import { PAYMENT_KIT_DID } from "./constants.mjs";
 import { saveValueToConfig } from "./utils.mjs";
 
 // ==================== URL Configuration ====================
-const BASE_URL = process.env.DOC_PAYMENT_BASE_URL || "";
+const BASE_URL = process.env.DOC_SMITH_BASE_URL || "";
 
 // ==================== Timeout Configuration ====================
 const INTERVAL_MS = 3000; // 3 seconds between each check

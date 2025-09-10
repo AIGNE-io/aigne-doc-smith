@@ -18,7 +18,7 @@ export default async function publishDocs(
   // move work dir to tmp-dir
   await ensureTmpDir();
 
-  const hasPaymentBaseUrl = !!process.env.DOC_PAYMENT_BASE_URL;
+  const hasDocSmithBaseUrl = !!process.env.DOC_SMITH_BASE_URL;
 
   const docsDir = join(".aigne", "doc-smith", TMP_DIR, TMP_DOCS_DIR);
   await fs.rm(docsDir, { recursive: true, force: true });
@@ -62,7 +62,7 @@ export default async function publishDocs(
           name: `${chalk.blue("Publish to your existing website")} - use your current website`,
           value: "custom",
         },
-        ...(hasCachedCheckoutId && hasPaymentBaseUrl
+        ...(hasCachedCheckoutId && hasDocSmithBaseUrl
           ? [
               {
                 name:
@@ -72,7 +72,7 @@ export default async function publishDocs(
               },
             ]
           : []),
-        ...(hasPaymentBaseUrl
+        ...(hasDocSmithBaseUrl
           ? [
               {
                 name: `${chalk.blue("Publish to a new website")} - we'll help you set up a new website`,
@@ -103,7 +103,7 @@ export default async function publishDocs(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
-    } else if (hasPaymentBaseUrl && ["new-instance", "new-instance-continue"].includes(choice)) {
+    } else if (hasDocSmithBaseUrl && ["new-instance", "new-instance-continue"].includes(choice)) {
       // Deploy a new Discuss Kit service
       try {
         let id = "";
