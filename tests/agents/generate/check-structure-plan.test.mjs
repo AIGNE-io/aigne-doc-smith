@@ -1,37 +1,28 @@
-import { beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import checkStructurePlan from "../../../agents/generate/check-structure-plan.mjs";
 
-// Mock all external dependencies at the top level
-const mockPreferencesUtils = {
-  getActiveRulesForScope: mock(() => []),
-};
+import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
+import * as utils from "../../../utils/utils.mjs";
 
-const mockUtils = {
-  getCurrentGitHead: mock(() => null),
-  hasFileChangesBetweenCommits: mock(() => false),
-  getProjectInfo: mock(() =>
-    Promise.resolve({
-      name: "Test Project",
-      description: "Test Description",
-      fromGitHub: false,
-    }),
-  ),
-  loadConfigFromFile: mock(() => Promise.resolve({})),
-  saveValueToConfig: mock(() => Promise.resolve()),
-};
-
+// Mock external/system dependencies only
 const mockFsPromises = {
   access: mock(() => Promise.reject(new Error("File not found"))),
 };
 
-// Apply mocks globally
-mock.module("../../../utils/preferences-utils.mjs", () => mockPreferencesUtils);
-mock.module("../../../utils/utils.mjs", () => mockUtils);
+// Apply mocks for external dependencies only
 mock.module("node:fs/promises", () => mockFsPromises);
 
 describe("checkStructurePlan", () => {
   let mockOptions;
   let originalStructurePlan;
+
+  // Spies for internal utils
+  let getActiveRulesForScopeSpy;
+  let getCurrentGitHeadSpy;
+  let hasFileChangesBetweenCommitsSpy;
+  let getProjectInfoSpy;
+  let loadConfigFromFileSpy;
+  let saveValueToConfigSpy;
 
   beforeEach(() => {
     // Reset all mocks
@@ -56,20 +47,39 @@ describe("checkStructurePlan", () => {
       },
     };
 
-    // Reset module mocks to default behavior
-    mockPreferencesUtils.getActiveRulesForScope.mockImplementation(() => []);
-    mockUtils.getCurrentGitHead.mockImplementation(() => null);
-    mockUtils.hasFileChangesBetweenCommits.mockImplementation(() => false);
-    mockUtils.getProjectInfo.mockImplementation(() =>
-      Promise.resolve({
-        name: "Test Project",
-        description: "Test Description",
-        fromGitHub: false,
-      }),
+    // Set up spies for internal utils
+    getActiveRulesForScopeSpy = spyOn(preferencesUtils, "getActiveRulesForScope").mockReturnValue(
+      [],
     );
-    mockUtils.loadConfigFromFile.mockImplementation(() => Promise.resolve({}));
-    mockUtils.saveValueToConfig.mockImplementation(() => Promise.resolve());
+    getCurrentGitHeadSpy = spyOn(utils, "getCurrentGitHead").mockReturnValue(null);
+    hasFileChangesBetweenCommitsSpy = spyOn(utils, "hasFileChangesBetweenCommits").mockReturnValue(
+      false,
+    );
+    getProjectInfoSpy = spyOn(utils, "getProjectInfo").mockResolvedValue({
+      name: "Test Project",
+      description: "Test Description",
+      fromGitHub: false,
+    });
+    loadConfigFromFileSpy = spyOn(utils, "loadConfigFromFile").mockResolvedValue({});
+    saveValueToConfigSpy = spyOn(utils, "saveValueToConfig").mockResolvedValue();
+
+    // Reset external mocks
+    mockFsPromises.access.mockClear();
     mockFsPromises.access.mockImplementation(() => Promise.reject(new Error("File not found")));
+
+    // Clear prompts mock call history
+    mockOptions.prompts.input.mockClear();
+    mockOptions.context.invoke.mockClear();
+  });
+
+  afterEach(() => {
+    // Restore all spies
+    getActiveRulesForScopeSpy?.mockRestore();
+    getCurrentGitHeadSpy?.mockRestore();
+    hasFileChangesBetweenCommitsSpy?.mockRestore();
+    getProjectInfoSpy?.mockRestore();
+    loadConfigFromFileSpy?.mockRestore();
+    saveValueToConfigSpy?.mockRestore();
   });
 
   test("should return original structure plan when no regeneration needed", async () => {
@@ -142,20 +152,20 @@ describe("checkStructurePlan", () => {
   });
 
   test("should check git changes when lastGitHead is provided", async () => {
-    mockUtils.getCurrentGitHead.mockImplementation(() => "def456");
-    mockUtils.hasFileChangesBetweenCommits.mockImplementation(() => true);
+    getCurrentGitHeadSpy.mockImplementation(() => "def456");
+    hasFileChangesBetweenCommitsSpy.mockImplementation(() => true);
 
     await checkStructurePlan(
       { originalStructurePlan, lastGitHead: "abc123", docsDir: "./docs" },
       mockOptions,
     );
 
-    expect(mockUtils.hasFileChangesBetweenCommits).toHaveBeenCalledWith("abc123", "def456");
+    expect(hasFileChangesBetweenCommitsSpy).toHaveBeenCalledWith("abc123", "def456");
     expect(mockOptions.context.invoke).toHaveBeenCalled();
   });
 
   test("should not regenerate when git head is same", async () => {
-    mockUtils.getCurrentGitHead.mockImplementation(() => "abc123");
+    getCurrentGitHeadSpy.mockImplementation(() => "abc123");
 
     const result = await checkStructurePlan(
       { originalStructurePlan, lastGitHead: "abc123", docsDir: "./docs" },
@@ -177,14 +187,14 @@ describe("checkStructurePlan", () => {
 
   test("should include user preferences", async () => {
     const mockRules = [{ rule: "Structure rule 1" }];
-    mockPreferencesUtils.getActiveRulesForScope.mockImplementation(() => mockRules);
+    getActiveRulesForScopeSpy.mockImplementation(() => mockRules);
 
     await checkStructurePlan(
       { originalStructurePlan, feedback: "test", docsDir: "./docs" },
       mockOptions,
     );
 
-    expect(mockPreferencesUtils.getActiveRulesForScope).toHaveBeenCalledWith("structure", []);
+    expect(getActiveRulesForScopeSpy).toHaveBeenCalledWith("structure", []);
     expect(mockOptions.context.invoke).toHaveBeenCalled();
   });
 
@@ -200,12 +210,12 @@ describe("checkStructurePlan", () => {
       mockOptions,
     );
 
-    expect(mockUtils.saveValueToConfig).toHaveBeenCalledWith("projectName", "New Project Name");
+    expect(saveValueToConfigSpy).toHaveBeenCalledWith("projectName", "New Project Name");
     expect(result.projectInfoMessage).toContain("New Project Name");
   });
 
   test("should handle project info save errors", async () => {
-    mockUtils.loadConfigFromFile.mockImplementation(async () => {
+    loadConfigFromFileSpy.mockImplementation(async () => {
       throw new Error("Config load failed");
     });
     const consoleSpy = spyOn(console, "warn").mockImplementation(() => {});

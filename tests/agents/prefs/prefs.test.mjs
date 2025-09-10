@@ -1,17 +1,16 @@
-import { beforeEach, describe, expect, mock, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import prefs from "../../../agents/prefs/prefs.mjs";
 
-// Mock the preferences utilities
-const mockPreferencesUtils = {
-  readPreferences: mock(() => ({ rules: [] })),
-  removeRule: mock(() => true),
-  writePreferences: mock(() => {}),
-};
-
-mock.module("../../../utils/preferences-utils.mjs", () => mockPreferencesUtils);
+// Import internal utils for selective spying
+import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
 
 describe("prefs", () => {
   let mockOptions;
+
+  // Spies for internal utils
+  let readPreferencesSpy;
+  let removeRuleSpy;
+  let writePreferencesSpy;
 
   beforeEach(() => {
     mock.restore();
@@ -22,10 +21,20 @@ describe("prefs", () => {
       },
     };
 
-    // Reset mocks to default behavior
-    mockPreferencesUtils.readPreferences.mockImplementation(() => ({ rules: [] }));
-    mockPreferencesUtils.removeRule.mockImplementation(() => true);
-    mockPreferencesUtils.writePreferences.mockImplementation(() => {});
+    // Set up spies for internal utils
+    readPreferencesSpy = spyOn(preferencesUtils, "readPreferences").mockReturnValue({ rules: [] });
+    removeRuleSpy = spyOn(preferencesUtils, "removeRule").mockReturnValue(true);
+    writePreferencesSpy = spyOn(preferencesUtils, "writePreferences").mockImplementation(() => {});
+
+    // Clear prompts mock call history
+    mockOptions.prompts.checkbox.mockClear();
+  });
+
+  afterEach(() => {
+    // Restore all spies
+    readPreferencesSpy?.mockRestore();
+    removeRuleSpy?.mockRestore();
+    writePreferencesSpy?.mockRestore();
   });
 
   test("should return help message when no action specified", async () => {
@@ -38,7 +47,7 @@ describe("prefs", () => {
   // LIST PREFERENCES TESTS
   describe("list preferences", () => {
     test("should return no preferences message when list is empty", async () => {
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: [] });
+      readPreferencesSpy.mockReturnValue({ rules: [] });
 
       const result = await prefs({ list: true }, mockOptions);
 
@@ -61,7 +70,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
 
       const result = await prefs({ list: true }, mockOptions);
 
@@ -83,7 +92,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
 
       const result = await prefs({ list: true }, mockOptions);
 
@@ -101,7 +110,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
 
       const result = await prefs({ list: true }, mockOptions);
 
@@ -113,17 +122,17 @@ describe("prefs", () => {
   // REMOVE PREFERENCES TESTS
   describe("remove preferences", () => {
     test("should remove preferences by provided IDs", async () => {
-      mockPreferencesUtils.removeRule.mockReturnValue(true);
+      removeRuleSpy.mockReturnValue(true);
 
       const result = await prefs({ remove: true, id: ["rule1", "rule2"] }, mockOptions);
 
-      expect(mockPreferencesUtils.removeRule).toHaveBeenCalledWith("rule1");
-      expect(mockPreferencesUtils.removeRule).toHaveBeenCalledWith("rule2");
+      expect(removeRuleSpy).toHaveBeenCalledWith("rule1");
+      expect(removeRuleSpy).toHaveBeenCalledWith("rule2");
       expect(result.message).toBe("Successfully removed 2 preferences.");
     });
 
     test("should handle partial failures when removing", async () => {
-      mockPreferencesUtils.removeRule.mockReturnValueOnce(true).mockReturnValueOnce(false);
+      removeRuleSpy.mockReturnValueOnce(true).mockReturnValueOnce(false);
 
       const result = await prefs({ remove: true, id: ["rule1", "rule2"] }, mockOptions);
 
@@ -131,7 +140,7 @@ describe("prefs", () => {
     });
 
     test("should return message when no preferences exist for removal", async () => {
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: [] });
+      readPreferencesSpy.mockReturnValue({ rules: [] });
 
       const result = await prefs({ remove: true }, mockOptions);
 
@@ -148,7 +157,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
       mockOptions.prompts.checkbox.mockResolvedValue(["rule1"]);
 
       const result = await prefs({ remove: true }, mockOptions);
@@ -176,7 +185,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
       mockOptions.prompts.checkbox.mockResolvedValue(["rule1"]);
 
       await prefs({ remove: true }, mockOptions);
@@ -197,7 +206,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
       mockOptions.prompts.checkbox.mockResolvedValue([]);
 
       const result = await prefs({ remove: true }, mockOptions);
@@ -216,7 +225,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
       mockOptions.prompts.checkbox.mockResolvedValue(["rule1"]);
 
       await prefs({ remove: true }, mockOptions);
@@ -244,15 +253,15 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
 
       const result = await prefs({ toggle: true, id: ["rule1", "rule2"] }, mockOptions);
 
-      expect(mockPreferencesUtils.writePreferences).toHaveBeenCalled();
+      expect(writePreferencesSpy).toHaveBeenCalled();
       expect(result.message).toBe("Successfully toggled 2 preferences.");
 
       // Check that the active status was toggled
-      const writtenPrefs = mockPreferencesUtils.writePreferences.mock.calls[0][0];
+      const writtenPrefs = writePreferencesSpy.mock.calls[0][0];
       expect(writtenPrefs.rules[0].active).toBe(false); // was true, now false
       expect(writtenPrefs.rules[1].active).toBe(true); // was false, now true
     });
@@ -267,7 +276,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
 
       const result = await prefs({ toggle: true, id: ["rule1", "nonexistent"] }, mockOptions);
 
@@ -275,7 +284,7 @@ describe("prefs", () => {
     });
 
     test("should return message when no preferences exist for toggling", async () => {
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: [] });
+      readPreferencesSpy.mockReturnValue({ rules: [] });
 
       const result = await prefs({ toggle: true }, mockOptions);
 
@@ -292,7 +301,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
       mockOptions.prompts.checkbox.mockResolvedValue(["rule1"]);
 
       const result = await prefs({ toggle: true }, mockOptions);
@@ -320,7 +329,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
       mockOptions.prompts.checkbox.mockResolvedValue(["rule1"]);
 
       await prefs({ toggle: true }, mockOptions);
@@ -341,7 +350,7 @@ describe("prefs", () => {
         },
       ];
 
-      mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+      readPreferencesSpy.mockReturnValue({ rules: mockRules });
       mockOptions.prompts.checkbox.mockResolvedValue([]);
 
       const result = await prefs({ toggle: true }, mockOptions);
@@ -354,22 +363,19 @@ describe("prefs", () => {
   test("should handle empty ID array", async () => {
     await prefs({ remove: true, id: [] }, mockOptions);
 
-    expect(mockPreferencesUtils.readPreferences).toHaveBeenCalled();
+    expect(readPreferencesSpy).toHaveBeenCalled();
     // Should fall back to interactive selection
   });
 
   test("should handle null ID array", async () => {
     await prefs({ toggle: true, id: null }, mockOptions);
 
-    expect(mockPreferencesUtils.readPreferences).toHaveBeenCalled();
+    expect(readPreferencesSpy).toHaveBeenCalled();
     // Should fall back to interactive selection
   });
 
   test("should handle mixed success/failure in operations", async () => {
-    mockPreferencesUtils.removeRule
-      .mockReturnValueOnce(true)
-      .mockReturnValueOnce(false)
-      .mockReturnValueOnce(true);
+    removeRuleSpy.mockReturnValueOnce(true).mockReturnValueOnce(false).mockReturnValueOnce(true);
 
     const result = await prefs({ remove: true, id: ["rule1", "rule2", "rule3"] }, mockOptions);
 
@@ -387,7 +393,7 @@ describe("prefs", () => {
       },
     ];
 
-    mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+    readPreferencesSpy.mockReturnValue({ rules: mockRules });
 
     // Test list
     const listResult = await prefs({ list: true }, mockOptions);
@@ -415,7 +421,7 @@ describe("prefs", () => {
       },
     ];
 
-    mockPreferencesUtils.readPreferences.mockReturnValue({ rules: mockRules });
+    readPreferencesSpy.mockReturnValue({ rules: mockRules });
     mockOptions.prompts.checkbox.mockResolvedValue(null);
 
     const result = await prefs({ remove: true }, mockOptions);
