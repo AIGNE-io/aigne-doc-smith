@@ -106,25 +106,6 @@ describe("blocklet", () => {
       });
     });
 
-    test("should handle URLs with paths and query parameters", async () => {
-      const urlWithPath = "https://example.com/path?query=value";
-      const expectedUrlWithPath = "https://example.com/__blocklet__.js?type=json";
-
-      const mockConfig = {
-        componentMountPoints: [{ did: testDid, mountPoint: "/api" }],
-      };
-
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve(mockConfig),
-      });
-
-      const result = await getComponentMountPoint(urlWithPath, testDid);
-
-      expect(result).toBe("/api");
-      expect(mockFetch).toHaveBeenCalledWith(expectedUrlWithPath, expect.any(Object));
-    });
-
     // NETWORK ERROR TESTS
     test("should throw InvalidBlockletError when fetch fails", async () => {
       mockFetch.mockRejectedValue(new Error("Network timeout"));

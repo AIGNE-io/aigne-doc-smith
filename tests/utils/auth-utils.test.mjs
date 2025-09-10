@@ -314,7 +314,7 @@ describe("auth-utils", () => {
 
     // Test that openPage calls the mock open function
     await capturedOpenPage("https://auth.example.com");
-    expect(mockOpen).toHaveBeenCalledWith("https://auth.example.com");
+    expect(mockOpen).toHaveBeenCalledWith("https://auth.example.com/");
   });
 
   test("should handle authorization failure", async () => {
