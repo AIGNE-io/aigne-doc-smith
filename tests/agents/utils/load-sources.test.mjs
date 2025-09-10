@@ -1328,7 +1328,7 @@ describe("loadSources", () => {
     try {
       const { readdir } = await import("node:fs/promises");
       const entries = await readdir(__dirname, { withFileTypes: true });
-      
+
       for (const entry of entries) {
         if (entry.isDirectory() && entry.name.startsWith("test-content-generator")) {
           const testDirToClean = path.join(__dirname, entry.name);

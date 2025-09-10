@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
 import * as childProcess from "node:child_process";
 import * as fs from "node:fs";
-import * as fsPromises from "node:fs/promises";
+import fsPromisesDefault, * as fsPromises from "node:fs/promises";
 import {
   detectSystemLanguage,
   getAvailablePaths,
@@ -16,8 +16,12 @@ import {
   isGlobPattern,
   loadConfigFromFile,
   normalizePath,
+  processConfigFields,
   processContent,
   resolveFileReferences,
+  saveDocWithTranslations,
+  saveGitHeadToConfig,
+  saveValueToConfig,
   toRelativePath,
   validatePath,
   validatePaths,
@@ -58,6 +62,10 @@ describe("utils", () => {
     writeFileSpy = spyOn(fsPromises, "writeFile").mockResolvedValue();
     mkdirSpy = spyOn(fsPromises, "mkdir").mockResolvedValue();
 
+    // Also mock the default import that utils.mjs uses
+    spyOn(fsPromisesDefault, "writeFile").mockResolvedValue();
+    spyOn(fsPromisesDefault, "mkdir").mockResolvedValue();
+
     // Mock console
     consoleSpy = spyOn(console, "warn").mockImplementation(() => {});
 
@@ -91,7 +99,11 @@ describe("utils", () => {
     consoleSpy?.mockRestore();
     fetchSpy?.mockRestore();
 
+    // Restore process spies - important for isolation between test files
     Object.values(processSpies).forEach((spy) => spy?.mockRestore());
+
+    // Reset process spies object to ensure clean state
+    processSpies = {};
   });
 
   // PATH FUNCTIONS TESTS
@@ -500,6 +512,15 @@ describe("utils", () => {
 
       expect(result).toEqual(config);
     });
+
+    test("should handle unsupported file extensions", async () => {
+      existsSyncSpy.mockReturnValue(true);
+
+      const config = { data: "@data.exe" };
+      const result = await resolveFileReferences(config);
+
+      expect(result.data).toBe("@data.exe");
+    });
   });
 
   // PATH DISCOVERY TESTS
@@ -616,6 +637,303 @@ describe("utils", () => {
 
       expect(result).toBe(false);
       expect(consoleSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe("saveGitHeadToConfig", () => {
+    test("should skip if gitHead is null", async () => {
+      await saveGitHeadToConfig(null);
+      expect(writeFileSpy).not.toHaveBeenCalled();
+    });
+
+    test("should skip if in test environment", async () => {
+      process.env.NODE_ENV = "test";
+      await saveGitHeadToConfig("abc123");
+      expect(writeFileSpy).not.toHaveBeenCalled();
+    });
+
+    test("should handle file operation errors", async () => {
+      delete process.env.NODE_ENV;
+      existsSyncSpy.mockImplementation(() => {
+        throw new Error("File system error");
+      });
+
+      await saveGitHeadToConfig("abc123");
+
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Failed to save git HEAD to config.yaml:",
+        "File system error",
+      );
+    });
+  });
+
+  describe("saveValueToConfig", () => {
+    test("should skip if value is undefined", async () => {
+      await saveValueToConfig("key", undefined);
+      expect(writeFileSpy).not.toHaveBeenCalled();
+    });
+
+    test("should handle file operation errors", async () => {
+      existsSyncSpy.mockImplementation(() => {
+        throw new Error("File system error");
+      });
+
+      await saveValueToConfig("key", "value");
+
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "Failed to save key to config.yaml:",
+        "File system error",
+      );
+    });
+  });
+
+  // CONFIGURATION PROCESSING TESTS
+  describe("processConfigFields", () => {
+    test("should apply default values for missing fields", () => {
+      const config = {};
+      const result = processConfigFields(config);
+
+      expect(result.nodeName).toBe("Section");
+      expect(result.locale).toBe("en");
+      expect(result.sourcesPath).toEqual(["./"]);
+      expect(result.docsDir).toBe("./.aigne/doc-smith/docs");
+      expect(result.outputDir).toBe("./.aigne/doc-smith/output");
+      expect(result.translateLanguages).toEqual([]);
+      expect(result.rules).toBe("");
+      expect(result.targetAudience).toBe("");
+    });
+
+    test("should process document purpose with valid key", () => {
+      const config = {
+        documentPurpose: ["getStarted"],
+      };
+      const result = processConfigFields(config);
+
+      expect(result.rules).toContain("Document Purpose");
+    });
+
+    test("should process target audience types with valid key", () => {
+      const config = {
+        targetAudienceTypes: ["developers"],
+      };
+      const result = processConfigFields(config);
+
+      expect(result.rules).toContain("Target Audience");
+      expect(result.targetAudience).toContain("Developers");
+    });
+
+    test("should combine existing rules with processed content", () => {
+      const config = {
+        rules: "Existing rules",
+        documentPurpose: ["getStarted"],
+      };
+      const result = processConfigFields(config);
+
+      expect(result.rules).toContain("Existing rules");
+      expect(result.rules).toContain("Document Purpose");
+    });
+  });
+
+  // PATH DISCOVERY EDGE CASES
+  describe("getAvailablePaths edge cases", () => {
+    test("should handle directory reading errors", () => {
+      readdirSyncSpy.mockImplementation(() => {
+        throw new Error("Permission denied");
+      });
+
+      const result = getAvailablePaths("");
+
+      expect(result).toEqual([]);
+      expect(consoleSpy).toHaveBeenCalled();
+    });
+
+    test("should handle non-existent directory in relative path", () => {
+      existsSyncSpy.mockReturnValue(false);
+
+      const result = getAvailablePaths("./nonexistent/");
+
+      expect(result).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            description: expect.stringContaining("does not exist"),
+          }),
+        ]),
+      );
+    });
+
+    test("should handle path validation in relative path search", () => {
+      existsSyncSpy.mockReturnValue(false);
+
+      const result = getAvailablePaths("./invalid/path");
+
+      expect(result).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            description: expect.stringContaining("Path does not exist"),
+          }),
+        ]),
+      );
+    });
+
+    test("should add exact path match for valid files", () => {
+      existsSyncSpy.mockReturnValue(true);
+      accessSyncSpy.mockImplementation(() => {});
+      statSyncSpy.mockReturnValue({ isDirectory: () => false });
+      readdirSyncSpy.mockReturnValue([]);
+
+      const result = getAvailablePaths("existing-file.txt");
+
+      expect(result[0]).toEqual({
+        name: "existing-file.txt",
+        value: "existing-file.txt",
+        description: "📄 File",
+      });
+    });
+
+    test("should preserve ./ prefix in directory paths", () => {
+      readdirSyncSpy.mockReturnValue([{ name: "test.js", isDirectory: () => false }]);
+
+      const result = getAvailablePaths("");
+
+      expect(result[0].name).toMatch(/^\.\//);
+    });
+  });
+
+  // DOCUMENT MANAGEMENT TESTS
+  describe("saveDocWithTranslations", () => {
+    beforeEach(() => {
+      // Reset mocks for each test
+      mkdirSpy?.mockClear();
+      writeFileSpy?.mockClear();
+    });
+
+    test("should save main document without translations", async () => {
+      const params = {
+        path: "/api/guide",
+        content: "API Guide content",
+        docsDir: "/docs",
+        locale: "en",
+      };
+
+      const result = await saveDocWithTranslations(params);
+
+      expect(result).toBeDefined();
+      expect(Array.isArray(result)).toBe(true);
+      expect(result).toHaveLength(1);
+      expect(result[0]).toEqual({
+        path: "/docs/api-guide.md",
+        success: true,
+      });
+    });
+
+    test("should save document with translations", async () => {
+      const params = {
+        path: "/api/guide",
+        content: "API Guide content",
+        docsDir: "/docs",
+        locale: "en",
+        translates: [{ language: "zh", translation: "API指南内容" }],
+      };
+
+      const result = await saveDocWithTranslations(params);
+
+      expect(result).toHaveLength(2);
+      expect(result.every((r) => r.success)).toBe(true);
+      expect(result[0]).toEqual({
+        path: "/docs/api-guide.md",
+        success: true,
+      });
+      expect(result[1]).toEqual({
+        path: "/docs/api-guide.zh.md",
+        success: true,
+      });
+    });
+
+    test("should skip main content when isTranslate is true", async () => {
+      const params = {
+        path: "/api/guide",
+        content: "Content",
+        docsDir: "/docs",
+        locale: "en",
+        isTranslate: true,
+        translates: [{ language: "zh", translation: "翻译内容" }],
+      };
+
+      const result = await saveDocWithTranslations(params);
+
+      expect(result).toHaveLength(1);
+      expect(result[0]).toEqual({
+        path: "/docs/api-guide.zh.md",
+        success: true,
+      });
+    });
+
+    test("should add labels front matter", async () => {
+      const params = {
+        path: "/guide",
+        content: "Content",
+        docsDir: "/docs",
+        locale: "en",
+        labels: ["test"],
+      };
+
+      const result = await saveDocWithTranslations(params);
+
+      expect(result).toHaveLength(1);
+      expect(result[0]).toEqual({
+        path: "/docs/guide.md",
+        success: true,
+      });
+    });
+
+    test("should handle non-English locale", async () => {
+      const params = {
+        path: "/guide",
+        content: "Contenu français",
+        docsDir: "/docs",
+        locale: "fr",
+      };
+
+      const result = await saveDocWithTranslations(params);
+
+      expect(result).toHaveLength(1);
+      expect(result[0]).toEqual({
+        path: "/docs/guide.fr.md",
+        success: true,
+      });
+    });
+
+    test("should flatten complex paths", async () => {
+      const params = {
+        path: "/deep/nested/path",
+        content: "Content",
+        docsDir: "/docs",
+        locale: "en",
+      };
+
+      const result = await saveDocWithTranslations(params);
+
+      expect(result).toHaveLength(1);
+      expect(result[0]).toEqual({
+        path: "/docs/deep-nested-path.md",
+        success: true,
+      });
+    });
+
+    test("should handle errors gracefully", async () => {
+      // Mock fs promises mkdir to throw error
+      spyOn(fsPromisesDefault, "mkdir").mockRejectedValueOnce(new Error("Test error"));
+
+      const params = {
+        path: "/guide",
+        content: "Content",
+        docsDir: "/docs",
+        locale: "en",
+      };
+
+      const result = await saveDocWithTranslations(params);
+
+      expect(result).toEqual([{ path: "/guide", success: false, error: "Test error" }]);
     });
   });
 });

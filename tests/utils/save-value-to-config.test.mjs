@@ -1,5 +1,7 @@
-import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
+import * as fs from "node:fs";
 import { existsSync } from "node:fs";
+import fsPromisesDefault, * as fsPromises from "node:fs/promises";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -53,12 +55,61 @@ async function createInitialConfig(content) {
 
 // Test suite
 describe("saveValueToConfig", () => {
+  let restoreFunctions = [];
+
   beforeEach(async () => {
     await setupTestDir();
+
+    // Restore any existing mocks that might interfere with our file operations
+    // This is crucial when running alongside other test files like utils.test.mjs
+    restoreFunctions = [];
+
+    // Restore fs sync mocks if they exist
+    if (typeof fs.existsSync.mockRestore === "function") {
+      fs.existsSync.mockRestore();
+      restoreFunctions.push(() => spyOn(fs, "existsSync").mockReturnValue(true));
+    }
+    if (typeof fs.mkdirSync.mockRestore === "function") {
+      fs.mkdirSync.mockRestore();
+      restoreFunctions.push(() => spyOn(fs, "mkdirSync").mockImplementation(() => {}));
+    }
+
+    // Restore fs async mocks if they exist
+    if (typeof fsPromises.writeFile.mockRestore === "function") {
+      fsPromises.writeFile.mockRestore();
+      restoreFunctions.push(() => spyOn(fsPromises, "writeFile").mockResolvedValue());
+    }
+    if (typeof fsPromises.mkdir.mockRestore === "function") {
+      fsPromises.mkdir.mockRestore();
+      restoreFunctions.push(() => spyOn(fsPromises, "mkdir").mockResolvedValue());
+    }
+    if (typeof fsPromises.readFile.mockRestore === "function") {
+      fsPromises.readFile.mockRestore();
+      restoreFunctions.push(() => spyOn(fsPromises, "readFile").mockResolvedValue("test content"));
+    }
+
+    // Restore default import mocks if they exist
+    if (typeof fsPromisesDefault.writeFile.mockRestore === "function") {
+      fsPromisesDefault.writeFile.mockRestore();
+      restoreFunctions.push(() => spyOn(fsPromisesDefault, "writeFile").mockResolvedValue());
+    }
+    if (typeof fsPromisesDefault.mkdir.mockRestore === "function") {
+      fsPromisesDefault.mkdir.mockRestore();
+      restoreFunctions.push(() => spyOn(fsPromisesDefault, "mkdir").mockResolvedValue());
+    }
   });
 
   afterEach(async () => {
     await teardownTestDir();
+
+    // Restore the original mocks that other tests might depend on
+    restoreFunctions.forEach((restoreFn) => {
+      try {
+        restoreFn();
+      } catch {
+        // Ignore errors when restoring mocks
+      }
+    });
   });
 
   test("Save string value to empty file", async () => {

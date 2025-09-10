@@ -428,9 +428,7 @@ describe("checkDetail", () => {
     );
 
     // "/api/users/create" -> flatName "api-users-create" -> fileFullName "api-users-create.md"
-    expect(accessSpy).toHaveBeenCalledWith(
-      expect.stringMatching(/api-users-create\.md$/),
-    );
+    expect(accessSpy).toHaveBeenCalledWith(expect.stringMatching(/api-users-create\.md$/));
   });
 
   // RESULT STRUCTURE TESTS

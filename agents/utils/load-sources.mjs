@@ -182,7 +182,7 @@ export default async function loadSources({
         try {
           // Validate that the content looks like JSON before parsing
           const trimmedContent = structurePlanResult.trim();
-          if (trimmedContent.startsWith('{') || trimmedContent.startsWith('[')) {
+          if (trimmedContent.startsWith("{") || trimmedContent.startsWith("[")) {
             originalStructurePlan = JSON.parse(structurePlanResult);
           } else {
             console.warn(`structure-plan.json contains non-JSON content, skipping parse`);
@@ -192,7 +192,7 @@ export default async function loadSources({
         }
       }
     } catch (err) {
-      if (err.code !== 'ENOENT') {
+      if (err.code !== "ENOENT") {
         console.warn(`Error reading structure-plan.json: ${err.message}`);
       }
       // The file does not exist or is not readable, originalStructurePlan remains undefined
@@ -210,10 +210,10 @@ export default async function loadSources({
     try {
       content = await readFile(filePath, "utf8");
     } catch (err) {
-      if (err.code !== 'ENOENT') {
+      if (err.code !== "ENOENT") {
         console.warn(`Error reading document file ${filePath}: ${err.message}`);
       }
-      
+
       // If not found and boardId is provided, try boardId-flattenedPath format
       if (boardId && docPath.startsWith(`${boardId}-`)) {
         // Extract the flattened path part after boardId-
@@ -224,7 +224,7 @@ export default async function loadSources({
         try {
           content = await readFile(filePath, "utf8");
         } catch (boardIdErr) {
-          if (boardIdErr.code !== 'ENOENT') {
+          if (boardIdErr.code !== "ENOENT") {
             console.warn(`Error reading document file ${filePath}: ${boardIdErr.message}`);
           }
           // The file does not exist, content remains undefined
