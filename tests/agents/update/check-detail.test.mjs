@@ -13,10 +13,6 @@ const mockTeamAgent = {
   from: mock(() => ({ mockTeamAgent: true })),
 };
 
-// Apply mocks for external dependencies
-mock.module("node:fs/promises", () => mockFsPromises);
-mock.module("@aigne/core", () => ({ TeamAgent: mockTeamAgent }));
-
 describe("checkDetail", () => {
   let mockOptions;
 
@@ -27,6 +23,10 @@ describe("checkDetail", () => {
 
   beforeEach(() => {
     mock.restore();
+
+    // Apply mocks for external dependencies inside beforeEach
+    mock.module("node:fs/promises", () => mockFsPromises);
+    mock.module("@aigne/core", () => ({ TeamAgent: mockTeamAgent }));
 
     mockOptions = {
       context: {
@@ -64,6 +64,9 @@ describe("checkDetail", () => {
     hasSourceFilesChangedSpy?.mockRestore();
     checkDetailResultSpy?.mockRestore();
     consoleSpy?.mockRestore();
+
+    // Critical: Restore all module mocks to prevent test pollution
+    mock.restore();
   });
 
   // FILE EXISTENCE TESTS
