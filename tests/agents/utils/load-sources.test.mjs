@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { mkdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import loadSources from "../../../agents/utils/load-sources.mjs";
@@ -687,6 +687,9 @@ describe("loadSources", () => {
       const deepPath = path.join(testDir, "a/b/c/d/e/f/g/h");
       await mkdir(deepPath, { recursive: true });
       await writeFile(path.join(deepPath, "deep.js"), "console.log('deep');");
+
+      const content = await readFile(path.join(deepPath, "deep.js"), "utf8");
+      console.log("deep content", content);
 
       const result = await loadSources({
         sourcesPath: testDir,
