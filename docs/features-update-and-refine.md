@@ -123,12 +123,12 @@ Key parameters for the `update` command:
 
 ## Optimizing the Overall Structure
 
-Beyond refining the content of individual documents, you can also adjust the overall documentation structure. If a section is missing or the existing organization could be improved, you can provide feedback to the structure planning agent using the `generate` command with the `--feedback` flag.
+Beyond refining the content of individual documents, you can also adjust the overall documentation structure. If a section is missing or the existing organization could be improved, you can provide feedback to improve the documentation structure using the `generate` command with the `--feedback` flag.
 
 This command instructs DocSmith to reconsider the entire document plan based on your new input.
 
 ```bash
-# Regenerate the structure plan with specific feedback
+# Regenerate the documentation structure with specific feedback
 aigne doc generate --feedback "Remove the 'About' section and add a more detailed 'API Reference'."
 ```
 

@@ -3,7 +3,7 @@ name: generate
 alias:
   - gen
   - g
-description: Automatically generates comprehensive project documentation
+description: Generate complete documentation for your project
 skills:
   - url: ./input-generator.mjs
     default_input:
@@ -47,13 +47,13 @@ input_schema:
   properties:
     glossary:
       type: string
-      description: Glossary of terms for consistent terminology, use @<file> to read from a file
+      description: Glossary file for consistent terminology (use @filename.md)
     feedback:
       type: string
-      description: Feedback for structure planning adjustments
+      description: Tell us how to improve the documentation structure
     forceRegenerate:
       type: boolean
-      description: Force regenerate all documentation
+      description: Rebuild all documentation from scratch
   required:
     - config
 mode: sequential

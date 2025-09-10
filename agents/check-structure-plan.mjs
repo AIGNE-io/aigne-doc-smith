@@ -21,7 +21,7 @@ export default async function checkStructurePlan(
   // Prompt for feedback if originalStructurePlan exists and no feedback provided
   if (originalStructurePlan && !feedback) {
     const userFeedback = await options.prompts.input({
-      message: "Please provide feedback for structure planning (press Enter to skip):",
+      message: "How can we improve the documentation structure? (press Enter to skip):",
     });
 
     if (userFeedback?.trim()) {

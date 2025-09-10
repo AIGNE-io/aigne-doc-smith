@@ -90,7 +90,7 @@ While the default `generate` command is sufficient for most use cases, you can u
 | Option              | Description                                                                                                                              | Example                                                              |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
 | `--forceRegenerate` | Deletes all existing documents and regenerates them from scratch. Use this after making significant changes to your source code or configuration. | `aigne doc generate --forceRegenerate`                                 |
-| `--feedback`        | Provides high-level feedback to refine the overall document structure plan, such as adding, removing, or reorganizing sections.           | `aigne doc generate --feedback "Add an API Reference section"`         |
+| `--feedback`        | Provides high-level feedback to refine the overall documentation structure, such as adding, removing, or reorganizing sections.           | `aigne doc generate --feedback "Add an API Reference section"`         |
 | `--model`           | Specifies a particular Large Language Model from AIGNE Hub to use for content generation, allowing you to switch between models.       | `aigne doc generate --model claude:claude-3-5-sonnet`                |
 
 ## What's Next?

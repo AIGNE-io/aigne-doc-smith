@@ -1,5 +1,5 @@
 name: translateDoc
-description: Translate the wiki article to another language
+description: Translate content to another language
 instructions:
   url: ../prompts/translator.md
 input_schema:
@@ -7,16 +7,16 @@ input_schema:
   properties:
     language:
       type: string
-      description: Language to translate the article into (e.g., 'zh_CN' for Chinese)
+      description: Target language (e.g., 'zh' for Chinese, 'ja' for Japanese)
     content:
       type: string
-      description: Content to translate
+      description: Text content to translate
     glossary:
       type: string
-      description: 术语表
+      description: Glossary for consistent terminology
     feedback:
       type: string
-      description: Feedback for translation improvement
+      description: Tell us how to improve the translation style
   required:
     - language
     - content
@@ -25,7 +25,7 @@ output_schema:
   properties:
     translation:
       type: string
-      description: Translation of the content
+      description: Translated text
     language:
       type: string
-      description: Language of the translation
+      description: Language code of the translation

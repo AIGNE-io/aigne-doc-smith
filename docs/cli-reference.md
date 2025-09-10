@@ -89,7 +89,7 @@ Analyzes your source code and generates a complete set of documentation based on
 
 | Option | Type | Description |
 |---|---|---|
-| `--feedback` | string | Provides feedback to adjust and refine the overall document structure plan. |
+| `--feedback` | string | Provides feedback to adjust and refine the overall documentation structure. |
 | `--forceRegenerate` | boolean | Discards existing content and regenerates all documentation from scratch. |
 | `--model` | string | Specifies a particular LLM to use for generation (e.g., `openai:gpt-4o`). Overrides the default model. |
 | `--glossary` | string | Path to a glossary file for consistent terminology. Use the format `@path/to/glossary.md`. |

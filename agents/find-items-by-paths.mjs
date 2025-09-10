@@ -90,7 +90,7 @@ export default async function selectedDocs(
   if (!userFeedback) {
     const feedbackMessage = getActionText(
       isTranslate,
-      "Please provide feedback for the {action} (press Enter to skip):",
+      "How should we improve this {action}? (press Enter to skip):",
     );
 
     userFeedback = await options.prompts.input({
