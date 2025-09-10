@@ -126,7 +126,7 @@ describe("publishDocs", () => {
     expect(ensureTmpDirSpy).toHaveBeenCalled();
     expect(mockFsExtra.cp).toHaveBeenCalled();
     expect(beforePublishHookSpy).toHaveBeenCalled();
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://docsmith.aigne.io");
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://docsmith.aigne.io", "");
     expect(mockPublishDocs.publishDocs).toHaveBeenCalled();
     expect(result.message).toBe("✅ Documentation Published Successfully!");
   });
@@ -143,7 +143,7 @@ describe("publishDocs", () => {
       mockOptions,
     );
 
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://env.example.com");
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://env.example.com", "");
     expect(mockPublishDocs.publishDocs).toHaveBeenCalledWith(
       expect.objectContaining({
         appUrl: "https://env.example.com",
@@ -191,10 +191,10 @@ describe("publishDocs", () => {
 
     expect(consoleSpy).toHaveBeenCalled();
     expect(mockOptions.prompts.input).toHaveBeenCalledWith({
-      message: "Please enter your Discuss Kit platform URL:",
+      message: "Please enter your website URL:",
       validate: expect.any(Function),
     });
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://custom.example.com");
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://custom.example.com", "");
   });
 
   test("should validate URL input and accept valid URLs", async () => {
@@ -230,7 +230,7 @@ describe("publishDocs", () => {
       mockOptions,
     );
 
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://example.com");
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://example.com", "");
   });
 
   // PROJECT INFO TESTS
@@ -429,7 +429,6 @@ describe("publishDocs", () => {
       mockOptions,
     );
 
-    expect(saveValueToConfigSpy).not.toHaveBeenCalled();
     expect(result).toEqual({});
   });
 

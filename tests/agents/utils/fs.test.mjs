@@ -1,57 +1,44 @@
-import { afterAll, beforeAll, beforeEach, describe, expect, mock, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
+import * as fsPromises from "node:fs/promises";
+import * as path from "node:path";
 import fs from "../../../agents/utils/fs.mjs";
 
 describe("fs utility", () => {
-  // Mock Node.js fs/promises module
-  const mockFsPromises = {
-    readFile: mock(() => Promise.resolve("mocked file content")),
-    writeFile: mock(() => Promise.resolve()),
-    mkdir: mock(() => Promise.resolve()),
-    rm: mock(() => Promise.resolve()),
-    readdir: mock(() =>
-      Promise.resolve([
-        { name: "file1.txt", parentPath: "/test", isDirectory: () => false },
-        { name: "subdir", parentPath: "/test", isDirectory: () => true },
-      ]),
-    ),
-  };
-
-  const mockPath = {
-    join: mock((...paths) => paths.join("/")),
-    dirname: mock((path) => path.split("/").slice(0, -1).join("/") || "/"),
-  };
-
-  beforeAll(() => {
-    // Apply mocks only for this test suite
-    mock.module("node:fs/promises", () => mockFsPromises);
-    mock.module("node:path", () => mockPath);
-  });
-
-  afterAll(() => {
-    // Restore all mocks when this test suite is complete
-    mock.restore();
-  });
+  let readFileSpy;
+  let writeFileSpy;
+  let mkdirSpy;
+  let rmSpy;
+  let readdirSpy;
+  let joinSpy;
+  let dirnameSpy;
 
   beforeEach(() => {
-    // Reset mock call history but keep module mocks active
-    Object.values(mockFsPromises).forEach((mockFn) => {
-      mockFn.mockClear();
-    });
-    Object.values(mockPath).forEach((mockFn) => {
-      mockFn.mockClear();
-    });
-
-    // Set default implementations
-    mockFsPromises.readFile.mockResolvedValue("mocked file content");
-    mockFsPromises.writeFile.mockResolvedValue();
-    mockFsPromises.mkdir.mockResolvedValue();
-    mockFsPromises.rm.mockResolvedValue();
-    mockFsPromises.readdir.mockResolvedValue([
+    // Spy on fs/promises methods
+    readFileSpy = spyOn(fsPromises, "readFile").mockResolvedValue("mocked file content");
+    writeFileSpy = spyOn(fsPromises, "writeFile").mockResolvedValue();
+    mkdirSpy = spyOn(fsPromises, "mkdir").mockResolvedValue();
+    rmSpy = spyOn(fsPromises, "rm").mockResolvedValue();
+    readdirSpy = spyOn(fsPromises, "readdir").mockResolvedValue([
       { name: "file1.txt", parentPath: "/test/root", isDirectory: () => false },
       { name: "subdir", parentPath: "/test/root", isDirectory: () => true },
     ]);
-    mockPath.join.mockImplementation((...paths) => paths.join("/"));
-    mockPath.dirname.mockImplementation((path) => path.split("/").slice(0, -1).join("/") || "/");
+
+    // Spy on path methods
+    joinSpy = spyOn(path, "join").mockImplementation((...paths) => paths.join("/"));
+    dirnameSpy = spyOn(path, "dirname").mockImplementation(
+      (path) => path.split("/").slice(0, -1).join("/") || "/",
+    );
+  });
+
+  afterEach(() => {
+    // Restore all spies
+    readFileSpy?.mockRestore();
+    writeFileSpy?.mockRestore();
+    mkdirSpy?.mockRestore();
+    rmSpy?.mockRestore();
+    readdirSpy?.mockRestore();
+    joinSpy?.mockRestore();
+    dirnameSpy?.mockRestore();
   });
 
   // ERROR HANDLING TESTS
@@ -76,7 +63,7 @@ describe("fs utility", () => {
 
   // READ_FILE ACTION TESTS
   test("should read file successfully", async () => {
-    mockFsPromises.readFile.mockResolvedValue("test file content");
+    readFileSpy.mockResolvedValue("test file content");
 
     const result = await fs({
       rootDir: "/test/root",
@@ -84,8 +71,8 @@ describe("fs utility", () => {
       path: "test.txt",
     });
 
-    expect(mockPath.join).toHaveBeenCalledWith("/test/root", "test.txt");
-    expect(mockFsPromises.readFile).toHaveBeenCalledWith("/test/root/test.txt", "utf-8");
+    expect(joinSpy).toHaveBeenCalledWith("/test/root", "test.txt");
+    expect(readFileSpy).toHaveBeenCalledWith("/test/root/test.txt", "utf-8");
     expect(result).toEqual({
       status: "ok",
       path: "/test/root/test.txt",
@@ -100,11 +87,8 @@ describe("fs utility", () => {
       path: "src/components/Button.tsx",
     });
 
-    expect(mockPath.join).toHaveBeenCalledWith("/project", "src/components/Button.tsx");
-    expect(mockFsPromises.readFile).toHaveBeenCalledWith(
-      "/project/src/components/Button.tsx",
-      "utf-8",
-    );
+    expect(joinSpy).toHaveBeenCalledWith("/project", "src/components/Button.tsx");
+    expect(readFileSpy).toHaveBeenCalledWith("/project/src/components/Button.tsx", "utf-8");
   });
 
   // WRITE_FILE ACTION TESTS
@@ -116,9 +100,9 @@ describe("fs utility", () => {
       content: "Hello, world!",
     });
 
-    expect(mockPath.dirname).toHaveBeenCalledWith("/test/root/output.txt");
-    expect(mockFsPromises.mkdir).toHaveBeenCalledWith("/test/root", { recursive: true });
-    expect(mockFsPromises.writeFile).toHaveBeenCalledWith("/test/root/output.txt", "Hello, world!");
+    expect(dirnameSpy).toHaveBeenCalledWith("/test/root/output.txt");
+    expect(mkdirSpy).toHaveBeenCalledWith("/test/root", { recursive: true });
+    expect(writeFileSpy).toHaveBeenCalledWith("/test/root/output.txt", "Hello, world!");
     expect(result).toEqual({
       status: "ok",
       path: "/test/root/output.txt",
@@ -133,12 +117,12 @@ describe("fs utility", () => {
       path: "empty.txt",
     });
 
-    expect(mockFsPromises.writeFile).toHaveBeenCalledWith("/test/root/empty.txt", "");
+    expect(writeFileSpy).toHaveBeenCalledWith("/test/root/empty.txt", "");
     expect(result.content).toBeUndefined(); // The function returns the original content parameter
   });
 
   test("should create directories recursively when writing file", async () => {
-    mockPath.dirname.mockReturnValue("/test/root/deep/nested");
+    dirnameSpy.mockReturnValue("/test/root/deep/nested");
 
     await fs({
       rootDir: "/test/root",
@@ -147,7 +131,7 @@ describe("fs utility", () => {
       content: "nested content",
     });
 
-    expect(mockFsPromises.mkdir).toHaveBeenCalledWith("/test/root/deep/nested", {
+    expect(mkdirSpy).toHaveBeenCalledWith("/test/root/deep/nested", {
       recursive: true,
     });
   });
@@ -160,8 +144,8 @@ describe("fs utility", () => {
       path: "to-delete.txt",
     });
 
-    expect(mockPath.join).toHaveBeenCalledWith("/test/root", "to-delete.txt");
-    expect(mockFsPromises.rm).toHaveBeenCalledWith("/test/root/to-delete.txt", {
+    expect(joinSpy).toHaveBeenCalledWith("/test/root", "to-delete.txt");
+    expect(rmSpy).toHaveBeenCalledWith("/test/root/to-delete.txt", {
       recursive: true,
       force: true,
     });
@@ -178,7 +162,7 @@ describe("fs utility", () => {
       path: "build",
     });
 
-    expect(mockFsPromises.rm).toHaveBeenCalledWith("/project/build", {
+    expect(rmSpy).toHaveBeenCalledWith("/project/build", {
       recursive: true,
       force: true,
     });
@@ -192,8 +176,8 @@ describe("fs utility", () => {
       path: "src",
     });
 
-    expect(mockPath.join).toHaveBeenCalledWith("/test/root", "src");
-    expect(mockFsPromises.readdir).toHaveBeenCalledWith("/test/root/src", { withFileTypes: true });
+    expect(joinSpy).toHaveBeenCalledWith("/test/root", "src");
+    expect(readdirSpy).toHaveBeenCalledWith("/test/root/src", { withFileTypes: true });
     expect(result).toEqual({
       status: "ok",
       entries: [
@@ -204,7 +188,7 @@ describe("fs utility", () => {
   });
 
   test("should handle empty directory listing", async () => {
-    mockFsPromises.readdir.mockResolvedValue([]);
+    readdirSpy.mockResolvedValue([]);
 
     const result = await fs({
       rootDir: "/test/root",
@@ -223,7 +207,7 @@ describe("fs utility", () => {
       path: "file.txt",
     });
 
-    expect(mockPath.join).toHaveBeenCalledWith("/test/root/", "file.txt");
+    expect(joinSpy).toHaveBeenCalledWith("/test/root/", "file.txt");
   });
 
   test("should handle path with leading slash", async () => {
@@ -233,7 +217,7 @@ describe("fs utility", () => {
       path: "/absolute/path.txt",
     });
 
-    expect(mockPath.join).toHaveBeenCalledWith("/test/root", "/absolute/path.txt");
+    expect(joinSpy).toHaveBeenCalledWith("/test/root", "/absolute/path.txt");
   });
 
   test("should handle complex nested paths", async () => {
@@ -244,7 +228,7 @@ describe("fs utility", () => {
       content: "export default Button;",
     });
 
-    expect(mockPath.join).toHaveBeenCalledWith("/project", "src/components/ui/Button/index.tsx");
+    expect(joinSpy).toHaveBeenCalledWith("/project", "src/components/ui/Button/index.tsx");
   });
 
   // UNDEFINED ACTION TEST
@@ -266,7 +250,7 @@ describe("fs utility", () => {
       path: "文件名 with spaces & symbols!.txt",
     });
 
-    expect(mockPath.join).toHaveBeenCalledWith("/test/root", "文件名 with spaces & symbols!.txt");
+    expect(joinSpy).toHaveBeenCalledWith("/test/root", "文件名 with spaces & symbols!.txt");
   });
 
   test("should handle null content for write_file", async () => {
@@ -277,7 +261,7 @@ describe("fs utility", () => {
       content: null,
     });
 
-    expect(mockFsPromises.writeFile).toHaveBeenCalledWith("/test/root/null-content.txt", "");
+    expect(writeFileSpy).toHaveBeenCalledWith("/test/root/null-content.txt", "");
     expect(result.content).toBe(null);
   });
 });

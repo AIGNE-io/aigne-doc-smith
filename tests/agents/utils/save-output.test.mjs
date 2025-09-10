@@ -1,60 +1,31 @@
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  mock,
-  spyOn,
-  test,
-} from "bun:test";
+import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
+import fs from "node:fs";
+import * as path from "node:path";
 import saveOutput from "../../../agents/utils/save-output.mjs";
 
 describe("saveOutput utility", () => {
-  // Mock Node.js fs/promises and path modules
-  const mockFs = {
-    mkdir: mock(() => Promise.resolve()),
-    writeFile: mock(() => Promise.resolve()),
-  };
-
-  const mockPath = {
-    join: mock((...paths) => paths.join("/")),
-  };
-
+  let mkdirSpy;
+  let writeFileSpy;
+  let joinSpy;
   let consoleWarnSpy;
 
-  beforeAll(() => {
-    // Apply mocks only for this test suite
-    mock.module("node:fs", () => ({ promises: mockFs }));
-    mock.module("node:path", () => mockPath);
-  });
-
-  afterAll(() => {
-    // Restore all mocks when this test suite is complete
-    mock.restore();
-  });
-
   beforeEach(() => {
-    // Reset mock call history but keep module mocks active
-    Object.values(mockFs).forEach((mockFn) => {
-      mockFn.mockClear();
-    });
-    Object.values(mockPath).forEach((mockFn) => {
-      mockFn.mockClear();
-    });
+    // Spy on fs.promises methods
+    mkdirSpy = spyOn(fs.promises, "mkdir").mockResolvedValue();
+    writeFileSpy = spyOn(fs.promises, "writeFile").mockResolvedValue();
 
-    // Set default implementations
-    mockFs.mkdir.mockResolvedValue();
-    mockFs.writeFile.mockResolvedValue();
-    mockPath.join.mockImplementation((...paths) => paths.join("/"));
+    // Spy on path methods
+    joinSpy = spyOn(path, "join").mockImplementation((...paths) => paths.join("/"));
 
     // Spy on console.warn
     consoleWarnSpy = spyOn(console, "warn").mockImplementation(() => {});
   });
 
   afterEach(() => {
-    // Only restore console spy, keep module mocks active
+    // Restore all spies
+    mkdirSpy?.mockRestore();
+    writeFileSpy?.mockRestore();
+    joinSpy?.mockRestore();
     consoleWarnSpy?.mockRestore();
   });
 
@@ -67,13 +38,9 @@ describe("saveOutput utility", () => {
       textContent: "Hello, World!",
     });
 
-    expect(mockFs.mkdir).toHaveBeenCalledWith("/output/dir", { recursive: true });
-    expect(mockPath.join).toHaveBeenCalledWith("/output/dir", "result.txt");
-    expect(mockFs.writeFile).toHaveBeenCalledWith(
-      "/output/dir/result.txt",
-      "Hello, World!",
-      "utf8",
-    );
+    expect(mkdirSpy).toHaveBeenCalledWith("/output/dir", { recursive: true });
+    expect(joinSpy).toHaveBeenCalledWith("/output/dir", "result.txt");
+    expect(writeFileSpy).toHaveBeenCalledWith("/output/dir/result.txt", "Hello, World!", "utf8");
     expect(result).toEqual({
       saveOutputStatus: true,
       saveOutputPath: "/output/dir/result.txt",
@@ -95,7 +62,7 @@ describe("saveOutput utility", () => {
     });
 
     const expectedContent = JSON.stringify(objectData, null, 2);
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/data/config.json", expectedContent, "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/data/config.json", expectedContent, "utf8");
     expect(result.saveOutputStatus).toBe(true);
     expect(result.saveOutputPath).toBe("/data/config.json");
   });
@@ -108,7 +75,7 @@ describe("saveOutput utility", () => {
       count: 42,
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/numbers/count.txt", "42", "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/numbers/count.txt", "42", "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 
@@ -120,7 +87,7 @@ describe("saveOutput utility", () => {
       isEnabled: true,
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/flags/flag.txt", "true", "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/flags/flag.txt", "true", "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 
@@ -135,7 +102,7 @@ describe("saveOutput utility", () => {
     });
 
     const expectedContent = JSON.stringify(arrayData, null, 2);
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/arrays/list.json", expectedContent, "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/arrays/list.json", expectedContent, "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 
@@ -148,7 +115,7 @@ describe("saveOutput utility", () => {
       nullValue: null,
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/null-test/null.json", "null", "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/null-test/null.json", "null", "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 
@@ -160,11 +127,7 @@ describe("saveOutput utility", () => {
       undefinedValue: undefined,
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith(
-      "/undefined-test/undefined.txt",
-      "undefined",
-      "utf8",
-    );
+    expect(writeFileSpy).toHaveBeenCalledWith("/undefined-test/undefined.txt", "undefined", "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 
@@ -184,8 +147,8 @@ describe("saveOutput utility", () => {
       saveOutputStatus: false,
       saveOutputPath: null,
     });
-    expect(mockFs.mkdir).not.toHaveBeenCalled();
-    expect(mockFs.writeFile).not.toHaveBeenCalled();
+    expect(mkdirSpy).not.toHaveBeenCalled();
+    expect(writeFileSpy).not.toHaveBeenCalled();
   });
 
   test("should not save when saveKey exists but is undefined", async () => {
@@ -211,10 +174,10 @@ describe("saveOutput utility", () => {
       content: "test content",
     });
 
-    expect(mockFs.mkdir).toHaveBeenCalledWith("/deep/nested/directory/structure", {
+    expect(mkdirSpy).toHaveBeenCalledWith("/deep/nested/directory/structure", {
       recursive: true,
     });
-    expect(mockPath.join).toHaveBeenCalledWith("/deep/nested/directory/structure", "file.txt");
+    expect(joinSpy).toHaveBeenCalledWith("/deep/nested/directory/structure", "file.txt");
   });
 
   test("should handle paths with special characters", async () => {
@@ -225,10 +188,10 @@ describe("saveOutput utility", () => {
       data: { test: "value" },
     });
 
-    expect(mockFs.mkdir).toHaveBeenCalledWith("/path with spaces/特殊字符/symbols!@#", {
+    expect(mkdirSpy).toHaveBeenCalledWith("/path with spaces/特殊字符/symbols!@#", {
       recursive: true,
     });
-    expect(mockPath.join).toHaveBeenCalledWith(
+    expect(joinSpy).toHaveBeenCalledWith(
       "/path with spaces/特殊字符/symbols!@#",
       "file-name_with-symbols.json",
     );
@@ -243,7 +206,7 @@ describe("saveOutput utility", () => {
       emptyString: "",
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/empty/empty.txt", "", "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/empty/empty.txt", "", "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 
@@ -255,7 +218,7 @@ describe("saveOutput utility", () => {
       emptyObject: {},
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/empty/empty.json", "{}", "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/empty/empty.json", "{}", "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 
@@ -267,7 +230,7 @@ describe("saveOutput utility", () => {
       emptyArray: [],
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/empty/empty-array.json", "[]", "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/empty/empty-array.json", "[]", "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 
@@ -293,7 +256,7 @@ describe("saveOutput utility", () => {
     });
 
     const expectedContent = JSON.stringify(complexObject, null, 2);
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/complex/data.json", expectedContent, "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/complex/data.json", expectedContent, "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 
@@ -308,7 +271,7 @@ describe("saveOutput utility", () => {
       anotherKey: { ignored: "data" },
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith(
+    expect(writeFileSpy).toHaveBeenCalledWith(
       "/selective/selected.txt",
       "This should be saved",
       "utf8",
@@ -329,7 +292,7 @@ describe("saveOutput utility", () => {
       fn: testFunction,
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith(
+    expect(writeFileSpy).toHaveBeenCalledWith(
       "/functions/function.txt",
       testFunction.toString(),
       "utf8",
@@ -346,7 +309,7 @@ describe("saveOutput utility", () => {
       zeroValue: 0,
     });
 
-    expect(mockFs.writeFile).toHaveBeenCalledWith("/zeros/zero.txt", "0", "utf8");
+    expect(writeFileSpy).toHaveBeenCalledWith("/zeros/zero.txt", "0", "utf8");
     expect(result.saveOutputStatus).toBe(true);
   });
 });
