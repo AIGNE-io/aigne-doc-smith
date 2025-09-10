@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.4...v0.8.5) (2025-09-10)
+
+
+### Features
+
+* support publish docs to enterprise spaces ([#82](https://github.com/AIGNE-io/aigne-doc-smith/issues/82)) ([35b577a](https://github.com/AIGNE-io/aigne-doc-smith/commit/35b577ac0f2c1b860a23185054a55bada3742e8e))
+
+
+### Miscellaneous Chores
+
+* release 0.8.5 ([7a60a03](https://github.com/AIGNE-io/aigne-doc-smith/commit/7a60a03f91a20f378e94b12dd32a6a8b0a4bede5))
+
 ## [0.8.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.3...v0.8.4) (2025-09-09)
 
 
