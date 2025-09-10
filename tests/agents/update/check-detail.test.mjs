@@ -1,13 +1,8 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import * as fsPromises from "node:fs/promises";
 import checkDetail from "../../../agents/update/check-detail.mjs";
 import * as checkDetailResultModule from "../../../agents/utils/check-detail-result.mjs";
 import * as utils from "../../../utils/utils.mjs";
-
-// Mock external/system dependencies
-const mockFsPromises = {
-  access: mock(() => Promise.resolve()),
-  readFile: mock(() => Promise.resolve("# Test Content\n\nSome content")),
-};
 
 const mockTeamAgent = {
   from: mock(() => ({ mockTeamAgent: true })),
@@ -16,16 +11,17 @@ const mockTeamAgent = {
 describe("checkDetail", () => {
   let mockOptions;
 
-  // Spies for internal utils
+  // Spies for internal utils and fs operations
   let hasSourceFilesChangedSpy;
   let checkDetailResultSpy;
   let consoleSpy;
+  let accessSpy;
+  let readFileSpy;
 
   beforeEach(() => {
     mock.restore();
 
     // Apply mocks for external dependencies inside beforeEach
-    mock.module("node:fs/promises", () => mockFsPromises);
     mock.module("@aigne/core", () => ({ TeamAgent: mockTeamAgent }));
 
     mockOptions = {
@@ -45,13 +41,10 @@ describe("checkDetail", () => {
     });
     consoleSpy = spyOn(console, "log").mockImplementation(() => {});
 
-    // Reset external mocks
-    mockFsPromises.access.mockClear();
-    mockFsPromises.access.mockImplementation(() => Promise.resolve());
-    mockFsPromises.readFile.mockClear();
-    mockFsPromises.readFile.mockImplementation(() =>
-      Promise.resolve("# Test Content\n\nSome content"),
-    );
+    // Use spyOn for fs operations instead of module mocking
+    accessSpy = spyOn(fsPromises, "access").mockResolvedValue(undefined);
+    readFileSpy = spyOn(fsPromises, "readFile").mockResolvedValue("# Test Content\n\nSome content");
+
     mockTeamAgent.from.mockClear();
     mockTeamAgent.from.mockImplementation(() => ({ mockTeamAgent: true }));
 
@@ -64,6 +57,8 @@ describe("checkDetail", () => {
     hasSourceFilesChangedSpy?.mockRestore();
     checkDetailResultSpy?.mockRestore();
     consoleSpy?.mockRestore();
+    accessSpy?.mockRestore();
+    readFileSpy?.mockRestore();
 
     // Critical: Restore all module mocks to prevent test pollution
     mock.restore();
@@ -72,7 +67,7 @@ describe("checkDetail", () => {
   // FILE EXISTENCE TESTS
   test("should return early when file exists and no changes detected", async () => {
     // File exists, no changes
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     const result = await checkDetail(
@@ -93,7 +88,7 @@ describe("checkDetail", () => {
 
   test("should generate when file does not exist", async () => {
     // File doesn't exist
-    mockFsPromises.access.mockRejectedValue(new Error("File not found"));
+    accessSpy.mockRejectedValue(new Error("File not found"));
 
     const result = await checkDetail(
       {
@@ -110,7 +105,7 @@ describe("checkDetail", () => {
 
   // SOURCE IDS CHANGE TESTS
   test("should regenerate when sourceIds have changed", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     await checkDetail(
@@ -128,7 +123,7 @@ describe("checkDetail", () => {
   });
 
   test("should regenerate when sourceIds count changed", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     await checkDetail(
@@ -146,7 +141,7 @@ describe("checkDetail", () => {
   });
 
   test("should not regenerate when sourceIds are same (different order)", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     const result = await checkDetail(
@@ -166,7 +161,7 @@ describe("checkDetail", () => {
   });
 
   test("should handle missing originalStructurePlan gracefully", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     const result = await checkDetail(
@@ -186,7 +181,7 @@ describe("checkDetail", () => {
   });
 
   test("should handle missing original node in structure plan", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     const result = await checkDetail(
@@ -207,7 +202,7 @@ describe("checkDetail", () => {
 
   // SOURCE FILES CHANGE TESTS
   test("should regenerate when source files have changed", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
     hasSourceFilesChangedSpy.mockReturnValue(true);
 
@@ -231,7 +226,7 @@ describe("checkDetail", () => {
   });
 
   test("should not check source files when no sourceIds provided", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     const result = await checkDetail(
@@ -250,7 +245,7 @@ describe("checkDetail", () => {
   });
 
   test("should not check source files when no modifiedFiles provided", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     const result = await checkDetail(
@@ -270,8 +265,8 @@ describe("checkDetail", () => {
 
   // CONTENT VALIDATION TESTS
   test("should regenerate when content validation fails", async () => {
-    mockFsPromises.access.mockResolvedValue();
-    mockFsPromises.readFile.mockResolvedValue("# Test Content");
+    accessSpy.mockResolvedValue();
+    readFileSpy.mockResolvedValue("# Test Content");
     checkDetailResultSpy.mockResolvedValue({
       isApproved: false,
       detailFeedback: "Content needs improvement",
@@ -303,7 +298,7 @@ describe("checkDetail", () => {
   });
 
   test("should not validate content when file doesn't exist", async () => {
-    mockFsPromises.access.mockRejectedValue(new Error("File not found"));
+    accessSpy.mockRejectedValue(new Error("File not found"));
 
     await checkDetail(
       {
@@ -318,8 +313,8 @@ describe("checkDetail", () => {
   });
 
   test("should not validate content when no structurePlan provided", async () => {
-    mockFsPromises.access.mockResolvedValue();
-    mockFsPromises.readFile.mockResolvedValue("# Test Content");
+    accessSpy.mockResolvedValue();
+    readFileSpy.mockResolvedValue("# Test Content");
 
     const result = await checkDetail(
       {
@@ -339,7 +334,7 @@ describe("checkDetail", () => {
 
   // FORCE REGENERATE TESTS
   test("should regenerate when forceRegenerate is true", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     await checkDetail(
@@ -360,7 +355,7 @@ describe("checkDetail", () => {
 
   // TEAM AGENT TESTS
   test("should create team agent with correct configuration", async () => {
-    mockFsPromises.access.mockRejectedValue(new Error("File not found"));
+    accessSpy.mockRejectedValue(new Error("File not found"));
 
     await checkDetail(
       {
@@ -377,7 +372,7 @@ describe("checkDetail", () => {
   });
 
   test("should invoke team agent with correct parameters", async () => {
-    mockFsPromises.access.mockRejectedValue(new Error("File not found"));
+    accessSpy.mockRejectedValue(new Error("File not found"));
 
     await checkDetail(
       {
@@ -407,7 +402,7 @@ describe("checkDetail", () => {
 
   // PATH PROCESSING TESTS
   test("should handle root path correctly", async () => {
-    mockFsPromises.access.mockRejectedValue(new Error("File not found"));
+    accessSpy.mockRejectedValue(new Error("File not found"));
 
     await checkDetail(
       {
@@ -418,11 +413,11 @@ describe("checkDetail", () => {
     );
 
     // Root path "/" -> flatName "" -> fileFullName ".md"
-    expect(mockFsPromises.access).toHaveBeenCalledWith(expect.stringMatching(/\.md$/));
+    expect(accessSpy).toHaveBeenCalledWith(expect.stringMatching(/\.md$/));
   });
 
   test("should handle nested path correctly", async () => {
-    mockFsPromises.access.mockRejectedValue(new Error("File not found"));
+    accessSpy.mockRejectedValue(new Error("File not found"));
 
     await checkDetail(
       {
@@ -433,14 +428,14 @@ describe("checkDetail", () => {
     );
 
     // "/api/users/create" -> flatName "api-users-create" -> fileFullName "api-users-create.md"
-    expect(mockFsPromises.access).toHaveBeenCalledWith(
+    expect(accessSpy).toHaveBeenCalledWith(
       expect.stringMatching(/api-users-create\.md$/),
     );
   });
 
   // RESULT STRUCTURE TESTS
   test("should return correct result structure when regenerating", async () => {
-    mockFsPromises.access.mockRejectedValue(new Error("File not found"));
+    accessSpy.mockRejectedValue(new Error("File not found"));
     mockOptions.context.invoke.mockResolvedValue({ generatedContent: "test" });
 
     const result = await checkDetail(
@@ -461,7 +456,7 @@ describe("checkDetail", () => {
   });
 
   test("should return correct result structure when not regenerating", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     const result = await checkDetail(
@@ -487,8 +482,8 @@ describe("checkDetail", () => {
 
   // EDGE CASES
   test("should handle file read errors gracefully", async () => {
-    mockFsPromises.access.mockResolvedValue();
-    mockFsPromises.readFile.mockRejectedValue(new Error("Read error"));
+    accessSpy.mockResolvedValue();
+    readFileSpy.mockRejectedValue(new Error("Read error"));
 
     // When file read fails, content validation is skipped, and since file exists
     // but can't be read properly, no early return occurs, so regeneration happens
@@ -512,7 +507,7 @@ describe("checkDetail", () => {
   });
 
   test("should handle empty sourceIds arrays", async () => {
-    mockFsPromises.access.mockResolvedValue();
+    accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
     const result = await checkDetail(

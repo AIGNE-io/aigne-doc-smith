@@ -11,8 +11,9 @@ describe("loadSources", () => {
   let tempDir;
 
   beforeEach(async () => {
-    // Create test directory structure
-    testDir = path.join(__dirname, "test-content-generator");
+    // Create test directory structure with unique name to avoid conflicts
+    const uniqueId = `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+    testDir = path.join(__dirname, `test-content-generator-${uniqueId}`);
     tempDir = path.join(testDir, "temp");
 
     await mkdir(testDir, { recursive: true });
@@ -1323,20 +1324,31 @@ describe("loadSources", () => {
 
   // Global cleanup to ensure test directories are fully removed
   afterAll(async () => {
-    const testDirBase = path.join(__dirname, "test-content-generator");
+    // Clean up all test-content-generator directories (including unique ones)
     try {
-      await rm(testDirBase, { recursive: true, force: true });
-    } catch {
-      // Try with system command as final fallback
-      try {
-        const { exec } = await import("node:child_process");
-        const { promisify } = await import("node:util");
-        const execAsync = promisify(exec);
-        await execAsync(`rm -rf "${testDirBase}"`);
-      } catch {
-        // If we still can't clean up, warn but don't fail
-        console.warn(`Warning: Could not fully clean up test directory: ${testDirBase}`);
+      const { readdir } = await import("node:fs/promises");
+      const entries = await readdir(__dirname, { withFileTypes: true });
+      
+      for (const entry of entries) {
+        if (entry.isDirectory() && entry.name.startsWith("test-content-generator")) {
+          const testDirToClean = path.join(__dirname, entry.name);
+          try {
+            await rm(testDirToClean, { recursive: true, force: true });
+          } catch {
+            // Try with system command as fallback
+            try {
+              const { exec } = await import("node:child_process");
+              const { promisify } = await import("node:util");
+              const execAsync = promisify(exec);
+              await execAsync(`rm -rf "${testDirToClean}"`);
+            } catch {
+              console.warn(`Warning: Could not fully clean up test directory: ${testDirToClean}`);
+            }
+          }
+        }
       }
+    } catch (error) {
+      console.warn(`Warning: Could not clean up test directories: ${error.message}`);
     }
   });
 });

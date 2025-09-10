@@ -1,4 +1,4 @@
-import { access, readFile, stat } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../../utils/constants.mjs";
 import { getFilesWithGlob, loadGitignore } from "../../utils/file-utils.mjs";
@@ -174,46 +174,59 @@ export default async function loadSources({
 
   // Get the last structure plan result
   let originalStructurePlan;
-  const structurePlanPath = path.join(outputDir, "structure-plan.json");
-  try {
-    await access(structurePlanPath);
-    const structurePlanResult = await readFile(structurePlanPath, "utf8");
-    if (structurePlanResult) {
-      try {
-        originalStructurePlan = JSON.parse(structurePlanResult);
-      } catch (err) {
-        console.error(`Failed to parse structure-plan.json: ${err.message}`);
+  if (outputDir) {
+    const structurePlanPath = path.join(outputDir, "structure-plan.json");
+    try {
+      const structurePlanResult = await readFile(structurePlanPath, "utf8");
+      if (structurePlanResult?.trim()) {
+        try {
+          // Validate that the content looks like JSON before parsing
+          const trimmedContent = structurePlanResult.trim();
+          if (trimmedContent.startsWith('{') || trimmedContent.startsWith('[')) {
+            originalStructurePlan = JSON.parse(structurePlanResult);
+          } else {
+            console.warn(`structure-plan.json contains non-JSON content, skipping parse`);
+          }
+        } catch (err) {
+          console.error(`Failed to parse structure-plan.json: ${err.message}`);
+        }
       }
+    } catch (err) {
+      if (err.code !== 'ENOENT') {
+        console.warn(`Error reading structure-plan.json: ${err.message}`);
+      }
+      // The file does not exist or is not readable, originalStructurePlan remains undefined
     }
-  } catch {
-    // The file does not exist, originalStructurePlan remains undefined
   }
 
   // Get the last output result of the specified path
   let content;
-  if (docPath && !reset) {
-    let fileFullName;
-
+  if (docPath && !reset && docsDir) {
     // First try direct path matching (original format)
     const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
-    fileFullName = `${flatName}.md`;
+    const fileFullName = `${flatName}.md`;
     let filePath = path.join(docsDir, fileFullName);
 
     try {
-      await access(filePath);
       content = await readFile(filePath, "utf8");
-    } catch {
+    } catch (err) {
+      if (err.code !== 'ENOENT') {
+        console.warn(`Error reading document file ${filePath}: ${err.message}`);
+      }
+      
       // If not found and boardId is provided, try boardId-flattenedPath format
       if (boardId && docPath.startsWith(`${boardId}-`)) {
         // Extract the flattened path part after boardId-
         const flattenedPath = docPath.substring(boardId.length + 1);
-        fileFullName = `${flattenedPath}.md`;
-        filePath = path.join(docsDir, fileFullName);
+        const boardIdFileFullName = `${flattenedPath}.md`;
+        filePath = path.join(docsDir, boardIdFileFullName);
 
         try {
-          await access(filePath);
           content = await readFile(filePath, "utf8");
-        } catch {
+        } catch (boardIdErr) {
+          if (boardIdErr.code !== 'ENOENT') {
+            console.warn(`Error reading document file ${filePath}: ${boardIdErr.message}`);
+          }
           // The file does not exist, content remains undefined
         }
       }
