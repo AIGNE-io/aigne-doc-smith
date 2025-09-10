@@ -1,32 +1,47 @@
-import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  mock,
+  spyOn,
+  test,
+} from "bun:test";
 import saveOutput from "../../../agents/utils/save-output.mjs";
 
-// Mock Node.js fs/promises and path modules
-const mockFs = {
-  mkdir: mock(() => Promise.resolve()),
-  writeFile: mock(() => Promise.resolve()),
-};
-
-const mockPath = {
-  join: mock((...paths) => paths.join("/")),
-};
-
-// Apply mocks
-mock.module("node:fs", () => ({ promises: mockFs }));
-mock.module("node:path", () => mockPath);
-
 describe("saveOutput utility", () => {
+  // Mock Node.js fs/promises and path modules
+  const mockFs = {
+    mkdir: mock(() => Promise.resolve()),
+    writeFile: mock(() => Promise.resolve()),
+  };
+
+  const mockPath = {
+    join: mock((...paths) => paths.join("/")),
+  };
+
   let consoleWarnSpy;
 
+  beforeAll(() => {
+    // Apply mocks only for this test suite
+    mock.module("node:fs", () => ({ promises: mockFs }));
+    mock.module("node:path", () => mockPath);
+  });
+
+  afterAll(() => {
+    // Restore all mocks when this test suite is complete
+    mock.restore();
+  });
+
   beforeEach(() => {
-    // Reset all mocks
+    // Reset mock call history but keep module mocks active
     Object.values(mockFs).forEach((mockFn) => {
       mockFn.mockClear();
-      mockFn.mockRestore?.();
     });
     Object.values(mockPath).forEach((mockFn) => {
       mockFn.mockClear();
-      mockFn.mockRestore?.();
     });
 
     // Set default implementations
@@ -39,7 +54,7 @@ describe("saveOutput utility", () => {
   });
 
   afterEach(() => {
-    mock.restore();
+    // Only restore console spy, keep module mocks active
     consoleWarnSpy?.mockRestore();
   });
 

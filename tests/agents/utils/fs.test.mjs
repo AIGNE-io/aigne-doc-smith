@@ -1,39 +1,44 @@
-import { afterEach, beforeEach, describe, expect, mock, test } from "bun:test";
+import { afterAll, beforeAll, beforeEach, describe, expect, mock, test } from "bun:test";
 import fs from "../../../agents/utils/fs.mjs";
 
-// Mock Node.js fs/promises module
-const mockFsPromises = {
-  readFile: mock(() => Promise.resolve("mocked file content")),
-  writeFile: mock(() => Promise.resolve()),
-  mkdir: mock(() => Promise.resolve()),
-  rm: mock(() => Promise.resolve()),
-  readdir: mock(() =>
-    Promise.resolve([
-      { name: "file1.txt", parentPath: "/test", isDirectory: () => false },
-      { name: "subdir", parentPath: "/test", isDirectory: () => true },
-    ]),
-  ),
-};
-
-const mockPath = {
-  join: mock((...paths) => paths.join("/")),
-  dirname: mock((path) => path.split("/").slice(0, -1).join("/") || "/"),
-};
-
-// Apply mocks
-mock.module("node:fs/promises", () => mockFsPromises);
-mock.module("node:path", () => mockPath);
-
 describe("fs utility", () => {
+  // Mock Node.js fs/promises module
+  const mockFsPromises = {
+    readFile: mock(() => Promise.resolve("mocked file content")),
+    writeFile: mock(() => Promise.resolve()),
+    mkdir: mock(() => Promise.resolve()),
+    rm: mock(() => Promise.resolve()),
+    readdir: mock(() =>
+      Promise.resolve([
+        { name: "file1.txt", parentPath: "/test", isDirectory: () => false },
+        { name: "subdir", parentPath: "/test", isDirectory: () => true },
+      ]),
+    ),
+  };
+
+  const mockPath = {
+    join: mock((...paths) => paths.join("/")),
+    dirname: mock((path) => path.split("/").slice(0, -1).join("/") || "/"),
+  };
+
+  beforeAll(() => {
+    // Apply mocks only for this test suite
+    mock.module("node:fs/promises", () => mockFsPromises);
+    mock.module("node:path", () => mockPath);
+  });
+
+  afterAll(() => {
+    // Restore all mocks when this test suite is complete
+    mock.restore();
+  });
+
   beforeEach(() => {
-    // Reset all mocks
+    // Reset mock call history but keep module mocks active
     Object.values(mockFsPromises).forEach((mockFn) => {
       mockFn.mockClear();
-      mockFn.mockRestore?.();
     });
     Object.values(mockPath).forEach((mockFn) => {
       mockFn.mockClear();
-      mockFn.mockRestore?.();
     });
 
     // Set default implementations
@@ -47,10 +52,6 @@ describe("fs utility", () => {
     ]);
     mockPath.join.mockImplementation((...paths) => paths.join("/"));
     mockPath.dirname.mockImplementation((path) => path.split("/").slice(0, -1).join("/") || "/");
-  });
-
-  afterEach(() => {
-    mock.restore();
   });
 
   // ERROR HANDLING TESTS

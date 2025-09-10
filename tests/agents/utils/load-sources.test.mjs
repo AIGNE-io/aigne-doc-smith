@@ -684,7 +684,6 @@ describe("loadSources", () => {
 
     test("should handle very deep directory structures", async () => {
       // Create deep nested structure
-      console.log("testDir", testDir);
       const deepPath = path.join(testDir, "a/b/c/d/e/f/g/h");
       await mkdir(deepPath, { recursive: true });
       await writeFile(path.join(deepPath, "deep.js"), "console.log('deep');");
