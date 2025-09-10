@@ -5,9 +5,9 @@ import fs from "fs-extra";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../../utils/constants.mjs";
+import { deploy } from "../../utils/deploy.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/kroki-utils.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
-import { deploy } from "../../utils/deploy.mjs";
 
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
