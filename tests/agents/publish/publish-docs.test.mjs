@@ -25,6 +25,8 @@ const mockChalk = {
   bold: mock((text) => text),
   cyan: mock((text) => text),
   blue: mock((text) => text),
+  green: mock((text) => text),
+  yellow: mock((text) => text),
 };
 
 const mockFsExtra = {

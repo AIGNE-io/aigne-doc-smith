@@ -267,7 +267,7 @@ describe("auth-utils", () => {
     expect(mockCreateConnect).toHaveBeenCalledWith(
       expect.objectContaining({
         connectAction: "gen-simple-access-key",
-        source: "AIGNE DocSmith connect to Discuss Kit",
+        source: "AIGNE DocSmith connect to website",
         closeOnSuccess: true,
         appName: "AIGNE DocSmith",
         openPage: expect.any(Function),

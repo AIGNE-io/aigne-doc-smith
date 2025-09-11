@@ -1,24 +1,10 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
-
-// Create mock functions for blocklet module only
-const mockGetComponentInfoWithMountPoint = mock();
-const mockGetComponentInfo = mock();
-
-// Mock only the blocklet module globally (it's safe as it's specific to this functionality)
-mock.module("../utils/blocklet.mjs", () => ({
-  getComponentInfoWithMountPoint: mockGetComponentInfoWithMountPoint,
-  getComponentInfo: mockGetComponentInfo,
-}));
-
-// Mock the open module to prevent opening browser during tests
-const mockOpenDefault = mock(() => Promise.resolve());
-mock.module("open", () => ({
-  default: mockOpenDefault,
-}));
+import * as blockletModule from "../../utils/blocklet.mjs";
+import * as openModule from "open";
 
 // Import the real utils module and deploy function
-import { deploy } from "../utils/deploy.mjs";
-import * as utils from "../utils/utils.mjs";
+import { deploy } from "../../utils/deploy.mjs";
+import * as utils from "../../utils/utils.mjs";
 
 describe("deploy function", () => {
   let originalFetch;
@@ -26,6 +12,9 @@ describe("deploy function", () => {
   let consoleOutput;
   let saveValueToConfigSpy;
   let originalSetTimeout;
+  let getComponentInfoWithMountPointSpy;
+  let getComponentInfoSpy;
+  let openDefaultSpy;
 
   beforeEach(async () => {
     // Reset environment
@@ -54,19 +43,21 @@ describe("deploy function", () => {
     // Use spyOn to mock saveValueToConfig without affecting other tests
     saveValueToConfigSpy = spyOn(utils, "saveValueToConfig").mockResolvedValue();
 
-    // Reset blocklet mocks
-    mockGetComponentInfoWithMountPoint.mockReset();
-    mockGetComponentInfo.mockReset();
-
-    // Set default mock implementations
-    mockGetComponentInfoWithMountPoint.mockResolvedValue({
+    // Spy on blocklet module functions
+    getComponentInfoWithMountPointSpy = spyOn(
+      blockletModule,
+      "getComponentInfoWithMountPoint",
+    ).mockResolvedValue({
       mountPoint: "/payment",
       PAYMENT_LINK_ID: "test-payment-id",
     });
 
-    mockGetComponentInfo.mockResolvedValue({
+    getComponentInfoSpy = spyOn(blockletModule, "getComponentInfo").mockResolvedValue({
       status: "running",
     });
+
+    // Spy on open module
+    openDefaultSpy = spyOn(openModule, "default").mockResolvedValue();
   });
 
   afterEach(() => {
@@ -76,13 +67,11 @@ describe("deploy function", () => {
     console.log = originalConsole.log;
     console.error = originalConsole.error;
 
-    // Restore spies
-    if (saveValueToConfigSpy) {
-      saveValueToConfigSpy.mockRestore();
-    }
-
-    // Reset open mock
-    mockOpenDefault.mockReset();
+    // Restore all spies
+    saveValueToConfigSpy?.mockRestore();
+    getComponentInfoWithMountPointSpy?.mockRestore();
+    getComponentInfoSpy?.mockRestore();
+    openDefaultSpy?.mockRestore();
 
     // Reset environment
     delete process.env.NODE_ENV;
@@ -183,7 +172,7 @@ describe("deploy function", () => {
   });
 
   test("handles missing payment link ID", async () => {
-    mockGetComponentInfoWithMountPoint.mockResolvedValue({
+    getComponentInfoWithMountPointSpy.mockResolvedValue({
       mountPoint: "/payment",
       PAYMENT_LINK_ID: null,
     });
@@ -259,7 +248,7 @@ describe("deploy function", () => {
     });
 
     // Mock open to fail
-    mockOpenDefault.mockRejectedValue(new Error("Cannot open browser"));
+    openDefaultSpy.mockRejectedValue(new Error("Cannot open browser"));
 
     // Call deploy without cached parameters - should still succeed
     const result = await deploy();
@@ -306,7 +295,7 @@ describe("deploy function", () => {
     expect(result.appUrl).toBe("https://app.test");
 
     // Should not call open since using cached checkout
-    expect(mockOpenDefault).not.toHaveBeenCalled();
+    expect(openDefaultSpy).not.toHaveBeenCalled();
   });
 
   test("clears checkout ID when cache check fails", async () => {

@@ -10,6 +10,9 @@ describe("saveDocs", () => {
   let testDir;
 
   beforeEach(async () => {
+    // Set test environment variable to prevent actual config file modification
+    process.env.NODE_ENV = "test";
+
     // Create a temporary test directory
     testDir = join(__dirname, "test-docs");
     await mkdir(testDir, { recursive: true });
@@ -32,6 +35,9 @@ describe("saveDocs", () => {
   });
 
   afterEach(async () => {
+    // Clean up environment variable
+    delete process.env.NODE_ENV;
+
     // Clean up test directory
     try {
       await rm(testDir, { recursive: true, force: true });
