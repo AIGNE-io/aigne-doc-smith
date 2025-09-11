@@ -12,9 +12,9 @@
 </role>
 
 {% if detailFeedback %}
-<review_feedback>
+<content_review_feedback>
 {{ detailFeedback }}
-</review_feedback>
+</content_review_feedback>
 {% endif %}
 
 <user_locale>
@@ -67,9 +67,9 @@ parentId: {{parentId}}
 {% endif %}
 
 {% if detailFeedback %}
-<review_feedback>
+<content_review_feedback>
 {{ detailFeedback }}
-</review_feedback>
+</content_review_feedback>
 {% endif %}
 
 <user_rules>
@@ -88,7 +88,7 @@ parentId: {{parentId}}
 </user_preferences>
 {% endif %}
 
-<rules>
+<content_generation_rules>
 
 目标受众：{{targetAudience}}
 
@@ -130,14 +130,14 @@ parentId: {{parentId}}
 
 D2 Diagram Generation Expert Guide:
 {% include "d2-chart/rules.md" %}
-</rules>
+</content_generation_rules>
 
 {% include "./detail-example.md" %}
 
-<output_schema>
+<output_rules>
 
 1. 输内容为{{nodeName}}的详细文本。
 2. 直接输出{{nodeName}}内容，不要包含其他信息.
 3. 仅参考示例中的风格，**以语言 {{locale}} 输出内容 **
 
-</output_schema>
+</output_rules>

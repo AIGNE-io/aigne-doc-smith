@@ -57,12 +57,12 @@ Rule writing requirements:
 - Example: "Write for beginners; terms must be given clear explanations on first appearance."
 </rule_format>
 
-<output_rule>
+<output_rules>
 Return a complete JSON object with a `reason` field explaining *why* you are setting `save` to true or false, and how you derived the rule and scope.
 Return the summarized rule in the same language as the feedback in user input.
-</output_rule>
+</output_rules>
 
-<examples>
+<feedback_processing_examples>
 Example 1 (Keyword Preservation):
 - Input: stage=document_refine, paths=["examples/demo.md"], feedback="Do not use ellipsis in the spaceDid part of endpoint strings used in demo"
 - Output:
@@ -102,4 +102,4 @@ Example 8 (Path-limited Deletion Rule):
 - Input: stage=document_refine, paths=["overview.md"], feedback="Remove contribution-related content from overview"
 - Output:
 {"rule":"Do not include contribution-related content in 'overview' document.","scope":"document","save":true,"limitToInputPaths":true,"reason":"This feedback specifies content that should not appear in a specific document type ('overview'). While it's about removing content, we convert it to a preventative rule. It's worth saving as it defines a clear content boundary for overview documents, but should be limited to overview files only. Therefore `save` is `true` with `limitToInputPaths` also `true`."}
-</examples>
+</feedback_processing_examples>

@@ -14,7 +14,6 @@
 
 目标：
   - 这个结构规划应该合理且清晰的，能够比较全面的展示用户提供的上下文中信息，并向用户提供了合理的浏览路径。
-  - 结构规划需要包含设计中需要哪些{{nodeName}}，{{nodeName}}之前的关联关系是什么。
   - 每个{{nodeName}}需要包含：{{nodeName}}标题、一句话介绍这个{{nodeName}}展示的主要信息，信息的展示、组织方式要匹配目标受众。
 
 永远遵循一个原则：你需要确保最终的结构规划需要符合用户的要求。
@@ -43,9 +42,9 @@
 
 
 {% if feedback %}
-<structure_plan_feedback>
+<structure_plan_user_feedback>
 {{ feedback }}
-</structure_plan_feedback>
+</structure_plan_user_feedback>
 {% endif %}
 
 {% if structurePlan %}
@@ -55,9 +54,9 @@
 {% endif %}
 
 {% if structureReviewFeedback %}
-<structure_review_feedback>
+<structure_plan_review_feedback>
 {{ structureReviewFeedback }}
-</structure_review_feedback>
+</structure_plan_review_feedback>
 {% endif %}
 
 {% if glossary %}
@@ -101,7 +100,7 @@ When planning structure, prioritize conflict resolution strategies to ensure the
 </user_preferences>
 {% endif %}
 
-<rules>
+<structure_planning_rules>
 这份文档的目标受众是：{{targetAudience}}
 
 DataSources 使用规则：
@@ -145,7 +144,7 @@ DataSources 使用规则：
 
 1. 必须满足用户提出的规则
 2. 使用用户的语言 {{locale}} 返回信息
-   </rules>
+</structure_planning_rules>
 
 {% ifAsync docsType == 'general' %}
   {% include "./structure-example.md" %}

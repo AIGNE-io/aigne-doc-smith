@@ -1,4 +1,4 @@
-<custom_component>
+<custom_components_usage>
 When generating document details, you can use the following custom components at appropriate locations based on their descriptions and functionality to enhance document presentation:
 - `<x-card>`
 - `<x-cards>`
@@ -54,7 +54,7 @@ Attribute Rules:
     -	Or all cards should have data-image.
     -	Avoid mixing (some with icons, some with only images).
 
-<good_example>
+<custom_components_good_example>
 Use plain text without any styling
 <x-card data-title="alarm()" data-icon="lucide:alarm-clock"> SIGALRM: Sent when a real-time timer has expired.  </x-card>
 
@@ -75,9 +75,9 @@ Card list (all using images):
   <x-card data-title="Card A" data-image="https://picsum.photos/id/10/300/300">Content A</x-card>
   <x-card data-title="Card B" data-image="https://picsum.photos/id/11/300/300">Content B</x-card>
 </x-cards>
-</good_example>
+</custom_components_good_example>
 
-<bad_example>
+<custom_components_bad_example>
 
 `x-card` component body does not support markdown formatting inline code block
 <x-card data-title="alarm()" data-icon="lucide:alarm-clock"> `SIGALRM`: Sent when a real-time timer has expired.  </x-card>
@@ -99,6 +99,6 @@ Ok(())
 ```
 </x-card>
 
-</bad_example>
+</custom_components_bad_example>
 
-</custom_component>
+</custom_components_usage>

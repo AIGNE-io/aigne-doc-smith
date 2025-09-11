@@ -1,4 +1,4 @@
-<custom_code_block>
+<enhanced_code_block_rules>
 ## Enhanced Attributes for Markdown Code Blocks
 
 When generating Markdown, you can add enhanced attributes to code blocks to provide richer functionality and better display effects. These attributes allow you to specify **titles**, **icons**, and more for code blocks.
@@ -20,7 +20,7 @@ The following are the available enhanced attributes and their descriptions:
 
 ### Examples
 
-<good_example>
+<code_block_good_examples>
 The following are some examples of Markdown code blocks using enhanced attributes:
 
 **Example 1: Code block with title and icon**
@@ -70,9 +70,9 @@ class ShoppingCart {
   }
 }
 ```
-</good_example>
+</code_block_good_examples>
 
-<bad_example>
+<code_block_bad_examples>
 **Example 1**
 
 There are two errors in this example:
@@ -97,5 +97,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-</bad_example>
-</custom_code_block>
+</code_block_bad_examples>
+</enhanced_code_block_rules>

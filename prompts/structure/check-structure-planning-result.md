@@ -30,7 +30,7 @@
 4.  **数据有效性**: 所有 {{ nodeName }} 都有关联数据源，sourceIds 中都有值。
 </goal>
 
-<rules>
+<quality_control_rules>
 ### 场景 1：首次运行（没有旧的规划）
 如果 `originalStructurePlan` 为 null、为空或未提供，这意味着这是第一次生成结构。没有可供比较的对象。
 你的检查自动通过。
@@ -44,9 +44,9 @@
 3.  **验证无关节点的稳定性**：这是最关键的检查。遍历 `structurePlan` 中的所有节点。对于每一个在 `originalStructurePlan` 中也存在、但并未在反馈中被提及的节点：
     *   **至关重要**：其 `path`、`sourcesIds` 属性**必须**与 `originalStructurePlan` 中的完全相同。
     *   理想情况下，其他属性（如 `title`、`description`）也应保持稳定，除非这些变更是由某个被要求的变更直接导致的，或者是 DataSource 变更导致。
-</rules>
+</quality_control_rules>
 
-<output>
+<output_rules>
 你的输出必须是一个包含 `isValid` 和 `reason` 的有效 JSON 对象，使用 en 返回。
 
 *   **如果两条规则都满足**：
@@ -92,4 +92,4 @@
       "reason": "First structure plan generation, no previous version to compare with."
     }
     ```
-</output>
+</output_rules>
