@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
-import * as blockletModule from "../../utils/blocklet.mjs";
 import * as openModule from "open";
+import * as blockletModule from "../../utils/blocklet.mjs";
 
 // Import the real utils module and deploy function
 import { deploy } from "../../utils/deploy.mjs";
