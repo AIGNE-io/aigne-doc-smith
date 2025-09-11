@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.8.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.5...v0.8.6) (2025-09-11)
+
+
+### Features
+
+* add deploy unit tests and improve publish workflow with better logging ([e33a94b](https://github.com/AIGNE-io/aigne-doc-smith/commit/e33a94bef5eda09398901fa1f953e662ae5fbd16))
+* **publish:** display publish url for the default publish processing ([9d1d018](https://github.com/AIGNE-io/aigne-doc-smith/commit/9d1d0180dc9c8bb0a4393a893eed2395eec300ab))
+
+
+### Bug Fixes
+
+* **deploy:** ensure log is saved after await to prevent save failure ([793343f](https://github.com/AIGNE-io/aigne-doc-smith/commit/793343fc7f96ab962e70eb310cb07f4e7eaec9e0))
+
+
+### Miscellaneous Chores
+
+* release 0.8.6 ([1e25cb4](https://github.com/AIGNE-io/aigne-doc-smith/commit/1e25cb49a26d8bcc3c83ec36120b6bad4042cadf))
+
 ## [0.8.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.4...v0.8.5) (2025-09-10)
 
 
