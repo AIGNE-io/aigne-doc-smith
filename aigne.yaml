@@ -39,6 +39,7 @@ agents:
   - ./agents/utils/check-feedback-refiner.mjs
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/prefs/prefs.mjs
+  - ./agents/chat/chat.yaml
 cli:
   chat: ./agents/chat/chat.yaml
   agents:

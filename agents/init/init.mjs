@@ -343,7 +343,11 @@ export default async function init(
     console.log(`🚀 Ready to generate docs? Run: ${chalk.cyan("aigne doc generate")}\n`);
 
     // load config from file
-    return loadConfig({ config: filePath, appUrl });
+    if (skipIfExists) {
+      return loadConfig({ config: filePath, appUrl });
+    }
+
+    return {};
   } catch (error) {
     console.error(`❌ Failed to save configuration file: ${error.message}`);
     return {
