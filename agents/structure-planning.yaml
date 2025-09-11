@@ -31,7 +31,7 @@ input_schema:
       description: Your saved preferences for structure and documentation style
     docsType:
       type: string
-      description: Documentation type (options: general, getting-started, reference, faq)
+      description: "Documentation type (options: general, getting-started, reference, faq)"
       default: general
   required:
     - rules
