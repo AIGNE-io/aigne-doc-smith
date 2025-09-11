@@ -259,7 +259,7 @@ describe("selectedDocs utility", () => {
 
     expect(getActionTextSpy).toHaveBeenCalledWith(
       true,
-      "Please provide feedback for the {action} (press Enter to skip):",
+      "How should we improve this {action}? (press Enter to skip):",
     );
     expect(mockOptions.prompts.input).toHaveBeenCalled();
     expect(result.feedback).toBe("Test feedback");

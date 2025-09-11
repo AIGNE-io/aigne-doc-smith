@@ -41,7 +41,7 @@ describe("prefs", () => {
     const result = await prefs({}, mockOptions);
 
     expect(result).toBeDefined();
-    expect(result.message).toBe("Please specify an action: --list, --remove, or --toggle.");
+    expect(result.message).toBe("Please choose an action: --list, --remove, or --toggle.");
   });
 
   // LIST PREFERENCES TESTS
@@ -51,7 +51,7 @@ describe("prefs", () => {
 
       const result = await prefs({ list: true }, mockOptions);
 
-      expect(result.message).toBe("No preferences found.");
+      expect(result.message).toBe("No saved preferences found.");
     });
 
     test("should format preferences list with active rules", async () => {
@@ -144,7 +144,7 @@ describe("prefs", () => {
 
       const result = await prefs({ remove: true }, mockOptions);
 
-      expect(result.message).toBe("No preferences found to remove.");
+      expect(result.message).toBe("No preferences available to remove.");
     });
 
     test("should prompt for interactive selection when no IDs provided", async () => {
@@ -163,7 +163,7 @@ describe("prefs", () => {
       const result = await prefs({ remove: true }, mockOptions);
 
       expect(mockOptions.prompts.checkbox).toHaveBeenCalledWith({
-        message: "Select preferences to remove:",
+        message: "Choose preferences to delete:",
         choices: expect.arrayContaining([
           expect.objectContaining({
             name: expect.stringContaining("🟢 [global] Use TypeScript for new files"),
@@ -192,7 +192,7 @@ describe("prefs", () => {
 
       const validateFn = mockOptions.prompts.checkbox.mock.calls[0][0].validate;
 
-      expect(validateFn([])).toBe("Please select at least one preference to remove");
+      expect(validateFn([])).toBe("Please choose at least one preference to delete");
       expect(validateFn(["rule1"])).toBe(true);
     });
 
@@ -211,7 +211,7 @@ describe("prefs", () => {
 
       const result = await prefs({ remove: true }, mockOptions);
 
-      expect(result.message).toBe("No preferences selected for removal.");
+      expect(result.message).toBe("No preferences selected for deletion.");
     });
 
     test("should truncate long rules in interactive choices", async () => {
@@ -288,7 +288,7 @@ describe("prefs", () => {
 
       const result = await prefs({ toggle: true }, mockOptions);
 
-      expect(result.message).toBe("No preferences found to toggle.");
+      expect(result.message).toBe("No preferences available to toggle.");
     });
 
     test("should prompt for interactive selection when no IDs provided", async () => {
@@ -307,7 +307,7 @@ describe("prefs", () => {
       const result = await prefs({ toggle: true }, mockOptions);
 
       expect(mockOptions.prompts.checkbox).toHaveBeenCalledWith({
-        message: "Select preferences to toggle active status:",
+        message: "Choose preferences to enable/disable:",
         choices: expect.arrayContaining([
           expect.objectContaining({
             name: expect.stringContaining("⚪ [global] Use TypeScript"),
@@ -336,7 +336,7 @@ describe("prefs", () => {
 
       const validateFn = mockOptions.prompts.checkbox.mock.calls[0][0].validate;
 
-      expect(validateFn([])).toBe("Please select at least one preference to toggle");
+      expect(validateFn([])).toBe("Please choose at least one preference to toggle");
       expect(validateFn(["rule1"])).toBe(true);
     });
 
@@ -355,7 +355,7 @@ describe("prefs", () => {
 
       const result = await prefs({ toggle: true }, mockOptions);
 
-      expect(result.message).toBe("No preferences selected for toggling.");
+      expect(result.message).toBe("No preferences selected to toggle.");
     });
   });
 
@@ -426,6 +426,6 @@ describe("prefs", () => {
 
     const result = await prefs({ remove: true }, mockOptions);
 
-    expect(result.message).toBe("No preferences selected for removal.");
+    expect(result.message).toBe("No preferences selected for deletion.");
   });
 });

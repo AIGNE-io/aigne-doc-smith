@@ -363,9 +363,7 @@ describe("findItemByPath", () => {
   // FEEDBACK HANDLING TESTS
   test("should prompt for feedback when not provided", async () => {
     mockOptions.prompts.input = async (options) => {
-      expect(options.message).toBe(
-        "Please provide feedback for the {action} (press Enter to skip):",
-      );
+      expect(options.message).toBe("How should we improve this {action}? (press Enter to skip):");
       return "prompted feedback";
     };
 
@@ -383,7 +381,7 @@ describe("findItemByPath", () => {
 
     expect(getActionTextSpy).toHaveBeenCalledWith(
       false,
-      "Please provide feedback for the {action} (press Enter to skip):",
+      "How should we improve this {action}? (press Enter to skip):",
     );
     expect(result.feedback).toBe("prompted feedback");
   });
@@ -462,7 +460,7 @@ describe("findItemByPath", () => {
 
     expect(getActionTextSpy).toHaveBeenCalledWith(
       true,
-      "Please provide feedback for the {action} (press Enter to skip):",
+      "How should we improve this {action}? (press Enter to skip):",
     );
   });
 

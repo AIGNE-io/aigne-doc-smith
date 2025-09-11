@@ -3,7 +3,7 @@ import actionSuccess from "../../../agents/utils/action-success.mjs";
 
 describe("actionSuccess", () => {
   test("should return success message with action name", async () => {
-    const result = await actionSuccess({ action: "Document generation" });
+    const result = await actionSuccess({ action: "✅ Document generation successfully" });
 
     expect(result).toBeDefined();
     expect(result).toHaveProperty("message");
@@ -22,7 +22,7 @@ describe("actionSuccess", () => {
       const result = await actionSuccess({ action });
 
       expect(result).toBeDefined();
-      expect(result.message).toBe(`✅ ${action} successfully`);
+      expect(result.message).toBe(`${action}`);
     }
   });
 
@@ -30,14 +30,14 @@ describe("actionSuccess", () => {
     const result = await actionSuccess({ action: "" });
 
     expect(result).toBeDefined();
-    expect(result.message).toBe("✅  successfully");
+    expect(result.message).toBe("");
   });
 
   test("should handle undefined action", async () => {
     const result = await actionSuccess({ action: undefined });
 
     expect(result).toBeDefined();
-    expect(result.message).toBe("✅ undefined successfully");
+    expect(result.message).toBe("undefined");
   });
 
   test("should have task_render_mode property", () => {
@@ -49,6 +49,6 @@ describe("actionSuccess", () => {
     const result = await actionSuccess({ action: "Test action" });
 
     expect(result).toBeDefined();
-    expect(result.message).toBe("✅ Test action successfully");
+    expect(result.message).toBe("Test action");
   });
 });

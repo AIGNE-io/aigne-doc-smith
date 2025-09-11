@@ -99,7 +99,7 @@ describe("checkStructurePlan", () => {
     await checkStructurePlan({ originalStructurePlan, docsDir: "./docs" }, mockOptions);
 
     expect(mockOptions.prompts.input).toHaveBeenCalledWith({
-      message: "Please provide feedback for structure planning (press Enter to skip):",
+      message: "How can we improve the documentation structure? (press Enter to skip):",
     });
     expect(mockOptions.context.invoke).toHaveBeenCalled();
   });
