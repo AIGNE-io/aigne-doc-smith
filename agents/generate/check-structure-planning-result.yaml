@@ -1,4 +1,4 @@
-name: checkStructurePlanResult
+name: checkStructurePlanningResult
 description: 对 structure-planning agent 生成的结果进行检查，确保其符合预期，特别是在有上一轮生成结果和用户反馈的场景下。
 instructions:
   url: ../../prompts/structure/check-structure-planning-result.md

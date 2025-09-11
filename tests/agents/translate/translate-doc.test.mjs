@@ -1,6 +1,7 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { join } from "node:path";
-import { AIAgent, AIGNE } from "@aigne/core";
+import { AIAgent } from "@aigne/core";
+import { loadAgent } from "@aigne/core/loader/index.js";
 import { loadModel } from "../../utils/mock-chat-model.mjs";
 
 describe("translateDoc Agent", () => {
@@ -12,15 +13,14 @@ describe("translateDoc Agent", () => {
     delete process.env.AIGNE_OBSERVABILITY_DISABLED;
   });
   test("should load agent correctly with proper configuration", async () => {
-    const aigne = await AIGNE.load(join(import.meta.dirname, "../../.."), {
-      model: loadModel,
-    });
+    const agent = await loadAgent(
+      join(import.meta.dirname, "../../../agents/translate/translate-doc.yaml"),
+      {
+        model: loadModel,
+      },
+    );
 
-    expect(aigne).toBeDefined();
-    expect(aigne.agents.length).toBeGreaterThan(0);
-
-    // Get the translateDoc agent by name
-    const agent = aigne.agents.find((a) => a.name === "translateDoc");
+    expect(agent).toBeDefined();
 
     // Verify agent exists and is correct type
     expect(agent).toBeDefined();
@@ -29,11 +29,13 @@ describe("translateDoc Agent", () => {
   });
 
   test("should have instructions loaded from file", async () => {
-    const aigne = await AIGNE.load(join(import.meta.dirname, "../../.."), {
-      model: loadModel,
-    });
+    const agent = await loadAgent(
+      join(import.meta.dirname, "../../../agents/translate/translate-doc.yaml"),
+      {
+        model: loadModel,
+      },
+    );
 
-    const agent = aigne.agents.find((a) => a.name === "translateDoc");
     expect(agent).toBeDefined();
 
     // Verify instructions are loaded
