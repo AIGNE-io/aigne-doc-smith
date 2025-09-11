@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { afterAll, afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -1062,6 +1062,119 @@ describe("loadSources", () => {
       });
 
       expect(result.originalStructurePlan).toBeUndefined();
+    });
+
+    test("should handle non-ENOENT errors when reading structure plan JSON", async () => {
+      // Import fs promises module to spy on
+      const fsPromises = await import("node:fs/promises");
+
+      // Get the original readFile function
+      const originalReadFile = fsPromises.readFile;
+
+      // Create a spy that only throws error for structure-plan.json
+      const readFileSpy = spyOn(fsPromises, "readFile").mockImplementation((filePath, encoding) => {
+        if (filePath.includes("structure-plan.json")) {
+          const error = new Error("Permission denied");
+          error.code = "EACCES";
+          throw error;
+        }
+        // For all other files, use the original readFile
+        return originalReadFile(filePath, encoding);
+      });
+
+      try {
+        const result = await loadSources({
+          sourcesPath: testDir,
+          includePatterns: ["*.js"],
+          useDefaultPatterns: false,
+          outputDir: tempDir,
+          docsDir: path.join(testDir, "docs"),
+        });
+
+        expect(result.originalStructurePlan).toBeUndefined();
+      } finally {
+        // Restore the original readFile function
+        readFileSpy.mockRestore();
+      }
+    });
+
+    test("should handle non-ENOENT errors when reading docPath file", async () => {
+      // Import fs promises module to spy on
+      const fsPromises = await import("node:fs/promises");
+
+      // Get the original readFile function
+      const originalReadFile = fsPromises.readFile;
+
+      // Create a spy that only throws error for the specific docPath file
+      const readFileSpy = spyOn(fsPromises, "readFile").mockImplementation((filePath, encoding) => {
+        // Check if this is the docPath file (api-overview.md)
+        if (filePath.includes("api-overview.md")) {
+          const error = new Error("Permission denied");
+          error.code = "EACCES";
+          throw error;
+        }
+        // For all other files, use the original readFile
+        return originalReadFile(filePath, encoding);
+      });
+
+      try {
+        const result = await loadSources({
+          sourcesPath: testDir,
+          "doc-path": "/api/overview",
+          includePatterns: ["*.js"],
+          useDefaultPatterns: false,
+          outputDir: tempDir,
+          docsDir: path.join(testDir, "docs"),
+        });
+
+        expect(result.content).toBeUndefined();
+      } finally {
+        // Restore the original readFile function
+        readFileSpy.mockRestore();
+      }
+    });
+
+    test("should handle non-ENOENT errors when reading boardId-based docPath file", async () => {
+      // Import fs promises module to spy on
+      const fsPromises = await import("node:fs/promises");
+
+      // Get the original readFile function
+      const originalReadFile = fsPromises.readFile;
+
+      // Create a spy that only throws error for the boardId file
+      const readFileSpy = spyOn(fsPromises, "readFile").mockImplementation((filePath, encoding) => {
+        // First call will fail for the original format (board123-api-overview.md)
+        // Second call should fail for the boardId format (api-overview.md)
+        if (filePath.includes("board123-api-overview.md")) {
+          const error = new Error("File not found");
+          error.code = "ENOENT";
+          throw error;
+        }
+        if (filePath.includes("api-overview.md") && !filePath.includes("board123-")) {
+          const error = new Error("Permission denied");
+          error.code = "EACCES";
+          throw error;
+        }
+        // For all other files, use the original readFile
+        return originalReadFile(filePath, encoding);
+      });
+
+      try {
+        const result = await loadSources({
+          sourcesPath: testDir,
+          "doc-path": "board123-api-overview",
+          boardId: "board123",
+          includePatterns: ["*.js"],
+          useDefaultPatterns: false,
+          outputDir: tempDir,
+          docsDir: path.join(testDir, "docs"),
+        });
+
+        expect(result.content).toBeUndefined();
+      } finally {
+        // Restore the original readFile function
+        readFileSpy.mockRestore();
+      }
     });
 
     test("should load document content by docPath", async () => {
