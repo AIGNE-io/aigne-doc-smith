@@ -1307,7 +1307,9 @@ describe("init", () => {
             if (options.message.includes("[1/8]") && options.validate) {
               // Test the validation function directly
               const validationResult = options.validate([]);
-              expect(validationResult).toBe("Please choose at least one goal for your documentation.");
+              expect(validationResult).toBe(
+                "Please choose at least one goal for your documentation.",
+              );
               validateCalled = true;
               // Return valid result after testing validation
               return Promise.resolve(["getStarted"]);
