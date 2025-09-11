@@ -1,5 +1,5 @@
 name: structurePlanGenerator
-description: 通用结构规划生成器，支持网站、文档、书籍、演示文稿等多种场景
+description: Plan the structure and organization of your documentation
 instructions:
   url: ../../prompts/structure/structure-plan-generator.md
 input_schema:
@@ -7,31 +7,31 @@ input_schema:
   properties:
     rules:
       type: string
-      description: 用户的结构规划的要求
+      description: Your specific requirements for documentation structure
     locale:
       type: string
-      description: 用户语言，如 zh、en
+      description: Primary language for documentation (e.g., zh, en, ja)
     datasources:
       type: string
-      description: 结构规划的上下文，用于辅助结构规划
+      description: Project content and context to help plan structure
     targetAudience:
       type: string
-      description: 结构规划的目标受众
+      description: Target audience for the documentation
     nodeName:
       type: string
-      description: 结构规划的节点名称
+      description: Specific section or page name to focus on
     glossary:
       type: string
-      description: 术语表
+      description: Glossary for consistent terminology
     feedback:
       type: string
-      description: 结构规划的反馈
+      description: Tell us how to improve the documentation structure
     userPreferences:
       type: string
-      description: 用户偏好规则，YAML格式的结构规划和全局范围偏好
+      description: Your saved preferences for structure and documentation style
     docsType:
       type: string
-      description: 文档类型，支持：general、getting-started、reference、faq
+      description: "Documentation type (options: general, getting-started, reference, faq)"
       default: general
   required:
     - rules
@@ -41,18 +41,18 @@ output_schema:
   properties:
     projectName:
       type: string
-      description: 根据 DataSources 分析项目名称，注意是原始项目名称
+      description: Project name identified from your content sources
     projectDesc:
       type: string
-      description: 根据 DataSources 分析生成当前项目描述，为原始项目生成描述，描述简洁，不超过 50 个单词
+      description: Brief project description generated from content analysis (under 50 words)
     structurePlan: ../schema/structure-plan.yaml
     structurePlanTree:
       type: string
       description: |
-        结构规划的树形结构，用于展示结构规划的层级关系，每一级有不同的缩进，方便用户直观查看结构规划的层级关系,参考格式：
+        Visual tree structure showing documentation hierarchy with indented levels for easy review:
         ```
-        - 首页
-          - 产品
-            - 产品详情
-              - 产品介绍
+        - Home
+          - Getting Started
+            - Installation
+              - Requirements
         ```

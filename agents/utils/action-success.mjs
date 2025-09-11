@@ -9,7 +9,7 @@ export default async function actionSuccess({ action }) {
   }
 
   return {
-    message: `✅ ${action} successfully`,
+    message: `${action}`,
   };
 }
 

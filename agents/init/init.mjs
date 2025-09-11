@@ -46,14 +46,14 @@ export default async function init(
   }
 
   console.log("🚀 Welcome to AIGNE DocSmith!");
-  console.log("Let's create your documentation configuration.\n");
+  console.log("Let's set up your documentation preferences.\n");
 
   // Collect user information
   const input = {};
 
   // 1. Primary purpose - what's the main outcome you want readers to achieve?
   const purposeChoices = await options.prompts.checkbox({
-    message: "📝 [1/8]: What is the primary goal for your readers? (Select all that apply)",
+    message: "📝 [1/8]: What should your documentation help readers achieve?",
     choices: Object.entries(DOCUMENT_STYLES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, style]) => ({
@@ -63,7 +63,7 @@ export default async function init(
       })),
     validate: (input) => {
       if (input.length === 0) {
-        return "Please select at least one purpose.";
+        return "Please choose at least one goal for your documentation.";
       }
       return true;
     },
@@ -83,10 +83,10 @@ export default async function init(
         })),
       validate: (input) => {
         if (input.length === 0) {
-          return "Please select at least one priority.";
+          return "Please choose at least one priority.";
         }
         if (input.length > 2) {
-          return "Please select maximum 2 priorities.";
+          return "Please choose maximum 2 priorities.";
         }
         return true;
       },
@@ -101,7 +101,7 @@ export default async function init(
 
   // 2. Target audience - who will be reading this most often?
   const audienceChoices = await options.prompts.checkbox({
-    message: "👥 [2/8]: Who is the primary audience for this documentation?",
+    message: "👥 [2/8]: Who will be reading your documentation?",
     choices: Object.entries(TARGET_AUDIENCES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, audience]) => ({
@@ -111,7 +111,7 @@ export default async function init(
       })),
     validate: (input) => {
       if (input.length === 0) {
-        return "Please select at least one audience.";
+        return "Please choose at least one audience.";
       }
       return true;
     },
@@ -135,7 +135,7 @@ export default async function init(
   );
 
   const knowledgeChoice = await options.prompts.select({
-    message: "🧠 [3/8]: What is your reader's typical starting knowledge level?",
+    message: "🧠 [3/8]: How much do readers already know about your project?",
     choices: Object.entries(filteredKnowledgeOptions).map(([key, level]) => ({
       name: `${level.name}`,
       description: level.description,
@@ -180,7 +180,7 @@ export default async function init(
   );
 
   const depthChoice = await options.prompts.select({
-    message: "📊 [4/8]: How comprehensive should the documentation be?",
+    message: "📊 [4/8]: How detailed should your documentation be?",
     choices: Object.entries(filteredDepthOptions).map(([key, depth]) => ({
       name: `${depth.name}`,
       description: depth.description,
@@ -198,7 +198,7 @@ export default async function init(
 
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 [5/8]: Choose primary documentation language:",
+    message: "🌐 [5/8]: What's your main documentation language?",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -215,7 +215,7 @@ export default async function init(
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "🔄 [6/8]: Select translation languages:",
+    message: "🔄 [6/8]: Which languages should we translate to?",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -226,21 +226,23 @@ export default async function init(
 
   // 7. Documentation directory
   const docsDirInput = await options.prompts.input({
-    message: `📁 [7/8]: Where to save generated docs:`,
+    message: `📁 [7/8]: Where should we save your documentation?`,
     default: `${outputPath}/docs`,
   });
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
 
-  // 8. Source code paths
-  console.log("\n🔍 [8/8]: Source Code Paths");
-  console.log("Enter paths to analyze for documentation (e.g., ./src, ./lib)");
-  console.log("💡 You can also enter glob patterns (e.g., src/**/*.js, **/*.md)");
-  console.log("💡 If no paths are configured, './' will be used as default");
+  // 8. Content sources
+  console.log("\n🔍 [8/8]: Content Sources");
+  console.log(
+    "What folders/files should we analyze for documentation? (e.g., ./src, ./docs, ./README.md)",
+  );
+  console.log("💡 Advanced: Use patterns like src/**/*.js or docs/**/*.md for specific files");
+  console.log("💡 Leave empty to scan everything");
 
   const sourcePaths = [];
   while (true) {
     const selectedPath = await options.prompts.search({
-      message: "Path or glob pattern:",
+      message: "File/folder path or pattern:",
       source: async (input) => {
         if (!input || input.trim() === "") {
           return [
@@ -332,15 +334,13 @@ export default async function init(
     await mkdir(dirPath, { recursive: true });
 
     await writeFile(filePath, yamlContent, "utf8");
-    console.log(`\n🎉 Configuration saved to: ${chalk.cyan(filePath)}`);
+    console.log(`\n✅ Setup complete! Configuration saved to: ${chalk.cyan(filePath)}`);
     // Print YAML content for user review
     console.log(chalk.cyan("---"));
     console.log(chalk.cyan(yamlContent));
     console.log(chalk.cyan("---"));
     console.log("💡 You can edit the configuration file anytime to modify settings.\n");
-    console.log(
-      `🚀 Run ${chalk.cyan("'aigne doc generate'")} to start documentation generation!\n`,
-    );
+    console.log(`🚀 Ready to generate docs? Run: ${chalk.cyan("aigne doc generate")}\n`);
 
     // load config from file
     return loadConfig({ config: filePath, appUrl });

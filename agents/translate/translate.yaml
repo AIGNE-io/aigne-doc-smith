@@ -1,6 +1,6 @@
 type: team
 name: translate
-description: Translate document content to selected languages
+description: Translate documents into other languages
 skills:
   - url: ../init/init.mjs
     default_input:
@@ -41,24 +41,24 @@ skills:
       stage: translation_refine
   - url: ../utils/action-success.mjs
     default_input:
-      action: "Document translated"
+      action: "✅ Translation completed"
 input_schema:
   type: object
   properties:
     glossary:
       type: string
-      description: Glossary of terms for consistent terminology, use @<file> to read from a file
+      description: Glossary file for consistent terminology (use @filename.md)
     docs:
       type: array
       items:
         type: string
-      description: Document paths to translate
+      description: Documents to translate
     langs:
       type: array
       items:
         type: string
-      description: "Languages to translate to, available languages are: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar"
+      description: "Target languages (available: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar)"
     feedback:
       type: string
-      description: Feedback for translation improvement
+      description: Tell us how to improve the translation style
 mode: sequential

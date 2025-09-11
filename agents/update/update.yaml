@@ -2,7 +2,7 @@ type: team
 name: update
 alias:
   - up
-description: Optimize and regenerate individual document content and translations
+description: Update specific documents and their translations
 skills:
   - url: ../init/init.mjs
     default_input:
@@ -38,24 +38,24 @@ skills:
       stage: document_refine
   - url: ../utils/action-success.mjs
     default_input:
-      action: "Document updated"
+      action: "✅ Documents updated successfully"
 input_schema:
   type: object
   properties:
     glossary:
       type: string
-      description: Glossary of terms for consistent terminology, use @<file> to read from a file
+      description: Glossary file for consistent terminology (use @filename.md)
     docs:
       type: array
       items:
         type: string
-      description: Document paths to translate
+      description: Documents to update
     feedback:
       type: string
-      description: Feedback for content improvement
+      description: Tell us what to change in this content
     reset:
       type: boolean
-      description: Ignore previous results and regenerate content from scratch
+      description: Start fresh - ignore previous versions
 output_schema:
   type: object
   properties:

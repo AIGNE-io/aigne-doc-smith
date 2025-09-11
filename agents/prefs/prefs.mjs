@@ -8,7 +8,7 @@ function listPreferences() {
   const preferences = readPreferences();
 
   if (preferences.rules.length === 0) {
-    return { message: "No preferences found." };
+    return { message: "No saved preferences found." };
   }
 
   let message = "# User Preferences\n\n";
@@ -53,7 +53,7 @@ async function removePreferences(id, options) {
   if (!targetIds || targetIds.length === 0) {
     // Interactive selection
     if (preferences.rules.length === 0) {
-      return { message: "No preferences found to remove." };
+      return { message: "No preferences available to remove." };
     }
 
     const choices = preferences.rules.map((rule) => ({
@@ -63,18 +63,18 @@ async function removePreferences(id, options) {
     }));
 
     targetIds = await options.prompts.checkbox({
-      message: "Select preferences to remove:",
+      message: "Choose preferences to delete:",
       choices,
       validate: (answer) => {
         if (answer.length === 0) {
-          return "Please select at least one preference to remove";
+          return "Please choose at least one preference to delete";
         }
         return true;
       },
     });
 
     if (!targetIds || targetIds.length === 0) {
-      return { message: "No preferences selected for removal." };
+      return { message: "No preferences selected for deletion." };
     }
   }
 
@@ -108,7 +108,7 @@ async function togglePreferences(id, options) {
   if (!targetIds || targetIds.length === 0) {
     // Interactive selection
     if (preferences.rules.length === 0) {
-      return { message: "No preferences found to toggle." };
+      return { message: "No preferences available to toggle." };
     }
 
     const choices = preferences.rules.map((rule) => ({
@@ -118,18 +118,18 @@ async function togglePreferences(id, options) {
     }));
 
     targetIds = await options.prompts.checkbox({
-      message: "Select preferences to toggle active status:",
+      message: "Choose preferences to enable/disable:",
       choices,
       validate: (answer) => {
         if (answer.length === 0) {
-          return "Please select at least one preference to toggle";
+          return "Please choose at least one preference to toggle";
         }
         return true;
       },
     });
 
     if (!targetIds || targetIds.length === 0) {
-      return { message: "No preferences selected for toggling." };
+      return { message: "No preferences selected to toggle." };
     }
   }
 
@@ -172,7 +172,7 @@ export default async function prefs({ list, remove, toggle, id }, options) {
     return await togglePreferences(id, options);
   }
 
-  return { message: "Please specify an action: --list, --remove, or --toggle." };
+  return { message: "Please choose an action: --list, --remove, or --toggle." };
 }
 
 prefs.input_schema = {
@@ -180,24 +180,24 @@ prefs.input_schema = {
   properties: {
     list: {
       type: "boolean",
-      description: "List all preferences",
+      description: "Show all saved preferences",
     },
     remove: {
       type: "boolean",
-      description: "Remove preferences",
+      description: "Delete saved preferences",
     },
     toggle: {
       type: "boolean",
-      description: "Toggle preferences active status",
+      description: "Enable/disable preferences",
     },
     id: {
       type: "array",
       items: {
         type: "string",
       },
-      description: "Preference IDs to manage",
+      description: "Specific preference IDs to work with",
     },
   },
 };
 
-prefs.description = "Manage user preferences learned from feedback";
+prefs.description = "Manage your saved documentation preferences";
