@@ -1,6 +1,6 @@
 type: team
 name: batchTranslate
-description: 批量翻译文档到多个语言
+description: Batch translate documents to multiple languages
 skills:
   - type: team
     task_render_mode: collapse

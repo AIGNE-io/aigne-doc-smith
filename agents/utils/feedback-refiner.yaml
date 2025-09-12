@@ -1,7 +1,5 @@
 name: feedbackRefiner
 description: Learn from your feedback to improve future documentation
-
-# The instructions file contains the core logic (the prompt) for this Agent.
 instructions:
   url: ../../prompts/utils/feedback-refiner.md
 

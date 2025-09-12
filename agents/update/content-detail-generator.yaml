@@ -1,5 +1,5 @@
 name: contentDetailGenerator
-description: 通用内容详情生成器，支持网站、文档、书籍、演示文稿等多种场景
+description: Comprehensive content generator for documentation that creates detailed, high-quality document content from various data sources with intelligent analysis.
 instructions:
   url: ../../prompts/detail/content-detail-generator.md
 input_schema:
@@ -7,19 +7,19 @@ input_schema:
   properties:
     rules:
       type: string
-      description: 用户的结构规划的要求
+      description: User's content generation rules and requirements
     locale:
       type: string
-      description: 用户语言，如 zh、en
+      description: User language, such as zh, en
     datasources:
       type: string
-      description: 结构规划的上下文，用于辅助结构规划
+      description: Source data and context for document content generation
     targetAudience:
       type: string
-      description: 结构规划的目标受众
+      description: Target audience for document content
     nodeName:
       type: string
-      description: 结构规划的节点名称
+      description: Document node name for content generation
     originalStructurePlan: ../schema/structure-plan.yaml
     title:
       type: string
@@ -33,10 +33,10 @@ input_schema:
         - "null"
     glossary:
       type: string
-      description: 术语表
+      description: Glossary
     additionalInformation:
       type: string
-      description: 额外补充信息
+      description: Additional supplementary information
   required:
     - rules
     - datasources

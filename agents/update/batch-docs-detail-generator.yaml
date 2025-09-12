@@ -1,6 +1,6 @@
 type: team
 name: batchDocsDetailGenerate
-description: 批量生成文档详情
+description: Batch generate document details
 skills:
   - ./check-detail.mjs
 input_schema:
@@ -8,7 +8,7 @@ input_schema:
   properties:
     datasources:
       type: string
-      description: 结构规划的上下文，用于辅助结构规划
+      description: Context for structure planning, used to assist generate document structure
     structurePlanResult: ../schema/structure-plan-result.yaml
     modifiedFiles:
       type: array

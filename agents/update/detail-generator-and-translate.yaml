@@ -1,6 +1,6 @@
 type: team
 name: detailGeneratorAndTranslate
-description: 生成文档详情并翻译
+description: Generate document and translate
 skills:
   - ../utils/transform-detail-datasources.mjs
   - type: team
@@ -37,56 +37,56 @@ input_schema:
   properties:
     nodeName:
       type: string
-      description: 节点名称
+      description: Node name
       default: Section
     locale:
       type: string
-      description: 语言
+      description: Language
     targetAudience:
       type: string
-      description: 目标受众
+      description: Target audience
     glossary:
       type: string
-      description: 术语表
+      description: Glossary
     doc-path:
       type: string
-      description: 当前路径
+      description: Current path
     feedback:
       type: string
-      description: 反馈
+      description: Feedback
     sources:
       type: array
       items:
         type: string
-        description: 源码路径
+        description: Source code path
     sourcesPath:
       type: array
       items:
         type: string
-        description: 源码路径
+        description: Source code path
       default:
         - ./
     includePatterns:
       type: array
       items:
         type: string
-        description: 包含的文件名
+        description: Included file names
     excludePatterns:
       type: array
       items:
         type: string
-        description: 排除的文件名
+        description: Excluded file names
     outputDir:
       type: string
-      description: 输出目录
+      description: Output directory
       default: ./aigne-docs/output
     docsDir:
       type: string
-      description: 文档目录
+      description: Documentation directory
       default: ./aigne-docs/docs
     additionalInformation:
       type: string
-      description: 额外补充信息
+      description: Additional information
 output_schema:
   type: object
   properties:
