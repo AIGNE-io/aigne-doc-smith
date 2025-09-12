@@ -106,9 +106,6 @@ parentId: {{parentId}}
 - 确保每个{{nodeName}}的详情中，都包含一个 markdown 的一级标题，展示当前{{nodeName}}的标题：{{title}}
 - markdown 输出内容正常换行、添加空行，让内容容易阅读
 - 对于列表数据，如果列表项较多，优先使用 markdown 中的 table 来展示，让内容看上去更整齐，容易阅读
-- 对于 API 参数、返回值、上下文数据（Context）、Props 以及与类型相关的内容，优先使用 `<x-field>` 自定义组件来展示，支持嵌套结构来清晰描述复杂数据类型
-- 对于复杂对象类型，使用嵌套的 `<x-field>` 结构来递归描述参数结构，嵌套层级不超过 5 级
-- 所有类型都使用开闭标签格式 `<x-field ...></x-field>`，简单类型 children 为空，复杂类型包含嵌套字段
 - 不要在输出中提到 'DataSources' ，你输出的内容是给用户阅读的，用户不知道 DataSources 的存在
 - 不要在输出中直接 Data Sources 中的文件路径，这对用户是没有意义的
 - 不要出现 '当前{{nodeName}}' 这种说法
