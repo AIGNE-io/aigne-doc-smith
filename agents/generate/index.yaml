@@ -9,7 +9,7 @@ skills:
     default_input:
       skipIfExists: true
   - ../utils/load-sources.mjs
-  - ./check-structure-plan.mjs
+  - ./check-need-generate-structure.mjs
   - url: ../utils/save-output.mjs
     default_input:
       saveKey: structurePlan

@@ -9,7 +9,7 @@ import {
   saveValueToConfig,
 } from "../../utils/utils.mjs";
 
-export default async function checkStructurePlan(
+export default async function checkNeedGenerateStructure(
   { originalStructurePlan, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
   options,
 ) {
@@ -163,4 +163,4 @@ export default async function checkStructurePlan(
   };
 }
 
-checkStructurePlan.taskTitle = "Check if structure plan needs regeneration";
+checkNeedGenerateStructure.taskTitle = "Check if structure plan needs regeneration";
