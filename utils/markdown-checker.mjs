@@ -8,7 +8,7 @@ import { unified } from "unified";
 import { visit } from "unist-util-visit";
 import { VFile } from "vfile";
 import { KROKI_CONCURRENCY } from "./constants.mjs";
-import { checkD2Content } from "./kroki-utils.mjs";
+import { checkContent, isValidCode } from "./d2-utils.mjs";
 import { validateMermaidSyntax } from "./mermaid-validator.mjs";
 
 /**
@@ -467,7 +467,7 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
             specialCharMatch = nodeWithSpecialCharsRegex.exec(mermaidContent);
           }
         }
-        if (node.lang.toLowerCase() === "d2") {
+        if (isValidCode(node.lang)) {
           d2ChecksList.push({
             content: node.value,
             line,
@@ -527,7 +527,7 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
     await pMap(
       d2ChecksList,
       async ({ content, line }) =>
-        checkD2Content({ content }).catch((err) => {
+        checkContent({ content }).catch((err) => {
           const errorMessage = err?.message || String(err) || "Unknown d2 syntax error";
           errorMessages.push(`Found D2 syntax error in ${source} at line ${line}: ${errorMessage}`);
         }),

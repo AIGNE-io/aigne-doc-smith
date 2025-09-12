@@ -1,7 +1,7 @@
 [![GitHub star chart](https://img.shields.io/github/stars/AIGNE-io/aigne-doc-smith?style=flat-square)](https://star-history.com/#AIGNE-io/aigne-doc-smith)
 [![Open Issues](https://img.shields.io/github/issues-raw/AIGNE-io/aigne-doc-smith?style=flat-square)](https://github.com/AIGNE-io/aigne-doc-smith/issues)
 [![codecov](https://codecov.io/gh/AIGNE-io/aigne-doc-smith/graph/badge.svg?token=95TQO2NKYC)](https://codecov.io/gh/AIGNE-io/aigne-doc-smith)
-[![NPM Version](https://img.shields.io/npm/v/@aigne/core)](https://www.npmjs.com/package/@aigne/doc-smith)
+[![NPM Version](https://img.shields.io/npm/v/@aigne/doc-smith)](https://www.npmjs.com/package/@aigne/doc-smith)
 
 # AIGNE DocSmith
 

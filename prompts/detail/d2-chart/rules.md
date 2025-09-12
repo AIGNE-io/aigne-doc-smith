@@ -613,6 +613,101 @@ Ensure that the shape names used in connections are accurate and match the actua
   Frontend.Uploader-Component -> Backend.Local-Storage-Middleware: "6. Upload file"
   ```
 
+#### Remove redundant connection text
+> If the connection text is redundant with the shape labels, it should be removed to reduce visual clutter.
+
+- **Bad Practice:**
+  ```d2
+  direction: down
+
+  User: {
+    shape: c4-person
+  }
+
+  PaymentProvider-Context: {
+    label: "PaymentProvider Context"
+    shape: rectangle
+    style: {
+      stroke: "#888"
+      stroke-width: 2
+      stroke-dash: 4
+    }
+
+    Entry-Points: {
+      label: "High-Level Components"
+      shape: rectangle
+
+      CheckoutTable: {
+        label: "CheckoutTable"
+      }
+
+      CheckoutDonate: {
+        label: "CheckoutDonate"
+      }
+    }
+
+    Core-Processor: {
+      label: "Core Payment Processor"
+      shape: rectangle
+
+      CheckoutForm: {
+        label: "CheckoutForm"
+      }
+    }
+  }
+
+  User -> PaymentProvider-Context.Entry-Points.CheckoutTable: "Selects a plan"
+  User -> PaymentProvider-Context.Entry-Points.CheckoutDonate: "Makes a donation"
+  PaymentProvider-Context.Entry-Points.CheckoutTable -> PaymentProvider-Context.Core-Processor.CheckoutForm: "Initiates checkout"
+  PaymentProvider-Context.Entry-Points.CheckoutDonate -> PaymentProvider-Context.Core-Processor.CheckoutForm: "Initiates checkout"
+  ```
+- **Good Practice:**
+  ```d2
+  direction: down
+
+  User: {
+    shape: c4-person
+  }
+
+  PaymentProvider-Context: {
+    label: "PaymentProvider Context"
+    shape: rectangle
+    style: {
+      stroke: "#888"
+      stroke-width: 2
+      stroke-dash: 4
+    }
+
+    Entry-Points: {
+      label: "High-Level Components"
+      shape: rectangle
+
+      CheckoutTable: {
+        label: "CheckoutTable"
+      }
+
+      CheckoutDonate: {
+        label: "CheckoutDonate"
+      }
+    }
+
+    Core-Processor: {
+      label: "Core Payment Processor"
+      shape: rectangle
+
+      CheckoutForm: {
+        label: "CheckoutForm"
+      }
+    }
+  }
+
+  User -> PaymentProvider-Context.Entry-Points.CheckoutTable: "Selects a plan"
+  User -> PaymentProvider-Context.Entry-Points.CheckoutDonate: "Makes a donation"
+  PaymentProvider-Context.Entry-Points.CheckoutTable -> PaymentProvider-Context.Core-Processor.CheckoutForm
+  PaymentProvider-Context.Entry-Points.CheckoutDonate -> PaymentProvider-Context.Core-Processor.CheckoutForm
+  ```
+
+
 #### Remove unnecessary grid-columns
 - **Bad Practice:**
   ```d2
@@ -780,7 +875,6 @@ Ensure that the shape names used in connections are accurate and match the actua
     Payment-API -> App.ResumeSubscription.t1: "10. Return latest subscription"
     App.ResumeSubscription.t1 -> App.ResumeSubscription: "11. Call onResumed() & close dialog"
   }
-
   ```
 - **Good Practice:**
   ```d2

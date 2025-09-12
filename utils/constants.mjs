@@ -534,7 +534,9 @@ export const D2_CONFIG = `vars: {
 }`;
 
 export const KROKI_CONCURRENCY = 5;
+export const D2_CONCURRENCY = 10;
 export const FILE_CONCURRENCY = 3;
+export const DOC_SMITH_DIR = ".aigne/doc-smith";
 export const TMP_DIR = ".tmp";
 export const TMP_DOCS_DIR = "docs";
 
