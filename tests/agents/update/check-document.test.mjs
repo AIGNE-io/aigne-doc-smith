@@ -363,7 +363,7 @@ describe("check-document", () => {
     );
 
     expect(teamAgentFromSpy).toHaveBeenCalledWith({
-      name: "generateDetail",
+      name: "generateDocument",
       skills: [{ mockAgent: true }],
     });
   });

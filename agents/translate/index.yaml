@@ -28,9 +28,9 @@ skills:
       isTranslate: true
   - ../translate/choose-language.mjs
   - type: team
-    name: batchDocsTranslate
+    name: batchTranslateDocument
     skills:
-      - ../translate/batch-translate-document.yaml
+      - ../translate/translate-multilingual.yaml
       - url: ../utils/save-single-doc.mjs
         default_input:
           isTranslate: true

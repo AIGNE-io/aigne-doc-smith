@@ -28,7 +28,7 @@ skills:
   - ../utils/choose-docs.mjs
   - ../utils/format-document-structure.mjs
   - type: team
-    name: batchDocsUpdate
+    name: batchUpdateDocument
     skills:
       - ../update/generate-and-translate-document.yaml
     iterate_on: selectedDocs

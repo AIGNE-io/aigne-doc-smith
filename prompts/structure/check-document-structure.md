@@ -4,14 +4,18 @@
 
 <context>
 - **上一轮的结构规划 (originalDocumentStructure)**:
+<original_document_structure>
 ```json
 {{ originalDocumentStructure }}
 ```
+</original_document_structure>
 
 - **新生成的结构规划 (documentStructure)**:
+<document_structure>
 ```json
 {{ documentStructure }}
 ```
+</document_structure>
 
 {% if feedback %}
 - **用户反馈**:

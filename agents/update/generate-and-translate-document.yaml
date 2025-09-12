@@ -5,7 +5,7 @@ skills:
   - ../utils/transform-detail-datasources.mjs
   - type: team
     task_render_mode: collapse
-    name: detailGenerate
+    name: generateDocumentContent
     skills:
       - url: ../utils/find-user-preferences-by-path.mjs
         default_input:
@@ -22,7 +22,7 @@ skills:
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true
-    task_title: Generate detail for '{{ title }}'
+    task_title: Generate document for '{{ title }}'
   - type: transform
     task_render_mode: hide
     jsonata: |
@@ -30,7 +30,7 @@ skills:
         $,
         { "feedback": "" }
       ])
-  - ../translate/batch-translate-document.yaml
+  - ../translate/translate-multilingual.yaml
   - ../utils/save-single-doc.mjs
 input_schema:
   type: object

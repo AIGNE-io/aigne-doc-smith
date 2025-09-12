@@ -300,7 +300,7 @@ function checkContentStructure(markdown, source, errorMessages) {
   }
 
   // Check if content ends with proper punctuation (indicating completeness)
-  const validEndingPunctuation = [".", "。", ")", "|", "*", ">", "`"];
+  const validEndingPunctuation = [".", "。", ")", "|", "*", ">", "`", "!"];
   const trimmedText = markdown.trim();
   const hasValidEnding = validEndingPunctuation.some((punct) => trimmedText.endsWith(punct));
 

@@ -111,7 +111,7 @@ export default async function checkDocument(
   }
 
   const teamAgent = TeamAgent.from({
-    name: "generateDetail",
+    name: "generateDocument",
     skills: [options.context.agents["generateAndTranslateDocument"]],
   });
 

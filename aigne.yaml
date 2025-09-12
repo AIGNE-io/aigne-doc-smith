@@ -14,7 +14,7 @@ agents:
   - ./agents/update/generate-and-translate-document.yaml
   - ./agents/update/check-document.mjs
   - ./agents/utils/transform-detail-datasources.mjs
-  - ./agents/translate/batch-translate-document.yaml
+  - ./agents/translate/translate-multilingual.yaml
   - ./agents/utils/save-single-doc.mjs
   - ./agents/utils/save-output.mjs
   - ./agents/generate/check-need-generate-structure.mjs
