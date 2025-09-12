@@ -14,7 +14,7 @@ describe("checkStructurePlanningResult Agent", () => {
   });
   test("should load agent correctly with proper configuration", async () => {
     const agent = await loadAgent(
-      join(import.meta.dirname, "../../../agents/generate/check-structure-planning-result.yaml"),
+      join(import.meta.dirname, "../../../agents/generate/check-document-structure.yaml"),
       {
         model: loadModel,
       },
@@ -30,7 +30,7 @@ describe("checkStructurePlanningResult Agent", () => {
 
   test("should have instructions loaded from file", async () => {
     const agent = await loadAgent(
-      join(import.meta.dirname, "../../../agents/generate/check-structure-planning-result.yaml"),
+      join(import.meta.dirname, "../../../agents/generate/check-document-structure.yaml"),
       {
         model: loadModel,
       },

@@ -1,7 +1,7 @@
 name: checkDocumentStructure
 description: Check the Document Structure to ensure it meets expectations, especially in scenarios with previous generation results and user feedback.
 instructions:
-  url: ../../prompts/structure/check-structure-planning-result.md
+  url: ../../prompts/structure/check-document-structure.md
 input_schema:
   type: object
   properties:

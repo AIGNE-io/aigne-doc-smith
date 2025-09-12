@@ -20,7 +20,7 @@ agents:
   - ./agents/generate/check-structure-plan.mjs
   - ./agents/update/content-detail-generator.yaml
   - ./agents/generate/structure-planner.yaml
-  - ./agents/generate/check-structure-planning-result.yaml
+  - ./agents/generate/check-document-structure.yaml
   - ./agents/init/index.mjs
   - ./agents/generate/index.yaml
   - ./agents/update/update.yaml
