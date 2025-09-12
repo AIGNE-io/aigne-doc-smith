@@ -133,4 +133,4 @@ export default async function checkDocument(
   };
 }
 
-checkDocument.taskTitle = "Check if '{{ title }}' needs regeneration";
+checkDocument.taskTitle = "Check if '{{ title }}' needs generate or update";
