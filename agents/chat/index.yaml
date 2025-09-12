@@ -23,7 +23,7 @@ memory: true
 skills:
   - ../init/index.mjs
   - ../generate/index.yaml
-  - ../update/update.yaml
+  - ../update/index.yaml
   - ../publish/index.yaml
   - ../translate/index.yaml
   - ../utils/docs-fs-actor.yaml

@@ -23,7 +23,7 @@ agents:
   - ./agents/generate/check-document-structure.yaml
   - ./agents/init/index.mjs
   - ./agents/generate/index.yaml
-  - ./agents/update/update.yaml
+  - ./agents/update/index.yaml
   - ./agents/publish/publish-docs.mjs
   - ./agents/utils/format-document-structure.mjs
   - ./agents/publish/index.yaml
@@ -45,7 +45,7 @@ cli:
   agents:
     - ./agents/init/index.mjs
     - ./agents/generate/index.yaml
-    - ./agents/update/update.yaml
+    - ./agents/update/index.yaml
     - ./agents/publish/index.yaml
     - ./agents/translate/index.yaml
     - ./agents/prefs/index.mjs
