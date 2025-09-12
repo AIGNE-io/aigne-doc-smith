@@ -29,6 +29,7 @@
     "@aigne/gemini": "^0.12.3",
     "@aigne/openai": "^0.14.3",
     "@aigne/publish-docs": "^0.9.6",
+    "@terrastruct/d2": "^0.1.33",
     "chalk": "^5.5.0",
     "debug": "^4.4.1",
     "dompurify": "^3.2.6",

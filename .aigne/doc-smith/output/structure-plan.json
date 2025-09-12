@@ -139,7 +139,7 @@
     "sourceIds": [
       "utils/markdown-checker.mjs",
       "utils/mermaid-validator.mjs",
-      "utils/kroki-utils.mjs"
+      "utils/d2-utils.mjs"
     ]
   },
   {
