@@ -20,7 +20,30 @@ const debug = Debug("doc-smith");
 export async function getChart({ content, strict }) {
   const d2 = new D2();
   try {
-    const { diagram, renderOptions } = await d2.compile(content);
+    const { diagram, renderOptions, graph } = await d2.compile(content);
+
+    // Ignore stroke-dash in sequence diagram
+    if (
+      graph?.root?.attributes?.shape &&
+      graph.root.attributes.shape.value !== "sequence_diagram"
+    ) {
+      // Save first level container
+      const firstLevelContainer = new Set();
+      diagram.shapes.forEach((x) => {
+        const idList = x.id.split(".");
+        if (idList.length > 1) {
+          const targetShape = diagram.shapes.find((x) => x.id === idList[0]);
+          if (targetShape) firstLevelContainer.add(targetShape);
+        }
+      });
+      firstLevelContainer.forEach((shape) => {
+        if (!shape.strokeDash) {
+          // NOTICE: The data structure here is different from the d2 source code.
+          shape.strokeDash = 3;
+        }
+      });
+    }
+
     const svg = await d2.render(diagram, renderOptions);
 
     return svg;
