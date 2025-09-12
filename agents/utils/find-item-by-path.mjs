@@ -8,7 +8,7 @@ import {
 } from "../../utils/docs-finder-utils.mjs";
 
 export default async function findItemByPath(
-  { doc, documentStructureResult, boardId, docsDir, isTranslate, feedback, locale },
+  { doc, documentExecutionStructure, boardId, docsDir, isTranslate, feedback, locale },
   options,
 ) {
   let foundItem = null;
@@ -22,7 +22,7 @@ export default async function findItemByPath(
       const mainLanguageFiles = await getMainLanguageFiles(
         docsDir,
         locale,
-        documentStructureResult,
+        documentExecutionStructure,
       );
 
       if (mainLanguageFiles.length === 0) {
@@ -63,7 +63,7 @@ export default async function findItemByPath(
       const flatName = fileNameToFlatPath(selectedFile);
 
       // Try to find matching item by comparing flattened paths
-      const foundItemByFile = findItemByFlatName(documentStructureResult, flatName);
+      const foundItemByFile = findItemByFlatName(documentExecutionStructure, flatName);
 
       if (!foundItemByFile) {
         throw new Error("No document found");
@@ -82,10 +82,16 @@ export default async function findItemByPath(
   }
 
   // Use the utility function to find item and read content
-  foundItem = await findItemByPathUtil(documentStructureResult, docPath, boardId, docsDir, locale);
+  foundItem = await findItemByPathUtil(
+    documentExecutionStructure,
+    docPath,
+    boardId,
+    docsDir,
+    locale,
+  );
 
   if (!foundItem) {
-    throw new Error(`Item with path "${docPath}" not found in documentStructureResult`);
+    throw new Error(`Item with path "${docPath}" not found in documentExecutionStructure`);
   }
 
   // Prompt for feedback if not provided

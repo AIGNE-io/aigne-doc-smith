@@ -23,7 +23,7 @@ skills:
       $merge([
         $,
         {
-          'documentStructureResult': $map(documentStructure, function($item) {
+          'documentExecutionStructure': $map(documentStructure, function($item) {
             $merge([
               $item,
               {

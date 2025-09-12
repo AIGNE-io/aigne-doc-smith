@@ -70,7 +70,7 @@ describe("save-docs", () => {
     const translateLanguages = ["zh", "en"];
 
     const result = await saveDocs({
-      documentStructureResult: documentStructure,
+      documentExecutionStructure: documentStructure,
       docsDir: testDir,
       translateLanguages,
     });

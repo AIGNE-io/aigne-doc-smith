@@ -7,7 +7,16 @@ import {
 } from "../../utils/docs-finder-utils.mjs";
 
 export default async function chooseDocs(
-  { docs, documentStructureResult, boardId, docsDir, isTranslate, feedback, locale, reset = false },
+  {
+    docs,
+    documentExecutionStructure,
+    boardId,
+    docsDir,
+    isTranslate,
+    feedback,
+    locale,
+    reset = false,
+  },
   options,
 ) {
   let foundItems = [];
@@ -20,7 +29,7 @@ export default async function chooseDocs(
       const mainLanguageFiles = await getMainLanguageFiles(
         docsDir,
         locale,
-        documentStructureResult,
+        documentExecutionStructure,
       );
 
       if (mainLanguageFiles.length === 0) {
@@ -53,7 +62,7 @@ export default async function chooseDocs(
       }
 
       // Process selected files and convert to found items
-      foundItems = await processSelectedFiles(selectedFiles, documentStructureResult, docsDir);
+      foundItems = await processSelectedFiles(selectedFiles, documentExecutionStructure, docsDir);
     } catch (error) {
       console.error(error);
       throw new Error(
@@ -67,7 +76,7 @@ export default async function chooseDocs(
     // Process the provided docs array
     for (const docPath of docs) {
       const foundItem = await findItemByPath(
-        documentStructureResult,
+        documentExecutionStructure,
         docPath,
         boardId,
         docsDir,
@@ -75,7 +84,7 @@ export default async function chooseDocs(
       );
 
       if (!foundItem) {
-        console.warn(`⚠️  Item with path "${docPath}" not found in documentStructureResult`);
+        console.warn(`⚠️  Item with path "${docPath}" not found in documentExecutionStructure`);
         continue;
       }
 
@@ -85,7 +94,9 @@ export default async function chooseDocs(
     }
 
     if (foundItems.length === 0) {
-      throw new Error("None of the specified document paths were found in documentStructureResult");
+      throw new Error(
+        "None of the specified document paths were found in documentExecutionStructure",
+      );
     }
   }
 

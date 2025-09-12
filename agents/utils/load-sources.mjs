@@ -177,13 +177,13 @@ export default async function loadSources({
   if (outputDir) {
     const documentStructurePath = path.join(outputDir, "structure-plan.json");
     try {
-      const documentStructureResult = await readFile(documentStructurePath, "utf8");
-      if (documentStructureResult?.trim()) {
+      const documentExecutionStructure = await readFile(documentStructurePath, "utf8");
+      if (documentExecutionStructure?.trim()) {
         try {
           // Validate that the content looks like JSON before parsing
-          const trimmedContent = documentStructureResult.trim();
+          const trimmedContent = documentExecutionStructure.trim();
           if (trimmedContent.startsWith("{") || trimmedContent.startsWith("[")) {
-            originalDocumentStructure = JSON.parse(documentStructureResult);
+            originalDocumentStructure = JSON.parse(documentExecutionStructure);
           } else {
             console.warn(`structure-plan.json contains non-JSON content, skipping parse`);
           }

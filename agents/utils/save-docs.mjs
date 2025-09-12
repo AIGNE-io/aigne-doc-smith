@@ -11,7 +11,7 @@ import { getCurrentGitHead, saveGitHeadToConfig } from "../../utils/utils.mjs";
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
 export default async function saveDocs({
-  documentStructureResult: documentStructure,
+  documentExecutionStructure: documentStructure,
   docsDir,
   translateLanguages = [],
   locale,
