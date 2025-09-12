@@ -163,4 +163,4 @@ export default async function checkNeedGenerateStructure(
   };
 }
 
-checkNeedGenerateStructure.taskTitle = "Check if document structure needs update";
+checkNeedGenerateStructure.taskTitle = "Check if document structure needs generate or update";
