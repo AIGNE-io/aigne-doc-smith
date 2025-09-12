@@ -60,6 +60,27 @@ describe("d2-utils", () => {
       expect(typeof result).toBe("string");
       expect(result).toContain("<svg");
     }, 10000);
+
+    test("should add stroke-dash to container shapes", async () => {
+      const content = `
+        container {
+          A -> B
+        }
+      `;
+      const result = await getChart({ content });
+      expect(typeof result).toBe("string");
+      expect(result).toContain('stroke-dasharray="3"');
+    }, 15000);
+
+    test("should not add stroke-dash to sequence diagrams", async () => {
+      const content = `
+        shape: sequence_diagram
+        A -> B: Hello
+      `;
+      const result = await getChart({ content });
+      expect(typeof result).toBe("string");
+      expect(result).not.toContain('stroke-dasharray="3"');
+    }, 15000);
   });
 
   describe("saveAssets", () => {
