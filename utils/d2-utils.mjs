@@ -43,7 +43,9 @@ export async function getChart({ content, strict }) {
         const idList = x.id.split(".");
         if (idList.length > 1) {
           const targetShape = diagram.shapes.find((x) => x.id === idList[0]);
-          if (targetShape) firstLevelContainer.add(targetShape);
+          if (targetShape && !["c4-person", "cylinder", "queue"].includes(targetShape.type)) {
+            firstLevelContainer.add(targetShape);
+          }
         }
       });
       firstLevelContainer.forEach((shape) => {
