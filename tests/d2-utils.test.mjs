@@ -69,7 +69,8 @@ describe("d2-utils", () => {
       `;
       const result = await getChart({ content });
       expect(typeof result).toBe("string");
-      expect(result).toContain('stroke-dasharray="3"');
+      // d2 will convert `strokeDash: 3` to `stroke-dasharray:6.000000,5.919384;`
+      expect(result).toContain("stroke-dasharray:6.000000");
     }, 15000);
 
     test("should not add stroke-dash to sequence diagrams", async () => {
@@ -79,7 +80,8 @@ describe("d2-utils", () => {
       `;
       const result = await getChart({ content });
       expect(typeof result).toBe("string");
-      expect(result).not.toContain('stroke-dasharray="3"');
+      // d2 will convert `strokeDash: 3` to `stroke-dasharray:6.000000,5.919384;`
+      expect(result).not.toContain("stroke-dasharray:6.000000");
     }, 15000);
   });
 
