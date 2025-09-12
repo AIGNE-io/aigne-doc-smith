@@ -10,7 +10,7 @@ skills:
       - url: ../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: document
-      - ../update/content-detail-generator.yaml
+      - ../update/generate-document.yaml
       - type: transform
         jsonata: |
           $merge([

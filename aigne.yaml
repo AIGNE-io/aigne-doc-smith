@@ -18,7 +18,7 @@ agents:
   - ./agents/utils/save-single-doc.mjs
   - ./agents/utils/save-output.mjs
   - ./agents/generate/check-need-generate-structure.mjs
-  - ./agents/update/content-detail-generator.yaml
+  - ./agents/update/generate-document.yaml
   - ./agents/generate/refine-document-structure.yaml
   - ./agents/generate/check-document-structure.yaml
   - ./agents/init/index.mjs
