@@ -23,7 +23,7 @@ skills:
           })
         }
       ])
-  - url: ../utils/selected-docs.mjs
+  - url: ../utils/choose-docs.mjs
     default_input:
       isTranslate: true
   - ../translate/choose-language.mjs

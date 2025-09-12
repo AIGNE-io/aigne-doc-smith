@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
-import selectedDocs from "../../../agents/utils/selected-docs.mjs";
+import chooseDocs from "../../../agents/utils/choose-docs.mjs";
 import * as docsFinderUtils from "../../../utils/docs-finder-utils.mjs";
 
 describe("selectedDocs utility", () => {
@@ -71,7 +71,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(findItemByPathSpy).toHaveBeenCalledTimes(2);
     expect(findItemByPathSpy).toHaveBeenCalledWith(
@@ -106,7 +106,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       '⚠️  Item with path "/docs/missing.md" not found in structurePlanResult',
@@ -126,7 +126,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    await expect(selectedDocs(input, mockOptions)).rejects.toThrow(
+    await expect(chooseDocs(input, mockOptions)).rejects.toThrow(
       "None of the specified document paths were found in structurePlanResult",
     );
   });
@@ -141,7 +141,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(getMainLanguageFilesSpy).toHaveBeenCalledWith(
       "/project/docs",
@@ -166,7 +166,7 @@ describe("selectedDocs utility", () => {
       locale: "zh",
     };
 
-    await selectedDocs(input, mockOptions);
+    await chooseDocs(input, mockOptions);
 
     expect(getMainLanguageFilesSpy).toHaveBeenCalled();
     expect(getActionTextSpy).toHaveBeenCalledWith(true, "Select documents to {action}:");
@@ -183,7 +183,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    await expect(selectedDocs(input, mockOptions)).rejects.toThrow(
+    await expect(chooseDocs(input, mockOptions)).rejects.toThrow(
       "Please provide a docs parameter to specify which documents to update",
     );
     expect(consoleErrorSpy).toHaveBeenCalledWith(
@@ -202,7 +202,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    await expect(selectedDocs(input, mockOptions)).rejects.toThrow(
+    await expect(chooseDocs(input, mockOptions)).rejects.toThrow(
       "Please provide a docs parameter to specify which documents to update",
     );
   });
@@ -217,7 +217,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    await selectedDocs(input, mockOptions);
+    await chooseDocs(input, mockOptions);
 
     const checkboxCall = mockOptions.prompts.checkbox.mock.calls[0][0];
     expect(checkboxCall.validate([])).toBe("Please select at least one document");
@@ -233,7 +233,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    await selectedDocs(input, mockOptions);
+    await chooseDocs(input, mockOptions);
 
     const checkboxCall = mockOptions.prompts.checkbox.mock.calls[0][0];
     const choices = checkboxCall.source();
@@ -255,7 +255,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(getActionTextSpy).toHaveBeenCalledWith(
       true,
@@ -276,7 +276,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(mockOptions.prompts.input).not.toHaveBeenCalled();
     expect(result.feedback).toBe("Provided feedback");
@@ -294,7 +294,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(result.feedback).toBe("");
     expect(addFeedbackToItemsSpy).toHaveBeenCalledWith(expect.any(Array), "");
@@ -313,7 +313,7 @@ describe("selectedDocs utility", () => {
       reset: true,
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(result.selectedDocs).toEqual(
       expect.arrayContaining([
@@ -336,7 +336,7 @@ describe("selectedDocs utility", () => {
       reset: false,
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(result.selectedDocs).toEqual(
       expect.arrayContaining([
@@ -359,7 +359,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(result).toHaveProperty("selectedDocs");
     expect(result).toHaveProperty("feedback");
@@ -386,7 +386,7 @@ describe("selectedDocs utility", () => {
       locale: "en",
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(result.selectedPaths).toEqual(["/docs/guide.md", "/docs/api.md"]);
   });
@@ -410,7 +410,7 @@ describe("selectedDocs utility", () => {
       locale: "zh",
     };
 
-    const result = await selectedDocs(input, mockOptions);
+    const result = await chooseDocs(input, mockOptions);
 
     expect(result.selectedPaths).toEqual(specialPaths);
   });

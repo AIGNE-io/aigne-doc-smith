@@ -25,7 +25,7 @@ skills:
           })
         }
       ])
-  - ../utils/selected-docs.mjs
+  - ../utils/choose-docs.mjs
   - ../utils/format-structure-plan.mjs
   - type: team
     name: batchDocsUpdate

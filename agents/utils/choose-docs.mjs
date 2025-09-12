@@ -6,7 +6,7 @@ import {
   processSelectedFiles,
 } from "../../utils/docs-finder-utils.mjs";
 
-export default async function selectedDocs(
+export default async function chooseDocs(
   { docs, structurePlanResult, boardId, docsDir, isTranslate, feedback, locale, reset = false },
   options,
 ) {
