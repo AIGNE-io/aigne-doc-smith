@@ -13,7 +13,7 @@ import publishDocs from "../../../agents/publish/publish-docs.mjs";
 
 // Import internal utils for selective spying
 import * as authUtils from "../../../utils/auth-utils.mjs";
-import * as krokiUtils from "../../../utils/kroki-utils.mjs";
+import * as d2Utils from "../../../utils/d2-utils.mjs";
 import * as utils from "../../../utils/utils.mjs";
 
 // Mock all external dependencies
@@ -91,8 +91,8 @@ describe("publish-docs", () => {
 
     // Set up spies for internal utils
     getAccessTokenSpy = spyOn(authUtils, "getAccessToken").mockResolvedValue("mock-token");
-    beforePublishHookSpy = spyOn(krokiUtils, "beforePublishHook").mockResolvedValue();
-    ensureTmpDirSpy = spyOn(krokiUtils, "ensureTmpDir").mockResolvedValue();
+    beforePublishHookSpy = spyOn(d2Utils, "beforePublishHook").mockResolvedValue();
+    ensureTmpDirSpy = spyOn(d2Utils, "ensureTmpDir").mockResolvedValue();
     getGithubRepoUrlSpy = spyOn(utils, "getGithubRepoUrl").mockReturnValue(
       "https://github.com/user/repo",
     );
