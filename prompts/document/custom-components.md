@@ -65,11 +65,25 @@ Nesting Rules:
 - For simple types (string, number, boolean), children can be empty: `<x-field ...></x-field>`
 - For complex types (object, array), children contain nested `<x-field>` elements
 
+**Grouping Rules:**
+
+- **Multiple related fields must be wrapped in a `<div>`** to prevent Markdown from creating separate paragraphs
+- Use `<div>` wrapper when describing the same object (e.g., Props, Context, Parameters, Returns)
+- This ensures adjacent `<x-field>` elements stay together without line breaks
+- **Context types must use `<x-field>` instead of tables** for consistent formatting
+
 Example:
 
 ```
-<!-- Simple field -->
+<!-- Single field -->
 <x-field data-name="user_id" data-type="string" data-default="u0911" data-required="true" data-deprecated="true" data-desc="Unique identifier for the user. Must be a valid UUID v4 format."></x-field>
+
+<!-- Multiple related fields (Props, Parameters, Returns) - MUST use div wrapper -->
+<div>
+<x-field data-name="name" data-type="string" data-required="true" data-desc="The name of the product."></x-field>
+<x-field data-name="description" data-type="string" data-required="false" data-desc="An optional description for the product."></x-field>
+<x-field data-name="type" data-type="string" data-required="false" data-desc="The type of product (e.g., 'service', 'good')."></x-field>
+</div>
 
 <!-- Complex nested object -->
 <x-field data-name="session" data-type="object" data-required="true" data-desc="User session information containing authentication and permission data">
