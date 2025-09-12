@@ -6,10 +6,10 @@ input_schema:
   type: object
   properties:
     structurePlan:
-      $ref: ../schema/structure-plan.yaml
+      $ref: ../schema/document-structure.yaml
       description: Newly generated document structure.
     originalStructurePlan:
-      $ref: ../schema/structure-plan.yaml
+      $ref: ../schema/document-structure.yaml
       description: Previous generation's document structure for comparison. If it doesn't exist, the check passes by default.
     feedback:
       type: string

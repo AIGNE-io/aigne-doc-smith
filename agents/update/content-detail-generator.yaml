@@ -20,7 +20,7 @@ input_schema:
     nodeName:
       type: string
       description: Document node name for content generation
-    originalStructurePlan: ../schema/structure-plan.yaml
+    originalStructurePlan: ../schema/document-structure.yaml
     title:
       type: string
     description:

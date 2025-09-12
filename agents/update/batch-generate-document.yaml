@@ -9,7 +9,7 @@ input_schema:
     datasources:
       type: string
       description: Context for structure planning, used to assist generate document structure
-    structurePlanResult: ../schema/structure-plan-result.yaml
+    structurePlanResult: ../schema/document-execution-structure.yaml
     modifiedFiles:
       type: array
       items: { type: string }

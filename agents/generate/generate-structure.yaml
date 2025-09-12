@@ -45,7 +45,7 @@ output_schema:
     projectDesc:
       type: string
       description: Brief project description generated from content analysis (under 50 words)
-    structurePlan: ../schema/structure-plan.yaml
+    structurePlan: ../schema/document-structure.yaml
     structurePlanTree:
       type: string
       description: |
