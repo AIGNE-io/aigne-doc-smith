@@ -3,7 +3,7 @@ import chooseLanguage from "../../../agents/translate/choose-language.mjs";
 
 import * as utils from "../../../utils/utils.mjs";
 
-describe("chooseLanguage", () => {
+describe("choose-language", () => {
   let mockOptions;
 
   // Spies for internal utils

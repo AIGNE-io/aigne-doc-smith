@@ -54,7 +54,7 @@ async function createInitialConfig(content) {
 }
 
 // Test suite
-describe("saveValueToConfig", () => {
+describe("save-value-to-config", () => {
   let restoreFunctions = [];
 
   beforeEach(async () => {

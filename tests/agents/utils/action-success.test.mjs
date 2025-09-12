@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import actionSuccess from "../../../agents/utils/action-success.mjs";
 
-describe("actionSuccess", () => {
+describe("action-success", () => {
   test("should return success message with action name", async () => {
     const result = await actionSuccess({ action: "✅ Document generation successfully" });
 

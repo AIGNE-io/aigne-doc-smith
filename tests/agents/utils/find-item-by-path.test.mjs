@@ -3,7 +3,7 @@ import findItemByPath from "../../../agents/utils/find-item-by-path.mjs";
 
 import * as docsFinderUtils from "../../../utils/docs-finder-utils.mjs";
 
-describe("findItemByPath", () => {
+describe("find-item-by-path", () => {
   let mockOptions;
 
   // Spies for internal utils

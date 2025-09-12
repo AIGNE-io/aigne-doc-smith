@@ -4,7 +4,7 @@ import checkFeedbackRefiner from "../../../agents/utils/check-feedback-refiner.m
 
 import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
 
-describe("checkFeedbackRefiner", () => {
+describe("check-feedback-refiner", () => {
   let mockOptions;
 
   // Spies for external dependencies

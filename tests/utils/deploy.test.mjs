@@ -6,7 +6,7 @@ import * as blockletModule from "../../utils/blocklet.mjs";
 import { deploy } from "../../utils/deploy.mjs";
 import * as utils from "../../utils/utils.mjs";
 
-describe("deploy function", () => {
+describe("deploy", () => {
   let originalFetch;
   let originalConsole;
   let consoleOutput;

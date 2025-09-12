@@ -6,7 +6,7 @@ import loadConfig from "../../utils/load-config.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-describe("loadConfig", () => {
+describe("load-config", () => {
   let testDir;
 
   beforeEach(async () => {

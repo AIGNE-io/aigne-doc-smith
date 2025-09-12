@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import checkDetailResult from "../../../agents/utils/check-detail-result.mjs";
 
-describe("checkDetailResult", () => {
+describe("check-detail-result", () => {
   test("should approve valid content", async () => {
     const structurePlan = [{ path: "/getting-started" }];
     const reviewContent =

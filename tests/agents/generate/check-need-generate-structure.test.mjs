@@ -5,7 +5,7 @@ import checkNeedGenerateStructure from "../../../agents/generate/check-need-gene
 import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
 import * as utils from "../../../utils/utils.mjs";
 
-describe("checkNeedGenerateStructure", () => {
+describe("check-need-generate-structure", () => {
   let mockOptions;
   let originalStructurePlan;
 

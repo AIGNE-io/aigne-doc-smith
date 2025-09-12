@@ -4,7 +4,7 @@ import { AIAgent } from "@aigne/core";
 import { loadAgent } from "@aigne/core/loader/index.js";
 import { loadModel } from "../../utils/mock-chat-model.mjs";
 
-describe("structurePlanGenerator Agent", () => {
+describe("generateStructure Agent", () => {
   beforeAll(() => {
     process.env.AIGNE_OBSERVABILITY_DISABLED = "true";
   });

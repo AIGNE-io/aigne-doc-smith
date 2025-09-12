@@ -3,7 +3,7 @@ import findUserPreferencesByPath from "../../../agents/utils/find-user-preferenc
 
 import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
 
-describe("findUserPreferencesByPath", () => {
+describe("find-user-preferences-by-path", () => {
   // Spies for internal utils
   let getActiveRulesForScopeSpy;
 

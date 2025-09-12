@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:
 import chooseDocs from "../../../agents/utils/choose-docs.mjs";
 import * as docsFinderUtils from "../../../utils/docs-finder-utils.mjs";
 
-describe("selectedDocs utility", () => {
+describe("chooseDocs utility", () => {
   let getMainLanguageFilesSpy;
   let processSelectedFilesSpy;
   let findItemByPathSpy;

@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { stringify } from "yaml";
 import formatStructurePlan from "../../../agents/utils/format-structure-plan.mjs";
 
-describe("formatStructurePlan", () => {
+describe("format-structure-plan", () => {
   // BASIC FUNCTIONALITY TESTS
   test("should format empty structure plan", async () => {
     const result = await formatStructurePlan({

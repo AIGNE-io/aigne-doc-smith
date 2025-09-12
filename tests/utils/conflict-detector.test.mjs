@@ -6,7 +6,7 @@ import {
 } from "../../utils/conflict-detector.mjs";
 import { processConfigFields } from "../../utils/utils.mjs";
 
-describe("conflict resolution", () => {
+describe("conflict-detector", () => {
   describe("getFilteredOptions", () => {
     test("should filter experiencedUsers when documentPurpose is getStarted", () => {
       const allOptions = {

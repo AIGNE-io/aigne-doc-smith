@@ -40,7 +40,7 @@ const mockPath = {
   join: mock((...paths) => paths.join("/")),
 };
 
-describe("publishDocs", () => {
+describe("publish-docs", () => {
   let mockOptions;
   let originalEnv;
 

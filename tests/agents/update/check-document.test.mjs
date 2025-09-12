@@ -5,7 +5,7 @@ import checkDocument from "../../../agents/update/check-document.mjs";
 import * as checkDetailResultModule from "../../../agents/utils/check-detail-result.mjs";
 import * as utils from "../../../utils/utils.mjs";
 
-describe("checkDocument", () => {
+describe("check-document", () => {
   let mockOptions;
 
   // Spies for external dependencies

@@ -6,7 +6,7 @@ import loadSources from "../../../agents/utils/load-sources.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-describe("loadSources", () => {
+describe("load-sources", () => {
   let testDir;
   let tempDir;
 

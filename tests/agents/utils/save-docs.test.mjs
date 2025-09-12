@@ -6,7 +6,7 @@ import saveDocs from "../../../agents/utils/save-docs.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-describe("saveDocs", () => {
+describe("save-docs", () => {
   let testDir;
 
   beforeEach(async () => {
