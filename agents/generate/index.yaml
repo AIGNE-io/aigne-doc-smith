@@ -35,7 +35,7 @@ skills:
         }
       ])
   - ../utils/format-structure-plan.mjs
-  - ../update/batch-docs-detail-generator.yaml
+  - ../update/batch-generate-document.yaml
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: structure_planning

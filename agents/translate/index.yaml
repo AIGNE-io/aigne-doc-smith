@@ -26,11 +26,11 @@ skills:
   - url: ../utils/selected-docs.mjs
     default_input:
       isTranslate: true
-  - ../translate/language-selector.mjs
+  - ../translate/choose-language.mjs
   - type: team
     name: batchDocsTranslate
     skills:
-      - ../translate/batch-translate.yaml
+      - ../translate/batch-translate-document.yaml
       - url: ../utils/save-single-doc.mjs
         default_input:
           isTranslate: true

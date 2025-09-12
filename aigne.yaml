@@ -6,20 +6,20 @@ chat_model:
   # name: gemini-2.5-flash
   temperature: 0.8
 agents:
-  - ./agents/generate/structure-generator.yaml
-  - ./agents/update/batch-docs-detail-generator.yaml
+  - ./agents/generate/generate-structure.yaml
+  - ./agents/update/batch-generate-document.yaml
   - ./agents/utils/load-sources.mjs
   - ./agents/utils/save-docs.mjs
-  - ./agents/translate/translate-doc.yaml
+  - ./agents/translate/translate-document.yaml
   - ./agents/update/detail-generator-and-translate.yaml
-  - ./agents/update/check-detail.mjs
+  - ./agents/update/check-document.mjs
   - ./agents/utils/transform-detail-datasources.mjs
-  - ./agents/translate/batch-translate.yaml
+  - ./agents/translate/batch-translate-document.yaml
   - ./agents/utils/save-single-doc.mjs
   - ./agents/utils/save-output.mjs
   - ./agents/generate/check-need-generate-structure.mjs
   - ./agents/update/content-detail-generator.yaml
-  - ./agents/generate/structure-planner.yaml
+  - ./agents/generate/refine-document-structure.yaml
   - ./agents/generate/check-document-structure.yaml
   - ./agents/init/index.mjs
   - ./agents/generate/index.yaml
@@ -29,7 +29,7 @@ agents:
   - ./agents/publish/index.yaml
   - ./agents/utils/find-item-by-path.mjs
   - ./agents/translate/index.yaml
-  - ./agents/translate/language-selector.mjs
+  - ./agents/translate/choose-language.mjs
   - ./docs-mcp/get-docs-structure.mjs
   - ./docs-mcp/get-docs-detail.mjs
   - ./docs-mcp/docs-search.yaml

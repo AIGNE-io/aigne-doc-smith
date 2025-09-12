@@ -30,7 +30,7 @@ skills:
         $,
         { "feedback": "" }
       ])
-  - ../translate/batch-translate.yaml
+  - ../translate/batch-translate-document.yaml
   - ../utils/save-single-doc.mjs
 input_schema:
   type: object

@@ -34,7 +34,7 @@ describe("checkNeedGenerateStructure", () => {
         input: mock(async () => ""),
       },
       context: {
-        agents: { structurePlanner: {} },
+        agents: { refineDocumentStructure: {} },
         invoke: mock(async () => ({
           structurePlan: originalStructurePlan,
           projectName: "Test Project",
@@ -285,7 +285,7 @@ describe("checkNeedGenerateStructure", () => {
     );
 
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.structurePlanner,
+      mockOptions.context.agents.refineDocumentStructure,
       expect.objectContaining(additionalParams),
     );
   });

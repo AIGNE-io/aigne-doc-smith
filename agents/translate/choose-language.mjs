@@ -9,7 +9,7 @@ import { loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
  * @param {Object} options - Options object with prompts
  * @returns {Promise<Object>} Selected languages
  */
-export default async function languageSelector({ langs, locale, selectedDocs }, options) {
+export default async function chooseLanguage({ langs, locale, selectedDocs }, options) {
   let selectedLanguages = [];
 
   // Load existing config to get current translation languages
@@ -90,7 +90,7 @@ export default async function languageSelector({ langs, locale, selectedDocs }, 
   };
 }
 
-languageSelector.input_schema = {
+chooseLanguage.input_schema = {
   type: "object",
   properties: {
     langs: {

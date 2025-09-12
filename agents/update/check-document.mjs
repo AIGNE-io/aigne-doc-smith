@@ -8,7 +8,7 @@ import checkDetailResult from "../utils/check-detail-result.mjs";
 // Get current script directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export default async function checkDetail(
+export default async function checkDocument(
   {
     path,
     docsDir,
@@ -133,4 +133,4 @@ export default async function checkDetail(
   };
 }
 
-checkDetail.taskTitle = "Check if '{{ title }}' needs regeneration";
+checkDocument.taskTitle = "Check if '{{ title }}' needs regeneration";

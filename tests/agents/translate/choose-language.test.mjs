@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
-import languageSelector from "../../../agents/translate/language-selector.mjs";
+import chooseLanguage from "../../../agents/translate/choose-language.mjs";
 
 import * as utils from "../../../utils/utils.mjs";
 
-describe("languageSelector", () => {
+describe("chooseLanguage", () => {
   let mockOptions;
 
   // Spies for internal utils
@@ -43,7 +43,7 @@ describe("languageSelector", () => {
       { path: "/doc2", title: "Document 2" },
     ];
 
-    const result = await languageSelector(
+    const result = await chooseLanguage(
       {
         langs: ["zh", "ja"],
         locale: "en",
@@ -61,7 +61,7 @@ describe("languageSelector", () => {
   test("should prompt for language selection when no langs provided", async () => {
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    const result = await languageSelector(
+    const result = await chooseLanguage(
       {
         locale: "en",
         selectedDocs,
@@ -82,7 +82,7 @@ describe("languageSelector", () => {
   test("should exclude primary language from available choices", async () => {
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    await languageSelector(
+    await chooseLanguage(
       {
         locale: "zh",
         selectedDocs,
@@ -103,7 +103,7 @@ describe("languageSelector", () => {
     loadConfigFromFileSpy.mockResolvedValue({ locale: "es" });
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    await languageSelector({ selectedDocs }, mockOptions);
+    await chooseLanguage({ selectedDocs }, mockOptions);
 
     const choices = mockOptions.prompts.checkbox.mock.calls[0][0].choices;
     const esChoice = choices.find((choice) => choice.value === "es");
@@ -114,7 +114,7 @@ describe("languageSelector", () => {
     loadConfigFromFileSpy.mockResolvedValue({});
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    await languageSelector({ selectedDocs }, mockOptions);
+    await chooseLanguage({ selectedDocs }, mockOptions);
 
     const choices = mockOptions.prompts.checkbox.mock.calls[0][0].choices;
     const enChoice = choices.find((choice) => choice.value === "en");
@@ -125,7 +125,7 @@ describe("languageSelector", () => {
   test("should validate checkbox selection requires at least one language", async () => {
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    await languageSelector({ locale: "en", selectedDocs }, mockOptions);
+    await chooseLanguage({ locale: "en", selectedDocs }, mockOptions);
 
     const validateFn = mockOptions.prompts.checkbox.mock.calls[0][0].validate;
     expect(validateFn([])).toBe("Please select at least one language");
@@ -135,7 +135,7 @@ describe("languageSelector", () => {
   test("should filter out invalid languages from langs parameter", async () => {
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    const result = await languageSelector(
+    const result = await chooseLanguage(
       {
         langs: ["zh", "invalid-lang", "ja", "another-invalid"],
         locale: "en",
@@ -152,7 +152,7 @@ describe("languageSelector", () => {
     mockOptions.prompts.checkbox.mockResolvedValue(["fr"]);
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    const result = await languageSelector(
+    const result = await chooseLanguage(
       {
         langs: ["invalid1", "invalid2"],
         locale: "en",
@@ -170,7 +170,7 @@ describe("languageSelector", () => {
     mockOptions.prompts.checkbox.mockResolvedValue([]);
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    await expect(languageSelector({ locale: "en", selectedDocs }, mockOptions)).rejects.toThrow(
+    await expect(chooseLanguage({ locale: "en", selectedDocs }, mockOptions)).rejects.toThrow(
       "No languages selected for translation",
     );
   });
@@ -182,7 +182,7 @@ describe("languageSelector", () => {
     });
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    await languageSelector(
+    await chooseLanguage(
       {
         langs: ["zh", "ja", "fr"], // ja and fr are new
         locale: "en",
@@ -200,7 +200,7 @@ describe("languageSelector", () => {
     });
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    await languageSelector(
+    await chooseLanguage(
       {
         langs: ["zh", "ja"], // All existing
         locale: "en",
@@ -218,7 +218,7 @@ describe("languageSelector", () => {
     });
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    await languageSelector({ locale: "en", selectedDocs }, mockOptions);
+    await chooseLanguage({ locale: "en", selectedDocs }, mockOptions);
 
     const choices = mockOptions.prompts.checkbox.mock.calls[0][0].choices;
     const zhChoice = choices.find((choice) => choice.value === "zh");
@@ -237,7 +237,7 @@ describe("languageSelector", () => {
       { path: "/doc2", title: "Document 2" },
     ];
 
-    const result = await languageSelector(
+    const result = await chooseLanguage(
       {
         langs: ["zh", "ja"],
         locale: "en",
@@ -263,7 +263,7 @@ describe("languageSelector", () => {
 
   // EDGE CASES
   test("should handle empty selectedDocs array", async () => {
-    const result = await languageSelector(
+    const result = await chooseLanguage(
       {
         langs: ["zh"],
         locale: "en",
@@ -280,7 +280,7 @@ describe("languageSelector", () => {
     mockOptions.prompts.checkbox.mockResolvedValue(["fr"]);
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    const result = await languageSelector(
+    const result = await chooseLanguage(
       {
         langs: [],
         locale: "en",
@@ -297,7 +297,7 @@ describe("languageSelector", () => {
     loadConfigFromFileSpy.mockResolvedValue(null);
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
-    const result = await languageSelector(
+    const result = await chooseLanguage(
       {
         langs: ["zh"],
         locale: "en",

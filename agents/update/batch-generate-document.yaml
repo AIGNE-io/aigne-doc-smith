@@ -1,8 +1,8 @@
 type: team
-name: batchDocsDetailGenerate
+name: batchGenerateDocument
 description: Batch generate document details
 skills:
-  - ./check-detail.mjs
+  - ./check-document.mjs
 input_schema:
   type: object
   properties:

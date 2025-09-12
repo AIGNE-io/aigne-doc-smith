@@ -1,5 +1,5 @@
 type: team
-name: batchTranslate
+name: batchTranslateDocument
 description: Batch translate documents to multiple languages
 skills:
   - type: team
@@ -9,7 +9,7 @@ skills:
       - url: ../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: translation
-      - ../translate/translate-doc.yaml
+      - ../translate/translate-document.yaml
       - type: transform
         jsonata: |
           $merge([

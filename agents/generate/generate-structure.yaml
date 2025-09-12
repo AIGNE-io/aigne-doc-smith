@@ -1,7 +1,7 @@
-name: structureGenerator
+name: generateStructure
 description: Plan the structure and organization of your documentation
 instructions:
-  url: ../../prompts/structure/structure-generator.md
+  url: ../../prompts/structure/generate-structure.md
 input_schema:
   type: object
   properties:

@@ -14,7 +14,7 @@ describe("structurePlanGenerator Agent", () => {
   });
   test("should load agent correctly with proper configuration", async () => {
     const agent = await loadAgent(
-      join(import.meta.dirname, "../../../agents/generate/structure-generator.yaml"),
+      join(import.meta.dirname, "../../../agents/generate/generate-structure.yaml"),
       {
         model: loadModel,
       },
@@ -25,12 +25,12 @@ describe("structurePlanGenerator Agent", () => {
     // Verify agent exists and is correct type
     expect(agent).toBeDefined();
     expect(agent).toBeInstanceOf(AIAgent);
-    expect(agent.name).toBe("structureGenerator");
+    expect(agent.name).toBe("generateStructure");
   });
 
   test("should have instructions loaded from file", async () => {
     const agent = await loadAgent(
-      join(import.meta.dirname, "../../../agents/generate/structure-generator.yaml"),
+      join(import.meta.dirname, "../../../agents/generate/generate-structure.yaml"),
       {
         model: loadModel,
       },

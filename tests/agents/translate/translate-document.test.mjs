@@ -4,7 +4,7 @@ import { AIAgent } from "@aigne/core";
 import { loadAgent } from "@aigne/core/loader/index.js";
 import { loadModel } from "../../utils/mock-chat-model.mjs";
 
-describe("translateDoc Agent", () => {
+describe("translateDocument Agent", () => {
   beforeAll(() => {
     process.env.AIGNE_OBSERVABILITY_DISABLED = "true";
   });
@@ -14,7 +14,7 @@ describe("translateDoc Agent", () => {
   });
   test("should load agent correctly with proper configuration", async () => {
     const agent = await loadAgent(
-      join(import.meta.dirname, "../../../agents/translate/translate-doc.yaml"),
+      join(import.meta.dirname, "../../../agents/translate/translate-document.yaml"),
       {
         model: loadModel,
       },
@@ -25,12 +25,12 @@ describe("translateDoc Agent", () => {
     // Verify agent exists and is correct type
     expect(agent).toBeDefined();
     expect(agent).toBeInstanceOf(AIAgent);
-    expect(agent.name).toBe("translateDoc");
+    expect(agent.name).toBe("translateDocument");
   });
 
   test("should have instructions loaded from file", async () => {
     const agent = await loadAgent(
-      join(import.meta.dirname, "../../../agents/translate/translate-doc.yaml"),
+      join(import.meta.dirname, "../../../agents/translate/translate-document.yaml"),
       {
         model: loadModel,
       },

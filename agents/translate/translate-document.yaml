@@ -1,7 +1,7 @@
-name: translateDoc
+name: translateDocument
 description: Translate content to another language
 instructions:
-  url: ../../prompts/translate/translate-doc.md
+  url: ../../prompts/translate/translate-document.md
 task_render_mode: collapse
 input_schema:
   type: object

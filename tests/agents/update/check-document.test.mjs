@@ -1,11 +1,11 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import * as fsPromises from "node:fs/promises";
 import * as aigneCore from "@aigne/core";
-import checkDetail from "../../../agents/update/check-detail.mjs";
+import checkDocument from "../../../agents/update/check-document.mjs";
 import * as checkDetailResultModule from "../../../agents/utils/check-detail-result.mjs";
 import * as utils from "../../../utils/utils.mjs";
 
-describe("checkDetail", () => {
+describe("checkDocument", () => {
   let mockOptions;
 
   // Spies for external dependencies
@@ -63,7 +63,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -83,7 +83,7 @@ describe("checkDetail", () => {
     // File doesn't exist
     accessSpy.mockRejectedValue(new Error("File not found"));
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -101,7 +101,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -119,7 +119,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -137,7 +137,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -157,7 +157,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -177,7 +177,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -199,7 +199,7 @@ describe("checkDetail", () => {
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
     hasSourceFilesChangedSpy.mockReturnValue(true);
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -222,7 +222,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -241,7 +241,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -265,7 +265,7 @@ describe("checkDetail", () => {
       detailFeedback: "Content needs improvement",
     });
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -293,7 +293,7 @@ describe("checkDetail", () => {
   test("should not validate content when file doesn't exist", async () => {
     accessSpy.mockRejectedValue(new Error("File not found"));
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -309,7 +309,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     readFileSpy.mockResolvedValue("# Test Content");
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -330,7 +330,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -350,7 +350,7 @@ describe("checkDetail", () => {
   test("should create team agent with correct configuration", async () => {
     accessSpy.mockRejectedValue(new Error("File not found"));
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -367,7 +367,7 @@ describe("checkDetail", () => {
   test("should invoke team agent with correct parameters", async () => {
     accessSpy.mockRejectedValue(new Error("File not found"));
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -397,7 +397,7 @@ describe("checkDetail", () => {
   test("should handle root path correctly", async () => {
     accessSpy.mockRejectedValue(new Error("File not found"));
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/",
         docsDir: "./docs",
@@ -412,7 +412,7 @@ describe("checkDetail", () => {
   test("should handle nested path correctly", async () => {
     accessSpy.mockRejectedValue(new Error("File not found"));
 
-    await checkDetail(
+    await checkDocument(
       {
         path: "/api/users/create",
         docsDir: "./docs",
@@ -429,7 +429,7 @@ describe("checkDetail", () => {
     accessSpy.mockRejectedValue(new Error("File not found"));
     mockOptions.context.invoke.mockResolvedValue({ generatedContent: "test" });
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -450,7 +450,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -478,7 +478,7 @@ describe("checkDetail", () => {
 
     // When file read fails, content validation is skipped, and since file exists
     // but can't be read properly, no early return occurs, so regeneration happens
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
@@ -501,7 +501,7 @@ describe("checkDetail", () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
-    const result = await checkDetail(
+    const result = await checkDocument(
       {
         path: "/getting-started",
         docsDir: "./docs",
