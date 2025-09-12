@@ -27,9 +27,9 @@
 {{ datasources }}
 </datasources>
 
-{% if originalStructurePlan %}
+{% if originalDocumentStructure %}
 <last_structure_plan>
-{{originalStructurePlan}}
+{{originalDocumentStructure}}
 </last_structure_plan>
 
 <last_structure_plan_rule>
@@ -47,9 +47,9 @@
 </structure_plan_user_feedback>
 {% endif %}
 
-{% if structurePlan %}
+{% if documentStructure %}
 <review_structure_plan>
-{{ structurePlan }}
+{{ documentStructure }}
 </review_structure_plan>
 {% endif %}
 

@@ -12,7 +12,7 @@ skills:
   - ./check-need-generate-structure.mjs
   - url: ../utils/save-output.mjs
     default_input:
-      saveKey: structurePlan
+      saveKey: documentStructure
       savePath:
         $get: outputDir
       fileName: structure-plan.json
@@ -23,7 +23,7 @@ skills:
       $merge([
         $,
         {
-          'structurePlanResult': $map(structurePlan, function($item) {
+          'documentStructureResult': $map(documentStructure, function($item) {
             $merge([
               $item,
               {

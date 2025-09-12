@@ -173,17 +173,17 @@ export default async function loadSources({
   );
 
   // Get the last structure plan result
-  let originalStructurePlan;
+  let originalDocumentStructure;
   if (outputDir) {
-    const structurePlanPath = path.join(outputDir, "structure-plan.json");
+    const documentStructurePath = path.join(outputDir, "structure-plan.json");
     try {
-      const structurePlanResult = await readFile(structurePlanPath, "utf8");
-      if (structurePlanResult?.trim()) {
+      const documentStructureResult = await readFile(documentStructurePath, "utf8");
+      if (documentStructureResult?.trim()) {
         try {
           // Validate that the content looks like JSON before parsing
-          const trimmedContent = structurePlanResult.trim();
+          const trimmedContent = documentStructureResult.trim();
           if (trimmedContent.startsWith("{") || trimmedContent.startsWith("[")) {
-            originalStructurePlan = JSON.parse(structurePlanResult);
+            originalDocumentStructure = JSON.parse(documentStructureResult);
           } else {
             console.warn(`structure-plan.json contains non-JSON content, skipping parse`);
           }
@@ -195,7 +195,7 @@ export default async function loadSources({
       if (err.code !== "ENOENT") {
         console.warn(`Error reading structure-plan.json: ${err.message}`);
       }
-      // The file does not exist or is not readable, originalStructurePlan remains undefined
+      // The file does not exist or is not readable, originalDocumentStructure remains undefined
     }
   }
 
@@ -299,7 +299,7 @@ export default async function loadSources({
     datasourcesList: sourceFiles,
     datasources: allSources,
     content,
-    originalStructurePlan,
+    originalDocumentStructure,
     files,
     modifiedFiles,
     totalWords,

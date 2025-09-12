@@ -2,11 +2,11 @@ import { stringify } from "yaml";
 import { addPreferenceRule, readPreferences } from "../../utils/preferences-utils.mjs";
 
 export default async function checkFeedbackRefiner(
-  { feedback, stage, selectedPaths, structurePlanFeedback },
+  { feedback, stage, selectedPaths, documentStructureFeedback },
   options,
 ) {
   // If feedback is empty, no need to save user preferences
-  if (!feedback && !structurePlanFeedback) {
+  if (!feedback && !documentStructureFeedback) {
     return {};
   }
 
@@ -18,7 +18,7 @@ export default async function checkFeedbackRefiner(
   const activePreferencesYaml =
     activePreferences.length > 0 ? stringify({ rules: activePreferences }, { indent: 2 }) : "";
 
-  const feedbackToUse = feedback || structurePlanFeedback;
+  const feedbackToUse = feedback || documentStructureFeedback;
   const result = await options.context.invoke(options.context.agents["feedbackRefiner"], {
     feedback: feedbackToUse,
     stage,
@@ -60,7 +60,7 @@ checkFeedbackRefiner.input_schema = {
       type: "string",
       description: "User feedback to refine",
     },
-    structurePlanFeedback: {
+    documentStructureFeedback: {
       type: "string",
       description: "Feedback from structure planning stage",
     },

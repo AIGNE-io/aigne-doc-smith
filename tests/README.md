@@ -78,7 +78,7 @@ node tests/check-detail-result.test.mjs
 ```
 
 **Test Scenarios:**
-1.  Define a `structurePlan` with a list of valid internal link paths.
+1.  Define a `documentStructure` with a list of valid internal link paths.
 2.  Call `checkDetailResult` with various content strings that include:
     -   A valid internal link.
     -   An invalid or "dead" internal link.

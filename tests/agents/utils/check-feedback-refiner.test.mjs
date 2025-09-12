@@ -56,7 +56,7 @@ describe("check-feedback-refiner", () => {
     const result = await checkFeedbackRefiner(
       {
         feedback: "",
-        structurePlanFeedback: "",
+        documentStructureFeedback: "",
         stage: "structure",
         selectedPaths: ["/doc1"],
       },
@@ -72,7 +72,7 @@ describe("check-feedback-refiner", () => {
     const result = await checkFeedbackRefiner(
       {
         feedback: null,
-        structurePlanFeedback: undefined,
+        documentStructureFeedback: undefined,
         stage: "structure",
         selectedPaths: ["/doc1"],
       },
@@ -114,7 +114,7 @@ describe("check-feedback-refiner", () => {
     });
   });
 
-  test("should process structurePlanFeedback when feedback is empty", async () => {
+  test("should process documentStructureFeedback when feedback is empty", async () => {
     mockOptions.context.invoke.mockResolvedValue({
       refined: "refined structure feedback",
     });
@@ -122,7 +122,7 @@ describe("check-feedback-refiner", () => {
     const result = await checkFeedbackRefiner(
       {
         feedback: "",
-        structurePlanFeedback: "Structure feedback here",
+        documentStructureFeedback: "Structure feedback here",
         stage: "structure",
         selectedPaths: ["/doc1"],
       },
@@ -138,13 +138,13 @@ describe("check-feedback-refiner", () => {
     expect(result.refined).toBe("refined structure feedback");
   });
 
-  test("should prefer feedback over structurePlanFeedback when both provided", async () => {
+  test("should prefer feedback over documentStructureFeedback when both provided", async () => {
     mockOptions.context.invoke.mockResolvedValue({ refined: "result" });
 
     await checkFeedbackRefiner(
       {
         feedback: "Main feedback",
-        structurePlanFeedback: "Structure feedback",
+        documentStructureFeedback: "Structure feedback",
         stage: "structure",
         selectedPaths: ["/doc1"],
       },
@@ -341,7 +341,7 @@ describe("check-feedback-refiner", () => {
     });
   });
 
-  test("should use structurePlanFeedback for saving when feedback is empty", async () => {
+  test("should use documentStructureFeedback for saving when feedback is empty", async () => {
     mockOptions.context.invoke.mockResolvedValue({
       save: true,
       rule: "Structure rule",
@@ -350,7 +350,7 @@ describe("check-feedback-refiner", () => {
     await checkFeedbackRefiner(
       {
         feedback: "",
-        structurePlanFeedback: "Structure feedback to save",
+        documentStructureFeedback: "Structure feedback to save",
         stage: "structure",
         selectedPaths: ["/doc1"],
       },

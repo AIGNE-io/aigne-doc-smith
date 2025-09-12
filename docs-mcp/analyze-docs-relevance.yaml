@@ -4,7 +4,7 @@ instructions: |
   You are an AI assistant that analyzes the relevance between a user query and documents in a structure plan.
 
   <structure-plan>
-  {{ originalStructurePlan }}
+  {{ originalDocumentStructure }}
   </structure-plan>
 
   <user-query>
@@ -33,7 +33,7 @@ input_schema:
     query:
       type: string
       description: User search query
-    originalStructurePlan:
+    originalDocumentStructure:
       type: array
       items:
         type: object

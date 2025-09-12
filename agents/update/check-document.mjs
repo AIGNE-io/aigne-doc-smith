@@ -13,8 +13,8 @@ export default async function checkDocument(
     path,
     docsDir,
     sourceIds,
-    originalStructurePlan,
-    structurePlan,
+    originalDocumentStructure,
+    documentStructure,
     modifiedFiles,
     forceRegenerate,
     ...rest
@@ -38,9 +38,9 @@ export default async function checkDocument(
 
   // Check if sourceIds have changed by comparing with original structure plan
   let sourceIdsChanged = false;
-  if (originalStructurePlan && sourceIds) {
+  if (originalDocumentStructure && sourceIds) {
     // Find the original node in the structure plan
-    const originalNode = originalStructurePlan.find((node) => node.path === path);
+    const originalNode = originalDocumentStructure.find((node) => node.path === path);
 
     if (originalNode?.sourceIds) {
       const originalSourceIds = originalNode.sourceIds;
@@ -82,9 +82,9 @@ export default async function checkDocument(
   // If file exists, check content validation
   let contentValidationFailed = false;
   let validationResult = {};
-  if (detailGenerated && fileContent && structurePlan) {
+  if (detailGenerated && fileContent && documentStructure) {
     validationResult = await checkDetailResult({
-      structurePlan,
+      documentStructure,
       reviewContent: fileContent,
       docsDir,
     });
@@ -120,8 +120,8 @@ export default async function checkDocument(
     docsDir,
     path,
     sourceIds,
-    originalStructurePlan,
-    structurePlan,
+    originalDocumentStructure,
+    documentStructure,
     detailFeedback: contentValidationFailed ? validationResult.detailFeedback : "",
   });
 

@@ -1,8 +1,8 @@
 import { stringify } from "yaml";
 
-export default async function formatStructurePlan({ structurePlan }) {
-  // Extract required fields from each item in structurePlan
-  const formattedData = structurePlan.map((item) => ({
+export default async function formatStructurePlan({ documentStructure }) {
+  // Extract required fields from each item in documentStructure
+  const formattedData = documentStructure.map((item) => ({
     title: item.title,
     path: item.path,
     parentId: item.parentId,
@@ -17,8 +17,8 @@ export default async function formatStructurePlan({ structurePlan }) {
   });
 
   return {
-    structurePlanYaml: yamlString,
-    structurePlan,
+    documentStructureYaml: yamlString,
+    documentStructure,
   };
 }
 

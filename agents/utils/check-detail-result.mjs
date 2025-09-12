@@ -1,6 +1,6 @@
 import { checkMarkdown } from "../../utils/markdown-checker.mjs";
 
-export default async function checkDetailResult({ structurePlan, reviewContent, docsDir }) {
+export default async function checkDetailResult({ documentStructure, reviewContent, docsDir }) {
   if (!reviewContent || reviewContent.trim() === "") {
     return {
       isApproved: false,
@@ -13,7 +13,7 @@ export default async function checkDetailResult({ structurePlan, reviewContent, 
 
   // Create a set of allowed links, including both original paths and processed .md paths
   const allowedLinks = new Set();
-  structurePlan.forEach((item) => {
+  documentStructure.forEach((item) => {
     // Add original path
     allowedLinks.add(item.path);
 

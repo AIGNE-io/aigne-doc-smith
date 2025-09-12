@@ -5,17 +5,17 @@ instructions:
 input_schema:
   type: object
   properties:
-    structurePlan:
+    documentStructure:
       $ref: ../schema/document-structure.yaml
       description: Newly generated document structure.
-    originalStructurePlan:
+    originalDocumentStructure:
       $ref: ../schema/document-structure.yaml
       description: Previous generation's document structure for comparison. If it doesn't exist, the check passes by default.
     feedback:
       type: string
       description: User feedback provided for the previous generation's results.
   required:
-    - structurePlan
+    - documentStructure
 output_schema:
   type: object
   properties:

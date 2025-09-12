@@ -7,7 +7,7 @@ import * as utils from "../../../utils/utils.mjs";
 
 describe("check-need-generate-structure", () => {
   let mockOptions;
-  let originalStructurePlan;
+  let originalDocumentStructure;
 
   // Spies for external dependencies
   let accessSpy;
@@ -24,7 +24,7 @@ describe("check-need-generate-structure", () => {
     // Reset all mocks
     mock.restore();
 
-    originalStructurePlan = [
+    originalDocumentStructure = [
       { path: "/getting-started", title: "Getting Started" },
       { path: "/api", title: "API Reference" },
     ];
@@ -36,7 +36,7 @@ describe("check-need-generate-structure", () => {
       context: {
         agents: { refineDocumentStructure: {} },
         invoke: mock(async () => ({
-          structurePlan: originalStructurePlan,
+          documentStructure: originalDocumentStructure,
           projectName: "Test Project",
           projectDesc: "Test Description",
         })),
@@ -83,20 +83,20 @@ describe("check-need-generate-structure", () => {
   test("should return original structure plan when no regeneration needed", async () => {
     // Test when no feedback and no sidebar file exists (default mock behavior)
     const result = await checkNeedGenerateStructure(
-      { originalStructurePlan, docsDir: "./docs" },
+      { originalDocumentStructure, docsDir: "./docs" },
       mockOptions,
     );
 
     expect(result).toBeDefined();
-    expect(result.structurePlan).toEqual(originalStructurePlan);
+    expect(result.documentStructure).toEqual(originalDocumentStructure);
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
-  test("should prompt for user feedback when originalStructurePlan exists", async () => {
+  test("should prompt for user feedback when originalDocumentStructure exists", async () => {
     const userFeedback = "Need more API documentation";
     mockOptions.prompts.input.mockImplementation(async () => userFeedback);
 
-    await checkNeedGenerateStructure({ originalStructurePlan, docsDir: "./docs" }, mockOptions);
+    await checkNeedGenerateStructure({ originalDocumentStructure, docsDir: "./docs" }, mockOptions);
 
     expect(mockOptions.prompts.input).toHaveBeenCalledWith({
       message: "How can we improve the documentation structure? (press Enter to skip):",
@@ -108,7 +108,7 @@ describe("check-need-generate-structure", () => {
     const providedFeedback = "Already provided feedback";
 
     await checkNeedGenerateStructure(
-      { originalStructurePlan, feedback: providedFeedback, docsDir: "./docs" },
+      { originalDocumentStructure, feedback: providedFeedback, docsDir: "./docs" },
       mockOptions,
     );
 
@@ -121,18 +121,18 @@ describe("check-need-generate-structure", () => {
     // Default mock behavior: no sidebar file exists
 
     const result = await checkNeedGenerateStructure(
-      { originalStructurePlan, docsDir: "./docs" },
+      { originalDocumentStructure, docsDir: "./docs" },
       mockOptions,
     );
 
-    expect(result.structurePlan).toEqual(originalStructurePlan);
+    expect(result.documentStructure).toEqual(originalDocumentStructure);
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
   test("should regenerate when _sidebar.md exists", async () => {
     accessSpy.mockImplementation(() => Promise.resolve());
 
-    await checkNeedGenerateStructure({ originalStructurePlan, docsDir: "./docs" }, mockOptions);
+    await checkNeedGenerateStructure({ originalDocumentStructure, docsDir: "./docs" }, mockOptions);
 
     expect(mockOptions.context.invoke).toHaveBeenCalled();
   });
@@ -141,11 +141,11 @@ describe("check-need-generate-structure", () => {
     // Default mock behavior: file access fails
 
     const result = await checkNeedGenerateStructure(
-      { originalStructurePlan, docsDir: "./docs" },
+      { originalDocumentStructure, docsDir: "./docs" },
       mockOptions,
     );
 
-    expect(result.structurePlan).toEqual(originalStructurePlan);
+    expect(result.documentStructure).toEqual(originalDocumentStructure);
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
@@ -154,7 +154,7 @@ describe("check-need-generate-structure", () => {
     hasFileChangesBetweenCommitsSpy.mockImplementation(() => true);
 
     await checkNeedGenerateStructure(
-      { originalStructurePlan, lastGitHead: "abc123", docsDir: "./docs" },
+      { originalDocumentStructure, lastGitHead: "abc123", docsDir: "./docs" },
       mockOptions,
     );
 
@@ -166,17 +166,17 @@ describe("check-need-generate-structure", () => {
     getCurrentGitHeadSpy.mockImplementation(() => "abc123");
 
     const result = await checkNeedGenerateStructure(
-      { originalStructurePlan, lastGitHead: "abc123", docsDir: "./docs" },
+      { originalDocumentStructure, lastGitHead: "abc123", docsDir: "./docs" },
       mockOptions,
     );
 
-    expect(result.structurePlan).toEqual(originalStructurePlan);
+    expect(result.documentStructure).toEqual(originalDocumentStructure);
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
   test("should force regenerate when forceRegenerate is true", async () => {
     await checkNeedGenerateStructure(
-      { originalStructurePlan, forceRegenerate: true, docsDir: "./docs" },
+      { originalDocumentStructure, forceRegenerate: true, docsDir: "./docs" },
       mockOptions,
     );
 
@@ -188,7 +188,7 @@ describe("check-need-generate-structure", () => {
     getActiveRulesForScopeSpy.mockImplementation(() => mockRules);
 
     await checkNeedGenerateStructure(
-      { originalStructurePlan, feedback: "test", docsDir: "./docs" },
+      { originalDocumentStructure, feedback: "test", docsDir: "./docs" },
       mockOptions,
     );
 
@@ -198,13 +198,13 @@ describe("check-need-generate-structure", () => {
 
   test("should save project info when appropriate", async () => {
     mockOptions.context.invoke.mockImplementation(async () => ({
-      structurePlan: originalStructurePlan,
+      documentStructure: originalDocumentStructure,
       projectName: "New Project Name",
       projectDesc: "New Description",
     }));
 
     const result = await checkNeedGenerateStructure(
-      { originalStructurePlan, feedback: "test", docsDir: "./docs" },
+      { originalDocumentStructure, feedback: "test", docsDir: "./docs" },
       mockOptions,
     );
 
@@ -219,13 +219,13 @@ describe("check-need-generate-structure", () => {
     const consoleSpy = spyOn(console, "warn").mockImplementation(() => {});
 
     mockOptions.context.invoke.mockImplementation(async () => ({
-      structurePlan: originalStructurePlan,
+      documentStructure: originalDocumentStructure,
       projectName: "New Project",
       projectDesc: "New Description",
     }));
 
     const result = await checkNeedGenerateStructure(
-      { originalStructurePlan, feedback: "test", docsDir: "./docs" },
+      { originalDocumentStructure, feedback: "test", docsDir: "./docs" },
       mockOptions,
     );
 
@@ -235,37 +235,37 @@ describe("check-need-generate-structure", () => {
     expect(consoleSpy).toHaveBeenCalled();
   });
 
-  test("should return correct structure when no originalStructurePlan provided", async () => {
+  test("should return correct structure when no originalDocumentStructure provided", async () => {
     const newStructurePlan = [{ path: "/new", title: "New Section" }];
 
     mockOptions.context.invoke.mockImplementation(async () => ({
-      structurePlan: newStructurePlan,
+      documentStructure: newStructurePlan,
     }));
 
     const result = await checkNeedGenerateStructure({ docsDir: "./docs" }, mockOptions);
 
-    expect(result.structurePlan).toEqual(newStructurePlan);
-    expect(result.originalStructurePlan).toEqual(newStructurePlan);
+    expect(result.documentStructure).toEqual(newStructurePlan);
+    expect(result.originalDocumentStructure).toEqual(newStructurePlan);
   });
 
   test("should clear feedback in result", async () => {
     const result = await checkNeedGenerateStructure(
-      { originalStructurePlan, feedback: "some feedback", docsDir: "./docs" },
+      { originalDocumentStructure, feedback: "some feedback", docsDir: "./docs" },
       mockOptions,
     );
 
     expect(result.feedback).toBe("");
   });
 
-  test("should preserve structurePlanFeedback", async () => {
+  test("should preserve documentStructureFeedback", async () => {
     const feedback = "user submitted feedback";
 
     const result = await checkNeedGenerateStructure(
-      { originalStructurePlan, feedback, docsDir: "./docs" },
+      { originalDocumentStructure, feedback, docsDir: "./docs" },
       mockOptions,
     );
 
-    expect(result.structurePlanFeedback).toBe(feedback);
+    expect(result.documentStructureFeedback).toBe(feedback);
   });
 
   test("should pass through additional parameters", async () => {
@@ -276,7 +276,7 @@ describe("check-need-generate-structure", () => {
 
     await checkNeedGenerateStructure(
       {
-        originalStructurePlan,
+        originalDocumentStructure,
         feedback: "test",
         docsDir: "./docs",
         ...additionalParams,

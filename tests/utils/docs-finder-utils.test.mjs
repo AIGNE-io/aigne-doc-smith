@@ -96,29 +96,29 @@ describe("docs-finder-utils", () => {
   });
 
   describe("findItemByFlatName", () => {
-    const structurePlan = [
+    const documentStructure = [
       { path: "/getting-started", title: "Getting Started" },
       { path: "/api/overview", title: "API Overview" },
       { path: "/guides/advanced", title: "Advanced Guide" },
     ];
 
     test("should find item by exact flat name match", () => {
-      const result = findItemByFlatName(structurePlan, "getting-started");
+      const result = findItemByFlatName(documentStructure, "getting-started");
       expect(result).toEqual({ path: "/getting-started", title: "Getting Started" });
     });
 
     test("should find item with nested path", () => {
-      const result = findItemByFlatName(structurePlan, "api-overview");
+      const result = findItemByFlatName(documentStructure, "api-overview");
       expect(result).toEqual({ path: "/api/overview", title: "API Overview" });
     });
 
     test("should find item with deep nested path", () => {
-      const result = findItemByFlatName(structurePlan, "guides-advanced");
+      const result = findItemByFlatName(documentStructure, "guides-advanced");
       expect(result).toEqual({ path: "/guides/advanced", title: "Advanced Guide" });
     });
 
     test("should return undefined for non-existent item", () => {
-      const result = findItemByFlatName(structurePlan, "non-existent");
+      const result = findItemByFlatName(documentStructure, "non-existent");
       expect(result).toBeUndefined();
     });
 
@@ -243,9 +243,9 @@ describe("docs-finder-utils", () => {
     test("should sort files by structure plan order", async () => {
       readdirSpy.mockResolvedValue(["guide.md", "overview.md", "advanced.md"]);
 
-      const structurePlan = [{ path: "/overview" }, { path: "/guide" }, { path: "/advanced" }];
+      const documentStructure = [{ path: "/overview" }, { path: "/guide" }, { path: "/advanced" }];
 
-      const result = await getMainLanguageFiles("/docs", "en", structurePlan);
+      const result = await getMainLanguageFiles("/docs", "en", documentStructure);
 
       expect(result).toEqual(["overview.md", "guide.md", "advanced.md"]);
     });
@@ -253,9 +253,9 @@ describe("docs-finder-utils", () => {
     test("should handle files not in structure plan", async () => {
       readdirSpy.mockResolvedValue(["guide.md", "extra.md", "overview.md"]);
 
-      const structurePlan = [{ path: "/overview" }, { path: "/guide" }];
+      const documentStructure = [{ path: "/overview" }, { path: "/guide" }];
 
-      const result = await getMainLanguageFiles("/docs", "en", structurePlan);
+      const result = await getMainLanguageFiles("/docs", "en", documentStructure);
 
       expect(result).toEqual(["overview.md", "guide.md", "extra.md"]);
     });
@@ -279,14 +279,14 @@ describe("docs-finder-utils", () => {
 
   // COMPLEX ITEM FINDING TESTS
   describe("findItemByPath", () => {
-    const structurePlan = [
+    const documentStructure = [
       { path: "/getting-started", title: "Getting Started", description: "Intro" },
       { path: "/api/overview", title: "API Overview", category: "API" },
       { path: "/guides/advanced", title: "Advanced Guide", tags: ["advanced"] },
     ];
 
     test("should find item by direct path match", async () => {
-      const result = await findItemByPath(structurePlan, "/getting-started", null, null);
+      const result = await findItemByPath(documentStructure, "/getting-started", null, null);
 
       expect(result).toEqual({
         path: "/getting-started",
@@ -298,7 +298,13 @@ describe("docs-finder-utils", () => {
     test("should find item by .md filename", async () => {
       readFileSpy.mockResolvedValue("file content");
 
-      const result = await findItemByPath(structurePlan, "api-overview.md", null, "/docs", "en");
+      const result = await findItemByPath(
+        documentStructure,
+        "api-overview.md",
+        null,
+        "/docs",
+        "en",
+      );
 
       expect(result).toEqual({
         path: "/api/overview",
@@ -311,7 +317,7 @@ describe("docs-finder-utils", () => {
 
     test("should find item by boardId-flattened format", async () => {
       const result = await findItemByPath(
-        structurePlan,
+        documentStructure,
         "board123-guides-advanced",
         "board123",
         null,
@@ -327,7 +333,13 @@ describe("docs-finder-utils", () => {
     test("should handle non-English locale for filename generation", async () => {
       readFileSpy.mockResolvedValue("Chinese content");
 
-      const result = await findItemByPath(structurePlan, "/getting-started", null, "/docs", "zh");
+      const result = await findItemByPath(
+        documentStructure,
+        "/getting-started",
+        null,
+        "/docs",
+        "zh",
+      );
 
       expect(result).toEqual({
         path: "/getting-started",
@@ -339,19 +351,19 @@ describe("docs-finder-utils", () => {
     });
 
     test("should return null for non-existent path", async () => {
-      const result = await findItemByPath(structurePlan, "/non-existent", null, null);
+      const result = await findItemByPath(documentStructure, "/non-existent", null, null);
       expect(result).toBeNull();
     });
 
     test("should return null for invalid boardId format", async () => {
-      const result = await findItemByPath(structurePlan, "invalid-format", "board123", null);
+      const result = await findItemByPath(documentStructure, "invalid-format", "board123", null);
       expect(result).toBeNull();
     });
 
     test("should handle file read errors gracefully", async () => {
       readFileSpy.mockRejectedValue(new Error("File not found"));
 
-      const result = await findItemByPath(structurePlan, "/getting-started", null, "/docs");
+      const result = await findItemByPath(documentStructure, "/getting-started", null, "/docs");
 
       expect(result).toEqual({
         path: "/getting-started",
@@ -362,7 +374,7 @@ describe("docs-finder-utils", () => {
     });
 
     test("should not read content when docsDir is not provided", async () => {
-      const result = await findItemByPath(structurePlan, "/getting-started", null, null);
+      const result = await findItemByPath(documentStructure, "/getting-started", null, null);
 
       expect(result).toEqual({
         path: "/getting-started",
@@ -375,7 +387,12 @@ describe("docs-finder-utils", () => {
     test("should handle .md filename with language suffix", async () => {
       readFileSpy.mockResolvedValue("localized content");
 
-      const result = await findItemByPath(structurePlan, "getting-started.zh.md", null, "/docs");
+      const result = await findItemByPath(
+        documentStructure,
+        "getting-started.zh.md",
+        null,
+        "/docs",
+      );
 
       expect(result).toEqual({
         path: "/getting-started",
@@ -403,7 +420,7 @@ describe("docs-finder-utils", () => {
   });
 
   describe("processSelectedFiles", () => {
-    const structurePlan = [
+    const documentStructure = [
       { path: "/overview", title: "Overview" },
       { path: "/api/guide", title: "API Guide" },
       { path: "/advanced", title: "Advanced" },
@@ -415,7 +432,7 @@ describe("docs-finder-utils", () => {
         .mockResolvedValueOnce("api guide content");
 
       const selectedFiles = ["overview.md", "api-guide.md"];
-      const result = await processSelectedFiles(selectedFiles, structurePlan, "/docs");
+      const result = await processSelectedFiles(selectedFiles, documentStructure, "/docs");
 
       expect(result).toEqual([
         {
@@ -435,7 +452,7 @@ describe("docs-finder-utils", () => {
       readFileSpy.mockResolvedValue("localized content");
 
       const selectedFiles = ["overview.zh.md"];
-      const result = await processSelectedFiles(selectedFiles, structurePlan, "/docs");
+      const result = await processSelectedFiles(selectedFiles, documentStructure, "/docs");
 
       expect(result).toEqual([
         {
@@ -450,7 +467,7 @@ describe("docs-finder-utils", () => {
       readFileSpy.mockResolvedValue(null);
 
       const selectedFiles = ["overview.md"];
-      const result = await processSelectedFiles(selectedFiles, structurePlan, "/docs");
+      const result = await processSelectedFiles(selectedFiles, documentStructure, "/docs");
 
       expect(result).toEqual([
         {
@@ -464,7 +481,7 @@ describe("docs-finder-utils", () => {
       readFileSpy.mockResolvedValue("content");
 
       const selectedFiles = ["unknown.md"];
-      const result = await processSelectedFiles(selectedFiles, structurePlan, "/docs");
+      const result = await processSelectedFiles(selectedFiles, documentStructure, "/docs");
 
       expect(result).toEqual([]);
       expect(consoleWarnSpy).toHaveBeenCalledWith(
@@ -478,7 +495,7 @@ describe("docs-finder-utils", () => {
         .mockResolvedValueOnce("unknown content");
 
       const selectedFiles = ["overview.md", "unknown.md"];
-      const result = await processSelectedFiles(selectedFiles, structurePlan, "/docs");
+      const result = await processSelectedFiles(selectedFiles, documentStructure, "/docs");
 
       expect(result).toEqual([
         {
@@ -493,7 +510,7 @@ describe("docs-finder-utils", () => {
     });
 
     test("should handle empty selected files array", async () => {
-      const result = await processSelectedFiles([], structurePlan, "/docs");
+      const result = await processSelectedFiles([], documentStructure, "/docs");
       expect(result).toEqual([]);
     });
 
@@ -501,7 +518,7 @@ describe("docs-finder-utils", () => {
       readFileSpy.mockRejectedValue(new Error("Read error"));
 
       const selectedFiles = ["overview.md"];
-      const result = await processSelectedFiles(selectedFiles, structurePlan, "/docs");
+      const result = await processSelectedFiles(selectedFiles, documentStructure, "/docs");
 
       expect(result).toEqual([
         {
@@ -557,15 +574,15 @@ describe("docs-finder-utils", () => {
     });
 
     test("findItemByFlatName should handle paths with leading/trailing slashes", () => {
-      const structurePlan = [
+      const documentStructure = [
         { path: "no-leading-slash", title: "No Leading" },
         { path: "/normal-path", title: "Normal" },
         { path: "/trailing-slash/", title: "Trailing" },
       ];
 
-      const result1 = findItemByFlatName(structurePlan, "no-leading-slash");
-      const result2 = findItemByFlatName(structurePlan, "normal-path");
-      const result3 = findItemByFlatName(structurePlan, "trailing-slash");
+      const result1 = findItemByFlatName(documentStructure, "no-leading-slash");
+      const result2 = findItemByFlatName(documentStructure, "normal-path");
+      const result3 = findItemByFlatName(documentStructure, "trailing-slash");
 
       expect(result1).toEqual({ path: "no-leading-slash", title: "No Leading" });
       expect(result2).toEqual({ path: "/normal-path", title: "Normal" });

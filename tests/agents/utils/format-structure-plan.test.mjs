@@ -6,7 +6,7 @@ describe("format-structure-plan", () => {
   // BASIC FUNCTIONALITY TESTS
   test("should format empty structure plan", async () => {
     const result = await formatStructurePlan({
-      structurePlan: [],
+      documentStructure: [],
     });
 
     const expectedYaml = stringify([], {
@@ -16,13 +16,13 @@ describe("format-structure-plan", () => {
     });
 
     expect(result).toEqual({
-      structurePlanYaml: expectedYaml,
-      structurePlan: [],
+      documentStructureYaml: expectedYaml,
+      documentStructure: [],
     });
   });
 
   test("should format single item structure plan", async () => {
-    const structurePlan = [
+    const documentStructure = [
       {
         title: "Getting Started",
         path: "/getting-started",
@@ -32,7 +32,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ structurePlan });
+    const result = await formatStructurePlan({ documentStructure });
 
     const expectedData = [
       {
@@ -48,12 +48,12 @@ describe("format-structure-plan", () => {
       minContentWidth: 20,
     });
 
-    expect(result.structurePlan).toEqual(structurePlan);
-    expect(result.structurePlanYaml).toBe(expectedYaml);
+    expect(result.documentStructure).toEqual(documentStructure);
+    expect(result.documentStructureYaml).toBe(expectedYaml);
   });
 
   test("should format multiple items structure plan", async () => {
-    const structurePlan = [
+    const documentStructure = [
       {
         title: "API Reference",
         path: "/api",
@@ -74,7 +74,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ structurePlan });
+    const result = await formatStructurePlan({ documentStructure });
 
     const expectedData = [
       {
@@ -102,13 +102,13 @@ describe("format-structure-plan", () => {
       minContentWidth: 20,
     });
 
-    expect(result.structurePlan).toEqual(structurePlan);
-    expect(result.structurePlanYaml).toBe(expectedYaml);
+    expect(result.documentStructure).toEqual(documentStructure);
+    expect(result.documentStructureYaml).toBe(expectedYaml);
   });
 
   // FIELD EXTRACTION TESTS
   test("should extract only required fields", async () => {
-    const structurePlan = [
+    const documentStructure = [
       {
         title: "Test Document",
         path: "/test",
@@ -123,7 +123,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ structurePlan });
+    const result = await formatStructurePlan({ documentStructure });
 
     const expectedData = [
       {
@@ -139,15 +139,15 @@ describe("format-structure-plan", () => {
       minContentWidth: 20,
     });
 
-    expect(result.structurePlanYaml).toBe(expectedYaml);
+    expect(result.documentStructureYaml).toBe(expectedYaml);
     // Verify extra fields are not in the YAML output
-    expect(result.structurePlanYaml).not.toContain("doc-123");
-    expect(result.structurePlanYaml).not.toContain("Document content");
-    expect(result.structurePlanYaml).not.toContain("John Doe");
+    expect(result.documentStructureYaml).not.toContain("doc-123");
+    expect(result.documentStructureYaml).not.toContain("Document content");
+    expect(result.documentStructureYaml).not.toContain("John Doe");
   });
 
   test("should handle items with missing optional fields", async () => {
-    const structurePlan = [
+    const documentStructure = [
       {
         title: "Required Title",
         path: "/required-path",
@@ -155,7 +155,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ structurePlan });
+    const result = await formatStructurePlan({ documentStructure });
 
     const expectedData = [
       {
@@ -171,11 +171,11 @@ describe("format-structure-plan", () => {
       minContentWidth: 20,
     });
 
-    expect(result.structurePlanYaml).toBe(expectedYaml);
+    expect(result.documentStructureYaml).toBe(expectedYaml);
   });
 
   test("should preserve null and undefined values", async () => {
-    const structurePlan = [
+    const documentStructure = [
       {
         title: "Test Item",
         path: "/test",
@@ -184,7 +184,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ structurePlan });
+    const result = await formatStructurePlan({ documentStructure });
 
     const expectedData = [
       {
@@ -200,11 +200,11 @@ describe("format-structure-plan", () => {
       minContentWidth: 20,
     });
 
-    expect(result.structurePlanYaml).toBe(expectedYaml);
+    expect(result.documentStructureYaml).toBe(expectedYaml);
   });
 
   test("should handle items with special characters", async () => {
-    const structurePlan = [
+    const documentStructure = [
       {
         title: "Special Characters: @#$%^&*()",
         path: "/special-chars-test",
@@ -213,16 +213,16 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ structurePlan });
+    const result = await formatStructurePlan({ documentStructure });
 
     // Since YAML is mocked, just verify the function runs without error
     // and returns a structure with the expected properties
-    expect(result.structurePlanYaml).toBeDefined();
-    expect(result.structurePlan).toEqual(structurePlan);
+    expect(result.documentStructureYaml).toBeDefined();
+    expect(result.documentStructure).toEqual(documentStructure);
   });
 
   test("should return both yaml string and original structure plan", async () => {
-    const structurePlan = [
+    const documentStructure = [
       {
         title: "Return Test",
         path: "/return-test",
@@ -231,16 +231,16 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ structurePlan });
+    const result = await formatStructurePlan({ documentStructure });
 
-    expect(result).toHaveProperty("structurePlanYaml");
-    expect(result).toHaveProperty("structurePlan");
-    expect(typeof result.structurePlanYaml).toBe("string");
-    expect(result.structurePlan).toBe(structurePlan); // Should be the same reference
+    expect(result).toHaveProperty("documentStructureYaml");
+    expect(result).toHaveProperty("documentStructure");
+    expect(typeof result.documentStructureYaml).toBe("string");
+    expect(result.documentStructure).toBe(documentStructure); // Should be the same reference
   });
 
   test("should preserve original structure plan unchanged", async () => {
-    const originalStructurePlan = [
+    const originalDocumentStructure = [
       {
         title: "Original",
         path: "/original",
@@ -251,14 +251,14 @@ describe("format-structure-plan", () => {
     ];
 
     const result = await formatStructurePlan({
-      structurePlan: originalStructurePlan,
+      documentStructure: originalDocumentStructure,
     });
 
     // Original should be unchanged
-    expect(originalStructurePlan[0]).toHaveProperty("extraField");
-    expect(originalStructurePlan[0].extraField).toBe("should remain");
+    expect(originalDocumentStructure[0]).toHaveProperty("extraField");
+    expect(originalDocumentStructure[0].extraField).toBe("should remain");
 
     // Return value should reference the same object
-    expect(result.structurePlan).toBe(originalStructurePlan);
+    expect(result.documentStructure).toBe(originalDocumentStructure);
   });
 });

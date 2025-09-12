@@ -63,7 +63,7 @@ describe("chooseDocs utility", () => {
   test("should process provided docs array successfully", async () => {
     const input = {
       docs: ["/docs/guide.md", "/docs/api.md"],
-      structurePlanResult: [{ path: "/docs/guide.md" }],
+      documentStructureResult: [{ path: "/docs/guide.md" }],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,
@@ -75,7 +75,7 @@ describe("chooseDocs utility", () => {
 
     expect(findItemByPathSpy).toHaveBeenCalledTimes(2);
     expect(findItemByPathSpy).toHaveBeenCalledWith(
-      input.structurePlanResult,
+      input.documentStructureResult,
       "/docs/guide.md",
       "board-123",
       "/project/docs",
@@ -99,7 +99,7 @@ describe("chooseDocs utility", () => {
 
     const input = {
       docs: ["/docs/guide.md", "/docs/missing.md", "/docs/api.md"],
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,
@@ -109,7 +109,7 @@ describe("chooseDocs utility", () => {
     const result = await chooseDocs(input, mockOptions);
 
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      '⚠️  Item with path "/docs/missing.md" not found in structurePlanResult',
+      '⚠️  Item with path "/docs/missing.md" not found in documentStructureResult',
     );
     expect(result.selectedDocs).toHaveLength(2); // Only found items
   });
@@ -119,7 +119,7 @@ describe("chooseDocs utility", () => {
 
     const input = {
       docs: ["/docs/missing1.md", "/docs/missing2.md"],
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,
@@ -127,7 +127,7 @@ describe("chooseDocs utility", () => {
     };
 
     await expect(chooseDocs(input, mockOptions)).rejects.toThrow(
-      "None of the specified document paths were found in structurePlanResult",
+      "None of the specified document paths were found in documentStructureResult",
     );
   });
 
@@ -135,7 +135,7 @@ describe("chooseDocs utility", () => {
   test("should handle interactive document selection when docs not provided", async () => {
     const input = {
       docs: [],
-      structurePlanResult: [{ path: "/docs/guide.md" }],
+      documentStructureResult: [{ path: "/docs/guide.md" }],
       docsDir: "/project/docs",
       isTranslate: false,
       locale: "en",
@@ -146,12 +146,12 @@ describe("chooseDocs utility", () => {
     expect(getMainLanguageFilesSpy).toHaveBeenCalledWith(
       "/project/docs",
       "en",
-      input.structurePlanResult,
+      input.documentStructureResult,
     );
     expect(mockOptions.prompts.checkbox).toHaveBeenCalled();
     expect(processSelectedFilesSpy).toHaveBeenCalledWith(
       ["/docs/guide.md", "/docs/api.md"],
-      input.structurePlanResult,
+      input.documentStructureResult,
       "/project/docs",
     );
     expect(result.selectedDocs).toBeDefined();
@@ -160,7 +160,7 @@ describe("chooseDocs utility", () => {
   test("should handle interactive selection when docs is null", async () => {
     const input = {
       docs: null,
-      structurePlanResult: [],
+      documentStructureResult: [],
       docsDir: "/project/docs",
       isTranslate: true,
       locale: "zh",
@@ -177,7 +177,7 @@ describe("chooseDocs utility", () => {
 
     const input = {
       docs: [],
-      structurePlanResult: [],
+      documentStructureResult: [],
       docsDir: "/empty/docs",
       isTranslate: false,
       locale: "en",
@@ -196,7 +196,7 @@ describe("chooseDocs utility", () => {
 
     const input = {
       docs: [],
-      structurePlanResult: [],
+      documentStructureResult: [],
       docsDir: "/project/docs",
       isTranslate: false,
       locale: "en",
@@ -211,7 +211,7 @@ describe("chooseDocs utility", () => {
   test("should validate checkbox selection requires at least one document", async () => {
     const input = {
       docs: [],
-      structurePlanResult: [],
+      documentStructureResult: [],
       docsDir: "/project/docs",
       isTranslate: false,
       locale: "en",
@@ -227,7 +227,7 @@ describe("chooseDocs utility", () => {
   test("should filter choices based on search term", async () => {
     const input = {
       docs: [],
-      structurePlanResult: [],
+      documentStructureResult: [],
       docsDir: "/project/docs",
       isTranslate: false,
       locale: "en",
@@ -248,7 +248,7 @@ describe("chooseDocs utility", () => {
   test("should prompt for feedback when not provided", async () => {
     const input = {
       docs: ["/docs/guide.md"],
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: true,
@@ -268,7 +268,7 @@ describe("chooseDocs utility", () => {
   test("should use provided feedback without prompting", async () => {
     const input = {
       docs: ["/docs/guide.md"],
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,
@@ -287,7 +287,7 @@ describe("chooseDocs utility", () => {
 
     const input = {
       docs: ["/docs/guide.md"],
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,
@@ -304,7 +304,7 @@ describe("chooseDocs utility", () => {
   test("should reset content to null when reset is true", async () => {
     const input = {
       docs: ["/docs/guide.md"],
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,
@@ -327,7 +327,7 @@ describe("chooseDocs utility", () => {
   test("should preserve content when reset is false", async () => {
     const input = {
       docs: ["/docs/guide.md"],
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,
@@ -351,7 +351,7 @@ describe("chooseDocs utility", () => {
   test("should return correct structure with all required fields", async () => {
     const input = {
       docs: ["/docs/guide.md", "/docs/api.md"],
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,
@@ -378,7 +378,7 @@ describe("chooseDocs utility", () => {
 
     const input = {
       docs: ["/docs/guide.md", "/docs/api.md"],
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,
@@ -402,7 +402,7 @@ describe("chooseDocs utility", () => {
 
     const input = {
       docs: specialPaths,
-      structurePlanResult: [],
+      documentStructureResult: [],
       boardId: "board-123",
       docsDir: "/project/docs",
       isTranslate: false,

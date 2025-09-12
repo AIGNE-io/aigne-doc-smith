@@ -1032,12 +1032,12 @@ describe("load-sources", () => {
 
   describe("Document path and structure plan handling", () => {
     test("should load existing structure plan", async () => {
-      const structurePlan = {
+      const documentStructure = {
         sections: ["Introduction", "API", "Examples"],
         lastUpdated: new Date().toISOString(),
       };
 
-      await writeFile(path.join(tempDir, "structure-plan.json"), JSON.stringify(structurePlan));
+      await writeFile(path.join(tempDir, "structure-plan.json"), JSON.stringify(documentStructure));
 
       const result = await loadSources({
         sourcesPath: testDir,
@@ -1047,7 +1047,7 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.originalStructurePlan).toEqual(structurePlan);
+      expect(result.originalDocumentStructure).toEqual(documentStructure);
     });
 
     test("should handle malformed structure plan JSON", async () => {
@@ -1061,7 +1061,7 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.originalStructurePlan).toBeUndefined();
+      expect(result.originalDocumentStructure).toBeUndefined();
     });
 
     test("should handle non-ENOENT errors when reading structure plan JSON", async () => {
@@ -1091,7 +1091,7 @@ describe("load-sources", () => {
           docsDir: path.join(testDir, "docs"),
         });
 
-        expect(result.originalStructurePlan).toBeUndefined();
+        expect(result.originalDocumentStructure).toBeUndefined();
       } finally {
         // Restore the original readFile function
         readFileSpy.mockRestore();

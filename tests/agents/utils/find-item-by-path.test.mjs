@@ -79,7 +79,7 @@ describe("find-item-by-path", () => {
     const result = await findItemByPath(
       {
         doc: "/api/users",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -89,7 +89,7 @@ describe("find-item-by-path", () => {
       mockOptions,
     );
 
-    // When doc path is provided and matches structurePlanResult, function should work correctly
+    // When doc path is provided and matches documentStructureResult, function should work correctly
     expect(result).toEqual({
       path: "/api/users",
       title: "Mock Item",
@@ -102,7 +102,7 @@ describe("find-item-by-path", () => {
     const result = await findItemByPath(
       {
         doc: "/api/users",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -119,7 +119,7 @@ describe("find-item-by-path", () => {
     const result = await findItemByPath(
       {
         doc: "/api/users",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -139,7 +139,7 @@ describe("find-item-by-path", () => {
       findItemByPath(
         {
           doc: "/nonexistent/path",
-          structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+          documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
           boardId: "board123",
           docsDir: "./docs",
           isTranslate: false,
@@ -147,7 +147,7 @@ describe("find-item-by-path", () => {
         },
         mockOptions,
       ),
-    ).rejects.toThrow('Item with path "/nonexistent/path" not found in structurePlanResult');
+    ).rejects.toThrow('Item with path "/nonexistent/path" not found in documentStructureResult');
   });
 
   // USER SELECTION TESTS
@@ -161,7 +161,7 @@ describe("find-item-by-path", () => {
     await findItemByPath(
       {
         doc: "",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -189,7 +189,7 @@ describe("find-item-by-path", () => {
     const result = await findItemByPath(
       {
         doc: "",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -221,7 +221,7 @@ describe("find-item-by-path", () => {
     await findItemByPath(
       {
         doc: "",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -241,7 +241,7 @@ describe("find-item-by-path", () => {
     await findItemByPath(
       {
         doc: "",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -261,7 +261,7 @@ describe("find-item-by-path", () => {
     await findItemByPath(
       {
         doc: "",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -279,7 +279,7 @@ describe("find-item-by-path", () => {
       findItemByPath(
         {
           doc: "",
-          structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+          documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
           boardId: "board123",
           docsDir: "./docs",
           isTranslate: false,
@@ -301,7 +301,7 @@ describe("find-item-by-path", () => {
       findItemByPath(
         {
           doc: "",
-          structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+          documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
           boardId: "board123",
           docsDir: "./docs",
           isTranslate: false,
@@ -323,7 +323,7 @@ describe("find-item-by-path", () => {
       findItemByPath(
         {
           doc: "",
-          structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+          documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
           boardId: "board123",
           docsDir: "./docs",
           isTranslate: false,
@@ -345,7 +345,7 @@ describe("find-item-by-path", () => {
       findItemByPath(
         {
           doc: "",
-          structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+          documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
           boardId: "board123",
           docsDir: "./docs",
           isTranslate: false,
@@ -370,7 +370,7 @@ describe("find-item-by-path", () => {
     const result = await findItemByPath(
       {
         doc: "/api/users",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -395,7 +395,7 @@ describe("find-item-by-path", () => {
     const result = await findItemByPath(
       {
         doc: "/api/users",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -414,7 +414,7 @@ describe("find-item-by-path", () => {
     const result = await findItemByPath(
       {
         doc: "/api/users",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -432,7 +432,7 @@ describe("find-item-by-path", () => {
     const result = await findItemByPath(
       {
         doc: "/api/users",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: false,
@@ -449,7 +449,7 @@ describe("find-item-by-path", () => {
     await findItemByPath(
       {
         doc: "/api/users",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         isTranslate: true,
@@ -471,7 +471,7 @@ describe("find-item-by-path", () => {
       findItemByPath(
         {
           doc: "",
-          structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+          documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
           boardId: "board123",
           docsDir: "./docs",
           isTranslate: true,
@@ -494,7 +494,7 @@ describe("find-item-by-path", () => {
     await findItemByPath(
       {
         doc: "/api/complex",
-        structurePlanResult: [{ path: "/api/complex", title: "Complex Item" }],
+        documentStructureResult: [{ path: "/api/complex", title: "Complex Item" }],
         boardId: "board456",
         docsDir: "/custom/docs",
         isTranslate: false,
@@ -511,7 +511,7 @@ describe("find-item-by-path", () => {
     const result = await findItemByPath(
       {
         doc: "/api/users",
-        structurePlanResult: [{ path: "/api/users", title: "Mock Item" }],
+        documentStructureResult: [{ path: "/api/users", title: "Mock Item" }],
         boardId: "board123",
         docsDir: "./docs",
         locale: "en",

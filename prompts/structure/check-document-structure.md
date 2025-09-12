@@ -3,14 +3,14 @@
 </role>
 
 <context>
-- **上一轮的结构规划 (originalStructurePlan)**:
+- **上一轮的结构规划 (originalDocumentStructure)**:
 ```json
-{{ originalStructurePlan }}
+{{ originalDocumentStructure }}
 ```
 
-- **新生成的结构规划 (structurePlan)**:
+- **新生成的结构规划 (documentStructure)**:
 ```json
-{{ structurePlan }}
+{{ documentStructure }}
 ```
 
 {% if feedback %}
@@ -32,7 +32,7 @@
 
 <quality_control_rules>
 ### 场景 1：首次运行（没有旧的规划）
-如果 `originalStructurePlan` 为 null、为空或未提供，这意味着这是第一次生成结构。没有可供比较的对象。
+如果 `originalDocumentStructure` 为 null、为空或未提供，这意味着这是第一次生成结构。没有可供比较的对象。
 你的检查自动通过。
 
 ### 场景 2：迭代运行（存在旧的规划）
@@ -40,9 +40,9 @@
 
 **分步分析**：
 1.  **分析反馈**：仔细阅读并理解 `<context>` 中 用户反馈 提出的每一项变更要求。明确哪些节点是需要被修改、添加或删除的目标。
-2.  **验证反馈的实现**：对比 `<context>` 中的 `structurePlan` 和 `originalStructurePlan`，确认所要求的变更是否已执行。例如，如果反馈是“移除‘示例’部分”，你必须检查该部分在 `structurePlan` 中是否已不存在。
-3.  **验证无关节点的稳定性**：这是最关键的检查。遍历 `structurePlan` 中的所有节点。对于每一个在 `originalStructurePlan` 中也存在、但并未在反馈中被提及的节点：
-    *   **至关重要**：其 `path`、`sourcesIds` 属性**必须**与 `originalStructurePlan` 中的完全相同。
+2.  **验证反馈的实现**：对比 `<context>` 中的 `documentStructure` 和 `originalDocumentStructure`，确认所要求的变更是否已执行。例如，如果反馈是“移除‘示例’部分”，你必须检查该部分在 `documentStructure` 中是否已不存在。
+3.  **验证无关节点的稳定性**：这是最关键的检查。遍历 `documentStructure` 中的所有节点。对于每一个在 `originalDocumentStructure` 中也存在、但并未在反馈中被提及的节点：
+    *   **至关重要**：其 `path`、`sourcesIds` 属性**必须**与 `originalDocumentStructure` 中的完全相同。
     *   理想情况下，其他属性（如 `title`、`description`）也应保持稳定，除非这些变更是由某个被要求的变更直接导致的，或者是 DataSource 变更导致。
 </quality_control_rules>
 

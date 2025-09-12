@@ -68,8 +68,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: [],
       },
       mockOptions,
@@ -106,8 +106,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js", "file2.js"], // Different from original
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
+        documentStructure: [{ path: "/getting-started" }],
       },
       mockOptions,
     );
@@ -124,8 +124,10 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js", "file2.js", "file3.js"], // More files
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js", "file2.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [
+          { path: "/getting-started", sourceIds: ["file1.js", "file2.js"] },
+        ],
+        documentStructure: [{ path: "/getting-started" }],
       },
       mockOptions,
     );
@@ -142,8 +144,10 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file2.js", "file1.js"], // Same files, different order
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js", "file2.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [
+          { path: "/getting-started", sourceIds: ["file1.js", "file2.js"] },
+        ],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: [],
       },
       mockOptions,
@@ -153,7 +157,7 @@ describe("check-document", () => {
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
-  test("should handle missing originalStructurePlan gracefully", async () => {
+  test("should handle missing originalDocumentStructure gracefully", async () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 
@@ -162,8 +166,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: null,
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: null,
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: [],
       },
       mockOptions,
@@ -182,8 +186,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/different-path", sourceIds: ["file1.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/different-path", sourceIds: ["file1.js"] }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: [],
       },
       mockOptions,
@@ -204,8 +208,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: ["file1.js"],
       },
       mockOptions,
@@ -227,7 +231,7 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: [],
-        structurePlan: [{ path: "/getting-started" }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: ["file1.js"],
       },
       mockOptions,
@@ -246,7 +250,7 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        structurePlan: [{ path: "/getting-started" }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: null,
       },
       mockOptions,
@@ -270,15 +274,15 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: [],
       },
       mockOptions,
     );
 
     expect(checkDetailResultSpy).toHaveBeenCalledWith({
-      structurePlan: [{ path: "/getting-started" }],
+      documentStructure: [{ path: "/getting-started" }],
       reviewContent: "# Test Content",
       docsDir: "./docs",
     });
@@ -297,7 +301,7 @@ describe("check-document", () => {
       {
         path: "/getting-started",
         docsDir: "./docs",
-        structurePlan: [{ path: "/getting-started" }],
+        documentStructure: [{ path: "/getting-started" }],
       },
       mockOptions,
     );
@@ -305,7 +309,7 @@ describe("check-document", () => {
     expect(checkDetailResultSpy).not.toHaveBeenCalled();
   });
 
-  test("should not validate content when no structurePlan provided", async () => {
+  test("should not validate content when no documentStructure provided", async () => {
     accessSpy.mockResolvedValue();
     readFileSpy.mockResolvedValue("# Test Content");
 
@@ -314,8 +318,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
-        structurePlan: null,
+        originalDocumentStructure: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
+        documentStructure: null,
         modifiedFiles: [],
       },
       mockOptions,
@@ -335,8 +339,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: [],
         forceRegenerate: true,
       },
@@ -372,8 +376,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/getting-started" }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started" }],
+        documentStructure: [{ path: "/getting-started" }],
         customParam: "test",
       },
       mockOptions,
@@ -385,8 +389,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/getting-started" }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started" }],
+        documentStructure: [{ path: "/getting-started" }],
         customParam: "test",
         detailFeedback: "",
       }),
@@ -455,8 +459,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: [],
         customParam: "test",
       },
@@ -483,8 +487,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: ["file1.js"],
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: [],
       },
       mockOptions,
@@ -506,8 +510,8 @@ describe("check-document", () => {
         path: "/getting-started",
         docsDir: "./docs",
         sourceIds: [],
-        originalStructurePlan: [{ path: "/getting-started", sourceIds: [] }],
-        structurePlan: [{ path: "/getting-started" }],
+        originalDocumentStructure: [{ path: "/getting-started", sourceIds: [] }],
+        documentStructure: [{ path: "/getting-started" }],
         modifiedFiles: [],
       },
       mockOptions,

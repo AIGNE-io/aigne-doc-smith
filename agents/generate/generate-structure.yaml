@@ -45,8 +45,8 @@ output_schema:
     projectDesc:
       type: string
       description: Brief project description generated from content analysis (under 50 words)
-    structurePlan: ../schema/document-structure.yaml
-    structurePlanTree:
+    documentStructure: ../schema/document-structure.yaml
+    documentStructureTree:
       type: string
       description: |
         Visual tree structure showing documentation hierarchy with indented levels for easy review:

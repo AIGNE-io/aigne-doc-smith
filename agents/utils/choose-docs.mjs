@@ -7,7 +7,7 @@ import {
 } from "../../utils/docs-finder-utils.mjs";
 
 export default async function chooseDocs(
-  { docs, structurePlanResult, boardId, docsDir, isTranslate, feedback, locale, reset = false },
+  { docs, documentStructureResult, boardId, docsDir, isTranslate, feedback, locale, reset = false },
   options,
 ) {
   let foundItems = [];
@@ -17,7 +17,11 @@ export default async function chooseDocs(
   if (!docs || docs.length === 0) {
     try {
       // Get all main language .md files in docsDir
-      const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale, structurePlanResult);
+      const mainLanguageFiles = await getMainLanguageFiles(
+        docsDir,
+        locale,
+        documentStructureResult,
+      );
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No documents found in the docs directory");
@@ -49,7 +53,7 @@ export default async function chooseDocs(
       }
 
       // Process selected files and convert to found items
-      foundItems = await processSelectedFiles(selectedFiles, structurePlanResult, docsDir);
+      foundItems = await processSelectedFiles(selectedFiles, documentStructureResult, docsDir);
     } catch (error) {
       console.error(error);
       throw new Error(
@@ -63,7 +67,7 @@ export default async function chooseDocs(
     // Process the provided docs array
     for (const docPath of docs) {
       const foundItem = await findItemByPath(
-        structurePlanResult,
+        documentStructureResult,
         docPath,
         boardId,
         docsDir,
@@ -71,7 +75,7 @@ export default async function chooseDocs(
       );
 
       if (!foundItem) {
-        console.warn(`⚠️  Item with path "${docPath}" not found in structurePlanResult`);
+        console.warn(`⚠️  Item with path "${docPath}" not found in documentStructureResult`);
         continue;
       }
 
@@ -81,7 +85,7 @@ export default async function chooseDocs(
     }
 
     if (foundItems.length === 0) {
-      throw new Error("None of the specified document paths were found in structurePlanResult");
+      throw new Error("None of the specified document paths were found in documentStructureResult");
     }
   }
 

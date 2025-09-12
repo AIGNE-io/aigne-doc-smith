@@ -20,7 +20,7 @@ input_schema:
     nodeName:
       type: string
       description: Document node name for content generation
-    originalStructurePlan: ../schema/document-structure.yaml
+    originalDocumentStructure: ../schema/document-structure.yaml
     title:
       type: string
     description:
@@ -40,7 +40,7 @@ input_schema:
   required:
     - rules
     - datasources
-    - originalStructurePlan
+    - originalDocumentStructure
 output_schema:
   type: object
   properties:

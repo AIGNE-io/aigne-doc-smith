@@ -10,7 +10,7 @@ import {
 } from "../../utils/utils.mjs";
 
 export default async function checkNeedGenerateStructure(
-  { originalStructurePlan, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
+  { originalDocumentStructure, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
   options,
 ) {
   // Check if we need to regenerate structure plan
@@ -18,8 +18,8 @@ export default async function checkNeedGenerateStructure(
   let finalFeedback = feedback;
   let submittedFeedback = feedback;
 
-  // Prompt for feedback if originalStructurePlan exists and no feedback provided
-  if (originalStructurePlan && !feedback) {
+  // Prompt for feedback if originalDocumentStructure exists and no feedback provided
+  if (originalDocumentStructure && !feedback) {
     const userFeedback = await options.prompts.input({
       message: "How can we improve the documentation structure? (press Enter to skip):",
     });
@@ -30,8 +30,8 @@ export default async function checkNeedGenerateStructure(
     }
   }
 
-  // If no feedback and originalStructurePlan exists, check for git changes
-  if (originalStructurePlan) {
+  // If no feedback and originalDocumentStructure exists, check for git changes
+  if (originalDocumentStructure) {
     // If no lastGitHead, check if _sidebar.md exists to determine if we should regenerate
     if (!lastGitHead) {
       try {
@@ -79,9 +79,9 @@ export default async function checkNeedGenerateStructure(
   }
 
   // If no regeneration needed, return original structure plan
-  if (originalStructurePlan && !finalFeedback && !shouldRegenerate) {
+  if (originalDocumentStructure && !finalFeedback && !shouldRegenerate) {
     return {
-      structurePlan: originalStructurePlan,
+      documentStructure: originalDocumentStructure,
     };
   }
 
@@ -100,7 +100,7 @@ export default async function checkNeedGenerateStructure(
 
   const result = await options.context.invoke(panningAgent, {
     feedback: finalFeedback || "",
-    originalStructurePlan,
+    originalDocumentStructure,
     userPreferences,
     ...rest,
   });
@@ -155,11 +155,11 @@ export default async function checkNeedGenerateStructure(
   return {
     ...result,
     feedback: "", // clear feedback
-    structurePlanFeedback: submittedFeedback,
+    documentStructureFeedback: submittedFeedback,
     projectInfoMessage: message,
-    originalStructurePlan: originalStructurePlan
-      ? originalStructurePlan
-      : JSON.parse(JSON.stringify(result.structurePlan || [])),
+    originalDocumentStructure: originalDocumentStructure
+      ? originalDocumentStructure
+      : JSON.parse(JSON.stringify(result.documentStructure || [])),
   };
 }
 

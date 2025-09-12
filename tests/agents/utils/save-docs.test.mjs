@@ -53,7 +53,7 @@ describe("save-docs", () => {
     expect(initialFiles).toContain("old-file.md");
 
     // Test structure plan
-    const structurePlan = [
+    const documentStructure = [
       {
         path: "/overview",
         title: "Overview",
@@ -70,7 +70,7 @@ describe("save-docs", () => {
     const translateLanguages = ["zh", "en"];
 
     const result = await saveDocs({
-      structurePlanResult: structurePlan,
+      documentStructureResult: documentStructure,
       docsDir: testDir,
       translateLanguages,
     });

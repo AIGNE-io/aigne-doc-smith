@@ -5,13 +5,13 @@ import { getCurrentGitHead, saveGitHeadToConfig } from "../../utils/utils.mjs";
 
 /**
  * @param {Object} params
- * @param {Array<{path: string, content: string, title: string}>} params.structurePlan
+ * @param {Array<{path: string, content: string, title: string}>} params.documentStructure
  * @param {string} params.docsDir
  * @param {Array<string>} [params.translateLanguages] - Translation languages
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
 export default async function saveDocs({
-  structurePlanResult: structurePlan,
+  documentStructureResult: documentStructure,
   docsDir,
   translateLanguages = [],
   locale,
@@ -28,7 +28,7 @@ export default async function saveDocs({
 
   // Generate _sidebar.md
   try {
-    const sidebar = generateSidebar(structurePlan);
+    const sidebar = generateSidebar(documentStructure);
     const sidebarPath = join(docsDir, "_sidebar.md");
     await writeFile(sidebarPath, sidebar, "utf8");
   } catch (err) {
@@ -37,14 +37,14 @@ export default async function saveDocs({
 
   // Clean up invalid .md files that are no longer in the structure plan
   try {
-    await cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, locale);
+    await cleanupInvalidFiles(documentStructure, docsDir, translateLanguages, locale);
   } catch (err) {
     console.error("Failed to cleanup invalid .md files:", err.message);
   }
 
   const message = `## ✅ Documentation Generated Successfully!
 
-  Successfully generated **${structurePlan.length}** documents and saved to:
+  Successfully generated **${documentStructure.length}** documents and saved to:
   \`${docsDir}\`
   ${projectInfoMessage || ""}
   ### 🚀 Next Steps
@@ -101,13 +101,13 @@ function generateFileName(flatName, language) {
 
 /**
  * Clean up .md files that are no longer in the structure plan
- * @param {Array<{path: string, title: string}>} structurePlan
+ * @param {Array<{path: string, title: string}>} documentStructure
  * @param {string} docsDir
  * @param {Array<string>} translateLanguages
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-async function cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, locale) {
+async function cleanupInvalidFiles(documentStructure, docsDir, translateLanguages, locale) {
   const results = [];
 
   try {
@@ -119,7 +119,7 @@ async function cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, l
     const expectedFiles = new Set();
 
     // Add main document files
-    for (const { path } of structurePlan) {
+    for (const { path } of documentStructure) {
       const flatName = path.replace(/^\//, "").replace(/\//g, "-");
 
       // Main language file
@@ -166,11 +166,11 @@ async function cleanupInvalidFiles(structurePlan, docsDir, translateLanguages, l
   return results;
 }
 
-// Generate sidebar content, support nested structure, and the order is consistent with structurePlan
-function generateSidebar(structurePlan) {
+// Generate sidebar content, support nested structure, and the order is consistent with documentStructure
+function generateSidebar(documentStructure) {
   // Build tree structure
   const root = {};
-  for (const { path, title, parentId } of structurePlan) {
+  for (const { path, title, parentId } of documentStructure) {
     const relPath = path.replace(/^\//, "");
     const segments = relPath.split("/");
     let node = root;

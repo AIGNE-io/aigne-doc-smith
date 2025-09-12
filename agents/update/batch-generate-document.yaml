@@ -9,11 +9,11 @@ input_schema:
     datasources:
       type: string
       description: Context for structure planning, used to assist generate document structure
-    structurePlanResult: ../schema/document-execution-structure.yaml
+    documentStructureResult: ../schema/document-execution-structure.yaml
     modifiedFiles:
       type: array
       items: { type: string }
       description: Array of modified files since last generation
-iterate_on: structurePlanResult
+iterate_on: documentStructureResult
 concurrency: 3
 mode: sequential
