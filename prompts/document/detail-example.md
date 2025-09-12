@@ -63,12 +63,21 @@
 
   **Parameters**
 
-  | Name | Type | Description |
-  |---|---|---|
-  | `name` | `string` | The name of the product. |
-  | `description` | `string` | An optional description for the product. |
-  | `type` | `string` | The type of product (e.g., `'service'`, `'good'`). |
-  | `prices` | `Partial<TPrice>[]` | An optional array of partial price objects to associate with the product upon creation. Each object can include `type`, `unit_amount`, `currency_id`, and `recurring` details. |
+  <x-field data-name="name" data-type="string" data-required="true">
+    The name of the product.
+  </x-field>
+
+  <x-field data-name="description" data-type="string" data-required="false">
+    An optional description for the product.
+  </x-field>
+
+  <x-field data-name="type" data-type="string" data-required="false">
+    The type of product (e.g., 'service', 'good').
+  </x-field>
+
+  <x-field data-name="prices" data-type="Partial<TPrice>[]" data-required="false">
+    An optional array of partial price objects to associate with the product upon creation. Each object can include type, unit_amount, currency_id, and recurring details.
+  </x-field>
 
   **Returns**
 
@@ -124,9 +133,9 @@
 
   **Parameters**
 
-  | Name | Type | Description |
-  |---|---|---|
-  | `id` | `string` | The unique identifier of the product to retrieve. |
+  <x-field data-name="id" data-type="string" data-required="true">
+    The unique identifier of the product to retrieve.
+  </x-field>
 
   **Returns**
 
@@ -167,10 +176,13 @@
 
   **Parameters**
 
-  | Name | Type | Description |
-  |---|---|---|
-  | `id` | `string` | The unique identifier of the product to update. |
-  | `data` | `Partial<TProduct>` | An object containing the product fields to update. Available fields include `name`, `description`, `type`, etc. |
+  <x-field data-name="id" data-type="string" data-required="true">
+    The unique identifier of the product to update.
+  </x-field>
+
+  <x-field data-name="data" data-type="Partial<TProduct>" data-required="true">
+    An object containing the product fields to update. Available fields include name, description, type, etc.
+  </x-field>
 
   **Returns**
 
@@ -213,16 +225,37 @@
 
   **Parameters**
 
-  | Name | Type | Description |
-  |---|---|---|
-  | `active` | `boolean` | Optional. Filter by product active status. |
-  | `name` | `string` | Optional. Filter by product name. |
-  | `description` | `string` | Optional. Filter by product description. |
-  | `metadata.{key}` | `string` | Optional. Filter by custom metadata fields. Use `metadata.yourKey` to specify a metadata property. |
-  | `page` | `number` | Optional. The page number for pagination (default: 1). |
-  | `pageSize` | `number` | Optional. The number of items per page (default: 50). |
-  | `order` | `string` | Optional. Sort order (e.g., `'created_at:ASC'`, `'updated_at:DESC'`). |
-  | `activeFirst` | `boolean` | Optional. If `true`, active products are listed first. |
+  <x-field data-name="active" data-type="boolean" data-required="false">
+    Optional. Filter by product active status.
+  </x-field>
+
+  <x-field data-name="name" data-type="string" data-required="false">
+    Optional. Filter by product name.
+  </x-field>
+
+  <x-field data-name="description" data-type="string" data-required="false">
+    Optional. Filter by product description.
+  </x-field>
+
+  <x-field data-name="metadata.{key}" data-type="string" data-required="false">
+    Optional. Filter by custom metadata fields. Use metadata.yourKey to specify a metadata property.
+  </x-field>
+
+  <x-field data-name="page" data-type="number" data-default="1" data-required="false">
+    Optional. The page number for pagination (default: 1).
+  </x-field>
+
+  <x-field data-name="pageSize" data-type="number" data-default="50" data-required="false">
+    Optional. The number of items per page (default: 50).
+  </x-field>
+
+  <x-field data-name="order" data-type="string" data-required="false">
+    Optional. Sort order (e.g., 'created_at:ASC', 'updated_at:DESC').
+  </x-field>
+
+  <x-field data-name="activeFirst" data-type="boolean" data-required="false">
+    Optional. If true, active products are listed first.
+  </x-field>
 
   **Returns**
 
@@ -280,11 +313,17 @@
 
   **Parameters**
 
-  | Name | Type | Description |
-  |---|---|---|
-  | `query` | `string` | The search string to match against product fields. |
-  | `page` | `number` | Optional. The page number for pagination (default: 1). |
-  | `pageSize` | `number` | Optional. The number of items per page (default: 50). |
+  <x-field data-name="query" data-type="string" data-required="true">
+    The search string to match against product fields.
+  </x-field>
+
+  <x-field data-name="page" data-type="number" data-default="1" data-required="false">
+    Optional. The page number for pagination (default: 1).
+  </x-field>
+
+  <x-field data-name="pageSize" data-type="number" data-default="50" data-required="false">
+    Optional. The number of items per page (default: 50).
+  </x-field>
 
   **Returns**
 
@@ -341,9 +380,9 @@
 
   **Parameters**
 
-  | Name | Type | Description |
-  |---|---|---|
-  | `id` | `string` | The unique identifier of the product to archive. |
+  <x-field data-name="id" data-type="string" data-required="true">
+    The unique identifier of the product to archive.
+  </x-field>
 
   **Returns**
 
@@ -384,9 +423,9 @@
 
   **Parameters**
 
-  | Name | Type | Description |
-  |---|---|---|
-  | `id` | `string` | The unique identifier of the product to delete. |
+  <x-field data-name="id" data-type="string" data-required="true">
+    The unique identifier of the product to delete.
+  </x-field>
 
   **Returns**
 

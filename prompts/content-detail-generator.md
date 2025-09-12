@@ -87,6 +87,7 @@ parentId: {{parentId}}
 - 确保每个{{nodeName}}的详情中，都包含一个 markdown 的一级标题，展示当前{{nodeName}}的标题：{{title}}
 - markdown 输出内容正常换行、添加空行，让内容容易阅读
 - 对于列表数据，如果列表项较多，优先使用 markdown 中的 table 来展示，让内容看上去更整齐，容易阅读
+- 对于 API 参数，优先使用 `<x-field>` 自定义组件来展示，让内容看上去更整齐，容易阅读
 - 不要在输出中提到 'DataSources' ，你输出的内容是给用户阅读的，用户不知道 DataSources 的存在
 - 不要在输出中直接 Data Sources 中的文件路径，这对用户是没有意义的
 - 不要出现 '当前{{nodeName}}' 这种说法

@@ -2,6 +2,7 @@
 When generating document details, you can use the following custom components at appropriate locations based on their descriptions and functionality to enhance document presentation:
 - `<x-card>`
 - `<x-cards>`
+- `<x-field>`
 
 
 ### 1. <x-card> Single Card Component
@@ -32,7 +33,44 @@ Attribute Rules:
   - Only supports plain text format without styling
 
 
-### 2. `<x-cards>` Card List Component
+### 2. `<x-field>` API Parameter Field Component
+
+Suitable for displaying API parameters with structured metadata in a clean, organized format.
+
+Syntax:
+
+```
+<x-field data-name="parameter_name" data-type="string" data-default="default_value" data-required="true" data-deprecated="false">
+  Parameter description text
+</x-field>
+```
+
+Attribute Rules:
+
+- `data-name` (required): The name of the parameter/field
+- `data-type` (required): The data type of the parameter (e.g., "string", "number", "boolean", "object", "array")
+- `data-default` (optional): Default value for the parameter
+- `data-required` (optional): Whether the parameter is required ("true" or "false")
+- `data-deprecated` (optional): Whether the parameter is deprecated ("true" or "false")
+- Body content: Description of the parameter, supports plain text only
+
+Example:
+
+```
+<x-field data-name="user_id" data-type="string" data-default="u0911" data-required="true" data-deprecated="true">
+  Unique identifier for the user. Must be a valid UUID v4 format.
+</x-field>
+
+<x-field data-name="password" data-type="string" data-default="******" data-required="true">
+  User password for authentication.
+</x-field>
+
+<x-field data-name="options" data-type="object" data-required="false">
+  Additional configuration options for the request.
+</x-field>
+```
+
+### 3. `<x-cards>` Card List Component
 
 Suitable for displaying multiple links using a card list format, providing a richer and more visually appealing presentation.
 
