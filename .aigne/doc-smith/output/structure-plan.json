@@ -136,11 +136,7 @@
     "description": "Understand the built-in checks DocSmith performs to ensure high-quality, well-formatted, and error-free documentation, including link checking and diagram validation.",
     "path": "/advanced/quality-assurance",
     "parentId": "/advanced",
-    "sourceIds": [
-      "utils/markdown-checker.mjs",
-      "utils/mermaid-validator.mjs",
-      "utils/d2-utils.mjs"
-    ]
+    "sourceIds": ["utils/markdown-checker.mjs", "utils/mermaid-validator.mjs", "utils/d2-utils.mjs"]
   },
   {
     "title": "Changelog",
