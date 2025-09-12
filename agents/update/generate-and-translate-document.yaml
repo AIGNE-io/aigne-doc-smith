@@ -1,5 +1,5 @@
 type: team
-name: detailGeneratorAndTranslate
+name: generateAndTranslateDocument
 description: Generate document and translate
 skills:
   - ../utils/transform-detail-datasources.mjs

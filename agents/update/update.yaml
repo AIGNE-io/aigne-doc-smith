@@ -30,7 +30,7 @@ skills:
   - type: team
     name: batchDocsUpdate
     skills:
-      - ../update/detail-generator-and-translate.yaml
+      - ../update/generate-and-translate-document.yaml
     iterate_on: selectedDocs
     concurrency: 3
   - url: ../utils/check-feedback-refiner.mjs

@@ -11,7 +11,7 @@ agents:
   - ./agents/utils/load-sources.mjs
   - ./agents/utils/save-docs.mjs
   - ./agents/translate/translate-document.yaml
-  - ./agents/update/detail-generator-and-translate.yaml
+  - ./agents/update/generate-and-translate-document.yaml
   - ./agents/update/check-document.mjs
   - ./agents/utils/transform-detail-datasources.mjs
   - ./agents/translate/batch-translate-document.yaml
