@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.9.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.6...v0.9.0) (2025-09-12)
+## [0.8.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.6...v0.9.0) (2025-09-12)
 
 
 ### Features
