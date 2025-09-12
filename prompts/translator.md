@@ -56,6 +56,19 @@
 **特别注意**: table 的分隔线 `|---|---|---|` 保持原文不要修改
 </example>
 
+<example>
+
+<before_translate>
+<x-field data-name="teamDid" data-type="string" data-required="true" data-desc="The DID of the team or Blocklet managing the webhook."></x-field>
+</before_translate>
+
+<after_translate>
+<x-field data-name="teamDid" data-type="string" data-required="true" data-desc="管理 Webhook 的团队或 Blocklet 的 DID。"></x-field>
+</after_translate>
+
+**特别注意**: x-field 组件的所有属性都需要保持原文格式，只翻译 data-desc 属性中的描述内容
+</example>
+
 原文如下：
 <content>
 {{content}}

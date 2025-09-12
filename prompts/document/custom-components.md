@@ -33,40 +33,61 @@ Attribute Rules:
   - Only supports plain text format without styling
 
 
-### 2. `<x-field>` API Parameter Field Component
+### 2. `<x-field>` Structured Field Component
 
-Suitable for displaying API parameters with structured metadata in a clean, organized format.
+Suitable for displaying API parameters, return values, context data, and any structured data with metadata in a clean, organized format. Supports nested structures for complex data types.
 
 Syntax:
 
 ```
-<x-field data-name="parameter_name" data-type="string" data-default="default_value" data-required="true" data-deprecated="false">
-  Parameter description text
+<x-field data-name="field_name" data-type="string" data-default="default_value" data-required="true" data-deprecated="false" data-desc="Field description">
+  <!-- For complex types, children can only be other x-field elements -->
+  <x-field data-name="nested_field" data-type="string" data-desc="Nested field description"></x-field>
 </x-field>
 ```
 
 Attribute Rules:
 
-- `data-name` (required): The name of the parameter/field
-- `data-type` (required): The data type of the parameter (e.g., "string", "number", "boolean", "object", "array")
-- `data-default` (optional): Default value for the parameter
-- `data-required` (optional): Whether the parameter is required ("true" or "false")
-- `data-deprecated` (optional): Whether the parameter is deprecated ("true" or "false")
-- Body content: Description of the parameter, supports plain text only
+- `data-name` (required): The name of the field/parameter
+- `data-type` (required): The data type of the field (e.g., "string", "number", "boolean", "object", "array")
+- `data-default` (optional): Default value for the field
+- `data-required` (optional): Whether the field is required ("true" or "false")
+- `data-deprecated` (optional): Whether the field is deprecated ("true" or "false")
+- `data-desc` (optional): Description of the field (replaces previous body content)
+- Children: For complex types (object, array), children can only be other `<x-field>` elements. For simple types, children can be empty.
+
+Nesting Rules:
+
+- Maximum nesting depth: 5 levels (to avoid overly complex structures)
+- Children elements must only be `<x-field>` components
+- Use `data-desc` attribute for field descriptions instead of body content
+- **Always use opening/closing tags format**: `<x-field ...></x-field>` for all types
+- For simple types (string, number, boolean), children can be empty: `<x-field ...></x-field>`
+- For complex types (object, array), children contain nested `<x-field>` elements
 
 Example:
 
 ```
-<x-field data-name="user_id" data-type="string" data-default="u0911" data-required="true" data-deprecated="true">
-  Unique identifier for the user. Must be a valid UUID v4 format.
-</x-field>
+<!-- Simple field -->
+<x-field data-name="user_id" data-type="string" data-default="u0911" data-required="true" data-deprecated="true" data-desc="Unique identifier for the user. Must be a valid UUID v4 format."></x-field>
 
-<x-field data-name="password" data-type="string" data-default="******" data-required="true">
-  User password for authentication.
-</x-field>
-
-<x-field data-name="options" data-type="object" data-required="false">
-  Additional configuration options for the request.
+<!-- Complex nested object -->
+<x-field data-name="session" data-type="object" data-required="true" data-desc="User session information containing authentication and permission data">
+    <x-field data-name="auth" data-type="object" data-required="true" data-desc="User authentication information">
+        <x-field data-name="token" data-type="object" data-required="true" data-desc="Access token information">
+            <x-field data-name="access_token" data-type="string" data-required="true" data-default="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." data-desc="JWT access token for API authentication"></x-field>
+            <x-field data-name="refresh_token" data-type="string" data-required="false" data-default="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." data-desc="Refresh token for obtaining new access tokens"></x-field>
+            <x-field data-name="expires_at" data-type="number" data-required="true" data-default="1704067200" data-desc="Token expiration timestamp (Unix timestamp)"></x-field>
+        </x-field>
+        <x-field data-name="user" data-type="object" data-required="true" data-desc="User basic information">
+            <x-field data-name="profile" data-type="object" data-required="true" data-desc="User profile information">
+                <x-field data-name="name" data-type="string" data-required="true" data-default="John Doe" data-desc="User name"></x-field>
+                <x-field data-name="email" data-type="string" data-required="true" data-default="john.doe@example.com" data-desc="User email address"></x-field>
+                <x-field data-name="avatar" data-type="string" data-required="false" data-default="https://example.com/avatars/john-doe.jpg" data-desc="User avatar URL"></x-field>
+            </x-field>
+            <x-field data-name="permissions" data-type="array" data-required="true" data-default='["read", "write", "admin"]' data-desc="User permissions list"></x-field>
+        </x-field>
+    </x-field>
 </x-field>
 ```
 
