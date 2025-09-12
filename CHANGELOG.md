@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.6...v0.9.0) (2025-09-12)
+
+
+### Features
+
+* support defining API parameters with field element ([#104](https://github.com/AIGNE-io/aigne-doc-smith/issues/104)) ([2296ead](https://github.com/AIGNE-io/aigne-doc-smith/commit/2296ead15a00aaf809b3854bf349361f0213f522))
+
 ## [0.8.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.5...v0.8.6) (2025-09-11)
 
 
