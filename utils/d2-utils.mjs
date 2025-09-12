@@ -14,14 +14,23 @@ import {
   TMP_ASSETS_DIR,
   TMP_DIR,
 } from "./constants.mjs";
+import { iconMap } from "./icon-map.mjs";
 import { getContentHash } from "./utils.mjs";
 
 const debug = Debug("doc-smith");
 
 export async function getChart({ content, strict }) {
   const d2 = new D2();
+  const iconUrlList = Object.keys(iconMap);
+  const escapedUrls = iconUrlList.map((url) => url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const regexPattern = escapedUrls.join("|");
+  const regex = new RegExp(regexPattern, "g");
+
+  const contentWithBase64Img = content.replace(regex, (match) => {
+    return iconMap[match];
+  });
   try {
-    const { diagram, renderOptions, graph } = await d2.compile(content);
+    const { diagram, renderOptions, graph } = await d2.compile(contentWithBase64Img);
 
     // Ignore stroke-dash in sequence diagram
     if (
