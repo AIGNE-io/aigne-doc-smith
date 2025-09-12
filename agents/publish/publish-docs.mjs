@@ -1,4 +1,5 @@
 import { basename, join } from "node:path";
+
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
 import fs from "fs-extra";

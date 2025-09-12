@@ -9,6 +9,7 @@ import pMap from "p-map";
 import {
   D2_CONCURRENCY,
   D2_CONFIG,
+  DOC_SMITH_DIR,
   FILE_CONCURRENCY,
   TMP_ASSETS_DIR,
   TMP_DIR,
@@ -50,7 +51,7 @@ export async function getChart({ content, strict }) {
   } catch (err) {
     if (strict) throw err;
 
-    console.error("Failed to generate chart from:", err);
+    console.error("Failed to generate D2 chart. Content:", content, "Error:", err);
     return null;
   } finally {
     d2.worker.terminate();
@@ -92,7 +93,7 @@ export async function saveAssets({ markdown, docsDir }) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
         } catch (error) {
-          debug("Failed to generate D2 chart:", error);
+          debug("Failed to generate D2 chart. Content:", d2Content, "Error:", error);
           return _code;
         }
       }
@@ -148,7 +149,7 @@ async function runIterator({ input, regexp, fn = () => {}, options, replace = fa
 
 export async function checkContent({ content }) {
   await ensureTmpDir();
-  const assetDir = path.join(".aigne", "doc-smith", TMP_DIR, TMP_ASSETS_DIR, "d2");
+  const assetDir = path.join(DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "d2");
   await fs.ensureDir(assetDir);
   const d2Content = [D2_CONFIG, content].join("\n");
   const fileName = `${getContentHash(d2Content)}.svg`;
@@ -170,7 +171,7 @@ export async function checkContent({ content }) {
 }
 
 export async function ensureTmpDir() {
-  const tmpDir = path.join(".aigne", "doc-smith", TMP_DIR);
+  const tmpDir = path.join(DOC_SMITH_DIR, TMP_DIR);
   if (!(await fs.pathExists(path.join(tmpDir, ".gitignore")))) {
     await fs.ensureDir(tmpDir);
     await fs.writeFile(path.join(tmpDir, ".gitignore"), "**/*", { encoding: "utf8" });
