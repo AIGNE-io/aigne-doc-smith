@@ -25,7 +25,7 @@ describe("checkStructurePlanningResult Agent", () => {
     // Verify agent exists and is correct type
     expect(agent).toBeDefined();
     expect(agent).toBeInstanceOf(AIAgent);
-    expect(agent.name).toBe("checkStructurePlanningResult");
+    expect(agent.name).toBe("checkDocumentStructure");
   });
 
   test("should have instructions loaded from file", async () => {

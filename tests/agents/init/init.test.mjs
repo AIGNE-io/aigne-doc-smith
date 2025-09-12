@@ -3,7 +3,7 @@ import { promises as fs } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { parse as parseYAML } from "yaml";
-import init, { generateYAML } from "../../../agents/init/init.mjs";
+import init, { generateYAML } from "../../../agents/init/index.mjs";
 
 describe("generateYAML", () => {
   // Helper function to parse YAML and verify it's valid

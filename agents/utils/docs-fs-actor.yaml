@@ -2,7 +2,7 @@ type: team
 name: docs_fs_actor
 description: File system operations for documentation management
 skills:
-  - url: ../init/init.mjs
+  - url: ../init/index.mjs
     default_input:
       skipIfExists: true
   - url: ./fs.mjs

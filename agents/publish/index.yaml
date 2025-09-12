@@ -5,7 +5,7 @@ alias:
   - p
 description: Publish your documentation online
 skills:
-  - url: ../init/init.mjs
+  - url: ../init/index.mjs
     default_input:
       skipIfExists: true
   - publish-docs.mjs

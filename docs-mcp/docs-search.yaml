@@ -2,7 +2,7 @@ type: team
 name: docs-search
 description: Search relevant documents based on user query
 skills:
-  - url: ../agents/init/init.mjs
+  - url: ../agents/init/index.mjs
     default_input:
       skipIfExists: true
   - ../agents/utils/load-sources.mjs

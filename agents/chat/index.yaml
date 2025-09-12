@@ -21,10 +21,10 @@ instructions: |
 input_key: message
 memory: true
 skills:
-  - ../init/init.mjs
-  - ../generate/generate.yaml
+  - ../init/index.mjs
+  - ../generate/index.yaml
   - ../update/update.yaml
-  - ../publish/publish.yaml
-  - ../translate/translate.yaml
+  - ../publish/index.yaml
+  - ../translate/index.yaml
   - ../utils/docs-fs-actor.yaml
   - ../utils/exit.mjs

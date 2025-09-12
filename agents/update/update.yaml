@@ -4,7 +4,7 @@ alias:
   - up
 description: Update specific documents and their translations
 skills:
-  - url: ../init/init.mjs
+  - url: ../init/index.mjs
     default_input:
       skipIfExists: true
   - ../utils/load-sources.mjs

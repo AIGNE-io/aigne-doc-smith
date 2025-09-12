@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
-import prefs from "../../../agents/prefs/prefs.mjs";
+import prefs from "../../../agents/prefs/index.mjs";
 
 // Import internal utils for selective spying
 import * as preferencesUtils from "../../../utils/preferences-utils.mjs";

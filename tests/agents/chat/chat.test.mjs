@@ -13,7 +13,7 @@ describe("chat Agent", () => {
     delete process.env.AIGNE_OBSERVABILITY_DISABLED;
   });
   test("should load agent correctly with proper configuration", async () => {
-    const agent = await loadAgent(join(import.meta.dirname, "../../../agents/chat/chat.yaml"), {
+    const agent = await loadAgent(join(import.meta.dirname, "../../../agents/chat/index.yaml"), {
       model: loadModel,
     });
 
@@ -26,7 +26,7 @@ describe("chat Agent", () => {
   });
 
   test("should have instructions loaded correctly", async () => {
-    const agent = await loadAgent(join(import.meta.dirname, "../../../agents/chat/chat.yaml"), {
+    const agent = await loadAgent(join(import.meta.dirname, "../../../agents/chat/index.yaml"), {
       model: loadModel,
     });
 
