@@ -1,0 +1,50 @@
+name: generateDocument
+description: Comprehensive content generator for documentation that creates detailed, high-quality document content from various data sources with intelligent analysis.
+instructions:
+  url: ../../prompts/detail/generate-document.md
+input_schema:
+  type: object
+  properties:
+    rules:
+      type: string
+      description: User's content generation rules and requirements
+    locale:
+      type: string
+      description: User language, such as zh, en
+    datasources:
+      type: string
+      description: Source data and context for document content generation
+    targetAudience:
+      type: string
+      description: Target audience for document content
+    nodeName:
+      type: string
+      description: Document node name for content generation
+    originalDocumentStructure: ../schema/document-structure.yaml
+    title:
+      type: string
+    description:
+      type: string
+    path:
+      type: string
+    parentId:
+      type:
+        - string
+        - "null"
+    glossary:
+      type: string
+      description: Glossary
+    additionalInformation:
+      type: string
+      description: Additional supplementary information
+  required:
+    - rules
+    - datasources
+    - originalDocumentStructure
+output_schema:
+  type: object
+  properties:
+    content:
+      type: string
+  required:
+    - content

@@ -90,7 +90,7 @@ function checkDeadLinks(markdown, source, allowedLinks, errorMessages) {
     // Check if this link is in the allowed links set
     if (!allowedLinks.has(path)) {
       errorMessages.push(
-        `Found a dead link in ${source}: [${match[1]}](${trimLink}), ensure the link exists in the structure plan path`,
+        `Found a dead link in ${source}: [${match[1]}](${trimLink}), ensure the link exists in the document structure path`,
       );
     }
   }
@@ -300,7 +300,7 @@ function checkContentStructure(markdown, source, errorMessages) {
   }
 
   // Check if content ends with proper punctuation (indicating completeness)
-  const validEndingPunctuation = [".", "。", ")", "|", "*", ">", "`"];
+  const validEndingPunctuation = [".", "。", ")", "|", "*", ">", "`", "!"];
   const trimmedText = markdown.trim();
   const hasValidEnding = validEndingPunctuation.some((punct) => trimmedText.endsWith(punct));
 

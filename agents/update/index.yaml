@@ -1,0 +1,70 @@
+type: team
+name: update
+alias:
+  - up
+description: Update specific documents and their translations
+skills:
+  - url: ../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../utils/load-sources.mjs
+  - type: transform
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          'documentStructure': originalDocumentStructure,
+          'documentExecutionStructure': $map(originalDocumentStructure, function($item) {
+            $merge([
+              $item,
+              {
+                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
+              }
+            ])
+          })
+        }
+      ])
+  - ../utils/choose-docs.mjs
+  - ../utils/format-document-structure.mjs
+  - type: team
+    name: batchUpdateDocument
+    skills:
+      - ../update/generate-and-translate-document.yaml
+    iterate_on: selectedDocs
+    concurrency: 3
+  - url: ../utils/check-feedback-refiner.mjs
+    default_input:
+      stage: document_refine
+  - url: ../utils/action-success.mjs
+    default_input:
+      action: "✅ Documents updated successfully"
+input_schema:
+  type: object
+  properties:
+    glossary:
+      type: string
+      description: Glossary file for consistent terminology (use @filename.md)
+    docs:
+      type: array
+      items:
+        type: string
+      description: Documents to update
+    feedback:
+      type: string
+      description: Tell us what to change in this content
+    reset:
+      type: boolean
+      description: Start fresh - ignore previous versions
+output_schema:
+  type: object
+  properties:
+    title:
+      type: string
+    description:
+      type: string
+    path:
+      type: string
+    content:
+      type: string
+mode: sequential

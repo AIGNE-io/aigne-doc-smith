@@ -1,0 +1,101 @@
+type: team
+name: generateAndTranslateDocument
+description: Generate document and translate
+skills:
+  - ../utils/transform-detail-datasources.mjs
+  - type: team
+    task_render_mode: collapse
+    name: generateDocumentContent
+    skills:
+      - url: ../utils/find-user-preferences-by-path.mjs
+        default_input:
+          scope: document
+      - ../update/generate-document.yaml
+      - type: transform
+        jsonata: |
+          $merge([
+            $,
+            { "reviewContent": content }
+          ])
+    reflection:
+      reviewer: ../utils/check-detail-result.mjs
+      is_approved: isApproved
+      max_iterations: 5
+      return_last_on_max_iterations: true
+    task_title: Generate document for '{{ title }}'
+  - type: transform
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        { "feedback": "" }
+      ])
+  - ../translate/translate-multilingual.yaml
+  - ../utils/save-single-doc.mjs
+input_schema:
+  type: object
+  properties:
+    nodeName:
+      type: string
+      description: Node name
+      default: Section
+    locale:
+      type: string
+      description: Language
+    targetAudience:
+      type: string
+      description: Target audience
+    glossary:
+      type: string
+      description: Glossary
+    doc-path:
+      type: string
+      description: Current path
+    feedback:
+      type: string
+      description: Feedback
+    sources:
+      type: array
+      items:
+        type: string
+        description: Source code path
+    sourcesPath:
+      type: array
+      items:
+        type: string
+        description: Source code path
+      default:
+        - ./
+    includePatterns:
+      type: array
+      items:
+        type: string
+        description: Included file names
+    excludePatterns:
+      type: array
+      items:
+        type: string
+        description: Excluded file names
+    outputDir:
+      type: string
+      description: Output directory
+      default: ./aigne-docs/output
+    docsDir:
+      type: string
+      description: Documentation directory
+      default: ./aigne-docs/docs
+    additionalInformation:
+      type: string
+      description: Additional information
+output_schema:
+  type: object
+  properties:
+    title:
+      type: string
+    description:
+      type: string
+    path:
+      type: string
+    content:
+      type: string
+mode: sequential

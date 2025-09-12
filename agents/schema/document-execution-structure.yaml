@@ -1,0 +1,32 @@
+type: array
+items:
+  type: object
+  properties:
+    title:
+      type: string
+    description:
+      type: string
+    path:
+      type: string
+      description: Path in URL format, cannot be empty, must start with /, no need to include language level, e.g., /zh/about should return /about
+    parentId:
+      type:
+        - string
+        - "null"
+    translates:
+      type: array
+      items:
+        type: object
+        properties:
+          language:
+            type: string
+            description: Language code, such as zh, en, ja, etc.
+    sourceIds:
+      type: array
+      items:
+        type: string
+      description: Associated sourceId from dataSources for subsequent translation and content generation, must come from sourceId in datasources, cannot have fake ids, cannot be empty
+  required:
+    - title
+    - description
+    - path

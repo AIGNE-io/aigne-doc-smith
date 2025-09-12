@@ -17,7 +17,7 @@ As shown in the diagram, DocSmith integrates seamlessly with other [AIGNE](https
 
 ## Features
 
-- **Automated Structure Planning:** Intelligently analyzes your codebase to generate a comprehensive and logical document structure.
+- **Automated Generate Document Structure:** Intelligently analyzes your codebase to generate a comprehensive and logical document structure.
 - **AI-Powered Content Generation:** Populates the document structure with detailed, high-quality content.
 - **Multi-Language Support:** Seamlessly translates your documentation into 12 languages including English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic.
 - **AIGNE Hub Integration:** Use [AIGNE Hub](https://www.aigne.io/en/hub) as your LLM provider without needing your own API keys, with easy switching between different large language models.
@@ -185,7 +185,7 @@ aigne doc update --docs overview.md --feedback "Add more comprehensive FAQ entri
 
 **Interactive Mode:** When run without parameters, `aigne doc update` will present an interactive menu for you to select which document to regenerate and provide feedback.
 
-#### Optimize Structure Planning
+#### Optimize Document Structure
 
 Improve the overall documentation structure based on feedback:
 

@@ -88,7 +88,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
     const result = await createConnect({
       connectUrl: connectUrl,
       connectAction: "gen-simple-access-key",
-      source: `AIGNE DocSmith connect to Discuss Kit`,
+      source: `AIGNE DocSmith connect to website`,
       closeOnSuccess: true,
       appName: "AIGNE DocSmith",
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",

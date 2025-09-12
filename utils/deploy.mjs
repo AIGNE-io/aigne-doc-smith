@@ -116,8 +116,8 @@ export async function deploy(id, cachedUrl) {
   console.log(`${chalk.blue("⏳")} Step 1/4: Waiting for payment...`);
   console.log(`${chalk.blue("🔗")} Payment link: ${chalk.cyan(paymentUrl)}\n`);
   await pollPaymentStatus(checkoutId);
-  saveValueToConfig("checkoutId", checkoutId, "Checkout ID for document deployment service");
-  saveValueToConfig("paymentUrl", paymentUrl, "Payment URL for document deployment service");
+  await saveValueToConfig("checkoutId", checkoutId, "Checkout ID for document deployment service");
+  await saveValueToConfig("paymentUrl", paymentUrl, "Payment URL for document deployment service");
 
   // Step 3: Wait for service installation
   console.log(`${chalk.blue("📦")} Step 2/4: Installing service...`);
@@ -174,7 +174,7 @@ async function checkCacheCheckoutId(checkoutId) {
 
     return isPaid ? checkoutId : "";
   } catch (_error) {
-    saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
+    await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
     return "";
   }
 }

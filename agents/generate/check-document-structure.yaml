@@ -1,0 +1,30 @@
+name: checkDocumentStructure
+description: Check the Document Structure to ensure it meets expectations, especially in scenarios with previous generation results and user feedback.
+instructions:
+  url: ../../prompts/structure/check-document-structure.md
+input_schema:
+  type: object
+  properties:
+    documentStructure:
+      $ref: ../schema/document-structure.yaml
+      description: Newly generated document structure.
+    originalDocumentStructure:
+      $ref: ../schema/document-structure.yaml
+      description: Previous generation's document structure for comparison. If it doesn't exist, the check passes by default.
+    feedback:
+      type: string
+      description: User feedback provided for the previous generation's results.
+  required:
+    - documentStructure
+output_schema:
+  type: object
+  properties:
+    isValid:
+      type: boolean
+      description: Whether the check passes. true indicates pass, false indicates failure.
+    structureReviewFeedback:
+      type: string
+      description: Detailed explanation of the check results. If it fails, clearly specify which parts do not meet requirements.
+  required:
+    - isValid
+    - structureReviewFeedback

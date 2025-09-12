@@ -1,0 +1,58 @@
+type: team
+name: generate
+alias:
+  - gen
+  - g
+description: Generate complete documentation for your project
+skills:
+  - url: ../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../utils/load-sources.mjs
+  - ./check-need-generate-structure.mjs
+  - url: ../utils/save-output.mjs
+    default_input:
+      saveKey: documentStructure
+      savePath:
+        $get: outputDir
+      fileName: structure-plan.json
+  - type: transform
+    name: transformData
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          'documentExecutionStructure': $map(documentStructure, function($item) {
+            $merge([
+              $item,
+              {
+                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
+              }
+            ])
+          }),
+          "datasources": ""
+        }
+      ])
+  - ../utils/format-document-structure.mjs
+  - ../update/batch-generate-document.yaml
+  - url: ../utils/check-feedback-refiner.mjs
+    default_input:
+      stage: document_structure
+  - ../utils/save-docs.mjs
+
+input_schema:
+  type: object
+  properties:
+    glossary:
+      type: string
+      description: Glossary file for consistent terminology (use @filename.md)
+    feedback:
+      type: string
+      description: Tell us how to improve the documentation structure
+    forceRegenerate:
+      type: boolean
+      description: Rebuild all documentation from scratch
+  required:
+    - config
+mode: sequential

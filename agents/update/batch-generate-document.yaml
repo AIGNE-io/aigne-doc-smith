@@ -1,0 +1,19 @@
+type: team
+name: batchGenerateDocument
+description: Batch generate document details
+skills:
+  - ./check-document.mjs
+input_schema:
+  type: object
+  properties:
+    datasources:
+      type: string
+      description: Context for document structure generation, used to assist generate document structure
+    documentExecutionStructure: ../schema/document-execution-structure.yaml
+    modifiedFiles:
+      type: array
+      items: { type: string }
+      description: Array of modified files since last generation
+iterate_on: documentExecutionStructure
+concurrency: 3
+mode: sequential
