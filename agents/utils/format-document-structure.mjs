@@ -1,6 +1,6 @@
 import { stringify } from "yaml";
 
-export default async function formatStructurePlan({ documentStructure }) {
+export default async function formatDocumentStructure({ documentStructure }) {
   // Extract required fields from each item in documentStructure
   const formattedData = documentStructure.map((item) => ({
     title: item.title,
@@ -22,4 +22,4 @@ export default async function formatStructurePlan({ documentStructure }) {
   };
 }
 
-formatStructurePlan.task_render_mode = "hide";
+formatDocumentStructure.task_render_mode = "hide";

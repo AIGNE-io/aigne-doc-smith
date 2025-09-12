@@ -3,9 +3,9 @@ description: Analyze which documents in the structure plan are relevant to the u
 instructions: |
   You are an AI assistant that analyzes the relevance between a user query and documents in a structure plan.
 
-  <structure-plan>
+  <document_structure>
   {{ originalDocumentStructure }}
-  </structure-plan>
+  </document_structure>
 
   <user-query>
   {{ query }}

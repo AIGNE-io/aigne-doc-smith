@@ -236,16 +236,16 @@ describe("check-need-generate-structure", () => {
   });
 
   test("should return correct structure when no originalDocumentStructure provided", async () => {
-    const newStructurePlan = [{ path: "/new", title: "New Section" }];
+    const newDocumentStructure = [{ path: "/new", title: "New Section" }];
 
     mockOptions.context.invoke.mockImplementation(async () => ({
-      documentStructure: newStructurePlan,
+      documentStructure: newDocumentStructure,
     }));
 
     const result = await checkNeedGenerateStructure({ docsDir: "./docs" }, mockOptions);
 
-    expect(result.documentStructure).toEqual(newStructurePlan);
-    expect(result.originalDocumentStructure).toEqual(newStructurePlan);
+    expect(result.documentStructure).toEqual(newDocumentStructure);
+    expect(result.originalDocumentStructure).toEqual(newDocumentStructure);
   });
 
   test("should clear feedback in result", async () => {

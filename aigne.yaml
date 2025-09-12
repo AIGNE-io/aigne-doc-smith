@@ -25,7 +25,7 @@ agents:
   - ./agents/generate/index.yaml
   - ./agents/update/update.yaml
   - ./agents/publish/publish-docs.mjs
-  - ./agents/utils/format-structure-plan.mjs
+  - ./agents/utils/format-document-structure.mjs
   - ./agents/publish/index.yaml
   - ./agents/utils/find-item-by-path.mjs
   - ./agents/translate/index.yaml

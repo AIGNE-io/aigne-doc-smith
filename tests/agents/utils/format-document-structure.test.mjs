@@ -1,11 +1,11 @@
 import { describe, expect, test } from "bun:test";
 import { stringify } from "yaml";
-import formatStructurePlan from "../../../agents/utils/format-structure-plan.mjs";
+import formatDocumentStructure from "../../../agents/utils/format-document-structure.mjs";
 
-describe("format-structure-plan", () => {
+describe("format-document-structure", () => {
   // BASIC FUNCTIONALITY TESTS
   test("should format empty structure plan", async () => {
-    const result = await formatStructurePlan({
+    const result = await formatDocumentStructure({
       documentStructure: [],
     });
 
@@ -32,7 +32,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ documentStructure });
+    const result = await formatDocumentStructure({ documentStructure });
 
     const expectedData = [
       {
@@ -74,7 +74,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ documentStructure });
+    const result = await formatDocumentStructure({ documentStructure });
 
     const expectedData = [
       {
@@ -123,7 +123,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ documentStructure });
+    const result = await formatDocumentStructure({ documentStructure });
 
     const expectedData = [
       {
@@ -155,7 +155,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ documentStructure });
+    const result = await formatDocumentStructure({ documentStructure });
 
     const expectedData = [
       {
@@ -184,7 +184,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ documentStructure });
+    const result = await formatDocumentStructure({ documentStructure });
 
     const expectedData = [
       {
@@ -213,7 +213,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ documentStructure });
+    const result = await formatDocumentStructure({ documentStructure });
 
     // Since YAML is mocked, just verify the function runs without error
     // and returns a structure with the expected properties
@@ -231,7 +231,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({ documentStructure });
+    const result = await formatDocumentStructure({ documentStructure });
 
     expect(result).toHaveProperty("documentStructureYaml");
     expect(result).toHaveProperty("documentStructure");
@@ -250,7 +250,7 @@ describe("format-structure-plan", () => {
       },
     ];
 
-    const result = await formatStructurePlan({
+    const result = await formatDocumentStructure({
       documentStructure: originalDocumentStructure,
     });
 
