@@ -11,7 +11,7 @@ input_schema:
       description: Tell us what you think about the documentation
     stage:
       type: string
-      description: Which part of the process this feedback is about (structure_planning, document_refine, translation_refine)
+      description: Which part of the process this feedback is about (document_structure, document_refine, translation_refine)
     paths:
       type: array
       items:

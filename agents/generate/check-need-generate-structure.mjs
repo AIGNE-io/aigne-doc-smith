@@ -13,7 +13,7 @@ export default async function checkNeedGenerateStructure(
   { originalDocumentStructure, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
   options,
 ) {
-  // Check if we need to regenerate structure plan
+  // Check if we need to regenerate document structure
   let shouldRegenerate = false;
   let finalFeedback = feedback;
   let submittedFeedback = feedback;
@@ -78,7 +78,7 @@ export default async function checkNeedGenerateStructure(
     `;
   }
 
-  // If no regeneration needed, return original structure plan
+  // If no regeneration needed, return original document structure
   if (originalDocumentStructure && !finalFeedback && !shouldRegenerate) {
     return {
       documentStructure: originalDocumentStructure,
@@ -87,7 +87,7 @@ export default async function checkNeedGenerateStructure(
 
   const panningAgent = options.context.agents["refineDocumentStructure"];
 
-  // Get user preferences for structure planning and global scope
+  // Get user preferences for document structure and global scope
   const structureRules = getActiveRulesForScope("structure", []);
   const globalRules = getActiveRulesForScope("global", []);
 
@@ -163,4 +163,4 @@ export default async function checkNeedGenerateStructure(
   };
 }
 
-checkNeedGenerateStructure.taskTitle = "Check if structure plan needs regeneration";
+checkNeedGenerateStructure.taskTitle = "Check if document structure needs regeneration";

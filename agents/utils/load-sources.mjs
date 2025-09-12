@@ -172,7 +172,7 @@ export default async function loadSources({
     }),
   );
 
-  // Get the last structure plan result
+  // Get the last document structure
   let originalDocumentStructure;
   if (outputDir) {
     const documentStructurePath = path.join(outputDir, "structure-plan.json");

@@ -5,7 +5,7 @@ and determine whether it needs **persistent saving**, along with its scope (glob
 
 <input>
 - feedback: {{feedback}}
-- stage: {{stage}}      # Possible values: structure_planning | document_refine | translation_refine
+- stage: {{stage}}      # Possible values: document_structure | document_refine | translation_refine
 - paths: {{paths}}      # Array of paths input in current command (can be empty). Used only to determine whether to "limit to these paths". Do not include them in output.
 - existingPreferences: {{existingPreferences}}      # Currently saved user preference rules
 </input>
@@ -14,7 +14,7 @@ and determine whether it needs **persistent saving**, along with its scope (glob
 Scope determination heuristic rules:
 
 **Classification by stage**:
-- If stage=structure_planning: Default `scope="structure"`, unless feedback is clearly global writing/tone/exclusion policy (then use `global`).
+- If stage=document_structure: Default `scope="structure"`, unless feedback is clearly global writing/tone/exclusion policy (then use `global`).
 - If stage=document_refine: Default `scope="document"`; if feedback is general writing policy or exclusion strategy that doesn't depend on specific pages, can be elevated to `global`.
 - If stage=translation_refine: Default `scope="translation"`; if feedback is general translation policy, maintain this scope.
 
@@ -69,7 +69,7 @@ Example 1 (Keyword Preservation):
 {"rule":"Endpoint strings with 'spaceDid' in code examples should not use ellipsis for abbreviation.","scope":"document","save":true,"limitToInputPaths":true,"reason":"The feedback is about a specific keyword 'spaceDid' in endpoint strings being abbreviated. This is a recurring style issue that should be a policy. It's a reusable rule, so `save` is `true`. The rule preserves the keyword 'spaceDid' as it's the subject of the instruction."}
 
 Example 2:
-- Input: stage=structure_planning, paths=[], feedback="Add 'Next Steps' at the end of overview and tutorials with 2-3 links."
+- Input: stage=document_structure, paths=[], feedback="Add 'Next Steps' at the end of overview and tutorials with 2-3 links."
 - Output:
 {"rule":"Add 'Next Steps' section at the end of overview and tutorial documents with 2-3 links within the repository.","scope":"structure","save":true,"limitToInputPaths":false,"reason":"This feedback suggests a new structural convention (adding a 'Next Steps' section). This is a classic reusable policy that should be applied to future documents of a certain type. Therefore, `save` is `true` and the scope is `structure`."}
 
@@ -94,7 +94,7 @@ Example 6 (Non-duplication):
 {"rule":"Code comments must be written in English.","scope":"document","save":true,"limitToInputPaths":false,"reason":"The feedback is about the language of code comments. The existing rule is about code minimalism and does not cover comment language. This is a new, non-overlapping rule. Thus, it should be saved. `save` is `true`."}
 
 Example 7 (Deletion Handling):
-- Input: stage=structure_planning, paths=[], feedback="The 'Legacy API Reference' document is outdated and should be removed."
+- Input: stage=document_structure, paths=[], feedback="The 'Legacy API Reference' document is outdated and should be removed."
 - Output:
 {"rule":"Do not generate documents or sections for outdated 'Legacy API Reference'.","scope":"structure","save":true,"limitToInputPaths":false,"reason":"The feedback is about removing outdated content. Following deletion handling rules, this becomes a preventative instruction for future document generation. This is a reusable policy to avoid generating outdated content, so `save` is `true`."}
 

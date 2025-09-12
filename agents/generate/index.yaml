@@ -38,7 +38,7 @@ skills:
   - ../update/batch-generate-document.yaml
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
-      stage: structure_planning
+      stage: document_structure
   - ../utils/save-docs.mjs
 
 input_schema:

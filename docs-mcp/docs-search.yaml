@@ -38,5 +38,5 @@ output_schema:
             type: string
           description:
             type: string
-      description: List of relevant documents from structure plan
+      description: List of relevant documents from document structure
 mode: sequential

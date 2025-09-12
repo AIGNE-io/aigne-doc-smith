@@ -345,7 +345,7 @@ export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml
 export const CONFLICT_RULES = {
   // Internal conflicts within the same question (multi-select conflicts)
   internalConflicts: {
-    // Note: Most conflicts can be resolved through intelligent document structure planning
+    // Note: Most conflicts can be resolved through intelligent document structure
     // Only keeping conflicts that represent fundamental incompatibilities
   },
 
@@ -419,7 +419,7 @@ export const CONFLICT_RULES = {
 
 // Conflict resolution rules - defines how to handle conflicts when users select conflicting options
 export const CONFLICT_RESOLUTION_RULES = {
-  // Document purpose conflicts that can be resolved through structure planning
+  // Document purpose conflicts that can be resolved through document structure
   documentPurpose: [
     {
       conflictItems: ["getStarted", "findAnswers"],
@@ -446,7 +446,7 @@ export const CONFLICT_RESOLUTION_RULES = {
     },
   ],
 
-  // Target audience conflicts that can be resolved through structure planning
+  // Target audience conflicts that can be resolved through document structure
   targetAudienceTypes: [
     {
       conflictItems: ["endUsers", "developers"],

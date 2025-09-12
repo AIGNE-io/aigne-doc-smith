@@ -1,9 +1,9 @@
 type: team
 name: refineDocumentStructure
-description: A team of agents that plan the structure of the documentation.
+description: A team of agents that generate the structure of the documentation.
 skills:
   - generate-structure.yaml
-task_title: Plan the structure of the documentation
+task_title: Generate the structure of the documentation
 task_render_mode: collapse
 reflection:
   reviewer: check-document-structure.yaml

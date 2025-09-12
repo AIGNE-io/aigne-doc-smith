@@ -36,10 +36,10 @@ export default async function checkDocument(
     detailGenerated = false;
   }
 
-  // Check if sourceIds have changed by comparing with original structure plan
+  // Check if sourceIds have changed by comparing with original document structure
   let sourceIdsChanged = false;
   if (originalDocumentStructure && sourceIds) {
-    // Find the original node in the structure plan
+    // Find the original node in the document structure
     const originalNode = originalDocumentStructure.find((node) => node.path === path);
 
     if (originalNode?.sourceIds) {

@@ -1,7 +1,7 @@
 name: analyze-docs-relevance
-description: Analyze which documents in the structure plan are relevant to the user query
+description: Analyze which documents in the document structure are relevant to the user query
 instructions: |
-  You are an AI assistant that analyzes the relevance between a user query and documents in a structure plan.
+  You are an AI assistant that analyzes the relevance between a user query and documents in a document structure.
 
   <document_structure>
   {{ originalDocumentStructure }}
@@ -11,9 +11,9 @@ instructions: |
   {{ query }}
   </user-query>
 
-  Given a user query and a structure plan containing multiple documents, your task is to:
+  Given a user query and a document structure containing multiple documents, your task is to:
   1. Understand the user's search intent from the query
-  2. Analyze each document in the structure plan to determine relevance
+  2. Analyze each document in the document structure to determine relevance
   3. Return a list of relevant documents with their paths, titles, and descriptions
 
   Consider the following factors for relevance:
@@ -44,7 +44,7 @@ input_schema:
             type: string
           description:
             type: string
-      description: Structure plan containing all available documents
+      description: Document structure containing all available documents
 output_schema:
   type: object
   properties:
@@ -52,7 +52,7 @@ output_schema:
       type: array
       items:
         type: string
-        description: Must be selected from paths in the structure plan, cannot be other paths
+        description: Must be selected from paths in the document structure, cannot be other paths
       description: List of relevant documents
     reasoning:
       type: string

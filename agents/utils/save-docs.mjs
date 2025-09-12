@@ -35,7 +35,7 @@ export default async function saveDocs({
     console.error("Failed to save _sidebar.md:", err.message);
   }
 
-  // Clean up invalid .md files that are no longer in the structure plan
+  // Clean up invalid .md files that are no longer in the document structure
   try {
     await cleanupInvalidFiles(documentStructure, docsDir, translateLanguages, locale);
   } catch (err) {
@@ -100,7 +100,7 @@ function generateFileName(flatName, language) {
 }
 
 /**
- * Clean up .md files that are no longer in the structure plan
+ * Clean up .md files that are no longer in the document structure
  * @param {Array<{path: string, title: string}>} documentStructure
  * @param {string} docsDir
  * @param {Array<string>} translateLanguages
@@ -115,7 +115,7 @@ async function cleanupInvalidFiles(documentStructure, docsDir, translateLanguage
     const files = await readdir(docsDir);
     const mdFiles = files.filter((file) => file.endsWith(".md"));
 
-    // Generate expected file names from structure plan
+    // Generate expected file names from document structure
     const expectedFiles = new Set();
 
     // Add main document files

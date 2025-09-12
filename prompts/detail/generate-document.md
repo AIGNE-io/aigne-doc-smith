@@ -40,9 +40,9 @@
 </terms>
 {% endif %}
 
-<structure_plan>
+<document_structure>
 {{ documentStructureYaml }}
-</structure_plan>
+</document_structure>
 
 <current_document>
 当前{{nodeName}}信息：

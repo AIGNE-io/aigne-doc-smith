@@ -24,8 +24,8 @@ function generateFileName(flatName, locale) {
 }
 
 /**
- * Find a single item by path in structure plan result and read its content
- * @param {Array} documentExecutionStructure - Array of structure plan items
+ * Find a single item by path in document structure result and read its content
+ * @param {Array} documentExecutionStructure - Array of document structure items
  * @param {string} docPath - Document path to find (supports .md filenames)
  * @param {string} boardId - Board ID for fallback matching
  * @param {string} docsDir - Docs directory path for reading content
@@ -116,7 +116,7 @@ export async function readFileContent(docsDir, fileName) {
  * Get main language markdown files from docs directory
  * @param {string} docsDir - Docs directory path
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
- * @param {Array} documentExecutionStructure - Array of structure plan items to determine file order
+ * @param {Array} documentExecutionStructure - Array of document structure items to determine file order
  * @returns {Promise<string[]>} Array of main language .md files ordered by documentExecutionStructure
  */
 export async function getMainLanguageFiles(docsDir, locale, documentExecutionStructure = null) {
@@ -142,7 +142,7 @@ export async function getMainLanguageFiles(docsDir, locale, documentExecutionStr
 
   // If documentExecutionStructure is provided, sort files according to the order in documentExecutionStructure
   if (documentExecutionStructure && Array.isArray(documentExecutionStructure)) {
-    // Create a map from flat file name to structure plan order
+    // Create a map from flat file name to document structure order
     const orderMap = new Map();
     documentExecutionStructure.forEach((item, index) => {
       const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
@@ -155,16 +155,16 @@ export async function getMainLanguageFiles(docsDir, locale, documentExecutionStr
       const orderA = orderMap.get(a);
       const orderB = orderMap.get(b);
 
-      // If both files are in the structure plan, sort by order
+      // If both files are in the document structure, sort by order
       if (orderA !== undefined && orderB !== undefined) {
         return orderA - orderB;
       }
 
-      // If only one file is in the structure plan, it comes first
+      // If only one file is in the document structure, it comes first
       if (orderA !== undefined) return -1;
       if (orderB !== undefined) return 1;
 
-      // If neither file is in the structure plan, maintain alphabetical order
+      // If neither file is in the document structure, maintain alphabetical order
       return a.localeCompare(b);
     });
   }
@@ -189,8 +189,8 @@ export function fileNameToFlatPath(fileName) {
 }
 
 /**
- * Find structure plan item by flattened file name
- * @param {Array} documentExecutionStructure - Array of structure plan items
+ * Find document structure item by flattened file name
+ * @param {Array} documentExecutionStructure - Array of document structure items
  * @param {string} flatName - Flattened file name
  * @returns {Object|null} Found item or null
  */
@@ -204,7 +204,7 @@ export function findItemByFlatName(documentExecutionStructure, flatName) {
 /**
  * Process selected files and convert to found items with content
  * @param {string[]} selectedFiles - Array of selected file names
- * @param {Array} documentExecutionStructure - Array of structure plan items
+ * @param {Array} documentExecutionStructure - Array of document structure items
  * @param {string} docsDir - Docs directory path
  * @returns {Promise<Object[]>} Array of found items with content
  */
@@ -233,7 +233,7 @@ export async function processSelectedFiles(selectedFiles, documentExecutionStruc
 
       foundItems.push(result);
     } else {
-      console.warn(`⚠️  No structure plan item found for file: ${selectedFile}`);
+      console.warn(`⚠️  No document structure item found for file: ${selectedFile}`);
     }
   }
 

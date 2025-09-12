@@ -1,4 +1,4 @@
-<structure_planning_examples>
+<document_structure_examples>
 下面是一些优质的文档结构规划供你参考：
 
 示例 A：开源前端框架 Docs
@@ -95,4 +95,4 @@
 
 ```
 
-</structure_planning_examples>
+</document_structure_examples>

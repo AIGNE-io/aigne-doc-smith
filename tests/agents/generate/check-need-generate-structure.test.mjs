@@ -80,7 +80,7 @@ describe("check-need-generate-structure", () => {
     saveValueToConfigSpy?.mockRestore();
   });
 
-  test("should return original structure plan when no regeneration needed", async () => {
+  test("should return original document structure when no regeneration needed", async () => {
     // Test when no feedback and no sidebar file exists (default mock behavior)
     const result = await checkNeedGenerateStructure(
       { originalDocumentStructure, docsDir: "./docs" },

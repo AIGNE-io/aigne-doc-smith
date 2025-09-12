@@ -122,7 +122,7 @@ describe("docs-finder-utils", () => {
       expect(result).toBeUndefined();
     });
 
-    test("should handle empty structure plan", () => {
+    test("should handle empty document structure", () => {
       const result = findItemByFlatName([], "any-name");
       expect(result).toBeUndefined();
     });
@@ -240,7 +240,7 @@ describe("docs-finder-utils", () => {
       expect(result).toEqual(["guide.zh.md", "overview.zh.md"]);
     });
 
-    test("should sort files by structure plan order", async () => {
+    test("should sort files by document structure order", async () => {
       readdirSpy.mockResolvedValue(["guide.md", "overview.md", "advanced.md"]);
 
       const documentStructure = [{ path: "/overview" }, { path: "/guide" }, { path: "/advanced" }];
@@ -250,7 +250,7 @@ describe("docs-finder-utils", () => {
       expect(result).toEqual(["overview.md", "guide.md", "advanced.md"]);
     });
 
-    test("should handle files not in structure plan", async () => {
+    test("should handle files not in document structure", async () => {
       readdirSpy.mockResolvedValue(["guide.md", "extra.md", "overview.md"]);
 
       const documentStructure = [{ path: "/overview" }, { path: "/guide" }];
@@ -477,7 +477,7 @@ describe("docs-finder-utils", () => {
       ]);
     });
 
-    test("should warn for files not in structure plan", async () => {
+    test("should warn for files not in document structure", async () => {
       readFileSpy.mockResolvedValue("content");
 
       const selectedFiles = ["unknown.md"];
@@ -485,7 +485,7 @@ describe("docs-finder-utils", () => {
 
       expect(result).toEqual([]);
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "⚠️  No structure plan item found for file: unknown.md",
+        "⚠️  No document structure item found for file: unknown.md",
       );
     });
 
@@ -505,7 +505,7 @@ describe("docs-finder-utils", () => {
         },
       ]);
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "⚠️  No structure plan item found for file: unknown.md",
+        "⚠️  No document structure item found for file: unknown.md",
       );
     });
 
@@ -611,14 +611,14 @@ describe("docs-finder-utils", () => {
       await expect(getMainLanguageFiles("/denied", "en")).rejects.toThrow("Permission denied");
     });
 
-    test("processSelectedFiles should handle empty structure plan", async () => {
+    test("processSelectedFiles should handle empty document structure", async () => {
       readFileSpy.mockResolvedValue("content");
 
       const result = await processSelectedFiles(["test.md"], [], "/docs");
 
       expect(result).toEqual([]);
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "⚠️  No structure plan item found for file: test.md",
+        "⚠️  No document structure item found for file: test.md",
       );
     });
   });

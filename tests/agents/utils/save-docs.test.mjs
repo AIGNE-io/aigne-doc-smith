@@ -52,7 +52,7 @@ describe("save-docs", () => {
     expect(initialFiles).toContain("getting-started.md");
     expect(initialFiles).toContain("old-file.md");
 
-    // Test structure plan
+    // Test document structure
     const documentStructure = [
       {
         path: "/overview",

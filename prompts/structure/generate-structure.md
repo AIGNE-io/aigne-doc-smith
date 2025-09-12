@@ -28,35 +28,35 @@
 </datasources>
 
 {% if originalDocumentStructure %}
-<last_structure_plan>
+<last_document_structure>
 {{originalDocumentStructure}}
-</last_structure_plan>
+</last_document_structure>
 
-<last_structure_plan_rule>
-如果提供了上一轮生成的结构规划(last_structure_plan)，需要遵循以下规则：
+<last_document_structure_rule>
+如果提供了上一轮生成的结构规划(last_document_structure)，需要遵循以下规则：
   1.  **反馈的实现**：新的结构规划**必须**正确地实现用户反馈中要求的所有变更。
   2.  **无关节点的稳定性**：没有在用户反馈中被提及的节点 ** path、sourcesIds 属性不能被修改 **。`path`、`sourcesIds` 是关联现有内容的关键标识符，其稳定性至关重要。
     理想情况下，其他属性（如 `title`、`description`）也应保持稳定，除非这些变更是由某个被要求的变更直接导致的，或者是 DataSource 变更导致。
-</last_structure_plan_rule>
+</last_document_structure_rule>
 {% endif %}
 
 
 {% if feedback %}
-<structure_plan_user_feedback>
+<document_structure_user_feedback>
 {{ feedback }}
-</structure_plan_user_feedback>
+</document_structure_user_feedback>
 {% endif %}
 
 {% if documentStructure %}
-<review_structure_plan>
+<review_document_structure>
 {{ documentStructure }}
-</review_structure_plan>
+</review_document_structure>
 {% endif %}
 
 {% if structureReviewFeedback %}
-<structure_plan_review_feedback>
+<document_structure_review_feedback>
 {{ structureReviewFeedback }}
-</structure_plan_review_feedback>
+</document_structure_review_feedback>
 {% endif %}
 
 {% if glossary %}
@@ -74,7 +74,7 @@
 {% endif %}
 
 <conflict_resolution_guidance>
-When users select potentially conflicting options, conflict resolution guidance will be provided in user_rules. Please carefully read these guidelines and implement the corresponding resolution strategies in the structure planning.
+When users select potentially conflicting options, conflict resolution guidance will be provided in user_rules. Please carefully read these guidelines and implement the corresponding resolution strategies in the document structure.
 
 Core principles for conflict resolution:
 1. **Layered need satisfaction**: Simultaneously satisfy multiple purposes and audiences through reasonable document structure hierarchy
@@ -87,7 +87,7 @@ Common conflict resolution patterns:
 - **Audience conflicts**: Design role-oriented sections or paths
 - **Depth conflicts**: Adopt progressive structures that allow users to choose appropriate depth levels
 
-When planning structure, prioritize conflict resolution strategies to ensure the final structure can harmoniously satisfy all user needs.
+When generate document structure, prioritize conflict resolution strategies to ensure the final structure can harmoniously satisfy all user needs.
 </conflict_resolution_guidance>
 
 {% if userPreferences %}
@@ -100,7 +100,7 @@ When planning structure, prioritize conflict resolution strategies to ensure the
 </user_preferences>
 {% endif %}
 
-<structure_planning_rules>
+<document_structure_rules>
 这份文档的目标受众是：{{targetAudience}}
 
 DataSources 使用规则：
@@ -144,7 +144,7 @@ DataSources 使用规则：
 
 1. 必须满足用户提出的规则
 2. 使用用户的语言 {{locale}} 返回信息
-</structure_planning_rules>
+</document_structure_rules>
 
 {% ifAsync docsType == 'general' %}
   {% include "./structure-example.md" %}

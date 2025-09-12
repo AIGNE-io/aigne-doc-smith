@@ -54,7 +54,7 @@
     ```json
     {
       "isValid": true,
-      "reason": "The new structure plan correctly implements user feedback while maintaining stability of all unrelated nodes."
+      "reason": "The new document structure correctly implements user feedback while maintaining stability of all unrelated nodes."
     }
     ```
 
@@ -63,7 +63,7 @@
     ```json
     {
       "isValid": false,
-      "reason": "The new structure plan fails to correctly implement user feedback. [Please provide specific details, e.g.: 'Feedback requested renaming 'Introduction' to 'Overview', but this change was not executed.']"
+      "reason": "The new document structure fails to correctly implement user feedback. [Please provide specific details, e.g.: 'Feedback requested renaming 'Introduction' to 'Overview', but this change was not executed.']"
     }
     ```
 
@@ -72,7 +72,7 @@
     ```json
     {
       "isValid": false,
-      "reason": "The new structure plan modified unrelated nodes, which is not allowed. [Please provide specific details, e.g.: 'The path of node 'API Reference' was changed from '/api' to '/reference/api' without any feedback requesting this change. This is a critical error.']"
+      "reason": "The new document structure modified unrelated nodes, which is not allowed. [Please provide specific details, e.g.: 'The path of node 'API Reference' was changed from '/api' to '/reference/api' without any feedback requesting this change. This is a critical error.']"
     }
     ```
 
@@ -80,7 +80,7 @@
     ```json
     {
       "isValid": false,
-      "reason": "The structure plan contains nodes without associated data sources. Each node must have at least one source file linked through sourcesIds."
+      "reason": "The document structure contains nodes without associated data sources. Each node must have at least one source file linked through sourcesIds."
     }
     ```
 
@@ -89,7 +89,7 @@
     ```json
     {
       "isValid": true,
-      "reason": "First structure plan generation, no previous version to compare with."
+      "reason": "First document structure generation, no previous version to compare with."
     }
     ```
 </output_rules>
