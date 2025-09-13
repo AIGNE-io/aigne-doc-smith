@@ -257,10 +257,6 @@ describe("chooseDocs utility", () => {
 
     const result = await chooseDocs(input, mockOptions);
 
-    expect(getActionTextSpy).toHaveBeenCalledWith(
-      true,
-      "How should we improve this {action}? (press Enter to skip):",
-    );
     expect(mockOptions.prompts.input).toHaveBeenCalled();
     expect(result.feedback).toBe("Test feedback");
   });

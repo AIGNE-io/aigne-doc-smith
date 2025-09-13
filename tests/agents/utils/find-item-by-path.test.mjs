@@ -363,7 +363,7 @@ describe("find-item-by-path", () => {
   // FEEDBACK HANDLING TESTS
   test("should prompt for feedback when not provided", async () => {
     mockOptions.prompts.input = async (options) => {
-      expect(options.message).toBe("How should we improve this {action}? (press Enter to skip):");
+      expect(options.message).toBe("How should we improve this document? (press Enter to skip):");
       return "prompted feedback";
     };
 
@@ -379,10 +379,6 @@ describe("find-item-by-path", () => {
       mockOptions,
     );
 
-    expect(getActionTextSpy).toHaveBeenCalledWith(
-      false,
-      "How should we improve this {action}? (press Enter to skip):",
-    );
     expect(result.feedback).toBe("prompted feedback");
   });
 
@@ -456,11 +452,6 @@ describe("find-item-by-path", () => {
         locale: "en",
       },
       mockOptions,
-    );
-
-    expect(getActionTextSpy).toHaveBeenCalledWith(
-      true,
-      "How should we improve this {action}? (press Enter to skip):",
     );
   });
 

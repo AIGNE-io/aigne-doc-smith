@@ -97,11 +97,7 @@ export default async function findItemByPath(
   // Prompt for feedback if not provided
   let userFeedback = feedback;
   if (!userFeedback) {
-    const feedbackMessage = getActionText(
-      isTranslate,
-      "How should we improve this {action}? (press Enter to skip):",
-    );
-
+    const feedbackMessage = "How should we improve this document? (press Enter to skip):";
     userFeedback = await options.prompts.input({
       message: feedbackMessage,
     });
