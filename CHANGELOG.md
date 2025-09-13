@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.7...v0.8.8) (2025-09-13)
+
+
+### Bug Fixes
+
+* optimize the copy for inquiry feedback ([#106](https://github.com/AIGNE-io/aigne-doc-smith/issues/106)) ([d219ab8](https://github.com/AIGNE-io/aigne-doc-smith/commit/d219ab8e49fedfb2fbe1d3746e30f36751a924df))
+
 ## [0.8.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.6...v0.9.0) (2025-09-12)
 
 
