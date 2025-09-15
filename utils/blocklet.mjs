@@ -18,7 +18,9 @@ export class InvalidBlockletError extends Error {
  */
 export class ComponentNotFoundError extends Error {
   constructor(did, appUrl) {
-    super(`Your website "${appUrl}" missing required component to host your docs.`);
+    super(
+      `Your website "${appUrl}" missing required component to host your docs.`
+    );
     this.name = "ComponentNotFoundError";
     this.did = did;
     this.appUrl = appUrl;
@@ -39,7 +41,11 @@ export async function getComponentInfo(appUrl) {
   }
 
   if (!blockletJs.ok) {
-    throw new InvalidBlockletError(appUrl, blockletJs.status, blockletJs.statusText);
+    throw new InvalidBlockletError(
+      appUrl,
+      blockletJs.status,
+      blockletJs.statusText
+    );
   }
 
   let config;
@@ -55,7 +61,9 @@ export async function getComponentInfo(appUrl) {
 export async function getComponentMountPoint(appUrl, did) {
   const config = await getComponentInfo(appUrl);
 
-  const component = config.componentMountPoints?.find((component) => component.did === did);
+  const component = config.componentMountPoints?.find(
+    (component) => component.did === did
+  );
   if (!component) {
     throw new ComponentNotFoundError(did, appUrl);
   }
@@ -66,7 +74,9 @@ export async function getComponentMountPoint(appUrl, did) {
 export async function getComponentInfoWithMountPoint(appUrl, did) {
   const config = await getComponentInfo(appUrl);
 
-  const component = config.componentMountPoints?.find((component) => component.did === did);
+  const component = config.componentMountPoints?.find(
+    (component) => component.did === did
+  );
   if (!component) {
     throw new ComponentNotFoundError(did, appUrl);
   }

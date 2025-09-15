@@ -1,8 +1,17 @@
 import chalk from "chalk";
+import Debug from "debug";
 import { joinURL } from "ufo";
-import { getComponentInfo, getComponentInfoWithMountPoint } from "./blocklet.mjs";
+
+import pkg from "../package.json" with { type: "json" };
+import {
+  getComponentInfo,
+  getComponentInfoWithMountPoint,
+} from "./blocklet.mjs";
 import { PAYMENT_KIT_DID } from "./constants.mjs";
 import { saveValueToConfig } from "./utils.mjs";
+
+
+const debug = Debug(`${pkg.name}:deploy`);
 
 // ==================== URL Configuration ====================
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || "";
@@ -47,7 +56,9 @@ async function pollWithTimeout({
     } catch (_error) {
       // Log error for debugging but continue retrying unless it's the last attempt
       if (attempts === maxAttempts) {
-        throw new Error(`${timeoutMessage} (${stepName} failed after ${maxAttempts} attempts)`);
+        throw new Error(
+          `${timeoutMessage} (${stepName} failed after ${maxAttempts} attempts)`
+        );
       }
       // Continue retrying for non-fatal errors
     }
@@ -62,7 +73,9 @@ async function pollWithTimeout({
   }
 
   // If we reach here, all attempts were exhausted
-  throw new Error(`${timeoutMessage} (${stepName} timed out after ${maxAttempts} attempts)`);
+  throw new Error(
+    `${timeoutMessage} (${stepName} timed out after ${maxAttempts} attempts)`
+  );
 }
 
 // ==================== API Endpoints ====================
@@ -82,7 +95,7 @@ let paymentLinkId = "";
 export async function deploy(id, cachedUrl) {
   const { mountPoint, PAYMENT_LINK_ID } = await getComponentInfoWithMountPoint(
     BASE_URL,
-    PAYMENT_KIT_DID,
+    PAYMENT_KIT_DID
   );
   prefix = mountPoint;
   paymentLinkId = PAYMENT_LINK_ID;
@@ -90,7 +103,7 @@ export async function deploy(id, cachedUrl) {
   if (!PAYMENT_LINK_ID) {
     const { PAYMENT_LINK_ID: id } = await getComponentInfoWithMountPoint(
       joinURL(BASE_URL, mountPoint),
-      PAYMENT_KIT_DID,
+      PAYMENT_KIT_DID
     );
     paymentLinkId = id;
   }
@@ -100,13 +113,18 @@ export async function deploy(id, cachedUrl) {
   let checkoutId = cachedCheckoutId;
   let paymentUrl = cachedUrl;
   if (!cachedCheckoutId) {
-    const { checkoutId: newCheckoutId, paymentUrl: newPaymentUrl } = await createPaymentSession();
+    const { checkoutId: newCheckoutId, paymentUrl: newPaymentUrl } =
+      await createPaymentSession();
     checkoutId = newCheckoutId;
     paymentUrl = newPaymentUrl;
   }
 
   if (!paymentUrl) {
-    paymentUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.paymentPage.replace("{id}", checkoutId));
+    paymentUrl = joinURL(
+      BASE_URL,
+      prefix,
+      API_ENDPOINTS.paymentPage.replace("{id}", checkoutId)
+    );
   }
   if (cachedCheckoutId !== checkoutId) {
     await openBrowser(paymentUrl);
@@ -160,7 +178,7 @@ async function checkCacheCheckoutId(checkoutId) {
     const orderStatusUrl = joinURL(
       BASE_URL,
       prefix,
-      API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
+      API_ENDPOINTS.orderStatus.replace("{id}", checkoutId)
     );
     const response = await fetch(orderStatusUrl);
 
@@ -193,7 +211,12 @@ async function createPaymentSession() {
     throw new Error("Payment link ID not found");
   }
 
-  const createCheckoutId = joinURL(BASE_URL, prefix, API_ENDPOINTS.createCheckout, paymentLinkId);
+  const createCheckoutId = joinURL(
+    BASE_URL,
+    prefix,
+    API_ENDPOINTS.createCheckout,
+    paymentLinkId
+  );
   try {
     const response = await fetch(createCheckoutId, {
       method: "POST",
@@ -225,7 +248,7 @@ async function createPaymentSession() {
     console.error(
       `${chalk.red("❌")} Failed to create payment session:`,
       error.message,
-      createCheckoutId,
+      createCheckoutId
     );
     throw new Error(`Failed to create payment session: ${error.message}`);
   }
@@ -239,8 +262,12 @@ async function openBrowser(paymentUrl) {
   try {
     await open(paymentUrl);
   } catch (_error) {
-    console.log(`${chalk.yellow("⚠️  Could not open browser automatically.")}`);
-    console.log(`${chalk.blue("Please manually open this URL:")} ${chalk.cyan(paymentUrl)}`);
+    console.log(`${chalk.yellow('⚠️  Could not open browser automatically.')}`);
+    console.log(
+      `${chalk.blue('Please manually open this URL:')} ${chalk.cyan(
+        paymentUrl
+      )}`
+    );
   }
 }
 
@@ -253,7 +280,7 @@ async function pollPaymentStatus(checkoutId) {
       const orderStatusUrl = joinURL(
         BASE_URL,
         prefix,
-        API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
+        API_ENDPOINTS.orderStatus.replace("{id}", checkoutId)
       );
       const response = await fetch(orderStatusUrl);
 
@@ -277,8 +304,9 @@ async function pollPaymentStatus(checkoutId) {
     },
     maxAttempts: Math.ceil((TIMEOUTS.paymentWait * 1000) / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
-    timeoutMessage: "Payment timeout - please complete payment within 5 minutes",
-    stepName: "Payment",
+    timeoutMessage:
+      'Payment timeout - please complete payment within 5 minutes',
+    stepName: 'Payment',
   });
 }
 
@@ -291,14 +319,17 @@ async function waitInstallation(checkoutId) {
       const orderStatusUrl = joinURL(
         BASE_URL,
         prefix,
-        API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
+        API_ENDPOINTS.orderStatus.replace("{id}", checkoutId)
       );
-      const response = await fetch(orderStatusUrl);
 
+      debug("waitInstallation", orderStatusUrl);
+
+      const response = await fetch(orderStatusUrl);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      debug("waitInstallation response:", response.status, response.statusText);
       const data = await response.json();
 
       if (data.error) {
@@ -306,8 +337,11 @@ async function waitInstallation(checkoutId) {
       }
 
       // Check if all vendors meet conditions: progress >= 80 and appUrl exists
-      const isInstalled = data.vendors?.every((vendor) => vendor.progress >= 80 && vendor.appUrl);
-      if (isInstalled) {
+      const isCompleted = data.vendors?.every(
+        (vendor) => vendor.progress >= 80
+      );
+
+      if (isCompleted) {
         return data.vendors;
       }
 
@@ -329,13 +363,19 @@ async function waitWebsiteRunning(readyVendors) {
       // Check running status of all vendors concurrently
       const vendorChecks = readyVendors.map(async (vendor) => {
         try {
+          // 这里通过 appUrl 不是最合适的做法，但是这里能在用户端直接请求启动好的实例，可以直接判断 DNS 在用户端是否生效，所以是最实用的做法
+          if (!vendor.appUrl) {
+            return vendor;
+          }
+
           const blockletInfo = await getComponentInfo(vendor.appUrl);
 
           if (blockletInfo.status === "running") {
             return vendor;
           }
           return null;
-        } catch (_error) {
+        } catch (error) {
+          debug("waitWebsiteRunning error:", error);
           return null;
         }
       });
@@ -365,7 +405,7 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
     const orderDetailUrl = joinURL(
       BASE_URL,
       prefix,
-      API_ENDPOINTS.orderDetail.replace("{id}", checkoutId),
+      API_ENDPOINTS.orderDetail.replace("{id}", checkoutId)
     );
     const response = await fetch(orderDetailUrl);
 
@@ -379,30 +419,37 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
       throw new Error("No vendors found in order details");
     }
 
-    // Wait 3 seconds
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    // Return the appUrl of the first vendor (usually only one)
-    const appUrl = runningVendors[0]?.appUrl;
+    const appUrl = runningVendors.find((vendor) => vendor.appUrl)?.appUrl;
+    debug("getDashboardAndUrl:", appUrl);
+
     if (!appUrl) {
       throw new Error("No app URL found in order details");
     }
 
+    const availableVendor = data.vendors.find((vendor) => vendor.dashboardUrl);
+
     return {
       appUrl,
       subscriptionUrl: data.subscriptionUrl,
-      dashboardUrl: data.vendors[0]?.dashboardUrl,
-      homeUrl: data.vendors[0]?.homeUrl,
-      token: data.vendors[0]?.token,
+      dashboardUrl: availableVendor?.dashboardUrl,
+      homeUrl: availableVendor?.homeUrl,
+      token: availableVendor?.token,
     };
   } catch (error) {
-    console.error(`${chalk.red("❌")} Failed to get order details:`, error.message);
+    console.error(
+      `${chalk.red("❌")} Failed to get order details:`,
+      error.message
+    );
     // If getting details fails, use the appUrl of running vendor
+    const fallbackVendor = runningVendors.find((vendor) => vendor.appUrl);
+
     return {
-      appUrl: runningVendors[0]?.appUrl || null,
-      dashboardUrl: runningVendors[0]?.dashboardUrl || null,
-      homeUrl: runningVendors[0]?.homeUrl || null,
-      token: runningVendors[0]?.token || null,
+      appUrl: fallbackVendor?.appUrl || null,
+      dashboardUrl: fallbackVendor?.dashboardUrl || null,
+      homeUrl: fallbackVendor?.homeUrl || null,
+      token: fallbackVendor?.token || null,
     };
   }
 }
