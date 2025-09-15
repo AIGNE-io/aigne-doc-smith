@@ -517,18 +517,17 @@ export const D2_CONFIG = `vars: {
     layout-engine: elk
     theme-id: 105
     theme-overrides: {
-      N1: "#18181B"
-      N2: "#421E0B"
+      N1: "#161B1A"
+      N2: "#02A996"
       N4: "#E6E8EC"
-      N5: "#E6E8EC"
-
-      B3: "#FFE9D1"
+      N5: "#E3FDF6"
+      B2: "#161B1A"
+      B3: "#BEF4EB"
       B4: "transparent"
-
-      AA2: "#421E0B"
-      AA4: "#FFE9D1"
-
-      AB4: "#FBF4E4"
+      B5: "#D1F6EC"
+      B6: "#E4FFF0"
+      AA4: "#D1F6EC"
+      AB4: "#BEF4EB"
     }
   }
 }`;

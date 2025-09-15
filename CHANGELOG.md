@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.8...v0.8.9) (2025-09-15)
+
+
+### Bug Fixes
+
+* update d2 diagram theme color ([#108](https://github.com/AIGNE-io/aigne-doc-smith/issues/108)) ([d31dd80](https://github.com/AIGNE-io/aigne-doc-smith/commit/d31dd80c7cb1ca0c4d99d85eb2b6a529651d426f))
+
 ## [0.8.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.7...v0.8.8) (2025-09-13)
 
 

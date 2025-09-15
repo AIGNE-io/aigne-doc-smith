@@ -17,7 +17,6 @@ jobs:
         id: release
         with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
-          release-type: node
 
       - name: Checkout
         uses: actions/checkout@v4
