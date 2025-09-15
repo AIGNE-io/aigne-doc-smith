@@ -1,8 +1,8 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { existsSync } from "node:fs";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
-import { join } from "node:path";
 import { tmpdir } from "node:os";
+import { join } from "node:path";
 import generateEvaluationReport from "../../../agents/certify/generate-evaluation-report.mjs";
 
 describe("generateEvaluationReport", () => {
@@ -11,7 +11,7 @@ describe("generateEvaluationReport", () => {
   beforeAll(async () => {
     process.env.OBSERVABILITY_DISABLED = "true";
     // Create a temporary directory for testing
-    testDir = await mkdtemp(join(tmpdir(), 'test-evaluation-report-'));
+    testDir = await mkdtemp(join(tmpdir(), "test-evaluation-report-"));
   });
 
   afterAll(async () => {
@@ -34,49 +34,61 @@ describe("generateEvaluationReport", () => {
         score: 4,
         reason: "Covers most main objectives, missing minor targets",
         covered: ["Quick Start", "API Reference"],
-        missing: ["Troubleshooting"]
+        missing: ["Troubleshooting"],
       },
       audienceCoverage: {
         score: 5,
         reason: "Covers all selected audiences",
         covered: ["Developers", "DevOps Engineers"],
-        missing: []
+        missing: [],
       },
       coverageDepthAlignment: {
         score: 3,
-        reason: "About half of modules depth does not match expectations"
+        reason: "About half of modules depth does not match expectations",
       },
       originalDocumentStructure: [
         {
           path: "/api/authentication",
           title: "Authentication",
-          readability: { score: 4, reason: "Clear language with minor errors that don't affect reading" },
+          readability: {
+            score: 4,
+            reason: "Clear language with minor errors that don't affect reading",
+          },
           coherence: { score: 5, reason: "Clear logic, no contradictions or jumps" },
           contentQuality: { score: 3, reason: "50-70% implementation, some content is brief" },
           translationQuality: { score: 4, reason: "Generally accurate with minor issues" },
           consistency: { score: 4, reason: "Generally consistent with 1-2 differences" },
-          purposeAlignment: { score: 4, reason: "Generally meets objectives with minor irrelevant content" },
+          purposeAlignment: {
+            score: 4,
+            reason: "Generally meets objectives with minor irrelevant content",
+          },
           audienceAlignment: { score: 5, reason: "Completely meets audience needs" },
-          knowledgeLevelAlignment: { score: 3, reason: "Partial match, about half doesn't fit" }
+          knowledgeLevelAlignment: { score: 3, reason: "Partial match, about half doesn't fit" },
         },
         {
           path: "/api/endpoints",
           title: "API Endpoints",
           readability: { score: 5, reason: "No errors, natural and fluent language" },
           coherence: { score: 4, reason: "Overall coherent with occasional unnatural transitions" },
-          contentQuality: { score: 4, reason: "70-90% planning points implemented, minor details lacking" },
+          contentQuality: {
+            score: 4,
+            reason: "70-90% planning points implemented, minor details lacking",
+          },
           translationQuality: { score: 5, reason: "Accurate and natural, consistent terminology" },
           consistency: { score: 5, reason: "Completely consistent" },
           purposeAlignment: { score: 5, reason: "Completely meets objectives, closely related" },
           audienceAlignment: { score: 4, reason: "Generally fits with minor mismatches" },
-          knowledgeLevelAlignment: { score: 4, reason: "Mostly matches, slightly too shallow/deep in places" }
-        }
+          knowledgeLevelAlignment: {
+            score: 4,
+            reason: "Mostly matches, slightly too shallow/deep in places",
+          },
+        },
       ],
       metadata: {
         documentTitle: "API Usage Guide",
-        evaluator: "test-suite"
+        evaluator: "test-suite",
       },
-      basePath: testDir
+      basePath: testDir,
     };
 
     // Call the function
@@ -84,11 +96,11 @@ describe("generateEvaluationReport", () => {
 
     // Verify file was created
     expect(existsSync(reportPath)).toBe(true);
-    expect(reportPath).toContain('integrity-report.json');
-    expect(reportPath).toContain('doc-smith/certify/');
+    expect(reportPath).toContain("integrity-report.json");
+    expect(reportPath).toContain("doc-smith/certify/");
 
     // Read and parse the report
-    const reportContent = await readFile(reportPath, 'utf8');
+    const reportContent = await readFile(reportPath, "utf8");
     const report = JSON.parse(reportContent);
 
     // Verify report structure
@@ -100,27 +112,29 @@ describe("generateEvaluationReport", () => {
     expect(report.summary).toBeDefined();
 
     // Verify metadata
-    expect(report.metadata.version).toBe('1.0.0');
-    expect(report.metadata.generatedBy).toBe('doc-smith');
+    expect(report.metadata.version).toBe("1.0.0");
+    expect(report.metadata.generatedBy).toBe("doc-smith");
     expect(report.metadata.documentCount).toBe(2);
-    expect(report.metadata.documentTitle).toBe('API Usage Guide');
-    expect(report.metadata.evaluator).toBe('test-suite');
+    expect(report.metadata.documentTitle).toBe("API Usage Guide");
+    expect(report.metadata.evaluator).toBe("test-suite");
 
     // Verify structure evaluation
-    expect(report.structureEvaluation.type).toBe('document-structure');
+    expect(report.structureEvaluation.type).toBe("document-structure");
     expect(report.structureEvaluation.results.purposeCoverage).toEqual(testData.purposeCoverage);
     expect(report.structureEvaluation.results.audienceCoverage).toEqual(testData.audienceCoverage);
-    expect(report.structureEvaluation.results.coverageDepthAlignment).toEqual(testData.coverageDepthAlignment);
+    expect(report.structureEvaluation.results.coverageDepthAlignment).toEqual(
+      testData.coverageDepthAlignment,
+    );
 
     // Verify document evaluations
-    expect(report.documentEvaluations.type).toBe('document-content');
+    expect(report.documentEvaluations.type).toBe("document-content");
     expect(report.documentEvaluations.individual).toHaveLength(2);
     expect(report.documentEvaluations.aggregated).toBeDefined();
 
     // Verify individual document evaluations
     const firstDoc = report.documentEvaluations.individual[0];
-    expect(firstDoc.documentInfo.path).toBe('/api/authentication');
-    expect(firstDoc.documentInfo.title).toBe('Authentication');
+    expect(firstDoc.documentInfo.path).toBe("/api/authentication");
+    expect(firstDoc.documentInfo.title).toBe("Authentication");
     expect(firstDoc.evaluation.readability.score).toBe(4);
 
     // Verify aggregated evaluation
@@ -145,30 +159,30 @@ describe("generateEvaluationReport", () => {
         score: 5,
         reason: "Completely covers all objectives",
         covered: ["Objective 1", "Objective 2"],
-        missing: []
+        missing: [],
       },
       audienceCoverage: {
         score: 5,
         reason: "Completely covers all audiences",
         covered: ["Audience 1", "Audience 2"],
-        missing: []
+        missing: [],
       },
       coverageDepthAlignment: {
         score: 5,
-        reason: "Depth completely matches expectations"
+        reason: "Depth completely matches expectations",
       },
       originalDocumentStructure: [],
       metadata: {
-        documentTitle: "Test Document"
+        documentTitle: "Test Document",
       },
-      basePath: testDir
+      basePath: testDir,
     };
 
     const reportPath = await generateEvaluationReport(testData);
 
     expect(existsSync(reportPath)).toBe(true);
 
-    const reportContent = await readFile(reportPath, 'utf8');
+    const reportContent = await readFile(reportPath, "utf8");
     const report = JSON.parse(reportContent);
 
     expect(report.metadata.documentCount).toBe(0);
@@ -181,15 +195,15 @@ describe("generateEvaluationReport", () => {
     const testData = {
       purposeCoverage: {
         score: 3,
-        reason: "Partial coverage"
+        reason: "Partial coverage",
       },
       audienceCoverage: {
         score: 3,
-        reason: "Partial coverage"
+        reason: "Partial coverage",
       },
       coverageDepthAlignment: {
         score: 3,
-        reason: "Generally compliant"
+        reason: "Generally compliant",
       },
       originalDocumentStructure: [
         {
@@ -202,10 +216,10 @@ describe("generateEvaluationReport", () => {
           consistency: { score: 3, reason: "Fair" },
           purposeAlignment: { score: 3, reason: "Fair" },
           audienceAlignment: { score: 3, reason: "Fair" },
-          knowledgeLevelAlignment: { score: 3, reason: "Fair" }
-        }
+          knowledgeLevelAlignment: { score: 3, reason: "Fair" },
+        },
       ],
-      basePath: testDir
+      basePath: testDir,
       // metadata is optional
     };
 
@@ -213,11 +227,11 @@ describe("generateEvaluationReport", () => {
 
     expect(existsSync(reportPath)).toBe(true);
 
-    const reportContent = await readFile(reportPath, 'utf8');
+    const reportContent = await readFile(reportPath, "utf8");
     const report = JSON.parse(reportContent);
 
-    expect(report.metadata.version).toBe('1.0.0');
-    expect(report.metadata.generatedBy).toBe('doc-smith');
+    expect(report.metadata.version).toBe("1.0.0");
+    expect(report.metadata.generatedBy).toBe("doc-smith");
     expect(report.metadata.documentCount).toBe(1);
   });
 });

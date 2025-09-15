@@ -154,3 +154,4 @@ output_schema:
     - purposeAlignment
     - audienceAlignment
     - knowledgeLevelAlignment
+includeInputInOutput: true

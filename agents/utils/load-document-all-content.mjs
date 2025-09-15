@@ -3,11 +3,11 @@ import { findItemByPath, readFileContent } from "../../utils/docs-finder-utils.m
 
 /**
  * Loads a document's content along with all its translations from the docs directory.
- * 
+ *
  * This function finds a document by its path in the document structure, then searches
  * for all translation files in the docs directory that match the document's naming pattern.
  * Translation files are identified by the pattern: {flatName}.{language-code}.md
- * 
+ *
  * @param {Object} params - The parameters object
  * @param {string} params.path - The document path to find in the structure
  * @param {string} params.docsDir - The directory containing document files and translations

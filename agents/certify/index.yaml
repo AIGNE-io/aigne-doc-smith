@@ -25,6 +25,12 @@ skills:
     skills:
       - ../utils/load-document-all-content.mjs
       - ./evaluation-document.yaml
+      - type: transform
+        task_render_mode: hide
+        jsonata: |
+          $merge([
+            $
+          ])
     iterate_on: originalDocumentStructure
     concurrency: 3
     mode: sequential

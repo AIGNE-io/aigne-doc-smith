@@ -1,6 +1,6 @@
-import { existsSync } from 'node:fs';
-import { mkdir, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { existsSync } from "node:fs";
+import { mkdir, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 
 /**
  * Generate and save evaluation report by aggregating results from both structure and document evaluation agents
@@ -19,10 +19,10 @@ export default async function generateEvaluationReport({
   coverageDepthAlignment,
   originalDocumentStructure,
   metadata = {},
-  basePath = process.cwd()
+  basePath = process.cwd(),
 }) {
   const timestamp = new Date().toISOString();
-  const timestampForFolder = timestamp.replace(/[:.]/g, '-').replace('T', '_').replace('Z', '');
+  const timestampForFolder = timestamp.replace(/[:.]/g, "-").replace("T", "_").replace("Z", "");
 
   // Process document evaluation results from originalDocumentStructure array
   const documentEvaluations = [];
@@ -30,7 +30,7 @@ export default async function generateEvaluationReport({
 
   if (originalDocumentStructure && Array.isArray(originalDocumentStructure)) {
     for (const docItem of originalDocumentStructure) {
-      if (docItem && typeof docItem === 'object') {
+      if (docItem && typeof docItem === "object") {
         // Extract evaluation results from each document
         const {
           readability,
@@ -42,13 +42,13 @@ export default async function generateEvaluationReport({
           audienceAlignment,
           knowledgeLevelAlignment,
           path,
-          title
+          title,
         } = docItem;
 
         const docEvaluation = {
           documentInfo: {
-            path: path || 'unknown',
-            title: title || 'untitled'
+            path: path || "unknown",
+            title: title || "untitled",
           },
           evaluation: {
             readability,
@@ -58,8 +58,8 @@ export default async function generateEvaluationReport({
             consistency,
             purposeAlignment,
             audienceAlignment,
-            knowledgeLevelAlignment
-          }
+            knowledgeLevelAlignment,
+          },
         };
 
         documentEvaluations.push(docEvaluation);
@@ -75,37 +75,37 @@ export default async function generateEvaluationReport({
   const report = {
     timestamp,
     metadata: {
-      version: '1.0.0',
-      generatedBy: 'doc-smith',
+      version: "1.0.0",
+      generatedBy: "doc-smith",
       documentCount: documentEvaluations.length,
-      ...metadata
+      ...metadata,
     },
     structureEvaluation: {
-      type: 'document-structure',
+      type: "document-structure",
       results: {
         purposeCoverage: purposeCoverage || null,
         audienceCoverage: audienceCoverage || null,
-        coverageDepthAlignment: coverageDepthAlignment || null
-      }
+        coverageDepthAlignment: coverageDepthAlignment || null,
+      },
     },
     documentEvaluations: {
-      type: 'document-content',
+      type: "document-content",
       individual: documentEvaluations,
-      aggregated: aggregatedDocumentEvaluation
+      aggregated: aggregatedDocumentEvaluation,
     },
     summary: generateSummary(
       { purposeCoverage, audienceCoverage, coverageDepthAlignment },
-      aggregatedDocumentEvaluation
-    )
+      aggregatedDocumentEvaluation,
+    ),
   };
 
-  const saveDir = join(basePath, '.aigne', 'doc-smith', 'certify', timestampForFolder);
-  const filePath = join(saveDir, 'integrity-report.json');
+  const saveDir = join(basePath, ".aigne", "doc-smith", "certify", timestampForFolder);
+  const filePath = join(saveDir, "integrity-report.json");
 
   await ensureDirectoryExists(saveDir);
-  await writeFile(filePath, JSON.stringify(report, null, 2), 'utf8');
+  await writeFile(filePath, JSON.stringify(report, null, 2), "utf8");
 
-  return filePath;
+  return {};
 }
 
 /**
@@ -119,7 +119,7 @@ function generateSummary(structureEval, docEval) {
     structureScores: {},
     documentScores: {},
     overallScore: null,
-    issues: []
+    issues: [],
   };
 
   if (structureEval) {
@@ -127,31 +127,39 @@ function generateSummary(structureEval, docEval) {
     summary.structureScores = {
       purposeCoverage: purposeCoverage?.score || 0,
       audienceCoverage: audienceCoverage?.score || 0,
-      coverageDepthAlignment: coverageDepthAlignment?.score || 0
+      coverageDepthAlignment: coverageDepthAlignment?.score || 0,
     };
 
-    const structureAvg = (
-      summary.structureScores.purposeCoverage +
-      summary.structureScores.audienceCoverage +
-      summary.structureScores.coverageDepthAlignment
-    ) / 3;
+    const structureAvg =
+      (summary.structureScores.purposeCoverage +
+        summary.structureScores.audienceCoverage +
+        summary.structureScores.coverageDepthAlignment) /
+      3;
     summary.structureScores.average = Math.round(structureAvg * 10) / 10;
 
     // Collect structure issues
     if (purposeCoverage?.missing?.length > 0) {
-      summary.issues.push(`Missing purposes: ${purposeCoverage.missing.join(', ')}`);
+      summary.issues.push(`Missing purposes: ${purposeCoverage.missing.join(", ")}`);
     }
     if (audienceCoverage?.missing?.length > 0) {
-      summary.issues.push(`Missing audiences: ${audienceCoverage.missing.join(', ')}`);
+      summary.issues.push(`Missing audiences: ${audienceCoverage.missing.join(", ")}`);
     }
   }
 
   if (docEval) {
     const docScores = {};
-    const keys = ['readability', 'coherence', 'contentQuality', 'translationQuality',
-                  'consistency', 'purposeAlignment', 'audienceAlignment', 'knowledgeLevelAlignment'];
+    const keys = [
+      "readability",
+      "coherence",
+      "contentQuality",
+      "translationQuality",
+      "consistency",
+      "purposeAlignment",
+      "audienceAlignment",
+      "knowledgeLevelAlignment",
+    ];
 
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (docEval[key]?.score) {
         docScores[key] = docEval[key].score;
       }
@@ -166,7 +174,7 @@ function generateSummary(structureEval, docEval) {
     }
 
     // Collect document issues (scores below 3)
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (docEval[key]?.score < 3 && docEval[key]?.reason) {
         summary.issues.push(`${key}: ${docEval[key].reason}`);
       }
@@ -175,9 +183,9 @@ function generateSummary(structureEval, docEval) {
 
   // Calculate overall score if both evaluations exist
   if (summary.structureScores.average && summary.documentScores.average) {
-    summary.overallScore = Math.round(
-      (summary.structureScores.average + summary.documentScores.average) / 2 * 10
-    ) / 10;
+    summary.overallScore =
+      Math.round(((summary.structureScores.average + summary.documentScores.average) / 2) * 10) /
+      10;
   }
 
   return summary;
@@ -193,14 +201,22 @@ function aggregateDocumentEvaluations(documentEvaluations) {
     return null;
   }
 
-  const keys = ['readability', 'coherence', 'contentQuality', 'translationQuality',
-                'consistency', 'purposeAlignment', 'audienceAlignment', 'knowledgeLevelAlignment'];
+  const keys = [
+    "readability",
+    "coherence",
+    "contentQuality",
+    "translationQuality",
+    "consistency",
+    "purposeAlignment",
+    "audienceAlignment",
+    "knowledgeLevelAlignment",
+  ];
 
   const aggregated = {};
   const validCounts = {};
 
   // Initialize
-  keys.forEach(key => {
+  keys.forEach((key) => {
     aggregated[key] = { totalScore: 0, count: 0, reasons: [] };
     validCounts[key] = 0;
   });
@@ -208,7 +224,7 @@ function aggregateDocumentEvaluations(documentEvaluations) {
   // Aggregate scores
   for (const docEval of documentEvaluations) {
     const evaluation = docEval.evaluation;
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (evaluation[key] && evaluation[key].score) {
         aggregated[key].totalScore += evaluation[key].score;
         aggregated[key].count++;
@@ -221,12 +237,12 @@ function aggregateDocumentEvaluations(documentEvaluations) {
 
   // Calculate averages and build result
   const result = {};
-  keys.forEach(key => {
+  keys.forEach((key) => {
     if (aggregated[key].count > 0) {
       const avgScore = aggregated[key].totalScore / aggregated[key].count;
       result[key] = {
         score: Math.round(avgScore * 10) / 10,
-        reason: `Average from ${aggregated[key].count} documents: ${aggregated[key].reasons.slice(0, 3).join('; ')}`
+        reason: `Average from ${aggregated[key].count} documents: ${aggregated[key].reasons.slice(0, 3).join("; ")}`,
       };
     }
   });
@@ -243,4 +259,3 @@ async function ensureDirectoryExists(dirPath) {
     await mkdir(dirPath, { recursive: true });
   }
 }
-
