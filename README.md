@@ -1,7 +1,7 @@
 [![GitHub star chart](https://img.shields.io/github/stars/AIGNE-io/aigne-doc-smith?style=flat-square)](https://star-history.com/#AIGNE-io/aigne-doc-smith)
 [![Open Issues](https://img.shields.io/github/issues-raw/AIGNE-io/aigne-doc-smith?style=flat-square)](https://github.com/AIGNE-io/aigne-doc-smith/issues)
 [![codecov](https://codecov.io/gh/AIGNE-io/aigne-doc-smith/graph/badge.svg?token=95TQO2NKYC)](https://codecov.io/gh/AIGNE-io/aigne-doc-smith)
-[![NPM Version](https://img.shields.io/npm/v/@aigne/core)](https://www.npmjs.com/package/@aigne/doc-smith)
+[![NPM Version](https://img.shields.io/npm/v/@aigne/doc-smith)](https://www.npmjs.com/package/@aigne/doc-smith)
 
 # AIGNE DocSmith
 
@@ -17,11 +17,11 @@ As shown in the diagram, DocSmith integrates seamlessly with other [AIGNE](https
 
 ## Features
 
-- **Automated Structure Planning:** Intelligently analyzes your codebase to generate a comprehensive and logical document structure.
+- **Automated Generate Document Structure:** Intelligently analyzes your codebase to generate a comprehensive and logical document structure.
 - **AI-Powered Content Generation:** Populates the document structure with detailed, high-quality content.
-- **Multi-Language Support:** Seamlessly translates your documentation into 12+ languages including English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic.
-- **AIGNE Hub Integration:** Use AIGNE Hub as your LLM provider without needing your own API keys, with easy switching between different large language models.
-- **Discuss Kit Publishing:** Publish documentation to the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/) or your own independently deployed Discuss Kit instance.
+- **Multi-Language Support:** Seamlessly translates your documentation into 12 languages including English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic.
+- **AIGNE Hub Integration:** Use [AIGNE Hub](https://www.aigne.io/en/hub) as your LLM provider without needing your own API keys, with easy switching between different large language models.
+- **Document Publishing:** Preview your documentation on the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/), or publish to your own [Discuss Kit](https://www.arcblock.io/docs/web3-kit/en/discuss-kit) instance for full control.
 - **Document Update Mechanism:** Automatically detects source code changes and updates documentation accordingly.
 - **Individual Document Optimization:** Regenerate and optimize specific documents with targeted feedback.
 
@@ -29,8 +29,80 @@ As shown in the diagram, DocSmith integrates seamlessly with other [AIGNE](https
 
 ### Prerequisites
 
-- Node.js and pnpm
+- Node.js and npm
 - AIGNE CLI
+
+### Node.js Installation
+
+#### Windows
+1. Download Node.js installer from [nodejs.org](https://nodejs.org/)
+2. Run the installer (.msi file)
+3. Follow installation wizard steps
+4. Verify installation: `node --version`
+
+#### macOS
+**Option 1: Using Homebrew (Recommended)**
+```bash
+# Install Homebrew if not already installed
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install Node.js
+brew install node
+```
+
+**Option 2: Using the Official Installer**
+1. Download the macOS installer from [nodejs.org](https://nodejs.org/)
+2. Double-click the .pkg file to run the installer
+3. Follow the installation wizard
+4. Verify installation: `node --version`
+
+#### Linux
+
+**Ubuntu/Debian:**
+```bash
+# Update package index
+sudo apt update
+
+# Install Node.js
+sudo apt install nodejs npm
+
+# Or install latest LTS version using NodeSource repository
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+**CentOS/RHEL/Fedora:**
+```bash
+# For CentOS/RHEL
+sudo yum install nodejs npm
+
+# For Fedora
+sudo dnf install nodejs npm
+
+# Or using NodeSource repository
+curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+sudo yum install nodejs
+```
+
+**Using Node Version Manager (nvm) - All Linux Distributions:**
+```bash
+# Install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
+# Restart terminal or run:
+source ~/.bashrc
+
+# Install latest LTS Node.js
+nvm install --lts
+nvm use --lts
+```
+
+#### Verification
+After installation on any platform, verify Node.js and npm are installed correctly:
+```bash
+node --version
+npm --version
+```
 
 ### Installation
 
@@ -113,7 +185,7 @@ aigne doc update --docs overview.md --feedback "Add more comprehensive FAQ entri
 
 **Interactive Mode:** When run without parameters, `aigne doc update` will present an interactive menu for you to select which document to regenerate and provide feedback.
 
-#### Optimize Structure Planning
+#### Optimize Document Structure
 
 Improve the overall documentation structure based on feedback:
 
@@ -161,7 +233,7 @@ aigne doc publish
 
 **Interactive Publishing:** When run `aigne doc publish` will present an interactive menu for you to choose between:
 - **Official Platform:** [docsmith.aigne.io](https://docsmith.aigne.io/app/)
-- **Self-Hosted Platform:** Your own deployed Discuss Kit instance
+- **Own Instance:** Your own deployed [Discuss Kit](https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu) instance
 
 
 

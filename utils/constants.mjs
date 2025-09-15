@@ -330,6 +330,8 @@ export const DEPTH_RECOMMENDATION_LOGIC = {
 // Component mount point ID for Discuss Kit
 export const DISCUSS_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
 
+export const PAYMENT_KIT_DID = "z2qaCNvKMv5GjouKdcDWexv6WqtHbpNPQDnAk";
+
 // Discuss Kit related URLs
 export const DISCUSS_KIT_STORE_URL =
   "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
@@ -343,7 +345,7 @@ export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml
 export const CONFLICT_RULES = {
   // Internal conflicts within the same question (multi-select conflicts)
   internalConflicts: {
-    // Note: Most conflicts can be resolved through intelligent document structure planning
+    // Note: Most conflicts can be resolved through intelligent document structure
     // Only keeping conflicts that represent fundamental incompatibilities
   },
 
@@ -417,7 +419,7 @@ export const CONFLICT_RULES = {
 
 // Conflict resolution rules - defines how to handle conflicts when users select conflicting options
 export const CONFLICT_RESOLUTION_RULES = {
-  // Document purpose conflicts that can be resolved through structure planning
+  // Document purpose conflicts that can be resolved through document structure
   documentPurpose: [
     {
       conflictItems: ["getStarted", "findAnswers"],
@@ -444,7 +446,7 @@ export const CONFLICT_RESOLUTION_RULES = {
     },
   ],
 
-  // Target audience conflicts that can be resolved through structure planning
+  // Target audience conflicts that can be resolved through document structure
   targetAudienceTypes: [
     {
       conflictItems: ["endUsers", "developers"],
@@ -513,12 +515,28 @@ export const RESOLUTION_STRATEGIES = {
 export const D2_CONFIG = `vars: {
   d2-config: {
     layout-engine: elk
-    theme-id: 8
+    theme-id: 105
+    theme-overrides: {
+      N1: "#18181B"
+      N2: "#421E0B"
+      N4: "#E6E8EC"
+      N5: "#E6E8EC"
+
+      B3: "#FFE9D1"
+      B4: "transparent"
+
+      AA2: "#421E0B"
+      AA4: "#FFE9D1"
+
+      AB4: "#FBF4E4"
+    }
   }
 }`;
 
 export const KROKI_CONCURRENCY = 5;
+export const D2_CONCURRENCY = 10;
 export const FILE_CONCURRENCY = 3;
+export const DOC_SMITH_DIR = ".aigne/doc-smith";
 export const TMP_DIR = ".tmp";
 export const TMP_DOCS_DIR = "docs";
 

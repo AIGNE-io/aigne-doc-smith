@@ -8,7 +8,7 @@ import { unified } from "unified";
 import { visit } from "unist-util-visit";
 import { VFile } from "vfile";
 import { KROKI_CONCURRENCY } from "./constants.mjs";
-import { checkD2Content } from "./kroki-utils.mjs";
+import { checkContent, isValidCode } from "./d2-utils.mjs";
 import { validateMermaidSyntax } from "./mermaid-validator.mjs";
 
 /**
@@ -90,7 +90,7 @@ function checkDeadLinks(markdown, source, allowedLinks, errorMessages) {
     // Check if this link is in the allowed links set
     if (!allowedLinks.has(path)) {
       errorMessages.push(
-        `Found a dead link in ${source}: [${match[1]}](${trimLink}), ensure the link exists in the structure plan path`,
+        `Found a dead link in ${source}: [${match[1]}](${trimLink}), ensure the link exists in the document structure path`,
       );
     }
   }
@@ -243,7 +243,7 @@ function checkLocalImages(markdown, source, errorMessages, markdownFilePath, bas
  */
 function checkContentStructure(markdown, source, errorMessages) {
   const lines = markdown.split("\n");
-  const allCodeBlockRegex = /^\s*```(?:[a-zA-Z0-9_,\-+.#/:=]+)?$/;
+  const allCodeBlockRegex = /^\s*```.*$/;
 
   // State variables for different checks
   let inCodeBlock = false;
@@ -300,7 +300,7 @@ function checkContentStructure(markdown, source, errorMessages) {
   }
 
   // Check if content ends with proper punctuation (indicating completeness)
-  const validEndingPunctuation = [".", "。", ")", "|", "*", ">", "`"];
+  const validEndingPunctuation = [".", "。", ")", "|", "*", ">", "`", "!"];
   const trimmedText = markdown.trim();
   const hasValidEnding = validEndingPunctuation.some((punct) => trimmedText.endsWith(punct));
 
@@ -467,7 +467,7 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
             specialCharMatch = nodeWithSpecialCharsRegex.exec(mermaidContent);
           }
         }
-        if (node.lang.toLowerCase() === "d2") {
+        if (isValidCode(node.lang)) {
           d2ChecksList.push({
             content: node.value,
             line,
@@ -527,7 +527,7 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
     await pMap(
       d2ChecksList,
       async ({ content, line }) =>
-        checkD2Content({ content }).catch((err) => {
+        checkContent({ content }).catch((err) => {
           const errorMessage = err?.message || String(err) || "Unknown d2 syntax error";
           errorMessages.push(`Found D2 syntax error in ${source} at line ${line}: ${errorMessage}`);
         }),

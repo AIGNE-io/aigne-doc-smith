@@ -1,74 +1,123 @@
----
-labels: ["Reference"]
----
-
 # Getting Started
 
-This guide will walk you through installing AIGNE DocSmith, configuring your first project, and generating a complete set of documentation in just a few minutes. The process is designed to be straightforward, with a single command to get you started.
+This guide provides a step-by-step walkthrough to install AIGNE DocSmith, configure a project, and generate a complete set of documentation from your source code.
 
-## Prerequisites
+## Step 1: Prerequisites
 
-Before you begin, ensure you have the following installed on your system:
+Before you begin, ensure you have Node.js and its package manager, npm, installed on your system. DocSmith is a command-line tool that runs on the Node.js environment.
 
-- [Node.js](https://nodejs.org/)
-- [pnpm](https://pnpm.io/)
+### Installing Node.js
 
-## Step 1: Install AIGNE CLI
+Here are brief instructions for installing Node.js on various operating systems.
 
-DocSmith is available through the AIGNE Command Line Interface (CLI). Install the latest version globally using npm:
+**Windows**
+1.  Download the installer from the official [Node.js website](https://nodejs.org/).
+2.  Run the `.msi` installer and follow the steps in the installation wizard.
 
-```bash
+**macOS**
+
+The recommended method is using [Homebrew](https://brew.sh/):
+
+```bash Terminal icon=lucide:apple
+# Install Homebrew if you don't have it
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install Node.js
+brew install node
+```
+
+Alternatively, you can download the `.pkg` installer from the [Node.js website](https://nodejs.org/).
+
+**Linux**
+
+For Ubuntu/Debian-based systems:
+
+```bash Terminal icon=lucide:laptop
+sudo apt update
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+For CentOS/RHEL/Fedora systems:
+
+```bash Terminal icon=lucide:laptop
+curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+sudo yum install nodejs
+```
+
+### Verification
+
+After installation, verify that Node.js and npm are available by running these commands in your terminal:
+
+```bash Terminal
+node --version
+npm --version
+```
+
+## Step 2: Install AIGNE CLI
+
+The DocSmith tool is included within the AIGNE Command Line Interface (CLI). Install the latest version of the AIGNE CLI globally using npm:
+
+```bash Terminal icon=logos:npm
 npm i -g @aigne/cli
 ```
 
-Once the installation is complete, verify that it was successful by checking the help command for the documentation tool:
+After the installation is complete, verify it by running the help command for the documentation tool:
 
-```bash
+```bash Terminal
 aigne doc -h
 ```
 
-This command should display a list of available `doc` commands and their options.
+This command will display the help menu for DocSmith, confirming it is ready for use.
 
-## Step 2: Generate Your Documentation
+## Step 3: Generate Your Documentation
 
-With the AIGNE CLI installed, you can generate your documentation with a single command. Navigate to your project's root directory and run:
+With the CLI installed, you can generate your documents with a single command. Navigate to your project's root directory in your terminal and run:
 
-```bash
+```bash Terminal icon=lucide:sparkles
 aigne doc generate
 ```
 
-### Smart Auto-Configuration
+### Automatic Configuration
 
-If this is your first time running DocSmith in the project, it will automatically detect that no configuration exists and launch an interactive setup wizard to guide you.
+When you run this command for the first time in a project, DocSmith detects that no configuration exists and automatically launches an interactive setup wizard.
 
-![Running the generate command triggers the smart initialization wizard](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
+![Running the generate command initiates the setup wizard](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-## Step 3: Configure Your Project
+You will be prompted with a series of questions to define the documentation's characteristics, including:
 
-The interactive wizard will ask a series of questions to tailor the documentation to your specific needs. You will be prompted to define:
-
-- The primary purpose and style of the documentation.
-- Your target audience and their technical knowledge level.
+- The primary purpose and style.
+- The intended target audience.
 - The primary language and any additional languages for translation.
 - The source code paths for the AI to analyze.
-- The output directory where the documents will be saved.
+- The output directory for the generated documents.
 
-![Answer a series of questions to complete your project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![Answer the prompts to complete the project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-## Step 4: Review Your New Docs
+Once the configuration is complete, DocSmith will proceed to analyze your source code, plan the document structure, and generate the content.
 
-After you complete the configuration, DocSmith will begin the generation process. It analyzes your code, plans a logical document structure, and writes the content for each section.
+![DocSmith planning the structure and generating documents](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-![DocSmith plans the document structure and generates content](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+## Step 4: Review Your Output
 
-Once finished, you'll see a success message in your terminal. Your new documentation is now ready in the output directory you specified (e.g., `.aigne/doc-smith/docs`).
+After the generation process is finished, a confirmation message will be displayed in your terminal.
 
-![A success message confirms your documentation is ready](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+![Successful documentation generation message](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
+
+Your new documentation is now available in the output directory you specified during the setup process. The default location is `.aigne/doc-smith/docs`.
 
 ## What's Next?
 
-You've successfully installed DocSmith and generated your first set of documents. Now you're ready to explore its capabilities in more detail.
+Now that you have generated your first set of documents, you can explore other features:
 
-<x-card data-title="Explore Core Features" data-icon="lucide:compass" data-href="/features" data-cta="Learn More">
-  Dive deeper into the main commands and capabilities of DocSmith, from updating documents to publishing them online.
-</x-card>
+<x-cards>
+  <x-card data-title="Core Features" data-icon="lucide:box" data-href="/features">
+    Explore the main commands and capabilities, from updating documents to publishing them online.
+  </x-card>
+  <x-card data-title="Configuration Guide" data-icon="lucide:settings" data-href="/configuration">
+    Learn how to fine-tune your documentation's style, audience, and languages by editing the config.yaml file.
+  </x-card>
+  <x-card data-title="CLI Command Reference" data-icon="lucide:terminal" data-href="/cli-reference">
+    Get a complete reference for all available `aigne doc` commands and their options.
+  </x-card>
+</x-cards>

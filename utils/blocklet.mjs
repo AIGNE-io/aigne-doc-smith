@@ -1,3 +1,5 @@
+import { joinURL } from "ufo";
+
 /**
  * Custom error class for invalid blocklet application URLs
  */
@@ -23,17 +25,14 @@ export class ComponentNotFoundError extends Error {
   }
 }
 
-export async function getComponentMountPoint(appUrl, did) {
-  const url = new URL(appUrl);
-  const blockletJsUrl = `${url.origin}/__blocklet__.js?type=json`;
+export async function getComponentInfo(appUrl) {
+  const blockletJsUrl = joinURL(appUrl, "__blocklet__.js?type=json");
 
   let blockletJs;
   try {
     blockletJs = await fetch(blockletJsUrl, {
       method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
+      headers: { Accept: "application/json" },
     });
   } catch (error) {
     throw new InvalidBlockletError(appUrl, null, error.message);
@@ -50,10 +49,30 @@ export async function getComponentMountPoint(appUrl, did) {
     throw new InvalidBlockletError(appUrl, null, "Invalid JSON response");
   }
 
+  return config;
+}
+
+export async function getComponentMountPoint(appUrl, did) {
+  const config = await getComponentInfo(appUrl);
+
   const component = config.componentMountPoints?.find((component) => component.did === did);
   if (!component) {
     throw new ComponentNotFoundError(did, appUrl);
   }
 
   return component.mountPoint;
+}
+
+export async function getComponentInfoWithMountPoint(appUrl, did) {
+  const config = await getComponentInfo(appUrl);
+
+  const component = config.componentMountPoints?.find((component) => component.did === did);
+  if (!component) {
+    throw new ComponentNotFoundError(did, appUrl);
+  }
+
+  return {
+    ...config,
+    mountPoint: component.mountPoint,
+  };
 }

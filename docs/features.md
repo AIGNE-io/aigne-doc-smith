@@ -1,56 +1,52 @@
----
-labels: ["Reference"]
----
-
 # Core Features
 
-AIGNE DocSmith provides a comprehensive suite of tools to manage your documentation lifecycle, from initial creation to global distribution. It streamlines the process with a few simple commands, leveraging AI to automate complex tasks.
-
-The typical workflow follows a logical progression, allowing you to generate, refine, translate, and finally publish your documentation.
+AIGNE DocSmith provides a set of commands to manage your documentation lifecycle, from initial creation to global distribution. The process is organized into a standard workflow: generating, refining, translating, and publishing your documentation.
 
 ```d2
-direction: right
+direction: down
 
-"Generate Docs": {
-  shape: step
-  description: "Automated creation from source code"
+Generate: {
+  label: "1. Generate\naigne doc generate"
+  shape: rectangle
+  description: "Create a full documentation set from your source code."
 }
 
-"Update & Refine": {
-  shape: step
-  description: "Sync with code changes and apply feedback"
+Refine: {
+  label: "2. Update & Refine\naigne doc update"
+  shape: rectangle
+  description: "Keep docs in sync with code and apply targeted feedback."
 }
 
-"Translate": {
-  shape: step
-  description: "Reach a global audience with 12+ languages"
+Translate: {
+  label: "3. Translate\naigne doc translate"
+  shape: rectangle
+  description: "Localize content into multiple languages for a global audience."
 }
 
-"Publish": {
-  shape: step
-  description: "Share your docs on public or private platforms"
+Publish: {
+  label: "4. Publish\naigne doc publish"
+  shape: rectangle
+  description: "Deploy your documentation to public or private platforms."
 }
 
-"Generate Docs" -> "Update & Refine" -> "Translate" -> "Publish" {
-  style.animated: true
-}
+Generate -> Refine -> Translate -> Publish
 ```
 
 Explore the main capabilities of DocSmith in the following sections:
 
 <x-cards data-columns="2">
   <x-card data-title="Generate Documentation" data-icon="lucide:file-plus-2" data-href="/features/generate-documentation">
-    Automatically create a complete, well-structured set of documentation directly from your source code with a single command.
+    Create a complete set of documentation from your source code using a single command.
   </x-card>
   <x-card data-title="Update and Refine" data-icon="lucide:edit" data-href="/features/update-and-refine">
-    Keep your documentation synchronized with code changes or regenerate specific sections with targeted feedback to improve quality.
+    Keep your documentation synchronized with code changes or regenerate specific documents with targeted feedback.
   </x-card>
   <x-card data-title="Translate Documentation" data-icon="lucide:languages" data-href="/features/translate-documentation">
-    Effortlessly translate your content into over 12 languages, making your project accessible to a global audience.
+    Translate your content into multiple supported languages to make your project accessible to a global audience.
   </x-card>
   <x-card data-title="Publish Your Docs" data-icon="lucide:send" data-href="/features/publish-your-docs">
-    Publish your generated documentation to the official DocSmith platform or your own self-hosted instance with an interactive command.
+    Publish your generated documentation to the official DocSmith platform or your own self-hosted instance.
   </x-card>
 </x-cards>
 
-These core features work together to create a seamless documentation workflow. To see all available commands and their options in detail, head over to the [CLI Command Reference](./cli-reference.md).
+These features provide a structured workflow for documentation. For a detailed list of all available commands and their options, see the [CLI Command Reference](./cli-reference.md).

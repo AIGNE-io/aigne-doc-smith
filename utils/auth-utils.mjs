@@ -25,7 +25,7 @@ const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
  * @param {string} appUrl - The application URL
  * @returns {Promise<string>} - The access token
  */
-export async function getAccessToken(appUrl) {
+export async function getAccessToken(appUrl, ltToken = "") {
   const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
 
@@ -88,11 +88,18 @@ export async function getAccessToken(appUrl) {
     const result = await createConnect({
       connectUrl: connectUrl,
       connectAction: "gen-simple-access-key",
-      source: `AIGNE DocSmith connect to Discuss Kit`,
+      source: `AIGNE DocSmith connect to website`,
       closeOnSuccess: true,
       appName: "AIGNE DocSmith",
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
-      openPage: (pageUrl) => open(pageUrl),
+      openPage: (pageUrl) => {
+        const url = new URL(pageUrl);
+        if (ltToken) {
+          url.searchParams.set("__lt", ltToken);
+        }
+
+        open(url.toString());
+      },
     });
 
     accessToken = result.accessKeySecret;

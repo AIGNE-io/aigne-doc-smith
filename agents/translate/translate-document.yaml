@@ -1,0 +1,32 @@
+name: translateDocument
+description: Translate content to another language
+instructions:
+  url: ../../prompts/translate/translate-document.md
+task_render_mode: collapse
+input_schema:
+  type: object
+  properties:
+    language:
+      type: string
+      description: Target language (e.g., 'zh' for Chinese, 'ja' for Japanese)
+    content:
+      type: string
+      description: Text content to translate
+    glossary:
+      type: string
+      description: Glossary for consistent terminology
+    feedback:
+      type: string
+      description: Tell us how to improve the translation style
+  required:
+    - language
+    - content
+output_schema:
+  type: object
+  properties:
+    translation:
+      type: string
+      description: Translated text
+    language:
+      type: string
+      description: Language code of the translation

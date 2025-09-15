@@ -1,0 +1,50 @@
+name: feedbackRefiner
+description: Learn from your feedback to improve future documentation
+instructions:
+  url: ../../prompts/utils/feedback-refiner.md
+
+input_schema:
+  type: object
+  properties:
+    feedback:
+      type: string
+      description: Tell us what you think about the documentation
+    stage:
+      type: string
+      description: Which part of the process this feedback is about (document_structure, document_refine, translation_refine)
+    paths:
+      type: array
+      items:
+        type: string
+      description: Specific documents this feedback applies to (optional)
+    existingPreferences:
+      type: string
+      description: Your existing preferences to avoid duplicates (optional)
+  required: 
+    - feedback
+    - stage
+
+output_schema:
+  type: object
+  properties:
+    rule:
+      type: string
+      description: General rule created from your feedback
+    scope:
+      type: string
+      description: Where this rule applies (global, structure, document, translation)
+    save:
+      type: boolean
+      description: Should we remember this preference for next time?
+    limitToInputPaths:
+      type: boolean
+      description: Apply only to the specific documents mentioned?
+    reason:
+      type: string
+      description: Why we made this decision and how the rule was created
+  required:
+    - rule
+    - scope
+    - save
+    - limitToInputPaths
+    - reason

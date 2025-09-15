@@ -1,31 +1,77 @@
 rules:
-  - id: pref_b826d60409e88585
+  - id: pref_0e628173a762f68f
     active: true
     scope: document
-    rule: 自定义组件的描述中只能使用普通文本，不能使用 Markdown 语法。
-    feedback: 不可以在自定义组件的描述中使用 markdown 语法，只能使用普通文本
-    createdAt: 2025-08-30T14:59:26.086Z
+    rule: When specifying Claude models, must use the format `anthropic:claude-3-5-sonnet`.
+    feedback: Claude models need to be specified like this anthropic:claude-3-5-sonnet
+    createdAt: 2025-09-07T02:27:18.528Z
+  - id: pref_6e612d7ca8b7f3b6
+    active: true
+    scope: document
+    rule: When describing publishing options, should use plain text instead of custom components, and recommend users to run their own Discuss Kit instance while providing relevant links.
+    feedback: Publishing options should not use custom components: recommend users to run their own Discuss Kit instance in the text, and add Discuss Kit related links
+    createdAt: 2025-09-07T02:18:22.237Z
+  - id: pref_039b58c47bdf95c9
+    active: true
+    scope: document
+    rule: In the "Prerequisites" section, should briefly introduce Node.js installation, specify using npm instead of pnpm, and guide users to the official website for detailed instructions.
+    feedback: "In the prerequisites section, provide a simple introduction on how to install Node.js, no need to install pnpm but use npm instead, guide users to the product official website for detailed installation instructions"
+    createdAt: 2025-09-07T02:06:39.559Z
+  - id: pref_03a45a593f645ce2
+    active: true
+    scope: document
+    rule: When describing Discuss Kit, must clearly state that it is a non-open-source service running on the official platform, not a self-hosted instance.
+    feedback: In the core features description about document publishing, show the official platform link, run your own Discuss Kit instance, not self-hosted: Discuss Kit is not open source.
+    createdAt: 2025-09-07T01:59:12.876Z
+  - id: pref_0c239f619329089f
+    active: true
+    scope: document
+    rule: In the core features section, should use plain list format and add descriptions and links for AIGNE Hub and Discuss Kit.
+    feedback: Core features section should not use custom component lists, change to plain lists, add descriptions and links for AIGNE Hub and Discuss Kit to help users understand these two products
+    createdAt: 2025-09-07T01:53:22.969Z
+    paths:
+      - /overview
+  - id: pref_4e8aa735b11d8484
+    active: true
+    scope: document
+    rule: In the 'How It Works' document, only show DocSmith implementation details, should not include AIGNE Framework information.
+    feedback: How it works section does not need to show AIGNE Framework, only need to show DocSmith implementation
+    createdAt: 2025-09-06T13:15:10.272Z
+    paths:
+      - /advanced/how-it-works
+  - id: pref_4ad26164f1f4fbf6
+    active: true
+    scope: document
+    rule: When describing multi-language support features, must clearly state support for 12 languages and list two to three mainstream languages as examples.
+    feedback: Multi-language support related features, clearly support 12 languages, no above statement, and give examples of two or three mainstream languages
+    createdAt: 2025-09-06T12:55:42.678Z
+  - id: pref_c84baec514ca5c60
+    active: true
+    scope: document
+    rule: Core features list must describe product functionality characteristics, not promotional value or importance.
+    feedback: Core features list should describe DocSmith's functional characteristics, not describe product importance like a promotional brochure
+    createdAt: 2025-09-06T12:47:46.583Z
   - id: pref_6da200d8e6fec09e
     active: true
     scope: structure
-    rule: 不要生成关于贡献指南的文档。
-    feedback: 删除贡献指南相关的文档，这部分内容还没有准备好
+    rule: Do not generate documentation about contribution guidelines.
+    feedback: Remove contribution guidelines related documentation, this content is not ready yet
     createdAt: 2025-08-30T14:46:32.741Z
   - id: pref_8c619b5228f791e5
     active: true
     scope: document
-    rule: 不要生成关于 Mermaid 图表验证的内容，因为图表已改为使用 D2。
-    feedback: 删除 mermaid 图表验证相关的描述，现在图表已改为使用 D2
+    rule: Do not generate content about Mermaid chart validation, as charts have been changed to use D2.
+    feedback: Remove mermaid chart validation related descriptions, charts now use D2
     createdAt: 2025-08-30T14:29:04.068Z
   - id: pref_0e154f58c22329fb
     active: true
     scope: document
-    rule: 不要生成关于已不再支持的开发命令的文档内容。
-    feedback: 删除开发命令相关的文档，这些开发命令已经不支持了
+    rule: Do not generate documentation content about development commands that are no longer supported.
+    feedback: Remove development command related documentation, these development commands are no longer supported
     createdAt: 2025-08-30T14:13:50.446Z
   - id: pref_0112657e4103ba88
     active: true
     scope: structure
-    rule: 根据最新的源码更新文档结构，可以新增文档和修改文档对源码的依赖，但禁止修改任何现有文档的路径。
-    feedback: 基于最新的源码更新文档结构,允许新增文档、修改文档依赖源码,不可以修改现有文档的路径
+    rule: Update documentation structure based on the latest source code, can add new documents and modify document dependencies on source code, but prohibit modifying any existing document paths.
+    feedback: Update documentation structure based on the latest source code, allow adding new documents and modifying document dependencies on source code, cannot modify existing document paths
     createdAt: 2025-08-30T14:03:47.434Z

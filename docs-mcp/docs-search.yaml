@@ -2,8 +2,10 @@ type: team
 name: docs-search
 description: Search relevant documents based on user query
 skills:
-  - ../agents/load-config.mjs
-  - ../agents/load-sources.mjs
+  - url: ../agents/init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../agents/utils/load-sources.mjs
   - analyze-docs-relevance.yaml
   - read-doc-content.mjs
   - analyze-content-relevance.yaml
@@ -36,5 +38,5 @@ output_schema:
             type: string
           description:
             type: string
-      description: List of relevant documents from structure plan
+      description: List of relevant documents from document structure
 mode: sequential

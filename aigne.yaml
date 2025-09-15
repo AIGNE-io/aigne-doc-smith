@@ -6,50 +6,50 @@ chat_model:
   # name: gemini-2.5-flash
   temperature: 0.8
 agents:
-  - ./agents/structure-planning.yaml
-  - ./agents/batch-docs-detail-generator.yaml
-  - ./agents/load-sources.mjs
-  - ./agents/save-docs.mjs
-  - ./agents/translate.yaml
-  - ./agents/detail-generator-and-translate.yaml
-  - ./agents/check-detail.mjs
-  - ./agents/transform-detail-datasources.mjs
-  - ./agents/batch-translate.yaml
-  - ./agents/save-single-doc.mjs
-  - ./agents/save-output.mjs
-  - ./agents/check-structure-plan.mjs
-  - ./agents/content-detail-generator.yaml
-  - ./agents/reflective-structure-planner.yaml
-  - ./agents/check-structure-planning-result.yaml
-  - ./agents/input-generator.mjs
-  - ./agents/docs-generator.yaml
-  - ./agents/detail-regenerator.yaml
-  - ./agents/publish-docs.mjs
-  - ./agents/format-structure-plan.mjs
-  - ./agents/load-config.mjs
-  - ./agents/team-publish-docs.yaml
-  - ./agents/find-item-by-path.mjs
-  - ./agents/retranslate.yaml
-  - ./agents/language-selector.mjs
+  - ./agents/generate/generate-structure.yaml
+  - ./agents/update/batch-generate-document.yaml
+  - ./agents/utils/load-sources.mjs
+  - ./agents/utils/save-docs.mjs
+  - ./agents/translate/translate-document.yaml
+  - ./agents/update/generate-and-translate-document.yaml
+  - ./agents/update/check-document.mjs
+  - ./agents/utils/transform-detail-datasources.mjs
+  - ./agents/translate/translate-multilingual.yaml
+  - ./agents/utils/save-single-doc.mjs
+  - ./agents/utils/save-output.mjs
+  - ./agents/generate/check-need-generate-structure.mjs
+  - ./agents/update/generate-document.yaml
+  - ./agents/generate/refine-document-structure.yaml
+  - ./agents/generate/check-document-structure.yaml
+  - ./agents/init/index.mjs
+  - ./agents/generate/index.yaml
+  - ./agents/update/index.yaml
+  - ./agents/publish/publish-docs.mjs
+  - ./agents/utils/format-document-structure.mjs
+  - ./agents/publish/index.yaml
+  - ./agents/utils/find-item-by-path.mjs
+  - ./agents/translate/index.yaml
+  - ./agents/translate/choose-language.mjs
   - ./docs-mcp/get-docs-structure.mjs
   - ./docs-mcp/get-docs-detail.mjs
   - ./docs-mcp/docs-search.yaml
   - ./docs-mcp/analyze-docs-relevance.yaml
   - ./docs-mcp/read-doc-content.mjs
   - ./docs-mcp/analyze-content-relevance.yaml
-  - ./agents/check-feedback-refiner.mjs
-  - ./agents/feedback-refiner.yaml
-  - ./agents/manage-prefs.mjs
+  - ./agents/utils/check-feedback-refiner.mjs
+  - ./agents/utils/feedback-refiner.yaml
+  - ./agents/prefs/index.mjs
+  - ./agents/chat/index.yaml
   - ./agents/certify/certify.yaml
 cli:
-  chat: ./agents/chat.yaml
+  chat: ./agents/chat/index.yaml
   agents:
-    - ./agents/input-generator.mjs
-    - ./agents/docs-generator.yaml
-    - ./agents/detail-regenerator.yaml
-    - ./agents/team-publish-docs.yaml
-    - ./agents/retranslate.yaml
-    - ./agents/manage-prefs.mjs
+    - ./agents/init/index.mjs
+    - ./agents/generate/index.yaml
+    - ./agents/update/index.yaml
+    - ./agents/publish/index.yaml
+    - ./agents/translate/index.yaml
+    - ./agents/prefs/index.mjs
 mcp_server:
   agents:
     - ./docs-mcp/get-docs-structure.mjs

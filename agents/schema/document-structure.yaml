@@ -1,0 +1,26 @@
+type: array
+items:
+  type: object
+  properties:
+    title:
+      type: string
+    description:
+      type: string
+    path:
+      type: string
+      description: Path in URL format, cannot be empty, cannot contain spaces or special characters, must start with /, no need to include language level, e.g., /zh/about should return /about
+    parentId:
+      type:
+        - string
+        - "null"
+      description: Parent node path, if null indicates it is a top-level node
+    sourceIds:
+      type: array
+      description: Associated sourceId from dataSources for subsequent translation and content generation, must come from sourceId in datasources, cannot have fake ids, **cannot be empty**
+      items:
+        type: string
+  required:
+    - title
+    - description
+    - path
+    - sourceIds

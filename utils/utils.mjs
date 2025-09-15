@@ -1170,6 +1170,7 @@ export function detectSystemLanguage() {
   }
 }
 
-export function getContentHash(str) {
-  return crypto.createHash("sha256").update(str).digest("hex");
+export function getContentHash(str, { trim = true } = {}) {
+  const input = trim && typeof str === "string" ? str.trim() : str;
+  return crypto.createHash("sha256").update(input).digest("hex");
 }
