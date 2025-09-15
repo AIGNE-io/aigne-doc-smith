@@ -1,0 +1,35 @@
+type: team
+name: certify
+description: Certify document quality
+skills:
+  - url: ../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../utils/load-sources.mjs
+  - ../utils/format-document-structure.mjs
+  - type: transform
+    name: transformData
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          "documentStructure": originalDocumentStructure,
+          "datasources": "",
+          "datasourcesList": ""
+        }
+      ])
+  - ./evaluation-document-structure.yaml
+  - type: team
+    name: batchCertifyDocument
+    skills:
+      - ../utils/load-document-all-content.mjs
+      - ./evaluation-document.yaml
+    iterate_on: originalDocumentStructure
+    concurrency: 3
+    mode: sequential
+  - ./generate-evaluation-report.mjs
+  - url: ../utils/action-success.mjs
+    default_input:
+      action: "✅ Documents certified successfully"
+mode: sequential

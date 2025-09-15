@@ -40,7 +40,7 @@ agents:
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/prefs/index.mjs
   - ./agents/chat/index.yaml
-  - ./agents/certify/certify.yaml
+  - ./agents/certify/index.yaml
 cli:
   chat: ./agents/chat/index.yaml
   agents:

@@ -1,0 +1,156 @@
+name: evaluationDocument
+description: Evaluates the quality of generated document content, ensuring compliance with user-configured goals, audiences, and knowledge level requirements.
+instructions:
+  url: ../../prompts/certify/evaluation-document.md
+task_render_mode: collapse
+input_schema:
+  type: object
+  properties:
+    content:
+      type: string
+      description: Document content to be evaluated
+    translationsString:
+      type: string
+      description: Document translation content
+    description:
+      type: string
+      description: Document content planning description
+    purposes:
+      type: string
+      description: User-selected document goals
+    audiences:
+      type: string
+      description: User-selected target audiences
+    readerKnowledgeLevel:
+      type: string
+      description: User-selected reader knowledge level
+  required:
+    - content
+    - description
+    - purposes
+    - audiences
+    - readerKnowledgeLevel
+output_schema:
+  type: object
+  properties:
+    readability:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Readability score, 1-5 points
+        reason:
+          type: string
+          description: Concise and specific scoring reason
+      required:
+        - score
+        - reason
+    coherence:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Logical coherence score, 1-5 points
+        reason:
+          type: string
+          description: Concise and specific scoring reason
+      required:
+        - score
+        - reason
+    contentQuality:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Content quality score, 1-5 points
+        reason:
+          type: string
+          description: Concise and specific scoring reason
+      required:
+        - score
+        - reason
+    translationQuality:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Translation quality score, 1-5 points (if applicable)
+        reason:
+          type: string
+          description: Concise and specific scoring reason
+      required:
+        - score
+        - reason
+    consistency:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Consistency score, 1-5 points
+        reason:
+          type: string
+          description: Concise and specific scoring reason
+      required:
+        - score
+        - reason
+    purposeAlignment:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Document purpose alignment score, 1-5 points
+        reason:
+          type: string
+          description: Concise and specific scoring reason
+      required:
+        - score
+        - reason
+    audienceAlignment:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Target audience alignment score, 1-5 points
+        reason:
+          type: string
+          description: Concise and specific scoring reason
+      required:
+        - score
+        - reason
+    knowledgeLevelAlignment:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Knowledge level alignment score, 1-5 points
+        reason:
+          type: string
+          description: Concise and specific scoring reason
+      required:
+        - score
+        - reason
+  required:
+    - readability
+    - coherence
+    - contentQuality
+    - translationQuality
+    - consistency
+    - purposeAlignment
+    - audienceAlignment
+    - knowledgeLevelAlignment
