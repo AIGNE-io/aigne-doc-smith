@@ -91,7 +91,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
       source: `AIGNE DocSmith connect to website`,
       closeOnSuccess: true,
       appName: "AIGNE DocSmith",
-      appLogo: "https://docsmith.aigne.io/image-bin/uploads/a7910a71364ee15a27e86f869ad59009.svg",
+      appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
       openPage: (pageUrl) => {
         const url = new URL(pageUrl);
         if (ltToken) {

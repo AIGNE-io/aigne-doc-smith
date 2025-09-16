@@ -9,7 +9,7 @@ rules:
     active: true
     scope: document
     rule: When describing publishing options, should use plain text instead of custom components, and recommend users to run their own Discuss Kit instance while providing relevant links.
-    feedback: Publishing options should not use custom components: recommend users to run their own Discuss Kit instance in the text, and add Discuss Kit related links
+    feedback: "Publishing options should not use custom components: recommend users to run their own Discuss Kit instance in the text, and add Discuss Kit related links"
     createdAt: 2025-09-07T02:18:22.237Z
   - id: pref_039b58c47bdf95c9
     active: true
