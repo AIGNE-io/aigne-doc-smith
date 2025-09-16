@@ -2,6 +2,8 @@ name: evaluationDocument
 description: Evaluates the quality of generated document content, ensuring compliance with user-configured goals, audiences, and knowledge level requirements.
 instructions:
   url: ../../prompts/certify/evaluation-document.md
+model: openai/gpt-5
+# model: anthropic/claude-opus-4-0
 task_render_mode: collapse
 input_schema:
   type: object
