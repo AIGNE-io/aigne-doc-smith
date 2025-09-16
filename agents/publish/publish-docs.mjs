@@ -8,6 +8,7 @@ import { getAccessToken } from "../../utils/auth-utils.mjs";
 import {
   DEFAULT_APP_URL,
   DISCUSS_KIT_STORE_URL,
+  DOC_SMITH_DIR,
   TMP_DIR,
   TMP_DOCS_DIR,
 } from "../../utils/constants/index.mjs";
@@ -22,7 +23,7 @@ export default async function publishDocs(
   // move work dir to tmp-dir
   await ensureTmpDir();
 
-  const docsDir = join(".aigne", "doc-smith", TMP_DIR, TMP_DOCS_DIR);
+  const docsDir = join(DOC_SMITH_DIR, TMP_DIR, TMP_DOCS_DIR);
   await fs.rm(docsDir, { recursive: true, force: true });
   await fs.mkdir(docsDir, {
     recursive: true,
@@ -165,7 +166,7 @@ export default async function publishDocs(
       boardDesc: projectInfo.description,
       boardCover: projectInfo.icon,
       mediaFolder: rawDocsDir,
-      cacheFilePath: join(".aigne", "doc-smith", "upload-cache.yaml"),
+      cacheFilePath: join(DOC_SMITH_DIR, "upload-cache.yaml"),
       boardMeta,
     });
 

@@ -5,6 +5,8 @@ import fsPromisesDefault, * as fsPromises from "node:fs/promises";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { DOC_SMITH_DIR } from "../../utils/constants.mjs";
 import { saveValueToConfig } from "../../utils/utils.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,7 +14,7 @@ const __dirname = dirname(__filename);
 
 // Test directory for isolated testing
 const TEST_DIR = join(__dirname, "temp-config-test");
-const TEST_CONFIG_DIR = join(TEST_DIR, ".aigne", "doc-smith");
+const TEST_CONFIG_DIR = join(TEST_DIR, DOC_SMITH_DIR);
 const TEST_CONFIG_PATH = join(TEST_CONFIG_DIR, "config.yaml");
 
 // Store original working directory

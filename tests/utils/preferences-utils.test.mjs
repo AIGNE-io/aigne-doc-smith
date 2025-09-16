@@ -3,6 +3,8 @@ import { existsSync } from "node:fs";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { DOC_SMITH_DIR } from "../../utils/constants.mjs";
 import {
   addPreferenceRule,
   deactivateRule,
@@ -44,7 +46,7 @@ describe("preferences-utils", () => {
 
     test("should read existing preferences file", async () => {
       // Create preferences directory and file
-      const prefsDir = join(testDir, ".aigne", "doc-smith");
+      const prefsDir = join(testDir, DOC_SMITH_DIR);
       await mkdir(prefsDir, { recursive: true });
 
       await writeFile(
@@ -69,7 +71,7 @@ describe("preferences-utils", () => {
 
     test("should handle malformed YAML gracefully", async () => {
       // Create preferences directory and invalid file
-      const prefsDir = join(testDir, ".aigne", "doc-smith");
+      const prefsDir = join(testDir, DOC_SMITH_DIR);
       await mkdir(prefsDir, { recursive: true });
 
       await writeFile(join(prefsDir, "preferences.yml"), "invalid: yaml: content: [", "utf8");
@@ -85,7 +87,7 @@ describe("preferences-utils", () => {
 
       writePreferences(testPreferences);
 
-      const prefsDir = join(testDir, ".aigne", "doc-smith");
+      const prefsDir = join(testDir, DOC_SMITH_DIR);
       expect(existsSync(prefsDir)).toBe(true);
       expect(existsSync(join(prefsDir, "preferences.yml"))).toBe(true);
     });

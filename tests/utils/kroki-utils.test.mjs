@@ -6,7 +6,7 @@ import path from "node:path";
 
 import Debug from "debug";
 
-import { TMP_ASSETS_DIR } from "../../utils/constants/index.mjs";
+import { DOC_SMITH_DIR, TMP_ASSETS_DIR, TMP_DIR } from "../../utils/constants/index.mjs";
 import {
   beforePublishHook,
   checkD2Content,
@@ -451,7 +451,7 @@ E -> F
       try {
         await checkD2Content({ content });
 
-        const assetDir = path.join(process.cwd(), ".aigne", "doc-smith", ".tmp", "assets", "d2");
+        const assetDir = path.join(process.cwd(), DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "d2");
         const files = await readdir(assetDir);
         const d2File = files.find((file) => file.endsWith(".d2"));
         expect(d2File).toBeDefined();
@@ -470,7 +470,7 @@ E -> F
       try {
         await ensureTmpDir();
 
-        const tmpDir = path.join(tempDir, ".aigne", "doc-smith", ".tmp");
+        const tmpDir = path.join(tempDir, DOC_SMITH_DIR, TMP_DIR);
         const gitignorePath = path.join(tmpDir, ".gitignore");
 
         expect(existsSync(tmpDir)).toBe(true);
@@ -491,7 +491,7 @@ E -> F
         // First call
         await ensureTmpDir();
 
-        const tmpDir = path.join(tempDir, ".aigne", "doc-smith", ".tmp");
+        const tmpDir = path.join(tempDir, DOC_SMITH_DIR, TMP_DIR);
         const gitignorePath = path.join(tmpDir, ".gitignore");
 
         // Modify .gitignore to test if it gets overwritten
@@ -632,7 +632,7 @@ E -> F
         await Promise.all(promises);
 
         // Should only create directory once
-        const tmpDir = path.join(tempDir, ".aigne", "doc-smith", ".tmp");
+        const tmpDir = path.join(tempDir, DOC_SMITH_DIR, TMP_DIR);
         expect(existsSync(tmpDir)).toBe(true);
 
         // .gitignore should be created properly
