@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.10-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.9...v0.8.10-beta) (2025-09-16)
+
+
+### Bug Fixes
+
+* **ci:** support publish beta releases ([#112](https://github.com/AIGNE-io/aigne-doc-smith/issues/112)) ([aa51523](https://github.com/AIGNE-io/aigne-doc-smith/commit/aa515237cff275ef8c46f5ac2ad7ff60e9915ab4))
+
 ## [0.8.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.8...v0.8.9) (2025-09-15)
 
 
