@@ -77,7 +77,7 @@ export async function saveD2Assets({ markdown, docsDir }) {
         debug("Found assets cache, skipping generation", svgPath);
       } else {
         try {
-          debug("start generate d2 chart", svgPath);
+          debug("start generate d2 diagram", svgPath);
           if (debug.enabled) {
             const d2FileName = `${getContentHash(d2Content)}.d2`;
             const d2Path = path.join(assetDir, d2FileName);
@@ -89,7 +89,7 @@ export async function saveD2Assets({ markdown, docsDir }) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
         } catch (error) {
-          debug("Failed to generate D2 chart:", error);
+          debug("Failed to generate D2 diagram:", error);
           return _code;
         }
       }

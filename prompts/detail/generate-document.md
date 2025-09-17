@@ -128,8 +128,6 @@ parentId: {{parentId}}
 自定义代码块生成规则：
 {% include "custom/custom-code-block.md" %}
 
-D2 Diagram Generation Expert Guide:
-{% include "d2-chart/rules.md" %}
 </content_generation_rules>
 
 {% include "./detail-example.md" %}
