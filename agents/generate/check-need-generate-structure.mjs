@@ -13,6 +13,28 @@ export default async function checkNeedGenerateStructure(
   { originalDocumentStructure, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
   options,
 ) {
+  // Check if originalDocumentStructure is empty and prompt user
+  if (!originalDocumentStructure) {
+    const choice = await options.prompts.select({
+      message:
+        "Your project configuration is set. Would you like to proceed with generating the document structure now?",
+      choices: [
+        {
+          name: "Generate now: Start building the document structure immediately.",
+          value: "generate",
+        },
+        {
+          name: "Modify Configuration and Generate Later: Review and adjust the current settings before generating.",
+          value: "later",
+        },
+      ],
+    });
+
+    if (choice === "later") {
+      throw new Error("Please review and modify your configuration as needed, then run 'aigne doc generate' again to proceed with document generation.");
+    }
+  }
+
   // Check if we need to regenerate document structure
   let shouldRegenerate = false;
   let finalFeedback = feedback;
