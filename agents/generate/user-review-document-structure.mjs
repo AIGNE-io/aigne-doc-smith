@@ -135,6 +135,19 @@ export default async function userReviewDocumentStructure({ documentStructure, .
       if (result.documentStructure) {
         currentStructure = result.documentStructure;
       }
+
+      // Check if feedback should be saved as user preference
+      const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];
+      if (feedbackRefinerAgent) {
+        try {
+          await options.context.invoke(feedbackRefinerAgent, {
+            documentStructureFeedback: feedback.trim(),
+            stage: "structure",
+          });
+        } catch (refinerError) {
+          console.warn("Failed to process feedback for preferences:", refinerError.message);
+        }
+      }
     } catch (error) {
       console.log("Something went wrong while processing your feedback.");
       console.log(`Error details: ${error.message}`);

@@ -44,6 +44,7 @@ describe("user-review-document-structure", () => {
       context: {
         agents: {
           refineDocumentStructure: {},
+          checkFeedbackRefiner: {},
         },
         invoke: mock(async () => ({
           documentStructure: documentStructure,
@@ -156,6 +157,13 @@ describe("user-review-document-structure", () => {
         userPreferences: "",
       }),
     );
+    expect(mockOptions.context.invoke).toHaveBeenCalledWith(
+      mockOptions.context.agents.checkFeedbackRefiner,
+      expect.objectContaining({
+        documentStructureFeedback: feedback,
+        stage: "structure",
+      }),
+    );
     expect(result.documentStructure).toEqual(refinedStructure);
   });
 
@@ -251,12 +259,55 @@ describe("user-review-document-structure", () => {
       .mockImplementationOnce(async () => ""); // Exit loop
 
     mockOptions.context.invoke
-      .mockImplementationOnce(async () => ({ documentStructure: firstRefinedStructure }))
-      .mockImplementationOnce(async () => ({ documentStructure: finalRefinedStructure }));
+      .mockImplementationOnce(async () => ({ documentStructure: firstRefinedStructure })) // refineDocumentStructure 1st call
+      .mockImplementationOnce(async () => ({})) // checkFeedbackRefiner 1st call
+      .mockImplementationOnce(async () => ({ documentStructure: finalRefinedStructure })) // refineDocumentStructure 2nd call
+      .mockImplementationOnce(async () => ({})); // checkFeedbackRefiner 2nd call
 
     const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
 
-    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(2);
+    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(4); // 2 refine + 2 feedback refiner calls
     expect(result.documentStructure).toEqual(finalRefinedStructure);
+  });
+
+  test("should handle missing checkFeedbackRefiner agent gracefully", async () => {
+    const feedback = "Some feedback";
+    mockOptions.context.agents = { refineDocumentStructure: {} }; // No checkFeedbackRefiner agent
+
+    mockOptions.prompts.select.mockImplementation(async () => "yes");
+    mockOptions.prompts.input
+      .mockImplementationOnce(async () => feedback)
+      .mockImplementationOnce(async () => "");
+
+    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+
+    expect(result.documentStructure).toEqual(documentStructure);
+    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(1); // Only refineDocumentStructure called
+  });
+
+  test("should handle checkFeedbackRefiner errors gracefully", async () => {
+    const feedback = "Some feedback";
+    const warnSpy = spyOn(console, "warn").mockImplementation(() => {});
+
+    mockOptions.prompts.select.mockImplementation(async () => "yes");
+    mockOptions.prompts.input
+      .mockImplementationOnce(async () => feedback)
+      .mockImplementationOnce(async () => "");
+
+    mockOptions.context.invoke
+      .mockImplementationOnce(async () => ({ documentStructure })) // refineDocumentStructure
+      .mockImplementationOnce(async () => {
+        throw new Error("Refiner failed");
+      }); // checkFeedbackRefiner
+
+    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+
+    expect(result.documentStructure).toEqual(documentStructure);
+    expect(warnSpy).toHaveBeenCalledWith(
+      "Failed to process feedback for preferences:",
+      "Refiner failed",
+    );
+
+    warnSpy.mockRestore();
   });
 });

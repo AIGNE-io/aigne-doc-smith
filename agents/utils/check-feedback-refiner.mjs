@@ -77,3 +77,5 @@ checkFeedbackRefiner.input_schema = {
     },
   },
 };
+
+checkFeedbackRefiner.taskRenderMode = "collapse";
