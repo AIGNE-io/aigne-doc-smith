@@ -50,20 +50,21 @@ function formatDocumentStructure(structure) {
 export default async function userReviewDocumentStructure({ documentStructure, ...rest }, options) {
   // Check if document structure exists
   if (!documentStructure || !Array.isArray(documentStructure) || documentStructure.length === 0) {
-    console.log("No document structure to review.");
+    console.log("No document structure was generated to review.");
     return { documentStructure };
   }
 
   // Ask user if they want to review the document structure
   const needReview = await options.prompts.select({
-    message: "Do you want to review or modify the document structure?",
+    message:
+      "Review the current document structure?\n  You can modify titles, adjust organization, add/remove sections, or refine content outlines.",
     choices: [
       {
-        name: "No, proceed with current structure",
+        name: "Looks good, proceed with current structure",
         value: "no",
       },
       {
-        name: "Yes, I want to review and modify",
+        name: "I want to review and provide feedback",
         value: "yes",
       },
     ],
@@ -78,7 +79,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
   while (true) {
     // Print current document structure in a user-friendly format
     console.log(`\n${"=".repeat(50)}`);
-    console.log("📋 Current Document Structure");
+    console.log("Current Document Structure");
     console.log("=".repeat(50));
 
     const { rootNodes, printNode } = formatDocumentStructure(currentStructure);
@@ -94,7 +95,10 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     // Ask for feedback
     const feedback = await options.prompts.input({
       message:
-        "Please provide your feedback for improving the document structure (press Enter to skip):",
+        "Share your feedback to improve the structure:\n" +
+        "  • Rename, reorganize, add, or remove sections\n" +
+        "  • Adjust content outlines for clarity\n\n" +
+        "  Or press Enter to finish reviewing:",
     });
 
     // If no feedback, break the loop
@@ -105,7 +109,10 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     // Get the refineDocumentStructure agent
     const refineAgent = options.context.agents["refineDocumentStructure"];
     if (!refineAgent) {
-      console.error("refineDocumentStructure agent not found");
+      console.log(
+        "Unable to process your feedback - the structure refinement feature is not available.",
+      );
+      console.log("Please try again later or contact support if this issue persists.");
       break;
     }
 
@@ -129,7 +136,11 @@ export default async function userReviewDocumentStructure({ documentStructure, .
         currentStructure = result.documentStructure;
       }
     } catch (error) {
-      console.error("Error refining document structure:", error.message);
+      console.log("Something went wrong while processing your feedback.");
+      console.log(`Error details: ${error.message}`);
+      console.log(
+        "You can try providing different feedback or continue with the current structure.",
+      );
       break;
     }
   }
