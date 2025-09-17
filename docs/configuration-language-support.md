@@ -1,8 +1,8 @@
 # Language Support
 
-AIGNE DocSmith provides automated translation for 12 languages, allowing you to generate and maintain documentation for a global audience. The entire process is handled by the `aigne doc translate` command, which uses an AI engine to process your source documents and create localized versions.
+AIGNE DocSmith uses AI to provide automated documentation translation into 12 languages. This allows you to generate and maintain documentation for a global audience using the `aigne doc translate` command.
 
-The translation workflow processes your source documents through the AIGNE AI engine to generate localized versions in your selected target languages.
+The translation workflow processes your source documents through an AI engine to generate localized versions in your selected target languages.
 
 ```d2
 direction: down
@@ -55,25 +55,25 @@ DocSmith offers AI-powered translations for the following languages. You can def
 
 ## How to Configure and Use Translation
 
-Translation languages are set when you initialize your project with `aigne doc init`. You can add new languages or translate documents at any time using the `aigne doc translate` command, which offers two modes of operation.
+Translation languages are set when you initialize your project with `aigne doc init`. You can add new languages or translate documents at any time using the `aigne doc translate` command, which has two modes of operation.
 
-### Interactive Mode
+### Interactive Mode for Guided Translation
 
-For a guided experience, run the command without any arguments. This is the recommended approach for most users.
+For a step-by-step guided experience, run the command without any arguments. This is the recommended approach for most users.
 
 ```bash Interactive Translation icon=lucide:wand
 aigne doc translate
 ```
 
-The interactive mode will then prompt you to:
+The interactive mode will then present a series of prompts that allow you to:
 
-- Select which of your existing documents to translate.
-- Choose one or more target languages from the supported list.
-- Add new translation languages to your project's configuration if they are not already included.
+1.  Select which of your existing documents to translate from a list.
+2.  Choose one or more target languages from the supported list.
+3.  Add new translation languages to your project's configuration if they are not already included.
 
-### Command-Line Arguments
+### Command-Line Arguments for Automation
 
-For direct control or for use in automated scripts (like CI/CD pipelines), you can specify documents and languages directly as command-line arguments.
+For direct control or for use in automated scripts, you can specify documents and languages directly as command-line arguments. This is ideal for developers and CI/CD pipelines.
 
 ```bash Command Example icon=lucide:terminal
 # Translate overview.md and examples.md into Chinese and Japanese
@@ -91,4 +91,4 @@ Key parameters for the command include:
 
 ---
 
-This section covers the available languages and how to enable them. For a complete guide on the translation workflow, including advanced options and best practices, see the [Translate Documentation](./features-translate-documentation.md) guide.
+This section covers the available languages and how to enable them. For a complete guide on the translation workflow, see the [Translate Documentation](./features-translate-documentation.md) guide.
