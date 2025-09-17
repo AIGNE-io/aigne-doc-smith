@@ -31,26 +31,15 @@ export default async function checkNeedGenerateStructure(
     });
 
     if (choice === "later") {
-      throw new Error("Please review and modify your configuration as needed, then run 'aigne doc generate' again to proceed with document generation.");
+      throw new Error(
+        "Please review and modify your configuration as needed, then run 'aigne doc generate' again to proceed with document generation.",
+      );
     }
   }
 
   // Check if we need to regenerate document structure
   let shouldRegenerate = false;
   let finalFeedback = feedback;
-  let submittedFeedback = feedback;
-
-  // Prompt for feedback if originalDocumentStructure exists and no feedback provided
-  if (originalDocumentStructure && !feedback) {
-    const userFeedback = await options.prompts.input({
-      message: "How can we improve the documentation structure? (press Enter to skip):",
-    });
-
-    if (userFeedback?.trim()) {
-      finalFeedback = userFeedback.trim();
-      submittedFeedback = userFeedback.trim();
-    }
-  }
 
   // If no feedback and originalDocumentStructure exists, check for git changes
   if (originalDocumentStructure) {
@@ -107,7 +96,7 @@ export default async function checkNeedGenerateStructure(
     };
   }
 
-  const panningAgent = options.context.agents["refineDocumentStructure"];
+  const planAgent = options.context.agents["refineDocumentStructure"];
 
   // Get user preferences for document structure and global scope
   const structureRules = getActiveRulesForScope("structure", []);
@@ -120,11 +109,11 @@ export default async function checkNeedGenerateStructure(
   // Convert rule texts to string format for passing to the agent
   const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
-  const result = await options.context.invoke(panningAgent, {
-    feedback: finalFeedback || "",
+  const result = await options.context.invoke(planAgent, {
+    ...rest,
     originalDocumentStructure,
     userPreferences,
-    ...rest,
+    feedback: finalFeedback || "",
   });
 
   let message = "";
@@ -177,7 +166,6 @@ export default async function checkNeedGenerateStructure(
   return {
     ...result,
     feedback: "", // clear feedback
-    documentStructureFeedback: submittedFeedback,
     projectInfoMessage: message,
     originalDocumentStructure: originalDocumentStructure
       ? originalDocumentStructure

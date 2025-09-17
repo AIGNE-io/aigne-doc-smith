@@ -10,6 +10,7 @@ skills:
       skipIfExists: true
   - ../utils/load-sources.mjs
   - ./check-need-generate-structure.mjs
+  - ./user-review-document-structure.mjs
   - url: ../utils/save-output.mjs
     default_input:
       saveKey: documentStructure
