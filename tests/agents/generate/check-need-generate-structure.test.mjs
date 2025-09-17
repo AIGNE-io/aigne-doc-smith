@@ -93,7 +93,7 @@ describe("check-need-generate-structure", () => {
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
-  test("should skip prompting if feedback is already provided", async () => {
+  test("should handle pre-existing feedback without prompting", async () => {
     const providedFeedback = "Already provided feedback";
 
     await checkNeedGenerateStructure(

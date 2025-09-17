@@ -96,7 +96,7 @@ export default async function checkNeedGenerateStructure(
     };
   }
 
-  const planAgent = options.context.agents["refineDocumentStructure"];
+  const planningAgent = options.context.agents["refineDocumentStructure"];
 
   // Get user preferences for document structure and global scope
   const structureRules = getActiveRulesForScope("structure", []);
@@ -109,7 +109,7 @@ export default async function checkNeedGenerateStructure(
   // Convert rule texts to string format for passing to the agent
   const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
-  const result = await options.context.invoke(planAgent, {
+  const result = await options.context.invoke(planningAgent, {
     ...rest,
     originalDocumentStructure,
     userPreferences,

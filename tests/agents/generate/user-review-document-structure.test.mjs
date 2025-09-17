@@ -221,10 +221,8 @@ describe("user-review-document-structure", () => {
     const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
 
     expect(result.documentStructure).toEqual(documentStructure);
-    expect(consoleSpy).toHaveBeenCalledWith("Something went wrong while processing your feedback.");
-    expect(consoleSpy).toHaveBeenCalledWith("Error details: Agent failed");
     expect(consoleSpy).toHaveBeenCalledWith(
-      "You can try providing different feedback or continue with the current structure.",
+      "\nPlease try rephrasing your feedback or continue with the current structure.",
     );
   });
 
@@ -303,10 +301,7 @@ describe("user-review-document-structure", () => {
     const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
 
     expect(result.documentStructure).toEqual(documentStructure);
-    expect(warnSpy).toHaveBeenCalledWith(
-      "Failed to process feedback for preferences:",
-      "Refiner failed",
-    );
+    expect(warnSpy).toHaveBeenCalledWith("Feedback will not be saved as a preference rule.");
 
     warnSpy.mockRestore();
   });

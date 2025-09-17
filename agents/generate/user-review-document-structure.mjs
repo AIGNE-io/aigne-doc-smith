@@ -28,8 +28,11 @@ function formatDocumentStructure(structure) {
   });
 
   function printNode(node, depth = 0) {
-    const indent = "  ".repeat(depth);
-    const prefix = depth === 0 ? "📁" : "📄";
+    const INDENT_SPACES = "  ";
+    const FOLDER_ICON = "📁";
+    const FILE_ICON = "📄";
+    const indent = INDENT_SPACES.repeat(depth);
+    const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
 
     console.log(`${indent}${prefix} ${node.title}`);
     console.log(`${indent}   Path: ${node.path}`);
@@ -76,7 +79,11 @@ export default async function userReviewDocumentStructure({ documentStructure, .
 
   let currentStructure = documentStructure;
 
-  while (true) {
+  const MAX_ITERATIONS = 100;
+  let iterationCount = 0;
+  while (iterationCount < MAX_ITERATIONS) {
+    iterationCount++;
+
     // Print current document structure in a user-friendly format
     console.log(`\n${"=".repeat(50)}`);
     console.log("Current Document Structure");
@@ -145,15 +152,19 @@ export default async function userReviewDocumentStructure({ documentStructure, .
             stage: "structure",
           });
         } catch (refinerError) {
-          console.warn("Failed to process feedback for preferences:", refinerError.message);
+          console.warn(
+            "Failed to process document structure feedback for user preferences:",
+            refinerError.message,
+          );
+          console.warn("Feedback will not be saved as a preference rule.");
         }
       }
     } catch (error) {
-      console.log("Something went wrong while processing your feedback.");
-      console.log(`Error details: ${error.message}`);
-      console.log(
-        "You can try providing different feedback or continue with the current structure.",
-      );
+      console.error("Error processing document structure feedback:");
+      console.error(`Type: ${error.name}`);
+      console.error(`Message: ${error.message}`);
+      console.error(`Stack: ${error.stack}`);
+      console.log("\nPlease try rephrasing your feedback or continue with the current structure.");
       break;
     }
   }
