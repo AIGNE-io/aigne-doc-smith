@@ -12,7 +12,7 @@ const INTERVAL_MS = 3000; // 3 seconds between each check
 const TIMEOUTS = {
   paymentWait: 300, // Step 2: Payment wait timeout (5 minutes)
   installation: 300, // Step 3: Installation timeout (5 minutes)
-  serviceStart: 300, // Step 4: Service startup timeout (5 minutes)
+  serviceStart: 300, // Step 4: Website startup timeout (5 minutes)
 };
 
 // ==================== Utility Functions ====================
@@ -76,8 +76,8 @@ const API_ENDPOINTS = {
 let prefix = "";
 let paymentLinkId = "";
 /**
- * Deploy a new Discuss Kit service and return the installation URL
- * @returns {Promise<string>} - The URL of the deployed service
+ * Deploy a new Discuss Kit Website and return the installation URL
+ * @returns {Promise<string>} - The URL of the deployed Website
  */
 export async function deploy(id, cachedUrl) {
   const { mountPoint, PAYMENT_LINK_ID } = await getComponentInfoWithMountPoint(
@@ -116,19 +116,19 @@ export async function deploy(id, cachedUrl) {
   console.log(`${chalk.blue("⏳")} Step 1/4: Waiting for payment...`);
   console.log(`${chalk.blue("🔗")} Payment link: ${chalk.cyan(paymentUrl)}\n`);
   await pollPaymentStatus(checkoutId);
-  await saveValueToConfig("checkoutId", checkoutId, "Checkout ID for document deployment service");
-  await saveValueToConfig("paymentUrl", paymentUrl, "Payment URL for document deployment service");
+  await saveValueToConfig("checkoutId", checkoutId, "Checkout ID for document deployment website");
+  await saveValueToConfig("paymentUrl", paymentUrl, "Payment URL for document deployment website");
 
-  // Step 3: Wait for service installation
-  console.log(`${chalk.blue("📦")} Step 2/4: Installing service...`);
+  // Step 3: Wait for website installation
+  console.log(`${chalk.blue("📦")} Step 2/4: Installing Website...`);
   const readyVendors = await waitInstallation(checkoutId);
 
-  // Step 4: Wait for service startup
-  console.log(`${chalk.blue("🚀")} Step 3/4: Starting service...`);
-  const runningVendors = await waitServiceRunning(readyVendors);
+  // Step 4: Wait for website startup
+  console.log(`${chalk.blue("🚀")} Step 3/4: Starting Website...`);
+  const runningVendors = await waitWebsiteRunning(readyVendors);
 
   // Step 5: Get final URL
-  console.log(`${chalk.blue("🌐")} Step 4/4: Getting service URL...`);
+  console.log(`${chalk.blue("🌐")} Step 4/4: Getting Website URL...`);
   const urlInfo = await getDashboardAndUrl(checkoutId, runningVendors);
   const { appUrl, homeUrl, token } = urlInfo || {};
 
@@ -174,7 +174,7 @@ async function checkCacheCheckoutId(checkoutId) {
 
     return isPaid ? checkoutId : "";
   } catch (_error) {
-    await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
+    await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment website");
     return "";
   }
 }
@@ -310,15 +310,15 @@ async function waitInstallation(checkoutId) {
     },
     maxAttempts: Math.ceil((TIMEOUTS.installation * 1000) / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
-    timeoutMessage: "Installation timeout - services failed to install within 5 minutes",
+    timeoutMessage: "Installation timeout - website failed to install within 5 minutes",
     stepName: "Installation",
   });
 }
 
 /**
- * Wait for service to start running - Step 4
+ * Wait for Website to start running - Step 4
  */
-async function waitServiceRunning(readyVendors) {
+async function waitWebsiteRunning(readyVendors) {
   return pollWithTimeout({
     checkCondition: async () => {
       // Check running status of all vendors concurrently
@@ -346,8 +346,8 @@ async function waitServiceRunning(readyVendors) {
     },
     maxAttempts: Math.ceil((TIMEOUTS.serviceStart * 1000) / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
-    timeoutMessage: "Service start timeout - services failed to start within 5 minutes",
-    stepName: "Service Start",
+    timeoutMessage: "Website start timeout - website failed to start within 5 minutes",
+    stepName: "Website Start",
   });
 }
 
