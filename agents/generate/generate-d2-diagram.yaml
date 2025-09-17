@@ -1,0 +1,24 @@
+name: drawD2Diagram
+description: Check if a D2 diagram is needed based on the content, if needed, generate D2 Diagram code from text description, otherwise return empty string
+instructions:
+  url: ../../prompts/detail/d2-diagram/index.md
+input_schema:
+  type: object
+  properties:
+    diagramContent:
+      type: string
+      description: Text description diagram content to generate D2 diagram
+  required:
+    - diagramContent
+output_schema:
+  type: object
+  properties:
+    d2DiagramSourceCode:
+      type: string
+      description: Source code to draw D2 diagram
+    isNeedD2Diagram:
+      type: boolean
+      description: Is a D2 diagram needed
+  required:
+    - d2DiagramSourceCode
+    - isNeedD2Diagram

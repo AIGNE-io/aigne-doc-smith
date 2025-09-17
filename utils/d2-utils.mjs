@@ -60,7 +60,7 @@ export async function getChart({ content, strict }) {
   } catch (err) {
     if (strict) throw err;
 
-    console.error("Failed to generate D2 chart. Content:", content, "Error:", err);
+    console.error("Failed to generate D2 diagram. Content:", content, "Error:", err);
     return null;
   } finally {
     d2.worker.terminate();
@@ -90,7 +90,7 @@ export async function saveAssets({ markdown, docsDir }) {
         debug("Found assets cache, skipping generation", svgPath);
       } else {
         try {
-          debug("start generate d2 chart", svgPath);
+          debug("start generate d2 diagram", svgPath);
           if (debug.enabled) {
             const d2FileName = `${getContentHash(d2Content)}.d2`;
             const d2Path = path.join(assetDir, d2FileName);
@@ -102,7 +102,7 @@ export async function saveAssets({ markdown, docsDir }) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
         } catch (error) {
-          debug("Failed to generate D2 chart. Content:", d2Content, "Error:", error);
+          debug("Failed to generate D2 diagram. Content:", d2Content, "Error:", error);
           return _code;
         }
       }

@@ -1,14 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import pMap from "p-map";
 import remarkGfm from "remark-gfm";
 import remarkLint from "remark-lint";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 import { VFile } from "vfile";
-import { KROKI_CONCURRENCY } from "./constants/index.mjs";
-import { checkContent, isValidCode } from "./d2-utils.mjs";
 import { validateMermaidSyntax } from "./mermaid-validator.mjs";
 
 /**
@@ -378,7 +375,6 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
 
     // Check mermaid code blocks and other custom validations
     const mermaidChecks = [];
-    const d2ChecksList = [];
     visit(ast, "code", (node) => {
       if (node.lang) {
         const line = node.position?.start?.line || "unknown";
@@ -467,13 +463,6 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
             specialCharMatch = nodeWithSpecialCharsRegex.exec(mermaidContent);
           }
         }
-        if (isValidCode(node.lang)) {
-          d2ChecksList.push({
-            content: node.value,
-            line,
-          });
-        }
-        // TODO: @zhanghan need to check correctness of every code language
       }
     });
 
@@ -524,15 +513,6 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
 
     // Wait for all mermaid checks to complete
     await Promise.all(mermaidChecks);
-    await pMap(
-      d2ChecksList,
-      async ({ content, line }) =>
-        checkContent({ content }).catch((err) => {
-          const errorMessage = err?.message || String(err) || "Unknown d2 syntax error";
-          errorMessages.push(`Found D2 syntax error in ${source} at line ${line}: ${errorMessage}`);
-        }),
-      { concurrency: KROKI_CONCURRENCY },
-    );
 
     // Run markdown linting rules
     await processor.run(ast, file);
