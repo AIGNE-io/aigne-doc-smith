@@ -130,11 +130,20 @@ export async function deploy(id, cachedUrl) {
   // Step 5: Get final URL
   console.log(`${chalk.blue("🌐")} Step 4/4: Getting Website URL...`);
   const urlInfo = await getDashboardAndUrl(checkoutId, runningVendors);
-  const { appUrl, homeUrl, token } = urlInfo || {};
+  const { appUrl, homeUrl, token, subscriptionUrl } = urlInfo || {};
 
   console.log(
-    `\n${chalk.blue("🔗")} Your website is available at: ${chalk.cyan(homeUrl || appUrl)}\n`,
+    `\n${chalk.blue("🔗")} Your website is available at: ${chalk.cyan(homeUrl || appUrl)}`,
   );
+
+  if (subscriptionUrl) {
+    console.log(
+      `${chalk.blue("🔗")} Your subscription management URL: ${chalk.cyan(subscriptionUrl)}\n`,
+    );
+  } else {
+    // just log one space line
+    console.log('');
+  }
 
   return {
     appUrl,
@@ -385,6 +394,7 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
 
     return {
       appUrl,
+      subscriptionUrl: data.subscriptionUrl,
       dashboardUrl: data.vendors[0]?.dashboardUrl,
       homeUrl: data.vendors[0]?.homeUrl,
       token: data.vendors[0]?.token,
