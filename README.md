@@ -307,3 +307,7 @@ aigne doc publish --appUrl https://your-discuss-kit-instance.com
 
 
 ```
+
+## License
+
+This project is licensed under the Elastic License 2.0 License - see the [LICENSE](LICENSE) file for details.

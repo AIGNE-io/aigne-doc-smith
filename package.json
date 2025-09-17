@@ -1,6 +1,6 @@
 {
   "name": "@aigne/doc-smith",
-  "version": "0.8.9",
+  "version": "0.8.10-beta",
   "description": "",
   "publishConfig": {
     "access": "public"
@@ -20,7 +20,7 @@
   "bin": "aigne.yaml",
   "keywords": [],
   "author": "Arcblock <blocklet@arcblock.io> https://github.com/blocklet",
-  "license": "MIT",
+  "license": "Elastic-2.0",
   "dependencies": {
     "@aigne/aigne-hub": "^0.9.3",
     "@aigne/anthropic": "^0.13.3",
