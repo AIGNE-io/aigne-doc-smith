@@ -1,5 +1,6 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
+import chalk from "chalk";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
   getCurrentGitHead,
@@ -31,9 +32,11 @@ export default async function checkNeedGenerateStructure(
     });
 
     if (choice === "later") {
-      throw new Error(
+      console.log(`\nConfiguration file path: ${chalk.cyan("./.aigne/doc-smith/config.yaml")}`);
+      console.log(
         "Please review and modify your configuration as needed, then run 'aigne doc generate' again to proceed with document generation.",
       );
+      process.exit(0);
     }
   }
 

@@ -35,8 +35,6 @@ function formatDocumentStructure(structure) {
     const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
 
     console.log(`${indent}${prefix} ${node.title}`);
-    console.log(`${indent}   Path: ${node.path}`);
-    console.log(`${indent}   Content Outline: ${node.description}\n`);
 
     if (node.children && node.children.length > 0) {
       node.children.forEach((child) => {
