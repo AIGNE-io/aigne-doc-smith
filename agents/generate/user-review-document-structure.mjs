@@ -47,9 +47,9 @@ function formatDocumentStructure(structure) {
 }
 
 function printDocumentStructure(structure) {
-  console.log(`\n${"=".repeat(50)}`);
+  console.log(`\n${"-".repeat(50)}`);
   console.log("Current Document Structure");
-  console.log("=".repeat(50));
+  console.log("-".repeat(50));
 
   const { rootNodes, printNode } = formatDocumentStructure(structure);
 
@@ -58,8 +58,7 @@ function printDocumentStructure(structure) {
   } else {
     rootNodes.forEach((node) => printNode(node));
   }
-
-  console.log(`${"=".repeat(50)}\n`);
+  console.log();
 }
 
 export default async function userReviewDocumentStructure({ documentStructure, ...rest }, options) {
