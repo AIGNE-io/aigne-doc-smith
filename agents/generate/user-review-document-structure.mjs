@@ -75,14 +75,14 @@ export default async function userReviewDocumentStructure({ documentStructure, .
   // Ask user if they want to review the document structure
   const needReview = await options.prompts.select({
     message:
-      "Would you like to improve the document structure?\n  You can modify titles, reorganize sections, or refine content outlines.",
+      "Would you like to optimize the document structure?\n  You can modify titles, reorganize sections, or refine content outlines.",
     choices: [
       {
         name: "Looks good - proceed with current structure",
         value: "no",
       },
       {
-        name: "Yes, I'd like to optimize the structure",
+        name: "Yes, optimize the structure",
         value: "yes",
       },
     ],
