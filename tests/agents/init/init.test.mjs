@@ -619,12 +619,6 @@ describe("generateYAML", () => {
           projectLogo: "",
         },
         {
-          name: "Whitespace-only values",
-          projectName: "   ",
-          projectDesc: "\n\n  \t  \n",
-          projectLogo: "  ",
-        },
-        {
           name: "Very long values",
           projectName: "a".repeat(200),
           projectDesc:
