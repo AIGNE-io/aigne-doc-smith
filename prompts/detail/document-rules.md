@@ -16,6 +16,7 @@ Documentation Generation Rules:
 - Use the `<x-field>` custom component for displaying parameters, return values, context data, props, and other type-related information. Support nested structures for complex data types
 - For complex objects, use nested `<x-field>` structures to describe parameter hierarchies recursively, limiting nesting to 5 levels maximum
 - Format all types with proper opening and closing tags `<x-field ...></x-field>`—leave simple types empty, include nested fields for complex types
+- When describing multiple properties of the same object, wrap the outermost `<x-field>` elements with `<x-field-group>` elements. Note that nested `<x-field>` elements do not need wrapping
 - All interface and method documentation must include **response data examples**
 - For simple list data, use markdown tables to present information clearly and improve readability
 - Validate output markdown for completeness, ensuring tables and d2 diagrams are properly formatted

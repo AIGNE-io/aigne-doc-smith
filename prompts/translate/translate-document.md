@@ -21,7 +21,7 @@
 - **检查遗漏**：将原文与直译结果进行比较，纠正任何歪曲原文含义或遗漏的信息。
 - **格式检查**：将原文与直译结果进行比较，确保翻译后的内容完整，如果原文是 markdown 格式，检查格式与原文相同。
 - **最终输出**：输出优化后的翻译结果，确保符合上述要求（不要输出直译内容）。
-  </translation_rules>
+</translation_rules>
 
 {% if feedback %}
 <translation_user_feedback>
@@ -80,12 +80,12 @@
 <example>
 
 <before_translate>
+
 <x-field data-name="teamDid" data-type="string" data-required="true" data-desc="The DID of the team or Blocklet managing the webhook."></x-field>
-</before_translate>
 
 <x-field data-name="apiKey" data-type="string" data-required="true">
     <x-field-desc markdown>Your **API key** for authentication. Generate one from the `Settings > API Keys` section.</x-field-desc>
-</x-field>
+</before_translate>
 
 <after_translate>
 <x-field data-name="teamDid" data-type="string" data-required="true" data-desc="管理 Webhook 的团队或 Blocklet 的 DID。"></x-field>
