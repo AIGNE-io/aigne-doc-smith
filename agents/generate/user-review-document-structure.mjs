@@ -41,8 +41,6 @@ function formatDocumentStructure(structure) {
         printNode(child, depth + 1);
       });
     }
-
-    if (depth === 0) console.log(); // Add spacing between root nodes
   }
 
   return { rootNodes, printNode };
