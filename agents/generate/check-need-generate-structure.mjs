@@ -81,12 +81,12 @@ export default async function checkNeedGenerateStructure(
     if (shouldRegenerate) {
       finalFeedback = `
       ${finalFeedback || ""}
-      
-      根据最新的 DataSources 更新结构规划：
-        1. 对于新增的内容，可以根据需要新增节点，或补充到原有节点展示
-        2. 谨慎删除节点，除非节点关联 sourceIds 都被删除了
-        3. 不能修改原有节点的 path
-        4. 根据最新的 Data Sources 可以按需要更新节点的 sourceIds。
+
+      Update document structure based on the latest DataSources:
+        1. For new content, add new sections as needed or supplement existing section displays
+        2. Be cautious when deleting sections, unless all associated sourceIds have been removed
+        3. Do not modify the path of existing sections
+        4. Update section sourceIds as needed based on the latest Data Sources
       `;
     }
   }
@@ -97,7 +97,7 @@ export default async function checkNeedGenerateStructure(
     finalFeedback = `
     ${finalFeedback || ""}
 
-    用户请求强制重新生成结构规划，请根据最新的 Data Sources 和用户要求重生生成，**允许任何修改**。
+    User requested forced regeneration of document structure. Please regenerate based on the latest Data Sources and user requirements, **allowing any modifications**.
     `;
   }
 
