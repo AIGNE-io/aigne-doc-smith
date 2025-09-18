@@ -4,7 +4,7 @@ AIGNE DocSmith is designed to learn from your feedback. When you refine or corre
 
 ## The Preference Lifecycle
 
-The following diagram illustrates how your feedback becomes a reusable rule that can be applied to future tasks and managed via the command line.
+The following diagram illustrates how your feedback becomes a reusable rule that can be applied to future tasks and managed from the command line.
 
 ```d2 The Preference Lifecycle
 direction: down
@@ -48,23 +48,23 @@ cli <-> pref_file: "Manages"
 
 ```
 
-### How DocSmith Learns from Feedback
+### How Preferences are Created
 
-When you provide feedback during the `refine` or `translate` stages, an internal agent called the 'Feedback Refiner' analyzes your input. Its goal is to distinguish between a one-time fix (e.g., correcting a typo) and a reusable policy (e.g., "always write code comments in English"). If it determines the feedback represents a lasting instruction, it creates a new preference rule.
+When you provide feedback during the `refine` or `translate` stages, an internal agent analyzes your input. It determines if the feedback is a one-time fix (e.g., correcting a typo) or a reusable policy (e.g., "always write code comments in English"). If it represents a lasting instruction, it creates a new preference rule.
 
-Each rule has several key properties that define its behavior:
+### Rule Properties
 
-| Property | Description |
-|---|---|
-| **id** | A unique identifier for the rule (e.g., `pref_a1b2c3d4`). |
-| **active** | A boolean (`true`/`false`) indicating if the rule is currently enabled. |
-| **scope** | Defines when the rule should be applied: `global`, `structure`, `document`, or `translation`. |
-| **rule** | The instruction that will be passed to the AI in future tasks. |
-| **feedback** | The original natural language feedback you provided. |
-| **createdAt** | The ISO 8601 timestamp of when the rule was created. |
-| **paths** | An optional list of file paths. If present, the rule only applies to content generated for those specific paths. |
+Each rule saved in `preferences.yml` has the following structure:
 
-## Managing Preferences via the CLI
+<x-field data-name="id" data-type="string" data-desc="A unique, randomly generated identifier for the rule (e.g., pref_a1b2c3d4e5f6g7h8)."></x-field>
+<x-field data-name="active" data-type="boolean" data-desc="Indicates if the rule is currently enabled. Inactive rules are ignored during generation tasks."></x-field>
+<x-field data-name="scope" data-type="string" data-desc="Defines when the rule should be applied. Valid scopes are 'global', 'structure', 'document', or 'translation'."></x-field>
+<x-field data-name="rule" data-type="string" data-desc="The specific, distilled instruction that will be passed to the AI in future tasks."></x-field>
+<x-field data-name="feedback" data-type="string" data-desc="The original, natural language feedback provided by the user, preserved for reference."></x-field>
+<x-field data-name="createdAt" data-type="string" data-desc="The ISO 8601 timestamp indicating when the rule was created."></x-field>
+<x-field data-name="paths" data-type="string[]" data-required="false" data-desc="An optional list of file paths. If present, the rule only applies to content generated for these specific source files."></x-field>
+
+## Managing Preferences with the CLI
 
 You can view and manage all your saved preferences using the `aigne doc prefs` command. This allows you to list, activate, deactivate, or permanently remove rules.
 
@@ -76,9 +76,7 @@ To see all saved preferences, both active and inactive, use the `--list` flag.
 aigne doc prefs --list
 ```
 
-The command displays a formatted list explaining the status, scope, ID, and any path limitations for each rule.
-
-**Example Output:**
+The command displays a formatted list showing the status, scope, ID, and any path limitations for each rule.
 
 ```text Example Output icon=lucide:clipboard-list
 # User Preferences
@@ -94,20 +92,17 @@ The command displays a formatted list explaining the status, scope, ID, and any 
  
 ⚪ [document] pref_i9j0k1l2m3n4o5p6
    Code comments must be written in English.
- 
 ```
 
-### Toggling Preference Status
+### Deactivating and Reactivating Preferences
 
-If you want to temporarily disable a rule without deleting it, you can toggle its active status. Use the `--toggle` flag.
-
-Running the command without an ID will launch an interactive mode, allowing you to select one or more preferences to toggle:
+If you want to temporarily disable a rule without deleting it, you can toggle its active status using the `--toggle` flag. Running the command without an ID will launch an interactive mode, allowing you to select one or more preferences to toggle.
 
 ```bash Toggle preferences interactively icon=lucide:terminal
 aigne doc prefs --toggle
 ```
 
-To toggle specific rules directly, provide their IDs using the `--id` flag:
+To toggle a specific rule directly, provide its ID using the `--id` flag. This corresponds to the `deactivateRule` function, which sets the rule's `active` property to `false`.
 
 ```bash Toggle a specific preference icon=lucide:terminal
 aigne doc prefs --toggle --id pref_i9j0k1l2m3n4o5p6
@@ -115,15 +110,15 @@ aigne doc prefs --toggle --id pref_i9j0k1l2m3n4o5p6
 
 ### Removing Preferences
 
-To permanently delete one or more preferences, use the `--remove` flag. This action cannot be undone.
+To permanently delete one or more preferences, use the `--remove` flag. This action, which corresponds to the `removeRule` function, cannot be undone.
 
-For an interactive selection prompt, run the command without an ID:
+For an interactive selection prompt, run the command without an ID.
 
 ```bash Remove preferences interactively icon=lucide:terminal
 aigne doc prefs --remove
 ```
 
-To remove specific rules directly by their ID, use the `--id` flag:
+To remove a specific rule directly by its ID, use the `--id` flag.
 
 ```bash Remove a specific preference icon=lucide:terminal
 aigne doc prefs --remove --id pref_a1b2c3d4e5f6g7h8

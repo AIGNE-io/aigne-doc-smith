@@ -1,17 +1,18 @@
 # Update and Refine
 
-Keeping documentation synchronized with an evolving codebase is essential. AIGNE DocSmith provides direct and flexible methods to keep your content current, whether through automatic updates triggered by code changes or precise, feedback-driven refinements.
+Keeping documentation synchronized with an evolving codebase is a critical task. AIGNE DocSmith provides direct and flexible methods to keep your content current, whether through automatic updates based on code changes or precise, feedback-driven refinements.
 
 This guide covers how to:
-- Automatically update documents when your code changes.
-- Manually regenerate specific documents with targeted feedback.
-- Optimize the overall documentation structure.
+
+- Automatically update documents when your source code changes.
+- Regenerate specific documents using targeted feedback.
+- Adjust the overall documentation structure.
 
 ### Document Update Workflows
 
 The following diagram illustrates the different paths you can take to update your documentation:
 
-```d2
+```d2 Update Workflows
 direction: down
 
 Start: {
@@ -66,9 +67,9 @@ Replan -> End
 
 ## Automatic Updates with Change Detection
 
-When you run the `aigne doc generate` command, DocSmith analyzes your codebase, detects any changes since the last run, and regenerates only the documents that are affected. This process saves time and reduces unnecessary LLM API calls.
+When you run the `aigne doc generate` command, DocSmith analyzes your codebase, detects any changes since the last run, and regenerates only the documents that are affected. This process saves time and reduces unnecessary API calls.
 
-```bash
+```shell icon=lucide:terminal
 # DocSmith will detect changes and update only what's necessary
 aigne doc generate
 ```
@@ -79,7 +80,7 @@ aigne doc generate
 
 If you need to regenerate all documentation from scratch, ignoring any cached or previous state, use the `--forceRegenerate` flag. This is useful after significant configuration changes or when you want to ensure a completely fresh build.
 
-```bash
+```shell icon=lucide:terminal
 # Regenerate all documentation from the ground up
 aigne doc generate --forceRegenerate
 ```
@@ -88,15 +89,15 @@ aigne doc generate --forceRegenerate
 
 ## Refining Individual Documents
 
-To improve a specific document without any corresponding code changes, the `aigne doc update` command allows you to provide targeted feedback to the AI for content refinement.
+To improve a specific document without any corresponding code changes, the `aigne doc update` command allows you to provide targeted instructions for content refinement.
 
 You can use this command in two ways: interactively or directly via command-line arguments.
 
 ### Interactive Mode
 
-For a guided experience, run the command without any arguments. DocSmith will present an interactive menu to select which document you want to update. After you choose, you'll be prompted to enter your feedback.
+For a guided experience, run the command without any arguments. DocSmith will present a menu to select which document you want to update. After you choose, you'll be prompted to enter your feedback.
 
-```bash
+```shell icon=lucide:terminal
 # Start the interactive update process
 aigne doc update
 ```
@@ -107,9 +108,9 @@ aigne doc update
 
 For faster workflows or scripting, you can specify the document and feedback directly using flags. This allows for precise, non-interactive updates.
 
-```bash
+```shell icon=lucide:terminal
 # Update a specific document with feedback
-aigne doc update --docs overview.md --feedback "Add a more comprehensive FAQ section at the end."
+aigne doc update --docs overview.md --feedback "Add a more detailed FAQ section at the end."
 ```
 
 Key parameters for the `update` command:
@@ -117,19 +118,19 @@ Key parameters for the `update` command:
 | Parameter  | Description                                                                                      |
 | ---------- | ------------------------------------------------------------------------------------------------ |
 | `--docs`     | The path to the document you want to update. You can use this flag multiple times for batch updates. |
-| `--feedback` | The specific instructions for the AI to use when regenerating the content.                       |
+| `--feedback` | The specific instructions to use when regenerating the content.                       |
 
 ---
 
 ## Optimizing the Overall Structure
 
-Beyond refining the content of individual documents, you can also adjust the overall documentation structure. If a section is missing or the existing organization could be improved, you can provide feedback to improve the documentation structure using the `generate` command with the `--feedback` flag.
+Beyond refining the content of individual documents, you can also adjust the overall documentation structure. If a section is missing or the existing organization could be improved, you can provide feedback to the `generate` command.
 
-This command instructs DocSmith to reconsider the entire document plan based on your new input.
+This command instructs DocSmith to re-evaluate the entire document plan based on your new input.
 
-```bash
+```shell icon=lucide:terminal
 # Regenerate the documentation structure with specific feedback
-aigne doc generate --feedback "Remove the 'About' section and add a more detailed 'API Reference'."
+aigne doc generate --feedback "Remove the 'About' section and add a detailed 'API Reference'."
 ```
 
 This approach is best for high-level changes to the document's table of contents, rather than line-by-line content edits.

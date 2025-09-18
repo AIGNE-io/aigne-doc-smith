@@ -21,12 +21,12 @@ rules:
     active: true
     scope: document
     rule: When describing Discuss Kit, must clearly state that it is a non-open-source service running on the official platform, not a self-hosted instance.
-    feedback: In the core features description about document publishing, show the official platform link, run your own Discuss Kit instance, not self-hosted: Discuss Kit is not open source.
+    feedback: "In the core features description about document publishing, show the official platform link, run your own Discuss Kit instance, not self-hosted: Discuss Kit is not open source."
     createdAt: 2025-09-07T01:59:12.876Z
   - id: pref_0c239f619329089f
     active: true
     scope: document
-    rule: In the core features section, should use plain list format and add descriptions and links for AIGNE Hub and Discuss Kit.
+    rule: "In the core features section, should use plain list format and add descriptions and links for AIGNE Hub and Discuss Kit."
     feedback: Core features section should not use custom component lists, change to plain lists, add descriptions and links for AIGNE Hub and Discuss Kit to help users understand these two products
     createdAt: 2025-09-07T01:53:22.969Z
     paths:
@@ -34,7 +34,7 @@ rules:
   - id: pref_4e8aa735b11d8484
     active: true
     scope: document
-    rule: In the 'How It Works' document, only show DocSmith implementation details, should not include AIGNE Framework information.
+    rule: "In the 'How It Works' document, only show DocSmith implementation details, should not include AIGNE Framework information."
     feedback: How it works section does not need to show AIGNE Framework, only need to show DocSmith implementation
     createdAt: 2025-09-06T13:15:10.272Z
     paths:

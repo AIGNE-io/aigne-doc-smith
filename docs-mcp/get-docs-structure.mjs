@@ -13,4 +13,4 @@ export default async function getDocsStructure() {
   return { structure };
 }
 
-getDocsStructure.description = "Get docs structure";
+getDocsStructure.description = "Get documentation structure";

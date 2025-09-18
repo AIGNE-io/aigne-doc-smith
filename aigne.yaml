@@ -41,6 +41,7 @@ agents:
   - ./agents/prefs/index.mjs
   - ./agents/chat/index.yaml
   - ./agents/certify/index.yaml
+  - ./agents/generate/user-review-document-structure.mjs
 cli:
   chat: ./agents/chat/index.yaml
   agents:

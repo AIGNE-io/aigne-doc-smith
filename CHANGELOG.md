@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.8.10-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta.1...v0.8.10-beta.2) (2025-09-18)
+
+
+### Bug Fixes
+
+* polish code test ([#122](https://github.com/AIGNE-io/aigne-doc-smith/issues/122)) ([0629705](https://github.com/AIGNE-io/aigne-doc-smith/commit/0629705ebd271282411d507421c1ba5dd01473b9))
+* update document structure review prompts and display ([#119](https://github.com/AIGNE-io/aigne-doc-smith/issues/119)) ([e2d99db](https://github.com/AIGNE-io/aigne-doc-smith/commit/e2d99db83ff3a6266b32dd450a79b6e000aff09e))
+* update usage rules for field elements ([#120](https://github.com/AIGNE-io/aigne-doc-smith/issues/120)) ([434f161](https://github.com/AIGNE-io/aigne-doc-smith/commit/434f161ab7dd989d57ca670f36d0828c09abe38a))
+
+## [0.8.10-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta...v0.8.10-beta.1) (2025-09-18)
+
+
+### Features
+
+* support document structure review workflow ([#117](https://github.com/AIGNE-io/aigne-doc-smith/issues/117)) ([ec7ae80](https://github.com/AIGNE-io/aigne-doc-smith/commit/ec7ae80b26a1b66928bddef7ac401f633a0f5a2b))
+
+
+### Bug Fixes
+
+* improve English language consistency and clarity ([#118](https://github.com/AIGNE-io/aigne-doc-smith/issues/118)) ([74c9e8e](https://github.com/AIGNE-io/aigne-doc-smith/commit/74c9e8e19a78767c32da772133662818b8e50715))
+* update doc-smith logo ([#114](https://github.com/AIGNE-io/aigne-doc-smith/issues/114)) ([52ab351](https://github.com/AIGNE-io/aigne-doc-smith/commit/52ab3519d98533f26c1a18203be51e0965c586bc))
+
 ## [0.8.10-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.9...v0.8.10-beta) (2025-09-16)
 
 

@@ -1,6 +1,6 @@
 type: team
 name: generateAndTranslateDocument
-description: Generate document and translate
+description: Generate and translate documents
 skills:
   - ../utils/transform-detail-datasources.mjs
   - type: team
@@ -70,12 +70,12 @@ input_schema:
       type: array
       items:
         type: string
-        description: Included file names
+        description: Included file name patterns
     excludePatterns:
       type: array
       items:
         type: string
-        description: Excluded file names
+        description: Excluded file name patterns
     outputDir:
       type: string
       description: Output directory

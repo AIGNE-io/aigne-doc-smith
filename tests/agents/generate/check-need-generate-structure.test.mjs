@@ -21,6 +21,9 @@ describe("check-need-generate-structure", () => {
   let saveValueToConfigSpy;
 
   beforeEach(() => {
+    // Set test environment variable
+    process.env.NODE_ENV = "test";
+
     // Reset all mocks
     mock.restore();
 
@@ -32,6 +35,7 @@ describe("check-need-generate-structure", () => {
     mockOptions = {
       prompts: {
         input: mock(async () => ""),
+        select: mock(async () => ""),
       },
       context: {
         agents: { refineDocumentStructure: {} },
@@ -70,6 +74,9 @@ describe("check-need-generate-structure", () => {
   });
 
   afterEach(() => {
+    // Clean up environment variable
+    delete process.env.NODE_ENV;
+
     // Restore all spies
     accessSpy?.mockRestore();
     getActiveRulesForScopeSpy?.mockRestore();
@@ -92,19 +99,7 @@ describe("check-need-generate-structure", () => {
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
-  test("should prompt for user feedback when originalDocumentStructure exists", async () => {
-    const userFeedback = "Need more API documentation";
-    mockOptions.prompts.input.mockImplementation(async () => userFeedback);
-
-    await checkNeedGenerateStructure({ originalDocumentStructure, docsDir: "./docs" }, mockOptions);
-
-    expect(mockOptions.prompts.input).toHaveBeenCalledWith({
-      message: "How can we improve the documentation structure? (press Enter to skip):",
-    });
-    expect(mockOptions.context.invoke).toHaveBeenCalled();
-  });
-
-  test("should skip prompting if feedback is already provided", async () => {
+  test("should handle pre-existing feedback without prompting", async () => {
     const providedFeedback = "Already provided feedback";
 
     await checkNeedGenerateStructure(
@@ -257,17 +252,6 @@ describe("check-need-generate-structure", () => {
     expect(result.feedback).toBe("");
   });
 
-  test("should preserve documentStructureFeedback", async () => {
-    const feedback = "user submitted feedback";
-
-    const result = await checkNeedGenerateStructure(
-      { originalDocumentStructure, feedback, docsDir: "./docs" },
-      mockOptions,
-    );
-
-    expect(result.documentStructureFeedback).toBe(feedback);
-  });
-
   test("should pass through additional parameters", async () => {
     const additionalParams = {
       customParam1: "value1",
@@ -288,5 +272,18 @@ describe("check-need-generate-structure", () => {
       mockOptions.context.agents.refineDocumentStructure,
       expect.objectContaining(additionalParams),
     );
+  });
+
+  test("should return userDeferred when user selects 'later' and no originalDocumentStructure exists", async () => {
+    mockOptions.prompts.select.mockImplementation(async () => "later");
+
+    const result = await checkNeedGenerateStructure({ docsDir: "./docs" }, mockOptions);
+
+    expect(result).toBeDefined();
+    expect(result.userDeferred).toBe(true);
+    expect(result.documentStructure).toBe(null);
+
+    expect(mockOptions.prompts.select).toHaveBeenCalled();
+    expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 });

@@ -42,38 +42,32 @@ export default async function saveDocs({
     console.error("Failed to cleanup invalid .md files:", err.message);
   }
 
-  const message = `## ✅ Documentation Generated Successfully!
+  const message = `# ✅ Documentation Generated Successfully!
 
-  Successfully generated **${documentStructure.length}** documents and saved to:
-  \`${docsDir}\`
-  ${projectInfoMessage || ""}
-  ### 🚀 Next Steps
+Generated **${documentStructure.length}** documents and saved to: \`${docsDir}\`
+${projectInfoMessage || ""}
+## 🚀 Next Steps
 
-  1. Publish Documentation
+**Publish Your Documentation**
 
-     \`\`\`bash
-     aigne doc publish
-     \`\`\`
+Generate a shareable preview link for your team:
 
-     Get an online preview link to share with your team
+  \`aigne doc publish\`
 
-  ### 🔧 Optional Improvements
+## 🔧 Optional Actions
 
-  1. Update Specific Documents
+**Update Specific Documents**
 
-     \`\`\`bash
-     aigne doc update
-     \`\`\`
+Regenerate content for individual documents:
 
-     Regenerate content for specific documents
+  \`aigne doc update\`
 
-  2. Provide Structure Feedback
-     \`\`\`bash
-     aigne doc generate --feedback "Your feedback on document structure"
-     \`\`\`
-     Improve the overall documentation structure
+**Refine Document Structure**
 
-  ---
+Review and improve your documentation organization:
+
+  \`aigne doc generate\`
+
   `;
 
   // Shutdown mermaid worker pool to ensure clean exit

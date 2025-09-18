@@ -1,5 +1,6 @@
 import { access } from "node:fs/promises";
 import { join } from "node:path";
+import chalk from "chalk";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import {
   getCurrentGitHead,
@@ -13,22 +14,44 @@ export default async function checkNeedGenerateStructure(
   { originalDocumentStructure, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
   options,
 ) {
+  // Check if originalDocumentStructure is empty and prompt user
+  if (!originalDocumentStructure) {
+    const choice = await options.prompts.select({
+      message:
+        "Your project configuration is complete. Would you like to generate the document structure now?",
+      choices: [
+        {
+          name: "Generate now - Start building the document structure",
+          value: "generate",
+        },
+        {
+          name: "Review configuration first - Modify settings before generating",
+          value: "later",
+        },
+      ],
+    });
+
+    if (choice === "later") {
+      console.log(`\nConfiguration file: ${chalk.cyan("./.aigne/doc-smith/config.yaml")}`);
+      console.log(
+        "Review and modify your configuration as needed, then run 'aigne doc generate' to continue.",
+      );
+
+      // In test environment, return a special result instead of exiting
+      if (process.env.NODE_ENV === "test") {
+        return {
+          userDeferred: true,
+          documentStructure: null,
+        };
+      }
+
+      process.exit(0);
+    }
+  }
+
   // Check if we need to regenerate document structure
   let shouldRegenerate = false;
   let finalFeedback = feedback;
-  let submittedFeedback = feedback;
-
-  // Prompt for feedback if originalDocumentStructure exists and no feedback provided
-  if (originalDocumentStructure && !feedback) {
-    const userFeedback = await options.prompts.input({
-      message: "How can we improve the documentation structure? (press Enter to skip):",
-    });
-
-    if (userFeedback?.trim()) {
-      finalFeedback = userFeedback.trim();
-      submittedFeedback = userFeedback.trim();
-    }
-  }
 
   // If no feedback and originalDocumentStructure exists, check for git changes
   if (originalDocumentStructure) {
@@ -85,7 +108,7 @@ export default async function checkNeedGenerateStructure(
     };
   }
 
-  const panningAgent = options.context.agents["refineDocumentStructure"];
+  const planningAgent = options.context.agents["refineDocumentStructure"];
 
   // Get user preferences for document structure and global scope
   const structureRules = getActiveRulesForScope("structure", []);
@@ -98,11 +121,11 @@ export default async function checkNeedGenerateStructure(
   // Convert rule texts to string format for passing to the agent
   const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
-  const result = await options.context.invoke(panningAgent, {
-    feedback: finalFeedback || "",
+  const result = await options.context.invoke(planningAgent, {
+    ...rest,
     originalDocumentStructure,
     userPreferences,
-    ...rest,
+    feedback: finalFeedback || "",
   });
 
   let message = "";
@@ -144,7 +167,7 @@ export default async function checkNeedGenerateStructure(
         }
 
         if (hasUpdated) {
-          message = `\n### Auto-updated Project Info to \`.aigne/doc-smith/config.yaml\`\n\n${message}\n\n`;
+          message = `\n## Project Information Updated\n\nSaved to \`.aigne/doc-smith/config.yaml\`:\n\n${message}\n\n`;
         }
       }
     } catch (error) {
@@ -155,7 +178,6 @@ export default async function checkNeedGenerateStructure(
   return {
     ...result,
     feedback: "", // clear feedback
-    documentStructureFeedback: submittedFeedback,
     projectInfoMessage: message,
     originalDocumentStructure: originalDocumentStructure
       ? originalDocumentStructure

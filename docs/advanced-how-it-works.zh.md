@@ -1,61 +1,63 @@
 # 工作原理
 
-AIGNE DocSmith 使用一个多 Agent 系统来自动化文档生成。DocSmith 不使用单个 AI 模型，而是协调一个由专业化 AI Agent 组成的流水线，其中每个 Agent 都是特定任务的专家。这种协作方法可以直接从您的源代码生成结构化且详细的文档。
+AIGNE DocSmith 在 AIGNE 框架内构建的多 Agent 系统上运行。它并非一个单一的整体进程，而是协调一个由专业化 AI Agent 组成的流水线，其中每个 Agent 负责一项特定任务。这种方法实现了一个结构化和模块化的流程，可将源代码转换为完整的文档。
 
-其核心是，DocSmith 作为一个流水线运行，通过几个不同的阶段处理您的源代码，每个阶段都由一个或多个专用的 AI Agent 管理。
+该工具是更庞大的 AIGNE 生态系统的一个组成部分，该生态系统为开发和部署 AI 应用程序提供了一个平台。
+
+![AIGNE 生态系统架构](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
 
 ## 文档生成流水线
 
-从分析代码到发布最终文档的整个过程，都遵循一个结构化的流水线。这确保了一致性，并允许在任何阶段进行有针对性的优化。
+DocSmith 的核心是一个通过几个不同阶段处理源代码的流水线。每个阶段都由一个或多个专用 Agent 管理。主要工作流程通常由 `aigne doc generate` 命令启动，其可视化如下：
 
 ```d2
 direction: down
 
 Input: {
-  label: "Source Code & Config"
+  label: "源代码和配置"
   shape: rectangle
 }
 
 Pipeline: {
-  label: "Documentation Generation Pipeline"
+  label: "核心生成流水线"
   shape: rectangle
   grid-columns: 1
   grid-gap: 40
 
   Structure-Planning: {
-    label: "1. Structure Planning\n(reflective-structure-planner)"
+    label: "1. 结构规划"
     shape: rectangle
   }
 
   Content-Generation: {
-    label: "2. Content Generation\n(content-detail-generator)"
+    label: "2. 内容生成"
     shape: rectangle
   }
 
   Saving: {
-    label: "3. Save Documents\n(save-docs)"
+    label: "3. 保存文档"
     shape: rectangle
   }
 }
 
 User-Feedback: {
-  label: "User Feedback Loop\n(via --feedback flag)"
+  label: "用户反馈循环\n(通过 --feedback 标志)"
   shape: rectangle
 }
 
 Optional-Steps: {
-  label: "Optional Steps"
+  label: "可选的生成后步骤"
   shape: rectangle
   grid-columns: 2
   grid-gap: 40
   
   Translation: {
-    label: "Translate\n(aigne doc translate)"
+    label: "翻译\n(aigne doc translate)"
     shape: rectangle
   }
 
   Publishing: {
-    label: "Publish\n(aigne doc publish)"
+    label: "发布\n(aigne doc publish)"
     shape: rectangle
   }
 }
@@ -65,35 +67,35 @@ Pipeline.Structure-Planning -> Pipeline.Content-Generation
 Pipeline.Content-Generation -> Pipeline.Saving
 Pipeline.Saving -> Optional-Steps
 
-User-Feedback -> Pipeline.Structure-Planning: "Refine Structure"
-User-Feedback -> Pipeline.Content-Generation: "Regenerate Content"
+User-Feedback -> Pipeline.Structure-Planning: "优化结构"
+User-Feedback -> Pipeline.Content-Generation: "重新生成内容"
 ```
 
-1.  **输入分析**：该过程始于 `load-sources` 和 `load-config` 等 Agent，它们会收集您的源代码、配置文件（`aigne.yaml`）以及任何用户定义的规则。
+1.  **输入分析**：当 Agent 加载你的源代码和项目配置（`aigne.yaml`）时，该过程开始。
 
-2.  **结构规划**：`reflective-structure-planner` Agent 会分析代码库，以提出一个逻辑化的文档结构。它会考虑您指定的目标受众、规则和反馈，以创建一个最佳大纲。
+2.  **结构规划**：一个 Agent 会分析代码库，以提出一个逻辑性的文档结构。它会根据项目的构成和任何指定的规则创建一个大纲。
 
-3.  **内容生成**：一旦结构确定，`content-detail-generator` 和 `batch-docs-detail-generator` Agent 就会接管。它们会用详细内容填充文档计划的每个部分，确保技术准确性并遵循定义的风格。
+3.  **内容生成**：结构就位后，内容生成 Agent 会为文档计划的每个部分填充详细的文本、代码示例和解释。
 
-4.  **优化与更新**：如果您使用 `aigne doc update` 或 `aigne doc generate --feedback` 提供反馈，`detail-regenerator` 和 `feedback-refiner` Agent 将被激活。它们会根据您的输入更新特定文档或调整整体结构。
+4.  **优化和更新**：当你通过 `aigne doc update` 或 `aigne doc generate --feedback` 提供输入时，特定的 Agent 会被激活，以更新单个文档或调整整体结构。
 
-5.  **翻译与发布**：最后，像 `translate` 和 `publish-docs` 这样的可选 Agent 会处理多语言翻译和发布到 Discuss Kit 平台的工作，从而完成端到端的工作流。
+5.  **翻译和发布**：主要内容生成后，可选的 Agent 会处理多语言翻译和将最终文档发布到网络平台等任务。
 
 ## 关键 AI Agent
 
-DocSmith 的功能源于其专业化的 Agent 团队。虽然许多 Agent 在幕后工作，但以下是文档生成流水线中的一些关键角色：
+DocSmith 的功能由项目配置中定义的一组 Agent 提供。每个 Agent 都有特定的角色。下表列出了一些关键 Agent 及其功能。
 
-| Agent 角色 | 主要功能 | 相关文件 |
-|---|---|---|
-| **Structure Planner** | 分析源代码和规则，生成整体文档大纲。 | `structure-planning.yaml`, `reflective-structure-planner.yaml` |
-| **Content Generator** | 根据计划为每个独立的文档部分撰写详细内容。 | `content-detail-generator.yaml`, `batch-docs-detail-generator.yaml` |
-| **Translation Agent** | 将生成的文档翻译成多种目标语言。 | `translate.yaml`, `batch-translate.yaml` |
-| **Refinement Agent** | 根据用户反馈重新生成或修改内容和结构。 | `detail-regenerator.yaml`, `feedback-refiner.yaml` |
-| **Publishing Agent** | 管理将文档发布到 Discuss Kit 实例的过程。 | `publish-docs.mjs`, `team-publish-docs.yaml` |
-| **Configuration Loader** | 读取并解析项目的配置文件和源文件。 | `load-config.mjs`, `load-sources.mjs` |
+| 功能角色 | 关键 Agent 文件 | 描述 |
+| --- | --- | --- |
+| **结构规划** | `generate/generate-structure.yaml` | 分析源代码以提出初始文档大纲。 |
+| **结构优化** | `generate/refine-document-structure.yaml` | 根据用户反馈修改文档结构。 |
+| **内容生成** | `update/batch-generate-document.yaml`, `generate-document.yaml` | 为每个部分填充详细内容，以充实文档结构。 |
+| **翻译** | `translate/translate-document.yaml`, `translate-multilingual.yaml` | 将生成的文档翻译成多种目标语言。 |
+| **发布** | `publish/publish-docs.mjs` | 管理将文档发布到 Discuss Kit 实例的过程。 |
+| **数据 I/O** | `utils/load-sources.mjs`, `utils/save-docs.mjs` | 负责读取源文件并将最终的 markdown 文档写入磁盘。 |
 
-这种模块化的、基于 Agent 的架构使得 DocSmith 灵活而强大，允许流程中的每一步都能被独立优化。
+这种基于 Agent 的架构使得文档流程的每一步都由一个专门的工具来处理，从而确保了工作流程的结构化和可维护性。
 
 ---
 
-现在您已经了解了 DocSmith 背后的工作原理，请在 [质量保证](./advanced-quality-assurance.md) 部分了解为保证输出质量而采取的措施。
+要了解 DocSmith 为确保输出的准确性和格式而采取的措施，请继续阅读[质量保证](./advanced-quality-assurance.md)部分。
