@@ -50,24 +50,24 @@ ${projectInfoMessage || ""}
 
 **Publish Documentation**
 
-  \`aigne doc publish\`
-
 Get an online preview link to share with your team
+
+  \`aigne doc publish\`
 
 ## 🔧 Optional Improvements
 
 **Update Specific Documents**
 
-  \`aigne doc update\`
-
 Regenerate content for specific documents
+
+  \`aigne doc update\`
 
 **Optimize Document Structure**
 
-  \`aigne doc generate\`
-
 Review and optimize the overall documentation structure
 
+  \`aigne doc generate\`
+    
   `;
 
   // Shutdown mermaid worker pool to ensure clean exit
