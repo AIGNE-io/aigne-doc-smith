@@ -1,3 +1,4 @@
+<d2_generate_constraints>
 # D2 Diagram Generation Expert Guide
 
 ## Preamble: LLM Role and Core Objective
@@ -1090,3 +1091,5 @@ Session.t2 -> Lua: "Trigger OnPlayerTurn"
 User.t2 <- Session.t2
 ```
 
+
+</d2_generate_constraints>

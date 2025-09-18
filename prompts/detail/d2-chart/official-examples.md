@@ -1,4 +1,6 @@
-以下是 d2 官方提供的一些示例，拥有比较好的展示效果，在实际生成图表的时候，可以参考官方示例的使用方式，来提升图表的表现力
+<d2_official_example>
+Here are some examples provided by d2 official documentation with good visual effects. 
+When generating charts in practice, you can refer to these official examples to enhance the expressiveness of your charts.
 
 - Bank Securities
   ```d2
@@ -706,3 +708,5 @@
     ```
   | {near: bottom-center}
   ```
+
+</d2_official_example>
