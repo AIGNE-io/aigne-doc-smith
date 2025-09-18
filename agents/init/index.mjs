@@ -393,17 +393,11 @@ export function generateYAML(input) {
   let yaml = "# Project information for documentation publishing\n";
 
   // Serialize the project info section safely with string quoting
-  const projectSection = yamlStringify(
-    {
-      projectName: config.projectName,
-      projectDesc: config.projectDesc,
-      projectLogo: config.projectLogo,
-    },
-    {
-      quotingType: '"',
-      defaultStringType: "QUOTE_DOUBLE",
-    },
-  ).trim();
+  const projectSection = yamlStringify({
+    projectName: config.projectName,
+    projectDesc: config.projectDesc,
+    projectLogo: config.projectLogo,
+  }).trim();
 
   yaml += `${projectSection}\n\n`;
 

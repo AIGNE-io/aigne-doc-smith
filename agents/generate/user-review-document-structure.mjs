@@ -29,8 +29,8 @@ function formatDocumentStructure(structure) {
 
   function printNode(node, depth = 0) {
     const INDENT_SPACES = "  ";
-    const FOLDER_ICON = "📁";
-    const FILE_ICON = "📄";
+    const FOLDER_ICON = "  📁";
+    const FILE_ICON = "  📄";
     const indent = INDENT_SPACES.repeat(depth);
     const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
 
@@ -46,6 +46,21 @@ function formatDocumentStructure(structure) {
   return { rootNodes, printNode };
 }
 
+function printDocumentStructure(structure) {
+  console.log(`\n  ${"-".repeat(50)}`);
+  console.log("  Current Document Structure");
+  console.log(`  ${"-".repeat(50)}`);
+
+  const { rootNodes, printNode } = formatDocumentStructure(structure);
+
+  if (rootNodes.length === 0) {
+    console.log("  No document structure found.");
+  } else {
+    rootNodes.forEach((node) => printNode(node));
+  }
+  console.log();
+}
+
 export default async function userReviewDocumentStructure({ documentStructure, ...rest }, options) {
   // Check if document structure exists
   if (!documentStructure || !Array.isArray(documentStructure) || documentStructure.length === 0) {
@@ -53,17 +68,20 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     return { documentStructure };
   }
 
+  // Print current document structure in a user-friendly format
+  printDocumentStructure(documentStructure);
+
   // Ask user if they want to review the document structure
   const needReview = await options.prompts.select({
     message:
-      "Would you like to review the document structure?\n  You can modify titles, reorganize sections, or refine content outlines.",
+      "Would you like to optimize the document structure?\n  You can modify titles, reorganize sections.",
     choices: [
       {
         name: "Looks good - proceed with current structure",
         value: "no",
       },
       {
-        name: "Review and provide feedback",
+        name: "Yes, optimize the structure",
         value: "yes",
       },
     ],
@@ -80,27 +98,11 @@ export default async function userReviewDocumentStructure({ documentStructure, .
   while (iterationCount < MAX_ITERATIONS) {
     iterationCount++;
 
-    // Print current document structure in a user-friendly format
-    console.log(`\n${"=".repeat(50)}`);
-    console.log("Current Document Structure");
-    console.log("=".repeat(50));
-
-    const { rootNodes, printNode } = formatDocumentStructure(currentStructure);
-
-    if (rootNodes.length === 0) {
-      console.log("No document structure found.");
-    } else {
-      rootNodes.forEach((node) => printNode(node));
-    }
-
-    console.log(`${"=".repeat(50)}\n`);
-
     // Ask for feedback
     const feedback = await options.prompts.input({
       message:
         "How would you like to improve the structure?\n" +
-        "  • Rename, reorganize, add, or remove sections\n" +
-        "  • Adjust content outlines for clarity\n\n" +
+        "  • Rename, reorganize, add, or remove sections\n\n" +
         "  Press Enter to finish reviewing:",
     });
 
@@ -138,6 +140,9 @@ export default async function userReviewDocumentStructure({ documentStructure, .
       if (result.documentStructure) {
         currentStructure = result.documentStructure;
       }
+
+      // Print current document structure in a user-friendly format
+      printDocumentStructure(currentStructure);
 
       // Check if feedback should be saved as user preference
       const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];

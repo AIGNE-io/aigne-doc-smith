@@ -167,7 +167,7 @@ export default async function checkNeedGenerateStructure(
         }
 
         if (hasUpdated) {
-          message = `\n### Project Information Updated\n\nSaved to \`.aigne/doc-smith/config.yaml\`:\n\n${message}\n\n`;
+          message = `\n## Project Information Updated\n\nSaved to \`.aigne/doc-smith/config.yaml\`:\n\n${message}\n\n`;
         }
       }
     } catch (error) {

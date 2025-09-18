@@ -10,6 +10,12 @@ skills:
       skipIfExists: true
   - ../utils/load-sources.mjs
   - ./check-need-generate-structure.mjs
+  - url: ../utils/save-output.mjs
+    default_input:
+      saveKey: documentStructure
+      savePath:
+        $get: outputDir
+      fileName: structure-plan.json
   - ./user-review-document-structure.mjs
   - url: ../utils/save-output.mjs
     default_input:

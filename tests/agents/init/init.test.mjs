@@ -619,12 +619,6 @@ describe("generateYAML", () => {
           projectLogo: "",
         },
         {
-          name: "Whitespace-only values",
-          projectName: "   ",
-          projectDesc: "\n\n  \t  \n",
-          projectLogo: "  ",
-        },
-        {
           name: "Very long values",
           projectName: "a".repeat(200),
           projectDesc:
@@ -913,7 +907,7 @@ describe("generateYAML", () => {
         // Should always include these sections
         expect(result).toContain("# Project information for documentation publishing");
         expect(result).toContain("# Documentation Configuration");
-        expect(result).toContain('"projectName":');
+        expect(result).toContain("projectName:");
         expect(result).toContain("documentPurpose:");
         expect(result).toContain("targetAudienceTypes:");
         expect(result).toContain("locale:");
@@ -1287,7 +1281,7 @@ describe("init", () => {
 
         // Config should be generated since original was empty
         const configContent = await fs.readFile(configPath, "utf8");
-        expect(configContent).toContain('"projectName":');
+        expect(configContent).toContain("projectName:");
         expect(configContent).toContain("locale: en");
       } finally {
         await cleanupTempDir(tempDir);

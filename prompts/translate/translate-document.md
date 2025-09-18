@@ -4,22 +4,24 @@
 
 <translation_rules>
 翻译要求:
+
 - **准确传达**原文的事实和背景，确保完整无遗漏。
 - **避免夸张**，避免使用带有情绪化和主观色彩的词语（例如“激动”、“震惊”等）。
 - **遵守语言规范**，确保标点符号和语法正确，表达自然流畅。
 - **保留原文结构**，仅翻译内容部分，不添加或修改标签，不添加额外内容或标点符号。不要在最外层添加 markdown 语法。确保翻译后结构和原文相同，原文中的换行、空白行也要保留。
-- **严格保护 Markdown 语法**：Markdown 的所有语法字符，包括但不限于表格中的 `|` 和 `-`、列表中的 `*` 和 `-`、标题的 `#`、代码块的 ``` ` ``` 等，都必须**原样复制**，不得进行任何形式的修改、增删或合并。特别是表格的分隔线（例如 `|---|---|---|`），必须与原文的列数和格式完全一致,且表格的分隔线与表格数据列数相同。
+- **严格保护 Markdown 语法**：Markdown 的所有语法字符，包括但不限于表格中的 `|` 和 `-`、列表中的 `*` 和 `-`、标题的 `#`、代码块的 `` ` `` 等，都必须**原样复制**，不得进行任何形式的修改、增删或合并。特别是表格的分隔线（例如 `|---|---|---|`），必须与原文的列数和格式完全一致,且表格的分隔线与表格数据列数相同。
 - **遵循翻译流程**，包括直译、优化和检查遗漏，确保最终输出符合要求。
 - **使用术语参考**，确保专业术语的准确性和一致性。
 - **保留术语**，保留特定术语的原文形式，避免翻译。
 
 翻译过程：
+
 - **直译**：将原文逐字逐句翻译成目标语言，确保每个词语的含义都被准确传达。
 - **优化**：在直译结果的基础上，确保译文在忠实于原文含义的同时更加通俗易懂，并符合 **{{ language }}** 的表达习惯。
 - **检查遗漏**：将原文与直译结果进行比较，纠正任何歪曲原文含义或遗漏的信息。
 - **格式检查**：将原文与直译结果进行比较，确保翻译后的内容完整，如果原文是 markdown 格式，检查格式与原文相同。
 - **最终输出**：输出优化后的翻译结果，确保符合上述要求（不要输出直译内容）。
-</translation_rules>
+  </translation_rules>
 
 {% if feedback %}
 <translation_user_feedback>
@@ -47,6 +49,7 @@
 
 保留术语（不翻译）：
 <terms>
+
 - Agent（所有 Agent 或带有 Agent 前缀或后缀的术语均不翻译）
 
 {{glossary}}
@@ -54,8 +57,6 @@
 
 双语术语（使用 `原文 (翻译)` 格式）：
 <bilingual-terms>
-- Guide Rails: 行为导轨
-</bilingual-terms>
 
 <example>
 <before_translate>
@@ -82,11 +83,19 @@
 <x-field data-name="teamDid" data-type="string" data-required="true" data-desc="The DID of the team or Blocklet managing the webhook."></x-field>
 </before_translate>
 
+<x-field data-name="apiKey" data-type="string" data-required="true">
+    <x-field-desc markdown>Your **API key** for authentication. Generate one from the `Settings > API Keys` section.</x-field-desc>
+</x-field>
+
 <after_translate>
 <x-field data-name="teamDid" data-type="string" data-required="true" data-desc="管理 Webhook 的团队或 Blocklet 的 DID。"></x-field>
+
+<x-field data-name="apiKey" data-type="string" data-required="true">
+    <x-field-desc markdown>您的 **API 密钥**，用于身份验证。请从 `设置 > API 密钥` 部分生成一个。</x-field-desc>
+</x-field>
 </after_translate>
 
-**特别注意**: x-field 组件的所有属性都需要保持原文格式，只翻译 data-desc 属性中的描述内容
+**特别注意**: x-field 组件的所有属性都需要保持原文格式，只翻译 data-desc 属性中或 x-field-desc 元素中的描述内容
 </example>
 
 原文如下：
