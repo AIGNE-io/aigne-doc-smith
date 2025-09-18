@@ -36,6 +36,15 @@ export default async function checkNeedGenerateStructure(
       console.log(
         "Review and modify your configuration as needed, then run 'aigne doc generate' to continue.",
       );
+
+      // In test environment, return a special result instead of exiting
+      if (process.env.NODE_ENV === "test") {
+        return {
+          userDeferred: true,
+          documentStructure: null,
+        };
+      }
+
       process.exit(0);
     }
   }

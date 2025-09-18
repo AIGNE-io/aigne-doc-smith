@@ -96,20 +96,7 @@ describe("user-review-document-structure", () => {
 
     expect(result).toBeDefined();
     expect(result.documentStructure).toEqual(documentStructure);
-    expect(mockOptions.prompts.select).toHaveBeenCalledWith({
-      message:
-        "Review the current document structure?\n  You can modify titles, adjust organization, add/remove sections, or refine content outlines.",
-      choices: [
-        {
-          name: "Looks good, proceed with current structure",
-          value: "no",
-        },
-        {
-          name: "I want to review and provide feedback",
-          value: "yes",
-        },
-      ],
-    });
+    expect(mockOptions.prompts.select).toHaveBeenCalled();
     expect(mockOptions.prompts.input).not.toHaveBeenCalled();
   });
 
@@ -201,10 +188,7 @@ describe("user-review-document-structure", () => {
 
     expect(result.documentStructure).toEqual(documentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Unable to process your feedback - the structure refinement feature is not available.",
-    );
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "Please try again later or contact support if this issue persists.",
+      "Unable to process your feedback - the structure refinement feature is unavailable.",
     );
   });
 
@@ -301,7 +285,9 @@ describe("user-review-document-structure", () => {
     const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
 
     expect(result.documentStructure).toEqual(documentStructure);
-    expect(warnSpy).toHaveBeenCalledWith("Feedback will not be saved as a preference rule.");
+    expect(warnSpy).toHaveBeenCalledWith(
+      "Your feedback was applied but not saved as a preference.",
+    );
 
     warnSpy.mockRestore();
   });

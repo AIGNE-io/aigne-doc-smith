@@ -148,10 +148,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
             stage: "structure",
           });
         } catch (refinerError) {
-          console.warn(
-            "Could not save feedback as user preference:",
-            refinerError.message,
-          );
+          console.warn("Could not save feedback as user preference:", refinerError.message);
           console.warn("Your feedback was applied but not saved as a preference.");
         }
       }

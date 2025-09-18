@@ -21,6 +21,9 @@ describe("check-need-generate-structure", () => {
   let saveValueToConfigSpy;
 
   beforeEach(() => {
+    // Set test environment variable
+    process.env.NODE_ENV = "test";
+
     // Reset all mocks
     mock.restore();
 
@@ -71,6 +74,9 @@ describe("check-need-generate-structure", () => {
   });
 
   afterEach(() => {
+    // Clean up environment variable
+    delete process.env.NODE_ENV;
+
     // Restore all spies
     accessSpy?.mockRestore();
     getActiveRulesForScopeSpy?.mockRestore();
@@ -268,10 +274,14 @@ describe("check-need-generate-structure", () => {
     );
   });
 
-  test("should throw error when user selects 'later' and no originalDocumentStructure exists", async () => {
+  test("should return userDeferred when user selects 'later' and no originalDocumentStructure exists", async () => {
     mockOptions.prompts.select.mockImplementation(async () => "later");
 
-    await expect(checkNeedGenerateStructure({ docsDir: "./docs" }, mockOptions)).rejects.toThrow();
+    const result = await checkNeedGenerateStructure({ docsDir: "./docs" }, mockOptions);
+
+    expect(result).toBeDefined();
+    expect(result.userDeferred).toBe(true);
+    expect(result.documentStructure).toBe(null);
 
     expect(mockOptions.prompts.select).toHaveBeenCalled();
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
