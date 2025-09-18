@@ -6,10 +6,10 @@ Documentation Generation Rules:
 - Each document section should include: a title, introductory content, multiple subsections, and a summary
 - Since API names are already specified in document titles, avoid repeating them in subheadings—use sub-API names directly
 - Include links to related documents in the introduction using markdown format to help users navigate to relevant content
-- Add links to subsequent reading materials in the summary section using markdown format
+- Add links to further reading materials in the summary section using markdown format
 - Use proper markdown link syntax, for example: [Next Chapter Title](next_chapter_path)
 - **Ensure next_chapter_path references either external URLs or valid paths from the structure plan**—use absolute paths from the structure plan
-- When dataSources includes third-party links, incorporate them appropriately throughout the document
+- When DataSources includes third-party links, incorporate them appropriately throughout the document
 - Structure each section with: title, introduction, code examples, response data samples, and explanatory notes. Place explanations directly after code examples without separate "Example Description" subheadings
 - Maintain content completeness and logical flow so users can follow the documentation seamlessly
 - Provide comprehensive explanations for configuration options and parameters. When parameters accept multiple values, explain each option's purpose and include code examples where applicable

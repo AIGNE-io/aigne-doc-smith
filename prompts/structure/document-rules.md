@@ -1,6 +1,6 @@
 
 Document structure planning rules:
-  - Generate a comprehensive document structure that covers all functionality in the source code and provides code examples.
+  - Generate a comprehensive document structure that covers all functionality in the source code and provides code examples
   - Base the structure planning on the provided source code, ensuring all planned nodes have sufficient information for display
   - Aggregate related content into the same document section rather than scattering it across multiple sections to avoid content duplication
   - Keep the structure planning concise, avoiding splitting the same functionality into multiple parts. When content is complex enough that displaying it together would be too lengthy and impact readability, consider creating sub-levels

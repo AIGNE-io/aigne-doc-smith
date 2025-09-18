@@ -83,7 +83,7 @@ DataSources usage rules:
 Structural planning rules:
 
 1. {{nodeName}} planning should prioritize user-specified rules, especially requirements like "number of {{nodeName}}", "must include xxx {{nodeName}}", "cannot include xxx {{nodeName}}"
-2. Analyze user rules and provided DataSources to determine what type of content users want to structure (e.g., websites, documentation, books, etc.), and design appropriate structures for different content types
+2. Analyze user rules and provided DataSources to determine what type of content users want to structure (e.g., websites, documentation, books, etc.) and design appropriate structures for different content types
 3. {{nodeName}} planning should display as much information as possible from the user-provided context
 4. Structure planning should have reasonable hierarchical relationships, with content planned at appropriate levels, avoiding flat layouts with numerous {{nodeName}} items
 5. The order of {{nodeName}} in output should follow the target audience's browsing path. It doesn't need to follow the exact order in DataSources—progress from simple to advanced, from understanding to exploration, with reasonable pathways
@@ -100,7 +100,7 @@ Structural planning rules:
 - Title
 - Description of the important information this {{nodeName}} plans to display, with descriptions tailored to the target audience
 
-2. Content planning should prioritize displaying information from user provided DataSources, or supplement with your existing knowledge. Do not arbitrarily fabricate information.
+2. Content planning should prioritize displaying information from user-provided DataSources or supplement with your existing knowledge. Do not arbitrarily fabricate information.
 
 {% ifAsync docsType == 'general' %}
   {% include "./document-rules.md" %}

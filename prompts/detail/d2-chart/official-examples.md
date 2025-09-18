@@ -1,5 +1,5 @@
 <d2_official_example>
-Here are some examples provided by d2 official documentation with good visual effects. 
+Here are examples from the official D2 documentation with good visual effects.
 When generating charts in practice, you can refer to these official examples to enhance the expressiveness of your charts.
 
 - Bank Securities

@@ -213,7 +213,7 @@ Attribute Rules:
 -	data-columns (optional): Number of columns, integer (e.g., 2, 3). Default is 2.
 -	Must contain multiple <x-card> elements internally.
 -	Consistency requirement: All <x-card> elements within the same <x-cards> must maintain visual consistency:
-    -	Recommended to always provide data-icon for each card.
+    -	It's recommended to always provide data-icon for each card.
     -	Or all cards should have data-image.
     -	Avoid mixing (some with icons, some with only images).
 
