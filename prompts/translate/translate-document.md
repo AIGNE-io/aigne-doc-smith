@@ -65,14 +65,14 @@
 </before_translate>
 
 <x-field data-name="apiKey" data-type="string" data-required="true">
-    <x-field-desc>Your **API key** for authentication. Generate one from the `Settings > API Keys` section.</x-field-desc>
+    <x-field-desc markdown>Your **API key** for authentication. Generate one from the `Settings > API Keys` section.</x-field-desc>
 </x-field>
 
 <after_translate>
 <x-field data-name="teamDid" data-type="string" data-required="true" data-desc="管理 Webhook 的团队或 Blocklet 的 DID。"></x-field>
 
 <x-field data-name="apiKey" data-type="string" data-required="true">
-    <x-field-desc>您的 **API 密钥**，用于身份验证。请从 `设置 > API 密钥` 部分生成一个。</x-field-desc>
+    <x-field-desc markdown>您的 **API 密钥**，用于身份验证。请从 `设置 > API 密钥` 部分生成一个。</x-field-desc>
 </x-field>
 </after_translate>
 

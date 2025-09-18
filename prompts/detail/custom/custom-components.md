@@ -68,7 +68,7 @@ Syntax:
   <!-- For complex types, children can only be other x-field elements -->
   <x-field data-name="nested_field" data-type="string" data-desc="Nested field description"></x-field>
   <!-- Optional: Use x-field-desc for rich text descriptions with inline markdown -->
-  <x-field-desc>This field supports **bold text**, `inline code`, and other inline markdown formatting.</x-field-desc>
+  <x-field-desc markdown>This field supports **bold text**, `inline code`, and other inline markdown formatting.</x-field-desc>
 </x-field>
 ```
 
@@ -85,10 +85,12 @@ Attribute Rules:
 Child Elements:
 
 - `<x-field-desc>` (optional): Rich text description supporting inline markdown formatting
+  - `markdown` (required): **MUST** be set to "markdown" - this attribute is mandatory and cannot be omitted
   - Supports **bold text**, `inline code`, *italic text*, and other inline markdown
   - Cannot contain block-level elements (no code blocks, headers, lists)
   - **Mutually exclusive with `data-desc`**: Use either `data-desc` attribute OR `<x-field-desc>` element, not both
   - Only one `<x-field-desc>` element per `<x-field>` is allowed
+  - **Validation**: `<x-field-desc>` without `markdown` attribute will be rejected
 
 Nesting Rules:
 
@@ -101,16 +103,34 @@ Nesting Rules:
   - For simple types: children can be empty or contain exactly one `<x-field-desc>` element
   - For complex types: children can contain multiple `<x-field>` elements and optionally one `<x-field-desc>` element
 - **Always use opening/closing tags format**: `<x-field ...></x-field>` and `<x-field-group>...</x-field-group>` for all types
+- **Mandatory markdown attribute**: Every `<x-field-desc>` element **MUST** include `markdown` attribute - elements without this attribute will be rejected
 - **Grouping rules**:
   - `<x-field-group>` can only be used at the top level
   - Cannot be nested inside `<x-field>` or other `<x-field-group>` elements
   - Must contain multiple `<x-field>` elements
-- For simple types (string, number, boolean), children can be empty or contain one `<x-field-desc>`: `<x-field ...></x-field>` or `<x-field ...><x-field-desc>...</x-field-desc></x-field>`
+- For simple types (string, number, boolean), children can be empty or contain one `<x-field-desc>`: `<x-field ...></x-field>` or `<x-field ...><x-field-desc markdown>...</x-field-desc></x-field>`
 - For complex types (object, array), children contain nested `<x-field>` elements and optionally one `<x-field-desc>` element
 
 **Usage Rules:**
 
 - **Context types must use `<x-field>` instead of tables** for consistent formatting
+- **Mandatory markdown attribute**: Every `<x-field-desc>` element must include `markdown` attribute
+
+**Error Examples:**
+
+❌ **INCORRECT** - Missing `markdown` attribute:
+```
+<x-field data-name="api_key" data-type="string" data-required="true">
+  <x-field-desc>Your **API key** for authentication.</x-field-desc>
+</x-field>
+```
+
+✅ **CORRECT** - With required `markdown` attribute:
+```
+<x-field data-name="api_key" data-type="string" data-required="true">
+  <x-field-desc markdown>Your **API key** for authentication.</x-field-desc>
+</x-field>
+```
 
 Example:
 
@@ -120,7 +140,7 @@ Example:
 
 <!-- Single field with rich text description (using x-field-desc) -->
 <x-field data-name="api_key" data-type="string" data-required="true">
-  <x-field-desc>Your **API key** for authentication. Generate one from the `Settings > API Keys` section. Keep it secure and never expose it in client-side code.</x-field-desc>
+  <x-field-desc markdown>Your **API key** for authentication. Generate one from the `Settings > API Keys` section. Keep it secure and never expose it in client-side code.</x-field-desc>
 </x-field>
 
 <!-- Multiple related fields grouped together (Props, Parameters, Returns, Context) -->
@@ -129,7 +149,7 @@ Example:
   <x-field data-name="description" data-type="string" data-required="false" data-desc="An optional description for the product."></x-field>
   <x-field data-name="type" data-type="string" data-required="false" data-desc="The type of product (e.g., 'service', 'good')."></x-field>
   <x-field data-name="price" data-type="number" data-required="true" data-default="0">
-    <x-field-desc>Product price in **USD**. Must be a positive number with up to 2 decimal places.</x-field-desc>
+    <x-field-desc markdown>Product price in **USD**. Must be a positive number with up to 2 decimal places.</x-field-desc>
   </x-field>
 </x-field-group>
 
@@ -148,14 +168,14 @@ Example:
 
 <!-- Complex nested object with rich descriptions -->
 <x-field data-name="session" data-type="object" data-required="true">
-    <x-field-desc>Contains all **authentication** and **authorization** data for the current user session. This object is automatically populated after successful login.</x-field-desc>
+    <x-field-desc markdown>Contains all **authentication** and **authorization** data for the current user session. This object is automatically populated after successful login.</x-field-desc>
     <x-field data-name="auth" data-type="object" data-required="true" data-desc="User authentication information">
         <x-field data-name="token" data-type="object" data-required="true" data-desc="Access token information">
             <x-field data-name="access_token" data-type="string" data-required="true" data-default="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
-                <x-field-desc>**JWT token** containing user identity and permissions. Expires in `24 hours` by default. Use the `refresh_token` to obtain a new one.</x-field-desc>
+                <x-field-desc markdown>**JWT token** containing user identity and permissions. Expires in `24 hours` by default. Use the `refresh_token` to obtain a new one.</x-field-desc>
             </x-field>
             <x-field data-name="refresh_token" data-type="string" data-required="false" data-default="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
-                <x-field-desc>Used to obtain new `access_token` when the current one expires. Valid for **30 days**.</x-field-desc>
+                <x-field-desc markdown>Used to obtain new `access_token` when the current one expires. Valid for **30 days**.</x-field-desc>
             </x-field>
             <x-field data-name="expires_at" data-type="number" data-required="true" data-default="1704067200" data-desc="Token expiration timestamp (Unix timestamp)"></x-field>
         </x-field>
@@ -163,12 +183,12 @@ Example:
             <x-field data-name="profile" data-type="object" data-required="true" data-desc="User profile information">
                 <x-field data-name="name" data-type="string" data-required="true" data-default="John Doe" data-desc="User name"></x-field>
                 <x-field data-name="email" data-type="string" data-required="true" data-default="john.doe@example.com">
-                    <x-field-desc>Primary email address used for **login** and **notifications**. Must be a valid email format.</x-field-desc>
+                    <x-field-desc markdown>Primary email address used for **login** and **notifications**. Must be a valid email format.</x-field-desc>
                 </x-field>
                 <x-field data-name="avatar" data-type="string" data-required="false" data-default="https://example.com/avatars/john-doe.jpg" data-desc="User avatar URL"></x-field>
             </x-field>
             <x-field data-name="permissions" data-type="array" data-required="true" data-default='["read", "write", "admin"]'>
-                <x-field-desc>Array of **permission strings** that determine what actions the user can perform. Common values: `"read"`, `"write"`, `"admin"`, `"delete"`.</x-field-desc>
+                <x-field-desc markdown>Array of **permission strings** that determine what actions the user can perform. Common values: `"read"`, `"write"`, `"admin"`, `"delete"`.</x-field-desc>
             </x-field>
         </x-field>
     </x-field>
