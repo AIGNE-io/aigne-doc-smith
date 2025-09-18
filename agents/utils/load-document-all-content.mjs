@@ -42,7 +42,7 @@ export default async function loadDocumentAllContent({ path, docsDir, documentSt
     // - Matches language pattern: .{language-code}.md (e.g., .en.md, .zh-CN.md)
     const translationFiles = files.filter(
       (file) =>
-        file.startsWith(flatName) &&
+        file.startsWith(`${flatName}.`) &&
         file.endsWith(".md") &&
         file !== `${flatName}.md` &&
         file.match(/\.\w+(-\w+)?\.md$/),

@@ -41,6 +41,7 @@ export default async function generateEvaluationReport({
           purposeAlignment,
           audienceAlignment,
           knowledgeLevelAlignment,
+          navigability,
           path,
           title,
         } = docItem;
@@ -59,6 +60,7 @@ export default async function generateEvaluationReport({
             purposeAlignment,
             audienceAlignment,
             knowledgeLevelAlignment,
+            navigability,
           },
         };
 
@@ -157,6 +159,7 @@ function generateSummary(structureEval, docEval) {
       "purposeAlignment",
       "audienceAlignment",
       "knowledgeLevelAlignment",
+      "navigability",
     ];
 
     keys.forEach((key) => {
@@ -210,6 +213,7 @@ function aggregateDocumentEvaluations(documentEvaluations) {
     "purposeAlignment",
     "audienceAlignment",
     "knowledgeLevelAlignment",
+    "navigability",
   ];
 
   const aggregated = {};
@@ -259,3 +263,5 @@ async function ensureDirectoryExists(dirPath) {
     await mkdir(dirPath, { recursive: true });
   }
 }
+
+generateEvaluationReport.taskTitle = "Generate evaluation report";
