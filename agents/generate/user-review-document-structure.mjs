@@ -29,8 +29,8 @@ function formatDocumentStructure(structure) {
 
   function printNode(node, depth = 0) {
     const INDENT_SPACES = "  ";
-    const FOLDER_ICON = "📁";
-    const FILE_ICON = "📄";
+    const FOLDER_ICON = "  📁";
+    const FILE_ICON = "  📄";
     const indent = INDENT_SPACES.repeat(depth);
     const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
 
@@ -47,14 +47,14 @@ function formatDocumentStructure(structure) {
 }
 
 function printDocumentStructure(structure) {
-  console.log(`\n${"-".repeat(50)}`);
-  console.log("Current Document Structure");
-  console.log("-".repeat(50));
+  console.log(`\n  ${"-".repeat(50)}`);
+  console.log("  Current Document Structure");
+  console.log(`  ${"-".repeat(50)}`);
 
   const { rootNodes, printNode } = formatDocumentStructure(structure);
 
   if (rootNodes.length === 0) {
-    console.log("No document structure found.");
+    console.log("  No document structure found.");
   } else {
     rootNodes.forEach((node) => printNode(node));
   }
