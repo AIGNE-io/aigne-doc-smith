@@ -1,10 +1,10 @@
 <getting_started_document_structure_rules>
-基于提供的数据源，规划一份 Getting Started 文档结构规划：
-  - 整个结构规划是完整且连续的，用户跟着文档一步步操作，可以完成一个可运行示例
-  - 每个部分文档完成一个相对完整的步骤，避免单个部分文档过长，用户阅读有压力
-  - 根据需要提供参考的命令行、代码，方便用户跟着文档执行
-  - 基于一个有趣的场景来设计 Getting Started 文档
-  - 在示例中介绍项目的核心概念，目标是用户跟随文档完成示例后，对项目有一个比较完整清晰的理解
-  - 尽可能包含项目的功能、核心概念
+Based on the provided data sources, plan a Getting Started document structure:
+  - The entire structure should be complete and continuous, allowing users to follow the documentation step by step to complete a working example
+  - Each document section should complete a relatively complete step, avoiding overly long individual sections that create reading pressure for users
+  - Provide reference command lines and code as needed to facilitate users following the documentation
+  - Design the Getting Started documentation based on an engaging scenario
+  - Introduce the project's core concepts through examples, with the goal that users gain a comprehensive and clear understanding of the project after completing the example
+  - Include as many project features and core concepts as possible
 
 </getting_started_document_structure_rules>
