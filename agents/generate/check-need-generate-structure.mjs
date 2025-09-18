@@ -18,23 +18,23 @@ export default async function checkNeedGenerateStructure(
   if (!originalDocumentStructure) {
     const choice = await options.prompts.select({
       message:
-        "Your project configuration is set. Would you like to proceed with generating the document structure now?",
+        "Your project configuration is complete. Would you like to generate the document structure now?",
       choices: [
         {
-          name: "Generate now: Start building the document structure immediately.",
+          name: "Generate now - Start building the document structure",
           value: "generate",
         },
         {
-          name: "Modify Configuration and Generate Later: Review and adjust the current settings before generating.",
+          name: "Review configuration first - Modify settings before generating",
           value: "later",
         },
       ],
     });
 
     if (choice === "later") {
-      console.log(`\nConfiguration file path: ${chalk.cyan("./.aigne/doc-smith/config.yaml")}`);
+      console.log(`\nConfiguration file: ${chalk.cyan("./.aigne/doc-smith/config.yaml")}`);
       console.log(
-        "Please review and modify your configuration as needed, then run 'aigne doc generate' again to proceed with document generation.",
+        "Review and modify your configuration as needed, then run 'aigne doc generate' to continue.",
       );
       process.exit(0);
     }
@@ -158,7 +158,7 @@ export default async function checkNeedGenerateStructure(
         }
 
         if (hasUpdated) {
-          message = `\n### Auto-updated Project Info to \`.aigne/doc-smith/config.yaml\`\n\n${message}\n\n`;
+          message = `\n### Project Information Updated\n\nSaved to \`.aigne/doc-smith/config.yaml\`:\n\n${message}\n\n`;
         }
       }
     } catch (error) {

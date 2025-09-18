@@ -44,30 +44,30 @@ export default async function saveDocs({
 
   const message = `# ✅ Documentation Generated Successfully!
 
-Successfully generated **${documentStructure.length}** documents and saved to: \`${docsDir}\`
+Generated **${documentStructure.length}** documents and saved to: \`${docsDir}\`
 ${projectInfoMessage || ""}
 ## 🚀 Next Steps
 
-**Publish Documentation**
+**Publish Your Documentation**
 
-Get an online preview link to share with your team
+Generate a shareable preview link for your team:
 
   \`aigne doc publish\`
 
-## 🔧 Optional Improvements
+## 🔧 Optional Actions
 
 **Update Specific Documents**
 
-Regenerate content for specific documents
+Regenerate content for individual documents:
 
   \`aigne doc update\`
 
-**Optimize Document Structure**
+**Refine Document Structure**
 
-Review and optimize the overall documentation structure
+Review and improve your documentation organization:
 
   \`aigne doc generate\`
-    
+
   `;
 
   // Shutdown mermaid worker pool to ensure clean exit

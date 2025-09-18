@@ -56,14 +56,14 @@ export default async function userReviewDocumentStructure({ documentStructure, .
   // Ask user if they want to review the document structure
   const needReview = await options.prompts.select({
     message:
-      "Review the current document structure?\n  You can modify titles, adjust organization, add/remove sections, or refine content outlines.",
+      "Would you like to review the document structure?\n  You can modify titles, reorganize sections, or refine content outlines.",
     choices: [
       {
-        name: "Looks good, proceed with current structure",
+        name: "Looks good - proceed with current structure",
         value: "no",
       },
       {
-        name: "I want to review and provide feedback",
+        name: "Review and provide feedback",
         value: "yes",
       },
     ],
@@ -98,10 +98,10 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     // Ask for feedback
     const feedback = await options.prompts.input({
       message:
-        "Share your feedback to improve the structure:\n" +
+        "How would you like to improve the structure?\n" +
         "  • Rename, reorganize, add, or remove sections\n" +
         "  • Adjust content outlines for clarity\n\n" +
-        "  Or press Enter to finish reviewing:",
+        "  Press Enter to finish reviewing:",
     });
 
     // If no feedback, break the loop
@@ -113,9 +113,9 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     const refineAgent = options.context.agents["refineDocumentStructure"];
     if (!refineAgent) {
       console.log(
-        "Unable to process your feedback - the structure refinement feature is not available.",
+        "Unable to process your feedback - the structure refinement feature is unavailable.",
       );
-      console.log("Please try again later or contact support if this issue persists.");
+      console.log("Please try again later or contact support if this continues.");
       break;
     }
 
@@ -149,14 +149,14 @@ export default async function userReviewDocumentStructure({ documentStructure, .
           });
         } catch (refinerError) {
           console.warn(
-            "Failed to process document structure feedback for user preferences:",
+            "Could not save feedback as user preference:",
             refinerError.message,
           );
-          console.warn("Feedback will not be saved as a preference rule.");
+          console.warn("Your feedback was applied but not saved as a preference.");
         }
       }
     } catch (error) {
-      console.error("Error processing document structure feedback:");
+      console.error("Error processing your feedback:");
       console.error(`Type: ${error.name}`);
       console.error(`Message: ${error.message}`);
       console.error(`Stack: ${error.stack}`);
