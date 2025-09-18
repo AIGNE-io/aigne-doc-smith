@@ -17,7 +17,7 @@ As shown in the diagram, DocSmith integrates seamlessly with other [AIGNE](https
 
 ## Features
 
-- **Automated Generate Document Structure:** Intelligently analyzes your codebase to generate a comprehensive and logical document structure.
+- **Automated Document Structure Generation:** Intelligently analyzes your codebase to generate a comprehensive and logical document structure.
 - **AI-Powered Content Generation:** Populates the document structure with detailed, high-quality content.
 - **Multi-Language Support:** Seamlessly translates your documentation into 12 languages including English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic.
 - **AIGNE Hub Integration:** Use [AIGNE Hub](https://www.aigne.io/en/hub) as your LLM provider without needing your own API keys, with easy switching between different large language models.
@@ -231,7 +231,7 @@ Publish your documentation to Discuss Kit platforms:
 aigne doc publish
 ```
 
-**Interactive Publishing:** When run `aigne doc publish` will present an interactive menu for you to choose between:
+**Interactive Publishing:** When you run `aigne doc publish`, it will present an interactive menu for you to choose between:
 - **Official Platform:** [docsmith.aigne.io](https://docsmith.aigne.io/app/)
 - **Own Instance:** Your own deployed [Discuss Kit](https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu) instance
 

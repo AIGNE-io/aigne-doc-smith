@@ -76,7 +76,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
           `• Network connection issues\n` +
           `• Server temporarily unavailable\n` +
           `• Incorrect URL address\n\n` +
-          `${chalk.green("Suggestion:")} Please check your network connection and URL address, then try again`,
+          `${chalk.green("Suggestion:")} Please check your network connection and URL, then try again`,
       );
     }
   }
