@@ -271,9 +271,7 @@ describe("check-need-generate-structure", () => {
   test("should throw error when user selects 'later' and no originalDocumentStructure exists", async () => {
     mockOptions.prompts.select.mockImplementation(async () => "later");
 
-    await expect(
-      checkNeedGenerateStructure({ docsDir: "./docs" }, mockOptions),
-    ).rejects.toThrow();
+    await expect(checkNeedGenerateStructure({ docsDir: "./docs" }, mockOptions)).rejects.toThrow();
 
     expect(mockOptions.prompts.select).toHaveBeenCalled();
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
