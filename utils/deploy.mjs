@@ -142,7 +142,7 @@ export async function deploy(id, cachedUrl) {
     );
   } else {
     // just log one space line
-    console.log('');
+    console.log("");
   }
 
   return {

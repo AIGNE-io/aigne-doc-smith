@@ -154,20 +154,20 @@ describe("deploy", () => {
     expect(saveValueToConfigSpy).toHaveBeenCalledWith(
       "checkoutId",
       "checkout-123",
-      "Checkout ID for document deployment service",
+      "Checkout ID for document deployment website",
     );
     expect(saveValueToConfigSpy).toHaveBeenCalledWith(
       "paymentUrl",
       expect.stringContaining("payment"),
-      "Payment URL for document deployment service",
+      "Payment URL for document deployment website",
     );
 
     // Verify console output shows progress
     const logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
     expect(logs.some((log) => log.includes("Step 1/4: Waiting for payment"))).toBe(true);
-    expect(logs.some((log) => log.includes("Step 2/4: Installing service"))).toBe(true);
-    expect(logs.some((log) => log.includes("Step 3/4: Starting service"))).toBe(true);
-    expect(logs.some((log) => log.includes("Step 4/4: Getting service URL"))).toBe(true);
+    expect(logs.some((log) => log.includes("Step 2/4: Installing Website"))).toBe(true);
+    expect(logs.some((log) => log.includes("Step 3/4: Starting Website"))).toBe(true);
+    expect(logs.some((log) => log.includes("Step 4/4: Getting Website URL"))).toBe(true);
     expect(logs.some((log) => log.includes("Your website is available at"))).toBe(true);
   });
 
@@ -359,7 +359,7 @@ describe("deploy", () => {
     expect(saveValueToConfigSpy).toHaveBeenCalledWith(
       "checkoutId",
       "",
-      "Checkout ID for document deployment service",
+      "Checkout ID for document deployment website",
     );
   });
 });
