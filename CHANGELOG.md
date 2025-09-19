@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.10-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta.2...v0.8.10-beta.3) (2025-09-19)
+
+
+### Bug Fixes
+
+* **cli:** add enterprise deployment related links ([#125](https://github.com/AIGNE-io/aigne-doc-smith/issues/125)) ([f115309](https://github.com/AIGNE-io/aigne-doc-smith/commit/f11530967fef0bf2ead7f307a5513a1f3d6513f5))
+* polish review prompt copywriting ([#124](https://github.com/AIGNE-io/aigne-doc-smith/issues/124)) ([ea3c6a8](https://github.com/AIGNE-io/aigne-doc-smith/commit/ea3c6a837a32b0135e75faf85406049406055931))
+
 ## [0.8.10-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta.1...v0.8.10-beta.2) (2025-09-18)
 
 
