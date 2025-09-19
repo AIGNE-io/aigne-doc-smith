@@ -31,6 +31,12 @@ User preference guidelines:
 </user_preferences>
 {% endif %}
 
+{% if detailFeedback %}
+<content_review_feedback>
+{{ detailFeedback }}
+</content_review_feedback>
+{% endif %}
+
 <content_generation_rules>
 
 Target Audience: {{targetAudience}}
