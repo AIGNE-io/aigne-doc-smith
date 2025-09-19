@@ -98,7 +98,7 @@ Return scoring information for each dimension in JSON format:
 * `score` must be an integer from 1–5
 * `covered` / `missing` respectively list covered and uncovered purposes/audiences
 * `reason` must be concise, specific, and impact-based
-* **Output in English language**
+* **Output in {{locale}} language**
 
   </output_constraints>  
 

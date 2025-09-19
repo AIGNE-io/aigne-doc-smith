@@ -148,6 +148,6 @@ Return scoring information for each dimension in JSON format:
 
 * `score` must be an integer from 1–5
 * `reason` must be concise and specific, explaining deduction points or scoring rationale
-* **Output in English language**
+* **Output in {{locale}} language**
 
 </output_constraints>  

@@ -32,7 +32,7 @@ skills:
             $
           ])
     iterate_on: originalDocumentStructure
-    concurrency: 3
+    concurrency: 5
     mode: sequential
   - ./generate-evaluation-report.mjs
 mode: sequential
