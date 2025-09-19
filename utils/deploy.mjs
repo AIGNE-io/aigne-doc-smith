@@ -113,33 +113,29 @@ export async function deploy(id, cachedUrl) {
   }
 
   // Step 2: Wait for payment completion
-  console.log(`${chalk.blue("⏳")} Step 1/4: Waiting for payment...`);
-  console.log(`${chalk.blue("🔗")} Payment link: ${chalk.cyan(paymentUrl)}\n`);
+  console.log(`⏳ Step 1/4: Waiting for payment...`);
+  console.log(`🔗 Payment link: ${chalk.cyan(paymentUrl)}\n`);
   await pollPaymentStatus(checkoutId);
   await saveValueToConfig("checkoutId", checkoutId, "Checkout ID for document deployment website");
   await saveValueToConfig("paymentUrl", paymentUrl, "Payment URL for document deployment website");
 
   // Step 3: Wait for website installation
-  console.log(`${chalk.blue("📦")} Step 2/4: Installing Website...`);
+  console.log(`📦 Step 2/4: Installing Website...`);
   const readyVendors = await waitInstallation(checkoutId);
 
   // Step 4: Wait for website startup
-  console.log(`${chalk.blue("🚀")} Step 3/4: Starting Website...`);
+  console.log(`🚀 Step 3/4: Starting Website...`);
   const runningVendors = await waitWebsiteRunning(readyVendors);
 
   // Step 5: Get final URL
-  console.log(`${chalk.blue("🌐")} Step 4/4: Getting Website URL...`);
+  console.log(`🌐 Step 4/4: Getting Website URL...`);
   const urlInfo = await getDashboardAndUrl(checkoutId, runningVendors);
   const { appUrl, homeUrl, token, subscriptionUrl } = urlInfo || {};
 
-  console.log(
-    `\n${chalk.blue("🔗")} Your website is available at: ${chalk.cyan(homeUrl || appUrl)}`,
-  );
+  console.log(`\n🔗 Your website is available at: ${chalk.cyan(homeUrl || appUrl)}`);
 
   if (subscriptionUrl) {
-    console.log(
-      `${chalk.blue("🔗")} Your subscription management URL: ${chalk.cyan(subscriptionUrl)}\n`,
-    );
+    console.log(`🔗 Your subscription management URL: ${chalk.cyan(subscriptionUrl)}\n`);
   } else {
     // just log one space line
     console.log("");

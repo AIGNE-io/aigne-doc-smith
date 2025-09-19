@@ -171,6 +171,103 @@ describe("deploy", () => {
     expect(logs.some((log) => log.includes("Your website is available at"))).toBe(true);
   });
 
+  test("successful deployment flow with subscription", async () => {
+    // Mock API responses for the complete flow
+    let callCount = 0;
+    global.fetch = mock(async (url) => {
+      callCount++;
+
+      // Step 1: Create payment session
+      if (url.includes("/api/checkout-sessions/start")) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            checkoutSession: { id: "checkout-123" },
+            paymentUrl: "https://payment.test/checkout-123",
+          }),
+        };
+      }
+
+      // Step 2-4: Poll payment/installation/service status
+      if (url.includes("/api/vendors/order/checkout-123/status")) {
+        if (callCount <= 2) {
+          // First call: payment completed, installation in progress
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              payment_status: "paid",
+              vendors: [{ id: "vendor-1", progress: 50, appUrl: null }],
+            }),
+          };
+        } else {
+          // Subsequent calls: installation complete
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              payment_status: "paid",
+              vendors: [{ id: "vendor-1", progress: 100, appUrl: "https://app.test" }],
+            }),
+          };
+        }
+      }
+
+      // Step 5: Get order details
+      if (url.includes("/api/vendors/order/checkout-123/detail")) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            vendors: [
+              {
+                appUrl: "https://app.test",
+                dashboardUrl: "https://dashboard.test",
+                homeUrl: "https://home.test",
+                token: "auth-token-123",
+              },
+            ],
+            subscriptionUrl: "https://subscription.test",
+          }),
+        };
+      }
+
+      throw new Error(`Unexpected URL: ${url}`);
+    });
+
+    const result = await deploy();
+
+    // Verify result
+    expect(result).toEqual({
+      appUrl: "https://app.test",
+      homeUrl: "https://home.test",
+      token: "auth-token-123",
+    });
+
+    // Verify saveValueToConfig was called
+    expect(saveValueToConfigSpy).toHaveBeenCalledWith(
+      "checkoutId",
+      "checkout-123",
+      "Checkout ID for document deployment website",
+    );
+    expect(saveValueToConfigSpy).toHaveBeenCalledWith(
+      "paymentUrl",
+      expect.stringContaining("payment"),
+      "Payment URL for document deployment website",
+    );
+
+    // Verify console output shows progress
+    const logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
+
+    expect(logs.some((log) => log.includes("Step 1/4: Waiting for payment"))).toBe(true);
+    expect(logs.some((log) => log.includes("Step 2/4: Installing Website"))).toBe(true);
+    expect(logs.some((log) => log.includes("Step 3/4: Starting Website"))).toBe(true);
+    expect(logs.some((log) => log.includes("Step 4/4: Getting Website URL"))).toBe(true);
+    expect(logs.some((log) => log.includes("Your website is available at"))).toBe(true);
+    expect(logs.some((log) => log.includes("Your subscription management URL"))).toBe(true);
+  });
+
   test("handles missing payment link ID", async () => {
     getComponentInfoWithMountPointSpy.mockResolvedValue({
       mountPoint: "/payment",
