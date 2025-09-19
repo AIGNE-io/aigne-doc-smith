@@ -35,7 +35,4 @@ skills:
     concurrency: 3
     mode: sequential
   - ./generate-evaluation-report.mjs
-  - url: ../utils/action-success.mjs
-    default_input:
-      action: "✅ Documents certified successfully"
 mode: sequential

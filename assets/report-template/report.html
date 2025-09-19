@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Quality Assessment Report</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --background: 210 20% 98%;
+            --foreground: 215 25% 27%;
+            --card: 0 0% 100%;
+            --card-foreground: 215 25% 27%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 215 25% 27%;
+            --primary: 217 91% 60%;
+            --primary-foreground: 0 0% 100%;
+            --primary-light: 217 91% 70%;
+            --primary-dark: 217 91% 50%;
+            --secondary: 210 15% 96%;
+            --secondary-foreground: 215 25% 27%;
+            --muted: 210 15% 96%;
+            --muted-foreground: 215 10% 55%;
+            --accent: 142 86% 53%;
+            --accent-foreground: 0 0% 100%;
+            --destructive: 0 84% 60%;
+            --destructive-foreground: 0 0% 100%;
+            --warning: 38 92% 50%;
+            --warning-foreground: 0 0% 100%;
+            --border: 214 32% 91%;
+            --input: 214 32% 91%;
+            --ring: 217 91% 60%;
+            --accuracy: 217 91% 60%;
+            --coverage: 142 86% 53%;
+            --readability: 262 83% 58%;
+            --structure: 38 92% 50%;
+            --success: 142 86% 53%;
+            --info: 217 91% 60%;
+            --critical: 0 84% 60%;
+            --radius: 0.5rem;
+        }
+
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            font-family: system-ui, -apple-system, sans-serif;
+            background-image: linear-gradient(135deg, hsl(217 91% 60% / 0.1), hsl(262 83% 58% / 0.1), hsl(142 86% 53% / 0.1));
+        }
+
+        .glass-card {
+            background: hsl(0 0% 100% / 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid hsl(0 0% 100% / 0.2);
+            box-shadow: 0 8px 32px hsl(215 25% 27% / 0.12);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, hsl(217 91% 60%), hsl(262 83% 58%));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px -10px hsl(215 25% 27% / 0.2), 0 0 0 1px hsl(215 25% 27% / 0.05);
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, hsl(217 91% 60%), hsl(262 83% 58%));
+        }
+
+        .text-accuracy { color: hsl(var(--accuracy)); }
+        .text-coverage { color: hsl(var(--coverage)); }
+        .text-readability { color: hsl(var(--readability)); }
+        .text-structure { color: hsl(var(--structure)); }
+        .text-success { color: hsl(var(--success)); }
+        .text-warning { color: hsl(var(--warning)); }
+        .text-critical { color: hsl(var(--critical)); }
+        .text-info { color: hsl(var(--info)); }
+
+        .bg-accuracy\/10 { background-color: hsl(var(--accuracy) / 0.1); }
+        .bg-coverage\/10 { background-color: hsl(var(--coverage) / 0.1); }
+        .bg-readability\/10 { background-color: hsl(var(--readability) / 0.1); }
+        .bg-structure\/10 { background-color: hsl(var(--structure) / 0.1); }
+        .bg-success\/10 { background-color: hsl(var(--success) / 0.1); }
+        .bg-warning\/10 { background-color: hsl(var(--warning) / 0.1); }
+        .bg-critical\/10 { background-color: hsl(var(--critical) / 0.1); }
+
+        .hidden { display: none; }
+        .block { display: block; }
+
+        .progress-bar {
+            background-color: hsl(var(--secondary));
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-indicator {
+            background-color: hsl(var(--primary));
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .nav-button {
+            background: transparent;
+            border: 2px solid transparent;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-button:hover {
+            background: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 15% 99%));
+            box-shadow: 0 4px 20px -4px hsl(215 25% 27% / 0.1);
+            border-color: hsl(var(--border));
+            transform: translateY(-2px);
+        }
+
+        .nav-button.active {
+            background: linear-gradient(135deg, hsl(217 91% 60%), hsl(262 83% 58%));
+            color: white;
+            box-shadow: 0 0 60px hsl(217 91% 60% / 0.3);
+        }
+
+        .nav-button.active svg {
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Templates Section -->
+
+    <!-- Dimension Card Template -->
+    <template id="dimension-card-template">
+        <div class="group relative float-animation">
+            <div class="glass-card hover-lift border-0 relative overflow-hidden h-full rounded-lg p-6">
+                <div class="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+
+                <div class="pb-4 relative z-10">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="dimension-icon-bg p-2 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                                <i class="dimension-icon h-5 w-5"></i>
+                            </div>
+                            <div>
+                                <div class="dimension-name font-semibold text-slate-800"></div>
+                                <div class="dimension-weight text-xs text-slate-600"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 relative z-10">
+                    <div class="text-center">
+                        <div class="dimension-score text-3xl font-bold gradient-text mb-2"></div>
+                        <div class="progress-bar h-3">
+                            <div class="dimension-progress progress-indicator"></div>
+                        </div>
+                    </div>
+
+                    <button class="dimension-detail-btn w-full px-4 py-2 text-sm font-medium rounded-lg border border-transparent hover:bg-blue-500/10 transition-colors nav-trigger">
+                        <span class="flex items-center justify-center space-x-2">
+                            <span>View Details</span>
+                            <i data-lucide="arrow-right" class="h-4 w-4"></i>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-primary opacity-5 rounded-full blur-2xl"></div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Key Metric Card Template -->
+    <template id="key-metric-template">
+        <div class="float-animation glass-card hover-lift border-0 relative overflow-hidden rounded-lg p-6">
+            <div class="metric-status-bar absolute top-0 left-0 right-0 h-1 bg-gradient-to-r"></div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <span class="flex items-center space-x-3 text-sm font-medium text-slate-600">
+                        <i class="metric-icon h-4 w-4 text-blue-500"></i>
+                        <span class="metric-title"></span>
+                    </span>
+                    <div class="metric-status-bg p-2 rounded-xl">
+                        <i class="metric-status-icon h-4 w-4"></i>
+                    </div>
+                </div>
+                <div class="flex items-baseline space-x-2">
+                    <span class="metric-value text-3xl font-bold gradient-text"></span>
+                    <span class="metric-unit text-sm font-medium text-slate-600"></span>
+                </div>
+                <div class="progress-bar h-3">
+                    <div class="metric-progress progress-indicator"></div>
+                </div>
+                <div class="metric-ratio-info flex justify-between items-center"></div>
+                <p class="metric-description text-xs text-slate-600"></p>
+            </div>
+        </div>
+    </template>
+
+    <!-- Issue Summary Item Template -->
+    <template id="issue-summary-template">
+        <div class="flex items-center justify-between p-4 rounded-xl glass-card hover:shadow-lg transition-all">
+            <div class="flex items-center space-x-4">
+                <span class="issue-badge px-2 py-1 text-white text-xs font-medium rounded"></span>
+                <span class="issue-description text-sm font-medium text-slate-800"></span>
+            </div>
+            <div class="text-right">
+                <div class="issue-count text-lg font-bold text-slate-800"></div>
+                <div class="text-xs text-slate-600">items</div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Highlight Item Template -->
+    <template id="highlight-template">
+        <div class="flex items-start space-x-4 p-4 rounded-xl bg-green-500/10 border border-green-500/20 hover:border-green-500/40 transition-all">
+            <div class="p-1 rounded-lg bg-green-500/20">
+                <i data-lucide="check-circle" class="h-4 w-4 text-success"></i>
+            </div>
+            <div class="flex-1">
+                <div class="highlight-title font-semibold text-success mb-1"></div>
+                <div class="highlight-description text-sm text-slate-700"></div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Detail Metric Card Template -->
+    <template id="detail-metric-template">
+        <div class="glass-card rounded-lg p-6">
+            <div class="pb-3">
+                <div class="flex items-center space-x-2 text-sm font-medium text-slate-600">
+                    <i class="detail-metric-icon h-4 w-4"></i>
+                    <span class="detail-metric-name"></span>
+                </div>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <span class="detail-metric-score text-2xl font-bold text-slate-800"></span>
+                    <span class="detail-metric-badge px-2 py-1 text-white text-xs rounded"></span>
+                </div>
+                <div class="progress-bar h-2">
+                    <div class="detail-metric-progress progress-indicator"></div>
+                </div>
+                <div class="detail-metric-target text-xs text-slate-600"></div>
+                <p class="detail-metric-description text-xs text-slate-600"></p>
+            </div>
+        </div>
+    </template>
+
+    <!-- Detail Issue Template -->
+    <template id="detail-issue-template">
+        <div class="border border-slate-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div class="space-y-3">
+                <div class="flex items-center space-x-3">
+                    <span class="detail-issue-severity-badge px-2 py-1 text-white text-xs rounded"></span>
+                    <span class="detail-issue-type-badge px-2 py-1 border border-slate-300 text-xs rounded"></span>
+                    <h3 class="detail-issue-title font-medium text-slate-800"></h3>
+                </div>
+                <p class="detail-issue-description text-sm text-slate-600"></p>
+                <div class="flex items-center space-x-4 text-xs text-slate-600">
+                    <span class="detail-issue-file">📁 </span>
+                    <span class="detail-issue-line">📍 Line </span>
+                </div>
+                <div class="bg-blue-50 rounded-md p-3 border-l-4 border-blue-400">
+                    <p class="text-xs text-slate-800">
+                        <strong class="detail-issue-action-label"></strong>
+                        <span class="detail-issue-action"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Quick Win Template -->
+    <template id="quick-win-template">
+        <div class="p-4 bg-green-50 border border-green-200 rounded-lg">
+            <div class="flex items-start justify-between mb-3">
+                <div class="flex-1">
+                    <h4 class="quick-win-title font-medium text-slate-800 mb-1"></h4>
+                    <p class="quick-win-description text-sm text-slate-600"></p>
+                </div>
+                <i data-lucide="star" class="h-4 w-4 text-success ml-2"></i>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center space-x-3">
+                    <span class="quick-win-score text-success font-medium"></span>
+                    <span class="quick-win-days text-slate-600"></span>
+                </div>
+                <span class="quick-win-assignee px-2 py-1 border border-slate-300 text-xs rounded"></span>
+            </div>
+        </div>
+    </template>
+
+    <!-- Timeline Item Template -->
+    <template id="timeline-template">
+        <div class="timeline-item relative">
+            <div class="flex items-start space-x-4">
+                <div class="timeline-phase flex-shrink-0 w-20 text-sm font-medium text-slate-600"></div>
+                <div class="flex-1 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <h4 class="timeline-title font-medium text-slate-800"></h4>
+                        <span class="timeline-impact text-sm font-medium text-success"></span>
+                    </div>
+                    <div class="timeline-tasks space-y-1"></div>
+                </div>
+            </div>
+            <div class="timeline-connector absolute left-10 top-8 w-px h-8 bg-slate-200"></div>
+        </div>
+    </template>
+
+    <!-- Timeline Task Template -->
+    <template id="timeline-task-template">
+        <div class="flex items-center space-x-2 text-sm">
+            <i data-lucide="check-circle" class="h-3 w-3 text-slate-600"></i>
+            <span class="timeline-task-text text-slate-600"></span>
+        </div>
+    </template>
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 -z-10">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-primary opacity-10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-primary opacity-10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-primary opacity-5 rounded-full blur-3xl animate-pulse" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="glass-card border-b-0 sticky top-0 z-40 backdrop-blur-xl">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div class="space-y-2">
+                    <h1 class="text-3xl font-bold gradient-text" id="report-title"></h1>
+                    <p class="text-sm text-slate-600 flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-gradient-primary rounded-full animate-pulse"></div>
+                        <span id="report-subtitle"></span>
+                    </p>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold gradient-text" id="header-score"></div>
+                        <div class="text-xs text-slate-600">Overall Score</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="glass-card border-b-0 border-t border-slate-200">
+        <div class="container mx-auto px-6">
+            <div class="flex space-x-1 overflow-x-auto py-2" id="navigation">
+                <!-- Navigation will be dynamically generated -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12 relative z-10">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page-content">
+                <div class="space-y-8">
+                    <!-- Hero Section -->
+                    <div class="text-center space-y-8 py-12">
+                        <div class="space-y-4">
+                            <div class="inline-flex items-center space-x-3 px-6 py-3 glass-card rounded-full text-sm font-medium hover-lift">
+                                <div class="w-2 h-2 bg-gradient-primary rounded-full animate-pulse"></div>
+                                <i data-lucide="target" class="h-5 w-5 text-blue-500"></i>
+                                <span class="gradient-text font-semibold">Documentation Quality Score</span>
+                            </div>
+                            <h1 class="text-4xl md:text-6xl font-bold gradient-text">
+                                <span id="overall-score"></span>
+                                <span class="text-2xl md:text-4xl text-slate-600 ml-2">/ 100</span>
+                            </h1>
+
+                            <!-- Integrity Level Display -->
+                            <div id="integrity-level" class="inline-flex items-center space-x-3 px-6 py-3 rounded-full border hover-lift">
+                                <!-- Will be dynamically populated -->
+                            </div>
+
+                            <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed" id="overview-description">
+                                <!-- Will be dynamically populated -->
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Dimensions Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6" id="dimensions-grid">
+                        <!-- Dimensions will be dynamically generated -->
+                    </div>
+
+                    <!-- Key Metrics -->
+                    <div class="space-y-8">
+                        <div class="text-center space-y-2">
+                            <h2 class="text-3xl font-bold gradient-text">Key Metrics Overview</h2>
+                            <p class="text-slate-600 max-w-2xl mx-auto">
+                                Deep dive into core metric performance, identifying strengths and areas for improvement
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6" id="key-metrics">
+                            <!-- Key metrics will be dynamically generated -->
+                        </div>
+                    </div>
+
+                    <!-- Action Cards -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Issues Card -->
+                        <div class="glass-card hover-lift border-0 relative overflow-hidden group rounded-lg">
+                            <div class="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                            <div class="p-6 relative z-10">
+                                <div class="flex items-center space-x-3 text-xl mb-6">
+                                    <div class="p-2 rounded-xl bg-warning/10 group-hover:scale-110 transition-transform duration-300">
+                                        <i data-lucide="alert-triangle" class="h-6 w-6 text-warning"></i>
+                                    </div>
+                                    <span>Issues Requiring Attention</span>
+                                </div>
+                            </div>
+
+                            <div class="px-6 pb-6 space-y-4 relative z-10" id="issues-summary">
+                                <!-- Issues will be dynamically generated -->
+                            </div>
+                        </div>
+
+                        <!-- Highlights Card -->
+                        <div class="glass-card hover-lift border-0 relative overflow-hidden group rounded-lg">
+                            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                            <div class="p-6 relative z-10">
+                                <div class="flex items-center space-x-3 text-xl mb-6">
+                                    <div class="p-2 rounded-xl bg-success/10 group-hover:scale-110 transition-transform duration-300">
+                                        <i data-lucide="check-circle" class="h-6 w-6 text-success"></i>
+                                    </div>
+                                    <span>Outstanding Highlights</span>
+                                </div>
+                            </div>
+
+                            <div class="px-6 pb-6 space-y-4 relative z-10" id="highlights-summary">
+                                <!-- Highlights will be dynamically generated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Pages will be dynamically generated -->
+            <div id="detail-pages">
+                <!-- Detail pages will be dynamically generated -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Data Configuration -->
+    <script>
+        // Main data object - replace this object to change all content
+        const REPORT_DATA = {
+            // Report metadata
+            meta: {
+                title: "Documentation Quality Assessment Report",
+                subtitle: "Comprehensive Project Documentation Quality Analysis",
+                overallScore: 82.3,
+                reportDate: new Date().toLocaleDateString('en-US')
+            },
+
+            // Overview section
+            overview: {
+                description: "Comprehensive assessment based on four key dimensions: Accuracy, Coverage, Readability, and Structure, providing professional analysis and improvement recommendations"
+            },
+
+            // Integrity level configuration
+            integrityLevel: {
+                level: "Gold",
+                color: "text-yellow-600",
+                bgColor: "bg-yellow-600/10",
+                borderColor: "border-yellow-600/20"
+            },
+
+            // Four main dimensions
+            dimensions: [
+                {
+                    name: "Accuracy",
+                    key: "accuracy",
+                    score: 88.5,
+                    weight: 35,
+                    color: "accuracy",
+                    icon: "shield",
+                    description: "Technical content correctness and consistency analysis"
+                },
+                {
+                    name: "Coverage",
+                    key: "coverage",
+                    score: 79.2,
+                    weight: 35,
+                    color: "coverage",
+                    icon: "file-text",
+                    description: "Documentation coverage analysis for public components"
+                },
+                {
+                    name: "Readability",
+                    key: "readability",
+                    score: 91.8,
+                    weight: 15,
+                    color: "readability",
+                    icon: "book-open",
+                    description: "Documentation readability and user comprehension difficulty analysis"
+                },
+                {
+                    name: "Structure",
+                    key: "structure",
+                    score: 74.1,
+                    weight: 15,
+                    color: "structure",
+                    icon: "layers",
+                    description: "Documentation organization and navigation experience analysis"
+                }
+            ],
+
+            // Key metrics for dashboard
+            keyMetrics: [
+                {
+                    title: "Signature Parity",
+                    value: 95,
+                    unit: "%",
+                    status: "success",
+                    description: "Function signature match with source code",
+                    icon: "code"
+                },
+                {
+                    title: "API Endpoint Coverage",
+                    value: 79,
+                    unit: "%",
+                    status: "warning",
+                    description: "Percentage of documented API endpoints",
+                    icon: "file-text"
+                },
+                {
+                    title: "Clarity Score",
+                    value: 11,
+                    maxValue: 12,
+                    unit: "grade",
+                    status: "success",
+                    description: "Flesch-Kincaid readability grade level",
+                    icon: "book-open"
+                },
+                {
+                    title: "Quickstart Reachable",
+                    value: 3,
+                    maxValue: 3,
+                    unit: "clicks",
+                    status: "success",
+                    description: "Clicks from homepage to quickstart",
+                    icon: "mouse-pointer"
+                }
+            ],
+
+            // Issues summary for dashboard
+            issuesSummary: [
+                { type: "critical", count: 3, description: "Missing API documentation" },
+                { type: "major", count: 8, description: "Outdated code examples" },
+                { type: "minor", count: 15, description: "Inconsistent formatting" }
+            ],
+
+            // Highlights for dashboard
+            highlights: [
+                {
+                    title: "Excellent Signature Consistency",
+                    description: "95% of function signatures perfectly match source code, demonstrating outstanding technical accuracy"
+                },
+                {
+                    title: "Outstanding Readability",
+                    description: "Grade 11 readability score ensures clear, accessible documentation with low learning curve for users"
+                },
+                {
+                    title: "Excellent Navigation Experience",
+                    description: "Clear hierarchical structure with key information readily accessible, providing smooth user experience"
+                }
+            ],
+
+            // Detailed data for each dimension
+            details: {
+                accuracy: {
+                    overallScore: 88.5,
+                    weight: 35,
+                    metrics: [
+                        {
+                            name: "Signature Parity",
+                            score: 95.2,
+                            target: 98,
+                            status: "success",
+                            description: "Function signatures in docs match source code",
+                            icon: "code"
+                        },
+                        {
+                            name: "Link Validity",
+                            score: 87.3,
+                            target: 95,
+                            status: "warning",
+                            description: "Validity of internal links and cross-references",
+                            icon: "link"
+                        },
+                        {
+                            name: "Code Sample Integrity",
+                            score: 83.1,
+                            target: 90,
+                            status: "warning",
+                            description: "Code example syntax correctness and language tagging",
+                            icon: "file-text"
+                        }
+                    ],
+                    issues: [
+                        {
+                            id: 1,
+                            severity: "critical",
+                            title: "API endpoint documentation mismatch",
+                            description: "/api/v1/users/{id} endpoint return type doesn't match actual implementation",
+                            file: "docs/api/users.md",
+                            line: 45,
+                            suggestedAction: "Update documentation to match current API response structure"
+                        },
+                        {
+                            id: 2,
+                            severity: "major",
+                            title: "Code example syntax errors",
+                            description: "JavaScript code examples have missing semicolons and unmatched brackets",
+                            file: "docs/quickstart.md",
+                            line: 23,
+                            suggestedAction: "Fix syntax errors in code examples"
+                        },
+                        {
+                            id: 3,
+                            severity: "major",
+                            title: "Broken links",
+                            description: "Links pointing to old version API reference are broken",
+                            file: "docs/installation.md",
+                            line: 12,
+                            suggestedAction: "Update links to point to latest API documentation version"
+                        },
+                        {
+                            id: 4,
+                            severity: "minor",
+                            title: "Function parameter type inconsistency",
+                            description: "getUserById function parameter type documentation doesn't match TypeScript definition",
+                            file: "docs/api/methods.md",
+                            line: 67,
+                            suggestedAction: "Sync type definitions in documentation"
+                        }
+                    ]
+                },
+
+                coverage: {
+                    overallScore: 79.2,
+                    weight: 35,
+                    metrics: [
+                        {
+                            name: "API Endpoint Coverage",
+                            score: 73.5,
+                            total: 147,
+                            documented: 108,
+                            status: "warning",
+                            description: "Proportion of documented public API endpoints",
+                            icon: "file-text"
+                        },
+                        {
+                            name: "Parameter & Return Value Coverage",
+                            score: 84.2,
+                            total: 423,
+                            documented: 356,
+                            status: "success",
+                            description: "Completeness of function parameter and return value descriptions",
+                            icon: "search"
+                        },
+                        {
+                            name: "Change Detection Coverage",
+                            score: 81.7,
+                            total: 23,
+                            documented: 19,
+                            status: "success",
+                            description: "Reflection of latest code changes in documentation",
+                            icon: "git-branch"
+                        }
+                    ],
+                    categoryBreakdown: [
+                        { name: "Documented", value: 73.5, color: "success" },
+                        { name: "Partially Documented", value: 15.2, color: "warning" },
+                        { name: "Undocumented", value: 11.3, color: "critical" }
+                    ],
+                    uncoveredItems: [
+                        {
+                            id: 1,
+                            type: "API Endpoint",
+                            name: "POST /api/v1/projects/{id}/archive",
+                            description: "API endpoint for archiving projects",
+                            severity: "major",
+                            file: "src/routes/projects.ts",
+                            addedDate: "2024-01-15"
+                        },
+                        {
+                            id: 2,
+                            type: "API Endpoint",
+                            name: "GET /api/v1/analytics/reports",
+                            description: "API endpoint for retrieving analytics reports",
+                            severity: "major",
+                            file: "src/routes/analytics.ts",
+                            addedDate: "2024-01-12"
+                        },
+                        {
+                            id: 3,
+                            type: "Parameter",
+                            name: "searchFilters.dateRange",
+                            description: "Date range parameter in search filters",
+                            severity: "minor",
+                            file: "src/types/search.ts",
+                            addedDate: "2024-01-10"
+                        },
+                        {
+                            id: 4,
+                            type: "Return Value",
+                            name: "UserProfile.preferences",
+                            description: "Preferences field in user profile return object",
+                            severity: "minor",
+                            file: "src/types/user.ts",
+                            addedDate: "2024-01-08"
+                        }
+                    ]
+                },
+
+                readability: {
+                    overallScore: 91.8,
+                    weight: 15,
+                    metrics: [
+                        {
+                            name: "Clarity Score",
+                            score: 11.2,
+                            target: 12,
+                            unit: "grade",
+                            status: "success",
+                            description: "Flesch-Kincaid grade level readability assessment",
+                            icon: "book-open",
+                            trend: "stable"
+                        },
+                        {
+                            name: "Active Voice Ratio",
+                            score: 78.5,
+                            target: 80,
+                            unit: "%",
+                            status: "warning",
+                            description: "Ratio of active to passive voice usage",
+                            icon: "volume-2",
+                            trend: "up"
+                        },
+                        {
+                            name: "Acronym Definition Coverage",
+                            score: 94.7,
+                            target: 95,
+                            unit: "%",
+                            status: "success",
+                            description: "Percentage of acronyms and terms defined on first use",
+                            icon: "type",
+                            trend: "up"
+                        }
+                    ],
+                    issues: [
+                        {
+                            id: 1,
+                            type: "Complex Sentences",
+                            title: "Overly long sentences affecting comprehension",
+                            description: "Installation guide contains complex sentences with average length exceeding 25 words",
+                            file: "docs/installation.md",
+                            line: 34,
+                            severity: "minor",
+                            suggestion: "Break into multiple simple sentences, use bullet points"
+                        },
+                        {
+                            id: 2,
+                            type: "Passive Voice",
+                            title: "Excessive passive voice usage",
+                            description: "API reference documentation has high passive voice usage ratio",
+                            file: "docs/api-reference.md",
+                            line: 67,
+                            severity: "minor",
+                            suggestion: "Use active voice, e.g. 'Call this method' instead of 'This method is called'"
+                        },
+                        {
+                            id: 3,
+                            type: "Term Definition",
+                            title: "Missing term explanations",
+                            description: "Terms like JWT, OAuth not defined on first use",
+                            file: "docs/authentication.md",
+                            line: 12,
+                            severity: "major",
+                            suggestion: "Add brief definitions when terms first appear"
+                        }
+                    ]
+                },
+
+                structure: {
+                    overallScore: 74.1,
+                    weight: 15,
+                    metrics: [
+                        {
+                            name: "Required Section Completeness",
+                            score: 85.7,
+                            present: 12,
+                            total: 14,
+                            status: "success",
+                            description: "Completeness of documents containing required sections",
+                            icon: "list"
+                        },
+                        {
+                            name: "Navigation Usability",
+                            score: 91.2,
+                            working: 42,
+                            total: 46,
+                            status: "success",
+                            description: "Effectiveness and accuracy of table of contents links",
+                            icon: "navigation"
+                        },
+                        {
+                            name: "Information Accessibility",
+                            score: 45.5,
+                            reachable: 5,
+                            total: 11,
+                            status: "critical",
+                            description: "Accessibility of key pages from homepage",
+                            icon: "mouse-pointer"
+                        }
+                    ],
+                    missingSections: [
+                        {
+                            name: "Quick Start Guide",
+                            files: ["README.md", "docs/getting-started.md"],
+                            priority: "high",
+                            description: "Missing guidance content for new users to get started quickly"
+                        },
+                        {
+                            name: "Troubleshooting",
+                            files: ["docs/troubleshooting.md"],
+                            priority: "medium",
+                            description: "Missing section for common issues and solutions"
+                        }
+                    ],
+                    navigationIssues: [
+                        {
+                            id: 1,
+                            type: "Broken Link",
+                            description: "Link to 'Advanced Configuration' in table of contents not working properly",
+                            file: "docs/README.md",
+                            line: 23,
+                            severity: "major"
+                        },
+                        {
+                            id: 2,
+                            type: "Anchor Error",
+                            description: "API reference table of contents anchors don't match actual headers",
+                            file: "docs/api/index.md",
+                            line: 15,
+                            severity: "minor"
+                        }
+                    ],
+                    clickPaths: [
+                        {
+                            target: "Quick Start",
+                            currentPath: "Home → Documentation → Guides → Quick Start",
+                            clicks: 4,
+                            maxClicks: 3,
+                            status: "warning"
+                        },
+                        {
+                            target: "API Reference",
+                            currentPath: "Home → API Documentation",
+                            clicks: 2,
+                            maxClicks: 3,
+                            status: "success"
+                        },
+                        {
+                            target: "Code Examples",
+                            currentPath: "Home → Documentation → Examples → Code Repository",
+                            clicks: 4,
+                            maxClicks: 3,
+                            status: "warning"
+                        }
+                    ]
+                }
+            },
+
+            // Recommendations data
+            recommendations: {
+                impactSummary: {
+                    totalPotentialImprovement: 50.5,
+                    quickWinImpacts: 7.7,
+                    totalRecommendations: 6,
+                    estimatedWeeks: 8
+                },
+                quickWins: [
+                    {
+                        id: 4,
+                        title: "Fix broken links",
+                        description: "Update broken internal links and anchor references in table of contents",
+                        dimension: "Accuracy",
+                        estimatedDays: 1,
+                        scoreImprovement: 3.2,
+                        assignee: "Technical Writing Team"
+                    },
+                    {
+                        id: 6,
+                        title: "Define technical terms",
+                        description: "Add definitions for terms like JWT, OAuth when first used",
+                        dimension: "Readability",
+                        estimatedDays: 2,
+                        scoreImprovement: 4.5,
+                        assignee: "Technical Writing Team"
+                    }
+                ],
+                allRecommendations: [
+                    {
+                        id: 1,
+                        title: "Fix API endpoint documentation mismatch",
+                        description: "Update return type documentation for /api/v1/users/{id} and other endpoints to match actual implementation",
+                        dimension: "Accuracy",
+                        priority: "P0",
+                        impact: "High",
+                        effort: "Medium",
+                        estimatedDays: 3,
+                        scoreImprovement: 8.5,
+                        assignee: "Technical Writing Team",
+                        status: "To Do",
+                        quickWin: false
+                    },
+                    {
+                        id: 2,
+                        title: "Add documentation for missing API endpoints",
+                        description: "Create documentation for POST /api/v1/projects/{id}/archive and 39 other missing endpoints",
+                        dimension: "Coverage",
+                        priority: "P0",
+                        impact: "High",
+                        effort: "High",
+                        estimatedDays: 10,
+                        scoreImprovement: 12.3,
+                        assignee: "Development Team + Technical Writing",
+                        status: "To Do",
+                        quickWin: false
+                    },
+                    {
+                        id: 3,
+                        title: "Add Quick Start Guide",
+                        description: "Create user-friendly quick start guide from installation to first API call",
+                        dimension: "Structure",
+                        priority: "P1",
+                        impact: "High",
+                        effort: "Medium",
+                        estimatedDays: 5,
+                        scoreImprovement: 15.2,
+                        assignee: "Product Team",
+                        status: "To Do",
+                        quickWin: false
+                    },
+                    {
+                        id: 4,
+                        title: "Fix broken links",
+                        description: "Update broken internal links and anchor references in table of contents",
+                        dimension: "Accuracy",
+                        priority: "P1",
+                        impact: "Medium",
+                        effort: "Low",
+                        estimatedDays: 1,
+                        scoreImprovement: 3.2,
+                        assignee: "Technical Writing Team",
+                        status: "To Do",
+                        quickWin: true
+                    },
+                    {
+                        id: 5,
+                        title: "Simplify complex sentences",
+                        description: "Rewrite complex sentences with average length exceeding 25 words to improve readability",
+                        dimension: "Readability",
+                        priority: "P1",
+                        impact: "Medium",
+                        effort: "Medium",
+                        estimatedDays: 4,
+                        scoreImprovement: 6.8,
+                        assignee: "Technical Writing Team",
+                        status: "In Progress",
+                        quickWin: false
+                    },
+                    {
+                        id: 6,
+                        title: "Define technical terms",
+                        description: "Add definitions for terms like JWT, OAuth when first used",
+                        dimension: "Readability",
+                        priority: "P2",
+                        impact: "Medium",
+                        effort: "Low",
+                        estimatedDays: 2,
+                        scoreImprovement: 4.5,
+                        assignee: "Technical Writing Team",
+                        status: "To Do",
+                        quickWin: true
+                    }
+                ],
+                timeline: [
+                    {
+                        phase: "Week 1",
+                        tasks: ["Fix broken links", "Define technical terms"],
+                        impact: 7.7,
+                        type: "quick-wins"
+                    },
+                    {
+                        phase: "Weeks 2-3",
+                        tasks: ["Fix API documentation mismatch", "Simplify complex sentences"],
+                        impact: 15.3,
+                        type: "medium"
+                    },
+                    {
+                        phase: "Weeks 4-5",
+                        tasks: ["Add Quick Start Guide"],
+                        impact: 15.2,
+                        type: "high-impact"
+                    },
+                    {
+                        phase: "Weeks 6-8",
+                        tasks: ["Add API endpoint documentation"],
+                        impact: 12.3,
+                        type: "high-impact"
+                    }
+                ]
+            }
+        };
+    </script>
+
+    <!-- Template Rendering System -->
+    <script>
+        // Template utilities
+        function cloneTemplate(templateId) {
+            const template = document.getElementById(templateId);
+            return template.content.cloneNode(true);
+        }
+
+        function fillTemplate(element, data, selectors) {
+            Object.keys(selectors).forEach(key => {
+                const selector = selectors[key];
+                const target = element.querySelector(selector);
+                if (target && data[key] !== undefined) {
+                    if (selector.includes('data-lucide')) {
+                        target.setAttribute('data-lucide', data[key]);
+                    } else if (selector.includes('style')) {
+                        target.style.width = data[key];
+                    } else if (selector.includes('class')) {
+                        target.className += ' ' + data[key];
+                    } else {
+                        target.textContent = data[key];
+                    }
+                }
+            });
+            return element;
+        }
+
+        // Utility functions
+        function formatNumber(num, decimals = 1) {
+            return typeof num === 'number' ? num.toFixed(decimals) : num;
+        }
+
+        function getStatusConfig(status) {
+            const configs = {
+                success: { color: "text-success", bgColor: "bg-success/10", badgeClass: "bg-green-500", badgeText: "Good", icon: "check-circle" },
+                warning: { color: "text-warning", bgColor: "bg-warning/10", badgeClass: "bg-yellow-500", badgeText: "Needs Improvement", icon: "alert-triangle" },
+                critical: { color: "text-critical", bgColor: "bg-critical/10", badgeClass: "bg-red-500", badgeText: "Critical", icon: "x-circle" },
+                info: { color: "text-info", bgColor: "bg-info/10", badgeClass: "bg-blue-500", badgeText: "Info", icon: "info" }
+            };
+            return configs[status] || configs.info;
+        }
+
+        function getSeverityConfig(severity) {
+            const configs = {
+                critical: { color: "text-critical", bgColor: "bg-critical/10", badgeClass: "bg-red-500", label: "Critical" },
+                major: { color: "text-warning", bgColor: "bg-warning/10", badgeClass: "bg-yellow-500", label: "Major" },
+                minor: { color: "text-info", bgColor: "bg-info/10", badgeClass: "border border-slate-300", label: "Minor" }
+            };
+            return configs[severity] || configs.minor;
+        }
+
+        function getIntegrityLevel(score) {
+            if (score >= 90) return { level: "Platinum", color: "text-yellow-400", bgColor: "bg-yellow-400/10", borderColor: "border-yellow-400/20" };
+            if (score >= 80) return { level: "Gold", color: "text-yellow-600", bgColor: "bg-yellow-600/10", borderColor: "border-yellow-600/20" };
+            if (score >= 70) return { level: "Silver", color: "text-slate-400", bgColor: "bg-slate-400/10", borderColor: "border-slate-400/20" };
+            return { level: "Bronze", color: "text-amber-700", bgColor: "bg-amber-700/10", borderColor: "border-amber-700/20" };
+        }
+
+        // Render functions using templates
+        function renderHeader() {
+            document.getElementById('report-title').textContent = REPORT_DATA.meta.title;
+            document.getElementById('report-subtitle').textContent = `${REPORT_DATA.meta.subtitle} - ${REPORT_DATA.meta.reportDate}`;
+            document.getElementById('header-score').textContent = formatNumber(REPORT_DATA.meta.overallScore);
+        }
+
+        function renderNavigation() {
+            const navItems = [
+                { path: "dashboard", icon: "bar-chart-3", label: "Overview", color: "text-blue-500" },
+                { path: "accuracy", icon: "shield", label: "Accuracy", color: "text-accuracy" },
+                { path: "coverage", icon: "file-text", label: "Coverage", color: "text-coverage" },
+                { path: "readability", icon: "book-open", label: "Readability", color: "text-readability" },
+                { path: "structure", icon: "layers", label: "Structure", color: "text-structure" },
+                { path: "recommendations", icon: "check-circle", label: "Recommendations", color: "text-accent" }
+            ];
+
+            const navigation = document.getElementById('navigation');
+            navigation.innerHTML = navItems.map(item => `
+                <a href="#" class="nav-button ${item.path === 'dashboard' ? 'active' : ''}" data-page="${item.path}">
+                    <i data-lucide="${item.icon}" class="w-4 h-4 ${item.color}"></i>
+                    <span class="whitespace-nowrap font-medium">${item.label}</span>
+                </a>
+            `).join('');
+        }
+
+        function renderDashboard() {
+            // Overall score and integrity level
+            document.getElementById('overall-score').textContent = formatNumber(REPORT_DATA.meta.overallScore);
+            document.getElementById('overview-description').textContent = REPORT_DATA.overview.description;
+
+            const integrityLevel = getIntegrityLevel(REPORT_DATA.meta.overallScore);
+            document.getElementById('integrity-level').innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 rounded-full ${integrityLevel.color.replace('text-', 'bg-')}"></div>
+                    <span class="text-sm font-medium text-slate-600">Integrity Level:</span>
+                    <span class="font-bold ${integrityLevel.color}">${integrityLevel.level}</span>
+                </div>
+            `;
+            document.getElementById('integrity-level').className = `inline-flex items-center space-x-3 px-6 py-3 rounded-full border ${integrityLevel.bgColor} ${integrityLevel.borderColor} hover-lift`;
+
+            // Dimensions using template
+            renderDimensions();
+            renderKeyMetrics();
+            renderIssuesSummary();
+            renderHighlights();
+        }
+
+        function renderDimensions() {
+            const container = document.getElementById('dimensions-grid');
+            container.innerHTML = '';
+
+            REPORT_DATA.dimensions.forEach((dimension, index) => {
+                const element = cloneTemplate('dimension-card-template');
+
+                // Set animation delay
+                element.firstElementChild.style.animationDelay = `${index * 100}ms`;
+
+                // Fill data
+                element.querySelector('.dimension-name').textContent = dimension.name;
+                element.querySelector('.dimension-weight').textContent = `Weight ${dimension.weight}%`;
+                element.querySelector('.dimension-score').textContent = formatNumber(dimension.score);
+                element.querySelector('.dimension-progress').style.width = `${dimension.score}%`;
+
+                // Set icon and colors
+                element.querySelector('.dimension-icon').setAttribute('data-lucide', dimension.icon);
+                element.querySelector('.dimension-icon').className += ` text-${dimension.color}`;
+                element.querySelector('.dimension-icon-bg').className += ` bg-${dimension.color}/10`;
+
+                // Set click handler
+                element.querySelector('.dimension-detail-btn').setAttribute('data-page', dimension.key);
+
+                container.appendChild(element);
+            });
+        }
+
+        function renderKeyMetrics() {
+            const container = document.getElementById('key-metrics');
+            container.innerHTML = '';
+
+            REPORT_DATA.keyMetrics.forEach((metric, index) => {
+                const element = cloneTemplate('key-metric-template');
+                const config = getStatusConfig(metric.status);
+                const percentage = metric.maxValue ? (metric.value / metric.maxValue) * 100 : metric.value;
+
+                // Set animation delay
+                element.firstElementChild.style.animationDelay = `${index * 200}ms`;
+
+                // Fill basic data
+                element.querySelector('.metric-title').textContent = metric.title;
+                element.querySelector('.metric-value').textContent = metric.value;
+                element.querySelector('.metric-unit').textContent = metric.unit;
+                element.querySelector('.metric-description').textContent = metric.description;
+                element.querySelector('.metric-progress').style.width = `${percentage}%`;
+
+                // Set icon and status
+                element.querySelector('.metric-icon').setAttribute('data-lucide', metric.icon);
+                element.querySelector('.metric-status-icon').setAttribute('data-lucide', config.icon);
+                element.querySelector('.metric-status-icon').className += ` ${config.color}`;
+                element.querySelector('.metric-status-bg').className += ` ${config.bgColor}`;
+                element.querySelector('.metric-status-bar').className += ` from-${metric.status} to-${metric.status}/80`;
+
+                // Add ratio info if applicable
+                if (metric.maxValue) {
+                    element.querySelector('.metric-ratio-info').innerHTML = `
+                        <p class="text-xs text-slate-600">${metric.value} / ${metric.maxValue}</p>
+                        <p class="text-xs font-semibold text-blue-500">${formatNumber(percentage)}%</p>
+                    `;
+                }
+
+                container.appendChild(element);
+            });
+        }
+
+        function renderIssuesSummary() {
+            const container = document.getElementById('issues-summary');
+            container.innerHTML = '';
+
+            REPORT_DATA.issuesSummary.forEach(issue => {
+                const element = cloneTemplate('issue-summary-template');
+                const config = getSeverityConfig(issue.type);
+
+                element.querySelector('.issue-description').textContent = issue.description;
+                element.querySelector('.issue-count').textContent = issue.count;
+                element.querySelector('.issue-badge').textContent = config.label;
+                element.querySelector('.issue-badge').className += ` ${config.badgeClass}`;
+
+                container.appendChild(element);
+            });
+
+            // Add recommendation button
+            const button = document.createElement('button');
+            button.className = 'w-full bg-gradient-primary text-white py-3 px-6 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all nav-trigger';
+            button.setAttribute('data-page', 'recommendations');
+            button.innerHTML = `
+                <span class="flex items-center justify-center space-x-2">
+                    <span>View Improvement Recommendations</span>
+                    <i data-lucide="arrow-right" class="h-4 w-4"></i>
+                </span>
+            `;
+            container.appendChild(button);
+        }
+
+        function renderHighlights() {
+            const container = document.getElementById('highlights-summary');
+            container.innerHTML = '';
+
+            REPORT_DATA.highlights.forEach(highlight => {
+                const element = cloneTemplate('highlight-template');
+
+                element.querySelector('.highlight-title').textContent = highlight.title;
+                element.querySelector('.highlight-description').textContent = highlight.description;
+
+                container.appendChild(element);
+            });
+        }
+
+        // Navigation functionality
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            document.getElementById(pageId + '-page').classList.remove('hidden');
+
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            const activeBtn = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+
+        // Detail pages rendering
+        function renderDetailPages() {
+            const detailPages = document.getElementById('detail-pages');
+
+            // Generate detail pages for each dimension
+            const detailPagesHTML = Object.keys(REPORT_DATA.details).map(key => {
+                const data = REPORT_DATA.details[key];
+                const dimension = REPORT_DATA.dimensions.find(d => d.key === key);
+
+                return `
+                    <div id="${key}-page" class="page-content hidden">
+                        <div class="space-y-8">
+                            <!-- Header -->
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h1 class="text-3xl font-bold text-slate-800 flex items-center space-x-3">
+                                        <i data-lucide="${dimension.icon}" class="h-8 w-8 text-${dimension.color}"></i>
+                                        <span>${dimension.name} Assessment</span>
+                                    </h1>
+                                    <p class="text-slate-600 mt-2">${dimension.description}</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-3xl font-bold text-${dimension.color}">${formatNumber(data.overallScore)}</div>
+                                    <div class="text-sm text-slate-600">Weight ${data.weight}%</div>
+                                </div>
+                            </div>
+
+                            <!-- Metrics Overview -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="${key}-metrics">
+                                <!-- Metrics will be rendered by renderDetailMetrics -->
+                            </div>
+
+                            <!-- Content Area -->
+                            <div id="${key}-content">
+                                <!-- Content will be rendered by renderDetailContent -->
+                            </div>
+
+                            <div class="mt-6 pt-4 border-t border-slate-200">
+                                <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors nav-trigger" data-page="recommendations">
+                                    <span class="flex items-center space-x-2">
+                                        <span>View Improvement Recommendations</span>
+                                        <i data-lucide="arrow-right" class="h-4 w-4"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add recommendations page
+            const recommendationsHTML = `
+                <div id="recommendations-page" class="page-content hidden">
+                    <div class="space-y-8">
+                        <div class="text-center space-y-4">
+                            <h1 class="text-3xl font-bold text-slate-800 flex items-center justify-center space-x-3">
+                                <i data-lucide="target" class="h-8 w-8 text-accent"></i>
+                                <span>Improvement Recommendations & Action Plan</span>
+                            </h1>
+                            <p class="text-slate-600 max-w-2xl mx-auto">
+                                Based on documentation quality assessment results, providing specific actionable improvement solutions with estimated impact on overall scores
+                            </p>
+                        </div>
+
+                        <!-- Impact Summary -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="glass-card rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-accent mb-1">+${REPORT_DATA.recommendations.impactSummary.totalPotentialImprovement}</div>
+                                <div class="text-xs text-slate-600">Expected Total Score Improvement</div>
+                            </div>
+                            <div class="glass-card rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-success mb-1">+${REPORT_DATA.recommendations.impactSummary.quickWinImpacts}</div>
+                                <div class="text-xs text-slate-600">Quick Win Score</div>
+                            </div>
+                            <div class="glass-card rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-slate-800 mb-1">${REPORT_DATA.recommendations.impactSummary.totalRecommendations}</div>
+                                <div class="text-xs text-slate-600">Total Recommendations</div>
+                            </div>
+                            <div class="glass-card rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-warning mb-1">${REPORT_DATA.recommendations.impactSummary.estimatedWeeks}</div>
+                                <div class="text-xs text-slate-600">Estimated Completion Weeks</div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Wins -->
+                        <div class="glass-card rounded-lg">
+                            <div class="p-6 border-b border-slate-200">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="zap" class="h-5 w-5 text-success"></i>
+                                    <span class="text-xl font-semibold">Quick Win Projects</span>
+                                    <span class="px-3 py-1 bg-success text-white text-xs rounded-full">Low Investment · High Return</span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quick-wins-container">
+                                    <!-- Quick wins will be rendered by renderQuickWins -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline -->
+                        <div class="glass-card rounded-lg">
+                            <div class="p-6 border-b border-slate-200">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="calendar" class="h-5 w-5 text-blue-500"></i>
+                                    <span class="text-xl font-semibold">Implementation Timeline</span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-6" id="timeline-container">
+                                    <!-- Timeline will be rendered by renderTimeline -->
+                                </div>
+                                <div class="mt-8 p-4 bg-gradient-primary rounded-lg text-white">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="trending-up" class="h-5 w-5"></i>
+                                        <span class="font-medium">
+                                            Expected Result: 8 weeks later, documentation quality score improved to ${formatNumber(REPORT_DATA.meta.overallScore + REPORT_DATA.recommendations.impactSummary.totalPotentialImprovement)} points (+${Math.round((REPORT_DATA.recommendations.impactSummary.totalPotentialImprovement / REPORT_DATA.meta.overallScore) * 100)}%)
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            detailPages.innerHTML = detailPagesHTML + recommendationsHTML;
+
+            // Render content for each detail page
+            Object.keys(REPORT_DATA.details).forEach(key => {
+                renderDetailMetrics(key);
+                renderDetailContent(key);
+            });
+
+            // Render recommendations content
+            renderQuickWins();
+            renderTimeline();
+        }
+
+        function renderDetailMetrics(dimensionKey) {
+            const data = REPORT_DATA.details[dimensionKey];
+            const container = document.getElementById(`${dimensionKey}-metrics`);
+            container.innerHTML = '';
+
+            data.metrics.forEach(metric => {
+                const element = cloneTemplate('detail-metric-template');
+                const config = getStatusConfig(metric.status);
+
+                // Fill data
+                element.querySelector('.detail-metric-name').textContent = metric.name;
+                element.querySelector('.detail-metric-score').textContent = `${formatNumber(metric.score)}${metric.unit || '%'}`;
+                element.querySelector('.detail-metric-description').textContent = metric.description;
+                element.querySelector('.detail-metric-progress').style.width = `${metric.score}%`;
+
+                // Set icon and status
+                element.querySelector('.detail-metric-icon').setAttribute('data-lucide', metric.icon);
+                element.querySelector('.detail-metric-badge').textContent = config.badgeText;
+                element.querySelector('.detail-metric-badge').className += ` ${config.badgeClass}`;
+
+                // Set target info
+                if (metric.target) {
+                    element.querySelector('.detail-metric-target').textContent = `Target: ${metric.target}${metric.unit || '%'}`;
+                } else if (metric.total) {
+                    const completedCount = metric.documented || metric.present || metric.working || metric.reachable || metric.score;
+                    element.querySelector('.detail-metric-target').textContent = `Documented: ${completedCount} / ${metric.total}`;
+                }
+
+                container.appendChild(element);
+            });
+        }
+
+        function renderDetailContent(dimensionKey) {
+            const data = REPORT_DATA.details[dimensionKey];
+            const container = document.getElementById(`${dimensionKey}-content`);
+
+            if (dimensionKey === 'accuracy' || dimensionKey === 'readability') {
+                // Render issues list
+                container.innerHTML = `
+                    <div class="glass-card rounded-lg">
+                        <div class="p-6 border-b border-slate-200">
+                            <div class="flex items-center justify-between">
+                                <span class="flex items-center space-x-2">
+                                    <i data-lucide="alert-triangle" class="h-5 w-5 text-warning"></i>
+                                    <span class="text-xl font-semibold">Identified Issues</span>
+                                    <span class="px-2 py-1 border border-slate-300 text-xs rounded">${data.issues.length} items</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-4" id="${dimensionKey}-issues">
+                                <!-- Issues will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Render issues using template
+                const issuesContainer = document.getElementById(`${dimensionKey}-issues`);
+                data.issues.forEach(issue => {
+                    const element = cloneTemplate('detail-issue-template');
+                    const config = getSeverityConfig(issue.severity);
+
+                    // Fill issue data
+                    element.querySelector('.detail-issue-title').textContent = issue.title;
+                    element.querySelector('.detail-issue-description').textContent = issue.description;
+                    element.querySelector('.detail-issue-file').textContent = `📁 ${issue.file}`;
+                    element.querySelector('.detail-issue-line').textContent = `📍 Line ${issue.line}`;
+                    element.querySelector('.detail-issue-action').textContent = issue.suggestedAction || issue.suggestion;
+
+                    // Set severity badge
+                    element.querySelector('.detail-issue-severity-badge').textContent = config.label;
+                    element.querySelector('.detail-issue-severity-badge').className += ` ${config.badgeClass}`;
+
+                    // Set type badge if exists
+                    if (issue.type) {
+                        element.querySelector('.detail-issue-type-badge').textContent = issue.type;
+                        element.querySelector('.detail-issue-type-badge').style.display = 'inline';
+                    } else {
+                        element.querySelector('.detail-issue-type-badge').style.display = 'none';
+                    }
+
+                    // Set action label
+                    element.querySelector('.detail-issue-action-label').textContent = dimensionKey === 'accuracy' ? 'Suggested Action:' : 'Improvement Suggestion:';
+
+                    issuesContainer.appendChild(element);
+                });
+
+            } else if (dimensionKey === 'coverage') {
+                // Render coverage breakdown and priority items
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="glass-card rounded-lg">
+                            <div class="p-6 border-b border-slate-200">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="pie-chart" class="h-5 w-5 text-coverage"></i>
+                                    <span class="text-xl font-semibold">Coverage Distribution</span>
+                                </div>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                ${data.categoryBreakdown.map(category => `
+                                    <div class="space-y-2">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm font-medium text-slate-800">${category.name}</span>
+                                            <span class="text-sm font-bold text-slate-800">${formatNumber(category.value)}%</span>
+                                        </div>
+                                        <div class="progress-bar h-2">
+                                            <div class="progress-indicator" style="width: ${category.value}%"></div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="glass-card rounded-lg">
+                            <div class="p-6 border-b border-slate-200">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="alert-triangle" class="h-5 w-5 text-warning"></i>
+                                    <span class="text-xl font-semibold">Priority Items</span>
+                                </div>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                ${data.uncoveredItems.slice(0, 3).map(item => {
+                                    const config = getSeverityConfig(item.severity);
+                                    return `
+                                        <div class="p-3 border border-slate-200 rounded-lg">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <span class="px-2 py-1 ${config.badgeClass} text-white text-xs rounded">${config.label}</span>
+                                                <span class="text-xs text-slate-600">${item.addedDate}</span>
+                                            </div>
+                                            <h4 class="font-medium text-sm text-slate-800 mb-1">${item.name}</h4>
+                                            <p class="text-xs text-slate-600">${item.description}</p>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            } else if (dimensionKey === 'structure') {
+                // Render missing sections and page reachability
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="glass-card rounded-lg">
+                            <div class="p-6 border-b border-slate-200">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="file-text" class="h-5 w-5 text-critical"></i>
+                                    <span class="text-xl font-semibold">Missing Sections</span>
+                                </div>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                ${data.missingSections.map(section => {
+                                    const priorityConfig = section.priority === 'high' ? 'bg-red-500' : 'bg-yellow-500';
+                                    return `
+                                        <div class="p-3 border border-slate-200 rounded-lg">
+                                            <div class="flex items-center justify-between mb-2">
+                                                <h4 class="font-medium text-sm text-slate-800">${section.name}</h4>
+                                                <span class="px-2 py-1 ${priorityConfig} text-white text-xs rounded">${section.priority.charAt(0).toUpperCase() + section.priority.slice(1)} Priority</span>
+                                            </div>
+                                            <p class="text-xs text-slate-600 mb-2">${section.description}</p>
+                                            <div class="text-xs text-slate-600">Suggested files: ${section.files.join(', ')}</div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <div class="glass-card rounded-lg">
+                            <div class="p-6 border-b border-slate-200">
+                                <div class="flex items-center space-x-2">
+                                    <i data-lucide="clock" class="h-5 w-5 text-warning"></i>
+                                    <span class="text-xl font-semibold">Page Reachability</span>
+                                </div>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                ${data.clickPaths.map(path => `
+                                    <div class="p-3 border border-slate-200 rounded-lg">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <h4 class="font-medium text-sm text-slate-800">${path.target}</h4>
+                                            <span class="px-2 py-1 ${path.status === 'success' ? 'bg-green-500' : 'bg-yellow-500'} text-white text-xs rounded">${path.clicks} clicks</span>
+                                        </div>
+                                        <p class="text-xs text-slate-600 mb-1">Path: ${path.currentPath}</p>
+                                        <div class="flex items-center justify-between text-xs">
+                                            <span class="text-slate-600">Requirement: ≤ ${path.maxClicks} clicks</span>
+                                            <span class="font-medium ${path.status === 'success' ? 'text-success' : 'text-warning'}">
+                                                ${path.status === 'success' ? 'Meets requirement' : 'Exceeds requirement'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderQuickWins() {
+            const container = document.getElementById('quick-wins-container');
+            container.innerHTML = '';
+
+            REPORT_DATA.recommendations.quickWins.forEach(item => {
+                const element = cloneTemplate('quick-win-template');
+
+                element.querySelector('.quick-win-title').textContent = item.title;
+                element.querySelector('.quick-win-description').textContent = item.description;
+                element.querySelector('.quick-win-score').textContent = `+${item.scoreImprovement} points`;
+                element.querySelector('.quick-win-days').textContent = `${item.estimatedDays} days`;
+                element.querySelector('.quick-win-assignee').textContent = item.assignee;
+
+                container.appendChild(element);
+            });
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = '';
+
+            REPORT_DATA.recommendations.timeline.forEach((phase, index) => {
+                const element = cloneTemplate('timeline-template');
+
+                element.querySelector('.timeline-phase').textContent = phase.phase;
+                element.querySelector('.timeline-impact').textContent = `+${phase.impact} points`;
+
+                // Set title based on type
+                const titleMap = {
+                    "quick-wins": "Quick Win Projects",
+                    "medium": "Medium Impact Projects",
+                    "high-impact": "High Impact Projects"
+                };
+                element.querySelector('.timeline-title').textContent = titleMap[phase.type];
+
+                // Render tasks
+                const tasksContainer = element.querySelector('.timeline-tasks');
+                phase.tasks.forEach(task => {
+                    const taskElement = cloneTemplate('timeline-task-template');
+                    taskElement.querySelector('.timeline-task-text').textContent = task;
+                    tasksContainer.appendChild(taskElement);
+                });
+
+                // Hide connector for last item
+                if (index === REPORT_DATA.recommendations.timeline.length - 1) {
+                    element.querySelector('.timeline-connector').style.display = 'none';
+                }
+
+                container.appendChild(element);
+            });
+        }
+
+        // Initialize application
+        function initializeApp() {
+            renderHeader();
+            renderNavigation();
+            renderDashboard();
+            renderDetailPages();
+
+            // Initialize Lucide icons after content is rendered
+            setTimeout(() => {
+                lucide.createIcons();
+            }, 100);
+
+            // Add click event listeners to navigation buttons
+            document.addEventListener('click', (e) => {
+                const button = e.target.closest('.nav-button, .nav-trigger');
+                if (button && button.dataset.page) {
+                    e.preventDefault();
+                    showPage(button.dataset.page);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            // Show dashboard by default
+            showPage('dashboard');
+        }
+
+        // Start the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
