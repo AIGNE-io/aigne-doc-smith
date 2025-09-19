@@ -39,6 +39,7 @@
     "mermaid": "^11.9.0",
     "open": "^10.2.0",
     "p-map": "^7.0.3",
+    "p-retry": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "remark-lint": "^10.0.1",
     "remark-parse": "^11.0.0",

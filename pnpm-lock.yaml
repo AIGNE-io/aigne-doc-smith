@@ -59,6 +59,9 @@ importers:
       p-map:
         specifier: ^7.0.3
         version: 7.0.3
+      p-retry:
+        specifier: ^7.0.0
+        version: 7.0.0
       remark-gfm:
         specifier: ^4.0.1
         version: 4.0.1

@@ -25,6 +25,7 @@ skills:
     skills:
       - ../utils/load-document-all-content.mjs
       - ./evaluation-document.yaml
+      - ./evaluation-document-code.mjs
       - type: transform
         task_render_mode: hide
         jsonata: |
