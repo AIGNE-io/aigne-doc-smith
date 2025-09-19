@@ -21,11 +21,11 @@ export default async function checkNeedGenerateStructure(
         "Your project configuration is complete. Would you like to generate the document structure now?",
       choices: [
         {
-          name: "Generate now - Start building the document structure",
+          name: "Generate now - Start generating the document structure",
           value: "generate",
         },
         {
-          name: "Review configuration first - Modify settings before generating",
+          name: "Review configuration first - Edit configuration before generating",
           value: "later",
         },
       ],
@@ -34,7 +34,7 @@ export default async function checkNeedGenerateStructure(
     if (choice === "later") {
       console.log(`\nConfiguration file: ${chalk.cyan("./.aigne/doc-smith/config.yaml")}`);
       console.log(
-        "Review and modify your configuration as needed, then run 'aigne doc generate' to continue.",
+        "Review and edit your configuration as needed, then run 'aigne doc generate' to continue.",
       );
 
       // In test environment, return a special result instead of exiting

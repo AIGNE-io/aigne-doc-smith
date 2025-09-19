@@ -74,7 +74,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
   // Ask user if they want to review the document structure
   const needReview = await options.prompts.select({
     message:
-      "Would you like to optimize the document structure?\n  You can modify titles, reorganize sections.",
+      "Would you like to optimize the document structure?\n  You can edit titles, reorganize sections.",
     choices: [
       {
         name: "Looks good - proceed with current structure",
@@ -141,9 +141,6 @@ export default async function userReviewDocumentStructure({ documentStructure, .
         currentStructure = result.documentStructure;
       }
 
-      // Print current document structure in a user-friendly format
-      printDocumentStructure(currentStructure);
-
       // Check if feedback should be saved as user preference
       const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];
       if (feedbackRefinerAgent) {
@@ -157,6 +154,9 @@ export default async function userReviewDocumentStructure({ documentStructure, .
           console.warn("Your feedback was applied but not saved as a preference.");
         }
       }
+
+      // Print current document structure in a user-friendly format
+      printDocumentStructure(currentStructure);
     } catch (error) {
       console.error("Error processing your feedback:");
       console.error(`Type: ${error.name}`);
