@@ -7,6 +7,13 @@
 
 * update readme docs ([#130](https://github.com/AIGNE-io/aigne-doc-smith/issues/130)) ([16b5acf](https://github.com/AIGNE-io/aigne-doc-smith/commit/16b5acf2398ee7b242c5f3229f2bcf2de2fad7d0))
 
+## [0.8.11-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10...v0.8.11-beta) (2025-09-22)
+
+
+### Bug Fixes
+
+* update readme docs ([#130](https://github.com/AIGNE-io/aigne-doc-smith/issues/130)) ([16b5acf](https://github.com/AIGNE-io/aigne-doc-smith/commit/16b5acf2398ee7b242c5f3229f2bcf2de2fad7d0))
+
 ## [0.8.10](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta.3...v0.8.10) (2025-09-20)
 
 
