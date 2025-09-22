@@ -7,9 +7,9 @@ import {
   DEDUCT_ERROR,
   DEDUCT_WARNING,
 } from "../../utils/constants/linter.mjs";
+import { debug } from "../../utils/debug.mjs";
 import { lintCode } from "../../utils/linter/index.mjs";
 import { getMarkdownAst, traverseMarkdownAst } from "../../utils/markdown/index.mjs";
-import { debug } from "../../utils/debug.mjs";
 
 export default async function evaluationDocumentCode({ content }) {
   const ast = getMarkdownAst({ markdown: content });
@@ -73,7 +73,7 @@ export default async function evaluationDocumentCode({ content }) {
   }, 0);
 
   return {
-    codeQuality: {
+    codeExampleIntegrity: {
       score: Math.max(0, 100 - deductScore),
       totalCount,
       ignoreCount,

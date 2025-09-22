@@ -100,4 +100,5 @@ export const CODE_LANGUAGE_MAP_SUFFIX = {
 };
 
 export const DEDUCT_ERROR = 10;
-export const DEDUCT_WARNING = 5;
+// export const DEDUCT_WARNING = 5;
+export const DEDUCT_WARNING = 0;

@@ -13,10 +13,10 @@ describe("evaluateDocumentCode", () => {
     const content = await fs.readFile(path.join(__dirname, "fixtures/test.md"), "utf-8");
     const result = await evaluateDocumentCode({ content });
 
-    expect("codeQuality" in result).toEqual(true);
-    expect(result.codeQuality.totalCount).toEqual(3);
-    expect(result.codeQuality.errorCount).toEqual(2);
-    expect(result.codeQuality.ignoreCount).toEqual(1);
-    expect(result.codeQuality.score).toEqual(85);
+    expect("codeExampleIntegrity" in result).toEqual(true);
+    expect(result.codeExampleIntegrity.totalCount).toEqual(3);
+    expect(result.codeExampleIntegrity.errorCount).toEqual(2);
+    expect(result.codeExampleIntegrity.ignoreCount).toEqual(1);
+    expect(result.codeExampleIntegrity.score).toEqual(85);
   }, 10000);
 });
