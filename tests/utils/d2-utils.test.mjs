@@ -6,7 +6,7 @@ import path from "node:path";
 
 import Debug from "debug";
 
-import { TMP_ASSETS_DIR } from "../../utils/constants.mjs";
+import { TMP_ASSETS_DIR } from "../../utils/constants/index.mjs";
 import {
   beforePublishHook,
   checkContent,

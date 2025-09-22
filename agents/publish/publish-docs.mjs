@@ -5,7 +5,7 @@ import chalk from "chalk";
 import fs from "fs-extra";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
-import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../../utils/constants.mjs";
+import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../../utils/constants/index.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";

@@ -74,7 +74,7 @@
     "description": "A detailed look at all the available settings to customize the style, audience, and languages of your documentation.",
     "path": "/configuration",
     "parentId": null,
-    "sourceIds": ["README.md", "agents/input-generator.mjs", "utils/constants.mjs"]
+    "sourceIds": ["README.md", "agents/input-generator.mjs", "utils/constants/index.mjs"]
   },
   {
     "title": "LLM Setup",
@@ -88,7 +88,7 @@
     "description": "See the full list of languages that DocSmith supports for automatic translation and learn how to enable them.",
     "path": "/configuration/language-support",
     "parentId": "/configuration",
-    "sourceIds": ["README.md", "utils/constants.mjs"]
+    "sourceIds": ["README.md", "utils/constants/index.mjs"]
   },
   {
     "title": "Managing Preferences",
@@ -109,7 +109,7 @@
     "sourceIds": [
       "agents/input-generator.mjs",
       "utils/conflict-detector.mjs",
-      "utils/constants.mjs"
+      "utils/constants/index.mjs"
     ]
   },
   {

@@ -12,7 +12,7 @@ import {
   FILE_CONCURRENCY,
   TMP_ASSETS_DIR,
   TMP_DIR,
-} from "./constants.mjs";
+} from "./constants/index.mjs";
 import { debug } from "./debug.mjs";
 import { iconMap } from "./icon-map.mjs";
 import { getContentHash } from "./utils.mjs";
