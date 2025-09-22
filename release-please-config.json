@@ -10,11 +10,5 @@
       "include-component-in-tag": false,
       "prerelease-type": "beta"
     }
-  },
-  "plugins": [
-    {
-      "type": "node-workspace",
-      "updatePeerDependencies": true
-    }
-  ]
+  }
 }
