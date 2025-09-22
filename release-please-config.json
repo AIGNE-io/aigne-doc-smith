@@ -1,13 +1,20 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "node",
+  "prerelease": true,
+  "versioning": "prerelease",
   "packages": {
     ".": {
-      "release-type": "node",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "include-component-in-tag": false,
-      "prerelease-type": "beta",
-      "versioning": "prerelease"
+      "prerelease-type": "beta"
     }
-  }
+  },
+  "plugins": [
+    {
+      "type": "node-workspace",
+      "updatePeerDependencies": true
+    }
+  ]
 }
