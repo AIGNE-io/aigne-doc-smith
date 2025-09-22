@@ -5,6 +5,5 @@ Merge that PR when appropriate.
 
 ### Release a prod version
 
-When you want to publish a production version, you can run `git commit --allow-empty -m "chore: release x.x.x" -m "Release-As: x.x.x"` to main.  
-release-please will update the PR to release to a specific version (without beta).  
+When you want publish a prod version, manually execute the GitHub Action 'Create Release PR' to create a release PR for the prod version.
 Merge that PR when appropriate.

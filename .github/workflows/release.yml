@@ -45,7 +45,5 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: |
           npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
-          pnpm -r exec -- bash -c '
-            TAG=$(node -p "require(\"./package.json\").version.includes(\"beta\") ? \"beta\" : \"latest\"")
-            pnpm publish --access public --no-git-checks --tag $TAG || true
-          '
+          TAG=$(node -p "require(\"./package.json\").version.includes(\"beta\") ? \"beta\" : \"latest\"")
+          pnpm publish --access public --no-git-checks --tag $TAG || true
