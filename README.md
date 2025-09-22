@@ -298,6 +298,9 @@ pnpm test
 
 # Run linting
 pnpm run lint
+
+# Auto fix lint error
+pnpm run lint:fix
 ```
 
 ### 📜 Code of Conduct
