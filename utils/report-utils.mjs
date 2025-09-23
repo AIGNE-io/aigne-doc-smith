@@ -54,6 +54,7 @@ export function generateSummary(structureEval, docEval) {
       "audienceAlignment",
       "knowledgeLevelAlignment",
       "navigability",
+      "codeExampleIntegrity"
     ];
 
     keys.forEach((key) => {
@@ -108,6 +109,7 @@ export function aggregateDocumentEvaluations(documentEvaluations) {
     "audienceAlignment",
     "knowledgeLevelAlignment",
     "navigability",
+    "codeExampleIntegrity"
   ];
 
   const aggregated = {};
@@ -142,6 +144,9 @@ export function aggregateDocumentEvaluations(documentEvaluations) {
         score: Math.round(avgScore * 10) / 10,
         reason: `Average from ${aggregated[key].count} documents: ${aggregated[key].reasons.slice(0, 3).join("; ")}`,
       };
+      if (key === 'codeExampleIntegrity') {
+        delete result[key].reason;
+      }
     }
   });
 
@@ -166,6 +171,7 @@ export function processDocumentEvaluations(originalDocumentStructure) {
           coherence,
           contentQuality,
           translationQuality,
+          codeExampleIntegrity,
           consistency,
           purposeAlignment,
           audienceAlignment,
@@ -185,6 +191,7 @@ export function processDocumentEvaluations(originalDocumentStructure) {
             coherence,
             contentQuality,
             translationQuality,
+            codeExampleIntegrity,
             consistency,
             purposeAlignment,
             audienceAlignment,

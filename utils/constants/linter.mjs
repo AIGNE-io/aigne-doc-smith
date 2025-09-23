@@ -1,3 +1,5 @@
+export const LINTER_API_URL = 'https://linter.abtnet.io';
+
 export const LINTER_SUPPORTED_FILE = {
   biome: [".js", ".jsx", ".ts", ".tsx", ".json"],
   eslint: [".js", ".jsx", ".ts", ".tsx", ".vue"],

@@ -1,4 +1,4 @@
-const apiUrl = "https://linter.abtnet.io";
+import { LINTER_API_URL } from "../constants/linter.mjs";
 
 export async function lintCode({ code, linter = "biome-lint", suffix = ".js" }) {
   let filename = `code${suffix}`;
@@ -15,7 +15,7 @@ export async function lintCode({ code, linter = "biome-lint", suffix = ".js" }) 
       // timeout: 15000,
     },
   };
-  const response = await fetch(`${apiUrl}/${linter}/json`, {
+  const response = await fetch(`${LINTER_API_URL}/${linter}/json`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
