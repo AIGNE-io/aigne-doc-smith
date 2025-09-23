@@ -1,9 +1,9 @@
+import { createConnect } from "@aigne/cli/utils/aigne-hub/credential.js";
+import chalk from "chalk";
 import { existsSync, mkdirSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { createConnect } from "@aigne/cli/utils/aigne-hub/credential.js";
-import chalk from "chalk";
 import open from "open";
 import { joinURL } from "ufo";
 import { parse, stringify } from "yaml";
@@ -16,6 +16,7 @@ import {
   BLOCKLET_ADD_COMPONENT_DOCS,
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
+  DOC_OFFICIAL_ACCESS_TOKEN,
 } from "./constants/index.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
@@ -133,4 +134,109 @@ export async function getAccessToken(appUrl, ltToken = "") {
   }
 
   return accessToken;
+}
+
+/**
+ * Get official access token from environment, config file, or prompt user for authorization.
+ * @param {string} baseUrl - The official service URL
+ * @returns {Promise<string>} - The access token
+ */
+export async function getOfficialAccessToken(baseUrl) {
+  // Early parameter validation
+  if (!baseUrl) {
+    throw new Error("baseUrl parameter is required for getOfficialAccessToken.");
+  }
+
+  // Parse URL once and reuse
+  const urlObj = new URL(baseUrl);
+  const { hostname, origin } = urlObj;
+  const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
+
+  // 1. Check environment variable
+  let accessToken = process.env[DOC_OFFICIAL_ACCESS_TOKEN];
+
+  // 2. Check config file if not in env
+  if (!accessToken) {
+    try {
+      if (existsSync(DOC_SMITH_ENV_FILE)) {
+        const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
+        const envs = parse(data);
+        accessToken = envs[hostname]?.[DOC_OFFICIAL_ACCESS_TOKEN];
+      }
+    } catch (error) {
+      console.warn("Failed to read config file:", error.message);
+    }
+  }
+
+  // If token is found, return it
+  if (accessToken) {
+    return accessToken;
+  }
+
+  // Generate new access token
+  const connectUrl = joinURL(origin, WELLKNOWN_SERVICE_PATH_PREFIX);
+
+  try {
+    const result = await createConnect({
+      connectUrl,
+      connectAction: "gen-simple-access-key",
+      source: "AIGNE DocSmith connect to official service",
+      closeOnSuccess: true,
+      appName: "AIGNE DocSmith",
+      appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
+      openPage: (pageUrl) => {
+        open(pageUrl);
+      },
+    });
+
+    accessToken = result.accessKeySecret;
+    process.env[DOC_OFFICIAL_ACCESS_TOKEN] = accessToken;
+
+    // Save the access token to config file
+    await saveTokenToConfigFile(
+      DOC_SMITH_ENV_FILE,
+      hostname,
+      DOC_OFFICIAL_ACCESS_TOKEN,
+      accessToken,
+    );
+  } catch (error) {
+    console.debug(error);
+    throw new Error(
+      "Failed to obtain official access token. Please check your network connection and try again later.",
+    );
+  }
+
+  return accessToken;
+}
+
+/**
+ * Helper function to save access token to config file
+ * @param {string} configFile - Path to config file
+ * @param {string} hostname - Hostname key
+ * @param {string} tokenKey - Token key name
+ * @param {string} tokenValue - Token value
+ */
+async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue) {
+  try {
+    const aigneDir = join(homedir(), ".aigne");
+    if (!existsSync(aigneDir)) {
+      mkdirSync(aigneDir, { recursive: true });
+    }
+
+    const existingConfig = existsSync(configFile) ? parse(await readFile(configFile, "utf8")) : {};
+
+    await writeFile(
+      configFile,
+      stringify({
+        ...existingConfig,
+        [hostname]: {
+          ...existingConfig[hostname],
+          [tokenKey]: tokenValue,
+        },
+      }),
+    );
+  } catch (error) {
+    console.warn(`Failed to save token to config file: ${error.message}`);
+    // Don't throw here, as the token is already obtained and set in env
+  }
 }

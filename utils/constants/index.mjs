@@ -332,6 +332,8 @@ export const DISCUSS_KIT_DID = "z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
 
 export const PAYMENT_KIT_DID = "z2qaCNvKMv5GjouKdcDWexv6WqtHbpNPQDnAk";
 
+export const DOC_OFFICIAL_ACCESS_TOKEN = "DOC_OFFICIAL_ACCESS_TOKEN";
+
 // Discuss Kit related URLs
 export const DISCUSS_KIT_STORE_URL =
   "https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu";
