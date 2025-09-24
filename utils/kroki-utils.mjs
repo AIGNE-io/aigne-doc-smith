@@ -12,7 +12,7 @@ import {
   KROKI_CONCURRENCY,
   TMP_ASSETS_DIR,
   TMP_DIR,
-} from "./constants.mjs";
+} from "./constants/index.mjs";
 import { getContentHash } from "./utils.mjs";
 
 const debug = Debug("doc-smith");

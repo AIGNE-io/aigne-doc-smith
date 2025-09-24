@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { joinURL } from "ufo";
 import { getComponentInfo, getComponentInfoWithMountPoint } from "./blocklet.mjs";
-import { PAYMENT_KIT_DID } from "./constants.mjs";
+import { PAYMENT_KIT_DID } from "./constants/index.mjs";
 import { saveValueToConfig } from "./utils.mjs";
 
 // ==================== URL Configuration ====================

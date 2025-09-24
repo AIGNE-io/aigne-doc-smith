@@ -1,0 +1,2 @@
+/* unused variable via custom property */
+:root { --unused: 1; }

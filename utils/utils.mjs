@@ -17,7 +17,7 @@ import {
   SUPPORTED_FILE_EXTENSIONS,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
-} from "./constants.mjs";
+} from "./constants/index.mjs";
 
 /**
  * Normalize path to absolute path for consistent comparison

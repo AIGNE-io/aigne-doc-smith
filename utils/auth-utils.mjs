@@ -16,7 +16,7 @@ import {
   BLOCKLET_ADD_COMPONENT_DOCS,
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
-} from "./constants.mjs";
+} from "./constants/index.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
