@@ -10,6 +10,7 @@ on:
   push:
     branches:
       - master
+      - main
   pull_request:
     types:
       - opened
@@ -18,6 +19,7 @@ on:
       - synchronize
     branches:
       - master
+      - main
       - dev
 
 jobs:
