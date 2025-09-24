@@ -24,7 +24,7 @@ export default async function addDocument({
   // Validate path format
   if (!path.startsWith("/")) {
     console.log(
-      "⚠️  Cannot add document: Invalid path format. Please use a valid URL path that starts with '/'. For example: '/introduction' or '/api/overview'.",
+      "⚠️  Cannot add document: Invalid path format. Path must start with '/'. For example: '/introduction' or '/api/overview'.",
     );
     return { documentStructure };
   }
@@ -34,7 +34,7 @@ export default async function addDocument({
     const parentExists = documentStructure.some((item) => item.path === parentId);
     if (!parentExists) {
       console.log(
-        `⚠️  Cannot add document: Parent document '${parentId}' does not exist. Please choose an existing parent document or create a top-level document.`,
+        `⚠️  Cannot add document: Parent document '${parentId}' does not exist. Choose an existing parent document or create a top-level document.`,
       );
       return { documentStructure };
     }
@@ -44,7 +44,7 @@ export default async function addDocument({
   const existingDocument = documentStructure.find((item) => item.path === path);
   if (existingDocument) {
     console.log(
-      `⚠️  Cannot add document: A document with path '${path}' already exists. Please choose a different path.`,
+      `⚠️  Cannot add document: A document with path '${path}' already exists. Choose a different path.`,
     );
     return { documentStructure };
   }
@@ -105,7 +105,7 @@ addDocument.inputSchema = {
     },
     sourceIds: {
       type: "array",
-      description: "Associated source references from data sources (required)",
+      description: "Source references from associated data sources (required)",
       items: { type: "string" },
       minItems: 1,
     },

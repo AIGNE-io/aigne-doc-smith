@@ -2,7 +2,7 @@ export default async function deleteDocument({ documentStructure, path }) {
   // Validate required parameters
   if (!path) {
     console.log(
-      "⚠️  Cannot delete document: No document specified. Please indicate which document you want to remove.",
+      "⚠️  Cannot delete document: No document specified. Indicate which document you want to remove.",
     );
     return { documentStructure };
   }
@@ -11,7 +11,7 @@ export default async function deleteDocument({ documentStructure, path }) {
   const documentIndex = documentStructure.findIndex((item) => item.path === path);
   if (documentIndex === -1) {
     console.log(
-      `⚠️  Cannot delete document: Document '${path}' does not exist. Please choose an existing document to delete.`,
+      `⚠️  Cannot delete document: Document '${path}' does not exist. Choose an existing document to delete.`,
     );
     return { documentStructure };
   }
@@ -22,7 +22,7 @@ export default async function deleteDocument({ documentStructure, path }) {
   const childDocuments = documentStructure.filter((item) => item.parentId === path);
   if (childDocuments.length > 0) {
     console.log(
-      `⚠️  Cannot delete document: Document '${path}' has ${childDocuments.length} child document(s): ${childDocuments.map((p) => p.path).join(", ")}. Please first move or delete these child documents.`,
+      `⚠️  Cannot delete document: Document '${path}' has ${childDocuments.length} child document(s): ${childDocuments.map((p) => p.path).join(", ")}. First move or delete these child documents.`,
     );
     return { documentStructure };
   }

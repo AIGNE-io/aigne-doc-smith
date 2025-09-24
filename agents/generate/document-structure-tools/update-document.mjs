@@ -8,7 +8,7 @@ export default async function updateDocument({
   // Validate required parameters
   if (!path) {
     console.log(
-      "⚠️  Cannot update document: No document specified. Please indicate which document you want to modify.",
+      "⚠️  Cannot update document: No document specified. Indicate which document you want to modify.",
     );
     return { documentStructure };
   }
@@ -16,7 +16,7 @@ export default async function updateDocument({
   // At least one update field must be provided
   if (!title && !description && !sourceIds) {
     console.log(
-      "⚠️  Cannot update document: No changes specified. Please provide what you want to modify: title, description, or source references.",
+      "⚠️  Cannot update document: No changes specified. Provide what you want to modify: title, description, or source references.",
     );
     return { documentStructure };
   }
@@ -25,7 +25,7 @@ export default async function updateDocument({
   const documentIndex = documentStructure.findIndex((item) => item.path === path);
   if (documentIndex === -1) {
     console.log(
-      `⚠️  Cannot update document: Document '${path}' does not exist. Please choose an existing document to update.`,
+      `⚠️  Cannot update document: Document '${path}' does not exist. Choose an existing document to update.`,
     );
     return { documentStructure };
   }
@@ -36,7 +36,7 @@ export default async function updateDocument({
   if (sourceIds !== undefined) {
     if (!Array.isArray(sourceIds) || sourceIds.length === 0) {
       console.log(
-        "⚠️  Cannot update document: Invalid source references specified. Please provide valid source references for the document content.",
+        "⚠️  Cannot update document: Invalid source references specified. Provide valid source references for the document content.",
       );
       return { documentStructure };
     }
