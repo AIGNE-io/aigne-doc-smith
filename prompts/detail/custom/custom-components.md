@@ -115,6 +115,7 @@ Nesting Rules:
 
 - **Context types must use `<x-field>` instead of tables** for consistent formatting
 - **Mandatory markdown attribute**: Every `<x-field-desc>` element must include `markdown` attribute
+- **Description text as child content**: Description text must be provided as child content of `<x-field-desc>`, not as the value of the `markdown` attribute
 
 **Error Examples:**
 
@@ -125,7 +126,14 @@ Nesting Rules:
 </x-field>
 ```
 
-✅ **CORRECT** - With required `markdown` attribute:
+❌ **INCORRECT** - Description text as attribute value:
+```
+<x-field data-name="api_key" data-type="string" data-required="true">
+  <x-field-desc markdown="Your **API key** for authentication."></x-field-desc>
+</x-field>
+```
+
+✅ **CORRECT** - Includes the required `markdown` attribute, with the description provided as child text:
 ```
 <x-field data-name="api_key" data-type="string" data-required="true">
   <x-field-desc markdown>Your **API key** for authentication.</x-field-desc>
