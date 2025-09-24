@@ -16,7 +16,7 @@ export default async function addDocument({
     sourceIds.length === 0
   ) {
     console.log(
-      "⚠️  Unable to add document: Missing required information (title, description, path, or sourceIds). Please provide more specific details about the new document you want to add.",
+      "⚠️  Cannot add document: Missing required information. Please provide a title, description, path, and source references for the new document.",
     );
     return { documentStructure };
   }
@@ -24,7 +24,7 @@ export default async function addDocument({
   // Validate path format
   if (!path.startsWith("/")) {
     console.log(
-      "⚠️  Unable to add document: Invalid path format. Please specify a valid URL path that starts with '/'. For example: '/introduction' or '/api/overview'.",
+      "⚠️  Cannot add document: Invalid path format. Please use a valid URL path that starts with '/'. For example: '/introduction' or '/api/overview'.",
     );
     return { documentStructure };
   }
@@ -34,7 +34,7 @@ export default async function addDocument({
     const parentExists = documentStructure.some((item) => item.path === parentId);
     if (!parentExists) {
       console.log(
-        `⚠️  Unable to add document: Parent document '${parentId}' doesn't exist. Please specify an existing parent document or set as top-level document.`,
+        `⚠️  Cannot add document: Parent document '${parentId}' does not exist. Please choose an existing parent document or create a top-level document.`,
       );
       return { documentStructure };
     }
@@ -44,7 +44,7 @@ export default async function addDocument({
   const existingDocument = documentStructure.find((item) => item.path === path);
   if (existingDocument) {
     console.log(
-      `⚠️  Unable to add document: Document with path '${path}' already exists. Please choose a different path for the new document.`,
+      `⚠️  Cannot add document: A document with path '${path}' already exists. Please choose a different path.`,
     );
     return { documentStructure };
   }
@@ -67,8 +67,8 @@ export default async function addDocument({
   };
 }
 
-addDocument.taskTitle = "Add a new document to document structure";
-addDocument.description = "Add a new document to the document structure under a specified parent document";
+addDocument.taskTitle = "Add new document";
+addDocument.description = "Add a new document to the document structure";
 addDocument.inputSchema = {
   type: "object",
   properties: {
@@ -97,15 +97,15 @@ addDocument.inputSchema = {
     path: {
       type: "string",
       description:
-        "URL path for the new document, must start with /, no language prefix",
+        "URL path for the new document (must start with '/')",
     },
     parentId: {
       type: ["string", "null"],
-      description: "Parent document path, null for top-level documents",
+      description: "Parent document path (leave empty for top-level documents)",
     },
     sourceIds: {
       type: "array",
-      description: "Associated sourceIds from datasources, cannot be empty",
+      description: "Associated source references from data sources (required)",
       items: { type: "string" },
       minItems: 1,
     },

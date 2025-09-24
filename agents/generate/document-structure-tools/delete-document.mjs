@@ -2,7 +2,7 @@ export default async function deleteDocument({ documentStructure, path }) {
   // Validate required parameters
   if (!path) {
     console.log(
-      "⚠️  Unable to delete document: No document specified. Please clearly indicate which document you want to remove from the document structure.",
+      "⚠️  Cannot delete document: No document specified. Please indicate which document you want to remove.",
     );
     return { documentStructure };
   }
@@ -11,7 +11,7 @@ export default async function deleteDocument({ documentStructure, path }) {
   const documentIndex = documentStructure.findIndex((item) => item.path === path);
   if (documentIndex === -1) {
     console.log(
-      `⚠️  Unable to delete document: Document '${path}' doesn't exist in the document structure. Please specify an existing document to delete.`,
+      `⚠️  Cannot delete document: Document '${path}' does not exist. Please choose an existing document to delete.`,
     );
     return { documentStructure };
   }
@@ -22,7 +22,7 @@ export default async function deleteDocument({ documentStructure, path }) {
   const childDocuments = documentStructure.filter((item) => item.parentId === path);
   if (childDocuments.length > 0) {
     console.log(
-      `⚠️  Unable to delete document: Document '${path}' has ${childDocuments.length} child document(s) (${childDocuments.map((p) => p.path).join(", ")}). Please first move these documents to a different parent or delete them before removing this document.`,
+      `⚠️  Cannot delete document: Document '${path}' has ${childDocuments.length} child document(s): ${childDocuments.map((p) => p.path).join(", ")}. Please first move or delete these child documents.`,
     );
     return { documentStructure };
   }
@@ -36,8 +36,8 @@ export default async function deleteDocument({ documentStructure, path }) {
   };
 }
 
-deleteDocument.taskTitle = "Delete a document from document structure";
-deleteDocument.description = "Delete a document from the document structure by its path";
+deleteDocument.taskTitle = "Delete document";
+deleteDocument.description = "Delete a document from the document structure";
 deleteDocument.inputSchema = {
   type: "object",
   properties: {

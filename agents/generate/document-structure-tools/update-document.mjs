@@ -8,7 +8,7 @@ export default async function updateDocument({
   // Validate required parameters
   if (!path) {
     console.log(
-      "⚠️  Unable to update document: No document specified. Please clearly indicate which document you want to modify.",
+      "⚠️  Cannot update document: No document specified. Please indicate which document you want to modify.",
     );
     return { documentStructure };
   }
@@ -16,7 +16,7 @@ export default async function updateDocument({
   // At least one update field must be provided
   if (!title && !description && !sourceIds) {
     console.log(
-      "⚠️  Unable to update document: No changes specified. Please provide details about what you want to modify (title, description, or content sources).",
+      "⚠️  Cannot update document: No changes specified. Please provide what you want to modify: title, description, or source references.",
     );
     return { documentStructure };
   }
@@ -25,7 +25,7 @@ export default async function updateDocument({
   const documentIndex = documentStructure.findIndex((item) => item.path === path);
   if (documentIndex === -1) {
     console.log(
-      `⚠️  Unable to update document: Document '${path}' doesn't exist in the document structure. Please specify an existing document to update.`,
+      `⚠️  Cannot update document: Document '${path}' does not exist. Please choose an existing document to update.`,
     );
     return { documentStructure };
   }
@@ -36,7 +36,7 @@ export default async function updateDocument({
   if (sourceIds !== undefined) {
     if (!Array.isArray(sourceIds) || sourceIds.length === 0) {
       console.log(
-        "⚠️  Unable to update document: Invalid content sources specified. Please provide valid source references for the document content.",
+        "⚠️  Cannot update document: Invalid source references specified. Please provide valid source references for the document content.",
       );
       return { documentStructure };
     }
@@ -61,9 +61,9 @@ export default async function updateDocument({
   };
 }
 
-updateDocument.taskTitle = "Update properties of an existing document in document structure";
+updateDocument.taskTitle = "Update document";
 updateDocument.description =
-  "Update one or more properties (title, description, sourceIds) of an existing document in document structure";
+  "Update properties of an existing document in the document structure";
 updateDocument.inputSchema = {
   type: "object",
   properties: {
@@ -95,7 +95,7 @@ updateDocument.inputSchema = {
     },
     sourceIds: {
       type: "array",
-      description: "New sourceIds for the document (optional), cannot be empty if provided",
+      description: "New source references for the document (optional, cannot be empty if provided)",
       items: { type: "string" },
       minItems: 1,
     },

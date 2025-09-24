@@ -2,7 +2,7 @@ export default async function moveDocument({ documentStructure, path, newParentI
   // Validate required parameters
   if (!path) {
     console.log(
-      "⚠️  Unable to move document: No document specified. Please clearly indicate which document you want to move and where it should be placed.",
+      "⚠️  Cannot move document: No document specified. Please indicate which document you want to move and its destination.",
     );
     return { documentStructure };
   }
@@ -11,7 +11,7 @@ export default async function moveDocument({ documentStructure, path, newParentI
   const documentIndex = documentStructure.findIndex((item) => item.path === path);
   if (documentIndex === -1) {
     console.log(
-      `⚠️  Unable to move document: Document '${path}' doesn't exist in the document structure. Please specify an existing document to move.`,
+      `⚠️  Cannot move document: Document '${path}' does not exist. Please choose an existing document to move.`,
     );
     return { documentStructure };
   }
@@ -28,7 +28,7 @@ export default async function moveDocument({ documentStructure, path, newParentI
     const newParentExists = documentStructure.some((item) => item.path === newParentId);
     if (!newParentExists) {
       console.log(
-        `⚠️  Unable to move document: Target parent document '${newParentId}' doesn't exist. Please specify an existing parent document for the move operation.`,
+        `⚠️  Cannot move document: Target parent document '${newParentId}' does not exist. Please choose an existing parent document.`,
       );
       return { documentStructure };
     }
@@ -46,7 +46,7 @@ export default async function moveDocument({ documentStructure, path, newParentI
 
     if (isDescendant(path, newParentId)) {
       console.log(
-        `⚠️  Unable to move document: Moving '${path}' under '${newParentId}' would create an invalid hierarchy. Please choose a different parent document that isn't nested under the document being moved.`,
+        `⚠️  Cannot move document: Moving '${path}' under '${newParentId}' would create an invalid hierarchy. Please choose a parent that is not nested under the document being moved.`,
       );
       return { documentStructure };
     }
@@ -69,9 +69,9 @@ export default async function moveDocument({ documentStructure, path, newParentI
   };
 }
 
-moveDocument.taskTitle = "Move a document to a new parent in document structure";
+moveDocument.taskTitle = "Move document";
 moveDocument.description =
-  "Move a document to a different parent in the document structure hierarchy";
+  "Move a document to a different parent in the document structure";
 moveDocument.inputSchema = {
   type: "object",
   properties: {
@@ -95,7 +95,7 @@ moveDocument.inputSchema = {
     },
     newParentId: {
       type: ["string", "null"],
-      description: "Path of the new parent document, null to move to top-level",
+      description: "Path of the new parent document (leave empty for top-level)",
     },
   },
   required: ["documentStructure", "path"],
