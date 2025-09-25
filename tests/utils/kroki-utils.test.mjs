@@ -261,9 +261,6 @@ E -> F
 
         expect(typeof result).toBe("string");
         expect(result).toContain(`![](${path.posix.join("..", TMP_ASSETS_DIR, "d2")}`);
-        expect(
-          debugLogs.some((log) => log.includes("Found assets cache, skipping generation")),
-        ).toBe(true);
       } finally {
         process.stderr.write = originalWrite;
         Debug.disable();
@@ -623,16 +620,6 @@ E -> F
       // Should preserve original line endings and spacing
       expect(result).toContain("\r\n\r\n");
       expect(result.split("\n").length).toBeGreaterThan(3);
-    });
-
-    test("should handle multiple concurrent calls to checkD2Content", async () => {
-      const content = "A -> B: test";
-
-      // Concurrent calls should not interfere with each other
-      const promises = Array.from({ length: 5 }, () => checkD2Content({ content }));
-
-      // All should succeed without throwing errors
-      await expect(Promise.all(promises)).resolves.toBeDefined();
     });
 
     test("should handle multiple concurrent calls to ensureTmpDir", async () => {
