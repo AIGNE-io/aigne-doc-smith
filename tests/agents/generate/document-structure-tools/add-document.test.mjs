@@ -162,7 +162,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required information. Please provide a title, description, path, and source references for the new document.",
+      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
     );
   });
 
@@ -177,7 +177,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required information. Please provide a title, description, path, and source references for the new document.",
+      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
     );
   });
 
@@ -192,7 +192,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required information. Please provide a title, description, path, and source references for the new document.",
+      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
     );
   });
 
@@ -207,7 +207,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required information. Please provide a title, description, path, and source references for the new document.",
+      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
     );
   });
 
@@ -223,7 +223,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required information. Please provide a title, description, path, and source references for the new document.",
+      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
     );
   });
 
@@ -239,7 +239,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required information. Please provide a title, description, path, and source references for the new document.",
+      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
     );
   });
 
@@ -256,7 +256,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Invalid path format. Path must start with '/'. For example: '/introduction' or '/api/overview'.",
+      "⚠️  Cannot add document: Invalid path format. Path must start with '/'.",
     );
   });
 
@@ -292,7 +292,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Parent document '/nonexistent-parent' does not exist. Choose an existing parent document or create a top-level document.",
+      "⚠️  Cannot add document: Parent document '/nonexistent-parent' not found.",
     );
   });
 

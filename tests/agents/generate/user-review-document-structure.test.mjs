@@ -188,7 +188,7 @@ describe("user-review-document-structure", () => {
 
     expect(result.documentStructure).toEqual(documentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Unable to process your feedback - the structure update feature is unavailable.",
+      "Unable to process your feedback - the document structure update feature is unavailable.",
     );
   });
 

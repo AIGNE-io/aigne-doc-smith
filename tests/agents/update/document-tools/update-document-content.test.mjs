@@ -103,7 +103,7 @@ describe("update-document-content", () => {
     expect(result).toEqual({
       success: false,
       error: "No valid hunks found in diff",
-      message: "Invalid diff format",
+      message: "Invalid diff format: No valid hunks found or parsing failed",
     });
   });
 
@@ -116,7 +116,7 @@ describe("update-document-content", () => {
     expect(result).toEqual({
       success: false,
       error: "No valid hunks found in diff",
-      message: "Invalid diff format",
+      message: "Invalid diff format: No valid hunks found or parsing failed",
     });
   });
 
@@ -127,7 +127,7 @@ describe("update-document-content", () => {
     const result = await updateDocumentContent({ originalContent, diffPatch });
 
     expect(result.success).toBe(false);
-    expect(result.message).toBe("Invalid diff format");
+    expect(result.message).toBe("Invalid diff format: No valid hunks found or parsing failed");
   });
 
   // LINE NUMBER FIXING TESTS

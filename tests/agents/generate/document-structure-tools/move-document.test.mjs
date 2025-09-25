@@ -159,7 +159,7 @@ describe("move-document", () => {
     expect(result.originalDocument).toBeUndefined();
     expect(result.updatedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot move document: No document specified. Indicate which document you want to move and its destination.",
+      "Error: Cannot move document - No document path specified. Please provide the path of the document to move and its destination.",
     );
   });
 
@@ -172,7 +172,7 @@ describe("move-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot move document: No document specified. Indicate which document you want to move and its destination.",
+      "Error: Cannot move document - No document path specified. Please provide the path of the document to move and its destination.",
     );
   });
 
@@ -185,7 +185,7 @@ describe("move-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot move document: Document '/nonexistent-document' does not exist. Choose an existing document to move.",
+      "Error: Cannot move document - Document '/nonexistent-document' does not exist. Please select an existing document to move.",
     );
   });
 
@@ -198,7 +198,7 @@ describe("move-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot move document: Target parent document '/nonexistent-parent' does not exist. Choose an existing parent document.",
+      "Error: Cannot move document - Target parent document '/nonexistent-parent' does not exist. Please select an existing parent document.",
     );
   });
 
@@ -212,7 +212,7 @@ describe("move-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot move document: Moving '/api' under '/api/auth' would create an invalid hierarchy. Choose a parent that is not nested under the document being moved.",
+      "Error: Cannot move document - Moving '/api' under '/api/auth' would create an invalid hierarchy. Please select a parent that is not nested under the document being moved.",
     );
   });
 
@@ -225,7 +225,7 @@ describe("move-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot move document: Moving '/api' under '/api/auth/oauth' would create an invalid hierarchy. Choose a parent that is not nested under the document being moved.",
+      "Error: Cannot move document - Moving '/api' under '/api/auth/oauth' would create an invalid hierarchy. Please select a parent that is not nested under the document being moved.",
     );
   });
 
@@ -282,7 +282,7 @@ describe("move-document", () => {
 
     expect(result.documentStructure).toEqual(complexStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot move document: Moving '/api' under '/api/auth/oauth/scopes' would create an invalid hierarchy. Choose a parent that is not nested under the document being moved.",
+      "Error: Cannot move document - Moving '/api' under '/api/auth/oauth/scopes' would create an invalid hierarchy. Please select a parent that is not nested under the document being moved.",
     );
   });
 
@@ -339,7 +339,7 @@ describe("move-document", () => {
 
     expect(result.documentStructure).toEqual([]);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot move document: Document '/any-path' does not exist. Choose an existing document to move.",
+      "Error: Cannot move document - Document '/any-path' does not exist. Please select an existing document to move.",
     );
   });
 
@@ -362,7 +362,7 @@ describe("move-document", () => {
 
     expect(result.documentStructure).toEqual(singleDocStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot move document: Target parent document '/nonexistent' does not exist. Choose an existing parent document.",
+      "Error: Cannot move document - Target parent document '/nonexistent' does not exist. Please select an existing parent document.",
     );
   });
 

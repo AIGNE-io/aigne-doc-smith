@@ -125,7 +125,7 @@ describe("delete-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: No document specified. Indicate which document you want to remove.",
+      "⚠️  Cannot delete document: No document specified. Please indicate which document you want to remove.",
     );
   });
 
@@ -138,7 +138,7 @@ describe("delete-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: No document specified. Indicate which document you want to remove.",
+      "⚠️  Cannot delete document: No document specified. Please indicate which document you want to remove.",
     );
   });
 
@@ -151,7 +151,7 @@ describe("delete-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/nonexistent-document' does not exist. Choose an existing document to delete.",
+      "⚠️  Cannot delete document: Document '/nonexistent-document' does not exist. Please choose an existing document to delete.",
     );
   });
 
@@ -165,7 +165,7 @@ describe("delete-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/api' has 2 child document(s): /api/auth, /api/rate-limiting. First move or delete these child documents.",
+      "⚠️  Cannot delete document: Document '/api' has 2 child document(s): /api/auth, /api/rate-limiting. Please first move or delete these child documents.",
     );
   });
 
@@ -178,7 +178,7 @@ describe("delete-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/api/auth' has 1 child document(s): /api/auth/oauth. First move or delete these child documents.",
+      "⚠️  Cannot delete document: Document '/api/auth' has 1 child document(s): /api/auth/oauth. Please first move or delete these child documents.",
     );
   });
 
@@ -210,7 +210,7 @@ describe("delete-document", () => {
     expect(result.documentStructure).toEqual([]);
     expect(result.deletedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/any-path' does not exist. Choose an existing document to delete.",
+      "⚠️  Cannot delete document: Document '/any-path' does not exist. Please choose an existing document to delete.",
     );
   });
 
@@ -262,7 +262,7 @@ describe("delete-document", () => {
 
     expect(result.documentStructure).toEqual(complexStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/api/auth/oauth' has 2 child document(s): /api/auth/oauth/scopes, /api/auth/oauth/jwt. First move or delete these child documents.",
+      "⚠️  Cannot delete document: Document '/api/auth/oauth' has 2 child document(s): /api/auth/oauth/scopes, /api/auth/oauth/jwt. Please first move or delete these child documents.",
     );
   });
 
@@ -312,7 +312,7 @@ describe("delete-document", () => {
 
     expect(result.documentStructure).toEqual(structureWithManyChildren);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/parent' has 3 child document(s): /parent/child1, /parent/child2, /parent/child3. First move or delete these child documents.",
+      "⚠️  Cannot delete document: Document '/parent' has 3 child document(s): /parent/child1, /parent/child2, /parent/child3. Please first move or delete these child documents.",
     );
   });
 
