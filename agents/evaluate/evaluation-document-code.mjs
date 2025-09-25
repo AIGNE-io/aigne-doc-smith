@@ -4,8 +4,6 @@ import pRetry from "p-retry";
 import {
   CODE_LANGUAGE_MAP_LINTER,
   CODE_LANGUAGE_MAP_SUFFIX,
-  DEDUCT_ERROR,
-  DEDUCT_WARNING,
 } from "../../utils/constants/linter.mjs";
 import { debug } from "../../utils/debug.mjs";
 import { lintCode } from "../../utils/linter/index.mjs";
@@ -62,23 +60,13 @@ export default async function evaluationDocumentCode({ content }) {
   );
   checkListResult.push(...checkList.flat());
 
-  const deductScore = checkListResult.reduce((prev, cur) => {
-    if (cur.severity === "error") {
-      return prev + DEDUCT_ERROR;
-    }
-    if (cur.severity === "warning") {
-      return prev + DEDUCT_WARNING;
-    }
-    return prev;
-  }, 0);
-
   return {
-    codeExampleIntegrity: {
-      score: Math.max(0, 100 - deductScore),
+    codeEvaluation: {
+      baseline: 100,
+      details: checkListResult,
       totalCount,
       ignoreCount,
       errorCount,
-      errors: checkListResult,
     },
   };
 }

@@ -1,0 +1,83 @@
+name: evaluationDocument
+description: Evaluates the quality of generated document content, ensuring compliance with user-configured goals, audiences, and knowledge level requirements.
+instructions:
+  url: ../../prompts/evaluate/evaluation-document.md
+model: openai/gpt-5
+# model: anthropic/claude-opus-4-0
+task_render_mode: collapse
+task_title: Evaluate document for '{{ title }}'
+input_schema:
+  type: object
+  properties:
+    content:
+      type: string
+      description: Document content to be evaluated
+    translationsString:
+      type: string
+      description: Document translation content
+    description:
+      type: string
+      description: Document content planning description
+    purposes:
+      type: string
+      description: User-selected document goals
+    audiences:
+      type: string
+      description: User-selected target audiences
+    readerKnowledgeLevel:
+      type: string
+      description: User-selected reader knowledge level
+  required:
+    - content
+    - description
+    - purposes
+    - audiences
+    - readerKnowledgeLevel
+output_schema:
+  type: object
+  properties:
+    documentEvaluation:
+      type: object
+      properties:
+        baseline:
+          type: integer
+          description: Fixed baseline score (80)
+        details:
+          type: array
+          description: Detailed observations contributing to the final score
+          items:
+            type: object
+            properties:
+              dimension:
+                type: string
+                enum: [readability, coherence, contentQuality, translationQuality, consistency, purposeAlignment, audienceAlignment, knowledgeLevelAlignment, navigability]
+                description: Dimension associated with this observation
+              level:
+                type: string
+                enum: [Excellent, Good, Normal, Bad, Terrible]
+                description: Evaluation level applied to the observation
+              topic:
+                type: string
+                description: Short identifier for the assessed passage or section
+              line:
+                type: integer
+                description: Source line number related to the observation (0 if unknown)
+              description:
+                type: string
+                description: Impact-focused explanation of the observation
+              delta:
+                type: integer
+                description: Point delta contributed by the observation
+            required:
+              - dimension
+              - level
+              - topic
+              - line
+              - description
+              - delta
+      required:
+        - baseline
+        - details
+  required:
+    - documentEvaluation
+includeInputInOutput: true

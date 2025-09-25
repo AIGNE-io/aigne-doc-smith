@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import generateEvaluationReport from "../../../agents/certify/generate-evaluation-report.mjs";
+import generateEvaluationReport from "../../../agents/evaluate/generate-evaluation-report.mjs";
 
 describe("generateEvaluationReport", () => {
   let testDir;
@@ -97,7 +97,7 @@ describe("generateEvaluationReport", () => {
     // Verify file was created
     expect(existsSync(reportPath)).toBe(true);
     expect(reportPath).toContain("integrity-report.json");
-    expect(reportPath).toContain("doc-smith/certify/");
+    expect(reportPath).toContain("doc-smith/evaluate/");
 
     // Read and parse the report
     const reportContent = await readFile(reportPath, "utf8");

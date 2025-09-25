@@ -1,6 +1,6 @@
 type: team
-name: certify
-description: Certify document quality
+name: evaluate
+description: Evaluate document quality
 skills:
   - url: ../init/index.mjs
     default_input:
@@ -21,7 +21,7 @@ skills:
       ])
   - ./evaluation-document-structure.yaml
   - type: team
-    name: batchCertifyDocument
+    name: batchEvaluateDocument
     skills:
       - ../utils/load-document-all-content.mjs
       - ./evaluation-document.yaml

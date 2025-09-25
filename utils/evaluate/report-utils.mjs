@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { copyFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { toRelativePath } from "./utils.mjs";
+import { toRelativePath } from "../utils.mjs";
 
 /**
  * Generate summary statistics from both evaluation results
@@ -54,7 +54,7 @@ export function generateSummary(structureEval, docEval) {
       "audienceAlignment",
       "knowledgeLevelAlignment",
       "navigability",
-      "codeExampleIntegrity"
+      "codeExampleIntegrity",
     ];
 
     keys.forEach((key) => {
@@ -109,7 +109,7 @@ export function aggregateDocumentEvaluations(documentEvaluations) {
     "audienceAlignment",
     "knowledgeLevelAlignment",
     "navigability",
-    "codeExampleIntegrity"
+    "codeExampleIntegrity",
   ];
 
   const aggregated = {};
@@ -144,7 +144,7 @@ export function aggregateDocumentEvaluations(documentEvaluations) {
         score: Math.round(avgScore * 10) / 10,
         reason: `Average from ${aggregated[key].count} documents: ${aggregated[key].reasons.slice(0, 3).join("; ")}`,
       };
-      if (key === 'codeExampleIntegrity') {
+      if (key === "codeExampleIntegrity") {
         delete result[key].reason;
       }
     }
@@ -160,23 +160,14 @@ export function aggregateDocumentEvaluations(documentEvaluations) {
  */
 export function processDocumentEvaluations(originalDocumentStructure) {
   const documentEvaluations = [];
-  let aggregatedDocumentEvaluation = null;
+  const aggregatedDocumentEvaluation = null;
 
   if (originalDocumentStructure && Array.isArray(originalDocumentStructure)) {
     for (const docItem of originalDocumentStructure) {
       if (docItem && typeof docItem === "object") {
         // Extract evaluation results from each document
         const {
-          readability,
-          coherence,
-          contentQuality,
-          translationQuality,
-          codeExampleIntegrity,
-          consistency,
-          purposeAlignment,
-          audienceAlignment,
-          knowledgeLevelAlignment,
-          navigability,
+          details,
           path,
           title,
         } = docItem;
@@ -186,27 +177,11 @@ export function processDocumentEvaluations(originalDocumentStructure) {
             path: path || "unknown",
             title: title || "untitled",
           },
-          evaluation: {
-            readability,
-            coherence,
-            contentQuality,
-            translationQuality,
-            codeExampleIntegrity,
-            consistency,
-            purposeAlignment,
-            audienceAlignment,
-            knowledgeLevelAlignment,
-            navigability,
-          },
+          details,
         };
 
         documentEvaluations.push(docEvaluation);
       }
-    }
-
-    // Generate aggregated evaluation if we have documents
-    if (documentEvaluations.length > 0) {
-      aggregatedDocumentEvaluation = aggregateDocumentEvaluations(documentEvaluations);
     }
   }
 
@@ -231,35 +206,23 @@ export function createReportStructure({
   metadata,
   structureEvaluation,
   documentEvaluations,
-  aggregatedDocumentEvaluation,
 }) {
-  const { purposeCoverage, audienceCoverage, coverageDepthAlignment } = structureEvaluation;
-
   return {
     timestamp,
     metadata: {
-      version: "1.0.0",
+      version: "0.1.0",
       generatedBy: "doc-smith",
       documentCount: documentEvaluations.length,
       ...metadata,
     },
     structureEvaluation: {
       type: "document-structure",
-      results: {
-        purposeCoverage: purposeCoverage || null,
-        audienceCoverage: audienceCoverage || null,
-        coverageDepthAlignment: coverageDepthAlignment || null,
-      },
+      results: structureEvaluation,
     },
     documentEvaluations: {
       type: "document-content",
-      individual: documentEvaluations,
-      aggregated: aggregatedDocumentEvaluation,
-    },
-    summary: generateSummary(
-      { purposeCoverage, audienceCoverage, coverageDepthAlignment },
-      aggregatedDocumentEvaluation,
-    ),
+      results: documentEvaluations
+    }
   };
 }
 
@@ -298,7 +261,7 @@ export async function copyHtmlReportTemplate(targetDir) {
   const __dirname = dirname(__filename);
 
   // Path to the HTML template
-  const templatePath = join(__dirname, "..", "assets", "report-template", "report.html");
+  const templatePath = join(__dirname, "../../", "assets", "report-template", "report.html");
   const targetPath = join(targetDir, "integrity-report.html");
 
   await copyFile(templatePath, targetPath);

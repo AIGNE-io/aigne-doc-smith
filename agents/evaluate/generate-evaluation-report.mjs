@@ -1,13 +1,14 @@
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { pick } from "@aigne/core/utils/type-utils.js";
+import { DOC_SMITH_DIR } from "../../utils/constants/index.mjs";
 import {
   copyHtmlReportTemplate,
   createReportStructure,
   ensureDirectoryExists,
   generateReportSuccessMessage,
   generateTimestampForFolder,
-  processDocumentEvaluations,
-} from "../../utils/report-utils.mjs";
+} from "../../utils/evaluate/report-utils.mjs";
 import { toRelativePath } from "../../utils/utils.mjs";
 
 /**
@@ -22,30 +23,26 @@ import { toRelativePath } from "../../utils/utils.mjs";
  * @returns {Promise<string>} Path to the saved report file
  */
 export default async function generateEvaluationReport({
-  purposeCoverage,
-  audienceCoverage,
-  coverageDepthAlignment,
+  structureEvaluation,
   originalDocumentStructure,
   metadata = {},
   basePath = process.cwd(),
 }) {
   const timestamp = new Date().toISOString();
   const timestampForFolder = generateTimestampForFolder();
-
-  // Process document evaluation results from originalDocumentStructure array
-  const { documentEvaluations, aggregatedDocumentEvaluation } =
-    processDocumentEvaluations(originalDocumentStructure);
+  const documentEvaluations = originalDocumentStructure.map((x) =>
+    pick(x, ["title", "description", "path", "parentId", "documentEvaluation", "codeEvaluation"]),
+  );
 
   // Create report structure
   const report = createReportStructure({
     timestamp,
     metadata,
-    structureEvaluation: { purposeCoverage, audienceCoverage, coverageDepthAlignment },
+    structureEvaluation,
     documentEvaluations,
-    aggregatedDocumentEvaluation,
   });
 
-  const saveDir = join(basePath, ".aigne", "doc-smith", "certify", timestampForFolder);
+  const saveDir = join(basePath, DOC_SMITH_DIR, "evaluate", timestampForFolder);
   const jsonReportPath = join(saveDir, "integrity-report.json");
 
   await ensureDirectoryExists(saveDir);
