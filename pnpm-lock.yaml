@@ -30,8 +30,8 @@ importers:
         specifier: ^0.11.0
         version: 0.11.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
       '@blocklet/payment-broker-client':
-        specifier: ^1.20.19
-        version: 1.20.19
+        specifier: ^1.20.20
+        version: 1.20.20
       '@terrastruct/d2':
         specifier: ^0.1.33
         version: 0.1.33
@@ -389,8 +389,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@blocklet/payment-broker-client@1.20.19':
-    resolution: {integrity: sha512-zKP/ypCJ7a6A+JsRybbXJk/5rvdRB27D7OZlqJDMg8YSGt5muqMqZjxQeRE8ypsAscEtIoLq7hvviqlKdD+RKA==}
+  '@blocklet/payment-broker-client@1.20.20':
+    resolution: {integrity: sha512-yYhsM0ZWQaYBQinQcytku9gFq3BTyzL9pd34QZjZo9CRIIh//OuqaCS24sgj7nuzo9UiwJCXUdEdp4MddeZ/SA==}
     engines: {node: '>=14.0.0'}
 
   '@braintree/sanitize-url@7.1.1':
@@ -5652,7 +5652,7 @@ snapshots:
   '@biomejs/cli-win32-x64@2.2.4':
     optional: true
 
-  '@blocklet/payment-broker-client@1.20.19': {}
+  '@blocklet/payment-broker-client@1.20.20': {}
 
   '@braintree/sanitize-url@7.1.1': {}
 
