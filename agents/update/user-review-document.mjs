@@ -184,7 +184,9 @@ export default async function userReviewDocument(
     // Get the updateDocument agent
     const updateAgent = options.context.agents["updateDocumentDetail"];
     if (!updateAgent) {
-      console.log("We can't process your feedback right now. The document update feature is temporarily unavailable.");
+      console.log(
+        "We can't process your feedback right now. The document update feature is temporarily unavailable.",
+      );
       console.log("Please try again later or contact support if this continues.");
       break;
     }
