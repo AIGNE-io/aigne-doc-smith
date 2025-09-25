@@ -3,13 +3,9 @@ import Debug from "debug";
 import { joinURL } from "ufo";
 
 import pkg from "../package.json" with { type: "json" };
-import {
-  getComponentInfo,
-  getComponentInfoWithMountPoint,
-} from "./blocklet.mjs";
+import { getComponentInfo, getComponentInfoWithMountPoint } from "./blocklet.mjs";
 import { PAYMENT_KIT_DID } from "./constants.mjs";
 import { saveValueToConfig } from "./utils.mjs";
-
 
 const debug = Debug(`${pkg.name}:deploy`);
 
@@ -56,9 +52,7 @@ async function pollWithTimeout({
     } catch (_error) {
       // Log error for debugging but continue retrying unless it's the last attempt
       if (attempts === maxAttempts) {
-        throw new Error(
-          `${timeoutMessage} (${stepName} failed after ${maxAttempts} attempts)`
-        );
+        throw new Error(`${timeoutMessage} (${stepName} failed after ${maxAttempts} attempts)`);
       }
       // Continue retrying for non-fatal errors
     }
@@ -73,9 +67,7 @@ async function pollWithTimeout({
   }
 
   // If we reach here, all attempts were exhausted
-  throw new Error(
-    `${timeoutMessage} (${stepName} timed out after ${maxAttempts} attempts)`
-  );
+  throw new Error(`${timeoutMessage} (${stepName} timed out after ${maxAttempts} attempts)`);
 }
 
 // ==================== API Endpoints ====================
@@ -95,7 +87,7 @@ let paymentLinkId = "";
 export async function deploy(id, cachedUrl) {
   const { mountPoint, PAYMENT_LINK_ID } = await getComponentInfoWithMountPoint(
     BASE_URL,
-    PAYMENT_KIT_DID
+    PAYMENT_KIT_DID,
   );
   prefix = mountPoint;
   paymentLinkId = PAYMENT_LINK_ID;
@@ -103,7 +95,7 @@ export async function deploy(id, cachedUrl) {
   if (!PAYMENT_LINK_ID) {
     const { PAYMENT_LINK_ID: id } = await getComponentInfoWithMountPoint(
       joinURL(BASE_URL, mountPoint),
-      PAYMENT_KIT_DID
+      PAYMENT_KIT_DID,
     );
     paymentLinkId = id;
   }
@@ -113,18 +105,13 @@ export async function deploy(id, cachedUrl) {
   let checkoutId = cachedCheckoutId;
   let paymentUrl = cachedUrl;
   if (!cachedCheckoutId) {
-    const { checkoutId: newCheckoutId, paymentUrl: newPaymentUrl } =
-      await createPaymentSession();
+    const { checkoutId: newCheckoutId, paymentUrl: newPaymentUrl } = await createPaymentSession();
     checkoutId = newCheckoutId;
     paymentUrl = newPaymentUrl;
   }
 
   if (!paymentUrl) {
-    paymentUrl = joinURL(
-      BASE_URL,
-      prefix,
-      API_ENDPOINTS.paymentPage.replace("{id}", checkoutId)
-    );
+    paymentUrl = joinURL(BASE_URL, prefix, API_ENDPOINTS.paymentPage.replace("{id}", checkoutId));
   }
   if (cachedCheckoutId !== checkoutId) {
     await openBrowser(paymentUrl);
@@ -178,7 +165,7 @@ async function checkCacheCheckoutId(checkoutId) {
     const orderStatusUrl = joinURL(
       BASE_URL,
       prefix,
-      API_ENDPOINTS.orderStatus.replace("{id}", checkoutId)
+      API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
     );
     const response = await fetch(orderStatusUrl);
 
@@ -211,12 +198,7 @@ async function createPaymentSession() {
     throw new Error("Payment link ID not found");
   }
 
-  const createCheckoutId = joinURL(
-    BASE_URL,
-    prefix,
-    API_ENDPOINTS.createCheckout,
-    paymentLinkId
-  );
+  const createCheckoutId = joinURL(BASE_URL, prefix, API_ENDPOINTS.createCheckout, paymentLinkId);
   try {
     const response = await fetch(createCheckoutId, {
       method: "POST",
@@ -248,7 +230,7 @@ async function createPaymentSession() {
     console.error(
       `${chalk.red("❌")} Failed to create payment session:`,
       error.message,
-      createCheckoutId
+      createCheckoutId,
     );
     throw new Error(`Failed to create payment session: ${error.message}`);
   }
@@ -262,12 +244,8 @@ async function openBrowser(paymentUrl) {
   try {
     await open(paymentUrl);
   } catch (_error) {
-    console.log(`${chalk.yellow('⚠️  Could not open browser automatically.')}`);
-    console.log(
-      `${chalk.blue('Please manually open this URL:')} ${chalk.cyan(
-        paymentUrl
-      )}`
-    );
+    console.log(`${chalk.yellow("⚠️  Could not open browser automatically.")}`);
+    console.log(`${chalk.blue("Please manually open this URL:")} ${chalk.cyan(paymentUrl)}`);
   }
 }
 
@@ -280,7 +258,7 @@ async function pollPaymentStatus(checkoutId) {
       const orderStatusUrl = joinURL(
         BASE_URL,
         prefix,
-        API_ENDPOINTS.orderStatus.replace("{id}", checkoutId)
+        API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
       );
       const response = await fetch(orderStatusUrl);
 
@@ -304,9 +282,8 @@ async function pollPaymentStatus(checkoutId) {
     },
     maxAttempts: Math.ceil((TIMEOUTS.paymentWait * 1000) / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
-    timeoutMessage:
-      'Payment timeout - please complete payment within 5 minutes',
-    stepName: 'Payment',
+    timeoutMessage: "Payment timeout - please complete payment within 5 minutes",
+    stepName: "Payment",
   });
 }
 
@@ -319,7 +296,7 @@ async function waitInstallation(checkoutId) {
       const orderStatusUrl = joinURL(
         BASE_URL,
         prefix,
-        API_ENDPOINTS.orderStatus.replace("{id}", checkoutId)
+        API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
       );
 
       debug("waitInstallation", orderStatusUrl);
@@ -337,9 +314,7 @@ async function waitInstallation(checkoutId) {
       }
 
       // Check if all vendors meet conditions: progress >= 80 and appUrl exists
-      const isCompleted = data.vendors?.every(
-        (vendor) => vendor.progress >= 80
-      );
+      const isCompleted = data.vendors?.every((vendor) => vendor.progress >= 80);
 
       if (isCompleted) {
         return data.vendors;
@@ -405,7 +380,7 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
     const orderDetailUrl = joinURL(
       BASE_URL,
       prefix,
-      API_ENDPOINTS.orderDetail.replace("{id}", checkoutId)
+      API_ENDPOINTS.orderDetail.replace("{id}", checkoutId),
     );
     const response = await fetch(orderDetailUrl);
 
@@ -438,10 +413,7 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
       token: availableVendor?.token,
     };
   } catch (error) {
-    console.error(
-      `${chalk.red("❌")} Failed to get order details:`,
-      error.message
-    );
+    console.error(`${chalk.red("❌")} Failed to get order details:`, error.message);
     // If getting details fails, use the appUrl of running vendor
     const fallbackVendor = runningVendors.find((vendor) => vendor.appUrl);
 
