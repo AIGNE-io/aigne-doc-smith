@@ -29,7 +29,10 @@ agents:
   - ./agents/update/generate-document.yaml
   - ./agents/update/generate-and-translate-document.yaml
   - ./agents/update/check-document.mjs
+  - ./agents/update/update-document-detail.yaml
+  - ./agents/update/user-review-document.mjs
   - ./agents/update/index.yaml
+
 
   # Translation
   - ./agents/translate/translate-document.yaml

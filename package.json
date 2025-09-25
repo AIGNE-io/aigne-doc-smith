@@ -32,6 +32,7 @@
     "@terrastruct/d2": "^0.1.33",
     "chalk": "^5.5.0",
     "debug": "^4.4.1",
+    "diff-apply": "^1.0.6",
     "dompurify": "^3.2.6",
     "fs-extra": "^11.3.1",
     "glob": "^11.0.3",

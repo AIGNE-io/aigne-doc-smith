@@ -30,12 +30,21 @@ skills:
   - type: team
     name: batchUpdateDocument
     skills:
-      - ../update/generate-and-translate-document.yaml
+      - ../update/user-review-document.mjs
+      - type: transform
+        task_render_mode: hide
+        jsonata: |
+          $merge([
+            $,
+            { "feedback": "" }
+          ])
+      - ../translate/translate-multilingual.yaml
+      - ../utils/save-single-doc.mjs
     iterate_on: selectedDocs
-    concurrency: 3
-  - url: ../utils/check-feedback-refiner.mjs
-    default_input:
-      stage: document_refine
+    concurrency: 1
+  # - url: ../utils/check-feedback-refiner.mjs
+  #   default_input:
+  #     stage: document_refine
   - url: ../utils/action-success.mjs
     default_input:
       action: "✅ Documents updated successfully"

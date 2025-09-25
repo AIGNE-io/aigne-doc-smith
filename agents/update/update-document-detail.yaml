@@ -1,0 +1,52 @@
+type: ai
+name: updateDocumentDetail
+description: Update and optimize document content based on user feedback using diff patches
+instructions:
+  url: ../../prompts/detail/update-document.md
+input_schema:
+  type: object
+  properties:
+    originalContent:
+      type: string
+      description: Original markdown content to be updated
+    feedback:
+      type: string
+      description: User feedback for content improvements
+    rules:
+      type: string
+      description: User configuration rules
+    locale:
+      type: string
+      description: User language, e.g. zh, en
+    datasources:
+      type: string
+      description: Context for document content
+    glossary:
+      type: string
+      description: Glossary of terms
+    userPreferences:
+      type: string
+      description: User's saved preferences for content and documentation style
+    targetAudience:
+      type: string
+      description: Target audience for the documentation
+    title:
+      type: string
+      description: Document title
+    description:
+      type: string
+      description: Document description
+  required:
+    - originalContent
+    - feedback
+output_schema:
+  type: object
+  properties:
+    updatedContent:
+      type: string
+      description: Final updated markdown content after applying modifications
+    operationSummary:
+      type: string
+      description: Summary of the operations performed on the document content
+skills:
+  - ./document-tools/update-document-content.mjs
