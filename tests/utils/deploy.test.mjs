@@ -337,6 +337,7 @@ describe("deploy", () => {
                 appUrl: "https://app.test",
                 homeUrl: "https://home.test",
                 token: "auth-token-123",
+                dashboardUrl: "https://dashboard.test",
               },
             ],
           }),
