@@ -7,6 +7,44 @@ function extractMarkdownHeadings(content) {
     return [];
   }
 
+  const headings = [];
+
+  try {
+    // Use marked's lexer to tokenize the content
+    const tokens = marked.lexer(content);
+
+    // Extract heading tokens
+    function processTokens(tokenArray) {
+      for (const token of tokenArray) {
+        if (token.type === "heading") {
+          headings.push({
+            level: token.depth,
+            text: token.text.trim(),
+            prefix: "  ".repeat(token.depth - 1) + "📄".repeat(1),
+          });
+        }
+        // Process nested tokens if they exist (for lists, block quotes, etc.)
+        if (token.tokens) {
+          processTokens(token.tokens);
+        }
+      }
+    }
+
+    processTokens(tokens);
+  } catch (error) {
+    // If marked fails, fall back to regex but log the issue
+    console.warn(
+      "Failed to parse markdown with marked library, falling back to regex:",
+      error.message,
+    );
+    return extractMarkdownHeadingsFallback(content);
+  }
+
+  return headings;
+}
+
+// Fallback function using the original regex approach
+function extractMarkdownHeadingsFallback(content) {
   const lines = content.split("\n");
   const headings = [];
 
@@ -50,11 +88,24 @@ async function showDocumentDetail(content, title) {
   }
 
   try {
+    // Temporarily suppress console.error to hide language warnings
+    const originalError = console.error;
+    console.error = (message) => {
+      // Only suppress cli-highlight language warnings
+      if (typeof message === 'string' && message.includes('Could not find the language')) {
+        return;
+      }
+      originalError(message);
+    };
+
     marked.setOptions({
       renderer: new markedTerminal(),
     });
 
     const renderedMarkdown = marked(content);
+
+    // Restore original console.error
+    console.error = originalError;
 
     console.log(`\nDocument: ${title || "Untitled Document"}`);
     console.log("=".repeat(50));

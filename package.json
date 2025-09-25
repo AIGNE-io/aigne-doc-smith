@@ -31,6 +31,7 @@
     "@aigne/publish-docs": "^0.11.0",
     "@terrastruct/d2": "^0.1.33",
     "chalk": "^5.5.0",
+    "cli-highlight": "^2.1.11",
     "debug": "^4.4.1",
     "diff": "^8.0.2",
     "dompurify": "^3.2.6",

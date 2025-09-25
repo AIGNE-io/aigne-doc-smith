@@ -6,9 +6,7 @@ instructions:
 input_schema:
   type: object
   properties:
-    documentStructure:
-      type: array
-      description: Current document structure to be updated
+    documentStructure: ../schema/document-structure.yaml
     rules:
       type: string
       description: User configuration rules
