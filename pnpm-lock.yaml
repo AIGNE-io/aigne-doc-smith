@@ -29,6 +29,9 @@ importers:
       '@aigne/publish-docs':
         specifier: ^0.11.0
         version: 0.11.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
+      '@blocklet/payment-broker-client':
+        specifier: ^1.20.17
+        version: 1.20.17
       '@terrastruct/d2':
         specifier: ^0.1.33
         version: 0.1.33
@@ -385,6 +388,10 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
+
+  '@blocklet/payment-broker-client@1.20.17':
+    resolution: {integrity: sha512-MxR3+9t3rSxVyuAQy3D4AUxPBdRlGi1uRcFzmQ4rrRKMWeYUTjIoKPr9aCu0RJrtI/Z3UlwxK8h+R2w3weWLBg==}
+    engines: {node: '>=14.0.0'}
 
   '@braintree/sanitize-url@7.1.1':
     resolution: {integrity: sha512-i1L7noDNxtFyL5DmZafWy1wRVhGehQmzZaz1HiN5e7iylJMSZR7ekOV7NsIqa5qBldlLrsKv4HbgFUVlQrz8Mw==}
@@ -5644,6 +5651,8 @@ snapshots:
 
   '@biomejs/cli-win32-x64@2.2.4':
     optional: true
+
+  '@blocklet/payment-broker-client@1.20.17': {}
 
   '@braintree/sanitize-url@7.1.1': {}
 

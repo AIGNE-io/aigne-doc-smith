@@ -38,8 +38,9 @@ export async function getAccessToken(appUrl, ltToken = "") {
       if (existsSync(DOC_SMITH_ENV_FILE)) {
         const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
         if (data.includes("DOC_DISCUSS_KIT_ACCESS_TOKEN")) {
-          const envs = parse(data);
-          if (envs[hostname]?.DOC_DISCUSS_KIT_ACCESS_TOKEN) {
+          // Handle empty or invalid YAML files
+          const envs = data.trim() ? parse(data) : null;
+          if (envs?.[hostname]?.DOC_DISCUSS_KIT_ACCESS_TOKEN) {
             accessToken = envs[hostname].DOC_DISCUSS_KIT_ACCESS_TOKEN;
           }
         }
@@ -112,9 +113,12 @@ export async function getAccessToken(appUrl, ltToken = "") {
       mkdirSync(aigneDir, { recursive: true });
     }
 
-    const existingConfig = existsSync(DOC_SMITH_ENV_FILE)
-      ? parse(await readFile(DOC_SMITH_ENV_FILE, "utf8"))
-      : {};
+    let existingConfig = {};
+    if (existsSync(DOC_SMITH_ENV_FILE)) {
+      const fileContent = await readFile(DOC_SMITH_ENV_FILE, "utf8");
+      const parsedConfig = fileContent.trim() ? parse(fileContent) : null;
+      existingConfig = parsedConfig || {};
+    }
 
     await writeFile(
       DOC_SMITH_ENV_FILE,
@@ -160,11 +164,14 @@ export async function getOfficialAccessToken(baseUrl) {
     try {
       if (existsSync(DOC_SMITH_ENV_FILE)) {
         const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
-        const envs = parse(data);
-        accessToken = envs[hostname]?.[DOC_OFFICIAL_ACCESS_TOKEN];
+        // Handle empty or invalid YAML files
+        const envs = data.trim() ? parse(data) : null;
+        if (envs) {
+          accessToken = envs[hostname]?.[DOC_OFFICIAL_ACCESS_TOKEN];
+        }
       }
-    } catch (error) {
-      console.warn("Failed to read config file:", error.message);
+    } catch (_error) {
+      // ignore
     }
   }
 
@@ -185,6 +192,7 @@ export async function getOfficialAccessToken(baseUrl) {
       appName: "AIGNE DocSmith",
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
       openPage: (pageUrl) => {
+        console.log('🔗 Please open this URL to get the access token: ', chalk.cyan(pageUrl), '\n');
         open(pageUrl);
       },
     });
@@ -223,7 +231,13 @@ async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue)
       mkdirSync(aigneDir, { recursive: true });
     }
 
-    const existingConfig = existsSync(configFile) ? parse(await readFile(configFile, "utf8")) : {};
+    let existingConfig = {};
+    if (existsSync(configFile)) {
+      const fileContent = await readFile(configFile, "utf8");
+      // Handle empty or invalid YAML files
+      const parsedConfig = fileContent.trim() ? parse(fileContent) : null;
+      existingConfig = parsedConfig || {};
+    }
 
     await writeFile(
       configFile,
@@ -236,7 +250,7 @@ async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue)
       }),
     );
   } catch (error) {
-    console.warn(`Failed to save token to config file: ${error.message}`);
+    console.warn(`Failed to save token to config file: ${error.message}`, error);
     // Don't throw here, as the token is already obtained and set in env
   }
 }
