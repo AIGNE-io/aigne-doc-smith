@@ -31,6 +31,9 @@ agents:
   - ./agents/update/check-document.mjs
   - ./agents/update/update-document-detail.yaml
   - ./agents/update/user-review-document.mjs
+  - ./agents/update/batch-update-document.yaml
+  - ./agents/update/update-single-document.yaml
+  - ./agents/update/check-update-is-single.mjs
   - ./agents/update/index.yaml
 
 

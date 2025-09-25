@@ -25,26 +25,11 @@ skills:
           })
         }
       ])
-  - ../utils/choose-docs.mjs
+  - url: ../utils/choose-docs.mjs
+    default_input:
+      requiredFeedback: false
   - ../utils/format-document-structure.mjs
-  - type: team
-    name: batchUpdateDocument
-    skills:
-      - ../update/user-review-document.mjs
-      - type: transform
-        task_render_mode: hide
-        jsonata: |
-          $merge([
-            $,
-            { "feedback": "" }
-          ])
-      - ../translate/translate-multilingual.yaml
-      - ../utils/save-single-doc.mjs
-    iterate_on: selectedDocs
-    concurrency: 1
-  # - url: ../utils/check-feedback-refiner.mjs
-  #   default_input:
-  #     stage: document_refine
+  - ../update/check-update-is-single.mjs
   - url: ../utils/action-success.mjs
     default_input:
       action: "✅ Documents updated successfully"

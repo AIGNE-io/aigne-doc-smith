@@ -1,3 +1,5 @@
+import { marked } from "marked";
+import markedTerminal from "marked-terminal";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 
 function extractMarkdownHeadings(content) {
@@ -41,6 +43,30 @@ function printDocumentHeadings(content, title) {
   console.log();
 }
 
+async function showDocumentDetail(content, title) {
+  if (!content || typeof content !== "string" || content.trim().length === 0) {
+    console.log("No document content available to display.");
+    return;
+  }
+
+  try {
+    marked.setOptions({
+      renderer: new markedTerminal(),
+    });
+
+    const renderedMarkdown = marked(content);
+
+    console.log(`\nDocument: ${title || "Untitled Document"}`);
+    console.log("=".repeat(50));
+    console.log(renderedMarkdown);
+  } catch (_error) {
+    console.log("\nFalling back to plain text display (marked-terminal not available):\n");
+    console.log(`Document: ${title || "Untitled Document"}`);
+    console.log("=".repeat(50));
+    console.log(content);
+  }
+}
+
 export default async function userReviewDocument(
   { content, title, description, ...rest },
   options,
@@ -54,32 +80,37 @@ export default async function userReviewDocument(
   // Print current document headings structure
   printDocumentHeadings(content, title || "Untitled Document");
 
-  // Ask user if they want to review the document content
-  const needReview = await options.prompts.select({
-    message:
-      "Would you like to optimize the document content?\n  You can provide feedback to improve the content quality and structure.",
-    choices: [
-      {
-        name: "Looks good - proceed with current content",
-        value: "no",
-      },
-      {
-        name: "Yes, optimize the content",
-        value: "yes",
-      },
-    ],
-  });
-
-  if (needReview === "no") {
-    return { content };
-  }
-
   let currentContent = content;
 
   const MAX_ITERATIONS = 100;
   let iterationCount = 0;
   while (iterationCount < MAX_ITERATIONS) {
     iterationCount++;
+
+    // Ask user what they want to do
+    const action = await options.prompts.select({
+      message: "What would you like to do next?",
+      choices: [
+        {
+          name: "View current document details",
+          value: "view",
+        },
+        {
+          name: "Provide feedback to optimize",
+          value: "feedback",
+        },
+        {
+          name: "Finish optimization",
+          value: "finish",
+        },
+      ],
+    });
+
+    if (action === "finish") {
+      break;
+    } else if (action === "view") {
+      await showDocumentDetail(currentContent, title || "Untitled Document");
+    }
 
     // Ask for feedback
     const feedback = await options.prompts.input({
@@ -88,10 +119,10 @@ export default async function userReviewDocument(
         "  • Add, modify, or remove contents\n" +
         "  • Improve clarity, accuracy, or completeness\n" +
         "  • Adjust tone, style, or technical level\n\n" +
-        "  Press Enter to finish reviewing:",
+        "  Enter your feedback:",
     });
 
-    // If no feedback, break the loop
+    // If no feedback, finish the loop
     if (!feedback?.trim()) {
       break;
     }

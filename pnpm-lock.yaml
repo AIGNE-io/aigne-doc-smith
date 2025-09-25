@@ -53,6 +53,12 @@ importers:
       jsdom:
         specifier: ^26.1.0
         version: 26.1.0
+      marked:
+        specifier: ^16.3.0
+        version: 16.3.0
+      marked-terminal:
+        specifier: ^7.3.0
+        version: 7.3.0(marked@16.3.0)
       mermaid:
         specifier: ^11.9.0
         version: 11.9.0
@@ -3009,6 +3015,12 @@ packages:
 
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
+
+  marked-terminal@7.3.0:
+    resolution: {integrity: sha512-t4rBvPsHc57uE/2nJOLmMbZCQ4tgAccAED3ngXQqW6g+TxA488JzJ+FK3lQkzBQOI1mRV/r/Kq+1ZlJ4D0owQw==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      marked: '>=1 <16'
 
   marked@16.3.0:
     resolution: {integrity: sha512-K3UxuKu6l6bmA5FUwYho8CfJBlsUWAooKtdGgMcERSpF7gcBUrCGsLH7wDaaNOzwq18JzSUDyoEb/YsrqMac3w==}
@@ -8775,6 +8787,17 @@ snapshots:
   lru-cache@11.1.0: {}
 
   markdown-table@3.0.4: {}
+
+  marked-terminal@7.3.0(marked@16.3.0):
+    dependencies:
+      ansi-escapes: 7.1.0
+      ansi-regex: 6.1.0
+      chalk: 5.6.2
+      cli-highlight: 2.1.11
+      cli-table3: 0.6.5
+      marked: 16.3.0
+      node-emoji: 2.2.0
+      supports-hyperlinks: 3.2.0
 
   marked@16.3.0: {}
 
