@@ -363,7 +363,7 @@ async function waitWebsiteRunning(readyVendors) {
       // Check running status of all vendors concurrently
       const vendorChecks = readyVendors.map(async (vendor) => {
         try {
-          // 这里通过 appUrl 不是最合适的做法，但是这里能在用户端直接请求启动好的实例，可以直接判断 DNS 在用户端是否生效，所以是最实用的做法
+          // Using appUrl is not ideal, but it allows direct verification of DNS propagation and instance accessibility from the client side
           if (!vendor.appUrl) {
             return vendor;
           }
