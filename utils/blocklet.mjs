@@ -56,7 +56,6 @@ export async function getComponentMountPoint(appUrl, did) {
   const config = await getComponentInfo(appUrl);
 
   const component = config.componentMountPoints?.find((component) => component.did === did);
-
   if (!component) {
     throw new ComponentNotFoundError(did, appUrl);
   }
@@ -68,7 +67,6 @@ export async function getComponentInfoWithMountPoint(appUrl, did) {
   const config = await getComponentInfo(appUrl);
 
   const component = config.componentMountPoints?.find((component) => component.did === did);
-
   if (!component) {
     throw new ComponentNotFoundError(did, appUrl);
   }
