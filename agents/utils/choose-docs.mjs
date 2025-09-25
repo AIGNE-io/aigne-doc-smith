@@ -103,7 +103,7 @@ export default async function chooseDocs(
 
   // Prompt for feedback if not provided
   let userFeedback = feedback;
-  if (!userFeedback && (requiredFeedback || foundItems.length > 1)) {
+  if (!userFeedback && (requiredFeedback || foundItems?.length > 1)) {
     const feedbackMessage = "How should we improve this document? (press Enter to skip):";
 
     userFeedback = await options.prompts.input({

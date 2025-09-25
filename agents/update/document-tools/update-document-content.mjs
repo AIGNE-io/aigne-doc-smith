@@ -16,7 +16,7 @@ export default async function updateDocumentContent({ originalContent, diffPatch
       return {
         success: false,
         error: parsedDiff.error,
-        message: "Invalid diff format",
+        message: "Invalid diff format: No valid hunks found or parsing failed",
       };
     }
 
@@ -61,7 +61,7 @@ export default async function updateDocumentContent({ originalContent, diffPatch
 function parseDiffPatch(diffPatch) {
   try {
     const hunks = [];
-    const lines = diffPatch.split('\n');
+    const lines = diffPatch.split("\n");
     let currentHunk = null;
 
     for (let i = 0; i < lines.length; i++) {
@@ -78,7 +78,7 @@ function parseDiffPatch(diffPatch) {
           oldCount: parseInt(hunkMatch[2]) || 1,
           newStart: parseInt(hunkMatch[3]),
           newCount: parseInt(hunkMatch[4]) || 1,
-          changes: []
+          changes: [],
         };
         continue;
       }
@@ -88,12 +88,12 @@ function parseDiffPatch(diffPatch) {
         const changeType = line[0];
         const content = line.slice(1);
 
-        if (changeType === '-') {
-          currentHunk.changes.push({ type: 'remove', content });
-        } else if (changeType === '+') {
-          currentHunk.changes.push({ type: 'add', content });
-        } else if (changeType === ' ') {
-          currentHunk.changes.push({ type: 'context', content });
+        if (changeType === "-") {
+          currentHunk.changes.push({ type: "remove", content });
+        } else if (changeType === "+") {
+          currentHunk.changes.push({ type: "add", content });
+        } else if (changeType === " ") {
+          currentHunk.changes.push({ type: "context", content });
         }
       }
     }
@@ -114,14 +114,14 @@ function parseDiffPatch(diffPatch) {
 
 function fixLineNumberIssues(originalContent, hunks) {
   try {
-    const originalLines = originalContent.split('\n');
+    const originalLines = originalContent.split("\n");
     const fixedHunks = [];
 
     for (const hunk of hunks) {
       // Extract context and removed lines to find best match
       const contextAndRemoved = hunk.changes
-        .filter(change => change.type === 'context' || change.type === 'remove')
-        .map(change => change.content);
+        .filter((change) => change.type === "context" || change.type === "remove")
+        .map((change) => change.content);
 
       if (contextAndRemoved.length === 0) {
         // No context to match against, keep original
@@ -139,7 +139,7 @@ function fixLineNumberIssues(originalContent, hunks) {
           newStart: bestMatch.position + 1,
           // Fix line counts based on actual changes
           oldCount: calculateOldCount(hunk.changes),
-          newCount: calculateNewCount(hunk.changes)
+          newCount: calculateNewCount(hunk.changes),
         };
         fixedHunks.push(fixedHunk);
       } else {
@@ -152,13 +152,13 @@ function fixLineNumberIssues(originalContent, hunks) {
             newStart: fuzzyMatch.position + 1,
             // Fix line counts based on actual changes
             oldCount: calculateOldCount(hunk.changes),
-            newCount: calculateNewCount(hunk.changes)
+            newCount: calculateNewCount(hunk.changes),
           };
           fixedHunks.push(fixedHunk);
         } else {
           return {
             success: false,
-            error: `Cannot find matching context for hunk at line ${hunk.oldStart}`
+            error: `Cannot find matching context for hunk at line ${hunk.oldStart}`,
           };
         }
       }
@@ -186,7 +186,8 @@ function findBestMatch(originalLines, targetLines, startPosition) {
   }
 
   // Try nearby positions (within 10 lines)
-  for (let offset = 1; offset <= 10; offset++) {
+  const NEARBY_SEARCH_RANGE = 10; // Maximum number of lines to search before/after expected position
+  for (let offset = 1; offset <= NEARBY_SEARCH_RANGE; offset++) {
     // Try before
     const beforePos = startPosition - offset;
     if (beforePos >= 0 && beforePos + targetLines.length <= originalLines.length) {
@@ -232,7 +233,8 @@ function findFuzzyMatch(originalLines, targetLines) {
     }
 
     const score = matches / targetLines.length;
-    if (score > bestMatch.score && score >= 0.7) { // 70% similarity threshold
+    const FUZZY_MATCH_THRESHOLD = 0.7; // 70% similarity threshold for fuzzy matching
+    if (score > bestMatch.score && score >= FUZZY_MATCH_THRESHOLD) {
       bestMatch = { found: true, position: pos, score };
     }
   }
@@ -241,19 +243,19 @@ function findFuzzyMatch(originalLines, targetLines) {
 }
 
 function calculateOldCount(changes) {
-  const contextCount = changes.filter(c => c.type === 'context').length;
-  const removeCount = changes.filter(c => c.type === 'remove').length;
+  const contextCount = changes.filter((c) => c.type === "context").length;
+  const removeCount = changes.filter((c) => c.type === "remove").length;
   return contextCount + removeCount;
 }
 
 function calculateNewCount(changes) {
-  const contextCount = changes.filter(c => c.type === 'context').length;
-  const addCount = changes.filter(c => c.type === 'add').length;
+  const contextCount = changes.filter((c) => c.type === "context").length;
+  const addCount = changes.filter((c) => c.type === "add").length;
   return contextCount + addCount;
 }
 
 function reconstructDiffPatch(hunks) {
-  let patchContent = '';
+  let patchContent = "";
 
   for (const hunk of hunks) {
     // Add hunk header
@@ -263,11 +265,11 @@ function reconstructDiffPatch(hunks) {
 
     // Add changes
     for (const change of hunk.changes) {
-      if (change.type === 'context') {
+      if (change.type === "context") {
         patchContent += ` ${change.content}\n`;
-      } else if (change.type === 'remove') {
+      } else if (change.type === "remove") {
         patchContent += `-${change.content}\n`;
-      } else if (change.type === 'add') {
+      } else if (change.type === "add") {
         patchContent += `+${change.content}\n`;
       }
     }

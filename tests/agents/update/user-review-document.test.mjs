@@ -19,7 +19,8 @@ describe("user-review-document", () => {
     // Reset all mocks
     mock.restore();
 
-    mockContent = "# Getting Started\n\n## Installation\n\nThis is a test document.\n\n### Prerequisites\n\nSome prerequisites here.";
+    mockContent =
+      "# Getting Started\n\n## Installation\n\nThis is a test document.\n\n### Prerequisites\n\nSome prerequisites here.";
 
     mockOptions = {
       prompts: {
@@ -39,7 +40,9 @@ describe("user-review-document", () => {
     };
 
     // Set up spies for internal utils
-    getActiveRulesForScopeSpy = spyOn(preferencesUtils, "getActiveRulesForScope").mockReturnValue([]);
+    getActiveRulesForScopeSpy = spyOn(preferencesUtils, "getActiveRulesForScope").mockReturnValue(
+      [],
+    );
     consoleSpy = spyOn(console, "log").mockImplementation(() => {});
     consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
     consoleWarnSpy = spyOn(console, "warn").mockImplementation(() => {});
@@ -100,7 +103,10 @@ describe("user-review-document", () => {
   test("should extract markdown headings correctly", async () => {
     mockOptions.prompts.select.mockImplementation(async () => "finish");
 
-    const result = await userReviewDocument({ content: mockContent, title: "Test Doc" }, mockOptions);
+    const result = await userReviewDocument(
+      { content: mockContent, title: "Test Doc" },
+      mockOptions,
+    );
 
     expect(result).toBeDefined();
     expect(result.content).toBe(mockContent);
@@ -121,7 +127,7 @@ describe("user-review-document", () => {
     expect(result.content).toBe(mockContent);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       "Failed to parse markdown with marked library, falling back to regex:",
-      "Parsing error"
+      "Parsing error",
     );
   });
 
@@ -154,9 +160,14 @@ describe("user-review-document", () => {
     mockOptions.prompts.input.mockImplementation(async () => ""); // Empty feedback after view
 
     // Mock the marked function directly
-    const markedFunctionSpy = spyOn(markedModule, "marked").mockReturnValue("Rendered markdown content");
+    const markedFunctionSpy = spyOn(markedModule, "marked").mockReturnValue(
+      "Rendered markdown content",
+    );
 
-    const result = await userReviewDocument({ content: mockContent, title: "Test Doc" }, mockOptions);
+    const result = await userReviewDocument(
+      { content: mockContent, title: "Test Doc" },
+      mockOptions,
+    );
 
     expect(result.content).toBe(mockContent);
     expect(mockOptions.prompts.select).toHaveBeenCalledTimes(1);
@@ -175,11 +186,14 @@ describe("user-review-document", () => {
       throw new Error("Rendering error");
     });
 
-    const result = await userReviewDocument({ content: mockContent, title: "Test Doc" }, mockOptions);
+    const result = await userReviewDocument(
+      { content: mockContent, title: "Test Doc" },
+      mockOptions,
+    );
 
     expect(result.content).toBe(mockContent);
     expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Falling back to plain text display")
+      expect.stringContaining("Falling back to plain text display"),
     );
 
     markedFunctionSpy?.mockRestore();
@@ -208,11 +222,11 @@ describe("user-review-document", () => {
         originalContent: mockContent,
         feedback: feedback,
         userPreferences: "",
-      })
+      }),
     );
     expect(result.content).toBe(updatedContent);
     expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining("✅ Added examples successfully")
+      expect.stringContaining("✅ Added examples successfully"),
     );
   });
 
@@ -239,10 +253,7 @@ describe("user-review-document", () => {
   // USER PREFERENCES TESTS
   test("should include user preferences in update call", async () => {
     const feedback = "Improve clarity";
-    const mockRules = [
-      { rule: "Keep sections concise" },
-      { rule: "Use clear headings" },
-    ];
+    const mockRules = [{ rule: "Keep sections concise" }, { rule: "Use clear headings" }];
     const expectedPreferences = "Keep sections concise\n\nUse clear headings";
 
     getActiveRulesForScopeSpy
@@ -254,10 +265,7 @@ describe("user-review-document", () => {
       .mockImplementationOnce(async () => feedback)
       .mockImplementationOnce(async () => "");
 
-    await userReviewDocument(
-      { content: mockContent, path: "/test-doc" },
-      mockOptions
-    );
+    await userReviewDocument({ content: mockContent, path: "/test-doc" }, mockOptions);
 
     expect(getActiveRulesForScopeSpy).toHaveBeenCalledWith("document", ["/test-doc"]);
     expect(getActiveRulesForScopeSpy).toHaveBeenCalledWith("global");
@@ -265,7 +273,7 @@ describe("user-review-document", () => {
       mockOptions.context.agents.updateDocumentDetail,
       expect.objectContaining({
         userPreferences: expectedPreferences,
-      })
+      }),
     );
   });
 
@@ -284,16 +292,13 @@ describe("user-review-document", () => {
       .mockImplementationOnce(async () => feedback)
       .mockImplementationOnce(async () => "");
 
-    await userReviewDocument(
-      { content: mockContent, path: "/test-doc" },
-      mockOptions
-    );
+    await userReviewDocument({ content: mockContent, path: "/test-doc" }, mockOptions);
 
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       mockOptions.context.agents.updateDocumentDetail,
       expect.objectContaining({
         userPreferences: expectedPreferences,
-      })
+      }),
     );
   });
 
@@ -309,10 +314,10 @@ describe("user-review-document", () => {
 
     expect(result.content).toBe(mockContent);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Unable to process your feedback - the document update feature is unavailable."
+      "Unable to process your feedback - the document update feature is unavailable.",
     );
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Please try again later or contact support if this continues."
+      "Please try again later or contact support if this continues.",
     );
   });
 
@@ -352,7 +357,7 @@ describe("user-review-document", () => {
 
     expect(result.content).toBe(mockContent);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "\n❌ Failed to update the document. Please try rephrasing your feedback.\n"
+      "\n❌ Failed to update the document. Please try rephrasing your feedback.\n",
     );
   });
 
@@ -378,7 +383,7 @@ describe("user-review-document", () => {
       expect.objectContaining({
         documentContentFeedback: feedback,
         stage: "document_refine",
-      })
+      }),
     );
   });
 
@@ -418,10 +423,10 @@ describe("user-review-document", () => {
     expect(result.content).toBe("Updated content");
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       "Could not save feedback as user preference:",
-      "Refiner failed"
+      "Refiner failed",
     );
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Your feedback was applied but not saved as a preference."
+      "Your feedback was applied but not saved as a preference.",
     );
   });
 
@@ -538,7 +543,7 @@ describe("user-review-document", () => {
     expect(result.content).toBe(contentWithHeadings);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       "Failed to parse markdown with marked library, falling back to regex:",
-      "Marked failed"
+      "Marked failed",
     );
   });
 

@@ -62,8 +62,7 @@ export default async function updateDocument({
 }
 
 updateDocument.taskTitle = "Update document";
-updateDocument.description =
-  "Update properties of an existing document in the document structure";
+updateDocument.description = "Update properties of an existing document in the document structure";
 updateDocument.inputSchema = {
   type: "object",
   properties: {

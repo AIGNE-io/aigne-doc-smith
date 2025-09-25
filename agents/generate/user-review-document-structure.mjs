@@ -114,7 +114,9 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     // Get the refineDocumentStructure agent
     const refineAgent = options.context.agents["updateDocumentStructure"];
     if (!refineAgent) {
-      console.log("Unable to process your feedback - the structure update feature is unavailable.");
+      console.log(
+        "Unable to process your feedback - the document structure update feature is unavailable.",
+      );
       console.log("Please try again later or contact support if this continues.");
       break;
     }

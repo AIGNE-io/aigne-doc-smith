@@ -92,7 +92,10 @@ async function showDocumentDetail(content, title) {
     const originalError = console.error;
     console.error = (message) => {
       // Only suppress cli-highlight language warnings
-      if (typeof message === 'string' && message.includes('Could not find the language')) {
+      if (
+        typeof message === "string" &&
+        message.toLowerCase().includes("Could not find the language")
+      ) {
         return;
       }
       originalError(message);

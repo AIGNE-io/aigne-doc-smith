@@ -2,7 +2,7 @@ export default async function moveDocument({ documentStructure, path, newParentI
   // Validate required parameters
   if (!path) {
     console.log(
-      "⚠️  Cannot move document: No document specified. Indicate which document you want to move and its destination.",
+      "Error: Cannot move document - No document path specified. Please provide the path of the document to move and its destination.",
     );
     return { documentStructure };
   }
@@ -11,7 +11,7 @@ export default async function moveDocument({ documentStructure, path, newParentI
   const documentIndex = documentStructure.findIndex((item) => item.path === path);
   if (documentIndex === -1) {
     console.log(
-      `⚠️  Cannot move document: Document '${path}' does not exist. Choose an existing document to move.`,
+      `Error: Cannot move document - Document '${path}' does not exist. Please select an existing document to move.`,
     );
     return { documentStructure };
   }
@@ -28,7 +28,7 @@ export default async function moveDocument({ documentStructure, path, newParentI
     const newParentExists = documentStructure.some((item) => item.path === newParentId);
     if (!newParentExists) {
       console.log(
-        `⚠️  Cannot move document: Target parent document '${newParentId}' does not exist. Choose an existing parent document.`,
+        `Error: Cannot move document - Target parent document '${newParentId}' does not exist. Please select an existing parent document.`,
       );
       return { documentStructure };
     }
@@ -46,7 +46,7 @@ export default async function moveDocument({ documentStructure, path, newParentI
 
     if (isDescendant(path, newParentId)) {
       console.log(
-        `⚠️  Cannot move document: Moving '${path}' under '${newParentId}' would create an invalid hierarchy. Choose a parent that is not nested under the document being moved.`,
+        `Error: Cannot move document - Moving '${path}' under '${newParentId}' would create an invalid hierarchy. Please select a parent that is not nested under the document being moved.`,
       );
       return { documentStructure };
     }
@@ -70,8 +70,7 @@ export default async function moveDocument({ documentStructure, path, newParentI
 }
 
 moveDocument.taskTitle = "Move document";
-moveDocument.description =
-  "Move a document to a different parent in the document structure";
+moveDocument.description = "Move a document to a different parent in the document structure";
 moveDocument.inputSchema = {
   type: "object",
   properties: {

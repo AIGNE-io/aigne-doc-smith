@@ -16,26 +16,22 @@ export default async function addDocument({
     sourceIds.length === 0
   ) {
     console.log(
-      "⚠️  Cannot add document: Missing required information. Please provide a title, description, path, and source references for the new document.",
+      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
     );
     return { documentStructure };
   }
 
   // Validate path format
   if (!path.startsWith("/")) {
-    console.log(
-      "⚠️  Cannot add document: Invalid path format. Path must start with '/'. For example: '/introduction' or '/api/overview'.",
-    );
+    console.log("⚠️  Cannot add document: Invalid path format. Path must start with '/'.");
     return { documentStructure };
   }
 
   // Validate parent exists if parentId is provided
-  if (parentId !== null && parentId !== undefined && parentId !== "null" && parentId !== "") {
+  if (parentId && parentId !== "null") {
     const parentExists = documentStructure.some((item) => item.path === parentId);
     if (!parentExists) {
-      console.log(
-        `⚠️  Cannot add document: Parent document '${parentId}' does not exist. Choose an existing parent document or create a top-level document.`,
-      );
+      console.log(`⚠️  Cannot add document: Parent document '${parentId}' not found.`);
       return { documentStructure };
     }
   }
@@ -96,8 +92,7 @@ addDocument.inputSchema = {
     },
     path: {
       type: "string",
-      description:
-        "URL path for the new document (must start with '/')",
+      description: "URL path for the new document (must start with '/')",
     },
     parentId: {
       type: ["string", "null"],
