@@ -72,7 +72,7 @@ function printDocumentHeadings(content, title) {
   const headings = extractMarkdownHeadings(content);
 
   if (headings.length === 0) {
-    console.log("  No headings found in document.");
+    console.log("  This document has no headings.");
   } else {
     headings.forEach((heading) => {
       console.log(`${heading.prefix} ${heading.text} (H${heading.level})`);
@@ -83,7 +83,7 @@ function printDocumentHeadings(content, title) {
 
 async function showDocumentDetail(content, title) {
   if (!content || typeof content !== "string" || content.trim().length === 0) {
-    console.log("No document content available to display.");
+    console.log("There's no content to display.");
     return;
   }
 
@@ -127,7 +127,7 @@ export default async function userReviewDocument(
 ) {
   // Check if document content exists
   if (!content || typeof content !== "string" || content.trim().length === 0) {
-    console.log("No document content was provided to review.");
+    console.log("Please provide document content to review.");
     return { content };
   }
 
@@ -146,15 +146,15 @@ export default async function userReviewDocument(
       message: "What would you like to do next?",
       choices: [
         {
-          name: "View current document details",
+          name: "View document",
           value: "view",
         },
         {
-          name: "Provide feedback to optimize",
+          name: "Give feedback",
           value: "feedback",
         },
         {
-          name: "Finish optimization",
+          name: "Done",
           value: "finish",
         },
       ],
@@ -169,11 +169,11 @@ export default async function userReviewDocument(
     // Ask for feedback
     const feedback = await options.prompts.input({
       message:
-        "How would you like to improve the document content?\n" +
-        "  • Add, modify, or remove contents\n" +
+        "How would you like to improve this document?\n" +
+        "  • Add, modify, or remove content\n" +
         "  • Improve clarity, accuracy, or completeness\n" +
         "  • Adjust tone, style, or technical level\n\n" +
-        "  Enter your feedback:",
+        "  Your feedback:",
     });
 
     // If no feedback, finish the loop
@@ -184,7 +184,7 @@ export default async function userReviewDocument(
     // Get the updateDocument agent
     const updateAgent = options.context.agents["updateDocumentDetail"];
     if (!updateAgent) {
-      console.log("Unable to process your feedback - the document update feature is unavailable.");
+      console.log("We can't process your feedback right now. The document update feature is temporarily unavailable.");
       console.log("Please try again later or contact support if this continues.");
       break;
     }
@@ -209,7 +209,7 @@ export default async function userReviewDocument(
         currentContent = result.updatedContent;
         console.log(`\n✅ ${result.operationSummary || "Document updated successfully"}\n`);
       } else {
-        console.log("\n❌ Failed to update the document. Please try rephrasing your feedback.\n");
+        console.log("\n❌ We couldn't update the document. Please try rephrasing your feedback.\n");
       }
 
       // Check if feedback should be saved as user preference
@@ -221,8 +221,8 @@ export default async function userReviewDocument(
             stage: "document_refine",
           });
         } catch (refinerError) {
-          console.warn("Could not save feedback as user preference:", refinerError.message);
-          console.warn("Your feedback was applied but not saved as a preference.");
+          console.warn("We couldn't save your feedback as a preference:", refinerError.message);
+          console.warn("Your feedback was applied, but we couldn't save it as a preference.");
         }
       }
 

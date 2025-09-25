@@ -78,7 +78,7 @@ describe("user-review-document", () => {
     expect(result).toBeDefined();
     expect(result.content).toBeUndefined();
     expect(mockOptions.prompts.select).not.toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith("No document content was provided to review.");
+    expect(consoleSpy).toHaveBeenCalledWith("Please provide document content to review.");
   });
 
   test("should return original content when empty content provided", async () => {
@@ -87,7 +87,7 @@ describe("user-review-document", () => {
     expect(result).toBeDefined();
     expect(result.content).toBe("");
     expect(mockOptions.prompts.select).not.toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith("No document content was provided to review.");
+    expect(consoleSpy).toHaveBeenCalledWith("Please provide document content to review.");
   });
 
   test("should return original content when only whitespace provided", async () => {
@@ -96,7 +96,7 @@ describe("user-review-document", () => {
     expect(result).toBeDefined();
     expect(result.content).toBe("   \n\t  ");
     expect(mockOptions.prompts.select).not.toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith("No document content was provided to review.");
+    expect(consoleSpy).toHaveBeenCalledWith("Please provide document content to review.");
   });
 
   // HEADING EXTRACTION TESTS
@@ -140,7 +140,7 @@ describe("user-review-document", () => {
     const result = await userReviewDocument({ content: emptyContent }, mockOptions);
 
     expect(result.content).toBe(emptyContent);
-    expect(consoleSpy).toHaveBeenCalledWith("No document content was provided to review.");
+    expect(consoleSpy).toHaveBeenCalledWith("Please provide document content to review.");
   });
 
   // USER INTERACTION TESTS
@@ -314,7 +314,7 @@ describe("user-review-document", () => {
 
     expect(result.content).toBe(mockContent);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Unable to process your feedback - the document update feature is unavailable.",
+      "We can't process your feedback right now. The document update feature is temporarily unavailable.",
     );
     expect(consoleSpy).toHaveBeenCalledWith(
       "Please try again later or contact support if this continues.",
@@ -357,7 +357,7 @@ describe("user-review-document", () => {
 
     expect(result.content).toBe(mockContent);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "\n❌ Failed to update the document. Please try rephrasing your feedback.\n",
+      "\n❌ We couldn't update the document. Please try rephrasing your feedback.\n",
     );
   });
 
@@ -422,11 +422,11 @@ describe("user-review-document", () => {
 
     expect(result.content).toBe("Updated content");
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Could not save feedback as user preference:",
+      "We couldn't save your feedback as a preference:",
       "Refiner failed",
     );
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Your feedback was applied but not saved as a preference.",
+      "Your feedback was applied, but we couldn't save it as a preference.",
     );
   });
 
@@ -526,7 +526,7 @@ describe("user-review-document", () => {
     const result = await userReviewDocument({ content: null }, mockOptions);
 
     expect(result.content).toBeNull();
-    expect(consoleSpy).toHaveBeenCalledWith("No document content was provided to review.");
+    expect(consoleSpy).toHaveBeenCalledWith("Please provide document content to review.");
   });
 
   // FALLBACK HEADING EXTRACTION TESTS
@@ -556,6 +556,6 @@ describe("user-review-document", () => {
     const result = await userReviewDocument({ content: contentNoHeadings }, mockOptions);
 
     expect(result.content).toBe(contentNoHeadings);
-    expect(consoleSpy).toHaveBeenCalledWith("  No headings found in document.");
+    expect(consoleSpy).toHaveBeenCalledWith("  This document has no headings.");
   });
 });
