@@ -1,6 +1,6 @@
 # 更新日志
 
-项目每个版本的所有重要变更、功能和错误修复的详细日志。
+项目每个版本的所有显著变更、功能和错误修复的详细日志。
 
 ## [0.8.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.1...v0.8.2) (2025-09-04)
 
@@ -26,7 +26,7 @@
 
 ### 功能
 
-* **测试：**添加全面的工作流测试覆盖率 ([#76](https://github.com/AIGNE-io/aigne-doc-smith/issues/76)) ([d5f6062](https://github.com/AIGNE-io/aigne-doc-smith/commit/d5f6062311f36dc5b6394ae0768583fb8f3853a4))
+* **测试：** 添加全面的工作流测试覆盖 ([#76](https://github.com/AIGNE-io/aigne-doc-smith/issues/76)) ([d5f6062](https://github.com/AIGNE-io/aigne-doc-smith/commit/d5f6062311f36dc5b6394ae0768583fb8f3853a4))
 * 更新自定义组件指南，增加格式限制 ([#79](https://github.com/AIGNE-io/aigne-doc-smith/issues/79)) ([76158de](https://github.com/AIGNE-io/aigne-doc-smith/commit/76158de236696e68c63c057f5ea4b8458a15e787))
 
 ## [0.7.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.1...v0.7.2) (2025-09-01)
@@ -41,14 +41,14 @@
 
 ### 错误修复
 
-* 修复 Tab 键路径选择错误 ([#72](https://github.com/AIGNE-io/aigne-doc-smith/issues/72)) ([369b342](https://github.com/AIGNE-io/aigne-doc-smith/commit/369b342d8ab8ce95b61a3b72e367157d2f71cce4))
+* 修复 tab 键路径选择错误 ([#72](https://github.com/AIGNE-io/aigne-doc-smith/issues/72)) ([369b342](https://github.com/AIGNE-io/aigne-doc-smith/commit/369b342d8ab8ce95b61a3b72e367157d2f71cce4))
 
 ## [0.7.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.6.0...v0.7.0) (2025-08-30)
 
 
 ### 功能
 
-* 增加聊天模式支持 ([#60](https://github.com/AIGNE-io/aigne-doc-smith/issues/60)) ([9b2ce50](https://github.com/AIGNE-io/aigne-doc-smith/commit/9b2ce50014d1894a4e41bf043e699fdc4f1d74b7))
+* 添加聊天模式支持 ([#60](https://github.com/AIGNE-io/aigne-doc-smith/issues/60)) ([9b2ce50](https://github.com/AIGNE-io/aigne-doc-smith/commit/9b2ce50014d1894a4e41bf043e699fdc4f1d74b7))
 * 支持自定义组件和更强大的配置处理 ([#70](https://github.com/AIGNE-io/aigne-doc-smith/issues/70)) ([727ab42](https://github.com/AIGNE-io/aigne-doc-smith/commit/727ab429b00f924ef605530b35d2a12b4be77e3a))
 * 在文档生成和发布工作流中支持 d2 图表 ([#69](https://github.com/AIGNE-io/aigne-doc-smith/issues/69)) ([bf95889](https://github.com/AIGNE-io/aigne-doc-smith/commit/bf958891516973636c4847b084c6fe75d1ea124b))
 * 支持多用途文档规划和生成 ([#68](https://github.com/AIGNE-io/aigne-doc-smith/issues/68)) ([44152c5](https://github.com/AIGNE-io/aigne-doc-smith/commit/44152c53b7e8f82e3af1245a1affd77b9817486d))
@@ -58,7 +58,7 @@
 
 ### 功能
 
-* 完成发布前媒体处理的全面支持 ([#63](https://github.com/AIGNE-io/aigne-doc-smith/issues/63)) ([5257ca1](https://github.com/AIGNE-io/aigne-doc-smith/commit/5257ca1756f47487b65a1813949e547b6fc51aca))
+* 完成发布前媒体处理的支持 ([#63](https://github.com/AIGNE-io/aigne-doc-smith/issues/63)) ([5257ca1](https://github.com/AIGNE-io/aigne-doc-smith/commit/5257ca1756f47487b65a1813949e547b6fc51aca))
 
 ## [0.5.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.5.0...v0.5.1) (2025-08-26)
 
@@ -133,7 +133,7 @@
 
 ### 功能
 
-* **核心：**优化生成上下文收集工作流 ([#46](https://github.com/AIGNE-io/aigne-doc-smith/issues/46)) ([687d06a](https://github.com/AIGNE-io/aigne-doc-smith/commit/687d06afd648e0e697d25e85dcc841b17c3c311c))
+* **核心：** 优化生成上下文收集工作流 ([#46](https://github.com/AIGNE-io/aigne-doc-smith/issues/46)) ([687d06a](https://github.com/AIGNE-io/aigne-doc-smith/commit/687d06afd648e0e697d25e85dcc841b17c3c311c))
 
 
 ### 错误修复
@@ -152,7 +152,7 @@
 
 ### 错误修复
 
-* 修复 bug bush 反馈 ([#41](https://github.com/AIGNE-io/aigne-doc-smith/issues/41)) ([2740d1a](https://github.com/AIGNE-io/aigne-doc-smith/commit/2740d1abef70ea36780b030917a6d54f74df4327))
+* 修复缺陷反馈 ([#41](https://github.com/AIGNE-io/aigne-doc-smith/issues/41)) ([2740d1a](https://github.com/AIGNE-io/aigne-doc-smith/commit/2740d1abef70ea36780b030917a6d54f74df4327))
 
 ## [0.2.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.8...v0.2.9) (2025-08-13)
 
@@ -192,14 +192,14 @@
 
 ### 错误修复
 
-* 优化 CLI 流程 ([#17](https://github.com/AIGNE-io/aigne-doc-smith/issues/17)) ([4c94263](https://github.com/AIGNE-io/aigne-doc-smith/commit/4c9426378dff9ca3270bd0e455aa6fb1045f6abb))
+* 优化 cli 流程 ([#17](https://github.com/AIGNE-io/aigne-doc-smith/issues/17)) ([4c94263](https://github.com/AIGNE-io/aigne-doc-smith/commit/4c9426378dff9ca3270bd0e455aa6fb1045f6abb))
 
 ## [0.2.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.3...v0.2.4) (2025-08-07)
 
 
 ### 错误修复
 
-* 优化 Agent 输出日志 ([40a2451](https://github.com/AIGNE-io/aigne-doc-smith/commit/40a245122ce4d8747e5b5dbe88be6986047c38ae))
+* 优化 agent 输出日志 ([40a2451](https://github.com/AIGNE-io/aigne-doc-smith/commit/40a245122ce4d8747e5b5dbe88be6986047c38ae))
 
 ## [0.2.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.2...v0.2.3) (2025-08-07)
 
@@ -227,7 +227,7 @@
 
 ### 功能
 
-* 支持调用 Agent 时自动初始化配置 ([24d29db](https://github.com/AIGNE-io/aigne-doc-smith/commit/24d29db4dd86709750aa22ff649e7dacc4124126))
+* 支持调用 agents 时自动初始化配置 ([24d29db](https://github.com/AIGNE-io/aigne-doc-smith/commit/24d29db4dd86709750aa22ff649e7dacc4124126))
 * 源文件变更时更新文档 ([#9](https://github.com/AIGNE-io/aigne-doc-smith/issues/9)) ([4adcecf](https://github.com/AIGNE-io/aigne-doc-smith/commit/4adcecfb32e72c9e88d0b0bd8ce0a91022847ca7))
 
 ## [0.1.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.3...v0.1.4) (2025-08-04)
@@ -242,7 +242,7 @@
 
 ### 错误修复
 
-* 从 options.context 访问 Agent，而不是加载新的 AIGNE 实例 ([#6](https://github.com/AIGNE-io/aigne-doc-smith/issues/6)) ([0e7ce1d](https://github.com/AIGNE-io/aigne-doc-smith/commit/0e7ce1d3889aab435b029a511cb7ebdbb213ab8a))
+* 从 options.context 访问 agents，而不是加载新的 aigne 实例 ([#6](https://github.com/AIGNE-io/aigne-doc-smith/issues/6)) ([0e7ce1d](https://github.com/AIGNE-io/aigne-doc-smith/commit/0e7ce1d3889aab435b029a511cb7ebdbb213ab8a))
 
 ## [0.1.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.1...v0.1.2) (2025-08-01)
 
@@ -256,7 +256,7 @@
 
 ### 错误修复
 
-* Agent 添加别名 ([7e25014](https://github.com/AIGNE-io/aigne-doc-smith/commit/7e250147309849fe0f4cc554077134d2e443d344))
+* agent 添加别名 ([7e25014](https://github.com/AIGNE-io/aigne-doc-smith/commit/7e250147309849fe0f4cc554077134d2e443d344))
 * docs mcp 添加文档搜索 ([de96e0e](https://github.com/AIGNE-io/aigne-doc-smith/commit/de96e0e08455831dc6918d5fbc59d38b6a921373))
 * 优化代码 ([8cb0a5c](https://github.com/AIGNE-io/aigne-doc-smith/commit/8cb0a5ce67cf009c672b2fb1aa9b89ef6d965a86))
 
@@ -265,33 +265,33 @@
 
 ### 功能
 
-* 为 mcp 服务器和 CLI 添加入口 Agent ([fa85d65](https://github.com/AIGNE-io/aigne-doc-smith/commit/fa85d651e8dc723e2b97150fc2258b115c6c5bb0))
+* 为 mcp 服务器和 cli 添加入口 agents ([fa85d65](https://github.com/AIGNE-io/aigne-doc-smith/commit/fa85d651e8dc723e2b97150fc2258b115c6c5bb0))
 
 
 ### 错误修复
 
 * 优化命令参数 ([#3](https://github.com/AIGNE-io/aigne-doc-smith/issues/3)) ([003f6b8](https://github.com/AIGNE-io/aigne-doc-smith/commit/003f6b8ae2c9e1af55ba1841458fa8567a0eb2f0))
-* 优化 docs mcp Agent ([8654cd4](https://github.com/AIGNE-io/aigne-doc-smith/commit/8654cd4ea38034f3af0244f56b27acf66ba704e1))
+* 优化 docs mcp agent ([8654cd4](https://github.com/AIGNE-io/aigne-doc-smith/commit/8654cd4ea38034f3af0244f56b27acf66ba704e1))
 
 ## 0.0.2 (2025-07-30)
 
 
 ### 功能
 
-* 添加自动创建看板 ([3ff06ad](https://github.com/AIGNE-io/aigne-doc-smith/commit/3ff06ad0241e208b09bcf828c52c2c5051c67ef8))
+* 添加自动创建看板功能 ([3ff06ad](https://github.com/AIGNE-io/aigne-doc-smith/commit/3ff06ad0241e208b09bcf828c52c2c5051c67ef8))
 * 添加 docs-mcp ([a7508a1](https://github.com/AIGNE-io/aigne-doc-smith/commit/a7508a13abb2222968b1bc9c14948427af509f97))
-* 添加输入生成器 Agent ([20c01bb](https://github.com/AIGNE-io/aigne-doc-smith/commit/20c01bbca6d6f9414695071fc907bd7cf43d7f62))
+* 添加输入生成器 agent ([20c01bb](https://github.com/AIGNE-io/aigne-doc-smith/commit/20c01bbca6d6f9414695071fc907bd7cf43d7f62))
 * 添加发布文档功能 ([41bb126](https://github.com/AIGNE-io/aigne-doc-smith/commit/41bb126caeb1c3c242c7a2be27abb114aeab9953))
 * 添加对文档标签的支持 ([4522c07](https://github.com/AIGNE-io/aigne-doc-smith/commit/4522c07b1ceb05664a1f5b5fb4df06feee536eba))
-* 详情添加审查 ([8f1aa4f](https://github.com/AIGNE-io/aigne-doc-smith/commit/8f1aa4f22e2d2e590d7aa37288c2e1ee7ea48f07))
+* 详情添加审查功能 ([8f1aa4f](https://github.com/AIGNE-io/aigne-doc-smith/commit/8f1aa4f22e2d2e590d7aa37288c2e1ee7ea48f07))
 * 初始提交 ([dafc40e](https://github.com/AIGNE-io/aigne-doc-smith/commit/dafc40e94f3c407e50b2c46ecb46237f23a15cf7))
-* 结构规划添加审查 ([b56e83e](https://github.com/AIGNE-io/aigne-doc-smith/commit/b56e83e558f509302b422205f30e9b2adb42d452))
+* 结构计划添加审查功能 ([b56e83e](https://github.com/AIGNE-io/aigne-doc-smith/commit/b56e83e558f509302b422205f30e9b2adb42d452))
 
 
 ### 错误修复
 
-* 优化 Agent 名称 ([25875a0](https://github.com/AIGNE-io/aigne-doc-smith/commit/25875a0688ebbca71f6c25bf4bd5246361f3dd2d))
-* 优化 Agent 参数和描述 ([290eb24](https://github.com/AIGNE-io/aigne-doc-smith/commit/290eb240ce986b0f1f406bf42824ce1235df11e5))
+* 优化 agent 名称 ([25875a0](https://github.com/AIGNE-io/aigne-doc-smith/commit/25875a0688ebbca71f6c25bf4bd5246361f3dd2d))
+* 优化 agent 参数和描述 ([290eb24](https://github.com/AIGNE-io/aigne-doc-smith/commit/290eb240ce986b0f1f406bf42824ce1235df11e5))
 * 优化代码 ([34f9a24](https://github.com/AIGNE-io/aigne-doc-smith/commit/34f9a24fc3748b4177cad2b5330fe6b3ccd99175))
 * 优化代码 ([0343486](https://github.com/AIGNE-io/aigne-doc-smith/commit/0343486aa086bbe2ced8de849de6a4a42567719c))
 * 优化代码 ([7b7dfb9](https://github.com/AIGNE-io/aigne-doc-smith/commit/7b7dfb925b3aa55956ef7a99ededc749fb6a42d7))
@@ -299,8 +299,8 @@
 * 优化代码 ([74fee51](https://github.com/AIGNE-io/aigne-doc-smith/commit/74fee51ad6337af8811a35f2a4334b67ec109439))
 * 优化代码 ([7fa1675](https://github.com/AIGNE-io/aigne-doc-smith/commit/7fa1675b2cab6144d1fb9d4388130209c6cfa0bc))
 * 优化文档审查 ([70374ab](https://github.com/AIGNE-io/aigne-doc-smith/commit/70374abed74946eafa7b0f87331c2e496fa61592))
-* 优化输入生成器 Agent ([ae908bb](https://github.com/AIGNE-io/aigne-doc-smith/commit/ae908bbc0cb98b9b196e8b08f23149e5693e0abe))
-* 优化结构规划 ([3a0a196](https://github.com/AIGNE-io/aigne-doc-smith/commit/3a0a196a97196ba445c4709d3466ff355917ac53))
+* 优化输入生成器 agent ([ae908bb](https://github.com/AIGNE-io/aigne-doc-smith/commit/ae908bbc0cb98b9b196e8b08f23149e5693e0abe))
+* 优化结构计划 ([3a0a196](https://github.com/AIGNE-io/aigne-doc-smith/commit/3a0a196a97196ba445c4709d3466ff355917ac53))
 * 保存文档时移除无用文档 ([bec5ba3](https://github.com/AIGNE-io/aigne-doc-smith/commit/bec5ba3afd462c990a0aa813bbe38ce9a61363ee))
 
 
