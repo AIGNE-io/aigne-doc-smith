@@ -1,12 +1,13 @@
-import { createConnect } from "@aigne/cli/utils/aigne-hub/credential.js";
-import chalk from "chalk";
 import { existsSync, mkdirSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
+import { createConnect } from "@aigne/cli/utils/aigne-hub/credential.js";
+import chalk from "chalk";
 import open from "open";
 import { joinURL } from "ufo";
 import { parse, stringify } from "yaml";
+
 import {
   ComponentNotFoundError,
   getComponentMountPoint,
@@ -192,7 +193,7 @@ export async function getOfficialAccessToken(baseUrl) {
       appName: "AIGNE DocSmith",
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
       openPage: (pageUrl) => {
-        console.log('🔗 Please open this URL to get the access token: ', chalk.cyan(pageUrl), '\n');
+        console.log("🔗 Please open this URL to get the access token: ", chalk.cyan(pageUrl), "\n");
         open(pageUrl);
       },
     });
