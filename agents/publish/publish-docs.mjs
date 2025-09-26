@@ -4,7 +4,7 @@ import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
 import fs from "fs-extra";
 
-import { getAccessToken, clearStoredAccessToken } from "../../utils/auth-utils.mjs";
+import { clearStoredAccessToken, getAccessToken } from "../../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../../utils/constants.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
@@ -158,7 +158,11 @@ export default async function publishDocs(
   let message;
 
   try {
-    const { success, boardId: newBoardId } = await publishDocsFn({
+    const {
+      success,
+      boardId: newBoardId,
+      error,
+    } = await publishDocsFn({
       sidebarPath,
       accessToken,
       appUrl,
@@ -185,6 +189,11 @@ export default async function publishDocs(
         await saveValueToConfig("boardId", newBoardId);
       }
       message = `✅ Documentation Published Successfully!`;
+    } else {
+      // If the error is 401 or 403, it means the access token is invalid, so we need to reconnect to the website
+      if (error?.includes("401") || error?.includes("403")) {
+        message = `❌ Documentation publish failed due to permission issues.\n   Please run ${chalk.cyan("aigne doc publish --reconnect")} to re-authorize and ensure you have the correct permissions.`;
+      }
     }
   } catch (error) {
     message = `❌ Failed to publish docs: ${error.message}`;
