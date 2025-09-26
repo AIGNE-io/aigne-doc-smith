@@ -188,11 +188,11 @@ export default async function publishDocs(
       if (boardId !== newBoardId) {
         await saveValueToConfig("boardId", newBoardId);
       }
-      message = `✅ Documentation Published Successfully!`;
+      message = `✅ Documentation published successfully!`;
     } else {
       // If the error is 401 or 403, it means the access token is invalid, so we need to reconnect to the website
       if (error?.includes("401") || error?.includes("403")) {
-        message = `❌ Documentation publish failed due to permission issues.\n   Please run ${chalk.cyan("aigne doc publish --reconnect")} to re-authorize and ensure you have the correct permissions.`;
+        message = `❌ Publishing failed due to permission issues.\n   Run ${chalk.cyan("aigne doc publish --reconnect")} to reconnect and try again.`;
       }
     }
   } catch (error) {
