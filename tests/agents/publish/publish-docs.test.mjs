@@ -46,6 +46,7 @@ describe("publish-docs", () => {
 
   // Spies for internal utils
   let getAccessTokenSpy;
+  let clearStoredAccessTokenSpy;
   let beforePublishHookSpy;
   let ensureTmpDirSpy;
   let getGithubRepoUrlSpy;
@@ -91,6 +92,7 @@ describe("publish-docs", () => {
 
     // Set up spies for internal utils
     getAccessTokenSpy = spyOn(authUtils, "getAccessToken").mockResolvedValue("mock-token");
+    clearStoredAccessTokenSpy = spyOn(authUtils, "clearStoredAccessToken").mockResolvedValue();
     beforePublishHookSpy = spyOn(d2Utils, "beforePublishHook").mockResolvedValue();
     ensureTmpDirSpy = spyOn(d2Utils, "ensureTmpDir").mockResolvedValue();
     getGithubRepoUrlSpy = spyOn(utils, "getGithubRepoUrl").mockReturnValue(
@@ -120,6 +122,7 @@ describe("publish-docs", () => {
 
     // Restore all spies
     getAccessTokenSpy?.mockRestore();
+    clearStoredAccessTokenSpy?.mockRestore();
     beforePublishHookSpy?.mockRestore();
     ensureTmpDirSpy?.mockRestore();
     getGithubRepoUrlSpy?.mockRestore();
@@ -612,6 +615,74 @@ describe("publish-docs", () => {
     expect(validateFn("http://valid.com")).toBe(true);
     expect(validateFn("https://valid.com")).toBe(true);
     expect(validateFn("valid.com")).toBe(true);
+  });
+
+  // RECONNECT PARAMETER TESTS
+  test("should call clearStoredAccessToken when reconnect is true", async () => {
+    await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://example.com",
+        reconnect: true,
+      },
+      mockOptions,
+    );
+
+    expect(clearStoredAccessTokenSpy).toHaveBeenCalledWith("https://example.com");
+  });
+
+  test("should not call clearStoredAccessToken when reconnect is false", async () => {
+    await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://example.com",
+        reconnect: false,
+      },
+      mockOptions,
+    );
+
+    expect(clearStoredAccessTokenSpy).not.toHaveBeenCalled();
+  });
+
+  test("should clear token before getting access token when reconnect is true", async () => {
+    const callOrder = [];
+    clearStoredAccessTokenSpy.mockImplementation(() => {
+      callOrder.push("clearToken");
+      return Promise.resolve();
+    });
+    getAccessTokenSpy.mockImplementation(() => {
+      callOrder.push("getToken");
+      return Promise.resolve("mock-token");
+    });
+
+    await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://example.com",
+        reconnect: true,
+      },
+      mockOptions,
+    );
+
+    expect(callOrder).toEqual(["clearToken", "getToken"]);
+  });
+
+  test("should handle reconnect with custom platform selection", async () => {
+    loadConfigFromFileSpy.mockResolvedValue({});
+    mockOptions.prompts.select.mockResolvedValue("custom");
+    mockOptions.prompts.input.mockResolvedValue("https://custom.example.com");
+
+    await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://docsmith.aigne.io",
+        reconnect: true,
+      },
+      mockOptions,
+    );
+
+    // Should clear token for the custom URL entered by user
+    expect(clearStoredAccessTokenSpy).toHaveBeenCalledWith("https://custom.example.com");
   });
 
   test("should handle parameters priority correctly", async () => {
