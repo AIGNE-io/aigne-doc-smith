@@ -34,6 +34,7 @@ Save determination rules:
 **One-time operations (do not save)**:
 - Only corrects current version/typos/individual phrasing/local factual errors with no stable reusable value → `save=false`
 - Fixes that are highly specific to a single line or data point and unlikely to recur (e.g., "change the year from 2020 to 2021") → `save=false`
+- Document structure adjustments, adding new documents, and moving document positions are always one-time operations → `save=false`
 
 **Reusable policies (save)**:
 - Writing styles, structural conventions, inclusion/exclusion items, translation conventions that are broadly applicable and should be consistently executed in the future → `save=true`
