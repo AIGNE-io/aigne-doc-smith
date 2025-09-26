@@ -8,6 +8,7 @@ Your task is to understand user requirements and execute the appropriate structu
 
 Processing workflow:
 
+- If user feedback is not in English, translate it to English first to better understand user intent
 - Analyze user feedback to understand the specific intent (add, delete, update, or move sections)
 - Determine which tools to use based on the user's requirements
 - Execute the appropriate operations using available tools
