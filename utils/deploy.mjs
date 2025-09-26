@@ -1,8 +1,13 @@
 import chalk from "chalk";
+import Debug from "debug";
 import { joinURL } from "ufo";
+
+import pkg from "../package.json" with { type: "json" };
 import { getComponentInfo, getComponentInfoWithMountPoint } from "./blocklet.mjs";
 import { PAYMENT_KIT_DID } from "./constants.mjs";
 import { saveValueToConfig } from "./utils.mjs";
+
+const debug = Debug(`${pkg.name}:deploy`);
 
 // ==================== URL Configuration ====================
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || "";
@@ -293,12 +298,15 @@ async function waitInstallation(checkoutId) {
         prefix,
         API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
       );
-      const response = await fetch(orderStatusUrl);
 
+      debug("waitInstallation", orderStatusUrl);
+
+      const response = await fetch(orderStatusUrl);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      debug("waitInstallation response:", response.status, response.statusText);
       const data = await response.json();
 
       if (data.error) {
@@ -306,8 +314,9 @@ async function waitInstallation(checkoutId) {
       }
 
       // Check if all vendors meet conditions: progress >= 80 and appUrl exists
-      const isInstalled = data.vendors?.every((vendor) => vendor.progress >= 80 && vendor.appUrl);
-      if (isInstalled) {
+      const isCompleted = data.vendors?.every((vendor) => vendor.progress >= 80);
+
+      if (isCompleted) {
         return data.vendors;
       }
 
@@ -329,13 +338,19 @@ async function waitWebsiteRunning(readyVendors) {
       // Check running status of all vendors concurrently
       const vendorChecks = readyVendors.map(async (vendor) => {
         try {
+          // Using appUrl is not ideal, but it allows direct verification of DNS propagation and instance accessibility from the client side
+          if (!vendor.appUrl) {
+            return vendor;
+          }
+
           const blockletInfo = await getComponentInfo(vendor.appUrl);
 
           if (blockletInfo.status === "running") {
             return vendor;
           }
           return null;
-        } catch (_error) {
+        } catch (error) {
+          debug("waitWebsiteRunning error:", error);
           return null;
         }
       });
@@ -379,30 +394,34 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
       throw new Error("No vendors found in order details");
     }
 
-    // Wait 3 seconds
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    // Return the appUrl of the first vendor (usually only one)
-    const appUrl = runningVendors[0]?.appUrl;
+    const appUrl = runningVendors.find((vendor) => vendor.appUrl)?.appUrl;
+    debug("getDashboardAndUrl:", appUrl);
+
     if (!appUrl) {
       throw new Error("No app URL found in order details");
     }
 
+    const availableVendor = data.vendors.find((vendor) => vendor.dashboardUrl);
+
     return {
       appUrl,
       subscriptionUrl: data.subscriptionUrl,
-      dashboardUrl: data.vendors[0]?.dashboardUrl,
-      homeUrl: data.vendors[0]?.homeUrl,
-      token: data.vendors[0]?.token,
+      dashboardUrl: availableVendor?.dashboardUrl,
+      homeUrl: availableVendor?.homeUrl,
+      token: availableVendor?.token,
     };
   } catch (error) {
     console.error(`${chalk.red("❌")} Failed to get order details:`, error.message);
     // If getting details fails, use the appUrl of running vendor
+    const fallbackVendor = runningVendors.find((vendor) => vendor.appUrl);
+
     return {
-      appUrl: runningVendors[0]?.appUrl || null,
-      dashboardUrl: runningVendors[0]?.dashboardUrl || null,
-      homeUrl: runningVendors[0]?.homeUrl || null,
-      token: runningVendors[0]?.token || null,
+      appUrl: fallbackVendor?.appUrl || null,
+      dashboardUrl: fallbackVendor?.dashboardUrl || null,
+      homeUrl: fallbackVendor?.homeUrl || null,
+      token: fallbackVendor?.token || null,
     };
   }
 }
