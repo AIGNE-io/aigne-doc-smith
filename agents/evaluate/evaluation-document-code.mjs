@@ -1,6 +1,5 @@
 import pMap from "p-map";
 import pRetry from "p-retry";
-
 import {
   CODE_LANGUAGE_MAP_LINTER,
   CODE_LANGUAGE_MAP_SUFFIX,
@@ -8,6 +7,11 @@ import {
 import { debug } from "../../utils/debug.mjs";
 import { lintCode } from "../../utils/linter/index.mjs";
 import { getMarkdownAst, traverseMarkdownAst } from "../../utils/markdown/index.mjs";
+
+const severityMapLevel = {
+  error: "critical",
+  warning: "minor",
+};
 
 export default async function evaluationDocumentCode({ content }) {
   const ast = getMarkdownAst({ markdown: content });
@@ -54,7 +58,12 @@ export default async function evaluationDocumentCode({ content }) {
       }
 
       errorCount += 1;
-      return result.issues;
+      return result.issues.map((x) => {
+        return {
+          ...x,
+          level: severityMapLevel[x.severity],
+        };
+      });
     },
     { concurrency: 5 },
   );

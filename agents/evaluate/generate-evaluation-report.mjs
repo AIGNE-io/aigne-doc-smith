@@ -49,7 +49,7 @@ export default async function generateEvaluationReport({
   await writeFile(jsonReportPath, JSON.stringify(report, null, 2), "utf8");
 
   // Copy HTML report template
-  const htmlReportPath = await copyHtmlReportTemplate(saveDir);
+  const htmlReportPath = await copyHtmlReportTemplate(saveDir, report);
 
   // Generate success message
   const message = generateReportSuccessMessage(toRelativePath(jsonReportPath), htmlReportPath);

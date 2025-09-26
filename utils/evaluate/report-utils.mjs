@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs";
-import { copyFile, mkdir } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { toRelativePath } from "../utils.mjs";
@@ -166,11 +166,7 @@ export function processDocumentEvaluations(originalDocumentStructure) {
     for (const docItem of originalDocumentStructure) {
       if (docItem && typeof docItem === "object") {
         // Extract evaluation results from each document
-        const {
-          details,
-          path,
-          title,
-        } = docItem;
+        const { details, path, title } = docItem;
 
         const docEvaluation = {
           documentInfo: {
@@ -221,8 +217,8 @@ export function createReportStructure({
     },
     documentEvaluations: {
       type: "document-content",
-      results: documentEvaluations
-    }
+      results: documentEvaluations,
+    },
   };
 }
 
@@ -256,7 +252,7 @@ export function generateTimestampForFolder(date = new Date()) {
  * @param {string} targetDir - Target directory for the HTML report
  * @returns {Promise<string>} Path to the copied HTML file
  */
-export async function copyHtmlReportTemplate(targetDir) {
+export async function copyHtmlReportTemplate(targetDir, data) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
 
@@ -264,7 +260,9 @@ export async function copyHtmlReportTemplate(targetDir) {
   const templatePath = join(__dirname, "../../", "assets", "report-template", "report.html");
   const targetPath = join(targetDir, "integrity-report.html");
 
-  await copyFile(templatePath, targetPath);
+  const templateReport = await readFile(templatePath, "utf-8");
+  const templateData = templateReport.replace("window.__REPORT_DATA__", JSON.stringify(data));
+  await writeFile(targetPath, templateData);
   return toRelativePath(targetPath);
 }
 

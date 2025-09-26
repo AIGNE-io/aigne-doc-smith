@@ -46,7 +46,7 @@ output_schema:
                 description: Dimension associated with this observation
               level:
                 type: string
-                enum: ["Excellent", "Good", "Normal", "Bad", "Terrible"]
+                enum: [excellent, good, meets, minor, critical]
                 description: Evaluation level applied to the observation
               topic:
                 type: string
@@ -54,9 +54,6 @@ output_schema:
               description:
                 type: string
                 description: Why the level was assigned
-              delta:
-                type: integer
-                description: integer delta implied by the level (e.g., +5 for `Good`, -5 for `Bad`)
               line:
                 type: integer
                 description: Integer line number within the source document/module (use 0 if unknown)
@@ -65,7 +62,6 @@ output_schema:
               - level
               - topic
               - description
-              - delta
           description: List of detailed evaluations for each purpose dimension
       required:
         - baseline

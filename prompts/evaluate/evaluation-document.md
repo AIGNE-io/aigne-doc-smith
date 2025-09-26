@@ -48,79 +48,79 @@ Please **strictly adhere** to the evaluation standards defined in `<standards>` 
 
 <standards>
 
-Start from a **baseline of 80 points**. Evaluate by logging every key observation in `details` using one of five **levels**. Each level contributes a fixed delta; sum all deltas and add them to the baseline (clamp the final score to 0–100). Treat each key point independently so strengths and gaps can stack. When the same issue recurs (e.g., multiple typos), create multiple entries.
+Start from a **baseline of 80 points**. Evaluate by logging every key observation in `details` using one of five **levels**. Each level corresponds to a fixed score delta: +10, +2, 0, -2, -10 respectively. Sum deltas with the baseline and clamp the final score to 0–100. Treat each key point independently so strengths and gaps can stack. When the same issue recurs (e.g., multiple typos), create multiple entries.
 
 **Level catalog (use consistently across all dimensions):**
-- `Excellent` **(+10)** — Outstanding execution that decisively elevates user outcomes.
-- `Good` **(+5)** — Clear alignment that fulfills expectations with only minor trade-offs.
-- `Normal` **(0)** — Acceptable but unremarkable; neither adds nor removes value.
-- `Bad` **(-5)** — Noticeable deficiency that undermines usefulness and needs remediation.
-- `Terrible` **(-10)** — Critical failure that blocks users or contradicts requirements.
+- `Excellent` — Exceptional output that fully satisfies the dimension with clear, actionable results; scoring +10.
+- `Good` — Strong and mostly complete alignment with the dimension; minor gaps only; scoring +2.
+- `Meets` — Satisfactory baseline coverage without significant strengths or faults; scoring +0.
+- `Minor` — Specific problems that reduce usefulness and should be corrected; scoring -2.
+- `Critical` — Fundamental failures that prevent the dimension from being met; scoring -10.
 
 Apply these levels to the following evaluation dimensions:
 
 1. **Readability** — Language clarity, grammar, spelling, and fluency.
-   - `Excellent`: Polished and natural throughout; terminology consistent with flawless mechanics.
-   - `Good`: Isolated slips (typo, awkward phrasing) that do not disrupt flow.
-   - `Normal`: Generally readable but routine awkwardness or plain style offering no added value.
-   - `Bad`: Specific sentences contain grammar/spelling mistakes or stilted wording; log each affected instance.
-   - `Terrible`: Language is largely unusable or machine-like, preventing comprehension.
+   - `Excellent`: Text is polished, natural, and easy to read; terminology is well chosen and consistent.
+   - `Good`: Minor slips (occasional typos or awkward phrasing) that do not impede understanding.
+   - `Meets`: Understandable but plain or mechanical; no major errors.
+   - `Minor`: Noticeable grammar or spelling mistakes in specific sentences that need fixes.
+   - `Critical`: Language prevents comprehension or is unusable.
 
 2. **Coherence** — Logical flow, transitions, and absence of contradictions.
-   - `Excellent`: Strong structure with deliberate transitions and reinforcement of key points.
-   - `Good`: Overall coherent with minor jumps or missing bridge sentences.
-   - `Normal`: Understandable but lacks connective cues; reader must infer relationships.
-   - `Bad`: Local contradictions or ordering problems that cause confusion; note each major instance.
-   - `Terrible`: Logic collapses, sections conflict, or ordering makes document unusable.
+   - `Excellent`: Clear, well-ordered flow with explicit transitions and consistent argumentation.
+   - `Good`: Mostly coherent with small gaps in transitions or sequencing.
+   - `Meets`: Functional flow but requires reader inference to connect ideas.
+   - `Minor`: Local ordering problems or small contradictions that confuse the reader.
+   - `Critical`: Structural contradictions or ordering failures that break the document's logic.
 
 3. **Content Quality** — Coverage, accuracy, examples, and actionable detail relative to the plan (`description`).
-   - `Excellent`: Plan is fully realized with precise guidance, examples, and validations.
-   - `Good`: Most planned items covered with only small detail gaps.
-   - `Normal`: Content meets baseline but lacks depth or actionable elements.
-   - `Bad`: Specific sections missing, incorrect, or misleading; create separate entries for each.
-   - `Terrible`: Content fundamentally wrong or fails to deliver planned outcomes.
+   - `Excellent`: Content fully implements the plan with accurate, actionable guidance and relevant examples.
+   - `Good`: Most planned items are addressed with only minor missing details.
+   - `Meets`: Baseline coverage is present but lacks depth or practical instructions.
+   - `Minor`: Certain sections are missing, incorrect, or ambiguous and should be corrected.
+   - `Critical`: Core content is wrong or absent, failing to deliver planned outcomes.
 
 4. **Translation Quality** (if applicable) — Fidelity, terminology, and fluency versus source.
-   - `Excellent`: Native-quality translation with consistent terms and tone.
-   - `Good`: Mostly accurate with minor phrasing or terminology slips.
-   - `Normal`: Understandable but stylistically flat or slightly literal.
-   - `Bad`: Tangible mistranslations, inconsistent terms, or tense/voice errors; log each issue.
-   - `Terrible`: Translation unusable—core meaning lost or large sections untranslated. If translation not required, add a `Normal` entry stating "No translation provided/needed".
+   - `Excellent`: Translation reads fluently and preserves meaning and domain terms accurately.
+   - `Good`: Mostly accurate translation with small phrasing or terminology issues.
+   - `Meets`: Translation is understandable though literal or stylistically flat.
+   - `Minor`: Noticeable mistranslations or inconsistent terminology that need revision.
+   - `Critical`: Translation fails to convey the original meaning or is mostly missing `Normal` entry stating "No translation provided/needed".
 
 5. **Consistency** — Terminology, style, formatting, and references.
-   - `Excellent`: Cohesive voice, consistent labels, and purposeful formatting.
-   - `Good`: Mostly consistent with isolated variances (e.g., one label mismatch).
-   - `Normal`: Acceptable but lacking deliberate uniformity.
-   - `Bad`: Specific inconsistencies (term swaps, heading styles) degrading clarity; log each.
-   - `Terrible`: Widespread inconsistency causing reader distrust.
+   - `Excellent`: Terms, style, and formatting are uniform and purposeful across the document.
+   - `Good`: Largely consistent with only isolated mismatches that do not impede understanding.
+   - `Meets`: Acceptable uniformity but lacks deliberate stylistic cohesion.
+   - `Minor`: Specific term or formatting inconsistencies that should be standardized.
+   - `Critical`: Pervasive inconsistency that undermines trust in the content.
 
 6. **Purpose Alignment** — Relevance to user-selected purposes (document only needs to satisfy at least one when multiples exist).
-   - `Excellent`: Purpose fully achieved with targeted sections, calls-to-action, and validations.
-   - `Good`: Purpose addressed with minor digressions or missing polish.
-   - `Normal`: Purpose partially met but generic; lacks purpose-specific steps.
-   - `Bad`: Purpose coverage missing critical components (e.g., onboarding without setup).
-   - `Terrible`: Entirely misaligned, pursuing a different objective.
+   - `Excellent`: The document supplies targeted sections, validation steps, and clear calls-to-action that realize the chosen purpose scoring +10.
+   - `Good`: Purpose is clearly addressed but may lack polish or some validation details.
+   - `Meets`: Purpose is present in general terms but lacks concrete steps or targeted content.
+   - `Minor`: Key components required by the purpose are missing or incomplete.
+   - `Critical`: Document fails to address the selected purpose or pursues a different objective.
 
 7. **Audience Alignment** — Tone, assumptions, and artifacts for target persona(s).
-   - `Excellent`: Tailored messaging, examples, and safeguards for each intended audience.
-   - `Good`: Appropriate tone with small mismatches.
-   - `Normal`: Generally understandable but lacks persona-specific cues.
-   - `Bad`: Explicit sections mismatch the audience's skills or needs; record per instance.
-   - `Terrible`: Audience cannot use the document due to depth/style conflict.
+   - `Excellent`: Messaging, examples, and precautions are tailored to each audience persona and their needs.
+   - `Good`: Tone and examples suit the audience with only minor mismatches.
+   - `Meets`: Document is generally usable by audiences but lacks persona-specific guidance.
+   - `Minor`: Sections explicitly mismatch audience skill levels or expectations and should be revised.
+   - `Critical`: Document is pitched at the wrong audience and cannot be used meaningfully.
 
 8. **Knowledge Level Alignment** — Depth versus reader expertise.
-   - `Excellent`: Layered explanations and optional deep dives perfectly match the expected level.
-   - `Good`: Depth mostly aligned with minor over/under-shoots.
-   - `Normal`: Baseline usable but uneven.
-   - `Bad`: Sections significantly too shallow/deep; log each mismatch.
-   - `Terrible`: Document pitched at the wrong level throughout.
+   - `Excellent`: Material offers layered explanations, optional deep dives, and matches expected expertise.
+   - `Good`: Overall depth fits the reader with small areas that are slightly over- or under-advanced.
+   - `Meets`: Baseline depth is acceptable but uneven across topics scoring 0.
+   - `Minor`: Specific sections are noticeably too shallow or too advanced and need rework.
+   - `Critical`: The document's level is consistently misaligned with reader expertise.
 
 9. **Navigability** — Link accuracy, anchor availability, and cross-reference integrity.
-   - `Excellent`: Navigation aids (TOC, cross-links) are precise and enhance discovery.
-   - `Good`: Links mostly accurate with one minor issue.
-   - `Normal`: Navigation works but lacks enhancements or relies on implicit structure.
-   - `Bad`: Individual broken/mismatched links, missing anchors, or incorrect labels; log each.
-   - `Terrible`: Navigation unreliable overall (multiple broken links or mislabeled sections).
+   - `Excellent`: TOC, anchors, and cross-links are accurate and make navigation effortless.
+   - `Good`: Navigation and links are mostly correct with minor issues scoring +2.
+   - `Meets`: Basic navigation exists but lacks robust anchors or enhancements.
+   - `Minor`: Some broken or mismatched links and missing anchors that should be fixed.
+   - `Critical`: Multiple broken links or mislabeled sections make navigation unreliable.
 
 </standards>
 
@@ -133,16 +133,10 @@ Strictly follow these steps:
 
 2. **Assign Levels & Capture Details**
 
-   - For every notable observation, choose the matching level from `<standards>` and create a `details` entry containing `dimension`, `topic`, `line` (use 0 if unknown), `description`, and `delta`.
-   - Record repeated strengths or issues separately (e.g., three typos = three `Bad` entries under `readability` or `consistency`).
+   - For every notable observation, choose the matching level from `<standards>` and create a `details` entry containing `dimension`, `topic`, `line` (use 0 if unknown), `description`.
+   - Record repeated strengths or issues separately (e.g., three typos = three `Minor` entries under `readability` or `consistency`).
 
-3. **Aggregate Scores**
-
-   - Sum deltas grouped by dimension to obtain `subtotal` values.
-   - Add all deltas to the baseline 80 to compute the provisional total.
-   - Clamp the final score to the 0–100 range to avoid unrealistic extremes.
-
-4. **Provide Actionable Reasons**
+3. **Provide Actionable Reasons**
 
    - For each dimension, craft concise reasons highlighting concrete evidence (e.g., "Install section omits Linux steps", "Glossary mixes API/interface terminology", "Deployment link 404").
 
@@ -153,11 +147,10 @@ Strictly follow these steps:
 - `baseline` must be fixed at 80
 - `details` is an array. Each element must include:
   - `dimension`: one of `readability`, `coherence`, `contentQuality`, `translationQuality`, `consistency`, `purposeAlignment`, `audienceAlignment`, `knowledgeLevelAlignment`, `navigability`
-  - `level`: one of `Excellent`, `Good`, `Normal`, `Bad`, `Terrible`
+  - `level`: one of `excellent`, `good`, `meets`, `minor`, `critical`
   - `topic`: short identifier for the passage/section being judged
   - `line`: integer line number within the source document (use 0 if unknown)
   - `description`: concise, impact-focused explanation of the observation
-  - `delta`: integer delta implied by the level (e.g., +5 for `Good`, -5 for `Bad`)
 - **Output in {{locale}} language**
 
 </output_constraints>
