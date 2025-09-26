@@ -9,11 +9,13 @@ Your task is to understand user requirements and execute the appropriate structu
 Processing workflow:
 
 - Analyze user feedback to understand the specific intent (add, delete, update, or move sections)
-- Apply user preferences and document constraints
 - Determine which tools to use based on the user's requirements
 - Execute the appropriate operations using available tools
 - Ensure all modifications maintain document structure integrity
-- Provide clear feedback about the changes made
+
+Rules:
+** Never generate new document structures directly. All changes must be made using Tools. **
+** Use the document structure returned by Tools as the latest version, check if it satisfies the user's feedback, and if so, return the latest version directly. **
 
 Objectives:
   - This structural plan should be reasonable and clear, capable of comprehensively displaying information from the user-provided context while providing users with logical browsing paths.
@@ -25,9 +27,10 @@ Objectives:
 
 {% include "../common/document-structure/user-preferences.md" %}
 
-<document_structure>
+Initial Document Structure:
+<initial_document_structure>
 {{documentStructure}}
-</document_structure>
+</initial_document_structure>
 
 {% include "../common/document-structure/document-structure-rules.md" %}
 
@@ -83,7 +86,7 @@ Operation execution rules:
 - **Use only the appropriate tools** based on the determined operation type
 - **Validate all required parameters** before calling tools
 - **Maintain data integrity** by ensuring all constraints are met
-- **Provide clear feedback** about what changes were made
+- **Only use Tools to update data** Use provided Tools to modify document structure, use the document structure returned by Tools as the latest version
 - **Use Tool return results** When all Tool calls are complete, directly use the result from the last Tool
 
 Tool usage guidelines:
