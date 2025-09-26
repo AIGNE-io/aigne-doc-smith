@@ -4,7 +4,7 @@ import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
 import fs from "fs-extra";
 
-import { getAccessToken } from "../../utils/auth-utils.mjs";
+import { getAccessToken, clearStoredAccessToken } from "../../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../../utils/constants.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
@@ -13,7 +13,7 @@ import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../u
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
 export default async function publishDocs(
-  { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
+  { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo, reconnect },
   options,
 ) {
   // move work dir to tmp-dir
@@ -125,6 +125,11 @@ export default async function publishDocs(
   }
 
   console.log(`\nPublishing docs to ${chalk.cyan(appUrl)}\n`);
+
+  // Handle reconnect option - clear stored access token if reconnect is true
+  if (reconnect) {
+    await clearStoredAccessToken(appUrl);
+  }
 
   const accessToken = await getAccessToken(appUrl, token);
 

@@ -15,3 +15,6 @@ input_schema:
     appUrl:
       type: string
       description: Website URL where docs will be published (optional - leave empty for interactive setup)
+    reconnect:
+      type: boolean
+      description: Reconnect to website, ignore saved auth
