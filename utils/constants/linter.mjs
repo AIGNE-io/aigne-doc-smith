@@ -1,4 +1,4 @@
-export const LINTER_API_URL = process.env.LINTER_API_URL || 'https://linter.abtnet.io';
+export const LINTER_API_URL = process.env.LINTER_API_URL || "https://linter.abtnet.io";
 
 export const LINTER_SUPPORTED_FILE = {
   biome: [".js", ".jsx", ".ts", ".tsx", ".json"],
@@ -100,4 +100,3 @@ export const CODE_LANGUAGE_MAP_SUFFIX = {
   sass: ".sass",
   scss: ".scss",
 };
-

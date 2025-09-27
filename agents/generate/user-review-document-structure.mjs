@@ -56,7 +56,9 @@ function printDocumentStructure(structure) {
   if (rootNodes.length === 0) {
     console.log("  No document structure found.");
   } else {
-    rootNodes.forEach((node) => printNode(node));
+    rootNodes.forEach((node) => {
+      printNode(node);
+    });
   }
   console.log();
 }

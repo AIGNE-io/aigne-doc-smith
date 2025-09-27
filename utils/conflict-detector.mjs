@@ -1,4 +1,8 @@
-import { CONFLICT_RESOLUTION_RULES, CONFLICT_RULES, RESOLUTION_STRATEGIES } from "./constants/index.mjs";
+import {
+  CONFLICT_RESOLUTION_RULES,
+  CONFLICT_RULES,
+  RESOLUTION_STRATEGIES,
+} from "./constants/index.mjs";
 
 /**
  * Get filtered options based on cross-question conflict rules
