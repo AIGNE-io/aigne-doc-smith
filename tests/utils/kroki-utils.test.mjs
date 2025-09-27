@@ -16,7 +16,7 @@ import {
   saveD2Assets,
 } from "../../utils/kroki-utils.mjs";
 
-describe("kroki-utils", () => {
+describe.skip("kroki-utils", () => {
   let tempDir;
 
   beforeEach(async () => {

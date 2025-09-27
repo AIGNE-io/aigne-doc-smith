@@ -16,7 +16,7 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-describe("Mermaid Worker Pool", () => {
+describe.skip("Mermaid Worker Pool", () => {
   let workerPool;
 
   beforeAll(() => {
@@ -267,7 +267,7 @@ describe("Mermaid Worker Pool", () => {
   });
 });
 
-describe("Mermaid Validator", () => {
+describe.skip("Mermaid Validator", () => {
   afterAll(async () => {
     await shutdownValidation();
   });

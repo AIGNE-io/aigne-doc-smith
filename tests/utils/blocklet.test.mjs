@@ -1,21 +1,23 @@
-import { afterEach, beforeEach, describe, expect, mock, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, spyOn, test, } from "bun:test";
 import {
   ComponentNotFoundError,
   getComponentMountPoint,
   InvalidBlockletError,
 } from "../../utils/blocklet.mjs";
 
-// Mock global fetch
-const mockFetch = mock();
-global.fetch = mockFetch;
-
 describe("blocklet", () => {
+  let mockFetch;
   beforeEach(() => {
-    mockFetch.mockClear();
+    // Mock global fetch
+    mockFetch = spyOn(global, "fetch").mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ name: "test-repo", description: "Test repo" }),
+      statusText: "OK",
+    });
   });
 
   afterEach(() => {
-    mockFetch.mockRestore?.();
+    mockFetch?.mockRestore();
   });
 
   // ERROR CLASSES TESTS
