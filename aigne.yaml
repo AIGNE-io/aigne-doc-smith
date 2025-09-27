@@ -76,6 +76,9 @@ agents:
   - ./docs-mcp/analyze-docs-relevance.yaml
   - ./docs-mcp/read-doc-content.mjs
   - ./docs-mcp/analyze-content-relevance.yaml
+
+  # Evaluation
+  - ./agents/evaluate/index.yaml
 cli:
   chat: ./agents/chat/index.yaml
   agents:

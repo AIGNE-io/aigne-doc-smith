@@ -1,4 +1,4 @@
-import { SUPPORTED_LANGUAGES } from "../../utils/constants.mjs";
+import { SUPPORTED_LANGUAGES } from "../../utils/constants/index.mjs";
 import { loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
 /**

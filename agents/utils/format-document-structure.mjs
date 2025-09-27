@@ -1,8 +1,18 @@
 import { stringify } from "yaml";
 
-export default async function formatDocumentStructure({ documentStructure }) {
+export default async function formatDocumentStructure({
+  documentStructure,
+  originalDocumentStructure,
+}) {
+  if (!documentStructure && !originalDocumentStructure) {
+    return {
+      documentStructureYaml: "",
+      documentStructure: [],
+    };
+  }
+
   // Extract required fields from each item in documentStructure
-  const formattedData = documentStructure.map((item) => ({
+  const formattedData = (documentStructure || originalDocumentStructure)?.map((item) => ({
     title: item.title,
     path: item.path,
     parentId: item.parentId,

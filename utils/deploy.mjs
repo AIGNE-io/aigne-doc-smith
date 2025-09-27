@@ -4,7 +4,7 @@ import { joinURL } from "ufo";
 
 import pkg from "../package.json" with { type: "json" };
 import { getComponentInfo, getComponentInfoWithMountPoint } from "./blocklet.mjs";
-import { PAYMENT_KIT_DID } from "./constants.mjs";
+import { PAYMENT_KIT_DID } from "./constants/index.mjs";
 import { saveValueToConfig } from "./utils.mjs";
 
 const debug = Debug(`${pkg.name}:deploy`);

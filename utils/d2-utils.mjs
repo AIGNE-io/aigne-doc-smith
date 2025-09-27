@@ -1,7 +1,6 @@
 import path from "node:path";
 
 import { D2 } from "@terrastruct/d2";
-import Debug from "debug";
 import fs from "fs-extra";
 import { glob } from "glob";
 import pMap from "p-map";
@@ -13,11 +12,10 @@ import {
   FILE_CONCURRENCY,
   TMP_ASSETS_DIR,
   TMP_DIR,
-} from "./constants.mjs";
+} from "./constants/index.mjs";
+import { debug } from "./debug.mjs";
 import { iconMap } from "./icon-map.mjs";
 import { getContentHash } from "./utils.mjs";
-
-const debug = Debug("doc-smith");
 
 export async function getChart({ content, strict }) {
   const d2 = new D2();

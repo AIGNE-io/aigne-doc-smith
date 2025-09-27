@@ -11,7 +11,7 @@ import {
   READER_KNOWLEDGE_LEVELS,
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
-} from "../../utils/constants.mjs";
+} from "../../utils/constants/index.mjs";
 import loadConfig from "../../utils/load-config.mjs";
 import {
   detectSystemLanguage,

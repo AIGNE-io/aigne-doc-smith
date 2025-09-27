@@ -20,7 +20,7 @@ import {
   TMP_ASSETS_DIR,
   TMP_DIR,
   TMP_DOCS_DIR,
-} from "../../utils/constants.mjs";
+} from "../../utils/constants/index.mjs";
 
 describe("constants", () => {
   describe("DEFAULT_INCLUDE_PATTERNS", () => {
