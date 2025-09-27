@@ -1,0 +1,66 @@
+# Project information for page publishing
+projectName: aigne-doc-smith-0927
+projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation
+  tool built on the AIGNE Framework. It automates the creation of detailed,
+  structured, and multi-language documentation directly from your source code.
+projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
+projectId: e0a76d4e-ee09-4654-8a46-56c62cda4375
+projectSlug: aigne-doc-smith-0927
+
+# =============================================================================
+# Website Configuration
+# =============================================================================
+
+# Purpose: What's the main outcome you want readers to achieve?
+# Available options (uncomment and modify as needed):
+#   landingPage      - Landing page / Homepage: Convert visitors into users or customers
+#   ecommerce        - E-commerce / Online store: Sell products or services online
+#   portfolio        - Portfolio / Showcase: Display creative work, projects, or achievements
+#   corporate        - Corporate / Business: Professional business website with company information
+#   blog             - Blog / Content site: Share articles, news, and regular content updates
+#   saas             - SaaS / Software product: Promote and onboard users to software services
+#   nonprofit        - Non-profit / Community: Promote causes, accept donations, engage volunteers
+#   education        - Educational / Learning: Provide courses, tutorials, or educational content
+#   mixedPurpose     - Multi-purpose website: Comprehensive website covering multiple needs
+pagePurpose:
+  - landingPage
+
+# Target Audience: Who will be reading this most often?
+# Available options (uncomment and modify as needed):
+#   customers        - Customers / End users: People who buy or use your products/services
+#   businessOwners   - Business owners / Entrepreneurs: People running businesses looking for solutions
+#   marketers        - Marketing teams: People promoting products or managing campaigns
+#   designers        - Designers / Creative professionals: People focused on visual design and user experience
+#   developers       - Developers / Technical users: People building or integrating technical solutions
+#   investors        - Investors / Stakeholders: People evaluating business potential and growth
+#   jobSeekers       - Job seekers / Potential employees: People looking for career opportunities
+#   students         - Students / Learners: People seeking educational content or resources
+#   generalPublic    - General public / Mixed audience: Broad audience with varied interests and backgrounds
+targetAudienceTypes:
+  - customers
+
+# Website Scale: How many pages should your website have?
+# Available options (uncomment and modify as needed):
+#   singlePage         - Single Page (only 1 page): All content consolidated into 1 page
+#   minimal            - Minimal (2-6 pages): Core pages only - quick to launch
+#   standard           - Standard (7-12 pages): Complete website with main sections [RECOMMENDED]
+#   comprehensive      - Comprehensive (12+ pages): Full-featured website with detailed sections
+#   aiDecide           - Let AI decide: Analyze project complexity and suggest appropriate scale
+websiteScale: singlePage
+
+# Custom Rules: Define specific page generation rules and requirements
+rules: ""
+
+# Glossary: Define project-specific terms and definitions
+# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
+
+locale: en
+# translateLanguages:  # List of languages to translate the pages to
+#   - zh  # Example: Chinese translation
+#   - en  # Example: English translation
+pagesDir: .aigne/web-smith/pages # Directory to save generated pages
+sourcesPath: # Source code paths to analyze
+  - README.md
+  - media.md
+lastGitHead: 5f75e29fc3a71edfe015b0dd812c3b59cafb6b91
+appUrl: https://staging.websmith.aigne.io

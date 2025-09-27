@@ -1,0 +1,1815 @@
+id: 616571b7c79a8472
+createdAt: 2025-09-27T12:16:16.870Z
+updatedAt: 2025-09-27T12:16:16.870Z
+publishedAt: 2025-09-27T12:16:16.870Z
+isPublic: true
+locales:
+  en:
+    backgroundColor: ""
+    style:
+      maxWidth: custom:1560px
+      paddingY: large
+      paddingX: large
+    title: "AIGNE DocSmith: AI-Powered Documentation Generation"
+    description: Instantly generate, translate, and publish high-quality
+      documentation from your source code with AIGNE DocSmith. AI-powered,
+      multi-language support, and seamless integration.
+    header:
+      sticky: true
+sections:
+  43483e566b924717:
+    id: 43483e566b924717
+    name: Hero
+    component: layout-block
+    sections:
+      01c7c3d0f9bba783:
+        id: 01c7c3d0f9bba783
+        name: Title
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      ef12534e7d00bbc9:
+        id: ef12534e7d00bbc9
+        name: Section Layout
+        component: layout-block
+        sections:
+          9914d42155ac4e72:
+            id: 9914d42155ac4e72
+            name: Section Layout
+            component: layout-block
+            sections:
+              2850505d04303bf1:
+                id: 2850505d04303bf1
+                name: Code
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: 2EHGy3vwxlS9JGr2
+                sectionIds: []
+            sectionIds:
+              - 2850505d04303bf1
+            config:
+              gridSettings:
+                desktop:
+                  2850505d04303bf1:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              borderRadius: small
+        sectionIds:
+          - 9914d42155ac4e72
+        config:
+          gridSettings:
+            desktop:
+              9914d42155ac4e72:
+                x: 0
+                y: 0
+                w: 5
+                h: 1
+            mobile:
+              9914d42155ac4e72:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          borderRadius: none
+          alignContent: center
+    sectionIds:
+      - 01c7c3d0f9bba783
+      - ef12534e7d00bbc9
+    config:
+      gridSettings:
+        desktop:
+          01c7c3d0f9bba783:
+            x: 0
+            y: 0
+            w: 8
+            h: 1
+          ef12534e7d00bbc9:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      paddingY: custom:150px
+      paddingX: none
+      backgroundFullWidth: true
+      background: primary.dark
+      gap: large
+  2c9fe55a5a7ce8bc:
+    id: 2c9fe55a5a7ce8bc
+    name: Layout 2x2
+    component: layout-block
+    sections:
+      059f0f6c199ff621:
+        id: 059f0f6c199ff621
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      8b7dd5f7efd976ea:
+        id: 8b7dd5f7efd976ea
+        name: Cards
+        component: layout-block
+        sections:
+          928bb0873327106a:
+            id: 928bb0873327106a
+            name: Cards-1
+            component: layout-block
+            sections:
+              3fe0e876ba2bc9be:
+                id: 3fe0e876ba2bc9be
+                name: Card
+                component: layout-block
+                sections:
+                  d623545c67c0bae5:
+                    id: d623545c67c0bae5
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  f2fceaee42d5c604:
+                    id: f2fceaee42d5c604
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - d623545c67c0bae5
+                  - f2fceaee42d5c604
+                config:
+                  gridSettings:
+                    desktop:
+                      f2fceaee42d5c604:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      d623545c67c0bae5:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 3fe0e876ba2bc9be
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          456963db95590044:
+            id: 456963db95590044
+            name: Cards-2
+            component: layout-block
+            sections:
+              ab473ce9ac8a830e:
+                id: ab473ce9ac8a830e
+                name: Card
+                component: layout-block
+                sections:
+                  a00892c014dbf1b6:
+                    id: a00892c014dbf1b6
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  60669633b69c613c:
+                    id: 60669633b69c613c
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - a00892c014dbf1b6
+                  - 60669633b69c613c
+                config:
+                  gridSettings:
+                    desktop:
+                      60669633b69c613c:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      a00892c014dbf1b6:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - ab473ce9ac8a830e
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          4f98146eb049817c:
+            id: 4f98146eb049817c
+            name: Cards-3
+            component: layout-block
+            sections:
+              8ed56cb8ce29cc1d:
+                id: 8ed56cb8ce29cc1d
+                name: Card
+                component: layout-block
+                sections:
+                  258d860b278ad281:
+                    id: 258d860b278ad281
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  cebc339339a2bdc3:
+                    id: cebc339339a2bdc3
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 258d860b278ad281
+                  - cebc339339a2bdc3
+                config:
+                  gridSettings:
+                    desktop:
+                      cebc339339a2bdc3:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      258d860b278ad281:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 8ed56cb8ce29cc1d
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          9d081e0f489a9726:
+            id: 9d081e0f489a9726
+            name: Cards-4
+            component: layout-block
+            sections:
+              8e731e2a61a5231a:
+                id: 8e731e2a61a5231a
+                name: Card
+                component: layout-block
+                sections:
+                  db033aae1e3c1d54:
+                    id: db033aae1e3c1d54
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  9d2f663bc2e29067:
+                    id: 9d2f663bc2e29067
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - db033aae1e3c1d54
+                  - 9d2f663bc2e29067
+                config:
+                  gridSettings:
+                    desktop:
+                      9d2f663bc2e29067:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      db033aae1e3c1d54:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 8e731e2a61a5231a
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+        sectionIds:
+          - 928bb0873327106a
+          - 456963db95590044
+          - 4f98146eb049817c
+          - 9d081e0f489a9726
+        config:
+          gridSettings:
+            desktop:
+              928bb0873327106a:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+              456963db95590044:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+              4f98146eb049817c:
+                x: 0
+                y: 1
+                w: 6
+                h: 1
+              9d081e0f489a9726:
+                x: 6
+                y: 1
+                w: 6
+                h: 1
+          padding: none
+          gap: normal
+          background: transparent
+    sectionIds:
+      - 059f0f6c199ff621
+      - 8b7dd5f7efd976ea
+    config:
+      gridSettings:
+        desktop:
+          8b7dd5f7efd976ea:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          059f0f6c199ff621:
+            x: 2
+            y: 0
+            w: 8
+            h: 1
+        mobile:
+          8b7dd5f7efd976ea:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          059f0f6c199ff621:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      padding: large
+      maxWidth: full
+      paddingX: none
+      paddingY: none
+  14c7fc5c96cb582e:
+    id: 14c7fc5c96cb582e
+    name: Layout 1x3
+    component: layout-block
+    sections:
+      9de2a7aa5e9d16ac:
+        id: 9de2a7aa5e9d16ac
+        name: Title
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      d38be09e9d443bb5:
+        id: d38be09e9d443bb5
+        name: CardList
+        component: layout-block
+        sections:
+          b72de9f3e2998402:
+            id: b72de9f3e2998402
+            name: CardList-1
+            component: layout-block
+            sections:
+              637ade5f22994253:
+                id: 637ade5f22994253
+                name: Step-2
+                component: layout-block
+                sections:
+                  c9671dc4bf62b036:
+                    id: c9671dc4bf62b036
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  8c7c4b68ce287888:
+                    id: 8c7c4b68ce287888
+                    name: Container
+                    component: layout-block
+                    sections:
+                      5924f5ccb93bd13f:
+                        id: 5924f5ccb93bd13f
+                        name: Code
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: 2EHGy3vwxlS9JGr2
+                        sectionIds: []
+                    sectionIds:
+                      - 5924f5ccb93bd13f
+                    config:
+                      gridSettings:
+                        desktop:
+                          5924f5ccb93bd13f:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      borderRadius: medium
+                      height: unset
+                      border: terminal
+                sectionIds:
+                  - c9671dc4bf62b036
+                  - 8c7c4b68ce287888
+                config:
+                  gridSettings:
+                    desktop:
+                      c9671dc4bf62b036:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                      8c7c4b68ce287888:
+                        x: 6
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      c9671dc4bf62b036:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                      8c7c4b68ce287888:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                  gap: normal
+            sectionIds:
+              - 637ade5f22994253
+            config:
+              gridSettings:
+                desktop: {}
+              gap: normal
+              paddingX: large
+              paddingY: large
+              background: background.paper
+              borderRadius: none
+          19db6f672e4fe94e:
+            id: 19db6f672e4fe94e
+            name: CardList-2
+            component: layout-block
+            sections:
+              847629726aa8786e:
+                id: 847629726aa8786e
+                name: Step-2
+                component: layout-block
+                sections:
+                  cb14d3a91ebc8c71:
+                    id: cb14d3a91ebc8c71
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  f21dbc4b3310f0b8:
+                    id: f21dbc4b3310f0b8
+                    name: Container
+                    component: layout-block
+                    sections:
+                      f18aa16444c127ac:
+                        id: f18aa16444c127ac
+                        name: Code
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: 2EHGy3vwxlS9JGr2
+                        sectionIds: []
+                    sectionIds:
+                      - f18aa16444c127ac
+                    config:
+                      gridSettings:
+                        desktop:
+                          f18aa16444c127ac:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      borderRadius: medium
+                      height: unset
+                      border: terminal
+                sectionIds:
+                  - cb14d3a91ebc8c71
+                  - f21dbc4b3310f0b8
+                config:
+                  gridSettings:
+                    desktop:
+                      cb14d3a91ebc8c71:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                      f21dbc4b3310f0b8:
+                        x: 6
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      cb14d3a91ebc8c71:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                      f21dbc4b3310f0b8:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                  gap: normal
+            sectionIds:
+              - 847629726aa8786e
+            config:
+              gridSettings:
+                desktop: {}
+              gap: normal
+              paddingX: large
+              paddingY: large
+              background: background.paper
+              borderRadius: none
+          984fa30ae45d1fa0:
+            id: 984fa30ae45d1fa0
+            name: CardList-3
+            component: layout-block
+            sections:
+              910462c0363616dc:
+                id: 910462c0363616dc
+                name: Step-2
+                component: layout-block
+                sections:
+                  c3102fe0ded582ba:
+                    id: c3102fe0ded582ba
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  35a6fe40ca824e69:
+                    id: 35a6fe40ca824e69
+                    name: Container
+                    component: layout-block
+                    sections:
+                      1c996b0975214c55:
+                        id: 1c996b0975214c55
+                        name: Code
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: 2EHGy3vwxlS9JGr2
+                        sectionIds: []
+                    sectionIds:
+                      - 1c996b0975214c55
+                    config:
+                      gridSettings:
+                        desktop:
+                          1c996b0975214c55:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      borderRadius: medium
+                      height: unset
+                      border: terminal
+                sectionIds:
+                  - c3102fe0ded582ba
+                  - 35a6fe40ca824e69
+                config:
+                  gridSettings:
+                    desktop:
+                      c3102fe0ded582ba:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                      35a6fe40ca824e69:
+                        x: 6
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      c3102fe0ded582ba:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                      35a6fe40ca824e69:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                  gap: normal
+            sectionIds:
+              - 910462c0363616dc
+            config:
+              gridSettings:
+                desktop: {}
+              gap: normal
+              paddingX: large
+              paddingY: large
+              background: background.paper
+              borderRadius: none
+        sectionIds:
+          - b72de9f3e2998402
+          - 19db6f672e4fe94e
+          - 984fa30ae45d1fa0
+        config:
+          gridSettings:
+            desktop:
+              b72de9f3e2998402:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              19db6f672e4fe94e:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+              984fa30ae45d1fa0:
+                x: 0
+                y: 2
+                w: 12
+                h: 1
+          gap: normal
+      1e17c1327fb50a56:
+        id: 1e17c1327fb50a56
+        name: Action
+        component: custom-component
+        config:
+          useCache: true
+          componentId: a44r0SiGV9AFn2Fj
+        sectionIds: []
+    sectionIds:
+      - 9de2a7aa5e9d16ac
+      - d38be09e9d443bb5
+      - 1e17c1327fb50a56
+    config:
+      gap: normal
+      paddingX: none
+      maxWidth: full
+      paddingY: none
+      gridSettings:
+        desktop:
+          9de2a7aa5e9d16ac:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          d38be09e9d443bb5:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          1e17c1327fb50a56:
+            x: 0
+            y: 2
+            w: 12
+            h: 1
+  d8dfd84a98473a87:
+    id: d8dfd84a98473a87
+    name: Step-2
+    component: layout-block
+    sections:
+      29aef9b049421e10:
+        id: 29aef9b049421e10
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      872dfaf0ea9f6dd5:
+        id: 872dfaf0ea9f6dd5
+        name: Container
+        component: layout-block
+        sections:
+          c7740f39af614660:
+            id: c7740f39af614660
+            name: Code
+            component: custom-component
+            config:
+              useCache: true
+              componentId: 2EHGy3vwxlS9JGr2
+            sectionIds: []
+        sectionIds:
+          - c7740f39af614660
+        config:
+          gridSettings:
+            desktop:
+              c7740f39af614660:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          borderRadius: medium
+          height: unset
+          border: terminal
+    sectionIds:
+      - 29aef9b049421e10
+      - 872dfaf0ea9f6dd5
+    config:
+      gridSettings:
+        desktop:
+          29aef9b049421e10:
+            x: 0
+            y: 0
+            w: 6
+            h: 1
+          872dfaf0ea9f6dd5:
+            x: 6
+            y: 0
+            w: 6
+            h: 1
+        mobile:
+          29aef9b049421e10:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          872dfaf0ea9f6dd5:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+      gap: normal
+  8c510319c3c6f04c:
+    id: 8c510319c3c6f04c
+    name: Layout 2x2
+    component: layout-block
+    sections:
+      7ea4e13f33dfcf70:
+        id: 7ea4e13f33dfcf70
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      b37fd2c0d9877cc9:
+        id: b37fd2c0d9877cc9
+        name: Cards
+        component: layout-block
+        sections:
+          f45165a08c11539b:
+            id: f45165a08c11539b
+            name: Cards-1
+            component: layout-block
+            sections:
+              399d7ed50a4fed26:
+                id: 399d7ed50a4fed26
+                name: Card
+                component: layout-block
+                sections:
+                  612acdaec15c7267:
+                    id: 612acdaec15c7267
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  fcc2a6bce8dfc961:
+                    id: fcc2a6bce8dfc961
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 612acdaec15c7267
+                  - fcc2a6bce8dfc961
+                config:
+                  gridSettings:
+                    desktop:
+                      fcc2a6bce8dfc961:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      612acdaec15c7267:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 399d7ed50a4fed26
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          fdd3c0a63b07f216:
+            id: fdd3c0a63b07f216
+            name: Cards-2
+            component: layout-block
+            sections:
+              886210102bffb83c:
+                id: 886210102bffb83c
+                name: Card
+                component: layout-block
+                sections:
+                  17e2bf6c35ea6a14:
+                    id: 17e2bf6c35ea6a14
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  6715829cfb5a6045:
+                    id: 6715829cfb5a6045
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - 17e2bf6c35ea6a14
+                  - 6715829cfb5a6045
+                config:
+                  gridSettings:
+                    desktop:
+                      6715829cfb5a6045:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      17e2bf6c35ea6a14:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 886210102bffb83c
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          395117cc90236930:
+            id: 395117cc90236930
+            name: Cards-3
+            component: layout-block
+            sections:
+              8f6d4eb7ec08ea74:
+                id: 8f6d4eb7ec08ea74
+                name: Card
+                component: layout-block
+                sections:
+                  b0cb540591e952b0:
+                    id: b0cb540591e952b0
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  b666217a893dd312:
+                    id: b666217a893dd312
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - b0cb540591e952b0
+                  - b666217a893dd312
+                config:
+                  gridSettings:
+                    desktop:
+                      b666217a893dd312:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      b0cb540591e952b0:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - 8f6d4eb7ec08ea74
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+          fe3550648b206a83:
+            id: fe3550648b206a83
+            name: Cards-4
+            component: layout-block
+            sections:
+              e3c9918be7d0ba8a:
+                id: e3c9918be7d0ba8a
+                name: Card
+                component: layout-block
+                sections:
+                  cbd015039cfc638c:
+                    id: cbd015039cfc638c
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                  ccd489e0f13b8a94:
+                    id: ccd489e0f13b8a94
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                sectionIds:
+                  - cbd015039cfc638c
+                  - ccd489e0f13b8a94
+                config:
+                  gridSettings:
+                    desktop:
+                      ccd489e0f13b8a94:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      cbd015039cfc638c:
+                        x: 0
+                        y: 0
+                        w: 4
+                        h: 1
+                  padding: normal
+                  background: transparent
+                  gap: normal
+                  borderRadius: none
+                  border: none
+                  alignContent: start
+                  paddingY: none
+                  paddingX: none
+            sectionIds:
+              - e3c9918be7d0ba8a
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              padding: normal
+              background: background.paper
+              gap: normal
+              borderRadius: medium
+              border: none
+              paddingX: large
+              paddingY: large
+        sectionIds:
+          - f45165a08c11539b
+          - fdd3c0a63b07f216
+          - 395117cc90236930
+          - fe3550648b206a83
+        config:
+          gridSettings:
+            desktop:
+              f45165a08c11539b:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+              fdd3c0a63b07f216:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+              395117cc90236930:
+                x: 0
+                y: 1
+                w: 6
+                h: 1
+              fe3550648b206a83:
+                x: 6
+                y: 1
+                w: 6
+                h: 1
+          padding: none
+          gap: normal
+          background: transparent
+    sectionIds:
+      - 7ea4e13f33dfcf70
+      - b37fd2c0d9877cc9
+    config:
+      gridSettings:
+        desktop:
+          b37fd2c0d9877cc9:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          7ea4e13f33dfcf70:
+            x: 2
+            y: 0
+            w: 8
+            h: 1
+        mobile:
+          b37fd2c0d9877cc9:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          7ea4e13f33dfcf70:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      padding: large
+      maxWidth: full
+      paddingX: none
+      paddingY: none
+  8f59222c0ad9bf83:
+    id: 8f59222c0ad9bf83
+    name: CTA
+    component: layout-block
+    sections:
+      ebfde8f1492c99d8:
+        id: ebfde8f1492c99d8
+        name: Section Layout
+        component: layout-block
+        sections:
+          095bd0dc0bf5cc83:
+            id: 095bd0dc0bf5cc83
+            name: RichText
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+          6b045369c370ff98:
+            id: 6b045369c370ff98
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+            sectionIds: []
+        sectionIds:
+          - 095bd0dc0bf5cc83
+          - 6b045369c370ff98
+        config:
+          gridSettings:
+            desktop:
+              095bd0dc0bf5cc83:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              6b045369c370ff98:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          background: grey.100
+          padding: large
+          gap: large
+          borderRadius: medium
+          border: none
+          paddingY: large
+    sectionIds:
+      - ebfde8f1492c99d8
+    config:
+      padding: large
+      gridSettings:
+        desktop:
+          ebfde8f1492c99d8:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: none
+      paddingX: none
+      paddingY: none
+sectionIds:
+  - 43483e566b924717
+  - 2c9fe55a5a7ce8bc
+  - 14c7fc5c96cb582e
+  - d8dfd84a98473a87
+  - 8c510319c3c6f04c
+  - 8f59222c0ad9bf83
+dataSource:
+  01c7c3d0f9bba783:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Turn Your Code into Flawless Documentation. Instantly.
+            style:
+              color: common.white
+              variant: h1
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1754131284858-7ip6im6yq
+                type: text
+                text: AIGNE DocSmith is the AI-powered tool that automates the entire
+                  documentation process. Generate, translate, and publish
+                  beautiful, structured docs right from your source code. Let's
+                  get you started!
+                style:
+                  color: common.white
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+  2850505d04303bf1:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: Terminal
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # Just one command to get started
+            aigne doc generate
+        e9kvx5d7y82lm3n:
+          value: default
+        qvxiyadgn5bj6oq8:
+          value: false
+        c4kvf6b7zyskk8m:
+          value: false
+        7mp2u9tibl03thp6:
+          value: shell
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        3uqbvyqzsluuv5hs:
+          value: "500"
+  059f0f6c199ff621:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Everything You Need to Automate Documentation
+            style:
+              variant: h1
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1758789736331-y7vkch80n
+                type: text
+                text: DocSmith is packed with powerful features designed to save you time and
+                  elevate your project's documentation.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  f2fceaee42d5c604:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Automated Structure
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Our AI intelligently analyzes your codebase to generate a complete,
+                  logical document structure. No more manual outlining!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  d623545c67c0bae5:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:file-tree-outline
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  60669633b69c613c:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: AI-Powered Content
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Let the AI do the writing. It populates your new document structure with
+                  detailed, high-quality, and relevant content.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  a00892c014dbf1b6:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:robot-happy-outline
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  cebc339339a2bdc3:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Multi-Language Support
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Reach a global audience instantly. Translate your documentation into 12
+                  languages with a single command.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  258d860b278ad281:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:translate
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  9d2f663bc2e29067:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: AIGNE Hub Integration
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Access powerful LLMs like GPT-4o and Gemini without needing your own API
+                  keys. It's all integrated and ready to go.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  db033aae1e3c1d54:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:hub-outline
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  9de2a7aa5e9d16ac:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "See It In Action: Three Simple Steps"
+            style:
+              fontSize: 32px
+              variant: h1
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1754037726128-q9f6xufkq
+                type: text
+                text: Generating your documentation is as easy as 1-2-3. Here’s how you go from
+                  code to complete docs in minutes.
+                style:
+                  color: text.secondary
+                  fontSize: ""
+                  variant: body1
+  1e17c1327fb50a56:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: ""
+              url: ""
+              variant: outlined
+              size: large
+              target: _blank
+              needLogin: false
+  c9671dc4bf62b036:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 1: Initialize Your Project"
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: Run the `init` command. DocSmith will ask a few simple questions to
+                  understand your project, target audience, and desired
+                  languages.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  5924f5ccb93bd13f:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: bash
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: aigne doc init
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  cb14d3a91ebc8c71:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 2: Generate Everything"
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: This is where the magic happens. The `generate` command creates the
+                  structure, writes the content, and builds your documentation.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  f18aa16444c127ac:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: bash
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: aigne doc generate
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  c3102fe0ded582ba:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 3: Publish Your Docs"
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: Ready to share your work with the world? The `publish` command lets you
+                  instantly deploy to the official platform or your own
+                  instance.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  1c996b0975214c55:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: bash
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: aigne doc publish
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  29aef9b049421e10:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Ready to Start? Let's Go!
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753781653625-ia4shqnk4
+                type: text
+                text: You're just one command away from getting started. First, make sure you
+                  have Node.js installed, then install the AIGNE CLI globally
+                  via npm.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  c7740f39af614660:
+    en:
+      properties:
+        b2jrz12ik7esf93z:
+          value: bash
+        e9kvx5d7y82lm3n:
+          value: material
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # Install the AIGNE CLI globally
+            npm i -g @aigne/cli
+
+            # Verify the installation
+            aigne doc -h
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  7ea4e13f33dfcf70:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Take It to the Next Level
+            style:
+              variant: h1
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1758789736331-y7vkch80n
+                type: text
+                text: DocSmith is simple to start with but powerful enough for advanced
+                  workflows. Fine-tune your documentation with targeted
+                  commands.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  fcc2a6bce8dfc961:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Update a Single Document
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Need to tweak a specific section? Use `aigne doc update` to regenerate a
+                  single file with new feedback, like 'Add more comprehensive
+                  FAQ entries'.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  612acdaec15c7267:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:pencil-circle-outline
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  6715829cfb5a6045:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Translate on Demand
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Translate specific documents into new languages anytime with `aigne doc
+                  translate --langs zh --langs ja`.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  17e2bf6c35ea6a14:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:web
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  b666217a893dd312:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Optimize Structure
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Refine your entire doc structure by providing feedback, like `aigne doc
+                  generate --feedback "Remove About section and add API
+                  Reference"`.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  b0cb540591e952b0:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:structure-outline
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  ccd489e0f13b8a94:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Switch LLM Models
+            style:
+              fontSize: ""
+              variant: h4
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753379691477-fu786lae3
+                type: text
+                text: Easily experiment with different AI models. Just add the `--model` flag,
+                  like `... --model openai:gpt-4o` to change your LLM provider.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  cbd015039cfc638c:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:swap-horizontal-bold
+        529qbwiam7oypw8e:
+          value: 40px
+        gugqsxx3xyveuu8n:
+          value: primary.main
+  095bd0dc0bf5cc83:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Ready to Revolutionize Your Documentation?
+            style:
+              variant: h1
+        e8f3k7m2n9p4q1s5:
+          value: false
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1753381637728-mjjp8nvd5
+                type: text
+                text: Stop writing docs and start generating them. Install AIGNE DocSmith today
+                  and experience the future of documentation.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  6b045369c370ff98:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Install via NPM
+              url: https://www.npmjs.com/package/@aigne/doc-smith
+              variant: contained
+              size: large
+              target: _blank
+              needLogin: false
+            - type: link
+              text: View on GitHub
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+              color: ""
+              borderColor: ""
+              variant: outlined
+              size: large
+              target: _blank
+              startIcon: ""
+              endIcon: ""
+              needLogin: false
+              id: btn-1753381708894-gbhxzm1xt
