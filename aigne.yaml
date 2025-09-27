@@ -47,6 +47,13 @@ agents:
   - ./agents/publish/publish-docs.mjs
   - ./agents/publish/index.yaml
 
+  # Clear/Cleanup
+  - ./agents/clear/choose-contents.mjs
+  - ./agents/clear/clear-document-structure.mjs
+  - ./agents/clear/clear-generated-docs.mjs
+  - ./agents/clear/clear-document-config.mjs
+  - ./agents/clear/clear-auth-tokens.mjs
+
   # Utilities
   - ./agents/utils/load-sources.mjs
   - ./agents/utils/save-docs.mjs
@@ -77,6 +84,7 @@ cli:
     - ./agents/update/index.yaml
     - ./agents/publish/index.yaml
     - ./agents/translate/index.yaml
+    - ./agents/clear/index.yaml
     - ./agents/prefs/index.mjs
 mcp_server:
   agents:
