@@ -27,6 +27,14 @@ export default async function generateEvaluationReport({
   originalDocumentStructure,
   metadata = {},
   basePath = process.cwd(),
+  projectName,
+  projectDesc,
+  projectLogo,
+  documentPurpose,
+  targetAudienceTypes,
+  readerKnowledgeLevel,
+  documentationDepth,
+  targetAudience,
 }) {
   const timestamp = new Date().toISOString();
   const timestampForFolder = generateTimestampForFolder();
@@ -40,6 +48,14 @@ export default async function generateEvaluationReport({
     metadata,
     structureEvaluation,
     documentEvaluations,
+    projectName,
+    projectDesc,
+    projectLogo,
+    documentPurpose,
+    targetAudienceTypes,
+    readerKnowledgeLevel,
+    documentationDepth,
+    targetAudience,
   });
 
   const saveDir = join(basePath, DOC_SMITH_DIR, "evaluate", timestampForFolder);
