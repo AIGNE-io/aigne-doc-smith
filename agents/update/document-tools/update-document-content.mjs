@@ -1,13 +1,22 @@
 import { applyPatch } from "diff";
+import {
+  getUpdateDocumentContentInputJsonSchema,
+  getUpdateDocumentContentOutputJsonSchema,
+  validateUpdateDocumentContentInput,
+} from "../../../types/document-schema.mjs";
 
-export default async function updateDocumentContent({ originalContent, diffPatch }) {
-  if (!originalContent || typeof originalContent !== "string") {
-    throw new Error("originalContent must be a non-empty string");
+export default async function updateDocumentContent(input) {
+  // Validate input using Zod schema
+  const validation = validateUpdateDocumentContentInput(input);
+  if (!validation.success) {
+    return {
+      success: false,
+      error: validation.error,
+      message: "Invalid input parameters",
+    };
   }
 
-  if (!diffPatch || typeof diffPatch !== "string") {
-    throw new Error("diffPatch must be a non-empty string");
-  }
+  const { originalContent, diffPatch } = validation.data;
 
   try {
     // Parse and validate diff patch
@@ -278,42 +287,7 @@ function reconstructDiffPatch(hunks) {
   return patchContent;
 }
 
-updateDocumentContent.inputSchema = {
-  type: "object",
-  properties: {
-    originalContent: {
-      type: "string",
-      description: "Original markdown content to be updated",
-    },
-    diffPatch: {
-      type: "string",
-      description: "Diff patch string to apply to the original content",
-    },
-  },
-  required: ["originalContent", "diffPatch"],
-};
-
-updateDocumentContent.outputSchema = {
-  type: "object",
-  properties: {
-    success: {
-      type: "boolean",
-      description: "Whether the update was successful",
-    },
-    updatedContent: {
-      type: "string",
-      description: "Updated markdown content (only present if success is true)",
-    },
-    error: {
-      type: "string",
-      description: "Error message (only present if success is false)",
-    },
-    message: {
-      type: "string",
-      description: "Status message",
-    },
-  },
-  required: ["success", "message"],
-};
+updateDocumentContent.inputSchema = getUpdateDocumentContentInputJsonSchema();
+updateDocumentContent.outputSchema = getUpdateDocumentContentOutputJsonSchema();
 
 updateDocumentContent.description = "Apply diff patch to update markdown document content";
