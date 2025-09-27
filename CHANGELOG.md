@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.8.11-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta...v0.8.11-beta.1) (2025-09-27)
+
+
+### Features
+
+* **cli:** deploy website with @blocklet/payment-broker-client ([#139](https://github.com/AIGNE-io/aigne-doc-smith/issues/139)) ([a52f397](https://github.com/AIGNE-io/aigne-doc-smith/commit/a52f397728808e44ba41ccdcd7404ffa168fef94))
+* **cli:** improve vendor handling and debugability on publish ([#138](https://github.com/AIGNE-io/aigne-doc-smith/issues/138)) ([430e17c](https://github.com/AIGNE-io/aigne-doc-smith/commit/430e17c4eadfc919bba66953bd93f21de00dba92))
+* **core:** support doc evaluation and reports ([#140](https://github.com/AIGNE-io/aigne-doc-smith/issues/140)) ([3222f97](https://github.com/AIGNE-io/aigne-doc-smith/commit/3222f97c5b0c82039cd5b913ea42ea567e1d74e3))
+* tune document and structure update with tools ([#137](https://github.com/AIGNE-io/aigne-doc-smith/issues/137)) ([90e645c](https://github.com/AIGNE-io/aigne-doc-smith/commit/90e645c0be8a5926d3f97009a449b539ef6b2954))
+
+
+### Bug Fixes
+
+* treat description as text node instead of markdown attribute value ([#136](https://github.com/AIGNE-io/aigne-doc-smith/issues/136)) ([67fccdd](https://github.com/AIGNE-io/aigne-doc-smith/commit/67fccdd6dc8faa272f3c58e3575909d7833c813b))
+
 ## [0.8.11-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10...v0.8.11-beta) (2025-09-22)
 
 
