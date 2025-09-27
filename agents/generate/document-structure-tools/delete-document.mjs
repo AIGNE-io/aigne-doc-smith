@@ -1,11 +1,18 @@
-export default async function deleteDocument({ documentStructure, path }) {
-  // Validate required parameters
-  if (!path) {
-    console.log(
-      "⚠️  Cannot delete document: No document specified. Please indicate which document you want to remove.",
-    );
-    return { documentStructure };
+import {
+  getDeleteDocumentInputJsonSchema,
+  getDeleteDocumentOutputJsonSchema,
+  validateDeleteDocumentInput,
+} from "../../../types/document-structure-schema.mjs";
+
+export default async function deleteDocument(input) {
+  // Validate input using Zod schema
+  const validation = validateDeleteDocumentInput(input);
+  if (!validation.success) {
+    console.log(`⚠️  Cannot delete document: ${validation.error}`);
+    return { documentStructure: input.documentStructure };
   }
+
+  const { documentStructure, path } = validation.data;
 
   // Find the document to delete
   const documentIndex = documentStructure.findIndex((item) => item.path === path);
@@ -38,58 +45,5 @@ export default async function deleteDocument({ documentStructure, path }) {
 
 deleteDocument.taskTitle = "Delete document";
 deleteDocument.description = "Delete a document from the document structure";
-deleteDocument.inputSchema = {
-  type: "object",
-  properties: {
-    documentStructure: {
-      type: "array",
-      description: "Current document structure array",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          description: { type: "string" },
-          path: { type: "string" },
-          parentId: { type: ["string", "null"] },
-          sourceIds: { type: "array", items: { type: "string" } },
-        },
-      },
-    },
-    path: {
-      type: "string",
-      description: "URL path of the document to delete",
-    },
-  },
-  required: ["documentStructure", "path"],
-};
-deleteDocument.outputSchema = {
-  type: "object",
-  properties: {
-    documentStructure: {
-      type: "array",
-      description: "Updated document structure array with the document removed",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          description: { type: "string" },
-          path: { type: "string" },
-          parentId: { type: ["string", "null"] },
-          sourceIds: { type: "array", items: { type: "string" } },
-        },
-      },
-    },
-    deletedDocument: {
-      type: "object",
-      description: "The deleted document object",
-      properties: {
-        title: { type: "string" },
-        description: { type: "string" },
-        path: { type: "string" },
-        parentId: { type: ["string", "null"] },
-        sourceIds: { type: "array", items: { type: "string" } },
-      },
-    },
-  },
-  required: ["documentStructure"],
-};
+deleteDocument.inputSchema = getDeleteDocumentInputJsonSchema();
+deleteDocument.outputSchema = getDeleteDocumentOutputJsonSchema();
