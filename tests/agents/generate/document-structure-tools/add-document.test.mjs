@@ -162,7 +162,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
+      "⚠️  Cannot add document: title: Required",
     );
   });
 
@@ -177,7 +177,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
+      "⚠️  Cannot add document: description: Required",
     );
   });
 
@@ -192,7 +192,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
+      "⚠️  Cannot add document: path: Required",
     );
   });
 
@@ -207,7 +207,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
+      "⚠️  Cannot add document: sourceIds: Required",
     );
   });
 
@@ -223,7 +223,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
+      "⚠️  Cannot add document: sourceIds: Expected array, received string",
     );
   });
 
@@ -239,7 +239,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Missing required title, description, path, or source references.",
+      "⚠️  Cannot add document: sourceIds: At least one source ID is required",
     );
   });
 
@@ -256,7 +256,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: Invalid path format. Path must start with '/'.",
+      "⚠️  Cannot add document: path: Path must start with \"/\"",
     );
   });
 

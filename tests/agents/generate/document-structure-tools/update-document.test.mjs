@@ -182,7 +182,7 @@ describe("update-document", () => {
     expect(result.originalDocument).toBeUndefined();
     expect(result.updatedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: No document specified. Indicate which document you want to modify.",
+      "⚠️  Cannot update document: path: Required",
     );
   });
 
@@ -195,7 +195,7 @@ describe("update-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: No document specified. Indicate which document you want to modify.",
+      "⚠️  Cannot update document: path: Path is required",
     );
   });
 
@@ -207,7 +207,7 @@ describe("update-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: No changes specified. Provide what you want to modify: title, description, or source references.",
+      "⚠️  Cannot update document: : At least one field (title, description, or sourceIds) must be provided for update",
     );
   });
 
@@ -222,7 +222,7 @@ describe("update-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: No changes specified. Provide what you want to modify: title, description, or source references.",
+      "⚠️  Cannot update document: : At least one field (title, description, or sourceIds) must be provided for update",
     );
   });
 
@@ -249,7 +249,7 @@ describe("update-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: Invalid source references specified. Provide valid source references for the document content.",
+      "⚠️  Cannot update document: sourceIds: Expected array, received string",
     );
   });
 
@@ -262,7 +262,7 @@ describe("update-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: Invalid source references specified. Provide valid source references for the document content.",
+      "⚠️  Cannot update document: sourceIds: Array must contain at least 1 element(s)",
     );
   });
 
@@ -276,9 +276,9 @@ describe("update-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.originalDocument).toBeUndefined();
     expect(result.updatedDocument).toBeUndefined();
-    // null is falsy, so it first triggers "no changes" error before sourceIds validation
+    // null is not an array, so it triggers sourceIds validation error
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: No changes specified. Provide what you want to modify: title, description, or source references.",
+      "⚠️  Cannot update document: sourceIds: Expected array, received null",
     );
   });
 
@@ -291,12 +291,12 @@ describe("update-document", () => {
       description: "",
     });
 
-    // Empty strings are falsy, so they trigger "no changes" error
+    // Empty strings trigger specific field validation errors
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.originalDocument).toBeUndefined();
     expect(result.updatedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: No changes specified. Provide what you want to modify: title, description, or source references.",
+      "⚠️  Cannot update document: title: String must contain at least 1 character(s), description: String must contain at least 1 character(s)",
     );
   });
 

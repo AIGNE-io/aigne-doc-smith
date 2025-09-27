@@ -3,40 +3,46 @@ import updateDocumentContent from "../../../../agents/update/document-tools/upda
 
 describe("update-document-content", () => {
   // INPUT VALIDATION TESTS
-  test("should throw error when originalContent is not provided", async () => {
-    await expect(updateDocumentContent({ diffPatch: "valid patch" })).rejects.toThrow(
-      "originalContent must be a non-empty string",
-    );
+  test("should return error when originalContent is not provided", async () => {
+    const result = await updateDocumentContent({ diffPatch: "valid patch" });
+    expect(result.success).toBe(false);
+    expect(result.error).toContain("originalContent");
+    expect(result.message).toBe("Invalid input parameters");
   });
 
-  test("should throw error when originalContent is not a string", async () => {
-    await expect(
-      updateDocumentContent({ originalContent: 123, diffPatch: "valid patch" }),
-    ).rejects.toThrow("originalContent must be a non-empty string");
+  test("should return error when originalContent is not a string", async () => {
+    const result = await updateDocumentContent({ originalContent: 123, diffPatch: "valid patch" });
+    expect(result.success).toBe(false);
+    expect(result.error).toContain("originalContent");
+    expect(result.message).toBe("Invalid input parameters");
   });
 
-  test("should throw error when originalContent is empty string", async () => {
-    await expect(
-      updateDocumentContent({ originalContent: "", diffPatch: "valid patch" }),
-    ).rejects.toThrow("originalContent must be a non-empty string");
+  test("should return error when originalContent is empty string", async () => {
+    const result = await updateDocumentContent({ originalContent: "", diffPatch: "valid patch" });
+    expect(result.success).toBe(false);
+    expect(result.error).toContain("Original content is required");
+    expect(result.message).toBe("Invalid input parameters");
   });
 
-  test("should throw error when diffPatch is not provided", async () => {
-    await expect(updateDocumentContent({ originalContent: "original content" })).rejects.toThrow(
-      "diffPatch must be a non-empty string",
-    );
+  test("should return error when diffPatch is not provided", async () => {
+    const result = await updateDocumentContent({ originalContent: "original content" });
+    expect(result.success).toBe(false);
+    expect(result.error).toContain("diffPatch");
+    expect(result.message).toBe("Invalid input parameters");
   });
 
-  test("should throw error when diffPatch is not a string", async () => {
-    await expect(
-      updateDocumentContent({ originalContent: "original content", diffPatch: null }),
-    ).rejects.toThrow("diffPatch must be a non-empty string");
+  test("should return error when diffPatch is not a string", async () => {
+    const result = await updateDocumentContent({ originalContent: "original content", diffPatch: null });
+    expect(result.success).toBe(false);
+    expect(result.error).toContain("diffPatch");
+    expect(result.message).toBe("Invalid input parameters");
   });
 
-  test("should throw error when diffPatch is empty string", async () => {
-    await expect(
-      updateDocumentContent({ originalContent: "original content", diffPatch: "" }),
-    ).rejects.toThrow("diffPatch must be a non-empty string");
+  test("should return error when diffPatch is empty string", async () => {
+    const result = await updateDocumentContent({ originalContent: "original content", diffPatch: "" });
+    expect(result.success).toBe(false);
+    expect(result.error).toContain("Diff patch is required");
+    expect(result.message).toBe("Invalid input parameters");
   });
 
   // SUCCESSFUL PATCH APPLICATION TESTS

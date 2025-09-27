@@ -125,7 +125,7 @@ describe("delete-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: No document specified. Please indicate which document you want to remove.",
+      "⚠️  Cannot delete document: path: Required",
     );
   });
 
@@ -138,7 +138,7 @@ describe("delete-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: No document specified. Please indicate which document you want to remove.",
+      "⚠️  Cannot delete document: path: Path is required",
     );
   });
 

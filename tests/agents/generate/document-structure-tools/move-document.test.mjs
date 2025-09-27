@@ -159,7 +159,7 @@ describe("move-document", () => {
     expect(result.originalDocument).toBeUndefined();
     expect(result.updatedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Error: Cannot move document - No document path specified. Please provide the path of the document to move and its destination.",
+      "Error: Cannot move document - path: Required",
     );
   });
 
@@ -172,7 +172,7 @@ describe("move-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Error: Cannot move document - No document path specified. Please provide the path of the document to move and its destination.",
+      "Error: Cannot move document - path: Path is required",
     );
   });
 
