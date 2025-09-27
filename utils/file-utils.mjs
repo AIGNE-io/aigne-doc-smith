@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 
@@ -207,4 +207,39 @@ export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gi
     console.warn(`Warning: Error during glob search in ${dir}: ${error.message}`);
     return [];
   }
+}
+
+/**
+ * Check if a path exists
+ * @param {string} targetPath - Path to check
+ * @returns {Promise<boolean>} True if path exists
+ */
+export async function pathExists(targetPath) {
+  try {
+    await stat(targetPath);
+    return true;
+  } catch (error) {
+    if (error.code === "ENOENT") return false;
+    throw error;
+  }
+}
+
+/**
+ * Convert absolute path to display path relative to current working directory
+ * @param {string} targetPath - Absolute path to convert
+ * @returns {string} Display path (relative or absolute)
+ */
+export function toDisplayPath(targetPath) {
+  const rel = path.relative(process.cwd(), targetPath);
+  return rel.startsWith("..") ? targetPath : rel || ".";
+}
+
+/**
+ * Resolve path to absolute path
+ * @param {string} value - Path to resolve
+ * @returns {string|undefined} Absolute path or undefined if no value provided
+ */
+export function resolveToAbsolute(value) {
+  if (!value) return undefined;
+  return path.isAbsolute(value) ? value : path.resolve(process.cwd(), value);
 }

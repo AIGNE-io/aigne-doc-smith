@@ -43,7 +43,7 @@ describe("user-review-document-structure", () => {
       },
       context: {
         agents: {
-          refineDocumentStructure: {},
+          updateDocumentStructure: {},
           checkFeedbackRefiner: {},
         },
         invoke: mock(async () => ({
@@ -137,10 +137,10 @@ describe("user-review-document-structure", () => {
     const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
 
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.refineDocumentStructure,
+      mockOptions.context.agents.updateDocumentStructure,
       expect.objectContaining({
         feedback: feedback,
-        originalDocumentStructure: documentStructure,
+        documentStructure: documentStructure,
         userPreferences: "",
       }),
     );
@@ -172,15 +172,15 @@ describe("user-review-document-structure", () => {
     expect(getActiveRulesForScopeSpy).toHaveBeenCalledWith("structure", []);
     expect(getActiveRulesForScopeSpy).toHaveBeenCalledWith("global", []);
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.refineDocumentStructure,
+      mockOptions.context.agents.updateDocumentStructure,
       expect.objectContaining({
         userPreferences: expectedPreferences,
       }),
     );
   });
 
-  test("should handle missing refineDocumentStructure agent", async () => {
-    mockOptions.context.agents = {}; // No refineDocumentStructure agent
+  test("should handle missing updateDocumentStructure agent", async () => {
+    mockOptions.context.agents = {}; // No updateDocumentStructure agent
     mockOptions.prompts.select.mockImplementation(async () => "yes");
     mockOptions.prompts.input.mockImplementation(async () => "Some feedback");
 
@@ -188,11 +188,11 @@ describe("user-review-document-structure", () => {
 
     expect(result.documentStructure).toEqual(documentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Unable to process your feedback - the structure refinement feature is unavailable.",
+      "Unable to process your feedback - the document structure update feature is unavailable.",
     );
   });
 
-  test("should handle errors from refineDocumentStructure agent", async () => {
+  test("should handle errors from updateDocumentStructure agent", async () => {
     mockOptions.prompts.select.mockImplementation(async () => "yes");
     mockOptions.prompts.input
       .mockImplementationOnce(async () => "Some feedback")
@@ -254,7 +254,7 @@ describe("user-review-document-structure", () => {
 
   test("should handle missing checkFeedbackRefiner agent gracefully", async () => {
     const feedback = "Some feedback";
-    mockOptions.context.agents = { refineDocumentStructure: {} }; // No checkFeedbackRefiner agent
+    mockOptions.context.agents = { updateDocumentStructure: {} }; // No checkFeedbackRefiner agent
 
     mockOptions.prompts.select.mockImplementation(async () => "yes");
     mockOptions.prompts.input

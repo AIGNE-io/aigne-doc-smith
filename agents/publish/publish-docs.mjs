@@ -153,7 +153,11 @@ export default async function publishDocs(
   let message;
 
   try {
-    const { success, boardId: newBoardId } = await publishDocsFn({
+    const {
+      success,
+      boardId: newBoardId,
+      error,
+    } = await publishDocsFn({
       sidebarPath,
       accessToken,
       appUrl,
@@ -179,7 +183,12 @@ export default async function publishDocs(
       if (boardId !== newBoardId) {
         await saveValueToConfig("boardId", newBoardId);
       }
-      message = `✅ Documentation Published Successfully!`;
+      message = `✅ Documentation published successfully!`;
+    } else {
+      // If the error is 401 or 403, it means the access token is invalid
+      if (error?.includes("401") || error?.includes("403")) {
+        message = `❌ Publishing failed: you don’t have valid authorization.\n   Run ${chalk.cyan("aigne doc clear")} to reset it, then publish again.`;
+      }
     }
   } catch (error) {
     message = `❌ Failed to publish docs: ${error.message}`;

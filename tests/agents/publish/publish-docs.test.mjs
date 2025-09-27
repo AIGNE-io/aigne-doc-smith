@@ -145,7 +145,7 @@ describe("publish-docs", () => {
     expect(beforePublishHookSpy).toHaveBeenCalled();
     expect(getAccessTokenSpy).toHaveBeenCalledWith("https://docsmith.aigne.io", "");
     expect(mockPublishDocs.publishDocs).toHaveBeenCalled();
-    expect(result.message).toBe("✅ Documentation Published Successfully!");
+    expect(result.message).toBe("✅ Documentation published successfully!");
   });
 
   // ENVIRONMENT VARIABLE TESTS
@@ -551,7 +551,7 @@ describe("publish-docs", () => {
       mockOptions,
     );
 
-    expect(result.message).toBe("✅ Documentation Published Successfully!");
+    expect(result.message).toBe("✅ Documentation published successfully!");
   });
 
   test("should handle empty config", async () => {

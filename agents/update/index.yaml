@@ -25,17 +25,11 @@ skills:
           })
         }
       ])
-  - ../utils/choose-docs.mjs
-  - ../utils/format-document-structure.mjs
-  - type: team
-    name: batchUpdateDocument
-    skills:
-      - ../update/generate-and-translate-document.yaml
-    iterate_on: selectedDocs
-    concurrency: 3
-  - url: ../utils/check-feedback-refiner.mjs
+  - url: ../utils/choose-docs.mjs
     default_input:
-      stage: document_refine
+      requiredFeedback: false
+  - ../utils/format-document-structure.mjs
+  - ../update/check-update-is-single.mjs
   - url: ../utils/action-success.mjs
     default_input:
       action: "✅ Documents updated successfully"

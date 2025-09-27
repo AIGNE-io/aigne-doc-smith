@@ -1,0 +1,23 @@
+type: team
+name: clear
+alias:
+  - clear
+description: Clear various types of data including document structure, generated documents, configuration, and authorization tokens
+skills:
+  - url: ../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ./choose-contents.mjs
+input_schema:
+  type: object
+  properties:
+    targets:
+      type: array
+      description: Items to clear without confirmation
+      items:
+        type: string
+        enum:
+          - documentStructure
+          - generatedDocs
+          - documentConfig
+          - authTokens
