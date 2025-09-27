@@ -1,8 +1,13 @@
 import chalk from "chalk";
+import Debug from "debug";
 import { joinURL } from "ufo";
+
+import pkg from "../package.json" with { type: "json" };
 import { getComponentInfo, getComponentInfoWithMountPoint } from "./blocklet.mjs";
 import { PAYMENT_KIT_DID } from "./constants/index.mjs";
 import { saveValueToConfig } from "./utils.mjs";
+
+const debug = Debug(`${pkg.name}:deploy`);
 
 // ==================== URL Configuration ====================
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || "";
@@ -12,7 +17,7 @@ const INTERVAL_MS = 3000; // 3 seconds between each check
 const TIMEOUTS = {
   paymentWait: 300, // Step 2: Payment wait timeout (5 minutes)
   installation: 300, // Step 3: Installation timeout (5 minutes)
-  serviceStart: 300, // Step 4: Service startup timeout (5 minutes)
+  serviceStart: 300, // Step 4: Website startup timeout (5 minutes)
 };
 
 // ==================== Utility Functions ====================
@@ -76,8 +81,8 @@ const API_ENDPOINTS = {
 let prefix = "";
 let paymentLinkId = "";
 /**
- * Deploy a new Discuss Kit service and return the installation URL
- * @returns {Promise<string>} - The URL of the deployed service
+ * Deploy a new Discuss Kit Website and return the installation URL
+ * @returns {Promise<string>} - The URL of the deployed Website
  */
 export async function deploy(id, cachedUrl) {
   const { mountPoint, PAYMENT_LINK_ID } = await getComponentInfoWithMountPoint(
@@ -113,28 +118,33 @@ export async function deploy(id, cachedUrl) {
   }
 
   // Step 2: Wait for payment completion
-  console.log(`${chalk.blue("⏳")} Step 1/4: Waiting for payment...`);
-  console.log(`${chalk.blue("🔗")} Payment link: ${chalk.cyan(paymentUrl)}\n`);
+  console.log(`⏳ Step 1/4: Waiting for payment...`);
+  console.log(`🔗 Payment link: ${chalk.cyan(paymentUrl)}\n`);
   await pollPaymentStatus(checkoutId);
-  await saveValueToConfig("checkoutId", checkoutId, "Checkout ID for document deployment service");
-  await saveValueToConfig("paymentUrl", paymentUrl, "Payment URL for document deployment service");
+  await saveValueToConfig("checkoutId", checkoutId, "Checkout ID for document deployment website");
+  await saveValueToConfig("paymentUrl", paymentUrl, "Payment URL for document deployment website");
 
-  // Step 3: Wait for service installation
-  console.log(`${chalk.blue("📦")} Step 2/4: Installing service...`);
+  // Step 3: Wait for website installation
+  console.log(`📦 Step 2/4: Installing Website...`);
   const readyVendors = await waitInstallation(checkoutId);
 
-  // Step 4: Wait for service startup
-  console.log(`${chalk.blue("🚀")} Step 3/4: Starting service...`);
-  const runningVendors = await waitServiceRunning(readyVendors);
+  // Step 4: Wait for website startup
+  console.log(`🚀 Step 3/4: Starting Website...`);
+  const runningVendors = await waitWebsiteRunning(readyVendors);
 
   // Step 5: Get final URL
-  console.log(`${chalk.blue("🌐")} Step 4/4: Getting service URL...`);
+  console.log(`🌐 Step 4/4: Getting Website URL...`);
   const urlInfo = await getDashboardAndUrl(checkoutId, runningVendors);
-  const { appUrl, homeUrl, token } = urlInfo || {};
+  const { appUrl, homeUrl, token, subscriptionUrl } = urlInfo || {};
 
-  console.log(
-    `\n${chalk.blue("🔗")} Your website is available at: ${chalk.cyan(homeUrl || appUrl)}\n`,
-  );
+  console.log(`\n🔗 Your website is available at: ${chalk.cyan(homeUrl || appUrl)}`);
+
+  if (subscriptionUrl) {
+    console.log(`🔗 Your subscription management URL: ${chalk.cyan(subscriptionUrl)}\n`);
+  } else {
+    // just log one space line
+    console.log("");
+  }
 
   return {
     appUrl,
@@ -174,7 +184,7 @@ async function checkCacheCheckoutId(checkoutId) {
 
     return isPaid ? checkoutId : "";
   } catch (_error) {
-    await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
+    await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment website");
     return "";
   }
 }
@@ -288,12 +298,15 @@ async function waitInstallation(checkoutId) {
         prefix,
         API_ENDPOINTS.orderStatus.replace("{id}", checkoutId),
       );
-      const response = await fetch(orderStatusUrl);
 
+      debug("waitInstallation", orderStatusUrl);
+
+      const response = await fetch(orderStatusUrl);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      debug("waitInstallation response:", response.status, response.statusText);
       const data = await response.json();
 
       if (data.error) {
@@ -301,8 +314,9 @@ async function waitInstallation(checkoutId) {
       }
 
       // Check if all vendors meet conditions: progress >= 80 and appUrl exists
-      const isInstalled = data.vendors?.every((vendor) => vendor.progress >= 80 && vendor.appUrl);
-      if (isInstalled) {
+      const isCompleted = data.vendors?.every((vendor) => vendor.progress >= 80);
+
+      if (isCompleted) {
         return data.vendors;
       }
 
@@ -310,27 +324,33 @@ async function waitInstallation(checkoutId) {
     },
     maxAttempts: Math.ceil((TIMEOUTS.installation * 1000) / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
-    timeoutMessage: "Installation timeout - services failed to install within 5 minutes",
+    timeoutMessage: "Installation timeout - website failed to install within 5 minutes",
     stepName: "Installation",
   });
 }
 
 /**
- * Wait for service to start running - Step 4
+ * Wait for Website to start running - Step 4
  */
-async function waitServiceRunning(readyVendors) {
+async function waitWebsiteRunning(readyVendors) {
   return pollWithTimeout({
     checkCondition: async () => {
       // Check running status of all vendors concurrently
       const vendorChecks = readyVendors.map(async (vendor) => {
         try {
+          // Using appUrl is not ideal, but it allows direct verification of DNS propagation and instance accessibility from the client side
+          if (!vendor.appUrl) {
+            return vendor;
+          }
+
           const blockletInfo = await getComponentInfo(vendor.appUrl);
 
           if (blockletInfo.status === "running") {
             return vendor;
           }
           return null;
-        } catch (_error) {
+        } catch (error) {
+          debug("waitWebsiteRunning error:", error);
           return null;
         }
       });
@@ -346,8 +366,8 @@ async function waitServiceRunning(readyVendors) {
     },
     maxAttempts: Math.ceil((TIMEOUTS.serviceStart * 1000) / INTERVAL_MS),
     intervalMs: INTERVAL_MS,
-    timeoutMessage: "Service start timeout - services failed to start within 5 minutes",
-    stepName: "Service Start",
+    timeoutMessage: "Website start timeout - website failed to start within 5 minutes",
+    stepName: "Website Start",
   });
 }
 
@@ -374,29 +394,34 @@ async function getDashboardAndUrl(checkoutId, runningVendors) {
       throw new Error("No vendors found in order details");
     }
 
-    // Wait 3 seconds
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    // Return the appUrl of the first vendor (usually only one)
-    const appUrl = runningVendors[0]?.appUrl;
+    const appUrl = runningVendors.find((vendor) => vendor.appUrl)?.appUrl;
+    debug("getDashboardAndUrl:", appUrl);
+
     if (!appUrl) {
       throw new Error("No app URL found in order details");
     }
 
+    const availableVendor = data.vendors.find((vendor) => vendor.dashboardUrl);
+
     return {
       appUrl,
-      dashboardUrl: data.vendors[0]?.dashboardUrl,
-      homeUrl: data.vendors[0]?.homeUrl,
-      token: data.vendors[0]?.token,
+      subscriptionUrl: data.subscriptionUrl,
+      dashboardUrl: availableVendor?.dashboardUrl,
+      homeUrl: availableVendor?.homeUrl,
+      token: availableVendor?.token,
     };
   } catch (error) {
     console.error(`${chalk.red("❌")} Failed to get order details:`, error.message);
     // If getting details fails, use the appUrl of running vendor
+    const fallbackVendor = runningVendors.find((vendor) => vendor.appUrl);
+
     return {
-      appUrl: runningVendors[0]?.appUrl || null,
-      dashboardUrl: runningVendors[0]?.dashboardUrl || null,
-      homeUrl: runningVendors[0]?.homeUrl || null,
-      token: runningVendors[0]?.token || null,
+      appUrl: fallbackVendor?.appUrl || null,
+      dashboardUrl: fallbackVendor?.dashboardUrl || null,
+      homeUrl: fallbackVendor?.homeUrl || null,
+      token: fallbackVendor?.token || null,
     };
   }
 }

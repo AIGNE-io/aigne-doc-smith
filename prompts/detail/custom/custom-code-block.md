@@ -3,7 +3,7 @@
 
 When generating Markdown, you can add enhanced attributes to code blocks to provide richer functionality and better display effects. These attributes allow you to specify **titles**, **icons**, and more for code blocks.
 
-** Please use these enhanced attributes as much as possible to improve display effects **
+**Please use these enhanced attributes as much as possible to improve display effects**
 
 ### Attribute Definition
 
@@ -76,8 +76,8 @@ class ShoppingCart {
 **Example 1**
 
 There are two errors in this example:
-- Language name should not include suffixes, like ',no_run' in the example
-- Title does not need a key specified, just configure the value directly
+- Language name should not include suffixes like ',no_run' in the example
+- Title does not need a key specified; just configure the value directly
 
 ```rust,no_run title="main.rs" icon=logos:rust
 use tokio::runtime::Runtime;

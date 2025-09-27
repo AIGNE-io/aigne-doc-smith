@@ -1,11 +1,23 @@
-[![GitHub star chart](https://img.shields.io/github/stars/AIGNE-io/aigne-doc-smith?style=flat-square)](https://star-history.com/#AIGNE-io/aigne-doc-smith)
+[![GitHub stars](https://img.shields.io/github/stars/AIGNE-io/aigne-doc-smith?style=flat-square)](https://github.com/AIGNE-io/aigne-doc-smith/stargazers)
+[![NPM Version](https://img.shields.io/npm/v/@aigne/doc-smith?style=flat-square)](https://www.npmjs.com/package/@aigne/doc-smith)
+[![NPM Downloads](https://img.shields.io/npm/dm/@aigne/doc-smith?style=flat-square)](https://www.npmjs.com/package/@aigne/doc-smith)
 [![Open Issues](https://img.shields.io/github/issues-raw/AIGNE-io/aigne-doc-smith?style=flat-square)](https://github.com/AIGNE-io/aigne-doc-smith/issues)
+[![License](https://img.shields.io/github/license/AIGNE-io/aigne-doc-smith?style=flat-square)](https://github.com/AIGNE-io/aigne-doc-smith/blob/main/LICENSE)
 [![codecov](https://codecov.io/gh/AIGNE-io/aigne-doc-smith/graph/badge.svg?token=95TQO2NKYC)](https://codecov.io/gh/AIGNE-io/aigne-doc-smith)
-[![NPM Version](https://img.shields.io/npm/v/@aigne/doc-smith)](https://www.npmjs.com/package/@aigne/doc-smith)
 
 # AIGNE DocSmith
 
-AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automates the creation of detailed, structured, and multi-language documentation directly from your source code.
+> 🚀 **AI-powered documentation generation that understands your code**
+
+AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automatically analyzes your codebase and generates comprehensive, structured, and multi-language documentation that stays in sync with your code.
+
+## 🎯 Why DocSmith?
+
+- **🧠 Intelligent Analysis**: Understands your code structure, patterns, and intent
+- **📚 Comprehensive Coverage**: Generates complete documentation from API references to user guides
+- **🌍 Global Ready**: Supports 12 languages with professional translation
+- **🔄 Always Current**: Automatically detects changes and updates documentation
+- **⚡ Zero Config**: Works out of the box with smart defaults and auto-detection
 
 ## AIGNE Ecosystem
 
@@ -15,299 +27,278 @@ DocSmith is part of the [AIGNE](https://www.aigne.io) ecosystem, a comprehensive
 
 As shown in the diagram, DocSmith integrates seamlessly with other [AIGNE](https://www.aigne.io) components, leveraging the platform's AI capabilities and infrastructure.
 
-## Features
+## ✨ Features
 
-- **Automated Document Structure Generation:** Intelligently analyzes your codebase to generate a comprehensive and logical document structure.
-- **AI-Powered Content Generation:** Populates the document structure with detailed, high-quality content.
-- **Multi-Language Support:** Seamlessly translates your documentation into 12 languages including English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic.
-- **AIGNE Hub Integration:** Use [AIGNE Hub](https://www.aigne.io/en/hub) as your LLM provider without needing your own API keys, with easy switching between different large language models.
-- **Document Publishing:** Preview your documentation on the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/), or publish to your own [Discuss Kit](https://www.arcblock.io/docs/web3-kit/en/discuss-kit) instance for full control.
-- **Document Update Mechanism:** Automatically detects source code changes and updates documentation accordingly.
-- **Individual Document Optimization:** Regenerate and optimize specific documents with targeted feedback.
+### 🤖 AI-Powered Generation
 
-## Getting Started
+- **Smart Structure Planning**: Automatically analyzes your codebase to create logical, comprehensive documentation structure
+- **Intelligent Content Creation**: Generates detailed, contextual content that explains both "what" and "why"
+- **Adaptive Writing Styles**: Supports multiple documentation styles (Technical, User-Friendly, Developer-Focused, etc.)
+
+### 🌍 Multi-Language Excellence
+
+- **12 Language Support**: English, Chinese (Simplified & Traditional), Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic
+- **Professional Translation**: Context-aware translation that maintains technical accuracy
+- **Glossary Integration**: Consistent terminology across all languages
+
+### 🔗 Seamless Integration
+
+- **AIGNE Hub Integration**: Use [AIGNE Hub](https://www.aigne.io/en/hub) without API keys, switch between Google Gemini, OpenAI GPT, Claude, and more
+- **Multiple LLM Support**: Bring your own API keys for OpenAI, Anthropic, Google, and other providers
+- **Discuss Kit Publishing**: Deploy to [docsmith.aigne.io](https://docsmith.aigne.io/app/) or your own [Discuss Kit](https://www.web3kit.rocks/discuss-kit) instance
+
+### 🔄 Smart Updates
+
+- **Change Detection**: Automatically identifies code changes and updates relevant documentation
+- **Targeted Regeneration**: Update specific sections with custom feedback and requirements
+- **Version Awareness**: Maintains documentation history and tracks changes over time
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js and npm
-- AIGNE CLI
+- Node.js 20+ and npm/pnpm
+- No API keys required (uses AIGNE Hub by default)
 
-### Node.js Installation
 
-#### Windows
-1. Download Node.js installer from [nodejs.org](https://nodejs.org/)
-2. Run the installer (.msi file)
-3. Follow installation wizard steps
-4. Verify installation: `node --version`
+### 📦 Installation
 
-#### macOS
-**Option 1: Using Homebrew (Recommended)**
-```bash
-# Install Homebrew if not already installed
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install Node.js
-brew install node
-```
-
-**Option 2: Using the Official Installer**
-1. Download the macOS installer from [nodejs.org](https://nodejs.org/)
-2. Double-click the .pkg file to run the installer
-3. Follow the installation wizard
-4. Verify installation: `node --version`
-
-#### Linux
-
-**Ubuntu/Debian:**
-```bash
-# Update package index
-sudo apt update
-
-# Install Node.js
-sudo apt install nodejs npm
-
-# Or install latest LTS version using NodeSource repository
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
-
-**CentOS/RHEL/Fedora:**
-```bash
-# For CentOS/RHEL
-sudo yum install nodejs npm
-
-# For Fedora
-sudo dnf install nodejs npm
-
-# Or using NodeSource repository
-curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
-sudo yum install nodejs
-```
-
-**Using Node Version Manager (nvm) - All Linux Distributions:**
-```bash
-# Install nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-
-# Restart terminal or run:
-source ~/.bashrc
-
-# Install latest LTS Node.js
-nvm install --lts
-nvm use --lts
-```
-
-#### Verification
-After installation on any platform, verify Node.js and npm are installed correctly:
-```bash
-node --version
-npm --version
-```
-
-### Installation
-
-Install the latest version of AIGNE CLI globally:
+Install the AIGNE CLI globally:
 
 ```bash
-npm i -g @aigne/cli
+npm install -g @aigne/cli
 ```
 
 Verify the installation:
 
 ```bash
-aigne doc -h
+aigne doc --help
 ```
 
-That's it! You can now use DocSmith directly through the AIGNE CLI.
+### 🎉 Generate Your First Documentation
 
-### LLM Configuration
-
-DocSmith supports multiple LLM providers through AIGNE Hub:
-
-- **AIGNE Hub (Recommended):** No API key required, easy model switching
-- **Custom API Keys:** Support for OpenAI, Anthropic, and other providers
-
-To use AIGNE Hub, simply run commands without specifying API keys:
+Navigate to your project directory and run:
 
 ```bash
-# Using AIGNE Hub with different models
-aigne doc generate --model google:gemini-2.5-flash
+# One command to rule them all
+aigne doc generate
+```
+
+DocSmith will:
+
+1. 🔍 Auto-detect your project structure and tech stack
+2. 🎯 Guide you through an interactive setup (first time only)
+3. 📝 Generate comprehensive documentation
+4. 🌍 Optionally translate to multiple languages
+5. 🚀 Publish to your preferred platform
+
+## 🔧 Advanced Configuration
+
+### LLM Providers
+
+DocSmith supports multiple AI providers:
+
+**🎯 AIGNE Hub (Recommended)**
+
+- ✅ No API keys required
+- ✅ Easy model switching
+- ✅ Built-in rate limiting and optimization
+
+```bash
+# Switch models effortlessly
+aigne doc generate --model google:gemini-2.5-pro
 aigne doc generate --model claude:claude-3-5-sonnet
 aigne doc generate --model openai:gpt-4o
 ```
 
-### Usage
+**🔑 Custom API Keys**
+Configure your own API keys for direct provider access:
 
-#### Generate Documentation
+- OpenAI GPT models
+- Anthropic Claude models
+- Google Gemini models
+- And more...
 
-To generate documentation, simply run:
+## 📖 Usage Guide
+
+### Core Commands
+
+#### 📝 Generate Documentation
 
 ```bash
+# Smart generation with auto-configuration
 aigne doc generate
-```
 
-**Smart Auto-Configuration:** If you haven't run `init` before, DocSmith will automatically detect this and guide you through the interactive configuration wizard first. This includes:
-- Document generation rules and style selection
-- Target audience definition
-- Primary and translation language settings
-- Source code path configuration
-- Output directory setup
-
-**Force Regeneration:** To regenerate all documentation from scratch, use:
-
-```bash
+# Force complete regeneration
 aigne doc generate --forceRegenerate
+
+# Generate with custom feedback
+aigne doc generate --feedback "Add more API examples and troubleshooting sections"
 ```
 
-This will regenerate all documentation based on the latest source code and configuration.
-
-#### Manual Configuration (Optional)
-
-If you prefer to set up configuration manually or want to modify existing settings:
-
-```bash
-aigne doc init
-```
-
-This will start the interactive configuration wizard directly.
-
-#### Update Individual Documents
-
-Optimize specific documents with targeted feedback:
+#### 🔄 Update Existing Documents
 
 ```bash
 # Interactive document selection and update
 aigne doc update
 
-# Update a specific document
-aigne doc update --docs overview.md --feedback "Add more comprehensive FAQ entries"
+# Update specific document with feedback
+aigne doc update --docs overview.md --feedback "Add comprehensive FAQ section"
 ```
 
-**Interactive Mode:** When run without parameters, `aigne doc update` will present an interactive menu for you to select which document to regenerate and provide feedback.
-
-#### Optimize Document Structure
-
-Improve the overall documentation structure based on feedback:
+#### 🌍 Multi-Language Translation
 
 ```bash
-# Optimize structure with feedback
-aigne doc generate --feedback "Remove About section and add API Reference"
+# Interactive translation with smart language selection
+aigne doc translate
 
-# Regenerate structure with specific improvements
-aigne doc generate --feedback "Add more detailed installation guide and troubleshooting section"
-```
-
-**Structure Optimization:** Use `aigne doc generate` with `--feedback` to refine the overall documentation structure, add new sections, or reorganize existing content.
-
-#### Document Translation
-
-Translate existing documentation to multiple languages:
-
-```bash
 # Translate specific documents to multiple languages
 aigne doc translate --langs zh --langs ja --docs examples.md --docs overview.md
 
-# Interactive translation with document and language selection
-aigne doc translate
+# Translation with custom glossary for consistent terminology
+aigne doc translate --glossary @path/to/glossary.md --feedback "Use technical terminology consistently"
 ```
 
-**Command Parameters:**
-- `--langs`: Specify target languages (can be used multiple times)
-- `--docs`: Specify document paths to translate (can be used multiple times)
-- `--feedback`: Provide feedback for translation improvement
-- `--glossary`: Use a glossary file for consistent terminology (@path/to/glossary.md)
-
-**Interactive Mode:** When run without parameters, `aigne doc translate` will present interactive menus to:
-- Select documents to translate from your documentation
-- Choose target languages from 12 supported languages
-- Add new translation languages to your configuration
-
-#### Publishing to Discuss Kit
-
-Publish your documentation to Discuss Kit platforms:
+#### 🚀 Publishing & Deployment
 
 ```bash
-# Interactive publishing with platform selection
-aigne doc publish
-```
-
-**Interactive Publishing:** When you run `aigne doc publish`, it will present an interactive menu for you to choose between:
-- **Official Platform:** [docsmith.aigne.io](https://docsmith.aigne.io/app/)
-- **Own Instance:** Your own deployed [Discuss Kit](https://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu) instance
-
-
-
-## Supported Languages
-
-DocSmith supports 12 languages with automatic translation:
-
-- English (en)
-- 简体中文 (zh-CN)
-- 繁體中文 (zh-TW)
-- 日本語 (ja)
-- 한국어 (ko)
-- Español (es)
-- Français (fr)
-- Deutsch (de)
-- Português (pt-BR)
-- Русский (ru)
-- Italiano (it)
-- العربية (ar)
-
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue if you have any suggestions or find any bugs.
-
-## Command Examples
-
-### Basic Usage
-
-```shell
-# Interactive setup and configuration
-aigne doc init
-
-# Generate documentation with default settings
-aigne doc generate
-
-# Generate with specific model
-aigne doc generate --model google:gemini-2.5-flash
-
-# Force regenerate all documentation from scratch
-aigne doc generate --forceRegenerate
-```
-
-### Advanced Usage
-
-```shell
-# Update structure with feedback
-aigne doc generate --feedback "Remove About section and add API Reference"
-
-# Update specific document
-aigne doc update --doc-path /faq --feedback "Add more comprehensive FAQ entries"
-
-# Translate documents to multiple languages
-aigne doc translate --langs zh --langs ja --docs examples.md --docs overview.md
-
-# Interactive translation (select documents and languages)
-aigne doc translate
-
-# Translate with custom glossary and feedback
-aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently"
-```
-
-### Publishing and Integration
-
-```shell
 # Interactive publishing with platform selection
 aigne doc publish
 
 # Publish to custom Discuss Kit instance
 aigne doc publish --appUrl https://your-discuss-kit-instance.com
-
-
 ```
 
-## License
+#### ⚙️ Configuration Management
 
-This project is licensed under the Elastic License 2.0 License - see the [LICENSE](LICENSE) file for details.
+```bash
+# Interactive configuration setup
+aigne doc init
+
+# View current configuration
+aigne doc prefs
+```
+
+### Configuration Options
+
+DocSmith automatically detects your project structure, but you can customize:
+
+- **📝 Documentation Styles**: Technical, User-Friendly, Developer-Focused, Academic
+- **🎯 Target Audiences**: Developers, End Users, System Administrators, Business Users
+- **🌍 Languages**: Choose from 12 supported languages
+- **📁 Source Paths**: Customize which files and directories to analyze
+- **📤 Output Settings**: Configure documentation structure and formatting
+
+## 🌐 Supported Languages
+
+DocSmith provides professional translation for 12 languages:
+
+| Language  | Code    | Support Level |
+| --------- | ------- | ------------- |
+| English   | `en`    | ✅ Native     |
+| 简体中文  | `zh-CN` | ✅ Full       |
+| 繁體中文  | `zh-TW` | ✅ Full       |
+| 日本語    | `ja`    | ✅ Full       |
+| 한국어    | `ko`    | ✅ Full       |
+| Español   | `es`    | ✅ Full       |
+| Français  | `fr`    | ✅ Full       |
+| Deutsch   | `de`    | ✅ Full       |
+| Português | `pt-BR` | ✅ Full       |
+| Русский   | `ru`    | ✅ Full       |
+| Italiano  | `it`    | ✅ Full       |
+| العربية   | `ar`    | ✅ Full       |
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Here's how you can help:
+
+### 🐛 Reporting Issues
+
+- 🔍 [Search existing issues](https://github.com/AIGNE-io/aigne-doc-smith/issues) first
+- 📝 Use our issue templates for bug reports and feature requests
+- 🚨 Include clear reproduction steps and environment details
+
+### 💡 Feature Requests
+
+- 🌟 Share your ideas in [GitHub Discussions](https://github.com/AIGNE-io/aigne-doc-smith/discussions)
+- 📋 Check our [roadmap](https://github.com/AIGNE-io/aigne-doc-smith/projects) for planned features
+- 🗳️ Vote on existing feature requests
+
+### 🔧 Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/AIGNE-io/aigne-doc-smith.git
+cd aigne-doc-smith
+
+# Install dependencies
+pnpm install
+
+# Run tests
+pnpm test
+
+# Run linting
+pnpm run lint
+
+# Auto fix lint error
+pnpm run lint:fix
+```
+
+### 📜 Code of Conduct
+
+Please follow our community guidelines and maintain respectful, constructive communication when contributing.
+
+## 💼 Enterprise & Production Use
+
+### 🏢 Enterprise Features
+
+- **Team Collaboration**: Multi-user workflows with role-based access
+- **Custom Branding**: White-label documentation with your brand identity
+- **API Integration**: REST APIs for automated documentation pipelines
+- **Analytics**: Track documentation usage and effectiveness
+
+### 🔒 Security & Compliance
+
+- **Private Cloud**: Deploy on your own infrastructure
+- **SSO Integration**: Connect with your identity providers
+- **Audit Logs**: Complete activity tracking and compliance reporting
+- **Data Privacy**: Your code never leaves your environment in private deployments
+
+### 📞 Support & Services
+
+- **Priority Support**: Direct access to our engineering team
+- **Custom Training**: Team onboarding and best practices workshops
+- **Professional Services**: Custom integrations and deployment assistance
+
+[Contact us](https://www.aigne.io/contact) for enterprise licensing and deployment options.
+
+## 📊 Community & Resources
+
+### 📚 Documentation & Tutorials
+
+- 📖 [Documentation](https://docsmith.aigne.io/docs/)
+
+### 💬 Community Support
+
+- 🐦 [Twitter](https://twitter.com/arcblock_io) - Updates and announcements
+- 🎮 [Community](https://community.arcblock.io/discussions/boards/aigne) - Real-time community chat
+
+### 🏆 Showcase
+
+See DocSmith in action with real-world examples:
+
+- [Docs Repository](https://docsmith.aigne.io/app) - Generated with DocSmith
+
+## 📄 License
+
+This project is licensed under the **Elastic License 2.0** - see the [LICENSE](LICENSE) file for details.
+
+### What does this mean?
+
+- ✅ **Free for most use cases**: Personal projects, internal use, and most commercial applications
+- ✅ **Open source**: Full source code available for review and contributions
+- ✅ **Commercial friendly**: Use in your business applications and services
+- ❌ **Restrictions**: Cannot offer DocSmith as a competing hosted service
+
+[Learn more about Elastic License 2.0](https://www.elastic.co/licensing/elastic-license)
+

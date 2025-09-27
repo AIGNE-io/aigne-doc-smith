@@ -1,3 +1,6 @@
-- **非常重要** jsx 语法中，组件的名称是不包含 `<`, `/>` 的，当组件名称用于标题、图表或者描述时，一定要确保使用的是正确的名称
+<jsx_constraints>
+- **Very Important**: In JSX syntax, component names do not include `<` or `/>`. When component names are used in titles, charts, or descriptions, always ensure you use the correct name format
   - bad: `<Uploader />`
   - good: `Uploader`
+
+</jsx_constraints>

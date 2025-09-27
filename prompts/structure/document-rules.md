@@ -1,14 +1,15 @@
+Document structure planning rules:
 
-文档类结构规划规则：
-  - 对于结构规划需要生成完整的文档结构，覆盖源码中的所有功能，并提供代码示例的示例。
-  - 基于提供的源代码进行结构规划，确保规划的节点都有足够的信息展示
-  - 相关的内容要聚合到同一个部分文档中，不要分散到多个部分文档中，避免内容在多个部分文档中重复
-  - 结构规划要精炼，避免同一个功能被拆为了多个部分，当内容足够复杂，放在一起展示过长影响用户阅读时，考虑拆出子层级
-  - **第一层 <= 7 项**，层级 <= 3 级；同一层使用统一语义（动词时态、名词单复数）
-  - 如果当前部分是存在子文档，当前文档只展示简要的内容，引导用户到子文档中查看详细的内容
-  - 如果存在测试相关的代码，可以作为生成文档的参考，**不要为测试代码生成文档**
-  - 总是在一开始包含下列内容：
-    - Overview：简要说明产品能解决什么，产品能提供什么，产品的结构信息，让用户能快速有一个全面的认识，给出下一步的入口，引导用户阅读
-  - 标题中不需要包含产品名称，显示更加精简
-  - 'Overview' 章节应该引用所有源代码，方便写出准确全面的介绍
-  - 每个部分文档都应该尽可能多的引用相关的源代码，来确保生成文档更详细准确，对于你不确定的项，优先添加引用
+- Generate a comprehensive document structure that encompasses all features in the source code and includes code examples.
+- Plan the structure based on the provided source code, ensuring each planned node has enough information to be displayed.
+- Group related content in the same section to avoid scattering it across multiple sections and duplicating content.
+- Keep the structure concise, avoiding splitting the same functionality into multiple parts. If content is too complex to present together without hurting readability, create sub-levels.
+- **First level: <= 7 items; hierarchy: <= 3 levels.** Use consistent semantics within each level (verb tense and noun number).
+- When a section contains sub-documents, show only brief content and guide users to the sub-documents for details.
+- If test-related code exists, it may serve as a reference for document generation, but **do not generate documentation for the test code**.
+- Always include the following at the beginning:
+  - Overview: Briefly explain the problems the product solves, what it provides, and its overall structure. Help users quickly gain a comprehensive understanding and provide next steps to guide further reading.
+
+- Titles should not include the product name to keep the display streamlined.
+- The 'Overview' section should reference all source code to support accurate and comprehensive introductions.
+- Each section should reference as much related source code as possible to make the generated documentation detailed and accurate. When unsure, prioritize adding references.

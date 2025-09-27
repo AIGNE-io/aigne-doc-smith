@@ -1,5 +1,5 @@
 <example>
-下面是一些优质的文档详情供你参考：
+Here are some high-quality documentation details for your reference:
 
 <example_item>
   # Quick install guide
@@ -438,16 +438,4 @@
   This section covered the essential operations for managing products within PaymentKit. You can now define and organize your offerings. Continue to the [Prices](/core-resources/prices) section to learn how to set up pricing for your products.
 
 </example_item>
-
-<bad_example>
-  - 错误示例：
-    - A["开始：`blocklet server upgrade`"]
-    - A -- "执行命令（例如 `start`、`stop`）" --> B
-</bad_example>
-
-<good_example>
-  - 正确示例：
-    - A["开始：blocklet server upgrade"]
-    - A -- "执行命令（例如 start、stop）" --> B
-</good_example>
 </example>
