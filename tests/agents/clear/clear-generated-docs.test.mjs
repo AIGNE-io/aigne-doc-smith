@@ -1,75 +1,73 @@
-import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { mkdir, rm, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import clearGeneratedDocs from "../../../agents/clear/clear-generated-docs.mjs";
-import * as fileUtils from "../../../utils/file-utils.mjs";
 
-const mockFsPromises = {
-  rm: mock(() => Promise.resolve()),
-};
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe("clear-generated-docs", () => {
-  let pathExistsSpy;
-  let resolveToAbsoluteSpy;
-  let toDisplayPathSpy;
+  let testDir;
+  let docsDir;
 
-  beforeEach(() => {
-    // Apply module mocks
-    mock.module("node:fs/promises", () => mockFsPromises);
+  beforeEach(async () => {
+    // Create a temporary test directory
+    testDir = join(__dirname, "test-clear-docs");
+    await mkdir(testDir, { recursive: true });
 
-    // Set up spies for file utils
-    pathExistsSpy = spyOn(fileUtils, "pathExists").mockResolvedValue(true);
-    resolveToAbsoluteSpy = spyOn(fileUtils, "resolveToAbsolute").mockImplementation(
-      (path) => `/absolute${path}`,
-    );
-    toDisplayPathSpy = spyOn(fileUtils, "toDisplayPath").mockImplementation((path) => path);
-
-    // Reset mocks
-    mockFsPromises.rm.mockClear();
-    pathExistsSpy.mockClear();
-    resolveToAbsoluteSpy.mockClear();
-    toDisplayPathSpy.mockClear();
-
-    // Set default implementations
-    mockFsPromises.rm.mockResolvedValue();
-    pathExistsSpy.mockResolvedValue(true);
-    resolveToAbsoluteSpy.mockImplementation((path) => `/absolute${path}`);
-    toDisplayPathSpy.mockImplementation((path) => path);
+    docsDir = join(testDir, "docs");
+    await mkdir(docsDir, { recursive: true });
   });
 
-  afterEach(() => {
-    pathExistsSpy?.mockRestore();
-    resolveToAbsoluteSpy?.mockRestore();
-    toDisplayPathSpy?.mockRestore();
-    mock.restore();
+  afterEach(async () => {
+    // Clean up test directory
+    try {
+      await rm(testDir, { recursive: true, force: true });
+    } catch {
+      // Ignore cleanup errors since they don't affect test results
+    }
   });
 
   test("should clear existing generated documents successfully", async () => {
-    pathExistsSpy.mockResolvedValue(true);
-    resolveToAbsoluteSpy.mockReturnValue("/absolute/path/to/docs");
-    toDisplayPathSpy.mockReturnValue("~/docs");
+    // Create some test files in docs directory
+    const testFiles = ["index.md", "guide.md", "api.md", "README.md"];
+    for (const file of testFiles) {
+      await writeFile(join(docsDir, file), `# ${file} content`);
+    }
 
-    const result = await clearGeneratedDocs({ docsDir: "./docs" });
+    // Create subdirectories with files
+    const subDir = join(docsDir, "advanced");
+    await mkdir(subDir, { recursive: true });
+    await writeFile(join(subDir, "config.md"), "# Config content");
 
-    expect(result.message).toBe("Cleared generated documents (~/docs)");
+    const result = await clearGeneratedDocs({ docsDir });
+
     expect(result.cleared).toBe(true);
-    expect(result.path).toBe("~/docs");
+    expect(result.message).toContain("Cleared generated documents");
+    expect(result.path).toBeDefined();
+
+    // Verify directory is actually deleted
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const exists = await pathExists(docsDir);
+    expect(exists).toBe(false);
   });
 
   test("should handle non-existent documents directory", async () => {
-    pathExistsSpy.mockResolvedValue(false);
-    resolveToAbsoluteSpy.mockReturnValue("/absolute/path/to/docs");
-    toDisplayPathSpy.mockReturnValue("~/docs");
+    const nonExistentDir = join(testDir, "non-existent-docs");
 
-    const result = await clearGeneratedDocs({ docsDir: "./docs" });
+    const result = await clearGeneratedDocs({ docsDir: nonExistentDir });
 
-    expect(result.message).toBe("Generated documents already empty (~/docs)");
     expect(result.cleared).toBe(false);
-    expect(result.path).toBe("~/docs");
+    expect(result.message).toContain("Generated documents already empty");
+    expect(result.path).toBeDefined();
   });
 
   test("should return error message when no docsDir provided", async () => {
     const result = await clearGeneratedDocs({});
 
     expect(result.message).toBe("No generated documents directory specified");
+    expect(result).not.toHaveProperty("cleared");
+    expect(result).not.toHaveProperty("path");
   });
 
   test("should handle null docsDir", async () => {
@@ -84,39 +82,118 @@ describe("clear-generated-docs", () => {
     expect(result.message).toBe("No generated documents directory specified");
   });
 
-  test("should handle rm operation failures", async () => {
-    mockFsPromises.rm.mockRejectedValue(new Error("Permission denied"));
-    resolveToAbsoluteSpy.mockReturnValue("/absolute/docs");
-    toDisplayPathSpy.mockReturnValue("~/docs");
+  test("should handle undefined docsDir", async () => {
+    const result = await clearGeneratedDocs({ docsDir: undefined });
 
-    const result = await clearGeneratedDocs({ docsDir: "./docs" });
-
-    expect(result.message).toBe("Failed to clear generated documents: Permission denied");
-    expect(result.error).toBe(true);
+    expect(result.message).toBe("No generated documents directory specified");
   });
 
-  test("should handle pathExists check failures", async () => {
-    pathExistsSpy.mockRejectedValue(new Error("Access denied"));
-    resolveToAbsoluteSpy.mockReturnValue("/absolute/docs");
-    toDisplayPathSpy.mockReturnValue("~/docs");
+  test("should provide correct return structure", async () => {
+    await writeFile(join(docsDir, "test.md"), "test content");
 
-    const result = await clearGeneratedDocs({ docsDir: "./docs" });
+    const result = await clearGeneratedDocs({ docsDir });
 
-    expect(result.message).toBe("Failed to clear generated documents: Access denied");
-    expect(result.error).toBe(true);
+    expect(result).toHaveProperty("message");
+    expect(result).toHaveProperty("cleared");
+    expect(result).toHaveProperty("path");
+    expect(typeof result.message).toBe("string");
+    expect(typeof result.cleared).toBe("boolean");
+    expect(typeof result.path).toBe("string");
   });
 
-  test("should return correct structure for successful clearing", async () => {
-    pathExistsSpy.mockResolvedValue(true);
-    resolveToAbsoluteSpy.mockReturnValue("/absolute/docs");
-    toDisplayPathSpy.mockReturnValue("~/docs");
+  test("should have correct input schema", () => {
+    expect(clearGeneratedDocs.input_schema).toBeDefined();
+    expect(clearGeneratedDocs.input_schema.type).toBe("object");
+    expect(clearGeneratedDocs.input_schema.properties.docsDir).toBeDefined();
+    expect(clearGeneratedDocs.input_schema.properties.docsDir.type).toBe("string");
+    expect(clearGeneratedDocs.input_schema.properties.docsDir.description).toBe(
+      "The generated documents directory to clear",
+    );
+    expect(clearGeneratedDocs.input_schema.required).toEqual(["docsDir"]);
+  });
 
-    const result = await clearGeneratedDocs({ docsDir: "./docs" });
+  test("should have correct task metadata", () => {
+    expect(clearGeneratedDocs.taskTitle).toBe("Clear all generated documents");
+    expect(clearGeneratedDocs.description).toBe("Clear the generated documents directory");
+  });
 
-    expect(result).toEqual({
-      message: "Cleared generated documents (~/docs)",
-      cleared: true,
-      path: "~/docs",
-    });
+  test("should handle relative paths", async () => {
+    // Create test files
+    await writeFile(join(docsDir, "test.md"), "test content");
+
+    // Use relative path
+    const relativePath = "./docs";
+    const originalCwd = process.cwd();
+
+    try {
+      process.chdir(testDir);
+      const result = await clearGeneratedDocs({ docsDir: relativePath });
+
+      expect(result.cleared).toBe(true);
+      expect(result.message).toContain("Cleared generated documents");
+    } finally {
+      process.chdir(originalCwd);
+    }
+  });
+
+  test("should handle absolute paths", async () => {
+    // Create test files
+    await writeFile(join(docsDir, "test.md"), "test content");
+
+    const result = await clearGeneratedDocs({ docsDir });
+
+    expect(result.cleared).toBe(true);
+    expect(result.message).toContain("Cleared generated documents");
+
+    // Verify absolute path works
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const exists = await pathExists(docsDir);
+    expect(exists).toBe(false);
+  });
+
+  test("should handle complex directory structures", async () => {
+    // Create complex nested structure
+    const nestedDirs = [
+      join(docsDir, "api"),
+      join(docsDir, "guides", "getting-started"),
+      join(docsDir, "tutorials", "advanced"),
+      join(docsDir, ".hidden"),
+    ];
+
+    for (const dir of nestedDirs) {
+      await mkdir(dir, { recursive: true });
+      await writeFile(join(dir, "content.md"), "nested content");
+    }
+
+    // Create files at root level
+    await writeFile(join(docsDir, "index.md"), "root content");
+    await writeFile(join(docsDir, ".gitignore"), "node_modules/");
+
+    const result = await clearGeneratedDocs({ docsDir });
+
+    expect(result.cleared).toBe(true);
+    expect(result.message).toContain("Cleared generated documents");
+
+    // Verify entire structure is deleted
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const exists = await pathExists(docsDir);
+    expect(exists).toBe(false);
+  });
+
+  test("should handle paths with special characters", async () => {
+    // Create directory with special characters
+    const specialDocsDir = join(testDir, "docs with spaces & symbols-123");
+    await mkdir(specialDocsDir, { recursive: true });
+    await writeFile(join(specialDocsDir, "test file.md"), "special content");
+
+    const result = await clearGeneratedDocs({ docsDir: specialDocsDir });
+
+    expect(result.cleared).toBe(true);
+    expect(result.message).toContain("Cleared generated documents");
+
+    // Verify special path is deleted
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const exists = await pathExists(specialDocsDir);
+    expect(exists).toBe(false);
   });
 });

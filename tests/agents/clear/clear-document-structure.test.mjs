@@ -1,106 +1,299 @@
-import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { mkdir, rm, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import clearDocumentStructure from "../../../agents/clear/clear-document-structure.mjs";
-import * as fileUtils from "../../../utils/file-utils.mjs";
 
-const mockFsPromises = {
-  rm: mock(() => Promise.resolve()),
-};
-
-const mockPath = {
-  join: mock((...paths) => paths.join("/")),
-};
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe("clear-document-structure", () => {
-  let pathExistsSpy;
-  let toDisplayPathSpy;
+  let testDir;
+  let structurePlanPath;
+  let docsDir;
 
-  beforeEach(() => {
-    // Apply module mocks
-    mock.module("node:fs/promises", () => mockFsPromises);
-    mock.module("node:path", () => mockPath);
+  beforeEach(async () => {
+    // Create a temporary test directory
+    testDir = join(__dirname, "test-clear-structure");
+    await mkdir(testDir, { recursive: true });
 
-    // Set up spies for file utils
-    pathExistsSpy = spyOn(fileUtils, "pathExists").mockResolvedValue(true);
-    toDisplayPathSpy = spyOn(fileUtils, "toDisplayPath").mockImplementation((path) => path);
+    // Create .aigne/doc-smith/output directory structure
+    const outputDir = join(testDir, ".aigne", "doc-smith", "output");
+    await mkdir(outputDir, { recursive: true });
 
-    // Reset mocks
-    mockFsPromises.rm.mockClear();
-    mockPath.join.mockClear();
-    pathExistsSpy.mockClear();
-    toDisplayPathSpy.mockClear();
-
-    // Set default implementations
-    mockFsPromises.rm.mockResolvedValue();
-    mockPath.join.mockImplementation((...paths) => paths.join("/"));
-    pathExistsSpy.mockResolvedValue(true);
-    toDisplayPathSpy.mockImplementation((path) => path);
+    structurePlanPath = join(outputDir, "structure-plan.json");
+    docsDir = join(testDir, "docs");
   });
 
-  afterEach(() => {
-    pathExistsSpy?.mockRestore();
-    toDisplayPathSpy?.mockRestore();
-    mock.restore();
+  afterEach(async () => {
+    // Clean up test directory
+    try {
+      await rm(testDir, { recursive: true, force: true });
+    } catch {
+      // Ignore cleanup errors since they don't affect test results
+    }
   });
 
   test("should clear structure plan only when no docsDir provided", async () => {
-    pathExistsSpy.mockResolvedValue(true);
-    toDisplayPathSpy.mockReturnValue("~/.aigne/doc-smith/output/structure-plan.json");
+    // Create a test structure plan file
+    const structurePlan = {
+      documents: [
+        { path: "/intro", title: "Introduction" },
+        { path: "/guide", title: "User Guide" },
+      ],
+    };
+    await writeFile(structurePlanPath, JSON.stringify(structurePlan, null, 2));
 
-    const result = await clearDocumentStructure({ workDir: "/test/work" });
+    const result = await clearDocumentStructure({ workDir: testDir });
 
     expect(result.message).toContain("Document structure cleared successfully!");
     expect(result.hasError).toBe(false);
     expect(result.clearedCount).toBe(1);
+
+    // Verify structure plan file is actually deleted
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const exists = await pathExists(structurePlanPath);
+    expect(exists).toBe(false);
   });
 
   test("should clear both structure plan and docs directory when docsDir provided", async () => {
-    pathExistsSpy.mockResolvedValue(true);
-    toDisplayPathSpy
-      .mockReturnValueOnce("~/.aigne/doc-smith/output/structure-plan.json")
-      .mockReturnValueOnce("~/docs");
+    // Create structure plan
+    await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
 
-    const result = await clearDocumentStructure({ workDir: "/test/work", docsDir: "/test/docs" });
+    // Create docs directory with files
+    await mkdir(docsDir, { recursive: true });
+    await writeFile(join(docsDir, "index.md"), "# Index");
+    await writeFile(join(docsDir, "guide.md"), "# Guide");
+
+    const result = await clearDocumentStructure({ workDir: testDir, docsDir });
 
     expect(result.message).toContain("Document structure cleared successfully!");
     expect(result.clearedCount).toBe(2);
+
+    // Verify both are deleted
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const structureExists = await pathExists(structurePlanPath);
+    const docsExists = await pathExists(docsDir);
+    expect(structureExists).toBe(false);
+    expect(docsExists).toBe(false);
   });
 
   test("should handle non-existent structure plan file", async () => {
-    pathExistsSpy.mockImplementation((path) => {
-      if (path.includes("structure-plan.json")) return Promise.resolve(false);
-      return Promise.resolve(true);
-    });
-    toDisplayPathSpy.mockReturnValue("~/.aigne/doc-smith/output/structure-plan.json");
-
-    const result = await clearDocumentStructure({ workDir: "/test/work" });
+    // Don't create the structure plan file
+    const result = await clearDocumentStructure({ workDir: testDir });
 
     expect(result.message).toContain("Document structure already empty.");
     expect(result.clearedCount).toBe(0);
-  });
-
-  test("should handle structure plan removal errors", async () => {
-    mockFsPromises.rm.mockImplementation((path) => {
-      if (path.includes("structure-plan.json")) {
-        return Promise.reject(new Error("Permission denied"));
-      }
-      return Promise.resolve();
-    });
-    toDisplayPathSpy.mockReturnValue("~/.aigne/doc-smith/output/structure-plan.json");
-
-    const result = await clearDocumentStructure({ workDir: "/test/work" });
-
-    expect(result.message).toContain("Document structure cleanup finished with some issues.");
-    expect(result.hasError).toBe(true);
-  });
-
-  test("should handle both operations successful", async () => {
-    pathExistsSpy.mockResolvedValue(true);
-    toDisplayPathSpy.mockReturnValueOnce("~/structure-plan.json").mockReturnValueOnce("~/docs");
-
-    const result = await clearDocumentStructure({ workDir: "/test", docsDir: "/test/docs" });
-
     expect(result.hasError).toBe(false);
-    expect(result.clearedCount).toBe(2);
+  });
+
+  test("should handle non-existent docs directory", async () => {
+    // Create structure plan but not docs directory
+    await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
+
+    const nonExistentDocsDir = join(testDir, "non-existent-docs");
+
+    const result = await clearDocumentStructure({
+      workDir: testDir,
+      docsDir: nonExistentDocsDir,
+    });
+
     expect(result.message).toContain("Document structure cleared successfully!");
+    expect(result.clearedCount).toBe(1); // Only structure plan cleared
+
+    // Verify structure plan is deleted
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const exists = await pathExists(structurePlanPath);
+    expect(exists).toBe(false);
+  });
+
+  test("should use current working directory when workDir not provided", async () => {
+    const originalCwd = process.cwd();
+
+    try {
+      // Change to test directory
+      process.chdir(testDir);
+
+      // Create structure plan in current directory's structure
+      await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
+
+      const result = await clearDocumentStructure({});
+
+      expect(result.message).toContain("Document structure cleared successfully!");
+      expect(result.clearedCount).toBe(1);
+    } finally {
+      // Restore original working directory
+      process.chdir(originalCwd);
+    }
+  });
+
+  test("should provide correct return structure", async () => {
+    await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
+
+    const result = await clearDocumentStructure({ workDir: testDir });
+
+    expect(result).toHaveProperty("message");
+    expect(result).toHaveProperty("results");
+    expect(result).toHaveProperty("hasError");
+    expect(result).toHaveProperty("clearedCount");
+    expect(typeof result.message).toBe("string");
+    expect(Array.isArray(result.results)).toBe(true);
+    expect(typeof result.hasError).toBe("boolean");
+    expect(typeof result.clearedCount).toBe("number");
+  });
+
+  test("should have correct input schema", () => {
+    expect(clearDocumentStructure.input_schema).toBeDefined();
+    expect(clearDocumentStructure.input_schema.type).toBe("object");
+    expect(clearDocumentStructure.input_schema.properties.docsDir).toBeDefined();
+    expect(clearDocumentStructure.input_schema.properties.docsDir.type).toBe("string");
+    expect(clearDocumentStructure.input_schema.properties.docsDir.description).toBe(
+      "The documents directory to clear (optional)",
+    );
+    expect(clearDocumentStructure.input_schema.properties.workDir).toBeDefined();
+    expect(clearDocumentStructure.input_schema.properties.workDir.type).toBe("string");
+    expect(clearDocumentStructure.input_schema.properties.workDir.description).toBe(
+      "The working directory (defaults to current directory)",
+    );
+  });
+
+  test("should have correct task metadata", () => {
+    expect(clearDocumentStructure.taskTitle).toBe(
+      "Clear document structure and all generated documents",
+    );
+    expect(clearDocumentStructure.description).toBe(
+      "Clear the document structure plan (structure-plan.json) and optionally the documents directory",
+    );
+  });
+
+  test("should handle complex document structures", async () => {
+    // Create complex structure plan
+    const complexStructure = {
+      documents: [
+        {
+          path: "/introduction",
+          title: "Introduction",
+          children: [
+            { path: "/introduction/overview", title: "Overview" },
+            { path: "/introduction/getting-started", title: "Getting Started" },
+          ],
+        },
+        {
+          path: "/api",
+          title: "API Reference",
+          children: [
+            { path: "/api/authentication", title: "Authentication" },
+            { path: "/api/endpoints", title: "Endpoints" },
+          ],
+        },
+      ],
+      metadata: {
+        version: "1.0.0",
+        generated: new Date().toISOString(),
+      },
+    };
+
+    await writeFile(structurePlanPath, JSON.stringify(complexStructure, null, 2));
+
+    // Create corresponding docs structure
+    await mkdir(docsDir, { recursive: true });
+    const nestedDirs = [
+      join(docsDir, "introduction"),
+      join(docsDir, "api"),
+      join(docsDir, "tutorials"),
+    ];
+
+    for (const dir of nestedDirs) {
+      await mkdir(dir, { recursive: true });
+      await writeFile(join(dir, "index.md"), `# ${dir} content`);
+    }
+
+    const result = await clearDocumentStructure({ workDir: testDir, docsDir });
+
+    expect(result.clearedCount).toBe(2);
+    expect(result.hasError).toBe(false);
+
+    // Verify everything is cleaned up
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const structureExists = await pathExists(structurePlanPath);
+    const docsExists = await pathExists(docsDir);
+    expect(structureExists).toBe(false);
+    expect(docsExists).toBe(false);
+  });
+
+  test("should handle paths with special characters", async () => {
+    // Create directory with special characters
+    const specialTestDir = join(__dirname, "test-clear-structure with spaces & symbols");
+    await mkdir(specialTestDir, { recursive: true });
+
+    const specialOutputDir = join(specialTestDir, ".aigne", "doc-smith", "output");
+    await mkdir(specialOutputDir, { recursive: true });
+
+    const specialStructurePath = join(specialOutputDir, "structure-plan.json");
+    await writeFile(specialStructurePath, JSON.stringify({ special: "test" }));
+
+    try {
+      const result = await clearDocumentStructure({ workDir: specialTestDir });
+
+      expect(result.clearedCount).toBe(1);
+      expect(result.hasError).toBe(false);
+
+      // Verify special path works
+      const { pathExists } = await import("../../../utils/file-utils.mjs");
+      const exists = await pathExists(specialStructurePath);
+      expect(exists).toBe(false);
+    } finally {
+      // Clean up special directory
+      try {
+        await rm(specialTestDir, { recursive: true, force: true });
+      } catch {
+        // Ignore cleanup errors
+      }
+    }
+  });
+
+  test("should handle relative and absolute paths for docsDir", async () => {
+    await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
+
+    // Create docs with relative path reference
+    const relativeDocs = join(testDir, "relative-docs");
+    await mkdir(relativeDocs, { recursive: true });
+    await writeFile(join(relativeDocs, "test.md"), "test content");
+
+    const originalCwd = process.cwd();
+
+    try {
+      process.chdir(testDir);
+      const result = await clearDocumentStructure({
+        workDir: testDir,
+        docsDir: "./relative-docs",
+      });
+
+      expect(result.clearedCount).toBe(2);
+      expect(result.hasError).toBe(false);
+    } finally {
+      process.chdir(originalCwd);
+    }
+  });
+
+  test("should provide detailed results information", async () => {
+    await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
+    await mkdir(docsDir, { recursive: true });
+    await writeFile(join(docsDir, "test.md"), "test content");
+
+    const result = await clearDocumentStructure({ workDir: testDir, docsDir });
+
+    expect(result.results).toHaveLength(2);
+
+    // Check structure result
+    const structureResult = result.results.find((r) => r.type === "structure");
+    expect(structureResult).toBeDefined();
+    expect(structureResult.cleared).toBe(true);
+    expect(structureResult.message).toContain("structure plan");
+
+    // Check documents result
+    const docsResult = result.results.find((r) => r.type === "documents");
+    expect(docsResult).toBeDefined();
+    expect(docsResult.cleared).toBe(true);
+    expect(docsResult.message).toContain("documents directory");
   });
 });

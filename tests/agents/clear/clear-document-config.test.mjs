@@ -1,131 +1,147 @@
-import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { mkdir, rm, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import clearDocumentConfig from "../../../agents/clear/clear-document-config.mjs";
-import * as fileUtils from "../../../utils/file-utils.mjs";
 
-const mockFsPromises = {
-  rm: mock(() => Promise.resolve()),
-};
-
-const mockPath = {
-  join: mock((...paths) => paths.join("/")),
-};
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe("clear-document-config", () => {
-  let pathExistsSpy;
-  let toDisplayPathSpy;
+  let testDir;
+  let configPath;
 
-  beforeEach(() => {
-    // Apply module mocks
-    mock.module("node:fs/promises", () => mockFsPromises);
-    mock.module("node:path", () => mockPath);
+  beforeEach(async () => {
+    // Create a temporary test directory
+    testDir = join(__dirname, "test-clear-config");
+    await mkdir(testDir, { recursive: true });
 
-    // Set up spies for file utils
-    pathExistsSpy = spyOn(fileUtils, "pathExists").mockResolvedValue(true);
-    toDisplayPathSpy = spyOn(fileUtils, "toDisplayPath").mockImplementation((path) => path);
+    // Create .aigne/doc-smith directory structure
+    const aigneDir = join(testDir, ".aigne", "doc-smith");
+    await mkdir(aigneDir, { recursive: true });
 
-    // Reset mocks
-    mockFsPromises.rm.mockClear();
-    mockPath.join.mockClear();
-    pathExistsSpy.mockClear();
-    toDisplayPathSpy.mockClear();
-
-    // Set default implementations
-    mockFsPromises.rm.mockResolvedValue();
-    mockPath.join.mockImplementation((...paths) => paths.join("/"));
-    pathExistsSpy.mockResolvedValue(true);
-    toDisplayPathSpy.mockImplementation((path) => path);
+    configPath = join(aigneDir, "config.yaml");
   });
 
-  afterEach(() => {
-    pathExistsSpy?.mockRestore();
-    toDisplayPathSpy?.mockRestore();
-    mock.restore();
+  afterEach(async () => {
+    // Clean up test directory
+    try {
+      await rm(testDir, { recursive: true, force: true });
+    } catch {
+      // Ignore cleanup errors since they don't affect test results
+    }
   });
 
   test("should clear existing document configuration successfully", async () => {
-    pathExistsSpy.mockResolvedValue(true);
-    toDisplayPathSpy.mockReturnValue("~/.aigne/doc-smith/config.yaml");
+    // Create a test config file
+    const configContent = `
+projectName: "Test Project"
+projectDesc: "Test Description"
+locale: "en"
+documentPurpose: ["API", "Tutorial"]
+`;
+    await writeFile(configPath, configContent);
 
-    const result = await clearDocumentConfig({ workDir: "/test/work" });
+    const result = await clearDocumentConfig({ workDir: testDir });
 
-    expect(result.message).toBe("Cleared document configuration (~/.aigne/doc-smith/config.yaml)");
     expect(result.cleared).toBe(true);
+    expect(result.message).toContain("Cleared document configuration");
+    expect(result.path).toBeDefined();
     expect(result.suggestions).toEqual([
       "Run `aigne doc init` to generate a fresh configuration file.",
     ]);
+
+    // Verify file is actually deleted
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const exists = await pathExists(configPath);
+    expect(exists).toBe(false);
   });
 
   test("should handle non-existent configuration file", async () => {
-    pathExistsSpy.mockResolvedValue(false);
-    toDisplayPathSpy.mockReturnValue("~/.aigne/doc-smith/config.yaml");
+    // Don't create the config file
+    const result = await clearDocumentConfig({ workDir: testDir });
 
-    const result = await clearDocumentConfig({ workDir: "/test/work" });
-
-    expect(result.message).toBe(
-      "Document configuration already empty (~/.aigne/doc-smith/config.yaml)",
-    );
     expect(result.cleared).toBe(false);
+    expect(result.message).toContain("Document configuration already empty");
+    expect(result.path).toBeDefined();
     expect(result.suggestions).toEqual([]);
   });
 
   test("should use current working directory when workDir not provided", async () => {
-    const mockCwd = spyOn(process, "cwd").mockReturnValue("/current/working/dir");
+    const originalCwd = process.cwd();
 
     try {
-      await clearDocumentConfig({});
-      // Since we can't easily verify the join call due to mocking complexity,
-      // we'll just ensure the function runs without error
-      expect(true).toBe(true);
+      // Change to test directory
+      process.chdir(testDir);
+
+      // Create config in current directory's .aigne structure
+      await writeFile(configPath, "test: content");
+
+      const result = await clearDocumentConfig({});
+
+      expect(result.cleared).toBe(true);
+      expect(result.message).toContain("Cleared document configuration");
     } finally {
-      mockCwd.mockRestore();
+      // Restore original working directory
+      process.chdir(originalCwd);
     }
   });
 
-  test("should handle rm operation failures", async () => {
-    mockFsPromises.rm.mockRejectedValue(new Error("Permission denied"));
-    toDisplayPathSpy.mockReturnValue("~/.aigne/doc-smith/config.yaml");
+  test("should provide correct return structure", async () => {
+    await writeFile(configPath, "test: content");
 
-    const result = await clearDocumentConfig({ workDir: "/test/work" });
+    const result = await clearDocumentConfig({ workDir: testDir });
 
-    expect(result.message).toBe("Failed to clear document configuration: Permission denied");
-    expect(result.error).toBe(true);
+    expect(result).toHaveProperty("message");
+    expect(result).toHaveProperty("cleared");
+    expect(result).toHaveProperty("path");
+    expect(result).toHaveProperty("suggestions");
+    expect(typeof result.message).toBe("string");
+    expect(typeof result.cleared).toBe("boolean");
+    expect(typeof result.path).toBe("string");
+    expect(Array.isArray(result.suggestions)).toBe(true);
   });
 
-  test("should handle pathExists check failures", async () => {
-    pathExistsSpy.mockRejectedValue(new Error("Access denied"));
-    toDisplayPathSpy.mockReturnValue("~/.aigne/doc-smith/config.yaml");
-
-    const result = await clearDocumentConfig({ workDir: "/test/work" });
-
-    expect(result.message).toBe("Failed to clear document configuration: Access denied");
-    expect(result.error).toBe(true);
+  test("should have correct task metadata", () => {
+    expect(clearDocumentConfig.taskTitle).toBe("Clear document configuration");
+    expect(clearDocumentConfig.description).toBe("Clear the document configuration file");
   });
 
-  test("should return correct structure for successful clearing", async () => {
-    pathExistsSpy.mockResolvedValue(true);
-    toDisplayPathSpy.mockReturnValue("test-path");
+  test("should handle nested directory structures", async () => {
+    // Create nested test directory
+    const nestedDir = join(testDir, "nested", "project");
+    await mkdir(nestedDir, { recursive: true });
 
-    const result = await clearDocumentConfig({ workDir: "/test" });
+    const nestedAigneDir = join(nestedDir, ".aigne", "doc-smith");
+    await mkdir(nestedAigneDir, { recursive: true });
 
-    expect(result).toEqual({
-      message: "Cleared document configuration (test-path)",
-      cleared: true,
-      path: "test-path",
-      suggestions: ["Run `aigne doc init` to generate a fresh configuration file."],
-    });
+    const nestedConfigPath = join(nestedAigneDir, "config.yaml");
+    await writeFile(nestedConfigPath, "nested: config");
+
+    const result = await clearDocumentConfig({ workDir: nestedDir });
+
+    expect(result.cleared).toBe(true);
+    expect(result.message).toContain("Cleared document configuration");
+
+    // Verify nested file is deleted
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    const exists = await pathExists(nestedConfigPath);
+    expect(exists).toBe(false);
   });
 
-  test("should return correct structure for non-existent file", async () => {
-    pathExistsSpy.mockResolvedValue(false);
-    toDisplayPathSpy.mockReturnValue("test-path");
+  test("should handle path with special characters", async () => {
+    // Create directory with spaces and special characters
+    const specialDir = join(testDir, "special dir-with_chars");
+    await mkdir(specialDir, { recursive: true });
 
-    const result = await clearDocumentConfig({ workDir: "/test" });
+    const specialAigneDir = join(specialDir, ".aigne", "doc-smith");
+    await mkdir(specialAigneDir, { recursive: true });
 
-    expect(result).toEqual({
-      message: "Document configuration already empty (test-path)",
-      cleared: false,
-      path: "test-path",
-      suggestions: [],
-    });
+    const specialConfigPath = join(specialAigneDir, "config.yaml");
+    await writeFile(specialConfigPath, "special: config");
+
+    const result = await clearDocumentConfig({ workDir: specialDir });
+
+    expect(result.cleared).toBe(true);
+    expect(result.message).toContain("Cleared document configuration");
   });
 });

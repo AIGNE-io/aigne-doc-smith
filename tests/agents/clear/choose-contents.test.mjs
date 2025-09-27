@@ -53,7 +53,7 @@ describe("choose-contents", () => {
   });
 
   afterEach(() => {
-    mock.restore();
+    // Note: Not using mock.restore() to avoid affecting other tests
   });
 
   test("should process provided targets correctly", async () => {
@@ -151,5 +151,18 @@ describe("choose-contents", () => {
 
     expect(mockContext.invoke).toHaveBeenCalledTimes(4);
     expect(result.message).toContain("Cleanup completed successfully!");
+  });
+
+  test("should have correct input schema", () => {
+    expect(chooseContents.input_schema).toBeDefined();
+    expect(chooseContents.input_schema.type).toBe("object");
+    expect(chooseContents.input_schema.properties.targets.type).toBe("array");
+  });
+
+  test("should have correct task metadata", () => {
+    expect(chooseContents.taskTitle).toBe("Choose contents to clear");
+    expect(chooseContents.description).toBe(
+      "Choose contents to clear and execute the appropriate clearing operations",
+    );
   });
 });
