@@ -25,4 +25,18 @@ describe("evaluateDocumentCode", () => {
     },
     60 * 1000,
   );
+
+  test(
+    "should evaluate markdown document with error",
+    async () => {
+      const content = await fs.readFile(path.join(__dirname, "fixtures/api-services.md"), "utf-8");
+      const result = await evaluateDocumentCode({ content });
+
+      expect(result.codeEvaluation.details.length).toEqual(2);
+      expect(result.codeEvaluation.totalCount).toEqual(1);
+      expect(result.codeEvaluation.errorCount).toEqual(1);
+      expect(result.codeEvaluation.ignoreCount).toEqual(1);
+    },
+    60 * 1000,
+  );
 });
