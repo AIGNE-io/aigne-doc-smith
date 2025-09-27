@@ -21,36 +21,6 @@ import {
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
 /**
- * Clear stored access token for the given app URL
- * @param {string} appUrl - The application URL
- */
-export async function clearStoredAccessToken(appUrl) {
-  const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
-  const { hostname } = new URL(appUrl);
-
-  // Clear from config file
-  try {
-    if (existsSync(DOC_SMITH_ENV_FILE)) {
-      const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
-      const envs = parse(data);
-
-      if (envs[hostname]) {
-        delete envs[hostname].DOC_DISCUSS_KIT_ACCESS_TOKEN;
-
-        // If the hostname object is empty, remove it entirely
-        if (Object.keys(envs[hostname]).length === 0) {
-          delete envs[hostname];
-        }
-
-        await writeFile(DOC_SMITH_ENV_FILE, stringify(envs));
-      }
-    }
-  } catch (error) {
-    console.warn("Failed to clear stored access token:", error.message);
-  }
-}
-
-/**
  * Get access token from environment, config file, or prompt user for authorization
  * @param {string} appUrl - The application URL
  * @returns {Promise<string>} - The access token

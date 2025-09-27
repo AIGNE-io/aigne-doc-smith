@@ -15,7 +15,7 @@ const TARGET_METADATA = {
     agent: "clearDocumentConfig",
   },
   authTokens: {
-    label: "authorization tokens",
+    label: "authorizations",
     description: "Clear published site authorizations.",
     agent: "clearAuthTokens",
   },
@@ -124,7 +124,9 @@ export default async function chooseContents(input = {}, options = {}) {
   }
 
   // Prepare response message
-  const header = hasError ? "Cleanup finished with some issues." : "Cleanup completed successfully!";
+  const header = hasError
+    ? "Cleanup finished with some issues."
+    : "Cleanup completed successfully!";
   const detailLines = results.map((item) => `- ${item.message}`).join("\n");
 
   // Collect suggestions

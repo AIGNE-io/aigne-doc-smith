@@ -4,7 +4,7 @@ import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import chalk from "chalk";
 import fs from "fs-extra";
 
-import { clearStoredAccessToken, getAccessToken } from "../../utils/auth-utils.mjs";
+import { getAccessToken } from "../../utils/auth-utils.mjs";
 import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../../utils/constants.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
@@ -13,7 +13,7 @@ import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../u
 const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
 export default async function publishDocs(
-  { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo, reconnect },
+  { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
   options,
 ) {
   // move work dir to tmp-dir
@@ -126,11 +126,6 @@ export default async function publishDocs(
 
   console.log(`\nPublishing docs to ${chalk.cyan(appUrl)}\n`);
 
-  // Handle reconnect option - clear stored access token if reconnect is true
-  if (reconnect) {
-    await clearStoredAccessToken(appUrl);
-  }
-
   const accessToken = await getAccessToken(appUrl, token);
 
   process.env.DOC_ROOT_DIR = docsDir;
@@ -190,9 +185,9 @@ export default async function publishDocs(
       }
       message = `✅ Documentation published successfully!`;
     } else {
-      // If the error is 401 or 403, it means the access token is invalid, so we need to reconnect to the website
+      // If the error is 401 or 403, it means the access token is invalid
       if (error?.includes("401") || error?.includes("403")) {
-        message = `❌ Publishing failed due to permission issues.\n   Run ${chalk.cyan("aigne doc publish --reconnect")} to reconnect and try again.`;
+        message = `❌ Publishing failed: you don’t have valid authorization.\n    Run ${chalk.cyan("aigne doc clear")} to reset it, then publish again.`;
       }
     }
   } catch (error) {
