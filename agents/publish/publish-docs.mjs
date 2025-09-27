@@ -187,7 +187,7 @@ export default async function publishDocs(
     } else {
       // If the error is 401 or 403, it means the access token is invalid
       if (error?.includes("401") || error?.includes("403")) {
-        message = `❌ Publishing failed: you don’t have valid authorization.\n    Run ${chalk.cyan("aigne doc clear")} to reset it, then publish again.`;
+        message = `❌ Publishing failed: you don’t have valid authorization.\n   Run ${chalk.cyan("aigne doc clear")} to reset it, then publish again.`;
       }
     }
   } catch (error) {
