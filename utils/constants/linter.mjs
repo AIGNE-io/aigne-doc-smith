@@ -1,4 +1,4 @@
-export const LINTER_API_URL = 'https://linter.abtnet.io';
+export const LINTER_API_URL = process.env.LINTER_API_URL || 'https://linter.abtnet.io';
 
 export const LINTER_SUPPORTED_FILE = {
   biome: [".js", ".jsx", ".ts", ".tsx", ".json"],
@@ -12,7 +12,7 @@ export const LINTER_SUPPORTED_FILE = {
   mypy: [".py"],
   shellcheck: [".sh", ".bash", ".dash", ".ksh"],
   "golangci-lint": [".go"],
-  rubocop: [".rb", ".rake", ".gemfile"],
+  rubocop: [".rb", ".rake", ".gemfile", "Gemfile"],
   hadolint: ["Dockerfile", ".dockerfile"],
   yamllint: [".yml", ".yaml"],
   stylelint: [".css", ".scss", ".sass"],
@@ -101,6 +101,3 @@ export const CODE_LANGUAGE_MAP_SUFFIX = {
   scss: ".scss",
 };
 
-export const DEDUCT_ERROR = 10;
-// export const DEDUCT_WARNING = 5;
-export const DEDUCT_WARNING = 0;

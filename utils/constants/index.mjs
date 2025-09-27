@@ -541,7 +541,7 @@ export const TMP_DOCS_DIR = "docs";
 
 export const TMP_ASSETS_DIR = "assets";
 
-// 默认评估计分权重
+// Default evaluation scoring weights
 export const DEFAULT_EVALUATION_WEIGHTS = {
   evaluationConfig: {
     accuracy: {
