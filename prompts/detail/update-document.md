@@ -112,6 +112,7 @@ parentId: {{parentId}}
 Your task is to:
 
 Processing workflow:
+- If user feedback is not in English, translate it to English first to better understand user intent
 - Analyze user feedback to understand the exact intent and scope of changes
 - Generate a unified diff patch that implements the requested improvements
 - Use the available tool to apply the changes and get the final content
