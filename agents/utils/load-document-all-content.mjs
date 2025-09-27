@@ -74,7 +74,8 @@ export default async function loadDocumentAllContent({ path, docsDir, documentSt
   // Return the original document result enhanced with translation data
   return {
     ...result,
-    translates: translations, // Array of translation objects with language and content
+    // FIXME: @zhanghan use anthoer way to evaluate translationQuality
+    // translates: translations, // Array of translation objects with language and content
     translationsString: translationsString.join("\n\n"), // Combined translations as formatted string
   };
 }

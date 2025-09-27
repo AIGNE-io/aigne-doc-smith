@@ -50,7 +50,7 @@ output_schema:
             properties:
               dimension:
                 type: string
-                enum: [readability, coherence, contentQuality, translationQuality, consistency, purposeAlignment, audienceAlignment, knowledgeLevelAlignment, navigability]
+                enum: [readability, coherence, contentQuality, consistency, purposeAlignment, audienceAlignment, knowledgeLevelAlignment, navigability]
                 description: Dimension associated with this observation
               level:
                 type: string

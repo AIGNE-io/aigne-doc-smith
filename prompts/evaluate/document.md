@@ -80,42 +80,35 @@ Apply these levels to the following evaluation dimensions:
    - `Minor`: Certain sections are missing, incorrect, or ambiguous and should be corrected.
    - `Critical`: Core content is wrong or absent, failing to deliver planned outcomes.
 
-4. **Translation Quality** (if applicable) — Fidelity, terminology, and fluency versus source.
-   - `Excellent`: Translation reads fluently and preserves meaning and domain terms accurately.
-   - `Good`: Mostly accurate translation with small phrasing or terminology issues.
-   - `Meets`: Translation is understandable though literal or stylistically flat.
-   - `Minor`: Noticeable mistranslations or inconsistent terminology that need revision.
-   - `Critical`: Translation fails to convey the original meaning or is mostly missing. Use `Normal` entry stating "No translation provided/needed" when translation is not applicable.
-
-5. **Consistency** — Terminology, style, formatting, and references.
+4. **Consistency** — Terminology, style, formatting, and references.
    - `Excellent`: Terms, style, and formatting are uniform and purposeful across the document.
    - `Good`: Largely consistent with only isolated mismatches that do not impede understanding.
    - `Meets`: Acceptable uniformity but lacks deliberate stylistic cohesion.
    - `Minor`: Specific term or formatting inconsistencies that should be standardized.
    - `Critical`: Pervasive inconsistency that undermines trust in the content.
 
-6. **Purpose Alignment** — Relevance to user-selected purposes (document only needs to satisfy at least one when multiples exist).
+5. **Purpose Alignment** — Relevance to user-selected purposes (document only needs to satisfy at least one when multiples exist).
    - `Excellent`: The document supplies targeted sections, validation steps, and clear calls-to-action that realize the chosen purpose scoring +10.
    - `Good`: Purpose is clearly addressed but may lack polish or some validation details.
    - `Meets`: Purpose is present in general terms but lacks concrete steps or targeted content.
    - `Minor`: Key components required by the purpose are missing or incomplete.
    - `Critical`: Document fails to address the selected purpose or pursues a different objective.
 
-7. **Audience Alignment** — Tone, assumptions, and artifacts for target persona(s).
+6. **Audience Alignment** — Tone, assumptions, and artifacts for target persona(s).
    - `Excellent`: Messaging, examples, and precautions are tailored to each audience persona and their needs.
    - `Good`: Tone and examples suit the audience with only minor mismatches.
    - `Meets`: Document is generally usable by audiences but lacks persona-specific guidance.
    - `Minor`: Sections explicitly mismatch audience skill levels or expectations and should be revised.
    - `Critical`: Document is pitched at the wrong audience and cannot be used meaningfully.
 
-8. **Knowledge Level Alignment** — Depth versus reader expertise.
+7. **Knowledge Level Alignment** — Depth versus reader expertise.
    - `Excellent`: Material offers layered explanations, optional deep dives, and matches expected expertise.
    - `Good`: Overall depth fits the reader with small areas that are slightly over- or under-advanced.
    - `Meets`: Baseline depth is acceptable but uneven across topics scoring 0.
    - `Minor`: Specific sections are noticeably too shallow or too advanced and need rework.
    - `Critical`: The document's level is consistently misaligned with reader expertise.
 
-9. **Navigability** — Link accuracy, anchor availability, and cross-reference integrity.
+8. **Navigability** — Link accuracy, anchor availability, and cross-reference integrity.
    - `Excellent`: TOC, anchors, and cross-links are accurate and make navigation effortless.
    - `Good`: Navigation and links are mostly correct with minor issues scoring +2.
    - `Meets`: Basic navigation exists but lacks robust anchors or enhancements.
@@ -146,7 +139,7 @@ Strictly follow these steps:
 
 - `baseline` must be fixed at 80
 - `details` is an array. Each element must include:
-  - `dimension`: one of `readability`, `coherence`, `contentQuality`, `translationQuality`, `consistency`, `purposeAlignment`, `audienceAlignment`, `knowledgeLevelAlignment`, `navigability`
+  - `dimension`: one of `readability`, `coherence`, `contentQuality`, `consistency`, `purposeAlignment`, `audienceAlignment`, `knowledgeLevelAlignment`, `navigability`
   - `level`: one of `excellent`, `good`, `meets`, `minor`, `critical`
   - `topic`: short identifier for the passage/section being judged
   - `line`: integer line number within the source document (use 0 if unknown)
