@@ -7,7 +7,7 @@ import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 import { VFile } from "vfile";
-import { KROKI_CONCURRENCY } from "./constants.mjs";
+import { KROKI_CONCURRENCY } from "./constants/index.mjs";
 import { checkContent, isValidCode } from "./d2-utils.mjs";
 import { validateMermaidSyntax } from "./mermaid-validator.mjs";
 

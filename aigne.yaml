@@ -40,6 +40,7 @@ agents:
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/prefs/index.mjs
   - ./agents/chat/index.yaml
+  - ./agents/evaluate/index.yaml
   - ./agents/generate/user-review-document-structure.mjs
 cli:
   chat: ./agents/chat/index.yaml

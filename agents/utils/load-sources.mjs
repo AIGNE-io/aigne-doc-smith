@@ -1,6 +1,9 @@
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
-import { DEFAULT_EXCLUDE_PATTERNS, DEFAULT_INCLUDE_PATTERNS } from "../../utils/constants.mjs";
+import {
+  DEFAULT_EXCLUDE_PATTERNS,
+  DEFAULT_INCLUDE_PATTERNS,
+} from "../../utils/constants/index.mjs";
 import { getFilesWithGlob, loadGitignore } from "../../utils/file-utils.mjs";
 import {
   getCurrentGitHead,

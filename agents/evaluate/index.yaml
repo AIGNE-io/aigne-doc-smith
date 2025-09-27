@@ -1,0 +1,39 @@
+type: team
+name: evaluate
+description: Evaluate document quality
+skills:
+  - url: ../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../utils/load-sources.mjs
+  - ../utils/format-document-structure.mjs
+  - type: transform
+    name: transformData
+    task_render_mode: hide
+    jsonata: |
+      $merge([
+        $,
+        {
+          "documentStructure": originalDocumentStructure,
+          "datasources": "",
+          "datasourcesList": ""
+        }
+      ])
+  - ./document-structure.yaml
+  - type: team
+    name: batchEvaluateDocument
+    skills:
+      - ../utils/load-document-all-content.mjs
+      - ./document.yaml
+      - ./code-snippet.mjs
+      - type: transform
+        task_render_mode: hide
+        jsonata: |
+          $merge([
+            $
+          ])
+    iterate_on: originalDocumentStructure
+    concurrency: 5
+    mode: sequential
+  - ./generate-report.mjs
+mode: sequential

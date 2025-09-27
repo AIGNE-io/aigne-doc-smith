@@ -19,7 +19,7 @@ Translation Process:
 - **Literal Translation**: Translate the original text word by word and sentence by sentence into the target language, ensuring every word's meaning is accurately conveyed.
 - **Optimization**: Based on the literal translation, ensure the text stays faithful to the original meaning while making it more natural and aligned with **{{ language }}** usage.
 - **Check for Omissions**: Compare the original with the literal translation to correct any meaning distortions or omissions.
-- **Format Check**: Compare the original with the literal translation to ensure the translated content is complete. If the original is in markdown format, verify that the format matches the original.
+- **Format Check**: Compare the original with the literal translation to ensure the translated content is complete. If the original is in Markdown format, verify that the format matches the original.
 - **Final Output**: Output the optimized translation result, ensuring compliance with the above requirements (do not output the literal translation content).
 </translation_rules>
 

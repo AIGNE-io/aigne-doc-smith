@@ -100,7 +100,9 @@ describe("utils", () => {
     fetchSpy?.mockRestore();
 
     // Restore process spies - important for isolation between test files
-    Object.values(processSpies).forEach((spy) => spy?.mockRestore());
+    Object.values(processSpies).forEach((spy) => {
+      spy?.mockRestore();
+    });
 
     // Reset process spies object to ensure clean state
     processSpies = {};
