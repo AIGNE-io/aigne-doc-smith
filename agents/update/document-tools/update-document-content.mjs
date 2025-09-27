@@ -83,10 +83,10 @@ function parseDiffPatch(diffPatch) {
           hunks.push(currentHunk);
         }
         currentHunk = {
-          oldStart: parseInt(hunkMatch[1]),
-          oldCount: parseInt(hunkMatch[2]) || 1,
-          newStart: parseInt(hunkMatch[3]),
-          newCount: parseInt(hunkMatch[4]) || 1,
+          oldStart: parseInt(hunkMatch[1], 10),
+          oldCount: parseInt(hunkMatch[2], 10) || 1,
+          newStart: parseInt(hunkMatch[3], 10),
+          newCount: parseInt(hunkMatch[4], 10) || 1,
           changes: [],
         };
         continue;

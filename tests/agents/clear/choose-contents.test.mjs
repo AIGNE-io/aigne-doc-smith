@@ -49,7 +49,9 @@ describe("choose-contents", () => {
     // Clear mock call history
     mockOptions.prompts.checkbox.mockClear();
     mockContext.invoke.mockClear();
-    Object.values(mockClearAgents).forEach((agent) => agent.mockClear());
+    Object.values(mockClearAgents).forEach((agent) => {
+      agent.mockClear();
+    });
   });
 
   afterEach(() => {
