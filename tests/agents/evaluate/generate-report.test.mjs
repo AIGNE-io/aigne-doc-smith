@@ -79,12 +79,18 @@ describe("generateEvaluationReport", () => {
           parentId: null,
           documentEvaluation: {
             readability: { score: 5, reason: "No errors, natural and fluent language" },
-            coherence: { score: 4, reason: "Overall coherent with occasional unnatural transitions" },
+            coherence: {
+              score: 4,
+              reason: "Overall coherent with occasional unnatural transitions",
+            },
             contentQuality: {
               score: 4,
               reason: "70-90% planning points implemented, minor details lacking",
             },
-            translationQuality: { score: 5, reason: "Accurate and natural, consistent terminology" },
+            translationQuality: {
+              score: 5,
+              reason: "Accurate and natural, consistent terminology",
+            },
             consistency: { score: 5, reason: "Completely consistent" },
             purposeAlignment: { score: 5, reason: "Completely meets objectives, closely related" },
             audienceAlignment: { score: 4, reason: "Generally fits with minor mismatches" },
@@ -159,8 +165,12 @@ describe("generateEvaluationReport", () => {
 
     // Verify structure evaluation
     expect(report.structureEvaluation.type).toBe("document-structure");
-    expect(report.structureEvaluation.results.purposeCoverage).toEqual(testData.structureEvaluation.purposeCoverage);
-    expect(report.structureEvaluation.results.audienceCoverage).toEqual(testData.structureEvaluation.audienceCoverage);
+    expect(report.structureEvaluation.results.purposeCoverage).toEqual(
+      testData.structureEvaluation.purposeCoverage,
+    );
+    expect(report.structureEvaluation.results.audienceCoverage).toEqual(
+      testData.structureEvaluation.audienceCoverage,
+    );
     expect(report.structureEvaluation.results.coverageDepthAlignment).toEqual(
       testData.structureEvaluation.coverageDepthAlignment,
     );
