@@ -60,11 +60,11 @@ importers:
         specifier: ^26.1.0
         version: 26.1.0
       marked:
-        specifier: ^16.3.0
-        version: 16.3.0
+        specifier: ^15.0.12
+        version: 15.0.12
       marked-terminal:
         specifier: ^7.3.0
-        version: 7.3.0(marked@16.3.0)
+        version: 7.3.0(marked@15.0.12)
       mermaid:
         specifier: ^11.9.0
         version: 11.9.0
@@ -3025,6 +3025,11 @@ packages:
     engines: {node: '>=16.0.0'}
     peerDependencies:
       marked: '>=1 <16'
+
+  marked@15.0.12:
+    resolution: {integrity: sha512-8dD6FusOQSrpv9Z1rdNMdlSgQOIP880DHqnohobOmYLElGEqAL/JvxvuxZO16r4HtjTlfPRDC1hbvxC9dPN2nA==}
+    engines: {node: '>= 18'}
+    hasBin: true
 
   marked@16.3.0:
     resolution: {integrity: sha512-K3UxuKu6l6bmA5FUwYho8CfJBlsUWAooKtdGgMcERSpF7gcBUrCGsLH7wDaaNOzwq18JzSUDyoEb/YsrqMac3w==}
@@ -8783,16 +8788,18 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
-  marked-terminal@7.3.0(marked@16.3.0):
+  marked-terminal@7.3.0(marked@15.0.12):
     dependencies:
       ansi-escapes: 7.1.0
       ansi-regex: 6.1.0
       chalk: 5.6.2
       cli-highlight: 2.1.11
       cli-table3: 0.6.5
-      marked: 16.3.0
+      marked: 15.0.12
       node-emoji: 2.2.0
       supports-hyperlinks: 3.2.0
+
+  marked@15.0.12: {}
 
   marked@16.3.0: {}
 
