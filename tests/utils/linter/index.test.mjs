@@ -146,7 +146,9 @@ describe("lintCode error handling", () => {
     });
 
     try {
-      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("HTTP error! status: 500");
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow(
+        "HTTP error! status: 500",
+      );
     } finally {
       globalThis.fetch = originalFetch;
     }
@@ -162,7 +164,9 @@ describe("lintCode error handling", () => {
     });
 
     try {
-      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("Invalid response data");
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow(
+        "Invalid response data",
+      );
     } finally {
       globalThis.fetch = originalFetch;
     }
@@ -177,7 +181,9 @@ describe("lintCode error handling", () => {
     };
 
     try {
-      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("Linting failed: Network error");
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow(
+        "Linting failed: Network error",
+      );
     } finally {
       globalThis.fetch = originalFetch;
     }
@@ -195,7 +201,9 @@ describe("lintCode error handling", () => {
     });
 
     try {
-      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("Linting failed: Invalid JSON");
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow(
+        "Linting failed: Invalid JSON",
+      );
     } finally {
       globalThis.fetch = originalFetch;
     }
@@ -213,7 +221,9 @@ describe("lintCode error handling", () => {
     };
 
     try {
-      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("Linting failed: The operation was aborted");
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow(
+        "Linting failed: The operation was aborted",
+      );
     } finally {
       globalThis.fetch = originalFetch;
     }

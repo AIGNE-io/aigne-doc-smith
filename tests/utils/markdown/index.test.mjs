@@ -90,38 +90,50 @@ Inline \`code\` here.
 
       expect(ast).toBeDefined();
       // Check for table
-      const table = ast.children.find(child => child.type === "table");
+      const table = ast.children.find((child) => child.type === "table");
       expect(table).toBeDefined();
       expect(table.children).toHaveLength(2); // header + row
 
       // Check for strikethrough
-      const strikethrough = ast.children.find(child =>
-        child.children && child.children.some(c => c.type === "delete")
+      const strikethrough = ast.children.find((child) =>
+        child.children?.some((c) => c.type === "delete"),
       );
       expect(strikethrough).toBeDefined();
 
       // Check for task list
-      const taskList = ast.children.find(child => child.type === "list");
+      const taskList = ast.children.find((child) => child.type === "list");
       expect(taskList).toBeDefined();
     });
 
     test("should handle empty markdown", () => {
       const markdown = "";
-      expect(() => getMarkdownAst({ markdown })).toThrow("Invalid markdown input: must be a non-empty string");
+      expect(() => getMarkdownAst({ markdown })).toThrow(
+        "Invalid markdown input: must be a non-empty string",
+      );
     });
 
     test("should handle null markdown", () => {
-      expect(() => getMarkdownAst({ markdown: null })).toThrow("Invalid markdown input: must be a non-empty string");
+      expect(() => getMarkdownAst({ markdown: null })).toThrow(
+        "Invalid markdown input: must be a non-empty string",
+      );
     });
 
     test("should handle undefined markdown", () => {
-      expect(() => getMarkdownAst({ markdown: undefined })).toThrow("Invalid markdown input: must be a non-empty string");
+      expect(() => getMarkdownAst({ markdown: undefined })).toThrow(
+        "Invalid markdown input: must be a non-empty string",
+      );
     });
 
     test("should handle non-string markdown", () => {
-      expect(() => getMarkdownAst({ markdown: 123 })).toThrow("Invalid markdown input: must be a non-empty string");
-      expect(() => getMarkdownAst({ markdown: {} })).toThrow("Invalid markdown input: must be a non-empty string");
-      expect(() => getMarkdownAst({ markdown: [] })).toThrow("Invalid markdown input: must be a non-empty string");
+      expect(() => getMarkdownAst({ markdown: 123 })).toThrow(
+        "Invalid markdown input: must be a non-empty string",
+      );
+      expect(() => getMarkdownAst({ markdown: {} })).toThrow(
+        "Invalid markdown input: must be a non-empty string",
+      );
+      expect(() => getMarkdownAst({ markdown: [] })).toThrow(
+        "Invalid markdown input: must be a non-empty string",
+      );
     });
 
     test("should handle markdown with special characters", () => {
@@ -174,7 +186,7 @@ code block without closing
         test: () => true, // Visit all nodes
         visitor: (node) => {
           visitedNodes.push(node.type);
-        }
+        },
       });
 
       expect(visitedNodes.length).toBeGreaterThan(0);
@@ -200,7 +212,7 @@ Paragraph text.
         test: "heading", // Only visit heading nodes
         visitor: (node) => {
           headings.push({ depth: node.depth, text: node.children[0].value });
-        }
+        },
       });
 
       expect(headings).toHaveLength(3);
@@ -230,7 +242,7 @@ Even more content.
         test: (node) => node.type === "heading" && node.depth === 2,
         visitor: (node) => {
           level2Headings.push(node.children[0].value);
-        }
+        },
       });
 
       expect(level2Headings).toHaveLength(2);
@@ -261,9 +273,9 @@ Plain code block
         visitor: (node) => {
           codeBlocks.push({
             lang: node.lang || "none",
-            value: node.value
+            value: node.value,
           });
-        }
+        },
       });
 
       expect(codeBlocks).toHaveLength(3);
@@ -297,12 +309,12 @@ Reference link: [Google][1]
           } else if (node.type === "linkReference") {
             links.push({ text: node.children[0].value, ref: node.identifier });
           }
-        }
+        },
       });
 
       expect(links.length).toBeGreaterThan(0);
-      expect(links.some(link => link.text === "Example")).toBe(true);
-      expect(links.some(link => link.text === "GitHub")).toBe(true);
+      expect(links.some((link) => link.text === "Example")).toBe(true);
+      expect(links.some((link) => link.text === "GitHub")).toBe(true);
     });
 
     test("should handle visitor that modifies nodes", () => {
@@ -314,14 +326,14 @@ Reference link: [Google][1]
         ast,
         test: "heading",
         visitor: (node) => {
-          if (node.children && node.children[0] && node.children[0].type === "text") {
+          if (node.children?.[0] && node.children[0].type === "text") {
             node.children[0].value = "Modified Title";
           }
-        }
+        },
       });
 
       // Verify the modification
-      const headingNode = ast.children.find(child => child.type === "heading");
+      const headingNode = ast.children.find((child) => child.type === "heading");
       expect(headingNode.children[0].value).toBe("Modified Title");
     });
 
@@ -329,7 +341,7 @@ Reference link: [Google][1]
       expect(() => {
         traverseMarkdownAst({
           test: "heading",
-          visitor: () => {}
+          visitor: () => {},
         });
       }).toThrow("Required parameters missing: ast, test, and visitor must be provided");
     });
@@ -339,7 +351,7 @@ Reference link: [Google][1]
       expect(() => {
         traverseMarkdownAst({
           ast,
-          visitor: () => {}
+          visitor: () => {},
         });
       }).toThrow("Required parameters missing: ast, test, and visitor must be provided");
     });
@@ -349,7 +361,7 @@ Reference link: [Google][1]
       expect(() => {
         traverseMarkdownAst({
           ast,
-          test: "heading"
+          test: "heading",
         });
       }).toThrow("Required parameters missing: ast, test, and visitor must be provided");
     });
@@ -369,7 +381,7 @@ Reference link: [Google][1]
         test: () => true,
         visitor: (node) => {
           visitedNodes.push(node.type);
-        }
+        },
       });
 
       // Should only visit the root node
@@ -398,7 +410,7 @@ Reference link: [Google][1]
         test: () => true,
         visitor: (node) => {
           nodeTypes.add(node.type);
-        }
+        },
       });
 
       expect(nodeTypes.has("heading")).toBe(true);
