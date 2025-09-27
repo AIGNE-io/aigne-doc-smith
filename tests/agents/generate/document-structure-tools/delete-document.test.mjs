@@ -124,9 +124,7 @@ describe("delete-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocument).toBeUndefined();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: path: Required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot delete document: path: Required");
   });
 
   test("should return error when path is empty string", async () => {
@@ -137,9 +135,7 @@ describe("delete-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocument).toBeUndefined();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: path: Path is required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot delete document: path: Path is required");
   });
 
   test("should return error when document does not exist", async () => {

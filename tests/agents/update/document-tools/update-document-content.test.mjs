@@ -32,14 +32,20 @@ describe("update-document-content", () => {
   });
 
   test("should return error when diffPatch is not a string", async () => {
-    const result = await updateDocumentContent({ originalContent: "original content", diffPatch: null });
+    const result = await updateDocumentContent({
+      originalContent: "original content",
+      diffPatch: null,
+    });
     expect(result.success).toBe(false);
     expect(result.error).toContain("diffPatch");
     expect(result.message).toBe("Invalid input parameters");
   });
 
   test("should return error when diffPatch is empty string", async () => {
-    const result = await updateDocumentContent({ originalContent: "original content", diffPatch: "" });
+    const result = await updateDocumentContent({
+      originalContent: "original content",
+      diffPatch: "",
+    });
     expect(result.success).toBe(false);
     expect(result.error).toContain("Diff patch is required");
     expect(result.message).toBe("Invalid input parameters");

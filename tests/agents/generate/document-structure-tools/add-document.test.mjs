@@ -161,9 +161,7 @@ describe("add-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: title: Required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot add document: title: Required");
   });
 
   test("should return error when description is missing", async () => {
@@ -176,9 +174,7 @@ describe("add-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: description: Required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot add document: description: Required");
   });
 
   test("should return error when path is missing", async () => {
@@ -191,9 +187,7 @@ describe("add-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: path: Required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot add document: path: Required");
   });
 
   test("should return error when sourceIds is missing", async () => {
@@ -206,9 +200,7 @@ describe("add-document", () => {
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: sourceIds: Required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot add document: sourceIds: Required");
   });
 
   test("should return error when sourceIds is not an array", async () => {
@@ -256,7 +248,7 @@ describe("add-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.addedDocument).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot add document: path: Path must start with \"/\"",
+      '⚠️  Cannot add document: path: Path must start with "/"',
     );
   });
 

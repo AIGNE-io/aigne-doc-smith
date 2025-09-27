@@ -181,9 +181,7 @@ describe("update-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.originalDocument).toBeUndefined();
     expect(result.updatedDocument).toBeUndefined();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: path: Required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot update document: path: Required");
   });
 
   test("should return error when path is empty string", async () => {
@@ -194,9 +192,7 @@ describe("update-document", () => {
     });
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot update document: path: Path is required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot update document: path: Path is required");
   });
 
   test("should return error when no update fields are provided", async () => {

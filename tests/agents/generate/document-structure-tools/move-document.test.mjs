@@ -158,9 +158,7 @@ describe("move-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.originalDocument).toBeUndefined();
     expect(result.updatedDocument).toBeUndefined();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "Error: Cannot move document - path: Required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("Error: Cannot move document - path: Required");
   });
 
   test("should return error when path is empty string", async () => {
@@ -171,9 +169,7 @@ describe("move-document", () => {
     });
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "Error: Cannot move document - path: Path is required",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("Error: Cannot move document - path: Path is required");
   });
 
   test("should return error when document does not exist", async () => {
