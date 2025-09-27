@@ -1,7 +1,7 @@
-name: evaluationDocument
+name: evaluateDocument
 description: Evaluates the quality of generated document content, ensuring compliance with user-configured goals, audiences, and knowledge level requirements.
 instructions:
-  url: ../../prompts/evaluate/evaluation-document.md
+  url: ../../prompts/evaluate/document.md
 model: openai/gpt-5
 # model: anthropic/claude-opus-4-0
 task_render_mode: collapse

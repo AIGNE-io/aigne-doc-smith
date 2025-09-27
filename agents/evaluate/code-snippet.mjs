@@ -13,7 +13,7 @@ const severityMapLevel = {
   warning: "minor",
 };
 
-export default async function evaluationDocumentCode({ content }) {
+export default async function evaluateDocumentCode({ content }) {
   const ast = getMarkdownAst({ markdown: content });
   const checkPromiseList = [];
   const checkListResult = [];
@@ -80,9 +80,9 @@ export default async function evaluationDocumentCode({ content }) {
   };
 }
 
-evaluationDocumentCode.description = "Traverse markdown code blocks and evaluate them.";
+evaluateDocumentCode.description = "Traverse markdown code blocks and evaluate them.";
 
-evaluationDocumentCode.input_schema = {
+evaluateDocumentCode.input_schema = {
   type: "object",
   properties: {
     content: {

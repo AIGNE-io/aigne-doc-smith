@@ -14,10 +14,10 @@ import { toRelativePath } from "../../utils/utils.mjs";
 /**
  * Generate and save evaluation report by aggregating results from both structure and document evaluation agents
  * @param {Object} params - Parameters object containing all evaluation data
- * @param {Object} params.purposeCoverage - Purpose coverage evaluation from evaluation-document-structure agent
- * @param {Object} params.audienceCoverage - Audience coverage evaluation from evaluation-document-structure agent
- * @param {Object} params.coverageDepthAlignment - Coverage depth alignment evaluation from evaluation-document-structure agent
- * @param {Array} params.originalDocumentStructure - Array of document evaluation results from evaluation-document agent
+ * @param {Object} params.purposeCoverage - Purpose coverage evaluation from evaluate/document-structure agent
+ * @param {Object} params.audienceCoverage - Audience coverage evaluation from evaluate/document-structure agent
+ * @param {Object} params.coverageDepthAlignment - Coverage depth alignment evaluation from evaluate/document-structure agent
+ * @param {Array} params.originalDocumentStructure - Array of document evaluation results from evaluate/document agent
  * @param {Object} [params.metadata] - Additional metadata for the report
  * @param {string} [params.basePath] - Base path for saving reports, defaults to current working directory
  * @returns {Promise<string>} Path to the saved report file

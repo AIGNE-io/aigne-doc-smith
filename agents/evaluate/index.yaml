@@ -19,13 +19,13 @@ skills:
           "datasourcesList": ""
         }
       ])
-  - ./evaluation-document-structure.yaml
+  - ./document-structure.yaml
   - type: team
     name: batchEvaluateDocument
     skills:
       - ../utils/load-document-all-content.mjs
-      - ./evaluation-document.yaml
-      - ./evaluation-document-code.mjs
+      - ./document.yaml
+      - ./code-snippet.mjs
       - type: transform
         task_render_mode: hide
         jsonata: |
@@ -35,5 +35,5 @@ skills:
     iterate_on: originalDocumentStructure
     concurrency: 5
     mode: sequential
-  - ./generate-evaluation-report.mjs
+  - ./generate-report.mjs
 mode: sequential
