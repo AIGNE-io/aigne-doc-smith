@@ -1,4 +1,5 @@
-import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
+import * as fsPromises from "node:fs/promises";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -295,5 +296,79 @@ describe("clear-document-structure", () => {
     expect(docsResult).toBeDefined();
     expect(docsResult.cleared).toBe(true);
     expect(docsResult.message).toContain("documents directory");
+  });
+
+  test("should handle structure plan file removal errors", async () => {
+    // Create a spy on rm to simulate an error for structure plan
+    const rmSpy = spyOn(fsPromises, "rm");
+    rmSpy.mockImplementation((path, _options) => {
+      if (path.includes("structure-plan.json")) {
+        throw new Error("Permission denied for structure plan");
+      }
+      return Promise.resolve();
+    });
+
+    try {
+      const result = await clearDocumentStructure({ workDir: testDir });
+
+      expect(result.hasError).toBe(true);
+      expect(result.message).toContain("Document structure cleanup finished with some issues.");
+
+      const structureResult = result.results.find((r) => r.type === "structure");
+      expect(structureResult.error).toBe(true);
+      expect(structureResult.message).toContain("Failed to clear document structure plan");
+      expect(structureResult.message).toContain("Permission denied for structure plan");
+    } finally {
+      rmSpy.mockRestore();
+    }
+  });
+
+  test("should handle documents directory removal errors", async () => {
+    // Create structure plan file
+    await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
+
+    // Create a spy on rm to simulate an error for docs directory
+    const rmSpy = spyOn(fsPromises, "rm");
+    rmSpy.mockImplementation((path, _options) => {
+      if (path === docsDir) {
+        throw new Error("Permission denied for docs directory");
+      }
+      return Promise.resolve();
+    });
+
+    try {
+      const result = await clearDocumentStructure({ workDir: testDir, docsDir });
+
+      expect(result.hasError).toBe(true);
+      expect(result.message).toContain("Document structure cleanup finished with some issues.");
+
+      const docsResult = result.results.find((r) => r.type === "documents");
+      expect(docsResult.error).toBe(true);
+      expect(docsResult.message).toContain("Failed to clear documents directory");
+      expect(docsResult.message).toContain("Permission denied for docs directory");
+    } finally {
+      rmSpy.mockRestore();
+    }
+  });
+
+  test("should handle both structure and docs errors simultaneously", async () => {
+    // Create a spy on rm to simulate errors for both operations
+    const rmSpy = spyOn(fsPromises, "rm");
+    rmSpy.mockImplementation(() => {
+      throw new Error("File system error");
+    });
+
+    try {
+      const result = await clearDocumentStructure({ workDir: testDir, docsDir });
+
+      expect(result.hasError).toBe(true);
+      expect(result.message).toContain("Document structure cleanup finished with some issues.");
+      expect(result.results).toHaveLength(2);
+
+      // Both operations should have errors
+      expect(result.results.every((r) => r.error)).toBe(true);
+    } finally {
+      rmSpy.mockRestore();
+    }
   });
 });

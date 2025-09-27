@@ -1,4 +1,5 @@
-import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
+import * as fsPromises from "node:fs/promises";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -143,5 +144,24 @@ documentPurpose: ["API", "Tutorial"]
 
     expect(result.cleared).toBe(true);
     expect(result.message).toContain("Cleared document configuration");
+  });
+
+  test("should handle file system errors gracefully", async () => {
+    // Create a spy on rm to simulate an error
+    const rmSpy = spyOn(fsPromises, "rm");
+    rmSpy.mockImplementation(() => {
+      throw new Error("Permission denied");
+    });
+
+    try {
+      const result = await clearDocumentConfig({ workDir: testDir });
+
+      expect(result.error).toBe(true);
+      expect(result.message).toContain("Failed to clear document configuration");
+      expect(result.message).toContain("Permission denied");
+      expect(result.path).toBeDefined();
+    } finally {
+      rmSpy.mockRestore();
+    }
   });
 });

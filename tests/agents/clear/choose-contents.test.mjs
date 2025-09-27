@@ -165,4 +165,114 @@ describe("choose-contents", () => {
       "Choose contents to clear and execute the appropriate clearing operations",
     );
   });
+
+  test("should handle unknown targets by filtering them out", async () => {
+    // Test that unknown targets are filtered out and valid ones are processed
+    // Mix unknown targets with valid ones
+    const result = await chooseContents(
+      { targets: ["unknownTarget1", "generatedDocs", "invalidTarget", "documentConfig"] },
+      mockOptions,
+    );
+
+    // Should process only the valid targets and succeed
+    expect(result.message).toContain("Cleanup completed successfully!");
+    expect(mockContext.invoke).toHaveBeenCalledTimes(2); // Only valid targets processed
+    expect(mockClearAgents.clearGeneratedDocs).toHaveBeenCalled();
+    expect(mockClearAgents.clearDocumentConfig).toHaveBeenCalled();
+  });
+
+  test("should handle missing clear agent in context", async () => {
+    const optionsWithoutAgent = {
+      context: {
+        agents: {},
+        invoke: mockContext.invoke,
+      },
+    };
+
+    const result = await chooseContents({ targets: ["generatedDocs"] }, optionsWithoutAgent);
+
+    expect(result.message).toContain("Cleanup finished with some issues.");
+    expect(result.message).toContain("Clear agent 'clearGeneratedDocs' not found in context");
+  });
+
+  test("should handle agent execution errors", async () => {
+    const errorContext = {
+      agents: mockClearAgents,
+      invoke: mock(async () => {
+        throw new Error("Agent execution failed");
+      }),
+    };
+
+    const optionsWithError = {
+      context: errorContext,
+    };
+
+    const result = await chooseContents({ targets: ["generatedDocs"] }, optionsWithError);
+
+    expect(result.message).toContain("Cleanup finished with some issues.");
+    expect(result.message).toContain("Failed to clear generated documents: Agent execution failed");
+  });
+
+  test("should handle duplicate targets", async () => {
+    await chooseContents(
+      { targets: ["generatedDocs", "generatedDocs", "documentConfig"] },
+      mockOptions,
+    );
+
+    // Should only invoke each agent once due to deduplication
+    expect(mockContext.invoke).toHaveBeenCalledTimes(2);
+    expect(mockClearAgents.clearGeneratedDocs).toHaveBeenCalledTimes(1);
+    expect(mockClearAgents.clearDocumentConfig).toHaveBeenCalledTimes(1);
+  });
+
+  test("should handle empty and whitespace targets", async () => {
+    await chooseContents({ targets: ["", "  ", "generatedDocs", null, undefined] }, mockOptions);
+
+    // Should only process the valid target
+    expect(mockContext.invoke).toHaveBeenCalledTimes(1);
+    expect(mockClearAgents.clearGeneratedDocs).toHaveBeenCalled();
+  });
+
+  test("should add default suggestion when config is cleared", async () => {
+    // Mock clearDocumentConfig to return cleared: true but no suggestions
+    mockClearAgents.clearDocumentConfig.mockResolvedValue({
+      message: "Document config cleared",
+      cleared: true,
+      path: "/test/config.yaml",
+    });
+
+    const result = await chooseContents({ targets: ["documentConfig"] }, mockOptions);
+
+    expect(result.message).toContain(
+      "Run `aigne doc init` to generate a fresh configuration file.",
+    );
+  });
+
+  test("should not duplicate default suggestion when already present", async () => {
+    // Mock clearDocumentConfig to return the default suggestion
+    mockClearAgents.clearDocumentConfig.mockResolvedValue({
+      message: "Document config cleared",
+      cleared: true,
+      path: "/test/config.yaml",
+      suggestions: ["Run `aigne doc init` to generate a fresh configuration file."],
+    });
+
+    const result = await chooseContents({ targets: ["documentConfig"] }, mockOptions);
+
+    // Should only appear once in the message
+    const suggestionCount = (result.message.match(/Run `aigne doc init`/g) || []).length;
+    expect(suggestionCount).toBe(1);
+  });
+
+  test("should handle agents that return no cleared status", async () => {
+    mockClearAgents.clearGeneratedDocs.mockResolvedValue({
+      message: "No docs to clear",
+      // No cleared property
+    });
+
+    const result = await chooseContents({ targets: ["generatedDocs"] }, mockOptions);
+
+    expect(result.message).toContain("Cleanup completed successfully!");
+    expect(result.message).toContain("No docs to clear");
+  });
 });

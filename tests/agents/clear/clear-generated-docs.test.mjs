@@ -1,4 +1,5 @@
-import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
+import * as fsPromises from "node:fs/promises";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -195,5 +196,27 @@ describe("clear-generated-docs", () => {
     const { pathExists } = await import("../../../utils/file-utils.mjs");
     const exists = await pathExists(specialDocsDir);
     expect(exists).toBe(false);
+  });
+
+  test("should handle file system errors gracefully", async () => {
+    // Create some test files first
+    await writeFile(join(docsDir, "test.md"), "test content");
+
+    // Create a spy on rm to simulate an error
+    const rmSpy = spyOn(fsPromises, "rm");
+    rmSpy.mockImplementation(() => {
+      throw new Error("Permission denied");
+    });
+
+    try {
+      const result = await clearGeneratedDocs({ docsDir });
+
+      expect(result.error).toBe(true);
+      expect(result.message).toContain("Failed to clear generated documents");
+      expect(result.message).toContain("Permission denied");
+      expect(result.path).toBeDefined();
+    } finally {
+      rmSpy.mockRestore();
+    }
   });
 });
