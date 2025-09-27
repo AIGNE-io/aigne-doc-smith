@@ -13,7 +13,7 @@ input_schema:
   properties:
     targets:
       type: array
-      description: Items to clear without prompting
+      description: Items to clear without confirmation
       items:
         type: string
         enum:

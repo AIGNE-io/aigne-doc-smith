@@ -6,7 +6,7 @@ export default async function clearGeneratedDocs(input = {}, _options = {}) {
 
   if (!docsDir) {
     return {
-      message: "⚠️ No generated documents directory specified",
+      message: "No generated documents directory specified",
     };
   }
 
@@ -19,8 +19,8 @@ export default async function clearGeneratedDocs(input = {}, _options = {}) {
     await rm(generatedDocsPath, { recursive: true, force: true });
 
     const message = existed
-      ? `🧹 Cleared generated documents (${displayPath})`
-      : `📦 Generated documents already empty (${displayPath})`;
+      ? `Cleared generated documents (${displayPath})`
+      : `Generated documents already empty (${displayPath})`;
 
     return {
       message,
@@ -29,7 +29,7 @@ export default async function clearGeneratedDocs(input = {}, _options = {}) {
     };
   } catch (error) {
     return {
-      message: `❌ Failed to clear generated documents: ${error.message}`,
+      message: `Failed to clear generated documents: ${error.message}`,
       error: true,
       path: displayPath,
     };

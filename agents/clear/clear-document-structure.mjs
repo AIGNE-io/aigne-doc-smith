@@ -20,8 +20,8 @@ export default async function clearDocumentStructure(input = {}, _options = {}) 
 
     const structureDisplayPath = toDisplayPath(structurePlanPath);
     const structureMessage = structureExists
-      ? `🧹 Cleared document structure plan (${structureDisplayPath})`
-      : `📦 Document structure plan already empty (${structureDisplayPath})`;
+      ? `Cleared document structure plan (${structureDisplayPath})`
+      : `Document structure plan already empty (${structureDisplayPath})`;
 
     results.push({
       type: "structure",
@@ -33,7 +33,7 @@ export default async function clearDocumentStructure(input = {}, _options = {}) 
     results.push({
       type: "structure",
       error: true,
-      message: `❌ Failed to clear document structure plan: ${error.message}`,
+      message: `Failed to clear document structure plan: ${error.message}`,
     });
   }
 
@@ -45,8 +45,8 @@ export default async function clearDocumentStructure(input = {}, _options = {}) 
 
       const docsDisplayPath = toDisplayPath(docsDir);
       const docsMessage = docsExists
-        ? `🧹 Cleared documents directory (${docsDisplayPath})`
-        : `📦 Documents directory already empty (${docsDisplayPath})`;
+        ? `Cleared documents directory (${docsDisplayPath})`
+        : `Documents directory already empty (${docsDisplayPath})`;
 
       results.push({
         type: "documents",
@@ -58,7 +58,7 @@ export default async function clearDocumentStructure(input = {}, _options = {}) 
       results.push({
         type: "documents",
         error: true,
-        message: `❌ Failed to clear documents directory: ${error.message}`,
+        message: `Failed to clear documents directory: ${error.message}`,
       });
     }
   }
@@ -69,11 +69,11 @@ export default async function clearDocumentStructure(input = {}, _options = {}) 
 
   let header;
   if (errorItems > 0) {
-    header = "⚠️ Document structure cleanup finished with some issues.";
+    header = "Document structure cleanup finished with some issues.";
   } else if (clearedItems > 0) {
-    header = "✅ Document structure cleared successfully!";
+    header = "Document structure cleared successfully!";
   } else {
-    header = "📦 Document structure already empty.";
+    header = "Document structure already empty.";
   }
 
   const detailLines = results.map((item) => `- ${item.message}`).join("\n");

@@ -1,22 +1,22 @@
 const TARGET_METADATA = {
   generatedDocs: {
     label: "generated documents",
-    description: "Remove all generated documents.",
+    description: "Delete all generated documents.",
     agent: "clearGeneratedDocs",
   },
   documentStructure: {
     label: "document structure",
-    description: "Remove the document structure and all generated documents.",
+    description: "Delete the document structure and all generated documents.",
     agent: "clearDocumentStructure",
   },
   documentConfig: {
     label: "document configuration",
-    description: "Remove the document configuration.",
+    description: "Delete the document configuration.",
     agent: "clearDocumentConfig",
   },
   authTokens: {
     label: "authorization tokens",
-    description: "Clear published sites authorization.",
+    description: "Clear published site authorizations.",
     agent: "clearAuthTokens",
   },
 };
@@ -52,12 +52,12 @@ export default async function chooseContents(input = {}, options = {}) {
       selectedTargets = await options.prompts.checkbox({
         message: "Select items to clear:",
         choices,
-        validate: (answer) => (answer.length > 0 ? true : "Select at least one item."),
+        validate: (answer) => (answer.length > 0 ? true : "Please select at least one item."),
       });
     } else {
       // If no prompts available, show available options
       return {
-        message: `📦 Available clear options: ${TARGET_KEYS.join(", ")}`,
+        message: `Available options to clear: ${TARGET_KEYS.join(", ")}`,
         availableTargets: TARGET_KEYS,
       };
     }
@@ -65,7 +65,7 @@ export default async function chooseContents(input = {}, options = {}) {
 
   if (selectedTargets.length === 0) {
     return {
-      message: "📦 No items selected to clear.",
+      message: "No items selected to clear.",
     };
   }
 
@@ -79,7 +79,7 @@ export default async function chooseContents(input = {}, options = {}) {
     if (!metadata) {
       results.push({
         status: "error",
-        message: `❌ Unknown target: ${target}`,
+        message: `Unknown target: ${target}`,
       });
       hasError = true;
       continue;
@@ -118,13 +118,13 @@ export default async function chooseContents(input = {}, options = {}) {
       hasError = true;
       results.push({
         status: "error",
-        message: `❌ Failed to clear ${metadata.label}: ${error.message}`,
+        message: `Failed to clear ${metadata.label}: ${error.message}`,
       });
     }
   }
 
   // Prepare response message
-  const header = hasError ? "⚠️ Cleanup finished with some issues." : "✅ Cleanup completed successfully!";
+  const header = hasError ? "Cleanup finished with some issues." : "Cleanup completed successfully!";
   const detailLines = results.map((item) => `- ${item.message}`).join("\n");
 
   // Collect suggestions
@@ -137,7 +137,7 @@ export default async function chooseContents(input = {}, options = {}) {
 
   // Add default suggestion if config was cleared
   if (configCleared && !suggestions.some((s) => s.includes("aigne doc init"))) {
-    suggestions.push("👉 Run `aigne doc init` to generate a fresh configuration file.");
+    suggestions.push("Run `aigne doc init` to generate a fresh configuration file.");
   }
 
   const message = [header, "", detailLines, suggestions.length ? "" : null, suggestions.join("\n")]
@@ -154,7 +154,7 @@ chooseContents.input_schema = {
   properties: {
     targets: {
       type: "array",
-      description: "Items to clear without prompting",
+      description: "Items to clear without confirmation",
       items: {
         type: "string",
         enum: TARGET_KEYS,
