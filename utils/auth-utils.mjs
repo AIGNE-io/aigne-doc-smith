@@ -193,7 +193,11 @@ export async function getOfficialAccessToken(baseUrl) {
       appName: "AIGNE DocSmith",
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
       openPage: (pageUrl) => {
-        console.log("🔗 Please open this URL to get the access token: ", chalk.cyan(pageUrl), "\n");
+        console.log(
+          "🔗 Please open this URL in your browser to authorize access: ",
+          chalk.cyan(pageUrl),
+          "\n",
+        );
         open(pageUrl);
       },
     });
@@ -251,7 +255,7 @@ async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue)
       }),
     );
   } catch (error) {
-    console.warn(`Failed to save token to config file: ${error.message}`, error);
+    console.warn(`Failed to save token to config file ${configFile}: ${error.message}`, error);
     // Don't throw here, as the token is already obtained and set in env
   }
 }

@@ -102,8 +102,8 @@ describe("deploy", () => {
       expect.objectContaining({
         cachedCheckoutId: undefined,
         cachedPaymentUrl: undefined,
-        page_info: expect.objectContaining({
-          success_message: expect.objectContaining({
+        pageInfo: expect.objectContaining({
+          successMessage: expect.objectContaining({
             en: expect.stringContaining("Congratulations"),
             zh: expect.stringContaining("恭喜您"),
           }),
@@ -264,7 +264,7 @@ describe("deploy", () => {
     // Test INSTALLATION_STARTING hook
     hooks.INSTALLATION_STARTING();
     let logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
-    expect(logs.some((log) => log.includes("📦 Step 2/4: Installation Website..."))).toBe(true);
+    expect(logs.some((log) => log.includes("📦 Step 2/4: Installing Website..."))).toBe(true);
 
     // Test SERVICE_STARTING hook
     hooks.SERVICE_STARTING();
