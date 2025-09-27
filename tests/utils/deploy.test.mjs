@@ -6,6 +6,11 @@ import * as authUtilsModule from "../../utils/auth-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
 import * as utilsModule from "../../utils/utils.mjs";
 
+const TEST_HOME_URL = "https_home_test_url";
+const TEST_APP_URL = "https_app_test_url";
+const TEST_DASHBOARD_URL = "https_dashboard_test_url";
+const TEST_SUBSCRIPTION_URL = "https_subscription_test_url";
+
 // Mock BrokerClient
 const mockBrokerClient = {
   deploy: mock(),
@@ -73,10 +78,10 @@ describe("deploy", () => {
   test("successful deployment flow", async () => {
     // Mock successful deployment result
     const mockResult = {
-      appUrl: "https://app.test",
-      homeUrl: "https://home.test",
-      dashboardUrl: "https://dashboard.test",
-      subscriptionUrl: "https://subscription.test",
+      appUrl: TEST_APP_URL,
+      homeUrl: TEST_HOME_URL,
+      dashboardUrl: TEST_DASHBOARD_URL,
+      subscriptionUrl: TEST_SUBSCRIPTION_URL,
       vendors: [{ token: "auth-token-123" }],
     };
 
@@ -121,10 +126,10 @@ describe("deploy", () => {
 
     // Verify result transformation
     expect(result).toEqual({
-      appUrl: "https://app.test",
-      homeUrl: "https://home.test",
-      dashboardUrl: "https://dashboard.test",
-      subscriptionUrl: "https://subscription.test",
+      appUrl: TEST_APP_URL,
+      homeUrl: TEST_HOME_URL,
+      dashboardUrl: TEST_DASHBOARD_URL,
+      subscriptionUrl: TEST_SUBSCRIPTION_URL,
       token: "auth-token-123",
     });
 
@@ -135,8 +140,8 @@ describe("deploy", () => {
 
   test("successful deployment with cached parameters", async () => {
     const mockResult = {
-      appUrl: "https://app.test",
-      homeUrl: "https://home.test",
+      appUrl: TEST_APP_URL,
+      homeUrl: TEST_HOME_URL,
       vendors: [{ token: "auth-token-123" }],
     };
 
@@ -152,7 +157,7 @@ describe("deploy", () => {
       }),
     );
 
-    expect(result.appUrl).toBe("https://app.test");
+    expect(result.appUrl).toBe(TEST_APP_URL);
     expect(result.token).toBe("auth-token-123");
   });
 
@@ -182,7 +187,7 @@ describe("deploy", () => {
     mockBrokerClient.deploy.mockImplementation(async (config) => {
       paymentPendingHook = config.hooks.PAYMENT_PENDING;
       return {
-        appUrl: "https://app.test",
+        appUrl: TEST_APP_URL,
         vendors: [{ token: "test-token" }],
       };
     });
@@ -223,7 +228,7 @@ describe("deploy", () => {
     mockBrokerClient.deploy.mockImplementation(async (config) => {
       paymentPendingHook = config.hooks.PAYMENT_PENDING;
       return {
-        appUrl: "https://app.test",
+        appUrl: TEST_APP_URL,
         vendors: [{ token: "test-token" }],
       };
     });
@@ -254,7 +259,7 @@ describe("deploy", () => {
     mockBrokerClient.deploy.mockImplementation(async (config) => {
       hooks = config.hooks;
       return {
-        appUrl: "https://app.test",
+        appUrl: TEST_APP_URL,
         vendors: [{ token: "test-token" }],
       };
     });
@@ -278,28 +283,28 @@ describe("deploy", () => {
 
     // Test ACCESS_READY hook without subscription
     await hooks.ACCESS_READY({
-      appUrl: "https://app.test",
-      homeUrl: "https://home.test",
+      appUrl: TEST_APP_URL,
+      homeUrl: TEST_HOME_URL,
     });
     logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
     expect(logs.some((log) => log.includes("🔗 Your website is available at:"))).toBe(true);
-    expect(logs.some((log) => log.includes("https://home.test"))).toBe(true);
+    expect(logs.some((log) => log.includes(TEST_HOME_URL))).toBe(true);
 
     // Test ACCESS_READY hook with subscription
     await hooks.ACCESS_READY({
-      appUrl: "https://app.test",
-      homeUrl: "https://home.test",
-      subscriptionUrl: "https://subscription.test",
+      appUrl: TEST_APP_URL,
+      homeUrl: TEST_HOME_URL,
+      subscriptionUrl: TEST_SUBSCRIPTION_URL,
     });
     logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
     expect(logs.some((log) => log.includes("🔗 Your subscription management URL:"))).toBe(true);
-    expect(logs.some((log) => log.includes("https://subscription.test"))).toBe(true);
+    expect(logs.some((log) => log.includes(TEST_SUBSCRIPTION_URL))).toBe(true);
   });
 
   test("handles missing vendors in result", async () => {
     const mockResult = {
-      appUrl: "https://app.test",
-      homeUrl: "https://home.test",
+      appUrl: TEST_APP_URL,
+      homeUrl: TEST_HOME_URL,
       vendors: null,
     };
 
@@ -308,14 +313,14 @@ describe("deploy", () => {
     const result = await deploy();
 
     expect(result.token).toBeUndefined();
-    expect(result.appUrl).toBe("https://app.test");
-    expect(result.homeUrl).toBe("https://home.test");
+    expect(result.appUrl).toBe(TEST_APP_URL);
+    expect(result.homeUrl).toBe(TEST_HOME_URL);
   });
 
   test("handles empty vendors array in result", async () => {
     const mockResult = {
-      appUrl: "https://app.test",
-      homeUrl: "https://home.test",
+      appUrl: TEST_APP_URL,
+      homeUrl: TEST_HOME_URL,
       vendors: [],
     };
 
@@ -324,15 +329,15 @@ describe("deploy", () => {
     const result = await deploy();
 
     expect(result.token).toBeUndefined();
-    expect(result.appUrl).toBe("https://app.test");
-    expect(result.homeUrl).toBe("https://home.test");
+    expect(result.appUrl).toBe(TEST_APP_URL);
+    expect(result.homeUrl).toBe(TEST_HOME_URL);
   });
 
   test("uses default BASE_URL when not set", async () => {
     delete process.env.DOC_SMITH_BASE_URL;
 
     const mockResult = {
-      appUrl: "https://app.test",
+      appUrl: TEST_APP_URL,
       vendors: [{ token: "test-token" }],
     };
 
@@ -355,7 +360,7 @@ describe("deploy", () => {
     mockBrokerClient.deploy.mockImplementation(async (config) => {
       paymentPendingHook = config.hooks.PAYMENT_PENDING;
       return {
-        appUrl: "https://app.test",
+        appUrl: TEST_APP_URL,
         vendors: [{ token: "test-token" }],
       };
     });
@@ -382,7 +387,7 @@ describe("deploy", () => {
     mockBrokerClient.deploy.mockImplementation(async (config) => {
       paymentPendingHook = config.hooks.PAYMENT_PENDING;
       return {
-        appUrl: "https://app.test",
+        appUrl: TEST_APP_URL,
         vendors: [{ token: "test-token" }],
       };
     });
