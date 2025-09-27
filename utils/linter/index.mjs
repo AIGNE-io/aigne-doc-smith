@@ -4,7 +4,7 @@ export async function lintCode({ code, linter = "biome-lint", suffix = ".js" }) 
   if (!code) {
     throw new Error("Code parameter is required");
   }
-  const timeout = 20000;
+  const timeout = 30 * 1000;
   let filename = `code${suffix}`;
   if (suffix === ".dockerfile") {
     filename = "Dockerfile";
