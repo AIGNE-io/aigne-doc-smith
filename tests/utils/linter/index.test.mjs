@@ -127,6 +127,99 @@ const EXPECTED = {
   },
 };
 
+// Error handling tests for uncovered lines
+describe("lintCode error handling", () => {
+  test("should throw error when code parameter is missing", async () => {
+    await expect(lintCode({ code: null })).rejects.toThrow("Code parameter is required");
+    await expect(lintCode({ code: undefined })).rejects.toThrow("Code parameter is required");
+    await expect(lintCode({ code: "" })).rejects.toThrow("Code parameter is required");
+    await expect(lintCode({})).rejects.toThrow("Code parameter is required");
+  });
+
+  test("should throw error for HTTP error response", async () => {
+    const originalFetch = globalThis.fetch;
+
+    // Mock fetch to return HTTP error
+    globalThis.fetch = async () => ({
+      ok: false,
+      status: 500,
+    });
+
+    try {
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("HTTP error! status: 500");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  test("should throw error for invalid response data", async () => {
+    const originalFetch = globalThis.fetch;
+
+    // Mock fetch to return response with null data
+    globalThis.fetch = async () => ({
+      ok: true,
+      json: async () => null,
+    });
+
+    try {
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("Invalid response data");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  test("should handle fetch timeout and other network errors", async () => {
+    const originalFetch = globalThis.fetch;
+
+    // Mock fetch to throw network error
+    globalThis.fetch = async () => {
+      throw new Error("Network error");
+    };
+
+    try {
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("Linting failed: Network error");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  test("should handle JSON parsing errors", async () => {
+    const originalFetch = globalThis.fetch;
+
+    // Mock fetch to return invalid JSON
+    globalThis.fetch = async () => ({
+      ok: true,
+      json: async () => {
+        throw new Error("Invalid JSON");
+      },
+    });
+
+    try {
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("Linting failed: Invalid JSON");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  test("should handle AbortController abort signal", async () => {
+    const originalFetch = globalThis.fetch;
+
+    // Mock fetch to simulate abort error
+    globalThis.fetch = async (_url, _options) => {
+      // Simulate immediate abort
+      const error = new Error("The operation was aborted");
+      error.name = "AbortError";
+      throw error;
+    };
+
+    try {
+      await expect(lintCode({ code: "console.log('test')" })).rejects.toThrow("Linting failed: The operation was aborted");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+});
+
 describe("lintCode js", () => {
   const jsLinter = CODE_LANGUAGE_MAP_LINTER.js;
 

@@ -3,6 +3,106 @@ import { stringify } from "yaml";
 import formatDocumentStructure from "../../../agents/utils/format-document-structure.mjs";
 
 describe("format-document-structure", () => {
+  // EDGE CASE TESTS
+  test("should handle when both documentStructure and originalDocumentStructure are null", async () => {
+    const result = await formatDocumentStructure({
+      documentStructure: null,
+      originalDocumentStructure: null,
+    });
+
+    expect(result).toEqual({
+      documentStructureYaml: "",
+      documentStructure: [],
+    });
+  });
+
+  test("should handle when both documentStructure and originalDocumentStructure are undefined", async () => {
+    const result = await formatDocumentStructure({
+      documentStructure: undefined,
+      originalDocumentStructure: undefined,
+    });
+
+    expect(result).toEqual({
+      documentStructureYaml: "",
+      documentStructure: [],
+    });
+  });
+
+  test("should handle when both parameters are missing", async () => {
+    const result = await formatDocumentStructure({});
+
+    expect(result).toEqual({
+      documentStructureYaml: "",
+      documentStructure: [],
+    });
+  });
+
+  test("should use originalDocumentStructure when documentStructure is null", async () => {
+    const originalDocumentStructure = [
+      {
+        title: "Original Document",
+        path: "/original",
+        parentId: null,
+        description: "From original structure",
+        extraField: "should be filtered out",
+      },
+    ];
+
+    const result = await formatDocumentStructure({
+      documentStructure: null,
+      originalDocumentStructure,
+    });
+
+    const expectedData = [
+      {
+        title: "Original Document",
+        path: "/original",
+        parentId: null,
+        description: "From original structure",
+      },
+    ];
+    const expectedYaml = stringify(expectedData, {
+      indent: 2,
+      lineWidth: 120,
+      minContentWidth: 20,
+    });
+
+    expect(result.documentStructureYaml).toBe(expectedYaml);
+    expect(result.documentStructure).toBe(null);
+  });
+
+  test("should use originalDocumentStructure when documentStructure is undefined", async () => {
+    const originalDocumentStructure = [
+      {
+        title: "Fallback Document",
+        path: "/fallback",
+        parentId: "parent-id",
+        description: "Fallback to original",
+      },
+    ];
+
+    const result = await formatDocumentStructure({
+      originalDocumentStructure,
+    });
+
+    const expectedData = [
+      {
+        title: "Fallback Document",
+        path: "/fallback",
+        parentId: "parent-id",
+        description: "Fallback to original",
+      },
+    ];
+    const expectedYaml = stringify(expectedData, {
+      indent: 2,
+      lineWidth: 120,
+      minContentWidth: 20,
+    });
+
+    expect(result.documentStructureYaml).toBe(expectedYaml);
+    expect(result.documentStructure).toBe(undefined);
+  });
+
   // BASIC FUNCTIONALITY TESTS
   test("should format empty document structure", async () => {
     const result = await formatDocumentStructure({
