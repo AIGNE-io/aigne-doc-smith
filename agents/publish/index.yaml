@@ -8,6 +8,7 @@ skills:
   - url: ../init/index.mjs
     default_input:
       skipIfExists: true
+      checkOnly: true
   - publish-docs.mjs
 input_schema:
   type: object

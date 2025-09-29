@@ -32,9 +32,27 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @returns {Promise<Object>}
  */
 export default async function init(
-  { outputPath = ".aigne/doc-smith", fileName = "config.yaml", skipIfExists = false, appUrl },
+  {
+    outputPath = ".aigne/doc-smith",
+    fileName = "config.yaml",
+    skipIfExists = false,
+    appUrl,
+    checkOnly = false,
+  },
   options,
 ) {
+  // Check if we're in checkOnly mode
+  if (checkOnly) {
+    const filePath = join(outputPath, fileName);
+    const configContent = await readFile(filePath, "utf8").catch(() => null);
+
+    if (!configContent || configContent.trim() === "") {
+      console.log(`⚠️  No configuration found.`);
+      console.log(`🚀 Run ${chalk.cyan("aigne doc init")} to set up your documentation configuration.`);
+      process.exit(0);
+    }
+  }
+
   if (skipIfExists) {
     const filePath = join(outputPath, fileName);
     const configContent = await readFile(filePath, "utf8").catch(() => null);
