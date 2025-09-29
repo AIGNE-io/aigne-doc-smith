@@ -1438,6 +1438,128 @@ describe("init", () => {
     });
   });
 
+  describe("checkOnly parameter", () => {
+    test("should exit silently when checkOnly is true and config exists", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        // Create existing config file
+        const configPath = join(tempDir, "config.yaml");
+        const existingConfig = `projectName: "Test Project"
+locale: "en"
+documentPurpose:
+  - getStarted
+targetAudienceTypes:
+  - developers`;
+        await fs.writeFile(configPath, existingConfig, "utf8");
+
+        // The function should continue normally when config exists
+        // No mocking needed as it doesn't log or exit in this case
+        const result = await init(
+          {
+            outputPath: tempDir,
+            fileName: "config.yaml",
+            checkOnly: true,
+          },
+          { prompts: {} }, // Options not needed for checkOnly
+        );
+
+        // Should return loaded config
+        expect(result).toBeDefined();
+        expect(result.projectName).toBe("Test Project");
+        expect(result.locale).toBe("en");
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should show reminder and exit when checkOnly is true and config doesn't exist", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        // Mock console.log and process.exit
+        const originalLog = console.log;
+        const originalExit = process.exit;
+        const logMessages = [];
+        let exitCalled = false;
+        let exitCode = null;
+
+        console.log = (...args) => logMessages.push(args.join(" "));
+        process.exit = (code) => {
+          exitCalled = true;
+          exitCode = code;
+          throw new Error("process.exit called"); // Prevent actual exit
+        };
+
+        try {
+          await expect(
+            init(
+              {
+                outputPath: tempDir,
+                fileName: "config.yaml",
+                checkOnly: true,
+              },
+              { prompts: {} },
+            ),
+          ).rejects.toThrow("process.exit called");
+
+          // Should log reminder messages
+          expect(logMessages.some((msg) => msg.includes("No configuration found"))).toBe(true);
+          expect(logMessages.some((msg) => msg.includes("aigne doc init"))).toBe(true);
+
+          // Should call process.exit(0)
+          expect(exitCalled).toBe(true);
+          expect(exitCode).toBe(0);
+        } finally {
+          console.log = originalLog;
+          process.exit = originalExit;
+        }
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+
+    test("should not interfere with normal workflow when checkOnly is false", async () => {
+      const tempDir = await createTempDir();
+
+      try {
+        const mockPrompts = createMockPrompts({
+          checkbox_1: ["getStarted"],
+          checkbox_2: ["developers"],
+          select_3: "domainFamiliar",
+          select_4: "balancedCoverage",
+          select_5: "en",
+          checkbox_6: [],
+          input_7: join(tempDir, "docs"),
+          search: "",
+        });
+
+        const options = { prompts: mockPrompts };
+
+        const result = await init(
+          {
+            outputPath: tempDir,
+            fileName: "config.yaml",
+            checkOnly: false, // Explicit false
+          },
+          options,
+        );
+
+        expect(result).toBeDefined();
+
+        // Check that config file was created normally
+        const configPath = join(tempDir, "config.yaml");
+        const configExists = await fs
+          .access(configPath)
+          .then(() => true)
+          .catch(() => false);
+        expect(configExists).toBe(true);
+      } finally {
+        await cleanupTempDir(tempDir);
+      }
+    });
+  });
+
   describe("Advanced source path scenarios", () => {
     test("should handle source path validation and duplicate detection", async () => {
       const tempDir = await createTempDir();

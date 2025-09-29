@@ -1,4 +1,4 @@
-import { readdir, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 /**
@@ -120,6 +120,17 @@ export async function readFileContent(docsDir, fileName) {
  * @returns {Promise<string[]>} Array of main language .md files ordered by documentExecutionStructure
  */
 export async function getMainLanguageFiles(docsDir, locale, documentExecutionStructure = null) {
+  // Check if docsDir exists
+  try {
+    await access(docsDir);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return [];
+    }
+
+    throw error;
+  }
+
   const files = await readdir(docsDir);
 
   // Filter for main language .md files (exclude _sidebar.md)

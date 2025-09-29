@@ -34,18 +34,33 @@ export default async function chooseDocs(
       );
 
       if (mainLanguageFiles.length === 0) {
-        throw new Error("No documents found in the docs directory");
+        throw new Error(
+          "No documents found in the docs directory. Please run `aigne docs generate` to generate the documents",
+        );
       }
+
+      // Convert files to choices with titles
+      const choices = mainLanguageFiles.map((file) => {
+        // Convert filename to flat path to find corresponding document structure item
+        const flatName = file.replace(/\.md$/, "").replace(/\.\w+(-\w+)?$/, "");
+        const docItem = documentExecutionStructure.find((item) => {
+          const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
+          return itemFlattenedPath === flatName;
+        });
+
+        // Use title if available, otherwise fall back to filename
+        const displayName = docItem?.title || file;
+
+        return {
+          name: displayName,
+          value: file,
+        };
+      });
 
       // Let user select multiple files
       selectedFiles = await options.prompts.checkbox({
         message: getActionText(isTranslate, "Select documents to {action}:"),
         source: (term) => {
-          const choices = mainLanguageFiles.map((file) => ({
-            name: file,
-            value: file,
-          }));
-
           if (!term) return choices;
 
           return choices.filter((choice) => choice.name.toLowerCase().includes(term.toLowerCase()));
@@ -66,10 +81,7 @@ export default async function chooseDocs(
       foundItems = await processSelectedFiles(selectedFiles, documentExecutionStructure, docsDir);
     } catch (error) {
       throw new Error(
-        getActionText(
-          isTranslate,
-          `Please provide a docs parameter to specify which documents to {action}: ${error.message}`,
-        ),
+        getActionText(isTranslate, `\nFailed to select documents to {action}: ${error.message}`),
       );
     }
   } else {

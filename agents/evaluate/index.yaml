@@ -5,6 +5,7 @@ skills:
   - url: ../init/index.mjs
     default_input:
       skipIfExists: true
+      checkOnly: true
   - ../utils/load-sources.mjs
   - ../utils/format-document-structure.mjs
   - type: transform
