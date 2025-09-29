@@ -47,7 +47,7 @@ export default async function init(
     const configContent = await readFile(filePath, "utf8").catch(() => null);
 
     if (!configContent || configContent.trim() === "") {
-      console.log(`⚠️  No configuration found.`);
+      console.log(`⚠️ No configuration found.`);
       console.log(
         `🚀 Run ${chalk.cyan("aigne doc init")} to set up your documentation configuration.`,
       );

@@ -123,8 +123,12 @@ export async function getMainLanguageFiles(docsDir, locale, documentExecutionStr
   // Check if docsDir exists
   try {
     await access(docsDir);
-  } catch {
-    return [];
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return [];
+    }
+
+    throw error;
   }
 
   const files = await readdir(docsDir);
