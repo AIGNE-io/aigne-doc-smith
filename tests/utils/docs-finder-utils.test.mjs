@@ -615,6 +615,14 @@ describe("docs-finder-utils", () => {
       await expect(getMainLanguageFiles("/denied", "en")).rejects.toThrow("Permission denied");
     });
 
+    test("getMainLanguageFiles should throw non-ENOENT access errors", async () => {
+      const permissionError = new Error("Permission denied");
+      permissionError.code = "EACCES";
+      accessSpy.mockRejectedValue(permissionError);
+
+      await expect(getMainLanguageFiles("/denied", "en")).rejects.toThrow("Permission denied");
+    });
+
     test("processSelectedFiles should handle empty document structure", async () => {
       readFileSpy.mockResolvedValue("content");
 
