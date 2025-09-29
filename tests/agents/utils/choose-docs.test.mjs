@@ -186,9 +186,6 @@ describe("chooseDocs utility", () => {
     await expect(chooseDocs(input, mockOptions)).rejects.toThrow(
       "Please provide a docs parameter to specify which documents to update",
     );
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      new Error("No documents found in the docs directory"),
-    );
   });
 
   test("should throw error when no documents selected interactively", async () => {

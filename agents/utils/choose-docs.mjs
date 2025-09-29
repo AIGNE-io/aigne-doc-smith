@@ -65,11 +65,10 @@ export default async function chooseDocs(
       // Process selected files and convert to found items
       foundItems = await processSelectedFiles(selectedFiles, documentExecutionStructure, docsDir);
     } catch (error) {
-      console.error(error);
       throw new Error(
         getActionText(
           isTranslate,
-          "Please provide a docs parameter to specify which documents to {action}",
+          `Please provide a docs parameter to specify which documents to {action}: ${error.message}`,
         ),
       );
     }
