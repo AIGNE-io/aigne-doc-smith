@@ -15,6 +15,7 @@ import {
 describe("docs-finder-utils", () => {
   let readdirSpy;
   let readFileSpy;
+  let accessSpy;
   let joinSpy;
   let consoleWarnSpy;
 
@@ -22,6 +23,7 @@ describe("docs-finder-utils", () => {
     // Mock file system operations
     readdirSpy = spyOn(fs, "readdir").mockResolvedValue([]);
     readFileSpy = spyOn(fs, "readFile").mockResolvedValue("test content");
+    accessSpy = spyOn(fs, "access").mockResolvedValue(undefined);
     joinSpy = spyOn(path, "join").mockImplementation((...paths) => paths.join("/"));
 
     // Mock console methods
@@ -31,6 +33,7 @@ describe("docs-finder-utils", () => {
   afterEach(() => {
     readdirSpy?.mockRestore();
     readFileSpy?.mockRestore();
+    accessSpy?.mockRestore();
     joinSpy?.mockRestore();
     consoleWarnSpy?.mockRestore();
   });
@@ -606,6 +609,7 @@ describe("docs-finder-utils", () => {
     });
 
     test("getMainLanguageFiles should handle readdir errors", async () => {
+      accessSpy.mockResolvedValue(undefined); // Directory exists
       readdirSpy.mockRejectedValue(new Error("Permission denied"));
 
       await expect(getMainLanguageFiles("/denied", "en")).rejects.toThrow("Permission denied");
