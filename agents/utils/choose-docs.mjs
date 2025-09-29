@@ -34,7 +34,9 @@ export default async function chooseDocs(
       );
 
       if (mainLanguageFiles.length === 0) {
-        throw new Error("No documents found in the docs directory");
+        throw new Error(
+          "No documents found in the docs directory, please run `aigne docs generate` to generate the documents",
+        );
       }
 
       // Convert files to choices with titles
@@ -79,10 +81,7 @@ export default async function chooseDocs(
       foundItems = await processSelectedFiles(selectedFiles, documentExecutionStructure, docsDir);
     } catch (error) {
       throw new Error(
-        getActionText(
-          isTranslate,
-          `Please provide a docs parameter to specify which documents to {action}: ${error.message}`,
-        ),
+        getActionText(isTranslate, `\nFailed to select documents to {action} - ${error.message}`),
       );
     }
   } else {
