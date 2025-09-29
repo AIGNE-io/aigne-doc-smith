@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.11-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.2...v0.8.11-beta.3) (2025-09-29)
+
+
+### Bug Fixes
+
+* add evaluation agents cil entry ([#143](https://github.com/AIGNE-io/aigne-doc-smith/issues/143)) ([016096a](https://github.com/AIGNE-io/aigne-doc-smith/commit/016096af6c0cec0b86fc538e1f0b7b42e928451b))
+
 ## [0.8.11-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.1...v0.8.11-beta.2) (2025-09-27)
 
 
