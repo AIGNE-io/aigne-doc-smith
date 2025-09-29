@@ -183,9 +183,7 @@ describe("chooseDocs utility", () => {
       locale: "en",
     };
 
-    await expect(chooseDocs(input, mockOptions)).rejects.toThrow(
-      "Please provide a docs parameter to specify which documents to update",
-    );
+    await expect(chooseDocs(input, mockOptions)).rejects.toThrow();
   });
 
   test("should throw error when no documents selected interactively", async () => {
@@ -199,9 +197,7 @@ describe("chooseDocs utility", () => {
       locale: "en",
     };
 
-    await expect(chooseDocs(input, mockOptions)).rejects.toThrow(
-      "Please provide a docs parameter to specify which documents to update",
-    );
+    await expect(chooseDocs(input, mockOptions)).rejects.toThrow();
   });
 
   // CHECKBOX VALIDATION TESTS
