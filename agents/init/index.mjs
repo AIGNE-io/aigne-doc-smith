@@ -48,9 +48,14 @@ export default async function init(
 
     if (!configContent || configContent.trim() === "") {
       console.log(`⚠️  No configuration found.`);
-      console.log(`🚀 Run ${chalk.cyan("aigne doc init")} to set up your documentation configuration.`);
+      console.log(
+        `🚀 Run ${chalk.cyan("aigne doc init")} to set up your documentation configuration.`,
+      );
       process.exit(0);
     }
+
+    // Config exists, load and return it
+    return loadConfig({ config: filePath, appUrl });
   }
 
   if (skipIfExists) {
