@@ -1,6 +1,7 @@
 type: team
 name: updateSingleDocument
 skills:
+  - ../utils/transform-detail-datasources.mjs
   - ../update/user-review-document.mjs
   - type: transform
     task_render_mode: hide
