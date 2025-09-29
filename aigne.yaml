@@ -79,6 +79,10 @@ agents:
 
   # Evaluation
   - ./agents/evaluate/index.yaml
+  - ./agents/evaluate/generate-report.mjs
+  - ./agents/evaluate/document-structure.yaml
+  - ./agents/evaluate/document.yaml
+  - ./agents/evaluate/code-snippet.mjs
 cli:
   chat: ./agents/chat/index.yaml
   agents:
@@ -89,6 +93,7 @@ cli:
     - ./agents/translate/index.yaml
     - ./agents/clear/index.yaml
     - ./agents/prefs/index.mjs
+    - ./agents/evaluate/index.yaml
 mcp_server:
   agents:
     - ./docs-mcp/get-docs-structure.mjs
