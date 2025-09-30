@@ -67,32 +67,46 @@ function countTableColumns(line) {
  * @param {Array} errorMessages - Array to push error messages to
  */
 function checkDeadLinks(markdown, source, allowedLinks, errorMessages) {
+  // Helper function to validate a link
+  const validateLink = (link, linkType) => {
+    const trimLink = link.trim();
+
+    // Only check links that processContent would process
+    // Exclude external links and mailto
+    if (/^(https?:\/\/|mailto:)/.test(trimLink)) return;
+
+    // Preserve anchors
+    const [path, _hash] = trimLink.split("#");
+
+    // Only process relative paths or paths starting with /
+    if (!path) return;
+
+    // Check if this link is in the allowed links set
+    if (!allowedLinks.has(path)) {
+      errorMessages.push(
+        `Found a dead link in ${source}: ${linkType}, ensure the link exists in the document structure path`,
+      );
+    }
+  };
+
+  // Check markdown format links: [text](url)
   const linkRegex = /(?<!!)\[([^\]]+)\]\(([^)]+)\)/g;
   let match;
 
   while (true) {
     match = linkRegex.exec(markdown);
     if (match === null) break;
+    validateLink(match[2], `[${match[1]}](${match[2].trim()})`);
+  }
 
-    const link = match[2];
-    const trimLink = link.trim();
+  // Check data-href attributes in x-card tags
+  const dataHrefRegex = /data-href=["']([^"']+)["']/g;
+  let dataHrefMatch;
 
-    // Only check links that processContent would process
-    // Exclude external links and mailto
-    if (/^(https?:\/\/|mailto:)/.test(trimLink)) continue;
-
-    // Preserve anchors
-    const [path, _hash] = trimLink.split("#");
-
-    // Only process relative paths or paths starting with /
-    if (!path) continue;
-
-    // Check if this link is in the allowed links set
-    if (!allowedLinks.has(path)) {
-      errorMessages.push(
-        `Found a dead link in ${source}: [${match[1]}](${trimLink}), ensure the link exists in the document structure path`,
-      );
-    }
+  while (true) {
+    dataHrefMatch = dataHrefRegex.exec(markdown);
+    if (dataHrefMatch === null) break;
+    validateLink(dataHrefMatch[1], `data-href="${dataHrefMatch[1]}"`);
   }
 }
 
