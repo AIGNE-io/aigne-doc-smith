@@ -15,8 +15,8 @@ importers:
         specifier: ^0.14.0
         version: 0.14.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/cli':
-        specifier: ^1.49.0
-        version: 1.49.0(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(debug@4.4.3)(listr2@9.0.1)(ws@8.18.3)
+        specifier: ^1.49.1
+        version: 1.49.1(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(debug@4.4.3)(listr2@9.0.1)(ws@8.18.3)
       '@aigne/core':
         specifier: ^1.61.0
         version: 1.61.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
@@ -30,8 +30,8 @@ importers:
         specifier: ^0.11.0
         version: 0.11.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
       '@blocklet/payment-broker-client':
-        specifier: ^1.20.20
-        version: 1.20.20
+        specifier: ^1.21.2
+        version: 1.21.2
       '@terrastruct/d2':
         specifier: ^0.1.33
         version: 0.1.33
@@ -132,8 +132,8 @@ packages:
   '@aigne/bedrock@0.10.5':
     resolution: {integrity: sha512-lMq+rzdjWg8MgQ1nJw28/6HfAwQd0LtMztwEX6uJMr7wJ4TNeL4k5mYVUkOCPybf32eg6xHoT9Z1e0YUR7pjwg==}
 
-  '@aigne/cli@1.49.0':
-    resolution: {integrity: sha512-Ef1WVWVxFJO3m8bEEYUhy8TeJeJv/nHtrJi3VsHdMbabbd+SBcXqdv5WOd6EQsjYFahqnC8w66qkY6cUxlKUmw==}
+  '@aigne/cli@1.49.1':
+    resolution: {integrity: sha512-MP8sHnKbwIAyRYdw56w1mNzM+06h0ESD+FSHJrltyg27PpJ2PRdgnojchL4SXYimBVFeBm4gYVwCF05x/V1BZQ==}
     hasBin: true
 
   '@aigne/core@1.61.0':
@@ -407,8 +407,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@blocklet/payment-broker-client@1.20.20':
-    resolution: {integrity: sha512-yYhsM0ZWQaYBQinQcytku9gFq3BTyzL9pd34QZjZo9CRIIh//OuqaCS24sgj7nuzo9UiwJCXUdEdp4MddeZ/SA==}
+  '@blocklet/payment-broker-client@1.21.2':
+    resolution: {integrity: sha512-FzO7iKhBhHteM4P2MP47d6VIR3t0UTMFVSawC8yNXLG7wNaWqztuM5F9Ni/G1px3udwUolSwio1dcmCc3z2sNw==}
     engines: {node: '>=14.0.0'}
 
   '@braintree/sanitize-url@7.1.1':
@@ -4450,7 +4450,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@aigne/cli@1.49.0(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(debug@4.4.3)(listr2@9.0.1)(ws@8.18.3)':
+  '@aigne/cli@1.49.1(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(debug@4.4.3)(listr2@9.0.1)(ws@8.18.3)':
     dependencies:
       '@aigne/agent-library': 1.21.46(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/agentic-memory': 1.0.46(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
@@ -5675,7 +5675,7 @@ snapshots:
   '@biomejs/cli-win32-x64@2.2.4':
     optional: true
 
-  '@blocklet/payment-broker-client@1.20.20': {}
+  '@blocklet/payment-broker-client@1.21.2': {}
 
   '@braintree/sanitize-url@7.1.1': {}
 
