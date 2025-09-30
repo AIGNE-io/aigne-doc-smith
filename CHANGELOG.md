@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.11-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.3...v0.8.11-beta.4) (2025-09-30)
+
+
+### Features
+
+* add check-only option for agents with selection input ([#147](https://github.com/AIGNE-io/aigne-doc-smith/issues/147)) ([3340988](https://github.com/AIGNE-io/aigne-doc-smith/commit/3340988e67ffef7e1087d560930b3cf98c860693))
+
+
+### Bug Fixes
+
+* improve error handling in choose-docs utility ([#145](https://github.com/AIGNE-io/aigne-doc-smith/issues/145)) ([7052ffc](https://github.com/AIGNE-io/aigne-doc-smith/commit/7052ffc106817144bff815422dced7faa4dfc3e8))
+* translation prompt tuned; translate comments only in code blocks ([#149](https://github.com/AIGNE-io/aigne-doc-smith/issues/149)) ([30ce2c0](https://github.com/AIGNE-io/aigne-doc-smith/commit/30ce2c0e43c01b6588b4ada84aafecfd83c1b23b))
+
 ## [0.8.11-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.2...v0.8.11-beta.3) (2025-09-29)
 
 
