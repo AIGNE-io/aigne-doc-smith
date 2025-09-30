@@ -65,7 +65,7 @@ export default async function publishDocs(
         ...(hasCachedCheckoutId
           ? [
               {
-                name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment is already processed.`,
+                name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment has already been processed.`,
                 value: "new-instance-continue",
               },
             ]

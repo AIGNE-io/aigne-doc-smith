@@ -334,7 +334,7 @@ export const PAYMENT_KIT_DID = "z2qaCNvKMv5GjouKdcDWexv6WqtHbpNPQDnAk";
 
 export const DOC_OFFICIAL_ACCESS_TOKEN = "DOC_OFFICIAL_ACCESS_TOKEN";
 
-// Default app URL for document deployment website
+// Default application URL for the document deployment website.
 export const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
 // Discuss Kit related URLs
