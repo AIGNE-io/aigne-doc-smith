@@ -6,7 +6,7 @@ export const documentItemSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   path: z.string().startsWith("/", 'Path must start with "/"'),
-  parentId: z.string().nullable(),
+  parentId: z.string().nullable().optional(),
   sourceIds: z.array(z.string()).min(1, "At least one source ID is required"),
 });
 
@@ -46,7 +46,7 @@ export const moveDocumentInputSchema = z.object({
   documentStructure: documentStructureSchema,
   path: z.string().min(1, "Path is required"),
   newParentId: z.string().nullable().optional(),
-  newPath: z.string().startsWith("/", 'New path must start with "/"').optional(),
+  newPath: z.string().startsWith("/", 'New path must start with "/"'),
 });
 
 export const moveDocumentOutputSchema = z.object({
@@ -136,7 +136,7 @@ export const getMoveDocumentInputJsonSchema = () => {
     schema.properties.newParentId.description =
       "Path of the new parent document (leave empty for top-level)";
     schema.properties.newPath.description =
-      "New URL path for the document (optional, if not provided, keeps the original path)";
+      "New URL path for the document, path needs to be updated accordingly new parent path";
   }
   return schema;
 };
