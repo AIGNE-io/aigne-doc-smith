@@ -26,6 +26,7 @@ export const addDocumentInputSchema = z.object({
 export const addDocumentOutputSchema = z.object({
   documentStructure: documentStructureSchema,
   addedDocument: documentItemSchema.optional(),
+  message: z.string(),
 });
 
 // Delete document schemas
@@ -37,6 +38,7 @@ export const deleteDocumentInputSchema = z.object({
 export const deleteDocumentOutputSchema = z.object({
   documentStructure: documentStructureSchema,
   deletedDocument: documentItemSchema.optional(),
+  message: z.string(),
 });
 
 // Move document schemas
@@ -44,12 +46,14 @@ export const moveDocumentInputSchema = z.object({
   documentStructure: documentStructureSchema,
   path: z.string().min(1, "Path is required"),
   newParentId: z.string().nullable().optional(),
+  newPath: z.string().startsWith("/", 'New path must start with "/"').optional(),
 });
 
 export const moveDocumentOutputSchema = z.object({
   documentStructure: documentStructureSchema,
   originalDocument: documentItemSchema.optional(),
   updatedDocument: documentItemSchema.optional(),
+  message: z.string(),
 });
 
 // Update document schemas
@@ -73,6 +77,7 @@ export const updateDocumentOutputSchema = z.object({
   documentStructure: documentStructureSchema,
   originalDocument: documentItemSchema.optional(),
   updatedDocument: documentItemSchema.optional(),
+  message: z.string(),
 });
 
 // JSON Schema conversion functions using zodToJsonSchema
@@ -98,6 +103,7 @@ export const getAddDocumentOutputJsonSchema = () => {
     schema.properties.documentStructure.description =
       "Updated document structure array with the new document added";
     schema.properties.addedDocument.description = "The newly added document object";
+    schema.properties.message.description = "Detailed description of the operation result";
   }
   return schema;
 };
@@ -117,6 +123,7 @@ export const getDeleteDocumentOutputJsonSchema = () => {
     schema.properties.documentStructure.description =
       "Updated document structure array with the document removed";
     schema.properties.deletedDocument.description = "The deleted document object";
+    schema.properties.message.description = "Detailed description of the operation result";
   }
   return schema;
 };
@@ -128,6 +135,8 @@ export const getMoveDocumentInputJsonSchema = () => {
     schema.properties.path.description = "URL path of the document to move";
     schema.properties.newParentId.description =
       "Path of the new parent document (leave empty for top-level)";
+    schema.properties.newPath.description =
+      "New URL path for the document (optional, if not provided, keeps the original path)";
   }
   return schema;
 };
@@ -139,6 +148,7 @@ export const getMoveDocumentOutputJsonSchema = () => {
       "Updated document structure array with the document moved";
     schema.properties.originalDocument.description = "The original document object before moving";
     schema.properties.updatedDocument.description = "The updated document object after moving";
+    schema.properties.message.description = "Detailed description of the operation result";
   }
   return schema;
 };
@@ -170,6 +180,7 @@ export const getUpdateDocumentOutputJsonSchema = () => {
     schema.properties.originalDocument.description = "The original document object before update";
     schema.properties.updatedDocument.description =
       "The updated document object after modification";
+    schema.properties.message.description = "Detailed description of the operation result";
   }
   return schema;
 };
