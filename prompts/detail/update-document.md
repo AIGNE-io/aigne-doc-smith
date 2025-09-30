@@ -95,7 +95,7 @@ parentId: {{parentId}}
 </current_document>
 
 <datasources>
-{{ datasources }}
+{{ detailDataSources }}
 
 {{ additionalInformation }}
 
