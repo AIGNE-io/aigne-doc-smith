@@ -21,9 +21,6 @@ Your task is to analyze the original document content and user feedback, then us
 {{originalContent}}
 </original_content>
 
-<user_feedback>
-{{feedback}}
-
 <feedback_analysis_guidelines>
 
 Analyze the user feedback to determine the specific improvements needed:
@@ -54,8 +51,6 @@ Analyze the user feedback to determine the specific improvements needed:
 - Example: "Reorganize the troubleshooting section for better flow"
 
 </feedback_analysis_guidelines>
-
-</user_feedback>
 
 <content_optimization_rules>
 

@@ -12,7 +12,7 @@ export default async function updateDocumentContent(input) {
     return {
       success: false,
       error: validation.error,
-      message: "Invalid input parameters",
+      message: `Input validation failed: ${validation.error}. Please check that originalContent and diffPatch are valid strings.`,
     };
   }
 
@@ -25,7 +25,7 @@ export default async function updateDocumentContent(input) {
       return {
         success: false,
         error: parsedDiff.error,
-        message: "Invalid diff format: No valid hunks found or parsing failed",
+        message: `Diff patch parsing failed: ${parsedDiff.error}. The provided diff patch format is invalid or contains no valid hunks. Please ensure the diff follows standard unified diff format.`,
       };
     }
 
@@ -35,7 +35,7 @@ export default async function updateDocumentContent(input) {
       return {
         success: false,
         error: fixedDiff.error,
-        message: "Cannot fix diff line number issues",
+        message: `Line number adjustment failed: ${fixedDiff.error}. The diff patch references lines that cannot be found in the original content, even with fuzzy matching. This may indicate the patch is for a different version of the document.`,
       };
     }
 
@@ -49,20 +49,26 @@ export default async function updateDocumentContent(input) {
       return {
         success: false,
         error: "Failed to apply patch",
-        message: "Diff patch could not be applied",
+        message: "Patch application failed: The diff library could not apply the patch to the original content. This may be due to conflicting changes or corrupted patch data.",
       };
     }
+
+    // Calculate some stats for the success message
+    const originalLines = originalContent.split('\n').length;
+    const updatedLines = result.split('\n').length;
+    const lineDiff = updatedLines - originalLines;
+    const hunksProcessed = fixedDiff.hunks.length;
 
     return {
       success: true,
       updatedContent: result,
-      message: "Document content updated successfully",
+      message: `Document content updated successfully. Processed ${hunksProcessed} hunk(s), line count changed from ${originalLines} to ${updatedLines} (${lineDiff >= 0 ? '+' : ''}${lineDiff} lines).`,
     };
   } catch (error) {
     return {
       success: false,
       error: error.message,
-      message: "Failed to update document content",
+      message: `Unexpected error during document update: ${error.message}. Please check the input parameters and try again.`,
     };
   }
 }

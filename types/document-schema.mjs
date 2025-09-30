@@ -31,7 +31,8 @@ export const getUpdateDocumentContentOutputJsonSchema = () => {
     schema.properties.updatedContent.description =
       "Updated markdown content (only present if success is true)";
     schema.properties.error.description = "Error message (only present if success is false)";
-    schema.properties.message.description = "Status message";
+    schema.properties.message.description =
+      "Detailed status message describing the operation result";
   }
   return schema;
 };

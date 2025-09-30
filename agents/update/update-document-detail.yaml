@@ -2,7 +2,10 @@ type: ai
 name: updateDocumentDetail
 description: Update and optimize document content based on user feedback using diff patches
 instructions:
-  url: ../../prompts/detail/update-document.md
+  - role: system
+    url: ../../prompts/detail/update-document-system.md
+  - role: user
+    url: ../../prompts/detail/update-document-user.md
 input_schema:
   type: object
   properties:
