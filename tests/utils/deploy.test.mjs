@@ -91,15 +91,8 @@ describe("deploy", () => {
 
     // Verify BrokerClient was constructed with correct config
     expect(mockBrokerClientConstructor).toHaveBeenCalledWith({
-      baseUrl: "",
       authToken: "mock-auth-token",
-      paymentLinkKey: "PAYMENT_LINK_ID",
-      timeout: 300000,
-      polling: {
-        interval: 3000,
-        maxAttempts: 100,
-        backoffStrategy: "linear",
-      },
+      baseUrl: "https://docsmith.aigne.io",
     });
 
     // Verify deploy was called with correct parameters
@@ -348,7 +341,8 @@ describe("deploy", () => {
     // Verify BrokerClient was constructed with empty baseUrl
     expect(mockBrokerClientConstructor).toHaveBeenCalledWith(
       expect.objectContaining({
-        baseUrl: "",
+        authToken: "mock-auth-token",
+        baseUrl: "https://docsmith.aigne.io",
       }),
     );
   });
