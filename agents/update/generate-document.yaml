@@ -48,28 +48,28 @@ output_schema:
       type: string
   required:
     - content
-# skills:
-#   - type: team
-#     # task_render_mode: collapse
-#     name: generateD2DiagramContent
-#     skills:
-#       - ../generate/generate-d2-diagram.yaml
-#     reflection:
-#       reviewer: ../generate/check-d2-diagram.mjs
-#       is_approved: isValid
-#       max_iterations: 5
-#       return_last_on_max_iterations: true
-#     input_schema:
-#       type: object
-#       properties:
-#         diagram_content:
-#           type: string
-#           description: Text description diagram content to generate D2 diagram
-#       required:
-#         - diagram_content
-#     output_schema:
-#       type: object
-#       properties:
-#         source_code:
-#           type: string
-#           description: Source code to draw D2 diagram
+skills:
+  - type: team
+    task_render_mode: collapse
+    name: generateD2DiagramContent
+    skills:
+      - ../generate/generate-d2-diagram.yaml
+    reflection:
+      reviewer: ../generate/check-d2-diagram-valid.mjs
+      is_approved: isValid
+      max_iterations: 5
+      return_last_on_max_iterations: true
+    input_schema:
+      type: object
+      properties:
+        documentContent:
+          type: string
+          description: Source code of current document (without the D2 diagram)
+      required:
+        - documentContent
+    output_schema:
+      type: object
+      properties:
+        d2DiagramSourceCode:
+          type: string
+          description: Source code for the D2 diagram

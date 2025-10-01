@@ -17,6 +17,8 @@ import { debug } from "./debug.mjs";
 import { iconMap } from "./icon-map.mjs";
 import { getContentHash } from "./utils.mjs";
 
+const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
+
 export async function getChart({ content, strict }) {
   const d2 = new D2();
   const iconUrlList = Object.keys(iconMap);
@@ -72,8 +74,6 @@ export async function saveAssets({ markdown, docsDir }) {
   if (!markdown) {
     return markdown;
   }
-
-  const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 
   const { replaced } = await runIterator({
     input: markdown,
@@ -156,7 +156,12 @@ async function runIterator({ input, regexp, fn = () => {}, options, replace = fa
   };
 }
 
-export async function checkContent({ content }) {
+export async function checkContent({ content: _content }) {
+  const match = _content.matchAll(codeBlockRegex);
+  let content = _content;
+  if (match?.length > 0) {
+    [, content] = match;
+  }
   await ensureTmpDir();
   const assetDir = path.join(DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "d2");
   await fs.ensureDir(assetDir);
