@@ -157,10 +157,10 @@ async function runIterator({ input, regexp, fn = () => {}, options, replace = fa
 }
 
 export async function checkContent({ content: _content }) {
-  const match = _content.matchAll(codeBlockRegex);
+  const matches = Array.from(_content.matchAll(codeBlockRegex));
   let content = _content;
-  if (match?.length > 0) {
-    [, content] = match;
+  if (matches.length > 0) {
+    content = matches[0][1];
   }
   await ensureTmpDir();
   const assetDir = path.join(DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "d2");

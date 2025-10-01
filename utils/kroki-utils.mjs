@@ -77,7 +77,7 @@ export async function saveD2Assets({ markdown, docsDir }) {
         debug("Found assets cache, skipping generation", svgPath);
       } else {
         try {
-          debug("start generate d2 diagram", svgPath);
+          debug("Start generate d2 diagram", svgPath);
           if (debug.enabled) {
             const d2FileName = `${getContentHash(d2Content)}.d2`;
             const d2Path = path.join(assetDir, d2FileName);
