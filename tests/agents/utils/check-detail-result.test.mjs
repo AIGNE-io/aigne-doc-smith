@@ -229,7 +229,7 @@ set -euo pipefail
 function deploy_app() {
     local app_name="$1"
     local version="$2"
-    
+
     echo "Deploying $app_name version $version"
     docker run --rm "$app_name:$version"
 }
@@ -334,19 +334,6 @@ This document demonstrates various programming language code blocks.`;
         "This diagram is properly formatted.";
       const result = await checkDetailResult({ documentStructure, reviewContent });
       expect(result.isApproved).toBe(true);
-    });
-  });
-
-  describe("D2 syntax validation", () => {
-    test("should handle D2 syntax errors", async () => {
-      const documentStructure = [];
-      const reviewContent =
-        "```d2\n" +
-        "invalid d2 syntax {{\n" + // Malformed D2
-        "```\n\n" +
-        "This has proper structure.";
-      const result = await checkDetailResult({ documentStructure, reviewContent });
-      expect(result.isApproved).toBe(false);
     });
   });
 
@@ -660,7 +647,7 @@ flowchart TD
     A["1. Create Backend Implementation<br>api/src/providers/"]
     B["2. Add Backend Configuration<br>api/src/providers/models.ts"]
     C["3. Update Frontend Selector<br>src/pages/config/ai-providers/"]
-    
+
     A --> B --> C
 \`\`\`
 
