@@ -128,7 +128,7 @@ export default async function moveDocument(input) {
     documentStructure.filter((item) => item.parentId === path).length > 0
       ? ` (also updated ${documentStructure.filter((item) => item.parentId === path).length} child document(s))`
       : "";
-  const successMessage = `Successfully moved document '${documentToMove.title}'${oldParentText}${newParentText}${pathChangeText}${childUpdateText}.`;
+  const successMessage = `Successfully moved document '${documentToMove.title}'${oldParentText}${newParentText}${pathChangeText}${childUpdateText}.\nCheck if the latest version of documentStructure meets user feedback, if so, return the latest version directly.`;
 
   return {
     documentStructure: updatedStructure,

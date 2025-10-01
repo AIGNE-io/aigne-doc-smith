@@ -54,7 +54,7 @@ export default async function addDocument(input) {
   // Add the new document to the document structure
   const updatedStructure = [...documentStructure, newDocument];
 
-  const successMessage = `Successfully added document '${title}' at path '${path}'${parentId ? ` under parent '${parentId}'` : " as a top-level document"}.`;
+  const successMessage = `Successfully added document '${title}' at path '${path}'${parentId ? ` under parent '${parentId}'` : " as a top-level document"}.\nCheck if the latest version of documentStructure meets user feedback, if so, return the latest version directly.`;
 
   return {
     documentStructure: updatedStructure,

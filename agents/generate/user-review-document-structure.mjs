@@ -1,5 +1,3 @@
-import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
-
 function formatDocumentStructure(structure) {
   // Build a tree structure for better display
   const nodeMap = new Map();
@@ -123,38 +121,16 @@ export default async function userReviewDocumentStructure({ documentStructure, .
       break;
     }
 
-    // Get user preferences
-    const structureRules = getActiveRulesForScope("structure", []);
-    const globalRules = getActiveRulesForScope("global", []);
-    const allApplicableRules = [...structureRules, ...globalRules];
-    const ruleTexts = allApplicableRules.map((rule) => rule.rule);
-    const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
-
     try {
       // Call refineDocumentStructure agent with feedback
       const result = await options.context.invoke(refineAgent, {
         ...rest,
         feedback: feedback.trim(),
         documentStructure: currentStructure,
-        userPreferences,
       });
 
       if (result.documentStructure) {
         currentStructure = result.documentStructure;
-      }
-
-      // Check if feedback should be saved as user preference
-      const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];
-      if (feedbackRefinerAgent) {
-        try {
-          await options.context.invoke(feedbackRefinerAgent, {
-            documentStructureFeedback: feedback.trim(),
-            stage: "structure",
-          });
-        } catch (refinerError) {
-          console.warn("Could not save feedback as user preference:", refinerError.message);
-          console.warn("Your feedback was applied but not saved as a preference.");
-        }
       }
 
       // Print current document structure in a user-friendly format

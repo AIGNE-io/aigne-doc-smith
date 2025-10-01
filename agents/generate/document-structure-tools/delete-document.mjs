@@ -45,7 +45,7 @@ export default async function deleteDocument(input) {
   // Remove the document from the document structure
   const updatedStructure = documentStructure.filter((_, index) => index !== documentIndex);
 
-  const successMessage = `Successfully deleted document '${documentToDelete.title}' from path '${path}'.`;
+  const successMessage = `Successfully deleted document '${documentToDelete.title}' from path '${path}'.\nCheck if the latest version of documentStructure meets user feedback, if so, return the latest version directly.`;
 
   return {
     documentStructure: updatedStructure,

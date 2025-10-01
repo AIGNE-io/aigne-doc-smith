@@ -49,20 +49,21 @@ export default async function updateDocumentContent(input) {
       return {
         success: false,
         error: "Failed to apply patch",
-        message: "Patch application failed: The diff library could not apply the patch to the original content. This may be due to conflicting changes or corrupted patch data.",
+        message:
+          "Patch application failed: The diff library could not apply the patch to the original content. This may be due to conflicting changes or corrupted patch data.",
       };
     }
 
     // Calculate some stats for the success message
-    const originalLines = originalContent.split('\n').length;
-    const updatedLines = result.split('\n').length;
+    const originalLines = originalContent.split("\n").length;
+    const updatedLines = result.split("\n").length;
     const lineDiff = updatedLines - originalLines;
     const hunksProcessed = fixedDiff.hunks.length;
 
     return {
       success: true,
       updatedContent: result,
-      message: `Document content updated successfully. Processed ${hunksProcessed} hunk(s), line count changed from ${originalLines} to ${updatedLines} (${lineDiff >= 0 ? '+' : ''}${lineDiff} lines).`,
+      message: `Document content updated successfully. Processed ${hunksProcessed} hunk(s), line count changed from ${originalLines} to ${updatedLines} (${lineDiff >= 0 ? "+" : ""}${lineDiff} lines).\nCheck if the latest version of updatedContent meets user feedback, if so, return the latest version directly.`,
     };
   } catch (error) {
     return {
