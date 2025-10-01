@@ -987,7 +987,7 @@ describe("init", () => {
           checkbox_1: ["getStarted", "findAnswers"], // Document purpose
           checkbox_2: ["developers"], // Target audience
           input_3: "Custom rules for documentation", // Custom rules
-          select_4  : "domainFamiliar", // Reader knowledge level
+          select_4: "domainFamiliar", // Reader knowledge level
           select_5: "balancedCoverage", // Documentation depth
           select_6: "en", // Primary language
           checkbox_7: ["zh", "ja"], // Translation languages
