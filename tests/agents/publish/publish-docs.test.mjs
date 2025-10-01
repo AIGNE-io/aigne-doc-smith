@@ -15,6 +15,7 @@ import publishDocs from "../../../agents/publish/publish-docs.mjs";
 import * as authUtils from "../../../utils/auth-utils.mjs";
 import * as d2Utils from "../../../utils/d2-utils.mjs";
 import * as utils from "../../../utils/utils.mjs";
+import * as deployUtils from "../../../utils/deploy.mjs";
 
 // Mock all external dependencies
 const mockPublishDocs = {
@@ -51,6 +52,7 @@ describe("publish-docs", () => {
   let getGithubRepoUrlSpy;
   let loadConfigFromFileSpy;
   let saveValueToConfigSpy;
+  let deploySpy;
 
   beforeAll(() => {
     // Apply mocks for external dependencies only
@@ -98,6 +100,10 @@ describe("publish-docs", () => {
     );
     loadConfigFromFileSpy = spyOn(utils, "loadConfigFromFile").mockResolvedValue({});
     saveValueToConfigSpy = spyOn(utils, "saveValueToConfig").mockResolvedValue();
+    deploySpy = spyOn(deployUtils, "deploy").mockResolvedValue({
+      appUrl: "https://deployed.example.com",
+      token: "deploy-token",
+    });
 
     mockOptions = {
       prompts: {
@@ -125,6 +131,7 @@ describe("publish-docs", () => {
     getGithubRepoUrlSpy?.mockRestore();
     loadConfigFromFileSpy?.mockRestore();
     saveValueToConfigSpy?.mockRestore();
+    deploySpy?.mockRestore();
   });
 
   // BASIC FUNCTIONALITY TESTS
@@ -591,6 +598,98 @@ describe("publish-docs", () => {
     );
 
     expect(mockOptions.prompts.select).not.toHaveBeenCalled();
+  });
+
+  // RESUME PREVIOUS WEBSITE SETUP TESTS
+  test("should show resume option when checkoutId exists in config", async () => {
+    loadConfigFromFileSpy.mockResolvedValue({
+      checkoutId: "cached-checkout-123",
+    });
+    mockOptions.prompts.select.mockResolvedValue("default");
+
+    await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://docsmith.aigne.io",
+      },
+      mockOptions,
+    );
+
+    expect(mockOptions.prompts.select).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: "Select platform to publish your documents:",
+        choices: expect.arrayContaining([
+          expect.objectContaining({
+            name: expect.stringContaining("Resume previous website setup"),
+            value: "new-instance-continue",
+          }),
+        ]),
+      }),
+    );
+
+    // Verify the exact text content
+    const selectCall = mockOptions.prompts.select.mock.calls[0][0];
+    const resumeChoice = selectCall.choices.find(
+      (choice) => choice.value === "new-instance-continue",
+    );
+    expect(resumeChoice.name).toContain("Resume previous website setup");
+    expect(resumeChoice.name).toContain("Already paid.");
+    expect(resumeChoice.name).toContain(
+      "Continue where you left off. Your payment has already been processed.",
+    );
+  });
+
+  test("should not show resume option when no checkoutId in config", async () => {
+    loadConfigFromFileSpy.mockResolvedValue({});
+    mockOptions.prompts.select.mockResolvedValue("default");
+
+    await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://docsmith.aigne.io",
+      },
+      mockOptions,
+    );
+
+    expect(mockOptions.prompts.select).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: "Select platform to publish your documents:",
+        choices: expect.not.arrayContaining([
+          expect.objectContaining({
+            value: "new-instance-continue",
+          }),
+        ]),
+      }),
+    );
+  });
+
+  test("should handle resume previous website setup selection", async () => {
+    deploySpy.mockResolvedValue({
+      appUrl: "https://resumed.example.com",
+      token: "resume-token",
+    });
+
+    loadConfigFromFileSpy.mockResolvedValue({
+      checkoutId: "cached-checkout-123",
+      paymentUrl: "https://payment.example.com",
+    });
+    mockOptions.prompts.select.mockResolvedValue("new-instance-continue");
+
+    const consoleSpy = spyOn(console, "log").mockImplementation(() => {});
+
+    await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://docsmith.aigne.io",
+      },
+      mockOptions,
+    );
+
+    expect(consoleSpy).toHaveBeenCalledWith("\nResuming your previous website setup...");
+    expect(deploySpy).toHaveBeenCalledWith("cached-checkout-123", "https://payment.example.com");
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://resumed.example.com", "resume-token");
+
+    consoleSpy.mockRestore();
   });
 
   test("should handle URL validation edge cases", async () => {

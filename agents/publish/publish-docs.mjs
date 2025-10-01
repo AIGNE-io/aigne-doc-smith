@@ -5,12 +5,15 @@ import chalk from "chalk";
 import fs from "fs-extra";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
-import { DISCUSS_KIT_STORE_URL, TMP_DIR, TMP_DOCS_DIR } from "../../utils/constants/index.mjs";
+import {
+  DEFAULT_APP_URL,
+  DISCUSS_KIT_STORE_URL,
+  TMP_DIR,
+  TMP_DOCS_DIR,
+} from "../../utils/constants/index.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
-
-const DEFAULT_APP_URL = "https://docsmith.aigne.io";
 
 export default async function publishDocs(
   { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
@@ -18,8 +21,6 @@ export default async function publishDocs(
 ) {
   // move work dir to tmp-dir
   await ensureTmpDir();
-
-  const hasDocSmithBaseUrl = !!process.env.DOC_SMITH_BASE_URL;
 
   const docsDir = join(".aigne", "doc-smith", TMP_DIR, TMP_DOCS_DIR);
   await fs.rm(docsDir, { recursive: true, force: true });
@@ -61,22 +62,18 @@ export default async function publishDocs(
           name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
           value: "custom",
         },
-        ...(hasCachedCheckoutId && hasDocSmithBaseUrl
+        ...(hasCachedCheckoutId
           ? [
               {
-                name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment is already processed.`,
+                name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment has already been processed.`,
                 value: "new-instance-continue",
               },
             ]
           : []),
-        ...(hasDocSmithBaseUrl
-          ? [
-              {
-                name: `${chalk.blue("New website")} - ${chalk.yellow("Paid service.")} We'll help you set up a brand-new website with custom domain and hosting. Great if you want a professional presence.`,
-                value: "new-instance",
-              },
-            ]
-          : []),
+        {
+          name: `${chalk.blue("New website")} - ${chalk.yellow("Paid service.")} We'll help you set up a brand-new website with custom domain and hosting. Great if you want a professional presence.`,
+          value: "new-instance",
+        },
       ],
     });
 
@@ -100,7 +97,7 @@ export default async function publishDocs(
       });
       // Ensure appUrl has protocol
       appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
-    } else if (hasDocSmithBaseUrl && ["new-instance", "new-instance-continue"].includes(choice)) {
+    } else if (["new-instance", "new-instance-continue"].includes(choice)) {
       // Deploy a new Discuss Kit service
       try {
         let id = "";
