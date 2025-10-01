@@ -1030,8 +1030,8 @@ describe("load-sources", () => {
     });
   });
 
-  describe("Document path and document structure handling", () => {
-    test("should load existing document structure", async () => {
+  describe("Document path and documentation structure handling", () => {
+    test("should load existing documentation structure", async () => {
       const documentStructure = {
         sections: ["Introduction", "API", "Examples"],
         lastUpdated: new Date().toISOString(),
@@ -1050,7 +1050,7 @@ describe("load-sources", () => {
       expect(result.originalDocumentStructure).toEqual(documentStructure);
     });
 
-    test("should handle malformed document structure JSON", async () => {
+    test("should handle malformed documentation structure JSON", async () => {
       await writeFile(path.join(tempDir, "structure-plan.json"), "{ invalid json content");
 
       const result = await loadSources({
@@ -1064,7 +1064,7 @@ describe("load-sources", () => {
       expect(result.originalDocumentStructure).toBeUndefined();
     });
 
-    test("should handle non-ENOENT errors when reading document structure JSON", async () => {
+    test("should handle non-ENOENT errors when reading documentation structure JSON", async () => {
       // Import fs promises module to spy on
       const fsPromises = await import("node:fs/promises");
 

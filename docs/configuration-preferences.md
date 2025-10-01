@@ -66,7 +66,7 @@ Each rule saved in `preferences.yml` has the following structure:
 
 ## Managing Preferences with the CLI
 
-You can view and manage all your saved preferences using the `aigne doc prefs` command. This allows you to list, activate, deactivate, or permanently remove rules.
+View and manage all your saved preferences using the `aigne doc prefs` command. You can list, activate, deactivate, or permanently remove rules.
 
 ### Listing All Preferences
 

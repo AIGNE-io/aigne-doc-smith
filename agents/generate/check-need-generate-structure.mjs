@@ -18,10 +18,10 @@ export default async function checkNeedGenerateStructure(
   if (!originalDocumentStructure) {
     const choice = await options.prompts.select({
       message:
-        "Your project configuration is complete. Would you like to generate the document structure now?",
+        "Your project configuration is complete. Would you like to generate the documentation structure now?",
       choices: [
         {
-          name: "Generate now - Start generating the document structure",
+          name: "Generate now - Start generating the documentation structure",
           value: "generate",
         },
         {
@@ -49,7 +49,7 @@ export default async function checkNeedGenerateStructure(
     }
   }
 
-  // Check if we need to regenerate document structure
+  // Check if we need to regenerate documentation structure
   let shouldRegenerate = false;
   let finalFeedback = feedback;
 
@@ -82,7 +82,7 @@ export default async function checkNeedGenerateStructure(
       finalFeedback = `
       ${finalFeedback || ""}
 
-      Update document structure based on the latest DataSources:
+      Update documentation structure based on the latest DataSources:
         1. For new content, add new sections as needed or supplement existing section displays
         2. Be cautious when deleting sections, unless all associated sourceIds have been removed
         3. Do not modify the path of existing sections
@@ -97,11 +97,11 @@ export default async function checkNeedGenerateStructure(
     finalFeedback = `
     ${finalFeedback || ""}
 
-    User requested forced regeneration of document structure. Please regenerate based on the latest Data Sources and user requirements, **allowing any modifications**.
+    User requested forced regeneration of documentation structure. Please regenerate based on the latest Data Sources and user requirements, **allowing any modifications**.
     `;
   }
 
-  // If no regeneration needed, return original document structure
+  // If no regeneration needed, return original documentation structure
   if (originalDocumentStructure && !finalFeedback && !shouldRegenerate) {
     return {
       documentStructure: originalDocumentStructure,
@@ -110,7 +110,7 @@ export default async function checkNeedGenerateStructure(
 
   const planningAgent = options.context.agents["refineDocumentStructure"];
 
-  // Get user preferences for document structure and global scope
+  // Get user preferences for documentation structure and global scope
   const structureRules = getActiveRulesForScope("structure", []);
   const globalRules = getActiveRulesForScope("global", []);
 
@@ -185,4 +185,4 @@ export default async function checkNeedGenerateStructure(
   };
 }
 
-checkNeedGenerateStructure.taskTitle = "Check if document structure needs generate or update";
+checkNeedGenerateStructure.taskTitle = "Check if documentation structure needs generate or update";

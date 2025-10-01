@@ -34,8 +34,8 @@ describe("clear-document-structure", () => {
     }
   });
 
-  test("should clear structure plan only when no docsDir provided", async () => {
-    // Create a test structure plan file
+  test("should clear documentation structure only when no docsDir provided", async () => {
+    // Create a test documentation structure file
     const structurePlan = {
       documents: [
         { path: "/intro", title: "Introduction" },
@@ -46,18 +46,18 @@ describe("clear-document-structure", () => {
 
     const result = await clearDocumentStructure({ workDir: testDir });
 
-    expect(result.message).toContain("Document structure cleared successfully!");
+    expect(result.message).toContain("Documentation Structure cleared successfully!");
     expect(result.hasError).toBe(false);
     expect(result.clearedCount).toBe(1);
 
-    // Verify structure plan file is actually deleted
+    // Verify documentation structure file is actually deleted
     const { pathExists } = await import("../../../utils/file-utils.mjs");
     const exists = await pathExists(structurePlanPath);
     expect(exists).toBe(false);
   });
 
-  test("should clear both structure plan and docs directory when docsDir provided", async () => {
-    // Create structure plan
+  test("should clear both documentation structure and docs directory when docsDir provided", async () => {
+    // Create documentation structure
     await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
 
     // Create docs directory with files
@@ -67,7 +67,7 @@ describe("clear-document-structure", () => {
 
     const result = await clearDocumentStructure({ workDir: testDir, docsDir });
 
-    expect(result.message).toContain("Document structure cleared successfully!");
+    expect(result.message).toContain("Documentation Structure cleared successfully!");
     expect(result.clearedCount).toBe(2);
 
     // Verify both are deleted
@@ -78,17 +78,17 @@ describe("clear-document-structure", () => {
     expect(docsExists).toBe(false);
   });
 
-  test("should handle non-existent structure plan file", async () => {
-    // Don't create the structure plan file
+  test("should handle non-existent documentation structure file", async () => {
+    // Don't create the documentation structure file
     const result = await clearDocumentStructure({ workDir: testDir });
 
-    expect(result.message).toContain("Document structure already empty.");
+    expect(result.message).toContain("Documentation Structure already empty.");
     expect(result.clearedCount).toBe(0);
     expect(result.hasError).toBe(false);
   });
 
   test("should handle non-existent docs directory", async () => {
-    // Create structure plan but not docs directory
+    // Create documentation structure but not docs directory
     await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
 
     const nonExistentDocsDir = join(testDir, "non-existent-docs");
@@ -98,10 +98,10 @@ describe("clear-document-structure", () => {
       docsDir: nonExistentDocsDir,
     });
 
-    expect(result.message).toContain("Document structure cleared successfully!");
-    expect(result.clearedCount).toBe(1); // Only structure plan cleared
+    expect(result.message).toContain("Documentation Structure cleared successfully!");
+    expect(result.clearedCount).toBe(1); // Only documentation structure cleared
 
-    // Verify structure plan is deleted
+    // Verify documentation structure is deleted
     const { pathExists } = await import("../../../utils/file-utils.mjs");
     const exists = await pathExists(structurePlanPath);
     expect(exists).toBe(false);
@@ -114,12 +114,12 @@ describe("clear-document-structure", () => {
       // Change to test directory
       process.chdir(testDir);
 
-      // Create structure plan in current directory's structure
+      // Create documentation structure in current directory's structure
       await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
 
       const result = await clearDocumentStructure({});
 
-      expect(result.message).toContain("Document structure cleared successfully!");
+      expect(result.message).toContain("Documentation Structure cleared successfully!");
       expect(result.clearedCount).toBe(1);
     } finally {
       // Restore original working directory
@@ -159,15 +159,15 @@ describe("clear-document-structure", () => {
 
   test("should have correct task metadata", () => {
     expect(clearDocumentStructure.taskTitle).toBe(
-      "Clear document structure and all generated documents",
+      "Clear documentation structure and all generated documents",
     );
     expect(clearDocumentStructure.description).toBe(
-      "Clear the document structure plan (structure-plan.json) and optionally the documents directory",
+      "Clear the documentation structure (structure-plan.json) and optionally the documents directory",
     );
   });
 
-  test("should handle complex document structures", async () => {
-    // Create complex structure plan
+  test("should handle complex documentation structures", async () => {
+    // Create complex documentation structure
     const complexStructure = {
       documents: [
         {
@@ -289,7 +289,7 @@ describe("clear-document-structure", () => {
     const structureResult = result.results.find((r) => r.type === "structure");
     expect(structureResult).toBeDefined();
     expect(structureResult.cleared).toBe(true);
-    expect(structureResult.message).toContain("structure plan");
+    expect(structureResult.message).toContain("documentation structure");
 
     // Check documents result
     const docsResult = result.results.find((r) => r.type === "documents");
@@ -298,12 +298,12 @@ describe("clear-document-structure", () => {
     expect(docsResult.message).toContain("documents directory");
   });
 
-  test("should handle structure plan file removal errors", async () => {
-    // Create a spy on rm to simulate an error for structure plan
+  test("should handle documentation structure file removal errors", async () => {
+    // Create a spy on rm to simulate an error for documentation structure
     const rmSpy = spyOn(fsPromises, "rm");
     rmSpy.mockImplementation((path, _options) => {
       if (path.includes("structure-plan.json")) {
-        throw new Error("Permission denied for structure plan");
+        throw new Error("Permission denied for documentation structure");
       }
       return Promise.resolve();
     });
@@ -312,19 +312,21 @@ describe("clear-document-structure", () => {
       const result = await clearDocumentStructure({ workDir: testDir });
 
       expect(result.hasError).toBe(true);
-      expect(result.message).toContain("Document structure cleanup finished with some issues.");
+      expect(result.message).toContain(
+        "Documentation Structure cleanup finished with some issues.",
+      );
 
       const structureResult = result.results.find((r) => r.type === "structure");
       expect(structureResult.error).toBe(true);
-      expect(structureResult.message).toContain("Failed to clear document structure plan");
-      expect(structureResult.message).toContain("Permission denied for structure plan");
+      expect(structureResult.message).toContain("Failed to clear documentation structure");
+      expect(structureResult.message).toContain("Permission denied for documentation structure");
     } finally {
       rmSpy.mockRestore();
     }
   });
 
   test("should handle documents directory removal errors", async () => {
-    // Create structure plan file
+    // Create documentation structure file
     await writeFile(structurePlanPath, JSON.stringify({ test: "data" }));
 
     // Create a spy on rm to simulate an error for docs directory
@@ -340,7 +342,9 @@ describe("clear-document-structure", () => {
       const result = await clearDocumentStructure({ workDir: testDir, docsDir });
 
       expect(result.hasError).toBe(true);
-      expect(result.message).toContain("Document structure cleanup finished with some issues.");
+      expect(result.message).toContain(
+        "Documentation Structure cleanup finished with some issues.",
+      );
 
       const docsResult = result.results.find((r) => r.type === "documents");
       expect(docsResult.error).toBe(true);
@@ -362,7 +366,9 @@ describe("clear-document-structure", () => {
       const result = await clearDocumentStructure({ workDir: testDir, docsDir });
 
       expect(result.hasError).toBe(true);
-      expect(result.message).toContain("Document structure cleanup finished with some issues.");
+      expect(result.message).toContain(
+        "Documentation Structure cleanup finished with some issues.",
+      );
       expect(result.results).toHaveLength(2);
 
       // Both operations should have errors

@@ -8,7 +8,7 @@ Documentation Generation Rules:
 - Include links to related documents in the introduction using Markdown format to help users navigate to relevant content
 - Add links to further reading materials in the summary section using Markdown format
 - Use proper Markdown link syntax, for example: [Next Chapter Title](next_chapter_path)
-- **Ensure next_chapter_path references either external URLs or valid paths from the structure plan**—use absolute paths from the structure plan
+- **Ensure next_chapter_path references either external URLs or valid paths from the documentation structure**—use absolute paths from the documentation structure
 - When DataSources includes third-party links, incorporate them appropriately throughout the document
 - Structure each section with: title, introduction, code examples, response data samples, and explanatory notes. Place explanations directly after code examples without separate "Example Description" subheadings
 - Maintain content completeness and logical flow so users can follow the documentation seamlessly

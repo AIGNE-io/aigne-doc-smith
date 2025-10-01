@@ -79,7 +79,7 @@ As you make selections, the wizard provides defaults and filters subsequent opti
 
 In some cases, you may have multiple goals or audiences that require a specific documentation structure to be effective, such as creating documentation for both non-technical **End Users** and expert **Developers**. The wizard identifies these as "resolvable conflicts."
 
-It then formulates a strategy to address these needs within the document structure. For the End User vs. Developer example, the resolution strategy is to create separate user paths:
+It then formulates a strategy to address these needs within the documentation structure. For the End User vs. Developer example, the resolution strategy is to create separate user paths:
 
 -   **User Guide Path**: Uses plain language, focuses on UI interactions, and is oriented toward business outcomes.
 -   **Developer Guide Path**: Is code-first, technically precise, and includes SDK examples and configuration snippets.

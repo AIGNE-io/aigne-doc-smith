@@ -335,7 +335,7 @@ describe("add-document", () => {
   });
 
   // EDGE CASES
-  test("should handle empty document structure", async () => {
+  test("should handle empty documentation structure", async () => {
     const result = await addDocument({
       documentStructure: [],
       title: "First Document",
@@ -418,7 +418,7 @@ describe("add-document", () => {
   });
 
   // DATA INTEGRITY TESTS
-  test("should not modify original document structure", async () => {
+  test("should not modify original documentation structure", async () => {
     const originalStructure = [...baseDocumentStructure];
 
     await addDocument({

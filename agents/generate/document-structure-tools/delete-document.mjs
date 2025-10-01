@@ -34,7 +34,7 @@ export default async function deleteDocument(input) {
     return { documentStructure };
   }
 
-  // Remove the document from the document structure
+  // Remove the document from the structure
   const updatedStructure = documentStructure.filter((_, index) => index !== documentIndex);
 
   return {
@@ -44,6 +44,6 @@ export default async function deleteDocument(input) {
 }
 
 deleteDocument.taskTitle = "Delete document";
-deleteDocument.description = "Delete a document from the document structure";
+deleteDocument.description = "Remove a document from the documentation structure";
 deleteDocument.inputSchema = getDeleteDocumentInputJsonSchema();
 deleteDocument.outputSchema = getDeleteDocumentOutputJsonSchema();

@@ -62,7 +62,7 @@ checkFeedbackRefiner.input_schema = {
     },
     documentStructureFeedback: {
       type: "string",
-      description: "Feedback from document structure stage",
+      description: "Feedback from documentation structure stage",
     },
     stage: {
       type: "string",

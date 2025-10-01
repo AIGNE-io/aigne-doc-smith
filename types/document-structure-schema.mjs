@@ -10,7 +10,7 @@ export const documentItemSchema = z.object({
   sourceIds: z.array(z.string()).min(1, "At least one source ID is required"),
 });
 
-// Document structure schema - represents the entire document structure array
+// Documentation structure schema - represents the entire documentation structure array
 export const documentStructureSchema = z.array(documentItemSchema);
 
 // Add document schemas
@@ -80,7 +80,7 @@ export const getAddDocumentInputJsonSchema = () => {
   const schema = zodToJsonSchema(addDocumentInputSchema);
   // Add custom descriptions
   if (schema.properties) {
-    schema.properties.documentStructure.description = "Current document structure array";
+    schema.properties.documentStructure.description = "Current documentation structure array";
     schema.properties.title.description = "Title of the new document";
     schema.properties.description.description = "Description of the new document";
     schema.properties.path.description = "URL path for the new document (must start with '/')";
@@ -96,7 +96,7 @@ export const getAddDocumentOutputJsonSchema = () => {
   const schema = zodToJsonSchema(addDocumentOutputSchema);
   if (schema.properties) {
     schema.properties.documentStructure.description =
-      "Updated document structure array with the new document added";
+      "Updated documentation structure array with the new document added";
     schema.properties.addedDocument.description = "The newly added document object";
   }
   return schema;
@@ -105,7 +105,7 @@ export const getAddDocumentOutputJsonSchema = () => {
 export const getDeleteDocumentInputJsonSchema = () => {
   const schema = zodToJsonSchema(deleteDocumentInputSchema);
   if (schema.properties) {
-    schema.properties.documentStructure.description = "Current document structure array";
+    schema.properties.documentStructure.description = "Current documentation structure array";
     schema.properties.path.description = "URL path of the document to delete";
   }
   return schema;
@@ -115,7 +115,7 @@ export const getDeleteDocumentOutputJsonSchema = () => {
   const schema = zodToJsonSchema(deleteDocumentOutputSchema);
   if (schema.properties) {
     schema.properties.documentStructure.description =
-      "Updated document structure array with the document removed";
+      "Updated documentation structure array with the document removed";
     schema.properties.deletedDocument.description = "The deleted document object";
   }
   return schema;
@@ -124,7 +124,7 @@ export const getDeleteDocumentOutputJsonSchema = () => {
 export const getMoveDocumentInputJsonSchema = () => {
   const schema = zodToJsonSchema(moveDocumentInputSchema);
   if (schema.properties) {
-    schema.properties.documentStructure.description = "Current document structure array";
+    schema.properties.documentStructure.description = "Current documentation structure array";
     schema.properties.path.description = "URL path of the document to move";
     schema.properties.newParentId.description =
       "Path of the new parent document (leave empty for top-level)";
@@ -136,7 +136,7 @@ export const getMoveDocumentOutputJsonSchema = () => {
   const schema = zodToJsonSchema(moveDocumentOutputSchema);
   if (schema.properties) {
     schema.properties.documentStructure.description =
-      "Updated document structure array with the document moved";
+      "Updated documentation structure array with the document moved";
     schema.properties.originalDocument.description = "The original document object before moving";
     schema.properties.updatedDocument.description = "The updated document object after moving";
   }
@@ -146,7 +146,7 @@ export const getMoveDocumentOutputJsonSchema = () => {
 export const getUpdateDocumentInputJsonSchema = () => {
   const schema = zodToJsonSchema(updateDocumentInputSchema);
   if (schema.properties) {
-    schema.properties.documentStructure.description = "Current document structure array";
+    schema.properties.documentStructure.description = "Current documentation structure array";
     schema.properties.path.description = "URL path of the document to update";
     schema.properties.title.description = "New title for the document (optional)";
     schema.properties.description.description = "New description for the document (optional)";
@@ -166,7 +166,7 @@ export const getUpdateDocumentOutputJsonSchema = () => {
   const schema = zodToJsonSchema(updateDocumentOutputSchema);
   if (schema.properties) {
     schema.properties.documentStructure.description =
-      "Updated document structure array with the document modified";
+      "Updated documentation structure array with the document modified";
     schema.properties.originalDocument.description = "The original document object before update";
     schema.properties.updatedDocument.description =
       "The updated document object after modification";

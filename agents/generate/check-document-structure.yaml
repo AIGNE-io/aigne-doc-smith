@@ -1,5 +1,5 @@
 name: checkDocumentStructure
-description: Check the Document Structure to ensure it meets expectations, especially in scenarios with previous generation results and user feedback.
+description: Check the Documentation Structure to ensure it meets expectations, especially in scenarios with previous generation results and user feedback.
 instructions:
   url: ../../prompts/structure/check-document-structure.md
 input_schema:
@@ -7,10 +7,10 @@ input_schema:
   properties:
     documentStructure:
       $ref: ../schema/document-structure.yaml
-      description: Newly generated document structure.
+      description: Newly generated documentation structure.
     originalDocumentStructure:
       $ref: ../schema/document-structure.yaml
-      description: Previous generation's document structure for comparison. If it doesn't exist, the check passes by default.
+      description: Previous generation's documentation structure for comparison. If it doesn't exist, the check passes by default.
     feedback:
       type: string
       description: User feedback provided for the previous generation's results.

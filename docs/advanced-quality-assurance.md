@@ -68,7 +68,7 @@ DocSmith performs several checks to ensure the structural integrity of the conte
 
 #### Link and Media Integrity
 
-- **Link Integrity**: All relative links within the documentation are validated against the document structure plan to prevent dead links. This ensures that all internal navigation works as expected. The checker ignores external links (starting with `http://` or `https://`) and `mailto:` links.
+- **Link Integrity**: All relative links within the documentation are validated against the documentation structure to prevent dead links. This ensures that all internal navigation works as expected. The checker ignores external links (starting with `http://` or `https://`) and `mailto:` links.
 
 - **Image Validation**: To avoid broken images, the checker verifies that any local image file referenced in the documentation exists on the file system. It resolves both relative and absolute paths to confirm the file is present. External image URLs and data URLs are not checked.
 

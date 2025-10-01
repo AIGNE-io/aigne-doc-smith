@@ -65,7 +65,7 @@ export default async function moveDocument(input) {
     parentId: newParentId || null,
   };
 
-  // Update the document structure
+  // Update the document's position in the structure
   const updatedStructure = [...documentStructure];
   updatedStructure[documentIndex] = updatedDocument;
 
@@ -77,6 +77,7 @@ export default async function moveDocument(input) {
 }
 
 moveDocument.taskTitle = "Move document";
-moveDocument.description = "Move a document to a different parent in the document structure";
+moveDocument.description =
+  "Relocate a document to a different parent in the documentation structure";
 moveDocument.inputSchema = getMoveDocumentInputJsonSchema();
 moveDocument.outputSchema = getMoveDocumentOutputJsonSchema();

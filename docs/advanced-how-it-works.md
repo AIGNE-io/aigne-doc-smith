@@ -73,7 +73,7 @@ User-Feedback -> Pipeline.Content-Generation: "Regenerate Content"
 
 1.  **Input Analysis**: The process begins when agents load your source code and project configuration (`aigne.yaml`).
 
-2.  **Structure Planning**: An agent analyzes the codebase to propose a logical document structure. It creates an outline based on the project's composition and any specified rules.
+2.  **Structure Planning**: An agent analyzes the codebase to propose a logical documentation structure. It creates an outline based on the project's composition and any specified rules.
 
 3.  **Content Generation**: With the structure in place, content generation agents populate each section of the document plan with detailed text, code examples, and explanations.
 
@@ -88,8 +88,8 @@ DocSmith's functionality is provided by a collection of agents defined in the pr
 | Functional Role          | Key Agent Files                                      | Description                                                                          |
 | ------------------------ | ---------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | **Structure Planning**   | `generate/generate-structure.yaml`                   | Analyzes source code to propose the initial document outline.                        |
-| **Structure Refinement** | `generate/refine-document-structure.yaml`            | Modifies the document structure based on user feedback.                              |
-| **Content Generation**   | `update/batch-generate-document.yaml`, `generate-document.yaml` | Populates the document structure with detailed content for each section.             |
+| **Structure Refinement** | `generate/refine-document-structure.yaml`            | Modifies the documentation structure based on user feedback.                              |
+| **Content Generation**   | `update/batch-generate-document.yaml`, `generate-document.yaml` | Populates the documentation structure with detailed content for each section.             |
 | **Translation**          | `translate/translate-document.yaml`, `translate-multilingual.yaml` | Translates generated documentation into multiple target languages.                   |
 | **Publishing**           | `publish/publish-docs.mjs`                           | Manages the process of publishing documents to Discuss Kit instances.                |
 | **Data I/O**             | `utils/load-sources.mjs`, `utils/save-docs.mjs`      | Responsible for reading source files and writing the final markdown documents to disk. |

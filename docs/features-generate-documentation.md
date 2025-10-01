@@ -1,6 +1,6 @@
 # Generate Documentation
 
-The `aigne doc generate` command is the core function for creating a complete documentation set from your source code. This process analyzes your codebase, plans a logical document structure, and then generates content for each section. It's the primary way to create your documentation from scratch.
+The `aigne doc generate` command is the core function for creating a complete documentation set from your source code. This process analyzes your codebase, plans a logical documentation structure, and then generates content for each section. It's the primary way to create your documentation from scratch.
 
 ## Your First Generation
 
@@ -84,7 +84,7 @@ save_docs -> end
 
 ## Command Options
 
-While the default `generate` command is sufficient for most use cases, you can use several options to control the generation process. These are useful for regenerating content or refining the document structure.
+While the default `generate` command is sufficient for most use cases, you can use several options to control the generation process. These are useful for regenerating content or refining the documentation structure.
 
 | Option              | Description                                                                                                                              | Example                                                              |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|

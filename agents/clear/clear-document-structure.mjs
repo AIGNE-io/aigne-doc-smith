@@ -20,8 +20,8 @@ export default async function clearDocumentStructure(input = {}, _options = {}) 
 
     const structureDisplayPath = toDisplayPath(structurePlanPath);
     const structureMessage = structureExists
-      ? `Cleared document structure plan (${structureDisplayPath})`
-      : `Document structure plan already empty (${structureDisplayPath})`;
+      ? `Cleared documentation structure (${structureDisplayPath})`
+      : `Documentation structure already empty (${structureDisplayPath})`;
 
     results.push({
       type: "structure",
@@ -33,7 +33,7 @@ export default async function clearDocumentStructure(input = {}, _options = {}) 
     results.push({
       type: "structure",
       error: true,
-      message: `Failed to clear document structure plan: ${error.message}`,
+      message: `Failed to clear documentation structure: ${error.message}`,
     });
   }
 
@@ -69,11 +69,11 @@ export default async function clearDocumentStructure(input = {}, _options = {}) 
 
   let header;
   if (errorItems > 0) {
-    header = "Document structure cleanup finished with some issues.";
+    header = "Documentation Structure cleanup finished with some issues.";
   } else if (clearedItems > 0) {
-    header = "Document structure cleared successfully!";
+    header = "Documentation Structure cleared successfully!";
   } else {
-    header = "Document structure already empty.";
+    header = "Documentation Structure already empty.";
   }
 
   const detailLines = results.map((item) => `- ${item.message}`).join("\n");
@@ -101,6 +101,6 @@ clearDocumentStructure.input_schema = {
   },
 };
 
-clearDocumentStructure.taskTitle = "Clear document structure and all generated documents";
+clearDocumentStructure.taskTitle = "Clear documentation structure and all generated documents";
 clearDocumentStructure.description =
-  "Clear the document structure plan (structure-plan.json) and optionally the documents directory";
+  "Clear the documentation structure (structure-plan.json) and optionally the documents directory";

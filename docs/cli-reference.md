@@ -93,7 +93,7 @@ aigne doc generate
 aigne doc generate --forceRegenerate
 ```
 
-**Refine the document structure with feedback:**
+**Refine the documentation structure with feedback:**
 
 ```bash
 aigne doc generate --feedback "Add a new section for API examples and remove the 'About' page."

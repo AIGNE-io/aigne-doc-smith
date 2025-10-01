@@ -71,13 +71,13 @@ describe("user-review-document-structure", () => {
     consoleSpy?.mockRestore();
   });
 
-  test("should return original structure when no document structure provided", async () => {
+  test("should return original structure when no documentation structure provided", async () => {
     const result = await userReviewDocumentStructure({}, mockOptions);
 
     expect(result).toBeDefined();
     expect(result.documentStructure).toBeUndefined();
     expect(mockOptions.prompts.select).not.toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith("No document structure was generated to review.");
+    expect(consoleSpy).toHaveBeenCalledWith("No documentation structure was generated to review.");
   });
 
   test("should return original structure when empty array provided", async () => {
@@ -86,7 +86,7 @@ describe("user-review-document-structure", () => {
     expect(result).toBeDefined();
     expect(result.documentStructure).toEqual([]);
     expect(mockOptions.prompts.select).not.toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith("No document structure was generated to review.");
+    expect(consoleSpy).toHaveBeenCalledWith("No documentation structure was generated to review.");
   });
 
   test("should return original structure when user chooses not to review", async () => {
@@ -110,7 +110,9 @@ describe("user-review-document-structure", () => {
     expect(result.documentStructure).toEqual(documentStructure);
     expect(mockOptions.prompts.select).toHaveBeenCalled();
     expect(mockOptions.prompts.input).toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining("Current Document Structure"));
+    expect(consoleSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Current Documentation Structure"),
+    );
   });
 
   test("should process user feedback and call refineDocumentStructure agent", async () => {
@@ -188,7 +190,7 @@ describe("user-review-document-structure", () => {
 
     expect(result.documentStructure).toEqual(documentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Unable to process your feedback - the document structure update feature is unavailable.",
+      "Unable to process your feedback - the documentation structure update feature is unavailable.",
     );
   });
 

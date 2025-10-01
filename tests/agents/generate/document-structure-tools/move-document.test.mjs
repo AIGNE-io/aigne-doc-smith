@@ -326,7 +326,7 @@ describe("move-document", () => {
     expect(updatedDoc.parentId).not.toBe(originalDoc.parentId);
   });
 
-  test("should handle empty document structure", async () => {
+  test("should handle empty documentation structure", async () => {
     const result = await moveDocument({
       documentStructure: [],
       path: "/any-path",
@@ -339,7 +339,7 @@ describe("move-document", () => {
     );
   });
 
-  test("should handle single document structure", async () => {
+  test("should handle single documentation structure", async () => {
     const singleDocStructure = [
       {
         title: "Only Document",
@@ -363,7 +363,7 @@ describe("move-document", () => {
   });
 
   // DATA INTEGRITY TESTS
-  test("should not modify original document structure", async () => {
+  test("should not modify original documentation structure", async () => {
     const originalStructure = [...baseDocumentStructure];
 
     await moveDocument({

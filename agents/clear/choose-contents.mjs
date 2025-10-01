@@ -5,8 +5,8 @@ const TARGET_METADATA = {
     agent: "clearGeneratedDocs",
   },
   documentStructure: {
-    label: "document structure",
-    description: "Delete the document structure and all generated documents.",
+    label: "documentation structure",
+    description: "Delete the documentation structure and all generated documents.",
     agent: "clearDocumentStructure",
   },
   documentConfig: {

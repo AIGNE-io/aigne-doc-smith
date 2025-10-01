@@ -1,5 +1,5 @@
 <document_structure_examples>
-Below are some high-quality document structure examples for your reference:
+Below are some high-quality documentation structure examples for your reference:
 
 Example A: Open Source Frontend Framework Docs
 ```yaml

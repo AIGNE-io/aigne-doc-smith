@@ -35,7 +35,7 @@ export default async function saveDocs({
     console.error("Failed to save _sidebar.md:", err.message);
   }
 
-  // Clean up invalid .md files that are no longer in the document structure
+  // Clean up invalid .md files that are no longer in the documentation structure
   try {
     await cleanupInvalidFiles(documentStructure, docsDir, translateLanguages, locale);
   } catch (err) {
@@ -62,7 +62,7 @@ Regenerate content for individual documents:
 
   \`aigne doc update\`
 
-**Refine Document Structure**
+**Refine Documentation Structure**
 
 Review and improve your documentation organization:
 
@@ -94,7 +94,7 @@ function generateFileName(flatName, language) {
 }
 
 /**
- * Clean up .md files that are no longer in the document structure
+ * Clean up .md files that are no longer in the documentation structure
  * @param {Array<{path: string, title: string}>} documentStructure
  * @param {string} docsDir
  * @param {Array<string>} translateLanguages
@@ -109,7 +109,7 @@ async function cleanupInvalidFiles(documentStructure, docsDir, translateLanguage
     const files = await readdir(docsDir);
     const mdFiles = files.filter((file) => file.endsWith(".md"));
 
-    // Generate expected file names from document structure
+    // Generate expected file names from documentation structure
     const expectedFiles = new Set();
 
     // Add main document files

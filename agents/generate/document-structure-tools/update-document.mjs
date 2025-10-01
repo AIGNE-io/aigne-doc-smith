@@ -33,7 +33,7 @@ export default async function updateDocument(input) {
     ...(sourceIds !== undefined && { sourceIds: [...sourceIds] }), // Create a copy of the array
   };
 
-  // Update the document structure
+  // Update the document in the structure
   const updatedStructure = [...documentStructure];
   updatedStructure[documentIndex] = updatedDocument;
 
@@ -45,6 +45,6 @@ export default async function updateDocument(input) {
 }
 
 updateDocument.taskTitle = "Update document";
-updateDocument.description = "Update properties of an existing document in the document structure";
+updateDocument.description = "Modify properties of a document in the documentation structure";
 updateDocument.inputSchema = getUpdateDocumentInputJsonSchema();
 updateDocument.outputSchema = getUpdateDocumentOutputJsonSchema();

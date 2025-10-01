@@ -177,7 +177,7 @@ describe("check-document", () => {
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
-  test("should handle missing original node in document structure", async () => {
+  test("should handle missing original node in documentation structure", async () => {
     accessSpy.mockResolvedValue();
     checkDetailResultSpy.mockResolvedValue({ isApproved: true });
 

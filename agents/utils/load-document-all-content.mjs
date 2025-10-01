@@ -4,19 +4,19 @@ import { findItemByPath, readFileContent } from "../../utils/docs-finder-utils.m
 /**
  * Loads a document's content along with all its translations from the docs directory.
  *
- * This function finds a document by its path in the document structure, then searches
+ * This function finds a document by its path in the documentation structure, then searches
  * for all translation files in the docs directory that match the document's naming pattern.
  * Translation files are identified by the pattern: {flatName}.{language-code}.md
  *
  * @param {Object} params - The parameters object
  * @param {string} params.path - The document path to find in the structure
  * @param {string} params.docsDir - The directory containing document files and translations
- * @param {Object} params.documentStructure - The document structure object to search in
+ * @param {Object} params.documentStructure - The documentation structure object to search in
  * @returns {Promise<Object>} An object containing the document data with translations
  * @throws {Error} Throws an error if the document path is not found in the structure
  */
 export default async function loadDocumentAllContent({ path, docsDir, documentStructure }) {
-  // Find the document item by path in the document structure
+  // Find the document item by path in the documentation structure
   const result = await findItemByPath(documentStructure, path, null, docsDir);
 
   if (!result) {

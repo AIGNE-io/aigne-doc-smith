@@ -89,7 +89,7 @@ aigne doc generate --forceRegenerate
 
 ## Refining Individual Documents
 
-To improve a specific document without any corresponding code changes, the `aigne doc update` command allows you to provide targeted instructions for content refinement.
+To improve a specific document without any corresponding code changes, use the `aigne doc update` command to provide targeted instructions for content refinement.
 
 You can use this command in two ways: interactively or directly via command-line arguments.
 
