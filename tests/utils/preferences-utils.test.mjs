@@ -4,7 +4,7 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { DOC_SMITH_DIR } from "../../utils/constants.mjs";
+import { DOC_SMITH_DIR } from "../../utils/constants/index.mjs";
 import {
   addPreferenceRule,
   deactivateRule,
