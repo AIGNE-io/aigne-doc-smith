@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.11-beta.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.4...v0.8.11-beta.5) (2025-10-01)
+
+
+### Features
+
+* add user role requirement for publish and custom rule support ([#151](https://github.com/AIGNE-io/aigne-doc-smith/issues/151)) ([95866f9](https://github.com/AIGNE-io/aigne-doc-smith/commit/95866f9fcb2ca697da42e950e9011b29913726d4))
+* split d2 diagram generate as independent tool ([#152](https://github.com/AIGNE-io/aigne-doc-smith/issues/152)) ([8e9b811](https://github.com/AIGNE-io/aigne-doc-smith/commit/8e9b811dc6108bb19ab8a1853afb4cab92af1d62))
+
 ## [0.8.11-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.3...v0.8.11-beta.4) (2025-09-30)
 
 
