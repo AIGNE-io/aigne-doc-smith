@@ -986,11 +986,12 @@ describe("init", () => {
         const mockResponses = {
           checkbox_1: ["getStarted", "findAnswers"], // Document purpose
           checkbox_2: ["developers"], // Target audience
-          select_3: "domainFamiliar", // Reader knowledge level
-          select_4: "balancedCoverage", // Documentation depth
-          select_5: "en", // Primary language
-          checkbox_6: ["zh", "ja"], // Translation languages
-          input_7: join(tempDir, "docs"), // Documentation directory
+          input_3: "Custom rules for documentation", // Custom rules
+          select_4: "domainFamiliar", // Reader knowledge level
+          select_5: "balancedCoverage", // Documentation depth
+          select_6: "en", // Primary language
+          checkbox_7: ["zh", "ja"], // Translation languages
+          input_8: join(tempDir, "docs"), // Documentation directory
           search: "", // Source paths (empty to finish)
         };
 
@@ -1023,6 +1024,7 @@ describe("init", () => {
 
         expect(config.documentPurpose).toEqual(["getStarted", "findAnswers"]);
         expect(config.targetAudienceTypes).toEqual(["developers"]);
+        expect(config.rules).toBe("Custom rules for documentation");
         expect(config.readerKnowledgeLevel).toBe("domainFamiliar");
         expect(config.documentationDepth).toBe("balancedCoverage");
         expect(config.locale).toBe("en");
@@ -1042,11 +1044,12 @@ describe("init", () => {
           checkbox_1: ["mixedPurpose"], // Document purpose - triggers follow-up
           checkbox: ["completeTasks", "findAnswers"], // Top priorities after mixedPurpose
           checkbox_2: ["developers", "devops"], // Target audience
-          select_3: "experiencedUsers", // Reader knowledge level
-          select_4: "comprehensive", // Documentation depth
-          select_5: "zh-CN", // Primary language
-          checkbox_6: ["en"], // Translation languages
-          input_7: join(tempDir, "documentation"), // Documentation directory
+          input_3: "Custom rules for documentation", // Custom rules
+          select_4: "experiencedUsers", // Reader knowledge level
+          select_5: "comprehensive", // Documentation depth
+          select_6: "zh-CN", // Primary language
+          checkbox_7: ["en"], // Translation languages
+          input_8: join(tempDir, "documentation"), // Documentation directory
           search: "", // Source paths (empty to finish)
         };
 
@@ -1071,6 +1074,7 @@ describe("init", () => {
 
         expect(config.documentPurpose).toEqual(["completeTasks", "findAnswers"]);
         expect(config.targetAudienceTypes).toEqual(["developers", "devops"]);
+        expect(config.rules).toBe("Custom rules for documentation");
         expect(config.readerKnowledgeLevel).toBe("experiencedUsers");
         expect(config.documentationDepth).toBe("comprehensive");
         expect(config.locale).toBe("zh-CN");
@@ -1087,11 +1091,12 @@ describe("init", () => {
         const mockResponses = {
           checkbox_1: ["getStarted"], // Document purpose
           checkbox_2: ["endUsers"], // Target audience
-          select_3: "completeBeginners", // Reader knowledge level
-          select_4: "essentialOnly", // Documentation depth
-          select_5: "en", // Primary language
-          checkbox_6: [], // No translation languages
-          input_7: join(tempDir, "simple-docs"), // Documentation directory
+          input_3: "Custom rules for documentation", // Custom rules
+          select_4: "completeBeginners", // Reader knowledge level
+          select_5: "essentialOnly", // Documentation depth
+          select_6: "en", // Primary language
+          checkbox_7: [], // No translation languages
+          input_8: join(tempDir, "simple-docs"), // Documentation directory
           search: "", // Source paths (empty to finish)
         };
 
@@ -1115,6 +1120,7 @@ describe("init", () => {
 
         expect(config.documentPurpose).toEqual(["getStarted"]);
         expect(config.targetAudienceTypes).toEqual(["endUsers"]);
+        expect(config.rules).toBe("Custom rules for documentation");
         expect(config.readerKnowledgeLevel).toBe("completeBeginners");
         expect(config.documentationDepth).toBe("essentialOnly");
         expect(config.locale).toBe("en");
@@ -1298,7 +1304,7 @@ describe("init", () => {
         let validateCalled = false;
         const mockPrompts = {
           checkbox: (options) => {
-            if (options.message.includes("[1/8]") && options.validate) {
+            if (options.message.includes("[1/9]") && options.validate) {
               // Test the validation function directly
               const validationResult = options.validate([]);
               expect(validationResult).toBe(
@@ -1336,10 +1342,10 @@ describe("init", () => {
         let audienceValidateCalled = false;
         const mockPrompts = {
           checkbox: (options) => {
-            if (options.message.includes("[1/8]")) {
+            if (options.message.includes("[1/9]")) {
               return Promise.resolve(["getStarted"]); // Valid document purpose
             }
-            if (options.message.includes("[2/8]") && options.validate) {
+            if (options.message.includes("[2/9]") && options.validate) {
               // Test the validation function for target audience
               const validationResult = options.validate([]);
               expect(validationResult).toBe("Please choose at least one audience.");
@@ -1374,7 +1380,7 @@ describe("init", () => {
         let priorityValidateCalled = false;
         const mockPrompts = {
           checkbox: (options) => {
-            if (options.message.includes("[1/8]")) {
+            if (options.message.includes("[1/9]")) {
               return Promise.resolve(["mixedPurpose"]); // Trigger follow-up question
             }
             // This is the follow-up priority selection

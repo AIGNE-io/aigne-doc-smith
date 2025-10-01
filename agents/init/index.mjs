@@ -76,7 +76,7 @@ export default async function init(
 
   // 1. Primary purpose - what's the main outcome you want readers to achieve?
   const purposeChoices = await options.prompts.checkbox({
-    message: "📝 [1/8]: What should your documentation help readers achieve?",
+    message: "📝 [1/9]: What should your documentation help readers achieve?",
     choices: Object.entries(DOCUMENT_STYLES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, style]) => ({
@@ -124,7 +124,7 @@ export default async function init(
 
   // 2. Target audience - who will be reading this most often?
   const audienceChoices = await options.prompts.checkbox({
-    message: "👥 [2/8]: Who will be reading your documentation?",
+    message: "👥 [2/9]: Who will be reading your documentation?",
     choices: Object.entries(TARGET_AUDIENCES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, audience]) => ({
@@ -143,7 +143,15 @@ export default async function init(
   // Save target audience choices as keys
   input.targetAudienceTypes = audienceChoices;
 
-  // 3. Reader knowledge level - what do readers typically know when they arrive?
+  // 3. Custom rules - any specific requirements for the documentation?
+  const rulesInput = await options.prompts.input({
+    message:
+      "📋 [3/9]: Any custom rules or requirements for your documentation? (Optional, press Enter to skip)",
+    default: "",
+  });
+  input.rules = rulesInput.trim();
+
+  // 4. Reader knowledge level - what do readers typically know when they arrive?
   // Determine default based on selected purposes using mapping
   const mappedPurpose = prioritizedPurposes.find(
     (purpose) => PURPOSE_TO_KNOWLEDGE_MAPPING[purpose],
@@ -158,7 +166,7 @@ export default async function init(
   );
 
   const knowledgeChoice = await options.prompts.select({
-    message: "🧠 [3/8]: How much do readers already know about your project?",
+    message: "🧠 [4/9]: How much do readers already know about your project?",
     choices: Object.entries(filteredKnowledgeOptions).map(([key, level]) => ({
       name: `${level.name}`,
       description: level.description,
@@ -203,7 +211,7 @@ export default async function init(
   );
 
   const depthChoice = await options.prompts.select({
-    message: "📊 [4/8]: How detailed should your documentation be?",
+    message: "📊 [5/9]: How detailed should your documentation be?",
     choices: Object.entries(filteredDepthOptions).map(([key, depth]) => ({
       name: `${depth.name}`,
       description: depth.description,
@@ -221,7 +229,7 @@ export default async function init(
 
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 [5/8]: What's your main documentation language?",
+    message: "🌐 [6/9]: What's your main documentation language?",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -238,7 +246,7 @@ export default async function init(
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "🔄 [6/8]: Which languages should we translate to?",
+    message: "🔄 [7/9]: Which languages should we translate to?",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -249,13 +257,13 @@ export default async function init(
 
   // 7. Documentation directory
   const docsDirInput = await options.prompts.input({
-    message: `📁 [7/8]: Where should we save your documentation?`,
+    message: `📁 [8/9]: Where should we save your documentation?`,
     default: `${outputPath}/docs`,
   });
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
 
   // 8. Content sources
-  console.log("\n🔍 [8/8]: Content Sources");
+  console.log("\n🔍 [9/9]: Content Sources");
   console.log(
     "What folders/files should we analyze for documentation? (e.g., ./src, ./docs, ./README.md)",
   );
@@ -400,7 +408,7 @@ export function generateYAML(input) {
     documentationDepth: input.documentationDepth || "",
 
     // Custom rules and target audience (empty for user to fill)
-    rules: "",
+    rules: input.rules || "",
     targetAudience: "",
 
     // Language settings

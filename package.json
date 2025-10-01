@@ -29,7 +29,7 @@
     "@aigne/gemini": "^0.14.0",
     "@aigne/openai": "^0.16.0",
     "@aigne/publish-docs": "^0.11.0",
-    "@blocklet/payment-broker-client": "^1.21.0",
+    "@blocklet/payment-broker-client": "^1.21.5",
     "@terrastruct/d2": "^0.1.33",
     "chalk": "^5.5.0",
     "cli-highlight": "^2.1.11",

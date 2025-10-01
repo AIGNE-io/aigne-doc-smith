@@ -75,11 +75,6 @@ export async function deploy(id, cachedUrl) {
         }
       },
     },
-
-    onError: (error, step) => {
-      console.error(`${chalk.red("❌")} Deployment failed at ${step || "unknown step"}:`);
-      console.error(`   ${error.message}`);
-    },
   });
 
   const { appUrl, homeUrl, subscriptionUrl, dashboardUrl, vendors } = result;

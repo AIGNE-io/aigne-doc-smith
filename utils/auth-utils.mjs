@@ -15,6 +15,7 @@ import {
 } from "./blocklet.mjs";
 import {
   BLOCKLET_ADD_COMPONENT_DOCS,
+  DEFAULT_APP_URL,
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
   DOC_OFFICIAL_ACCESS_TOKEN,
@@ -97,6 +98,9 @@ export async function getAccessToken(appUrl, ltToken = "") {
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
       openPage: (pageUrl) => {
         const url = new URL(pageUrl);
+        if (url.hostname !== DEFAULT_APP_URL) {
+          url.searchParams.set("required_roles", "owner,admin");
+        }
         if (ltToken) {
           url.searchParams.set("__lt", ltToken);
         }

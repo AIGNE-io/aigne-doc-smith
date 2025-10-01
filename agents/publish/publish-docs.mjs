@@ -116,8 +116,7 @@ export default async function publishDocs(
         token = ltToken;
       } catch (error) {
         const errorMsg = error?.message || "Unknown error occurred";
-        console.error(`${chalk.red("❌ Failed to publish to website:")} ${errorMsg}`);
-        return { message: `❌ Publish failed: ${errorMsg}` };
+        return { message: `${chalk.red("❌ Failed to publish to website:")} ${errorMsg}` };
       }
     }
   }
