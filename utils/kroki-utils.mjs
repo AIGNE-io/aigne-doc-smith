@@ -8,6 +8,7 @@ import { joinURL } from "ufo";
 
 import {
   D2_CONFIG,
+  DOC_SMITH_DIR,
   FILE_CONCURRENCY,
   KROKI_CONCURRENCY,
   TMP_ASSETS_DIR,
@@ -76,7 +77,7 @@ export async function saveD2Assets({ markdown, docsDir }) {
         debug("Found assets cache, skipping generation", svgPath);
       } else {
         try {
-          debug("start generate d2 chart", svgPath);
+          debug("Start generate d2 diagram", svgPath);
           if (debug.enabled) {
             const d2FileName = `${getContentHash(d2Content)}.d2`;
             const d2Path = path.join(assetDir, d2FileName);
@@ -88,7 +89,7 @@ export async function saveD2Assets({ markdown, docsDir }) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
         } catch (error) {
-          debug("Failed to generate D2 chart:", error);
+          debug("Failed to generate D2 diagram:", error);
           return _code;
         }
       }
@@ -144,7 +145,7 @@ async function runIterator({ input, regexp, fn = () => {}, options, replace = fa
 
 export async function checkD2Content({ content }) {
   await ensureTmpDir();
-  const assetDir = path.join(".aigne", "doc-smith", TMP_DIR, TMP_ASSETS_DIR, "d2");
+  const assetDir = path.join(DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "d2");
   await fs.ensureDir(assetDir);
   const d2Content = [D2_CONFIG, content].join("\n");
   const fileName = `${getContentHash(d2Content)}.svg`;
@@ -166,7 +167,7 @@ export async function checkD2Content({ content }) {
 }
 
 export async function ensureTmpDir() {
-  const tmpDir = path.join(".aigne", "doc-smith", TMP_DIR);
+  const tmpDir = path.join(DOC_SMITH_DIR, TMP_DIR);
   if (!(await fs.pathExists(path.join(tmpDir, ".gitignore")))) {
     await fs.ensureDir(tmpDir);
     await fs.writeFile(path.join(tmpDir, ".gitignore"), "**/*", { encoding: "utf8" });

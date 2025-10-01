@@ -70,8 +70,6 @@ Custom component optimization rules:
 Custom code block optimization rules:
 {% include "custom/custom-code-block.md" %}
 
-D2 Diagram optimization rules:
-{% include "d2-chart/rules.md" %}
 </content_optimization_rules>
 
 {% if glossary %}

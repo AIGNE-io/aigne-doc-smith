@@ -19,9 +19,8 @@ Documentation Generation Rules:
 - When describing multiple properties of the same object, wrap the outermost `<x-field>` elements with `<x-field-group>` elements. Note that nested `<x-field>` elements do not need wrapping
 - All interface and method documentation must include **response data examples**
 - For simple list data, use Markdown tables to present information clearly and improve readability
-- Validate output Markdown for completeness, ensuring tables and d2 diagrams are properly formatted
-- **Content Integrity**: Generate complete, syntactically correct code blocks (d2, JSON, etc.). Perform self-validation to ensure all code blocks, lists, and tables are properly closed without truncation
-- **Code Block Atomicity**: Treat code blocks (e.g., ```d2 ... ```) as indivisible units. Generate them completely from opening marker (```d2) to closing marker (```) without interruption
+- Validate output Markdown for completeness, ensuring tables are properly formatted
+- **Content Integrity**: Generate complete, syntactically correct code blocks (JSON, etc.). Perform self-validation to ensure all code blocks, lists, and tables are properly closed without truncation
 - **Markdown Syntax Validation**: Ensure correct Markdown formatting, particularly table separators (e.g., `|---|---|---|`) that match column counts
 - Use README files for reference only—extract the most current and comprehensive information directly from source code
 - Omit tag information from document headers as it's processed programmatically

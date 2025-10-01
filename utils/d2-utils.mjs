@@ -17,6 +17,8 @@ import { debug } from "./debug.mjs";
 import { iconMap } from "./icon-map.mjs";
 import { getContentHash } from "./utils.mjs";
 
+const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
+
 export async function getChart({ content, strict }) {
   const d2 = new D2();
   const iconUrlList = Object.keys(iconMap);
@@ -60,7 +62,7 @@ export async function getChart({ content, strict }) {
   } catch (err) {
     if (strict) throw err;
 
-    console.error("Failed to generate D2 chart. Content:", content, "Error:", err);
+    console.error("Failed to generate D2 diagram. Content:", content, "Error:", err);
     return null;
   } finally {
     d2.worker.terminate();
@@ -72,8 +74,6 @@ export async function saveAssets({ markdown, docsDir }) {
   if (!markdown) {
     return markdown;
   }
-
-  const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 
   const { replaced } = await runIterator({
     input: markdown,
@@ -90,7 +90,7 @@ export async function saveAssets({ markdown, docsDir }) {
         debug("Found assets cache, skipping generation", svgPath);
       } else {
         try {
-          debug("start generate d2 chart", svgPath);
+          debug("start generate d2 diagram", svgPath);
           if (debug.enabled) {
             const d2FileName = `${getContentHash(d2Content)}.d2`;
             const d2Path = path.join(assetDir, d2FileName);
@@ -102,7 +102,7 @@ export async function saveAssets({ markdown, docsDir }) {
             await fs.writeFile(svgPath, svg, { encoding: "utf8" });
           }
         } catch (error) {
-          debug("Failed to generate D2 chart. Content:", d2Content, "Error:", error);
+          debug("Failed to generate D2 diagram. Content:", d2Content, "Error:", error);
           return _code;
         }
       }
@@ -156,7 +156,12 @@ async function runIterator({ input, regexp, fn = () => {}, options, replace = fa
   };
 }
 
-export async function checkContent({ content }) {
+export async function checkContent({ content: _content }) {
+  const matches = Array.from(_content.matchAll(codeBlockRegex));
+  let content = _content;
+  if (matches.length > 0) {
+    content = matches[0][1];
+  }
   await ensureTmpDir();
   const assetDir = path.join(DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "d2");
   await fs.ensureDir(assetDir);

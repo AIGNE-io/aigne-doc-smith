@@ -1,0 +1,39 @@
+name: mergeD2DiagramToDocument
+description: Merge D2 Diagram source code into document
+instructions: |
+  You are an AI assistant that helps to merge d2 diagram into document.
+
+  <datasources>
+  {{ content }}
+  </datasources>
+  <datasources>
+  {{ d2DiagramSourceCode }}
+  </datasources>
+
+  Given the source content of a document and the D2 diagram source code, your task is to:
+  - **Keep the original content as soon as possible.**
+  - D2 diagram source code should wrap by ```d2 and ``` in markdown format.
+  - Should find proper position to insert the D2 diagram in the document, usually after the first paragraph or after the section that describes the diagram.
+  - If there is no suitable position, append it to the end of the document.
+  - If there is no D2 diagram source code, return the original document content without any changes.
+input_schema:
+  type: object
+  properties:
+    content:
+      type: string
+      description: Source content of the document
+    d2DiagramSourceCode:
+      type: string
+      description: Source content of D2 Diagram
+  required:
+    - content
+    - d2DiagramSourceCode
+output_schema:
+  type: object
+  properties:
+    content:
+      type: string
+      description: Merged content of the document with D2 diagram
+  required:
+    - content
+

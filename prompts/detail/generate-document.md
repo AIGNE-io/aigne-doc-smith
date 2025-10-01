@@ -37,8 +37,14 @@ Custom component generation rules:
 Custom code block generation rules:
 {% include "custom/custom-code-block.md" %}
 
-D2 Diagram Generation Expert Guide:
-{% include "d2-chart/rules.md" %}
+Diagram generate guide:
+Evaluate for each document whether diagrams are necessary.
+- Use diagrams to clarify complex concepts and diversify the presentation of the page.
+- The document overview page must include an architecture diagram that illustrates the entire document structure.
+- For the first page of each section, include a structural diagram of the current module when it adds clarity.
+- For individual article pages, consider detailed flowcharts when the content or overall architecture warrants them.
+- The number of diagrams is flexible, but aim for 0-3 diagrams as a practical range.
+
 </content_generation_rules>
 
 {% if glossary %}
