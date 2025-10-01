@@ -18,7 +18,7 @@ DocSmith provides a set of features to automate and simplify the documentation p
 *   **Content Generation:** Populates the planned documentation structure with content generated from the source code.
 *   **Multi-Language Support:** Translates documentation into 12 languages, including English, Chinese, Japanese, and Spanish.
 *   **AIGNE Hub Integration:** Uses [AIGNE Hub](https://www.aigne.io/en/hub) as an LLM provider, allowing model switching without managing individual API keys.
-*   **Document Publishing:** Publishes documentation to the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/) or to a user's own [Discuss Kit](https://www.arcblock.io/docs/web3-kit/en/discuss-kit) instance.
+*   **One-Click Publishing:** Makes your documentation live with shareable links for your team or users. Publish to the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/) or to your own [Discuss Kit](https://www.arcblock.io/docs/web3-kit/en/discuss-kit) instance.
 *   **Iterative Updates:** Detects source code changes to update documentation and supports targeted regeneration of specific documents based on user feedback.
 
 ## Next Steps

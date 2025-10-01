@@ -171,7 +171,7 @@ aigne doc translate --glossary @glossary.md --feedback "Use technical terminolog
 
 ## `aigne doc publish`
 
-Publishes your generated documentation to a Discuss Kit platform. You can publish to the official AIGNE DocSmith platform or to your own self-hosted instance.
+Makes your documentation live and generates a shareable link for your team or users. Publishes to a Discuss Kit platform - either the official AIGNE DocSmith platform or your own self-hosted instance.
 
 ### Options
 

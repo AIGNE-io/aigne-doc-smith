@@ -1,6 +1,6 @@
 # Publish Your Docs
 
-After generating your documentation, the `aigne doc publish` command uploads your content to a Discuss Kit platform, making it accessible online. This guide explains how to publish your documentation to either the official platform or your own self-hosted website.
+After generating your documentation, the `aigne doc publish` command makes your documentation live and creates a shareable link for your team or users. This guide explains how to publish your documentation to either the official platform or your own self-hosted website.
 
 ## The Publishing Process
 
