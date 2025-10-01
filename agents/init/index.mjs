@@ -76,7 +76,7 @@ export default async function init(
 
   // 1. Primary purpose - what's the main outcome you want readers to achieve?
   const purposeChoices = await options.prompts.checkbox({
-    message: "📝 [1/8]: What should your documentation help readers achieve?",
+    message: "📝 [1/9]: What should your documentation help readers achieve?",
     choices: Object.entries(DOCUMENT_STYLES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, style]) => ({
@@ -124,7 +124,7 @@ export default async function init(
 
   // 2. Target audience - who will be reading this most often?
   const audienceChoices = await options.prompts.checkbox({
-    message: "👥 [2/8]: Who will be reading your documentation?",
+    message: "👥 [2/9]: Who will be reading your documentation?",
     choices: Object.entries(TARGET_AUDIENCES)
       .filter(([key]) => key !== "custom") // Remove custom option for multiselect
       .map(([key, audience]) => ({
@@ -146,7 +146,7 @@ export default async function init(
   // 3. Custom rules - any specific requirements for the documentation?
   const rulesInput = await options.prompts.input({
     message:
-      "📋 [3/8]: Any custom rules or requirements for your documentation? (Optional, press Enter to skip)",
+      "📋 [3/9]: Any custom rules or requirements for your documentation? (Optional, press Enter to skip)",
     default: "",
   });
   input.rules = rulesInput.trim();
@@ -166,7 +166,7 @@ export default async function init(
   );
 
   const knowledgeChoice = await options.prompts.select({
-    message: "🧠 [4/8]: How much do readers already know about your project?",
+    message: "🧠 [4/9]: How much do readers already know about your project?",
     choices: Object.entries(filteredKnowledgeOptions).map(([key, level]) => ({
       name: `${level.name}`,
       description: level.description,
@@ -211,7 +211,7 @@ export default async function init(
   );
 
   const depthChoice = await options.prompts.select({
-    message: "📊 [5/8]: How detailed should your documentation be?",
+    message: "📊 [5/9]: How detailed should your documentation be?",
     choices: Object.entries(filteredDepthOptions).map(([key, depth]) => ({
       name: `${depth.name}`,
       description: depth.description,
@@ -229,7 +229,7 @@ export default async function init(
 
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 [6/8]: What's your main documentation language?",
+    message: "🌐 [6/9]: What's your main documentation language?",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -246,7 +246,7 @@ export default async function init(
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "🔄 [7/8]: Which languages should we translate to?",
+    message: "🔄 [7/9]: Which languages should we translate to?",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
