@@ -97,6 +97,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
       openPage: (pageUrl) => {
         const url = new URL(pageUrl);
+        url.searchParams.set("required_roles", "owner,admin");
         if (ltToken) {
           url.searchParams.set("__lt", ltToken);
         }
