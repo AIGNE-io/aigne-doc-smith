@@ -1304,7 +1304,7 @@ describe("init", () => {
         let validateCalled = false;
         const mockPrompts = {
           checkbox: (options) => {
-            if (options.message.includes("[1/8]") && options.validate) {
+            if (options.message.includes("[1/9]") && options.validate) {
               // Test the validation function directly
               const validationResult = options.validate([]);
               expect(validationResult).toBe(
@@ -1342,10 +1342,10 @@ describe("init", () => {
         let audienceValidateCalled = false;
         const mockPrompts = {
           checkbox: (options) => {
-            if (options.message.includes("[1/8]")) {
+            if (options.message.includes("[1/9]")) {
               return Promise.resolve(["getStarted"]); // Valid document purpose
             }
-            if (options.message.includes("[2/8]") && options.validate) {
+            if (options.message.includes("[2/9]") && options.validate) {
               // Test the validation function for target audience
               const validationResult = options.validate([]);
               expect(validationResult).toBe("Please choose at least one audience.");
@@ -1380,7 +1380,7 @@ describe("init", () => {
         let priorityValidateCalled = false;
         const mockPrompts = {
           checkbox: (options) => {
-            if (options.message.includes("[1/8]")) {
+            if (options.message.includes("[1/9]")) {
               return Promise.resolve(["mixedPurpose"]); // Trigger follow-up question
             }
             // This is the follow-up priority selection

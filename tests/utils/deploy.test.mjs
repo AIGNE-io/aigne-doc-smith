@@ -113,7 +113,6 @@ describe("deploy", () => {
           ACCESS_PREPARING: expect.any(Function),
           ACCESS_READY: expect.any(Function),
         }),
-        onError: expect.any(Function),
       }),
     );
 
