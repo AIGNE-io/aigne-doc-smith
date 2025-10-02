@@ -8,7 +8,7 @@ input_schema:
   properties:
     datasources:
       type: string
-      description: Context for document structure generation, used to assist generate document structure
+      description: Context for documentation structure generation, used to assist generate documentation structure
     documentExecutionStructure: ../schema/document-execution-structure.yaml
     modifiedFiles:
       type: array

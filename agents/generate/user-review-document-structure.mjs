@@ -48,13 +48,13 @@ function formatDocumentStructure(structure) {
 
 function printDocumentStructure(structure) {
   console.log(`\n  ${"-".repeat(50)}`);
-  console.log("  Current Document Structure");
+  console.log("  Current Documentation Structure");
   console.log(`  ${"-".repeat(50)}`);
 
   const { rootNodes, printNode } = formatDocumentStructure(structure);
 
   if (rootNodes.length === 0) {
-    console.log("  No document structure found.");
+    console.log("  No documentation structure found.");
   } else {
     rootNodes.forEach((node) => {
       printNode(node);
@@ -64,19 +64,19 @@ function printDocumentStructure(structure) {
 }
 
 export default async function userReviewDocumentStructure({ documentStructure, ...rest }, options) {
-  // Check if document structure exists
+  // Check if documentation structure exists
   if (!documentStructure || !Array.isArray(documentStructure) || documentStructure.length === 0) {
-    console.log("No document structure was generated to review.");
+    console.log("No documentation structure was generated to review.");
     return { documentStructure };
   }
 
-  // Print current document structure in a user-friendly format
+  // Print current documentation structure in a user-friendly format
   printDocumentStructure(documentStructure);
 
-  // Ask user if they want to review the document structure
+  // Ask user if they want to review the documentation structure
   const needReview = await options.prompts.select({
     message:
-      "Would you like to optimize the document structure?\n  You can edit titles, reorganize sections.",
+      "Would you like to optimize the documentation structure?\n  You can edit titles, reorganize sections.",
     choices: [
       {
         name: "Looks good - proceed with current structure",
@@ -117,7 +117,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     const refineAgent = options.context.agents["updateDocumentStructure"];
     if (!refineAgent) {
       console.log(
-        "Unable to process your feedback - the document structure update feature is unavailable.",
+        "Unable to process your feedback - the documentation structure update feature is unavailable.",
       );
       console.log("Please try again later or contact support if this continues.");
       break;
@@ -157,7 +157,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
         }
       }
 
-      // Print current document structure in a user-friendly format
+      // Print current documentation structure in a user-friendly format
       printDocumentStructure(currentStructure);
     } catch (error) {
       console.error("Error processing your feedback:");
@@ -172,4 +172,4 @@ export default async function userReviewDocumentStructure({ documentStructure, .
   return { documentStructure: currentStructure };
 }
 
-userReviewDocumentStructure.taskTitle = "User review and modify document structure";
+userReviewDocumentStructure.taskTitle = "User review and modify documentation structure";

@@ -35,39 +35,18 @@ export default async function saveDocs({
     console.error("Failed to save _sidebar.md:", err.message);
   }
 
-  // Clean up invalid .md files that are no longer in the document structure
+  // Clean up invalid .md files that are no longer in the documentation structure
   try {
     await cleanupInvalidFiles(documentStructure, docsDir, translateLanguages, locale);
   } catch (err) {
     console.error("Failed to cleanup invalid .md files:", err.message);
   }
 
-  const message = `# ✅ Documentation Generated Successfully!
-
-Generated **${documentStructure.length}** documents and saved to: \`${docsDir}\`
+  const message = `
+✅ Documentation generated successfully! (\`${documentStructure.length}\` documents → \`${docsDir}\`)
 ${projectInfoMessage || ""}
-## 🚀 Next Steps
-
-**Publish Your Documentation**
-
-Generate a shareable preview link for your team:
-
-  \`aigne doc publish\`
-
-## 🔧 Optional Actions
-
-**Update Specific Documents**
-
-Regenerate content for individual documents:
-
-  \`aigne doc update\`
-
-**Refine Document Structure**
-
-Review and improve your documentation organization:
-
-  \`aigne doc generate\`
-
+🚀 Next: Make your documentation live and generate a shareable link, run: \`aigne doc publish\`
+💡 Optional: Update specific document (\`aigne doc update\`) or refine documentation structure (\`aigne doc generate\`)
   `;
 
   // Shutdown mermaid worker pool to ensure clean exit
@@ -94,7 +73,7 @@ function generateFileName(flatName, language) {
 }
 
 /**
- * Clean up .md files that are no longer in the document structure
+ * Clean up .md files that are no longer in the documentation structure
  * @param {Array<{path: string, title: string}>} documentStructure
  * @param {string} docsDir
  * @param {Array<string>} translateLanguages
@@ -109,7 +88,7 @@ async function cleanupInvalidFiles(documentStructure, docsDir, translateLanguage
     const files = await readdir(docsDir);
     const mdFiles = files.filter((file) => file.endsWith(".md"));
 
-    // Generate expected file names from document structure
+    // Generate expected file names from documentation structure
     const expectedFiles = new Set();
 
     // Add main document files

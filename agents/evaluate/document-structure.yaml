@@ -11,7 +11,7 @@ input_schema:
   properties:
     documentStructureYaml:
       type: string
-      description: Document structure planning
+      description: Documentation structure data
     purposes:
       type: string
       description: User-selected document goals

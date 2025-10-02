@@ -94,7 +94,7 @@ You will be prompted with a series of questions to define the documentation's ch
 
 ![Answer the prompts to complete the project setup](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-Once the configuration is complete, DocSmith will proceed to analyze your source code, plan the document structure, and generate the content.
+Once the configuration is complete, DocSmith will proceed to analyze your source code, plan the documentation structure, and generate the content.
 
 ![DocSmith planning the structure and generating documents](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 

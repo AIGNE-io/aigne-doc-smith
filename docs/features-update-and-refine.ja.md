@@ -1,84 +1,138 @@
-# 更新と改良
+# 更新とリファイン
 
-進化するコードベースとドキュメントを同期させることは、重要なタスクです。AIGNE DocSmithは、コードの変更に基づく自動更新や、フィードバックに基づいた正確な改良を通じて、コンテンツを最新の状態に保つための直接的で柔軟な方法を提供します。
+進化するコードベースとドキュメントを同期させることは、体系的なプロセスです。AIGNE DocSmithは、コードの変更に基づく自動更新、またはフィードバックに基づいた正確なリファインによって、コンテンツを最新の状態に保つための直接的で柔軟なコマンドを提供します。
 
-このガイドでは、以下の方法について説明します：
+このガイドでは、以下の手順について説明します。
 
 - ソースコードが変更されたときにドキュメントを自動的に更新する。
-- 特定のフィードバックを使用して特定のドキュメントを再生成する。
+- 対象を絞ったフィードバックを使用して特定のドキュメントを再生成する。
 - ドキュメント全体の構造を調整する。
 
-### ドキュメント更新のワークフロー
+### ドキュメント更新ワークフロー
 
-以下の図は、ドキュメントを更新するために利用できるさまざまなパスを示しています：
+以下の図は、ドキュメントを更新するために利用できるさまざまなワークフローを示しています。
 
-```d2 更新ワークフロー
+```d2 ドキュメント更新ワークフロー
 direction: down
 
-Start: {
-  shape: circle
-  label: "開始"
+developer: {
+  shape: c4-person
+  label: "開発者"
 }
 
-Code-Change: {
-  label: "ソースコードまたは\n設定の変更"
+codebase: {
+  shape: cylinder
+  label: "ソースコード"
+}
+
+updated-documentation: {
+  shape: cylinder
+  label: "更新された\nドキュメント"
+}
+
+workflows: {
+  label: "ドキュメント更新ワークフロー"
   shape: rectangle
+
+  automatic-updates: {
+    label: "自動更新 (コード駆動)"
+    shape: rectangle
+
+    cmd-generate: {
+      label: "aigne doc generate"
+    }
+
+    decision-force: {
+      label: "--forceRegenerate?"
+      shape: diamond
+    }
+
+    detect-changes: {
+      label: "変更を検出"
+    }
+
+    regen-affected: {
+      label: "影響を受ける\nドキュメントを再生成"
+    }
+
+    regen-all: {
+      label: "すべての\nドキュメントを再生成"
+    }
+  }
+
+  manual-refinements: {
+    label: "手動リファイン (フィードバック駆動)"
+    shape: rectangle
+    grid-columns: 2
+    grid-gap: 100
+
+    refine-individual: {
+      label: "個別ドキュメントのリファイン"
+      shape: rectangle
+
+      cmd-update: {
+        label: "aigne doc update\n--feedback"
+      }
+
+      regen-specific: {
+        label: "特定の\nドキュメントを再生成"
+      }
+    }
+
+    optimize-structure: {
+      label: "全体構造の最適化"
+      shape: rectangle
+
+      cmd-generate-feedback: {
+        label: "aigne doc generate\n--feedback"
+      }
+
+      re-evaluate-plan: {
+        label: "ドキュメント計画\nの再評価"
+      }
+    }
+  }
 }
 
-Content-Tweak: {
-  label: "コンテンツの\n改善が必要か？"
-  shape: rectangle
-}
+# --- 接続 ---
 
-Structure-Tweak: {
-  label: "構造の\n改善が必要か？"
-  shape: rectangle
-}
+# パス1: 自動更新
+developer -> codebase: "1. 変更を加える"
+codebase -> workflows.automatic-updates.cmd-generate: "2. コマンドを実行"
+workflows.automatic-updates.cmd-generate -> workflows.automatic-updates.decision-force
+workflows.automatic-updates.decision-force -> workflows.automatic-updates.detect-changes: "いいえ"
+workflows.automatic-updates.detect-changes -> workflows.automatic-updates.regen-affected
+workflows.automatic-updates.decision-force -> workflows.automatic-updates.regen-all: "はい"
+workflows.automatic-updates.regen-affected -> updated-documentation
+workflows.automatic-updates.regen-all -> updated-documentation
 
-Start -> Code-Change
-Start -> Content-Tweak
-Start -> Structure-Tweak
+# パス2: 個別リファイン
+developer -> workflows.manual-refinements.refine-individual.cmd-update: "3. コンテンツの\nフィードバックを提供"
+workflows.manual-refinements.refine-individual.cmd-update -> workflows.manual-refinements.refine-individual.regen-specific
+workflows.manual-refinements.refine-individual.regen-specific -> updated-documentation
 
-Code-Change -> Generate-Command: "aigne doc generate"
-
-Generate-Command -> Change-Detection: {
-  label: "変更検出"
-  shape: diamond
-}
-Change-Detection -> Auto-Regen: "影響を受ける\nドキュメントを再生成"
-
-Content-Tweak -> Update-Command: "aigne doc update\n--feedback"
-Update-Command -> Manual-Regen: "特定の\nドキュメントを再生成"
-
-Structure-Tweak -> Generate-Feedback-Command: "aigne doc generate\n--feedback"
-Generate-Feedback-Command -> Replan: "ドキュメント構造を\n再計画"
-
-End: {
-  shape: circle
-  label: "ドキュメント更新済み"
-}
-
-Auto-Regen -> End
-Manual-Regen -> End
-Replan -> End
+# パス3: 構造リファイン
+developer -> workflows.manual-refinements.optimize-structure.cmd-generate-feedback: "4. 構造に関する\nフィードバックを提供"
+workflows.manual-refinements.optimize-structure.cmd-generate-feedback -> workflows.manual-refinements.optimize-structure.re-evaluate-plan
+workflows.manual-refinements.optimize-structure.re-evaluate-plan -> updated-documentation: "新しい構造で\n再生成"
 ```
 
 ---
 
 ## 変更検出による自動更新
 
-`aigne doc generate` コマンドを実行すると、DocSmithはコードベースを分析し、前回の実行からの変更を検出し、影響を受けるドキュメントのみを再生成します。このプロセスにより、時間を節約し、不要なAPI呼び出しを削減できます。
+`aigne doc generate`コマンドを実行すると、DocSmithはまずコードベースを分析して、前回の生成以降の変更を検出します。その後、これらの変更によって影響を受けるドキュメントのみを再生成します。このデフォルトの動作により、時間が節約され、APIの使用量が削減されます。
 
 ```shell icon=lucide:terminal
-# DocSmithが変更を検出し、必要なものだけを更新します
+# DocSmithは変更を検出し、必要なものだけを更新します
 aigne doc generate
 ```
 
 ![DocSmithが変更を検出し、必要なドキュメントのみを再生成します。](https://docsmith.aigne.io/image-bin/uploads/21a76b2f65d14d16a49c13d800f1e2c1.png)
 
-### 完全な再生成を強制する
+### 完全な再生成の強制
 
-キャッシュや以前の状態を無視して、すべてのドキュメントを最初から再生成する必要がある場合は、`--forceRegenerate` フラグを使用します。これは、大幅な設定変更後や、完全に新しいビルドを確実にしたい場合に便利です。
+キャッシュと変更検出をバイパスして、すべてのドキュメントをゼロから再生成するには、`--forceRegenerate`フラグを使用します。これは、大幅な設定変更を行った場合や、一貫性を確保するために完全な再構築が必要な場合に必要です。
 
 ```shell icon=lucide:terminal
 # すべてのドキュメントをゼロから再生成します
@@ -87,18 +141,18 @@ aigne doc generate --forceRegenerate
 
 ---
 
-## 個々のドキュメントの改良
+## 個別ドキュメントのリファイン
 
-対応するコードの変更なしに特定のドキュメントを改善するために、`aigne doc update` コマンドを使用すると、コンテンツの改良に関する的を絞った指示を提供できます。
+対応するコードの変更なしに特定のドキュメントのコンテンツを改善するには、`aigne doc update`コマンドを使用します。このコマンドを使用すると、リファインのための具体的な指示を提供できます。
 
-このコマンドは、対話形式またはコマンドライン引数を介して直接、2つの方法で使用できます。
+これは、対話形式またはコマンドライン引数を使用して非対話形式で行うことができます。
 
 ### 対話モード
 
-ガイド付きの体験をしたい場合は、引数なしでコマンドを実行します。DocSmithは、更新したいドキュメントを選択するためのメニューを表示します。選択後、フィードバックを入力するよう求められます。
+ガイド付きのプロセスを行うには、引数なしでコマンドを実行します。DocSmithは、更新したいドキュメントを選択するためのメニューを表示します。選択後、フィードバックを入力するよう求められます。
 
 ```shell icon=lucide:terminal
-# 対話式の更新プロセスを開始します
+# 対話的な更新プロセスを開始します
 aigne doc update
 ```
 
@@ -106,33 +160,33 @@ aigne doc update
 
 ### 直接的なコマンドライン更新
 
-より高速なワークフローやスクリプト作成のために、フラグを使用してドキュメントとフィードバックを直接指定できます。これにより、正確で非対話的な更新が可能になります。
+スクリプト化された、またはより高速なワークフローのために、フラグを使用してドキュメントとフィードバックを直接指定できます。これにより、正確な非対話形式の更新が可能になります。
 
 ```shell icon=lucide:terminal
-# 特定のドキュメントにフィードバックを付けて更新します
-aigne doc update --docs overview.md --feedback "Add a more detailed FAQ section at the end."
+# フィードバック付きで特定のドキュメントを更新します
+aigne doc update --docs overview.md --feedback "最後に詳細なFAQセクションを追加してください。"
 ```
 
-`update` コマンドの主要なパラメータ：
+`update`コマンドの主要なパラメータは以下の通りです。
 
-| パラメータ  | 説明                                                                                      |
-| ---------- | ------------------------------------------------------------------------------------------------ |
-| `--docs`     | 更新したいドキュメントへのパス。バッチ更新のためにこのフラグを複数回使用できます。 |
-| `--feedback` | コンテンツを再生成する際に使用する具体的な指示。                       |
+| パラメータ | 説明 |
+| --- | --- |
+| `--docs` | 更新するドキュメントへのパス。このフラグはバッチ更新のために複数回使用できます。 |
+| `--feedback` | コンテンツを再生成する際に使用される具体的な指示。 |
 
 ---
 
 ## 全体構造の最適化
 
-個々のドキュメントのコンテンツを改良するだけでなく、ドキュメント全体の構造も調整できます。セクションが欠けている場合や、既存の構成を改善できる場合は、`generate` コマンドにフィードバックを提供できます。
+個々のドキュメントのコンテンツをリファインすることに加えて、ドキュメント全体の構造を調整することもできます。既存の構成が最適でない場合やセクションが欠落している場合は、`generate`コマンドにフィードバックを提供できます。
 
-このコマンドは、DocSmithに新しい入力に基づいてドキュメントプラン全体を再評価するよう指示します。
+これにより、DocSmithは入力に基づいてドキュメント計画全体を再評価するように指示されます。
 
 ```shell icon=lucide:terminal
-# 特定のフィードバックを付けてドキュメント構造を再生成します
-aigne doc generate --feedback "Remove the 'About' section and add a detailed 'API Reference'."
+# 特定のフィードバックでドキュメント構造を再生成します
+aigne doc generate --feedback "'概要'セクションを削除し、詳細な'APIリファレンス'を追加してください。"
 ```
 
-このアプローチは、行単位のコンテンツ編集ではなく、ドキュメントの目次に対する高レベルの変更に最適です。
+このアプローチは、ドキュメントの目次に対する高レベルの変更を目的としており、軽微なコンテンツの編集を目的としたものではありません。
 
-これらのツールを使用すると、プロジェクトと共に進化する正確なドキュメントを維持できます。コンテンツが改良されたら、世界中のオーディエンスに公開できます。その方法については、[ドキュメントの翻訳](./features-translate-documentation.md)ガイドで学んでください。
+コンテンツがリファインされたら、次のステップはグローバルなオーディエンス向けに準備することです。手順については、[ドキュメントの翻訳](./features-translate-documentation.md)ガイドを参照してください。

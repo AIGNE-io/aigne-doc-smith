@@ -24,7 +24,7 @@
   "dependencies": {
     "@aigne/aigne-hub": "^0.10.0",
     "@aigne/anthropic": "^0.14.0",
-    "@aigne/cli": "^1.49.0",
+    "@aigne/cli": "^1.49.1",
     "@aigne/core": "^1.61.0",
     "@aigne/gemini": "^0.14.0",
     "@aigne/openai": "^0.16.0",

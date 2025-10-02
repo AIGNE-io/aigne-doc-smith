@@ -104,7 +104,7 @@ describe("format-document-structure", () => {
   });
 
   // BASIC FUNCTIONALITY TESTS
-  test("should format empty document structure", async () => {
+  test("should format empty documentation structure", async () => {
     const result = await formatDocumentStructure({
       documentStructure: [],
     });
@@ -121,7 +121,7 @@ describe("format-document-structure", () => {
     });
   });
 
-  test("should format single item document structure", async () => {
+  test("should format single item documentation structure", async () => {
     const documentStructure = [
       {
         title: "Getting Started",
@@ -152,7 +152,7 @@ describe("format-document-structure", () => {
     expect(result.documentStructureYaml).toBe(expectedYaml);
   });
 
-  test("should format multiple items document structure", async () => {
+  test("should format multiple items documentation structure", async () => {
     const documentStructure = [
       {
         title: "API Reference",
@@ -321,7 +321,7 @@ describe("format-document-structure", () => {
     expect(result.documentStructure).toEqual(documentStructure);
   });
 
-  test("should return both yaml string and original document structure", async () => {
+  test("should return both yaml string and original documentation structure", async () => {
     const documentStructure = [
       {
         title: "Return Test",
@@ -339,7 +339,7 @@ describe("format-document-structure", () => {
     expect(result.documentStructure).toBe(documentStructure); // Should be the same reference
   });
 
-  test("should preserve original document structure unchanged", async () => {
+  test("should preserve original documentation structure unchanged", async () => {
     const originalDocumentStructure = [
       {
         title: "Original",

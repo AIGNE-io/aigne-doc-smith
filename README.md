@@ -45,7 +45,7 @@ As shown in the diagram, DocSmith integrates seamlessly with other [AIGNE](https
 
 - **AIGNE Hub Integration**: Use [AIGNE Hub](https://www.aigne.io/en/hub) without API keys, switch between Google Gemini, OpenAI GPT, Claude, and more
 - **Multiple LLM Support**: Bring your own API keys for OpenAI, Anthropic, Google, and other providers
-- **Discuss Kit Publishing**: Deploy to [docsmith.aigne.io](https://docsmith.aigne.io/app/) or your own [Discuss Kit](https://www.web3kit.rocks/discuss-kit) instance
+- **One-Click Publishing**: Make your docs live and generate shareable links for your team - publish to [docsmith.aigne.io](https://docsmith.aigne.io/app/) or your own [Discuss Kit](https://www.web3kit.rocks/discuss-kit) instance
 
 ### 🔄 Smart Updates
 

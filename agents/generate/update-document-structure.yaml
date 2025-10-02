@@ -1,6 +1,6 @@
 type: ai
 name: updateDocumentStructure
-description: Update document structure based on user feedback and intentions using structure modification tools
+description: Update documentation structure based on user feedback and intentions using structure modification tools
 instructions:
   url: ../../prompts/structure/update-document-structure.md
 input_schema:
@@ -15,7 +15,7 @@ input_schema:
       description: User language, e.g. zh, en
     datasources:
       type: string
-      description: Context for document structure
+      description: Context for documentation structure
     glossary:
       type: string
       description: Glossary of terms
@@ -34,7 +34,7 @@ output_schema:
     documentStructure: ../schema/document-structure.yaml
     operationSummary:
       type: string
-      description: Summary of the operations performed on the document structure
+      description: Summary of the operations performed on the documentation structure
 skills:
   - ./document-structure-tools/add-document.mjs
   - ./document-structure-tools/delete-document.mjs

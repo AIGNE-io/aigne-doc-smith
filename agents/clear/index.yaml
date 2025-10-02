@@ -2,7 +2,7 @@ type: team
 name: clear
 alias:
   - clear
-description: Clear various types of data including document structure, generated documents, configuration, and authorization tokens
+description: Clear various types of data including documentation structure, generated documents, configuration, and authorization tokens
 skills:
   - url: ../init/index.mjs
     default_input:

@@ -15,7 +15,7 @@ describe("choose-contents", () => {
         path: "/test/docs",
       })),
       clearDocumentStructure: mock(async () => ({
-        message: "Document structure cleared",
+        message: "Documentation Structure cleared",
         cleared: true,
         path: "/test/structure.json",
       })),

@@ -309,7 +309,7 @@ describe("conflict-detector", () => {
 
       // Should include conflict resolution rules in final rules
       expect(result.rules).toContain("=== Conflict Resolution Guidelines ===");
-      expect(result.rules).toContain("Create layered document structure");
+      expect(result.rules).toContain("Create layered documentation structure");
       expect(result.rules).toContain("Create separate user paths");
 
       // Should also include regular configuration content with enhanced format

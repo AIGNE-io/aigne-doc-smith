@@ -1,8 +1,64 @@
 # Configuration Guide
 
-AIGNE DocSmith's behavior is controlled by a central file, `config.yaml`, located at `.aigne/doc-smith/config.yaml`. This file dictates the style, target audience, languages, and structure of your documentation.
+AIGNE DocSmith's behavior is controlled by a central configuration file, `.aigne/doc-smith/config.yaml`. This file allows you to customize the style, target audience, languages, and structure of your documentation to meet your specific needs.
 
-You can create and manage this file using the interactive setup wizard by running `aigne doc init`. For a step-by-step walkthrough, see the [Interactive Setup](./configuration-interactive-setup.md) guide.
+You can create and manage this file using the interactive setup wizard by running `aigne doc init`. For a step-by-step walkthrough, please refer to the [Interactive Setup](./configuration-interactive-setup.md) guide. Alternatively, you can edit the file directly for more granular control.
+
+The following diagram illustrates the configuration workflow:
+
+```d2 Configuration Workflow
+direction: down
+
+User: {
+  shape: c4-person
+}
+
+CLI: {
+  label: "`aigne doc init`\n(Interactive Setup)"
+  shape: rectangle
+}
+
+ConfigFile: {
+  label: ".aigne/doc-smith/config.yaml"
+  shape: rectangle
+  
+  Project-Info: {
+    label: "Project Information"
+    shape: rectangle
+  }
+  
+  Doc-Strategy: {
+    label: "Documentation Strategy"
+    shape: rectangle
+  }
+  
+  Custom-Directives: {
+    label: "Custom Directives"
+    shape: rectangle
+  }
+  
+  Lang-Path: {
+    label: "Language & Path Config"
+    shape: rectangle
+  }
+}
+
+AIGNE-DocSmith: {
+  label: "AIGNE DocSmith\n(Generation Process)"
+  icon: "https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9dd30aec44fc.png"
+}
+
+Generated-Docs: {
+  label: "Generated Documentation"
+  shape: rectangle
+}
+
+User -> CLI: "Runs"
+CLI -> ConfigFile: "Creates / Modifies"
+User -> ConfigFile: "Directly Edits"
+ConfigFile -> AIGNE-DocSmith: "Controls"
+AIGNE-DocSmith -> Generated-Docs: "Produces"
+```
 
 ## Core Configuration Areas
 

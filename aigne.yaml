@@ -9,7 +9,7 @@ agents:
   # Initialization
   - ./agents/init/index.mjs
 
-  # Document Structure Generation
+  # Documentation Structure Generation
   - ./agents/generate/generate-structure.yaml
   - ./agents/generate/update-document-structure.yaml
   - ./agents/generate/check-need-generate-structure.mjs
@@ -18,7 +18,7 @@ agents:
   - ./agents/generate/user-review-document-structure.mjs
   - ./agents/generate/index.yaml
   
-  # Document Structure Tools
+  # Documentation Structure Tools
   - ./agents/generate/document-structure-tools/add-document.mjs
   - ./agents/generate/document-structure-tools/delete-document.mjs
   - ./agents/generate/document-structure-tools/update-document.mjs

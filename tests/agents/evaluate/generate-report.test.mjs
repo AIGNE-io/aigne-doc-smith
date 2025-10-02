@@ -189,7 +189,7 @@ describe("generateEvaluationReport", () => {
     expect(firstDoc.codeEvaluation).toBe(null);
   });
 
-  test("should handle empty document structure", async () => {
+  test("should handle empty documentation structure", async () => {
     const testData = {
       structureEvaluation: {
         purposeCoverage: {

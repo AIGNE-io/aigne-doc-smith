@@ -350,7 +350,7 @@ export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml
 export const CONFLICT_RULES = {
   // Internal conflicts within the same question (multi-select conflicts)
   internalConflicts: {
-    // Note: Most conflicts can be resolved through intelligent document structure
+    // Note: Most conflicts can be resolved through intelligent documentation structure
     // Only keeping conflicts that represent fundamental incompatibilities
   },
 
@@ -424,7 +424,7 @@ export const CONFLICT_RULES = {
 
 // Conflict resolution rules - defines how to handle conflicts when users select conflicting options
 export const CONFLICT_RESOLUTION_RULES = {
-  // Document purpose conflicts that can be resolved through document structure
+  // Document purpose conflicts that can be resolved through documentation structure
   documentPurpose: [
     {
       conflictItems: ["getStarted", "findAnswers"],
@@ -451,7 +451,7 @@ export const CONFLICT_RESOLUTION_RULES = {
     },
   ],
 
-  // Target audience conflicts that can be resolved through document structure
+  // Target audience conflicts that can be resolved through documentation structure
   targetAudienceTypes: [
     {
       conflictItems: ["endUsers", "developers"],
@@ -475,7 +475,7 @@ export const CONFLICT_RESOLUTION_RULES = {
 // Resolution strategy descriptions
 export const RESOLUTION_STRATEGIES = {
   layered_structure: (items) =>
-    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create layered document structure
+    `Detected "${items.join('" and "')}" purpose conflict. Resolution strategy: Create layered documentation structure
 - Quick start section: Uses "get started" style - optimizes for speed, key steps, working examples, skips complex edge cases
 - API reference section: Uses "find answers" style - comprehensive coverage, searchability, rich examples, skips narrative flow
 - Ensure sections complement rather than conflict with each other`,

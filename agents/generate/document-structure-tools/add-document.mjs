@@ -41,7 +41,7 @@ export default async function addDocument(input) {
     sourceIds: [...sourceIds], // Create a copy of the array
   };
 
-  // Add the new document to the document structure
+  // Add the document to the structure
   const updatedStructure = [...documentStructure, newDocument];
 
   return {
@@ -50,7 +50,7 @@ export default async function addDocument(input) {
   };
 }
 
-addDocument.taskTitle = "Add new document";
-addDocument.description = "Add a new document to the document structure";
+addDocument.taskTitle = "Add document";
+addDocument.description = "Add a document to the documentation structure";
 addDocument.inputSchema = getAddDocumentInputJsonSchema();
 addDocument.outputSchema = getAddDocumentOutputJsonSchema();

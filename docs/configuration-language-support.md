@@ -1,6 +1,6 @@
 # Language Support
 
-AIGNE DocSmith uses AI to provide automated documentation translation into 12 languages. This allows you to generate and maintain documentation for a global audience using the `aigne doc translate` command.
+AIGNE DocSmith uses AI to provide automated documentation translation into 12 languages. Generate and maintain documentation for a global audience using the `aigne doc translate` command.
 
 The translation workflow processes your source documents through an AI engine to generate localized versions in your selected target languages.
 

@@ -16,8 +16,8 @@ Structural planning rules:
 5. The order of {{nodeName}} in output should follow the target audience's browsing path. It doesn't need to follow the exact order in DataSources—progress from simple to advanced, from understanding to exploration, with reasonable pathways
 6. Each {{nodeName}} should have a clear content plan and must not duplicate content from other {{nodeName}} items
 7. Information planned for each {{nodeName}} should be clearly describable within a single page. If there's too much information to display or the concepts are too broad, consider splitting into sub-{{nodeName}} items
-8. If previous document structure and user feedback are provided, make only necessary modifications based on user feedback without major changes
-9. If previous document structure is provided but no feedback is given, **directly return the previous document structure**
+8. If previous documentation structure and user feedback are provided, make only necessary modifications based on user feedback without major changes
+9. If previous documentation structure is provided but no feedback is given, **directly return the previous documentation structure**
 10. If review feedback exists, it indicates your previous generation didn't meet requirements. Optimize your output based on the review feedback
 
 {{nodeName}} planning rules:

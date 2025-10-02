@@ -13,7 +13,7 @@ input_schema:
       description: Primary language for documentation (e.g., zh, en, ja)
     datasources:
       type: string
-      description: Project content and context to help generate document structure
+      description: Project content and context to help generate documentation structure
     targetAudience:
       type: string
       description: Target audience for the documentation

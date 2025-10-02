@@ -76,7 +76,7 @@ export function getFilteredOptions(targetQuestion, currentSelections, allOptions
 }
 
 /**
- * Detect conflicts in user configuration selections that can be resolved through document structure
+ * Detect conflicts in user configuration selections that can be resolved through documentation structure
  * @param {Object} config - User configuration
  * @returns {Array} Array of detected conflicts with resolution strategies
  */

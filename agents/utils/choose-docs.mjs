@@ -41,7 +41,7 @@ export default async function chooseDocs(
 
       // Convert files to choices with titles
       const choices = mainLanguageFiles.map((file) => {
-        // Convert filename to flat path to find corresponding document structure item
+        // Convert filename to flat path to find corresponding documentation structure item
         const flatName = file.replace(/\.md$/, "").replace(/\.\w+(-\w+)?$/, "");
         const docItem = documentExecutionStructure.find((item) => {
           const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
