@@ -1,0 +1,107 @@
+"meta":
+  "title": "关于 AIGNE DocSmith | AI 驱动的文档"
+  "description": "进一步了解 AIGNE DocSmith，这是一款由 AI 驱动的文档工具，
+    能智能分析您的代码库，自动生成全面、
+    多语言的文档。"
+"sections":
+  - "sectionName": "aboutHero"
+    "sectionSummary": "采用分屏式首屏介绍 AIGNE DocSmith，提供明确的价值主张与
+      清晰的行动引导，迅速激发兴趣并
+      吸引关注。"
+    "splitHeroTitle": "认识 AIGNE DocSmith：您的文档 AI 副驾"
+    "splitHeroDescription": "厌倦了撰写文档？AIGNE DocSmith 是一款由 AI 驱动的
+      工具，可智能分析您的代码，自动生成完整、
+      多语言的文档。让文档与代码始终
+      保持完美同步，
+      轻松省心。"
+    "splitHeroActions":
+      - "text": "立即开始"
+        "link": "link:///getting-started"
+      - "text": "了解其工作方式"
+        "link": "link:///how-it-works"
+    "splitHeroRightImage": "https://placehold.co/1440x700?text=DocSmith+In+Action"
+  - "sectionName": "coreBenefits"
+    "sectionSummary": "通过灵活的 Bento 网格展示用户喜爱 DocSmith 的五大理由，
+      聚焦能够切实带来价值的优势，帮助他们
+      大幅简化工作。"
+    "list":
+      - "sectionName": "intelligentAnalysisCard"
+        "sectionSummary": "突出 DocSmith 对代码的深层理解能力的优势卡片。"
+        "iconName": "mdi:brain-check-outline"
+        "cardTitle": "智能分析"
+        "cardDescription": "不仅停留在语法层面，还能理解代码意图，生成富有洞见的文档，接近人工撰写的效果。"
+      - "sectionName": "comprehensiveCoverageCard"
+        "sectionSummary": "强调生成文档完整性的优势
+          卡片。"
+        "iconName": "mdi:book-open-page-variant-outline"
+        "cardTitle": "全面覆盖"
+        "cardDescription": "从 API 参考到完整的用户指南，所需文档一次到位。不再有缺漏！"
+      - "sectionName": "globalReadyCard"
+        "sectionSummary": "展示强大的多语言翻译
+          功能的优势卡片。"
+        "iconName": "mdi:web"
+        "cardTitle": "全球就绪"
+        "cardDescription": "将文档即时翻译为 12 种语言，具备专业且基于上下文的准确性。您的项目即可面向全球。"
+      - "sectionName": "alwaysCurrentCard"
+        "sectionSummary": "强调自动更新能力，杜绝
+          过期文档的优势卡片。"
+        "iconName": "mdi:update"
+        "cardTitle": "始终最新"
+        "cardDescription": "自动检测代码变更并更新文档，避免过期。就是这么简单！"
+      - "sectionName": "zeroConfigCard"
+        "sectionSummary": "突出使用 DocSmith 快速上手的优势卡片。"
+        "iconName": "mdi:rocket-launch-outline"
+        "cardTitle": "零配置"
+        "cardDescription": "开箱即用，提供智能默认设置。指向您的项目即可开始。"
+  - "sectionName": "aiPoweredGeneration"
+    "sectionSummary": "突出支撑文档生成的三项核心 AI 能力，
+      增强对底层技术的信任与
+      认可。"
+    "threeColumnGridTitle": "我们的 AI 如何打造高质量文档"
+    "list":
+      - "sectionName": "smartStructureCard"
+        "sectionSummary": "说明 AI 规划文档
+          结构能力的特性卡片。"
+        "iconName": "mdi:file-tree-outline"
+        "cardTitle": "智能结构规划"
+        "cardDescription": "AI 会分析您的整个代码库，自动创建逻辑清晰、
+          易于导航的文档结构。顺理
+          成章。"
+      - "sectionName": "intelligentContentCard"
+        "sectionSummary": "阐述 AI 基于上下文生成内容的特性卡片。"
+        "iconName": "mdi:text-box-edit-outline"
+        "cardTitle": "智能内容生成"
+        "cardDescription": "生成丰富、具备上下文的内容，不仅解释
+          “是什么”，还说明代码背后的
+          “为什么”。"
+      - "sectionName": "adaptiveWritingCard"
+        "sectionSummary": "展示可定制写作风格的特性卡片。"
+        "iconName": "mdi:palette-swatch-outline"
+        "cardTitle": "自适应写作风格"
+        "cardDescription": "可根据受众选择合适的语气，从深度且专业的技术解读，
+          到友好的用户指南均可覆盖，充分
+          体现您的品牌声音。"
+  - "sectionName": "contactCta"
+    "sectionSummary": "专门的号召性区域，便于用户联系支持团队或销售团队，
+      获取更多信息或帮助。"
+    "ctaTitle": "有问题？欢迎交流"
+    "ctaDescription": "我们的团队随时帮助您充分利用 AIGNE
+      DocSmith。无论您是企业用户还是刚刚起步，
+      我们都乐于提供协助。"
+    "cta":
+      - "text": "联系我们"
+        "link": "https://www.aigne.io/contact"
+      - "text": "加入社区"
+        "link": "https://community.arcblock.io/discussions/boards/aigne"
+  - "sectionName": "finalCta"
+    "sectionSummary": "最后的号召性区域，将感兴趣的
+      访客转化为用户，并提供清晰的下一步。"
+    "ctaTitle": "准备好革新您的文档工作了吗？"
+    "ctaDescription": "将时间从写文档转向建设真正重要的内容。让 AIGNE
+      DocSmith 处理繁重工作。现在就试试，亲自
+      体验。"
+    "cta":
+      - "text": "免费开始使用"
+        "link": "link:///getting-started"
+      - "text": "探索更多功能"
+        "link": "link:///home"

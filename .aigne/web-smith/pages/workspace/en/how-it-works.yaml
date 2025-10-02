@@ -1,92 +1,262 @@
-meta:
-  title: "How AIGNE DocSmith Works | Multi-Agent Architecture"
-  description: "Dive deep into the AIGNE DocSmith architecture. Learn about our multi-agent system and the documentation generation pipeline for technical users."
-sections:
-  - sectionName: "howItWorksHero"
-    sectionSummary: "Introduces the core concept of the multi-agent architecture with a high-level explanation and a visual diagram, immediately establishing the technical focus of the page."
-    splitHeroTitle: "Discover the Power of a Multi-Agent System"
-    splitHeroDescription: "AIGNE DocSmith isn't a single tool—it's a dynamic team of specialized AI agents working together. This modular pipeline transforms your source code into brilliant documentation, one expert task at a time."
-    splitHeroRightImage: "https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png"
-    splitHeroActions:
-      - text: "Get Started Now"
-        link: "link:///getting-started"
-      - text: "Back to Home"
-        link: "link:///home"
-  - sectionName: "pipelineOverview"
-    sectionSummary: "Visually presents the documentation generation pipeline using a D2 diagram, giving technical users a clear, high-level map of the entire process from code input to final output."
-    verticalHeroTitle: "The Documentation Generation Pipeline"
-    verticalHeroDescription: "At its core, DocSmith orchestrates a seamless flow from your source code to polished documentation. See how our agents manage each stage, from initial planning to final publishing."
-    verticalHeroCode:
-      name: "Pipeline.d2"
-      content: "direction: down\n\nInput: {\n  label: \"Source Code & Config\"\n  shape: rectangle\n}\n\nPipeline: {\n  label: \"Core Generation Pipeline\"\n  shape: rectangle\n  grid-columns: 1\n  grid-gap: 40\n\n  Structure-Planning: {\n    label: \"1. Structure Planning\"\n    shape: rectangle\n  }\n\n  Content-Generation: {\n    label: \"2. Content Generation\"\n    shape: rectangle\n  }\n\n  Saving: {\n    label: \"3. Save Documents\"\n    shape: rectangle\n  }\n}\n\nUser-Feedback: {\n  label: \"User Feedback Loop\\n(via --feedback flag)\"\n  shape: rectangle\n}\n\nOptional-Steps: {\n  label: \"Optional Post-Generation Steps\"\n  shape: rectangle\n  grid-columns: 2\n  grid-gap: 40\n  \n  Translation: {\n    label: \"Translate\\n(aigne doc translate)\"\n    shape: rectangle\n  }\n\n  Publishing: {\n    label: \"Publish\\n(aigne doc publish)\"\n    shape: rectangle\n  }\n}\n\nInput -> Pipeline.Structure-Planning\nPipeline.Structure-Planning -> Pipeline.Content-Generation\nPipeline.Content-Generation -> Pipeline.Saving\nPipeline.Saving -> Optional-Steps\n\nUser-Feedback -> Pipeline.Structure-Planning: \"Refine Structure\"\nUser-Feedback -> Pipeline.Content-Generation: \"Regenerate Content\""
-  - sectionName: "pipelineStages"
-    sectionSummary: "Breaks down the generation pipeline into five distinct, digestible stages using a bento grid. Each card details a specific step, making the complex process easy to understand at a glance."
-    list:
-      - sectionName: "inputAnalysisCard"
-        sectionSummary: "Explains the initial input analysis step of the pipeline."
-        iconName: "carbon:code-reference"
-        cardTitle: "1. Input Analysis"
-        cardDescription: "Agents kick things off by loading your source code and the aigne.yaml project configuration."
-      - sectionName: "structurePlanningCard"
-        sectionSummary: "Explains the structure planning step of the pipeline."
-        iconName: "carbon:network-4"
-        cardTitle: "2. Structure Planning"
-        cardDescription: "A specialized agent analyzes your codebase to propose a logical, comprehensive documentation outline."
-      - sectionName: "contentGenerationCard"
-        sectionSummary: "Explains the content generation step of the pipeline."
-        iconName: "carbon:edit"
-        cardTitle: "3. Content Generation"
-        cardDescription: "Content agents get to work, populating each section with detailed text, code examples, and clear explanations."
-      - sectionName: "refinementUpdatesCard"
-        sectionSummary: "Explains the refinement and updates step of the pipeline."
-        iconName: "carbon:loop"
-        cardTitle: "4. Refinement & Updates"
-        cardDescription: "Using your feedback, agents precisely update individual documents or adjust the overall structure on demand."
-      - sectionName: "translationPublishingCard"
-        sectionSummary: "Explains the optional translation and publishing step of the pipeline."
-        iconName: "carbon:cloud-upload"
-        cardTitle: "5. Translation & Publishing"
-        cardDescription: "Optional agents handle multi-language translation and publish your final docs directly to a web platform."
-  - sectionName: "keyAgents"
-    sectionSummary: "Introduces the key AI agents responsible for the core functionalities. This section uses a grid layout to highlight each agent's specific role, reinforcing the modular, task-oriented nature of the system."
-    threeColumnGridTitle: "Meet the Key AI Agents"
-    list:
-      - sectionName: "structurePlanningAgentCard"
-        sectionSummary: "Details the role of the Structure Planning agent."
-        iconName: "carbon:plan"
-        cardTitle: "Structure Planning Agent"
-        cardDescription: "Analyzes your source code to propose the initial document outline and map."
-      - sectionName: "structureRefinementAgentCard"
-        sectionSummary: "Details the role of the Structure Refinement agent."
-        iconName: "carbon:task-tools"
-        cardTitle: "Structure Refinement Agent"
-        cardDescription: "Intelligently modifies the documentation structure based on your direct feedback."
-      - sectionName: "contentGenerationAgentCard"
-        sectionSummary: "Details the role of the Content Generation agents."
-        iconName: "carbon:document-add"
-        cardTitle: "Content Generation Agents"
-        cardDescription: "Populates the planned structure with rich, detailed content for every section."
-      - sectionName: "translationAgentCard"
-        sectionSummary: "Details the role of the Translation agents."
-        iconName: "carbon:translate"
-        cardTitle: "Translation Agents"
-        cardDescription: "Translates generated documentation into multiple target languages for a global reach."
-      - sectionName: "publishingAgentCard"
-        sectionSummary: "Details the role of the Publishing agent."
-        iconName: "carbon:send-alt"
-        cardTitle: "Publishing Agent"
-        cardDescription: "Manages the entire process of publishing your docs to Discuss Kit instances."
-      - sectionName: "dataIOAgentCard"
-        sectionSummary: "Details the role of the Data I/O agents."
-        iconName: "carbon:folder-details-reference"
-        cardTitle: "Data I/O Agents"
-        cardDescription: "Handles the fundamental tasks of reading source files and writing final markdown documents to disk."
-  - sectionName: "finalCta"
-    sectionSummary: "Provides a clear and compelling call to action, encouraging technical users to move from learning about the architecture to actively using the tool."
-    ctaTitle: "Ready to See It in Action?"
-    ctaDescription: "You've seen how it works—now experience the power of AI-driven documentation firsthand. Get started in minutes."
-    cta:
-      - text: "Start Your First Project"
-        link: "link:///getting-started"
-      - text: "Explore Enterprise Features"
-        link: "link:///enterprise"
+"meta":
+  "title": "How AIGNE DocSmith Works | Multi-Agent Architecture"
+  "description": "Dive deep into the AIGNE DocSmith architecture. Learn about our
+    multi-agent system and the documentation generation pipeline for technical
+    users."
+"sections":
+  - "sectionName": "howItWorksHero"
+    "sectionSummary": "Introduces the core concept of the multi-agent architecture
+      with a high-level explanation and a visual diagram, immediately
+      establishing the technical focus of the page."
+    "splitHeroTitle": "Discover the Power of a Multi-Agent System"
+    "splitHeroDescription": "AIGNE DocSmith isn't a single tool—it's a dynamic team
+      of specialized AI agents working together. This modular pipeline
+      transforms your source code into brilliant documentation, one expert task
+      at a time."
+    "splitHeroRightImage": "https://docsmith.aigne.io/image-bin/uploads/def424c20bb\
+      db3c77483894fe0e22819.png"
+    "splitHeroActions":
+      - "text": "Get Started Now"
+        "link": "link:///getting-started"
+      - "text": "Back to Home"
+        "link": "link:///home"
+  - "sectionName": "generationPipelineOverview"
+    "sectionSummary": "Visually presents the core documentation generation pipeline
+      with a D2 diagram, showing the flow from source code to final documents."
+    "verticalHeroTitle": "The Documentation Generation Pipeline"
+    "verticalHeroDescription": "At the heart of DocSmith is a powerful pipeline that
+      takes your source code through distinct stages, each handled by
+      specialized agents. See the entire workflow, from input to publishing,
+      come to life!"
+    "verticalHeroCode":
+      "name": "d2"
+      "content": "direction: down
+
+
+        Input: {
+
+        \  label: \"Source Code & Config\"
+
+        \  shape: rectangle
+
+        }
+
+
+        Pipeline: {
+
+        \  label: \"Core Generation Pipeline\"
+
+        \  shape: rectangle
+
+        \  grid-columns: 1
+
+        \  grid-gap: 40
+
+
+        \  Structure-Planning: {
+
+        \    label: \"1. Structure Planning\"
+
+        \    shape: rectangle
+
+        \  }
+
+
+        \  Content-Generation: {
+
+        \    label: \"2. Content Generation\"
+
+        \    shape: rectangle
+
+        \  }
+
+
+        \  Saving: {
+
+        \    label: \"3. Save Documents\"
+
+        \    shape: rectangle
+
+        \  }
+
+        }
+
+
+        User-Feedback: {
+
+        \  label: \"User Feedback Loop\\n(via --feedback flag)\"
+
+        \  shape: rectangle
+
+        }
+
+
+        Optional-Steps: {
+
+        \  label: \"Optional Post-Generation Steps\"
+
+        \  shape: rectangle
+
+        \  grid-columns: 2
+
+        \  grid-gap: 40
+
+        \ \ 
+
+        \  Translation: {
+
+        \    label: \"Translate\\n(aigne doc translate)\"
+
+        \    shape: rectangle
+
+        \  }
+
+
+        \  Publishing: {
+
+        \    label: \"Publish\\n(aigne doc publish)\"
+
+        \    shape: rectangle
+
+        \  }
+
+        }
+
+
+        Input -> Pipeline.Structure-Planning
+
+        Pipeline.Structure-Planning -> Pipeline.Content-Generation
+
+        Pipeline.Content-Generation -> Pipeline.Saving
+
+        Pipeline.Saving -> Optional-Steps
+
+
+        User-Feedback -> Pipeline.Structure-Planning: \"Refine Structure\"
+
+        User-Feedback -> Pipeline.Content-Generation: \"Regenerate Content\"\n"
+  - "sectionName": "keyAgents"
+    "sectionSummary": "Introduces the key AI agents responsible for the core
+      functionalities. This section uses a grid layout to highlight each agent's
+      specific role, reinforcing the modular, task-oriented nature of the
+      system."
+    "threeColumnGridTitle": "Meet the Key AI Agents"
+    "list":
+      - "sectionName": "structurePlanningAgentCard"
+        "sectionSummary": "Details the role of the Structure Planning agent."
+        "iconName": "carbon:plan"
+        "cardTitle": "Structure Planning Agent"
+        "cardDescription": "Analyzes your source code to propose the initial document
+          outline and map."
+      - "sectionName": "structureRefinementAgentCard"
+        "sectionSummary": "Details the role of the Structure Refinement agent."
+        "iconName": "carbon:task-tools"
+        "cardTitle": "Structure Refinement Agent"
+        "cardDescription": "Intelligently modifies the documentation structure based on
+          your direct feedback."
+      - "sectionName": "contentGenerationAgentCard"
+        "sectionSummary": "Details the role of the Content Generation agents."
+        "iconName": "carbon:document-add"
+        "cardTitle": "Content Generation Agents"
+        "cardDescription": "Populates the planned structure with rich, detailed content
+          for every section."
+      - "sectionName": "translationAgentCard"
+        "sectionSummary": "Details the role of the Translation agents."
+        "iconName": "carbon:translate"
+        "cardTitle": "Translation Agents"
+        "cardDescription": "Translates generated documentation into multiple target
+          languages for a global reach."
+      - "sectionName": "publishingAgentCard"
+        "sectionSummary": "Details the role of the Publishing agent."
+        "iconName": "carbon:send-alt"
+        "cardTitle": "Publishing Agent"
+        "cardDescription": "Manages the entire process of publishing your docs to
+          Discuss Kit instances."
+      - "sectionName": "dataIOAgentCard"
+        "sectionSummary": "Details the role of the Data I/O agents."
+        "iconName": "carbon:folder-details-reference"
+        "cardTitle": "Data I/O Agents"
+        "cardDescription": "Handles the fundamental tasks of reading source files and
+          writing final markdown documents to disk."
+  - "sectionName": "inputAnalysisStage"
+    "sectionSummary": "Explains the initial input analysis step of the pipeline in detail."
+    "splitHeroTitle": "Stage 1: Input Analysis"
+    "splitHeroDescription": "The magic begins here! Our intelligent agents spring
+      into action, loading your source code and `aigne.yaml` project
+      configuration. This is the crucial first step where we get to know your
+      project inside and out, setting the stage for brilliant documentation."
+    "splitHeroLeftImage": "https://placehold.co/800x450?text=Input+Analysis"
+    "splitHeroActions":
+      - "text": ""
+        "link": ""
+      - "text": ""
+        "link": ""
+  - "sectionName": "structurePlanningStage"
+    "sectionSummary": "Explains the structure planning step of the pipeline in detail."
+    "splitHeroTitle": "Stage 2: Structure Planning"
+    "splitHeroDescription": "Next up, our Structure Planning agent acts as the
+      architect for your docs. It meticulously analyzes your codebase to propose
+      a logical, comprehensive, and perfectly organized documentation outline.
+      It's like having a master technical writer map everything out for you!"
+    "splitHeroRightImage": "https://placehold.co/800x450?text=Structure+Planning"
+    "splitHeroActions":
+      - "text": ""
+        "link": ""
+      - "text": ""
+        "link": ""
+  - "sectionName": "contentGenerationStage"
+    "sectionSummary": "Explains the content generation step of the pipeline in detail."
+    "splitHeroTitle": "Stage 3: Content Generation"
+    "splitHeroDescription": "This is where the real creativity happens! With the
+      blueprint in place, our Content Generation agents unleash their power.
+      They dive into each section of the plan, filling it with rich, detailed
+      text, relevant code examples, and crystal-clear explanations. Watch your
+      documentation come to life!"
+    "splitHeroLeftImage": "https://placehold.co/800x450?text=Content+Generation"
+    "splitHeroActions":
+      - "text": ""
+        "link": ""
+      - "text": ""
+        "link": ""
+  - "sectionName": "refinementUpdatesStage"
+    "sectionSummary": "Explains the refinement and updates step of the pipeline in detail."
+    "splitHeroTitle": "Stage 4: Refinement & Updates"
+    "splitHeroDescription": "Your feedback is our command! When you run an update,
+      specialized agents are activated to make precise changes. Whether you need
+      to tweak a single sentence or reorganize the entire structure, our system
+      responds intelligently to your input, ensuring your docs are always
+      perfect."
+    "splitHeroRightImage": "https://placehold.co/800x450?text=Refinement+&+Updates"
+    "splitHeroActions":
+      - "text": ""
+        "link": ""
+      - "text": ""
+        "link": ""
+  - "sectionName": "translationPublishingStage"
+    "sectionSummary": "Explains the optional translation and publishing step of the
+      pipeline in detail."
+    "splitHeroTitle": "Stage 5: Translation & Publishing"
+    "splitHeroDescription": "Ready to go global? Our optional agents make it
+      effortless. With a simple command, you can translate your documentation
+      into multiple languages. Then, publish the polished, final version
+      directly to your web platform. It's the final, seamless step to sharing
+      your knowledge with the world."
+    "splitHeroLeftImage": "https://placehold.co/800x450?text=Translation+&+Publishing"
+    "splitHeroActions":
+      - "text": ""
+        "link": ""
+      - "text": ""
+        "link": ""
+  - "sectionName": "bottomCta"
+    "sectionSummary": "A final, high-energy call-to-action inviting users to
+      experience the power of AI-driven documentation and start their journey
+      with AIGNE DocSmith."
+    "ctaTitle": "Ready to Revolutionize Your Documentation?"
+    "ctaDescription": "Don't just read about it—see it in action! Let our team of AI
+      agents build your documentation for you. Get started in minutes and
+      experience the future of docs."
+    "cta":
+      - "text": "Try It Now!"
+        "link": "link:///getting-started"
+      - "text": "Back to Home"
+        "link": "link:///home"

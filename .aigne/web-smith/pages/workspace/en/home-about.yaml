@@ -1,0 +1,111 @@
+"meta":
+  "title": "About AIGNE DocSmith | AI-Powered Documentation"
+  "description": "Learn more about AIGNE DocSmith, the AI-powered documentation
+    tool that intelligently analyzes your codebase to generate comprehensive,
+    multi-language documentation automatically."
+"sections":
+  - "sectionName": "aboutHero"
+    "sectionSummary": "A split-screen hero to introduce AIGNE DocSmith with a
+      compelling value proposition and clear calls to action, sparking immediate
+      interest and excitement."
+    "splitHeroTitle": "Meet AIGNE DocSmith: Your AI Co-Pilot for Documentation"
+    "splitHeroDescription": "Tired of writing docs? AIGNE DocSmith is the AI-powered
+      tool that intelligently analyzes your code to generate comprehensive,
+      multi-language documentation automatically. Keep your docs perfectly in
+      sync, effortlessly!"
+    "splitHeroActions":
+      - "text": "Get Started Now"
+        "link": "link:///getting-started"
+      - "text": "See How It Works"
+        "link": "link:///how-it-works"
+    "splitHeroRightImage": "https://placehold.co/1440x700?text=DocSmith+In+Action"
+  - "sectionName": "coreBenefits"
+    "sectionSummary": "A dynamic bento grid showcasing the top five reasons why
+      users will love DocSmith, focusing on tangible, exciting benefits that
+      make their lives easier."
+    "list":
+      - "sectionName": "intelligentAnalysisCard"
+        "sectionSummary": "Benefit card highlighting DocSmith's deep code understanding."
+        "iconName": "mdi:brain-check-outline"
+        "cardTitle": "Intelligent Analysis"
+        "cardDescription": "Goes beyond syntax to understand your code's intent,
+          generating truly insightful documentation that feels like a human
+          wrote it."
+      - "sectionName": "comprehensiveCoverageCard"
+        "sectionSummary": "Benefit card focusing on the completeness of the generated
+          documentation."
+        "iconName": "mdi:book-open-page-variant-outline"
+        "cardTitle": "Comprehensive Coverage"
+        "cardDescription": "From API references to full user guides, you get all the
+          documentation you need in one go. No more gaps!"
+      - "sectionName": "globalReadyCard"
+        "sectionSummary": "Benefit card showcasing the powerful multi-language
+          translation feature."
+        "iconName": "mdi:web"
+        "cardTitle": "Global Ready"
+        "cardDescription": "Instantly translate your docs into 12 languages with
+          professional, context-aware accuracy. Your project is ready for the
+          world!"
+      - "sectionName": "alwaysCurrentCard"
+        "sectionSummary": "Benefit card emphasizing the automatic update capability to
+          eliminate stale docs."
+        "iconName": "mdi:update"
+        "cardTitle": "Always Current"
+        "cardDescription": "Automatically detects code changes and updates your
+          documentation, so it's never out of date. It's that simple!"
+      - "sectionName": "zeroConfigCard"
+        "sectionSummary": "Benefit card highlighting the ease of getting started with DocSmith."
+        "iconName": "mdi:rocket-launch-outline"
+        "cardTitle": "Zero Config"
+        "cardDescription": "Works right out of the box with smart defaults. Just point
+          it at your project and watch the magic happen!"
+  - "sectionName": "aiPoweredGeneration"
+    "sectionSummary": "Highlights the three core AI capabilities that power the
+      documentation generation, building trust and excitement in the underlying
+      technology."
+    "threeColumnGridTitle": "How Our AI Crafts Perfect Documentation"
+    "list":
+      - "sectionName": "smartStructureCard"
+        "sectionSummary": "Feature card explaining the AI's ability to plan
+          documentation structure."
+        "iconName": "mdi:file-tree-outline"
+        "cardTitle": "Smart Structure Planning"
+        "cardDescription": "Our AI analyzes your entire codebase to create a logical,
+          easy-to-navigate documentation structure automatically. It just makes
+          sense!"
+      - "sectionName": "intelligentContentCard"
+        "sectionSummary": "Feature card detailing the AI's contextual content creation."
+        "iconName": "mdi:text-box-edit-outline"
+        "cardTitle": "Intelligent Content Creation"
+        "cardDescription": "Generates rich, contextual content that explains not just
+          the 'what' but also the 'why' behind your code. You'll be amazed!"
+      - "sectionName": "adaptiveWritingCard"
+        "sectionSummary": "Feature card showcasing the customizable writing styles."
+        "iconName": "mdi:palette-swatch-outline"
+        "cardTitle": "Adaptive Writing Styles"
+        "cardDescription": "Choose the perfect tone for your audience, from highly
+          technical deep-dives to super friendly user guides. It's your voice!"
+  - "sectionName": "contactCta"
+    "sectionSummary": "A dedicated call-to-action for users to contact the support
+      or sales team for more information or help."
+    "ctaTitle": "Have Questions? Let's Talk!"
+    "ctaDescription": "Our team is here to help you get the most out of AIGNE
+      DocSmith. Whether you're an enterprise customer or just getting started,
+      we're ready to assist."
+    "cta":
+      - "text": "Contact Us"
+        "link": "https://www.aigne.io/contact"
+      - "text": "Join the Community"
+        "link": "https://community.arcblock.io/discussions/boards/aigne"
+  - "sectionName": "finalCta"
+    "sectionSummary": "A final, energetic call-to-action to convert interested
+      visitors into users, providing a clear and exciting next step."
+    "ctaTitle": "Ready to Revolutionize Your Documentation?"
+    "ctaDescription": "Stop writing docs and start building what matters. Let AIGNE
+      DocSmith handle the heavy lifting. Try it now and see the magic for
+      yourself!"
+    "cta":
+      - "text": "Get Started for Free"
+        "link": "link:///getting-started"
+      - "text": "Explore More Features"
+        "link": "link:///home"

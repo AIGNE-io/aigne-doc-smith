@@ -65,7 +65,7 @@ sourcesPath:  # Source code paths to analyze
   - ./docs/advanced-how-it-works.md
   - ./docs/cli-reference.md
   - ./docs/getting-started.md
-lastGitHead: 00fdcff5a2a9c7b56d670013bb26ac88f2c4b4bc
+lastGitHead: a77e37bcb39df43bd455b114f421858a9af24172
 # Checkout ID for website deployment service
 checkoutId: ""
 # Payment URL for website deployment service

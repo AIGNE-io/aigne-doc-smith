@@ -23,10 +23,11 @@
   sourceIds:
     - docs/advanced-how-it-works.md
   parentId: ""
-- title: Enterprise
-  description: Information on enterprise-grade features, security, support, and
-    licensing for businesses looking to deploy AIGNE DocSmith at scale.
-  path: /enterprise
+- title: About Blocklet
+  description: Learn more about AIGNE DocSmith, the AI-powered documentation tool
+    that intelligently analyzes your codebase to generate comprehensive,
+    multi-language documentation automatically.
+  path: /home/about
+  parentId: /home
   sourceIds:
     - README.md
-  parentId: ""

@@ -1,0 +1,61 @@
+rules:
+  - id: pref_ba010e614335d188
+    active: true
+    scope: page
+    rule: 在 section4 的位置，新增一个引导用户浏览“工作原理”页面的 section。
+    feedback: 删除 section4,在这个位置新增一个 section 引导用户浏览工作原理页面
+    createdAt: 2025-10-02T10:44:32.026Z
+    paths:
+      - /home
+  - id: pref_a6068cbbc5ecfcd2
+    active: true
+    scope: page
+    rule: 不要生成 section4。
+    feedback: 删除 section4
+    createdAt: 2025-10-02T10:25:33.795Z
+    paths:
+      - /home/about
+  - id: pref_de0dcc1693fb4355
+    active: true
+    scope: page
+    rule: 在 section4 之后新增一个联系我们的 section。
+    feedback: 在 section4 下新增一个联系我们的 section
+    createdAt: 2025-10-02T10:24:55.468Z
+  - id: pref_dc2a09b271fa69ce
+    active: true
+    scope: page
+    rule: 在页面底部新增一个CTA section。
+    feedback: 底部新增一个 cta section
+    createdAt: 2025-10-02T09:44:30.879Z
+  - id: pref_b0eeaf3712ff45fc
+    active: true
+    scope: page
+    rule: 不要生成 section5。
+    feedback: 删除 section5
+    createdAt: 2025-10-02T09:29:21.241Z
+    paths:
+      - /how-it-works
+  - id: pref_80fefbcfc2a9f85f
+    active: true
+    scope: page
+    rule: 新增一个专门描述生成功能的section。
+    feedback: 新增一个section专门描述生成功能
+    createdAt: 2025-10-02T09:17:32.288Z
+    paths:
+      - /how-it-works
+  - id: pref_1a899f19b13c48a3
+    active: true
+    scope: page
+    rule: 不要生成 section2。
+    feedback: 删除section2
+    createdAt: 2025-10-02T09:05:56.942Z
+    paths:
+      - /how-it-works
+  - id: pref_64874ee5c8b66151
+    active: true
+    scope: page
+    rule: 在 section2 中，使用卡片代替代码来展示内容。
+    feedback: section2 不展示代码，改为使用卡片展示内容
+    createdAt: 2025-10-02T08:36:56.512Z
+    paths:
+      - /how-it-works
