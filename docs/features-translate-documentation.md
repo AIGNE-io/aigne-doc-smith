@@ -1,6 +1,6 @@
 # Translate Documentation
 
-AIGNE DocSmith can translate your documentation into 12 different languages, making your project accessible to a global audience. The tool provides two ways to manage translations: an interactive mode for a guided setup and command-line arguments for precise control and automation.
+AIGNE DocSmith can translate your documentation into 12 different languages, including English, Chinese, and Spanish, making your project accessible to a global audience. The tool provides two ways to manage translations: an interactive mode for a guided setup and command-line arguments for precise control and automation.
 
 ## Interactive Translation
 
@@ -28,10 +28,12 @@ For automation in scripts or CI/CD pipelines, use command-line flags to control 
 
 ### Command Parameters
 
-<x-field data-name="--langs" data-type="string" data-required="false" data-desc="Specify one target language. This flag can be used multiple times to include several languages (e.g., --langs zh --langs ja)."></x-field>
-<x-field data-name="--docs" data-type="string" data-required="false" data-desc="Specify the path of a document to translate. This can also be used multiple times for batch translation."></x-field>
-<x-field data-name="--feedback" data-type="string" data-required="false" data-desc="Provide suggestions to the AI to guide the translation quality (e.g., --feedback &quot;Use a formal tone&quot;)."></x-field>
-<x-field data-name="--glossary" data-type="string" data-required="false" data-desc="Use a glossary file in Markdown format to ensure consistent terminology for specific terms (e.g., --glossary @path/to/glossary.md)."></x-field>
+<x-field-group>
+  <x-field data-name="--langs" data-type="string" data-required="false" data-desc="Specify one target language. This flag can be used multiple times to include several languages (e.g., --langs zh --langs ja)."></x-field>
+  <x-field data-name="--docs" data-type="string" data-required="false" data-desc="Specify the path of a document to translate. This can also be used multiple times for batch translation."></x-field>
+  <x-field data-name="--feedback" data-type="string" data-required="false" data-desc="Provide suggestions to the AI to guide the translation quality (e.g., --feedback &quot;Use a formal tone&quot;)."></x-field>
+  <x-field data-name="--glossary" data-type="string" data-required="false" data-desc="Use a glossary file in Markdown format to ensure consistent terminology for specific terms (e.g., --glossary @path/to/glossary.md)."></x-field>
+</x-field-group>
 
 ### Examples
 
@@ -48,27 +50,27 @@ aigne doc translate --langs zh --langs ja --docs overview.md --docs examples.md
 To ensure brand names and technical terms are translated correctly, you can provide a glossary file. You can also give feedback to refine the translation style.
 
 ```bash
-aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently" --docs overview.md --langs de
+aigne doc translate --glossary @path/to/glossary.md --feedback "Use technical terminology consistently" --docs overview.md --langs de
 ```
 
 ## Supported Languages
 
-DocSmith supports automatic translation for the following languages:
+DocSmith supports automatic translation for the following 12 languages:
 
-| Language | Code |
-|---|---|
-| English | en |
-| Simplified Chinese | zh-CN |
-| Traditional Chinese | zh-TW |
-| Japanese | ja |
-| Korean | ko |
-| Spanish | es |
-| French | fr |
-| German | de |
-| Portuguese | pt-BR |
-| Russian | ru |
-| Italian | it |
-| Arabic | ar |
+| Language             | Code    |
+| -------------------- | ------- |
+| English              | `en`    |
+| Simplified Chinese   | `zh-CN` |
+| Traditional Chinese  | `zh-TW` |
+| Japanese             | `ja`    |
+| Korean               | `ko`    |
+| Spanish              | `es`    |
+| French               | `fr`    |
+| German               | `de`    |
+| Portuguese           | `pt-BR` |
+| Russian              | `ru`    |
+| Italian              | `it`    |
+| Arabic               | `ar`    |
 
 ---
 

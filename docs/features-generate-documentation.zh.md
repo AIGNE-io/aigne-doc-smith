@@ -1,101 +1,121 @@
 # 生成文档
 
-`aigne doc generate` 命令是用于从源代码创建完整文档集的核心功能。此过程会分析您的代码库，规划逻辑文档结构，然后为每个部分生成内容。这是从头开始创建文档的主要方式。
+`aigne doc generate` 命令是用于从源代码创建完整文档集的主要功能。该命令会启动一个流程，分析您的代码库，规划逻辑化的文档结构，然后为每个部分生成内容。这是从初始状态创建文档的标准方法。
 
 ## 首次生成
 
 首先，请导航到您项目的根目录并运行以下命令：
 
-```bash
+```bash aigne doc generate icon=lucide:play-circle
 aigne doc generate
 ```
 
 ### 自动配置
 
-如果您在项目中首次运行此命令，DocSmith 会检测到不存在任何配置。然后，它将启动一个交互式设置向导来指导您完成初始设置。这能确保在生成开始前，您拥有一个正确配置的环境。
+如果您是首次在项目中运行此命令，DocSmith 会检测到尚无配置。然后，它会自动启动一个交互式设置向导，引导您完成所需的设置步骤。此过程可确保在生成开始前已存在有效的配置。
 
 ![首次运行 generate 命令会触发设置向导](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-系统将询问您一系列问题以定义：
+系统将提示您回答一系列问题，以定义文档的关键方面，包括：
 
 - 文档生成规则和风格
 - 目标受众
-- 主要语言和翻译语言
-- 源代码和输出路径
+- 主要语言和任何其他翻译语言
+- 源代码输入和文档输出路径
 
-![回答问题以配置您的文档风格、语言和源路径](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![回答问题以配置文档风格、语言和源路径](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
-配置完成后，DocSmith 将继续进行文档生成。
+配置完成后，DocSmith 会继续进行文档生成。
 
-![DocSmith 分析您的代码，规划结构，并生成每个文档](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
+![DocSmith 分析您的代码、规划结构并生成每个文档](https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png)
 
-成功完成后，您新创建的文档将在您指定的输出目录中可用。
+成功完成后，新创建的文档将位于设置期间指定的输出目录中。
 
 ![完成后，您将在指定的输出目录中找到新文档](https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png)
 
 ## 生成过程
 
-`generate` 命令遵循自动化工作流程。该过程可按如下方式可视化：
+`generate` 命令执行一个自动化的多步骤工作流。流程概述如下：
 
 ```d2
 direction: down
 
-start: "开始" {
-  shape: oval
+User: {
+  shape: c4-person
+  label: "用户"
 }
 
-run_cmd: "运行 `aigne doc generate`" {
-  shape: rectangle
+AIGNE-CLI: {
+  label: "AIGNE CLI"
 }
 
-check_config: "找到配置？" {
+Config-Check: {
+  label: "配置\n存在？"
   shape: diamond
 }
 
-interactive_setup: "启动交互式设置向导" {
-  shape: rectangle
+Setup-Wizard: {
+  label: "交互式\n设置向导"
 }
 
-plan_structure: "1. 分析代码并规划结构" {
-  shape: rectangle
+Generation-Process: {
+  label: "生成过程"
+  grid-columns: 1
+
+  Analyze: { label: "分析代码库" }
+  Plan: { label: "规划结构" }
+  Generate: { label: "生成内容" }
 }
 
-gen_content: "2. 生成文档内容" {
-  shape: rectangle
+Source-Code: {
+  label: "源代码"
+  shape: cylinder
 }
 
-save_docs: "3. 保存文档" {
-  shape: rectangle
+Config-File: {
+  label: "config.yaml"
+  shape: cylinder
 }
 
-end: "结束" {
-  shape: oval
+Output-Directory: {
+  label: "输出目录"
+  shape: cylinder
 }
 
-start -> run_cmd
-run_cmd -> check_config
-check_config -> interactive_setup: "否"
-interactive_setup -> plan_structure
-check_config -> plan_structure: "是"
-plan_structure -> gen_content
-gen_content -> save_docs
-save_docs -> end
+User -> AIGNE-CLI: "1. aigne doc generate"
+AIGNE-CLI -> Config-Check: "2. 检查配置"
+
+Config-Check -> Setup-Wizard: "3a. 否"
+Setup-Wizard -> User: "提示输入"
+User -> Setup-Wizard: "提供回答"
+Setup-Wizard -> Config-File: "创建"
+Config-File -> Generation-Process: "使用"
+Setup-Wizard -> Generation-Process: "4. 继续"
+
+Config-Check -> Generation-Process: "3b. 是"
+
+Source-Code -> Generation-Process.Analyze: "输入"
+Generation-Process.Analyze -> Generation-Process.Plan
+Generation-Process.Plan -> Generation-Process.Generate
+Generation-Process.Generate -> Output-Directory: "5. 写入文档"
+
+Output-Directory -> User: "6. 审阅文档"
 ```
 
 ## 命令选项
 
-虽然默认的 `generate` 命令足以满足大多数用例，但您可以使用几个选项来控制生成过程。这些选项对于重新生成内容或优化文档结构非常有用。
+默认的 `generate` 命令足以满足大多数使用场景。然而，有几个选项可用于修改其行为，这对于强制完全重新生成或优化文档结构非常有用。
 
-| 选项 | 描述 | 示例 |
+| 选项              | 说明                                                                                                                             | 示例                                                              | 
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
-| `--forceRegenerate` | 删除所有现有文档并从头开始重新生成。在对源代码或配置进行重大更改后使用此选项。 | `aigne doc generate --forceRegenerate` |
-| `--feedback` | 提供高层反馈以优化整体文档结构，例如添加、删除或重组部分。 | `aigne doc generate --feedback "添加一个 API 参考部分"` |
-| `--model` | 指定一个来自 AIGNE Hub 的特定大型语言模型用于内容生成，允许您在不同模型之间切换。 | `aigne doc generate --model claude:claude-3-5-sonnet` |
+| `--forceRegenerate` | 删除所有现有文档并从头开始重新生成。在对源代码或配置进行重大更改后使用此选项。 | `aigne doc generate --forceRegenerate`                                 |
+| `--feedback`        | 提供高层反馈以优化整体文档结构，例如添加、删除或重组部分。           | `aigne doc generate --feedback "Add an API Reference section"`         |
+| `--model`           | 指定 AIGNE Hub 中的特定大型语言模型用于内容生成。这允许您在不同模型之间切换。       | `aigne doc generate --model anthropic:claude-3-5-sonnet`                |
 
 ## 接下来做什么？
 
-既然您已经生成了初始文档，您的项目将继续发展。为了使文档与代码保持同步，您需要更新它们。请继续下一部分，学习如何进行有针对性的更改并重新生成特定文件。
+生成初始文档后，您的项目将继续演进。为了使文档与代码保持同步，您需要执行更新。下一节将解释如何根据新需求或代码修改进行有针对性的更改并重新生成特定文件。
 
 <x-card data-title="更新和优化" data-icon="lucide:file-edit" data-href="/features/update-and-refine">
-  学习当您的代码发生变化时如何更新文档，或使用反馈进行特定改进。
+  了解当代码更改时如何更新文档，或使用反馈进行特定改进。
 </x-card>

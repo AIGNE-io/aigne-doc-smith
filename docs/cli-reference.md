@@ -1,83 +1,142 @@
 # CLI Command Reference
 
-This guide provides a reference for all available `aigne doc` sub-commands, their arguments, and options. It is intended for users who want to use the command-line interface to its full potential.
+This guide provides a comprehensive reference for all available `aigne doc` sub-commands, their arguments, and options. It is intended for users who want to utilize the command-line interface to its full potential.
 
 The general syntax is:
 
-```bash
+```bash command
 aigne doc <command> [options]
 ```
 
 ### Command Workflow
 
-The following diagram illustrates the typical lifecycle of creating and maintaining documentation with DocSmith's CLI commands:
+The following diagram illustrates the typical lifecycle of creating and maintaining documentation with DocSmith's CLI commands, along with the data they interact with.
 
 ```d2
 direction: down
 
-Start: {
-  label: "Project Setup"
-  shape: circle
+# Artifacts
+Source-Code: {
+  label: "Source Code"
+  shape: cylinder
+}
+Configuration: {
+  label: "Configuration\n(.aigne/doc-smith/config.yml)"
+  shape: cylinder
+}
+Generated-Docs: {
+  label: "Generated Docs"
+  shape: cylinder
+}
+Published-Docs: {
+  label: "Published Site"
+  shape: cylinder
 }
 
-init: {
-  label: "aigne doc init\n(Interactive Setup)"
-  shape: rectangle
+# --- Core Workflow ---
+Lifecycle: {
+  label: "Documentation Lifecycle"
+  
+  init: {
+    label: "1. Init\n`aigne doc init`"
+    shape: rectangle
+  }
+
+  generate: {
+    label: "2. Generate\n`aigne doc generate`"
+    shape: rectangle
+  }
+
+  Refinement: {
+    label: "3. Refine (Iterative)"
+    grid-columns: 2
+
+    update: {
+      label: "Update\n`aigne doc update`"
+      shape: rectangle
+    }
+    translate: {
+      label: "Translate\n`aigne doc translate`"
+      shape: rectangle
+    }
+  }
+
+  publish: {
+    label: "4. Publish\n`aigne doc publish`"
+    shape: rectangle
+  }
 }
 
-generate: {
-  label: "aigne doc generate\n(Create/Update All Docs)"
-  shape: rectangle
-}
-
-refinement-cycle: {
-  label: "Refinement Cycle"
-  shape: rectangle
+# --- Utility Commands ---
+Utilities: {
+  label: "Utility Commands"
   grid-columns: 2
-
-  update: {
-    label: "aigne doc update\n(Refine Single Doc)"
+  
+  prefs: {
+    label: "View Config\n`aigne doc prefs`"
+    shape: rectangle
   }
-  translate: {
-    label: "aigne doc translate\n(Localize Content)"
+  clear: {
+    label: "Clear Data\n`aigne doc clear`"
+    shape: rectangle
   }
 }
 
-publish: {
-  label: "aigne doc publish\n(Deploy Docs)"
-  shape: rectangle
-}
 
-End: {
-  label: "Docs Live"
-  shape: circle
-  style.fill: "#a2eeaf"
-}
+# --- Connections ---
 
-Start -> init: "Optional" {
+# Setup and Generation
+Lifecycle.init -> Configuration: "Creates"
+Source-Code -> Lifecycle.generate: "Reads"
+Configuration -> Lifecycle.generate: "Reads"
+Lifecycle.generate -> Generated-Docs: "Creates / Overwrites"
+Lifecycle.generate -> Lifecycle.init: {
+  label: "Runs if no config"
   style.stroke-dash: 4
 }
-init -> generate: "Configure"
-Start -> generate: "Direct"
-generate -> refinement-cycle: "Refine"
-refinement-cycle -> publish: "Ready"
-generate -> publish: "Direct Deploy"
-publish -> End
+
+# Refinement Loop
+Generated-Docs <-> Lifecycle.Refinement: "Reads & Writes"
+
+# Publishing
+Lifecycle.Refinement -> Lifecycle.publish
+Lifecycle.publish -> Published-Docs: "Uploads to"
+
+# Utility Connections
+Utilities.prefs -> Configuration: "Reads"
+Utilities.clear -> Configuration: "Deletes"
+Utilities.clear -> Generated-Docs: "Deletes"
 ```
+
+---
+
+## `aigne doc init`
+
+Manually starts the interactive configuration wizard. This is useful for setting up a new project or modifying the configuration of an existing one. The wizard guides you through defining source code paths, setting output directories, choosing languages, and defining the documentation's style and target audience.
+
+### Usage Example
+
+**Launch the setup wizard:**
+
+```bash
+aigne doc init
+```
+
+For more details on how to tailor DocSmith to your needs, see the [Configuration Guide](./configuration.md).
 
 ---
 
 ## `aigne doc generate`
 
-Analyzes your source code and generates a complete set of documentation based on your configuration. If no configuration is found, it automatically launches the interactive setup wizard.
+Analyzes your source code and generates a complete set of documentation based on your configuration. If no configuration is found, it automatically launches the interactive setup wizard (`aigne doc init`).
 
 ### Options
 
 | Option              | Type    | Description                                                                                                   |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
-| `--feedback`        | string  | Provides feedback to adjust and refine the overall documentation structure.                                   |
 | `--forceRegenerate` | boolean | Discards existing content and regenerates all documentation from scratch.                                     |
-| `--model`           | string  | Specifies a particular large language model to use for generation (e.g., `openai:gpt-4o`). Overrides the default. |
+| `--feedback`        | string  | Provides feedback to adjust and refine the overall documentation structure.                                   |
+| `--model`           | string  | Specifies a particular large language model to use for generation (e.g., `anthropic:claude-3-5-sonnet`). Overrides the default. |
 
 ### Usage Examples
 
@@ -99,10 +158,10 @@ aigne doc generate --forceRegenerate
 aigne doc generate --feedback "Add a new section for API examples and remove the 'About' page."
 ```
 
-**Generate using a specific model from AIGNE Hub:**
+**Generate using a specific model:**
 
 ```bash
-aigne doc generate --model google:gemini-1.5-flash
+aigne doc generate --model openai:gpt-4o
 ```
 
 ---
@@ -115,7 +174,7 @@ Optimizes and regenerates specific documents. You can run it interactively to se
 
 | Option     | Type  | Description                                                                                 |
 | ---------- | ----- | ------------------------------------------------------------------------------------------- |
-| `--docs`     | array | A list of document paths to regenerate. Can be used multiple times.                         |
+| `--docs`     | array | A list of document paths to regenerate. Can be specified multiple times.                         |
 | `--feedback` | string | Provides specific feedback to improve the content of the selected document(s).              |
 
 ### Usage Examples
@@ -129,7 +188,7 @@ aigne doc update
 **Update a specific document with targeted feedback:**
 
 ```bash
-aigne doc update --docs overview.md --feedback "Add more detailed FAQ entries"
+aigne doc update --docs /overview.md --feedback "Add more detailed FAQ entries"
 ```
 
 ---
@@ -142,8 +201,8 @@ Translates existing documentation into one or more languages. It can be run inte
 
 | Option       | Type  | Description                                                                                                |
 | ------------ | ----- | ---------------------------------------------------------------------------------------------------------- |
-| `--docs`       | array | A list of document paths to translate. Can be used multiple times.                                         |
-| `--langs`      | array | A list of target language codes (e.g., `zh`, `ja`). Can be used multiple times.                            |
+| `--docs`       | array | A list of document paths to translate. Can be specified multiple times.                                         |
+| `--langs`      | array | A list of target language codes (e.g., `zh-CN`, `ja`). Can be specified multiple times.                            |
 | `--feedback`   | string | Provides feedback to improve the quality of the translation.                                               |
 | `--glossary`   | string | Path to a glossary file to ensure consistent terminology across languages. Use `@path/to/glossary.md`. |
 
@@ -158,10 +217,10 @@ aigne doc translate
 **Translate specific documents into Chinese and Japanese:**
 
 ```bash
-aigne doc translate --langs zh --langs ja --docs examples.md --docs overview.md
+aigne doc translate --langs zh-CN --langs ja --docs /features/generate-documentation.md --docs /overview.md
 ```
 
-**Translate with a glossary and feedback for better quality:**
+**Translate with a glossary and feedback for improved quality:**
 
 ```bash
 aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently"
@@ -171,7 +230,7 @@ aigne doc translate --glossary @glossary.md --feedback "Use technical terminolog
 
 ## `aigne doc publish`
 
-Makes your documentation live and generates a shareable link for your team or users. Publishes to a Discuss Kit platform - either the official AIGNE DocSmith platform or your own self-hosted instance.
+Publishes your documentation and generates a shareable link. This command uploads your content to a Discuss Kit instance. You can use the official AIGNE DocSmith platform or run your own instance of [Discuss Kit](https://www.web3kit.rocks/discuss-kit).
 
 ### Options
 
@@ -195,16 +254,28 @@ aigne doc publish --appUrl https://your-discuss-kit-instance.com
 
 ---
 
-## `aigne doc init`
+## `aigne doc prefs`
 
-Manually starts the interactive configuration wizard. This is useful for setting up a new project or modifying the configuration of an existing one. The wizard guides you through defining source code paths, setting output directories, choosing languages, and defining the documentation's style and target audience.
+Displays the current configuration settings for the project. This is a read-only command that helps you verify the settings applied during the `init` or `generate` process.
 
 ### Usage Example
 
-**Launch the setup wizard:**
+**View current project configuration:**
 
 ```bash
-aigne doc init
+aigne doc prefs
 ```
 
-For more details on how to tailor DocSmith to your needs, see the [Configuration Guide](./configuration.md).
+---
+
+## `aigne doc clear`
+
+Launches an interactive session to clear locally stored data. This can be used to remove the generated documentation, the document structure configuration, or cached authentication tokens.
+
+### Usage Example
+
+**Start the interactive cleanup process:**
+
+```bash
+aigne doc clear
+```

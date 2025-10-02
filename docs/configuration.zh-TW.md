@@ -1,25 +1,82 @@
 # 設定指南
 
-AIGNE DocSmith 的行為由一個中央檔案控制，即位於 `.aigne/doc-smith/config.yaml` 的 `config.yaml`。此檔案決定了您文件的風格、目標受眾、語言和結構。
+AIGNE DocSmith 的行為由一個中央設定檔 `.aigne/doc-smith/config.yaml` 控制。此檔案可讓您自訂文件的風格、目標受眾、語言和結構，以滿足您的特定需求。
 
-您可以透過執行 `aigne doc init`，使用互動式設定精靈來建立和管理此檔案。有關逐步說明，請參閱 [互動式設定](./configuration-interactive-setup.md) 指南。
+您可以透過執行 `aigne doc init`，使用互動式設定精靈來建立和管理此檔案。如需逐步解說，請參閱 [互動式設定](./configuration-interactive-setup.md) 指南。或者，您也可以直接編輯檔案以進行更精細的控制。
+
+下圖說明了設定工作流程：
+
+```d2 設定工作流程
+direction: down
+
+User: {
+  label: "使用者"
+  shape: c4-person
+}
+
+CLI: {
+  label: "`aigne doc init`\n(互動式設定)"
+  shape: rectangle
+}
+
+ConfigFile: {
+  label: ".aigne/doc-smith/config.yaml"
+  shape: rectangle
+  
+  Project-Info: {
+    label: "專案資訊"
+    shape: rectangle
+  }
+  
+  Doc-Strategy: {
+    label: "文件策略"
+    shape: rectangle
+  }
+  
+  Custom-Directives: {
+    label: "自訂指令"
+    shape: rectangle
+  }
+  
+  Lang-Path: {
+    label: "語言與路徑設定"
+    shape: rectangle
+  }
+}
+
+AIGNE-DocSmith: {
+  label: "AIGNE DocSmith\n(生成過程)"
+  icon: "https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9dd30aec44fc.png"
+}
+
+Generated-Docs: {
+  label: "生成的文件"
+  shape: rectangle
+}
+
+User -> CLI: "執行"
+CLI -> ConfigFile: "建立 / 修改"
+User -> ConfigFile: "直接編輯"
+ConfigFile -> AIGNE-DocSmith: "控制"
+AIGNE-DocSmith -> Generated-Docs: "產生"
+```
 
 ## 核心設定區域
 
-您的文件由幾個關鍵的設定區域塑造而成。探索這些指南，以了解如何微調生成過程的每個方面。
+您的文件由幾個關鍵的設定區域塑造而成。請探索這些指南，以了解如何微調生成過程的各個方面。
 
 <x-cards data-columns="2">
   <x-card data-title="互動式設定" data-icon="lucide:wand-2" data-href="/configuration/interactive-setup">
     了解引導式精靈如何幫助您設定文件專案，包括設定建議和衝突偵測。
   </x-card>
   <x-card data-title="LLM 設定" data-icon="lucide:brain-circuit" data-href="/configuration/llm-setup">
-    探索如何連接不同的 AI 模型，包括使用內建的 AIGNE Hub，該中心無需 API 金鑰。
+    了解如何連接不同的 AI 模型，包括使用內建的 AIGNE Hub，無需 API 金鑰。
   </x-card>
   <x-card data-title="語言支援" data-icon="lucide:languages" data-href="/configuration/language-support">
-    查看支援的語言完整列表，並了解如何設定主要語言和啟用自動翻譯。
+    查看支援語言的完整列表，並了解如何設定主要語言和啟用自動翻譯。
   </x-card>
   <x-card data-title="管理偏好設定" data-icon="lucide:sliders-horizontal" data-href="/configuration/preferences">
-    了解 DocSmith 如何利用您的回饋來建立持久性規則，以及如何透過 CLI 管理它們。
+    了解 DocSmith 如何利用您的回饋來建立持續性規則，以及如何透過 CLI 管理它們。
   </x-card>
 </x-cards>
 
@@ -29,13 +86,13 @@ AIGNE DocSmith 的行為由一個中央檔案控制，即位於 `.aigne/doc-smit
 
 ### 專案資訊
 
-這些設定提供了有關您專案的基本背景資訊，用於發布文件。
+這些設定提供您專案的基本背景資訊，用於發佈文件。
 
 | 參數 | 說明 |
 |---|---|
-| `projectName` | 您的專案名稱。如果 `package.json` 存在，將從中偵測。 |
-| `projectDesc` | 您的專案簡短描述。從 `package.json` 偵測。 |
-| `projectLogo` | 您的專案標誌圖片的路徑或 URL。 |
+| `projectName` | 您的專案名稱。如果 `package.json` 存在，則會從中偵測。 |
+| `projectDesc` | 您專案的簡短描述。從 `package.json` 偵測。 |
+| `projectLogo` | 您專案標誌圖片的路徑或 URL。 |
 
 ### 文件策略
 
@@ -48,52 +105,52 @@ AIGNE DocSmith 的行為由一個中央檔案控制，即位於 `.aigne/doc-smit
 |---|---|---|
 | `getStarted` | 快速入門 | 幫助新使用者在 30 分鐘內從零開始上手。 |
 | `completeTasks` | 完成特定任務 | 引導使用者完成常見的工作流程和使用案例。 |
-| `findAnswers` | 快速找到答案 | 為所有功能和 API 提供可搜尋的參考資料。 |
-| `understandSystem`| 了解系統 | 解釋其運作方式以及設計決策的原因。 |
-| `solveProblems` | 解決常見問題 | 幫助使用者排除故障並解決問題。 |
-| `mixedPurpose` | 服務多種目的 | 涵蓋多種需求的文件。 |
+| `findAnswers` | 快速尋找答案 | 為所有功能和 API 提供可搜尋的參考資料。 |
+| `understandSystem`| 了解系統 | 解釋其運作原理以及為何做出這些設計決策。 |
+| `solveProblems` | 解決常見問題 | 幫助使用者進行故障排除和修復問題。 |
+| `mixedPurpose` | 滿足多種目的 | 涵蓋多種需求的文件。 |
 
 #### `targetAudienceTypes`
 定義最常閱讀此文件的對象。此選擇會影響寫作風格和範例。
 
 | 選項 | 名稱 | 說明 |
 |---|---|---|
-| `endUsers` | 終端使用者（非技術人員） | 使用產品但不編寫程式碼的人。 |
-| `developers` | 整合您的產品/API 的開發人員 | 將此添加到其專案中的工程師。 |
-| `devops` | DevOps / SRE / 基礎設施團隊 | 部署、監控和維護系統的團隊。 |
+| `endUsers` | 終端使用者（非技術人員） | 使用產品但不寫程式的人。 |
+| `developers` | 整合您產品/API 的開發者 | 將此產品加入其專案的工程師。 |
+| `devops` | DevOps / SRE / 基礎架構團隊 | 部署、監控和維護系統的團隊。 |
 | `decisionMakers`| 技術決策者 | 評估或規劃實施的架構師或主管。 |
-| `supportTeams` | 支援團隊 | 協助他人使用產品的人員。 |
-| `mixedTechnical`| 混合技術受眾 | 開發人員、DevOps 和其他技術使用者。 |
+| `supportTeams` | 支援團隊 | 幫助他人使用產品的人員。 |
+| `mixedTechnical`| 混合技術受眾 | 開發者、DevOps 和其他技術使用者。 |
 
 #### `readerKnowledgeLevel`
-定義讀者通常在接觸文件時已具備的知識。這會調整文件中假設的基礎知識量。
+定義讀者通常具備的知識水平。這會調整文件中假設的基礎知識多寡。
 
 | 選項 | 名稱 | 說明 |
 |---|---|---|
-| `completeBeginners` | 完全是初學者，從零開始 | 完全不熟悉此領域/技術。 |
-| `domainFamiliar` | 以前使用過類似工具 | 了解問題領域，但對此特定解決方案不熟悉。 |
-| `experiencedUsers` | 是專家，試圖做一些特定的事情 | 需要參考資料或進階主題的常規使用者。 |
-| `emergencyTroubleshooting`| 緊急/故障排除 | 有東西壞了，需要快速修復。 |
-| `exploringEvaluating` | 正在將此工具與其他工具進行評估 | 試圖了解這是否符合他們的需求。 |
+| `completeBeginners` | 完全的初學者，從零開始 | 完全不熟悉此領域/技術。 |
+| `domainFamiliar` | 曾使用過類似工具 | 了解問題領域，但對此特定解決方案不熟悉。 |
+| `experiencedUsers` | 想做特定事情的專家 | 需要參考資料或進階主題的常規使用者。 |
+| `emergencyTroubleshooting`| 緊急情況/故障排除 | 有東西壞了，需要快速修復。 |
+| `exploringEvaluating` | 正在評估此工具並與其他工具比較 | 試圖了解這是否符合他們的需求。 |
 
 #### `documentationDepth`
-定義文件的全面程度。
+定義文件的全面性程度。
 
 | 選項 | 名稱 | 說明 |
 |---|---|---|
 | `essentialOnly` | 僅包含必要內容 | 涵蓋 80% 的使用案例，保持簡潔。 |
-| `balancedCoverage`| 均衡的涵蓋範圍 | 具有良好深度和實用範例 [推薦]。 |
-| `comprehensive` | 全面 | 涵蓋所有功能、邊緣案例和進階場景。 |
-| `aiDecide` | 讓 AI 決定 | 分析程式碼複雜性並建議適當的深度。 |
+| `balancedCoverage`| 均衡的涵蓋範圍 | 具備良好深度和實用範例 [推薦]。 |
+| `comprehensive` | 全面 | 涵蓋所有功能、邊緣案例和進階情境。 |
+| `aiDecide` | 讓 AI 決定 | 分析程式碼複雜度並建議適當的深度。 |
 
 ### 自訂指令
 
-為了更精細的控制，您可以提供自由文字指令。
+若要進行更精細的控制，您可以提供自由文字的指令。
 
 | 參數 | 說明 |
 |---|---|
-| `rules` | 一個多行字串，您可以在其中定義特定的文件生成規則（例如，「始終包含效能基準測試」）。 |
-| `targetAudience`| 一個多行字串，用以比預設選項更詳細地描述您的特定目標受眾。 |
+| `rules` | 一個多行字串，您可以在其中定義特定的文件生成規則（例如：「務必包含效能基準測試」）。 |
+| `targetAudience`| 一個多行字串，用來比預設選項更詳細地描述您的特定目標受眾。 |
 
 ### 語言與路徑設定
 
@@ -101,20 +158,20 @@ AIGNE DocSmith 的行為由一個中央檔案控制，即位於 `.aigne/doc-smit
 
 | 參數 | 說明 |
 |---|---|
-| `locale` | 文件的主要語言（例如，`en`、`zh`）。 |
-| `translateLanguages` | 要將文件翻譯成的語言代碼列表（例如，`[ja, fr, es]`）。 |
+| `locale` | 文件的主要語言（例如：`en`、`zh`）。 |
+| `translateLanguages` | 要將文件翻譯成的語言代碼列表（例如：`[ja, fr, es]`）。 |
 | `docsDir` | 儲存生成文件的目錄。 |
-| `sourcesPath` | 供 DocSmith 分析的原始碼路徑或 glob 模式列表（例如，`['./src', './lib/**/*.js']`）。 |
-| `glossary` | 包含專案特定術語的 markdown 檔案（`@glossary.md`）路徑，以確保翻譯一致。 |
+| `sourcesPath` | 供 DocSmith 分析的原始碼路徑或 glob 模式列表（例如：`['./src', './lib/**/*.js']`）。 |
+| `glossary` | 包含專案特定術語的 markdown 檔案 (`@glossary.md`) 路徑，以確保翻譯一致性。 |
 
 ## config.yaml 範例
 
-這是一個完整的設定檔範例。您可以隨時直接編輯此檔案以變更設定。
+這是一個完整的設定檔範例。您可以隨時直接編輯此檔案來變更設定。
 
-```yaml Example config.yaml icon=logos:yaml
-# 用於文件發布的專案資訊
+```yaml config.yaml 範例 icon=logos:yaml
+# 文件的專案資訊發佈
 projectName: AIGNE DocSmith
-projectDesc: 一個由 AI 驅動的文件生成工具。
+projectDesc: An AI-driven documentation generation tool.
 projectLogo: https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png
 
 # =============================================================================
@@ -132,7 +189,7 @@ documentPurpose:
 targetAudienceTypes:
   - developers
 
-# 讀者知識水平：讀者通常在接觸文件時已具備什麼知識？
+# 讀者知識水平：讀者通常具備什麼知識？
 # 選項：completeBeginners, domainFamiliar, experiencedUsers, emergencyTroubleshooting, exploringEvaluating
 readerKnowledgeLevel: domainFamiliar
 
@@ -167,6 +224,6 @@ sourcesPath:
   - ./
 ```
 
-設定完成後，您就可以開始建立符合您專案需求的文件了。下一步是執行生成指令。
+設定完成後，您就可以建立符合專案需求的文件了。下一步是執行生成指令。
 
 ➡️ **下一步：** [生成文件](./features-generate-documentation.md)
