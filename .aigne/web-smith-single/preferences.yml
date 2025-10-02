@@ -1,0 +1,19 @@
+rules:
+  - id: pref_b6b39bf1212acf04
+    active: true
+    scope: page
+    rule: 在“加入我们的社区和查找资源”之类的版块中，项目必须是可跳转的链接。
+    feedback: Join Our Community & Find Resources  中的三个 item 需要可跳转的链接
+    createdAt: 2025-10-02T07:07:51.165Z
+  - id: pref_a8c8dc8f0d3adebc
+    active: true
+    scope: page
+    rule: 不要生成“Powerful & Flexible Configuration”这个短语。
+    feedback: 删除 Powerful & Flexible Configuration
+    createdAt: 2025-10-02T06:51:11.041Z
+  - id: pref_032084646a7cd805
+    active: true
+    scope: page
+    rule: 在 hero section 中，避免生成重复的按钮或链接。
+    feedback: hero section 中两个按钮链接是重复的，保留一个按钮
+    createdAt: 2025-10-02T06:48:57.696Z

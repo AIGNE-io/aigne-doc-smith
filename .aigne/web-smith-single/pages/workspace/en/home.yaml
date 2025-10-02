@@ -1,0 +1,168 @@
+"meta":
+  "title": "AIGNE DocSmith | AI-Powered Documentation That Understands Your Code"
+  "description": "Discover AIGNE DocSmith, the AI-driven tool that automatically
+    generates comprehensive, multi-language documentation from your codebase.
+    Zero config, always current. Try it now!"
+"sections":
+  - "sectionName": "hero"
+    "sectionSummary": "A compelling hero section to introduce AIGNE DocSmith,
+      highlighting its core value proposition with a strong visual and clear
+      calls-to-action for both developers and business users."
+    "splitHeroTitle": "AI-Powered Documentation That Actually Understands Your Code"
+    "splitHeroDescription": "Stop writing docs by hand. AIGNE DocSmith analyzes your
+      codebase to generate comprehensive, structured, and multi-language
+      documentation that always stays in sync. It's zero-config and ready to
+      go."
+    "splitHeroActions":
+      - "text": "Get Started"
+        "link": "https://github.com/AIGNE-io/aigne-doc-smith"
+      - "text": ""
+        "link": ""
+    "splitHeroRightImage": "https://placehold.co/1440x700?text=AIGNE+DocSmith+UI"
+  - "sectionName": "features"
+    "sectionSummary": "Showcases the key features of DocSmith in a scannable
+      3-column grid. Each feature is presented with an icon and a
+      benefit-oriented description to appeal to both technical and non-technical
+      audiences."
+    "threeColumnGridTitle": "Why You'll Absolutely Love DocSmith"
+    "list":
+      - "sectionName": "intelligentAnalysis"
+        "sectionSummary": "Highlights the AI's ability to understand code contextually."
+        "iconName": "mdi:brain-outline"
+        "cardTitle": "Intelligent Analysis"
+        "cardDescription": "Our AI doesn't just read your code—it understands its
+          structure, patterns, and intent to create truly meaningful docs."
+      - "sectionName": "comprehensiveCoverage"
+        "sectionSummary": "Emphasizes the completeness of the generated documentation."
+        "iconName": "mdi:book-open-page-variant-outline"
+        "cardTitle": "Comprehensive Coverage"
+        "cardDescription": "From API references to full user guides, DocSmith generates
+          everything you need, leaving no stone unturned."
+      - "sectionName": "globalReady"
+        "sectionSummary": "Showcases the multi-language support for a global audience."
+        "iconName": "mdi:web"
+        "cardTitle": "Global Ready"
+        "cardDescription": "Instantly reach a worldwide audience with professional,
+          context-aware translation in 12 languages."
+      - "sectionName": "alwaysCurrent"
+        "sectionSummary": "Focuses on the auto-updating feature to ensure documentation
+          freshness."
+        "iconName": "mdi:sync-circle"
+        "cardTitle": "Always Current"
+        "cardDescription": "Forget stale docs! DocSmith automatically detects code
+          changes and updates your documentation on the fly."
+      - "sectionName": "zeroConfig"
+        "sectionSummary": "Highlights the ease of getting started with minimal setup."
+        "iconName": "mdi:rocket-launch-outline"
+        "cardTitle": "Zero Config"
+        "cardDescription": "Works right out of the box with smart defaults and
+          auto-detection. You'll be generating docs in seconds!"
+      - "sectionName": "seamlessIntegration"
+        "sectionSummary": "Details the tool's connectivity with other platforms and services."
+        "iconName": "mdi:puzzle-outline"
+        "cardTitle": "Seamless Integration"
+        "cardDescription": "Connect with AIGNE Hub, major LLM providers like OpenAI and
+          Google, and publish with a single click."
+  - "sectionName": "quickStart"
+    "sectionSummary": "A developer-focused section providing a quick, actionable
+      guide to getting started. The embedded code snippet makes it easy to jump
+      right in."
+    "verticalHeroTitle": "Get Started in 60 Seconds Flat!"
+    "verticalHeroDescription": "Ready to go? Just install the AIGNE CLI and run one
+      command in your project directory. DocSmith handles the rest,
+      automatically detecting your stack and guiding you through a fun,
+      interactive setup."
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# Install the CLI globally
+
+        npm install -g @aigne/cli
+
+
+        # Navigate to your project and run
+
+        aigne doc generate"
+  - "sectionName": "howItWorks"
+    "sectionSummary": "Visually explains the documentation generation pipeline,
+      making the complex process feel simple and transparent for all users."
+    "splitHeroTitle": "How It Works: Your Intelligent Documentation Pipeline"
+    "splitHeroDescription": "AIGNE DocSmith uses a powerful multi-agent system to
+      transform your code into brilliant documentation. The process is simple:
+      agents analyze your code, plan a logical structure, generate the content,
+      and save the files. You can even provide feedback to refine the results!"
+    "splitHeroLeftImage": "https://placehold.co/1440x700?text=Documentation+Generation+Pipeline"
+    "splitHeroActions":
+      - "text": ""
+        "link": ""
+      - "text": ""
+        "link": ""
+  - "sectionName": "enterprise"
+    "sectionSummary": "Addresses the needs of business stakeholders and large
+      organizations by highlighting enterprise-grade features like security,
+      collaboration, and dedicated support."
+    "twoColumnGridTitle": "Built for Enterprise, Ready for Production"
+    "list":
+      - "sectionName": "teamCollaboration"
+        "sectionSummary": "Details features for team-based workflows."
+        "iconName": "mdi:account-group-outline"
+        "cardTitle": "Team Collaboration"
+        "cardDescription": "Supercharge your team with multi-user workflows and
+          role-based access control to streamline your documentation process."
+      - "sectionName": "customBranding"
+        "sectionSummary": "Focuses on white-labeling and customization capabilities."
+        "iconName": "mdi:palette-outline"
+        "cardTitle": "Custom Branding"
+        "cardDescription": "White-label your documentation with your own brand identity
+          for a completely seamless and professional user experience."
+      - "sectionName": "securityAndCompliance"
+        "sectionSummary": "Highlights security features for enterprise clients."
+        "iconName": "mdi:shield-lock-outline"
+        "cardTitle": "Security & Compliance"
+        "cardDescription": "Deploy on your private cloud, integrate SSO, and maintain
+          audit logs. Your code never leaves your secure environment."
+      - "sectionName": "prioritySupport"
+        "sectionSummary": "Promotes dedicated support and professional services."
+        "iconName": "mdi:face-agent"
+        "cardTitle": "Dedicated Support & Services"
+        "cardDescription": "Get direct access to our engineering team, custom
+          onboarding, and professional services for all your integration needs."
+  - "sectionName": "communityAndResources"
+    "sectionSummary": "Builds trust by showcasing the active community and available
+      resources, encouraging users to get involved and find help when they need
+      it."
+    "threeColumnGridTitle": "Join Our Community & Find Resources"
+    "list":
+      - "sectionName": "documentation"
+        "sectionSummary": "Directs users to the official documentation."
+        "iconName": "mdi:book-open-outline"
+        "cardTitle": "Docs & Tutorials"
+        "cardDescription": "Ready to dive deeper? [Explore our comprehensive
+          documentation](https://docsmith.aigne.io/docs/) for detailed guides,
+          tutorials, and examples."
+      - "sectionName": "githubCommunity"
+        "sectionSummary": "Encourages community interaction on GitHub."
+        "iconName": "mdi:github"
+        "cardTitle": "GitHub Community"
+        "cardDescription": "Have an idea or found a bug? [Join us on
+          GitHub](https://github.com/AIGNE-io/aigne-doc-smith) to report issues,
+          request features, and contribute to the project."
+      - "sectionName": "communityChat"
+        "sectionSummary": "Points users to social channels for updates and discussions."
+        "iconName": "mdi:twitter"
+        "cardTitle": "Updates & Chat"
+        "cardDescription": "[Follow us on Twitter](https://twitter.com/arcblock_io) for
+          the latest news and join our [community
+          forum](https://community.arcblock.io/discussions/boards/aigne) for
+          real-time discussions with other users."
+  - "sectionName": "finalCta"
+    "sectionSummary": "A final, high-energy call-to-action designed to convert
+      visitors by summarizing the core benefit and providing clear next steps
+      for both individual users and enterprise clients."
+    "ctaTitle": "Ready to Revolutionize Your Documentation?"
+    "ctaDescription": "Stop wasting time on manual docs and let AIGNE DocSmith do
+      the heavy lifting. You'll ship better products faster. Let's do this!"
+    "cta":
+      - "text": "Start Generating for Free"
+        "link": "https://github.com/AIGNE-io/aigne-doc-smith"
+      - "text": "Contact Sales"
+        "link": "https://www.aigne.io/contact"

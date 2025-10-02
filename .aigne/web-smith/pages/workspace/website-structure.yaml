@@ -1,0 +1,32 @@
+- title: Home
+  description: The main landing page for AIGNE DocSmith, showcasing its AI-powered
+    features, benefits, and integration into the AIGNE ecosystem. Designed to
+    convert visitors into users.
+  path: /home
+  sourceIds:
+    - README.md
+  parentId: ""
+- title: Getting Started
+  description: A step-by-step guide for developers to install the AIGNE CLI,
+    configure their project, and generate their first set of documentation using
+    the 'aigne doc generate' command.
+  path: /getting-started
+  sourceIds:
+    - docs/getting-started.md
+    - media.md
+  parentId: ""
+- title: How It Works
+  description: An advanced overview of the AIGNE DocSmith architecture, explaining
+    the multi-agent system and the documentation generation pipeline for
+    technical users.
+  path: /how-it-works
+  sourceIds:
+    - docs/advanced-how-it-works.md
+  parentId: ""
+- title: Enterprise
+  description: Information on enterprise-grade features, security, support, and
+    licensing for businesses looking to deploy AIGNE DocSmith at scale.
+  path: /enterprise
+  sourceIds:
+    - README.md
+  parentId: ""

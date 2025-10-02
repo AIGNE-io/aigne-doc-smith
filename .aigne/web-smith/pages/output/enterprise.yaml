@@ -1,0 +1,2566 @@
+id: 8cec7f5a066a0bdf
+createdAt: 2025-10-02T08:02:51.610Z
+updatedAt: 2025-10-02T08:02:51.610Z
+publishedAt: 2025-10-02T08:02:51.610Z
+isPublic: true
+locales:
+  en:
+    backgroundColor: ""
+    style:
+      maxWidth: custom:1440px
+      paddingY: normal
+      paddingX: normal
+    title: AIGNE DocSmith for Enterprise | Secure, Scalable, Supported
+    description: Discover enterprise-grade features for AIGNE DocSmith, including
+      private cloud deployment, SSO, priority support, and custom branding.
+      Scale your documentation securely.
+    image: ""
+    header:
+      sticky: true
+  zh:
+    backgroundColor: ""
+    style:
+      maxWidth: custom:1440px
+      paddingY: normal
+      paddingX: normal
+    title: AIGNE DocSmith 企业版 | 安全、可扩展、有支持
+    description: 了解 AIGNE DocSmith 的企业级功能，包括私有云部署、单点登录 (SSO)、优先支持和自定义品牌。安全地扩展您的文档。
+    image: ""
+    header:
+      sticky: true
+sections:
+  e1c97b3710d489a2:
+    id: e1c97b3710d489a2
+    name: Feature Grid_left
+    component: layout-block
+    sections:
+      78e3421030dcbdd5:
+        id: 78e3421030dcbdd5
+        name: Content
+        component: layout-block
+        sections:
+          2595d95961e10014:
+            id: 2595d95961e10014
+            name: CTA
+            component: layout-block
+            sections:
+              087e8576fefadf0f:
+                id: 087e8576fefadf0f
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              5455a7046747c6d7:
+                id: 5455a7046747c6d7
+                name: Action
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: a44r0SiGV9AFn2Fj
+                sectionIds: []
+            sectionIds:
+              - 087e8576fefadf0f
+              - 5455a7046747c6d7
+            config:
+              gridSettings:
+                desktop:
+                  087e8576fefadf0f:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                  5455a7046747c6d7:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              paddingY: normal
+              gap: normal
+              maxWidth: full
+              paddingX: none
+          ccdf0179b25ef747:
+            id: ccdf0179b25ef747
+            name: Image
+            component: layout-block
+            sections:
+              f98b98ffd13b8a1d:
+                id: f98b98ffd13b8a1d
+                name: Media
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0JPjPs122kaaa-
+                sectionIds: []
+            sectionIds:
+              - f98b98ffd13b8a1d
+            config:
+              borderRadius: medium
+              gridSettings:
+                desktop:
+                  f98b98ffd13b8a1d:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              background: https://placehold.co/1440x700?text=Enterprise+Solution
+        sectionIds:
+          - 2595d95961e10014
+          - ccdf0179b25ef747
+        config:
+          borderRadius: small
+          paddingX: none
+          paddingY: normal
+          maxWidth: full
+          gridSettings:
+            desktop:
+              2595d95961e10014:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+              ccdf0179b25ef747:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+          gap: normal
+    sectionIds:
+      - 78e3421030dcbdd5
+    config:
+      gridSettings:
+        desktop:
+          78e3421030dcbdd5:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: none
+      background: transparent
+      border: none
+      paddingX: none
+  589ee100e0cba845:
+    id: 589ee100e0cba845
+    name: Metrics Bar/Wall
+    component: layout-block
+    sections:
+      e1f78164a7364adb:
+        id: e1f78164a7364adb
+        name: Title
+        component: layout-block
+        sections:
+          1817a56164d329c8:
+            id: 1817a56164d329c8
+            name: RichText
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+        sectionIds:
+          - 1817a56164d329c8
+        config:
+          gap: small
+          paddingX: none
+          alignContent: start
+          gridSettings:
+            desktop:
+              1817a56164d329c8:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile:
+              1817a56164d329c8:
+                id: 1817a56164d329c8
+      576e73952a1521fd:
+        id: 576e73952a1521fd
+        name: Cards
+        component: layout-block
+        sections:
+          a79fc3fdde014623:
+            id: a79fc3fdde014623
+            name: Cards-1
+            component: layout-block
+            sections:
+              9736a35b6204c1d8:
+                id: 9736a35b6204c1d8
+                name: Card01
+                component: layout-block
+                sections:
+                  8a0319c7be20285c:
+                    id: 8a0319c7be20285c
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  527d9e489ed1baa2:
+                    id: 527d9e489ed1baa2
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      3ee66b593de1e036:
+                        id: 3ee66b593de1e036
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - 3ee66b593de1e036
+                    config:
+                      gridSettings:
+                        desktop:
+                          3ee66b593de1e036:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 8a0319c7be20285c
+                  - 527d9e489ed1baa2
+                config:
+                  gridSettings:
+                    desktop:
+                      8a0319c7be20285c:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      527d9e489ed1baa2:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      8a0319c7be20285c:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      527d9e489ed1baa2:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 9736a35b6204c1d8
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: custom:24px
+              borderRadius: small
+              gap: none
+              border: solid
+              alignContent: space-between
+          32be1f293fb48143:
+            id: 32be1f293fb48143
+            name: Cards-2
+            component: layout-block
+            sections:
+              c2753e6a35792fc3:
+                id: c2753e6a35792fc3
+                name: Card01
+                component: layout-block
+                sections:
+                  051f5382aaa30930:
+                    id: 051f5382aaa30930
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  3fd5ca10c66e4eb0:
+                    id: 3fd5ca10c66e4eb0
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      8aee431fd7b453d4:
+                        id: 8aee431fd7b453d4
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - 8aee431fd7b453d4
+                    config:
+                      gridSettings:
+                        desktop:
+                          8aee431fd7b453d4:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 051f5382aaa30930
+                  - 3fd5ca10c66e4eb0
+                config:
+                  gridSettings:
+                    desktop:
+                      051f5382aaa30930:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      3fd5ca10c66e4eb0:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      051f5382aaa30930:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      3fd5ca10c66e4eb0:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - c2753e6a35792fc3
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: custom:24px
+              borderRadius: small
+              gap: none
+              border: solid
+              alignContent: space-between
+          04fc00aff8189e21:
+            id: 04fc00aff8189e21
+            name: Cards-3
+            component: layout-block
+            sections:
+              4c12062dd7030da4:
+                id: 4c12062dd7030da4
+                name: Card01
+                component: layout-block
+                sections:
+                  6cf87c8dd697af94:
+                    id: 6cf87c8dd697af94
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  eb1727d56ab40dd6:
+                    id: eb1727d56ab40dd6
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      835229da4540f842:
+                        id: 835229da4540f842
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - 835229da4540f842
+                    config:
+                      gridSettings:
+                        desktop:
+                          835229da4540f842:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 6cf87c8dd697af94
+                  - eb1727d56ab40dd6
+                config:
+                  gridSettings:
+                    desktop:
+                      6cf87c8dd697af94:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      eb1727d56ab40dd6:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      6cf87c8dd697af94:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      eb1727d56ab40dd6:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 4c12062dd7030da4
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: custom:24px
+              borderRadius: small
+              gap: none
+              border: solid
+              alignContent: space-between
+          97dd0ec694413abd:
+            id: 97dd0ec694413abd
+            name: Cards-4
+            component: layout-block
+            sections:
+              95e04be57343246b:
+                id: 95e04be57343246b
+                name: Card01
+                component: layout-block
+                sections:
+                  6c7d6356a9593b08:
+                    id: 6c7d6356a9593b08
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  e54d5c77b851d15a:
+                    id: e54d5c77b851d15a
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      3146007f1ae8e627:
+                        id: 3146007f1ae8e627
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - 3146007f1ae8e627
+                    config:
+                      gridSettings:
+                        desktop:
+                          3146007f1ae8e627:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 6c7d6356a9593b08
+                  - e54d5c77b851d15a
+                config:
+                  gridSettings:
+                    desktop:
+                      6c7d6356a9593b08:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      e54d5c77b851d15a:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      6c7d6356a9593b08:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      e54d5c77b851d15a:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 95e04be57343246b
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: custom:24px
+              borderRadius: small
+              gap: none
+              border: solid
+              alignContent: space-between
+        sectionIds:
+          - a79fc3fdde014623
+          - 32be1f293fb48143
+          - 04fc00aff8189e21
+          - 97dd0ec694413abd
+        config:
+          gridSettings:
+            desktop:
+              a79fc3fdde014623:
+                x: 0
+                y: 0
+                w: 3
+                h: 1
+              32be1f293fb48143:
+                x: 3
+                y: 0
+                w: 3
+                h: 1
+              04fc00aff8189e21:
+                x: 6
+                y: 0
+                w: 3
+                h: 1
+              97dd0ec694413abd:
+                x: 9
+                y: 0
+                w: 3
+                h: 1
+            mobile:
+              a79fc3fdde014623:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+              32be1f293fb48143:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+              04fc00aff8189e21:
+                x: 0
+                y: 1
+                w: 6
+                h: 1
+              97dd0ec694413abd:
+                x: 6
+                y: 1
+                w: 6
+                h: 1
+          gap: small
+          paddingX: none
+    sectionIds:
+      - e1f78164a7364adb
+      - 576e73952a1521fd
+    config:
+      gridSettings:
+        desktop:
+          576e73952a1521fd:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          e1f78164a7364adb:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: none
+      paddingX: none
+  1c472f1c0d5b2d5f:
+    id: 1c472f1c0d5b2d5f
+    name: Feature Grid (2x2)_2
+    component: layout-block
+    sections:
+      7ce3682a2095537b:
+        id: 7ce3682a2095537b
+        name: Title
+        component: layout-block
+        sections:
+          3fcd2113b474335b:
+            id: 3fcd2113b474335b
+            name: RichText
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+        sectionIds:
+          - 3fcd2113b474335b
+        config:
+          gap: small
+          paddingX: none
+          gridSettings:
+            desktop:
+              3fcd2113b474335b:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile:
+              3fcd2113b474335b:
+                id: 3fcd2113b474335b
+          alignContent: start
+      f6ade55eb007f804:
+        id: f6ade55eb007f804
+        name: Cards
+        component: layout-block
+        sections:
+          667e382240fd7142:
+            id: 667e382240fd7142
+            name: Cards-1
+            component: layout-block
+            sections:
+              e062dc285fdab938:
+                id: e062dc285fdab938
+                name: Card01
+                component: layout-block
+                sections:
+                  d6415ec1d624285f:
+                    id: d6415ec1d624285f
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  7ee4dec4719befe7:
+                    id: 7ee4dec4719befe7
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      c2c0c505651f861a:
+                        id: c2c0c505651f861a
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - c2c0c505651f861a
+                    config:
+                      gridSettings:
+                        desktop:
+                          c2c0c505651f861a:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - d6415ec1d624285f
+                  - 7ee4dec4719befe7
+                config:
+                  gridSettings:
+                    desktop:
+                      d6415ec1d624285f:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      7ee4dec4719befe7:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      d6415ec1d624285f:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      7ee4dec4719befe7:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - e062dc285fdab938
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: space-between
+          e1197ae11bfc93cf:
+            id: e1197ae11bfc93cf
+            name: Cards-2
+            component: layout-block
+            sections:
+              0d9c1e422791e55f:
+                id: 0d9c1e422791e55f
+                name: Card01
+                component: layout-block
+                sections:
+                  1b291b01c21efffd:
+                    id: 1b291b01c21efffd
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  af61752ceba78e50:
+                    id: af61752ceba78e50
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      cf7f14f32caa64b7:
+                        id: cf7f14f32caa64b7
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - cf7f14f32caa64b7
+                    config:
+                      gridSettings:
+                        desktop:
+                          cf7f14f32caa64b7:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 1b291b01c21efffd
+                  - af61752ceba78e50
+                config:
+                  gridSettings:
+                    desktop:
+                      1b291b01c21efffd:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      af61752ceba78e50:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      1b291b01c21efffd:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      af61752ceba78e50:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 0d9c1e422791e55f
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: space-between
+          ff6a4f78d8a13135:
+            id: ff6a4f78d8a13135
+            name: Cards-3
+            component: layout-block
+            sections:
+              2abfaf84fe1fcb09:
+                id: 2abfaf84fe1fcb09
+                name: Card01
+                component: layout-block
+                sections:
+                  5e82ed859f92ece6:
+                    id: 5e82ed859f92ece6
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  e31ce457eeba350d:
+                    id: e31ce457eeba350d
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      5786ed1f0d301e6b:
+                        id: 5786ed1f0d301e6b
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - 5786ed1f0d301e6b
+                    config:
+                      gridSettings:
+                        desktop:
+                          5786ed1f0d301e6b:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 5e82ed859f92ece6
+                  - e31ce457eeba350d
+                config:
+                  gridSettings:
+                    desktop:
+                      5e82ed859f92ece6:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      e31ce457eeba350d:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      5e82ed859f92ece6:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      e31ce457eeba350d:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 2abfaf84fe1fcb09
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: space-between
+          e7b37afc047097a7:
+            id: e7b37afc047097a7
+            name: Cards-4
+            component: layout-block
+            sections:
+              950dfd9b64e926fa:
+                id: 950dfd9b64e926fa
+                name: Card01
+                component: layout-block
+                sections:
+                  b7e946207fc9f474:
+                    id: b7e946207fc9f474
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  f084bfbb8881df9f:
+                    id: f084bfbb8881df9f
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      c36ed92b96a913d6:
+                        id: c36ed92b96a913d6
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - c36ed92b96a913d6
+                    config:
+                      gridSettings:
+                        desktop:
+                          c36ed92b96a913d6:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - b7e946207fc9f474
+                  - f084bfbb8881df9f
+                config:
+                  gridSettings:
+                    desktop:
+                      b7e946207fc9f474:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      f084bfbb8881df9f:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      b7e946207fc9f474:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      f084bfbb8881df9f:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 950dfd9b64e926fa
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: space-between
+        sectionIds:
+          - 667e382240fd7142
+          - e1197ae11bfc93cf
+          - ff6a4f78d8a13135
+          - e7b37afc047097a7
+        config:
+          gridSettings:
+            desktop:
+              667e382240fd7142:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+              e1197ae11bfc93cf:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+              ff6a4f78d8a13135:
+                x: 0
+                y: 1
+                w: 6
+                h: 1
+              e7b37afc047097a7:
+                x: 6
+                y: 1
+                w: 6
+                h: 1
+            mobile:
+              667e382240fd7142:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              e1197ae11bfc93cf:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+              ff6a4f78d8a13135:
+                x: 0
+                y: 2
+                w: 12
+                h: 1
+              e7b37afc047097a7:
+                x: 0
+                y: 3
+                w: 12
+                h: 1
+          gap: small
+          paddingX: none
+    sectionIds:
+      - 7ce3682a2095537b
+      - f6ade55eb007f804
+    config:
+      gridSettings:
+        desktop:
+          f6ade55eb007f804:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          7ce3682a2095537b:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: none
+      paddingX: none
+  1b88992adea4de75:
+    id: 1b88992adea4de75
+    name: Testimonials/Reviews
+    component: layout-block
+    sections:
+      8a7dde777cbf6cbe:
+        id: 8a7dde777cbf6cbe
+        name: Title
+        component: layout-block
+        sections:
+          fc8aca2223685a5f:
+            id: fc8aca2223685a5f
+            name: LayoutTitle
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+        sectionIds:
+          - fc8aca2223685a5f
+        config:
+          gap: small
+          paddingX: none
+          alignContent: start
+          gridSettings:
+            desktop:
+              fc8aca2223685a5f:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile:
+              fc8aca2223685a5f:
+                id: fc8aca2223685a5f
+      3eceea61e0feb3a0:
+        id: 3eceea61e0feb3a0
+        name: Cards
+        component: layout-block
+        sections:
+          8ea7adfeedabd8ec:
+            id: 8ea7adfeedabd8ec
+            name: Cards-1
+            component: layout-block
+            sections:
+              48373436f58174ce:
+                id: 48373436f58174ce
+                name: Card01
+                component: layout-block
+                sections:
+                  188bf83f2774511b:
+                    id: 188bf83f2774511b
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  217c8a0c162c7e73:
+                    id: 217c8a0c162c7e73
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      9a4665f91027d3f7:
+                        id: 9a4665f91027d3f7
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - 9a4665f91027d3f7
+                    config:
+                      gridSettings:
+                        desktop:
+                          9a4665f91027d3f7:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 188bf83f2774511b
+                  - 217c8a0c162c7e73
+                config:
+                  gridSettings:
+                    desktop:
+                      188bf83f2774511b:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      217c8a0c162c7e73:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      188bf83f2774511b:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      217c8a0c162c7e73:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 48373436f58174ce
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: small
+              borderRadius: small
+              gap: large
+              border: solid
+              alignContent: space-between
+          3d09a721aeb07a7b:
+            id: 3d09a721aeb07a7b
+            name: Cards-2
+            component: layout-block
+            sections:
+              2700bbe606496b87:
+                id: 2700bbe606496b87
+                name: Card01
+                component: layout-block
+                sections:
+                  3d914af2157737bc:
+                    id: 3d914af2157737bc
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  82fbb288a071de99:
+                    id: 82fbb288a071de99
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      834e8f1413211851:
+                        id: 834e8f1413211851
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - 834e8f1413211851
+                    config:
+                      gridSettings:
+                        desktop:
+                          834e8f1413211851:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 3d914af2157737bc
+                  - 82fbb288a071de99
+                config:
+                  gridSettings:
+                    desktop:
+                      3d914af2157737bc:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      82fbb288a071de99:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      3d914af2157737bc:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      82fbb288a071de99:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 2700bbe606496b87
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: small
+              borderRadius: small
+              gap: large
+              border: solid
+              alignContent: space-between
+          0447a9bb3816a957:
+            id: 0447a9bb3816a957
+            name: Cards-3
+            component: layout-block
+            sections:
+              ade1629eb50bfd78:
+                id: ade1629eb50bfd78
+                name: Card01
+                component: layout-block
+                sections:
+                  824549dfc765923c:
+                    id: 824549dfc765923c
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  e9c33c64b8c6f7e4:
+                    id: e9c33c64b8c6f7e4
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      75224870c5e4c765:
+                        id: 75224870c5e4c765
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - 75224870c5e4c765
+                    config:
+                      gridSettings:
+                        desktop:
+                          75224870c5e4c765:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 824549dfc765923c
+                  - e9c33c64b8c6f7e4
+                config:
+                  gridSettings:
+                    desktop:
+                      824549dfc765923c:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      e9c33c64b8c6f7e4:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      824549dfc765923c:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      e9c33c64b8c6f7e4:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - ade1629eb50bfd78
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: small
+              borderRadius: small
+              gap: large
+              border: solid
+              alignContent: space-between
+        sectionIds:
+          - 8ea7adfeedabd8ec
+          - 3d09a721aeb07a7b
+          - 0447a9bb3816a957
+        config:
+          gridSettings:
+            desktop:
+              8ea7adfeedabd8ec:
+                x: 0
+                y: 0
+                w: 4
+                h: 1
+              3d09a721aeb07a7b:
+                x: 4
+                y: 0
+                w: 4
+                h: 1
+              0447a9bb3816a957:
+                x: 8
+                y: 0
+                w: 4
+                h: 1
+            mobile:
+              8ea7adfeedabd8ec:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              3d09a721aeb07a7b:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+              0447a9bb3816a957:
+                x: 0
+                y: 2
+                w: 12
+                h: 1
+          gap: small
+          paddingX: none
+    sectionIds:
+      - 8a7dde777cbf6cbe
+      - 3eceea61e0feb3a0
+    config:
+      gridSettings:
+        desktop:
+          3eceea61e0feb3a0:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          8a7dde777cbf6cbe:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: none
+      paddingX: none
+  d56d9e831889abb5:
+    id: d56d9e831889abb5
+    name: Full Background Hero
+    component: layout-block
+    sections:
+      d66823edd1527d2e:
+        id: d66823edd1527d2e
+        name: CTA
+        component: layout-block
+        sections:
+          db2d6e57316f086b:
+            id: db2d6e57316f086b
+            name: Description
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+          06080d017bac5b6d:
+            id: 06080d017bac5b6d
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+            sectionIds: []
+        sectionIds:
+          - db2d6e57316f086b
+          - 06080d017bac5b6d
+        config:
+          gridSettings:
+            desktop:
+              db2d6e57316f086b:
+                x: 2
+                y: 0
+                w: 8
+                h: 1
+              06080d017bac5b6d:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          paddingY: large
+          gap: large
+          maxWidth: full
+          paddingX: none
+          background: background.paper
+          borderRadius: small
+    sectionIds:
+      - d66823edd1527d2e
+    config:
+      gridSettings:
+        desktop:
+          d66823edd1527d2e:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      background: transparent
+      paddingY: none
+      backgroundFullWidth: false
+      paddingX: none
+sectionIds:
+  - e1c97b3710d489a2
+  - 589ee100e0cba845
+  - 1c472f1c0d5b2d5f
+  - 1b88992adea4de75
+  - d56d9e831889abb5
+dataSource:
+  087e8576fefadf0f:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: Get the power, security, and dedicated support your organization needs.
+                  AIGNE DocSmith Enterprise provides robust features for large
+                  teams to collaborate, integrate, and deploy at scale.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Scale Your Documentation with Confidence
+            style:
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: 获取您的组织所需的功能、安全性和专属支持。AIGNE DocSmith 企业版为大型团队提供强大的功能，以实现大规模协作、集成和部署。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 满怀信心地扩展您的文档
+            style:
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  5455a7046747c6d7:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Contact Sales
+              url: https://www.aigne.io/contact
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: ""
+              variant: outlined
+              borderColor: primary.main
+              size: large
+              url: ""
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+    zh:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 联系销售
+              url: https://www.aigne.io/contact
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: ""
+              variant: outlined
+              borderColor: primary.main
+              size: large
+              url: ""
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+  f98b98ffd13b8a1d:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: ""
+            mediaKitUrl: ""
+            width: 2445
+            height: 1394
+    zh:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: ""
+            mediaKitUrl: ""
+            width: 2445
+            height: 1394
+  1817a56164d329c8:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Built for Your Enterprise Workflow
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 为您的企业工作流而构建
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+  8a0319c7be20285c:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Seamless Team Collaboration
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Empower your entire team with multi-user workflows and role-based access
+                  controls to manage documentation efficiently and securely.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 无缝的团队协作
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 通过多用户工作流和基于角色的访问控制，赋能您的整个团队，高效、安全地管理文档。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  3ee66b593de1e036:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:account-group-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:account-group-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  051f5382aaa30930:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Custom Branding
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Maintain perfect brand consistency with white-label documentation. It's
+                  your hard work, so it should look like your brand.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 自定义品牌
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 通过白标文档保持完美的品牌一致性。这是您的辛勤工作成果，所以它应该看起来像您的品牌。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  8aee431fd7b453d4:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:palette-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:palette-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  6cf87c8dd697af94:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Powerful API Integration
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Automate your documentation pipelines! Integrate DocSmith directly into
+                  your existing CI/CD workflows with our robust REST APIs.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 强大的 API 集成
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 自动化您的文档管道！使用我们强大的 REST API 将 DocSmith 直接集成到您现有的 CI/CD 工作流中。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  835229da4540f842:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:api
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:api
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  6c7d6356a9593b08:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Insightful Analytics
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Go beyond just publishing. Track documentation usage and effectiveness to
+                  see what's resonating with your users and where to improve.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 富有洞察力的分析
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 不仅仅是发布。跟踪文档的使用情况和有效性，了解哪些内容能引起用户的共鸣以及哪些地方需要改进。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  3146007f1ae8e627:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:chart-line
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:chart-line
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  3fcd2113b474335b:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Security & Compliance You Can Trust
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 值得您信赖的安全与合规性
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  d6415ec1d624285f:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Private Cloud Deployment
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Deploy DocSmith on your own infrastructure. Your code, your data, and your
+                  documentation never have to leave your secure environment.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 私有云部署
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 在您自己的基础设施上部署 DocSmith。您的代码、数据和文档永远无需离开您的安全环境。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  c2c0c505651f861a:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:cloud-lock-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:cloud-lock-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  1b291b01c21efffd:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: SSO Integration
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Streamline access and enhance security by connecting with your existing
+                  identity providers like Okta, Azure AD, and more.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 单点登录 (SSO) 集成
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 通过连接您现有的身份提供商（如 Okta、Azure AD 等），简化访问并增强安全性。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  cf7f14f32caa64b7:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:key-chain
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:key-chain
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  5e82ed859f92ece6:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Comprehensive Audit Logs
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Maintain full visibility with complete activity tracking. Perfect for
+                  meeting compliance requirements and internal security audits.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 全面的审计日志
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 通过完整的活动跟踪保持完全的可见性。非常适合满足合规性要求和内部安全审计。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  5786ed1f0d301e6b:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:file-document-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:file-document-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  b7e946207fc9f474:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Your Data Stays Yours
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: We take privacy seriously. In private deployments, your code is processed
+                  entirely within your environment, period.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 您的数据始终属于您
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 我们严肃对待隐私问题。在私有部署中，您的代码完全在您的环境中处理，绝无例外。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  c36ed92b96a913d6:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:shield-check-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:shield-check-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  fc8aca2223685a5f:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: We've Got Your Back with Dedicated Support
+            style:
+              variant: h2
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 我们通过专属支持为您保驾护航
+            style:
+              variant: h2
+  188bf83f2774511b:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Priority Support
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: No more waiting in long queues. Get direct, priority access to our
+                  engineering team for fast, expert assistance when you need it.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 优先支持
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 无需再排长队等候。在您需要时，可直接、优先地联系我们的工程团队，以获得快速、专业的帮助。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  9a4665f91027d3f7:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:face-agent
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:face-agent
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  3d914af2157737bc:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Custom Training & Onboarding
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Let's get your team flying! We provide custom workshops and onboarding
+                  sessions to ensure everyone is a DocSmith pro from day one.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 定制培训与入门指导
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 让您的团队迅速上手！我们提供定制的研讨会和入门指导课程，确保每个人从第一天起就成为 DocSmith 专家。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  834e8f1413211851:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:school-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:school-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  824549dfc765923c:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Professional Services
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Have a unique challenge? Our team is ready to help with custom
+                  integration, deployment assistance, and tailored solutions.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 专业服务
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 有独特的挑战？我们的团队随时准备为您提供定制集成、部署协助和量身定制的解决方案。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  75224870c5e4c765:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:handshake-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: mdi:handshake-outline
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  db2d6e57316f086b:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: Let's talk about how AIGNE DocSmith Enterprise can fit your organization's
+                  unique needs. Reach out for a personalized demo and pricing.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Ready to Elevate Your Team's Documentation?
+            style:
+              color: ""
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: 让我们谈谈 AIGNE DocSmith 企业版如何满足您组织的独特需求。联系我们获取个性化演示和报价。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 准备好提升您团队的文档水平了吗？
+            style:
+              color: ""
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+  06080d017bac5b6d:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Contact Sales Now
+              url: https://www.aigne.io/contact
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: ""
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: ""
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center
+    zh:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 立即联系销售
+              url: https://www.aigne.io/contact
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: ""
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: ""
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center

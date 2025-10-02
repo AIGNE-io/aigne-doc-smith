@@ -1,0 +1,1210 @@
+id: 2215739be1a1f035
+createdAt: 2025-10-02T08:02:51.616Z
+updatedAt: 2025-10-02T08:02:51.616Z
+publishedAt: 2025-10-02T08:02:51.616Z
+isPublic: true
+locales:
+  en:
+    backgroundColor: ""
+    style:
+      maxWidth: custom:1440px
+      paddingY: normal
+      paddingX: normal
+    title: Getting Started with AIGNE DocSmith | AIGNE
+    description: Your step-by-step guide to installing the AIGNE CLI, configuring
+      your first project, and instantly generating documentation from your
+      source code.
+    header:
+      sticky: true
+  zh:
+    backgroundColor: ""
+    style:
+      maxWidth: custom:1440px
+      paddingY: normal
+      paddingX: normal
+    title: AIGNE DocSmith 入门指南 | AIGNE
+    description: 安装 AIGNE CLI、配置您的第一个项目并从源代码即时生成文档的分步指南。
+    header:
+      sticky: true
+sections:
+  c1a363268b47d70a:
+    id: c1a363268b47d70a
+    name: Split Hero_2
+    component: layout-block
+    sections:
+      3df2360f8b62087b:
+        id: 3df2360f8b62087b
+        name: CTA
+        component: layout-block
+        sections:
+          baa1a11b0afb9cd6:
+            id: baa1a11b0afb9cd6
+            name: Description
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+          e7e5534f37d6aa1c:
+            id: e7e5534f37d6aa1c
+            name: Section Layout
+            component: layout-block
+            sections:
+              8bf4363f8d1d08a7:
+                id: 8bf4363f8d1d08a7
+                name: Code
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: 2EHGy3vwxlS9JGr2
+                sectionIds: []
+            sectionIds:
+              - 8bf4363f8d1d08a7
+            config:
+              gridSettings:
+                desktop:
+                  8bf4363f8d1d08a7:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              border: terminal
+              borderRadius: small
+        sectionIds:
+          - baa1a11b0afb9cd6
+          - e7e5534f37d6aa1c
+        config:
+          gridSettings:
+            desktop:
+              baa1a11b0afb9cd6:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          paddingY: normal
+          gap: normal
+          maxWidth: full
+    sectionIds:
+      - 3df2360f8b62087b
+    config:
+      gridSettings:
+        desktop:
+          3df2360f8b62087b:
+            x: 0
+            y: 0
+            w: 8
+            h: 1
+      paddingX: none
+      paddingY: none
+      maxWidth: full
+      backgroundFullWidth: true
+  589ee100e0cba845:
+    id: 589ee100e0cba845
+    name: Metrics Bar/Wall
+    component: layout-block
+    config:
+      gap: normal
+      paddingY: none
+      paddingX: none
+  0204804ba50155ce:
+    id: 0204804ba50155ce
+    name: Testimonials/Reviews
+    component: layout-block
+    sections:
+      50ff06b585a78927:
+        id: 50ff06b585a78927
+        name: Title
+        component: layout-block
+        sections:
+          6cbb8bd38caa66a4:
+            id: 6cbb8bd38caa66a4
+            name: LayoutTitle
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+        sectionIds:
+          - 6cbb8bd38caa66a4
+        config:
+          gap: small
+          paddingX: none
+          alignContent: start
+          gridSettings:
+            desktop:
+              6cbb8bd38caa66a4:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile:
+              6cbb8bd38caa66a4:
+                id: 6cbb8bd38caa66a4
+      515650d5c27bccdb:
+        id: 515650d5c27bccdb
+        name: Cards
+        component: layout-block
+        sections:
+          eff9cd4b326deca2:
+            id: eff9cd4b326deca2
+            name: Cards-1
+            component: layout-block
+            sections:
+              e062dc285fdab938:
+                id: e062dc285fdab938
+                name: Card01
+                component: layout-block
+                sections:
+                  d6415ec1d624285f:
+                    id: d6415ec1d624285f
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  7ee4dec4719befe7:
+                    id: 7ee4dec4719befe7
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      c2c0c505651f861a:
+                        id: c2c0c505651f861a
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - c2c0c505651f861a
+                    config:
+                      gridSettings:
+                        desktop:
+                          c2c0c505651f861a:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - d6415ec1d624285f
+                  - 7ee4dec4719befe7
+                config:
+                  gridSettings:
+                    desktop:
+                      d6415ec1d624285f:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      7ee4dec4719befe7:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      d6415ec1d624285f:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      7ee4dec4719befe7:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - e062dc285fdab938
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: small
+              borderRadius: small
+              gap: large
+              border: solid
+              alignContent: space-between
+          838457b1582e11aa:
+            id: 838457b1582e11aa
+            name: Cards-2
+            component: layout-block
+            sections:
+              0d9c1e422791e55f:
+                id: 0d9c1e422791e55f
+                name: Card01
+                component: layout-block
+                sections:
+                  1b291b01c21efffd:
+                    id: 1b291b01c21efffd
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  af61752ceba78e50:
+                    id: af61752ceba78e50
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      cf7f14f32caa64b7:
+                        id: cf7f14f32caa64b7
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - cf7f14f32caa64b7
+                    config:
+                      gridSettings:
+                        desktop:
+                          cf7f14f32caa64b7:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 1b291b01c21efffd
+                  - af61752ceba78e50
+                config:
+                  gridSettings:
+                    desktop:
+                      1b291b01c21efffd:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      af61752ceba78e50:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      1b291b01c21efffd:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      af61752ceba78e50:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 0d9c1e422791e55f
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: small
+              borderRadius: small
+              gap: large
+              border: solid
+              alignContent: space-between
+          9f8c3fd573a74cf2:
+            id: 9f8c3fd573a74cf2
+            name: Cards-3
+            component: layout-block
+            sections:
+              2abfaf84fe1fcb09:
+                id: 2abfaf84fe1fcb09
+                name: Card01
+                component: layout-block
+                sections:
+                  5e82ed859f92ece6:
+                    id: 5e82ed859f92ece6
+                    name: Title
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  e31ce457eeba350d:
+                    id: e31ce457eeba350d
+                    name: Icon
+                    component: layout-block
+                    sections:
+                      5786ed1f0d301e6b:
+                        id: 5786ed1f0d301e6b
+                        name: Icon
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: YwuDiIbyyF5vfGpt
+                        sectionIds: []
+                    sectionIds:
+                      - 5786ed1f0d301e6b
+                    config:
+                      gridSettings:
+                        desktop:
+                          5786ed1f0d301e6b:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      background: transparent
+                      height: 100%
+                      borderRadius: custom:0px
+                      alignContent: start
+                sectionIds:
+                  - 5e82ed859f92ece6
+                  - e31ce457eeba350d
+                config:
+                  gridSettings:
+                    desktop:
+                      5e82ed859f92ece6:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      e31ce457eeba350d:
+                        x: 0
+                        y: 0
+                        w: 6
+                        h: 1
+                    mobile:
+                      5e82ed859f92ece6:
+                        x: 0
+                        y: 1
+                        w: 12
+                        h: 1
+                      e31ce457eeba350d:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  paddingX: none
+                  paddingY: none
+                  borderRadius: none
+                  gap: normal
+                  border: none
+                  alignContent: start
+            sectionIds:
+              - 2abfaf84fe1fcb09
+            config:
+              gridSettings:
+                desktop: {}
+                mobile:
+                  zf1s9y77l821pofu:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: zf1s9y77l821pofu
+                  do35jzobe9fv1z8i:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                    id: do35jzobe9fv1z8i
+              background: background.paper
+              paddingX: small
+              paddingY: small
+              borderRadius: small
+              gap: large
+              border: solid
+              alignContent: space-between
+        sectionIds:
+          - eff9cd4b326deca2
+          - 838457b1582e11aa
+          - 9f8c3fd573a74cf2
+        config:
+          gridSettings:
+            desktop:
+              eff9cd4b326deca2:
+                x: 0
+                y: 0
+                w: 4
+                h: 1
+              838457b1582e11aa:
+                x: 4
+                y: 0
+                w: 4
+                h: 1
+              9f8c3fd573a74cf2:
+                x: 8
+                y: 0
+                w: 4
+                h: 1
+            mobile:
+              eff9cd4b326deca2:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              838457b1582e11aa:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+              9f8c3fd573a74cf2:
+                x: 0
+                y: 2
+                w: 12
+                h: 1
+          gap: small
+          paddingX: none
+    sectionIds:
+      - 50ff06b585a78927
+      - 515650d5c27bccdb
+    config:
+      gridSettings:
+        desktop:
+          515650d5c27bccdb:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          50ff06b585a78927:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: none
+      paddingX: none
+sectionIds:
+  - c1a363268b47d70a
+  - 589ee100e0cba845
+  - 0204804ba50155ce
+dataSource:
+  baa1a11b0afb9cd6:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Get Started in Minutes
+            style:
+              variant: h1
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759364500601-4gbj76l4x
+                type: text
+                text: Follow this quick guide to install the AIGNE CLI, set up your project, and
+                  generate your first set of docs. Let's get this party started!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 几分钟内快速入门
+            style:
+              variant: h1
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759364500601-4gbj76l4x
+                type: text
+                text: 按照本快速指南安装 AIGNE CLI、设置您的项目并生成您的第一套文档。让我们开始吧！
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  8bf4363f8d1d08a7:
+    en:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: npm i -g @aigne/cli
+        qvxiyadgn5bj6oq8:
+          value: false
+        c4kvf6b7zyskk8m:
+          value: false
+        b2jrz12ik7esf93z:
+          value: Terminal
+        7mp2u9tibl03thp6:
+          value: shell
+        d8hvf7cxz93jk5p:
+          value: 1rem
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: npm i -g @aigne/cli
+        qvxiyadgn5bj6oq8:
+          value: false
+        c4kvf6b7zyskk8m:
+          value: false
+        b2jrz12ik7esf93z:
+          value: 终端
+        7mp2u9tibl03thp6:
+          value: shell
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  74831d0c4d066fa9:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 1: First, You'll Need Node.js"
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: Before we dive in, make sure you have Node.js and npm on your system. It’s
+                  the environment where all the magic happens! You can verify
+                  your installation by running `node --version` and `npm
+                  --version` in your terminal.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 第 1 步：首先，您需要 Node.js
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 在开始之前，请确保您的系统上已安装 Node.js 和 npm。所有神奇的事情都将在这个环境中发生！您可以在终端中运行 `node
+                  --version` 和 `npm --version` 来验证您的安装。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  a7198aa3f4383ce6:
+    en:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # On macOS with Homebrew
+            brew install node
+
+            # On Debian/Ubuntu
+            sudo apt-get install -y nodejs
+        b2jrz12ik7esf93z:
+          value: Terminal (macOS/Linux Example)
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # On macOS with Homebrew
+            brew install node
+
+            # On Debian/Ubuntu
+            sudo apt-get install -y nodejs
+        b2jrz12ik7esf93z:
+          value: 终端 (macOS/Linux 示例)
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+  a7fbed6b48772d9b:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 2: Install the AIGNE CLI"
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: Awesome! Now, let's get the AIGNE command-line tool. This single global
+                  install gives you access to DocSmith and all its amazing
+                  features. Just run this command.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 第 2 步：安装 AIGNE CLI
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 太棒了！现在，让我们来获取 AIGNE 命令行工具。这次全局安装将让您能够使用 DocSmith 及其所有神奇的功能。只需运行此命令即可。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  27274d759d67b517:
+    en:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: npm i -g @aigne/cli
+        b2jrz12ik7esf93z:
+          value: Terminal
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: npm i -g @aigne/cli
+        b2jrz12ik7esf93z:
+          value: 终端
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+  442c4ab837f1b362:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 3: Generate Your First Docs!"
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: This is where the fun begins! Navigate to your project's root folder and
+                  kick things off. The first time you run this, a friendly setup
+                  wizard will appear to get you configured in seconds.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 第 3 步：生成您的第一份文档！
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 有趣的部分现在开始！导航到您项目的根文件夹并启动它。首次运行时，会出现一个友好的设置向导，帮助您在几秒钟内完成配置。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  1307cde66f568de8:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png
+            mediaKitUrl: https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+    zh:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png
+            mediaKitUrl: https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+  d007184e1bbc5c90:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Answer a Few Quick Questions
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: The wizard will ask about your project's purpose, audience, and source
+                  files. It's super fast and handles all the configuration, so
+                  you don't have to.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 回答几个简单问题
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 向导会询问您项目的用途、受众和源文件。它速度超快，并能处理所有配置，您无需亲自动手。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  2f597e16bdfc90ea:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png
+            mediaKitUrl: https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+    zh:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png
+            mediaKitUrl: https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+  3b375fb904554ac3:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Sit Back and Watch it Go!
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: Once you're set up, DocSmith gets to work analyzing your code, planning
+                  the structure, and writing everything for you. You're just
+                  moments away from a full set of docs.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 请稍候，静待其成！
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 设置完成后，DocSmith 会开始分析您的代码、规划结构并为您编写所有内容。只需片刻，您就能拥有一整套完整的文档。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  a380b10b246e7e65:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png
+            mediaKitUrl: https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+    zh:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png
+            mediaKitUrl: https://docsmith.aigne.io/image-bin/uploads/d0766c19380a02eb8a6f8ce86a838849.png
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+  8e0918265541d55f:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: "Step 4: And... You're Done!"
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: That's it! Your new documentation is ready and waiting in the output
+                  directory (usually `.aigne/doc-smith/docs`). Go ahead, check
+                  it out!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 第 4 步：然后……大功告成！
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 就是这样！您的新文档已经准备就绪，正在输出目录（通常是 `.aigne/doc-smith/docs`）中等待。快去看看吧！
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  e61c0de7e86d6da4:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png
+            mediaKitUrl: https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+    zh:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png
+            mediaKitUrl: https://docsmith.aigne.io/image-bin/uploads/0967443611408ad9d0042793d590b8fd.png
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: linear-gradient(90deg, RGBA(53,53,108,1) 0%, rgba(78,78,117,1) 100%)
+  6cbb8bd38caa66a4:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: What Will You Do Next?
+            style:
+              variant: h2
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 接下来做什么？
+            style:
+              variant: h2
+  d6415ec1d624285f:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Explore Core Features
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: See what else you can do! Explore the main commands and capabilities, from
+                  updating documents to publishing them online.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 探索核心功能
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 看看您还能做什么！探索主要命令和功能，从更新文档到在线发布。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  c2c0c505651f861a:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:box
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:box
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  1b291b01c21efffd:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Dive into Configuration
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Learn how to fine-tune your documentation's style, audience, and languages
+                  by editing the `config.yaml` file.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 深入了解配置
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 学习如何通过编辑 `config.yaml` 文件来微调文档的风格、受众和语言。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  cf7f14f32caa64b7:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:settings
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:settings
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+  5e82ed859f92ece6:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Master the CLI
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: Want to become a power user? Get a complete reference for all available
+                  `aigne doc` commands and their options.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 精通 CLI
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 想成为高级用户吗？获取所有可用的 `aigne doc` 命令及其选项的完整参考。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  5786ed1f0d301e6b:
+    en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:terminal
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:terminal
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px

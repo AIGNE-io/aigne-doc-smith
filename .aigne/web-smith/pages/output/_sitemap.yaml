@@ -1,0 +1,9 @@
+sitemap:
+  - title: Home
+    path: /home
+  - title: Getting Started
+    path: /getting-started
+  - title: How It Works
+    path: /how-it-works
+  - title: Enterprise
+    path: /enterprise

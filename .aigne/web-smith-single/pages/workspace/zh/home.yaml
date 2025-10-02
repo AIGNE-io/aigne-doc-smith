@@ -1,0 +1,151 @@
+"meta":
+  "title": "AIGNE DocSmith | 真正理解你代码的 AI 文档"
+  "description": "了解 AIGNE DocSmith，这是一款可从你的代码库自动生成全面、多语言文档的 AI 驱动工具。
+    零配置，始终最新。立即试用。"
+"sections":
+  - "sectionName": "hero"
+    "sectionSummary": "一个引人注目的首屏部分，用强视觉与清晰的号召性用语介绍 AIGNE DocSmith 的核心价值，面向开发者和业务用户。"
+    "splitHeroTitle": "真正理解你代码的 AI 文档"
+    "splitHeroDescription": "告别手写文档。AIGNE DocSmith 会分析你的
+      代码库，生成全面、结构化且支持多语言的
+      文档，并始终与代码保持同步。零配置，开箱即
+      用。"
+    "splitHeroActions":
+      - "text": "开始使用"
+        "link": "https://github.com/AIGNE-io/aigne-doc-smith"
+      - "text": ""
+        "link": ""
+    "splitHeroRightImage": "https://placehold.co/1440x700?text=AIGNE+DocSmith+UI"
+  - "sectionName": "features"
+    "sectionSummary": "以可快速浏览的三栏网格展示 DocSmith 的关键功能。每项功能配有图标和以收益为导向的说明，适用于技术与非技术
+      受众。"
+    "threeColumnGridTitle": "为什么你会喜欢 DocSmith"
+    "list":
+      - "sectionName": "intelligentAnalysis"
+        "sectionSummary": "突出 AI 对代码上下文的理解能力。"
+        "iconName": "mdi:brain-outline"
+        "cardTitle": "智能分析"
+        "cardDescription": "我们的 AI 不仅能读取你的代码，还能理解其
+          结构、模式和意图，从而生成真正有价值的文档。"
+      - "sectionName": "comprehensiveCoverage"
+        "sectionSummary": "强调生成文档的完整性。"
+        "iconName": "mdi:book-open-page-variant-outline"
+        "cardTitle": "全面覆盖"
+        "cardDescription": "从 API 参考到完整的用户指南，DocSmith 生成
+          你所需的一切，面面俱到。"
+      - "sectionName": "globalReady"
+        "sectionSummary": "展示面向全球受众的多语言支持。"
+        "iconName": "mdi:web"
+        "cardTitle": "全球就绪"
+        "cardDescription": "提供 12 种语言的专业、具备上下文感知的翻译，
+          瞬间触达全球用户。"
+      - "sectionName": "alwaysCurrent"
+        "sectionSummary": "强调自动更新以确保文档新鲜度。"
+        "iconName": "mdi:sync-circle"
+        "cardTitle": "始终最新"
+        "cardDescription": "告别过时文档。DocSmith 会自动检测代码
+          变更，并即时更新你的文档。"
+      - "sectionName": "zeroConfig"
+        "sectionSummary": "突出以最少设置即可上手的便捷性。"
+        "iconName": "mdi:rocket-launch-outline"
+        "cardTitle": "零配置"
+        "cardDescription": "借助智能默认配置和自动检测，开箱即用，
+          几秒钟内即可开始生成文档。"
+      - "sectionName": "seamlessIntegration"
+        "sectionSummary": "说明该工具与其他平台和服务的连接能力。"
+        "iconName": "mdi:puzzle-outline"
+        "cardTitle": "无缝集成"
+        "cardDescription": "可连接 AIGNE Hub、OpenAI 与 Google 等主流 LLM
+          提供商，并一键发布。"
+  - "sectionName": "quickStart"
+    "sectionSummary": "面向开发者的快速入门部分，提供可操作的上手
+      指南。内嵌代码片段便于立即实践。"
+    "verticalHeroTitle": "60 秒即可上手"
+    "verticalHeroDescription": "准备好了吗？只需安装 AIGNE CLI 并在项目
+      目录中运行一条命令。其余交给 DocSmith：它会自动检测你的技术栈，并通过
+      有趣的交互式流程引导你完成设置。"
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# Install the CLI globally
+
+        npm install -g @aigne/cli
+
+
+        # Navigate to your project and run
+
+        aigne doc generate"
+  - "sectionName": "howItWorks"
+    "sectionSummary": "以可视方式解释文档生成流水线，
+      让复杂流程对所有用户而言简单透明。"
+    "splitHeroTitle": "工作原理：智能文档生成流水线"
+    "splitHeroDescription": "AIGNE DocSmith 采用强大的多智能体系统，
+      将你的代码转化为高质量文档。流程很简单：智能体分析你的代码、规划逻辑结构、生成内容，
+      并保存文件。你还可以提供反馈以进一步优化结果。"
+    "splitHeroLeftImage": "https://placehold.co/1440x700?text=Documentation+Generation+Pipeline"
+    "splitHeroActions":
+      - "text": ""
+        "link": ""
+      - "text": ""
+        "link": ""
+  - "sectionName": "enterprise"
+    "sectionSummary": "面向企业干系人和大型
+      组织，突出安全、协作与专属支持等企业级特性。"
+    "twoColumnGridTitle": "为企业而生，随时可用于生产"
+    "list":
+      - "sectionName": "teamCollaboration"
+        "sectionSummary": "介绍面向团队流程的相关功能。"
+        "iconName": "mdi:account-group-outline"
+        "cardTitle": "团队协作"
+        "cardDescription": "通过多用户工作流与基于角色的访问控制，
+          助力团队高效协作，简化文档流程。"
+      - "sectionName": "customBranding"
+        "sectionSummary": "强调白标与定制能力。"
+        "iconName": "mdi:palette-outline"
+        "cardTitle": "自定义品牌"
+        "cardDescription": "可使用自有品牌进行白标定制，
+          打造无缝、专业的用户体验。"
+      - "sectionName": "securityAndCompliance"
+        "sectionSummary": "突出面向企业客户的安全特性。"
+        "iconName": "mdi:shield-lock-outline"
+        "cardTitle": "安全与合规"
+        "cardDescription": "可部署在私有云，集成 SSO，并保留审计日志。
+          你的代码始终不会离开受保护的环境。"
+      - "sectionName": "prioritySupport"
+        "sectionSummary": "强调专属支持与专业服务。"
+        "iconName": "mdi:face-agent"
+        "cardTitle": "专属支持与服务"
+        "cardDescription": "可直接对接我们的工程团队，获得定制化上手
+          支持与专业服务，满足各类集成需求。"
+  - "sectionName": "communityAndResources"
+    "sectionSummary": "通过展示活跃社区与可用
+      资源来建立信任，鼓励用户参与并在需要时获得帮助。"
+    "threeColumnGridTitle": "加入我们的社区，获取资源"
+    "list":
+      - "sectionName": "documentation"
+        "sectionSummary": "引导用户前往官方文档。"
+        "iconName": "mdi:book-open-outline"
+        "cardTitle": "文档与教程"
+        "cardDescription": "想进一步了解？[查看我们的完整
+          文档](https://docsmith.aigne.io/docs/)，获取详细指南、教程与示例。"
+      - "sectionName": "githubCommunity"
+        "sectionSummary": "鼓励在 GitHub 上的社区互动。"
+        "iconName": "mdi:github"
+        "cardTitle": "GitHub 社区"
+        "cardDescription": "有想法或发现了问题？[欢迎在
+          GitHub 参与](https://github.com/AIGNE-io/aigne-doc-smith)，提交问题、功能请求并为项目做出贡献。"
+      - "sectionName": "communityChat"
+        "sectionSummary": "引导用户前往社交渠道以获取更新与讨论。"
+        "iconName": "mdi:twitter"
+        "cardTitle": "更新与交流"
+        "cardDescription": "[在 Twitter 关注我们](https://twitter.com/arcblock_io)以
+          获取最新资讯，并加入我们的[社区论坛](https://community.arcblock.io/discussions/boards/aigne)，与其他用户实时交流。"
+  - "sectionName": "finalCta"
+    "sectionSummary": "最终的高转化号召性区域，
+      通过概述核心价值并为个人与企业用户提供明确的下一步行动。"
+    "ctaTitle": "准备好革新你的文档了吗？"
+    "ctaDescription": "不要再把时间浪费在手工编写文档上，让 AIGNE DocSmith 承担繁重工作。你将更快地交付更好的产品。现在就开始。"
+    "cta":
+      - "text": "免费开始生成"
+        "link": "https://github.com/AIGNE-io/aigne-doc-smith"
+      - "text": "联系销售"
+        "link": "https://www.aigne.io/contact"

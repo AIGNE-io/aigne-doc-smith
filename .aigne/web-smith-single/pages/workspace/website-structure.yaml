@@ -1,0 +1,19 @@
+- title: AIGNE DocSmith
+  description: "A comprehensive single-page website for AIGNE DocSmith, an
+    AI-powered documentation tool designed for both business and technical
+    users. The page opens with a compelling Hero section outlining the value
+    proposition and a clear call-to-action. It is structured with navigable
+    sections including: 'Features' showcasing intelligent analysis and
+    multi-language support; 'How It Works' with a visual overview; a 'Quick
+    Start' guide for developers; 'Advanced Configuration' detailing LLM
+    integrations; and an 'Enterprise' section for business stakeholders. The
+    page incorporates social proof and community links to build trust,
+    concluding with a final call-to-action."
+  path: /home
+  sourceIds:
+    - README.md
+    - docs/advanced-how-it-works.md
+    - docs/cli-reference.md
+    - docs/getting-started.md
+    - media.md
+  parentId: ""
