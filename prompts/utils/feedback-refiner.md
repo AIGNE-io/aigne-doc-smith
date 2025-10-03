@@ -33,10 +33,10 @@ Save determination rules:
 **One-time operations (do not save)**:
 - Only corrects current version/typos/individual phrasing/local factual errors with no stable reusable value → `save=false`
 - Fixes that are highly specific to a single line or data point and unlikely to recur (e.g., "change the year from 2020 to 2021") → `save=false`
-- Documentation Structure adjustments, adding new documents, and moving document positions are always one-time operations → `save=false`
+- Documentation Structure adjustments, adding new documents, update document, delete document, and moving document positions are always one-time operations → `save=false`
 
 **Reusable policies (save)**:
-- Writing styles, structural conventions, inclusion/exclusion items, translation conventions that are broadly applicable and should be consistently executed in the future → `save=true`
+- Writing styles, structural conventions, translation conventions that are broadly applicable and should be consistently executed in the future → `save=true`
 
 **Duplication check (do not save)**:
 - If `existingPreferences` already contains **similar or covering** rules for current feedback intent, then `save=false`
@@ -71,7 +71,7 @@ Example 1 (Keyword Preservation):
 Example 2:
 - Input: stage=document_structure, paths=[], feedback="Add 'Next Steps' at the end of overview and tutorials with 2-3 links."
 - Output:
-{"rule":"Add 'Next Steps' section at the end of overview and tutorial documents with 2-3 links within the repository.","scope":"structure","save":true,"limitToInputPaths":false,"reason":"This feedback suggests a new structural convention (adding a 'Next Steps' section). This is a classic reusable policy that should be applied to future documents of a certain type. Therefore, `save` is `true` and the scope is `structure`."}
+{"rule":"Add 'Next Steps' section at the end of overview and tutorial documents with 2-3 links within the repository.","scope":"structure","save":false,"limitToInputPaths":false,"reason":"This feedback is about adjusting document structure by adding a new section. According to save rules, documentation structure adjustments are always one-time operations, so `save` should be `false`. The scope remains `structure` as it affects document organization."}
 
 Example 3:
 - Input: stage=translation_refine, paths=[], feedback="Don't translate variable names and code."
