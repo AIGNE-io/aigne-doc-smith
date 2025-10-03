@@ -37,14 +37,6 @@ Custom component generation rules:
 Custom code block generation rules:
 {% include "custom/custom-code-block.md" %}
 
-Diagram generate guide:
-Evaluate for each document whether diagrams are necessary.
-- Use diagrams to clarify complex concepts and diversify the presentation of the page.
-- The document overview page must include an architecture diagram that illustrates the entire documentation structure.
-- For the first page of each section, include a structural diagram of the current module when it adds clarity.
-- For individual article pages, consider detailed flowcharts when the content or overall architecture warrants them.
-- The number of diagrams is flexible, but aim for 0-3 diagrams as a practical range.
-
 </content_generation_rules>
 
 {% if glossary %}
@@ -110,3 +102,24 @@ User feedback on previous generation:
 3. Reference the style from examples only, **output content in {{locale}} language**
 
 </output_constraints>
+
+
+<tool-usage>
+1. generateD2DiagramContent: Generate D2 diagram for the given document content
+  - Use diagrams to clarify complex concepts and diversify the presentation of the page.
+  - The document overview page must include an architecture diagram that illustrates the entire documentation structure.
+  - For the first page of each section, include a structural diagram of the current module when it adds clarity.
+  - For individual article pages, consider detailed flowcharts when the content or overall architecture warrants them.
+  - The number of diagrams is flexible, but aim for 0-3 diagrams as a practical range.
+
+2. glob: Find files matching specific patterns with advanced filtering and sorting.
+
+3. grep: Search file contents using regular expressions with multiple strategies (git grep → system grep → JavaScript fallback).
+
+4. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
+
+When to use Tools:
+- For each document, evaluate whether D2 diagrams are needed. If so, always use generateD2DiagramContent to add diagrams to the document
+- During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
+- Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use glob/grep/readFile to query related code or references
+</tool-usage>
