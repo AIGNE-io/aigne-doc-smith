@@ -134,7 +134,8 @@ export default async function userReviewDocument(
   // Print current document headings structure
   printDocumentHeadings(content, title || "Untitled Document");
 
-  let currentContent = content;
+  // Initialize shared context with current content
+  options.context.userContext.currentContent = content;
 
   const MAX_ITERATIONS = 100;
   let iterationCount = 0;
@@ -163,7 +164,10 @@ export default async function userReviewDocument(
     if (action === "finish") {
       break;
     } else if (action === "view") {
-      await showDocumentDetail(currentContent, title || "Untitled Document");
+      await showDocumentDetail(
+        options.context.userContext.currentContent,
+        title || "Untitled Document",
+      );
     }
 
     // Ask for feedback
@@ -200,19 +204,12 @@ export default async function userReviewDocument(
 
     try {
       // Call updateDocument agent with feedback
-      const result = await options.context.invoke(updateAgent, {
+      await options.context.invoke(updateAgent, {
         ...rest,
-        originalContent: currentContent,
+        originalContent: options.context.userContext.currentContent,
         feedback: feedback.trim(),
         userPreferences,
       });
-
-      if (result.updatedContent) {
-        currentContent = result.updatedContent;
-        console.log(`\n✅ ${result.operationSummary || "Document updated successfully"}\n`);
-      } else {
-        console.log("\n❌ We couldn't update the document. Please try rephrasing your feedback.\n");
-      }
 
       // Check if feedback should be saved as user preference
       const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];
@@ -229,7 +226,10 @@ export default async function userReviewDocument(
       }
 
       // Print updated document headings structure
-      printDocumentHeadings(currentContent, title || "Untitled Document");
+      printDocumentHeadings(
+        options.context.userContext.currentContent,
+        title || "Untitled Document",
+      );
     } catch (error) {
       console.error("Error processing your feedback:");
       console.error(`Type: ${error.name}`);
@@ -242,7 +242,7 @@ export default async function userReviewDocument(
     }
   }
 
-  return { content: currentContent };
+  return { content: options.context.userContext.currentContent };
 }
 
 userReviewDocument.taskTitle = "User review and modify document content";

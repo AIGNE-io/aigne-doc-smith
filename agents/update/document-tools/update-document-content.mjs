@@ -5,18 +5,24 @@ import {
   validateUpdateDocumentContentInput,
 } from "../../../types/document-schema.mjs";
 
-export default async function updateDocumentContent(input) {
+export default async function updateDocumentContent(input, options) {
+  // Get originalContent from shared context, fallback to input
+  let originalContent = options?.context?.userContext?.currentContent;
+
+  if (!originalContent) {
+    originalContent = input.originalContent;
+  }
+
   // Validate input using Zod schema
   const validation = validateUpdateDocumentContentInput(input);
   if (!validation.success) {
     return {
       success: false,
-      error: validation.error,
-      message: "Invalid input parameters",
+      error: { message: validation.error },
     };
   }
 
-  const { originalContent, diffPatch } = validation.data;
+  const { diffPatch } = validation.data;
 
   try {
     // Parse and validate diff patch
@@ -24,8 +30,7 @@ export default async function updateDocumentContent(input) {
     if (!parsedDiff.success) {
       return {
         success: false,
-        error: parsedDiff.error,
-        message: "Invalid diff format: No valid hunks found or parsing failed",
+        error: { message: parsedDiff.error },
       };
     }
 
@@ -34,8 +39,7 @@ export default async function updateDocumentContent(input) {
     if (!fixedDiff.success) {
       return {
         success: false,
-        error: fixedDiff.error,
-        message: "Cannot fix diff line number issues",
+        error: { message: fixedDiff.error },
       };
     }
 
@@ -48,21 +52,27 @@ export default async function updateDocumentContent(input) {
     if (result === false) {
       return {
         success: false,
-        error: "Failed to apply patch",
-        message: "Diff patch could not be applied",
+        error: { message: "Failed to apply patch" },
       };
+    }
+
+    // Update shared context with new content if options is provided
+    if (options?.context?.userContext) {
+      options.context.userContext.currentContent = result;
     }
 
     return {
       success: true,
-      updatedContent: result,
-      message: "Document content updated successfully",
+      updatedContent: `<page_content>
+${result}
+</page_content>`,
+      message:
+        "Document content updated successfully.\nCheck if updatedContent meets user feedback, if so, just return 'success'.",
     };
   } catch (error) {
     return {
       success: false,
-      error: error.message,
-      message: "Failed to update document content",
+      error: { message: error.message },
     };
   }
 }

@@ -36,6 +36,9 @@ describe("user-review-document", () => {
           updatedContent: "# Updated Content\n\nThis is updated content.",
           operationSummary: "Document updated successfully",
         })),
+        userContext: {
+          currentContent: "",
+        },
       },
     };
 
@@ -209,10 +212,14 @@ describe("user-review-document", () => {
       .mockImplementationOnce(async () => feedback)
       .mockImplementationOnce(async () => ""); // Exit loop
 
-    mockOptions.context.invoke.mockImplementation(async () => ({
-      updatedContent,
-      operationSummary: "Added examples successfully",
-    }));
+    mockOptions.context.invoke.mockImplementation(async () => {
+      // Simulate the agent updating the shared context
+      mockOptions.context.userContext.currentContent = updatedContent;
+      return {
+        updatedContent,
+        operationSummary: "Added examples successfully",
+      };
+    });
 
     const result = await userReviewDocument({ content: mockContent }, mockOptions);
 
@@ -225,9 +232,6 @@ describe("user-review-document", () => {
       }),
     );
     expect(result.content).toBe(updatedContent);
-    expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining("✅ Added examples successfully"),
-    );
   });
 
   test("should handle empty feedback by exiting loop", async () => {
@@ -351,14 +355,13 @@ describe("user-review-document", () => {
       .mockImplementationOnce(async () => feedback)
       .mockImplementationOnce(async () => "");
 
+    // Agent doesn't update the shared context (simulating failure)
     mockOptions.context.invoke.mockImplementation(async () => ({})); // No updatedContent
 
     const result = await userReviewDocument({ content: mockContent }, mockOptions);
 
+    // Content should remain unchanged since agent didn't update it
     expect(result.content).toBe(mockContent);
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "\n❌ We couldn't update the document. Please try rephrasing your feedback.\n",
-    );
   });
 
   // FEEDBACK REFINER TESTS
@@ -389,6 +392,7 @@ describe("user-review-document", () => {
 
   test("should handle missing checkFeedbackRefiner agent gracefully", async () => {
     const feedback = "Some feedback";
+    const updatedContent = "# Updated Content\n\nThis is updated content.";
     mockOptions.context.agents = { updateDocumentDetail: {} }; // No checkFeedbackRefiner
 
     mockOptions.prompts.select.mockImplementation(async () => "feedback");
@@ -396,31 +400,40 @@ describe("user-review-document", () => {
       .mockImplementationOnce(async () => feedback)
       .mockImplementationOnce(async () => "");
 
+    mockOptions.context.invoke.mockImplementation(async () => {
+      mockOptions.context.userContext.currentContent = updatedContent;
+      return { updatedContent, operationSummary: "Updated" };
+    });
+
     const result = await userReviewDocument({ content: mockContent }, mockOptions);
 
     expect(mockOptions.context.invoke).toHaveBeenCalledTimes(1); // Only updateDocumentDetail called
-    expect(result.content).toBe("# Updated Content\n\nThis is updated content.");
+    expect(result.content).toBe(updatedContent);
   });
 
   test("should handle checkFeedbackRefiner errors gracefully", async () => {
     const feedback = "Some feedback";
+    const updatedContent = "Updated content";
     mockOptions.prompts.select.mockImplementation(async () => "feedback");
     mockOptions.prompts.input
       .mockImplementationOnce(async () => feedback)
       .mockImplementationOnce(async () => "");
 
     mockOptions.context.invoke
-      .mockImplementationOnce(async () => ({
-        updatedContent: "Updated content",
-        operationSummary: "Updated successfully",
-      })) // updateDocumentDetail
+      .mockImplementationOnce(async () => {
+        mockOptions.context.userContext.currentContent = updatedContent;
+        return {
+          updatedContent,
+          operationSummary: "Updated successfully",
+        };
+      }) // updateDocumentDetail
       .mockImplementationOnce(async () => {
         throw new Error("Refiner failed");
       }); // checkFeedbackRefiner
 
     const result = await userReviewDocument({ content: mockContent }, mockOptions);
 
-    expect(result.content).toBe("Updated content");
+    expect(result.content).toBe(updatedContent);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       "We couldn't save your feedback as a preference:",
       "Refiner failed",
@@ -443,17 +456,25 @@ describe("user-review-document", () => {
       .mockImplementationOnce(async () => secondFeedback)
       .mockImplementationOnce(async () => ""); // Exit loop
 
-    mockOptions.context.invoke
-      .mockImplementationOnce(async () => ({
-        updatedContent: firstUpdate,
-        operationSummary: "Added examples",
-      })) // First update
-      .mockImplementationOnce(async () => ({})) // First refiner
-      .mockImplementationOnce(async () => ({
-        updatedContent: secondUpdate,
-        operationSummary: "Improved clarity",
-      })) // Second update
-      .mockImplementationOnce(async () => ({})); // Second refiner
+    let invokeCount = 0;
+    mockOptions.context.invoke.mockImplementation(async () => {
+      invokeCount++;
+      if (invokeCount === 1) {
+        // First update
+        mockOptions.context.userContext.currentContent = firstUpdate;
+        return { updatedContent: firstUpdate, operationSummary: "Added examples" };
+      } else if (invokeCount === 2) {
+        // First refiner
+        return {};
+      } else if (invokeCount === 3) {
+        // Second update
+        mockOptions.context.userContext.currentContent = secondUpdate;
+        return { updatedContent: secondUpdate, operationSummary: "Improved clarity" };
+      } else {
+        // Second refiner
+        return {};
+      }
+    });
 
     const result = await userReviewDocument({ content: mockContent }, mockOptions);
 

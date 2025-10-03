@@ -28,13 +28,7 @@ input_schema:
   required:
     - documentStructure
     - feedback
-output_schema:
-  type: object
-  properties:
-    documentStructure: ../schema/document-structure.yaml
-    operationSummary:
-      type: string
-      description: Summary of the operations performed on the documentation structure
+output_key: message
 skills:
   - ./document-structure-tools/add-document.mjs
   - ./document-structure-tools/delete-document.mjs

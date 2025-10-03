@@ -4,23 +4,34 @@ import {
   validateMoveDocumentInput,
 } from "../../../types/document-structure-schema.mjs";
 
-export default async function moveDocument(input) {
+export default async function moveDocument(input, options) {
   // Validate input using Zod schema
   const validation = validateMoveDocumentInput(input);
   if (!validation.success) {
-    console.log(`Error: Cannot move document - ${validation.error}`);
-    return { documentStructure: input.documentStructure };
+    const errorMessage = `Cannot move document: ${validation.error}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      documentStructure: input.documentStructure,
+      error: { message: errorMessage },
+    };
   }
 
-  const { documentStructure, path, newParentId } = validation.data;
+  const { path, newParentId } = validation.data;
+  let documentStructure = options?.context?.userContext?.currentStructure;
+
+  if (!documentStructure) {
+    documentStructure = input.documentStructure;
+  }
 
   // Find the document to move
   const documentIndex = documentStructure.findIndex((item) => item.path === path);
   if (documentIndex === -1) {
-    console.log(
-      `Error: Cannot move document - Document '${path}' does not exist. Please select an existing document to move.`,
-    );
-    return { documentStructure };
+    const errorMessage = `Cannot move document: Document '${path}' does not exist. Please select an existing document to move.`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      documentStructure,
+      error: { message: errorMessage },
+    };
   }
 
   const documentToMove = documentStructure[documentIndex];
@@ -34,10 +45,12 @@ export default async function moveDocument(input) {
   ) {
     const newParentExists = documentStructure.some((item) => item.path === newParentId);
     if (!newParentExists) {
-      console.log(
-        `Error: Cannot move document - Target parent document '${newParentId}' does not exist. Please select an existing parent document.`,
-      );
-      return { documentStructure };
+      const errorMessage = `Cannot move document: Target parent document '${newParentId}' does not exist. Please select an existing parent document.`;
+      console.log(`⚠️  ${errorMessage}`);
+      return {
+        documentStructure,
+        error: { message: errorMessage },
+      };
     }
 
     // Check for circular dependency: the new parent cannot be a descendant of the document being moved
@@ -52,10 +65,12 @@ export default async function moveDocument(input) {
     };
 
     if (isDescendant(path, newParentId)) {
-      console.log(
-        `Error: Cannot move document - Moving '${path}' under '${newParentId}' would create an invalid hierarchy. Please select a parent that is not nested under the document being moved.`,
-      );
-      return { documentStructure };
+      const errorMessage = `Cannot move document: Moving '${path}' under '${newParentId}' would create an invalid hierarchy. Please select a parent that is not nested under the document being moved.`;
+      console.log(`⚠️  ${errorMessage}`);
+      return {
+        documentStructure,
+        error: { message: errorMessage },
+      };
     }
   }
 
@@ -69,10 +84,21 @@ export default async function moveDocument(input) {
   const updatedStructure = [...documentStructure];
   updatedStructure[documentIndex] = updatedDocument;
 
+  const newParentText = newParentId ? `'${newParentId}'` : "root level";
+  const successMessage = `moveDocument executed successfully.
+  Successfully moved document '${documentToMove.title}' to ${newParentText}.
+  Check if the latest version of documentStructure meets user feedback, if so, just return 'success'.`;
+
+  // update shared document structure
+  if (options?.context?.userContext) {
+    options.context.userContext.currentStructure = updatedStructure;
+  }
+
   return {
     documentStructure: updatedStructure,
+    message: successMessage,
     originalDocument: documentToMove,
-    updatedDocument,
+    updatedDocument: updatedDocument,
   };
 }
 
