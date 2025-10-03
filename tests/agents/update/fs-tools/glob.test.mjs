@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, it } from "bun:test";
-import glob from "./glob.mjs";
+import glob from "../../../../agents/update/fs-tools/glob.mjs";
 
 describe("glob tool", () => {
   let tempDir;

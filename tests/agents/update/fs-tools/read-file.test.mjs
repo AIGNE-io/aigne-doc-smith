@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, it } from "bun:test";
-import readFile from "./read-file.mjs";
+import readFile from "../../../../agents/update/fs-tools/read-file.mjs";
 
 describe("read-file tool", () => {
   let tempDir;

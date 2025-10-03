@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, it } from "bun:test";
-import grep from "./grep.mjs";
+import grep from "../../../../agents/update/fs-tools/grep.mjs";
 
 describe("grep tool", () => {
   let tempDir;
