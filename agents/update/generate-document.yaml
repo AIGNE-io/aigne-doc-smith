@@ -41,13 +41,7 @@ input_schema:
     - rules
     - datasources
     - originalDocumentStructure
-output_schema:
-  type: object
-  properties:
-    content:
-      type: string
-  required:
-    - content
+output_key: content
 skills:
   - type: team
     task_render_mode: collapse
