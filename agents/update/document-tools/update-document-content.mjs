@@ -67,11 +67,9 @@ export default async function updateDocumentContent(input, options) {
 
     return {
       success: true,
-      updatedContent: `
-      <page_content>
-      ${result}
-      </page_content>
-      `,
+      updatedContent: `<page_content>
+${result}
+</page_content>`,
       message:
         "Document content updated successfully.\nCheck if updatedContent meets user feedback, if so, just return 'success'.",
     };
