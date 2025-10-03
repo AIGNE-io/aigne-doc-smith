@@ -256,14 +256,35 @@ aigne doc publish --appUrl https://your-discuss-kit-instance.com
 
 ## `aigne doc prefs`
 
-Displays the current configuration settings for the project. This is a read-only command that helps you verify the settings applied during the `init` or `generate` process.
+Manages user preferences and feedback-driven rules. Over time, DocSmith learns from your feedback and creates persistent preferences. This command allows you to view, toggle, or remove these learned rules.
 
-### Usage Example
+### Options
 
-**View current project configuration:**
+| Option | Type | Description |
+| --- | --- | --- |
+| `--list` | boolean | Lists all saved preferences. |
+| `--remove` | boolean | Interactively prompts to select and remove one or more preferences. |
+| `--toggle` | boolean | Interactively prompts to select and toggle the active state of preferences. |
+| `--id` | string | Specifies a preference ID to remove or toggle directly. |
+
+### Usage Examples
+
+**List all saved preferences:**
 
 ```bash
-aigne doc prefs
+aigne doc prefs --list
+```
+
+**Start interactive removal mode:**
+
+```bash
+aigne doc prefs --remove
+```
+
+**Toggle a specific preference by ID:**
+
+```bash
+aigne doc prefs --toggle --id "pref_2a1dfe2b09695aab"
 ```
 
 ---

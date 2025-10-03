@@ -1,8 +1,8 @@
 # CLI 命令參考
 
-本指南為所有可用的 `aigne doc` 子命令、其參數和選項提供了全面的參考。它旨在幫助使用者充分利用命令列介面的全部潛力。
+本指南為所有可用的 `aigne doc` 子命令及其參數和選項提供了全面的參考。它旨在幫助使用者充分發揮命令列介面的潛力。
 
-一般語法為：
+一般語法如下：
 
 ```bash command
 aigne doc <command> [options]
@@ -15,7 +15,7 @@ aigne doc <command> [options]
 ```d2
 direction: down
 
-# Artifacts
+# 產物
 Source-Code: {
   label: "原始碼"
   shape: cylinder
@@ -25,15 +25,15 @@ Configuration: {
   shape: cylinder
 }
 Generated-Docs: {
-  label: "產生的文件"
+  label: "生成的文件"
   shape: cylinder
 }
 Published-Docs: {
-  label: "已發佈的網站"
+  label: "發布的網站"
   shape: cylinder
 }
 
-# --- Core Workflow ---
+# --- 核心工作流程 ---
 Lifecycle: {
   label: "文件生命週期"
   
@@ -43,7 +43,7 @@ Lifecycle: {
   }
 
   generate: {
-    label: "2. 產生\n`aigne doc generate`"
+    label: "2. 生成\n`aigne doc generate`"
     shape: rectangle
   }
 
@@ -62,12 +62,12 @@ Lifecycle: {
   }
 
   publish: {
-    label: "4. 發佈\n`aigne doc publish`"
+    label: "4. 發布\n`aigne doc publish`"
     shape: rectangle
   }
 }
 
-# --- Utility Commands ---
+# --- 工具命令 ---
 Utilities: {
   label: "工具命令"
   grid-columns: 2
@@ -83,9 +83,9 @@ Utilities: {
 }
 
 
-# --- Connections ---
+# --- 連接 ---
 
-# Setup and Generation
+# 設定與生成
 Lifecycle.init -> Configuration: "建立"
 Source-Code -> Lifecycle.generate: "讀取"
 Configuration -> Lifecycle.generate: "讀取"
@@ -95,14 +95,14 @@ Lifecycle.generate -> Lifecycle.init: {
   style.stroke-dash: 4
 }
 
-# Refinement Loop
+# 優化迴圈
 Generated-Docs <-> Lifecycle.Refinement: "讀取與寫入"
 
-# Publishing
+# 發布
 Lifecycle.Refinement -> Lifecycle.publish
 Lifecycle.publish -> Published-Docs: "上傳至"
 
-# Utility Connections
+# 工具連接
 Utilities.prefs -> Configuration: "讀取"
 Utilities.clear -> Configuration: "刪除"
 Utilities.clear -> Generated-Docs: "刪除"
@@ -122,31 +122,31 @@ Utilities.clear -> Generated-Docs: "刪除"
 aigne doc init
 ```
 
-有關如何根據您的需求客製化 DocSmith 的更多詳細資訊，請參閱 [設定指南](./configuration.md)。
+有關如何根據您的需求量身打造 DocSmith 的更多詳細資訊，請參閱[設定指南](./configuration.md)。
 
 ---
 
 ## `aigne doc generate`
 
-分析您的原始碼並根據您的設定產生一套完整的文件。如果找不到設定，它會自動啟動互動式設定精靈 (`aigne doc init`)。
+分析您的原始碼並根據您的設定生成一套完整的文件。如果找不到設定，它會自動啟動互動式設定精靈 (`aigne doc init`)。
 
 ### 選項
 
 | Option              | Type    | Description                                                                                                   |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
-| `--forceRegenerate` | boolean | 捨棄現有內容並從頭開始重新產生所有文件。                                     |
+| `--forceRegenerate` | boolean | 捨棄現有內容並從頭重新生成所有文件。                                     |
 | `--feedback`        | string  | 提供回饋以調整和優化整體文件結構。                                   |
-| `--model`           | string  | 指定用於產生的特定大型語言模型（例如 `anthropic:claude-3-5-sonnet`）。此選項會覆寫預設設定。 |
+| `--model`           | string  | 指定用於生成的特定大型語言模型（例如 `anthropic:claude-3-5-sonnet`）。此設定將覆寫預設值。 |
 
 ### 使用範例
 
-**產生或更新文件：**
+**生成或更新文件：**
 
 ```bash
 aigne doc generate
 ```
 
-**強制完整重新產生所有文件：**
+**強制完全重新生成所有文件：**
 
 ```bash
 aigne doc generate --forceRegenerate
@@ -158,7 +158,7 @@ aigne doc generate --forceRegenerate
 aigne doc generate --feedback "Add a new section for API examples and remove the 'About' page."
 ```
 
-**使用特定模型產生：**
+**使用特定模型生成：**
 
 ```bash
 aigne doc generate --model openai:gpt-4o
@@ -168,24 +168,24 @@ aigne doc generate --model openai:gpt-4o
 
 ## `aigne doc update`
 
-優化並重新產生特定文件。您可以以互動方式執行以選擇文件，或直接使用選項指定它們。這對於根據回饋進行有針對性的改進，而無需重新產生整個專案，非常有用。
+優化並重新生成特定文件。您可以以互動方式執行以選擇文件，或直接使用選項指定它們。這對於根據回饋進行有針對性的改進而無需重新生成整個專案很有用。
 
 ### 選項
 
 | Option     | Type  | Description                                                                                 |
 | ---------- | ----- | ------------------------------------------------------------------------------------------- |
-| `--docs`     | array | 要重新產生的文件路徑列表。可多次指定。                         |
+| `--docs`     | array | 要重新生成的文件路徑列表。可多次指定。                         |
 | `--feedback` | string | 提供具體回饋以改善所選文件的內容。              |
 
 ### 使用範例
 
-**啟動互動式會話以選擇要更新的文件：**
+**啟動互動式工作階段以選擇要更新的文件：**
 
 ```bash
 aigne doc update
 ```
 
-**使用針對性回饋更新特定文件：**
+**以針對性的回饋更新特定文件：**
 
 ```bash
 aigne doc update --docs /overview.md --feedback "Add more detailed FAQ entries"
@@ -208,7 +208,7 @@ aigne doc update --docs /overview.md --feedback "Add more detailed FAQ entries"
 
 ### 使用範例
 
-**啟動互動式翻譯會話：**
+**啟動互動式翻譯工作階段：**
 
 ```bash
 aigne doc translate
@@ -220,7 +220,7 @@ aigne doc translate
 aigne doc translate --langs zh-CN --langs ja --docs /features/generate-documentation.md --docs /overview.md
 ```
 
-**使用詞彙表和回饋進行翻譯以提高品質：**
+**使用詞彙表和回饋以提高翻譯品質：**
 
 ```bash
 aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently"
@@ -230,23 +230,23 @@ aigne doc translate --glossary @glossary.md --feedback "Use technical terminolog
 
 ## `aigne doc publish`
 
-發佈您的文件並產生一個可分享的連結。此命令會將您的內容上傳到一個 Discuss Kit 實例。您可以使用官方的 AIGNE DocSmith 平台或執行您自己的 [Discuss Kit](https://www.web3kit.rocks/discuss-kit) 實例。
+發布您的文件並生成一個可分享的連結。此命令會將您的內容上傳到一個 Discuss Kit 實例。您可以使用官方的 AIGNE DocSmith 平台，或執行您自己的 [Discuss Kit](https://www.web3kit.rocks/discuss-kit) 實例。
 
 ### 選項
 
 | Option     | Type   | Description                                                                                          |
 | ---------- | ------ | ---------------------------------------------------------------------------------------------------- |
-| `--appUrl` | string | 您自行託管的 Discuss Kit 實例的 URL。若未提供，此命令將以互動模式執行。 |
+| `--appUrl` | string | 您自行託管的 Discuss Kit 實例的 URL。如果未提供，此命令將以互動模式執行。 |
 
 ### 使用範例
 
-**啟動互動式發佈會話：**
+**啟動互動式發布工作階段：**
 
 ```bash
 aigne doc publish
 ```
 
-**直接發佈至自行託管的實例：**
+**直接發布到自行託管的實例：**
 
 ```bash
 aigne doc publish --appUrl https://your-discuss-kit-instance.com
@@ -256,25 +256,46 @@ aigne doc publish --appUrl https://your-discuss-kit-instance.com
 
 ## `aigne doc prefs`
 
-顯示專案目前的設定。這是一個唯讀命令，可幫助您驗證在 `init` 或 `generate` 過程中應用的設定。
+管理使用者偏好設定和由回饋驅動的規則。隨著時間的推移，DocSmith 會從您的回饋中學習並建立持久的偏好設定。此命令允許您檢視、切換或移除這些學習到的規則。
+
+### 選項
+
+| Option | Type | Description |
+| --- | --- | --- |
+| `--list` | boolean | 列出所有已儲存的偏好設定。 |
+| `--remove` | boolean | 以互動方式提示選擇並移除一個或多個偏好設定。 |
+| `--toggle` | boolean | 以互動方式提示選擇並切換偏好設定的啟用狀態。 |
+| `--id` | string | 直接指定要移除或切換的偏好設定 ID。 |
 
 ### 使用範例
 
-**檢視目前專案設定：**
+**列出所有已儲存的偏好設定：**
 
 ```bash
-aigne doc prefs
+aigne doc prefs --list
+```
+
+**啟動互動式移除模式：**
+
+```bash
+aigne doc prefs --remove
+```
+
+**透過 ID 切換特定的偏好設定：**
+
+```bash
+aigne doc prefs --toggle --id "pref_12345"
 ```
 
 ---
 
 ## `aigne doc clear`
 
-啟動一個互動式會話以清除本地儲存的資料。這可用於移除產生的文件、文件結構設定或快取的驗證權杖。
+啟動一個互動式工作階段以清除本地儲存的資料。這可用於移除生成的文件、文件結構設定或快取的驗證權杖。
 
 ### 使用範例
 
-**啟動互動式清理程序：**
+**啟動互動式清理流程：**
 
 ```bash
 aigne doc clear
