@@ -120,6 +120,10 @@ targetAudienceTypes:
 # ... other settings
 ```
 
+Upon completion, you will see a confirmation message in your terminal.
+
+![A terminal window showing the successful completion of the interactive setup wizard.](../assets/screenshots/doc-complete-setup.png)
+
 ## Next Steps
 
 With your configuration file in place, you are ready to generate, translate, or publish your documentation.

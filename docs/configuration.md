@@ -10,7 +10,7 @@ The following diagram illustrates the configuration workflow:
 direction: down
 
 User: {
-  shape: c4-person
+  shape: person
 }
 
 CLI: {

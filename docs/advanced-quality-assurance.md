@@ -1,96 +1,92 @@
 # Quality Assurance
 
-To ensure all generated documentation is functional, clear, and professional, DocSmith incorporates an automated quality assurance process. This process executes a series of checks on the Markdown content to detect and report common issues, from broken links to malformed diagrams, before publication.
+To ensure that all generated documentation meets a high standard of quality, consistency, and accuracy, DocSmith includes a comprehensive, automated quality assurance pipeline. These built-in checks run automatically to identify and flag common formatting errors, broken links, and structural issues before publication. This process guarantees that the final output is professional, reliable, and easy for users to navigate.
 
-This automated pipeline validates content structure, links, media, and syntax to maintain a consistent standard of quality.
-
-```d2
+```d2 Quality Assurance Pipeline icon=lucide:shield-check
 direction: down
 
-Input-Markdown-Content: {
-  label: "Input: Markdown Content"
+Documentation-Content: {
+  label: "Documentation Content"
   shape: rectangle
 }
 
-QA-Pipeline: {
-  label: "QA Pipeline"
+Quality-Assurance-Pipeline: {
+  label: "Quality Assurance Pipeline"
   shape: rectangle
-  grid-columns: 1
+  grid-columns: 3
   grid-gap: 50
 
-  Structural-Checks: {
-    label: "Structural Checks"
+  Markdown-Validation: {
+    label: "1. Markdown & Content Validation\n(remark-lint based)"
     shape: rectangle
-    grid-columns: 2
-    Completeness: "Ensures content is not truncated"
-    Code-Blocks: "Validates block syntax & indentation"
+
+    Check-1: "Valid Markdown Syntax"
+    Check-2: "Heading Integrity"
+    Check-3: "Table Formatting"
+    Check-4: "Code Block Integrity"
+    Check-5: "Content Completeness"
   }
 
-  Content-Validation: {
-    label: "Content Validation"
+  Link-Asset-Validation: {
+    label: "2. Link & Asset Integrity"
     shape: rectangle
-    grid-columns: 2
-    Link-Integrity: "Verifies internal links"
-    Image-Paths: "Checks local image existence"
-    Table-Formatting: "Matches column counts"
+
+    Check-6: "Dead Link Detection"
+    Check-7: "Local Image Validation"
   }
 
-  Syntax-Validation: {
-    label: "Syntax Validation"
+  D2-Diagram-Validation: {
+    label: "3. D2 Diagram Validation"
     shape: rectangle
-    grid-columns: 2
-    D2-Diagrams: "Validates D2 syntax"
-    Markdown-Linting: "Enforces style rules"
+
+    Check-8: "D2 Syntax Check"
   }
 }
 
-Output-Validated-Content-or-Error-Report: {
-  label: "Output: Validated Content or Error Report"
+Validation-Result: {
+  label: "All Checks Pass?"
+  shape: diamond
+}
+
+Published-Documentation: {
+  label: "Published Documentation"
   shape: rectangle
+  style.fill: "#d4edda"
 }
 
-Input-Markdown-Content -> QA-Pipeline
-QA-Pipeline -> Output-Validated-Content-or-Error-Report
+Error-Report: {
+  label: "Error Report"
+  shape: rectangle
+  style.fill: "#f8d7da"
+}
+
+Documentation-Content -> Quality-Assurance-Pipeline: "Input"
+Quality-Assurance-Pipeline -> Validation-Result: "Validation"
+Validation-Result -> Published-Documentation: "Yes"
+Validation-Result -> Error-Report: "No"
 ```
 
-### Core Validation Areas
+## Markdown and Content Structure Validation
 
-DocSmith's quality assurance process covers several key areas to ensure document integrity.
+The foundation of quality assurance is ensuring the core Markdown is well-formed and structurally sound. DocSmith employs a sophisticated linter based on `remark-lint`, supplemented with custom checks to catch common structural problems.
 
-#### Content Structure & Completeness
+Key structural and formatting checks include:
 
-DocSmith performs several checks to ensure the structural integrity of the content:
+*   **Valid Markdown Syntax**: Adherence to standard Markdown and GFM (GitHub Flavored Markdown) specifications.
+*   **Heading Integrity**: Detects issues such as duplicate headings within the same document, incorrect heading indentation, and the use of more than one top-level heading (H1).
+*   **Table Formatting**: Verifies that table structures are correct, specifically checking for mismatches between the number of columns in the header, the separator line, and the data rows.
+*   **Code Block Integrity**: Ensures that all code blocks are properly opened and closed with ```. It also checks for inconsistent indentation within a code block, which can affect rendering.
+*   **Content Completeness**: A verification step to ensure that generated content does not appear truncated by checking that it ends with appropriate punctuation.
 
-*   **Incomplete Code Blocks**: Detects code blocks that are opened with ` ``` ` but never closed.
-*   **Missing Line Breaks**: Identifies content that appears on a single line, which may indicate missing newlines.
-*   **Content Endings**: Verifies that the content ends with appropriate punctuation (e.g., `.`, `)`, `|`, `>`) to prevent truncated output.
-*   **Code Block Indentation**: Analyzes code blocks for inconsistent indentation. If a line of code has less indentation than the opening ` ``` ` marker, it can cause rendering problems. This check helps maintain correct code presentation.
+## Link and Asset Integrity
 
-#### Link and Media Integrity
+Broken links and missing images degrade the user experience. DocSmith performs checks to validate all local resources.
 
-*   **Link Integrity**: All relative links within the documentation are validated against the documentation structure to prevent dead links. This ensures that all internal navigation works as expected. The checker ignores external links (starting with `http://` or `https://`) and `mailto:` links.
+*   **Dead Link Detection**: The system scans all relative Markdown links and verifies that the target path corresponds to a valid document defined in the project's documentation structure. This check prevents users from encountering "404 Not Found" errors when navigating the documentation. External links beginning with `http://` or `https://` are not checked.
+*   **Local Image Validation**: For all local images included via `![]()`, the validator confirms that the referenced image file exists at the specified path. This ensures that no broken images appear in the final output.
 
-*   **Image Validation**: To avoid broken images, the checker verifies that any local image file referenced in the documentation exists on the file system. It resolves both relative and absolute paths to confirm the file is present. External image URLs and data URLs are not checked.
+## D2 Diagram Validation
 
-#### Diagram Syntax Validation
+To guarantee that all diagrams are rendered correctly, DocSmith validates the syntax of every D2 diagram.
 
-*   **D2 Diagrams**: DocSmith validates D2 diagram syntax by attempting to compile the code into an SVG image. This process catches any syntax errors before they can result in a broken graphic.
-
-#### Formatting and Style Enforcement
-
-*   **Table Formatting**: Tables are inspected for mismatched column counts between the header, the separator line, and the data rows. This check prevents common table rendering failures.
-
-*   **Markdown Linting**: A built-in linter enforces a consistent Markdown structure. Key rules include:
-
-| Rule ID | Description |
-| :--- | :--- |
-| `no-duplicate-headings` | Prevents multiple headings with the same content in the same section. |
-| `no-undefined-references` | Ensures all link and image references are defined. |
-| `no-unused-definitions` | Flags link or image definitions that are not used. |
-| `no-heading-content-indent` | Disallows indentation before heading content. |
-| `no-multiple-toplevel-headings` | Allows only one top-level heading (H1) per document. |
-| `code-block-style` | Enforces a consistent style for code blocks (e.g., using backticks). |
-
-By automating these checks, DocSmith maintains a consistent standard for documentation, ensuring the final output is accurate and navigable.
-
-To learn more about the overall architecture, see the [How It Works](./advanced-how-it-works.md) section.
+Each code block marked with `d2` is processed through a strict syntax checker. If any syntax errors are found, the generation process is halted with a descriptive error message. This prevents the publication of documents containing broken or improperly rendered visual diagrams.

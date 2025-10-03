@@ -60,16 +60,16 @@ DocSmith provides a set of features to automate and simplify the documentation p
 
 *   **Structure Planning:** Analyzes a codebase to generate a logical documentation structure.
 *   **Content Generation:** Populates the planned documentation structure with content generated from the source code.
-*   **Multi-Language Support:** Translates documentation into 12 languages, including English, Chinese, Japanese, and Spanish.
-*   **AIGNE Hub Integration:** Uses [AIGNE Hub](https://www.aigne.io/en/hub) as an LLM provider, allowing model switching without managing individual API keys.
-*   **One-Click Publishing:** Makes your documentation live with shareable links. Publish to the official platform at [docsmith.aigne.io](https://docsmith.aigne.io/app/) or to your own [Discuss Kit](https://www.web3kit.rocks/discuss-kit) instance.
+*   **Multi-Language Support:** Translates documentation into 12 languages, including English, Chinese, and Spanish.
+*   **AIGNE Hub Integration:** Uses [AIGNE Hub](https://www.aigne.io/en/hub), a service that provides access to various Large Language Models (LLMs) like those from Google, OpenAI, and Anthropic, allowing model switching without managing individual API keys.
+*   **One-Click Publishing:** Makes your documentation live with shareable links. You can publish to the official platform or run your own instance using [Discuss Kit](https://www.web3kit.rocks/discuss-kit).
 *   **Iterative Updates:** Detects source code changes to update documentation and supports targeted regeneration of specific documents based on user feedback.
 
 ## Part of the AIGNE Ecosystem
 
-DocSmith is a key component of the [AIGNE](https://www.aigne.io) ecosystem, a platform for developing AI applications. It integrates with other AIGNE components to use the platform's AI capabilities and infrastructure.
+DocSmith is a component of the [AIGNE](https://www.aigne.io) ecosystem, a platform for developing AI applications. It integrates with other AIGNE components to use the platform's AI capabilities and infrastructure.
 
-The following diagram illustrates how DocSmith fits within the AIGNE architecture:
+The following diagram shows how DocSmith fits within the AIGNE architecture:
 
 ![AIGNE Ecosystem Architecture](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
 

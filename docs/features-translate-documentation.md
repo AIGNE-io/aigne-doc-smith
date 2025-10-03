@@ -14,11 +14,11 @@ This command launches an interactive wizard that guides you through the process:
 
 1.  **Select Documents to Translate:** You will be presented with a list of your existing documents. Use the spacebar to select the ones you want to translate.
 
-    ![Select documents to translate](https://docsmith.aigne.io/image-bin/uploads/e2cf5fa45aa856c406a444fb4665ed2d.png)
+    ![Select documents to translate](../assets/screenshots/doc-translate.png)
 
 2.  **Choose Target Languages:** After selecting your documents, pick one or more target languages from the list of supported options.
 
-    ![Select languages to translate into](https://docsmith.aigne.io/image-bin/uploads/2e243a2488f2060a693fe0ac0c8fb5ad.png)
+    ![Select languages to translate into](../assets/screenshots/doc-translate-langs.png)
 
 3.  **Confirm and Run:** DocSmith will then process the translation, generating new versions of your selected files for each chosen language.
 
@@ -33,7 +33,7 @@ For automation in scripts or CI/CD pipelines, use command-line flags to control 
   <x-field data-name="--docs" data-type="string" data-required="false" data-desc="Specify the path of a document to translate. This can also be used multiple times for batch translation."></x-field>
   <x-field data-name="--feedback" data-type="string" data-required="false" data-desc="Provide suggestions to the AI to guide the translation quality (e.g., --feedback &quot;Use a formal tone&quot;)."></x-field>
   <x-field data-name="--glossary" data-type="string" data-required="false" data-desc="Use a glossary file in Markdown format to ensure consistent terminology for specific terms (e.g., --glossary @path/to/glossary.md)."></x-field>
-  <x-field data-name="--model" data-type="string" data-required="false" data-desc="Specify the translation model to use, for example, 'openai:gpt-4o' or 'anthropic:claude-sonnet-4-5'."></x-field>
+  <x-field data-name="--model" data-type="string" data-required="false" data-desc="Specify the translation model to use, for example, 'openai:gpt-4o' or 'google:gemini-2.5-pro'."></x-field>
 </x-field-group>
 
 ### Examples
@@ -86,5 +86,5 @@ DocSmith supports automatic translation for the following 12 languages:
 Once your documentation is translated, you are ready to share it with the world.
 
 <x-card data-title="Next: Publish Your Docs" data-icon="lucide:upload-cloud" data-href="/features/publish-your-docs" data-cta="Read More">
-  A guide on how to publish your documentation to a public platform or your own private website.
+  A guide on how to easily publish your documentation to a public platform or your own private website.
 </x-card>

@@ -5,7 +5,7 @@
 ## [0.8.11-beta.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.5...v0.8.11-beta.6) (2025-10-02)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.8.11-beta.6 ([ecc8f5c](https://github.com/AIGNE-io/aigne-doc-smith/commit/ecc8f5c4ff9cc813e5cf7e35cbfdb915826cd183))
 
@@ -27,7 +27,7 @@
 
 ### 錯誤修復
 
-* 改善 choose-docs 工具中的錯誤處理 ([#145](https://github.com/AIGNE-io/aigne-doc-smith/issues/145)) ([7052ffc](https://github.com/AIGNE-io/aigne-doc-smith/commit/7052ffc106817144bff815422dced7faa4dfc3e8))
+* 改善 choose-docs 公用程式中的錯誤處理 ([#145](https://github.com/AIGNE-io/aigne-doc-smith/issues/145)) ([7052ffc](https://github.com/AIGNE-io/aigne-doc-smith/commit/7052ffc106817144bff815422dced7faa4dfc3e8))
 * 調整翻譯提示；僅翻譯程式碼區塊中的註解 ([#149](https://github.com/AIGNE-io/aigne-doc-smith/issues/149)) ([30ce2c0](https://github.com/AIGNE-io/aigne-doc-smith/commit/30ce2c0e43c01b6588b4ada84aafecfd83c1b23b))
 
 ## [0.8.11-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.2...v0.8.11-beta.3) (2025-09-29)
@@ -35,14 +35,14 @@
 
 ### 錯誤修復
 
-* 新增評估 agents 的 cil 項目 ([#143](https://github.com/AIGNE-io/aigne-doc-smith/issues/143)) ([016096a](https://github.com/AIGNE-io/aigne-doc-smith/commit/016096af6c0cec0b86fc538e1f0b7b42e928451b))
+* 新增評估 agents cil 項目 ([#143](https://github.com/AIGNE-io/aigne-doc-smith/issues/143)) ([016096a](https://github.com/AIGNE-io/aigne-doc-smith/commit/016096af6c0cec0b86fc538e1f0b7b42e928451b))
 
 ## [0.8.11-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.1...v0.8.11-beta.2) (2025-09-27)
 
 
 ### 錯誤修復
 
-* 修復相依性衝突 ([8e06ce7](https://github.com/AIGNE-io/aigne-doc-smith/commit/8e06ce716620f4bc526971300eab664115ffd8f0))
+* 修復依賴性衝突 ([8e06ce7](https://github.com/AIGNE-io/aigne-doc-smith/commit/8e06ce716620f4bc526971300eab664115ffd8f0))
 
 ## [0.8.11-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta...v0.8.11-beta.1) (2025-09-27)
 
@@ -69,7 +69,7 @@
 ## [0.8.10](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta.3...v0.8.10) (2025-09-20)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.8.10 ([35ac7c8](https://github.com/AIGNE-io/aigne-doc-smith/commit/35ac7c8fb56d6612595af1429ccad1b7804edeb8))
 * 發布 0.8.10 ([59c98bb](https://github.com/AIGNE-io/aigne-doc-smith/commit/59c98bbc479cd415c6540ee138e4e711c8dc0490))
@@ -123,7 +123,7 @@
 
 ### 錯誤修復
 
-* 優化查詢回饋的文案 ([#106](https://github.com/AIGNE-io/aigne-doc-smith/issues/106)) ([d219ab8](https://github.com/AIGNE-io/aigne-doc-smith/commit/d219ab8e49fedfb2fbe1d3746e30f36751a924df))
+* 最佳化查詢回饋的文案 ([#106](https://github.com/AIGNE-io/aigne-doc-smith/issues/106)) ([d219ab8](https://github.com/AIGNE-io/aigne-doc-smith/commit/d219ab8e49fedfb2fbe1d3746e30f36751a924df))
 
 ## [0.8.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.6...v0.9.0) (2025-09-12)
 
@@ -138,7 +138,7 @@
 ### 功能
 
 * 新增部署單元測試並透過更好的日誌記錄改善發布工作流程 ([e33a94b](https://github.com/AIGNE-io/aigne-doc-smith/commit/e33a94bef5eda09398901fa1f953e662ae5fbd16))
-* **publish:** 顯示預設發布處理的發布網址 ([9d1d018](https://github.com/AIGNE-io/aigne-doc-smith/commit/9d1d0180dc9c8bb0a4393a893eed2395eec300ab))
+* **publish:** 顯示預設發布處理的發布 URL ([9d1d018](https://github.com/AIGNE-io/aigne-doc-smith/commit/9d1d0180dc9c8bb0a4393a893eed2395eec300ab))
 
 
 ### 錯誤修復
@@ -146,7 +146,7 @@
 * **deploy:** 確保日誌在 await 後儲存以防止儲存失敗 ([793343f](https://github.com/AIGNE-io/aigne-doc-smith/commit/793343fc7f96ab962e70eb310cb07f4e7eaec9e0))
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.8.6 ([1e25cb4](https://github.com/AIGNE-io/aigne-doc-smith/commit/1e25cb49a26d8bcc3c83ec36120b6bad4042cadf))
 
@@ -158,7 +158,7 @@
 * 支援將文件發布至企業空間 ([#82](https://github.com/AIGNE-io/aigne-doc-smith/issues/82)) ([35b577a](https://github.com/AIGNE-io/aigne-doc-smith/commit/35b577ac0f2c1b860a23185054a55bada3742e8e))
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.8.5 ([7a60a03](https://github.com/AIGNE-io/aigne-doc-smith/commit/7a60a03f91a20f378e94b12dd32a6a8b0a4bede5))
 
@@ -168,7 +168,7 @@
 ### 錯誤修復
 
 * 將 markdown 程式碼區塊解析為自訂 x-code 元素 ([#89](https://github.com/AIGNE-io/aigne-doc-smith/issues/89)) ([96ea776](https://github.com/AIGNE-io/aigne-doc-smith/commit/96ea7761299b93ea406abe04193f531fc406ccfa))
-* **utils:** 更新程式碼區塊的正規表示式以支援增強屬性 ([#92](https://github.com/AIGNE-io/aigne-doc-smith/issues/92)) ([bf1fbab](https://github.com/AIGNE-io/aigne-doc-smith/commit/bf1fbabf193e90a83ed6e83e4ff4c5b3b2930477))
+* **utils:** 更新程式碼區塊正規表示式以支援增強屬性 ([#92](https://github.com/AIGNE-io/aigne-doc-smith/issues/92)) ([bf1fbab](https://github.com/AIGNE-io/aigne-doc-smith/commit/bf1fbabf193e90a83ed6e83e4ff4c5b3b2930477))
 * **ux:** 使 d2 圖表的背景透明 ([13eed81](https://github.com/AIGNE-io/aigne-doc-smith/commit/13eed81cb6be13c64ad04c41505d9d76f34d54bb))
 * **ux:** 使 d2 圖表的背景透明 ([#96](https://github.com/AIGNE-io/aigne-doc-smith/issues/96)) ([13eed81](https://github.com/AIGNE-io/aigne-doc-smith/commit/13eed81cb6be13c64ad04c41505d9d76f34d54bb))
 
@@ -177,12 +177,12 @@
 
 ### 錯誤修復
 
-* 為本地圖片新增尺寸偵測與自動設定功能 ([#87](https://github.com/AIGNE-io/aigne-doc-smith/issues/87)) ([2d139e6](https://github.com/AIGNE-io/aigne-doc-smith/commit/2d139e60c55fbfd204b08f427807ffeecdae14df))
+* 為本地圖片新增圖片尺寸偵測和自動設定 ([#87](https://github.com/AIGNE-io/aigne-doc-smith/issues/87)) ([2d139e6](https://github.com/AIGNE-io/aigne-doc-smith/commit/2d139e60c55fbfd204b08f427807ffeecdae14df))
 
 ## [0.8.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.1...v0.8.2) (2025-09-04)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.8.2 ([849bc69](https://github.com/AIGNE-io/aigne-doc-smith/commit/849bc694edf167187f65cb34f1dd9a3966efd96c))
 
@@ -191,10 +191,10 @@
 
 ### 功能
 
-* 透過全面的範例調整 d2 圖表生成 ([#80](https://github.com/AIGNE-io/aigne-doc-smith/issues/80)) ([3423e4c](https://github.com/AIGNE-io/aigne-doc-smith/commit/3423e4cff24335552503916694a3489e5d91bf6c))
+* 透過綜合範例調整 d2 圖表生成 ([#80](https://github.com/AIGNE-io/aigne-doc-smith/issues/80)) ([3423e4c](https://github.com/AIGNE-io/aigne-doc-smith/commit/3423e4cff24335552503916694a3489e5d91bf6c))
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.8.1 ([21f64d4](https://github.com/AIGNE-io/aigne-doc-smith/commit/21f64d450377b1aef00f12613ba3b87aa4ef1d31))
 
@@ -209,7 +209,7 @@
 ## [0.7.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.7.1...v0.7.2) (2025-09-01)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.7.2 ([c3be232](https://github.com/AIGNE-io/aigne-doc-smith/commit/c3be2323e885cf5d11d654629fe30cc3720f79d3))
 
@@ -226,8 +226,8 @@
 ### 功能
 
 * 新增聊天模式支援 ([#60](https://github.com/AIGNE-io/aigne-doc-smith/issues/60)) ([9b2ce50](https://github.com/AIGNE-io/aigne-doc-smith/commit/9b2ce50014d1894a4e41bf043e699fdc4f1d74b7))
-* 支援自訂元件和更穩健的組態處理 ([#70](https://github.com/AIGNE-io/aigne-doc-smith/issues/70)) ([727ab42](https://github.com/AIGNE-io/aigne-doc-smith/commit/727ab429b00f924ef605530b35d2a12b4be77e3a))
-* 在文件生成與發布工作流程中支援 d2 圖表 ([#69](https://github.com/AIGNE-io/aigne-doc-smith/issues/69)) ([bf95889](https://github.com/AIGNE-io/aigne-doc-smith/commit/bf958891516973636c4847b084c6fe75d1ea124b))
+* 支援自訂元件和更穩健的配置處理 ([#70](https://github.com/AIGNE-io/aigne-doc-smith/issues/70)) ([727ab42](https://github.com/AIGNE-io/aigne-doc-smith/commit/727ab429b00f924ef605530b35d2a12b4be77e3a))
+* 在文件生成和發布工作流程中支援 d2 圖表 ([#69](https://github.com/AIGNE-io/aigne-doc-smith/issues/69)) ([bf95889](https://github.com/AIGNE-io/aigne-doc-smith/commit/bf958891516973636c4847b084c6fe75d1ea124b))
 * 支援多用途文件規劃與生成 ([#68](https://github.com/AIGNE-io/aigne-doc-smith/issues/68)) ([44152c5](https://github.com/AIGNE-io/aigne-doc-smith/commit/44152c53b7e8f82e3af1245a1affd77b9817486d))
 
 ## [0.6.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.5.1...v0.6.0) (2025-08-27)
@@ -235,12 +235,12 @@
 
 ### 功能
 
-* 完成發布前媒體處理的支援 ([#63](https://github.com/AIGNE-io/aigne-doc-smith/issues/63)) ([5257ca1](https://github.com/AIGNE-io/aigne-doc-smith/commit/5257ca1756f47487b65a1813949e547b6fc51aca))
+* 在發布前完成對媒體處理的支援 ([#63](https://github.com/AIGNE-io/aigne-doc-smith/issues/63)) ([5257ca1](https://github.com/AIGNE-io/aigne-doc-smith/commit/5257ca1756f47487b65a1813949e547b6fc51aca))
 
 ## [0.5.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.5.0...v0.5.1) (2025-08-26)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.5.1 ([892d96e](https://github.com/AIGNE-io/aigne-doc-smith/commit/892d96e939a6404a42e8d2521f95bb7acfeabe27))
 
@@ -259,7 +259,7 @@
 ## [0.4.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.4...v0.4.5) (2025-08-25)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.4.5 ([12aa6c3](https://github.com/AIGNE-io/aigne-doc-smith/commit/12aa6c340fdd95cbd74833662f4c3a80f19dfa30))
 
@@ -273,14 +273,14 @@
 ## [0.4.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.2...v0.4.3) (2025-08-21)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.4.3 ([f37ac7c](https://github.com/AIGNE-io/aigne-doc-smith/commit/f37ac7cd1fd129d8e3019cc7e952a0cf7dcb3db7))
 
 ## [0.4.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.4.1...v0.4.2) (2025-08-21)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.4.2 ([9e36cf6](https://github.com/AIGNE-io/aigne-doc-smith/commit/9e36cf678ac51a0f4e7b3c19e4b5248e42b80437))
 
@@ -310,12 +310,12 @@
 
 ### 功能
 
-* **core:** 潤飾生成內容收集工作流程 ([#46](https://github.com/AIGNE-io/aigne-doc-smith/issues/46)) ([687d06a](https://github.com/AIGNE-io/aigne-doc-smith/commit/687d06afd648e0e697d25e85dcc841b17c3c311c))
+* **core:** 潤飾生成上下文收集工作流程 ([#46](https://github.com/AIGNE-io/aigne-doc-smith/issues/46)) ([687d06a](https://github.com/AIGNE-io/aigne-doc-smith/commit/687d06afd648e0e697d25e85dcc841b17c3c311c))
 
 
 ### 錯誤修復
 
-* 優化執行自架 discuss kit 的說明文案 ([#45](https://github.com/AIGNE-io/aigne-doc-smith/issues/45)) ([6841de8](https://github.com/AIGNE-io/aigne-doc-smith/commit/6841de817408d85ac8d993860ab431f7b8816aef))
+* 最佳化執行自架 discuss kit 的說明文案 ([#45](https://github.com/AIGNE-io/aigne-doc-smith/issues/45)) ([6841de8](https://github.com/AIGNE-io/aigne-doc-smith/commit/6841de817408d85ac8d993860ab431f7b8816aef))
 
 ## [0.2.11](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.10...v0.2.11) (2025-08-15)
 
@@ -329,7 +329,7 @@
 
 ### 錯誤修復
 
-* 修復錯誤叢集回饋 ([#41](https://github.com/AIGNE-io/aigne-doc-smith/issues/41)) ([2740d1a](https://github.com/AIGNE-io/aigne-doc-smith/commit/2740d1abef70ea36780b030917a6d54f74df4327))
+* 修復 bug bush 回饋 ([#41](https://github.com/AIGNE-io/aigne-doc-smith/issues/41)) ([2740d1a](https://github.com/AIGNE-io/aigne-doc-smith/commit/2740d1abef70ea36780b030917a6d54f74df4327))
 
 ## [0.2.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.8...v0.2.9) (2025-08-13)
 
@@ -341,7 +341,7 @@
 ## [0.2.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.7...v0.2.8) (2025-08-13)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.2.8 ([da19bc0](https://github.com/AIGNE-io/aigne-doc-smith/commit/da19bc0b2c6c4e5fddaff84b4fa85c9d495b3ba0))
 
@@ -353,14 +353,14 @@
 * 潤飾細節檢查 ([#21](https://github.com/AIGNE-io/aigne-doc-smith/issues/21)) ([0268732](https://github.com/AIGNE-io/aigne-doc-smith/commit/02687329c3507b73f9cbf1aa2ff1b87921452516))
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.2.7 ([3b807fe](https://github.com/AIGNE-io/aigne-doc-smith/commit/3b807fed833a5160931747bce37aac00cf11d9ac))
 
 ## [0.2.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.5...v0.2.6) (2025-08-12)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.2.6 ([c5b5ea5](https://github.com/AIGNE-io/aigne-doc-smith/commit/c5b5ea5c404d44f3b0d420f0b57e4ae64ae5d624))
 
@@ -388,14 +388,14 @@
 ## [0.2.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.1...v0.2.2) (2025-08-07)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.2.2 ([c3fb52a](https://github.com/AIGNE-io/aigne-doc-smith/commit/c3fb52a78b95676e1c13361b30ebec2914a89fa8))
 
 ## [0.2.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.2.0...v0.2.1) (2025-08-06)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.2.1 ([e3a39ae](https://github.com/AIGNE-io/aigne-doc-smith/commit/e3a39aedcee129deae424e96942f9798b9191663))
 
@@ -404,13 +404,13 @@
 
 ### 功能
 
-* 支援呼叫 agents 時自動初始化組態 ([24d29db](https://github.com/AIGNE-io/aigne-doc-smith/commit/24d29db4dd86709750aa22ff649e7dacc4124126))
+* 支援呼叫 agents 時自動初始化配置 ([24d29db](https://github.com/AIGNE-io/aigne-doc-smith/commit/24d29db4dd86709750aa22ff649e7dacc4124126))
 * 來源變更時更新文件 ([#9](https://github.com/AIGNE-io/aigne-doc-smith/issues/9)) ([4adcecf](https://github.com/AIGNE-io/aigne-doc-smith/commit/4adcecfb32e72c9e88d0b0bd8ce0a91022847ca7))
 
 ## [0.1.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.1.3...v0.1.4) (2025-08-04)
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.1.4 ([4122cf5](https://github.com/AIGNE-io/aigne-doc-smith/commit/4122cf5cc0285bef2b96803f393e744121d22acf))
 
@@ -434,7 +434,7 @@
 ### 錯誤修復
 
 * agent 新增別名 ([7e25014](https://github.com/AIGNE-io/aigne-doc-smith/commit/7e250147309849fe0f4cc554077134d2e443d344))
-* 文件 mcp 新增文件搜尋 ([de96e0e](https://github.com/AIGNE-io/aigne-doc-smith/commit/de96e0e08455831dc6918d5fbc59d38b6a921373))
+* docs mcp 新增文件搜尋 ([de96e0e](https://github.com/AIGNE-io/aigne-doc-smith/commit/de96e0e08455831dc6918d5fbc59d38b6a921373))
 * 潤飾程式碼 ([8cb0a5c](https://github.com/AIGNE-io/aigne-doc-smith/commit/8cb0a5ce67cf009c672b2fb1aa9b89ef6d965a86))
 
 ## [0.1.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.0.2...v0.1.0) (2025-07-31)
@@ -448,18 +448,18 @@
 ### 錯誤修復
 
 * 潤飾指令參數 ([#3](https://github.com/AIGNE-io/aigne-doc-smith/issues/3)) ([003f6b8](https://github.com/AIGNE-io/aigne-doc-smith/commit/003f6b8ae2c9e1af55ba1841458fa8567a0eb2f0))
-* 潤飾文件 mcp agent ([8654cd4](https://github.com/AIGNE-io/aigne-doc-smith/commit/8654cd4ea38034f3af0244f56b27acf66ba704e1))
+* 潤飾 docs mcp agent ([8654cd4](https://github.com/AIGNE-io/aigne-doc-smith/commit/8654cd4ea38034f3af0244f56b27acf66ba704e1))
 
 ## 0.0.2 (2025-07-30)
 
 
 ### 功能
 
-* 新增自動建立看板功能 ([3ff06ad](https://github.com/AIGNE-io/aigne-doc-smith/commit/3ff06ad0241e208b09bcf828c52c2c5051c67ef8))
+* 新增自動建立看板 ([3ff06ad](https://github.com/AIGNE-io/aigne-doc-smith/commit/3ff06ad0241e208b09bcf828c52c2c5051c67ef8))
 * 新增 docs-mcp ([a7508a1](https://github.com/AIGNE-io/aigne-doc-smith/commit/a7508a13abb2222968b1bc9c14948427af509f97))
 * 新增輸入產生器 agent ([20c01bb](https://github.com/AIGNE-io/aigne-doc-smith/commit/20c01bbca6d6f9414695071fc907bd7cf43d7f62))
-* 新增發布文件功能 ([41bb126](https://github.com/AIGNE-io/aigne-doc-smith/commit/41bb126caeb1c3c242c7a2be27abb114aeab9953))
-* 新增文件標籤支援 ([4522c07](https://github.com/AIGNE-io/aigne-doc-smith/commit/4522c07b1ceb05664a1f5b5fb4df06feee536eba))
+* 新增發布文件 ([41bb126](https://github.com/AIGNE-io/aigne-doc-smith/commit/41bb126caeb1c3c242c7a2be27abb114aeab9953))
+* 新增支援文件標籤 ([4522c07](https://github.com/AIGNE-io/aigne-doc-smith/commit/4522c07b1ceb05664a1f5b5fb4df06feee536eba))
 * 細節新增審閱 ([8f1aa4f](https://github.com/AIGNE-io/aigne-doc-smith/commit/8f1aa4f22e2d2e590d7aa37288c2e1ee7ea48f07))
 * 初始提交 ([dafc40e](https://github.com/AIGNE-io/aigne-doc-smith/commit/dafc40e94f3c407e50b2c46ecb46237f23a15cf7))
 * 結構規劃新增審閱 ([b56e83e](https://github.com/AIGNE-io/aigne-doc-smith/commit/b56e83e558f509302b422205f30e9b2adb42d452))
@@ -481,6 +481,6 @@
 * 儲存文件時移除無用文件 ([bec5ba3](https://github.com/AIGNE-io/aigne-doc-smith/commit/bec5ba3afd462c990a0aa813bbe38ce9a61363ee))
 
 
-### 雜項
+### 其他雜務
 
 * 發布 0.0.2 ([73bf26a](https://github.com/AIGNE-io/aigne-doc-smith/commit/73bf26a5c55fa4726d866cff64bd48d1ca37a3b3))

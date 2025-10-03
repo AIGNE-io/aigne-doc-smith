@@ -80,7 +80,7 @@ When you execute the `aigne doc generate` command, DocSmith first analyzes your 
 aigne doc generate
 ```
 
-![DocSmith detects changes and regenerates only the required documents.](https://docsmith.aigne.io/image-bin/uploads/21a76b2f65d14d16a49c13d800f1e2c1.png)
+![DocSmith detects changes and regenerates only the required documents.](../assets/screenshots/doc-regenerate.png)
 
 ### Forcing a Full Regeneration
 
@@ -123,9 +123,9 @@ aigne doc update --docs overview.md --feedback "Add a more detailed FAQ section 
 
 The primary parameters for the `update` command are as follows:
 
-| Parameter  | Description                                                                                          |
-| :--------- | :--------------------------------------------------------------------------------------------------- |
-| `--docs`     | The path to the document to be updated. This flag can be used multiple times for batch updates.      |
+| Parameter | Description |
+| :--- | :--- |
+| `--docs` | The path to the document to be updated. This flag can be used multiple times for batch updates. |
 | `--feedback` | A string containing the specific instructions to be used when regenerating the document's content. |
 
 ### Optimizing the Overall Structure

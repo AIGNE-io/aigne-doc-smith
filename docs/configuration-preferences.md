@@ -11,10 +11,10 @@ direction: down
 
 developer: {
   label: "Developer"
-  shape: c4-person
+  shape: person
 }
 
-docsmith-system: {
+docsmith_system: {
   label: "AIGNE DocSmith System"
   shape: rectangle
 
@@ -33,28 +33,28 @@ docsmith-system: {
     shape: diamond
   }
 
-  create-rule: {
+  create_rule: {
     label: "Create New Preference Rule"
     shape: rectangle
   }
 }
 
-preferences-file: {
+preferences_file: {
   label: ".aigne/doc-smith/preferences.yml"
   shape: cylinder
 }
 
-one-time-fix: {
+one_time_fix: {
   label: "Apply as a one-time fix"
   shape: oval
 }
 
-developer -> docsmith-system.cli: "1. Provides feedback"
-docsmith-system.cli -> docsmith-system.agent: "2. Captures feedback"
-docsmith-system.agent -> docsmith-system.decision: "3. Analyzes"
-docsmith-system.decision -> docsmith-system.create-rule: "Yes"
-docsmith-system.create-rule -> preferences-file: "4. Saves rule to file"
-docsmith-system.decision -> one-time-fix: "No"
+developer -> docsmith_system.cli: "1. Provides feedback"
+docsmith_system.cli -> docsmith_system.agent: "2. Captures feedback"
+docsmith_system.agent -> docsmith_system.decision: "3. Analyzes"
+docsmith_system.decision -> docsmith_system.create_rule: "Yes"
+docsmith_system.create_rule -> preferences_file: "4. Saves rule to file"
+docsmith_system.decision -> one_time_fix: "No"
 ```
 
 ### How Preferences are Created
@@ -117,7 +117,7 @@ If you need to temporarily disable a rule without deleting it, you can toggle it
 aigne doc prefs --toggle
 ```
 
-To toggle a specific rule directly, provide its ID using the `--id` flag. This action corresponds to the internal `deactivateRule` or `activateRule` function, which changes the rule's `active` property.
+To toggle a specific rule directly, provide its ID using the `--id` flag. This action changes the rule's `active` property.
 
 ```bash Toggle a specific preference icon=lucide:terminal
 aigne doc prefs --toggle --id pref_i9j0k1l2m3n4o5p6
@@ -125,7 +125,7 @@ aigne doc prefs --toggle --id pref_i9j0k1l2m3n4o5p6
 
 ### Removing Preferences
 
-To permanently delete one or more preferences, use the `--remove` flag. This action, which calls the `removeRule` function, cannot be undone.
+To permanently delete one or more preferences, use the `--remove` flag. This action cannot be undone.
 
 For an interactive selection prompt, run the command without an ID.
 

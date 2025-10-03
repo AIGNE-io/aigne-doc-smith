@@ -1,6 +1,6 @@
-# 更新与优化
+# 更新和优化
 
-使文档与不断演进的代码库保持同步是一个系统性的过程。AIGNE DocSmith 提供了直接而灵活的命令，可以通过基于代码变更的自动更新或通过精确的、由反馈驱动的优化来保持您的内容为最新状态。
+让文档与不断演进的代码库保持同步是一个系统性的过程。AIGNE DocSmith 提供了直接且灵活的命令，可以通过基于代码变更的自动更新或通过精确、由反馈驱动的优化来保持您的内容为最新状态。
 
 本指南提供了执行以下任务的步骤：
 
@@ -80,11 +80,11 @@ Refine-Structure -> Documentation: "更新"
 aigne doc generate
 ```
 
-![DocSmith 检测变更并仅重新生成所需文档。](https://docsmith.aigne.io/image-bin/uploads/21a76b2f65d14d16a49c13d800f1e2c1.png)
+![DocSmith 检测变更并仅重新生成所需文档。](../assets/screenshots/doc-regenerate.png)
 
 ### 强制完全重新生成
 
-要从头开始重新生成所有文档，绕过缓存和变更检测，请使用 `--forceRegenerate` 标志。当您进行了重大的配置更改或需要完全重建以确保所有文件的一致性时，这是必需的。
+要从头开始重新生成所有文档，绕过缓存和变更检测，请使用 `--forceRegenerate` 标志。当您进行了重大的配置更改或需要完全重建以确保所有文件的一致性时，这是必要的。
 
 ```shell icon=lucide:terminal
 # 从头开始重新生成所有文档
@@ -93,7 +93,7 @@ aigne doc generate --forceRegenerate
 
 ---
 
-## 使用反馈优化文档
+## 通过反馈优化文档
 
 您可以通过向 CLI 命令提供直接反馈来优化文档，而无需进行相应的代码更改。这对于提高清晰度、添加示例或调整结构非常有用。
 
@@ -103,7 +103,7 @@ aigne doc generate --forceRegenerate
 
 #### 交互模式
 
-要进行引导式流程，请在不带参数的情况下运行该命令。DocSmith 将显示一个菜单，供您选择要更新的文档。选择后，系统将提示您输入反馈。
+要进行引导式流程，请在不带参数的情况下运行该命令。DocSmith 将会显示一个菜单，供您选择要更新的文档。选择后，系统将提示您输入反馈。
 
 ```shell icon=lucide:terminal
 # 启动交互式更新流程
@@ -114,19 +114,19 @@ aigne doc update
 
 #### 非交互模式
 
-对于脚本化或更快速的工作流，您可以使用标志直接指定文档和反馈。这可以实现精确的非交互式更新。
+对于脚本化或更快速的工作流，您可以使用标志直接指定文档和反馈。这样可以实现精确的非交互式更新。
 
 ```shell icon=lucide:terminal
 # 使用反馈更新特定文档
-aigne doc update --docs overview.md --feedback "在末尾添加一个更详细的常见问题解答部分。"
+aigne doc update --docs overview.md --feedback "Add a more detailed FAQ section at the end."
 ```
 
 `update` 命令的主要参数如下：
 
-| 参数  | 说明                                                                                          |
-| :--------- | :--------------------------------------------------------------------------------------------------- |
-| `--docs`     | 要更新的文档的路径。此标志可以多次使用以进行批量更新。      |
-| `--feedback` | 包含在重新生成文档内容时要使用的具体说明的字符串。 |
+| 参数 | 描述 |
+| :--- | :--- |
+| `--docs` | 要更新的文档的路径。此标志可以多次使用以进行批量更新。 |
+| `--feedback` | 一个包含在重新生成文档内容时要使用的具体指令的字符串。 |
 
 ### 优化整体结构
 
@@ -134,9 +134,9 @@ aigne doc update --docs overview.md --feedback "在末尾添加一个更详细�
 
 ```shell icon=lucide:terminal
 # 使用特定反馈重新生成文档结构
-aigne doc generate --feedback "删除‘关于’部分，并添加一个详细的‘API 参考’。"
+aigne doc generate --feedback "Remove the 'About' section and add a detailed 'API Reference'."
 ```
 
-此方法旨在对文档的目录进行高级别更改，而非对单个文件内的次要内容进行编辑。
+此方法旨在对文档的目录进行高层级更改，而非对单个文件内的细微内容进行编辑。
 
-内容优化后，下一步是为全球受众做好准备。有关说明，请参阅 [翻译文档](./features-translate-documentation.md) 指南。
+内容优化后，下一步是为全球受众做准备。有关说明，请参阅[翻译文档](./features-translate-documentation.md)指南。

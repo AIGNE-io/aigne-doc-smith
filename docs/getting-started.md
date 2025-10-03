@@ -77,6 +77,8 @@ With the AIGNE CLI installed, you can now generate your documentation. Navigate 
 aigne doc generate
 ```
 
+![Running the generate command initiates the process and triggers an intelligent setup wizard.](../assets/screenshots/doc-generate.png)
+
 ### Automatic Configuration
 
 The first time you run this command in a new project, DocSmith will detect that no configuration file exists and will automatically launch an interactive setup wizard to guide you through the process.
@@ -89,11 +91,17 @@ The wizard will ask a series of questions to define the characteristics of your 
 *   The source code paths for the AI to analyze.
 *   The output directory for the generated document files.
 
+![Answer a series of questions to complete the project setup.](../assets/screenshots/doc-complete-setup.png)
+
 After you answer the prompts, DocSmith will save your choices to a configuration file, begin analyzing your codebase, plan the document structure, and generate the content.
+
+![DocSmith will plan the document structure and begin generating the files.](../assets/screenshots/doc-generate-docs.png)
 
 ## Step 4: Review Your Output
 
 When the generation process is complete, a confirmation message will appear in your terminal, indicating the successful creation of your documents. Your new documentation is now located in the output directory you specified during setup. If you used the default setting, you can find it at `.aigne/doc-smith/docs`.
+
+![A confirmation message indicates that the documentation has been generated successfully.](../assets/screenshots/doc-generated-successfully.png)
 
 ## What's Next?
 

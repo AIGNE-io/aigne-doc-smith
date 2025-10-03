@@ -1,6 +1,6 @@
 # 高级主题
 
-本节详细介绍了 AIGNE DocSmith 的内部架构和运行机制。本节内容面向希望深入了解该工具工作原理的用户，这对于高级定制或为项目做出贡献大有裨益。标准使用无需了解此信息。
+本节详细阐述了 AIGNE DocSmith 的内部架构和运行机制。本节面向希望深入了解该工具工作原理的用户，这对于高级定制或为项目做出贡献大有裨益。标准使用无需了解这些信息。
 
 DocSmith 是 AIGNE 生态系统的一个组件，该生态系统为 AI 应用开发提供了一个平台。下图展示了其整体架构。
 
@@ -13,7 +13,7 @@ DocSmith 是 AIGNE 生态系统的一个组件，该生态系统为 AI 应用开
     DocSmith 的架构概述，解释了 AI Agent 在文档生成流程中的作用。
   </x-card>
   <x-card data-title="质量保证" data-href="/advanced/quality-assurance" data-icon="lucide:shield-check">
-    了解 DocSmith 为确保文档格式良好且无错误而执行的内置检查，包括链接检查和图表验证。
+    了解 DocSmith 为确保文档格式正确、无错误而执行的内置检查，包括链接检查和图表验证。
   </x-card>
 </x-cards>
 

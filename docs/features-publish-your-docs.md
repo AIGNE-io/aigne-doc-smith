@@ -4,7 +4,7 @@ After generating your documentation, the `aigne doc publish` command uploads you
 
 ## The Publishing Process
 
-The `aigne doc publish` command starts an interactive workflow. The first time you publish to a destination, the CLI will open a browser to guide you through a one-time authentication process. For subsequent publishes, it will use the saved credentials stored in `~/.aigne/doc-smith-connected.yaml`.
+The `aigne doc publish` command initiates an interactive workflow. The first time you publish to a specific destination, the CLI will open a browser to guide you through a one-time authentication process. For subsequent publishes, it will use the saved credentials stored in `~/.aigne/doc-smith-connected.yaml`.
 
 ```d2 The Publishing Workflow icon=lucide:upload-cloud
 shape: sequence_diagram
@@ -85,7 +85,7 @@ aigne doc publish
 
 If this is your first time publishing, you will be prompted to select a destination. Choose the option that fits your requirements.
 
-![Choose between the official platform or a self-hosted instance](https://docsmith.aigne.io/image-bin/uploads/9fd929060b5abe13d0_3cf5eb7aea85aa.png)
+![Publish documentation to the official platform or a self-hosted platform](../assets/screenshots/doc-publish.png)
 
 If you select a self-hosted instance, you will be asked to enter its URL.
 

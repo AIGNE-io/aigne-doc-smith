@@ -1,45 +1,45 @@
 # Core Features
 
-AIGNE DocSmith provides a set of commands to manage your documentation lifecycle, from initial creation to global distribution. The process is organized into a standard workflow: generating, refining, translating, and publishing your documentation.
+AIGNE DocSmith provides a set of commands to manage the documentation lifecycle, from initial creation to global distribution. The process is organized into a standard workflow: generating, refining,translating, and publishing your documentation.
 
 ```d2
 direction: down
 
-AIGNE-DocSmith-Workflow: {
-  label: "AIGNE DocSmith Documentation Lifecycle"
-  
-  source-code: "Source Code"
-
-  generate: "Generate Documentation"
-
-  refine: "Update and Refine"
-
-  translate: "Translate Documentation"
-
-  publish: "Publish Your Docs"
-
-  destinations: {
-    grid-columns: 2
-    grid-gap: 50
-
-    docsmith-platform: {
-      label: "DocSmith Platform"
-      shape: cylinder
-    }
-
-    self-hosted: {
-      label: "Self-hosted Instance"
-      shape: cylinder
-    }
-  }
+source-code: {
+  label: "Source Code"
+  shape: rectangle
 }
 
-AIGNE-DocSmith-Workflow.source-code -> AIGNE-DocSmith-Workflow.generate
-AIGNE-DocSmith-Workflow.generate -> AIGNE-DocSmith-Workflow.refine
-AIGNE-DocSmith-Workflow.refine -> AIGNE-DocSmith-Workflow.translate
-AIGNE-DocSmith-Workflow.translate -> AIGNE-DocSmith-Workflow.publish
-AIGNE-DocSmith-Workflow.publish -> AIGNE-DocSmith-Workflow.destinations.docsmith-platform
-AIGNE-DocSmith-Workflow.publish -> AIGNE-DocSmith-Workflow.destinations.self-hosted
+generate-documentation: {
+  label: "Generate Documentation"
+  shape: rectangle
+}
+
+update-and-refine: {
+  label: "Update and Refine"
+  shape: rectangle
+}
+
+translate-documentation: {
+  label: "Translate Documentation"
+  shape: rectangle
+}
+
+publish-docs: {
+  label: "Publish Your Docs"
+  shape: rectangle
+}
+
+platform: {
+  label: "DocSmith Platform\n(or self-hosted)"
+  shape: cylinder
+}
+
+source-code -> generate-documentation
+generate-documentation -> update-and-refine
+update-and-refine -> translate-documentation
+translate-documentation -> publish-docs
+publish-docs -> platform
 ```
 
 Explore the main capabilities of DocSmith in the following sections:

@@ -1,12 +1,12 @@
 # 快速入门
 
-本指南将引导您逐步完成安装 AIGNE DocSmith、配置项目以及在几分钟内从源代码生成完整文档集的全过程。
+本指南将引导您逐步完成 AIGNE DocSmith 的安装、项目配置，并在几分钟内从源代码生成一套完整的文档。
 
-## 第一步：先决条件
+## 第 1 步：先决条件
 
-在开始之前，请确保您的系统中已安装 Node.js 20 或更高版本。DocSmith 是一个在 Node.js 环境中运行的命令行工具。我们建议使用 Node.js 自带的节点包管理器（npm）进行安装。
+在开始之前，请确保您的系统上已安装 Node.js 20 或更高版本。DocSmith 是一个在 Node.js 环境中运行的命令行工具。我们建议使用 Node.js 自带的 Node Package Manager (npm) 进行安装。
 
-有关详细的安装说明，请参阅 [Node.js 官方网站](https://nodejs.org/)。下面提供了适用于常见操作系统的简要指南。
+有关详细的安装说明，请参阅 [Node.js 官方网站](https://nodejs.org/)。下面提供了针对常见操作系统的简要指南。
 
 **Windows**
 1.  从 [Node.js 下载页面](https://nodejs.org/en/download) 下载 Windows 安装程序（`.msi`）。
@@ -14,7 +14,7 @@
 
 **macOS**
 
-推荐的安装方法是使用 [Homebrew](https://brew.sh/)，它是一款适用于 macOS 的包管理器。
+推荐的安装方法是使用 macOS 的包管理器 [Homebrew](https://brew.sh/)。
 
 ```bash Terminal icon=lucide:apple
 # 如果尚未安装 Homebrew，请先安装
@@ -53,9 +53,9 @@ node --version
 npm --version
 ```
 
-## 第二步：安装 AIGNE CLI
+## 第 2 步：安装 AIGNE CLI
 
-DocSmith 工具作为官方 AIGNE 命令行界面（CLI）的一部分进行分发。请使用 npm 在您的系统上全局安装 CLI：
+DocSmith 工具作为官方 AIGNE 命令行界面（CLI）的一部分进行分发。使用 npm 在您的系统上全局安装 CLI：
 
 ```bash Terminal icon=logos:npm
 npm install -g @aigne/cli
@@ -67,37 +67,45 @@ npm install -g @aigne/cli
 aigne doc --help
 ```
 
-此命令应显示 DocSmith 的帮助菜单，确认其已安装并可供使用。
+此命令应显示 DocSmith 的帮助菜单，确认其已安装并准备就绪。
 
-## 第三步：生成您的文档
+## 第 3 步：生成您的文档
 
-安装 AIGNE CLI 后，您现在可以生成您的文档了。在终端中，导航到您项目的根目录，并执行以下命令：
+安装 AIGNE CLI 后，您现在可以生成文档了。在您的终端中，导航到项目的根目录并执行以下命令：
 
 ```bash Terminal icon=lucide:sparkles
 aigne doc generate
 ```
 
+![运行 generate 命令会启动该过程并触发智能设置向导。](../assets/screenshots/doc-generate.png)
+
 ### 自动配置
 
-当您首次在新项目中运行此命令时，DocSmith 会检测到不存在配置文件，并会自动启动一个交互式设置向导来引导您完成整个过程。
+当您第一次在新项目中运行此命令时，DocSmith 会检测到不存在配置文件，并会自动启动一个交互式设置向导来引导您完成整个过程。
 
-该向导会提出一系列问题，以定义您文档的特性，包括：
+该向导将提出一系列问题来定义您文档的特性，包括：
 
 *   主要目的和写作风格。
-*   目标受众（例如，开发者、最终用户）。
+*   预期的目标受众（例如，开发者、最终用户）。
 *   主要语言以及用于翻译的其他语言。
 *   供 AI 分析的源代码路径。
-*   生成的文档文件的输出目录。
+*   生成文档文件的输出目录。
 
-在您回答完提示后，DocSmith 会将您的选择保存到配置文件中，然后开始分析您的代码库、规划文档结构并生成内容。
+![回答一系列问题以完成项目设置。](../assets/screenshots/doc-complete-setup.png)
 
-## 第四步：查阅您的输出
+在您回答完提示后，DocSmith 会将您的选择保存到配置文件中，开始分析您的代码库，规划文档结构，并生成内容。
 
-生成过程完成后，您的终端中会显示一条确认消息，表明您的文档已成功创建。您的新文档现在位于您在设置过程中指定的输出目录中。如果您使用了默认设置，可以在 `.aigne/doc-smith/docs` 找到它。
+![DocSmith 将规划文档结构并开始生成文件。](../assets/screenshots/doc-generate-docs.png)
 
-## 后续步骤
+## 第 4 步：查看您的输出
 
-您已成功生成第一批文档。现在，您可以开始探索更高级的功能和自定义选项了。
+生成过程完成后，您的终端中将显示一条确认消息，表明您的文档已成功创建。您的新文档现在位于您在设置过程中指定的输出目录中。如果您使用了默认设置，可以在 `.aigne/doc-smith/docs` 中找到它。
+
+![一条确认消息表示文档已成功生成。](../assets/screenshots/doc-generated-successfully.png)
+
+## 接下来做什么？
+
+您已成功生成了第一套文档。现在，您可以开始探索更高级的功能和自定义选项。
 
 <x-cards>
   <x-card data-title="核心功能" data-icon="lucide:box" data-href="/features">

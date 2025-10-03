@@ -1,6 +1,6 @@
 # How It Works
 
-AIGNE DocSmith operates on a multi-agent system built within the AIGNE Framework. Instead of a single monolithic process, it orchestrates a pipeline of specialized AI agents, where each agent is responsible for a specific task. This approach allows for a structured and modular process that transforms source code into complete documentation.
+AIGNE DocSmith operates on a multi-agent system. Instead of a single monolithic process, it orchestrates a pipeline of specialized AI agents, where each agent is responsible for a specific task. This approach allows for a structured and modular process that transforms source code into complete documentation.
 
 The tool is an integral part of the larger AIGNE ecosystem, which provides a platform for developing and deploying AI applications.
 
@@ -85,14 +85,14 @@ User-Feedback -> Pipeline.Content-Generation: "Regenerate Content"
 
 DocSmith's functionality is provided by a collection of agents defined in the project's configuration. Each agent has a specific role. The table below lists some of the key agents and their functions.
 
-| Functional Role          | Key Agent Files                                      | Description                                                                          |
-| ------------------------ | ---------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **Structure Planning**   | `generate/generate-structure.yaml`                   | Analyzes source code to propose the initial document outline.                        |
-| **Structure Refinement** | `generate/refine-document-structure.yaml`            | Modifies the documentation structure based on user feedback.                              |
-| **Content Generation**   | `update/batch-generate-document.yaml`, `generate-document.yaml` | Populates the documentation structure with detailed content for each section.             |
-| **Translation**          | `translate/translate-document.yaml`, `translate-multilingual.yaml` | Translates generated documentation into multiple target languages.                   |
-| **Publishing**           | `publish/publish-docs.mjs`                           | Manages the process of publishing documents to Discuss Kit instances.                |
-| **Data I/O**             | `utils/load-sources.mjs`, `utils/save-docs.mjs`      | Responsible for reading source files and writing the final markdown documents to disk. |
+| Functional Role | Key Agent Files | Description |
+| :--- | :--- | :--- |
+| **Structure Planning** | `generate/generate-structure.yaml` | Analyzes source code to propose the initial document outline. |
+| **Structure Refinement** | `generate/refine-document-structure.yaml` | Modifies the documentation structure based on user feedback. |
+| **Content Generation** | `update/batch-generate-document.yaml`, `update/generate-document.yaml` | Populates the documentation structure with detailed content for each section. |
+| **Translation** | `translate/translate-document.yaml`, `translate/translate-multilingual.yaml` | Translates generated documentation into multiple target languages. |
+| **Publishing** | `publish/publish-docs.mjs` | Manages the process of publishing documents to Discuss Kit instances. |
+| **Data I/O** | `utils/load-sources.mjs`, `utils/save-docs.mjs` | Responsible for reading source files and writing the final markdown documents to disk. |
 
 This agent-based architecture allows each step of the documentation process to be handled by a specialized tool, ensuring a structured and maintainable workflow.
 
