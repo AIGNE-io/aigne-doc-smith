@@ -21,12 +21,4 @@ input_schema:
   required:
     - language
     - content
-output_schema:
-  type: object
-  properties:
-    translation:
-      type: string
-      description: Translated text
-    language:
-      type: string
-      description: Language code of the translation
+output_key: translation
