@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
-import path, { isAbsolute, join } from "node:path";
+import path from "node:path";
 
 /**
  * Detects if a file is likely binary by checking for null bytes
