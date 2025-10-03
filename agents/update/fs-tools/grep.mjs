@@ -183,6 +183,11 @@ async function performGrepSearch({ pattern, include }) {
   console.debug("Falling back to JavaScript grep implementation.");
   const matches = [];
 
+  // Escape regex special characters in a string
+  function escapeRegExp(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
   try {
     const regex = new RegExp(pattern, "i");
 
@@ -200,7 +205,9 @@ async function performGrepSearch({ pattern, include }) {
         } else if (entry.isFile()) {
           // Apply include filter if specified
           if (include) {
-            const includePattern = `^${include.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/\?/g, ".")}$`;
+            let patternStr = escapeRegExp(include);
+            patternStr = patternStr.replace(/\\\*/g, ".*").replace(/\\\?/g, ".");
+            const includePattern = `^${patternStr}$`;
             if (!new RegExp(includePattern).test(entry.name)) {
               continue;
             }
