@@ -5,7 +5,7 @@
   "scripts": {
     "test": "node --test",
     "test:grep": "node --test grep.test.mjs",
-    "test:glob": "node --test glob.test.mjs", 
+    "test:glob": "node --test glob.test.mjs",
     "test:read-file": "node --test read-file.test.mjs",
     "test:all": "node --test *.test.mjs"
   }
