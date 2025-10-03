@@ -10,7 +10,7 @@ export default async function checkUpdateIsSingle({ selectedDocs, ...rest }, opt
   let targetAgent;
   let agentName;
 
-  if (selectedDocs.length === 1) {
+  if (selectedDocs.length === 1 && !rest.reset) {
     agentName = "updateSingleDocument";
     targetAgent = options.context.agents["updateSingleDocument"];
   } else {
