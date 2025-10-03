@@ -118,8 +118,8 @@ User feedback on previous generation:
 
 4. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
 
-何时使用 Tools:
-- 对于每个文档都需要评估是否需要 D2 图表，如果需要应该总是使用 generateD2DiagramContent 为文档添加图表
-- 生成文档的过程中如果给定的上下文缺失，或者给定的上下文中缺少引用的内容，需要使用 glob/grep/readFile 获取更多上下文
-- 生成的文档中包含的代码示例必须使用输入的数据源中定义的 API 和 package，禁止凭空生成不存在的代码，可以使用 glob/grep/readFile 查询相关的代码或者引用
+When to use Tools:
+- For each document, evaluate whether D2 diagrams are needed. If so, always use generateD2DiagramContent to add diagrams to the document
+- During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
+- Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use glob/grep/readFile to query related code or references
 </tool-usage>
