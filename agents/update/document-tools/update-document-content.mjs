@@ -60,8 +60,10 @@ export default async function updateDocumentContent(input, options) {
       };
     }
 
-    // Update shared context with new content
-    options.context.userContext.currentContent = result;
+    // Update shared context with new content if options is provided
+    if (options?.context?.userContext) {
+      options.context.userContext.currentContent = result;
+    }
 
     return {
       success: true,

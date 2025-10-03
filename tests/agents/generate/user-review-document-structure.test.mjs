@@ -49,6 +49,9 @@ describe("user-review-document-structure", () => {
         invoke: mock(async () => ({
           documentStructure: documentStructure,
         })),
+        userContext: {
+          currentStructure: [],
+        },
       },
     };
 
@@ -132,9 +135,13 @@ describe("user-review-document-structure", () => {
       .mockImplementationOnce(async () => feedback)
       .mockImplementationOnce(async () => ""); // Exit loop on second call
 
-    mockOptions.context.invoke.mockImplementation(async () => ({
-      documentStructure: refinedStructure,
-    }));
+    mockOptions.context.invoke.mockImplementation(async () => {
+      // Simulate the agent updating the shared context
+      mockOptions.context.userContext.currentStructure = refinedStructure;
+      return {
+        documentStructure: refinedStructure,
+      };
+    });
 
     const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
 
@@ -242,11 +249,25 @@ describe("user-review-document-structure", () => {
       .mockImplementationOnce(async () => secondFeedback)
       .mockImplementationOnce(async () => ""); // Exit loop
 
-    mockOptions.context.invoke
-      .mockImplementationOnce(async () => ({ documentStructure: firstRefinedStructure })) // refineDocumentStructure 1st call
-      .mockImplementationOnce(async () => ({})) // checkFeedbackRefiner 1st call
-      .mockImplementationOnce(async () => ({ documentStructure: finalRefinedStructure })) // refineDocumentStructure 2nd call
-      .mockImplementationOnce(async () => ({})); // checkFeedbackRefiner 2nd call
+    let invokeCount = 0;
+    mockOptions.context.invoke.mockImplementation(async () => {
+      invokeCount++;
+      if (invokeCount === 1) {
+        // refineDocumentStructure 1st call
+        mockOptions.context.userContext.currentStructure = firstRefinedStructure;
+        return { documentStructure: firstRefinedStructure };
+      } else if (invokeCount === 2) {
+        // checkFeedbackRefiner 1st call
+        return {};
+      } else if (invokeCount === 3) {
+        // refineDocumentStructure 2nd call
+        mockOptions.context.userContext.currentStructure = finalRefinedStructure;
+        return { documentStructure: finalRefinedStructure };
+      } else {
+        // checkFeedbackRefiner 2nd call
+        return {};
+      }
+    });
 
     const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
 
