@@ -185,7 +185,7 @@ async function performGrepSearch({ pattern, include }) {
 
   // Escape regex special characters in a string
   function escapeRegExp(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
   try {
