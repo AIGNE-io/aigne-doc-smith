@@ -1807,3 +1807,9 @@ cf8ceb314728f377f2d87d920e41b9fba87659e4b312805ae9e348871a6241aa:
     https://docsmith.aigne.io:
       url: https://docsmith.aigne.io/image-bin/uploads/1af63b71ca88d904.svg
       upload_time: 2025-10-03T12:47:15.962Z
+44cb2fc222a3dd15fa82f1088d9113b0bb1bfc8b29a0e568a2273d80e8f50a7d:
+  local_path: assets/screenshots/doc-complete-setup.png
+  sites:
+    https://docsmith.aigne.io:
+      url: https://docsmith.aigne.io/image-bin/uploads/44cb2fc222a3dd15.png
+      upload_time: 2025-10-03T13:04:00.403Z
