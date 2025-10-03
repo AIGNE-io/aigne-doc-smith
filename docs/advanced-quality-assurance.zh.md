@@ -1,96 +1,92 @@
 # 质量保证
 
-为确保所有生成的文档功能正常、清晰且专业，DocSmith 引入了自动化的质量保证流程。该流程在发布前对 Markdown 内容执行一系列检查，以检测和报告常见问题，从损坏的链接到格式错误的图表。
+为确保所有生成的文档都符合高质量、一致性和准确性的标准，DocSmith 包含一个全面的自动化质量保证流程。这些内置检查会自动运行，以在发布前识别并标记常见的格式错误、断开的链接和结构性问题。此过程保证最终输出专业、可靠且易于用户浏览。
 
-这个自动化管道会验证内容结构、链接、媒体和语法，以保持一致的质量标准。
-
-```d2
+```d2 质量保证流程 icon=lucide:shield-check
 direction: down
 
-Input-Markdown-Content: {
-  label: "输入：Markdown 内容"
+Documentation-Content: {
+  label: "文档内容"
   shape: rectangle
 }
 
-QA-Pipeline: {
-  label: "质量保证管道"
+Quality-Assurance-Pipeline: {
+  label: "质量保证流程"
   shape: rectangle
-  grid-columns: 1
+  grid-columns: 3
   grid-gap: 50
 
-  Structural-Checks: {
-    label: "结构检查"
+  Markdown-Validation: {
+    label: "1. Markdown 和内容验证\n（基于 remark-lint）"
     shape: rectangle
-    grid-columns: 2
-    Completeness: "确保内容不被截断"
-    Code-Blocks: "验证块语法和缩进"
+
+    Check-1: "有效的 Markdown 语法"
+    Check-2: "标题完整性"
+    Check-3: "表格格式"
+    Check-4: "代码块完整性"
+    Check-5: "内容完整性"
   }
 
-  Content-Validation: {
-    label: "内容验证"
+  Link-Asset-Validation: {
+    label: "2. 链接和资产完整性"
     shape: rectangle
-    grid-columns: 2
-    Link-Integrity: "验证内部链接"
-    Image-Paths: "检查本地图片是否存在"
-    Table-Formatting: "匹配列数"
+
+    Check-6: "死链检测"
+    Check-7: "本地图片验证"
   }
 
-  Syntax-Validation: {
-    label: "语法验证"
+  D2-Diagram-Validation: {
+    label: "3. D2 图表验证"
     shape: rectangle
-    grid-columns: 2
-    D2-Diagrams: "验证 D2 语法"
-    Markdown-Linting: "强制执行样式规则"
+
+    Check-8: "D2 语法检查"
   }
 }
 
-Output-Validated-Content-or-Error-Report: {
-  label: "输出：已验证内容或错误报告"
+Validation-Result: {
+  label: "所有检查是否通过？"
+  shape: diamond
+}
+
+Published-Documentation: {
+  label: "已发布的文档"
   shape: rectangle
+  style.fill: "#d4edda"
 }
 
-Input-Markdown-Content -> QA-Pipeline
-QA-Pipeline -> Output-Validated-Content-or-Error-Report
+Error-Report: {
+  label: "错误报告"
+  shape: rectangle
+  style.fill: "#f8d7da"
+}
+
+Documentation-Content -> Quality-Assurance-Pipeline: "输入"
+Quality-Assurance-Pipeline -> Validation-Result: "验证"
+Validation-Result -> Published-Documentation: "是"
+Validation-Result -> Error-Report: "否"
 ```
 
-### 核心验证领域
+## Markdown 和内容结构验证
 
-DocSmith 的质量保证流程涵盖了几个关键领域，以确保文档的完整性。
+质量保证的基础是确保核心 Markdown 格式良好且结构合理。DocSmith 采用基于 `remark-lint` 的精密 linter，并辅以自定义检查来捕获常见的结构性问题。
 
-#### 内容结构与完整性
+关键的结构和格式检查包括：
 
-DocSmith 执行多项检查以确保内容的结构完整性：
+*   **有效的 Markdown 语法**：遵循标准 Markdown 和 GFM（GitHub Flavored Markdown）规范。
+*   **标题完整性**：检测同一文档中重复的标题、不正确的标题缩进以及使用多个顶级标题（H1）等问题。
+*   **表格格式**：验证表格结构是否正确，特别是检查表头、分隔行和数据行之间的列数是否不匹配。
+*   **代码块完整性**：确保所有代码块都使用 ``` 正确地开始和结束。它还会检查代码块内不一致的缩进，这可能会影响渲染。
+*   **内容完整性**：一个验证步骤，通过检查生成的内容是否以适当的标点符号结尾，来确保内容没有被截断。
 
-- **不完整的代码块**：检测以 ` ``` ` 开始但未关闭的代码块。
-- **缺少换行符**：识别出现在单行上的内容，这可能表示缺少换行符。
-- **内容结尾**：验证内容是否以适当的标点符号（例如 `.`、`)`、`|`、`>`）结尾，以防止输出被截断。
-- **代码块缩进**：分析代码块中不一致的缩进。如果某行代码的缩进小于起始的 ` ``` ` 标记，可能会导致渲染问题。此检查有助于保持正确的代码呈现。
+## 链接和资产完整性
 
-#### 链接与媒体完整性
+断开的链接和缺失的图片会降低用户体验。DocSmith 会执行检查以验证所有本地资源。
 
-- **链接完整性**：文档中的所有相对链接都会根据文档结构计划进行验证，以防止出现死链接。这确保了所有内部导航都能正常工作。检查器会忽略外部链接（以 `http://` 或 `https://` 开头）和 `mailto:` 链接。
+*   **死链检测**：系统会扫描所有相对 Markdown 链接，并验证目标路径是否对应于项目文档结构中定义的有效文档。此检查可防止用户在浏览文档时遇到“404 Not Found”错误。以 `http://` 或 `https://` 开头的外部链接不会被检查。
+*   **本地图片验证**：对于所有通过 `![]()` 包含的本地图片，验证器会确认引用的图片文件是否存在于指定路径。这可以确保最终输出中不会出现损坏的图片。
 
-- **图片验证**：为避免图片损坏，检查器会验证文档中引用的任何本地图片文件是否存在于文件系统中。它会解析相对路径和绝对路径以确认文件存在。外部图片 URL 和数据 URL 不会被检查。
+## D2 图表验证
 
-#### 图表语法验证
+为保证所有图表都能正确渲染，DocSmith 会验证每个 D2 图表的语法。
 
-- **D2 图表**：DocSmith 通过尝试将代码编译成 SVG 图片来验证 D2 图表语法。这个过程可以在语法错误导致图形损坏之前捕获它们。
-
-#### 格式与样式强制执行
-
-- **表格格式化**：检查表格的表头、分隔线和数据行之间的列数是否不匹配。此检查可防止常见的表格渲染失败。
-
-- **Markdown 语法检查**：内置的 linter 会强制执行一致的 Markdown 结构。关键规则包括：
-
-| Rule ID | Description |
-|---|---|
-| `no-duplicate-headings` | 防止在同一部分中出现内容相同的多个标题。 |
-| `no-undefined-references` | 确保所有链接和图片引用都已定义。 |
-| `no-unused-definitions` | 标记未被使用的链接或图片定义。 |
-| `no-heading-content-indent` | 禁止在标题内容前缩进。 |
-| `no-multiple-toplevel-headings` | 每个文档只允许一个顶级标题 (H1)。 |
-| `code-block-style` | 强制代码块使用一致的样式（例如，使用反引号）。 |
-
-通过自动化这些检查，DocSmith 为文档维护了一致的标准，确保最终输出准确且易于导航。
-
-要了解有关整体架构的更多信息，请参阅[工作原理](./advanced-how-it-works.md)部分。
+每个标记为 `d2` 的代码块都会经过严格的语法检查器处理。如果发现任何语法错误，生成过程将停止并显示描述性错误消息。这可以防止发布包含损坏或渲染不当的可视图表的文档。

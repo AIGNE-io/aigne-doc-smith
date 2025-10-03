@@ -4,7 +4,7 @@ This guide provides a comprehensive reference for all available `aigne doc` sub-
 
 The general syntax is:
 
-```bash command
+```bash command icon=lucide:terminal
 aigne doc <command> [options]
 ```
 
@@ -73,7 +73,7 @@ Utilities: {
   grid-columns: 2
   
   prefs: {
-    label: "View Config\n`aigne doc prefs`"
+    label: "Manage Prefs\n`aigne doc prefs`"
     shape: rectangle
   }
   clear: {
@@ -121,6 +121,7 @@ Manually starts the interactive configuration wizard. This is useful for setting
 ```bash
 aigne doc init
 ```
+![Screenshot of the interactive setup wizard completion.](../assets/screenshots/doc-complete-setup.png)
 
 For more details on how to tailor DocSmith to your needs, see the [Configuration Guide](./configuration.md).
 
@@ -130,13 +131,15 @@ For more details on how to tailor DocSmith to your needs, see the [Configuration
 
 Analyzes your source code and generates a complete set of documentation based on your configuration. If no configuration is found, it automatically launches the interactive setup wizard (`aigne doc init`).
 
+![Screenshot of the generate command running.](../assets/screenshots/doc-generate.png)
+
 ### Options
 
-| Option              | Type    | Description                                                                                                   |
-| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
-| `--forceRegenerate` | boolean | Discards existing content and regenerates all documentation from scratch.                                     |
-| `--feedback`        | string  | Provides feedback to adjust and refine the overall documentation structure.                                   |
-| `--model`           | string  | Specifies a particular large language model to use for generation (e.g., `anthropic:claude-3-5-sonnet`). Overrides the default. |
+| Option              | Type    | Description                                                                                              |
+| :------------------ | :------ | :------------------------------------------------------------------------------------------------------- |
+| `--forceRegenerate` | boolean | Discards existing content and regenerates all documentation from scratch.                                |
+| `--feedback`        | string  | Provides feedback to adjust and refine the overall documentation structure.                              |
+| `--model`           | string  | Specifies a particular large language model to use for generation (e.g., `openai:gpt-4o`). Overrides the default. |
 
 ### Usage Examples
 
@@ -170,12 +173,14 @@ aigne doc generate --model openai:gpt-4o
 
 Optimizes and regenerates specific documents. You can run it interactively to select documents or specify them directly with options. This is useful for making targeted improvements based on feedback without regenerating the entire project.
 
+![Screenshot of the update command running.](../assets/screenshots/doc-update.png)
+
 ### Options
 
-| Option     | Type  | Description                                                                                 |
-| ---------- | ----- | ------------------------------------------------------------------------------------------- |
-| `--docs`     | array | A list of document paths to regenerate. Can be specified multiple times.                         |
-| `--feedback` | string | Provides specific feedback to improve the content of the selected document(s).              |
+| Option     | Type  | Description                                                                 |
+| :--------- | :---- | :-------------------------------------------------------------------------- |
+| `--docs`     | array | A list of document paths to regenerate. Can be specified multiple times.    |
+| `--feedback` | string  | Provides specific feedback to improve the content of the selected document(s). |
 
 ### Usage Examples
 
@@ -188,7 +193,7 @@ aigne doc update
 **Update a specific document with targeted feedback:**
 
 ```bash
-aigne doc update --docs /overview.md --feedback "Add more detailed FAQ entries"
+aigne doc update --docs /overview --feedback "Add more detailed FAQ entries"
 ```
 
 ---
@@ -197,14 +202,16 @@ aigne doc update --docs /overview.md --feedback "Add more detailed FAQ entries"
 
 Translates existing documentation into one or more languages. It can be run interactively to select documents and languages, or non-interactively by specifying them as arguments.
 
+![Screenshot of the translate command running.](../assets/screenshots/doc-translate.png)
+
 ### Options
 
-| Option       | Type  | Description                                                                                                |
-| ------------ | ----- | ---------------------------------------------------------------------------------------------------------- |
-| `--docs`       | array | A list of document paths to translate. Can be specified multiple times.                                         |
-| `--langs`      | array | A list of target language codes (e.g., `zh-CN`, `ja`). Can be specified multiple times.                            |
-| `--feedback`   | string | Provides feedback to improve the quality of the translation.                                               |
-| `--glossary`   | string | Path to a glossary file to ensure consistent terminology across languages. Use `@path/to/glossary.md`. |
+| Option     | Type  | Description                                                                          |
+| :--------- | :---- | :----------------------------------------------------------------------------------- |
+| `--docs`     | array | A list of document paths to translate. Can be specified multiple times.              |
+| `--langs`    | array | A list of target language codes (e.g., `zh-CN`, `ja`). Can be specified multiple times. |
+| `--feedback` | string  | Provides feedback to improve the quality of the translation.                       |
+| `--glossary` | string  | Path to a glossary file to ensure consistent terminology across languages. Use `@path/to/glossary.md`. |
 
 ### Usage Examples
 
@@ -217,7 +224,7 @@ aigne doc translate
 **Translate specific documents into Chinese and Japanese:**
 
 ```bash
-aigne doc translate --langs zh-CN --langs ja --docs /features/generate-documentation.md --docs /overview.md
+aigne doc translate --langs zh-CN --langs ja --docs /features/generate-documentation --docs /overview
 ```
 
 **Translate with a glossary and feedback for improved quality:**
@@ -232,10 +239,12 @@ aigne doc translate --glossary @glossary.md --feedback "Use technical terminolog
 
 Publishes your documentation and generates a shareable link. This command uploads your content to a Discuss Kit instance. You can use the official AIGNE DocSmith platform or run your own instance of [Discuss Kit](https://www.web3kit.rocks/discuss-kit).
 
+![Screenshot of the publish command running.](../assets/screenshots/doc-publish.png)
+
 ### Options
 
-| Option     | Type   | Description                                                                                          |
-| ---------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| Option   | Type   | Description                                                                                             |
+| :------- | :----- | :------------------------------------------------------------------------------------------------------ |
 | `--appUrl` | string | The URL of your self-hosted Discuss Kit instance. If not provided, the command runs interactively. |
 
 ### Usage Examples
@@ -256,14 +265,35 @@ aigne doc publish --appUrl https://your-discuss-kit-instance.com
 
 ## `aigne doc prefs`
 
-Displays the current configuration settings for the project. This is a read-only command that helps you verify the settings applied during the `init` or `generate` process.
+Manages user preferences and feedback-driven rules. Over time, DocSmith learns from your feedback and creates persistent preferences. This command allows you to view, toggle, or remove these learned rules.
 
-### Usage Example
+### Options
 
-**View current project configuration:**
+| Option   | Type    | Description                                                                |
+| :------- | :------ | :------------------------------------------------------------------------- |
+| `--list`   | boolean | Lists all saved preferences.                                               |
+| `--remove` | boolean | Interactively prompts to select and remove one or more preferences.        |
+| `--toggle` | boolean | Interactively prompts to select and toggle the active state of preferences. |
+| `--id`     | array   | Specifies one or more preference IDs to remove or toggle directly.         |
+
+### Usage Examples
+
+**List all saved preferences:**
 
 ```bash
-aigne doc prefs
+aigne doc prefs --list
+```
+
+**Start interactive removal mode:**
+
+```bash
+aigne doc prefs --remove
+```
+
+**Toggle a specific preference by ID:**
+
+```bash
+aigne doc prefs --toggle --id "pref_2a1dfe2b09695aab"
 ```
 
 ---

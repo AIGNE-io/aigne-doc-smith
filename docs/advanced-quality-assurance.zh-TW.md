@@ -1,96 +1,92 @@
 # 品質保證
 
-為確保所有生成的文檔功能正常、清晰且專業，DocSmith 整合了一個自動化的品質保證流程。此流程會在發布前對 Markdown 內容執行一系列檢查，以偵測並報告從斷開的連結到格式錯誤的圖表等常見問題。
+為確保所有產生的文件都符合高品質、一致性和準確性的標準，DocSmith 內建了一個全面、自動化的品質保證流程。這些內建的檢查會在發布前自動運行，以識別並標記常見的格式錯誤、失效連結和結構性問題。此過程確保最終的輸出成品具備專業性、可靠性，並讓使用者易於瀏覽。
 
-這個自動化管道會驗證內容結構、連結、媒體和語法，以維持一致的品質標準。
-
-```d2
+```d2 品質保證流程 icon=lucide:shield-check
 direction: down
 
-Input-Markdown-Content: {
-  label: "輸入：Markdown 內容"
+Documentation-Content: {
+  label: "文件內容"
   shape: rectangle
 }
 
-QA-Pipeline: {
-  label: "QA 管道"
+Quality-Assurance-Pipeline: {
+  label: "品質保證流程"
   shape: rectangle
-  grid-columns: 1
+  grid-columns: 3
   grid-gap: 50
 
-  Structural-Checks: {
-    label: "結構檢查"
+  Markdown-Validation: {
+    label: "1. Markdown 與內容驗證\n(基於 remark-lint)"
     shape: rectangle
-    grid-columns: 2
-    Completeness: "確保內容未被截斷"
-    Code-Blocks: "驗證區塊語法與縮排"
+
+    Check-1: "有效的 Markdown 語法"
+    Check-2: "標題完整性"
+    Check-3: "表格格式"
+    Check-4: "程式碼區塊完整性"
+    Check-5: "內容完整性"
   }
 
-  Content-Validation: {
-    label: "內容驗證"
+  Link-Asset-Validation: {
+    label: "2. 連結與資源完整性"
     shape: rectangle
-    grid-columns: 2
-    Link-Integrity: "驗證內部連結"
-    Image-Paths: "檢查本地圖片是否存在"
-    Table-Formatting: "匹配欄位數量"
+
+    Check-6: "失效連結偵測"
+    Check-7: "本地圖片驗證"
   }
 
-  Syntax-Validation: {
-    label: "語法驗證"
+  D2-Diagram-Validation: {
+    label: "3. D2 圖表驗證"
     shape: rectangle
-    grid-columns: 2
-    D2-Diagrams: "驗證 D2 語法"
-    Markdown-Linting: "強制執行樣式規則"
+
+    Check-8: "D2 語法檢查"
   }
 }
 
-Output-Validated-Content-or-Error-Report: {
-  label: "輸出：已驗證的內容或錯誤報告"
+Validation-Result: {
+  label: "所有檢查是否通過？"
+  shape: diamond
+}
+
+Published-Documentation: {
+  label: "已發布的文件"
   shape: rectangle
+  style.fill: "#d4edda"
 }
 
-Input-Markdown-Content -> QA-Pipeline
-QA-Pipeline -> Output-Validated-Content-or-Error-Report
+Error-Report: {
+  label: "錯誤報告"
+  shape: rectangle
+  style.fill: "#f8d7da"
+}
+
+Documentation-Content -> Quality-Assurance-Pipeline: "輸入"
+Quality-Assurance-Pipeline -> Validation-Result: "驗證"
+Validation-Result -> Published-Documentation: "是"
+Validation-Result -> Error-Report: "否"
 ```
 
-### 核心驗證領域
+## Markdown 與內容結構驗證
 
-DocSmith 的品質保證流程涵蓋了幾個關鍵領域，以確保文檔的完整性。
+品質保證的基礎是確保核心 Markdown 格式正確且結構健全。DocSmith 採用一個基於 `remark-lint` 的精密 linter，並輔以自訂檢查來捕捉常見的結構性問題。
 
-#### 內容結構與完整性
+主要的結構和格式檢查包括：
 
-DocSmith 執行多項檢查，以確保內容的結構完整性：
+*   **有效的 Markdown 語法**：遵循標準 Markdown 和 GFM (GitHub Flavored Markdown) 規範。
+*   **標題完整性**：偵測同一文件內的重複標題、不正確的標題縮排，以及使用超過一個頂層標題 (H1) 等問題。
+*   **表格格式**：驗證表格結構是否正確，特別是檢查標頭、分隔線和資料列之間的欄位數量是否不匹配。
+*   **程式碼區塊完整性**：確保所有程式碼區塊都以 ``` 正確地開啟和關閉。它還會檢查程式碼區塊內可能影響渲染結果的不一致縮排。
+*   **內容完整性**：一個驗證步驟，透過檢查產生的內容是否以適當的標點符號結尾，來確保內容不會看似被截斷。
 
-- **不完整的程式碼區塊**：偵測以 ` ``` ` 開啟但未關閉的程式碼區塊。
-- **缺少換行符**：識別出現在單一行上的內容，這可能表示缺少換行符。
-- **內容結尾**：驗證內容是否以適當的標點符號（例如 `.`、`)`、`|`、`>`）結尾，以防止輸出被截斷。
-- **程式碼區塊縮排**：分析程式碼區塊中不一致的縮排。如果某一行程式碼的縮排少於開頭的 ` ``` ` 標記，可能會導致渲染問題。此檢查有助於維持正確的程式碼呈現。
+## 連結與資源完整性
 
-#### 連結與媒體完整性
+失效連結和遺失的圖片會降低使用者體驗。DocSmith 會執行檢查以驗證所有本地資源。
 
-- **連結完整性**：文檔中的所有相對連結都會根據文檔結構計畫進行驗證，以防止出現無效連結。這確保了所有內部導覽都能如預期般運作。檢查器會忽略外部連結（以 `http://` 或 `https://` 開頭）和 `mailto:` 連結。
+*   **失效連結偵測**：系統會掃描所有相對 Markdown 連結，並驗證目標路徑是否對應到專案文件結構中定義的有效文件。此檢查可防止使用者在瀏覽文件時遇到「404 Not Found」錯誤。以 `http://` 或 `https://` 開頭的外部連結則不會被檢查。
+*   **本地圖片驗證**：對於所有透過 `![]()` 包含的本地圖片，驗證器會確認所引用的圖片檔案是否存在於指定路徑。這能確保最終的輸出成品中不會出現破損的圖片。
 
-- **圖片驗證**：為避免圖片損壞，檢查器會驗證文檔中引用的任何本地圖片檔案是否存在於檔案系統中。它會解析相對和絕對路徑，以確認檔案存在。外部圖片 URL 和資料 URL 不會被檢查。
+## D2 圖表驗證
 
-#### 圖表語法驗證
+為保證所有圖表都能正確渲染，DocSmith 會驗證每個 D2 圖表的語法。
 
-- **D2 圖表**：DocSmith 透過嘗試將程式碼編譯成 SVG 圖片來驗證 D2 圖表語法。此過程能在語法錯誤導致圖形損壞前捕捉到它們。
-
-#### 格式化與樣式強制執行
-
-- **表格格式化**：檢查表格的標頭、分隔線和資料行之間的欄位數量是否不匹配。此檢查可防止常見的表格渲染失敗。
-
-- **Markdown 語法檢查**：內建的 linter 強制執行一致的 Markdown 結構。主要規則包括：
-
-| Rule ID | Description |
-|---|---|
-| `no-duplicate-headings` | 防止在同一部分中出現內容相同的多個標題。 |
-| `no-undefined-references` | 確保所有連結和圖片引用都已定義。 |
-| `no-unused-definitions` | 標記未使用的連結或圖片定義。 |
-| `no-heading-content-indent` | 不允許在標題內容前縮排。 |
-| `no-multiple-toplevel-headings` | 每個文件只允許一個頂層標題 (H1)。 |
-| `code-block-style` | 強制執行一致的程式碼區塊樣式（例如，使用反引號）。 |
-
-透過自動化這些檢查，DocSmith 維護了文檔的一致標準，確保最終輸出準確且易於導覽。
-
-若要了解更多關於整體架構的資訊，請參閱 [運作方式](./advanced-how-it-works.md) 部分。
+每個標記為 `d2` 的程式碼區塊都會經過嚴格的語法檢查器處理。若發現任何語法錯誤，產生過程將會被中止，並顯示一則描述性的錯誤訊息。這可以防止發布含有破損或渲染不當的視覺圖表的文件。

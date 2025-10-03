@@ -1,35 +1,45 @@
 # Core Features
 
-AIGNE DocSmith provides a set of commands to manage your documentation lifecycle, from initial creation to global distribution. The process is organized into a standard workflow: generating, refining, translating, and publishing your documentation.
+AIGNE DocSmith provides a set of commands to manage the documentation lifecycle, from initial creation to global distribution. The process is organized into a standard workflow: generating, refining,translating, and publishing your documentation.
 
 ```d2
 direction: down
 
-Generate: {
-  label: "1. Generate\naigne doc generate"
+source-code: {
+  label: "Source Code"
   shape: rectangle
-  description: "Create a full documentation set from your source code."
 }
 
-Refine: {
-  label: "2. Update & Refine\naigne doc update"
+generate-documentation: {
+  label: "Generate Documentation"
   shape: rectangle
-  description: "Keep docs in sync with code and apply targeted feedback."
 }
 
-Translate: {
-  label: "3. Translate\naigne doc translate"
+update-and-refine: {
+  label: "Update and Refine"
   shape: rectangle
-  description: "Localize content into multiple languages for a global audience."
 }
 
-Publish: {
-  label: "4. Publish\naigne doc publish"
+translate-documentation: {
+  label: "Translate Documentation"
   shape: rectangle
-  description: "Deploy your documentation to public or private platforms."
 }
 
-Generate -> Refine -> Translate -> Publish
+publish-docs: {
+  label: "Publish Your Docs"
+  shape: rectangle
+}
+
+platform: {
+  label: "DocSmith Platform\n(or self-hosted)"
+  shape: cylinder
+}
+
+source-code -> generate-documentation
+generate-documentation -> update-and-refine
+update-and-refine -> translate-documentation
+translate-documentation -> publish-docs
+publish-docs -> platform
 ```
 
 Explore the main capabilities of DocSmith in the following sections:
@@ -49,4 +59,4 @@ Explore the main capabilities of DocSmith in the following sections:
   </x-card>
 </x-cards>
 
-These features provide a structured workflow for documentation. For a detailed list of all available commands and their options, see the [CLI Command Reference](./cli-reference.md).
+These features provide a structured workflow for creating and maintaining documentation. For a detailed list of all available commands and their options, refer to the [CLI Command Reference](./cli-reference.md).

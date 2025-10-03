@@ -1,8 +1,12 @@
 # Advanced Topics
 
-For users who wish to understand the internal mechanics, this section provides a deeper look into the architecture of AIGNE DocSmith. It explains how the tool functions behind the scenes. While this level of detail is not required for general use, it can be valuable for customizing behavior or contributing to the project.
+This section provides a detailed examination of the internal architecture and operational mechanics of AIGNE DocSmith. It is intended for users who wish to gain a deeper understanding of how the tool functions, which can be beneficial for advanced customization or contributing to the project. This information is not required for standard use.
 
-To better understand the internal processes and quality controls, explore the following sections.
+DocSmith is a component of the AIGNE ecosystem, which provides a platform for AI application development. The following diagram illustrates the overall architecture.
+
+![AIGNE Ecosystem Architecture](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
+
+To explore the specific processes and quality control measures within DocSmith, refer to the following detailed sections.
 
 <x-cards data-columns="2">
   <x-card data-title="How It Works" data-href="/advanced/how-it-works" data-icon="lucide:cpu">
@@ -13,4 +17,4 @@ To better understand the internal processes and quality controls, explore the fo
   </x-card>
 </x-cards>
 
-By exploring these topics, you can gain a more complete understanding of DocSmith's capabilities. For a detailed breakdown of all available commands and their options, proceed to the [CLI Command Reference](./cli-reference.md).
+By reviewing these topics, you can develop a comprehensive understanding of DocSmith's functionality. For a complete reference of all available commands and their parameters, please see the [CLI Command Reference](./cli-reference.md).

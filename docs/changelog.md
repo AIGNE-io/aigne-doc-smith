@@ -2,6 +2,183 @@
 
 A detailed log of all notable changes, features, and bug fixes for each version of the project.
 
+## [0.8.11-beta.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.5...v0.8.11-beta.6) (2025-10-02)
+
+
+### Miscellaneous Chores
+
+* release 0.8.11-beta.6 ([ecc8f5c](https://github.com/AIGNE-io/aigne-doc-smith/commit/ecc8f5c4ff9cc813e5cf7e35cbfdb915826cd183))
+
+## [0.8.11-beta.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.4...v0.8.11-beta.5) (2025-10-01)
+
+
+### Features
+
+* add user role requirement for publish and custom rule support ([#151](https://github.com/AIGNE-io/aigne-doc-smith/issues/151)) ([95866f9](https://github.com/AIGNE-io/aigne-doc-smith/commit/95866f9fcb2ca697da42e950e9011b29913726d4))
+* split d2 diagram generate as independent tool ([#152](https://github.com/AIGNE-io/aigne-doc-smith/issues/152)) ([8e9b811](https://github.com/AIGNE-io/aigne-doc-smith/commit/8e9b811dc6108bb19ab8a1853afb4cab92af1d62))
+
+## [0.8.11-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.3...v0.8.11-beta.4) (2025-09-30)
+
+
+### Features
+
+* add check-only option for agents with selection input ([#147](https://github.com/AIGNE-io/aigne-doc-smith/issues/147)) ([3340988](https://github.com/AIGNE-io/aigne-doc-smith/commit/3340988e67ffef7e1087d560930b3cf98c860693))
+
+
+### Bug Fixes
+
+* improve error handling in choose-docs utility ([#145](https://github.com/AIGNE-io/aigne-doc-smith/issues/145)) ([7052ffc](https://github.com/AIGNE-io/aigne-doc-smith/commit/7052ffc106817144bff815422dced7faa4dfc3e8))
+* translation prompt tuned; translate comments only in code blocks ([#149](https://github.com/AIGNE-io/aigne-doc-smith/issues/149)) ([30ce2c0](https://github.com/AIGNE-io/aigne-doc-smith/commit/30ce2c0e43c01b6588b4ada84aafecfd83c1b23b))
+
+## [0.8.11-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.2...v0.8.11-beta.3) (2025-09-29)
+
+
+### Bug Fixes
+
+* add evaluation agents cil entry ([#143](https://github.com/AIGNE-io/aigne-doc-smith/issues/143)) ([016096a](https://github.com/AIGNE-io/aigne-doc-smith/commit/016096af6c0cec0b86fc538e1f0b7b42e928451b))
+
+## [0.8.11-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.1...v0.8.11-beta.2) (2025-09-27)
+
+
+### Bug Fixes
+
+* fix dependency conflicts ([8e06ce7](https://github.com/AIGNE-io/aigne-doc-smith/commit/8e06ce716620f4bc526971300eab664115ffd8f0))
+
+## [0.8.11-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta...v0.8.11-beta.1) (2025-09-27)
+
+
+### Features
+
+* **cli:** deploy website with @blocklet/payment-broker-client ([#139](https://github.com/AIGNE-io/aigne-doc-smith/issues/139)) ([a52f397](https://github.com/AIGNE-io/aigne-doc-smith/commit/a52f397728808e44ba41ccdcd7404ffa168fef94))
+* **cli:** improve vendor handling and debugability on publish ([#138](https://github.com/AIGNE-io/aigne-doc-smith/issues/138)) ([430e17c](https://github.com/AIGNE-io/aigne-doc-smith/commit/430e17c4eadfc919bba66953bd93f21de00dba92))
+* **core:** support doc evaluation and reports ([#140](https://github.com/AIGNE-io/aigne-doc-smith/issues/140)) ([3222f97](https://github.com/AIGNE-io/aigne-doc-smith/commit/3222f97c5b0c82039cd5b913ea42ea567e1d74e3))
+* tune document and structure update with tools ([#137](https://github.com/AIGNE-io/aigne-doc-smith/issues/137)) ([90e645c](https://github.com/AIGNE-io/aigne-doc-smith/commit/90e645c0be8a5926d3f97009a449b539ef6b2954))
+
+
+### Bug Fixes
+
+* treat description as text node instead of markdown attribute value ([#136](https://github.com/AIGNE-io/aigne-doc-smith/issues/136)) ([67fccdd](https://github.com/AIGNE-io/aigne-doc-smith/commit/67fccdd6dc8faa272f3c58e3575909d7833c813b))
+
+## [0.8.11-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10...v0.8.11-beta) (2025-09-22)
+
+
+### Bug Fixes
+
+* update readme docs ([#130](https://github.com/AIGNE-io/aigne-doc-smith/issues/130)) ([16b5acf](https://github.com/AIGNE-io/aigne-doc-smith/commit/16b5acf2398ee7b242c5f3229f2bcf2de2fad7d0))
+
+## [0.8.10](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta.3...v0.8.10) (2025-09-20)
+
+
+### Miscellaneous Chores
+
+* release 0.8.10 ([35ac7c8](https://github.com/AIGNE-io/aigne-doc-smith/commit/35ac7c8fb56d6612595af1429ccad1b7804edeb8))
+* release 0.8.10 ([59c98bb](https://github.com/AIGNE-io/aigne-doc-smith/commit/59c98bbc479cd415c6540ee138e4e711c8dc0490))
+
+## [0.8.10-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta.2...v0.8.10-beta.3) (2025-09-19)
+
+
+### Bug Fixes
+
+* **cli:** add enterprise deployment related links ([#125](https://github.com/AIGNE-io/aigne-doc-smith/issues/125)) ([f115309](https://github.com/AIGNE-io/aigne-doc-smith/commit/f11530967fef0bf2ead7f307a5513a1f3d6513f5))
+* polish review prompt copywriting ([#124](https://github.com/AIGNE-io/aigne-doc-smith/issues/124)) ([ea3c6a8](https://github.com/AIGNE-io/aigne-doc-smith/commit/ea3c6a837a32b0135e75faf85406049406055931))
+
+## [0.8.10-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta.1...v0.8.10-beta.2) (2025-09-18)
+
+
+### Bug Fixes
+
+* polish code test ([#122](https://github.com/AIGNE-io/aigne-doc-smith/issues/122)) ([0629705](https://github.com/AIGNE-io/aigne-doc-smith/commit/0629705ebd271282411d507421c1ba5dd01473b9))
+* update documentation structure review prompts and display ([#119](https://github.com/AIGNE-io/aigne-doc-smith/issues/119)) ([e2d99db](https://github.com/AIGNE-io/aigne-doc-smith/commit/e2d99db83ff3a6266b32dd450a79b6e000aff09e))
+* update usage rules for field elements ([#120](https://github.com/AIGNE-io/aigne-doc-smith/issues/120)) ([434f161](https://github.com/AIGNE-io/aigne-doc-smith/commit/434f161ab7dd989d57ca670f36d0828c09abe38a))
+
+## [0.8.10-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.10-beta...v0.8.10-beta.1) (2025-09-18)
+
+
+### Features
+
+* support documentation structure review workflow ([#117](https://github.com/AIGNE-io/aigne-doc-smith/issues/117)) ([ec7ae80](https://github.com/AIGNE-io/aigne-doc-smith/commit/ec7ae80b26a1b66928bddef7ac401f633a0f5a2b))
+
+
+### Bug Fixes
+
+* improve English language consistency and clarity ([#118](https://github.com/AIGNE-io/aigne-doc-smith/issues/118)) ([74c9e8e](https://github.com/AIGNE-io/aigne-doc-smith/commit/74c9e8e19a78767c32da772133662818b8e50715))
+* update doc-smith logo ([#114](https://github.com/AIGNE-io/aigne-doc-smith/issues/114)) ([52ab351](https://github.com/AIGNE-io/aigne-doc-smith/commit/52ab3519d98533f26c1a18203be51e0965c586bc))
+
+## [0.8.10-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.9...v0.8.10-beta) (2025-09-16)
+
+
+### Bug Fixes
+
+* **ci:** support publish beta releases ([#112](https://github.com/AIGNE-io/aigne-doc-smith/issues/112)) ([aa51523](https://github.com/AIGNE-io/aigne-doc-smith/commit/aa515237cff275ef8c46f5ac2ad7ff60e9915ab4))
+
+## [0.8.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.8...v0.8.9) (2025-09-15)
+
+
+### Bug Fixes
+
+* update d2 diagram theme color ([#108](https://github.com/AIGNE-io/aigne-doc-smith/issues/108)) ([d31dd80](https://github.com/AIGNE-io/aigne-doc-smith/commit/d31dd80c7cb1ca0c4d99d85eb2b6a529651d426f))
+
+## [0.8.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.7...v0.8.8) (2025-09-13)
+
+
+### Bug Fixes
+
+* optimize the copy for inquiry feedback ([#106](https://github.com/AIGNE-io/aigne-doc-smith/issues/106)) ([d219ab8](https://github.com/AIGNE-io/aigne-doc-smith/commit/d219ab8e49fedfb2fbe1d3746e30f36751a924df))
+
+## [0.8.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.6...v0.9.0) (2025-09-12)
+
+
+### Features
+
+* support defining API parameters with field element ([#104](https://github.com/AIGNE-io/aigne-doc-smith/issues/104)) ([2296ead](https://github.com/AIGNE-io/aigne-doc-smith/commit/2296ead15a00aaf809b3854bf349361f0213f522))
+
+## [0.8.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.5...v0.8.6) (2025-09-11)
+
+
+### Features
+
+* add deploy unit tests and improve publish workflow with better logging ([e33a94b](https://github.com/AIGNE-io/aigne-doc-smith/commit/e33a94bef5eda09398901fa1f953e662ae5fbd16))
+* **publish:** display publish url for the default publish processing ([9d1d018](https://github.com/AIGNE-io/aigne-doc-smith/commit/9d1d0180dc9c8bb0a4393a893eed2395eec300ab))
+
+
+### Bug Fixes
+
+* **deploy:** ensure log is saved after await to prevent save failure ([793343f](https://github.com/AIGNE-io/aigne-doc-smith/commit/793343fc7f96ab962e70eb310cb07f4e7eaec9e0))
+
+
+### Miscellaneous Chores
+
+* release 0.8.6 ([1e25cb4](https://github.com/AIGNE-io/aigne-doc-smith/commit/1e25cb49a26d8bcc3c83ec36120b6bad4042cadf))
+
+## [0.8.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.4...v0.8.5) (2025-09-10)
+
+
+### Features
+
+* support publish docs to enterprise spaces ([#82](https://github.com/AIGNE-io/aigne-doc-smith/issues/82)) ([35b577a](https://github.com/AIGNE-io/aigne-doc-smith/commit/35b577ac0f2c1b860a23185054a55bada3742e8e))
+
+
+### Miscellaneous Chores
+
+* release 0.8.5 ([7a60a03](https://github.com/AIGNE-io/aigne-doc-smith/commit/7a60a03f91a20f378e94b12dd32a6a8b0a4bede5))
+
+## [0.8.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.3...v0.8.4) (2025-09-09)
+
+
+### Bug Fixes
+
+* parse markdown code blocks into custom x-code element ([#89](https://github.com/AIGNE-io/aigne-doc-smith/issues/89)) ([96ea776](https://github.com/AIGNE-io/aigne-doc-smith/commit/96ea7761299b93ea406abe04193f531fc406ccfa))
+* **utils:** update code block regex to support enhanced attributes ([#92](https://github.com/AIGNE-io/aigne-doc-smith/issues/92)) ([bf1fbab](https://github.com/AIGNE-io/aigne-doc-smith/commit/bf1fbabf193e90a83ed6e83e4ff4c5b3b2930477))
+* **ux:** make background transparent for d2 diagrams ([13eed81](https://github.com/AIGNE-io/aigne-doc-smith/commit/13eed81cb6be13c64ad04c41505d9d76f34d54bb))
+* **ux:** make background transparent for d2 diagrams ([#96](https://github.com/AIGNE-io/aigne-doc-smith/issues/96)) ([13eed81](https://github.com/AIGNE-io/aigne-doc-smith/commit/13eed81cb6be13c64ad04c41505d9d76f34d54bb))
+
+## [0.8.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.2...v0.8.3) (2025-09-05)
+
+
+### Bug Fixes
+
+* add image dimension detection and auto-setting for local images ([#87](https://github.com/AIGNE-io/aigne-doc-smith/issues/87)) ([2d139e6](https://github.com/AIGNE-io/aigne-doc-smith/commit/2d139e60c55fbfd204b08f427807ffeecdae14df))
+
 ## [0.8.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.1...v0.8.2) (2025-09-04)
 
 

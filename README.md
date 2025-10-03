@@ -107,7 +107,7 @@ DocSmith supports multiple AI providers:
 ```bash
 # Switch models effortlessly
 aigne doc generate --model google:gemini-2.5-pro
-aigne doc generate --model claude:claude-3-5-sonnet
+aigne doc generate --model anthropic:claude-sonnet-4-5
 aigne doc generate --model openai:gpt-4o
 ```
 

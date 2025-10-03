@@ -2,11 +2,11 @@
 
 Keeping documentation synchronized with an evolving codebase is a methodical process. AIGNE DocSmith provides direct and flexible commands to keep your content current, either through automatic updates based on code changes or through precise, feedback-driven refinements.
 
-This guide covers the procedures to:
+This guide provides procedures for the following tasks:
 
-- Automatically update documents when source code is modified.
-- Regenerate specific documents using targeted feedback.
-- Adjust the overall documentation structure.
+*   Automatically updating documents when source code is modified.
+*   Regenerating specific documents using targeted feedback.
+*   Adjusting the overall documentation structure.
 
 ### Document Update Workflows
 
@@ -15,124 +15,76 @@ The following diagram illustrates the different workflows available for updating
 ```d2 Document Update Workflows
 direction: down
 
-developer: {
+Developer: {
   shape: c4-person
-  label: "Developer"
 }
 
-codebase: {
-  shape: cylinder
+Source-Code: {
   label: "Source Code"
 }
 
-updated-documentation: {
-  shape: cylinder
-  label: "Updated\nDocumentation"
+Documentation: {
+  label: "Documentation"
 }
 
-workflows: {
-  label: "Document Update Workflows"
+Action-Choice: {
+  label: "Choose Action"
+  shape: diamond
+}
+
+Generate-Sync: {
+  label: "aigne doc generate"
   shape: rectangle
 
-  automatic-updates: {
-    label: "Automatic Updates (Code-Driven)"
-    shape: rectangle
-
-    cmd-generate: {
-      label: "aigne doc generate"
-    }
-
-    decision-force: {
-      label: "--forceRegenerate?"
-      shape: diamond
-    }
-
-    detect-changes: {
-      label: "Detect Changes"
-    }
-
-    regen-affected: {
-      label: "Regenerate\nAffected Docs"
-    }
-
-    regen-all: {
-      label: "Regenerate\nAll Docs"
-    }
+  Change-Detection: {
+    label: "Detect Changes?"
+    shape: diamond
   }
+  Regenerate-Affected: "Regenerate Affected"
+  Regenerate-All: "Regenerate All"
 
-  manual-refinements: {
-    label: "Manual Refinements (Feedback-Driven)"
-    shape: rectangle
-    grid-columns: 2
-    grid-gap: 100
-
-    refine-individual: {
-      label: "Refine Individual Docs"
-      shape: rectangle
-
-      cmd-update: {
-        label: "aigne doc update\n--feedback"
-      }
-
-      regen-specific: {
-        label: "Regenerate\nSpecific Doc"
-      }
-    }
-
-    optimize-structure: {
-      label: "Optimize Overall Structure"
-      shape: rectangle
-
-      cmd-generate-feedback: {
-        label: "aigne doc generate\n--feedback"
-      }
-
-      re-evaluate-plan: {
-        label: "Re-evaluate\nDocument Plan"
-      }
-    }
-  }
+  Change-Detection -> Regenerate-Affected: "Yes (Default)"
+  Change-Detection -> Regenerate-All: "No\n(--forceRegenerate)"
 }
 
-# --- Connections ---
+Refine-Content: {
+  label: "aigne doc update"
+}
 
-# Path 1: Automatic Updates
-developer -> codebase: "1. Makes changes"
-codebase -> workflows.automatic-updates.cmd-generate: "2. Runs command"
-workflows.automatic-updates.cmd-generate -> workflows.automatic-updates.decision-force
-workflows.automatic-updates.decision-force -> workflows.automatic-updates.detect-changes: "No"
-workflows.automatic-updates.detect-changes -> workflows.automatic-updates.regen-affected
-workflows.automatic-updates.decision-force -> workflows.automatic-updates.regen-all: "Yes"
-workflows.automatic-updates.regen-affected -> updated-documentation
-workflows.automatic-updates.regen-all -> updated-documentation
+Refine-Structure: {
+  label: "aigne doc generate\n--feedback"
+}
 
-# Path 2: Individual Refinement
-developer -> workflows.manual-refinements.refine-individual.cmd-update: "3. Provides\ncontent feedback"
-workflows.manual-refinements.refine-individual.cmd-update -> workflows.manual-refinements.refine-individual.regen-specific
-workflows.manual-refinements.refine-individual.regen-specific -> updated-documentation
+Developer -> Action-Choice
 
-# Path 3: Structural Refinement
-developer -> workflows.manual-refinements.optimize-structure.cmd-generate-feedback: "4. Provides\nstructural feedback"
-workflows.manual-refinements.optimize-structure.cmd-generate-feedback -> workflows.manual-refinements.optimize-structure.re-evaluate-plan
-workflows.manual-refinements.optimize-structure.re-evaluate-plan -> updated-documentation: "Regenerate with\nNew Structure"
+Action-Choice -> Generate-Sync: "Sync with Code"
+Action-Choice -> Refine-Content: "Refine Doc Content"
+Action-Choice -> Refine-Structure: "Refine Doc Structure"
+
+Source-Code -> Generate-Sync
+
+Generate-Sync.Regenerate-Affected -> Documentation: "Update"
+Generate-Sync.Regenerate-All -> Documentation: "Update"
+Refine-Content -> Documentation: "Update"
+Refine-Structure -> Documentation: "Update"
 ```
 
 ---
 
 ## Automatic Updates with Change Detection
 
-When you execute the `aigne doc generate` command, DocSmith first analyzes your codebase to detect changes since the last generation. It then regenerates only the documents affected by these changes. This default behavior conserves time and reduces API usage.
+When you execute the `aigne doc generate` command, DocSmith first analyzes your codebase to detect changes since the last generation. It then regenerates only the documents affected by these changes. This default behavior conserves time and reduces API usage by avoiding redundant operations.
 
 ```shell icon=lucide:terminal
-# DocSmith will detect changes and update only what's necessary
+# DocSmith will detect changes and update only what is necessary
 aigne doc generate
 ```
 
-![DocSmith detects changes and regenerates only the required documents.](https://docsmith.aigne.io/image-bin/uploads/21a76b2f65d14d16a49c13d800f1e2c1.png)
+![DocSmith detects changes and regenerates only the required documents.](../assets/screenshots/doc-regenerate.png)
 
 ### Forcing a Full Regeneration
 
-To regenerate all documentation from scratch, bypassing the cache and change detection, use the `--forceRegenerate` flag. This is necessary when you have made significant configuration changes or require a complete rebuild to ensure consistency.
+To regenerate all documentation from scratch, bypassing the cache and change detection, use the `--forceRegenerate` flag. This is necessary when you have made significant configuration changes or require a complete rebuild to ensure consistency across all files.
 
 ```shell icon=lucide:terminal
 # Regenerate all documentation from the ground up
@@ -141,13 +93,15 @@ aigne doc generate --forceRegenerate
 
 ---
 
-## Refining Individual Documents
+## Refining Documents with Feedback
 
-To improve a specific document's content without corresponding code changes, use the `aigne doc update` command. This command allows you to provide targeted instructions for refinement.
+You can refine documentation without corresponding code changes by providing direct feedback to the CLI commands. This is useful for improving clarity, adding examples, or adjusting the structure.
 
-This can be done interactively or non-interactively via command-line arguments.
+### Refining Individual Document Content
 
-### Interactive Mode
+To improve a specific document's content, use the `aigne doc update` command. This command allows you to provide targeted instructions for refinement and can be run in two modes: interactive or non-interactive.
+
+#### Interactive Mode
 
 For a guided process, run the command without arguments. DocSmith will present a menu to select the document you wish to update. After selection, you will be prompted to enter your feedback.
 
@@ -156,9 +110,9 @@ For a guided process, run the command without arguments. DocSmith will present a
 aigne doc update
 ```
 
-![Interactively select the documents you wish to update.](https://docsmith.aigne.io/image-bin/uploads/75e9cf9823bb369c3d2b5a2e2da4ac06.png)
+![Interactively select the documents you wish to update.](../assets/screenshots/doc-update.png)
 
-### Direct Command-Line Updates
+#### Non-Interactive Mode
 
 For scripted or faster workflows, you can specify the document and feedback directly using flags. This enables precise, non-interactive updates.
 
@@ -167,26 +121,22 @@ For scripted or faster workflows, you can specify the document and feedback dire
 aigne doc update --docs overview.md --feedback "Add a more detailed FAQ section at the end."
 ```
 
-Key parameters for the `update` command are as follows:
+The primary parameters for the `update` command are as follows:
 
 | Parameter | Description |
-| --- | --- |
+| :--- | :--- |
 | `--docs` | The path to the document to be updated. This flag can be used multiple times for batch updates. |
-| `--feedback` | The specific instructions to be used when regenerating the content. |
+| `--feedback` | A string containing the specific instructions to be used when regenerating the document's content. |
 
----
+### Optimizing the Overall Structure
 
-## Optimizing the Overall Structure
-
-In addition to refining individual document content, you can adjust the overall documentation structure. If the existing organization is suboptimal or a section is missing, you can provide feedback to the `generate` command.
-
-This instructs DocSmith to re-evaluate the entire document plan based on your input.
+In addition to refining individual documents, you can adjust the overall documentation structure. If the existing organization is suboptimal or a section is missing, you can provide feedback to the `generate` command. This instructs DocSmith to re-evaluate the entire document plan based on your input.
 
 ```shell icon=lucide:terminal
 # Regenerate the documentation structure with specific feedback
 aigne doc generate --feedback "Remove the 'About' section and add a detailed 'API Reference'."
 ```
 
-This approach is intended for high-level changes to the document's table of contents, not for minor content edits.
+This approach is intended for high-level changes to the document's table of contents, not for minor content edits within a single file.
 
 Once your content is refined, the next step is to prepare it for a global audience. For instructions, see the [Translate Documentation](./features-translate-documentation.md) guide.
