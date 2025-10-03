@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.11-beta.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.6...v0.8.11-beta.7) (2025-10-03)
+
+
+### Features
+
+* enhance document generator and updater by fs tools ([#156](https://github.com/AIGNE-io/aigne-doc-smith/issues/156)) ([64ee91c](https://github.com/AIGNE-io/aigne-doc-smith/commit/64ee91c59498b4fd788e287cb81bbc640d042bcc))
+* use shared context for faster structure and doc tuning ([#157](https://github.com/AIGNE-io/aigne-doc-smith/issues/157)) ([e5cb30e](https://github.com/AIGNE-io/aigne-doc-smith/commit/e5cb30ec114d51a19f0086b3e4aaf2ec70aea046))
+
+
+### Bug Fixes
+
+* update docs and refine custom component prompts ([#160](https://github.com/AIGNE-io/aigne-doc-smith/issues/160)) ([233f3ca](https://github.com/AIGNE-io/aigne-doc-smith/commit/233f3ca449646b39a3e493d2bb1fe59e50376827))
+
 ## [0.8.11-beta.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.5...v0.8.11-beta.6) (2025-10-02)
 
 
