@@ -41,14 +41,11 @@ input_schema:
     - rules
     - datasources
     - originalDocumentStructure
-output_schema:
-  type: object
-  properties:
-    content:
-      type: string
-  required:
-    - content
+output_key: content
 skills:
+  - fs-tools/glob.mjs
+  - fs-tools/grep.mjs
+  - fs-tools/read-file.mjs
   - type: team
     task_render_mode: collapse
     name: generateD2DiagramContent
