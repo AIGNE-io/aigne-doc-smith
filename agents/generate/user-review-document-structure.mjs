@@ -97,6 +97,9 @@ export default async function userReviewDocumentStructure({ documentStructure, .
 
   const MAX_ITERATIONS = 100;
   let iterationCount = 0;
+
+  // share current structure with updateDocumentStructure agent
+  options.context.userContext.currentStructure = currentStructure;
   while (iterationCount < MAX_ITERATIONS) {
     iterationCount++;
 
@@ -132,16 +135,14 @@ export default async function userReviewDocumentStructure({ documentStructure, .
 
     try {
       // Call refineDocumentStructure agent with feedback
-      const result = await options.context.invoke(refineAgent, {
+      await options.context.invoke(refineAgent, {
         ...rest,
         feedback: feedback.trim(),
         documentStructure: currentStructure,
         userPreferences,
       });
 
-      if (result.documentStructure) {
-        currentStructure = result.documentStructure;
-      }
+      currentStructure = options.context.userContext.currentStructure;
 
       // Check if feedback should be saved as user preference
       const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];

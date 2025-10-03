@@ -4,32 +4,47 @@ import {
   validateAddDocumentInput,
 } from "../../../types/document-structure-schema.mjs";
 
-export default async function addDocument(input) {
+export default async function addDocument(input, options) {
   // Validate input using Zod schema
   const validation = validateAddDocumentInput(input);
   if (!validation.success) {
-    console.log(`⚠️  Cannot add document: ${validation.error}`);
-    return { documentStructure: input.documentStructure };
+    const errorMessage = `Cannot add document: ${validation.error}`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      documentStructure: input.documentStructure,
+      message: errorMessage,
+    };
   }
 
-  const { documentStructure, title, description, path, parentId, sourceIds } = validation.data;
+  const { title, description, path, parentId, sourceIds } = validation.data;
+  let documentStructure = options?.context?.userContext?.currentStructure;
+
+  if (!documentStructure) {
+    documentStructure = input.documentStructure;
+  }
 
   // Validate parent exists if parentId is provided
   if (parentId && parentId !== "null") {
     const parentExists = documentStructure.some((item) => item.path === parentId);
     if (!parentExists) {
-      console.log(`⚠️  Cannot add document: Parent document '${parentId}' not found.`);
-      return { documentStructure };
+      const errorMessage = `Cannot add document: Parent document '${parentId}' not found.`;
+      console.log(`⚠️  ${errorMessage}`);
+      return {
+        documentStructure,
+        message: errorMessage,
+      };
     }
   }
 
   // Check if document with same path already exists
   const existingDocument = documentStructure.find((item) => item.path === path);
   if (existingDocument) {
-    console.log(
-      `⚠️  Cannot add document: A document with path '${path}' already exists. Choose a different path.`,
-    );
-    return { documentStructure };
+    const errorMessage = `Cannot add document: A document with path '${path}' already exists. Choose a different path.`;
+    console.log(`⚠️  ${errorMessage}`);
+    return {
+      documentStructure,
+      message: errorMessage,
+    };
   }
 
   // Create new document object
@@ -44,8 +59,18 @@ export default async function addDocument(input) {
   // Add the document to the structure
   const updatedStructure = [...documentStructure, newDocument];
 
+  const successMessage = `addDocument executed successfully.
+  Successfully added document '${title}' with path '${path}'.
+  Check if the latest version of documentStructure meets user feedback, if so, just return 'success'.`;
+
+  // update shared document structure
+  if (options?.context?.userContext) {
+    options.context.userContext.currentStructure = updatedStructure;
+  }
+
   return {
     documentStructure: updatedStructure,
+    message: successMessage,
     addedDocument: newDocument,
   };
 }
