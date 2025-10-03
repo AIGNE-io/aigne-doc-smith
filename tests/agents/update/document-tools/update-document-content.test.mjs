@@ -25,24 +25,21 @@ describe("update-document-content", () => {
     mockOptions.context.userContext.currentContent = "original content";
     const result = await updateDocumentContent({}, mockOptions);
     expect(result.success).toBe(false);
-    expect(result.error).toContain("diffPatch");
-    expect(result.message).toBe("Invalid input parameters");
+    expect(result.error.message).toContain("diffPatch");
   });
 
   test("should return error when diffPatch is not a string", async () => {
     mockOptions.context.userContext.currentContent = "original content";
     const result = await updateDocumentContent({ diffPatch: null }, mockOptions);
     expect(result.success).toBe(false);
-    expect(result.error).toContain("diffPatch");
-    expect(result.message).toBe("Invalid input parameters");
+    expect(result.error.message).toContain("diffPatch");
   });
 
   test("should return error when diffPatch is empty string", async () => {
     mockOptions.context.userContext.currentContent = "original content";
     const result = await updateDocumentContent({ diffPatch: "" }, mockOptions);
     expect(result.success).toBe(false);
-    expect(result.error).toContain("Diff patch is required");
-    expect(result.message).toBe("Invalid input parameters");
+    expect(result.error.message).toContain("Diff patch is required");
   });
 
   // SUCCESSFUL PATCH APPLICATION TESTS
@@ -112,8 +109,7 @@ describe("update-document-content", () => {
 
     expect(result).toEqual({
       success: false,
-      error: "No valid hunks found in diff",
-      message: "Invalid diff format: No valid hunks found or parsing failed",
+      error: { message: "No valid hunks found in diff" },
     });
   });
 
@@ -125,8 +121,7 @@ describe("update-document-content", () => {
 
     expect(result).toEqual({
       success: false,
-      error: "No valid hunks found in diff",
-      message: "Invalid diff format: No valid hunks found or parsing failed",
+      error: { message: "No valid hunks found in diff" },
     });
   });
 
@@ -137,7 +132,7 @@ describe("update-document-content", () => {
     const result = await updateDocumentContent({ diffPatch }, mockOptions);
 
     expect(result.success).toBe(false);
-    expect(result.message).toBe("Invalid diff format: No valid hunks found or parsing failed");
+    expect(result.error.message).toContain("No valid hunks found");
   });
 
   // LINE NUMBER FIXING TESTS
@@ -177,8 +172,7 @@ describe("update-document-content", () => {
     const result = await updateDocumentContent({ diffPatch }, mockOptions);
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain("Cannot find matching context");
-    expect(result.message).toBe("Cannot fix diff line number issues");
+    expect(result.error.message).toContain("Cannot find matching context");
   });
 
   // COMPLEX DIFF SCENARIOS
@@ -293,7 +287,7 @@ describe("update-document-content", () => {
     const result = await updateDocumentContent({ diffPatch }, mockOptions);
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain("Cannot find matching context");
+    expect(result.error.message).toContain("Cannot find matching context");
   });
 
   test("should handle patches with incorrect line counts", async () => {
@@ -330,6 +324,6 @@ describe("update-document-content", () => {
     const result = await updateDocumentContent({ diffPatch }, mockOptions);
 
     expect(result.success).toBe(false);
-    expect(result.error).toContain("Cannot find matching context");
+    expect(result.error.message).toContain("Cannot find matching context");
   });
 });
