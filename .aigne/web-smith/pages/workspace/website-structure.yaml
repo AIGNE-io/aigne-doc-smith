@@ -1,33 +1,14 @@
-- title: Home
-  description: The main landing page for AIGNE DocSmith, showcasing its AI-powered
-    features, benefits, and integration into the AIGNE ecosystem. Designed to
-    convert visitors into users.
+- title: AIGNE DocSmith - AI-Powered Documentation Generation
+  description: A comprehensive single-page website introducing AIGNE DocSmith. The
+    page starts with a Hero section stating the core value proposition. It is
+    followed by key Features, a 'Quick Start' guide for easy installation and
+    first-time use, a detailed 'CLI Command Reference' for technical users, and
+    an advanced 'How It Works' section explaining the multi-agent architecture.
+    The page concludes with Community resources and Enterprise options.
   path: /home
   sourceIds:
     - README.md
-  parentId: ""
-- title: Getting Started
-  description: A step-by-step guide for developers to install the AIGNE CLI,
-    configure their project, and generate their first set of documentation using
-    the 'aigne doc generate' command.
-  path: /getting-started
-  sourceIds:
     - docs/getting-started.md
-    - media.md
-  parentId: ""
-- title: How It Works
-  description: An advanced overview of the AIGNE DocSmith architecture, explaining
-    the multi-agent system and the documentation generation pipeline for
-    technical users.
-  path: /how-it-works
-  sourceIds:
+    - docs/cli-reference.md
     - docs/advanced-how-it-works.md
   parentId: ""
-- title: About Blocklet
-  description: Learn more about AIGNE DocSmith, the AI-powered documentation tool
-    that intelligently analyzes your codebase to generate comprehensive,
-    multi-language documentation automatically.
-  path: /home/about
-  parentId: /home
-  sourceIds:
-    - README.md

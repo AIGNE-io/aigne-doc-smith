@@ -4,8 +4,7 @@ projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation
   tool built on the AIGNE Framework. It automates the creation of detailed,
   structured, and multi-language documentation directly from your source code.
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
-projectId: 433cd13f-bccd-47e4-9315-c65bb91cab99
-projectSlug: aigne-doc-smith
+projectSlug: aigne-doc-smith-v1
 
 # =============================================================================
 # Website Configuration
@@ -24,6 +23,7 @@ projectSlug: aigne-doc-smith
 #   mixedPurpose     - Multi-purpose website: Comprehensive website covering multiple needs
 pagePurpose:
   - landingPage
+  - saas
 
 # Target Audience: Who will be reading this most often?
 # Available options (uncomment and modify as needed):
@@ -47,12 +47,10 @@ targetAudienceTypes:
 #   standard           - Standard (7-12 pages): Complete website with main sections [RECOMMENDED]
 #   comprehensive      - Comprehensive (12+ pages): Full-featured website with detailed sections
 #   aiDecide           - Let AI decide: Analyze project complexity and suggest appropriate scale
-websiteScale: singlePage
+websiteScale: minimal
 
 # Custom Rules: Define specific page generation rules and requirements
-rules: |
-  - 确保每个页面的 Hero Section 比如展示图片来提升页面美观度
-  - 尽可能多的使用展示图片的 Section 来提升页面美观度
+rules: ""
 
 # Glossary: Define project-specific terms and definitions
 # glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
@@ -63,10 +61,14 @@ translateLanguages:
 pagesDir: .aigne/web-smith/pages  # Directory to save generated pages
 sourcesPath:  # Source code paths to analyze
   - ./README.md
+  - ./media.md
   - ./docs/advanced-how-it-works.md
   - ./docs/cli-reference.md
   - ./docs/getting-started.md
-lastGitHead: a38d18ff34334871c19c7cba9a3fd0730ac2144d
-appUrl: https://bbqa6fhpf6d34dhv6aadz5fqwz7bs6t6kkvv3lhmok4.did.abtnet.io
+lastGitHead: a77e37bcb39df43bd455b114f421858a9af24172
 # Checkout ID for website deployment service
 checkoutId: ""
+# Payment URL for website deployment service
+paymentUrl: https://s.aigne.io/VU0JAUL7
+appUrl: https://baaaub7cqxqgchexrtl6ovx52ecjexruwlk2bvzmhmu.slp.abtnet.io
+projectId: ffe60b0f-a663-4a3b-b55e-c8d7cb5fb07e

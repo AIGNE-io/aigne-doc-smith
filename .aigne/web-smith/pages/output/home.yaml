@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-02T10:46:10.135Z
-updatedAt: 2025-10-02T10:46:10.135Z
-publishedAt: 2025-10-02T10:46:10.135Z
+createdAt: 2025-10-03T00:53:54.410Z
+updatedAt: 2025-10-03T00:53:54.410Z
+publishedAt: 2025-10-03T00:53:54.410Z
 isPublic: true
 locales:
   en:
@@ -10,10 +10,11 @@ locales:
       maxWidth: custom:1440px
       paddingY: normal
       paddingX: normal
-    title: AIGNE DocSmith | AI-Powered Documentation That Understands Your Code
-    description: Discover AIGNE DocSmith, the revolutionary AI tool that
-      automatically generates comprehensive, multi-language documentation
-      directly from your codebase. Zero-config, always up-to-date.
+    title: AIGNE DocSmith | AI-Powered Documentation Generation
+    description: Generate comprehensive, multi-language documentation that
+      understands your code. AIGNE DocSmith uses AI to keep your docs in sync,
+      with zero config and seamless integration.
+    image: mediakit://heroAigneDocsmith.png
     header:
       sticky: true
   zh:
@@ -22,82 +23,124 @@ locales:
       maxWidth: custom:1440px
       paddingY: normal
       paddingX: normal
-    title: AIGNE DocSmith | 能够理解你代码的 AI 驱动文档
-    description: 了解 AIGNE DocSmith，这是一款革命性的 AI 工具，能够 直接从你的代码库自动生成全面的多语言文档。零配置，始终保持最新。
+    title: AIGNE DocSmith | AI 驱动的文档生成
+    description: 生成能理解您代码的、全面的、多语言的文档。AIGNE DocSmith 使用 AI 保持您的文档同步，无需配置，无缝集成。
+    image: mediakit://heroAigneDocsmith.png
     header:
       sticky: true
 sections:
-  c1a363268b47d70a:
-    id: c1a363268b47d70a
-    name: Split Hero_2
+  e1c97b3710d489a2:
+    id: e1c97b3710d489a2
+    name: Feature Grid_left
     component: layout-block
     sections:
-      3df2360f8b62087b:
-        id: 3df2360f8b62087b
-        name: CTA
+      78e3421030dcbdd5:
+        id: 78e3421030dcbdd5
+        name: Content
         component: layout-block
         sections:
-          baa1a11b0afb9cd6:
-            id: baa1a11b0afb9cd6
-            name: Description
-            component: custom-component
-            config:
-              useCache: true
-              componentId: xoHu0J44322kDYc-
-            sectionIds: []
-          e7e5534f37d6aa1c:
-            id: e7e5534f37d6aa1c
-            name: Section Layout
+          2595d95961e10014:
+            id: 2595d95961e10014
+            name: CTA
             component: layout-block
             sections:
-              8bf4363f8d1d08a7:
-                id: 8bf4363f8d1d08a7
-                name: Code
+              087e8576fefadf0f:
+                id: 087e8576fefadf0f
+                name: Description
                 component: custom-component
                 config:
                   useCache: true
-                  componentId: 2EHGy3vwxlS9JGr2
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              5455a7046747c6d7:
+                id: 5455a7046747c6d7
+                name: Action
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: a44r0SiGV9AFn2Fj
                 sectionIds: []
             sectionIds:
-              - 8bf4363f8d1d08a7
+              - 087e8576fefadf0f
+              - 5455a7046747c6d7
             config:
               gridSettings:
                 desktop:
-                  8bf4363f8d1d08a7:
+                  087e8576fefadf0f:
                     x: 0
                     y: 0
                     w: 12
                     h: 1
-              border: terminal
-              borderRadius: small
+                  5455a7046747c6d7:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              paddingY: normal
+              gap: normal
+              maxWidth: full
+              paddingX: none
+          ccdf0179b25ef747:
+            id: ccdf0179b25ef747
+            name: Image
+            component: layout-block
+            sections:
+              f98b98ffd13b8a1d:
+                id: f98b98ffd13b8a1d
+                name: Media
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0JPjPs122kaaa-
+                sectionIds: []
+            sectionIds:
+              - f98b98ffd13b8a1d
+            config:
+              borderRadius: medium
+              gridSettings:
+                desktop:
+                  f98b98ffd13b8a1d:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              background: mediakit://heroAigneDocsmith.png
         sectionIds:
-          - baa1a11b0afb9cd6
-          - e7e5534f37d6aa1c
+          - 2595d95961e10014
+          - ccdf0179b25ef747
         config:
+          borderRadius: small
+          paddingX: none
+          paddingY: normal
+          maxWidth: full
           gridSettings:
             desktop:
-              baa1a11b0afb9cd6:
+              2595d95961e10014:
                 x: 0
                 y: 0
-                w: 12
+                w: 6
                 h: 1
-          paddingY: normal
+              ccdf0179b25ef747:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
           gap: normal
-          maxWidth: full
     sectionIds:
-      - 3df2360f8b62087b
+      - 78e3421030dcbdd5
     config:
       gridSettings:
         desktop:
-          3df2360f8b62087b:
+          78e3421030dcbdd5:
             x: 0
             y: 0
-            w: 8
+            w: 12
             h: 1
-      paddingX: none
+      gap: normal
       paddingY: none
-      maxWidth: full
-      backgroundFullWidth: true
+      background: transparent
+      border: none
+      paddingX: none
   671827b9508f92f3:
     id: 671827b9508f92f3
     name: Testimonials/Reviews
@@ -838,64 +881,121 @@ sections:
       gap: normal
       paddingY: none
       paddingX: none
-  48dcac840131eedd:
-    id: 48dcac840131eedd
+  05222fc2fbe3d044:
+    id: 05222fc2fbe3d044
+    name: Split Hero_2
+    component: layout-block
+    sections:
+      d0229e55bed31be3:
+        id: d0229e55bed31be3
+        name: CTA
+        component: layout-block
+        sections:
+          b1bdf30373fd4a04:
+            id: b1bdf30373fd4a04
+            name: Description
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+          aa1dac3d57a34271:
+            id: aa1dac3d57a34271
+            name: Section Layout
+            component: layout-block
+            sections:
+              193aa65e2436beb1:
+                id: 193aa65e2436beb1
+                name: Code
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: 2EHGy3vwxlS9JGr2
+                sectionIds: []
+            sectionIds:
+              - 193aa65e2436beb1
+            config:
+              gridSettings:
+                desktop:
+                  193aa65e2436beb1:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              border: terminal
+              borderRadius: small
+        sectionIds:
+          - b1bdf30373fd4a04
+          - aa1dac3d57a34271
+        config:
+          gridSettings:
+            desktop:
+              b1bdf30373fd4a04:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          paddingY: normal
+          gap: normal
+          maxWidth: full
+    sectionIds:
+      - d0229e55bed31be3
+    config:
+      gridSettings:
+        desktop:
+          d0229e55bed31be3:
+            x: 0
+            y: 0
+            w: 8
+            h: 1
+      paddingX: none
+      paddingY: none
+      maxWidth: full
+      backgroundFullWidth: true
+  952cc3c8c022f728:
+    id: 952cc3c8c022f728
     name: Feature Grid_left
     component: layout-block
     sections:
-      0271688ad828ec2c:
-        id: 0271688ad828ec2c
+      5cdffd2c9d953da0:
+        id: 5cdffd2c9d953da0
         name: Content
         component: layout-block
         sections:
-          64e229478c9efa9f:
-            id: 64e229478c9efa9f
+          d87116cca28a22aa:
+            id: d87116cca28a22aa
             name: CTA
             component: layout-block
             sections:
-              9f894c3242413070:
-                id: 9f894c3242413070
+              c4c9a562bb4ff9d1:
+                id: c4c9a562bb4ff9d1
                 name: Description
                 component: custom-component
                 config:
                   useCache: true
                   componentId: xoHu0J44322kDYc-
                 sectionIds: []
-              5efc87bc23fef37a:
-                id: 5efc87bc23fef37a
-                name: Action
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: a44r0SiGV9AFn2Fj
-                sectionIds: []
             sectionIds:
-              - 9f894c3242413070
-              - 5efc87bc23fef37a
+              - c4c9a562bb4ff9d1
             config:
               gridSettings:
                 desktop:
-                  9f894c3242413070:
+                  c4c9a562bb4ff9d1:
                     x: 0
                     y: 0
-                    w: 12
-                    h: 1
-                  5efc87bc23fef37a:
-                    x: 0
-                    y: 1
                     w: 12
                     h: 1
               paddingY: normal
               gap: normal
               maxWidth: full
               paddingX: none
-          7a84d6a44891f73a:
-            id: 7a84d6a44891f73a
+          f143f1ccba5dffed:
+            id: f143f1ccba5dffed
             name: Image
             component: layout-block
             sections:
-              2e2af3d4affd846d:
-                id: 2e2af3d4affd846d
+              d19e9caada31f14b:
+                id: d19e9caada31f14b
                 name: Media
                 component: custom-component
                 config:
@@ -903,20 +1003,20 @@ sections:
                   componentId: xoHu0JPjPs122kaaa-
                 sectionIds: []
             sectionIds:
-              - 2e2af3d4affd846d
+              - d19e9caada31f14b
             config:
               borderRadius: medium
               gridSettings:
                 desktop:
-                  2e2af3d4affd846d:
+                  d19e9caada31f14b:
                     x: 0
                     y: 0
                     w: 12
                     h: 1
-              background: https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png
+              background: mediakit://howItWorksPipeline.png
         sectionIds:
-          - 64e229478c9efa9f
-          - 7a84d6a44891f73a
+          - d87116cca28a22aa
+          - f143f1ccba5dffed
         config:
           borderRadius: small
           paddingX: none
@@ -924,23 +1024,23 @@ sections:
           maxWidth: full
           gridSettings:
             desktop:
-              64e229478c9efa9f:
-                x: 0
+              d87116cca28a22aa:
+                x: 6
                 y: 0
                 w: 6
                 h: 1
-              7a84d6a44891f73a:
-                x: 6
+              f143f1ccba5dffed:
+                x: 0
                 y: 0
                 w: 6
                 h: 1
           gap: normal
     sectionIds:
-      - 0271688ad828ec2c
+      - 5cdffd2c9d953da0
     config:
       gridSettings:
         desktop:
-          0271688ad828ec2c:
+          5cdffd2c9d953da0:
             x: 0
             y: 0
             w: 12
@@ -950,66 +1050,489 @@ sections:
       background: transparent
       border: none
       paddingX: none
-  94ce47f3e1c3fcde:
-    id: 94ce47f3e1c3fcde
-    name: Feature Section_2
+  28a129d48529ab26:
+    id: 28a129d48529ab26
+    name: Feature Grid (2x2)_2
     component: layout-block
     sections:
-      b977cd6410271e9c:
-        id: b977cd6410271e9c
+      2aa517f3c1f904cd:
+        id: 2aa517f3c1f904cd
         name: Title
         component: layout-block
         sections:
-          5c61b99269881c93:
-            id: 5c61b99269881c93
-            name: Title
+          432afb3c6ad3bc2e:
+            id: 432afb3c6ad3bc2e
+            name: RichText
             component: custom-component
             config:
               useCache: true
               componentId: xoHu0J44322kDYc-
             sectionIds: []
-          2f4eaa4bb8f44700:
-            id: 2f4eaa4bb8f44700
-            name: Action
-            component: custom-component
-            config:
-              useCache: true
-              componentId: a44r0SiGV9AFn2Fj
-            sectionIds: []
         sectionIds:
-          - 5c61b99269881c93
-          - 2f4eaa4bb8f44700
+          - 432afb3c6ad3bc2e
         config:
           gap: small
           paddingX: none
           gridSettings:
             desktop:
-              5c61b99269881c93:
+              432afb3c6ad3bc2e:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile:
+              432afb3c6ad3bc2e:
+                id: 432afb3c6ad3bc2e
+          alignContent: start
+      fc4a7d260731a131:
+        id: fc4a7d260731a131
+        name: Cards
+        component: layout-block
+        sections:
+          46eb9c923f603d5a:
+            id: 46eb9c923f603d5a
+            name: Cards-1
+            component: layout-block
+            sections:
+              04cf9b07dda49050:
+                id: 04cf9b07dda49050
+                name: Card01
+                component: layout-block
+                sections:
+                  57b92d69c917ed58:
+                    id: 57b92d69c917ed58
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  5da115c5953ece99:
+                    id: 5da115c5953ece99
+                    name: Section Layout
+                    component: layout-block
+                    sections:
+                      f5b6af706f4f5252:
+                        id: f5b6af706f4f5252
+                        name: Code
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: 2EHGy3vwxlS9JGr2
+                        sectionIds: []
+                    sectionIds:
+                      - f5b6af706f4f5252
+                    config:
+                      gridSettings:
+                        desktop:
+                          f5b6af706f4f5252:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      borderRadius: small
+                      border: terminal
+                sectionIds:
+                  - 57b92d69c917ed58
+                  - 5da115c5953ece99
+                config:
+                  gridSettings:
+                    desktop:
+                      57b92d69c917ed58:
+                        x: 0
+                        y: 0
+                        w: 5
+                        h: 1
+                      5da115c5953ece99:
+                        x: 5
+                        y: 0
+                        w: 7
+                        h: 1
+                  paddingX: none
+                  gap: normal
+                  paddingY: none
+                  background: transparent
+                  border: none
+                  borderRadius: none
+                  alignContent: start
+            sectionIds:
+              - 04cf9b07dda49050
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: space-between
+          3284e2966e5282f0:
+            id: 3284e2966e5282f0
+            name: Cards-2
+            component: layout-block
+            sections:
+              a54bb76ba3c707a4:
+                id: a54bb76ba3c707a4
+                name: Card01
+                component: layout-block
+                sections:
+                  fbe359fcde7f233f:
+                    id: fbe359fcde7f233f
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  5420888b6c2c1a51:
+                    id: 5420888b6c2c1a51
+                    name: Section Layout
+                    component: layout-block
+                    sections:
+                      d02f83b3232f842d:
+                        id: d02f83b3232f842d
+                        name: Code
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: 2EHGy3vwxlS9JGr2
+                        sectionIds: []
+                    sectionIds:
+                      - d02f83b3232f842d
+                    config:
+                      gridSettings:
+                        desktop:
+                          d02f83b3232f842d:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      borderRadius: small
+                      border: terminal
+                sectionIds:
+                  - fbe359fcde7f233f
+                  - 5420888b6c2c1a51
+                config:
+                  gridSettings:
+                    desktop:
+                      fbe359fcde7f233f:
+                        x: 0
+                        y: 0
+                        w: 5
+                        h: 1
+                      5420888b6c2c1a51:
+                        x: 5
+                        y: 0
+                        w: 7
+                        h: 1
+                  paddingX: none
+                  gap: normal
+                  paddingY: none
+                  background: transparent
+                  border: none
+                  borderRadius: none
+                  alignContent: start
+            sectionIds:
+              - a54bb76ba3c707a4
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: space-between
+          94189b93ab405202:
+            id: 94189b93ab405202
+            name: Cards-3
+            component: layout-block
+            sections:
+              9ec49d3eaec00d23:
+                id: 9ec49d3eaec00d23
+                name: Card01
+                component: layout-block
+                sections:
+                  b2d300aef9051bd3:
+                    id: b2d300aef9051bd3
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  947fcdb331a9221f:
+                    id: 947fcdb331a9221f
+                    name: Section Layout
+                    component: layout-block
+                    sections:
+                      799e8526bf84ee14:
+                        id: 799e8526bf84ee14
+                        name: Code
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: 2EHGy3vwxlS9JGr2
+                        sectionIds: []
+                    sectionIds:
+                      - 799e8526bf84ee14
+                    config:
+                      gridSettings:
+                        desktop:
+                          799e8526bf84ee14:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      borderRadius: small
+                      border: terminal
+                sectionIds:
+                  - b2d300aef9051bd3
+                  - 947fcdb331a9221f
+                config:
+                  gridSettings:
+                    desktop:
+                      b2d300aef9051bd3:
+                        x: 0
+                        y: 0
+                        w: 5
+                        h: 1
+                      947fcdb331a9221f:
+                        x: 5
+                        y: 0
+                        w: 7
+                        h: 1
+                  paddingX: none
+                  gap: normal
+                  paddingY: none
+                  background: transparent
+                  border: none
+                  borderRadius: none
+                  alignContent: start
+            sectionIds:
+              - 9ec49d3eaec00d23
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: space-between
+          0984e5c142317822:
+            id: 0984e5c142317822
+            name: Cards-4
+            component: layout-block
+            sections:
+              7b2b867e56c18b19:
+                id: 7b2b867e56c18b19
+                name: Card01
+                component: layout-block
+                sections:
+                  b7826fb77f5d24a9:
+                    id: b7826fb77f5d24a9
+                    name: RichText
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: xoHu0J44322kDYc-
+                    sectionIds: []
+                  8151efb9f31936ee:
+                    id: 8151efb9f31936ee
+                    name: Section Layout
+                    component: layout-block
+                    sections:
+                      927d9c4dd479317c:
+                        id: 927d9c4dd479317c
+                        name: Code
+                        component: custom-component
+                        config:
+                          useCache: true
+                          componentId: 2EHGy3vwxlS9JGr2
+                        sectionIds: []
+                    sectionIds:
+                      - 927d9c4dd479317c
+                    config:
+                      gridSettings:
+                        desktop:
+                          927d9c4dd479317c:
+                            x: 0
+                            y: 0
+                            w: 12
+                            h: 1
+                      borderRadius: small
+                      border: terminal
+                sectionIds:
+                  - b7826fb77f5d24a9
+                  - 8151efb9f31936ee
+                config:
+                  gridSettings:
+                    desktop:
+                      b7826fb77f5d24a9:
+                        x: 0
+                        y: 0
+                        w: 5
+                        h: 1
+                      8151efb9f31936ee:
+                        x: 5
+                        y: 0
+                        w: 7
+                        h: 1
+                  paddingX: none
+                  gap: normal
+                  paddingY: none
+                  background: transparent
+                  border: none
+                  borderRadius: none
+                  alignContent: start
+            sectionIds:
+              - 7b2b867e56c18b19
+            config:
+              gridSettings:
+                desktop: {}
+                mobile: {}
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: space-between
+        sectionIds:
+          - 46eb9c923f603d5a
+          - 3284e2966e5282f0
+          - 94189b93ab405202
+          - 0984e5c142317822
+        config:
+          gridSettings:
+            desktop:
+              46eb9c923f603d5a:
                 x: 0
                 y: 0
                 w: 6
                 h: 1
-              2f4eaa4bb8f44700:
+              3284e2966e5282f0:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+              94189b93ab405202:
+                x: 0
+                y: 1
+                w: 6
+                h: 1
+              0984e5c142317822:
+                x: 6
+                y: 1
+                w: 6
+                h: 1
+            mobile:
+              46eb9c923f603d5a:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              3284e2966e5282f0:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
-            mobile:
-              5c61b99269881c93:
-                id: 5c61b99269881c93
-          alignContent: start
-      d61e3f7d0e5a208c:
-        id: d61e3f7d0e5a208c
-        name: Logs
+              94189b93ab405202:
+                x: 0
+                y: 2
+                w: 12
+                h: 1
+              0984e5c142317822:
+                x: 0
+                y: 3
+                w: 12
+                h: 1
+          gap: small
+          paddingX: none
+    sectionIds:
+      - 2aa517f3c1f904cd
+      - fc4a7d260731a131
+    config:
+      gridSettings:
+        desktop:
+          fc4a7d260731a131:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          2aa517f3c1f904cd:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: none
+      paddingX: none
+  2c8e2f4af0037701:
+    id: 2c8e2f4af0037701
+    name: Feature Grid_left
+    component: layout-block
+    sections:
+      9b1acde6ee36eb25:
+        id: 9b1acde6ee36eb25
+        name: Content
         component: layout-block
         sections:
-          a0b836312d0fb927:
-            id: a0b836312d0fb927
-            name: Card01
+          0275800b0891b00e:
+            id: 0275800b0891b00e
+            name: CTA
             component: layout-block
             sections:
-              7fec4103171b93d2:
-                id: 7fec4103171b93d2
+              7d6959c5d0403451:
+                id: 7d6959c5d0403451
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              8692b1a8ab1f0d11:
+                id: 8692b1a8ab1f0d11
+                name: Action
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: a44r0SiGV9AFn2Fj
+                sectionIds: []
+            sectionIds:
+              - 7d6959c5d0403451
+              - 8692b1a8ab1f0d11
+            config:
+              gridSettings:
+                desktop:
+                  7d6959c5d0403451:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                  8692b1a8ab1f0d11:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              paddingY: normal
+              gap: normal
+              maxWidth: full
+              paddingX: none
+          ac07d35c9952af63:
+            id: ac07d35c9952af63
+            name: Image
+            component: layout-block
+            sections:
+              cb2d2b331117760f:
+                id: cb2d2b331117760f
                 name: Media
                 component: custom-component
                 config:
@@ -1017,129 +1540,73 @@ sections:
                   componentId: xoHu0JPjPs122kaaa-
                 sectionIds: []
             sectionIds:
-              - 7fec4103171b93d2
+              - cb2d2b331117760f
             config:
-              background: background.paper
-              paddingX: custom:32px
-              paddingY: custom:32px
-              borderRadius: small
-              gap: normal
-              border: solid
-              alignContent: center
+              borderRadius: medium
               gridSettings:
                 desktop:
-                  7fec4103171b93d2:
+                  cb2d2b331117760f:
                     x: 0
                     y: 0
                     w: 12
                     h: 1
-                mobile:
-                  t7hco63shuiga559:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                    id: t7hco63shuiga559
-                  7fec4103171b93d2:
-                    id: 7fec4103171b93d2
+              background: mediakit://enterpriseFeatures.png
         sectionIds:
-          - a0b836312d0fb927
+          - 0275800b0891b00e
+          - ac07d35c9952af63
         config:
-          gap: small
+          borderRadius: small
           paddingX: none
+          paddingY: normal
+          maxWidth: full
           gridSettings:
             desktop:
-              a0b836312d0fb927:
+              0275800b0891b00e:
                 x: 0
                 y: 0
-                w: 12
+                w: 6
                 h: 1
-            mobile:
-              a0b836312d0fb927:
-                x: 0
-                y: 2
-                w: 12
+              ac07d35c9952af63:
+                x: 6
+                y: 0
+                w: 6
                 h: 1
-                id: a0b836312d0fb927
+          gap: normal
     sectionIds:
-      - b977cd6410271e9c
-      - d61e3f7d0e5a208c
+      - 9b1acde6ee36eb25
     config:
       gridSettings:
         desktop:
-          b977cd6410271e9c:
+          9b1acde6ee36eb25:
             x: 0
             y: 0
             w: 12
             h: 1
-          d61e3f7d0e5a208c:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
       gap: normal
       paddingY: none
+      background: transparent
+      border: none
       paddingX: none
-  45e93fb05e9fd0dc:
-    id: 45e93fb05e9fd0dc
-    name: FAQs_2
-    component: layout-block
-    sections:
-      be2459a9b19a18c1:
-        id: be2459a9b19a18c1
-        name: Title
-        component: custom-component
-        config:
-          useCache: true
-          componentId: xoHu0J44322kDYc-
-        sectionIds: []
-      dbb2035e9969526a:
-        id: dbb2035e9969526a
-        name: FaqComponentV2
-        component: custom-component
-        config:
-          useCache: true
-          componentId: 4MikfrDpecX9hUD6
-        sectionIds: []
-    sectionIds:
-      - be2459a9b19a18c1
-      - dbb2035e9969526a
-    config:
-      gridSettings:
-        desktop:
-          dbb2035e9969526a:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-          be2459a9b19a18c1:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-      paddingX: none
-      gap: normal
-      paddingY: none
-  6edec3e84b5a8e8d:
-    id: 6edec3e84b5a8e8d
+  d4e95c899f937e99:
+    id: d4e95c899f937e99
     name: Full Background Hero
     component: layout-block
     sections:
-      b3de0f85ffafc96e:
-        id: b3de0f85ffafc96e
+      baef28d5114ba5ed:
+        id: baef28d5114ba5ed
         name: CTA
         component: layout-block
         sections:
-          b2fd4755c489229c:
-            id: b2fd4755c489229c
+          f53d255ff05e9101:
+            id: f53d255ff05e9101
             name: Description
             component: custom-component
             config:
               useCache: true
               componentId: xoHu0J44322kDYc-
             sectionIds: []
-          508276fbeb60a116:
-            id: 508276fbeb60a116
+          ce8cfaaf77847233:
+            id: ce8cfaaf77847233
             name: Action
             component: custom-component
             config:
@@ -1147,17 +1614,17 @@ sections:
               componentId: a44r0SiGV9AFn2Fj
             sectionIds: []
         sectionIds:
-          - b2fd4755c489229c
-          - 508276fbeb60a116
+          - f53d255ff05e9101
+          - ce8cfaaf77847233
         config:
           gridSettings:
             desktop:
-              b2fd4755c489229c:
+              f53d255ff05e9101:
                 x: 2
                 y: 0
                 w: 8
                 h: 1
-              508276fbeb60a116:
+              ce8cfaaf77847233:
                 x: 0
                 y: 1
                 w: 12
@@ -1169,11 +1636,11 @@ sections:
           background: background.paper
           borderRadius: small
     sectionIds:
-      - b3de0f85ffafc96e
+      - baef28d5114ba5ed
     config:
       gridSettings:
         desktop:
-          b3de0f85ffafc96e:
+          baef28d5114ba5ed:
             x: 0
             y: 0
             w: 12
@@ -1183,91 +1650,125 @@ sections:
       backgroundFullWidth: false
       paddingX: none
 sectionIds:
-  - c1a363268b47d70a
+  - e1c97b3710d489a2
   - 671827b9508f92f3
-  - 48dcac840131eedd
-  - 94ce47f3e1c3fcde
-  - 45e93fb05e9fd0dc
-  - 6edec3e84b5a8e8d
+  - 05222fc2fbe3d044
+  - 952cc3c8c022f728
+  - 28a129d48529ab26
+  - 2c8e2f4af0037701
+  - d4e95c899f937e99
 dataSource:
-  baa1a11b0afb9cd6:
+  087e8576fefadf0f:
     en:
       properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: AI-Powered Documentation That Actually Understands Your Code
-            style:
-              variant: h1
         9ajrz12ik7esfk1z:
           value:
             list:
-              - id: item-1759364500601-4gbj76l4x
+              - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: Stop writing docs by hand. AIGNE DocSmith analyzes your codebase to
-                  generate comprehensive, multi-language documentation that
-                  always stays in sync. It's magic, for docs.
+                text: Stop writing docs manually. AIGNE DocSmith analyzes your codebase to
+                  generate comprehensive, structured, and multi-language
+                  documentation that always stays in sync. It's magic!
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-    zh:
-      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: AI-Powered Documentation That Truly Understands Your Code
+            style:
+              variant: h1
         v5utpm7bu9yvdpnq:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 真正理解你代码的 AI 驱动文档
-            style:
-              variant: h1
+    zh:
+      properties:
         9ajrz12ik7esfk1z:
           value:
             list:
-              - id: item-1759364500601-4gbj76l4x
+              - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 无需再手动编写文档。AIGNE DocSmith 会分析 你的代码库，生成全面的多语言文档，并始终保持同步。为文档提供强大的自动化支持。
+                text: 告别手动编写文档。AIGNE DocSmith 会分析您的代码库，生成全面、结构化、多语言的文档，并始终保持同步。就像魔法一样！
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  8bf4363f8d1d08a7:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 真正理解您代码的 AI 驱动文档
+            style:
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  5455a7046747c6d7:
     en:
       properties:
-        a7frn5jmx5vpxpt3:
-          value: |-
-            # One command to generate your first docs
-            aigne doc generate
-        qvxiyadgn5bj6oq8:
-          value: false
-        c4kvf6b7zyskk8m:
-          value: false
-        b2jrz12ik7esf93z:
-          value: bash
-        7mp2u9tibl03thp6:
-          value: shell
-        d8hvf7cxz93jk5p:
-          value: 1rem
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Get Started Now
+              url: "#quick-start"
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: View on GitHub
+              variant: outlined
+              borderColor: primary.main
+              size: large
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
     zh:
       properties:
-        a7frn5jmx5vpxpt3:
-          value: |-
-            # One command to generate your first docs
-            aigne doc generate
-        qvxiyadgn5bj6oq8:
-          value: false
-        c4kvf6b7zyskk8m:
-          value: false
-        b2jrz12ik7esf93z:
-          value: bash
-        7mp2u9tibl03thp6:
-          value: shell
-        d8hvf7cxz93jk5p:
-          value: 1rem
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 立即开始
+              url: "#quick-start"
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: 在 GitHub 上查看
+              variant: outlined
+              borderColor: primary.main
+              size: large
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+  f98b98ffd13b8a1d:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: ""
+            mediaKitUrl: ""
+            width: 2445
+            height: 1394
+    zh:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: ""
+            mediaKitUrl: ""
+            width: 2445
+            height: 1394
   d79cdf28faac3108:
     en:
       properties:
@@ -1277,7 +1778,7 @@ dataSource:
           value: center
         gs1rn5jmxfvpxptx:
           value:
-            text: Why You'll Instantly Love DocSmith
+            text: Why You'll Love DocSmith
             style:
               variant: h2
     zh:
@@ -1288,7 +1789,7 @@ dataSource:
           value: center
         gs1rn5jmxfvpxptx:
           value:
-            text: 为什么 DocSmith 值得立即采用
+            text: 爱上 DocSmith 的理由
             style:
               variant: h2
   8a0319c7be20285c:
@@ -1308,8 +1809,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Our AI doesn't just read your code—it understands the structure, patterns,
-                  and intent to create truly insightful documentation.
+                text: Our AI doesn't just read your code—it understands its structure, patterns,
+                  and intent to create docs that make perfect sense.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1330,7 +1831,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 我们的 AI 不仅能读取你的代码，还能理解代码的 结构、模式与意图，从而生成真正有洞见的 文档。
+                text: 我们的 AI 不仅仅是阅读您的代码——它能理解其结构、模式和意图，从而创建出完全合理的文档。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1339,7 +1840,7 @@ dataSource:
     en:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:head-cog-outline
+          value: mdi:brain-outline
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
@@ -1347,7 +1848,7 @@ dataSource:
     zh:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:head-cog-outline
+          value: mdi:brain-outline
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
@@ -1369,8 +1870,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: From API references to complete user guides, get all the documentation you
-                  need in one go. No more gaps or incomplete sections!
+                text: From API references to full user guides, get everything you need. Your
+                  entire project, documented in one go!
                 style:
                   color: ""
                   fontSize: 16px
@@ -1391,7 +1892,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 从 API 参考到完整的用户指南，一次性获得你所需的 全部文档。不再有缺失或不完整的 章节。
+                text: 从 API 参考到完整的用户指南，您需要的一切应有尽有。一次性为您的整个项目生成文档！
                 style:
                   color: ""
                   fontSize: 16px
@@ -1430,8 +1931,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Reach a worldwide audience! Get professional, context-aware translations
-                  in 12 languages, ensuring technical accuracy everywhere.
+                text: Go global instantly! With support for 12 languages and professional,
+                  context-aware translation, you can reach a worldwide audience.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1444,7 +1945,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: 全球就绪
+            text: 全球化就绪
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1452,7 +1953,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 面向全球受众。提供 12 种语言的专业、具备上下文感知的 翻译，确保各地的技术准确性。
+                text: 即刻走向全球！支持 12 种语言和专业的、感知上下文的翻译，助您触达全球用户。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1491,8 +1992,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Forget manual updates. DocSmith automatically detects code changes and
-                  regenerates relevant documentation, so it's never out of sync.
+                text: Forget stale docs. DocSmith detects your code changes and automatically
+                  updates your documentation, so it's always accurate.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1513,7 +2014,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 无需手动更新。DocSmith 会自动检测代码 变更并重新生成相关文档，始终保持 同步。
+                text: 告别过时的文档。DocSmith 会检测您的代码变更并自动更新文档，确保内容始终准确。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1522,7 +2023,7 @@ dataSource:
     en:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:update
+          value: mdi:sync-circle
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
@@ -1530,7 +2031,7 @@ dataSource:
     zh:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:update
+          value: mdi:sync-circle
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
@@ -1552,8 +2053,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Get started in seconds. DocSmith works out of the box with smart defaults
-                  and auto-detection for your project's tech stack.
+                text: Works right out of the box with smart defaults and auto-detection. You can
+                  literally generate your first set of docs in minutes!
                 style:
                   color: ""
                   fontSize: 16px
@@ -1574,7 +2075,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 几秒即可上手。DocSmith 开箱即用，提供智能默认设置， 并自动检测你项目的技术栈。
+                text: 开箱即用，具备智能默认设置和自动检测功能。您可以在几分钟内生成第一套文档！
                 style:
                   color: ""
                   fontSize: 16px
@@ -1613,8 +2114,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Connect your favorite LLMs or use the AIGNE Hub. Publish with one click to
-                  share with your team instantly.
+                text: Connect with AIGNE Hub, bring your own LLM keys, and publish with one
+                  click. It fits right into your workflow.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1635,7 +2136,7 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: 连接你常用的 LLM，或使用 AIGNE Hub。一键发布， 立即与团队共享。
+                text: 连接 AIGNE Hub，使用您自己的 LLM 密钥，一键发布。完美融入您的工作流。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1644,7 +2145,7 @@ dataSource:
     en:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:link-variant
+          value: mdi:puzzle-outline
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
@@ -1652,12 +2153,95 @@ dataSource:
     zh:
       properties:
         5ek4m0kw9cu0ndns:
-          value: mdi:link-variant
+          value: mdi:puzzle-outline
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
           value: 40px
-  9f894c3242413070:
+  b1bdf30373fd4a04:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Get Started in Minutes
+            style:
+              variant: h1
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759364500601-4gbj76l4x
+                type: text
+                text: Ready to see the magic? Just install the CLI and run one command in your
+                  project directory. That's it! DocSmith handles the rest.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 几分钟内快速上手
+            style:
+              variant: h1
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759364500601-4gbj76l4x
+                type: text
+                text: 准备好见证魔法了吗？只需安装 CLI 并在您的项目目录中运行一个命令。就是这么简单！剩下的交给 DocSmith。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+  193aa65e2436beb1:
+    en:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # Install the AIGNE CLI globally
+            npm install -g @aigne/cli
+
+            # Navigate to your project and generate docs
+            aigne doc generate
+        qvxiyadgn5bj6oq8:
+          value: false
+        c4kvf6b7zyskk8m:
+          value: false
+        b2jrz12ik7esf93z:
+          value: Terminal
+        7mp2u9tibl03thp6:
+          value: shell
+        d8hvf7cxz93jk5p:
+          value: 1rem
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: |-
+            # 全局安装 AIGNE CLI
+            npm install -g @aigne/cli
+
+            # 进入您的项目并生成文档
+            aigne doc generate
+        qvxiyadgn5bj6oq8:
+          value: false
+        c4kvf6b7zyskk8m:
+          value: false
+        b2jrz12ik7esf93z:
+          value: 终端
+        7mp2u9tibl03thp6:
+          value: shell
+        d8hvf7cxz93jk5p:
+          value: 1rem
+  c4c9a562bb4ff9d1:
     en:
       properties:
         9ajrz12ik7esfk1z:
@@ -1665,18 +2249,18 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: DocSmith isn't just a standalone tool; it's seamlessly integrated into the
-                  AIGNE platform. This allows it to leverage powerful, shared AI
-                  capabilities and infrastructure, giving you access to multiple
-                  LLMs like Gemini, GPT, and Claude without needing your own API
-                  keys.
+                text: DocSmith isn't just one AI—it's a coordinated team of specialized agents!
+                  Built on the AIGNE Framework, our multi-agent pipeline
+                  analyzes, plans, and generates content in stages, ensuring
+                  high-quality, structured documentation every time. It's like
+                  having a dedicated writing team at your command.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: A Core Part of the AIGNE Ecosystem
+            text: "How It Works: A Symphony of AI Agents"
             style:
               variant: h1
         v5utpm7bu9yvdpnq:
@@ -1690,30 +2274,377 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: DocSmith 不只是独立工具；它与 AIGNE 平台无缝 集成。因此，它能够利用强大的共享 AI 能力和 基础设施，让你无需自备 API
-                  密钥即可使用 Gemini、GPT、Claude 等多种 LLM。
+                text: DocSmith 不只是一个 AI——它是一个由专业智能体组成的协作团队！基于 AIGNE
+                  框架构建，我们的多智能体流水线分阶段进行分析、规划和内容生成，确保每次都能产出高质量、结构化的文档。就像您拥有一个专属的写作团队。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: AIGNE 生态的核心组成部分
+            text: 工作原理：AI 智能体的交响乐
             style:
               variant: h1
         v5utpm7bu9yvdpnq:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
-  5efc87bc23fef37a:
+  d19e9caada31f14b:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: ""
+            mediaKitUrl: ""
+            width: 2445
+            height: 1394
+    zh:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: ""
+            mediaKitUrl: ""
+            width: 2445
+            height: 1394
+  432afb3c6ad3bc2e:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Master the Command Line
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 掌握命令行
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  57b92d69c917ed58:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Generate Documentation
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: The main event! Run this to kick off the entire process, from code
+                  analysis to content creation.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 生成文档
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 核心功能！运行此命令以启动从代码分析到内容创建的整个过程。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  f5b6af706f4f5252:
+    en:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: aigne doc generate
+        b2jrz12ik7esf93z:
+          value: CLI
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: aigne doc generate
+        b2jrz12ik7esf93z:
+          value: CLI
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+  fbe359fcde7f233f:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Update Specific Docs
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: Need to tweak something? This command lets you regenerate specific
+                  documents with new feedback.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 更新指定文档
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 需要调整某些内容？此命令允许您根据新的反馈重新生成特定文档。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  d02f83b3232f842d:
+    en:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: aigne doc update
+        b2jrz12ik7esf93z:
+          value: CLI
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: aigne doc update
+        b2jrz12ik7esf93z:
+          value: CLI
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+  b2d300aef9051bd3:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Translate to New Languages
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: Expand your reach. Easily translate your generated docs into any of the 12
+                  supported languages.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 翻译成新语言
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 扩大您的影响力。轻松将您生成的文档翻译成 12 种支持的语言中的任意一种。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  799e8526bf84ee14:
+    en:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: aigne doc translate
+        b2jrz12ik7esf93z:
+          value: CLI
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: aigne doc translate
+        b2jrz12ik7esf93z:
+          value: CLI
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+  b7826fb77f5d24a9:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Publish & Share
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: Ready to go live? Publish your docs with a single command and get a
+                  shareable link instantly.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 发布与分享
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 准备好上线了吗？使用一个命令发布您的文档，并立即获得一个可分享的链接。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  927d9c4dd479317c:
+    en:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: aigne doc publish
+        b2jrz12ik7esf93z:
+          value: CLI
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: aigne doc publish
+        b2jrz12ik7esf93z:
+          value: CLI
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: true
+  7d6959c5d0403451:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: Take your documentation to the next level with features designed for
+                  professional teams. Get team collaboration, custom branding,
+                  API integration, and priority support. Deploy on your own
+                  infrastructure for maximum security and control.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Built for Teams & Enterprise
+            style:
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: 通过专为专业团队设计的功能，将您的文档提升到新水平。获得团队协作、自定义品牌、API
+                  集成和优先支持。可部署在您自己的基础设施上，以实现最大程度的安全和控制。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 专为团队和企业打造
+            style:
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  8692b1a8ab1f0d11:
     en:
       properties:
         b8x4m3n9kp7qtw5r:
           value:
             - id: btn-default-1
               type: link
-              text: See How It Works
-              url: link:///documentation/how-it-works
+              text: Contact Sales
+              url: https://www.aigne.io/contact
               variant: contained
               size: large
               target: _self
@@ -1736,8 +2667,8 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: 查看工作原理
-              url: link:///documentation/how-it-works
+              text: 联系销售
+              url: https://www.aigne.io/contact
               variant: contained
               size: large
               target: _self
@@ -1754,7 +2685,7 @@ dataSource:
           value: flex-start
         v9979xeclpsbvn0n:
           value: flex-start
-  2e2af3d4affd846d:
+  cb2d2b331117760f:
     en:
       properties:
         7m5pz8nefl5j9hqq:
@@ -1771,199 +2702,7 @@ dataSource:
             mediaKitUrl: ""
             width: 2445
             height: 1394
-  5c61b99269881c93:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Curious How the Magic Happens?
-            style:
-              variant: h2
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759204484222-0kvkmgmke
-                type: text
-                text: Dive deep into the architecture of AIGNE DocSmith. Discover the
-                  multi-agent system that intelligently analyzes your code and
-                  see the entire generation pipeline in action. It's the tech
-                  behind the magic!
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 想知道这一切如何实现？
-            style:
-              variant: h2
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759204484222-0kvkmgmke
-                type: text
-                text: 深入了解 AIGNE DocSmith 的架构。 探索智能分析你代码的多代理系统，并查看 完整的生成流水线如何运作。这就是其 背后的技术基础。
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-  2f4eaa4bb8f44700:
-    en:
-      properties:
-        b8x4m3n9kp7qtw5r:
-          value:
-            - id: btn-default-1
-              type: link
-              text: Explore How It Works
-              url: link:///how-it-works
-              variant: text
-              size: medium
-              target: _self
-              needLogin: false
-              endIcon: ""
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        v9979xeclpsbvn0n:
-          value: flex-start
-    zh:
-      properties:
-        b8x4m3n9kp7qtw5r:
-          value:
-            - id: btn-default-1
-              type: link
-              text: 深入了解工作原理
-              url: link:///how-it-works
-              variant: text
-              size: medium
-              target: _self
-              needLogin: false
-              endIcon: ""
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        v9979xeclpsbvn0n:
-          value: flex-start
-  7fec4103171b93d2:
-    en:
-      properties:
-        7m5pz8nefl5j9hqq:
-          value:
-            url: https://placehold.co/1440x520?text=DocSmith+Architecture
-            mediaKitUrl: https://placehold.co/1440x520?text=DocSmith+Architecture
-            width: 3024
-            height: 1034
-    zh:
-      properties:
-        7m5pz8nefl5j9hqq:
-          value:
-            url: https://placehold.co/1440x520?text=DocSmith+Architecture
-            mediaKitUrl: https://placehold.co/1440x520?text=DocSmith+Architecture
-            width: 3024
-            height: 1034
-  be2459a9b19a18c1:
-    en:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Have Questions? We Have Answers!
-            style:
-              variant: h2
-        v5utpm7bu9yvdpnq:
-          value: center
-        kyg0hdy5uqq4gc1o:
-          value: center
-        9ajrz12ik7esfk1z:
-          value:
-            list: []
-    zh:
-      properties:
-        gs1rn5jmxfvpxptx:
-          value:
-            text: 有问题？我们有答案。
-            style:
-              variant: h2
-        v5utpm7bu9yvdpnq:
-          value: center
-        kyg0hdy5uqq4gc1o:
-          value: center
-        9ajrz12ik7esfk1z:
-          value:
-            list: []
-  dbb2035e9969526a:
-    en:
-      properties:
-        4221qi1bxy322mf4:
-          value:
-            - title: What is AIGNE DocSmith in a nutshell?
-              answer: It's a smart, AI-driven tool that automatically generates high-quality,
-                structured, and multi-language documentation by analyzing your
-                codebase. Think of it as an expert technical writer, but way
-                faster!
-            - title: Do I need my own API keys to get started?
-              answer: Nope! DocSmith uses the AIGNE Hub by default, so you can start
-                generating docs immediately without any API keys. You can also
-                connect your own keys for providers like OpenAI, Google, and
-                Anthropic if you prefer.
-            - title: How does it keep documentation up-to-date?
-              answer: DocSmith intelligently detects changes in your code. When you run the
-                update command, it identifies what's new or modified and
-                automatically regenerates only the affected sections, ensuring
-                your docs are always in sync.
-            - title: What kind of projects does it support?
-              answer: It's designed to be versatile! DocSmith auto-detects your project's
-                structure and tech stack. It works great for APIs, libraries,
-                web apps, and more, with customizable styles for different
-                audiences.
-            - title: How easy is it to publish my documentation?
-              answer: It's a breeze! A single 'aigne doc publish' command lets you make your
-                docs live. You can publish to the public DocSmith platform or
-                your own private instance for your team.
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-    zh:
-      properties:
-        4221qi1bxy322mf4:
-          value:
-            - title: AIGNE DocSmith 简而言之是什么？
-              answer: 这是一款智能的、由 AI 驱动的工具，通过分析你的代码库 自动生成高质量、结构化的多语言文档。把它看作 一位资深技术写作者，但速度要快得 多。
-            - title: 开始使用需要自备 API 密钥吗？
-              answer: 不需要。DocSmith 默认使用 AIGNE Hub，因此你无需任何 API 密钥即可立刻开始生成文档。若你愿意，也可以 连接你自己的
-                OpenAI、Google、Anthropic 等提供商的密钥。
-            - title: 它如何保持文档始终最新？
-              answer: DocSmith 会智能检测你代码中的更改。当你运行 更新命令时，它会识别新增或修改的内容，并 仅自动重新生成受影响的部分，确保文档始终同步。
-            - title: 它支持哪些类型的项目？
-              answer: 它被设计为通用型。DocSmith 会自动检测你项目的 结构和技术栈，适用于 API、库、Web 应用等，且 可为不同受众自定义风格。
-            - title: 发布文档有多容易？
-              answer: 非常简单。只需一条 'aigne doc publish' 命令就能让 文档上线。你可以发布到公共的 DocSmith 平台，或
-                发布到你团队的私有实例。
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-  b2fd4755c489229c:
+  f53d255ff05e9101:
     en:
       properties:
         9ajrz12ik7esfk1z:
@@ -1971,16 +2710,16 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: Stop wasting time on manual documentation. Let AI do the heavy lifting so
-                  you can get back to building amazing things. Try AIGNE
-                  DocSmith now and see the magic for yourself.
+                text: Have questions, ideas, or just want to say hi? Connect with us and other
+                  developers. Get the latest updates, share your projects, and
+                  get support from the community.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: Ready to Revolutionize Your Documentation?
+            text: Join Our Growing Community!
             style:
               color: ""
               variant: h1
@@ -1995,14 +2734,14 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: 别再把时间浪费在手工编写文档上。让 AI 处理繁重 工作，你可以专注于构建产品。立即试用 AIGNE DocSmith， 亲自体验其效果。
+                text: 有任何问题、想法，或者只是想打个招呼？快来与我们以及其他开发者建立联系。获取最新动态，分享您的项目，并从社区获得支持。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: 准备好革新你的文档了吗？
+            text: 加入我们不断壮大的社区！
             style:
               color: ""
               variant: h1
@@ -2010,25 +2749,25 @@ dataSource:
           value: center
         kyg0hdy5uqq4gc1o:
           value: center
-  508276fbeb60a116:
+  ce8cfaaf77847233:
     en:
       properties:
         b8x4m3n9kp7qtw5r:
           value:
             - id: btn-default-1
               type: link
-              text: Get Started for Free
-              url: link:///getting-started
+              text: Follow on Twitter
+              url: https://twitter.com/arcblock_io
               variant: contained
               size: large
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: View on GitHub
+              text: Join the Discussion
               variant: outlined
               borderColor: common.white
               size: large
-              url: https://github.com/AIGNE-io/aigne-doc-smith
+              url: https://community.arcblock.io/discussions/boards/aigne
         r8t5y6u7i1o2p3a4:
           value: 16
         v5utpm7bu9yvdpnq:
@@ -2039,18 +2778,18 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: 免费开始使用
-              url: link:///getting-started
+              text: 在 Twitter 上关注
+              url: https://twitter.com/arcblock_io
               variant: contained
               size: large
               target: _self
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: 在 GitHub 上查看
+              text: 加入讨论
               variant: outlined
               borderColor: common.white
               size: large
-              url: https://github.com/AIGNE-io/aigne-doc-smith
+              url: https://community.arcblock.io/discussions/boards/aigne
         r8t5y6u7i1o2p3a4:
           value: 16
         v5utpm7bu9yvdpnq:

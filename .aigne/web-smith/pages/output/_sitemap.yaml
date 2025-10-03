@@ -1,10 +1,3 @@
 sitemap:
-  - title: Home
+  - title: AIGNE DocSmith - AI-Powered Documentation Generation
     path: /home
-    children:
-      - title: About Blocklet
-        path: /home/about
-  - title: Getting Started
-    path: /getting-started
-  - title: How It Works
-    path: /how-it-works
