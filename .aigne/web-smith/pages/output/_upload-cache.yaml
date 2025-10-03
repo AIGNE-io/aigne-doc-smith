@@ -1,18 +1,12 @@
-c1c303554559664f20d51833dbc77fabdd60c5360ca538edc3da8e9199f4297f:
-  local_path: .aigne/web-smith/assets/enterpriseFeatures.png
+9a0c7030c78ebf991ba47995c23bead9e2af37821027bb7dcdf44bfb60e4ee7e:
+  local_path: .aigne/web-smith/assets/howItWorksPipelineDiagram.png
   sites:
     https://bbqa6fhpf6d34dhv6aadz5fqwz7bs6t6kkvv3lhmok4.did.abtnet.io:
-      url: https://bbqa6fhpf6d34dhv6aadz5fqwz7bs6t6kkvv3lhmok4.did.abtnet.io/image-bin/uploads/c1c303554559664f.png
-      upload_time: 2025-10-03T01:01:50.277Z
-4775453ba3792416281e824e6fca282e3ec0d990478ab6e01825387c3815c4c7:
-  local_path: .aigne/web-smith/assets/howItWorksPipeline.png
+      url: https://bbqa6fhpf6d34dhv6aadz5fqwz7bs6t6kkvv3lhmok4.did.abtnet.io/image-bin/uploads/9a0c7030c78ebf99.png
+      upload_time: 2025-10-03T01:46:52.481Z
+8f893c3c9bb6dbce38663745443d024a32d99eaa1299f72c17261f2d7174adc2:
+  local_path: .aigne/web-smith/assets/heroDocsmithAiVisualization.png
   sites:
     https://bbqa6fhpf6d34dhv6aadz5fqwz7bs6t6kkvv3lhmok4.did.abtnet.io:
-      url: https://bbqa6fhpf6d34dhv6aadz5fqwz7bs6t6kkvv3lhmok4.did.abtnet.io/image-bin/uploads/4775453ba3792416.png
-      upload_time: 2025-10-03T01:01:50.294Z
-519da54c576bb5acf26cefa680e86ebdb1593f4e57ed0ad3953fd962ab5c32af:
-  local_path: .aigne/web-smith/assets/heroAigneDocsmith.png
-  sites:
-    https://bbqa6fhpf6d34dhv6aadz5fqwz7bs6t6kkvv3lhmok4.did.abtnet.io:
-      url: https://bbqa6fhpf6d34dhv6aadz5fqwz7bs6t6kkvv3lhmok4.did.abtnet.io/image-bin/uploads/519da54c576bb5ac.png
-      upload_time: 2025-10-03T01:01:50.297Z
+      url: https://bbqa6fhpf6d34dhv6aadz5fqwz7bs6t6kkvv3lhmok4.did.abtnet.io/image-bin/uploads/8f893c3c9bb6dbce.png
+      upload_time: 2025-10-03T01:46:52.490Z
