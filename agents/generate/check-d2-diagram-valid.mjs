@@ -24,3 +24,17 @@ checkD2DiagramIsValid.input_schema = {
   },
   required: ["d2DiagramSourceCode"],
 };
+checkD2DiagramIsValid.output_schema = {
+  type: "object",
+  properties: {
+    isValid: {
+      type: "boolean",
+      description: "Indicates whether the provided d2 diagram source passes validation",
+    },
+    error: {
+      type: "string",
+      description: "Validation error details when the diagram does not pass",
+    },
+  },
+  required: ["isValid"],
+};

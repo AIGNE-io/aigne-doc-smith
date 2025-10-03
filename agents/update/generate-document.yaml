@@ -55,7 +55,8 @@ skills:
       reviewer: ../generate/check-d2-diagram-valid.mjs
       is_approved: isValid
       max_iterations: 5
-      return_last_on_max_iterations: true
+      return_last_on_max_iterations: false
+      custom_error_message: "Don't generate D2 diagram due to failed valid on max iterations."
     input_schema:
       type: object
       properties:
