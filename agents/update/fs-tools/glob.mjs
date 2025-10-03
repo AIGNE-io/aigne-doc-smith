@@ -62,9 +62,9 @@ function shouldIgnoreFile(filePath) {
     } else {
       // Directory or file name matching
       return (
-        normalizedPath.includes("/" + pattern + "/") ||
-        normalizedPath.endsWith("/" + pattern) ||
-        normalizedPath.startsWith(pattern + "/") ||
+        normalizedPath.includes(`/${pattern}/`) ||
+        normalizedPath.endsWith(`/${pattern}`) ||
+        normalizedPath.startsWith(`${pattern}/`) ||
         normalizedPath === pattern
       );
     }

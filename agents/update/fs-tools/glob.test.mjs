@@ -361,7 +361,7 @@ describe("glob tool", () => {
     });
 
     it("should handle very long file names", async () => {
-      const longName = "a".repeat(100) + ".js";
+      const longName = `${"a".repeat(100)}.js`;
       await fs.writeFile(longName, "test");
 
       const result = await glob({

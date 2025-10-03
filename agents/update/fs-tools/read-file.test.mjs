@@ -461,7 +461,7 @@ describe("read-file tool", () => {
     });
 
     it("should handle very long file names", async () => {
-      const longName = "a".repeat(100) + ".txt";
+      const longName = `${"a".repeat(100)}.txt`;
       const filePath = path.join(tempDir, longName);
       await fs.writeFile(filePath, "content", "utf8");
 

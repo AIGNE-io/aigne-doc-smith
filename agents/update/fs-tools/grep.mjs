@@ -60,7 +60,7 @@ function parseGrepOutput(output, basePath) {
     const lineContent = line.substring(secondColonIndex + 1);
 
     const lineNumber = parseInt(lineNumberStr, 10);
-    if (!isNaN(lineNumber)) {
+    if (!Number.isNaN(lineNumber)) {
       const relativePath = path.relative(basePath, path.resolve(basePath, filePathRaw));
       results.push({
         filePath: relativePath || path.basename(filePathRaw),
@@ -98,8 +98,12 @@ async function performGrepSearch({ pattern, include }) {
         let stdout = "";
         let stderr = "";
 
-        child.stdout.on("data", (chunk) => (stdout += chunk));
-        child.stderr.on("data", (chunk) => (stderr += chunk));
+        child.stdout.on("data", (chunk) => {
+          stdout += chunk;
+        });
+        child.stderr.on("data", (chunk) => {
+          stderr += chunk;
+        });
         child.on("error", (err) => reject(new Error(`Failed to start git grep: ${err.message}`)));
         child.on("close", (code) => {
           if (code === 0) resolve(stdout);
@@ -142,7 +146,9 @@ async function performGrepSearch({ pattern, include }) {
         let stdout = "";
         let stderr = "";
 
-        child.stdout.on("data", (chunk) => (stdout += chunk));
+        child.stdout.on("data", (chunk) => {
+          stdout += chunk;
+        });
         child.stderr.on("data", (chunk) => {
           const stderrStr = chunk.toString();
           // Suppress common harmless stderr messages
@@ -194,8 +200,7 @@ async function performGrepSearch({ pattern, include }) {
         } else if (entry.isFile()) {
           // Apply include filter if specified
           if (include) {
-            const includePattern =
-              "^" + include.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/\?/g, ".") + "$";
+            const includePattern = `^${include.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/\?/g, ".")}$`;
             if (!new RegExp(includePattern).test(entry.name)) {
               continue;
             }
@@ -214,7 +219,7 @@ async function performGrepSearch({ pattern, include }) {
                 });
               }
             });
-          } catch (readError) {
+          } catch (_readError) {
             // Ignore read errors (binary files, permissions, etc.)
           }
         }

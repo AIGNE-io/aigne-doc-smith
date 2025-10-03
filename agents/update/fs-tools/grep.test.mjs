@@ -158,7 +158,7 @@ describe("grep tool", () => {
       const lines = result.result.split("\n");
       const lineNumbers = lines
         .filter((line) => line.startsWith("L"))
-        .map((line) => parseInt(line.match(/L(\d+):/)[1]));
+        .map((line) => parseInt(line.match(/L(\d+):/)[1], 10));
 
       // Should be in ascending order
       assert.deepStrictEqual(lineNumbers, [1, 3, 4]);
