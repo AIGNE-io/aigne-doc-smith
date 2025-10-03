@@ -1,42 +1,46 @@
 # Language Support
 
-AIGNE DocSmith uses AI to provide automated documentation translation into 12 languages. Generate and maintain documentation for a global audience using the `aigne doc translate` command.
+AIGNE DocSmith uses AI to provide automated documentation translation into 12 languages. This feature enables you to generate and maintain documentation for a global audience using the `aigne doc translate` command.
 
 The translation workflow processes your source documents through an AI engine to generate localized versions in your selected target languages.
 
 ```d2
 direction: down
 
-Source-Doc: {
-  label: "Source Document\n(e.g., English)"
+Developer: {
+  shape: c4-person
+}
+
+Source-Documents: {
+  label: "Source Documents\n(Primary Language)"
+  shape: rectangle
+}
+
+AIGNE-CLI: {
+  label: "`aigne doc translate`"
   shape: rectangle
 }
 
 AI-Engine: {
-  label: "AIGNE DocSmith\nAI Translation Engine"
+  label: "AI Translation Engine"
+  icon: "https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9dd30aec44fc.png"
+}
+
+Translated-Documents: {
+  label: "Translated Documents\n(Target Languages)"
   shape: rectangle
 }
 
-Translated-Docs: {
-  label: "Translated Documents"
-  shape: rectangle
-  grid-columns: 3
-
-  zh: "简体中文"
-  ja: "日本語"
-  es: "Español"
-  fr: "Français"
-  de: "Deutsch"
-  more: "..."
-}
-
-Source-Doc -> AI-Engine: "`aigne doc translate`"
-AI-Engine -> Translated-Docs: "Generates"
+Developer -> AIGNE-CLI: "1. Runs command"
+AIGNE-CLI -> Source-Documents: "2. Reads content"
+AIGNE-CLI -> AI-Engine: "3. Sends for translation"
+AI-Engine -> AIGNE-CLI: "4. Returns translations"
+AIGNE-CLI -> Translated-Documents: "5. Writes localized files"
 ```
 
 ## Supported Languages
 
-DocSmith offers AI-powered translations for the following languages. You can define your project's primary language during the initial setup and select any number of target languages for translation.
+DocSmith offers AI-powered translations for the following languages. You can define your project's primary language during the initial setup with `aigne doc init` and select any number of target languages for translation.
 
 | Language | Language Code | Sample Text |
 |---|---|---|
@@ -55,7 +59,7 @@ DocSmith offers AI-powered translations for the following languages. You can def
 
 ## How to Configure and Use Translation
 
-Translation languages are set when you initialize your project with `aigne doc init`. You can add new languages or translate documents at any time using the `aigne doc translate` command, which has two modes of operation.
+Translation languages are configured when you initialize your project. You can add new languages or translate documents at any time using the `aigne doc translate` command, which supports two modes of operation.
 
 ### Interactive Mode for Guided Translation
 
@@ -65,7 +69,7 @@ For a step-by-step guided experience, run the command without any arguments. Thi
 aigne doc translate
 ```
 
-The interactive mode will then present a series of prompts that allow you to:
+The interactive mode will present a series of prompts that allow you to:
 
 1.  Select which of your existing documents to translate from a list.
 2.  Choose one or more target languages from the supported list.
@@ -73,14 +77,14 @@ The interactive mode will then present a series of prompts that allow you to:
 
 ### Command-Line Arguments for Automation
 
-For direct control or for use in automated scripts, you can specify documents and languages directly as command-line arguments. This is ideal for developers and CI/CD pipelines.
+For direct control or for use in automated scripts, you can specify documents and languages as command-line arguments. This method is ideal for developers and for integration into CI/CD pipelines.
 
 ```bash Command Example icon=lucide:terminal
 # Translate overview.md and examples.md into Chinese and Japanese
 aigne doc translate --langs zh --langs ja --docs overview.md --docs examples.md
 ```
 
-Key parameters for the command include:
+Key parameters for the `translate` command include:
 
 | Parameter | Description |
 |---|---|

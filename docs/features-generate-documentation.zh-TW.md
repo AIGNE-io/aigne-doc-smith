@@ -1,10 +1,10 @@
 # 產生文件
 
-`aigne doc generate` 指令是從您的原始碼建立一套完整文件的主要功能。此指令會啟動一個流程，分析您的程式碼庫、規劃一個合乎邏輯的文件結構，然後為每個部分產生內容。這是從初始狀態建立文件的標準方法。
+`aigne doc generate` 指令是從您的原始程式碼建立完整文件集的主要功能。此指令會啟動一個流程，分析您的程式碼庫、規劃一個邏輯性的文件結構，然後為每個部分產生內容。這是從初始狀態建立文件的標準方法。
 
 ## 首次產生
 
-首先，請導覽至您專案的根目錄並執行以下指令：
+要開始，請導覽至您專案的根目錄並執行以下指令：
 
 ```bash aigne doc generate icon=lucide:play-circle
 aigne doc generate
@@ -12,18 +12,18 @@ aigne doc generate
 
 ### 自動設定
 
-如果您是首次在專案中執行此指令，DocSmith 會偵測到沒有任何設定存在。接著，它會自動啟動一個互動式設定精靈，引導您完成所需的設定步驟。此流程確保在產生開始前，已有一份有效的設定。
+如果您是第一次在專案中執行此指令，DocSmith 將偵測到沒有設定存在。接著它會自動啟動一個互動式設定精靈，引導您完成所需的設定步驟。此流程確保在開始產生之前，有一個有效的設定存在。
 
 ![首次執行 generate 指令會觸發設定精靈](https://docsmith.aigne.io/image-bin/uploads/0c45a32667c5250e54194a61d9495965.png)
 
-系統將提示您回答一系列問題，以定義您文件的關鍵面向，包括：
+系統將提示您回答一系列問題，以定義文件的關鍵面向，包括：
 
 - 文件產生規則與風格
 - 目標受眾
 - 主要語言及任何額外的翻譯語言
-- 原始碼輸入與文件輸出路徑
+- 原始程式碼輸入與文件輸出路徑
 
-![回答問題以設定您的文件風格、語言及原始碼路徑](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
+![回答問題以設定您的文件風格、語言和來源路徑](https://docsmith.aigne.io/image-bin/uploads/fbedbfa256036ad6375a6c18047a75ad.png)
 
 設定完成後，DocSmith 會繼續進行文件產生。
 
@@ -49,7 +49,7 @@ AIGNE-CLI: {
 }
 
 Config-Check: {
-  label: "設定檔\n是否存在？"
+  label: "設定\n存在嗎？"
   shape: diamond
 }
 
@@ -67,7 +67,7 @@ Generation-Process: {
 }
 
 Source-Code: {
-  label: "原始碼"
+  label: "原始程式碼"
   shape: cylinder
 }
 
@@ -82,7 +82,7 @@ Output-Directory: {
 }
 
 User -> AIGNE-CLI: "1. aigne doc generate"
-AIGNE-CLI -> Config-Check: "2. 檢查設定檔"
+AIGNE-CLI -> Config-Check: "2. 檢查設定"
 
 Config-Check -> Setup-Wizard: "3a. 否"
 Setup-Wizard -> User: "提示輸入"
@@ -98,23 +98,23 @@ Generation-Process.Analyze -> Generation-Process.Plan
 Generation-Process.Plan -> Generation-Process.Generate
 Generation-Process.Generate -> Output-Directory: "5. 寫入文件"
 
-Output-Directory -> User: "6. 檢閱文件"
+Output-Directory -> User: "6. 檢視文件"
 ```
 
 ## 指令選項
 
-預設的 `generate` 指令足以應對大多數使用情境。然而，有幾個選項可用於修改其行為，這在強制進行完整重新產生或改善文件結構時非常有用。
+預設的 `generate` 指令足以應對大多數使用情境。然而，有幾個選項可用於修改其行為，這對於強制完整重新產生或完善文件結構非常有用。
 
-| 選項              | 說明                                                                                                                             | 範例                                                                 |
-|---------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
-| `--forceRegenerate` | 刪除所有現有文件並從頭開始重新產生。在對原始碼或設定進行重大變更後使用此選項。                                                       | `aigne doc generate --forceRegenerate`                                 |
-| `--feedback`        | 提供高階回饋以改善整體文件結構，例如新增、移除或重組章節。                                                                 | `aigne doc generate --feedback "Add an API Reference section"`         |
-| `--model`           | 指定使用 AIGNE Hub 中的特定大型語言模型來產生內容。這讓您可以在不同模型之間切換。                                                | `aigne doc generate --model anthropic:claude-3-5-sonnet`                |
+| 選項              | 說明                                                                                                                               | 範例                                                     |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------- |
+| `--forceRegenerate` | 刪除所有現有文件並從頭開始重新產生。在對原始程式碼或設定進行重大變更後使用此選項。                                                       | `aigne doc generate --forceRegenerate`                   |
+| `--feedback`        | 提供高層級的回饋以完善整體文件結構，例如新增、移除或重組章節。                                                                               | `aigne doc generate --feedback "新增一個 API 參考章節"`    |
+| `--model`           | 指定從 AIGNE Hub 中使用特定的大型語言模型來產生內容。這讓您可以在不同的模型之間切換。                                                      | `aigne doc generate --model openai:gpt-4o`               |
 
 ## 下一步是什麼？
 
-產生初始文件後，您的專案將繼續發展。為了讓您的文件與程式碼保持同步，您需要執行更新。下一節將說明如何根據新需求或程式碼修改進行針對性變更並重新產生特定檔案。
+產生初始文件後，您的專案將繼續發展。為了讓您的文件與程式碼保持同步，您將需要執行更新。下一節將說明如何根據新的需求或程式碼修改進行有針對性的變更並重新產生特定檔案。
 
-<x-card data-title="更新與改善" data-icon="lucide:file-edit" data-href="/features/update-and-refine">
-  了解當您的程式碼變更時如何更新文件，或使用回饋進行特定改進。
+<x-card data-title="更新與完善" data-icon="lucide:file-edit" data-href="/features/update-and-refine">
+了解當您的程式碼變更時如何更新文件，或使用回饋進行特定改進。
 </x-card>

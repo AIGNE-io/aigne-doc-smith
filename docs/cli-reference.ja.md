@@ -1,8 +1,8 @@
 # CLIコマンドリファレンス
 
-このガイドは、利用可能なすべての`aigne doc`サブコマンド、その引数、およびオプションに関する包括的なリファレンスを提供します。コマンドラインインターフェースを最大限に活用したいユーザーを対象としています。
+このガイドは、利用可能なすべての `aigne doc` サブコマンド、その引数、およびオプションに関する包括的なリファレンスを提供します。コマンドラインインターフェースを最大限に活用したいユーザーを対象としています。
 
-一般的な構文は次のとおりです。
+一般的な構文は次のとおりです:
 
 ```bash command
 aigne doc <command> [options]
@@ -10,7 +10,7 @@ aigne doc <command> [options]
 
 ### コマンドのワークフロー
 
-以下の図は、DocSmithのCLIコマンドを使用してドキュメントを作成および維持するための典型的なライフサイクルと、それらが相互作用するデータを示しています。
+以下の図は、DocSmithのCLIコマンドを使用してドキュメントを作成および保守する一般的なライフサイクルと、それらが相互作用するデータを示しています。
 
 ```d2
 direction: down
@@ -35,7 +35,7 @@ Published-Docs: {
 
 # --- Core Workflow ---
 Lifecycle: {
-  label: "ドキュメンテーションライフサイクル"
+  label: "ドキュメントのライフサイクル"
   
   init: {
     label: "1. 初期化\n`aigne doc init`"
@@ -87,8 +87,8 @@ Utilities: {
 
 # Setup and Generation
 Lifecycle.init -> Configuration: "作成"
-Source-Code -> Lifecycle.generate: "読み取り"
-Configuration -> Lifecycle.generate: "読み取り"
+Source-Code -> Lifecycle.generate: "読み込み"
+Configuration -> Lifecycle.generate: "読み込み"
 Lifecycle.generate -> Generated-Docs: "作成 / 上書き"
 Lifecycle.generate -> Lifecycle.init: {
   label: "設定がない場合に実行"
@@ -96,14 +96,14 @@ Lifecycle.generate -> Lifecycle.init: {
 }
 
 # Refinement Loop
-Generated-Docs <-> Lifecycle.Refinement: "読み取りと書き込み"
+Generated-Docs <-> Lifecycle.Refinement: "読み書き"
 
 # Publishing
 Lifecycle.Refinement -> Lifecycle.publish
 Lifecycle.publish -> Published-Docs: "アップロード先"
 
 # Utility Connections
-Utilities.prefs -> Configuration: "読み取り"
+Utilities.prefs -> Configuration: "読み込み"
 Utilities.clear -> Configuration: "削除"
 Utilities.clear -> Generated-Docs: "削除"
 ```
@@ -112,53 +112,53 @@ Utilities.clear -> Generated-Docs: "削除"
 
 ## `aigne doc init`
 
-対話式の設​​定ウィザードを手動で開始します。これは、新しいプロジェクトをセットアップしたり、既存のプロジェクトの設定を変更したりするのに役立ちます。ウィザードは、ソースコードのパスの定義、出力ディレクトリの設定、言語の選択、ドキュメントのスタイルと対象読者の定義をガイドします。
+対話式の構成ウィザードを手動で開始します。これは、新しいプロジェクトをセットアップしたり、既存のプロジェクトの構成を変更したりするのに役立ちます。ウィザードは、ソースコードのパスの定義、出力ディレクトリの設定、言語の選択、ドキュメントのスタイルと対象読者の定義をガイドします。
 
 ### 使用例
 
-**セットアップウィザードを起動します：**
+**セットアップウィザードを起動します:**
 
 ```bash
 aigne doc init
 ```
 
-DocSmithをニーズに合わせて調整する方法の詳細については、[設定ガイド](./configuration.md)を参照してください。
+DocSmithをニーズに合わせて調整する方法の詳細については、[構成ガイド](./configuration.md)を参照してください。
 
 ---
 
 ## `aigne doc generate`
 
-ソースコードを分析し、設定に基づいて完全なドキュメントセットを生成します。設定が見つからない場合は、対話式のセットアップウィザード（`aigne doc init`）が自動的に起動します。
+ソースコードを分析し、設定に基づいてドキュメント一式を生成します。設定が見つからない場合は、対話式のセットアップウィザード（`aigne doc init`）が自動的に起動します。
 
 ### オプション
 
-| Option              | Type    | Description                                                                                                   |
-| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
-| `--forceRegenerate` | boolean | 既存のコンテンツを破棄し、すべてのドキュメントを最初から再生成します。                                     |
-| `--feedback`        | string  | ドキュメント全体の構造を調整および改良するためのフィードバックを提供します。                                   |
-| `--model`           | string  | 生成に使用する特定のLLM（大規模言語モデル）を指定します（例：`anthropic:claude-3-5-sonnet`）。デフォルトを上書きします。 | 
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| `--forceRegenerate` | boolean | 既存のコンテンツを破棄し、すべてのドキュメントを最初から再生成します。 |
+| `--feedback` | string | ドキュメント全体の構造を調整および改良するためのフィードバックを提供します。 |
+| `--model` | string | 生成に使用する特定の大規模言語モデルを指定します（例：`openai:gpt-4o`）。デフォルトを上書きします。 |
 
 ### 使用例
 
-**ドキュメントを生成または更新します：**
+**ドキュメントを生成または更新します:**
 
 ```bash
 aigne doc generate
 ```
 
-**すべてのドキュメントの完全な再生成を強制します：**
+**すべてのドキュメントを強制的に完全に再生成します:**
 
 ```bash
 aigne doc generate --forceRegenerate
 ```
 
-**フィードバックを用いてドキュメント構造を改良します：**
+**フィードバックを用いてドキュメント構造を改良します:**
 
 ```bash
 aigne doc generate --feedback "Add a new section for API examples and remove the 'About' page."
 ```
 
-**特定のモデルを使用して生成します：**
+**特定のモデルを使用して生成します:**
 
 ```bash
 aigne doc generate --model openai:gpt-4o
@@ -168,24 +168,24 @@ aigne doc generate --model openai:gpt-4o
 
 ## `aigne doc update`
 
-特定のドキュメントを最適化し、再生成します。対話的に実行してドキュメントを選択するか、オプションで直接指定できます。これは、プロジェクト全体を再生成することなく、フィードバックに基づいて対象を絞った改善を行うのに役立ちます。
+特定のドキュメントを最適化し、再生成します。対話形式で実行してドキュメントを選択するか、オプションで直接指定できます。これは、プロジェクト全体を再生成することなく、フィードバックに基づいて的を絞った改善を行うのに役立ちます。
 
 ### オプション
 
-| Option     | Type  | Description                                                                                 |
-| ---------- | ----- | ------------------------------------------------------------------------------------------- |
-| `--docs`     | array | 再生成するドキュメントパスのリスト。複数回指定できます。                         |
-| `--feedback` | string | 選択したドキュメントのコンテンツを改善するための具体的なフィードバックを提供します。              |
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| `--docs` | array | 再生成するドキュメントパスのリスト。複数回指定できます。 |
+| `--feedback` | string | 選択したドキュメントのコンテンツを改善するための具体的なフィードバックを提供します。 |
 
 ### 使用例
 
-**対話セッションを開始して更新するドキュメントを選択します：**
+**対話セッションを開始して更新するドキュメントを選択します:**
 
 ```bash
 aigne doc update
 ```
 
-**対象を絞ったフィードバックで特定のドキュメントを更新します：**
+**特定のドキュメントを的を絞ったフィードバックで更新します:**
 
 ```bash
 aigne doc update --docs /overview.md --feedback "Add more detailed FAQ entries"
@@ -195,32 +195,32 @@ aigne doc update --docs /overview.md --feedback "Add more detailed FAQ entries"
 
 ## `aigne doc translate`
 
-既存のドキュメントを1つ以上の言語に翻訳します。対話的に実行してドキュメントと言語を選択するか、引数として指定して非対話的に実行できます。
+既存のドキュメントを1つ以上の言語に翻訳します。対話形式で実行してドキュメントと言語を選択するか、引数として指定して非対話形式で実行できます。
 
 ### オプション
 
-| Option       | Type  | Description                                                                                                |
-| ------------ | ----- | ---------------------------------------------------------------------------------------------------------- |
-| `--docs`       | array | 翻訳するドキュメントパスのリスト。複数回指定できます。                                         |
-| `--langs`      | array | ターゲット言語コードのリスト（例：`zh-CN`、`ja`）。複数回指定できます。                            |
-| `--feedback`   | string | 翻訳の品質を向上させるためのフィードバックを提供します。                                               |
-| `--glossary`   | string | 言語間で一貫した用語を確保するための用語集ファイルへのパス。`@path/to/glossary.md`を使用します。 |
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| `--docs` | array | 翻訳するドキュメントパスのリスト。複数回指定できます。 |
+| `--langs` | array | ターゲット言語コードのリスト（例：`zh-CN`、`ja`）。複数回指定できます。 |
+| `--feedback` | string | 翻訳の品質を向上させるためのフィードバックを提供します。 |
+| `--glossary` | string | 言語間で一貫した用語を確保するための用語集ファイルへのパス。`@path/to/glossary.md`を使用します。 |
 
 ### 使用例
 
-**対話型の翻訳セッションを開始します：**
+**対話式の翻訳セッションを開始します:**
 
 ```bash
 aigne doc translate
 ```
 
-**特定のドキュメントを中国語と日本語に翻訳します：**
+**特定のドキュメントを中国語と日本語に翻訳します:**
 
 ```bash
 aigne doc translate --langs zh-CN --langs ja --docs /features/generate-documentation.md --docs /overview.md
 ```
 
-**用語集とフィードバックを使用して、品質を向上させた翻訳を行います：**
+**用語集とフィードバックを使用して、品質を向上させて翻訳します:**
 
 ```bash
 aigne doc translate --glossary @glossary.md --feedback "Use technical terminology consistently"
@@ -234,19 +234,19 @@ aigne doc translate --glossary @glossary.md --feedback "Use technical terminolog
 
 ### オプション
 
-| Option     | Type   | Description                                                                                          |
-| ---------- | ------ | ---------------------------------------------------------------------------------------------------- |
-| `--appUrl` | string | セルフホストのDiscuss KitインスタンスのURL。指定しない場合、コマンドは対話的に実行されます。 |
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| `--appUrl` | string | セルフホストしているDiscuss KitインスタンスのURL。指定しない場合、コマンドは対話形式で実行されます。 |
 
 ### 使用例
 
-**対話型の公開セッションを開始します：**
+**対話式の公開セッションを開始します:**
 
 ```bash
 aigne doc publish
 ```
 
-**セルフホストのインスタンスに直接公開します：**
+**セルフホストインスタンスに直接公開します:**
 
 ```bash
 aigne doc publish --appUrl https://your-discuss-kit-instance.com
@@ -256,35 +256,35 @@ aigne doc publish --appUrl https://your-discuss-kit-instance.com
 
 ## `aigne doc prefs`
 
-ユーザー設定とフィードバック駆動のルールを管理します。時間が経つにつれて、DocSmithはフィードバックから学習し、永続的な設定を作成します。このコマンドを使用すると、これらの学習済みルールを表示、切り替え、または削除できます。
+ユーザーの好みとフィードバック駆動のルールを管理します。時間が経つにつれて、DocSmithはフィードバックから学習し、永続的な好みを作成します。このコマンドを使用すると、これらの学習したルールを表示、切り替え、または削除できます。
 
 ### オプション
 
 | Option | Type | Description |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | `--list` | boolean | 保存されているすべての設定を一覧表示します。 |
-| `--remove` | boolean | 対話的にプロンプトを表示し、1つ以上の設定を選択して削除します。 |
-| `--toggle` | boolean | 対話的にプロンプトを表示し、設定のアクティブ状態を選択して切り替えます。 |
-| `--id` | string | 直接削除または切り替えるための設定IDを指定します。 |
+| `--remove` | boolean | 対話形式で1つ以上の設定を選択して削除するよう促します。 |
+| `--toggle` | boolean | 対話形式で設定を選択し、アクティブ状態を切り替えるよう促します。 |
+| `--id` | string | 直接削除または切り替える設定IDを指定します。 |
 
 ### 使用例
 
-**保存されているすべての設定を一覧表示します：**
+**保存されているすべての設定を一覧表示します:**
 
 ```bash
 aigne doc prefs --list
 ```
 
-**対話型の削除モードを開始します：**
+**対話式の削除モードを開始します:**
 
 ```bash
 aigne doc prefs --remove
 ```
 
-**IDで特定の設定を切り替えます：**
+**IDで特定の設定を切り替えます:**
 
 ```bash
-aigne doc prefs --toggle --id "pref_12345"
+aigne doc prefs --toggle --id "pref_2a1dfe2b09695aab"
 ```
 
 ---
@@ -295,7 +295,7 @@ aigne doc prefs --toggle --id "pref_12345"
 
 ### 使用例
 
-**対話型のクリーンアッププロセスを開始します：**
+**対話式のクリーンアッププロセスを開始します:**
 
 ```bash
 aigne doc clear

@@ -132,11 +132,11 @@ Analyzes your source code and generates a complete set of documentation based on
 
 ### Options
 
-| Option              | Type    | Description                                                                                                   |
-| ------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
-| `--forceRegenerate` | boolean | Discards existing content and regenerates all documentation from scratch.                                     |
-| `--feedback`        | string  | Provides feedback to adjust and refine the overall documentation structure.                                   |
-| `--model`           | string  | Specifies a particular large language model to use for generation (e.g., `anthropic:claude-3-5-sonnet`). Overrides the default. |
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| `--forceRegenerate` | boolean | Discards existing content and regenerates all documentation from scratch. |
+| `--feedback` | string | Provides feedback to adjust and refine the overall documentation structure. |
+| `--model` | string | Specifies a particular large language model to use for generation (e.g., `openai:gpt-4o`). Overrides the default. |
 
 ### Usage Examples
 
@@ -172,10 +172,10 @@ Optimizes and regenerates specific documents. You can run it interactively to se
 
 ### Options
 
-| Option     | Type  | Description                                                                                 |
-| ---------- | ----- | ------------------------------------------------------------------------------------------- |
-| `--docs`     | array | A list of document paths to regenerate. Can be specified multiple times.                         |
-| `--feedback` | string | Provides specific feedback to improve the content of the selected document(s).              |
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| `--docs` | array | A list of document paths to regenerate. Can be specified multiple times. |
+| `--feedback` | string | Provides specific feedback to improve the content of the selected document(s). |
 
 ### Usage Examples
 
@@ -199,12 +199,12 @@ Translates existing documentation into one or more languages. It can be run inte
 
 ### Options
 
-| Option       | Type  | Description                                                                                                |
-| ------------ | ----- | ---------------------------------------------------------------------------------------------------------- |
-| `--docs`       | array | A list of document paths to translate. Can be specified multiple times.                                         |
-| `--langs`      | array | A list of target language codes (e.g., `zh-CN`, `ja`). Can be specified multiple times.                            |
-| `--feedback`   | string | Provides feedback to improve the quality of the translation.                                               |
-| `--glossary`   | string | Path to a glossary file to ensure consistent terminology across languages. Use `@path/to/glossary.md`. |
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| `--docs` | array | A list of document paths to translate. Can be specified multiple times. |
+| `--langs` | array | A list of target language codes (e.g., `zh-CN`, `ja`). Can be specified multiple times. |
+| `--feedback` | string | Provides feedback to improve the quality of the translation. |
+| `--glossary` | string | Path to a glossary file to ensure consistent terminology across languages. Use `@path/to/glossary.md`. |
 
 ### Usage Examples
 
@@ -234,8 +234,8 @@ Publishes your documentation and generates a shareable link. This command upload
 
 ### Options
 
-| Option     | Type   | Description                                                                                          |
-| ---------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| Option | Type | Description |
+| :--- | :--- | :--- |
 | `--appUrl` | string | The URL of your self-hosted Discuss Kit instance. If not provided, the command runs interactively. |
 
 ### Usage Examples
@@ -261,7 +261,7 @@ Manages user preferences and feedback-driven rules. Over time, DocSmith learns f
 ### Options
 
 | Option | Type | Description |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | `--list` | boolean | Lists all saved preferences. |
 | `--remove` | boolean | Interactively prompts to select and remove one or more preferences. |
 | `--toggle` | boolean | Interactively prompts to select and toggle the active state of preferences. |

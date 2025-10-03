@@ -1,52 +1,62 @@
 # コア機能
 
-AIGNE DocSmithは、ドキュメントのライフサイクルを管理するための一連のコマンドを提供します。初期作成からグローバルな配布までをサポートします。このプロセスは、ドキュメントの生成、改良、翻訳、公開という標準的なワークフローに整理されています。
+AIGNE DocSmithは、ドキュメントのライフサイクルを管理するための一連のコマンドを提供します。初期作成からグローバルな配布まで、プロセスは生成、改良、翻訳、公開という標準的なワークフローで構成されています。
 
 ```d2
 direction: down
 
-Generate: {
-  label: "1. 生成\naigne doc generate"
-  shape: rectangle
-  description: "ソースコードから完全なドキュメントセットを作成します。"
+AIGNE-DocSmith-Workflow: {
+  label: "AIGNE DocSmith ドキュメントライフサイクル"
+  
+  source-code: "ソースコード"
+
+  generate: "ドキュメント生成"
+
+  refine: "更新と改良"
+
+  translate: "ドキュメント翻訳"
+
+  publish: "ドキュメント公開"
+
+  destinations: {
+    grid-columns: 2
+    grid-gap: 50
+
+    docsmith-platform: {
+      label: "DocSmith プラットフォーム"
+      shape: cylinder
+    }
+
+    self-hosted: {
+      label: "セルフホストインスタンス"
+      shape: cylinder
+    }
+  }
 }
 
-Refine: {
-  label: "2. 更新と改良\naigne doc update"
-  shape: rectangle
-  description: "ドキュメントをコードと同期させ、的を絞ったフィードバックを適用します。"
-}
-
-Translate: {
-  label: "3. 翻訳\naigne doc translate"
-  shape: rectangle
-  description: "グローバルな読者のために、コンテンツを複数の言語にローカライズします。"
-}
-
-Publish: {
-  label: "4. 公開\naigne doc publish"
-  shape: rectangle
-  description: "ドキュメントをパブリックまたはプライベートなプラットフォームにデプロイします。"
-}
-
-Generate -> Refine -> Translate -> Publish
+AIGNE-DocSmith-Workflow.source-code -> AIGNE-DocSmith-Workflow.generate
+AIGNE-DocSmith-Workflow.generate -> AIGNE-DocSmith-Workflow.refine
+AIGNE-DocSmith-Workflow.refine -> AIGNE-DocSmith-Workflow.translate
+AIGNE-DocSmith-Workflow.translate -> AIGNE-DocSmith-Workflow.publish
+AIGNE-DocSmith-Workflow.publish -> AIGNE-DocSmith-Workflow.destinations.docsmith-platform
+AIGNE-DocSmith-Workflow.publish -> AIGNE-DocSmith-Workflow.destinations.self-hosted
 ```
 
-以下のセクションで、DocSmithの主な機能について説明します。
+DocSmithの主な機能については、以下のセクションで詳しく説明します。
 
 <x-cards data-columns="2">
-  <x-card data-title="ドキュメントの生成" data-icon="lucide:file-plus-2" data-href="/features/generate-documentation">
+  <x-card data-title="ドキュメント生成" data-icon="lucide:file-plus-2" data-href="/features/generate-documentation">
     単一のコマンドを使用して、ソースコードから完全なドキュメントセットを作成します。
   </x-card>
   <x-card data-title="更新と改良" data-icon="lucide:edit" data-href="/features/update-and-refine">
-    ドキュメントをコードの変更と同期させたり、的を絞ったフィードバックで特定のドキュメントを再生成したりします。
+    コードの変更とドキュメントを同期させたり、特定のフィードバックに基づいて特定のドキュメントを再生成したりします。
   </x-card>
-  <x-card data-title="ドキュメントの翻訳" data-icon="lucide:languages" data-href="/features/translate-documentation">
-    コンテンツを複数のサポートされている言語に翻訳し、プロジェクトを世界中のユーザーに利用可能にします。
+  <x-card data-title="ドキュメント翻訳" data-icon="lucide:languages" data-href="/features/translate-documentation">
+    コンテンツを複数のサポートされている言語に翻訳し、プロジェクトを世界中のユーザーに利用できるようにします。
   </x-card>
-  <x-card data-title="ドキュメントの公開" data-icon="lucide:send" data-href="/features/publish-your-docs">
-    生成されたドキュメントを公式のDocSmithプラットフォームまたは自己ホスト型のインスタンスに公開します。
+  <x-card data-title="ドキュメント公開" data-icon="lucide:send" data-href="/features/publish-your-docs">
+    生成されたドキュメントを公式のDocSmithプラットフォームまたは独自のセルフホストインスタンスに公開します。
   </x-card>
 </x-cards>
 
-これらの機能は、ドキュメント作成のための構造化されたワークフローを提供します。利用可能なすべてのコマンドとそのオプションの詳細なリストについては、[CLIコマンドリファレンス](./cli-reference.md)を参照してください。
+これらの機能は、ドキュメントを作成および維持するための構造化されたワークフローを提供します。利用可能なすべてのコマンドとそのオプションの詳細なリストについては、[CLIコマンドリファレンス](./cli-reference.md)を参照してください。

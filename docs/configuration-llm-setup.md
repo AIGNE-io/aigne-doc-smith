@@ -12,14 +12,11 @@ The most direct way to start is with AIGNE Hub. It functions as a gateway to mul
 To use a specific model through AIGNE Hub, add the `--model` flag to your command. Here are a few examples:
 
 ```bash Using Different Models via AIGNE Hub icon=mdi:code-braces
-# Use Google's Gemini 2.5 Flash model
-aigne doc generate --model google:gemini-2.5-flash
-
-# Use Anthropic's Claude 3.5 Sonnet model
-aigne doc generate --model claude:claude-3-5-sonnet
-
 # Use OpenAI's GPT-4o model
 aigne doc generate --model openai:gpt-4o
+
+# Use Anthropic's Claude 3.5 Sonnet model
+aigne doc generate --model anthropic:claude-3-5-sonnet
 ```
 
 If you do not specify a model, DocSmith will use the default model defined in your project's configuration.

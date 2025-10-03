@@ -105,16 +105,16 @@ Output-Directory -> User: "6. Review documentation"
 
 The default `generate` command is sufficient for most use cases. However, several options are available to modify its behavior, which can be useful for forcing a full regeneration or refining the documentation structure.
 
-| Option              | Description                                                                                                                              | Example                                                              |
-|---------------------|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
-| `--forceRegenerate` | Deletes all existing documents and regenerates them from scratch. Use this after making significant changes to your source code or configuration. | `aigne doc generate --forceRegenerate`                                 |
-| `--feedback`        | Provides high-level feedback to refine the overall documentation structure, such as adding, removing, or reorganizing sections.           | `aigne doc generate --feedback "Add an API Reference section"`         |
-| `--model`           | Specifies a particular Large Language Model from AIGNE Hub to use for content generation. This allows you to switch between different models.       | `aigne doc generate --model anthropic:claude-3-5-sonnet`                |
+| Option              | Description                                                                                                                                  | Example                                                  |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------- |
+| `--forceRegenerate` | Deletes all existing documents and regenerates them from scratch. Use this after making significant changes to your source code or configuration. | `aigne doc generate --forceRegenerate`                   |
+| `--feedback`        | Provides high-level feedback to refine the overall documentation structure, such as adding, removing, or reorganizing sections.               | `aigne doc generate --feedback "Add an API Reference section"` |
+| `--model`           | Specifies a particular Large Language Model from AIGNE Hub to use for content generation. This allows you to switch between different models.    | `aigne doc generate --model openai:gpt-4o`               |
 
 ## What's Next?
 
 After generating the initial documentation, your project will continue to evolve. To keep your documents synchronized with your code, you will need to perform updates. The next section explains how to make targeted changes and regenerate specific files based on new requirements or code modifications.
 
 <x-card data-title="Update and Refine" data-icon="lucide:file-edit" data-href="/features/update-and-refine">
-  Learn how to update documents when your code changes or make specific improvements using feedback.
+Learn how to update documents when your code changes or make specific improvements using feedback.
 </x-card>

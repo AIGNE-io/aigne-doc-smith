@@ -5,31 +5,41 @@ AIGNE DocSmith provides a set of commands to manage your documentation lifecycle
 ```d2
 direction: down
 
-Generate: {
-  label: "1. Generate\naigne doc generate"
-  shape: rectangle
-  description: "Create a full documentation set from your source code."
+AIGNE-DocSmith-Workflow: {
+  label: "AIGNE DocSmith Documentation Lifecycle"
+  
+  source-code: "Source Code"
+
+  generate: "Generate Documentation"
+
+  refine: "Update and Refine"
+
+  translate: "Translate Documentation"
+
+  publish: "Publish Your Docs"
+
+  destinations: {
+    grid-columns: 2
+    grid-gap: 50
+
+    docsmith-platform: {
+      label: "DocSmith Platform"
+      shape: cylinder
+    }
+
+    self-hosted: {
+      label: "Self-hosted Instance"
+      shape: cylinder
+    }
+  }
 }
 
-Refine: {
-  label: "2. Update & Refine\naigne doc update"
-  shape: rectangle
-  description: "Keep docs in sync with code and apply targeted feedback."
-}
-
-Translate: {
-  label: "3. Translate\naigne doc translate"
-  shape: rectangle
-  description: "Localize content into multiple languages for a global audience."
-}
-
-Publish: {
-  label: "4. Publish\naigne doc publish"
-  shape: rectangle
-  description: "Deploy your documentation to public or private platforms."
-}
-
-Generate -> Refine -> Translate -> Publish
+AIGNE-DocSmith-Workflow.source-code -> AIGNE-DocSmith-Workflow.generate
+AIGNE-DocSmith-Workflow.generate -> AIGNE-DocSmith-Workflow.refine
+AIGNE-DocSmith-Workflow.refine -> AIGNE-DocSmith-Workflow.translate
+AIGNE-DocSmith-Workflow.translate -> AIGNE-DocSmith-Workflow.publish
+AIGNE-DocSmith-Workflow.publish -> AIGNE-DocSmith-Workflow.destinations.docsmith-platform
+AIGNE-DocSmith-Workflow.publish -> AIGNE-DocSmith-Workflow.destinations.self-hosted
 ```
 
 Explore the main capabilities of DocSmith in the following sections:
@@ -49,4 +59,4 @@ Explore the main capabilities of DocSmith in the following sections:
   </x-card>
 </x-cards>
 
-These features provide a structured workflow for documentation. For a detailed list of all available commands and their options, see the [CLI Command Reference](./cli-reference.md).
+These features provide a structured workflow for creating and maintaining documentation. For a detailed list of all available commands and their options, refer to the [CLI Command Reference](./cli-reference.md).
