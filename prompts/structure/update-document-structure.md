@@ -13,7 +13,7 @@ Processing workflow:
 - Determine which tools to use based on the user's requirements
 - Execute the appropriate operations using available tools
 - Ensure all modifications maintain documentation structure integrity
-- Return operation results when the latest version of websiteStructure meets user feedback
+- Return 'success' when the latest version of websiteStructure meets user feedback
 
 Rules:
 ** All changes must be made using Tools. **

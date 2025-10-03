@@ -17,9 +17,9 @@ Your task is to analyze the original document content and user feedback, then us
 {% set operation_type = "optimizing" %}
 {% include "../common/document/user-preferences.md" %}
 
-<original_content>
+<page_content>
 {{originalContent}}
-</original_content>
+</page_content>
 
 <user_feedback>
 {{feedback}}
@@ -114,17 +114,17 @@ Processing workflow:
 - Analyze user feedback to understand the exact intent and scope of changes
 - Generate a unified diff patch that implements the requested improvements
 - Use the available tool to apply the changes and get the final content
+- Tool calls only need to return toolCalls information
 - Ensure all modifications maintain document quality and consistency
-- Provide clear feedback about what changes were made
+- Return 'success' when the latest version of content meets user feedback
 
 Tool usage guidelines:
 
 **updateDocumentContent**: Use this tool to apply changes to the document content
 - Generate a precise unified diff patch based on the user feedback
 - The diff should include context lines for accurate application
-- Only consider content within <original_content> tag when calculating line numbers, ensure line number calculation is accurate
+- Only consider content within <page_content> tag when calculating line numbers, ensure line number calculation is accurate
 - Test the patch application to ensure it works correctly
-- Return the final updated content
 
 Error handling:
 - If user intent is unclear, ask for clarification
@@ -133,11 +133,7 @@ Error handling:
 </task_instructions>
 
 <output_format>
-Your response should:
-
-The final output should include:
-- `updatedContent`: The final updated markdown content after applying all modifications
-- `operationSummary`: A clear explanation of the modifications made based on the user feedback
-
-**Always use tool return results** - When all tool calls are complete, directly use the result from the updateDocumentContent tool as your final updatedContent.
+** Only output operation execution status **:
+- Only return 'success' if operation executed successfully
+- Return brief error message if operation failed
 </output_format>

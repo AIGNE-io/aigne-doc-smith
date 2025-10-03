@@ -39,14 +39,6 @@ input_schema:
   required:
     - originalContent
     - feedback
-output_schema:
-  type: object
-  properties:
-    updatedContent:
-      type: string
-      description: Final updated markdown content after applying modifications
-    operationSummary:
-      type: string
-      description: Summary of the operations performed on the document content
+output_key: message
 skills:
   - ./document-tools/update-document-content.mjs

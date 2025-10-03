@@ -3,7 +3,6 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 
 // Update document content schemas
 export const updateDocumentContentInputSchema = z.object({
-  originalContent: z.string().min(1, "Original content is required"),
   diffPatch: z.string().min(1, "Diff patch is required"),
 });
 
@@ -18,7 +17,6 @@ export const updateDocumentContentOutputSchema = z.object({
 export const getUpdateDocumentContentInputJsonSchema = () => {
   const schema = zodToJsonSchema(updateDocumentContentInputSchema);
   if (schema.properties) {
-    schema.properties.originalContent.description = "Original markdown content to be updated";
     schema.properties.diffPatch.description = "Diff patch string to apply to the original content";
   }
   return schema;
