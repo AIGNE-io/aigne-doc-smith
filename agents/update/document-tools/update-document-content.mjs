@@ -18,8 +18,7 @@ export default async function updateDocumentContent(input, options) {
   if (!validation.success) {
     return {
       success: false,
-      error: validation.error,
-      message: "Invalid input parameters",
+      error: { message: validation.error },
     };
   }
 
@@ -31,8 +30,7 @@ export default async function updateDocumentContent(input, options) {
     if (!parsedDiff.success) {
       return {
         success: false,
-        error: parsedDiff.error,
-        message: "Invalid diff format: No valid hunks found or parsing failed",
+        error: { message: parsedDiff.error },
       };
     }
 
@@ -41,8 +39,7 @@ export default async function updateDocumentContent(input, options) {
     if (!fixedDiff.success) {
       return {
         success: false,
-        error: fixedDiff.error,
-        message: "Cannot fix diff line number issues",
+        error: { message: fixedDiff.error },
       };
     }
 
@@ -55,8 +52,7 @@ export default async function updateDocumentContent(input, options) {
     if (result === false) {
       return {
         success: false,
-        error: "Failed to apply patch",
-        message: "Diff patch could not be applied",
+        error: { message: "Failed to apply patch" },
       };
     }
 
@@ -76,8 +72,7 @@ ${result}
   } catch (error) {
     return {
       success: false,
-      error: error.message,
-      message: "Failed to update document content",
+      error: { message: error.message },
     };
   }
 }

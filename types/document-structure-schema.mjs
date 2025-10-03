@@ -24,8 +24,9 @@ export const addDocumentInputSchema = z.object({
 
 export const addDocumentOutputSchema = z.object({
   documentStructure: documentStructureSchema,
-  message: z.string(),
+  message: z.string().optional(),
   addedDocument: documentItemSchema.optional(),
+  error: z.object({ message: z.string() }).optional(),
 });
 
 // Delete document schemas
@@ -35,8 +36,9 @@ export const deleteDocumentInputSchema = z.object({
 
 export const deleteDocumentOutputSchema = z.object({
   documentStructure: documentStructureSchema,
-  message: z.string(),
+  message: z.string().optional(),
   deletedDocument: documentItemSchema.optional(),
+  error: z.object({ message: z.string() }).optional(),
 });
 
 // Move document schemas
@@ -47,9 +49,10 @@ export const moveDocumentInputSchema = z.object({
 
 export const moveDocumentOutputSchema = z.object({
   documentStructure: documentStructureSchema,
-  message: z.string(),
+  message: z.string().optional(),
   originalDocument: documentItemSchema.optional(),
   updatedDocument: documentItemSchema.optional(),
+  error: z.object({ message: z.string() }).optional(),
 });
 
 // Update document schemas
@@ -70,9 +73,10 @@ export const updateDocumentInputSchema = z
 
 export const updateDocumentOutputSchema = z.object({
   documentStructure: documentStructureSchema,
-  message: z.string(),
+  message: z.string().optional(),
   originalDocument: documentItemSchema.optional(),
   updatedDocument: documentItemSchema.optional(),
+  error: z.object({ message: z.string() }).optional(),
 });
 
 // JSON Schema conversion functions using zodToJsonSchema
@@ -96,9 +100,10 @@ export const getAddDocumentOutputJsonSchema = () => {
   if (schema.properties) {
     schema.properties.documentStructure.description =
       "Updated documentation structure array with the new document added";
-    schema.properties.message.description =
-      "Success or error message describing the operation result";
+    schema.properties.message.description = "Success message describing the operation result";
     schema.properties.addedDocument.description = "The newly added document object";
+    schema.properties.error.description =
+      "Error object containing error message if operation failed";
   }
   return schema;
 };
@@ -116,9 +121,10 @@ export const getDeleteDocumentOutputJsonSchema = () => {
   if (schema.properties) {
     schema.properties.documentStructure.description =
       "Updated documentation structure array with the document removed";
-    schema.properties.message.description =
-      "Success or error message describing the operation result";
+    schema.properties.message.description = "Success message describing the operation result";
     schema.properties.deletedDocument.description = "The deleted document object";
+    schema.properties.error.description =
+      "Error object containing error message if operation failed";
   }
   return schema;
 };
@@ -138,10 +144,11 @@ export const getMoveDocumentOutputJsonSchema = () => {
   if (schema.properties) {
     schema.properties.documentStructure.description =
       "Updated documentation structure array with the document moved";
-    schema.properties.message.description =
-      "Success or error message describing the operation result";
+    schema.properties.message.description = "Success message describing the operation result";
     schema.properties.originalDocument.description = "The original document object before moving";
     schema.properties.updatedDocument.description = "The updated document object after moving";
+    schema.properties.error.description =
+      "Error object containing error message if operation failed";
   }
   return schema;
 };
@@ -169,11 +176,12 @@ export const getUpdateDocumentOutputJsonSchema = () => {
   if (schema.properties) {
     schema.properties.documentStructure.description =
       "Updated documentation structure array with the document modified";
-    schema.properties.message.description =
-      "Success or error message describing the operation result";
+    schema.properties.message.description = "Success message describing the operation result";
     schema.properties.originalDocument.description = "The original document object before update";
     schema.properties.updatedDocument.description =
       "The updated document object after modification";
+    schema.properties.error.description =
+      "Error object containing error message if operation failed";
   }
   return schema;
 };

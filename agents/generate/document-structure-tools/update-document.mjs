@@ -12,7 +12,7 @@ export default async function updateDocument(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       documentStructure: input.documentStructure,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 
@@ -30,7 +30,7 @@ export default async function updateDocument(input, options) {
     console.log(`⚠️  ${errorMessage}`);
     return {
       documentStructure,
-      message: errorMessage,
+      error: { message: errorMessage },
     };
   }
 

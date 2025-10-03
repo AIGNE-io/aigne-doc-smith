@@ -9,8 +9,8 @@ export const updateDocumentContentInputSchema = z.object({
 export const updateDocumentContentOutputSchema = z.object({
   success: z.boolean(),
   updatedContent: z.string().optional(),
-  error: z.string().optional(),
-  message: z.string(),
+  error: z.object({ message: z.string() }).optional(),
+  message: z.string().optional(),
 });
 
 // JSON Schema conversions for update document content
@@ -28,8 +28,9 @@ export const getUpdateDocumentContentOutputJsonSchema = () => {
     schema.properties.success.description = "Whether the update was successful";
     schema.properties.updatedContent.description =
       "Updated markdown content (only present if success is true)";
-    schema.properties.error.description = "Error message (only present if success is false)";
-    schema.properties.message.description = "Status message";
+    schema.properties.error.description =
+      "Error object containing error message (only present if success is false)";
+    schema.properties.message.description = "Success message (only present if success is true)";
   }
   return schema;
 };
