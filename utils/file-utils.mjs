@@ -2,6 +2,8 @@ import { execSync } from "node:child_process";
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
+import { isBinaryFile } from "isbinaryfile";
+import { isGlobPattern } from "./utils.mjs";
 
 /**
  * Check if a directory is inside a git repository using git command
@@ -242,4 +244,198 @@ export function toDisplayPath(targetPath) {
 export function resolveToAbsolute(value) {
   if (!value) return undefined;
   return path.isAbsolute(value) ? value : path.resolve(process.cwd(), value);
+}
+
+/**
+ * Load files from sourcesPath array
+ * Supports file paths, directory paths, and glob patterns
+ * @param {string|string[]} sourcesPath - Single path or array of paths
+ * @param {object} options - Options for file loading
+ * @param {string|string[]} options.includePatterns - Include patterns for directories
+ * @param {string|string[]} options.excludePatterns - Exclude patterns for directories
+ * @param {boolean} options.useDefaultPatterns - Whether to use default patterns (default: true)
+ * @param {string[]} options.defaultIncludePatterns - Default include patterns
+ * @param {string[]} options.defaultExcludePatterns - Default exclude patterns
+ * @returns {Promise<string[]>} Array of absolute file paths
+ */
+export async function loadFilesFromPaths(sourcesPath, options = {}) {
+  const {
+    includePatterns,
+    excludePatterns,
+    useDefaultPatterns = true,
+    defaultIncludePatterns = [],
+    defaultExcludePatterns = [],
+  } = options;
+
+  const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
+  let allFiles = [];
+
+  for (const dir of paths) {
+    try {
+      if (typeof dir !== "string") {
+        console.warn(`Invalid source path: ${dir}`);
+        continue;
+      }
+
+      // First try to access as a file or directory
+      const stats = await stat(dir);
+
+      if (stats.isFile()) {
+        // If it's a file, add it directly without filtering
+        allFiles.push(dir);
+      } else if (stats.isDirectory()) {
+        // If it's a directory, use the existing glob logic
+        // Load .gitignore for this directory
+        const gitignorePatterns = await loadGitignore(dir);
+
+        // Prepare patterns
+        let finalIncludePatterns = null;
+        let finalExcludePatterns = null;
+
+        if (useDefaultPatterns) {
+          // Merge with default patterns
+          const userInclude = includePatterns
+            ? Array.isArray(includePatterns)
+              ? includePatterns
+              : [includePatterns]
+            : [];
+          const userExclude = excludePatterns
+            ? Array.isArray(excludePatterns)
+              ? excludePatterns
+              : [excludePatterns]
+            : [];
+
+          finalIncludePatterns = [...defaultIncludePatterns, ...userInclude];
+          finalExcludePatterns = [...defaultExcludePatterns, ...userExclude];
+        } else {
+          // Use only user patterns
+          if (includePatterns) {
+            finalIncludePatterns = Array.isArray(includePatterns)
+              ? includePatterns
+              : [includePatterns];
+          }
+          if (excludePatterns) {
+            finalExcludePatterns = Array.isArray(excludePatterns)
+              ? excludePatterns
+              : [excludePatterns];
+          }
+        }
+
+        // Get files using glob
+        const filesInDir = await getFilesWithGlob(
+          dir,
+          finalIncludePatterns,
+          finalExcludePatterns,
+          gitignorePatterns,
+        );
+        allFiles = allFiles.concat(filesInDir);
+      }
+    } catch (err) {
+      if (err.code === "ENOENT") {
+        // Path doesn't exist as file or directory, try as glob pattern
+        try {
+          // Check if it looks like a glob pattern
+          const isGlobPatternResult = isGlobPattern(dir);
+
+          if (isGlobPatternResult) {
+            // Use glob to find matching files from current working directory
+            const matchedFiles = await glob(dir, {
+              absolute: true,
+              nodir: true, // Only files, not directories
+              dot: false, // Don't include hidden files
+            });
+
+            if (matchedFiles.length > 0) {
+              allFiles = allFiles.concat(matchedFiles);
+            }
+          }
+        } catch (globErr) {
+          console.warn(`Failed to process glob pattern "${dir}": ${globErr.message}`);
+        }
+      } else {
+        throw err;
+      }
+    }
+  }
+
+  return allFiles;
+}
+
+/**
+ * Check if a file is likely a text file by checking if it's binary
+ * @param {string} filePath - File path to check
+ * @returns {Promise<boolean>} True if file appears to be a text file
+ */
+async function isTextFile(filePath) {
+  try {
+    const isBinary = await isBinaryFile(filePath);
+    return !isBinary;
+  } catch (_error) {
+    // If we can't read the file, assume it might be binary to be safe
+    return false;
+  }
+}
+
+/**
+ * Read and parse file contents from an array of file paths
+ * @param {string[]} files - Array of file paths to read
+ * @param {string} baseDir - Base directory for calculating relative paths (defaults to cwd)
+ * @param {object} options - Options for reading files
+ * @param {boolean} options.skipBinaryFiles - Whether to skip binary files (default: true)
+ * @returns {Promise<{sourceId: string, content: string}[]>} Array of file objects with sourceId and content
+ */
+export async function readFileContents(files, baseDir = process.cwd(), options = {}) {
+  const { skipBinaryFiles = true } = options;
+
+  const results = await Promise.all(
+    files.map(async (file) => {
+      // Skip binary files if enabled
+      if (skipBinaryFiles) {
+        const isText = await isTextFile(file);
+        if (!isText) {
+          return null;
+        }
+      }
+
+      try {
+        const content = await readFile(file, "utf8");
+        const relativePath = path.relative(baseDir, file);
+        return {
+          sourceId: relativePath,
+          content,
+        };
+      } catch (error) {
+        // If reading as text fails (e.g., binary file), skip it
+        console.warn(`Failed to read file as text: ${file} - ${error.message}`);
+        return null;
+      }
+    }),
+  );
+
+  // Filter out null results
+  return results.filter((result) => result !== null);
+}
+
+/**
+ * Calculate total lines and words from file contents
+ * @param {Array<{content: string}>} sourceFiles - Array of objects containing content property
+ * @returns {{totalWords: number, totalLines: number}} Object with totalWords and totalLines
+ */
+export function calculateFileStats(sourceFiles) {
+  let totalWords = 0;
+  let totalLines = 0;
+
+  for (const source of sourceFiles) {
+    const { content } = source;
+    if (content) {
+      // Count English words (simple regex for words containing a-zA-Z)
+      const words = content.match(/[a-zA-Z]+/g) || [];
+      totalWords += words.length;
+
+      // Count lines (excluding empty lines)
+      totalLines += content.split("\n").filter((line) => line.trim() !== "").length;
+    }
+  }
+
+  return { totalWords, totalLines };
 }
