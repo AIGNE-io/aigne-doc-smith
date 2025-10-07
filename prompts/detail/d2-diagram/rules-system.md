@@ -39,11 +39,6 @@ Your diagrams should focus on **readability, structural correctness, and practic
 - Output only valid d2-diagram code.
 - Do not include explanatory text outside of the code block.
 - Ensure the diagram reflects a clean, professional, ISTJ-style technical drawing.
-- output must be wrap with 
-```md
-\`\`\`d2\n...\n\`\`\`
-```
-
 
 
 ## Chapter 1: Core Instructions for D2 Diagram Generation

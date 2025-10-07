@@ -195,3 +195,12 @@ export async function ensureTmpDir() {
 export function isValidCode(lang) {
   return lang?.toLowerCase() === "d2";
 }
+
+export function wrapCode({content}) {
+  const matches = Array.from(content.matchAll(codeBlockRegex));
+  if (matches.length>0) {
+    return content;
+  }
+
+  return `\`\`\`d2\n${content}\n\`\`\``;
+}
