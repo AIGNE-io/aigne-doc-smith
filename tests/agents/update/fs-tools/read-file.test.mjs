@@ -1,8 +1,8 @@
+import { afterEach, beforeEach, describe, it } from "bun:test";
 import assert from "node:assert";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { afterEach, beforeEach, describe, it } from "bun:test";
 import readFile from "../../../../agents/update/fs-tools/read-file.mjs";
 
 describe("read-file tool", () => {
@@ -11,11 +11,13 @@ describe("read-file tool", () => {
   beforeEach(async () => {
     // Create temporary directory for test files
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "read-file-test-"));
+    process.chdir(tempDir);
   });
 
   afterEach(async () => {
     // Clean up temporary directory
     await fs.rm(tempDir, { recursive: true, force: true });
+    process.chdir(__dirname);
   });
 
   describe("basic functionality", () => {
@@ -25,13 +27,16 @@ describe("read-file tool", () => {
       await fs.writeFile(filePath, content, "utf8");
 
       const result = await readFile({
-        path: filePath,
+        path: "test.txt",
       });
 
       assert.strictEqual(result.command, "read_file");
       assert.strictEqual(result.error, null);
       assert.strictEqual(result.result.content, content);
-      assert.strictEqual(result.result.metadata.path, filePath);
+      assert.strictEqual(
+        await fs.realpath(result.result.metadata.path),
+        await fs.realpath(filePath),
+      );
       assert.strictEqual(result.result.metadata.mimeType, "text/plain");
       assert.strictEqual(result.result.metadata.isBinary, false);
       assert.strictEqual(result.result.metadata.encoding, "utf8");
@@ -346,15 +351,6 @@ describe("read-file tool", () => {
 
       assert.notStrictEqual(result.error, null);
       assert(result.error.message.includes("required"));
-    });
-
-    it("should require absolute path", async () => {
-      const result = await readFile({
-        path: "relative/path.txt",
-      });
-
-      assert.notStrictEqual(result.error, null);
-      assert(result.error.message.includes("absolute"));
     });
 
     it("should handle non-existent files", async () => {
