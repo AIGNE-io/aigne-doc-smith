@@ -8,6 +8,7 @@ chat_model:
 agents:
   # Initialization
   - ./agents/init/index.mjs
+  - ./agents/init/suggest-source-path.yaml
 
   # Documentation Structure Generation
   - ./agents/generate/generate-structure.yaml

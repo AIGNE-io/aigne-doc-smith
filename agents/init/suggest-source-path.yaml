@@ -1,0 +1,35 @@
+type: ai
+name: suggestSourcePath
+description: Suggest source paths based on the working directory
+instructions:
+  - role: system
+    url: ../../prompts/init/suggest-source-path/system.md
+  - role: user
+    url: ../../prompts/init/suggest-source-path/user.md
+input_schema:
+  type: object
+  properties:
+    sourceFiles:
+      type: string
+      description: The source files to evaluate and select
+    documentPurpose:
+      type: string
+      description: The document purpose to evaluate and select
+    targetAudienceTypes:
+      type: string
+      description: The target audience types to evaluate and select
+output_schema:
+  type: object
+  properties:
+    selectedFiles:
+      type: array
+      items:
+        type: object
+        properties:
+          path:
+            type: string
+            description: The selected source path
+          reason:
+            type: string
+            description: Reason for selecting the source path
+      description: Selected source paths
