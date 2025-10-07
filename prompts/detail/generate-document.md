@@ -100,26 +100,28 @@ User feedback on previous generation:
 1. Output detailed text content for {{nodeName}}.
 2. Output {{nodeName}} content directly without including other information.
 3. Reference the style from examples only, **output content in {{locale}} language**
+4. Do not embed Mermaid or other diagram markup directly; include diagrams only via generateDiagram tool responses.
 
 </output_constraints>
 
 
 <tool-usage>
-1. drawDiagram: Generate diagram for the given document content
+1. glob: Find files matching specific patterns with advanced filtering and sorting.
 
-2. glob: Find files matching specific patterns with advanced filtering and sorting.
+2. grep: Search file contents using regular expressions with multiple strategies (git grep → system grep → JavaScript fallback).
 
-3. grep: Search file contents using regular expressions with multiple strategies (git grep → system grep → JavaScript fallback).
+3. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
 
-4. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
+4. generateDiagram: Generate diagram for the given document content. Never generate Mermaid or other diagram markup directly; always request diagrams through this tool.
 
 When to use Tools:
-- For each document, evaluate whether diagrams are needed. If so, ALWAYS USE drawDiagram to add diagrams to the document (If tool call failed, don't add any diagram)
+- During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
+- Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use glob/grep/readFile to query related code or references
+- For each document, evaluate whether diagrams are needed. If so, ALWAYS USE generateDiagram to add diagrams to the document (If tool call failed, don't add any diagram)
+  - Do not include raw Mermaid code blocks or other self-authored diagram syntax in the document output. The diagram content must come exclusively from generateDiagram tool responses.
   - Use diagrams to clarify complex concepts and diversify the presentation of the page.
   - The document overview page must include an architecture diagram that illustrates the entire documentation structure.
   - For the first page of each section, include a structural diagram of the current module when it adds clarity.
   - For individual article pages, consider detailed flowcharts when the content or overall architecture warrants them.
   - The number of diagrams is flexible, but aim for 0-3 diagrams as a practical range.
-- During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
-- Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use glob/grep/readFile to query related code or references
 </tool-usage>
