@@ -13,10 +13,10 @@ Documentation Generation Rules:
 - Structure each section with: title, introduction, code examples, response data samples, and explanatory notes. Place explanations directly after code examples without separate "Example Description" subheadings
 - Maintain content completeness and logical flow so users can follow the documentation seamlessly
 - Provide comprehensive explanations for configuration options and parameters. When parameters accept multiple values, explain each option's purpose and include code examples where applicable
-- Use the `<x-field>` custom component for displaying parameters, return values, context data, props, and other type-related information. Support nested structures for complex data types
-- For complex objects, use nested `<x-field>` structures to describe parameter hierarchies recursively, limiting nesting to 5 levels maximum
-- Format all types with proper opening and closing tags `<x-field ...></x-field>`—leave simple types empty, include nested fields for complex types
-- When describing multiple properties of the same object, wrap the outermost `<x-field>` elements with `<x-field-group>` elements. Note that nested `<x-field>` elements do not need wrapping
+- Use the `<x-field>` custom component only for displaying structured object data such as API parameters, return values, network request body/query/headers, and complex object properties (e.g., ContextType). This component does not exist independently but represents complete object structures
+- Do not use `<x-field>` for individual field descriptions (e.g., name or version in package.json, logo or appUrl in config.yaml) - use regular Markdown text instead
+- Wrap the outermost `<x-field>` elements with `<x-field-group>` when describing multiple properties of the same object, even if there's only one `<x-field>` element
+- Use recursive `<x-field>` structures to fully express complex object type hierarchies, decomposing all nested properties into more fundamental types. Limit nesting to 5 levels maximum
 - All interface and method documentation must include **response data examples**
 - For simple list data, use Markdown tables to present information clearly and improve readability
 - Validate output Markdown for completeness, ensuring tables are properly formatted

@@ -1,6 +1,6 @@
 # Interactive Setup
 
-AIGNE DocSmith includes an interactive setup wizard, launched with the `aigne doc init` command, to streamline project configuration. This guided process asks a series of questions about your documentation goals and generates a `config.yaml` file from your answers. It is the recommended method for starting a new documentation project, as it helps prevent configuration errors and provides specific recommendations based on your inputs.
+AIGNE DocSmith includes an interactive setup wizard, launched with the `aigne doc init` command, to streamline project configuration. This guided process asks a series of questions about your documentation goals and generates a `config.yaml` file based on your answers. It is the recommended method for starting a new documentation project, as it helps prevent configuration errors and provides specific recommendations based on your inputs.
 
 ## Running the Wizard
 
@@ -68,12 +68,11 @@ Wizard-Engine.Conflict-Detection -> Final-Config
 Guided-Experience -> User-Selections: "Refines"
 ```
 
-### Default Suggestions and Option Filtering
+### Option Filtering
 
-As you make selections, the wizard provides defaults and filters subsequent options to guide you toward a logical configuration. This is based on a set of cross-question conflict rules.
+As you make selections, the wizard filters subsequent options to guide you toward a logical configuration. This is based on a set of cross-question conflict rules that prevent incompatible choices.
 
--   **Default Suggestions**: If you select "Get started quickly" as your primary goal, the wizard will recommend "Is a total beginner" as the reader's knowledge level.
--   **Real-time Filtering**: If your target audience is "End users (non-technical)," the wizard will hide the "Is an expert" knowledge level. The rule's reasoning is that non-technical users are typically not experienced technical users, thus preventing an incompatible selection.
+For example, if you select "End users (non-technical)" as your target audience, the wizard will hide the "Is an expert" knowledge level option. The rule's reasoning is that "Non-technical users are typically not experienced technical users," thus preventing an illogical selection.
 
 ### Conflict Detection and Resolution
 
@@ -120,6 +119,10 @@ targetAudienceTypes:
 
 # ... other settings
 ```
+
+Upon completion, you will see a confirmation message in your terminal.
+
+![A terminal window showing the successful completion of the interactive setup wizard.](../assets/screenshots/doc-complete-setup.png)
 
 ## Next Steps
 

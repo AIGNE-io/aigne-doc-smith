@@ -66,7 +66,7 @@
       "agents/detail-regenerator.yaml",
       "agents/retranslate.yaml",
       "agents/team-publish-docs.yaml",
-      "agents/manage-prefs.mjs"
+      "agents/prefs/index.mjs"
     ]
   },
   {
@@ -97,7 +97,7 @@
     "parentId": "/configuration",
     "sourceIds": [
       "utils/preferences-utils.mjs",
-      "agents/manage-prefs.mjs",
+      "agents/prefs/index.mjs",
       "prompts/feedback-refiner.md"
     ]
   },

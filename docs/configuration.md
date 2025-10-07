@@ -10,54 +10,38 @@ The following diagram illustrates the configuration workflow:
 direction: down
 
 User: {
-  shape: c4-person
+  shape: person
 }
 
 CLI: {
-  label: "`aigne doc init`\n(Interactive Setup)"
+  label: "Run Command\n'aigne doc init'"
   shape: rectangle
 }
 
-ConfigFile: {
+Setup-Wizard: {
+  label: "Interactive Setup Wizard"
+  shape: rectangle
+}
+
+Config-File: {
   label: ".aigne/doc-smith/config.yaml"
   shape: rectangle
-  
-  Project-Info: {
-    label: "Project Information"
-    shape: rectangle
-  }
-  
-  Doc-Strategy: {
-    label: "Documentation Strategy"
-    shape: rectangle
-  }
-  
-  Custom-Directives: {
-    label: "Custom Directives"
-    shape: rectangle
-  }
-  
-  Lang-Path: {
-    label: "Language & Path Config"
-    shape: rectangle
-  }
 }
 
-AIGNE-DocSmith: {
-  label: "AIGNE DocSmith\n(Generation Process)"
-  icon: "https://www.arcblock.io/image-bin/uploads/89a24f04c34eca94f26c9dd30aec44fc.png"
+AIGNE-DocSmith-Engine: {
+  label: "AIGNE DocSmith Engine"
 }
 
-Generated-Docs: {
-  label: "Generated Documentation"
-  shape: rectangle
-}
+# Path 1: Interactive Setup (Recommended)
+User -> CLI: "Recommended Path"
+CLI -> Setup-Wizard: "Launches"
+Setup-Wizard -> Config-File: "Creates / Modifies"
 
-User -> CLI: "Runs"
-CLI -> ConfigFile: "Creates / Modifies"
-User -> ConfigFile: "Directly Edits"
-ConfigFile -> AIGNE-DocSmith: "Controls"
-AIGNE-DocSmith -> Generated-Docs: "Produces"
+# Path 2: Manual Editing
+User -> Config-File: "Alternative Path:\nDirectly Edits"
+
+# Final Step
+Config-File -> AIGNE-DocSmith-Engine: "Configures"
 ```
 
 ## Core Configuration Areas
