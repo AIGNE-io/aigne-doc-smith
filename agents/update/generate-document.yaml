@@ -48,11 +48,11 @@ skills:
   - fs-tools/read-file.mjs
   - type: team
     task_render_mode: collapse
-    name: generateD2DiagramContent
+    name: generateDiagram
     skills:
-      - ../generate/generate-d2-diagram.yaml
+      - ../generate/draw-diagram.yaml
     reflection:
-      reviewer: ../generate/check-d2-diagram-valid.mjs
+      reviewer: ../generate/check-diagram.mjs
       is_approved: isValid
       max_iterations: 5
       return_last_on_max_iterations: false
@@ -62,7 +62,7 @@ skills:
       properties:
         documentContent:
           type: string
-          description: Source code of current document (without the D2 diagram)
+          description: Source code of current document (without diagram content)
       required:
         - documentContent
     output_schema:

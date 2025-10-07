@@ -105,12 +105,7 @@ User feedback on previous generation:
 
 
 <tool-usage>
-1. generateD2DiagramContent: Generate D2 diagram for the given document content
-  - Use diagrams to clarify complex concepts and diversify the presentation of the page.
-  - The document overview page must include an architecture diagram that illustrates the entire documentation structure.
-  - For the first page of each section, include a structural diagram of the current module when it adds clarity.
-  - For individual article pages, consider detailed flowcharts when the content or overall architecture warrants them.
-  - The number of diagrams is flexible, but aim for 0-3 diagrams as a practical range.
+1. drawDiagram: Generate diagram for the given document content
 
 2. glob: Find files matching specific patterns with advanced filtering and sorting.
 
@@ -119,8 +114,12 @@ User feedback on previous generation:
 4. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
 
 When to use Tools:
-- For each document, evaluate whether D2 diagrams are needed. If so, always use generateD2DiagramContent to add diagrams to the document (If tool call failed, don't add D2 diagram or any other diagram)
-  - Never write D2 diagram syntax or pseudo-diagrams directly in the main response. Only include diagrams returned by generateD2DiagramContent; if no tool output is available, omit the diagram entirely.
+- For each document, evaluate whether diagrams are needed. If so, ALWAYS USE drawDiagram to add diagrams to the document (If tool call failed, don't add any diagram)
+  - Use diagrams to clarify complex concepts and diversify the presentation of the page.
+  - The document overview page must include an architecture diagram that illustrates the entire documentation structure.
+  - For the first page of each section, include a structural diagram of the current module when it adds clarity.
+  - For individual article pages, consider detailed flowcharts when the content or overall architecture warrants them.
+  - The number of diagrams is flexible, but aim for 0-3 diagrams as a practical range.
 - During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
 - Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use glob/grep/readFile to query related code or references
 </tool-usage>
