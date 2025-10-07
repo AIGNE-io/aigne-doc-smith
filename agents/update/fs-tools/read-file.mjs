@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
-import path from "node:path";
+import path, { isAbsolute } from "node:path";
 
 /**
  * Detects if a file is likely binary by checking for null bytes
@@ -198,6 +198,8 @@ async function readFileContent(filePath, offset = 0, limit = null, encoding = "u
 export default async function readFile({ path: filePath, offset, limit, encoding = "utf8" }) {
   let result = {};
   let error = null;
+
+  if (filePath && !isAbsolute(filePath)) filePath = path.join(process.cwd(), filePath);
 
   try {
     // Validate file path first (this checks if it's absolute)
