@@ -19,6 +19,15 @@ parentId: {{parentId}}
 </document_structure>
 
 
+{% if glossary %}
+<terms>
+Glossary of specialized terms. Please ensure correct spelling when using these terms.
+
+{{glossary}}
+</terms>
+{% endif %}
+
+
 <content_generation_rules>
 
 {% include "../../common/document/content-rules-core.md" %}
@@ -38,16 +47,6 @@ Diagram generation rules:
 </content_generation_rules>
 
 
-<output_constraints>
-
-1. Output detailed text content for {{nodeName}}.
-2. Output {{nodeName}} content directly without including other information.
-3. Reference the style from examples only, **output content in {{locale}} language**
-4. Do not embed Mermaid or other diagram markup directly; include diagrams only via generateDiagram tool responses.
-
-</output_constraints>
-
-
 <tool-usage>
 1. generateDiagram: Generate diagram for the given document content. Never generate Mermaid or other diagram markup directly; always request diagrams through this tool.
 
@@ -61,3 +60,13 @@ When to use Tools:
 - During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
 - Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use glob/grep/readFile to query related code or references
 </tool-usage>
+
+
+<output_constraints>
+
+1. Output detailed text content for {{nodeName}}.
+2. Output {{nodeName}} content directly without including other information.
+3. Reference the style from examples only, **output content in {{locale}} language**
+4. Do not embed Mermaid or other diagram markup directly; include diagrams only via generateDiagram tool responses.
+
+</output_constraints>

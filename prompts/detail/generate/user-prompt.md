@@ -10,15 +10,6 @@
 </user_rules>
 
 
-{% if glossary %}
-<terms>
-Glossary of specialized terms. Please ensure correct spelling when using these terms.
-
-{{glossary}}
-</terms>
-{% endif %}
-
-
 {% set operation_type = "generating" %}
 {% include "../../common/document/user-preferences.md" %}
 

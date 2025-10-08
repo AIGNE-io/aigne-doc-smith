@@ -2,9 +2,9 @@ name: generateDocument
 description: Comprehensive content generator for documentation that creates detailed, high-quality document content from various data sources with intelligent analysis.
 instructions:
   - role: system
-    url: ../../prompts/detail/document/system-prompt.md
+    url: ../../prompts/detail/generate/system-prompt.md
   - role: user
-    url: ../../prompts/detail/document/user-prompt.md
+    url: ../../prompts/detail/generate/user-prompt.md
 input_schema:
   type: object
   properties:
