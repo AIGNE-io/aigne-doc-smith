@@ -32,6 +32,7 @@ skills:
     name: batchTranslateDocument
     skills:
       - ../translate/translate-multilingual.yaml
+      - url: ./record-translation-history.mjs
       - url: ../utils/save-single-doc.mjs
         default_input:
           isTranslate: true
@@ -42,7 +43,7 @@ skills:
       stage: translation_refine
   - url: ../utils/action-success.mjs
     default_input:
-      action: "✅ Translation completed"
+      action: '✅ Translation completed'
 input_schema:
   type: object
   properties:
@@ -58,7 +59,7 @@ input_schema:
       type: array
       items:
         type: string
-      description: "Target languages (available: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar)"
+      description: 'Target languages (available: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar)'
     feedback:
       type: string
       description: Tell us how to improve the translation style

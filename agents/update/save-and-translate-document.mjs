@@ -1,3 +1,5 @@
+import { recordUpdate } from '../../utils/history-utils.mjs'
+
 export default async function saveAndTranslateDocument(input, options) {
   const { selectedDocs, docsDir, translateLanguages, locale } = input
 
@@ -43,6 +45,17 @@ export default async function saveAndTranslateDocument(input, options) {
     const savePromises = batch.map(async (doc) => {
       try {
         await saveDocument(doc)
+
+        // Record history for each document if feedback is provided
+        if (doc.feedback?.trim()) {
+          recordUpdate({
+            operation: 'document_update',
+            feedback: doc.feedback.trim(),
+            documentPath: doc.path,
+          })
+          // clear feedback
+          doc.feedback = ''
+        }
       } catch (error) {
         console.error(`❌ Failed to save document ${doc.path}:`, error.message)
       }
