@@ -4,12 +4,9 @@ import chalk from "chalk";
 import { stringify as yamlStringify } from "yaml";
 import { getFilteredOptions } from "../../utils/conflict-detector.mjs";
 import {
-  DEFAULT_EXCLUDE_PATTERNS,
-  DEFAULT_INCLUDE_PATTERNS,
   DEPTH_RECOMMENDATION_LOGIC,
   DOCUMENT_STYLES,
   DOCUMENTATION_DEPTH,
-  INTELLIGENT_SUGGESTION_WORD_THRESHOLD,
   PURPOSE_TO_KNOWLEDGE_MAPPING,
   READER_KNOWLEDGE_LEVELS,
   SUPPORTED_LANGUAGES,
@@ -17,17 +14,10 @@ import {
 } from "../../utils/constants/index.mjs";
 import loadConfig from "../../utils/load-config.mjs";
 import {
-  calculateFileStats,
-  loadFilesFromPaths,
-  readFileContents,
-} from "../../utils/file-utils.mjs";
-import {
   detectSystemLanguage,
   getAvailablePaths,
   getProjectInfo,
   isGlobPattern,
-  processDocumentPurpose,
-  processTargetAudience,
   validatePath,
 } from "../../utils/utils.mjs";
 
@@ -346,59 +336,8 @@ export default async function init(
     }
   }
 
-  // If no paths entered, automatically suggest source paths
-  if (sourcePaths.length === 0 || (sourcePaths.length === 1 && sourcePaths[0] === "./")) {
-    // Load files from current directory using file-utils
-    const filePaths = await loadFilesFromPaths(["./"], {
-      useDefaultPatterns: true,
-      defaultIncludePatterns: DEFAULT_INCLUDE_PATTERNS,
-      defaultExcludePatterns: DEFAULT_EXCLUDE_PATTERNS,
-    });
-
-    // Read file contents to get file information
-    const relevantFiles = await readFileContents(filePaths, process.cwd());
-
-    // Calculate word count to determine if intelligent suggestion is needed
-    const { totalWords } = calculateFileStats(relevantFiles);
-
-    if (totalWords > INTELLIGENT_SUGGESTION_WORD_THRESHOLD) {
-      console.log(
-        `\nYour project contains ${totalWords.toLocaleString()} words of content (exceeds ${INTELLIGENT_SUGGESTION_WORD_THRESHOLD.toLocaleString()}+ words threshold).`,
-      );
-      console.log(
-        `For optimal performance, we'll help you select the most relevant files for documentation generation.`,
-      );
-
-      const suggestSourcePathAgent = options.context.agents["suggestSourcePath"];
-      const result = await options.context.invoke(suggestSourcePathAgent, {
-        sourceFiles: relevantFiles.map((file) => `- ${file.sourceId}`).join("\n"),
-        documentPurpose: processDocumentPurpose(prioritizedPurposes).purposes,
-        targetAudienceTypes: processTargetAudience(audienceChoices).audiences,
-        maxFiles: 500,
-      });
-
-      const selectedFiles = result.selectedFiles.map((file) => file.path);
-      const finalSelectedFiles = await options.prompts.checkbox({
-        message: "Review the suggested source paths:",
-        choices: selectedFiles.map((file) => ({
-          name: `${file}`,
-          value: file,
-        })),
-        validate: (input) => {
-          if (input.length === 0) {
-            return "Please select at least one source path.";
-          }
-          return true;
-        },
-      });
-      input.sourcesPath = finalSelectedFiles;
-    }
-  } else {
-    input.sourcesPath = sourcePaths.filter((path) => path !== "./");
-  }
-
-  // // If no paths entered, use default
-  // input.sourcesPath = sourcePaths.length > 0 ? sourcePaths : ["./"];
+  // If no paths entered, use default
+  input.sourcesPath = sourcePaths.length > 0 ? sourcePaths : ["./"];
 
   // 9. Custom rules - any specific requirements for the documentation?
   const rulesInput = await options.prompts.input({

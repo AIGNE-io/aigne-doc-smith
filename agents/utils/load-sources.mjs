@@ -1,15 +1,21 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import {
-  DEFAULT_EXCLUDE_PATTERNS,
-  DEFAULT_INCLUDE_PATTERNS,
-} from "../../utils/constants/index.mjs";
-import {
+  buildSourcesContent,
   calculateFileStats,
   loadFilesFromPaths,
   readFileContents,
 } from "../../utils/file-utils.mjs";
-import { getCurrentGitHead, getModifiedFilesBetweenCommits } from "../../utils/utils.mjs";
+import {
+  getCurrentGitHead,
+  getModifiedFilesBetweenCommits,
+  toRelativePath,
+} from "../../utils/utils.mjs";
+import {
+  INTELLIGENT_SUGGESTION_WORD_THRESHOLD,
+  DEFAULT_EXCLUDE_PATTERNS,
+  DEFAULT_INCLUDE_PATTERNS,
+} from "../../utils/constants/index.mjs";
 
 export default async function loadSources({
   sources = [],
@@ -39,6 +45,9 @@ export default async function loadSources({
   }
 
   files = [...new Set(files)];
+
+  // all files path
+  const allFilesPaths = files.map((file) => `- ${toRelativePath(file)}`).join("\n");
 
   // Define media file extensions
   const mediaExtensions = [
@@ -84,11 +93,14 @@ export default async function loadSources({
   // Read all source files using the utility function
   const sourceFiles = await readFileContents(sourceFilesPaths, process.cwd());
 
-  // Build allSources string
-  let allSources = "";
-  for (const source of sourceFiles) {
-    allSources += `// sourceId: ${source.sourceId}\n${source.content}\n`;
-  }
+  // Count words and lines using utility function
+  const { totalWords, totalLines } = calculateFileStats(sourceFiles);
+
+  // check if totalWords is too large
+  const isLargeContext = totalWords > INTELLIGENT_SUGGESTION_WORD_THRESHOLD;
+
+  // Build allSources string using utility function
+  const allSources = buildSourcesContent(sourceFiles, isLargeContext);
 
   // Get the last documentation structure
   let originalDocumentStructure;
@@ -198,9 +210,6 @@ export default async function loadSources({
     assetsContent += "```\n";
   }
 
-  // Count words and lines using utility function
-  const { totalWords, totalLines } = calculateFileStats(sourceFiles);
-
   return {
     datasourcesList: sourceFiles,
     datasources: allSources,
@@ -211,6 +220,8 @@ export default async function loadSources({
     totalWords,
     totalLines,
     assetsContent,
+    isLargeContext,
+    allFilesPaths,
   };
 }
 

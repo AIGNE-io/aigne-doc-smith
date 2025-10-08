@@ -11,7 +11,15 @@ import {
 } from "../../utils/utils.mjs";
 
 export default async function checkNeedGenerateStructure(
-  { originalDocumentStructure, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
+  {
+    originalDocumentStructure,
+    feedback,
+    lastGitHead,
+    docsDir,
+    forceRegenerate,
+    totalWords,
+    ...rest
+  },
   options,
 ) {
   // Check if originalDocumentStructure is empty and prompt user

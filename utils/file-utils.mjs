@@ -439,3 +439,93 @@ export function calculateFileStats(sourceFiles) {
 
   return { totalWords, totalLines };
 }
+
+/**
+ * Build sources content string based on context size
+ * For large contexts, only include core project files to avoid token limit issues
+ * @param {Array<{sourceId: string, content: string}>} sourceFiles - Array of source file objects
+ * @param {boolean} isLargeContext - Whether the context is large
+ * @returns {string} Concatenated sources content with sourceId comments
+ */
+export function buildSourcesContent(sourceFiles, isLargeContext = false) {
+  // Define core file patterns that represent project structure and key information
+  const coreFilePatterns = [
+    // Configuration files
+    /package\.json$/,
+    /tsconfig\.json$/,
+    /jsconfig\.json$/,
+    /\.env\.example$/,
+    /Cargo\.toml$/,
+    /go\.mod$/,
+    /pom\.xml$/,
+    /build\.gradle$/,
+    /Gemfile$/,
+    /requirements\.txt$/,
+    /Pipfile$/,
+    /composer\.json$/,
+    /pyproject\.toml$/,
+
+    // Documentation
+    /README\.md$/i,
+    /CHANGELOG\.md$/i,
+    /CONTRIBUTING\.md$/i,
+    /\.github\/.*\.md$/i,
+
+    // Entry points and main files
+    /index\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
+    /main\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
+    /app\.(js|ts|jsx|tsx|py)$/,
+    /server\.(js|ts|jsx|tsx|py)$/,
+
+    // API definitions
+    /api\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
+    /routes\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
+    /controllers\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
+
+    // Type definitions and schemas
+    /types\.(ts|d\.ts)$/,
+    /schema\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
+    /.*\.d\.ts$/,
+
+    // Core utilities
+    /utils\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
+    /lib\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
+    /helpers\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
+  ];
+
+  // Function to check if a file is a core file
+  const isCoreFile = (filePath) => {
+    return coreFilePatterns.some((pattern) => pattern.test(filePath));
+  };
+
+  // Build sources string
+  let allSources = "";
+
+  if (isLargeContext) {
+    // Only include core files for large contexts
+    const coreFiles = sourceFiles.filter((source) => isCoreFile(source.sourceId));
+
+    if (coreFiles.length === 0) {
+      // Fallback: if no core files found, take a sample of files
+      const sampleSize = Math.min(20, sourceFiles.length);
+      const sampledFiles = sourceFiles.slice(0, sampleSize);
+
+      allSources += "// Note: Context is large, showing sample of files\n";
+      for (const source of sampledFiles) {
+        allSources += `// sourceId: ${source.sourceId}\n${source.content}\n`;
+      }
+    } else {
+      allSources += "// Note: Context is large, showing only core project files\n";
+      for (const source of coreFiles) {
+        allSources += `// sourceId: ${source.sourceId}\n${source.content}\n`;
+      }
+    }
+  } else {
+    // Include all files for normal contexts
+    for (const source of sourceFiles) {
+      allSources += `// sourceId: ${source.sourceId}\n${source.content}\n`;
+    }
+  }
+
+  return allSources;
+}
