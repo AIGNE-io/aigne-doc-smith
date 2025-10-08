@@ -4,7 +4,3 @@ tasks:
   - name: "view"
     description: "View update history in compact format"
     agent: "viewHistory"
-    input_schema:
-      type: "object"
-      properties: {}
-      additionalProperties: false

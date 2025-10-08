@@ -27,7 +27,7 @@ agents:
   # Document Content Generation & Updates
   - ./agents/update/batch-generate-document.yaml
   - ./agents/update/generate-document.yaml
-  - ./agents/update/update-document-in-batch.yaml
+  - ./agents/update/handle-document-update.yaml
   - ./agents/update/check-document.mjs
   - ./agents/update/update-document-detail.yaml
   - ./agents/update/user-review-document.mjs

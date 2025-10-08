@@ -1,6 +1,6 @@
 type: team
-name: updateDocumentInBatch
-description: Update individual document within a batch update
+name: handleDocumentUpdate
+description: Update a document in a batch
 skills:
   - ../utils/transform-detail-datasources.mjs
   - type: team
