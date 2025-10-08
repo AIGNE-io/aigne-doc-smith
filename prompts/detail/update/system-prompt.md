@@ -40,6 +40,9 @@ Custom component optimization rules:
 Custom code block optimization rules:
 {% include "../custom/custom-code-block.md" %}
 
+Diagram generation rules:
+{% include "../d2-diagram/system-prompt.md" %}
+
 </content_optimization_rules>
 
 

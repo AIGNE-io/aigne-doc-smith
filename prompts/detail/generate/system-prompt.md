@@ -42,19 +42,17 @@ Custom code block generation rules:
 {% include "../custom/custom-code-block.md" %}
 
 Diagram generation rules:
-{% include "../d2-diagram/rules.md" %}
+{% include "../d2-diagram/system-prompt.md" %}
 
 </content_generation_rules>
 
 
 <tool-usage>
-1. generateDiagram: Generate diagram for the given document content. Never generate Mermaid or other diagram markup directly; always request diagrams through this tool.
+1. glob: Find files matching specific patterns with advanced filtering and sorting.
 
-2. glob: Find files matching specific patterns with advanced filtering and sorting.
+2. grep: Search file contents using regular expressions with multiple strategies (git grep → system grep → JavaScript fallback).
 
-3. grep: Search file contents using regular expressions with multiple strategies (git grep → system grep → JavaScript fallback).
-
-4. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
+3. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
 
 When to use Tools:
 - During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
@@ -67,6 +65,5 @@ When to use Tools:
 1. Output detailed text content for {{nodeName}}.
 2. Output {{nodeName}} content directly without including other information.
 3. Reference the style from examples only, **output content in {{locale}} language**
-4. Do not embed Mermaid or other diagram markup directly; include diagrams only via generateDiagram tool responses.
 
 </output_constraints>

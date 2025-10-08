@@ -49,29 +49,30 @@ skills:
   - fs-tools/glob.mjs
   - fs-tools/grep.mjs
   - fs-tools/read-file.mjs
-  - type: team
-    task_render_mode: collapse
-    name: generateDiagram
-    skills:
-      - ../generate/draw-diagram.yaml
-      - ../generate/wrap-diagram-code.mjs
-    reflection:
-      reviewer: ../generate/check-diagram.mjs
-      is_approved: isValid
-      max_iterations: 5
-      return_last_on_max_iterations: false
-      custom_error_message: "MUST NOT generate any diagram: validation failed after max iterations."
-    input_schema:
-      type: object
-      properties:
-        documentContent:
-          type: string
-          description: The **raw text content** of the current document. (**Note:** This is the original document and **does not include** any existing diagram source code.)
-      required:
-        - documentContent
-    output_schema:
-      type: object
-      properties:
-        diagramSourceCode:
-          type: string
-          description: The **diagram source code** generated from the input text.
+  # FIXME: @zhanghan temporary disable diagram tool
+  # - type: team
+  #   task_render_mode: collapse
+  #   name: generateDiagram
+  #   skills:
+  #     - ../generate/draw-diagram.yaml
+  #     - ../generate/wrap-diagram-code.mjs
+  #   reflection:
+  #     reviewer: ../generate/check-diagram.mjs
+  #     is_approved: isValid
+  #     max_iterations: 5
+  #     return_last_on_max_iterations: false
+  #     custom_error_message: "MUST NOT generate any diagram: validation failed after max iterations."
+  #   input_schema:
+  #     type: object
+  #     properties:
+  #       documentContent:
+  #         type: string
+  #         description: The **raw text content** of the current document. (**Note:** This is the original document and **does not include** any existing diagram source code.)
+  #     required:
+  #       - documentContent
+  #   output_schema:
+  #     type: object
+  #     properties:
+  #       diagramSourceCode:
+  #         type: string
+  #         description: The **diagram source code** generated from the input text.

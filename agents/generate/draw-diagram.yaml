@@ -2,9 +2,9 @@ name: drawDiagram
 description: Generate a D2 diagram from document content.
 instructions:
   - role: system
-    url: ../../prompts/detail/d2-diagram/rules-system.md
+    url: ../../prompts/detail/d2-diagram/system-prompt.md
   - role: user
-    url: ../../prompts/detail/d2-diagram/rules-user.md
+    url: ../../prompts/detail/d2-diagram/user-prompt.md
 input_schema:
   type: object
   properties:
