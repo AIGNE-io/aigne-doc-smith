@@ -1,18 +1,19 @@
 
-{% include "../common/document-structure/user-locale-rules.md" %}
+{% include "../../common/document-structure/user-locale-rules.md" %}
 
-{% include "../common/document-structure/user-preferences.md" %}
+{% include "../../common/document-structure/user-preferences.md" %}
 
-{% if feedback %}
-<document_structure_user_feedback>
-{{ feedback }}
-</document_structure_user_feedback>
-{% endif %}
+
+<datasources>
+{{ datasources }}
+</datasources>
+
 
 {% if originalDocumentStructure %}
 <last_document_structure>
 {{originalDocumentStructure}}
 </last_document_structure>
+
 
 <last_document_structure_rule>
 If a previous structural plan (last_document_structure) is provided, follow these rules:
@@ -22,20 +23,23 @@ If a previous structural plan (last_document_structure) is provided, follow thes
 </last_document_structure_rule>
 {% endif %}
 
+
 {% if documentStructure %}
 <review_document_structure>
 {{ documentStructure }}
 </review_document_structure>
 {% endif %}
 
+
+{% if feedback %}
+<document_structure_user_feedback>
+{{ feedback }}
+</document_structure_user_feedback>
+{% endif %}
+
+
 {% if structureReviewFeedback %}
 <document_structure_review_feedback>
 {{ structureReviewFeedback }}
 </document_structure_review_feedback>
 {% endif %}
-
-{% include "../common/document-structure/glossary.md" %}
-
-<datasources>
-{{ datasources }}
-</datasources>

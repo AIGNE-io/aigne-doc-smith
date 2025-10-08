@@ -1,7 +1,11 @@
 name: generateStructure
 description: Generate the structure and organization of your documentation
 instructions:
-  url: ../../prompts/structure/generate-structure-system.md
+  - role: system
+    url: ../../prompts/structure/generate/system-prompt.md
+  - role: user
+    url: ../../prompts/structure/generate/user-prompt.md
+
 input_schema:
   type: object
   properties:
