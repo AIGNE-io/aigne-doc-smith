@@ -2,7 +2,10 @@ type: ai
 name: updateDocumentStructure
 description: Update documentation structure based on user feedback and intentions using structure modification tools
 instructions:
-  url: ../../prompts/structure/update-document-structure.md
+  - role: system
+    url: ../../prompts/structure/update/system-prompt.md
+  - role: user
+    url: ../../prompts/structure/update/user-prompt.md
 input_schema:
   type: object
   properties:
