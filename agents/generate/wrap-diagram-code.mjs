@@ -8,7 +8,7 @@ export default async function wrapDiagramCode({ diagramSourceCode }) {
     };
   } catch {
     return {
-      diagramSourceCode
+      diagramSourceCode,
     };
   }
 }

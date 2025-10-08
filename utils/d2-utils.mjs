@@ -196,9 +196,9 @@ export function isValidCode(lang) {
   return lang?.toLowerCase() === "d2";
 }
 
-export function wrapCode({content}) {
+export function wrapCode({ content }) {
   const matches = Array.from(content.matchAll(codeBlockRegex));
-  if (matches.length>0) {
+  if (matches.length > 0) {
     return content;
   }
 
