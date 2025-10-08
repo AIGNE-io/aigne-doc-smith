@@ -1,7 +1,7 @@
 
-{% include "../common/document-structure/user-locale-rules.md" %}
+{% include "../../common/document-structure/user-locale-rules.md" %}
 
-{% include "../common/document-structure/user-preferences.md" %}
+{% include "../../common/document-structure/user-preferences.md" %}
 
 {% if feedback %}
 <document_structure_user_feedback>
@@ -34,7 +34,7 @@ If a previous structural plan (last_document_structure) is provided, follow thes
 </document_structure_review_feedback>
 {% endif %}
 
-{% include "../common/document-structure/glossary.md" %}
+{% include "../../common/document-structure/glossary.md" %}
 
 <datasources>
 {{ datasources }}
