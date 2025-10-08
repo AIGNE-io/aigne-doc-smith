@@ -14,6 +14,7 @@ import {
   getChart,
   isValidCode,
   saveAssets,
+  wrapCode,
 } from "../../utils/d2-utils.mjs";
 
 describe("d2-utils", () => {
@@ -418,6 +419,19 @@ E -> F
       expect(isValidCode("")).toBe(false);
       expect(isValidCode(null)).toBe(false);
       expect(isValidCode(undefined)).toBe(false);
+    });
+  });
+
+  describe("wrapCode", () => {
+    test("should return original content when D2 block already exists", () => {
+      const content = "```d2\nA -> B\n```";
+      expect(wrapCode({ content })).toBe(content);
+    });
+
+    test("should wrap plain content in a D2 code block", () => {
+      const content = "A -> B";
+      const expected = "```d2\nA -> B\n```";
+      expect(wrapCode({ content })).toBe(expected);
     });
   });
 });
