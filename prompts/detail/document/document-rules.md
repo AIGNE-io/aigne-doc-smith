@@ -25,7 +25,7 @@ Documentation Generation Rules:
 - Use README files for reference only—extract the most current and comprehensive information directly from source code
 - Omit tag information from document headers as it's processed programmatically
 - Parse `jsx` syntax correctly when present in code samples
-  {% include "jsx/rules.md" %}
+  {% include "../jsx/rules.md" %}
 
 </document_rules>
 
