@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.12-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta...v0.8.12-beta.1) (2025-10-08)
+
+
+### Features
+
+* add history tracking and make translation optional during update ([#165](https://github.com/AIGNE-io/aigne-doc-smith/issues/165)) ([e1d3d97](https://github.com/AIGNE-io/aigne-doc-smith/commit/e1d3d97c7e57c1c663c0478870aab7421de9d4bc))
+
+
+### Bug Fixes
+
+* split generate/update document & structure to system & user ([#159](https://github.com/AIGNE-io/aigne-doc-smith/issues/159)) ([ad1802d](https://github.com/AIGNE-io/aigne-doc-smith/commit/ad1802d1aecefc414ab3d1217a9ba31655479e86))
+
 ## [0.8.12-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11...v0.8.12-beta) (2025-10-07)
 
 
