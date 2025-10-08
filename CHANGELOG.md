@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.12-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11...v0.8.12-beta) (2025-10-07)
+
+
+### Bug Fixes
+
+* read file tool should support relative path ([#162](https://github.com/AIGNE-io/aigne-doc-smith/issues/162)) ([cf1291b](https://github.com/AIGNE-io/aigne-doc-smith/commit/cf1291b0be5b51db15d052310c30b0552a4092e1))
+
 ## [0.8.11](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.11-beta.7...v0.8.11) (2025-10-05)
 
 
