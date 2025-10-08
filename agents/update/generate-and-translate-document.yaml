@@ -30,8 +30,6 @@ skills:
         $,
         { "feedback": "" }
       ])
-  - ../translate/translate-multilingual.yaml
-  - ../utils/save-single-doc.mjs
 input_schema:
   type: object
   properties:

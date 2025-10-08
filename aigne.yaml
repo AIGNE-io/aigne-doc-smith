@@ -34,6 +34,7 @@ agents:
   - ./agents/update/batch-update-document.yaml
   - ./agents/update/update-single-document.yaml
   - ./agents/update/check-update-is-single.mjs
+  - ./agents/update/save-and-translate-document.mjs
   - ./agents/update/index.yaml
 
 

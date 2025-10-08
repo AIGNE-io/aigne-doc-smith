@@ -29,6 +29,7 @@ export default async function checkUpdateIsSingle({ selectedDocs, ...rest }, opt
       ...rest,
     });
 
+    // { selectedDocs: [{ path, content, ... }, ...] }
     return result;
   } catch (error) {
     console.error(`Error invoking ${agentName}:`, error.message);

@@ -10,7 +10,5 @@ skills:
         $,
         { "feedback": "" }
       ])
-  - ../translate/translate-multilingual.yaml
-  - ../utils/save-single-doc.mjs
 iterate_on: selectedDocs
 concurrency: 1

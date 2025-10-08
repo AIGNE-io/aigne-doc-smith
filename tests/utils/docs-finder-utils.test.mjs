@@ -6,6 +6,7 @@ import {
   fileNameToFlatPath,
   findItemByFlatName,
   findItemByPath,
+  generateFileName,
   getActionText,
   getMainLanguageFiles,
   processSelectedFiles,
@@ -632,6 +633,18 @@ describe("docs-finder-utils", () => {
       expect(consoleWarnSpy).toHaveBeenCalledWith(
         "⚠️  No documentation structure item found for file: test.md",
       );
+    });
+
+    test("fileNameToFlatPath should handle files with multiple language suffixes", () => {
+      expect(fileNameToFlatPath("file.zh-CN.md")).toBe("file");
+      expect(fileNameToFlatPath("file.en-US.md")).toBe("file");
+      expect(fileNameToFlatPath("file.fr-FR.md")).toBe("file");
+    });
+
+    test("generateFileName should handle special characters in flatName", () => {
+      expect(generateFileName("api-v1-guide", "en")).toBe("api-v1-guide.md");
+      expect(generateFileName("api-v1-guide", "zh")).toBe("api-v1-guide.zh.md");
+      expect(generateFileName("test_special-chars", "fr")).toBe("test_special-chars.fr.md");
     });
   });
 });

@@ -47,4 +47,5 @@ output_schema:
           translation:
             type: string
 iterate_on: translates
-mode: sequential
+concurrency: 3
+
