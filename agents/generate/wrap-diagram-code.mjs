@@ -1,14 +1,14 @@
 import { wrapCode } from "../../utils/d2-utils.mjs";
 
-export default async function wrapDiagramCode({ d2SourceCode }) {
+export default async function wrapDiagramCode({ diagramSourceCode }) {
   try {
-    const result = await wrapCode({ content: d2SourceCode });
+    const result = await wrapCode({ content: diagramSourceCode });
     return {
-      d2SourceCode: result,
+      diagramSourceCode: result,
     };
   } catch {
     return {
-      d2SourceCode
+      diagramSourceCode
     };
   }
 }
@@ -16,20 +16,20 @@ export default async function wrapDiagramCode({ d2SourceCode }) {
 wrapDiagramCode.input_schema = {
   type: "object",
   properties: {
-    d2SourceCode: {
+    diagramSourceCode: {
       type: "string",
       description: "Source code of d2 diagram",
     },
   },
-  required: ["d2SourceCode"],
+  required: ["diagramSourceCode"],
 };
 wrapDiagramCode.output_schema = {
   type: "object",
   properties: {
-    d2SourceCode: {
+    diagramSourceCode: {
       type: "string",
       description: "Source code of d2 diagram",
     },
   },
-  required: ["d2SourceCode"],
+  required: ["diagramSourceCode"],
 };

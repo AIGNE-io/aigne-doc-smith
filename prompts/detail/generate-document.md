@@ -37,14 +37,8 @@ Custom component generation rules:
 Custom code block generation rules:
 {% include "custom/custom-code-block.md" %}
 
-Diagram generation process:
-1. DO NOT include raw Mermaid code blocks or other self-authored diagram syntax in the document output. The diagram content must come exclusively from generateDiagram tool responses.
-2. For each document, evaluate whether diagrams are needed. If so, ALWAYS USE generateDiagram to add diagrams to the document (If tool call failed, don't add any diagram)
-3. Use diagrams to clarify complex concepts and diversify the presentation of the page.
-4. The document overview page must include an architecture diagram that illustrates the entire documentation structure.
-5. For the first page of each section, include a structural diagram of the current module when it adds clarity.
-6. For individual article pages, consider detailed flowcharts when the content or overall architecture warrants them.
-7. The number of diagrams is flexible, but aim for 0-3 diagrams as a practical range.
+Diagram generation rules:
+{% include "d2-diagram/rules.md" %}
 
 </content_generation_rules>
 
