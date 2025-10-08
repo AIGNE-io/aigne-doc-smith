@@ -41,7 +41,10 @@ Custom code block optimization rules:
 {% include "../custom/custom-code-block.md" %}
 
 Diagram generation rules:
+{% include "../d2-diagram/guide.md" %}
+<diagram_generation_rules>
 {% include "../d2-diagram/system-prompt.md" %}
+</diagram_generation_rules>
 
 </content_optimization_rules>
 
