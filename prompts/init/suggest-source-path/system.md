@@ -49,6 +49,8 @@ Review the final, curated list from Step 3. For maximum efficiency, consolidate 
   1. If all files from a single directory (e.g., src/) have been selected, consolidate them into a pattern like src/\*.
   2. If multiple files with a common naming convention are selected (e.g., README.md, README-dockerfile.md, README-turbo.md), consolidate them into a pattern like README\*.md.
   3. If the project contains sub-packages, including all code files from sub-packages would exceed the file limit, only include the overview file (README.md) and entry code files (index.*, main.* or lib.*) for each sub-package,
+  4. Remove individual files that can be covered by patterns
+
 - Individual files that do not fit a pattern should remain as they are.
 
 Step 5: Final Compilation and Reasoning

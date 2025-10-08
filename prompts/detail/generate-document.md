@@ -119,7 +119,11 @@ User feedback on previous generation:
 4. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
 
 When to use Tools:
-- For each document, evaluate whether D2 diagrams are needed. If so, always use generateD2DiagramContent to add diagrams to the document
-- During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
-- Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use glob/grep/readFile to query related code or references
+1. generateD2DiagramContent:
+  - For each document, evaluate whether D2 diagrams are needed. If so, always use generateD2DiagramContent to add diagrams to the document
+
+2. glob/grep/readFile:
+  - During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
+  - Analyze source code provided in DataSource, use glob/grep/readFile as needed to obtain directly referenced code files and related tests, example files, ensuring context consistency
+  - Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use glob/grep/readFile to query related code or references
 </tool-usage>
