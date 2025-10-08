@@ -13,12 +13,21 @@ export function getActionText(isTranslate, baseText) {
 }
 
 /**
+ * Convert path to flattened name format
+ * @param {string} path - Document path (e.g., "/api/users")
+ * @returns {string} Flattened name (e.g., "api-users")
+ */
+export function pathToFlatName(path) {
+  return path.replace(/^\//, "").replace(/\//g, "-");
+}
+
+/**
  * Generate filename based on flattened path and locale
  * @param {string} flatName - Flattened path name
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {string} Generated filename
  */
-function generateFileName(flatName, locale) {
+export function generateFileName(flatName, locale) {
   const isEnglish = locale === "en";
   return isEnglish ? `${flatName}.md` : `${flatName}.${locale}.md`;
 }

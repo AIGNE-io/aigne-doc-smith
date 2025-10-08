@@ -27,13 +27,14 @@ agents:
   # Document Content Generation & Updates
   - ./agents/update/batch-generate-document.yaml
   - ./agents/update/generate-document.yaml
-  - ./agents/update/generate-and-translate-document.yaml
+  - ./agents/update/handle-document-update.yaml
   - ./agents/update/check-document.mjs
   - ./agents/update/update-document-detail.yaml
   - ./agents/update/user-review-document.mjs
   - ./agents/update/batch-update-document.yaml
   - ./agents/update/update-single-document.yaml
   - ./agents/update/check-update-is-single.mjs
+  - ./agents/update/save-and-translate-document.mjs
   - ./agents/update/index.yaml
 
 
@@ -94,6 +95,12 @@ cli:
     - ./agents/clear/index.yaml
     - ./agents/prefs/index.mjs
     - ./agents/evaluate/index.yaml
+    - name: history
+      description: View update history
+      agents:
+        - url: ./agents/history/view.mjs
+          name: view
+          alias: ["log", "list"]
 mcp_server:
   agents:
     - ./docs-mcp/get-docs-structure.mjs

@@ -31,6 +31,7 @@ skills:
       requiredFeedback: false
   - ../utils/format-document-structure.mjs
   - ../update/check-update-is-single.mjs
+  - ../update/save-and-translate-document.mjs
   - url: ../utils/action-success.mjs
     default_input:
       action: "✅ Documents updated successfully"

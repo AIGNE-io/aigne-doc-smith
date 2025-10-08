@@ -25,7 +25,7 @@ describe("check-document", () => {
     mockOptions = {
       context: {
         agents: {
-          generateAndTranslateDocument: { mockAgent: true },
+          handleDocumentUpdate: { mockAgent: true },
         },
         invoke: mock(async () => ({ mockResult: true })),
       },

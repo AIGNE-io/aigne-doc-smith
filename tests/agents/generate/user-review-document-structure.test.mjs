@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:
 import userReviewDocumentStructure from "../../../agents/generate/user-review-document-structure.mjs";
 
 import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
+import * as historyUtils from "../../../utils/history-utils.mjs";
 
 describe("user-review-document-structure", () => {
   let mockOptions;
@@ -61,6 +62,7 @@ describe("user-review-document-structure", () => {
     );
 
     consoleSpy = spyOn(console, "log").mockImplementation(() => {});
+    spyOn(historyUtils, "recordUpdate").mockImplementation(() => {});
 
     // Clear prompts mock call history
     mockOptions.prompts.select.mockClear();

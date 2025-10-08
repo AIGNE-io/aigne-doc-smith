@@ -1,6 +1,6 @@
 type: team
-name: generateAndTranslateDocument
-description: Generate and translate documents
+name: handleDocumentUpdate
+description: Update a document in a batch
 skills:
   - ../utils/transform-detail-datasources.mjs
   - type: team
@@ -23,15 +23,6 @@ skills:
       max_iterations: 5
       return_last_on_max_iterations: true
     task_title: Generate document for '{{ title }}'
-  - type: transform
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        $,
-        { "feedback": "" }
-      ])
-  - ../translate/translate-multilingual.yaml
-  - ../utils/save-single-doc.mjs
 input_schema:
   type: object
   properties:
