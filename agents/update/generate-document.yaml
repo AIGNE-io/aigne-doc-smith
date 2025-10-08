@@ -1,7 +1,10 @@
 name: generateDocument
 description: Comprehensive content generator for documentation that creates detailed, high-quality document content from various data sources with intelligent analysis.
 instructions:
-  url: ../../prompts/detail/generate-document.md
+  - role: system
+    url: ../../prompts/detail/generate/system-prompt.md
+  - role: user
+    url: ../../prompts/detail/generate/user-prompt.md
 input_schema:
   type: object
   properties:
@@ -46,27 +49,30 @@ skills:
   - fs-tools/glob.mjs
   - fs-tools/grep.mjs
   - fs-tools/read-file.mjs
-  - type: team
-    task_render_mode: collapse
-    name: generateD2DiagramContent
-    skills:
-      - ../generate/generate-d2-diagram.yaml
-    reflection:
-      reviewer: ../generate/check-d2-diagram-valid.mjs
-      is_approved: isValid
-      max_iterations: 5
-      return_last_on_max_iterations: true
-    input_schema:
-      type: object
-      properties:
-        documentContent:
-          type: string
-          description: Source code of current document (without the D2 diagram)
-      required:
-        - documentContent
-    output_schema:
-      type: object
-      properties:
-        d2DiagramSourceCode:
-          type: string
-          description: Source code for the D2 diagram
+  # FIXME: @zhanghan temporary disable diagram tool
+  # - type: team
+  #   task_render_mode: collapse
+  #   name: generateDiagram
+  #   skills:
+  #     - ../generate/draw-diagram.yaml
+  #     - ../generate/wrap-diagram-code.mjs
+  #   reflection:
+  #     reviewer: ../generate/check-diagram.mjs
+  #     is_approved: isValid
+  #     max_iterations: 5
+  #     return_last_on_max_iterations: false
+  #     custom_error_message: "MUST NOT generate any diagram: validation failed after max iterations."
+  #   input_schema:
+  #     type: object
+  #     properties:
+  #       documentContent:
+  #         type: string
+  #         description: The **raw text content** of the current document. (**Note:** This is the original document and **does not include** any existing diagram source code.)
+  #     required:
+  #       - documentContent
+  #   output_schema:
+  #     type: object
+  #     properties:
+  #       diagramSourceCode:
+  #         type: string
+  #         description: The **diagram source code** generated from the input text.

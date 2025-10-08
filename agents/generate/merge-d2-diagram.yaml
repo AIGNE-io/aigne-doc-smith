@@ -7,7 +7,7 @@ instructions: |
   {{ content }}
   </datasources>
   <datasources>
-  {{ d2DiagramSourceCode }}
+  {{ diagramSourceCode }}
   </datasources>
 
   Given the source content of a document and the D2 diagram source code, your task is to:
@@ -22,12 +22,12 @@ input_schema:
     content:
       type: string
       description: Source content of the document
-    d2DiagramSourceCode:
+    diagramSourceCode:
       type: string
       description: Source content of D2 Diagram
   required:
     - content
-    - d2DiagramSourceCode
+    - diagramSourceCode
 output_schema:
   type: object
   properties:

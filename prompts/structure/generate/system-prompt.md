@@ -17,58 +17,25 @@ Objectives:
   - Create a clear and logical structural plan that comprehensively presents information from the user-provided context while providing users with intuitive navigation paths.
   - Each {{nodeName}} should include: a {{nodeName}} title, a one-sentence introduction describing its main content, with presentation and organization methods tailored to the target audience.
 
-{% include "../common/document-structure/intj-traits.md" %}
+{% include "../../common/document-structure/intj-traits.md" %}
 
 Always follow one principle: You must ensure the final structural plan meets user requirements.
 </role_and_goal>
 
-{% include "../common/document-structure/user-locale-rules.md" %}
 
-{% include "../common/document-structure/user-preferences.md" %}
+{% include "../../common/document-structure/glossary.md" %}
 
-{% if feedback %}
-<document_structure_user_feedback>
-{{ feedback }}
-</document_structure_user_feedback>
-{% endif %}
 
-{% if originalDocumentStructure %}
-<last_document_structure>
-{{originalDocumentStructure}}
-</last_document_structure>
 
-<last_document_structure_rule>
-If a previous structural plan (last_document_structure) is provided, follow these rules:
-  1.  **Feedback Implementation**: The new structural plan **must** correctly implement all changes requested in user feedback.
-  2.  **Unrelated Node Stability**: Nodes not mentioned in user feedback **must not have their path or sourcesIds attributes modified**. `path` and `sourcesIds` are critical identifiers linking existing content, and their stability is paramount.
-    Ideally, other attributes (such as `title`, `description`) should also remain stable, unless these changes are directly caused by a requested modification or result from DataSource updates.
-</last_document_structure_rule>
-{% endif %}
+{% include "../../common/document-structure/document-structure-rules.md" %}
 
-{% if documentStructure %}
-<review_document_structure>
-{{ documentStructure }}
-</review_document_structure>
-{% endif %}
 
-{% if structureReviewFeedback %}
-<document_structure_review_feedback>
-{{ structureReviewFeedback }}
-</document_structure_review_feedback>
-{% endif %}
+{% include "../../common/document-structure/conflict-resolution-guidance.md" %}
 
-{% include "../common/document-structure/document-structure-rules.md" %}
-
-{% include "../common/document-structure/conflict-resolution-guidance.md" %}
-
-{% include "../common/document-structure/glossary.md" %}
-
-<datasources>
-{{ datasources }}
-</datasources>
 
 {% ifAsync docsType == 'general' %}
-  {% include "./structure-example.md" %}
+  {% include "../structure-example.md" %}
 {% endif %}
 
-{% include "../common/document-structure/output-constraints.md" %}
+
+{% include "../../common/document-structure/output-constraints.md" %}
