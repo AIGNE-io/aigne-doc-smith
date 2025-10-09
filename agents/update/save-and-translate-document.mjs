@@ -80,7 +80,7 @@ export default async function saveAndTranslateDocument(input, options) {
       try {
         // Clear feedback to ensure translation is not affected by update feedback
         doc.feedback = "";
-        
+
         const result = await options.context.invoke(translateAgent, {
           ...input, // context is required
           content: doc.content,

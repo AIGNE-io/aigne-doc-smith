@@ -245,7 +245,13 @@ export default async function userReviewDocument(
     }
   }
 
-  return { title, description, ...rest, content: options.context.userContext.currentContent, feedback: feedbacks.join(". ") };
+  return {
+    title,
+    description,
+    ...rest,
+    content: options.context.userContext.currentContent,
+    feedback: feedbacks.join(". "),
+  };
 }
 
 userReviewDocument.taskTitle = "User review and modify document content";
