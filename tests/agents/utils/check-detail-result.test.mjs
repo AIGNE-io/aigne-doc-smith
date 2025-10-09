@@ -337,6 +337,19 @@ This document demonstrates various programming language code blocks.`;
     });
   });
 
+  describe("D2 syntax validation", () => {
+    test("should handle D2 syntax errors", async () => {
+      const documentStructure = [];
+      const reviewContent =
+        "```d2\n" +
+        "invalid d2 syntax {{\n" + // Malformed D2
+        "```\n\n" +
+        "This has proper structure.";
+      const result = await checkDetailResult({ documentStructure, reviewContent });
+      expect(result.isApproved).toBe(false);
+    });
+  });
+
   describe("Advanced table edge cases", () => {
     test("should handle empty table cells correctly", async () => {
       const documentStructure = [];

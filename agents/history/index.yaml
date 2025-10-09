@@ -1,0 +1,6 @@
+name: "history"
+description: "View and manage document update history"
+tasks:
+  - name: "view"
+    description: "View update history in compact format"
+    agent: "viewHistory"

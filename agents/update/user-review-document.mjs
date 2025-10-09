@@ -138,6 +138,7 @@ export default async function userReviewDocument(
   options.context.userContext.currentContent = content;
 
   const MAX_ITERATIONS = 100;
+  const feedbacks = [];
   let iterationCount = 0;
   while (iterationCount < MAX_ITERATIONS) {
     iterationCount++;
@@ -184,6 +185,8 @@ export default async function userReviewDocument(
     if (!feedback?.trim()) {
       break;
     }
+
+    feedbacks.push(feedback.trim());
 
     // Get the updateDocument agent
     const updateAgent = options.context.agents["updateDocumentDetail"];
@@ -242,7 +245,7 @@ export default async function userReviewDocument(
     }
   }
 
-  return { content: options.context.userContext.currentContent };
+  return { content: options.context.userContext.currentContent, feedback: feedbacks.join(". ") };
 }
 
 userReviewDocument.taskTitle = "User review and modify document content";

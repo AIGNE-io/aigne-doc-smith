@@ -1,4 +1,5 @@
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
+import { recordUpdate } from "../../utils/history-utils.mjs";
 
 function formatDocumentStructure(structure) {
   // Build a tree structure for better display
@@ -157,6 +158,12 @@ export default async function userReviewDocumentStructure({ documentStructure, .
           console.warn("Your feedback was applied but not saved as a preference.");
         }
       }
+
+      // Record update in history
+      recordUpdate({
+        operation: "structure_update",
+        feedback: feedback.trim(),
+      });
 
       // Print current documentation structure in a user-friendly format
       printDocumentStructure(currentStructure);

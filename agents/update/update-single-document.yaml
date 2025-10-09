@@ -3,14 +3,5 @@ name: updateSingleDocument
 skills:
   - ../utils/transform-detail-datasources.mjs
   - ../update/user-review-document.mjs
-  - type: transform
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        $,
-        { "feedback": "" }
-      ])
-  - ../translate/translate-multilingual.yaml
-  - ../utils/save-single-doc.mjs
 iterate_on: selectedDocs
 concurrency: 1

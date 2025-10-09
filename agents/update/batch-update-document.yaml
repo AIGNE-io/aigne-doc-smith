@@ -2,6 +2,6 @@
 type: team
 name: batchUpdateDocument
 skills:
-  - ../update/generate-and-translate-document.yaml
+  - ../update/handle-document-update.yaml
 iterate_on: selectedDocs
 concurrency: 5
