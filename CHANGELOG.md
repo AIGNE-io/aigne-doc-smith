@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.12-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.1...v0.8.12-beta.2) (2025-10-09)
+
+
+### Bug Fixes
+
+* fix update document include path ([#166](https://github.com/AIGNE-io/aigne-doc-smith/issues/166)) ([40c3aa2](https://github.com/AIGNE-io/aigne-doc-smith/commit/40c3aa2739cb35d36fb1daed87a0e23c81285328))
+* resolve failure in document update and generate ([#168](https://github.com/AIGNE-io/aigne-doc-smith/issues/168)) ([c00c759](https://github.com/AIGNE-io/aigne-doc-smith/commit/c00c759473a01ce3d16b89f2bfa974f43420b82a))
+
 ## [0.8.12-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta...v0.8.12-beta.1) (2025-10-08)
 
 
