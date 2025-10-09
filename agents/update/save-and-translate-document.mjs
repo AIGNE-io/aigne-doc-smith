@@ -3,6 +3,10 @@ import { recordUpdate } from "../../utils/history-utils.mjs";
 export default async function saveAndTranslateDocument(input, options) {
   const { selectedDocs, docsDir, translateLanguages, locale } = input;
 
+  if (!Array.isArray(selectedDocs) || selectedDocs.length === 0) {
+    return {}
+  }
+
   // Saves a document with optional translation data
   const saveDocument = async (doc, translates = null, isTranslate = false) => {
     const saveAgent = options.context.agents["saveSingleDoc"];
