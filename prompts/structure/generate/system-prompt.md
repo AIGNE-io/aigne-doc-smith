@@ -33,9 +33,29 @@ Always follow one principle: You must ensure the final structural plan meets use
 {% include "../../common/document-structure/conflict-resolution-guidance.md" %}
 
 
-{% ifAsync docsType == 'general' %}
-  {% include "../structure-example.md" %}
+<sub_structure>
+{% if isLargeContext %}
+Analyze the provided file list and DataSources to complete the document structure planning:
+  - If the DataSources contain sufficient context and already include content from all files in the file list, you can directly generate a detailed document structure.
+  - For sections with extensive content, use the `generateSubStructure` tool to generate detailed sub-structures, then integrate all sub-structures in the final output to produce a complete document structure.
+
+Using `generateSubStructure`:
+- When the provided file list is large and DataSources don't contain all file contents, resulting in an oversized context, split the generation into sub-document structures to make the context more focused and complete
+- Generate sub-documents to more effectively and fully utilize the data source files provided in <file_list>
+- Requires `parentNode` and `subSourcePaths` as context parameters
+- `subSourcePaths` supports individual files and Glob Patterns, generation process:
+  - Analyze relevant files from the file list
+  - Consolidation Rules:
+    1. If all files from a single directory (e.g., src/) have been selected, consolidate them into a pattern like src/\*.
+    2. If multiple files with a common naming convention are selected (e.g., README.md, README-dockerfile.md, README-turbo.md), consolidate them into a pattern like README\*.md.
+    3. If the project contains sub-packages, including all code files from sub-packages would exceed the file limit, only include the overview file (README.md) and entry code files (index.*, main.* or lib.*) for each sub-package,
+    4. Remove individual files that can be covered by patterns
+- Merge the returned subStructure into the overall document structure plan, **ensuring all subStructures returned by the tool are included**.
+
+{% else %}
+The current context is sufficient, proceed directly with document structure planning based on DataSources.
 {% endif %}
+</sub_structure>
 
 
 {% include "../../common/document-structure/output-constraints.md" %}

@@ -4,6 +4,10 @@
 {% include "../../common/document-structure/user-preferences.md" %}
 
 
+<file_list>
+{{allFilesPaths}}
+</file_list>
+
 <datasources>
 {{ datasources }}
 </datasources>
@@ -42,4 +46,16 @@ If a previous structural plan (last_document_structure) is provided, follow thes
 <document_structure_review_feedback>
 {{ structureReviewFeedback }}
 </document_structure_review_feedback>
+{% endif %}
+
+{% if isSubStructure %}
+<parent_node>
+The current process is planning sub-structures for the following section:
+
+{{parentNode}}
+
+Sub-structures must meet the following requirements:
+- All sub-structures content must be related to and align with the parent document's content plan
+- All sub-structures must have their parentId value set to {{parentNode.path}}
+</parent_node>
 {% endif %}
