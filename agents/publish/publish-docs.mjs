@@ -6,7 +6,7 @@ import fs from "fs-extra";
 
 import { getAccessToken } from "../../utils/auth-utils.mjs";
 import {
-  DEFAULT_APP_URL,
+  CLOUD_SERVICE_URL_PROD,
   DISCUSS_KIT_STORE_URL,
   DOC_SMITH_DIR,
   TMP_DIR,
@@ -45,7 +45,7 @@ export default async function publishDocs(
 
   // Check if appUrl is default and not saved in config (only when not using env variable)
   const config = await loadConfigFromFile();
-  const isDefaultAppUrl = appUrl === DEFAULT_APP_URL;
+  const isDefaultAppUrl = appUrl === CLOUD_SERVICE_URL_PROD;
   const hasAppUrlInConfig = config?.appUrl;
 
   let token = "";
@@ -207,7 +207,7 @@ publishDocs.input_schema = {
     appUrl: {
       type: "string",
       description: "The url of the app",
-      default: DEFAULT_APP_URL,
+      default: CLOUD_SERVICE_URL_PROD,
     },
     boardId: {
       type: "string",
