@@ -219,7 +219,7 @@ describe("save-and-translate-document", () => {
       ],
     });
     expect(mockOptions.context.invoke).toHaveBeenCalledTimes(6);
-    
+
     // Verify feedback is cleared before translation
     expect(input.selectedDocs[0].feedback).toBe("");
     expect(input.selectedDocs[1].feedback).toBe("");

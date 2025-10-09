@@ -4,7 +4,7 @@ export default async function saveAndTranslateDocument(input, options) {
   const { selectedDocs, docsDir, translateLanguages, locale } = input;
 
   if (!Array.isArray(selectedDocs) || selectedDocs.length === 0) {
-    return {}
+    return {};
   }
 
   // Saves a document with optional translation data
