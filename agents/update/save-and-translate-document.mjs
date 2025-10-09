@@ -40,7 +40,7 @@ export default async function saveAndTranslateDocument(input, options) {
     shouldTranslate = choice === "yes";
   }
 
-  // Process documents in batches for better performance
+  // Save documents in batches
   const batchSize = 3;
   for (let i = 0; i < selectedDocs.length; i += batchSize) {
     const batch = selectedDocs.slice(i, i + batchSize);
@@ -56,8 +56,6 @@ export default async function saveAndTranslateDocument(input, options) {
             feedback: doc.feedback.trim(),
             documentPath: doc.path,
           });
-          // clear feedback
-          doc.feedback = "";
         }
       } catch (error) {
         console.error(`❌ Failed to save document ${doc.path}:`, error.message);
@@ -80,8 +78,11 @@ export default async function saveAndTranslateDocument(input, options) {
 
     const translatePromises = batch.map(async (doc) => {
       try {
+        // Clear feedback to ensure translation is not affected by update feedback
+        doc.feedback = "";
+        
         const result = await options.context.invoke(translateAgent, {
-          ...input, // Pass context for translation
+          ...input, // context is required
           content: doc.content,
           translates: doc.translates,
           title: doc.title,
