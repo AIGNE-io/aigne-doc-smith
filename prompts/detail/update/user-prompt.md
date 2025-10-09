@@ -9,7 +9,7 @@
 </user_rules>
 
 {% set operation_type = "optimizing" %}
-{% include "../common/document/user-preferences.md" %}
+{% include "../../common/document/user-preferences.md" %}
 
 <original_page_content>
 {{originalContent}}
@@ -25,7 +25,7 @@
 {{ assetsContent }}
 </media_list>
 
-{% include "../common/document/media-handling-rules.md" %}
+{% include "../../common/document/media-handling-rules.md" %}
 </datasources>
 
 <user_feedback>
