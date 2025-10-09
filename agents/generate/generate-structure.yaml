@@ -2,9 +2,9 @@ name: generateStructure
 description: Generate the structure and organization of your documentation
 instructions:
   - role: system
-    url: ../../prompts/structure/generate/system.md
+    url: ../../prompts/structure/generate/system-prompt.md
   - role: user
-    url: ../../prompts/structure/generate/user.md
+    url: ../../prompts/structure/generate/user-prompt.md
 skills:
   - ./document-structure-tools/generate-sub-structure.mjs
 input_schema:
