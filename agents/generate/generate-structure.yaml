@@ -61,3 +61,5 @@ output_schema:
             - Installation
               - Requirements
         ```
+  required:
+    - documentStructure
