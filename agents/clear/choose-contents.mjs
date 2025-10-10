@@ -1,4 +1,4 @@
-import { DOC_SMITH_ENV_FILE } from "../../utils/constants/index.mjs";
+import { getDocSmithEnvFilePath } from "../../utils/auth-utils.mjs";
 import { getConfigFilePath, getStructurePlanPath, toDisplayPath } from "../../utils/file-utils.mjs";
 
 const TARGET_METADATA = {
@@ -27,7 +27,7 @@ const TARGET_METADATA = {
   authTokens: {
     label: "authorizations",
     description: () =>
-      `Delete authorization information in '${DOC_SMITH_ENV_FILE}' (requires re-authorization after clearing).`,
+      `Delete authorization information in '${getDocSmithEnvFilePath()}' (requires re-authorization after clearing).`,
     agent: "clearAuthTokens",
   },
   deploymentConfig: {

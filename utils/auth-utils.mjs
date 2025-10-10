@@ -20,10 +20,13 @@ import {
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
   DOC_OFFICIAL_ACCESS_TOKEN,
-  DOC_SMITH_ENV_FILE,
 } from "./constants/index.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
+
+export function getDocSmithEnvFilePath() {
+  return join(homedir(), ".aigne", "doc-smith-connected.yaml");
+}
 
 /**
  * Get access token from environment, config file, or prompt user for authorization
@@ -32,6 +35,7 @@ const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
  */
 export async function getAccessToken(appUrl, ltToken = "") {
   const { hostname } = new URL(appUrl);
+  const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
 
   let accessToken = process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
 
@@ -72,7 +76,9 @@ export async function getAccessToken(appUrl, ltToken = "") {
       const docsLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_DOCS);
       throw new Error(
         `${chalk.yellow("⚠️  This website does not have required components for publishing")}\n\n` +
-          `${chalk.bold("💡 Solution:")} Please refer to the documentation to add Discuss Kit component:\n${docsLink}\n\n`,
+          `${chalk.bold(
+            "💡 Solution:",
+          )} Please refer to the documentation to add Discuss Kit component:\n${docsLink}\n\n`,
       );
     } else {
       throw new Error(
@@ -160,7 +166,7 @@ export async function getOfficialAccessToken(baseUrl) {
   // Parse URL once and reuse
   const urlObj = new URL(baseUrl);
   const { hostname, origin } = urlObj;
-  const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
+  const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
 
   // 1. Check environment variable
   let accessToken = process.env[DOC_OFFICIAL_ACCESS_TOKEN];
