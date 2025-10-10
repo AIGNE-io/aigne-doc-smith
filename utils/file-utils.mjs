@@ -511,8 +511,8 @@ export function buildSourcesContent(sourceFiles, isLargeContext = false) {
     const filesToInclude = coreFiles.length > 0 ? coreFiles : sourceFiles;
     const noteMessage =
       coreFiles.length > 0
-        ? "// Note: Context is large, showing only core project files\n"
-        : "// Note: Context is large, showing sample of files\n";
+        ? "// Note: Context is large, showing only core project files.\n"
+        : "// Note: Context is large, showing a sample of files.\n";
 
     allSources += noteMessage;
     let accumulatedTokens = 0;

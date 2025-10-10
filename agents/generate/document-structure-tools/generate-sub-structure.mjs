@@ -23,7 +23,7 @@ export default async function generateSubStructure(
   options,
 ) {
   const sourcePaths = subSourcePaths?.map((item) => item.path);
-  if (sourcePaths.length === 0) {
+  if (!sourcePaths || sourcePaths.length === 0) {
     return {
       subStructure: [],
     };
@@ -72,13 +72,13 @@ export default async function generateSubStructure(
 
   return {
     subStructure: result.documentStructure || [],
-    message: `Generate a sub structure for '${parentDocument.path}' successfully. Please merge all sub-structures and output the complete document structure.`,
+    message: `Generated a sub structure for '${parentDocument.path}' successfully. Please merge all sub-structures to output the complete document structure.`,
   };
 }
 
 generateSubStructure.description = `
-Generate a sub structure for a given node.
-For scenarios with a large number of files where DataSources does not contain all file contents and the context is too large, split and generate sub-document structures to make the context more focused and complete
+Generates a sub-structure 
+Handles large file sets by splitting them into smaller sub-document structures when the context size exceeds limits. This approach ensures more focused and complete documentation generation.
 `;
 
 generateSubStructure.inputSchema = {
