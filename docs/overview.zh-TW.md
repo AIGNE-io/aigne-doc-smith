@@ -1,82 +1,61 @@
 # 總覽
 
-AIGNE DocSmith 是一款由 AI 驅動的工具，可直接從您的原始程式碼生成文件。它基於 [AIGNE 框架](https://www.aigne.io/en/framework) 建構，能自動化建立結構化、多語言的文件。此過程減少了手動編寫和維護文件的工作量，確保文件與程式碼庫保持同步。
+AIGNE DocSmith 是一個利用人工智慧從專案原始碼自動建立文件的工具。它建立在 AIGNE 框架之上，旨在產出能準確反映您程式碼庫的結構化、多語言文件。
 
-下圖說明了 DocSmith 的高階工作流程：
+DocSmith 的主要目標是解決手動撰寫文件時的常見挑戰，例如耗時、因程式碼變更而過時，以及缺乏一致性。透過自動化此流程，DocSmith 有助於確保您的文件保持最新和準確。
+
+## 運作方式
+
+DocSmith 透過分析您的專案原始碼來理解其結構、元件和功能。基於此分析，它會生成一套完整的文件，從高階指南到詳細的 API 參考資料。
 
 ```d2
-direction: right
-style: {
-  font-size: 14
+direction: down
+
+Source-Code: {
+  label: "專案原始碼"
+  shape: rectangle
 }
 
-# 參與者
-source_code: "原始程式碼儲存庫" {
-  shape: cloud
-  style: {
-    fill: "#F0F4F8"
-    stroke: "#4A5568"
-  }
+DocSmith: {
+  label: "AIGNE DocSmith\n(AI 分析引擎)"
+  shape: rectangle
 }
 
-docsmith: "AIGNE DocSmith 引擎" {
-  shape: hexagon
-  style: {
-    fill: "#E6FFFA"
-    stroke: "#2C7A7B"
-  }
+Docs: {
+  label: "生成的文件"
+  shape: rectangle
 }
 
-published_docs: "已發佈文件" {
-  shape: document
-  style: {
-    fill: "#FEFCBF"
-    stroke: "#B7791F"
-  }
-}
-
-# 主要流程
-source_code -> docsmith: "1. 分析程式碼"
-docsmith -> published_docs: "2. 生成與發佈"
-
-# DocSmith 內部流程
-subflow: {
-  direction: down
-  
-  analyze: "分析與規劃結構"
-  generate: "生成內容"
-  translate: "翻譯（選用）"
-  publish: "發佈"
-  
-  analyze -> generate -> translate -> publish
-}
-
-docsmith.subflow: subflow
+Source-Code -> DocSmith: "分析"
+DocSmith -> Docs: "生成"
 ```
 
 ## 核心功能
 
-DocSmith 提供一系列功能來自動化並簡化文件製作過程：
+DocSmith 提供一系列功能來處理從建立到發布的整個文件生命週期。
 
-*   **結構規劃：** 分析程式碼庫以生成邏輯性的文件結構。
-*   **內容生成：** 用從原始程式碼生成的內容填充已規劃的文件結構。
-*   **多語言支援：** 將文件翻譯成 12 種語言，包括英文、中文和西班牙文。
-*   **AIGNE Hub 整合：** 使用 [AIGNE Hub](https://www.aigne.io/en/hub)，該服務提供對各種大型語言模型（LLMs）的存取，例如來自 Google、OpenAI 和 Anthropic 的模型，讓您無需管理個別的 API 金鑰即可切換模型。
-*   **一鍵發佈：** 透過可分享的連結讓您的文件上線。您可以發佈到官方平台，或使用 [Discuss Kit](https://www.web3kit.rocks/discuss-kit) 運行您自己的實例。
-*   **迭代更新：** 偵測原始程式碼的變更以更新文件，並支援根據使用者回饋對特定文件進行針對性地重新生成。
+*   **AI 驅動生成**：分析您的程式碼庫以提出合乎邏輯的文件結構，並生成解釋程式碼功能的內容。
+*   **多語言支援**：將文件翻譯成 12 種語言，包括英文、簡體中文和日文。翻譯過程會感知上下文，以保持技術準確性。
+*   **與大型語言模型 (LLM) 整合**：可連接各種大型語言模型 (LLM)。預設情況下，它使用 [AIGNE Hub](https://www.aigne.io/en/hub)，這項服務讓您可以在 Google Gemini 和 OpenAI GPT 等模型之間切換，而無需獨立的 API 金鑰。您也可以設定自己的 API 金鑰以直接存取供應商。
+*   **智慧更新**：偵測原始碼中的變更，並更新文件的相應部分。您也可以提供具體的回饋來完善生成的內容。
+*   **發布選項**：只需一個指令即可發布您生成的文件。您可以部署到官方的 DocSmith 平台，或您自己的 [Discuss Kit](https://www.web3kit.rocks/discuss-kit) 實例。Discuss Kit 是一項用於託管和展示文件的服務。
 
-## AIGNE 生態系的一部分
+## 可用指令
 
-DocSmith 是 [AIGNE](https://www.aigne.io) 生態系的一個組件，該生態系是一個用於開發 AI 應用程式的平台。它與其他 AIGNE 組件整合，以利用該平台的人工智慧能力和基礎設施。
+DocSmith 透過一系列指令進行操作。下表總結了主要指令及其功能。
 
-下圖顯示了 DocSmith 如何融入 AIGNE 架構中：
+| Command | Description |
+| :--- | :--- |
+| `generate` | 從您的原始檔案建立一套新的文件。 |
+| `update` | 根據程式碼變更或新的回饋修改現有文件。 |
+| `translate` | 將文件翻譯成 12 種支援語言中的一種或多種。 |
+| `publish` | 將您的文件部署到一個可公開存取的即時 URL。 |
+| `evaluate` | 評估您所生成文件的品質與完整性。 |
+| `history` | 檢視文件的更新歷史記錄。 |
+| `chat` | 啟動一個互動式聊天會話，以協助處理文件任務。 |
+| `clear` | 移除生成檔案、配置和快取資料。 |
+| `prefs` | 管理用於文件生成的已儲存偏好設定和配置。 |
 
-![AIGNE 生態系架構](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
+---
 
-## 後續步驟
-
-若要開始使用 DocSmith，請參閱安裝與設定指南。
-
-<x-card data-title="下一步：入門指南" data-href="/getting-started" data-icon="lucide:arrow-right-circle" data-cta="開始指南">
-遵循逐步指南來安裝工具、設定您的第一個專案並生成文件。
-</x-card>
+本總覽提供了 AIGNE DocSmith 用途和功能的高階摘要。若要開始使用此工具，請前往 [快速入門](./getting-started.md) 指南以取得安裝和設定說明。

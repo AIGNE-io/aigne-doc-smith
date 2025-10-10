@@ -1,148 +1,190 @@
 [
   {
     "title": "Overview",
-    "description": "Get a quick introduction to AIGNE DocSmith, what it does, its main features, and how it fits into the larger AIGNE ecosystem.",
+    "description": "Explains what AIGNE DocSmith does, the problems it solves, and its main capabilities based on your project's code.",
     "path": "/overview",
-    "parentId": null,
-    "sourceIds": ["README.md", "package.json", "aigne.yaml"]
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      ".aigne/doc-smith/config.yaml"
+    ],
+    "parentId": ""
   },
   {
     "title": "Getting Started",
-    "description": "Follow this simple, step-by-step guide to install the tool, configure your project, and generate your first set of documents in minutes.",
+    "description": "Provides a step-by-step guide to installing the tool and generating your first set of documents.",
     "path": "/getting-started",
-    "parentId": null,
-    "sourceIds": ["README.md", "media.md", "agents/input-generator.mjs"]
-  },
-  {
-    "title": "Core Features",
-    "description": "Explore the main commands and capabilities of DocSmith, from creating new documentation to publishing it online.",
-    "path": "/features",
-    "parentId": null,
-    "sourceIds": ["README.md"]
-  },
-  {
-    "title": "Generate Documentation",
-    "description": "Learn how to use a single command to automatically create a complete set of documentation from your source code.",
-    "path": "/features/generate-documentation",
-    "parentId": "/features",
-    "sourceIds": ["README.md", "media.md", "agents/docs-generator.yaml"]
-  },
-  {
-    "title": "Update and Refine",
-    "description": "Discover how to intelligently update your documents when your code changes, or make specific improvements using feedback.",
-    "path": "/features/update-and-refine",
-    "parentId": "/features",
-    "sourceIds": ["README.md", "media.md", "agents/detail-regenerator.yaml"]
-  },
-  {
-    "title": "Translate Documentation",
-    "description": "Learn how to automatically translate your documentation into multiple languages to reach a global audience.",
-    "path": "/features/translate-documentation",
-    "parentId": "/features",
-    "sourceIds": ["README.md", "media.md", "agents/translate.yaml", "agents/retranslate.yaml"]
-  },
-  {
-    "title": "Publish Your Docs",
-    "description": "A guide on how to easily publish your documentation to a public platform or your own private website.",
-    "path": "/features/publish-your-docs",
-    "parentId": "/features",
     "sourceIds": [
       "README.md",
-      "media.md",
-      "agents/publish-docs.mjs",
-      "utils/auth-utils.mjs",
-      "utils/blocklet.mjs"
-    ]
+      "agents/init/index.mjs",
+      "media.md"
+    ],
+    "parentId": ""
   },
   {
-    "title": "CLI Command Reference",
-    "description": "A comprehensive reference for all available `aigne doc` commands, their arguments, and options.",
-    "path": "/cli-reference",
-    "parentId": null,
+    "title": "Guides",
+    "description": "Contains step-by-step instructions for performing common documentation tasks.",
+    "path": "/guides",
     "sourceIds": [
-      "README.md",
       "aigne.yaml",
-      "agents/docs-generator.yaml",
-      "agents/detail-regenerator.yaml",
-      "agents/retranslate.yaml",
-      "agents/team-publish-docs.yaml",
-      "agents/prefs/index.mjs"
-    ]
+      "README.md",
+      "agents/generate/index.yaml",
+      "agents/update/index.yaml",
+      "agents/translate/index.yaml",
+      "agents/publish/index.yaml",
+      "agents/clear/index.yaml",
+      "agents/evaluate/index.yaml",
+      "agents/history/index.yaml",
+      "agents/chat/index.yaml"
+    ],
+    "parentId": ""
   },
   {
-    "title": "Configuration Guide",
-    "description": "A detailed look at all the available settings to customize the style, audience, and languages of your documentation.",
+    "title": "Configuration",
+    "description": "Details how to set up the tool and manage personal preferences for document generation.",
     "path": "/configuration",
-    "parentId": null,
-    "sourceIds": ["README.md", "agents/input-generator.mjs", "utils/constants/index.mjs"]
+    "sourceIds": [
+      "aigne.yaml",
+      "agents/init/index.mjs",
+      "agents/prefs/index.mjs",
+      ".aigne/doc-smith/config.yaml"
+    ],
+    "parentId": ""
   },
   {
-    "title": "LLM Setup",
-    "description": "Learn how to set up DocSmith to use different AI models, including using AIGNE Hub without needing your own API keys.",
-    "path": "/configuration/llm-setup",
-    "parentId": "/configuration",
-    "sourceIds": ["README.md", "aigne.yaml"]
+    "title": "Release Notes",
+    "description": "Lists new features, improvements, and bug fixes for each version of the tool.",
+    "path": "/release-notes",
+    "sourceIds": [
+      "CHANGELOG.md"
+    ],
+    "parentId": ""
   },
   {
-    "title": "Language Support",
-    "description": "See the full list of languages that DocSmith supports for automatic translation and learn how to enable them.",
-    "path": "/configuration/language-support",
-    "parentId": "/configuration",
-    "sourceIds": ["README.md", "utils/constants/index.mjs"]
+    "title": "Generating Documentation",
+    "description": "Walks through the process of creating a new set of documents from your source files from start to finish.",
+    "path": "/guides/generating-documentation",
+    "sourceIds": [
+      "agents/generate/index.yaml",
+      "agents/generate/generate-structure.yaml",
+      "agents/generate/user-review-document-structure.mjs",
+      "agents/update/batch-generate-document.yaml",
+      "README.md",
+      "agents/generate/check-need-generate-structure.mjs",
+      "agents/generate/refine-document-structure.yaml",
+      "agents/generate/check-document-structure.yaml"
+    ],
+    "parentId": "/guides"
+  },
+  {
+    "title": "Updating Documentation",
+    "description": "Explains how to modify existing documents based on code changes or new feedback.",
+    "path": "/guides/updating-documentation",
+    "sourceIds": [
+      "agents/update/index.yaml",
+      "agents/update/update-single-document.yaml",
+      "agents/update/batch-update-document.yaml",
+      "agents/update/user-review-document.mjs",
+      "README.md",
+      "agents/update/check-update-is-single.mjs",
+      "agents/update/handle-document-update.yaml",
+      "agents/update/generate-document.yaml"
+    ],
+    "parentId": "/guides"
+  },
+  {
+    "title": "Translating Documentation",
+    "description": "Details the steps to translate your documents into multiple supported languages.",
+    "path": "/guides/translating-documentation",
+    "sourceIds": [
+      "agents/translate/index.yaml",
+      "agents/translate/translate-multilingual.yaml",
+      "agents/translate/choose-language.mjs",
+      "README.md",
+      "agents/translate/translate-document.yaml",
+      "agents/translate/record-translation-history.mjs"
+    ],
+    "parentId": "/guides"
+  },
+  {
+    "title": "Publishing Your Docs",
+    "description": "Shows how to make your generated documentation live and accessible online.",
+    "path": "/guides/publishing-your-docs",
+    "sourceIds": [
+      "agents/publish/index.yaml",
+      "agents/publish/publish-docs.mjs",
+      "README.md"
+    ],
+    "parentId": "/guides"
+  },
+  {
+    "title": "Initial Setup",
+    "description": "Guides you through the interactive setup process to create your initial configuration file.",
+    "path": "/configuration/initial-setup",
+    "sourceIds": [
+      "agents/init/index.mjs",
+      "README.md",
+      ".aigne/doc-smith/config.yaml"
+    ],
+    "parentId": "/configuration"
   },
   {
     "title": "Managing Preferences",
-    "description": "Understand how DocSmith learns from your feedback to create persistent rules and how to manage them via the CLI.",
-    "path": "/configuration/preferences",
-    "parentId": "/configuration",
+    "description": "Explains how to view, remove, and toggle your saved preferences for documentation generation.",
+    "path": "/configuration/managing-preferences",
     "sourceIds": [
-      "utils/preferences-utils.mjs",
       "agents/prefs/index.mjs",
-      "prompts/feedback-refiner.md"
-    ]
+      "README.md"
+    ],
+    "parentId": "/configuration"
   },
   {
-    "title": "Interactive Setup",
-    "description": "Learn about the guided setup wizard that helps you configure your documentation project, including intelligent conflict detection for your settings.",
-    "path": "/configuration/interactive-setup",
-    "parentId": "/configuration",
+    "title": "Managing History",
+    "description": "Shows how to view the history of updates made to your documentation.",
+    "path": "/guides/managing-history",
     "sourceIds": [
-      "agents/input-generator.mjs",
-      "utils/conflict-detector.mjs",
-      "utils/constants/index.mjs"
-    ]
-  },
-  {
-    "title": "Advanced Topics",
-    "description": "Dive deeper into the architecture of DocSmith, learn how it works, and explore its internal mechanisms.",
-    "path": "/advanced",
-    "parentId": null,
-    "sourceIds": ["README.md"]
-  },
-  {
-    "title": "How It Works",
-    "description": "An architectural overview of DocSmith, explaining the role of AI agents in the documentation generation pipeline.",
-    "path": "/advanced/how-it-works",
-    "parentId": "/advanced",
-    "sourceIds": [
-      "README.md",
+      "agents/history/view.mjs",
       "aigne.yaml",
-      "agents/structure-planning.yaml",
-      "agents/content-detail-generator.yaml"
-    ]
+      "agents/history/index.yaml"
+    ],
+    "parentId": "/guides"
   },
   {
-    "title": "Quality Assurance",
-    "description": "Understand the built-in checks DocSmith performs to ensure high-quality, well-formatted, and error-free documentation, including link checking and diagram validation.",
-    "path": "/advanced/quality-assurance",
-    "parentId": "/advanced",
-    "sourceIds": ["utils/markdown-checker.mjs", "utils/mermaid-validator.mjs", "utils/d2-utils.mjs"]
+    "title": "Evaluating Documents",
+    "description": "Details how to use the evaluation command to assess the quality and completeness of your generated documentation.",
+    "path": "/guides/evaluating-documents",
+    "sourceIds": [
+      "agents/evaluate/index.yaml",
+      "aigne.yaml",
+      "agents/evaluate/document-structure.yaml",
+      "agents/evaluate/document.yaml",
+      "agents/evaluate/generate-report.mjs"
+    ],
+    "parentId": "/guides"
   },
   {
-    "title": "Changelog",
-    "description": "A detailed log of all notable changes, features, and bug fixes for each version of the project.",
-    "path": "/changelog",
-    "parentId": null,
-    "sourceIds": ["CHANGELOG.md"]
+    "title": "Cleaning Up",
+    "description": "Provides instructions on how to use the clear command to remove generated files, configurations, and cached data.",
+    "path": "/guides/cleaning-up",
+    "sourceIds": [
+      "agents/clear/index.yaml",
+      "aigne.yaml",
+      "agents/clear/choose-contents.mjs",
+      "agents/clear/clear-generated-docs.mjs",
+      "agents/clear/clear-document-structure.mjs",
+      "agents/clear/clear-document-config.mjs",
+      "agents/clear/clear-auth-tokens.mjs"
+    ],
+    "parentId": "/guides"
+  },
+  {
+    "title": "Interactive Chat",
+    "description": "Explains how to use the interactive chat assistant to generate, modify, and manage your documentation.",
+    "path": "/guides/interactive-chat",
+    "sourceIds": [
+      "agents/chat/index.yaml",
+      "aigne.yaml"
+    ],
+    "parentId": "/guides"
   }
 ]

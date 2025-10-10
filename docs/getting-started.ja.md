@@ -1,120 +1,88 @@
 # はじめに
 
-このガイドでは、AIGNE DocSmith をインストールし、プロジェクトを設定し、ソースコードから完全なドキュメント一式を数分で生成するための手順をステップバイステップで説明します。
+このガイドでは、AIGNE DocSmithをインストールし、最初のドキュメントセットを生成するためのステップバイステップの手順を説明します。このプロセスは分かりやすく設計されており、短時間で完了できます。
 
-## ステップ1：前提条件
+## 前提条件
 
-始める前に、お使いのシステムに Node.js バージョン 20 以降がインストールされていることを確認してください。DocSmith は Node.js 環境で動作するコマンドラインツールです。インストールには、Node.js に付属している Node Package Manager (npm) の使用を推奨します。
+インストールを進める前に、お使いのシステムが以下の要件を満たしていることを確認してください。
 
-詳細なインストール手順については、公式の [Node.js ウェブサイト](https://nodejs.org/) を参照してください。一般的なオペレーティングシステム向けの簡単なガイドを以下に示します。
+*   **Node.js**: バージョン20以降が必要です。DocSmithはNode.jsのインストールに含まれているNode Package Manager (npm) を使用してインストールされます。Node.jsをインストールするには、公式の[Node.jsウェブサイト](https://nodejs.org/)にアクセスし、お使いのオペレーティングシステムの手順に従ってください。ターミナルを開き、`node -v`と`npm -v`を実行することでインストールを確認できます。
 
-**Windows**
-1.  [Node.js ダウンロードページ](https://nodejs.org/en/download) から Windows インストーラー (`.msi`) をダウンロードします。
-2.  インストーラーを実行し、セットアップウィザードの指示に従います。
+*   **APIキー**: 開始にあたりAPIキーは不要です。デフォルトでは、DocSmithはAIによる生成のためにAIGNE Hubサービスを使用します。これにより、直接的な設定なしで様々な大規模言語モデルを利用できます。
 
-**macOS**
+## インストール
 
-macOS のパッケージマネージャーである [Homebrew](https://brew.sh/) を使用したインストール方法を推奨します。
+このツールは、AIGNEコマンドラインインターフェース(CLI)の一部として配布されています。
 
-```bash Terminal icon=lucide:apple
-# Homebrew がまだインストールされていない場合はインストールします
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+### ステップ1：AIGNE CLIをインストールする
 
-# Node.js をインストールします
-brew install node
-```
+システムにAIGNE CLIをグローバルにインストールするには、ターミナルで以下のコマンドを実行します。
 
-または、[Node.js ウェブサイト](https://nodejs.org/) から直接 macOS インストーラー (`.pkg`) をダウンロードすることもできます。
-
-**Linux**
-
-Debian および Ubuntu ベースのディストリビューションでは、次のコマンドを使用します。
-
-```bash Terminal icon=lucide:laptop
-sudo apt-get update
-sudo apt-get install -y ca-certificates curl gnupg
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
-
-Red Hat、CentOS、および Fedora では、次のコマンドを使用します。
-
-```bash Terminal icon=lucide:laptop
-curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
-sudo yum install nodejs
-```
-
-### インストールの確認
-
-インストールが完了したら、ターミナルを開き、次のコマンドを実行して Node.js と npm が正しくインストールされていることを確認します。
-
-```bash Terminal
-node --version
-npm --version
-```
-
-## ステップ2：AIGNE CLI のインストール
-
-DocSmith ツールは、公式の AIGNE コマンドラインインターフェース (CLI) の一部として配布されています。npm を使用して、システムに CLI をグローバルにインストールします。
-
-```bash Terminal icon=logos:npm
+```bash title="AIGNE CLIのインストール" icon=logos:npm-icon
 npm install -g @aigne/cli
 ```
 
-インストールが完了したら、ヘルプコマンドを実行して DocSmith が利用可能であることを確認します。
+このコマンドはパッケージをダウンロードしてインストールし、どのディレクトリからでも`aigne`コマンドを利用できるようにします。
 
-```bash Terminal
+### ステップ2：インストールを確認する
+
+インストールが完了したら、ドキュメンテーションツールのヘルプコマンドを実行して確認します。
+
+```bash title="インストールの確認"
 aigne doc --help
 ```
 
-このコマンドを実行すると、DocSmith のヘルプメニューが表示され、インストールが完了し、使用できる状態であることが確認できます。
+このコマンドにより、利用可能なDocSmithのコマンドとオプションのリストが表示され、インストールが成功したことを確認できます。
 
-## ステップ3：ドキュメントの生成
+## 最初のドキュメントを生成する
 
-AIGNE CLI をインストールしたら、ドキュメントを生成できます。ターミナルでプロジェクトのルートディレクトリに移動し、次のコマンドを実行します。
+以下の手順に従って、プロジェクトを分析し、完全なドキュメントセットを生成します。
 
-```bash Terminal icon=lucide:sparkles
+### ステップ1：プロジェクトディレクトリに移動する
+
+ターミナルを開き、`cd`コマンドを使用して、ドキュメントを作成したいプロジェクトのルートにカレントディレクトリを変更します。
+
+```bash title="ディレクトリの変更" icon=mdi:folder-open
+cd /path/to/your/project
+```
+
+### ステップ2：生成コマンドを実行する
+
+主要な`generate`コマンドを実行します。この単一のコマンドが、ドキュメント作成プロセス全体を処理します。
+
+```bash title="生成コマンドの実行"
 aigne doc generate
 ```
 
-![generate コマンドを実行すると、プロセスが開始され、インテリジェントなセットアップウィザードがトリガーされます。](../assets/screenshots/doc-generate.png)
+### ステップ3：対話式セットアップを完了する
 
-### 自動設定
+プロジェクトで初めて`generate`コマンドを実行すると、DocSmithは1回限りの対話式セットアッププロセスを開始します。ドキュメントの主な目的、対象読者、言語など、ドキュメントの設定に関する一連の質問が表示されます。設定を保存するために、`.aigne/doc-smith`ディレクトリに`config.yaml`ファイルが作成されます。
 
-新しいプロジェクトでこのコマンドを初めて実行すると、DocSmith は設定ファイルが存在しないことを検出し、プロセスをガイドするための対話型のセットアップウィザードを自動的に起動します。
+### ステップ4：生成を待つ
 
-ウィザードでは、ドキュメントの特性を定義するための一連の質問が表示されます。これには以下が含まれます。
+セットアップが完了すると、DocSmithは自動的に以下のアクションを実行します。
 
-*   主な目的とライティングスタイル。
-*   対象読者（例：開発者、エンドユーザー）。
-*   主要言語と翻訳用の追加言語。
-*   AI が分析するソースコードのパス。
-*   生成されたドキュメントファイルの出力ディレクトリ。
+1.  **コードベースの分析**: ソースファイルをスキャンして、プロジェクトの構造とロジックを理解します。
+2.  **構造の計画**: セクションやトピックを含む、ドキュメントの論理的な計画を作成します。
+3.  **コンテンツの生成**: 分析と設定に基づいてドキュメントのコンテンツを記述します。
 
-![一連の質問に答えて、プロジェクトのセットアップを完了します。](../assets/screenshots/doc-complete-setup.png)
-
-プロンプトに回答すると、DocSmith は選択内容を設定ファイルに保存し、コードベースの分析を開始し、ドキュメント構造を計画し、コンテンツを生成します。
-
-![DocSmith がドキュメント構造を計画し、ファイルの生成を開始します。](../assets/screenshots/doc-generate-docs.png)
-
-## ステップ4：出力の確認
-
-生成プロセスが完了すると、ターミナルに確認メッセージが表示され、ドキュメントが正常に作成されたことが示されます。新しいドキュメントは、セットアップ時に指定した出力ディレクトリにあります。デフォルト設定を使用した場合は、`.aigne/doc-smith/docs` にあります。
-
-![確認メッセージは、ドキュメントが正常に生成されたことを示します。](../assets/screenshots/doc-generated-successfully.png)
+完了すると確認メッセージが表示され、生成されたファイルはセットアップ時に指定された出力ディレクトリ（例：`.aigne/doc-smith/docs`）に配置されます。
 
 ## 次のステップ
 
-最初のドキュメント一式が正常に生成されました。これで、より高度な機能やカスタマイズオプションを試す準備が整いました。
+最初のドキュメントセットの生成が成功しました。ドキュメントを管理し、強化するための一般的な次のステップは以下の通りです。
 
-<x-cards>
-  <x-card data-title="コア機能" data-icon="lucide:box" data-href="/features">
-    ドキュメントの更新からオンラインでの公開まで、主要なコマンドと機能について学びます。
+<x-cards data-columns="2">
+  <x-card data-title="ドキュメントの更新" data-icon="lucide:refresh-cw" data-href="/guides/updating-documentation">
+    コードの変更や新しい要件に基づいて、ドキュメントの特定の部分を修正または再生成します。
   </x-card>
-  <x-card data-title="設定ガイド" data-icon="lucide:settings" data-href="/configuration">
-    設定ファイルを編集して、ドキュメントのスタイル、対象読者、言語を微調整する方法を学びます。
+  <x-card data-title="ドキュメントの翻訳" data-icon="lucide:languages" data-href="/guides/translating-documentation">
+    ドキュメントを中国語、スペイン語、ドイツ語など、サポートされている12言語のいずれかに翻訳します。
   </x-card>
-  <x-card data-title="CLI コマンドリファレンス" data-icon="lucide:terminal" data-href="/cli-reference">
-    利用可能なすべての `aigne doc` コマンドとそのオプションの完全なリファレンスを取得します。
+  <x-card data-title="ドキュメントの公開" data-icon="lucide:rocket" data-href="/guides/publishing-your-docs">
+    ドキュメントをオンラインで公開し、チームや一般の人が利用できるようにします。
+  </x-card>
+  <x-card data-title="設定の確認" data-icon="lucide:settings" data-href="/configuration/initial-setup">
+    初期セットアップ時に作成されたconfig.yamlファイルを確認・修正して、設定を調整します。
   </x-card>
 </x-cards>
