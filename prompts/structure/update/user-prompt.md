@@ -2,6 +2,9 @@
 
 {% include "../../common/document-structure/user-preferences.md" %}
 
+<file_list>
+{{allFilesPaths}}
+</file_list>
 
 <datasources>
 {{ datasources }}

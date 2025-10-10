@@ -5,6 +5,7 @@ import { glob } from "glob";
 import { isBinaryFile } from "isbinaryfile";
 import { encode } from "gpt-tokenizer";
 import { isGlobPattern } from "./utils.mjs";
+import { INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD } from "./constants/index.mjs";
 
 /**
  * Check if a directory is inside a git repository using git command
@@ -506,20 +507,27 @@ export function buildSourcesContent(sourceFiles, isLargeContext = false) {
     // Only include core files for large contexts
     const coreFiles = sourceFiles.filter((source) => isCoreFile(source.sourceId));
 
-    if (coreFiles.length === 0) {
-      // Fallback: if no core files found, take a sample of files
-      const sampleSize = Math.min(20, sourceFiles.length);
-      const sampledFiles = sourceFiles.slice(0, sampleSize);
+    // Determine which files to use and set appropriate message
+    const filesToInclude = coreFiles.length > 0 ? coreFiles : sourceFiles;
+    const noteMessage =
+      coreFiles.length > 0
+        ? "// Note: Context is large, showing only core project files\n"
+        : "// Note: Context is large, showing sample of files\n";
 
-      allSources += "// Note: Context is large, showing sample of files\n";
-      for (const source of sampledFiles) {
-        allSources += `// sourceId: ${source.sourceId}\n${source.content}\n`;
+    allSources += noteMessage;
+    let accumulatedTokens = 0;
+
+    for (const source of filesToInclude) {
+      const fileContent = `// sourceId: ${source.sourceId}\n${source.content}\n`;
+      const fileTokens = encode(fileContent);
+
+      // Check if adding this file would exceed the token limit
+      if (accumulatedTokens + fileTokens.length > INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD) {
+        break;
       }
-    } else {
-      allSources += "// Note: Context is large, showing only core project files\n";
-      for (const source of coreFiles) {
-        allSources += `// sourceId: ${source.sourceId}\n${source.content}\n`;
-      }
+
+      allSources += fileContent;
+      accumulatedTokens += fileTokens.length;
     }
   } else {
     // Include all files for normal contexts
