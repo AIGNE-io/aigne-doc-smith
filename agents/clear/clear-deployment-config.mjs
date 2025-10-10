@@ -1,14 +1,11 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { join } from "node:path";
 import yaml from "yaml";
-import { pathExists, toDisplayPath } from "../../utils/file-utils.mjs";
+import { pathExists, toDisplayPath, getConfigFilePath } from "../../utils/file-utils.mjs";
 
 export default async function clearDeploymentConfig(input = {}) {
   const { workDir } = input;
 
-  // Fixed path where config.yaml is saved by init command
-  const cwd = workDir || process.cwd();
-  const configFilePath = join(cwd, ".aigne", "doc-smith", "config.yaml");
+  const configFilePath = getConfigFilePath(workDir);
   const displayPath = toDisplayPath(configFilePath);
 
   try {

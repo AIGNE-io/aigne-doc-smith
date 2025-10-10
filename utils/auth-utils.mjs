@@ -20,6 +20,7 @@ import {
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
   DOC_OFFICIAL_ACCESS_TOKEN,
+  DOC_SMITH_ENV_FILE,
 } from "./constants/index.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
@@ -30,7 +31,6 @@ const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
  * @returns {Promise<string>} - The access token
  */
 export async function getAccessToken(appUrl, ltToken = "") {
-  const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
 
   let accessToken = process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;

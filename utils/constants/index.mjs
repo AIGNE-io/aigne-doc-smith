@@ -1,3 +1,6 @@
+import { homedir } from "node:os";
+import { join } from "node:path";
+
 // Default file patterns for inclusion and exclusion
 export const DEFAULT_INCLUDE_PATTERNS = [
   // Python
@@ -542,9 +545,9 @@ export const KROKI_CONCURRENCY = 5;
 export const D2_CONCURRENCY = 10;
 export const FILE_CONCURRENCY = 3;
 export const DOC_SMITH_DIR = ".aigne/doc-smith";
+export const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
 export const TMP_DIR = ".tmp";
 export const TMP_DOCS_DIR = "docs";
-
 export const TMP_ASSETS_DIR = "assets";
 
 // Default evaluation scoring weights
