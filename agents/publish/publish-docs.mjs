@@ -1,10 +1,11 @@
 import { basename, join } from "node:path";
 
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
+import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import fs from "fs-extra";
 
-import { getAccessToken } from "../../utils/auth-utils.mjs";
+import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 import {
   CLOUD_SERVICE_URL_PROD,
   DISCUSS_KIT_STORE_URL,
@@ -15,6 +16,8 @@ import {
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+
+const BASE_URL = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 
 export default async function publishDocs(
   { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
@@ -51,7 +54,19 @@ export default async function publishDocs(
   let token = "";
 
   if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
-    const hasCachedCheckoutId = !!config?.checkoutId;
+    const authToken = await getOfficialAccessToken(BASE_URL);
+
+    if (!authToken) {
+      throw new Error("Failed to get official access token");
+    }
+
+    const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
+
+    const { sessionId, paymentLink } = await client.checkCacheSession({
+      needShortUrl: true,
+      sessionId: config?.checkoutId,
+    });
+
     const choice = await options.prompts.select({
       message: "Select platform to publish your documents:",
       choices: [
@@ -63,7 +78,7 @@ export default async function publishDocs(
           name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
           value: "custom",
         },
-        ...(hasCachedCheckoutId
+        ...(sessionId
           ? [
               {
                 name: `${chalk.yellow("Resume previous website setup")} - ${chalk.green("Already paid.")} Continue where you left off. Your payment has already been processed.`,
@@ -104,8 +119,8 @@ export default async function publishDocs(
         let id = "";
         let paymentUrl = "";
         if (choice === "new-instance-continue") {
-          id = config?.checkoutId;
-          paymentUrl = config?.paymentUrl;
+          id = sessionId;
+          paymentUrl = paymentLink;
           console.log(`\nResuming your previous website setup...`);
         } else {
           console.log(`\nCreating new website for your documentation...`);
