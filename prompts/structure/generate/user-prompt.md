@@ -49,13 +49,14 @@ If a previous structural plan (last_document_structure) is provided, follow thes
 {% endif %}
 
 {% if isSubStructure %}
-<parent_node>
+<parent_document>
 The current process is planning sub-structures for the following section:
 
-{{parentNode}}
+{{parentDocument}}
 
 Sub-structures must meet the following requirements:
-- All sub-structures content must be related to and align with the parent document's content plan
-- All sub-structures must have their parentId value set to {{parentNode.path}}
-</parent_node>
+- Sub-structures are planned based on DataSources and the parent document's description
+- Further break down and comprehensively display the content planned in the parent document
+- All sub-structures must have their parentId value set to {{parentDocument.path}}
+</parent_document>
 {% endif %}

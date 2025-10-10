@@ -13,7 +13,7 @@ import { toRelativePath } from "../../../utils/utils.mjs";
 
 export default async function generateSubStructure(
   {
-    parentNode,
+    parentDocument,
     subSourcePaths,
     includePatterns,
     excludePatterns,
@@ -56,11 +56,13 @@ export default async function generateSubStructure(
   // Build allSources string using utility function
   const allSources = buildSourcesContent(sourceFiles, isLargeContext);
 
-  const generateStructureAgent = options.context.agents["generateStructure"];
+  const generateStructureAgent = isLargeContext
+    ? options.context.agents["generateStructure"]
+    : options.context.agents["generateStructureWithoutTools"];
   const result = await options.context.invoke(generateStructureAgent, {
     ...rest,
     isSubStructure: true,
-    parentNode,
+    parentDocument,
     datasources: allSources,
     allFilesPaths,
     isLargeContext,
@@ -70,7 +72,7 @@ export default async function generateSubStructure(
 
   return {
     subStructure: result.documentStructure || [],
-    message: `Generate a sub structure for '${parentNode.path}' successfully. Please merge all sub-structures and output the complete document structure.`,
+    message: `Generate a sub structure for '${parentDocument.path}' successfully. Please merge all sub-structures and output the complete document structure.`,
   };
 }
 
@@ -82,7 +84,7 @@ For scenarios with a large number of files where DataSources does not contain al
 generateSubStructure.inputSchema = {
   type: "object",
   properties: {
-    parentNode: {
+    parentDocument: {
       type: "object",
       description: "The parent node to generate a sub structure for",
       properties: {

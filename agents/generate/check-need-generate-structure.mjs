@@ -116,7 +116,7 @@ export default async function checkNeedGenerateStructure(
     };
   }
 
-  const planningAgent = options.context.agents["refineDocumentStructure"];
+  const planningAgent = options.context.agents["generateStructure"];
 
   // Get user preferences for documentation structure and global scope
   const structureRules = getActiveRulesForScope("structure", []);

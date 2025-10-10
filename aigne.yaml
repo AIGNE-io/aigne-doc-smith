@@ -12,6 +12,7 @@ agents:
 
   # Documentation Structure Generation
   - ./agents/generate/generate-structure.yaml
+  - ./agents/generate/generate-structure-without-tools.yaml
   - ./agents/generate/update-document-structure.yaml
   - ./agents/generate/check-need-generate-structure.mjs
   - ./agents/generate/refine-document-structure.yaml
