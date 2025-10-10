@@ -22,6 +22,12 @@ const mockPublishDocs = {
   publishDocs: mock(() => Promise.resolve({ success: true, boardId: "new-board-id" })),
 };
 
+const mockBrokerClient = {
+  checkCacheSession: mock(() => Promise.resolve({ sessionId: null, paymentLink: null })),
+};
+
+const mockBrokerClientConstructor = mock(() => mockBrokerClient);
+
 const mockChalk = {
   bold: mock((text) => text),
   cyan: mock((text) => text),
@@ -47,6 +53,7 @@ describe("publish-docs", () => {
 
   // Spies for internal utils
   let getAccessTokenSpy;
+  let getOfficialAccessTokenSpy;
   let beforePublishHookSpy;
   let ensureTmpDirSpy;
   let getGithubRepoUrlSpy;
@@ -57,6 +64,9 @@ describe("publish-docs", () => {
   beforeAll(() => {
     // Apply mocks for external dependencies only
     mock.module("@aigne/publish-docs", () => mockPublishDocs);
+    mock.module("@blocklet/payment-broker-client/node", () => ({
+      BrokerClient: mockBrokerClientConstructor,
+    }));
     mock.module("chalk", () => ({ default: mockChalk }));
     mock.module("fs-extra", () => ({ default: mockFsExtra }));
     mock.module("node:path", () => mockPath);
@@ -91,8 +101,19 @@ describe("publish-docs", () => {
     mockChalk.cyan.mockClear();
     mockChalk.cyan.mockImplementation((text) => text);
 
+    // Reset BrokerClient mock
+    mockBrokerClientConstructor.mockClear();
+    mockBrokerClientConstructor.mockImplementation(() => mockBrokerClient);
+    mockBrokerClient.checkCacheSession.mockClear();
+    mockBrokerClient.checkCacheSession.mockImplementation(() =>
+      Promise.resolve({ sessionId: null, paymentLink: null }),
+    );
+
     // Set up spies for internal utils
     getAccessTokenSpy = spyOn(authUtils, "getAccessToken").mockResolvedValue("mock-token");
+    getOfficialAccessTokenSpy = spyOn(authUtils, "getOfficialAccessToken").mockResolvedValue(
+      "official-mock-token",
+    );
     beforePublishHookSpy = spyOn(d2Utils, "beforePublishHook").mockResolvedValue();
     ensureTmpDirSpy = spyOn(d2Utils, "ensureTmpDir").mockResolvedValue();
     getGithubRepoUrlSpy = spyOn(utils, "getGithubRepoUrl").mockReturnValue(
@@ -126,6 +147,7 @@ describe("publish-docs", () => {
 
     // Restore all spies
     getAccessTokenSpy?.mockRestore();
+    getOfficialAccessTokenSpy?.mockRestore();
     beforePublishHookSpy?.mockRestore();
     ensureTmpDirSpy?.mockRestore();
     getGithubRepoUrlSpy?.mockRestore();
@@ -425,6 +447,55 @@ describe("publish-docs", () => {
   });
 
   // ERROR HANDLING TESTS
+  test("should handle failed official access token (null)", async () => {
+    loadConfigFromFileSpy.mockResolvedValue({});
+    getOfficialAccessTokenSpy.mockResolvedValue(null);
+    mockOptions.prompts.select.mockResolvedValue("default");
+
+    const result = await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://docsmith.aigne.io",
+      },
+      mockOptions,
+    );
+
+    expect(result.message).toBe("❌ Failed to publish docs: Failed to get official access token");
+  });
+
+  test("should handle failed official access token (undefined)", async () => {
+    loadConfigFromFileSpy.mockResolvedValue({});
+    getOfficialAccessTokenSpy.mockResolvedValue(undefined);
+    mockOptions.prompts.select.mockResolvedValue("default");
+
+    const result = await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://docsmith.aigne.io",
+      },
+      mockOptions,
+    );
+
+    expect(result.message).toBe("❌ Failed to publish docs: Failed to get official access token");
+  });
+
+  test("should handle checkCacheSession failure", async () => {
+    loadConfigFromFileSpy.mockResolvedValue({});
+    getOfficialAccessTokenSpy.mockResolvedValue("valid-token");
+    mockBrokerClient.checkCacheSession.mockRejectedValue(new Error("Cache session failed"));
+    mockOptions.prompts.select.mockResolvedValue("default");
+
+    const result = await publishDocs(
+      {
+        docsDir: "./docs",
+        appUrl: "https://docsmith.aigne.io",
+      },
+      mockOptions,
+    );
+
+    expect(result.message).toBe("❌ Failed to publish docs: Cache session failed");
+  });
+
   test("should handle publish failure", async () => {
     mockPublishDocs.publishDocs.mockRejectedValue(new Error("Publish failed"));
 
@@ -605,6 +676,10 @@ describe("publish-docs", () => {
     loadConfigFromFileSpy.mockResolvedValue({
       checkoutId: "cached-checkout-123",
     });
+    mockBrokerClient.checkCacheSession.mockResolvedValue({
+      sessionId: "cached-checkout-123",
+      paymentLink: "https://payment.example.com",
+    });
     mockOptions.prompts.select.mockResolvedValue("default");
 
     await publishDocs(
@@ -672,6 +747,10 @@ describe("publish-docs", () => {
     loadConfigFromFileSpy.mockResolvedValue({
       checkoutId: "cached-checkout-123",
       paymentUrl: "https://payment.example.com",
+    });
+    mockBrokerClient.checkCacheSession.mockResolvedValue({
+      sessionId: "cached-checkout-123",
+      paymentLink: "https://payment.example.com",
     });
     mockOptions.prompts.select.mockResolvedValue("new-instance-continue");
 
