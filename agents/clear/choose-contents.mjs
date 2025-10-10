@@ -19,6 +19,11 @@ const TARGET_METADATA = {
     description: "Clear published site authorizations.",
     agent: "clearAuthTokens",
   },
+  deploymentConfig: {
+    label: "deployment config",
+    description: "Clear deployment configuration (appUrl).",
+    agent: "clearDeploymentConfig",
+  },
 };
 
 const TARGET_KEYS = Object.keys(TARGET_METADATA);
