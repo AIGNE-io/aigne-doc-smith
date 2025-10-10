@@ -17,15 +17,14 @@ export default async function checkNeedGenerateStructure(
   // Check if originalDocumentStructure is empty and prompt user
   if (!originalDocumentStructure) {
     const choice = await options.prompts.select({
-      message:
-        "Your project configuration is complete. Would you like to generate the documentation structure now?",
+      message: "Project configured successfully. Generate the documentation structure now?",
       choices: [
         {
-          name: "Generate now - Start generating the documentation structure",
+          name: "Yes, generate now",
           value: "generate",
         },
         {
-          name: "Review configuration first - Edit configuration before generating",
+          name: "No, review configuration first",
           value: "later",
         },
       ],
