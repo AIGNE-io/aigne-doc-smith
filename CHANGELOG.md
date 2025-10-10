@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.12-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.2...v0.8.12-beta.3) (2025-10-09)
+
+
+### Bug Fixes
+
+* should not require admin when publish to cloud ([0a74dd1](https://github.com/AIGNE-io/aigne-doc-smith/commit/0a74dd19a2c2390ca223d0cc393661bf3f408a6f))
+
 ## [0.8.12-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.1...v0.8.12-beta.2) (2025-10-09)
 
 

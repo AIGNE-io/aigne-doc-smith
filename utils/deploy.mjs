@@ -2,11 +2,11 @@ import { BrokerClient, STEPS } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import open from "open";
 import { getOfficialAccessToken } from "./auth-utils.mjs";
-import { DEFAULT_APP_URL } from "./constants/index.mjs";
+import { CLOUD_SERVICE_URL_PROD } from "./constants/index.mjs";
 import { saveValueToConfig } from "./utils.mjs";
 
 // ==================== Configuration ====================
-const BASE_URL = process.env.DOC_SMITH_BASE_URL || DEFAULT_APP_URL;
+const BASE_URL = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 const SUCCESS_MESSAGE = {
   en: "Congratulations! Your website has been successfully installed. You can return to the command-line tool to continue the next steps.",
   zh: "恭喜您，你的网站已安装成功！可以返回命令行工具继续后续操作！",
