@@ -12,6 +12,7 @@ Content Generation Rules:
 {% endif %}
 - Output complete information including all content planned for the {{nodeName}}
 - Ensure each {{nodeName}} detail includes a markdown level-1 heading displaying the current {{nodeName}} title: {{title}}
+- Maintain a strict, sequential heading hierarchy; no skipping (e.g., no jump from level-1 to level-3).
 - Format markdown output with proper line breaks and spacing for easy reading
 - For list data with many items, prioritize using markdown table for cleaner, more readable presentation
 - Do not mention 'DataSources' in output, your content is for user consumption, and users are unaware of DataSources
