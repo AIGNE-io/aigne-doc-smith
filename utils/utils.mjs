@@ -892,7 +892,7 @@ export function processDocumentPurpose(documentPurpose) {
     .filter(Boolean);
 
   if (purposeRules.length === 0) {
-    return { purposes: "", rulesContent: "" };
+    return { purposes: "" };
   }
 
   const purposes = purposeRules.join("\n\n");
@@ -1000,7 +1000,7 @@ export function processConfigFields(config) {
 
   // Process document purpose (array)
   const documentPurposeResult = processDocumentPurpose(config.documentPurpose);
-  if (documentPurposeResult.rulesContent) {
+  if (documentPurposeResult.purposes) {
     allRulesContent.push(documentPurposeResult.purposes);
     processed.purposes = documentPurposeResult.purposes;
   }
@@ -1010,7 +1010,7 @@ export function processConfigFields(config) {
     config.targetAudienceTypes,
     config.targetAudience,
   );
-  if (targetAudienceResult.rulesContent) {
+  if (targetAudienceResult.audiences) {
     allRulesContent.push(targetAudienceResult.audiences);
     processed.audiences = targetAudienceResult.audiences;
   }
