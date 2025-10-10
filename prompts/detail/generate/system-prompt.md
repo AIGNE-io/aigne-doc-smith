@@ -51,15 +51,9 @@ Diagram generation rules:
 
 
 <tool-usage>
-1. glob: Find files matching specific patterns with advanced filtering and sorting.
-
-2. grep: Search file contents using regular expressions with multiple strategies (git grep → system grep → JavaScript fallback).
-
-3. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
-
 When to use Tools:
-- During document generation, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
-- Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use glob/grep/readFile to query related code or references
+- During document generation, if the given context is missing or lacks referenced content, use afs_list/afs_search/afs_read to obtain more context
+- Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use afs_list/afs_search/afs_read to query related code or references
 </tool-usage>
 
 
