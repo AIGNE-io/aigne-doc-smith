@@ -108,7 +108,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
       message:
         "How would you like to improve the structure?\n" +
         "Examples:\n" +
-        "  • Add a new document 'Troubleshooting' after 'Configuration'\n" +
+        "  • Add a new document 'Troubleshooting'\n" +
         "  • Remove the 'Legacy Features' document\n" +
         "  • Move 'Installation' to the top of the structure\n\n" +
         "  Press Enter to finish reviewing:",
