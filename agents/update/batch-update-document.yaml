@@ -4,4 +4,4 @@ name: batchUpdateDocument
 skills:
   - ../update/handle-document-update.yaml
 iterate_on: selectedDocs
-concurrency: 5
+concurrency: 10

@@ -7,6 +7,8 @@ instructions:
     url: ../../prompts/structure/generate/user-prompt.md
 skills:
   - ./document-structure-tools/generate-sub-structure.mjs
+task_render_mode: collapse
+task_title: Generate the structure of the documentation
 tool_calls_concurrency: 5
 input_schema:
   type: object

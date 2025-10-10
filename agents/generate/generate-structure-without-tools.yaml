@@ -5,6 +5,8 @@ instructions:
     url: ../../prompts/structure/generate/system-prompt.md
   - role: user
     url: ../../prompts/structure/generate/user-prompt.md
+task_render_mode: collapse
+task_title: Generate the structure of the documentation
 input_schema:
   type: object
   properties:

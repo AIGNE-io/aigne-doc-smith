@@ -13,11 +13,11 @@ import {
 export default async function checkNeedGenerateStructure(
   {
     originalDocumentStructure,
-    feedback,
     lastGitHead,
     docsDir,
     forceRegenerate,
     totalWords,
+    isLargeContext,
     ...rest
   },
   options,
@@ -59,7 +59,7 @@ export default async function checkNeedGenerateStructure(
 
   // Check if we need to regenerate documentation structure
   let shouldRegenerate = false;
-  let finalFeedback = feedback;
+  let finalFeedback = "";
 
   // If no feedback and originalDocumentStructure exists, check for git changes
   if (originalDocumentStructure) {
@@ -116,7 +116,9 @@ export default async function checkNeedGenerateStructure(
     };
   }
 
-  const planningAgent = options.context.agents["generateStructure"];
+  const generateStructureAgent = isLargeContext
+    ? options.context.agents["generateStructure"]
+    : options.context.agents["generateStructureWithoutTools"];
 
   // Get user preferences for documentation structure and global scope
   const structureRules = getActiveRulesForScope("structure", []);
@@ -129,11 +131,12 @@ export default async function checkNeedGenerateStructure(
   // Convert rule texts to string format for passing to the agent
   const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
-  const result = await options.context.invoke(planningAgent, {
+  const result = await options.context.invoke(generateStructureAgent, {
     ...rest,
     originalDocumentStructure,
     userPreferences,
     feedback: finalFeedback || "",
+    isLargeContext,
   });
 
   let message = "";
