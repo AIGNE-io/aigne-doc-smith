@@ -76,15 +76,14 @@ export default async function userReviewDocumentStructure({ documentStructure, .
 
   // Ask user if they want to review the documentation structure
   const needReview = await options.prompts.select({
-    message:
-      "Would you like to optimize the documentation structure?\n  You can edit titles, reorganize sections.",
+    message: "Would you like to optimize the documentation structure?",
     choices: [
       {
-        name: "Looks good - proceed with current structure",
+        name: "No, looks good",
         value: "no",
       },
       {
-        name: "Yes, optimize the structure",
+        name: "Yes, optimize the structure (e.g. rename 'Getting Started' to 'Quick Start', move 'API Reference' before 'Configuration')",
         value: "yes",
       },
     ],
@@ -108,7 +107,10 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     const feedback = await options.prompts.input({
       message:
         "How would you like to improve the structure?\n" +
-        "  • Rename, reorganize, add, or remove sections\n\n" +
+        "Examples:\n" +
+        "  • Add a new document 'Troubleshooting'\n" +
+        "  • Remove the 'Legacy Features' document\n" +
+        "  • Move 'Installation' to the top of the structure\n\n" +
         "  Press Enter to finish reviewing:",
     });
 

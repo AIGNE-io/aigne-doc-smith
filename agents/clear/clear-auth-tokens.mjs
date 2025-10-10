@@ -1,13 +1,11 @@
 import { existsSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
-import { homedir } from "node:os";
-import { join } from "node:path";
 import chalk from "chalk";
 import { parse, stringify } from "yaml";
+import { getDocSmithEnvFilePath } from "../../utils/auth-utils.mjs";
 
 export default async function clearAuthTokens(_input = {}, options = {}) {
-  const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
-
+  const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
   // Check if the file exists
   if (!existsSync(DOC_SMITH_ENV_FILE)) {
     return {

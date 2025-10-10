@@ -1,14 +1,10 @@
 import { rm } from "node:fs/promises";
-import { join } from "node:path";
-import { pathExists, toDisplayPath } from "../../utils/file-utils.mjs";
+import { pathExists, toDisplayPath, getStructurePlanPath } from "../../utils/file-utils.mjs";
 
 export default async function clearDocumentStructure(input = {}, _options = {}) {
   const { docsDir, workDir } = input;
-  const cwd = workDir || process.cwd();
 
-  // Fixed path where structure-plan.json is saved
-  const outputDir = join(cwd, ".aigne", "doc-smith", "output");
-  const structurePlanPath = join(outputDir, "structure-plan.json");
+  const structurePlanPath = getStructurePlanPath(workDir);
 
   const results = [];
   let hasError = false;

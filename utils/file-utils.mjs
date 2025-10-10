@@ -243,3 +243,23 @@ export function resolveToAbsolute(value) {
   if (!value) return undefined;
   return path.isAbsolute(value) ? value : path.resolve(process.cwd(), value);
 }
+
+/**
+ * Get doc-smith configuration file path
+ * @param {string} workDir - Working directory (defaults to current directory)
+ * @returns {string} Absolute path to config.yaml
+ */
+export function getConfigFilePath(workDir) {
+  const cwd = workDir || process.cwd();
+  return path.join(cwd, ".aigne", "doc-smith", "config.yaml");
+}
+
+/**
+ * Get doc-smith structure plan file path
+ * @param {string} workDir - Working directory (defaults to current directory)
+ * @returns {string} Absolute path to structure-plan.json
+ */
+export function getStructurePlanPath(workDir) {
+  const cwd = workDir || process.cwd();
+  return path.join(cwd, ".aigne", "doc-smith", "output", "structure-plan.json");
+}
