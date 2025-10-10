@@ -5,7 +5,7 @@ import {
   readFileContents,
 } from "../../../utils/file-utils.mjs";
 import {
-  INTELLIGENT_SUGGESTION_WORD_THRESHOLD,
+  INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD,
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
 } from "../../../utils/constants/index.mjs";
@@ -44,12 +44,12 @@ export default async function generateSubStructure(
   // Read all source files using the utility function
   const sourceFiles = await readFileContents(files, process.cwd());
 
-  // Count words and lines using utility function
-  const { totalWords } = calculateFileStats(sourceFiles);
+  // Count tokens and lines using utility function
+  const { totalTokens } = calculateFileStats(sourceFiles);
 
-  // check if totalWords is too large
+  // check if totalTokens is too large
   let isLargeContext = false;
-  if (totalWords > INTELLIGENT_SUGGESTION_WORD_THRESHOLD) {
+  if (totalTokens > INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD) {
     isLargeContext = true;
   }
 
@@ -67,7 +67,7 @@ export default async function generateSubStructure(
     allFilesPaths,
     isLargeContext,
     files,
-    totalWords,
+    totalTokens,
   });
 
   return {

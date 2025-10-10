@@ -13,6 +13,9 @@ Documentation structure rules:
   - Overview: Briefly explain the problems the product solves, what it provides, and its overall structure. Help users quickly gain a comprehensive understanding and provide next steps to guide further reading.
 
 - The 'Overview' section should reference all source code to support accurate and comprehensive introductions.
+{%else%}
+- The current process is generate sub-structures for a large module, showing detailed content planned in the parent document, no need to include 'Overview' section
+
 {% endif %}
 
 - Titles should not include the product name to keep the display streamlined.

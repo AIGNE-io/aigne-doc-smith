@@ -3,6 +3,7 @@ import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { glob } from "glob";
 import { isBinaryFile } from "isbinaryfile";
+import { encode } from "gpt-tokenizer";
 import { isGlobPattern } from "./utils.mjs";
 
 /**
@@ -417,27 +418,27 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
 }
 
 /**
- * Calculate total lines and words from file contents
+ * Calculate total lines and tokens from file contents
  * @param {Array<{content: string}>} sourceFiles - Array of objects containing content property
- * @returns {{totalWords: number, totalLines: number}} Object with totalWords and totalLines
+ * @returns {{totalTokens: number, totalLines: number}} Object with totalTokens and totalLines
  */
 export function calculateFileStats(sourceFiles) {
-  let totalWords = 0;
+  let totalTokens = 0;
   let totalLines = 0;
 
   for (const source of sourceFiles) {
     const { content } = source;
     if (content) {
-      // Count English words (simple regex for words containing a-zA-Z)
-      const words = content.match(/[a-zA-Z]+/g) || [];
-      totalWords += words.length;
+      // Count tokens using gpt-tokenizer
+      const tokens = encode(content);
+      totalTokens += tokens.length;
 
       // Count lines (excluding empty lines)
       totalLines += content.split("\n").filter((line) => line.trim() !== "").length;
     }
   }
 
-  return { totalWords, totalLines };
+  return { totalTokens, totalLines };
 }
 
 /**

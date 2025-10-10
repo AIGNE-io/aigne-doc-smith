@@ -1246,8 +1246,8 @@ describe("load-sources", () => {
     });
   });
 
-  describe("Word and line counting", () => {
-    test("should count words and lines in source content", async () => {
+  describe("Token and line counting", () => {
+    test("should count tokens and lines in source content", async () => {
       // Create files with known content for counting
       await writeFile(
         path.join(testDir, "count-test.js"),
@@ -1262,9 +1262,9 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.totalWords).toBeGreaterThan(0);
+      expect(result.totalTokens).toBeGreaterThan(0);
       expect(result.totalLines).toBeGreaterThan(0);
-      expect(typeof result.totalWords).toBe("number");
+      expect(typeof result.totalTokens).toBe("number");
       expect(typeof result.totalLines).toBe("number");
     });
   });

@@ -56,6 +56,7 @@ The current process is planning sub-structures for the following section:
 
 Sub-structures must meet the following requirements:
 - Sub-structures are planned based on DataSources and the parent document's description
+- The parent document provides an overview of the planned content, while sub-structures directly plan the specific content to be displayed
 - Further break down and comprehensively display the content planned in the parent document
 - All sub-structures must have their parentId value set to {{parentDocument.path}}
 </parent_document>

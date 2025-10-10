@@ -12,7 +12,7 @@ import {
   toRelativePath,
 } from "../../utils/utils.mjs";
 import {
-  INTELLIGENT_SUGGESTION_WORD_THRESHOLD,
+  INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD,
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
 } from "../../utils/constants/index.mjs";
@@ -93,11 +93,11 @@ export default async function loadSources({
   // Read all source files using the utility function
   const sourceFiles = await readFileContents(sourceFilesPaths, process.cwd());
 
-  // Count words and lines using utility function
-  const { totalWords, totalLines } = calculateFileStats(sourceFiles);
+  // Count tokens and lines using utility function
+  const { totalTokens, totalLines } = calculateFileStats(sourceFiles);
 
-  // check if totalWords is too large
-  const isLargeContext = totalWords > INTELLIGENT_SUGGESTION_WORD_THRESHOLD;
+  // check if totalTokens is too large
+  const isLargeContext = totalTokens > INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD;
 
   // Build allSources string using utility function
   const allSources = buildSourcesContent(sourceFiles, isLargeContext);
@@ -217,7 +217,7 @@ export default async function loadSources({
     originalDocumentStructure,
     files,
     modifiedFiles,
-    totalWords,
+    totalTokens,
     totalLines,
     assetsContent,
     isLargeContext,
