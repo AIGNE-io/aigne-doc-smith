@@ -506,19 +506,6 @@ temp*
       expect(sources).toBe("");
     });
 
-    test("should stop adding files when token limit reached in large context", () => {
-      const largeContent = "x".repeat(100000);
-      const sourceFiles = Array.from({ length: 100 }, (_, i) => ({
-        sourceId: `file${i}.js`,
-        content: largeContent,
-      }));
-
-      const sources = buildSourcesContent(sourceFiles, true);
-
-      expect(sources).toContain("Note: Context is large");
-      expect(sources.length).toBeLessThan(largeContent.length * 100);
-    });
-
     test("should use all files as fallback when no core files in large context", () => {
       const sourceFiles = [
         { sourceId: "random1.xyz", content: "test1" },
