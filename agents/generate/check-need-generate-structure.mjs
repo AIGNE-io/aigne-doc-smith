@@ -58,6 +58,9 @@ export default async function checkNeedGenerateStructure(
     };
   }
 
+  // Performance optimization:
+  // Using both structured output and Tool with Gemini model causes redundant calls
+  // Only use Tool when context is very large
   const generateStructureAgent = isLargeContext
     ? options.context.agents["generateStructure"]
     : options.context.agents["generateStructureWithoutTools"];
