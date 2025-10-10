@@ -201,7 +201,12 @@ describe("check-need-generate-structure", () => {
 
   test("should clear feedback in result when regenerating", async () => {
     const result = await checkNeedGenerateStructure(
-      { originalDocumentStructure, forceRegenerate: true, feedback: "some feedback", docsDir: "./docs" },
+      {
+        originalDocumentStructure,
+        forceRegenerate: true,
+        feedback: "some feedback",
+        docsDir: "./docs",
+      },
       mockOptions,
     );
 
@@ -257,7 +262,12 @@ describe("check-need-generate-structure", () => {
 
   test("should use generateStructureWithoutTools agent when isLargeContext is false", async () => {
     await checkNeedGenerateStructure(
-      { originalDocumentStructure, forceRegenerate: true, isLargeContext: false, docsDir: "./docs" },
+      {
+        originalDocumentStructure,
+        forceRegenerate: true,
+        isLargeContext: false,
+        docsDir: "./docs",
+      },
       mockOptions,
     );
 
