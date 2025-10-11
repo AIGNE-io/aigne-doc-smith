@@ -2,14 +2,14 @@ rules:
   - id: pref_cbc8005011c08ca0
     active: true
     scope: translation
-    rule: 在名为 'Cleanup Targets' 的表格中，'Target' 列必须保留原文，不得翻译。
-    feedback: Cleanup Targets 表格中的 Target 列不要翻译
+    rule: In the table titled 'Cleanup Targets', the 'Target' column must retain the original text and should not be translated.
+    feedback: Do not translate the Target column in the Cleanup Targets table.
     createdAt: 2025-10-11T13:22:06.529Z
   - id: pref_545cabc521ecd4a5
     active: true
     scope: translation
-    rule: 专属名词 'AIGNE Framework' 无需翻译, 必须保留原文。
-    feedback: AIGNE Framework 是专属名词而且拥有自己的链接,无需翻译
+    rule: The proprietary term 'AIGNE Framework' must not be translated and must be retained in its original form.
+    feedback: AIGNE Framework is a proper noun and has its own link; no translation is required.
     createdAt: 2025-10-11T12:26:37.517Z
   - id: pref_6e612d7ca8b7f3b6
     active: true
