@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.12-beta.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.5...v0.8.12-beta.6) (2025-10-11)
+
+
+### Bug Fixes
+
+* **publish:** enhance access token retrieval and session check logic ([#178](https://github.com/AIGNE-io/aigne-doc-smith/issues/178)) ([e19e9f5](https://github.com/AIGNE-io/aigne-doc-smith/commit/e19e9f52b1c80ba8eb725cfa945cd312d0690ef1))
+
 ## [0.8.12-beta.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.4...v0.8.12-beta.5) (2025-10-11)
 
 
