@@ -4,6 +4,10 @@
 {% include "../../common/document-structure/user-preferences.md" %}
 
 
+<file_list>
+{{allFilesPaths}}
+</file_list>
+
 <datasources>
 {{ datasources }}
 </datasources>
@@ -42,4 +46,18 @@ If a previous structural plan (last_document_structure) is provided, follow thes
 <document_structure_review_feedback>
 {{ structureReviewFeedback }}
 </document_structure_review_feedback>
+{% endif %}
+
+{% if isSubStructure %}
+<parent_document>
+The current process is planning sub-structures for the following section:
+
+{{parentDocument}}
+
+Sub-structures must meet the following requirements:
+- Sub-structures are planned based on DataSources and the parent document's description
+- The parent document provides an overview of the planned content, while sub-structures directly plan the specific content to be displayed
+- Further break down and comprehensively display the content planned in the parent document
+- All sub-structures must have their parentId value set to {{parentDocument.path}}
+</parent_document>
 {% endif %}

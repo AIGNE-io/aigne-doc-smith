@@ -2,7 +2,6 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
-import { hasSourceFilesChanged } from "../../utils/utils.mjs";
 import checkDetailResult from "../utils/check-detail-result.mjs";
 
 // Get current script directory
@@ -17,13 +16,14 @@ export default async function checkDocument(
     documentStructure,
     modifiedFiles,
     forceRegenerate,
+    locale,
     ...rest
   },
   options,
 ) {
   // Check if the detail file already exists
   const flatName = path.replace(/^\//, "").replace(/\//g, "-");
-  const fileFullName = `${flatName}.md`;
+  const fileFullName = locale === "en" ? `${flatName}.md` : `${flatName}.${locale}.md`;
   const filePath = join(docsDir, fileFullName);
   let detailGenerated = true;
   let fileContent = null;
@@ -69,16 +69,6 @@ export default async function checkDocument(
     }
   }
 
-  // Check if source files have changed since last generation
-  let sourceFilesChanged = false;
-  if (sourceIds && sourceIds.length > 0 && modifiedFiles) {
-    sourceFilesChanged = hasSourceFilesChanged(sourceIds, modifiedFiles);
-
-    if (sourceFilesChanged) {
-      console.log(`Source files changed for ${path}, will regenerate`);
-    }
-  }
-
   // If file exists, check content validation
   let contentValidationFailed = false;
   let validationResult = {};
@@ -95,13 +85,7 @@ export default async function checkDocument(
   }
 
   // If file exists, sourceIds haven't changed, source files haven't changed, and content validation passes, no need to regenerate
-  if (
-    detailGenerated &&
-    !sourceIdsChanged &&
-    !sourceFilesChanged &&
-    !contentValidationFailed &&
-    !forceRegenerate
-  ) {
+  if (detailGenerated && !sourceIdsChanged && !contentValidationFailed && !forceRegenerate) {
     return {
       path,
       docsDir,
@@ -121,6 +105,7 @@ export default async function checkDocument(
 
   const result = await options.context.invoke(teamAgent, {
     ...rest,
+    locale,
     docsDir,
     path,
     sourceIds,

@@ -24,14 +24,18 @@ import {
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
+export function getDocSmithEnvFilePath() {
+  return join(homedir(), ".aigne", "doc-smith-connected.yaml");
+}
+
 /**
  * Get access token from environment, config file, or prompt user for authorization
  * @param {string} appUrl - The application URL
  * @returns {Promise<string>} - The access token
  */
 export async function getAccessToken(appUrl, ltToken = "") {
-  const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
   const { hostname } = new URL(appUrl);
+  const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
 
   let accessToken = process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
 
@@ -72,7 +76,9 @@ export async function getAccessToken(appUrl, ltToken = "") {
       const docsLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_DOCS);
       throw new Error(
         `${chalk.yellow("⚠️  This website does not have required components for publishing")}\n\n` +
-          `${chalk.bold("💡 Solution:")} Please refer to the documentation to add Discuss Kit component:\n${docsLink}\n\n`,
+          `${chalk.bold(
+            "💡 Solution:",
+          )} Please refer to the documentation to add Discuss Kit component:\n${docsLink}\n\n`,
       );
     } else {
       throw new Error(
@@ -151,7 +157,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
  * @param {string} baseUrl - The official service URL
  * @returns {Promise<string>} - The access token
  */
-export async function getOfficialAccessToken(baseUrl) {
+export async function getOfficialAccessToken(baseUrl, openPage = true) {
   // Early parameter validation
   if (!baseUrl) {
     throw new Error("baseUrl parameter is required for getOfficialAccessToken.");
@@ -160,7 +166,7 @@ export async function getOfficialAccessToken(baseUrl) {
   // Parse URL once and reuse
   const urlObj = new URL(baseUrl);
   const { hostname, origin } = urlObj;
-  const DOC_SMITH_ENV_FILE = join(homedir(), ".aigne", "doc-smith-connected.yaml");
+  const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
 
   // 1. Check environment variable
   let accessToken = process.env[DOC_OFFICIAL_ACCESS_TOKEN];
@@ -182,7 +188,7 @@ export async function getOfficialAccessToken(baseUrl) {
   }
 
   // If token is found, return it
-  if (accessToken) {
+  if (accessToken || !openPage) {
     return accessToken;
   }
 

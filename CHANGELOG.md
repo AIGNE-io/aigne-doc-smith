@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.8.12-beta.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.5...v0.8.12-beta.6) (2025-10-11)
+
+
+### Bug Fixes
+
+* **publish:** enhance access token retrieval and session check logic ([#178](https://github.com/AIGNE-io/aigne-doc-smith/issues/178)) ([e19e9f5](https://github.com/AIGNE-io/aigne-doc-smith/commit/e19e9f52b1c80ba8eb725cfa945cd312d0690ef1))
+
+## [0.8.12-beta.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.4...v0.8.12-beta.5) (2025-10-11)
+
+
+### Bug Fixes
+
+* **agent:** include missing locale on document check ([#176](https://github.com/AIGNE-io/aigne-doc-smith/issues/176)) ([8ca04f2](https://github.com/AIGNE-io/aigne-doc-smith/commit/8ca04f2d96b5fa20af65ed77b110d188079c7a29))
+
+## [0.8.12-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.3...v0.8.12-beta.4) (2025-10-11)
+
+
+### Features
+
+* implement large context handling and optimize document generation ([#172](https://github.com/AIGNE-io/aigne-doc-smith/issues/172)) ([de09f7c](https://github.com/AIGNE-io/aigne-doc-smith/commit/de09f7c7f9d1ecbf620a6a4684be84f13f4fb644))
+
+
+### Bug Fixes
+
+* add heading level constraint for doc generating ([#170](https://github.com/AIGNE-io/aigne-doc-smith/issues/170)) ([f4c7163](https://github.com/AIGNE-io/aigne-doc-smith/commit/f4c71631cc89524abf945ae5f829f8111317a5bf))
+* tune update tips and support clear deployment config  ([#174](https://github.com/AIGNE-io/aigne-doc-smith/issues/174)) ([71c19e0](https://github.com/AIGNE-io/aigne-doc-smith/commit/71c19e06730111f8b757e523abebaed57bbaea95))
+
 ## [0.8.12-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.2...v0.8.12-beta.3) (2025-10-09)
 
 

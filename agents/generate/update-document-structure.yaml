@@ -37,3 +37,6 @@ skills:
   - ./document-structure-tools/delete-document.mjs
   - ./document-structure-tools/update-document.mjs
   - ./document-structure-tools/move-document.mjs
+  - ../update/fs-tools/glob.mjs
+  - ../update/fs-tools/grep.mjs
+  - ../update/fs-tools/read-file.mjs

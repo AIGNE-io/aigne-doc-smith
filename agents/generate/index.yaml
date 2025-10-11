@@ -54,9 +54,6 @@ input_schema:
     glossary:
       type: string
       description: Glossary file for consistent terminology (use @filename.md)
-    feedback:
-      type: string
-      description: Tell us how to improve the documentation structure
     forceRegenerate:
       type: boolean
       description: Rebuild all documentation from scratch

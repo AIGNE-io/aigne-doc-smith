@@ -1,11 +1,8 @@
 import { rm } from "node:fs/promises";
-import { join } from "node:path";
-import { pathExists, toDisplayPath } from "../../utils/file-utils.mjs";
+import { pathExists, toDisplayPath, getConfigFilePath } from "../../utils/file-utils.mjs";
 
 export default async function clearDocumentConfig({ workDir }) {
-  // Fixed path where config.yaml is saved by init command
-  const cwd = workDir || process.cwd();
-  const documentConfigPath = join(cwd, ".aigne", "doc-smith", "config.yaml");
+  const documentConfigPath = getConfigFilePath(workDir);
   const displayPath = toDisplayPath(documentConfigPath);
 
   try {

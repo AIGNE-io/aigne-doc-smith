@@ -347,6 +347,9 @@ export const BLOCKLET_ADD_COMPONENT_DOCS =
 // Supported file extensions for content reading
 export const SUPPORTED_FILE_EXTENSIONS = [".txt", ".md", ".json", ".yaml", ".yml"];
 
+// Token count threshold for intelligent source path suggestion
+export const INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD = 600000;
+
 // Conflict rules configuration for documentation generation
 export const CONFLICT_RULES = {
   // Internal conflicts within the same question (multi-select conflicts)
@@ -544,7 +547,6 @@ export const FILE_CONCURRENCY = 3;
 export const DOC_SMITH_DIR = ".aigne/doc-smith";
 export const TMP_DIR = ".tmp";
 export const TMP_DOCS_DIR = "docs";
-
 export const TMP_ASSETS_DIR = "assets";
 
 // Default evaluation scoring weights

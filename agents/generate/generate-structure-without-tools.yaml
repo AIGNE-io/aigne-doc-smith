@@ -1,15 +1,12 @@
-name: generateStructure
+name: generateStructureWithoutTools
 description: Generate the structure and organization of your documentation
 instructions:
   - role: system
     url: ../../prompts/structure/generate/system-prompt.md
   - role: user
     url: ../../prompts/structure/generate/user-prompt.md
-skills:
-  - ./document-structure-tools/generate-sub-structure.mjs
 task_render_mode: collapse
 task_title: Generate the structure of the documentation
-tool_calls_concurrency: 5
 input_schema:
   type: object
   properties:

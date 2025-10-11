@@ -1,15 +1,21 @@
-import { readFile, stat } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import {
-  DEFAULT_EXCLUDE_PATTERNS,
-  DEFAULT_INCLUDE_PATTERNS,
-} from "../../utils/constants/index.mjs";
-import { getFilesWithGlob, loadGitignore } from "../../utils/file-utils.mjs";
+  buildSourcesContent,
+  calculateFileStats,
+  loadFilesFromPaths,
+  readFileContents,
+} from "../../utils/file-utils.mjs";
 import {
   getCurrentGitHead,
   getModifiedFilesBetweenCommits,
-  isGlobPattern,
+  toRelativePath,
 } from "../../utils/utils.mjs";
+import {
+  INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD,
+  DEFAULT_EXCLUDE_PATTERNS,
+  DEFAULT_INCLUDE_PATTERNS,
+} from "../../utils/constants/index.mjs";
 
 export default async function loadSources({
   sources = [],
@@ -27,102 +33,21 @@ export default async function loadSources({
   let files = Array.isArray(sources) ? [...sources] : [];
 
   if (sourcesPath) {
-    const paths = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
-    let allFiles = [];
-
-    for (const dir of paths) {
-      try {
-        if (typeof dir !== "string") {
-          console.warn(`Invalid source path: ${dir}`);
-          continue;
-        }
-
-        // First try to access as a file or directory
-        const stats = await stat(dir);
-
-        if (stats.isFile()) {
-          // If it's a file, add it directly without filtering
-          allFiles.push(dir);
-        } else if (stats.isDirectory()) {
-          // If it's a directory, use the existing glob logic
-          // Load .gitignore for this directory
-          const gitignorePatterns = await loadGitignore(dir);
-
-          // Prepare patterns
-          let finalIncludePatterns = null;
-          let finalExcludePatterns = null;
-
-          if (useDefaultPatterns) {
-            // Merge with default patterns
-            const userInclude = includePatterns
-              ? Array.isArray(includePatterns)
-                ? includePatterns
-                : [includePatterns]
-              : [];
-            const userExclude = excludePatterns
-              ? Array.isArray(excludePatterns)
-                ? excludePatterns
-                : [excludePatterns]
-              : [];
-
-            finalIncludePatterns = [...DEFAULT_INCLUDE_PATTERNS, ...userInclude];
-            finalExcludePatterns = [...DEFAULT_EXCLUDE_PATTERNS, ...userExclude];
-          } else {
-            // Use only user patterns
-            if (includePatterns) {
-              finalIncludePatterns = Array.isArray(includePatterns)
-                ? includePatterns
-                : [includePatterns];
-            }
-            if (excludePatterns) {
-              finalExcludePatterns = Array.isArray(excludePatterns)
-                ? excludePatterns
-                : [excludePatterns];
-            }
-          }
-
-          // Get files using glob
-          const filesInDir = await getFilesWithGlob(
-            dir,
-            finalIncludePatterns,
-            finalExcludePatterns,
-            gitignorePatterns,
-          );
-          allFiles = allFiles.concat(filesInDir);
-        }
-      } catch (err) {
-        if (err.code === "ENOENT") {
-          // Path doesn't exist as file or directory, try as glob pattern
-          try {
-            // Check if it looks like a glob pattern
-            const isGlobPatternResult = isGlobPattern(dir);
-
-            if (isGlobPatternResult) {
-              // Use glob to find matching files from current working directory
-              const { glob } = await import("glob");
-              const matchedFiles = await glob(dir, {
-                absolute: true,
-                nodir: true, // Only files, not directories
-                dot: false, // Don't include hidden files
-              });
-
-              if (matchedFiles.length > 0) {
-                allFiles = allFiles.concat(matchedFiles);
-              }
-            }
-          } catch (globErr) {
-            console.warn(`Failed to process glob pattern "${dir}": ${globErr.message}`);
-          }
-        } else {
-          throw err;
-        }
-      }
-    }
+    const allFiles = await loadFilesFromPaths(sourcesPath, {
+      includePatterns,
+      excludePatterns,
+      useDefaultPatterns,
+      defaultIncludePatterns: DEFAULT_INCLUDE_PATTERNS,
+      defaultExcludePatterns: DEFAULT_EXCLUDE_PATTERNS,
+    });
 
     files = files.concat(allFiles);
   }
 
   files = [...new Set(files)];
+
+  // all files path
+  const allFilesPaths = files.map((file) => `- ${toRelativePath(file)}`).join("\n");
 
   // Define media file extensions
   const mediaExtensions = [
@@ -142,38 +67,40 @@ export default async function loadSources({
   ];
 
   // Separate source files from media files
-  const sourceFiles = [];
+  const sourceFilesPaths = [];
   const mediaFiles = [];
-  let allSources = "";
 
-  await Promise.all(
-    files.map(async (file) => {
-      const ext = path.extname(file).toLowerCase();
+  for (const file of files) {
+    const ext = path.extname(file).toLowerCase();
 
-      if (mediaExtensions.includes(ext)) {
-        // This is a media file
-        const relativePath = path.relative(docsDir, file);
-        const fileName = path.basename(file);
-        const description = path.parse(fileName).name;
+    if (mediaExtensions.includes(ext)) {
+      // This is a media file
+      const relativePath = path.relative(docsDir, file);
+      const fileName = path.basename(file);
+      const description = path.parse(fileName).name;
 
-        mediaFiles.push({
-          name: fileName,
-          path: relativePath,
-          description,
-        });
-      } else {
-        // This is a source file
-        const content = await readFile(file, "utf8");
-        const relativePath = path.relative(process.cwd(), file);
-        allSources += `// sourceId: ${relativePath}\n${content}\n`;
+      mediaFiles.push({
+        name: fileName,
+        path: relativePath,
+        description,
+      });
+    } else {
+      // This is a source file
+      sourceFilesPaths.push(file);
+    }
+  }
 
-        sourceFiles.push({
-          sourceId: relativePath,
-          content,
-        });
-      }
-    }),
-  );
+  // Read all source files using the utility function
+  const sourceFiles = await readFileContents(sourceFilesPaths, process.cwd());
+
+  // Count tokens and lines using utility function
+  const { totalTokens, totalLines } = calculateFileStats(sourceFiles);
+
+  // check if totalTokens is too large
+  const isLargeContext = totalTokens > INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD;
+
+  // Build allSources string using utility function
+  const allSources = buildSourcesContent(sourceFiles, isLargeContext);
 
   // Get the last documentation structure
   let originalDocumentStructure;
@@ -283,31 +210,17 @@ export default async function loadSources({
     assetsContent += "```\n";
   }
 
-  // Count words and lines in allSources
-  let totalWords = 0;
-  let totalLines = 0;
-
-  for (const source of Object.values(allSources)) {
-    if (typeof source === "string") {
-      // Count English words (simple regex for words containing a-zA-Z)
-      const words = source.match(/[a-zA-Z]+/g) || [];
-      totalWords += words.length;
-
-      // Count lines (excluding empty lines)
-      totalLines += source.split("\n").filter((line) => line.trim() !== "").length;
-    }
-  }
-
   return {
-    datasourcesList: sourceFiles,
     datasources: allSources,
     content,
     originalDocumentStructure,
     files,
     modifiedFiles,
-    totalWords,
+    totalTokens,
     totalLines,
     assetsContent,
+    isLargeContext,
+    allFilesPaths,
   };
 }
 
@@ -356,16 +269,6 @@ loadSources.output_schema = {
   properties: {
     datasources: {
       type: "string",
-    },
-    datasourcesList: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          sourceId: { type: "string" },
-          content: { type: "string" },
-        },
-      },
     },
     files: {
       type: "array",

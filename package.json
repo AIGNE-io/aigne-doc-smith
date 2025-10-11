@@ -1,6 +1,6 @@
 {
   "name": "@aigne/doc-smith",
-  "version": "0.8.12-beta.3",
+  "version": "0.8.12-beta.6",
   "description": "AI-driven documentation generation tool built on the AIGNE Framework",
   "publishConfig": {
     "access": "public"
@@ -29,7 +29,7 @@
     "@aigne/gemini": "^0.14.0",
     "@aigne/openai": "^0.16.0",
     "@aigne/publish-docs": "^0.11.0",
-    "@blocklet/payment-broker-client": "^1.21.5",
+    "@blocklet/payment-broker-client": "^1.21.10",
     "@terrastruct/d2": "^0.1.33",
     "chalk": "^5.5.0",
     "cli-highlight": "^2.1.11",
@@ -38,6 +38,8 @@
     "dompurify": "^3.2.6",
     "fs-extra": "^11.3.1",
     "glob": "^11.0.3",
+    "gpt-tokenizer": "^3.2.0",
+    "isbinaryfile": "^5.0.6",
     "jsdom": "^26.1.0",
     "marked": "^15.0.12",
     "marked-terminal": "^7.3.0",

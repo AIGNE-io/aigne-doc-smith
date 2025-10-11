@@ -1,23 +1,40 @@
+import { getDocSmithEnvFilePath } from "../../utils/auth-utils.mjs";
+import { getConfigFilePath, getStructurePlanPath, toDisplayPath } from "../../utils/file-utils.mjs";
+
 const TARGET_METADATA = {
   generatedDocs: {
     label: "generated documents",
-    description: "Delete all generated documents.",
+    description: ({ docsDir }) =>
+      `Delete all generated documents in './${toDisplayPath(docsDir)}' (documentation structure stays).`,
     agent: "clearGeneratedDocs",
   },
   documentStructure: {
     label: "documentation structure",
-    description: "Delete the documentation structure and all generated documents.",
+    description: ({ docsDir, workDir }) =>
+      `Delete all generated documents in './${toDisplayPath(docsDir)}' and the documentation structure './${toDisplayPath(
+        getStructurePlanPath(workDir),
+      )}' .`,
     agent: "clearDocumentStructure",
   },
   documentConfig: {
     label: "document configuration",
-    description: "Delete the document configuration.",
+    description: ({ workDir }) =>
+      `Delete the configuration file './${toDisplayPath(
+        getConfigFilePath(workDir),
+      )}' (requires 'aigne doc init' to regenerate).`,
     agent: "clearDocumentConfig",
   },
   authTokens: {
     label: "authorizations",
-    description: "Clear published site authorizations.",
+    description: () =>
+      `Delete authorization information in '${getDocSmithEnvFilePath()}' (requires re-authorization after clearing).`,
     agent: "clearAuthTokens",
+  },
+  deploymentConfig: {
+    label: "deployment config",
+    description: ({ workDir }) =>
+      `Delete appUrl from './${toDisplayPath(getConfigFilePath(workDir))}'.`,
+    agent: "clearDeploymentConfig",
   },
 };
 
@@ -46,7 +63,7 @@ export default async function chooseContents(input = {}, options = {}) {
       const choices = Object.entries(TARGET_METADATA).map(([value, def]) => ({
         name: def.label,
         value,
-        description: def.description,
+        description: def.description({ docsDir: input.docsDir, workDir: input.workDir }),
       }));
 
       selectedTargets = await options.prompts.checkbox({

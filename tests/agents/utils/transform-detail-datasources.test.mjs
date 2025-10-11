@@ -1,12 +1,23 @@
 import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
+import { mkdir, rm, writeFile } from "node:fs/promises";
+import path, { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import transformDetailDatasources from "../../../agents/utils/transform-detail-datasources.mjs";
 import * as utils from "../../../utils/utils.mjs";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe("transformDetailDatasources utility", () => {
   let normalizePathSpy;
   let toRelativePathSpy;
+  let testDir;
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    // Create test directory
+    const uniqueId = `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+    testDir = path.join(__dirname, `test-transform-${uniqueId}`);
+    await mkdir(testDir, { recursive: true });
+
     // Spy on utility functions
     normalizePathSpy = spyOn(utils, "normalizePath").mockImplementation((path) =>
       path?.replace(/\\/g, "/").replace(/^\.\//, ""),
@@ -16,117 +27,145 @@ describe("transformDetailDatasources utility", () => {
     );
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     // Restore all spies
     normalizePathSpy?.mockRestore();
     toRelativePathSpy?.mockRestore();
+
+    // Clean up test directory
+    try {
+      await rm(testDir, { recursive: true, force: true });
+    } catch {
+      console.warn(`Warning: Could not clean up test directory: ${testDir}`);
+    }
   });
 
   // BASIC FUNCTIONALITY TESTS
-  test("should transform simple datasources correctly", () => {
+  test("should transform simple datasources correctly", async () => {
+    // Create test files
+    const guidePath = path.join(testDir, "guide.md");
+    const apiPath = path.join(testDir, "api.md");
+    await writeFile(guidePath, "# User Guide\n\nThis is a guide.");
+    await writeFile(apiPath, "# API Reference\n\nAPI documentation.");
+
+    // Mock normalizePath to return the actual file path
+    normalizePathSpy.mockImplementation((p) => p);
+
     const input = {
-      sourceIds: ["/docs/guide.md", "/docs/api.md"],
-      datasourcesList: [
-        { sourceId: "/docs/guide.md", content: "# User Guide\n\nThis is a guide." },
-        { sourceId: "/docs/api.md", content: "# API Reference\n\nAPI documentation." },
-      ],
+      sourceIds: [guidePath, apiPath],
     };
 
     const result = transformDetailDatasources(input);
 
-    expect(normalizePathSpy).toHaveBeenCalledWith("/docs/guide.md");
-    expect(normalizePathSpy).toHaveBeenCalledWith("/docs/api.md");
-    expect(toRelativePathSpy).toHaveBeenCalledWith("/docs/guide.md");
-    expect(toRelativePathSpy).toHaveBeenCalledWith("/docs/api.md");
+    expect(normalizePathSpy).toHaveBeenCalledWith(guidePath);
+    expect(normalizePathSpy).toHaveBeenCalledWith(apiPath);
+    expect(toRelativePathSpy).toHaveBeenCalledWith(guidePath);
+    expect(toRelativePathSpy).toHaveBeenCalledWith(apiPath);
 
-    expect(result).toEqual({
-      detailDataSources:
-        "// sourceId: docs/guide.md\n# User Guide\n\nThis is a guide.\n" +
-        "// sourceId: docs/api.md\n# API Reference\n\nAPI documentation.\n",
-    });
+    expect(result.detailDataSources).toContain("# User Guide\n\nThis is a guide.");
+    expect(result.detailDataSources).toContain("# API Reference\n\nAPI documentation.");
   });
 
-  test("should handle single datasource", () => {
+  test("should handle single datasource", async () => {
+    // Create test file
+    const readmePath = path.join(testDir, "readme.md");
+    await writeFile(readmePath, "# README\n\nProject documentation.");
+
+    normalizePathSpy.mockImplementation((p) => p);
+
     const input = {
-      sourceIds: ["/docs/readme.md"],
-      datasourcesList: [
-        { sourceId: "/docs/readme.md", content: "# README\n\nProject documentation." },
-      ],
+      sourceIds: [readmePath],
     };
 
     const result = transformDetailDatasources(input);
 
-    expect(result.detailDataSources).toBe(
-      "// sourceId: docs/readme.md\n# README\n\nProject documentation.\n",
-    );
+    expect(result.detailDataSources).toContain("# README\n\nProject documentation.");
   });
 
-  test("should maintain order of sourceIds", () => {
+  test("should maintain order of sourceIds", async () => {
+    // Create test files
+    const cPath = path.join(testDir, "c.md");
+    const aPath = path.join(testDir, "a.md");
+    const bPath = path.join(testDir, "b.md");
+    await writeFile(cPath, "Content C");
+    await writeFile(aPath, "Content A");
+    await writeFile(bPath, "Content B");
+
+    normalizePathSpy.mockImplementation((p) => p);
+
     const input = {
-      sourceIds: ["/docs/c.md", "/docs/a.md", "/docs/b.md"],
-      datasourcesList: [
-        { sourceId: "/docs/a.md", content: "Content A" },
-        { sourceId: "/docs/b.md", content: "Content B" },
-        { sourceId: "/docs/c.md", content: "Content C" },
-      ],
+      sourceIds: [cPath, aPath, bPath],
     };
 
     const result = transformDetailDatasources(input);
 
-    expect(result.detailDataSources).toBe(
-      "// sourceId: docs/c.md\nContent C\n" +
-        "// sourceId: docs/a.md\nContent A\n" +
-        "// sourceId: docs/b.md\nContent B\n",
-    );
+    // Check order by finding indices
+    const indexC = result.detailDataSources.indexOf("Content C");
+    const indexA = result.detailDataSources.indexOf("Content A");
+    const indexB = result.detailDataSources.indexOf("Content B");
+
+    expect(indexC).toBeLessThan(indexA);
+    expect(indexA).toBeLessThan(indexB);
   });
 
   // PATH NORMALIZATION TESTS
-  test("should normalize paths correctly", () => {
-    normalizePathSpy.mockImplementation((path) => path?.replace(/\\/g, "/"));
+  test("should normalize paths correctly", async () => {
+    // Create test files
+    const guidePath = path.join(testDir, "guide.md");
+    const apiPath = path.join(testDir, "api.md");
+    await writeFile(guidePath, "Guide content");
+    await writeFile(apiPath, "API content");
+
+    normalizePathSpy.mockImplementation((p) => p?.replace(/\\/g, "/"));
 
     const input = {
-      sourceIds: ["docs\\guide.md", "/docs/api.md"],
-      datasourcesList: [
-        { sourceId: "docs\\guide.md", content: "Guide content" },
-        { sourceId: "/docs/api.md", content: "API content" },
-      ],
+      sourceIds: [guidePath, apiPath],
     };
 
     const result = transformDetailDatasources(input);
 
-    expect(normalizePathSpy).toHaveBeenCalledWith("docs\\guide.md");
-    expect(normalizePathSpy).toHaveBeenCalledWith("/docs/api.md");
+    expect(normalizePathSpy).toHaveBeenCalledWith(guidePath);
+    expect(normalizePathSpy).toHaveBeenCalledWith(apiPath);
     expect(result.detailDataSources).toContain("Guide content");
     expect(result.detailDataSources).toContain("API content");
   });
 
-  test("should handle relative path conversion", () => {
-    toRelativePathSpy.mockImplementation((path) => path?.replace(/^\/+/, "").replace(/^\.\//, ""));
+  test("should handle relative path conversion", async () => {
+    // Create test files
+    const absPath = path.join(testDir, "abs-file.md");
+    const relPath = path.join(testDir, "rel-file.md");
+    await writeFile(absPath, "Absolute content");
+    await writeFile(relPath, "Relative content");
+
+    normalizePathSpy.mockImplementation((p) => p);
+    toRelativePathSpy.mockImplementation((p) => p?.replace(/^\/+/, "").replace(/^\.\//, ""));
 
     const input = {
-      sourceIds: ["/abs/path/file.md", "./rel/path/file.md"],
-      datasourcesList: [
-        { sourceId: "/abs/path/file.md", content: "Absolute content" },
-        { sourceId: "./rel/path/file.md", content: "Relative content" },
-      ],
+      sourceIds: [absPath, relPath],
     };
 
     const result = transformDetailDatasources(input);
 
-    expect(toRelativePathSpy).toHaveBeenCalledWith("/abs/path/file.md");
-    expect(toRelativePathSpy).toHaveBeenCalledWith("./rel/path/file.md");
-    expect(result.detailDataSources).toContain("abs/path/file.md");
-    expect(result.detailDataSources).toContain("rel/path/file.md");
+    expect(toRelativePathSpy).toHaveBeenCalledWith(absPath);
+    expect(toRelativePathSpy).toHaveBeenCalledWith(relPath);
+    expect(result.detailDataSources).toContain("Absolute content");
+    expect(result.detailDataSources).toContain("Relative content");
   });
 
   // MISSING DATA TESTS
-  test("should filter out sourceIds not found in datasourcesList", () => {
+  test("should filter out sourceIds for files that don't exist", async () => {
+    // Create only some test files
+    const guidePath = path.join(testDir, "guide.md");
+    const apiPath = path.join(testDir, "api.md");
+    const missingPath = path.join(testDir, "missing.md");
+    await writeFile(guidePath, "Guide content");
+    await writeFile(apiPath, "API content");
+    // missingPath intentionally not created
+
+    normalizePathSpy.mockImplementation((p) => p);
+
     const input = {
-      sourceIds: ["/docs/guide.md", "/docs/missing.md", "/docs/api.md"],
-      datasourcesList: [
-        { sourceId: "/docs/guide.md", content: "Guide content" },
-        { sourceId: "/docs/api.md", content: "API content" },
-      ],
+      sourceIds: [guidePath, missingPath, apiPath],
     };
 
     const result = transformDetailDatasources(input);
@@ -134,27 +173,11 @@ describe("transformDetailDatasources utility", () => {
     expect(result.detailDataSources).toContain("Guide content");
     expect(result.detailDataSources).toContain("API content");
     expect(result.detailDataSources).not.toContain("missing");
-    expect(result.detailDataSources.split("// sourceId:")).toHaveLength(3); // Empty first element + 2 sources
   });
 
   test("should handle empty sourceIds array", () => {
     const input = {
       sourceIds: [],
-      datasourcesList: [
-        { sourceId: "/docs/guide.md", content: "Guide content" },
-        { sourceId: "/docs/api.md", content: "API content" },
-      ],
-    };
-
-    const result = transformDetailDatasources(input);
-
-    expect(result.detailDataSources).toBe("");
-  });
-
-  test("should handle empty datasourcesList array", () => {
-    const input = {
-      sourceIds: ["/docs/guide.md", "/docs/api.md"],
-      datasourcesList: [],
     };
 
     const result = transformDetailDatasources(input);
@@ -166,7 +189,6 @@ describe("transformDetailDatasources utility", () => {
   test("should handle null sourceIds", () => {
     const input = {
       sourceIds: null,
-      datasourcesList: [{ sourceId: "/docs/guide.md", content: "Guide content" }],
     };
 
     const result = transformDetailDatasources(input);
@@ -177,29 +199,6 @@ describe("transformDetailDatasources utility", () => {
   test("should handle undefined sourceIds", () => {
     const input = {
       sourceIds: undefined,
-      datasourcesList: [{ sourceId: "/docs/guide.md", content: "Guide content" }],
-    };
-
-    const result = transformDetailDatasources(input);
-
-    expect(result.detailDataSources).toBe("");
-  });
-
-  test("should handle null datasourcesList", () => {
-    const input = {
-      sourceIds: ["/docs/guide.md"],
-      datasourcesList: null,
-    };
-
-    const result = transformDetailDatasources(input);
-
-    expect(result.detailDataSources).toBe("");
-  });
-
-  test("should handle undefined datasourcesList", () => {
-    const input = {
-      sourceIds: ["/docs/guide.md"],
-      datasourcesList: undefined,
     };
 
     const result = transformDetailDatasources(input);
@@ -208,156 +207,114 @@ describe("transformDetailDatasources utility", () => {
   });
 
   // CONTENT FORMATTING TESTS
-  test("should format content with proper sourceId comments", () => {
+  test("should format content with proper sourceId comments", async () => {
+    const mainPath = path.join(testDir, "main.js");
+    await writeFile(mainPath, "console.log('Hello World');\nprocess.exit(0);");
+
+    normalizePathSpy.mockImplementation((p) => p);
+
     const input = {
-      sourceIds: ["/project/src/main.js"],
-      datasourcesList: [
-        {
-          sourceId: "/project/src/main.js",
-          content: "console.log('Hello World');\nprocess.exit(0);",
-        },
-      ],
+      sourceIds: [mainPath],
     };
 
     const result = transformDetailDatasources(input);
 
-    expect(result.detailDataSources).toBe(
-      "// sourceId: project/src/main.js\nconsole.log('Hello World');\nprocess.exit(0);\n",
-    );
+    expect(result.detailDataSources).toContain("console.log('Hello World');\nprocess.exit(0);");
+    expect(result.detailDataSources).toContain("// sourceId:");
   });
 
-  test("should handle empty content", () => {
+  test("should handle empty content", async () => {
+    const emptyPath = path.join(testDir, "empty.md");
+    await writeFile(emptyPath, "");
+
+    normalizePathSpy.mockImplementation((p) => p);
+
     const input = {
-      sourceIds: ["/docs/empty.md"],
-      datasourcesList: [{ sourceId: "/docs/empty.md", content: "" }],
+      sourceIds: [emptyPath],
     };
 
     const result = transformDetailDatasources(input);
 
-    // Empty content is falsy, so it gets filtered out
-    expect(result.detailDataSources).toBe("");
+    // Empty file content still gets included with sourceId comment
+    expect(result.detailDataSources).toContain("// sourceId:");
+    expect(result.detailDataSources.trim()).not.toBe("");
   });
 
-  test("should handle whitespace-only content", () => {
+  test("should handle whitespace-only content", async () => {
+    const whitespacePath = path.join(testDir, "whitespace.md");
+    await writeFile(whitespacePath, "   \n\t  ");
+
+    normalizePathSpy.mockImplementation((p) => p);
+
     const input = {
-      sourceIds: ["/docs/whitespace.md"],
-      datasourcesList: [{ sourceId: "/docs/whitespace.md", content: "   \n\t  " }],
+      sourceIds: [whitespacePath],
     };
 
     const result = transformDetailDatasources(input);
 
     // Whitespace content is truthy, so it should be included
-    expect(result.detailDataSources).toBe("// sourceId: docs/whitespace.md\n   \n\t  \n");
+    expect(result.detailDataSources).toContain("   \n\t  ");
   });
 
-  test("should handle content with special characters", () => {
+  test("should handle content with special characters", async () => {
+    const specialPath = path.join(testDir, "特殊字符.md");
+    await writeFile(specialPath, "# 中文标题\n\n这是一个包含特殊字符的文档: @#$%^&*()");
+
+    normalizePathSpy.mockImplementation((p) => p);
+
     const input = {
-      sourceIds: ["/docs/特殊字符.md"],
-      datasourcesList: [
-        {
-          sourceId: "/docs/特殊字符.md",
-          content: "# 中文标题\n\n这是一个包含特殊字符的文档: @#$%^&*()",
-        },
-      ],
+      sourceIds: [specialPath],
     };
 
     const result = transformDetailDatasources(input);
 
-    expect(result.detailDataSources).toContain("特殊字符.md");
     expect(result.detailDataSources).toContain("中文标题");
     expect(result.detailDataSources).toContain("@#$%^&*()");
   });
 
-  // LARGE DATA TESTS
-  test("should handle multiple large datasources", () => {
-    const largeContent = "A".repeat(1000);
-    const input = {
-      sourceIds: Array.from({ length: 50 }, (_, i) => `/docs/file-${i}.md`),
-      datasourcesList: Array.from({ length: 50 }, (_, i) => ({
-        sourceId: `/docs/file-${i}.md`,
-        content: `${largeContent}-${i}`,
-      })),
-    };
-
-    const result = transformDetailDatasources(input);
-
-    expect(result.detailDataSources.split("// sourceId:")).toHaveLength(51); // 50 files + empty first
-    expect(result.detailDataSources).toContain("file-0.md");
-    expect(result.detailDataSources).toContain("file-49.md");
-    expect(result.detailDataSources.length).toBeGreaterThan(50000); // Should be quite large
-  });
-
   // DUPLICATE HANDLING TESTS
-  test("should handle duplicate sourceIds in list", () => {
+  test("should handle duplicate sourceIds in list", async () => {
+    const guidePath = path.join(testDir, "guide.md");
+    await writeFile(guidePath, "Guide content");
+
+    normalizePathSpy.mockImplementation((p) => p);
+
     const input = {
-      sourceIds: ["/docs/guide.md", "/docs/guide.md"],
-      datasourcesList: [{ sourceId: "/docs/guide.md", content: "Guide content" }],
+      sourceIds: [guidePath, guidePath], // Duplicate paths
     };
 
     const result = transformDetailDatasources(input);
 
-    expect(result.detailDataSources).toBe(
-      "// sourceId: docs/guide.md\nGuide content\n" + "// sourceId: docs/guide.md\nGuide content\n",
-    );
-  });
-
-  test("should handle duplicate entries in datasourcesList", () => {
-    const input = {
-      sourceIds: ["/docs/guide.md"],
-      datasourcesList: [
-        { sourceId: "/docs/guide.md", content: "First content" },
-        { sourceId: "/docs/guide.md", content: "Second content" },
-      ],
-    };
-
-    const result = transformDetailDatasources(input);
-
-    // Should use the last entry due to Object.fromEntries behavior
-    expect(result.detailDataSources).toBe("// sourceId: docs/guide.md\nSecond content\n");
+    // Both duplicates should be included
+    const matches = result.detailDataSources.match(/Guide content/g);
+    expect(matches?.length).toBe(2);
   });
 
   // RETURN VALUE STRUCTURE TESTS
-  test("should always return object with detailDataSources property", () => {
-    const inputs = [
-      { sourceIds: [], datasourcesList: [] },
-      { sourceIds: null, datasourcesList: null },
-      { sourceIds: ["/test"], datasourcesList: [{ sourceId: "/test", content: "test" }] },
-    ];
+  test("should always return object with detailDataSources property", async () => {
+    const inputs = [{ sourceIds: [] }, { sourceIds: null }];
 
-    inputs.forEach((input) => {
+    for (const input of inputs) {
       const result = transformDetailDatasources(input);
       expect(result).toHaveProperty("detailDataSources");
       expect(typeof result.detailDataSources).toBe("string");
-    });
+    }
   });
 
   // EDGE CASES
-  test("should handle sourceId with null or undefined values", () => {
-    normalizePathSpy.mockImplementation((path) => path || "");
-    toRelativePathSpy.mockImplementation((path) => path || "");
+  test("should handle sourceId with null or undefined values", async () => {
+    const validPath = path.join(testDir, "valid.md");
+    await writeFile(validPath, "Valid content");
+
+    normalizePathSpy.mockImplementation((p) => p || "");
+    toRelativePathSpy.mockImplementation((p) => p || "");
 
     const input = {
-      sourceIds: [null, undefined, "/docs/valid.md"],
-      datasourcesList: [{ sourceId: "/docs/valid.md", content: "Valid content" }],
+      sourceIds: [null, undefined, validPath],
     };
 
     const result = transformDetailDatasources(input);
 
-    // The toRelativePath spy is returning the original path, let's adjust expectation
-    expect(result.detailDataSources).toBe("// sourceId: /docs/valid.md\nValid content\n");
-  });
-
-  test("should handle datasource with null sourceId", () => {
-    const input = {
-      sourceIds: ["/docs/guide.md"],
-      datasourcesList: [
-        { sourceId: null, content: "Null sourceId content" },
-        { sourceId: "/docs/guide.md", content: "Valid content" },
-      ],
-    };
-
-    const result = transformDetailDatasources(input);
-
-    expect(result.detailDataSources).toBe("// sourceId: docs/guide.md\nValid content\n");
+    expect(result.detailDataSources).toContain("Valid content");
   });
 });
