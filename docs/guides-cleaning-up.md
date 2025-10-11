@@ -18,10 +18,11 @@ The `clear` command can remove several distinct types of data. The following tab
 
 | Target | Description | Files and Directories Affected |
 | :--- | :--- | :--- |
-| **Generated Documents** | Deletes all Markdown files that were generated in your documentation output directory. | The directory specified by `docsDir` in your configuration. |
-| **Documentation Structure** | Deletes the structure plan file and all generated documents. This effectively resets your documentation content. | The `.aigne/doc-smith/output/structure-plan.json` file and the `docsDir` directory. |
-| **Document Configuration** | Deletes the project's configuration file. After running this, you will need to re-initialize the project. | The `.aigne/doc-smith/config.yaml` file. |
-| **Authorizations** | Removes saved authorization tokens used for publishing your documentation. You will be prompted to select specific sites to clear. | The `~/.aigne/doc-smith-connected.yaml` file in your home directory. |
+| `generatedDocs` | Deletes all generated documents in your output directory, but keeps the documentation structure plan. | The directory specified by `docsDir` in your configuration. |
+| `documentStructure` | Deletes all generated documents and the documentation structure plan, effectively resetting your documentation content. | The `.aigne/doc-smith/output/structure-plan.json` file and the `docsDir` directory. |
+| `documentConfig` | Deletes the project's configuration file. You will need to run `aigne doc init` again after this. | The `.aigne/doc-smith/config.yaml` file. |
+| `authTokens` | Removes saved authorization tokens for publishing sites. You will be prompted to select which sites to clear. | The `~/.aigne/doc-smith-connected.yaml` file in your home directory. |
+| `deploymentConfig` | Deletes the `appUrl` from your configuration file. | The `.aigne/doc-smith/config.yaml` file. |
 
 ## Non-Interactive Cleaning
 

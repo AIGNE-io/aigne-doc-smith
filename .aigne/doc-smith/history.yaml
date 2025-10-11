@@ -1,0 +1,37 @@
+entries:
+  - timestamp: 2025-10-11T13:21:51.992Z
+    operation: translation_update
+    feedback: Do not translate the Target column in the Cleanup Targets table.
+    documentPath: /guides/cleaning-up
+  - timestamp: 2025-10-11T13:20:30.314Z
+    operation: document_update
+    feedback: The targets in Cleanup Targets are incomplete and need to be supplemented. The corresponding descriptions also require updating. Additionally, the target values should use the original enumeration values, such as 'generatedDocs'.
+    documentPath: /guides/cleaning-up
+  - timestamp: 2025-10-11T13:03:20.327Z
+    operation: document_update
+    feedback: The two aliases for the 'history' command in Viewing Update History can be combined into a single code block. The Short Hash in Understanding the History Output now consists of 8 characters. Additionally, operation types are separated by underscores, such as 'document_update'.
+    documentPath: /guides/managing-history
+  - timestamp: 2025-10-11T12:56:23.107Z
+    operation: document_update
+    feedback: In interactive mode, translated files are saved with a suffix appended to their original filenames within the same directory, rather than in dedicated language directories.
+    documentPath: /guides/translating-documentation
+  - timestamp: 2025-10-11T12:50:25.563Z
+    operation: document_update
+    feedback: The value of the 'docs' parameter in the demo should be a path separated by '-' rather than '/', and '.md' should be preserved.
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-11T12:46:37.507Z
+    operation: document_update
+    feedback: The value of the 'docs' parameter in the demo should be a path separated by '-' rather than '/'.
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-11T12:39:53.222Z
+    operation: document_update
+    feedback: The prompts in Review the Documentation Structure are outdated and need updating. Command Parameters also require updating.
+    documentPath: /guides/generating-documentation
+  - timestamp: 2025-10-11T12:26:24.598Z
+    operation: translation_update
+    feedback: AIGNE Framework is a proper noun and has its own link; no translation is required.
+    documentPath: /overview
+  - timestamp: 2025-10-11T12:24:05.477Z
+    operation: document_update
+    feedback: Add a link to the AIGNE Framework 'https://www.aigne.io/framework'.
+    documentPath: /overview

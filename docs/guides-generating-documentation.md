@@ -100,19 +100,21 @@ You can also use the aliases `gen` or `g` for brevity.
 
 ### 2. Review the Documentation Structure
 
-After the analysis is complete, the tool will present a proposed documentation structure. This structure is a hierarchical plan of the documents that will be created.
-
-You will be prompted to review this plan:
+After the analysis is complete, the tool will display the proposed documentation structure and prompt you for review:
 
 ```
 Would you like to optimize the documentation structure?
-You can edit titles, reorganize sections.
-❯ Looks good - proceed with current structure
-  Yes, optimize the structure
+❯ No, looks good
+  Yes, optimize the structure (e.g. rename 'Getting Started' to 'Quick Start', move 'API Reference' before 'Configuration')
 ```
 
--   **Looks good - proceed with current structure**: Select this option to approve the proposed structure and proceed directly to content generation.
--   **Yes, optimize the structure**: Select this option if you wish to modify the plan. You will be able to provide feedback in plain text, such as "Rename 'API' to 'API Reference'" or "Add a new section for 'Deployment'." The AI will revise the structure based on your feedback, and you can review it again. This cycle can be repeated until the structure meets your requirements.
+-   **No, looks good**: Select this option to approve the proposed structure and proceed directly to content generation.
+-   **Yes, optimize the structure**: Select this option to modify the plan. The tool will then ask for your feedback in an interactive loop. You can provide instructions in plain text, such as:
+    -   `Add a new document 'Troubleshooting'`
+    -   `Remove the 'Legacy Features' document`
+    -   `Move 'Installation' to the top of the structure`
+
+    After each piece of feedback, the AI will revise the structure, and you can review it again. Press Enter without typing any feedback to exit the loop and approve the final structure.
 
 ### 3. Content Generation
 
@@ -124,11 +126,11 @@ Upon completion, the generated files will be saved to the output directory speci
 
 The `generate` command accepts several optional parameters to control its behavior.
 
-| Parameter           | Description                                                                                                                              | Example                                                                     |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `--forceRegenerate` | Rebuilds all documentation from scratch, ignoring any existing structure or content. This is useful for starting over with a clean slate. | `aigne doc generate --forceRegenerate`                                        |
-| `--feedback`        | Provides initial instructions to guide the AI during the structure generation phase.                                                     | `aigne doc generate --feedback "Add more API examples and a troubleshooting section"` |
-| `--glossary`        | Specifies a glossary file (`.md`) to ensure consistent use of terminology throughout the documentation.                                   | `aigne doc generate --glossary @/path/to/glossary.md`                       |
+| Parameter | Description | Example |
+|---|---|---|
+| `--forceRegenerate` | Rebuilds all documentation from scratch, ignoring any existing structure or content. This is useful when you want a complete reset. | `aigne doc generate --forceRegenerate` |
+| `--feedback` | Provides initial text-based instructions to guide the AI during the structure generation phase, before the interactive review starts. | `aigne doc generate --feedback "Add more API examples"` |
+| `--glossary` | Specifies a glossary file (e.g., `glossary.md`) to ensure consistent use of terminology throughout the documentation. | `aigne doc generate --glossary @/path/to/glossary.md` |
 
 ### Example: Forcing a Complete Rebuild
 

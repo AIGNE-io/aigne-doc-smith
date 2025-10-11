@@ -21,7 +21,7 @@ When executed, the tool will perform the following steps:
 2.  Prompt you to select the specific documents you wish to translate from a list.
 3.  Prompt you to select the target languages for translation. Previously selected languages will be pre-checked for convenience.
 4.  Begin the translation process for each selected document and language pair.
-5.  Save the translated files in the appropriate language-specific directories.
+5.  Save the translated files in the same directory. The new files are named by appending a language code to the original filename (e.g., a Chinese translation of `overview.md` becomes `overview.zh.md`).
 
 ### Command-Line Options
 

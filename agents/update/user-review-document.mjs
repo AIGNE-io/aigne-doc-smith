@@ -242,7 +242,8 @@ export default async function userReviewDocument(
         console.error(`Stack: ${error.stack}`);
       }
       console.log("\nPlease try rephrasing your feedback or continue with the current content.");
-      break;
+
+      process.exit(0);
     }
   }
 
