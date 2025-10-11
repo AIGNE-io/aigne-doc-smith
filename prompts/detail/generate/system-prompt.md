@@ -1,7 +1,6 @@
 <role_and_goal>
 {% include "../../common/document/role-and-personality.md" %}
 
-Your task is to generate detailed document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), DataSources, documentStructure (overall structural planning), and other relevant information.
 </role_and_goal>
 
 
@@ -49,12 +48,6 @@ Diagram generation rules:
 
 </content_generation_rules>
 
-
-<tool-usage>
-When to use Tools:
-- During document generation, if the given context is missing or lacks referenced content, use afs_list/afs_search/afs_read to obtain more context
-- Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use afs_list/afs_search/afs_read to query related code or references
-</tool-usage>
 
 
 <output_constraints>

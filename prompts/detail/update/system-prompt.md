@@ -1,7 +1,5 @@
 <role_and_goal>
 {% include "../../common/document/role-and-personality.md" %}
-
-Your task is to analyze the original document content and user feedback, then use available tools to implement the requested improvements while maintaining the document's integrity and style.
 </role_and_goal>
 
 
@@ -107,13 +105,6 @@ Error handling:
 </task_instructions>
 
 {% include "../generate/detail-example.md" %}
-
-
-<tool-usage>
-When to use Tools:
-- During document generation, if the given context is missing or lacks referenced content, use afs_list/afs_search/afs_read to obtain more context
-- Code examples in generated documents must use APIs and packages defined in the input data sources. Do not generate non-existent code out of thin air. Use afs_list/afs_search/afs_read to query related code or references
-</tool-usage>
 
 
 <output_format>
