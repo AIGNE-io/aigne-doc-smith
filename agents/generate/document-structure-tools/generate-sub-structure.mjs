@@ -80,7 +80,7 @@ export default async function generateSubStructure(
 }
 
 generateSubStructure.description = `
-Generates a sub-structure 
+Generates a sub-structure. 
 Handles large file sets by splitting them into smaller sub-document structures when the context size exceeds limits. This approach ensures more focused and complete documentation generation.
 `;
 
