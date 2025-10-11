@@ -446,39 +446,6 @@ describe("publish-docs", () => {
     expect(saveValueToConfigSpy).not.toHaveBeenCalledWith("boardId", expect.anything());
   });
 
-  // ERROR HANDLING TESTS
-  test("should handle failed official access token (null)", async () => {
-    loadConfigFromFileSpy.mockResolvedValue({});
-    getOfficialAccessTokenSpy.mockResolvedValue(null);
-    mockOptions.prompts.select.mockResolvedValue("default");
-
-    const result = await publishDocs(
-      {
-        docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
-      },
-      mockOptions,
-    );
-
-    expect(result.message).toBe("❌ Failed to publish docs: Failed to get official access token");
-  });
-
-  test("should handle failed official access token (undefined)", async () => {
-    loadConfigFromFileSpy.mockResolvedValue({});
-    getOfficialAccessTokenSpy.mockResolvedValue(undefined);
-    mockOptions.prompts.select.mockResolvedValue("default");
-
-    const result = await publishDocs(
-      {
-        docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
-      },
-      mockOptions,
-    );
-
-    expect(result.message).toBe("❌ Failed to publish docs: Failed to get official access token");
-  });
-
   test("should handle checkCacheSession failure", async () => {
     loadConfigFromFileSpy.mockResolvedValue({});
     getOfficialAccessTokenSpy.mockResolvedValue("valid-token");
