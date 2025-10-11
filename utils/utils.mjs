@@ -874,6 +874,81 @@ export async function getProjectInfo() {
 }
 
 /**
+ * Process document purpose configuration and generate purpose rules
+ * @param {Array<string>} documentPurpose - Array of document purpose keys
+ * @returns {Object} Object containing purposes string and rules content
+ */
+export function processDocumentPurpose(documentPurpose) {
+  if (!documentPurpose || !Array.isArray(documentPurpose)) {
+    return { purposes: "" };
+  }
+
+  const purposeRules = documentPurpose
+    .map((key) => {
+      const style = DOCUMENT_STYLES[key];
+      if (!style) return null;
+      return `Document Purpose - ${style.name}:\n${style.description}\n${style.content}`;
+    })
+    .filter(Boolean);
+
+  if (purposeRules.length === 0) {
+    return { purposes: "" };
+  }
+
+  const purposes = purposeRules.join("\n\n");
+  return {
+    purposes,
+  };
+}
+
+/**
+ * Process target audience configuration and generate audience rules and names
+ * @param {Array<string>} targetAudienceTypes - Array of target audience type keys
+ * @param {string} existingTargetAudience - Existing target audience content
+ * @returns {Object} Object containing audiences string, targetAudience string, and rules content
+ */
+export function processTargetAudience(targetAudienceTypes, existingTargetAudience = "") {
+  if (!targetAudienceTypes || !Array.isArray(targetAudienceTypes)) {
+    return { audiences: "", targetAudience: existingTargetAudience || "" };
+  }
+
+  // Get structured content for rules
+  const audienceRules = targetAudienceTypes
+    .map((key) => {
+      const audience = TARGET_AUDIENCES[key];
+      if (!audience) return null;
+      return `Target Audience - ${audience.name}:\n${audience.description}\n${audience.content}`;
+    })
+    .filter(Boolean);
+
+  let audiences = "";
+  if (audienceRules.length > 0) {
+    audiences = audienceRules.join("\n\n");
+  }
+
+  // Get names for targetAudience field
+  const audienceNames = targetAudienceTypes
+    .map((key) => TARGET_AUDIENCES[key]?.name)
+    .filter(Boolean)
+    .join(", ");
+
+  let targetAudience = existingTargetAudience || "";
+  if (audienceNames) {
+    const existingTargetAudienceTrimmed = existingTargetAudience?.trim();
+    if (existingTargetAudienceTrimmed) {
+      targetAudience = `${existingTargetAudienceTrimmed}\n\n${audienceNames}`;
+    } else {
+      targetAudience = audienceNames;
+    }
+  }
+
+  return {
+    audiences,
+    targetAudience,
+  };
+}
+
+/**
  * Process configuration fields - convert keys to actual content
  * @param {Object} config - Parsed configuration
  * @returns {Object} Processed configuration with content fields
@@ -924,59 +999,23 @@ export function processConfigFields(config) {
   }
 
   // Process document purpose (array)
-  if (config.documentPurpose && Array.isArray(config.documentPurpose)) {
-    const purposeRules = config.documentPurpose
-      .map((key) => {
-        const style = DOCUMENT_STYLES[key];
-        if (!style) return null;
-        return `Document Purpose - ${style.name}:\n${style.description}\n${style.content}`;
-      })
-      .filter(Boolean);
-
-    if (purposeRules.length > 0) {
-      const purposes = purposeRules.join("\n\n");
-      allRulesContent.push(purposes);
-
-      processed.purposes = purposes;
-    }
+  const documentPurposeResult = processDocumentPurpose(config.documentPurpose);
+  if (documentPurposeResult.purposes) {
+    allRulesContent.push(documentPurposeResult.purposes);
+    processed.purposes = documentPurposeResult.purposes;
   }
 
   // Process target audience types (array)
-  let audienceNames = "";
-  if (config.targetAudienceTypes && Array.isArray(config.targetAudienceTypes)) {
-    // Get structured content for rules
-    const audienceRules = config.targetAudienceTypes
-      .map((key) => {
-        const audience = TARGET_AUDIENCES[key];
-        if (!audience) return null;
-        return `Target Audience - ${audience.name}:\n${audience.description}\n${audience.content}`;
-      })
-      .filter(Boolean);
-
-    if (audienceRules.length > 0) {
-      const audiences = audienceRules.join("\n\n");
-      allRulesContent.push(audiences);
-
-      processed.audiences = audiences;
-    }
-
-    // Get names for targetAudience field
-    audienceNames = config.targetAudienceTypes
-      .map((key) => TARGET_AUDIENCES[key]?.name)
-      .filter(Boolean)
-      .join(", ");
-
-    if (audienceNames) {
-      // Check if original targetAudience field has content
-      const existingTargetAudience = config.targetAudience?.trim();
-      const newAudienceNames = audienceNames;
-
-      if (existingTargetAudience) {
-        processed.targetAudience = `${existingTargetAudience}\n\n${newAudienceNames}`;
-      } else {
-        processed.targetAudience = newAudienceNames;
-      }
-    }
+  const targetAudienceResult = processTargetAudience(
+    config.targetAudienceTypes,
+    config.targetAudience,
+  );
+  if (targetAudienceResult.audiences) {
+    allRulesContent.push(targetAudienceResult.audiences);
+    processed.audiences = targetAudienceResult.audiences;
+  }
+  if (targetAudienceResult.targetAudience) {
+    processed.targetAudience = targetAudienceResult.targetAudience;
   }
 
   // Process reader knowledge level (single value)

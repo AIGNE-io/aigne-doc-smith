@@ -35,10 +35,13 @@ describe("check-need-generate-structure", () => {
     mockOptions = {
       prompts: {
         input: mock(async () => ""),
-        select: mock(async () => ""),
+        select: mock(async () => "generate"),
       },
       context: {
-        agents: { refineDocumentStructure: {} },
+        agents: {
+          generateStructure: {},
+          generateStructureWithoutTools: {},
+        },
         invoke: mock(async () => ({
           documentStructure: originalDocumentStructure,
           projectName: "Test Project",
@@ -99,69 +102,22 @@ describe("check-need-generate-structure", () => {
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
-  test("should handle pre-existing feedback without prompting", async () => {
-    const providedFeedback = "Already provided feedback";
-
-    await checkNeedGenerateStructure(
-      { originalDocumentStructure, feedback: providedFeedback, docsDir: "./docs" },
+  test("should return original structure when it exists and no force regenerate", async () => {
+    const result = await checkNeedGenerateStructure(
+      { originalDocumentStructure, docsDir: "./docs" },
       mockOptions,
     );
 
     expect(mockOptions.prompts.input).not.toHaveBeenCalled();
-    expect(mockOptions.context.invoke).toHaveBeenCalled();
+    expect(mockOptions.context.invoke).not.toHaveBeenCalled();
+    expect(result.documentStructure).toEqual(originalDocumentStructure);
   });
 
   test("should handle empty user feedback input", async () => {
     mockOptions.prompts.input.mockImplementation(async () => "   ");
-    // Default mock behavior: no sidebar file exists
 
     const result = await checkNeedGenerateStructure(
       { originalDocumentStructure, docsDir: "./docs" },
-      mockOptions,
-    );
-
-    expect(result.documentStructure).toEqual(originalDocumentStructure);
-    expect(mockOptions.context.invoke).not.toHaveBeenCalled();
-  });
-
-  test("should regenerate when _sidebar.md exists", async () => {
-    accessSpy.mockImplementation(() => Promise.resolve());
-
-    await checkNeedGenerateStructure({ originalDocumentStructure, docsDir: "./docs" }, mockOptions);
-
-    expect(mockOptions.context.invoke).toHaveBeenCalled();
-  });
-
-  test("should not regenerate when _sidebar.md does not exist", async () => {
-    // Default mock behavior: file access fails
-
-    const result = await checkNeedGenerateStructure(
-      { originalDocumentStructure, docsDir: "./docs" },
-      mockOptions,
-    );
-
-    expect(result.documentStructure).toEqual(originalDocumentStructure);
-    expect(mockOptions.context.invoke).not.toHaveBeenCalled();
-  });
-
-  test("should check git changes when lastGitHead is provided", async () => {
-    getCurrentGitHeadSpy.mockImplementation(() => "def456");
-    hasFileChangesBetweenCommitsSpy.mockImplementation(() => true);
-
-    await checkNeedGenerateStructure(
-      { originalDocumentStructure, lastGitHead: "abc123", docsDir: "./docs" },
-      mockOptions,
-    );
-
-    expect(hasFileChangesBetweenCommitsSpy).toHaveBeenCalledWith("abc123", "def456");
-    expect(mockOptions.context.invoke).toHaveBeenCalled();
-  });
-
-  test("should not regenerate when git head is same", async () => {
-    getCurrentGitHeadSpy.mockImplementation(() => "abc123");
-
-    const result = await checkNeedGenerateStructure(
-      { originalDocumentStructure, lastGitHead: "abc123", docsDir: "./docs" },
       mockOptions,
     );
 
@@ -178,12 +134,12 @@ describe("check-need-generate-structure", () => {
     expect(mockOptions.context.invoke).toHaveBeenCalled();
   });
 
-  test("should include user preferences", async () => {
+  test("should include user preferences when generating", async () => {
     const mockRules = [{ rule: "Structure rule 1" }];
     getActiveRulesForScopeSpy.mockImplementation(() => mockRules);
 
     await checkNeedGenerateStructure(
-      { originalDocumentStructure, feedback: "test", docsDir: "./docs" },
+      { originalDocumentStructure, forceRegenerate: true, docsDir: "./docs" },
       mockOptions,
     );
 
@@ -199,7 +155,7 @@ describe("check-need-generate-structure", () => {
     }));
 
     const result = await checkNeedGenerateStructure(
-      { originalDocumentStructure, feedback: "test", docsDir: "./docs" },
+      { originalDocumentStructure, forceRegenerate: true, docsDir: "./docs" },
       mockOptions,
     );
 
@@ -220,7 +176,7 @@ describe("check-need-generate-structure", () => {
     }));
 
     const result = await checkNeedGenerateStructure(
-      { originalDocumentStructure, feedback: "test", docsDir: "./docs" },
+      { originalDocumentStructure, forceRegenerate: true, docsDir: "./docs" },
       mockOptions,
     );
 
@@ -243,16 +199,21 @@ describe("check-need-generate-structure", () => {
     expect(result.originalDocumentStructure).toEqual(newDocumentStructure);
   });
 
-  test("should clear feedback in result", async () => {
+  test("should clear feedback in result when regenerating", async () => {
     const result = await checkNeedGenerateStructure(
-      { originalDocumentStructure, feedback: "some feedback", docsDir: "./docs" },
+      {
+        originalDocumentStructure,
+        forceRegenerate: true,
+        feedback: "some feedback",
+        docsDir: "./docs",
+      },
       mockOptions,
     );
 
     expect(result.feedback).toBe("");
   });
 
-  test("should pass through additional parameters", async () => {
+  test("should pass through additional parameters when regenerating", async () => {
     const additionalParams = {
       customParam1: "value1",
       customParam2: "value2",
@@ -261,7 +222,7 @@ describe("check-need-generate-structure", () => {
     await checkNeedGenerateStructure(
       {
         originalDocumentStructure,
-        feedback: "test",
+        forceRegenerate: true,
         docsDir: "./docs",
         ...additionalParams,
       },
@@ -269,7 +230,7 @@ describe("check-need-generate-structure", () => {
     );
 
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.refineDocumentStructure,
+      mockOptions.context.agents.generateStructureWithoutTools,
       expect.objectContaining(additionalParams),
     );
   });
@@ -285,5 +246,34 @@ describe("check-need-generate-structure", () => {
 
     expect(mockOptions.prompts.select).toHaveBeenCalled();
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
+  });
+
+  test("should use generateStructure agent when isLargeContext is true", async () => {
+    await checkNeedGenerateStructure(
+      { originalDocumentStructure, forceRegenerate: true, isLargeContext: true, docsDir: "./docs" },
+      mockOptions,
+    );
+
+    expect(mockOptions.context.invoke).toHaveBeenCalledWith(
+      mockOptions.context.agents.generateStructure,
+      expect.any(Object),
+    );
+  });
+
+  test("should use generateStructureWithoutTools agent when isLargeContext is false", async () => {
+    await checkNeedGenerateStructure(
+      {
+        originalDocumentStructure,
+        forceRegenerate: true,
+        isLargeContext: false,
+        docsDir: "./docs",
+      },
+      mockOptions,
+    );
+
+    expect(mockOptions.context.invoke).toHaveBeenCalledWith(
+      mockOptions.context.agents.generateStructureWithoutTools,
+      expect.any(Object),
+    );
   });
 });

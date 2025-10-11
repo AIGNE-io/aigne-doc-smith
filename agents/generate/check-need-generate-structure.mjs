@@ -1,17 +1,9 @@
-import { access } from "node:fs/promises";
-import { join } from "node:path";
 import chalk from "chalk";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
-import {
-  getCurrentGitHead,
-  getProjectInfo,
-  hasFileChangesBetweenCommits,
-  loadConfigFromFile,
-  saveValueToConfig,
-} from "../../utils/utils.mjs";
+import { getProjectInfo, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
 export default async function checkNeedGenerateStructure(
-  { originalDocumentStructure, feedback, lastGitHead, docsDir, forceRegenerate, ...rest },
+  { originalDocumentStructure, forceRegenerate, isLargeContext, ...rest },
   options,
 ) {
   // Check if originalDocumentStructure is empty and prompt user
@@ -49,65 +41,28 @@ export default async function checkNeedGenerateStructure(
   }
 
   // Check if we need to regenerate documentation structure
-  let shouldRegenerate = false;
-  let finalFeedback = feedback;
-
-  // If no feedback and originalDocumentStructure exists, check for git changes
-  if (originalDocumentStructure) {
-    // If no lastGitHead, check if _sidebar.md exists to determine if we should regenerate
-    if (!lastGitHead) {
-      try {
-        // Check if _sidebar.md exists in docsDir
-        const sidebarPath = join(docsDir, "_sidebar.md");
-        await access(sidebarPath);
-        // If _sidebar.md exists, it means last execution was completed, need to regenerate
-        shouldRegenerate = true;
-      } catch {
-        // If _sidebar.md doesn't exist, it means last execution was interrupted, no need to regenerate
-        shouldRegenerate = false;
-      }
-    } else {
-      // Check if there are relevant file changes since last generation
-      const currentGitHead = getCurrentGitHead();
-      if (currentGitHead && currentGitHead !== lastGitHead) {
-        const hasChanges = hasFileChangesBetweenCommits(lastGitHead, currentGitHead);
-        if (hasChanges) {
-          shouldRegenerate = true;
-        }
-      }
-    }
-
-    if (shouldRegenerate) {
-      finalFeedback = `
-      ${finalFeedback || ""}
-
-      Update documentation structure based on the latest DataSources:
-        1. For new content, add new sections as needed or supplement existing section displays
-        2. Be cautious when deleting sections, unless all associated sourceIds have been removed
-        3. Do not modify the path of existing sections
-        4. Update section sourceIds as needed based on the latest Data Sources
-      `;
-    }
-  }
+  let finalFeedback = "";
 
   // user requested regeneration
   if (forceRegenerate) {
-    shouldRegenerate = true;
     finalFeedback = `
-    ${finalFeedback || ""}
-
     User requested forced regeneration of documentation structure. Please regenerate based on the latest Data Sources and user requirements, **allowing any modifications**.
     `;
   }
 
   // If no regeneration needed, return original documentation structure
-  if (originalDocumentStructure && !finalFeedback && !shouldRegenerate) {
+  if (originalDocumentStructure && !forceRegenerate) {
     return {
       documentStructure: originalDocumentStructure,
     };
   }
 
-  const planningAgent = options.context.agents["refineDocumentStructure"];
+  // Performance optimization:
+  // Using both structured output and Tool with Gemini model causes redundant calls
+  // Only use Tool when context is very large
+  const generateStructureAgent = isLargeContext
+    ? options.context.agents["generateStructure"]
+    : options.context.agents["generateStructureWithoutTools"];
 
   // Get user preferences for documentation structure and global scope
   const structureRules = getActiveRulesForScope("structure", []);
@@ -120,11 +75,12 @@ export default async function checkNeedGenerateStructure(
   // Convert rule texts to string format for passing to the agent
   const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
-  const result = await options.context.invoke(planningAgent, {
+  const result = await options.context.invoke(generateStructureAgent, {
     ...rest,
     originalDocumentStructure,
     userPreferences,
     feedback: finalFeedback || "",
+    isLargeContext,
   });
 
   let message = "";

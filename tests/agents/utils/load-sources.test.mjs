@@ -156,11 +156,11 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
-    expect(result.datasourcesList.length).toBeGreaterThan(0);
+    expect(result.files).toBeDefined();
+    expect(result.files.length).toBeGreaterThan(0);
 
     // Should include package.json, README.md, src files
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
     expect(filePaths.some((element) => element.includes("package.json"))).toBe(true);
     expect(filePaths.some((element) => element.includes("README.md"))).toBe(true);
     expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
@@ -182,10 +182,10 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
-    expect(result.datasourcesList.length).toBeGreaterThan(0);
+    expect(result.files).toBeDefined();
+    expect(result.files.length).toBeGreaterThan(0);
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
     expect(filePaths.some((element) => element.includes("package.json"))).toBe(true);
     expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
     expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
@@ -204,9 +204,9 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
+    expect(result.files).toBeDefined();
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should exclude files listed in .gitignore
     expect(filePaths.some((element) => element.includes("node_modules"))).toBe(false);
@@ -224,9 +224,9 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
+    expect(result.files).toBeDefined();
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
     expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
     expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
 
@@ -243,10 +243,10 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
-    expect(result.datasourcesList.length).toBeGreaterThan(0);
+    expect(result.files).toBeDefined();
+    expect(result.files.length).toBeGreaterThan(0);
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
     expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
     expect(filePaths.some((element) => element.includes("src/utils.js"))).toBe(true);
   });
@@ -259,8 +259,8 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
-    expect(result.datasourcesList.length).toBe(0);
+    expect(result.files).toBeDefined();
+    expect(result.files.length).toBe(0);
   });
 
   test("should merge user patterns with default patterns", async () => {
@@ -273,9 +273,9 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
+    expect(result.files).toBeDefined();
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should include default patterns (package.json, README.md, etc.)
     expect(filePaths.some((element) => element.includes("package.json"))).toBe(true);
@@ -295,10 +295,10 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
-    expect(result.datasourcesList.length).toBeGreaterThan(0);
+    expect(result.files).toBeDefined();
+    expect(result.files.length).toBeGreaterThan(0);
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should include files from all levels
     expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
@@ -333,9 +333,9 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
+    expect(result.files).toBeDefined();
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should include files from specified subdirectories
     expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
@@ -363,9 +363,9 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
+    expect(result.files).toBeDefined();
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should include JS files from all levels
     expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
@@ -390,9 +390,9 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
+    expect(result.files).toBeDefined();
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // For now, let's verify that regular files are still included
     expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
@@ -413,10 +413,10 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
-    expect(result.datasourcesList.length).toBeGreaterThan(0);
+    expect(result.files).toBeDefined();
+    expect(result.files.length).toBeGreaterThan(0);
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should include JS files from src directory and subdirectories
     expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
@@ -439,10 +439,10 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
-    expect(result.datasourcesList.length).toBeGreaterThan(0);
+    expect(result.files).toBeDefined();
+    expect(result.files.length).toBeGreaterThan(0);
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should include JS files from src directory
     expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
@@ -466,9 +466,9 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
+    expect(result.files).toBeDefined();
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should include JS files
     expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
@@ -492,8 +492,8 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
-    expect(result.datasourcesList.length).toBe(0);
+    expect(result.files).toBeDefined();
+    expect(result.files.length).toBe(0);
   });
 
   test("should handle mixed regular paths and glob patterns", async () => {
@@ -505,10 +505,10 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
-    expect(result.datasourcesList.length).toBeGreaterThan(0);
+    expect(result.files).toBeDefined();
+    expect(result.files.length).toBeGreaterThan(0);
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should include markdown files from directory scan
     expect(filePaths.some((element) => element.includes("README.md"))).toBe(true);
@@ -526,9 +526,9 @@ describe("load-sources", () => {
       docsDir: path.join(testDir, "docs"),
     });
 
-    expect(result.datasourcesList).toBeDefined();
+    expect(result.files).toBeDefined();
 
-    const filePaths = result.datasourcesList.map((f) => f.sourceId);
+    const filePaths = result.files;
 
     // Should match Button.js with character class
     expect(filePaths.some((element) => element.includes("src/components/Button.js"))).toBe(true);
@@ -552,10 +552,10 @@ describe("load-sources", () => {
 
       const result = await loadSources(yamlConfigInput);
 
-      expect(result.datasourcesList).toBeDefined();
-      expect(result.datasourcesList.length).toBeGreaterThan(0);
+      expect(result.files).toBeDefined();
+      expect(result.files.length).toBeGreaterThan(0);
 
-      const filePaths = result.datasourcesList.map((f) => f.sourceId);
+      const filePaths = result.files;
       expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
     });
 
@@ -568,8 +568,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      expect(result.datasourcesList.length).toBe(0);
+      expect(result.files).toBeDefined();
+      expect(result.files.length).toBe(0);
       expect(result.files.length).toBe(0);
 
       // Empty arrays are handled gracefully - this is correct behavior
@@ -588,7 +588,7 @@ describe("load-sources", () => {
       });
 
       // Should successfully process valid paths and ignore invalid ones
-      expect(result.datasourcesList).toBeDefined();
+      expect(result.files).toBeDefined();
       // This test will FAIL because the function crashes instead of filtering
     });
 
@@ -601,9 +601,9 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      expect(Array.isArray(result.datasourcesList)).toBe(true);
-      expect(result.datasourcesList.length).toBe(0);
+      expect(result.files).toBeDefined();
+      expect(Array.isArray(result.files)).toBe(true);
+      expect(result.files.length).toBe(0);
 
       // undefined is handled gracefully by skipping sourcesPath processing
     });
@@ -627,9 +627,9 @@ describe("load-sources", () => {
             outputDir: tempDir,
             docsDir: path.join(testDir, "docs"),
           });
-          expect(result.datasourcesList).toBeDefined();
-          expect(Array.isArray(result.datasourcesList)).toBe(true);
-          expect(result.datasourcesList.length).toBe(0);
+          expect(result.files).toBeDefined();
+          expect(Array.isArray(result.files)).toBe(true);
+          expect(result.files.length).toBe(0);
         }
       }
 
@@ -651,7 +651,7 @@ describe("load-sources", () => {
           docsDir: path.join(testDir, "docs"),
         });
 
-        expect(result.datasourcesList).toBeDefined();
+        expect(result.files).toBeDefined();
         // Some of these tests will FAIL, exposing input validation issues
       }
     });
@@ -673,8 +673,8 @@ describe("load-sources", () => {
           docsDir: path.join(testDir, "docs"),
         });
 
-        expect(result.datasourcesList).toBeDefined();
-        const filePaths = result.datasourcesList.map((f) => f.sourceId);
+        expect(result.files).toBeDefined();
+        const filePaths = result.files;
         expect(filePaths.some((element) => element.includes("index.js"))).toBe(true);
       } catch {
         // Skip test on systems that don't support symlinks
@@ -699,8 +699,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      const filePaths = result.datasourcesList.map((f) => f.sourceId);
+      expect(result.files).toBeDefined();
+      const filePaths = result.files;
       expect(filePaths.some((element) => element.includes("a/b/c/d/e/f/g/h/deep.js"))).toBe(true);
     });
 
@@ -724,8 +724,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      const filePaths = result.datasourcesList.map((f) => f.sourceId);
+      expect(result.files).toBeDefined();
+      const filePaths = result.files;
 
       expect(filePaths.some((element) => element.includes("file with spaces.js"))).toBe(true);
       expect(filePaths.some((element) => element.includes("file-with-dashes.js"))).toBe(true);
@@ -745,8 +745,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      expect(result.datasourcesList.length).toBe(0);
+      expect(result.files).toBeDefined();
+      expect(result.files.length).toBe(0);
     });
   });
 
@@ -761,8 +761,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      const filePaths = result.datasourcesList.map((f) => f.sourceId);
+      expect(result.files).toBeDefined();
+      const filePaths = result.files;
 
       // Should still exclude test files by default gitignore/patterns
       expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(true);
@@ -779,8 +779,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      const filePaths = result.datasourcesList.map((f) => f.sourceId);
+      expect(result.files).toBeDefined();
+      const filePaths = result.files;
 
       // Exclude should win over include
       expect(filePaths.some((element) => element.includes("src/index.js"))).toBe(false);
@@ -801,8 +801,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      const filePaths = result.datasourcesList.map((f) => f.sourceId);
+      expect(result.files).toBeDefined();
+      const filePaths = result.files;
 
       expect(filePaths.some((element) => element.includes("CamelCase.js"))).toBe(true);
       expect(filePaths.some((element) => element.includes("lowercase.js"))).toBe(true);
@@ -821,9 +821,9 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
+      expect(result.files).toBeDefined();
       // Just verify it doesn't crash and returns some results
-      expect(Array.isArray(result.datasourcesList)).toBe(true);
+      expect(Array.isArray(result.files)).toBe(true);
     });
   });
 
@@ -843,7 +843,7 @@ describe("load-sources", () => {
       });
       const endTime = Date.now();
 
-      expect(result.datasourcesList).toBeDefined();
+      expect(result.files).toBeDefined();
       expect(endTime - startTime).toBeLessThan(5000); // Should complete within 5 seconds
     });
 
@@ -861,8 +861,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      const filePaths = result.datasourcesList.map((f) => f.sourceId);
+      expect(result.files).toBeDefined();
+      const filePaths = result.files;
       expect(filePaths.some((element) => element.includes(longDirName))).toBe(true);
     });
   });
@@ -881,7 +881,7 @@ describe("load-sources", () => {
           docsDir: path.join(testDir, "docs"),
         });
 
-        expect(result.datasourcesList).toBeDefined();
+        expect(result.files).toBeDefined();
         // Should handle gracefully without crashing
       } catch {
         // Skip on systems where permission tests don't work
@@ -897,9 +897,9 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
+      expect(result.files).toBeDefined();
       // Should not crash, even with malformed patterns
-      expect(Array.isArray(result.datasourcesList)).toBe(true);
+      expect(Array.isArray(result.files)).toBe(true);
     });
 
     test("should handle circular symbolic links", async () => {
@@ -920,7 +920,7 @@ describe("load-sources", () => {
           docsDir: path.join(testDir, "docs"),
         });
 
-        expect(result.datasourcesList).toBeDefined();
+        expect(result.files).toBeDefined();
         // Should handle circular links without infinite loop
 
         // Clean up circular links immediately to prevent interference with other tests
@@ -958,8 +958,8 @@ describe("load-sources", () => {
           docsDir: path.join(testDir, "docs"),
         });
 
-        expect(result.datasourcesList).toBeDefined();
-        expect(Array.isArray(result.datasourcesList)).toBe(true);
+        expect(result.files).toBeDefined();
+        expect(Array.isArray(result.files)).toBe(true);
         // Should not crash with any typical config
       }
     });
@@ -978,9 +978,9 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      expect(result.datasourcesList.length).toBe(1);
-      expect(result.datasourcesList[0].sourceId).toContain("single-file.js");
+      expect(result.files).toBeDefined();
+      expect(result.files.length).toBe(1);
+      expect(result.files[0]).toContain("single-file.js");
     });
 
     test("should process media files correctly", async () => {
@@ -1024,8 +1024,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList).toBeDefined();
-      expect(Array.isArray(result.datasourcesList)).toBe(true);
+      expect(result.files).toBeDefined();
+      expect(Array.isArray(result.files)).toBe(true);
       // Should handle gracefully without crashing
     });
   });
@@ -1246,8 +1246,8 @@ describe("load-sources", () => {
     });
   });
 
-  describe("Word and line counting", () => {
-    test("should count words and lines in source content", async () => {
+  describe("Token and line counting", () => {
+    test("should count tokens and lines in source content", async () => {
       // Create files with known content for counting
       await writeFile(
         path.join(testDir, "count-test.js"),
@@ -1262,9 +1262,9 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.totalWords).toBeGreaterThan(0);
+      expect(result.totalTokens).toBeGreaterThan(0);
       expect(result.totalLines).toBeGreaterThan(0);
-      expect(typeof result.totalWords).toBe("number");
+      expect(typeof result.totalTokens).toBe("number");
       expect(typeof result.totalLines).toBe("number");
     });
   });
@@ -1394,11 +1394,11 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.datasourcesList.length).toBeGreaterThan(0);
+      expect(result.files.length).toBeGreaterThan(0);
       expect(result.assetsContent).toContain("mixed-image.png");
 
       // Verify both source files and media files are processed
-      const sourceFiles = result.datasourcesList.map((f) => f.sourceId);
+      const sourceFiles = result.files;
       expect(sourceFiles.some((f) => f.includes("mixed-test.js"))).toBe(true);
       expect(sourceFiles.some((f) => f.includes("mixed-doc.md"))).toBe(true);
     });

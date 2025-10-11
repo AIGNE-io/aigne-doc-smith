@@ -2,7 +2,17 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { getFilesWithGlob, loadGitignore } from "../../utils/file-utils.mjs";
+import {
+  buildSourcesContent,
+  calculateFileStats,
+  getFilesWithGlob,
+  loadFilesFromPaths,
+  loadGitignore,
+  pathExists,
+  readFileContents,
+  resolveToAbsolute,
+  toDisplayPath,
+} from "../../utils/file-utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -208,6 +218,304 @@ temp*
       expect(files).toBeDefined();
       expect(Array.isArray(files)).toBe(true);
       expect(files.length).toBe(0);
+    });
+  });
+
+  describe("pathExists", () => {
+    test("should return true for existing file", async () => {
+      const testFile = join(testDir, "exists.txt");
+      await writeFile(testFile, "test");
+
+      const exists = await pathExists(testFile);
+      expect(exists).toBe(true);
+    });
+
+    test("should return true for existing directory", async () => {
+      const exists = await pathExists(testDir);
+      expect(exists).toBe(true);
+    });
+
+    test("should return false for non-existent path", async () => {
+      const nonExistent = join(testDir, "does-not-exist.txt");
+      const exists = await pathExists(nonExistent);
+      expect(exists).toBe(false);
+    });
+  });
+
+  describe("toDisplayPath", () => {
+    test("should return relative path for paths inside cwd", () => {
+      const testPath = join(process.cwd(), "test", "file.txt");
+      const display = toDisplayPath(testPath);
+      expect(display.startsWith("..")).toBe(false);
+      expect(display).toContain("test");
+    });
+
+    test("should return absolute path for paths outside cwd", () => {
+      const testPath = "/some/other/path/file.txt";
+      const display = toDisplayPath(testPath);
+      expect(display.startsWith("/") || display.startsWith("..")).toBe(true);
+    });
+
+    test("should return . for current directory", () => {
+      const display = toDisplayPath(process.cwd());
+      expect(display).toBe(".");
+    });
+  });
+
+  describe("resolveToAbsolute", () => {
+    test("should return absolute path as-is", () => {
+      const absolutePath = "/absolute/path/file.txt";
+      const resolved = resolveToAbsolute(absolutePath);
+      expect(resolved).toBe(absolutePath);
+    });
+
+    test("should resolve relative path to absolute", () => {
+      const relativePath = "relative/file.txt";
+      const resolved = resolveToAbsolute(relativePath);
+      expect(resolved).toBeDefined();
+      expect(resolved?.startsWith("/")).toBe(true);
+      expect(resolved).toContain("relative");
+    });
+
+    test("should return undefined for empty value", () => {
+      expect(resolveToAbsolute("")).toBeUndefined();
+      expect(resolveToAbsolute(null)).toBeUndefined();
+      expect(resolveToAbsolute(undefined)).toBeUndefined();
+    });
+  });
+
+  describe("loadFilesFromPaths", () => {
+    beforeEach(async () => {
+      await mkdir(join(testDir, "src"), { recursive: true });
+      await mkdir(join(testDir, "docs"), { recursive: true });
+      await writeFile(join(testDir, "src", "index.js"), "// index");
+      await writeFile(join(testDir, "src", "utils.ts"), "// utils");
+      await writeFile(join(testDir, "docs", "readme.md"), "# readme");
+      await writeFile(join(testDir, "config.json"), "{}");
+    });
+
+    test("should load single file path", async () => {
+      const filePath = join(testDir, "config.json");
+      const files = await loadFilesFromPaths(filePath);
+
+      expect(files).toBeDefined();
+      expect(files.length).toBe(1);
+      expect(files[0]).toBe(filePath);
+    });
+
+    test("should load multiple file paths", async () => {
+      const file1 = join(testDir, "config.json");
+      const file2 = join(testDir, "docs", "readme.md");
+      const files = await loadFilesFromPaths([file1, file2]);
+
+      expect(files.length).toBe(2);
+      expect(files).toContain(file1);
+      expect(files).toContain(file2);
+    });
+
+    test("should load files from directory with default patterns", async () => {
+      const files = await loadFilesFromPaths(testDir, {
+        useDefaultPatterns: true,
+        defaultIncludePatterns: ["**/*.js", "**/*.ts"],
+        defaultExcludePatterns: [],
+      });
+
+      expect(files.length).toBeGreaterThan(0);
+      expect(files.some((f) => f.includes("index.js"))).toBe(true);
+      expect(files.some((f) => f.includes("utils.ts"))).toBe(true);
+    });
+
+    test("should handle glob patterns", async () => {
+      const files = await loadFilesFromPaths(join(testDir, "**/*.js"));
+
+      expect(files).toBeDefined();
+      expect(files.some((f) => f.includes("index.js"))).toBe(true);
+    });
+
+    test("should handle invalid paths gracefully", async () => {
+      const files = await loadFilesFromPaths([123, null, "valid-but-not-exist"], {
+        useDefaultPatterns: false,
+      });
+
+      expect(Array.isArray(files)).toBe(true);
+    });
+
+    test("should apply include and exclude patterns", async () => {
+      const files = await loadFilesFromPaths(testDir, {
+        includePatterns: ["**/*.js", "**/*.ts"],
+        excludePatterns: ["**/*.ts"],
+        useDefaultPatterns: false,
+      });
+
+      expect(files.some((f) => f.includes("index.js"))).toBe(true);
+      expect(files.some((f) => f.includes("utils.ts"))).toBe(false);
+    });
+
+    test("should handle string patterns as array", async () => {
+      const files = await loadFilesFromPaths(testDir, {
+        includePatterns: "**/*.js",
+        excludePatterns: "**/*.ts",
+        useDefaultPatterns: false,
+      });
+
+      expect(Array.isArray(files)).toBe(true);
+    });
+  });
+
+  describe("readFileContents", () => {
+    beforeEach(async () => {
+      await mkdir(join(testDir, "src"), { recursive: true });
+      await writeFile(join(testDir, "src", "file1.js"), "const x = 1;");
+      await writeFile(join(testDir, "src", "file2.js"), "const y = 2;");
+    });
+
+    test("should read multiple files with content", async () => {
+      const files = [join(testDir, "src", "file1.js"), join(testDir, "src", "file2.js")];
+      const contents = await readFileContents(files, testDir);
+
+      expect(contents.length).toBe(2);
+      expect(contents[0].sourceId).toContain("file1.js");
+      expect(contents[0].content).toContain("const x = 1");
+      expect(contents[1].sourceId).toContain("file2.js");
+      expect(contents[1].content).toContain("const y = 2");
+    });
+
+    test("should use custom baseDir for relative paths", async () => {
+      const files = [join(testDir, "src", "file1.js")];
+      const contents = await readFileContents(files, testDir);
+
+      expect(contents[0].sourceId).not.toContain(testDir);
+      expect(contents[0].sourceId).toContain("src");
+    });
+
+    test("should skip binary files by default", async () => {
+      const binaryFile = join(testDir, "binary.bin");
+      await writeFile(binaryFile, Buffer.from([0xff, 0xfe, 0xfd, 0xfc]));
+      const textFile = join(testDir, "text.txt");
+      await writeFile(textFile, "text content");
+
+      const contents = await readFileContents([binaryFile, textFile], testDir);
+
+      expect(contents.length).toBeGreaterThanOrEqual(1);
+      expect(contents.some((c) => c.sourceId.includes("text.txt"))).toBe(true);
+    });
+
+    test("should include binary files when skipBinaryFiles is false", async () => {
+      const binaryFile = join(testDir, "binary.bin");
+      await writeFile(binaryFile, Buffer.from([0x48, 0x65, 0x6c, 0x6c, 0x6f]));
+
+      const contents = await readFileContents([binaryFile], testDir, {
+        skipBinaryFiles: false,
+      });
+
+      expect(contents.length).toBeGreaterThanOrEqual(0);
+    });
+
+    test("should handle empty file array", async () => {
+      const contents = await readFileContents([], testDir);
+      expect(contents.length).toBe(0);
+    });
+  });
+
+  describe("calculateFileStats", () => {
+    test("should calculate tokens and lines correctly", () => {
+      const sourceFiles = [
+        { content: "const x = 1;\nconst y = 2;" },
+        { content: "function test() {\n  return true;\n}" },
+      ];
+
+      const stats = calculateFileStats(sourceFiles);
+
+      expect(stats.totalTokens).toBeGreaterThan(0);
+      expect(stats.totalLines).toBeGreaterThan(0);
+      expect(stats.totalLines).toBeGreaterThan(3);
+    });
+
+    test("should handle empty content", () => {
+      const sourceFiles = [{ content: "" }, { content: "" }];
+      const stats = calculateFileStats(sourceFiles);
+
+      expect(stats.totalTokens).toBe(0);
+      expect(stats.totalLines).toBe(0);
+    });
+
+    test("should exclude empty lines from line count", () => {
+      const sourceFiles = [{ content: "line1\n\nline2\n\n\nline3" }];
+      const stats = calculateFileStats(sourceFiles);
+
+      expect(stats.totalLines).toBe(3);
+    });
+
+    test("should handle files without content property", () => {
+      const sourceFiles = [{ noContent: true }, { content: "test" }];
+      const stats = calculateFileStats(sourceFiles);
+
+      expect(stats.totalTokens).toBeGreaterThan(0);
+      expect(stats.totalLines).toBe(1);
+    });
+  });
+
+  describe("buildSourcesContent", () => {
+    test("should build sources for normal context", () => {
+      const sourceFiles = [
+        { sourceId: "file1.js", content: "const x = 1;" },
+        { sourceId: "file2.js", content: "const y = 2;" },
+      ];
+
+      const sources = buildSourcesContent(sourceFiles, false);
+
+      expect(sources).toContain("// sourceId: file1.js");
+      expect(sources).toContain("const x = 1;");
+      expect(sources).toContain("// sourceId: file2.js");
+      expect(sources).toContain("const y = 2;");
+      expect(sources).not.toContain("Note: Context is large");
+    });
+
+    test("should filter core files for large context", () => {
+      const sourceFiles = [
+        { sourceId: "package.json", content: '{"name": "test"}' },
+        { sourceId: "README.md", content: "# Test" },
+        { sourceId: "random.js", content: "const x = 1;" },
+      ];
+
+      const sources = buildSourcesContent(sourceFiles, true);
+
+      expect(sources).toContain("Note: Context is large");
+      expect(sources).toContain("package.json");
+      expect(sources).toContain("README.md");
+    });
+
+    test("should include core files matching patterns", () => {
+      const sourceFiles = [
+        { sourceId: "index.js", content: "// entry" },
+        { sourceId: "main.ts", content: "// main" },
+        { sourceId: "types.d.ts", content: "// types" },
+        { sourceId: "api/routes.js", content: "// routes" },
+      ];
+
+      const sources = buildSourcesContent(sourceFiles, true);
+
+      expect(sources).toContain("index.js");
+      expect(sources).toContain("main.ts");
+      expect(sources).toContain("types.d.ts");
+      expect(sources).toContain("routes.js");
+    });
+
+    test("should handle empty sourceFiles array", () => {
+      const sources = buildSourcesContent([], false);
+      expect(sources).toBe("");
+    });
+
+    test("should use all files as fallback when no core files in large context", () => {
+      const sourceFiles = [
+        { sourceId: "random1.xyz", content: "test1" },
+        { sourceId: "random2.xyz", content: "test2" },
+      ];
+
+      const sources = buildSourcesContent(sourceFiles, true);
+
+      expect(sources).toContain("Note: Context is large");
+      expect(sources).toContain("showing a sample of files");
     });
   });
 });

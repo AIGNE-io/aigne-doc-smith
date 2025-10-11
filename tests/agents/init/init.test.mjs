@@ -986,13 +986,13 @@ describe("init", () => {
         const mockResponses = {
           checkbox_1: ["getStarted", "findAnswers"], // Document purpose
           checkbox_2: ["developers"], // Target audience
-          input_3: "Custom rules for documentation", // Custom rules
-          select_4: "domainFamiliar", // Reader knowledge level
-          select_5: "balancedCoverage", // Documentation depth
-          select_6: "en", // Primary language
-          checkbox_7: ["zh", "ja"], // Translation languages
-          input_8: join(tempDir, "docs"), // Documentation directory
+          select_3: "domainFamiliar", // Reader knowledge level
+          select_4: "balancedCoverage", // Documentation depth
+          select_5: "en", // Primary language
+          checkbox_6: ["zh", "ja"], // Translation languages
+          input_7: join(tempDir, "docs"), // Documentation directory
           search: "", // Source paths (empty to finish)
+          input_9: "Custom rules for documentation", // Custom rules (last step)
         };
 
         const mockPrompts = createMockPrompts(mockResponses);
@@ -1044,13 +1044,13 @@ describe("init", () => {
           checkbox_1: ["mixedPurpose"], // Document purpose - triggers follow-up
           checkbox: ["completeTasks", "findAnswers"], // Top priorities after mixedPurpose
           checkbox_2: ["developers", "devops"], // Target audience
-          input_3: "Custom rules for documentation", // Custom rules
-          select_4: "experiencedUsers", // Reader knowledge level
-          select_5: "comprehensive", // Documentation depth
-          select_6: "zh-CN", // Primary language
-          checkbox_7: ["en"], // Translation languages
-          input_8: join(tempDir, "documentation"), // Documentation directory
+          select_3: "experiencedUsers", // Reader knowledge level
+          select_4: "comprehensive", // Documentation depth
+          select_5: "zh-CN", // Primary language
+          checkbox_6: ["en"], // Translation languages
+          input_7: join(tempDir, "documentation"), // Documentation directory
           search: "", // Source paths (empty to finish)
+          input_9: "Custom rules for documentation", // Custom rules (last step)
         };
 
         const mockPrompts = createMockPrompts(mockResponses);
@@ -1091,13 +1091,13 @@ describe("init", () => {
         const mockResponses = {
           checkbox_1: ["getStarted"], // Document purpose
           checkbox_2: ["endUsers"], // Target audience
-          input_3: "Custom rules for documentation", // Custom rules
-          select_4: "completeBeginners", // Reader knowledge level
-          select_5: "essentialOnly", // Documentation depth
-          select_6: "en", // Primary language
-          checkbox_7: [], // No translation languages
-          input_8: join(tempDir, "simple-docs"), // Documentation directory
+          select_3: "completeBeginners", // Reader knowledge level
+          select_4: "essentialOnly", // Documentation depth
+          select_5: "en", // Primary language
+          checkbox_6: [], // No translation languages
+          input_7: join(tempDir, "simple-docs"), // Documentation directory
           search: "", // Source paths (empty to finish)
+          input_9: "Custom rules for documentation", // Custom rules (last step)
         };
 
         const mockPrompts = createMockPrompts(mockResponses);
