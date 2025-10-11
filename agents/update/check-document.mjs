@@ -105,6 +105,7 @@ export default async function checkDocument(
 
   const result = await options.context.invoke(teamAgent, {
     ...rest,
+    locale,
     docsDir,
     path,
     sourceIds,
