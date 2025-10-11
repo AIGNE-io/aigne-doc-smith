@@ -57,18 +57,20 @@ export default async function publishDocs(
     let token = "";
 
     if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
-      const authToken = await getOfficialAccessToken(BASE_URL);
+      const authToken = await getOfficialAccessToken(BASE_URL, false);
 
-      if (!authToken) {
-        throw new Error("Failed to get official access token");
+      let sessionId = "";
+      let paymentLink = "";
+
+      if (authToken) {
+        const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
+        const info = await client.checkCacheSession({
+          needShortUrl: true,
+          sessionId: config?.checkoutId,
+        });
+        sessionId = info.sessionId;
+        paymentLink = info.paymentLink;
       }
-
-      const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
-
-      const { sessionId, paymentLink } = await client.checkCacheSession({
-        needShortUrl: true,
-        sessionId: config?.checkoutId,
-      });
 
       const choice = await options.prompts.select({
         message: "Select platform to publish your documents:",
