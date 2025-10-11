@@ -1,212 +1,96 @@
-# 設定ガイド
+# 設定
 
-AIGNE DocSmith の動作は、中央設定ファイル `.aigne/doc-smith/config.yaml` によって制御されます。このファイルを使用して、ドキュメントのスタイル、対象読者、言語、構造を特定のニーズに合わせてカスタマイズできます。
+適切な設定は、プロジェクト固有のニーズに合わせてドキュメント生成プロセスを調整するために不可欠です。AIGNE DocSmithは、主要な設定ファイルとコマンドラインインターフェースを使用して設定を管理します。このセットアップにより、生成されるドキュメントがプロジェクトの目標、対象読者、構造的要件を正確に反映することが保証されます。
 
-`aigne doc init` を実行して、対話式のセットアップウィザードを使用してこのファイルを作成および管理できます。手順ごとのウォークスルーについては、[対話式セットアップ](./configuration-interactive-setup.md)ガイドを参照してください。または、ファイルを直接編集して、より詳細な制御を行うこともできます。
+このセクションでは、ツールの設定方法の概要を説明します。ステップバイステップの手順については、以下の詳細なガイドを参照してください。
 
-以下の図は、設定のワークフローを示しています。
-
-```d2 設定ワークフロー
-direction: down
-
-User: {
-  shape: person
-}
-
-CLI: {
-  label: "コマンド実行\n'aigne doc init'"
-  shape: rectangle
-}
-
-Setup-Wizard: {
-  label: "対話式セットアップウィザード"
-  shape: rectangle
-}
-
-Config-File: {
-  label: ".aigne/doc-smith/config.yaml"
-  shape: rectangle
-}
-
-AIGNE-DocSmith-Engine: {
-  label: "AIGNE DocSmith エンジン"
-}
-
-# パス1: 対話式セットアップ (推奨)
-User -> CLI: "推奨パス"
-CLI -> Setup-Wizard: "起動"
-Setup-Wizard -> Config-File: "作成 / 変更"
-
-# パス2: 手動編集
-User -> Config-File: "代替パス:\n直接編集"
-
-# 最終ステップ
-Config-File -> AIGNE-DocSmith-Engine: "設定"
-```
-
-## 主要な設定領域
-
-ドキュメントは、いくつかの主要な設定領域によって形成されます。これらのガイドを参照して、生成プロセスの各側面を微調整する方法を理解してください。
-
-<x-cards data-columns="2">
-  <x-card data-title="対話式セットアップ" data-icon="lucide:wand-2" data-href="/configuration/interactive-setup">
-    推奨設定や競合検出を含む、ドキュメントプロジェクトの設定を支援するガイド付きウィザードについて学びます。
-  </x-card>
-  <x-card data-title="LLM セットアップ" data-icon="lucide:brain-circuit" data-href="/configuration/llm-setup">
-    APIキーが不要な組み込みのAIGNEハブの使用を含む、さまざまなAIモデルの接続方法を発見します。
-  </x-card>
-  <x-card data-title="言語サポート" data-icon="lucide:languages" data-href="/configuration/language-support">
-    サポートされている言語の全リストを確認し、主要言語の設定方法や自動翻訳の有効化方法を学びます。
-  </x-card>
-  <x-card data-title="設定の管理" data-icon="lucide:sliders-horizontal" data-href="/configuration/preferences">
-    DocSmithがフィードバックを使用して永続的なルールを作成する方法と、CLIを介してそれらを管理する方法を理解します。
-  </x-card>
+<x-cards>
+  <x-card data-title="初期設定" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">対話式セットアップを実行して `config.yaml` ファイルを作成する方法を学びます。これは、新しいプロジェクトで推奨される最初のステップです。</x-card>
+  <x-card data-title="設定の管理" data-icon="lucide:list-checks" data-href="/configuration/managing-preferences">保存された設定を表示、有効化、無効化、または削除する方法を理解し、時間とともにドキュメント生成プロセスを洗練させます。</x-card>
 </x-cards>
 
-## パラメータリファレンス
+## `config.yaml` ファイル
 
-`config.yaml` ファイルには、ドキュメントの出力を制御するいくつかのキーと値のペアが含まれています。以下は、各パラメータの詳細なリファレンスです。
+すべてのプロジェクトレベルの設定は、プロジェクト内の `.aigne/doc-smith/` ディレクトリにある `config.yaml` という名前のファイルに保存されます。`aigne doc init` コマンドは、対話的なプロセスを通じてこのファイルを作成します。また、いつでもテキストエディタでこのファイルを手動で変更して設定を調整することもできます。
 
-### プロジェクト情報
+以下は `config.yaml` ファイルの例で、各セクションを説明するコメントが付いています。
 
-これらの設定は、プロジェクトに関する基本的なコンテキストを提供し、ドキュメントを公開する際に使用されます。
-
-| パラメータ | 説明 |
-|---|---|
-| `projectName` | プロジェクトの名前。`package.json` があればそこから検出されます。 |
-| `projectDesc` | プロジェクトの短い説明。`package.json` から検出されます。 |
-| `projectLogo` | プロジェクトのロゴ画像へのパスまたは URL。 |
-
-### ドキュメンテーション戦略
-
-これらのパラメータは、生成されるコンテンツのトーン、スタイル、深さを定義します。
-
-#### `documentPurpose`
-読者に達成してもらいたい主な成果を定義します。この設定は、ドキュメントの全体的な構造と焦点に影響を与えます。
-
-| オプション | 名前 | 説明 |
-|---|---|---|
-| `getStarted` | 迅速な開始 | 新規ユーザーが30分未満でゼロから作業を開始できるように支援します。 |
-| `completeTasks` | 特定のタスクを完了する | 一般的なワークフローとユースケースを通じてユーザーをガイドします。 |
-| `findAnswers` | 迅速に答えを見つける | すべての機能とAPIの検索可能なリファレンスを提供します。 |
-| `understandSystem`| システムを理解する | それがどのように機能し、なぜ設計上の決定がなされたかを説明します。 |
-| `solveProblems` | 一般的な問題のトラブルシューティング | ユーザーが問題をトラブルシューティングし、修正するのを助けます。 |
-| `mixedPurpose` | 複数の目的を果たす | 複数のニーズをカバーするドキュメント。 |
-
-#### `targetAudienceTypes`
-このドキュメントを最も頻繁に読むであろう人物を定義します。この選択は、ライティングスタイルと例に影響を与えます。
-
-| オプション | 名前 | 説明 |
-|---|---|---|
-| `endUsers` | エンドユーザー（非技術者） | 製品を使用するがコーディングはしない人々。 |
-| `developers` | 製品/APIを統合する開発者 | これを自分のプロジェクトに追加するエンジニア。 |
-| `devops` | DevOps / SRE / インフラストラクチャチーム | システムの展開、監視、保守を行うチーム。 |
-| `decisionMakers`| 技術的な意思決定者 | 実装を評価または計画するアーキテクトやリード。 |
-| `supportTeams` | サポートチーム | 他の人が製品を使用するのを助ける人々。 |
-| `mixedTechnical`| 混合技術オーディエンス | 開発者、DevOps、その他の技術ユーザー。 |
-
-#### `readerKnowledgeLevel`
-読者が通常、到着時に何を知っているかを定義します。これにより、どれだけの基礎知識が前提とされるかが調整されます。
-
-| オプション | 名前 | 説明 |
-|---|---|---|
-| `completeBeginners` | 完全な初心者で、ゼロから始める | このドメイン/テクノロジーに全く新しい。 |
-| `domainFamiliar` | 以前に類似のツールを使用したことがある | 問題領域は知っているが、この特定の解決策には新しい。 |
-| `experiencedUsers` | 特定のことをしようとしている専門家 | リファレンスや高度なトピックを必要とする通常のユーザー。 |
-| `emergencyTroubleshooting`| 緊急/トラブルシューティング | 何かが壊れており、迅速に修正する必要がある。 |
-| `exploringEvaluating` | このツールを他と比較評価している | これが自分のニーズに合うかどうかを理解しようとしている。 |
-
-#### `documentationDepth`
-ドキュメントがどれだけ包括的であるべきかを定義します。
-
-| オプション | 名前 | 説明 |
-|---|---|---|
-| `essentialOnly` | 不可欠なもののみ | 80%のユースケースをカバーし、簡潔に保ちます。 |
-| `balancedCoverage`| バランスの取れたカバレッジ | 実用的な例を含む適切な深さ [推奨]。 |
-| `comprehensive` | 包括的 | すべての機能、エッジケース、高度なシナリオをカバーします。 |
-| `aiDecide` | AIに決定させる | コードの複雑さを分析し、適切な深さを提案します。 |
-
-### カスタムディレクティブ
-
-より詳細な制御のために、自由形式の指示を提供できます。
-
-| パラメータ | 説明 |
-|---|---|
-| `rules` | 特定のドキュメント生成ルール（例：「常にパフォーマンスベンチマークを含める」）を定義できる複数行の文字列。 |
-| `targetAudience`| プリセットで許容されるよりも詳細に特定のターゲットオーディエンスを記述するための複数行の文字列。 |
-
-### 言語とパスの設定
-
-これらの設定は、ローカライゼーションとファイルの場所を制御します。
-
-| パラメータ | 説明 |
-|---|---|
-| `locale` | ドキュメントの主要言語（例：`en`、`zh`）。 |
-| `translateLanguages` | ドキュメントを翻訳する言語コードのリスト（例：`[ja, fr, es]`）。 |
-| `docsDir` | 生成されたドキュメントファイルが保存されるディレクトリ。 |
-| `sourcesPath` | DocSmithが分析するソースコードのパスまたはグロブパターンのリスト（例：`['./src', './lib/**/*.js']`）。 |
-| `glossary` | 一貫した翻訳を保証するために、プロジェクト固有の用語を含むマークダウンファイル（`@glossary.md`）へのパス。 |
-
-## config.yaml の例
-
-以下は、完全な設定ファイルの例です。このファイルを直接編集して、いつでも設定を変更できます。
-
-```yaml config.yaml の例 icon=logos:yaml
+```yaml Example config.yaml icon=logos:yaml
 # ドキュメント公開のためのプロジェクト情報
 projectName: AIGNE DocSmith
-projectDesc: AI駆動のドキュメント生成ツール。
-projectLogo: https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png
+projectDesc: AIGNE DocSmithは、AIGNEフレームワーク上に構築された強力なAI駆動のドキュメント生成ツールです。ソースコードから直接、詳細で構造化された多言語のドキュメント作成を自動化します。
+projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
 
 # =============================================================================
 # ドキュメント設定
 # =============================================================================
 
-# 目的: 読者に達成してもらいたい主な成果は何か？
-# オプション: getStarted, completeTasks, findAnswers, understandSystem, solveProblems, mixedPurpose
+# 目的: 読者に達成してもらいたい主な成果は何ですか？
+# 利用可能なオプション（必要に応じてコメントを解除し、変更してください）：
+#   getStarted       - 迅速な開始：新規ユーザーが30分未満でゼロから作業を開始できるように支援します
+#   completeTasks    - 特定のタスクの完了：一般的なワークフローとユースケースを通じてユーザーをガイドします
+#   findAnswers      - 迅速な回答の検索：すべての機能とAPIに対して検索可能なリファレンスを提供します
+#   understandSystem - システムの理解：システムの仕組み、設計上の決定理由を説明します
+#   solveProblems    - 問題の解決：ユーザーのトラブルシューティングと問題修正を支援します
+#   mixedPurpose     - 上記の混合：複数のニーズをカバーする包括的なドキュメント
 documentPurpose:
+  - getStarted
   - completeTasks
-  - findAnswers
 
-# 対象読者: これを最も頻繁に読むのは誰か？
-# オプション: endUsers, developers, devops, decisionMakers, supportTeams, mixedTechnical
+# 対象読者: 主に誰がこれを読みますか？
+# 利用可能なオプション（必要に応じてコメントを解除し、変更してください）：
+#   endUsers         - エンドユーザー（非技術者）：製品を使用するがコーディングはしない人々
+#   developers       - 統合開発者：これを自分のプロジェクトに追加するエンジニア
+#   devops           - DevOps/インフラストラクチャ：システムをデプロイ、監視、維持するチーム
+#   decisionMakers   - 技術的な意思決定者：実装を評価または計画するアーキテクト、リーダー
+#   supportTeams     - サポートチーム：他者が製品を使用するのを助ける人々
+#   mixedTechnical   - 混合技術者層：開発者、DevOps、および技術ユーザー
 targetAudienceTypes:
-  - developers
+  - endUsers
 
-# 読者の知識レベル: 読者は通常、到着時に何を知っているか？
-# オプション: completeBeginners, domainFamiliar, experiencedUsers, emergencyTroubleshooting, exploringEvaluating
-readerKnowledgeLevel: domainFamiliar
+# 読者の知識レベル: 読者が訪れたときに通常何を知っていますか？
+# 利用可能なオプション（必要に応じてコメントを解除し、変更してください）：
+#   completeBeginners    - 完全な初心者：この分野/技術に全く新しい人々
+#   domainFamiliar       - 分野に精通、ツールは初めて：問題領域は知っているが、この特定のソリューションは初めて
+#   experiencedUsers     - 経験豊富なユーザー：リファレンス/高度なトピックを必要とする通常のユーザー
+#   emergencyTroubleshooting - 緊急/トラブルシューティング：何かが壊れており、迅速に修正する必要がある
+#   exploringEvaluating  - 探索/評価：これが自分のニーズに合うかどうかを理解しようとしている
+readerKnowledgeLevel: completeBeginners
 
-# ドキュメントの深さ: ドキュメントはどれだけ包括的であるべきか？
-# オプション: essentialOnly, balancedCoverage, comprehensive, aiDecide
-documentationDepth: balancedCoverage
+# ドキュメントの深さ: ドキュメントはどの程度包括的であるべきですか？
+# 利用可能なオプション（必要に応じてコメントを解除し、変更してください）：
+#   essentialOnly      - 必須事項のみ：80%のユースケースをカバーし、簡潔に保つ
+#   balancedCoverage   - バランスの取れたカバレッジ：実践的な例を伴う適切な深さ [推奨]
+#   comprehensive      - 包括的：すべての機能、エッジケース、および高度なシナリオをカバーする
+#   aiDecide           - AIに決定させる：コードの複雑さを分析し、適切な深さを提案する
+documentationDepth: comprehensive
 
 # カスタムルール: 特定のドキュメント生成ルールと要件を定義します
-rules: |+
-  
+rules: |
+  Avoid using vague or empty words that don't provide measurable or specific details, such as 'intelligently', 'seamlessly', 'comprehensive', or 'high-quality'. Focus on concrete, verifiable facts and information.
+  Focus on concrete, verifiable facts and information.
+  Must cover all subcommands of DocSmith
 
 # 対象読者: 特定の対象読者とその特徴を記述します
-targetAudience: |+
-  
+targetAudience: |
 
-# 用語集: プロジェクト固有の用語と定義を含むマークダウンファイルへのパス
-# glossary: "@glossary.md"
-
-# ドキュメントの主要言語
 locale: en
-
-# ドキュメントを翻訳する言語のリスト
-# translateLanguages:
-#   - zh
-#   - fr
-
-# 生成されたドキュメントを保存するディレクトリ
-docsDir: .aigne/doc-smith/docs
-
-# 分析するソースコードのパス
-sourcesPath:
-  - ./
+translateLanguages:
+  - zh
+  - zh-TW
+  - ja
+docsDir: ./docs  # 生成されたドキュメントを保存するディレクトリ
+sourcesPath:  # 分析するソースコードのパス
+  - ./README.md
+  - ./CHANGELOG.md
+  - ./aigne.yaml
+  - ./agents
+  - ./media.md
+  - ./.aigne/doc-smith/config.yaml
 ```
 
-設定が完了したら、プロジェクトのニーズに合ったドキュメントを作成する準備ができました。次のステップは、生成コマンドを実行することです。
+## まとめ
 
-➡️ **次へ:** [ドキュメントの生成](./features-generate-documentation.md)
+設定が完了すると、ツールはプロジェクト、対象読者、ドキュメントの目標を明確に理解し、より正確で関連性の高いコンテンツが生成されます。
+
+プロジェクトの設定を開始するには、[初期設定](./configuration-initial-setup.md) ガイドに進んでください。

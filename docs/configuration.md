@@ -1,212 +1,96 @@
-# Configuration Guide
+# Configuration
 
-AIGNE DocSmith's behavior is controlled by a central configuration file, `.aigne/doc-smith/config.yaml`. This file allows you to customize the style, target audience, languages, and structure of your documentation to meet your specific needs.
+Proper configuration is essential for tailoring the documentation generation process to your project's specific needs. AIGNE DocSmith uses a primary configuration file and a command-line interface to manage your settings. This setup ensures that the generated documentation accurately reflects your project's goals, target audience, and structural requirements.
 
-You can create and manage this file using the interactive setup wizard by running `aigne doc init`. For a step-by-step walkthrough, please refer to the [Interactive Setup](./configuration-interactive-setup.md) guide. Alternatively, you can edit the file directly for more granular control.
+This section provides an overview of how to configure the tool. For step-by-step instructions, please refer to the following detailed guides:
 
-The following diagram illustrates the configuration workflow:
-
-```d2 Configuration Workflow
-direction: down
-
-User: {
-  shape: person
-}
-
-CLI: {
-  label: "Run Command\n'aigne doc init'"
-  shape: rectangle
-}
-
-Setup-Wizard: {
-  label: "Interactive Setup Wizard"
-  shape: rectangle
-}
-
-Config-File: {
-  label: ".aigne/doc-smith/config.yaml"
-  shape: rectangle
-}
-
-AIGNE-DocSmith-Engine: {
-  label: "AIGNE DocSmith Engine"
-}
-
-# Path 1: Interactive Setup (Recommended)
-User -> CLI: "Recommended Path"
-CLI -> Setup-Wizard: "Launches"
-Setup-Wizard -> Config-File: "Creates / Modifies"
-
-# Path 2: Manual Editing
-User -> Config-File: "Alternative Path:\nDirectly Edits"
-
-# Final Step
-Config-File -> AIGNE-DocSmith-Engine: "Configures"
-```
-
-## Core Configuration Areas
-
-Your documentation is shaped by several key areas of configuration. Explore these guides to understand how to fine-tune each aspect of the generation process.
-
-<x-cards data-columns="2">
-  <x-card data-title="Interactive Setup" data-icon="lucide:wand-2" data-href="/configuration/interactive-setup">
-    Learn about the guided wizard that helps you configure your documentation project, including setting recommendations and conflict detection.
-  </x-card>
-  <x-card data-title="LLM Setup" data-icon="lucide:brain-circuit" data-href="/configuration/llm-setup">
-    Discover how to connect different AI models, including using the built-in AIGNE Hub which requires no API keys.
-  </x-card>
-  <x-card data-title="Language Support" data-icon="lucide:languages" data-href="/configuration/language-support">
-    See the full list of supported languages and learn how to set a primary language and enable automatic translations.
-  </x-card>
-  <x-card data-title="Managing Preferences" data-icon="lucide:sliders-horizontal" data-href="/configuration/preferences">
-    Understand how DocSmith uses your feedback to create persistent rules and how to manage them via the CLI.
-  </x-card>
+<x-cards>
+  <x-card data-title="Initial Setup" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">Learn how to run the interactive setup to create your config.yaml file. This is the recommended first step for any new project.</x-card>
+  <x-card data-title="Managing Preferences" data-icon="lucide:list-checks" data-href="/configuration/managing-preferences">Understand how to view, enable, disable, or delete saved preferences to refine the documentation generation process over time.</x-card>
 </x-cards>
 
-## Parameter Reference
+## The `config.yaml` File
 
-The `config.yaml` file contains several key-value pairs that control the documentation output. Below is a detailed reference for each parameter.
+All project-level settings are stored in a file named `config.yaml`, located in the `.aigne/doc-smith/` directory within your project. The `aigne doc init` command creates this file for you through an interactive process. You can also modify this file manually with a text editor to adjust settings at any time.
 
-### Project Information
-
-These settings provide basic context about your project, which is used when publishing the documentation.
-
-| Parameter | Description |
-|---|---|
-| `projectName` | The name of your project. Detected from `package.json` if available. |
-| `projectDesc` | A short description of your project. Detected from `package.json`. |
-| `projectLogo` | A path or URL to your project's logo image. |
-
-### Documentation Strategy
-
-These parameters define the tone, style, and depth of the generated content.
-
-#### `documentPurpose`
-Defines the main outcome you want readers to achieve. This setting influences the overall structure and focus of the documentation.
-
-| Option | Name | Description |
-|---|---|---|
-| `getStarted` | Get started quickly | Help new users go from zero to working in <30 minutes. |
-| `completeTasks` | Complete specific tasks | Guide users through common workflows and use cases. |
-| `findAnswers` | Find answers fast | Provide searchable reference for all features and APIs. |
-| `understandSystem`| Understand the system | Explain how it works and why design decisions were made. |
-| `solveProblems` | Troubleshoot common issues | Help users troubleshoot and fix issues. |
-| `mixedPurpose` | Serve multiple purposes | Documentation covering multiple needs. |
-
-#### `targetAudienceTypes`
-Defines who will be reading this documentation most often. This choice affects the writing style and examples.
-
-| Option | Name | Description |
-|---|---|---|
-| `endUsers` | End users (non-technical) | People who use the product but don't code. |
-| `developers` | Developers integrating your product/API | Engineers adding this to their projects. |
-| `devops` | DevOps / SRE / Infrastructure teams | Teams deploying, monitoring, and maintaining systems. |
-| `decisionMakers`| Technical decision makers | Architects or leads evaluating or planning implementation. |
-| `supportTeams` | Support teams | People helping others use the product. |
-| `mixedTechnical`| Mixed technical audience | Developers, DevOps, and other technical users. |
-
-#### `readerKnowledgeLevel`
-Defines what readers typically know when they arrive. This adjusts how much foundational knowledge is assumed.
-
-| Option | Name | Description |
-|---|---|---|
-| `completeBeginners` | Is a total beginner, starting from scratch | New to this domain/technology entirely. |
-| `domainFamiliar` | Has used similar tools before | Knows the problem space, but new to this specific solution. |
-| `experiencedUsers` | Is an expert trying to do something specific | Regular users needing reference or advanced topics. |
-| `emergencyTroubleshooting`| Emergency/troubleshooting | Something is broken and needs to be fixed quickly. |
-| `exploringEvaluating` | Is evaluating this tool against others | Trying to understand if this fits their needs. |
-
-#### `documentationDepth`
-Defines how comprehensive the documentation should be.
-
-| Option | Name | Description |
-|---|---|---|
-| `essentialOnly` | Essential only | Cover the 80% use cases, keeping it concise. |
-| `balancedCoverage`| Balanced coverage | Good depth with practical examples [RECOMMENDED]. |
-| `comprehensive` | Comprehensive | Cover all features, edge cases, and advanced scenarios. |
-| `aiDecide` | Let AI decide | Analyze code complexity and suggest appropriate depth. |
-
-### Custom Directives
-
-For more granular control, you can provide free-text instructions.
-
-| Parameter | Description |
-|---|---|
-| `rules` | A multi-line string where you can define specific documentation generation rules (e.g., "Always include performance benchmarks"). |
-| `targetAudience`| A multi-line string to describe your specific target audience in more detail than the presets allow. |
-
-### Language and Path Configuration
-
-These settings control localization and file locations.
-
-| Parameter | Description |
-|---|---|
-| `locale` | The primary language for the documentation (e.g., `en`, `zh`). |
-| `translateLanguages` | A list of language codes to translate the documentation into (e.g., `[ja, fr, es]`). |
-| `docsDir` | The directory where generated documentation files will be saved. |
-| `sourcesPath` | A list of source code paths or glob patterns for DocSmith to analyze (e.g., `['./src', './lib/**/*.js']`). |
-| `glossary` | Path to a markdown file (`@glossary.md`) containing project-specific terms to ensure consistent translations. |
-
-## Example `config.yaml`
-
-Here is an example of a complete configuration file. You can edit this file directly to change settings at any time.
+Below is an example of a `config.yaml` file, with comments explaining each section.
 
 ```yaml Example config.yaml icon=logos:yaml
 # Project information for documentation publishing
 projectName: AIGNE DocSmith
-projectDesc: An AI-driven documentation generation tool.
-projectLogo: https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png
+projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the AIGNE Framework. It automates the creation of detailed, structured, and multi-language documentation directly from your source code.
+projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
 
 # =============================================================================
 # Documentation Configuration
 # =============================================================================
 
-# Purpose: What is the main outcome you want readers to achieve?
-# Options: getStarted, completeTasks, findAnswers, understandSystem, solveProblems, mixedPurpose
+# Purpose: What's the main outcome you want readers to achieve?
+# Available options (uncomment and modify as needed):
+#   getStarted       - Get started quickly: Help new users go from zero to working in <30 minutes
+#   completeTasks    - Complete specific tasks: Guide users through common workflows and use cases
+#   findAnswers      - Find answers fast: Provide searchable reference for all features and APIs
+#   understandSystem - Understand the system: Explain how it works, why design decisions were made
+#   solveProblems    - Solve problems: Help users troubleshoot and fix issues
+#   mixedPurpose     - Mix of above: Comprehensive documentation covering multiple needs
 documentPurpose:
+  - getStarted
   - completeTasks
-  - findAnswers
 
 # Target Audience: Who will be reading this most often?
-# Options: endUsers, developers, devops, decisionMakers, supportTeams, mixedTechnical
+# Available options (uncomment and modify as needed):
+#   endUsers         - End users (non-technical): People who use the product but don't code
+#   developers       - Developers integrating: Engineers adding this to their projects
+#   devops           - DevOps/Infrastructure: Teams deploying, monitoring, maintaining systems
+#   decisionMakers   - Technical decision makers: Architects, leads evaluating or planning implementation
+#   supportTeams     - Support teams: People helping others use the product
+#   mixedTechnical   - Mixed technical audience: Developers, DevOps, and technical users
 targetAudienceTypes:
-  - developers
+  - endUsers
 
 # Reader Knowledge Level: What do readers typically know when they arrive?
-# Options: completeBeginners, domainFamiliar, experiencedUsers, emergencyTroubleshooting, exploringEvaluating
-readerKnowledgeLevel: domainFamiliar
+# Available options (uncomment and modify as needed):
+#   completeBeginners    - Complete beginners: New to this domain/technology entirely
+#   domainFamiliar       - Domain-familiar, tool-new: Know the problem space, new to this specific solution
+#   experiencedUsers     - Experienced users: Regular users needing reference/advanced topics
+#   emergencyTroubleshooting - Emergency/troubleshooting: Something's broken, need to fix it quickly
+#   exploringEvaluating  - Exploring/evaluating: Trying to understand if this fits their needs
+readerKnowledgeLevel: completeBeginners
 
 # Documentation Depth: How comprehensive should the documentation be?
-# Options: essentialOnly, balancedCoverage, comprehensive, aiDecide
-documentationDepth: balancedCoverage
+# Available options (uncomment and modify as needed):
+#   essentialOnly      - Essential only: Cover the 80% use cases, keep it concise
+#   balancedCoverage   - Balanced coverage: Good depth with practical examples [RECOMMENDED]
+#   comprehensive      - Comprehensive: Cover all features, edge cases, and advanced scenarios
+#   aiDecide           - Let AI decide: Analyze code complexity and suggest appropriate depth
+documentationDepth: comprehensive
 
 # Custom Rules: Define specific documentation generation rules and requirements
-rules: |+
-  
+rules: |
+  Avoid using vague or empty words that don't provide measurable or specific details, such as 'intelligently', 'seamlessly', 'comprehensive', or 'high-quality'. Focus on concrete, verifiable facts and information.
+  Focus on concrete, verifiable facts and information.
+  Must cover all subcommands of DocSmith
 
 # Target Audience: Describe your specific target audience and their characteristics
-targetAudience: |+
-  
+targetAudience: |
 
-# Glossary: Path to markdown file containing project-specific terms and definitions
-# glossary: "@glossary.md"
-
-# Primary language for the documentation
 locale: en
-
-# List of languages to translate the documentation into
-# translateLanguages:
-#   - zh
-#   - fr
-
-# Directory to save generated documentation
-docsDir: .aigne/doc-smith/docs
-
-# Source code paths to analyze
-sourcesPath:
-  - ./
+translateLanguages:
+  - zh
+  - zh-TW
+  - ja
+docsDir: ./docs  # Directory to save generated documentation
+sourcesPath:  # Source code paths to analyze
+  - ./README.md
+  - ./CHANGELOG.md
+  - ./aigne.yaml
+  - ./agents
+  - ./media.md
+  - ./.aigne/doc-smith/config.yaml
 ```
 
-With your configuration set, you are ready to create documentation that matches your project's needs. The next step is to run the generation command.
+## Summary
 
-➡️ **Next:** [Generate Documentation](./features-generate-documentation.md)
+With your configuration in place, the tool will have a clear understanding of your project, audience, and documentation goals, resulting in more accurate and relevant content.
+
+To begin setting up your project, proceed to the [Initial Setup](./configuration-initial-setup.md) guide.

@@ -175,9 +175,10 @@ export default async function userReviewDocument(
     const feedback = await options.prompts.input({
       message:
         "How would you like to improve this document?\n" +
-        "  • Add, modify, or remove content\n" +
-        "  • Improve clarity, accuracy, or completeness\n" +
-        "  • Adjust tone, style, or technical level\n\n" +
+        "Examples:\n" +
+        "  • Add troubleshooting section for common errors\n" +
+        "  • Simplify the explanation for beginners\n" +
+        "  • Remove the outdated information about version 1.0\n\n" +
         "  Your feedback:",
     });
 

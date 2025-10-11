@@ -538,3 +538,23 @@ export function buildSourcesContent(sourceFiles, isLargeContext = false) {
 
   return allSources;
 }
+
+/**
+ * Get doc-smith configuration file path
+ * @param {string} workDir - Working directory (defaults to current directory)
+ * @returns {string} Absolute path to config.yaml
+ */
+export function getConfigFilePath(workDir) {
+  const cwd = workDir || process.cwd();
+  return path.join(cwd, ".aigne", "doc-smith", "config.yaml");
+}
+
+/**
+ * Get doc-smith structure plan file path
+ * @param {string} workDir - Working directory (defaults to current directory)
+ * @returns {string} Absolute path to structure-plan.json
+ */
+export function getStructurePlanPath(workDir) {
+  const cwd = workDir || process.cwd();
+  return path.join(cwd, ".aigne", "doc-smith", "output", "structure-plan.json");
+}

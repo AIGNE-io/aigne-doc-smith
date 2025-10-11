@@ -1,8 +1,7 @@
 name: publish docs
 
 env:
-  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  AIGNE_HUB_API_KEY: ${{ secrets.AIGNE_HUB_API_KEY }}
 
 permissions:
   contents: write
@@ -10,7 +9,6 @@ permissions:
 on:
   push:
     branches:
-      - master
       - main
 
 jobs:
@@ -33,11 +31,10 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-          cache: true
 
       - name: Install @aigne/cli
         run: |
-          bun install -g @aigne/cli
+          bun install -g @aigne/cli@beta
 
       - name: Publish docs to arcblock.io
         env:
@@ -46,7 +43,7 @@ jobs:
           set -e
           aigne doc publish --appUrl https://www.arcblock.io
 
-      - name: Publish docs to prod docsmith
+      - name: Publish docs to docsmith
         env:
           DOC_DISCUSS_KIT_ACCESS_TOKEN: ${{ secrets.DOC_PUBLISH_API_KEY_DOCSMITH }}
         run: |
@@ -60,7 +57,7 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             echo "Changes detected. Committing and pushing..."
             git add -A
-            git commit -m "chore(docs): push doc smith cache [skip ci]"
+            git commit -m "chore(docs): push doc publish cache [skip ci]"
             BRANCH="${{ github.head_ref || github.ref_name }}"
             git push origin HEAD:refs/heads/"${BRANCH}"
           else

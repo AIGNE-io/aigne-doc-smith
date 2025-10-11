@@ -85,7 +85,7 @@ describe("choose-contents", () => {
   test("should prompt user when no targets provided", async () => {
     mockOptions.prompts.checkbox.mockResolvedValue(["generatedDocs"]);
 
-    await chooseContents({}, mockOptions);
+    await chooseContents({ docsDir: "/test/docs", workDir: "/test" }, mockOptions);
 
     expect(mockOptions.prompts.checkbox).toHaveBeenCalledWith({
       message: "Select items to clear:",
@@ -103,7 +103,7 @@ describe("choose-contents", () => {
   test("should handle empty selection from prompts", async () => {
     mockOptions.prompts.checkbox.mockResolvedValue([]);
 
-    const result = await chooseContents({}, mockOptions);
+    const result = await chooseContents({ docsDir: "/test/docs", workDir: "/test" }, mockOptions);
 
     expect(result.message).toBe("No items selected to clear.");
     expect(mockContext.invoke).not.toHaveBeenCalled();
@@ -112,16 +112,20 @@ describe("choose-contents", () => {
   test("should return available options when no prompts available", async () => {
     const optionsWithoutPrompts = { context: mockContext };
 
-    const result = await chooseContents({}, optionsWithoutPrompts);
+    const result = await chooseContents(
+      { docsDir: "/test/docs", workDir: "/test" },
+      optionsWithoutPrompts,
+    );
 
     expect(result.message).toBe(
-      "Available options to clear: generatedDocs, documentStructure, documentConfig, authTokens",
+      "Available options to clear: generatedDocs, documentStructure, documentConfig, authTokens, deploymentConfig",
     );
     expect(result.availableTargets).toEqual([
       "generatedDocs",
       "documentStructure",
       "documentConfig",
       "authTokens",
+      "deploymentConfig",
     ]);
   });
 

@@ -60,7 +60,7 @@
   },
   "overrides": [
     {
-      "includes": ["**/fixtures/**"],
+      "includes": ["**/fixtures/**", ".aigne/doc-smith/output/structure-plan.json"],
 
       "linter": {
         "enabled": false

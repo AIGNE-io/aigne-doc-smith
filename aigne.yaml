@@ -55,6 +55,7 @@ agents:
   - ./agents/clear/clear-generated-docs.mjs
   - ./agents/clear/clear-document-config.mjs
   - ./agents/clear/clear-auth-tokens.mjs
+  - ./agents/clear/clear-deployment-config.mjs
 
   # Utilities
   - ./agents/utils/load-sources.mjs

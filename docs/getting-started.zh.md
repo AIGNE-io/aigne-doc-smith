@@ -1,120 +1,88 @@
 # 快速入门
 
-本指南将引导您逐步完成 AIGNE DocSmith 的安装、项目配置，并在几分钟内从源代码生成一套完整的文档。
+本指南提供了安装 AIGNE DocSmith 并生成您的第一套文档的分步流程。该过程设计得非常简单，可以快速完成。
 
-## 第 1 步：先决条件
+## 前置要求
 
-在开始之前，请确保您的系统上已安装 Node.js 20 或更高版本。DocSmith 是一个在 Node.js 环境中运行的命令行工具。我们建议使用 Node.js 自带的 Node Package Manager (npm) 进行安装。
+在继续安装之前，请确保您的系统满足以下要求：
 
-有关详细的安装说明，请参阅 [Node.js 官方网站](https://nodejs.org/)。下面提供了针对常见操作系统的简要指南。
+*   **Node.js**：需要 20 或更高版本。DocSmith 使用 Node.js 包管理器（npm）进行安装，该管理器包含在 Node.js 的安装包中。要安装 Node.js，请访问 [Node.js 官方网站](https://nodejs.org/) 并按照适用于您操作系统的说明进行操作。您可以通过打开终端并运行 `node -v` 和 `npm -v` 来验证安装。
 
-**Windows**
-1.  从 [Node.js 下载页面](https://nodejs.org/en/download) 下载 Windows 安装程序（`.msi`）。
-2.  运行安装程序，并按照设置向导中的提示进行操作。
+*   **API 密钥**：开始时不需要任何 API 密钥。默认情况下，DocSmith 使用 AIGNE Hub 服务进行 AI 驱动的生成，这使您无需直接配置即可使用各种大型语言模型。
 
-**macOS**
+## 安装
 
-推荐的安装方法是使用 macOS 的包管理器 [Homebrew](https://brew.sh/)。
+该工具作为 AIGNE 命令行界面（CLI）的一部分进行分发。
 
-```bash Terminal icon=lucide:apple
-# 如果尚未安装 Homebrew，请先安装
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+### 第 1 步：安装 AIGNE CLI
 
-# 安装 Node.js
-brew install node
-```
+要在您的系统上全局安装 AIGNE CLI，请在终端中执行以下命令：
 
-或者，您也可以直接从 [Node.js 网站](https://nodejs.org/) 下载 macOS 安装程序（`.pkg`）。
-
-**Linux**
-
-对于基于 Debian 和 Ubuntu 的发行版，请使用以下命令：
-
-```bash Terminal icon=lucide:laptop
-sudo apt-get update
-sudo apt-get install -y ca-certificates curl gnupg
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
-
-对于 Red Hat、CentOS 和 Fedora，请使用以下命令：
-
-```bash Terminal icon=lucide:laptop
-curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
-sudo yum install nodejs
-```
-
-### 验证安装
-
-安装完成后，打开您的终端并运行以下命令，以确认 Node.js 和 npm 已正确安装：
-
-```bash Terminal
-node --version
-npm --version
-```
-
-## 第 2 步：安装 AIGNE CLI
-
-DocSmith 工具作为官方 AIGNE 命令行界面（CLI）的一部分进行分发。使用 npm 在您的系统上全局安装 CLI：
-
-```bash Terminal icon=logos:npm
+```bash title="安装 AIGNE CLI" icon=logos:npm-icon
 npm install -g @aigne/cli
 ```
 
-安装完成后，运行其帮助命令来验证 DocSmith 是否可用：
+该命令会下载并安装软件包，使 `aigne` 命令在任何目录下都可用。
 
-```bash Terminal
+### 第 2 步：验证安装
+
+安装完成后，通过运行文档工具的帮助命令来验证安装：
+
+```bash title="验证安装"
 aigne doc --help
 ```
 
-此命令应显示 DocSmith 的帮助菜单，确认其已安装并准备就绪。
+该命令应显示 DocSmith 的可用命令和选项列表，以确认安装成功。
 
-## 第 3 步：生成您的文档
+## 生成您的第一份文档
 
-安装 AIGNE CLI 后，您现在可以生成文档了。在您的终端中，导航到项目的根目录并执行以下命令：
+请按照以下步骤分析您的项目并生成一套完整的文档。
 
-```bash Terminal icon=lucide:sparkles
+### 第 1 步：导航到您的项目目录
+
+打开您的终端，使用 `cd` 命令将当前目录更改为您希望记录的项目的根目录。
+
+```bash title="更改目录" icon=mdi:folder-open
+cd /path/to/your/project
+```
+
+### 第 2 步：运行生成命令
+
+执行主要的 `generate` 命令。这个单一的命令会处理整个文档创建过程。
+
+```bash title="运行生成命令"
 aigne doc generate
 ```
 
-![运行 generate 命令会启动该过程并触发智能设置向导。](../assets/screenshots/doc-generate.png)
+### 第 3 步：完成交互式设置
 
-### 自动配置
+当您首次在项目中运行 `generate` 命令时，DocSmith 将启动一次性的交互式设置过程。系统会询问您一系列问题，以配置您的文档偏好，例如其主要目的、目标受众和语言。系统将在 `.aigne/doc-smith` 目录中创建一个 `config.yaml` 文件来存储您的设置。
 
-当您第一次在新项目中运行此命令时，DocSmith 会检测到不存在配置文件，并会自动启动一个交互式设置向导来引导您完成整个过程。
+### 第 4 步：等待生成
 
-该向导将提出一系列问题来定义您文档的特性，包括：
+设置完成后，DocSmith 将自动执行以下操作：
 
-*   主要目的和写作风格。
-*   预期的目标受众（例如，开发者、最终用户）。
-*   主要语言以及用于翻译的其他语言。
-*   供 AI 分析的源代码路径。
-*   生成文档文件的输出目录。
+1.  **分析代码库**：它会扫描您的源文件以理解项目的结构和逻辑。
+2.  **规划结构**：它会为文档创建一个逻辑计划，包括章节和主题。
+3.  **生成内容**：它会根据分析和您的配置来编写文档内容。
 
-![回答一系列问题以完成项目设置。](../assets/screenshots/doc-complete-setup.png)
+完成后，将显示一条确认消息，生成的文件将位于设置期间指定的输出目录中（例如 `.aigne/doc-smith/docs`）。
 
-在您回答完提示后，DocSmith 会将您的选择保存到配置文件中，开始分析您的代码库，规划文档结构，并生成内容。
+## 后续步骤
 
-![DocSmith 将规划文档结构并开始生成文件。](../assets/screenshots/doc-generate-docs.png)
+您已成功生成第一套文档。以下是管理和增强文档的常见后续步骤：
 
-## 第 4 步：查看您的输出
-
-生成过程完成后，您的终端中将显示一条确认消息，表明您的文档已成功创建。您的新文档现在位于您在设置过程中指定的输出目录中。如果您使用了默认设置，可以在 `.aigne/doc-smith/docs` 中找到它。
-
-![一条确认消息表示文档已成功生成。](../assets/screenshots/doc-generated-successfully.png)
-
-## 接下来做什么？
-
-您已成功生成了第一套文档。现在，您可以开始探索更高级的功能和自定义选项。
-
-<x-cards>
-  <x-card data-title="核心功能" data-icon="lucide:box" data-href="/features">
-    探索主要命令和功能，从更新文档到在线发布。
+<x-cards data-columns="2">
+  <x-card data-title="更新文档" data-icon="lucide:refresh-cw" data-href="/guides/updating-documentation">
+    根据代码更改或新要求，修改或重新生成文档的特定部分。
   </x-card>
-  <x-card data-title="配置指南" data-icon="lucide:settings" data-href="/configuration">
-    了解如何通过编辑配置文件来微调文档的风格、受众和语言。
+  <x-card data-title="翻译文档" data-icon="lucide:languages" data-href="/guides/translating-documentation">
+    将您的文档翻译成 12 种支持的语言中的任意一种，例如中文、西班牙语或德语。
   </x-card>
-  <x-card data-title="CLI 命令参考" data-icon="lucide:terminal" data-href="/cli-reference">
-    获取所有可用的 `aigne doc` 命令及其选项的完整参考。
+  <x-card data-title="发布您的文档" data-icon="lucide:rocket" data-href="/guides/publishing-your-docs">
+    将您的文档在线发布，供您的团队或公众使用。
+  </x-card>
+  <x-card data-title="审查配置" data-icon="lucide:settings" data-href="/configuration/initial-setup">
+    审查并修改在初始设置期间创建的 config.yaml 文件，以调整您的偏好。
   </x-card>
 </x-cards>

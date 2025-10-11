@@ -11,7 +11,6 @@ export default async function clearGeneratedDocs(input = {}, _options = {}) {
   }
 
   const generatedDocsPath = resolveToAbsolute(docsDir);
-
   const displayPath = toDisplayPath(generatedDocsPath);
 
   try {
