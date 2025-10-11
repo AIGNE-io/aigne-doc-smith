@@ -1,0 +1,38 @@
+entries:
+  - timestamp: 2025-10-11T13:21:51.992Z
+    operation: translation_update
+    feedback: Cleanup Targets 表格中的 Target 列不要翻译
+    documentPath: /guides/cleaning-up
+  - timestamp: 2025-10-11T13:20:30.314Z
+    operation: document_update
+    feedback: Cleanup Targets 中的 Target  不全, 需要补齐, 对应的描述也需要更新. 另外 Target 的值使用原始的枚举值, 比如 generatedDocs
+    documentPath: /guides/cleaning-up
+  - timestamp: 2025-10-11T13:03:20.327Z
+    operation: document_update
+    feedback: Viewing Update History 中 history 命令的两个别名 demo 可以合并到一个 code block. Understanding the
+      History Output 中 Short Hash 现在有 8 个字符. 另外操作类型是下划线分隔,比如 'document_update'
+    documentPath: /guides/managing-history
+  - timestamp: 2025-10-11T12:56:23.107Z
+    operation: document_update
+    feedback: 交互模式中,翻译后的文件会以添加后缀的方式保存在同一目录,而不是特殊的语言目录
+    documentPath: /guides/translating-documentation
+  - timestamp: 2025-10-11T12:50:25.563Z
+    operation: document_update
+    feedback: demo 中的 docs 参数的值应该是 '-' 分隔的路径而不是 '/','.md' 要保留
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-11T12:46:37.507Z
+    operation: document_update
+    feedback: demo 中的 docs 参数的值应该是 '-' 分隔的路径而不是 '/'
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-11T12:39:53.222Z
+    operation: document_update
+    feedback: Review the Documentation Structure 中的提示词过时了需要更新. Command Parameters 也需要更新
+    documentPath: /guides/generating-documentation
+  - timestamp: 2025-10-11T12:26:24.598Z
+    operation: translation_update
+    feedback: AIGNE Framework 是专属名词而且拥有自己的链接,无需翻译
+    documentPath: /overview
+  - timestamp: 2025-10-11T12:24:05.477Z
+    operation: document_update
+    feedback: 为AIGNE Framework 提供链接 https://www.aigne.io/framework
+    documentPath: /overview

@@ -42,11 +42,11 @@ Batch mode is designed for efficiency when you need to apply the same general fe
 You can provide feedback directly from the command line to update one or more documents without entering an interactive session.
 
 ```bash title="Update a single document with feedback"
-aigne doc update --docs /guides/overview.md --feedback "Add a section explaining the authentication flow"
+aigne doc update --docs overview.md --feedback "Add a section explaining the authentication flow"
 ```
 
 ```bash title="Update multiple documents with the same feedback"
-aigne doc update --docs /guides/overview.md --docs /guides/getting-started.md --feedback "Improve the clarity of all code examples"
+aigne doc update --docs overview.md --docs guides-getting-started.md --feedback "Improve the clarity of all code examples"
 ```
 
 ### Resetting and Regenerating
@@ -54,7 +54,7 @@ aigne doc update --docs /guides/overview.md --docs /guides/getting-started.md --
 The `--reset` flag instructs the tool to ignore the previous versions of the documents and regenerate them from scratch based on the source code. This is useful when significant changes in the code have made the existing documentation obsolete.
 
 ```bash title="Regenerate a specific document from scratch"
-aigne doc update --docs /guides/overview.md --reset
+aigne doc update --docs overview.md --reset
 ```
 
 ## Command Reference
@@ -63,7 +63,7 @@ The `update` command accepts several flags to control its behavior.
 
 | Parameter | Description | Example |
 | :--- | :--- | :--- |
-| `--docs <path>` | Specifies one or more document paths to update. Can be used multiple times. | `--docs /overview --docs /guides/generating-documentation` |
+| `--docs <path>` | Specifies one or more document paths to update. Can be used multiple times. | `--docs overview.md --docs guides-generating-documentation.md` |
 | `--feedback <text>` | Provides instructions for what to change in the content. | `--feedback "Add more detail to the installation steps"` |
 | `--glossary <file>` | Specifies a glossary file to ensure consistent terminology during regeneration. | `--glossary @/path/to/glossary.md` |
 | `--reset` | A boolean flag that forces a complete regeneration of the selected documents, ignoring their previous versions. | `--reset` |

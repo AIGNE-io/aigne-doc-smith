@@ -1,6 +1,6 @@
 # Overview
 
-AIGNE DocSmith is a tool that uses Artificial Intelligence to automatically create documentation from your project's source code. It is built on the AIGNE Framework and is designed to produce structured, multi-language documents that accurately reflect your codebase.
+AIGNE DocSmith is a tool that uses Artificial Intelligence to automatically create documentation from your project's source code. It is built on the [AIGNE Framework](https://www.aigne.io/framework) and is designed to produce structured, multi-language documents that accurately reflect your codebase.
 
 The primary goal of DocSmith is to address the common challenges of manual documentation, such as being time-consuming to write, becoming outdated as code changes, and lacking consistency. By automating this process, DocSmith helps ensure your documentation remains current and accurate.
 
