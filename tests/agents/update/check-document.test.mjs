@@ -3,7 +3,6 @@ import * as fsPromises from "node:fs/promises";
 import * as aigneCore from "@aigne/core";
 import checkDocument from "../../../agents/update/check-document.mjs";
 import * as checkDetailResultModule from "../../../agents/utils/check-detail-result.mjs";
-import * as utils from "../../../utils/utils.mjs";
 
 describe("check-document", () => {
   let mockOptions;
@@ -12,7 +11,6 @@ describe("check-document", () => {
   let teamAgentFromSpy;
 
   // Spies for internal utils and fs operations
-  let hasSourceFilesChangedSpy;
   let checkDetailResultSpy;
   let consoleSpy;
   let accessSpy;
@@ -32,7 +30,6 @@ describe("check-document", () => {
     };
 
     // Set up spies for internal utils
-    hasSourceFilesChangedSpy = spyOn(utils, "hasSourceFilesChanged").mockReturnValue(false);
     checkDetailResultSpy = spyOn(checkDetailResultModule, "default").mockResolvedValue({
       isApproved: true,
       detailFeedback: "",
@@ -50,7 +47,6 @@ describe("check-document", () => {
   afterEach(() => {
     // Restore all spies
     teamAgentFromSpy?.mockRestore();
-    hasSourceFilesChangedSpy?.mockRestore();
     checkDetailResultSpy?.mockRestore();
     consoleSpy?.mockRestore();
     accessSpy?.mockRestore();
@@ -197,68 +193,8 @@ describe("check-document", () => {
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
-  // SOURCE FILES CHANGE TESTS
-  test("should regenerate when source files have changed", async () => {
-    accessSpy.mockResolvedValue();
-    checkDetailResultSpy.mockResolvedValue({ isApproved: true });
-    hasSourceFilesChangedSpy.mockReturnValue(true);
-
-    await checkDocument(
-      {
-        path: "/getting-started",
-        docsDir: "./docs",
-        sourceIds: ["file1.js"],
-        originalDocumentStructure: [{ path: "/getting-started", sourceIds: ["file1.js"] }],
-        documentStructure: [{ path: "/getting-started" }],
-        modifiedFiles: ["file1.js"],
-      },
-      mockOptions,
-    );
-
-    expect(hasSourceFilesChangedSpy).toHaveBeenCalledWith(["file1.js"], ["file1.js"]);
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "Source files changed for /getting-started, will regenerate",
-    );
-    expect(mockOptions.context.invoke).toHaveBeenCalled();
-  });
-
-  test("should not check source files when no sourceIds provided", async () => {
-    accessSpy.mockResolvedValue();
-    checkDetailResultSpy.mockResolvedValue({ isApproved: true });
-
-    const result = await checkDocument(
-      {
-        path: "/getting-started",
-        docsDir: "./docs",
-        sourceIds: [],
-        documentStructure: [{ path: "/getting-started" }],
-        modifiedFiles: ["file1.js"],
-      },
-      mockOptions,
-    );
-
-    expect(hasSourceFilesChangedSpy).not.toHaveBeenCalled();
-    expect(result.detailGenerated).toBe(true);
-  });
-
-  test("should not check source files when no modifiedFiles provided", async () => {
-    accessSpy.mockResolvedValue();
-    checkDetailResultSpy.mockResolvedValue({ isApproved: true });
-
-    const result = await checkDocument(
-      {
-        path: "/getting-started",
-        docsDir: "./docs",
-        sourceIds: ["file1.js"],
-        documentStructure: [{ path: "/getting-started" }],
-        modifiedFiles: null,
-      },
-      mockOptions,
-    );
-
-    expect(hasSourceFilesChangedSpy).not.toHaveBeenCalled();
-    expect(result.detailGenerated).toBe(true);
-  });
+  // SOURCE FILES CHANGE TESTS - These tests are now obsolete as modifiedFiles checking has been removed
+  // The check-document function now only checks for sourceIds changes and content validation
 
   // CONTENT VALIDATION TESTS
   test("should regenerate when content validation fails", async () => {
@@ -420,12 +356,16 @@ describe("check-document", () => {
       {
         path: "/api/users/create",
         docsDir: "./docs",
+        locale: "en",
       },
       mockOptions,
     );
 
     // "/api/users/create" -> flatName "api-users-create" -> fileFullName "api-users-create.md"
-    expect(accessSpy).toHaveBeenCalledWith(expect.stringMatching(/api-users-create\.md$/));
+    // The access function is called with a full path that includes docsDir
+    expect(accessSpy).toHaveBeenCalled();
+    const callArg = accessSpy.mock.calls[0][0];
+    expect(callArg).toMatch(/api-users-create\.md$/);
   });
 
   // RESULT STRUCTURE TESTS
