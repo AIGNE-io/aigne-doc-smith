@@ -44,9 +44,19 @@ input_schema:
     - originalContent
     - feedback
 output_key: message
+afs:
+  modules:
+    - module: system-fs
+      options:
+        mount: /sources
+        path: .
+        description: |
+          Codebase of the project to be documented used as context for document generation,
+          should search and read as needed while generating document content
 skills:
   - ./document-tools/update-document-content.mjs
-  - ./fs-tools/glob.mjs
-  - ./fs-tools/grep.mjs
-  - ./fs-tools/read-file.mjs
+  # NOTE: Use AFS skills to read files from the codebase as context
+  # - ./fs-tools/glob.mjs
+  # - ./fs-tools/grep.mjs
+  # - ./fs-tools/read-file.mjs
 task_render_mode: collapse

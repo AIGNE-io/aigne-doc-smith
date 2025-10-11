@@ -52,3 +52,10 @@ User feedback on previous generation:
 {{feedback}}
 </feedback>
 {% endif %}
+
+{% include "../../common/afs/afs-tools-usage.md" %}
+
+<instructions>
+Generate detailed document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), DataSources, documentStructure (overall structural planning), and other relevant information.
+{% include "../../common/afs/use-afs-instruction.md" %}
+</instructions>
