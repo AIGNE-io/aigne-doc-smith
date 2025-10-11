@@ -1,25 +1,21 @@
+import fs from "node:fs";
 import { normalizePath, toRelativePath } from "../../utils/utils.mjs";
 
-export default function transformDetailDatasources({ sourceIds, datasourcesList }) {
-  // Build a map for fast lookup, with path normalization for compatibility
-  const dsMap = Object.fromEntries(
-    (datasourcesList || []).map((ds) => {
-      const normalizedSourceId = normalizePath(ds.sourceId);
-      return [normalizedSourceId, ds.content];
-    }),
-  );
-
-  // Collect formatted contents in order, with path normalization
+export default function transformDetailDatasources({ sourceIds }) {
+  // Read file content for each sourceId, ignoring failures
   const contents = (sourceIds || [])
-    .filter((id) => {
-      const normalizedId = normalizePath(id);
-      return dsMap[normalizedId];
-    })
     .map((id) => {
-      const normalizedId = normalizePath(id);
-      const relativeId = toRelativePath(id);
-      return `// sourceId: ${relativeId}\n${dsMap[normalizedId]}\n`;
-    });
+      try {
+        const normalizedId = normalizePath(id);
+        const content = fs.readFileSync(normalizedId, "utf8");
+        const relativeId = toRelativePath(id);
+        return `// sourceId: ${relativeId}\n${content}\n`;
+      } catch {
+        // Ignore files that cannot be read
+        return null;
+      }
+    })
+    .filter(Boolean);
 
   return { detailDataSources: contents.join("") };
 }

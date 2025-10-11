@@ -211,7 +211,6 @@ export default async function loadSources({
   }
 
   return {
-    datasourcesList: sourceFiles,
     datasources: allSources,
     content,
     originalDocumentStructure,
@@ -270,16 +269,6 @@ loadSources.output_schema = {
   properties: {
     datasources: {
       type: "string",
-    },
-    datasourcesList: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          sourceId: { type: "string" },
-          content: { type: "string" },
-        },
-      },
     },
     files: {
       type: "array",
