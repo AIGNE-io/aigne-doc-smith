@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.12-beta.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.4...v0.8.12-beta.5) (2025-10-11)
+
+
+### Bug Fixes
+
+* **agent:** include missing locale on document check ([#176](https://github.com/AIGNE-io/aigne-doc-smith/issues/176)) ([8ca04f2](https://github.com/AIGNE-io/aigne-doc-smith/commit/8ca04f2d96b5fa20af65ed77b110d188079c7a29))
+
 ## [0.8.12-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.3...v0.8.12-beta.4) (2025-10-11)
 
 
