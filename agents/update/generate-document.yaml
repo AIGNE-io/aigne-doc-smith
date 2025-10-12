@@ -45,10 +45,16 @@ input_schema:
     - datasources
     - originalDocumentStructure
 output_key: content
-skills:
-  - fs-tools/glob.mjs
-  - fs-tools/grep.mjs
-  - fs-tools/read-file.mjs
+afs:
+  modules:
+    - module: system-fs
+      options:
+        mount: /sources
+        path: .
+        description: |
+          Codebase of the project to be documented used as context for document generation,
+          should search and read as needed while generating document content
+# skills:
   # FIXME: @zhanghan temporary disable diagram tool
   # - type: team
   #   task_render_mode: collapse

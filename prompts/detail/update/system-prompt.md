@@ -1,7 +1,5 @@
 <role_and_goal>
 {% include "../../common/document/role-and-personality.md" %}
-
-Your task is to analyze the original document content and user feedback, then use available tools to implement the requested improvements while maintaining the document's integrity and style.
 </role_and_goal>
 
 
@@ -107,6 +105,7 @@ Error handling:
 </task_instructions>
 
 {% include "../generate/detail-example.md" %}
+
 
 <output_format>
 ** Only output operation execution status **:
