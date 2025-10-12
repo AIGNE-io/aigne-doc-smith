@@ -55,7 +55,7 @@ describe("History View", () => {
           timestamp: "2023-01-01T00:00:00.000Z",
           operation: "document_update",
           feedback: "Updated documentation",
-          documentPath: "/docs/readme.md",
+          documentPath: "/readme.md",
         },
         {
           timestamp: "2023-01-02T00:00:00.000Z",
