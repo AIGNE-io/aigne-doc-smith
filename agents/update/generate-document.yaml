@@ -55,10 +55,6 @@ afs:
           Codebase of the project to be documented used as context for document generation,
           should search and read as needed while generating document content
 # skills:
-  # Use AFS skills to read files from the codebase as context
-  # - fs-tools/glob.mjs
-  # - fs-tools/grep.mjs
-  # - fs-tools/read-file.mjs
   # FIXME: @zhanghan temporary disable diagram tool
   # - type: team
   #   task_render_mode: collapse

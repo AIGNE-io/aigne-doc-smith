@@ -32,11 +32,17 @@ input_schema:
     - documentStructure
     - feedback
 output_key: message
+afs:
+  modules:
+    - module: system-fs
+      options:
+        mount: /sources
+        path: .
+        description: |
+          Codebase of the project to be documented used as context for document generation,
+          should search and read as needed while generating document content
 skills:
   - ./document-structure-tools/add-document.mjs
   - ./document-structure-tools/delete-document.mjs
   - ./document-structure-tools/update-document.mjs
   - ./document-structure-tools/move-document.mjs
-  - ../update/fs-tools/glob.mjs
-  - ../update/fs-tools/grep.mjs
-  - ../update/fs-tools/read-file.mjs

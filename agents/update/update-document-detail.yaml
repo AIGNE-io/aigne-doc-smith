@@ -55,8 +55,4 @@ afs:
           should search and read as needed while generating document content
 skills:
   - ./document-tools/update-document-content.mjs
-  # NOTE: Use AFS skills to read files from the codebase as context
-  # - ./fs-tools/glob.mjs
-  # - ./fs-tools/grep.mjs
-  # - ./fs-tools/read-file.mjs
 task_render_mode: collapse
