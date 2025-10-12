@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { DOC_SMITH_DIR } from "../../../utils/constants/index.mjs";
 import viewHistory from "../../../agents/history/view.mjs";
 
-const TEST_DIR = join(process.cwd(), `${DOC_SMITH_DIR}-view-test`);
+const TEST_DIR = join(process.cwd(), `${DOC_SMITH_DIR}-test`);
 const ORIGINAL_CWD = process.cwd();
 
 describe("History View", () => {

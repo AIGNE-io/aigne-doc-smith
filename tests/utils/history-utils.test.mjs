@@ -2,10 +2,10 @@ import { afterEach, beforeEach, describe, expect, test, mock, spyOn } from "bun:
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { DOC_SMITH_DIR } from "../../utils/constants/index.mjs";
-import * as historyUtils from "../../utils/history-utils.mjs";
+import { recordUpdate, getHistory } from "../../utils/history-utils.mjs";
 
 // Mock the child_process module
-const TEST_DIR = join(process.cwd(), `${DOC_SMITH_DIR}-history`);
+const TEST_DIR = join(process.cwd(), `${DOC_SMITH_DIR}-test`);
 const ORIGINAL_CWD = process.cwd();
 
 describe("History Utils", () => {
@@ -37,6 +37,18 @@ describe("History Utils", () => {
     mock.restore();
   });
 
+  test("skips recording on empty feedback", () => {
+    recordUpdate({ operation: "document_update", feedback: "" });
+    const history = getHistory();
+    expect(history.entries.length).toBe(0);
+  });
+
+  test("skips recording on whitespace-only feedback", () => {
+    recordUpdate({ operation: "document_update", feedback: "   " });
+    const history = getHistory();
+    expect(history.entries.length).toBe(0);
+  });
+
   test("git not available - write to YAML only", () => {
     // Mock git as not available
     execSyncMock.mockImplementation((command) => {
@@ -47,14 +59,14 @@ describe("History Utils", () => {
     });
 
     // Record update
-    historyUtils.recordUpdate({
+    recordUpdate({
       operation: "document_update",
       feedback: "Test feedback",
       documentPath: "/test",
     });
 
     // Verify YAML record was created
-    const history = historyUtils.getHistory();
+    const history = getHistory();
     expect(history.entries.length).toBe(1);
     expect(history.entries[0].feedback).toBe("Test feedback");
     expect(history.entries[0].operation).toBe("document_update");
@@ -79,13 +91,13 @@ describe("History Utils", () => {
     });
 
     // Record update
-    historyUtils.recordUpdate({
+    recordUpdate({
       operation: "structure_update",
       feedback: "Structure update",
     });
 
     // Verify YAML record was created
-    const history = historyUtils.getHistory();
+    const history = getHistory();
     expect(history.entries.length).toBe(1);
     expect(history.entries[0].feedback).toBe("Structure update");
 
@@ -129,20 +141,20 @@ describe("History Utils", () => {
     });
 
     // Record multiple updates - this should trigger git repo creation and commits
-    historyUtils.recordUpdate({
+    recordUpdate({
       operation: "document_update",
       feedback: "First update",
       documentPath: "/first",
     });
 
-    historyUtils.recordUpdate({
+    recordUpdate({
       operation: "translation_update",
       feedback: "Second update",
       documentPath: "/second",
     });
 
     // Verify YAML records
-    const history = historyUtils.getHistory();
+    const history = getHistory();
     expect(history.entries.length).toBe(2);
     expect(history.entries[0].feedback).toBe("Second update"); // Newest first
     expect(history.entries[1].feedback).toBe("First update");
@@ -162,7 +174,7 @@ describe("History Utils", () => {
 
   test("query history.yaml - handle various scenarios", () => {
     // Test empty history
-    let history = historyUtils.getHistory();
+    let history = getHistory();
     expect(history.entries).toBeDefined();
     expect(history.entries.length).toBe(0);
 
@@ -171,7 +183,7 @@ describe("History Utils", () => {
     mkdirSync(join(process.cwd(), DOC_SMITH_DIR), { recursive: true });
     writeFileSync(historyPath, "invalid: yaml: content: 「「「", "utf8");
 
-    history = historyUtils.getHistory();
+    history = getHistory();
     expect(history.entries).toBeDefined();
     expect(history.entries.length).toBe(0);
 
@@ -187,7 +199,7 @@ describe("History Utils", () => {
     };
     writeFileSync(historyPath, JSON.stringify(validHistory), "utf8");
 
-    history = historyUtils.getHistory();
+    history = getHistory();
     expect(history.entries.length).toBe(1);
     expect(history.entries[0].feedback).toBe("Valid entry");
   });
