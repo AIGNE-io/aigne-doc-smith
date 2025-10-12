@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.12-beta.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.6...v0.8.12-beta.7) (2025-10-12)
+
+
+### Features
+
+* support retrieve context from repo by AFS ([#175](https://github.com/AIGNE-io/aigne-doc-smith/issues/175)) ([352ce75](https://github.com/AIGNE-io/aigne-doc-smith/commit/352ce751ae9b51a71581793ead7952fb49cda7c4))
+
+
+### Bug Fixes
+
+* disable git based update history within git repo ([#180](https://github.com/AIGNE-io/aigne-doc-smith/issues/180)) ([826b4bd](https://github.com/AIGNE-io/aigne-doc-smith/commit/826b4bdeb5042b2dcd14ce1da975965ad7805347))
+
 ## [0.8.12-beta.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.5...v0.8.12-beta.6) (2025-10-11)
 
 
