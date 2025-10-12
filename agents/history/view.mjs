@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { createHash } from "node:crypto";
 import { getHistory } from "../../utils/history-utils.mjs";
 
 export default function viewHistory() {
@@ -35,8 +36,10 @@ export default function viewHistory() {
  * Generate a short hash from timestamp (git-style)
  */
 function generateShortHash(timestamp) {
-  const hash = timestamp.replace(/[-:.TZ]/g, "");
-  return hash.substring(hash.length - 7); // Last 7 chars
+  // Create a deterministic hash from timestamp only
+  // This ensures the same timestamp always produces the same hash
+  const hash = createHash("sha1").update(timestamp).digest("hex");
+  return hash.substring(0, 8); // First 8 chars of SHA1 hash
 }
 
 /**

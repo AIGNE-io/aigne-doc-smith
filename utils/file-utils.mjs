@@ -12,7 +12,7 @@ import { INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD } from "./constants/index.mjs";
  * @param {string} dir - Directory path to check
  * @returns {boolean} True if inside a git repository
  */
-function isInGitRepository(dir) {
+export function isInGitRepository(dir) {
   try {
     execSync("git rev-parse --is-inside-work-tree", {
       cwd: dir,
