@@ -66,7 +66,7 @@ export default async function evaluateDocumentCode({ content }) {
           };
         });
       } catch (error) {
-        debug('Lint occur error',error);
+        debug("Lint occurred error", error);
         return [];
       }
     },
