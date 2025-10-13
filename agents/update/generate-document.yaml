@@ -55,7 +55,6 @@ afs:
           Codebase of the project to be documented used as context for document generation,
           should search and read as needed while generating document content
 skills:
-  # FIXME: @zhanghan temporary disable diagram tool
   - type: team
     task_render_mode: collapse
     name: generateDiagram
