@@ -57,7 +57,6 @@ This section provides a document-by-document breakdown of content quality. Each 
 | **Purpose Alignment** | Determines how well the content meets the specified documentation goals. |
 | **Audience Alignment** | Assesses if the language and examples are suitable for the target audience. |
 | **Knowledge Level Alignment** | Checks if the content complexity matches the defined reader knowledge level. |
-| **Navigability** | Evaluates the effectiveness of internal links and structural elements that help users find information. |
 
 ## Summary
 

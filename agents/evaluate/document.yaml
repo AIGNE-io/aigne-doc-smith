@@ -39,9 +39,6 @@ output_schema:
     documentEvaluation:
       type: object
       properties:
-        baseline:
-          type: integer
-          description: Fixed baseline score (80)
         details:
           type: array
           description: Detailed observations contributing to the final score
@@ -50,7 +47,7 @@ output_schema:
             properties:
               dimension:
                 type: string
-                enum: [readability, coherence, contentQuality, consistency, purposeAlignment, audienceAlignment, knowledgeLevelAlignment, navigability]
+                enum: [readability, coherence, contentQuality, consistency, purposeAlignment, audienceAlignment, knowledgeLevelAlignment]
                 description: Dimension associated with this observation
               level:
                 type: string
@@ -72,7 +69,6 @@ output_schema:
               - line
               - description
       required:
-        - baseline
         - details
   required:
     - documentEvaluation

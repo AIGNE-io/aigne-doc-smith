@@ -38,32 +38,37 @@ export default async function evaluateDocumentCode({ content }) {
   const checkList = await pMap(
     checkPromiseList,
     async (item) => {
-      const result = await pRetry(() => lintCode(item), {
-        onFailedAttempt: ({ error, attemptNumber, retriesLeft }) => {
-          debug(
-            `Attempt ${attemptNumber} failed: ${error.message}. There are ${retriesLeft} retries left.`,
-          );
-        },
-        retries: 3,
-      });
-      // lint occurs error, ignore
-      if (!result.success) {
-        debug("Lint failed", item, result);
+      try {
+        const result = await pRetry(() => lintCode(item), {
+          onFailedAttempt: ({ error, attemptNumber, retriesLeft }) => {
+            debug(
+              `Attempt ${attemptNumber} failed: ${error.message}. There are ${retriesLeft} retries left.`,
+            );
+          },
+          retries: 3,
+        });
+        // lint occurs error, ignore
+        if (!result.success) {
+          debug("Lint failed", item, result);
+          return [];
+        }
+
+        if (!result.issues || result.issues.length === 0) {
+          debug("Lint result empty issues", item, result);
+          return [];
+        }
+
+        errorCount += 1;
+        return result.issues.map((x) => {
+          return {
+            ...x,
+            level: severityMapLevel[x.severity],
+          };
+        });
+      } catch (error) {
+        debug("Lint occurred error", error);
         return [];
       }
-
-      if (!result.issues || result.issues.length === 0) {
-        debug("Lint result empty issues", item, result);
-        return [];
-      }
-
-      errorCount += 1;
-      return result.issues.map((x) => {
-        return {
-          ...x,
-          level: severityMapLevel[x.severity],
-        };
-      });
     },
     { concurrency: 5 },
   );
@@ -71,7 +76,6 @@ export default async function evaluateDocumentCode({ content }) {
 
   return {
     codeEvaluation: {
-      baseline: 100,
       details: checkListResult,
       totalCount,
       ignoreCount,
