@@ -28,13 +28,11 @@
 {% include "../../common/document/media-handling-rules.md" %}
 </datasources>
 
-<user_feedback>
-{{feedback}}
-</user_feedback>
-
 {% include "../../common/afs/afs-tools-usage.md" %}
 
 <instructions>
 Analyze the original document content and user feedback, then use available tools to implement the requested improvements while maintaining the document's integrity and style.
 {% include "../../common/afs/use-afs-instruction.md" %}
+
+{{feedback}}
 </instructions>

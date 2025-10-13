@@ -46,13 +46,6 @@ Content from previous generation:
 {% endif %}
 
 
-{% if feedback %}
-User feedback on previous generation:
-<feedback>
-{{feedback}}
-</feedback>
-{% endif %}
-
 {% include "../../common/afs/afs-tools-usage.md" %}
 
 {% include "../d2-diagram/guide.md" %}
@@ -63,4 +56,6 @@ Generate detailed document for the current {{nodeName}} based on user-provided i
 {% include "../../common/afs/use-afs-instruction.md" %}
 
 Use generateDiagram tool to create and embed diagrams as per the diagram generation rules provided.
+
+{{feedback}}
 </instructions>
