@@ -55,7 +55,12 @@ User feedback on previous generation:
 
 {% include "../../common/afs/afs-tools-usage.md" %}
 
+{% include "../d2-diagram/guide.md" %}
+
 <instructions>
 Generate detailed document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), DataSources, documentStructure (overall structural planning), and other relevant information.
+
 {% include "../../common/afs/use-afs-instruction.md" %}
+
+Use generateDiagram tool to create and embed diagrams as per the diagram generation rules provided.
 </instructions>
