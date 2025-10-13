@@ -42,6 +42,7 @@ skills:
         }
       ])
   - ../utils/format-document-structure.mjs
+  - ../media/load-media-description.mjs
   - ../update/batch-generate-document.yaml
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
