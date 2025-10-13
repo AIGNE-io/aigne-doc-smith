@@ -31,16 +31,16 @@ You must **precisely map** the correspondence between each module in the structu
 Start from a **baseline of 80 points**. Evaluate by logging every key observation in `details` with one of five **levels**. Each level contributes a fixed delta; sum all deltas and add them to the baseline (clamp the final score to 0–100). Treat every key point independently so strengths and gaps can stack.
 
 **Level catalog (use consistently across all dimensions):**
-- `Excellent` — Exceptional: fully satisfies the dimension with clear, actionable outputs; scoring +10.
-- `Good` — Strong: aligns well with the dimension with only minor gaps apply +2 points; scoring +2.
-- `Meets` — Adequate: acceptable baseline coverage without notable strengths or weaknesses; scoring +0.
-- `Minor` — Problematic: specific deficiencies that reduce usefulness and require fixes; scoring -2.
-- `Critical` — Failing: fundamental issues that prevent the dimension from being met; scoring -10.
+- `Excellent` — Exceptional: fully satisfies the dimension with clear, actionable outputs.
+- `Good` — Strong: aligns well with the dimension with only minor gaps.
+- `Meets` — Adequate: acceptable baseline coverage without notable strengths or weaknesses.
+- `Minor` — Problematic: specific deficiencies that reduce usefulness and require fixes.
+- `Critical` — Failing: fundamental issues that prevent the dimension from being met.
 
 Apply these levels to the following key points. Create a separate detail entry for each observation; if the same issue repeats (e.g., multiple typos), record multiple entries at the appropriate level.
 
 1. **Purpose Coverage** — Evaluate every selected purpose, paying special attention to declared priorities:
-  - `Excellent`: The structure provides dedicated modules, explicit workflows, and measurable steps that achieve the purpose end-to-end scoring +10.
+  - `Excellent`: The structure provides dedicated modules, explicit workflows, and measurable steps that achieve the purpose end-to-end.
   - `Good`: The purpose is clearly mapped to modules with practical guidance and minimal omissions.
   - `Meets`: The purpose appears in general sections or implicit references but lacks targeted treatment.
   - `Minor`: Important sub-tasks or ordering for the purpose are missing or incomplete, reducing utility.
@@ -82,7 +82,6 @@ Strictly follow these steps:
 
 <output_constraints>
 
-- `baseline` must be fixed at 80
 - `details` is an array. Each element must include:
   - `dimension`: one of `purposeCoverage`, `audienceCoverage`, `coverageDepth`
   - `level`: one of `excellent`, `good`, `meets`, `minor`, `critical`
