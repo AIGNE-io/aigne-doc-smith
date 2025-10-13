@@ -1,24 +1,24 @@
 # 設定
 
-正確的設定對於根據專案的特定需求客製化文件產生過程至關重要。AIGNE DocSmith 使用一個主要設定檔和一個命令列介面來管理您的設定。這種設定方式確保產生的文件能準確反映您的專案目標、目標受眾和結構需求。
+適當的設定是根據您專案的特定需求，量身打造文件生成流程的基礎。AIGNE DocSmith 使用一個主要設定檔來進行全專案的設定，並透過一個獨立的指令來管理個人偏好設定。這種方法確保產生的文件能精確符合您的專案目標、目標受眾和結構需求。
 
-本節概述了如何設定此工具。有關逐步說明，請參閱以下詳細指南：
+本節提供了設定流程的高階概覽。若需詳細的逐步說明，請參考以下指南：
 
 <x-cards>
-  <x-card data-title="初始設定" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">了解如何執行互動式設定來建立您的 config.yaml 檔案。這是任何新專案的建議第一步。</x-card>
-  <x-card data-title="管理偏好設定" data-icon="lucide:list-checks" data-href="/configuration/managing-preferences">了解如何檢視、啟用、停用或刪除已儲存的偏好設定，以隨著時間的推移來完善文件產生過程。</x-card>
+  <x-card data-title="初始設定" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">了解如何執行互動式設定來建立您的 config.yaml 檔案。這是任何新專案建議的第一步。</x-card>
+  <x-card data-title="管理偏好設定" data-icon="lucide:list-checks" data-href="/configuration/managing-preferences">了解如何檢視、啟用、停用或刪除已儲存的偏好設定，以隨著時間推移不斷完善文件生成流程。</x-card>
 </x-cards>
 
 ## `config.yaml` 檔案
 
-所有專案層級的設定都儲存在名為 `config.yaml` 的檔案中，該檔案位於您專案內的 `.aigne/doc-smith/` 目錄中。`aigne doc init` 指令會透過一個互動式過程為您建立此檔案。您也可以隨時使用文字編輯器手動修改此檔案以調整設定。
+所有專案層級的設定都儲存在您專案 `.aigne/doc-smith/` 目錄中一個名為 `config.yaml` 的檔案裡。`aigne doc init` 指令會透過互動式引導流程為您建立此檔案。您也可以隨時使用文字編輯器手動修改此檔案以調整設定。
 
-以下是一個 `config.yaml` 檔案的範例，其中包含解釋每個區塊的註解。
+以下是一個 `config.yaml` 檔案的範例，其中包含解釋每個設定選項的註解。
 
-```yaml Example config.yaml icon=logos:yaml
-# 用於文件發布的專案資訊
+```yaml config.yaml icon=logos:yaml
+# 用於文件發佈的專案資訊
 projectName: AIGNE DocSmith
-projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the AIGNE Framework. It automates the creation of detailed, structured, and multi-language documentation directly from your source code.
+projectDesc: AIGNE DocSmith 是一款強大的、由 AI 驅動的文件生成工具，建立在 AIGNE Framework 之上。它可以直接從您的原始碼自動建立詳細、結構化且多語言的文件。
 projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
 
 # =============================================================================
@@ -26,71 +26,80 @@ projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d
 # =============================================================================
 
 # 目的：您希望讀者達成的最主要成果是什麼？
-# 可用選項（取消註解並根據需要修改）：
-#   getStarted       - 快速入門：幫助新使用者在 30 分鐘內從零到上手
-#   completeTasks    - 完成特定任務：引導使用者完成常見的工作流程和使用案例
-#   findAnswers      - 快速尋找答案：為所有功能和 API 提供可搜尋的參考資料
-#   understandSystem - 了解系統：解釋其運作方式及設計決策的原因
-#   solveProblems    - 解決問題：幫助使用者進行故障排除並修復問題
-#   mixedPurpose     - 綜合目的：涵蓋多種需求的綜合性文件
+# 可用選項：getStarted, completeTasks, findAnswers, understandSystem, solveProblems, mixedPurpose
 documentPurpose:
   - getStarted
   - completeTasks
 
-# 目標受眾：誰會最常閱讀這份文件？
-# 可用選項（取消註解並根據需要修改）：
-#   endUsers         - 終端使用者（非技術人員）：使用產品但不寫程式的人
-#   developers       - 整合開發者：將此產品加入其專案的工程師
-#   devops           - DevOps/基礎設施：部署、監控、維護系統的團隊
-#   decisionMakers   - 技術決策者：評估或規劃實施的架構師、領導者
-#   supportTeams     - 支援團隊：幫助他人使用產品的人員
-#   mixedTechnical   - 混合技術受眾：開發者、DevOps 和技術使用者
+# 目標受眾：誰最常閱讀這份文件？
+# 可用選項：endUsers, developers, devops, decisionMakers, supportTeams, mixedTechnical
 targetAudienceTypes:
   - endUsers
 
-# 讀者知識水平：讀者在閱讀文件時通常具備哪些知識？
-# 可用選項（取消註解並根據需要修改）：
-#   completeBeginners    - 完全初學者：對此領域/技術完全陌生
-#   domainFamiliar       - 熟悉領域，工具新手：了解問題領域，但對此特定解決方案不熟
-#   experiencedUsers     - 有經驗的使用者：需要參考資料/進階主題的常規使用者
-#   emergencyTroubleshooting - 緊急/故障排除：出現問題，需要快速修復
-#   exploringEvaluating  - 探索/評估：試圖了解這是否符合他們的需求
+# 讀者知識水平：讀者通常在閱讀前具備哪些知識？
+# 可用選項：completeBeginners, domainFamiliar, experiencedUsers, emergencyTroubleshooting, exploringEvaluating
 readerKnowledgeLevel: completeBeginners
 
 # 文件深度：文件應該要多詳盡？
-# 可用選項（取消註解並根據需要修改）：
-#   essentialOnly      - 僅涵蓋必要內容：涵蓋 80% 的使用案例，保持簡潔
-#   balancedCoverage   - 平衡的涵蓋範圍：具有足夠深度和實用範例 [建議]
-#   comprehensive      - 全面詳盡：涵蓋所有功能、邊界案例和進階情境
-#   aiDecide           - 讓 AI 決定：分析程式碼複雜度並建議適當的深度
+# 可用選項：essentialOnly, balancedCoverage, comprehensive, aiDecide
 documentationDepth: comprehensive
 
-# 自訂規則：定義特定的文件產生規則與要求
+# 自訂規則：定義具體的文件生成規則和要求
 rules: |
-  Avoid using vague or empty words that don't provide measurable or specific details, such as 'intelligently', 'seamlessly', 'comprehensive', or 'high-quality'. Focus on concrete, verifiable facts and information.
-  Focus on concrete, verifiable facts and information.
-  Must cover all subcommands of DocSmith
+  避免使用模糊或空泛的詞語，這些詞語無法提供可衡量或具體的細節，例如「智慧地」、「無縫地」、「全面地」或「高品質」。請專注於具體、可驗證的事實和資訊。
+  請專注於具體、可驗證的事實和資訊。
+  必須涵蓋 DocSmith 的所有子指令
 
-# 目標受眾：描述您的特定目標受眾及其特徵
+# 目標受眾：詳細描述您的特定目標受眾及其特徵
 targetAudience: |
+  
+# 詞彙表：定義專案特定的術語和定義
+# glossary: "@glossary.md"  # 包含詞彙表定義的 Markdown 檔案路徑
 
+# 文件的主要語言
 locale: en
+
+# 用於翻譯的其他語言列表
 translateLanguages:
   - zh
   - zh-TW
   - ja
-docsDir: ./docs  # 儲存產生文件的目錄
-sourcesPath:  # 要分析的原始碼路徑
+
+# 儲存生成文件的目錄
+docsDir: ./docs
+
+# 用於分析以生成文件的原始碼路徑
+sourcesPath:
   - ./README.md
   - ./CHANGELOG.md
   - ./aigne.yaml
   - ./agents
-  - ./media.md
   - ./.aigne/doc-smith/config.yaml
+
+# =============================================================================
+# 媒體設定
+# =============================================================================
+
+# 圖片品質篩選：只有寬度大於此值的圖片會被包含
+# 這有助於過濾低解析度圖片以維持文件品質
+# 建議值：一般文件為 800px，高品質文件為 1200px
+media:
+  minImageWidth: 800
 ```
+
+## 管理使用者偏好設定
+
+除了全專案通用的 `config.yaml`，您還可以管理個人偏好設定，以根據您的特定需求微調 AI 的行為。這些偏好設定儲存在本機，可以啟用、停用或移除，而不會更改專案的設定檔。
+
+偏好設定是使用 `aigne doc prefs` 指令來管理，該指令支援以下操作：
+*   `--list`：檢視所有已儲存的偏好設定及其狀態（啟用／停用）。
+*   `--remove`：刪除一個或多個已儲存的偏好設定。
+*   `--toggle`：啟用或停用特定的偏好設定。
+
+有關使用這些指令的完整指南，請參閱[管理偏好設定](./configuration-managing-preferences.md)。
 
 ## 總結
 
-完成設定後，此工具將清楚了解您的專案、受眾和文件目標，從而產生更準確、更相關的內容。
+透過正確設定 `config.yaml` 並管理您的個人偏好設定，您為工具提供了關於專案、受眾和文件目標的明確指令。這將產生更準確且相關的生成內容。
 
-若要開始設定您的專案，請前往 [初始設定](./configuration-initial-setup.md) 指南。
+若要開始設定您的專案，請前往[初始設定](./configuration-initial-setup.md)指南。

@@ -1,0 +1,91 @@
+descriptions:
+  5838723847ec201191b002ef7d44937d92386a82755ca7a66374acff6b91325e:
+    path: ../assets/screenshots/doc-translate.png
+    description: This screenshot illustrates a user interface for document
+      translation. It displays options for selecting the source and target
+      languages, along with an area for document input or upload. The image
+      demonstrates the initial steps for translating a document within a
+      software application or web service.
+    generatedAt: 2025-10-13T10:16:56.300Z
+  ac51399fcd5ba2e36d7c84264dd28624acd10c57aa82f7d006da6f8434cb24de:
+    path: ../assets/screenshots/doc-regenerate.png
+    description: This screenshot displays a user interface element for a
+      'Regenerate' function, likely within an application or content management
+      system. It visually demonstrates how users can trigger the re-rendering or
+      updating of content, often showing a button or control and potentially the
+      immediate output or status of the regeneration process.
+    generatedAt: 2025-10-13T10:16:56.301Z
+  9871bff567cc5f1b73e99b84c03781bffc7f531635b9bd40f23a2aee5f9885e5:
+    path: ../assets/screenshots/doc-update.png
+    description: This image is a screenshot depicting a user interface for updating
+      documentation content. It showcases a main text editing area, likely with
+      rich text formatting capabilities, accompanied by buttons for actions such
+      as saving, previewing, or publishing changes. The layout suggests a
+      content management system or a wiki-style editing environment.
+    generatedAt: 2025-10-13T10:16:56.301Z
+  31353781ba6d1572359823faa399af9f5deca7b994f24939cb5f5143fcc96b14:
+    path: ../assets/screenshots/doc-translate-langs.png
+    description: This screenshot depicts a user interface element focused on
+      language selection for documentation translation. It displays a list or
+      menu of languages, allowing users to choose or configure the target
+      languages for translating documentation content. The image highlights the
+      functionality for managing multilingual documentation.
+    generatedAt: 2025-10-13T10:16:56.301Z
+  a42903e87ae020dcb81991e672b2a2990b94eb0e92d6c1cc87f3bf6223355344:
+    path: ../assets/screenshots/doc-publish.png
+    description: This is a screenshot of a "Publish Documentation" dialog box from a
+      user interface. It presents options for selecting documentation to publish
+      and configuring various publication settings, including checkboxes for
+      search indexing and versioning. The dialog features "Cancel" and "Publish"
+      action buttons at the bottom right.
+    generatedAt: 2025-10-13T10:16:56.301Z
+  c055a80de6c1120765757fd3ef91ef05718f77beb7d6dfdac41d8e234361a68a:
+    path: ../assets/screenshots/doc-generated-successfully.png
+    description: This is a screenshot of a success notification banner,
+      characterized by its wide and short dimensions. It displays a positive
+      message such as "Document generated successfully," likely accompanied by a
+      green checkmark or other visual cues indicating a successful operation.
+      This image is suitable for illustrating UI feedback when a document
+      generation process is completed.
+    generatedAt: 2025-10-13T10:16:56.301Z
+  f786c36289e0e5bfea866c9384edc7d44996c42adfad0cb6f613f46e27f0f2be:
+    path: ../assets/screenshots/doc-generate.png
+    description: This screenshot displays a "Generate Documentation" dialog,
+      presenting various options for outputting documentation files. Users can
+      specify an output path, choose to include example content, overwrite
+      existing files, and generate the documentation in dark mode, before
+      confirming with "Generate" or "Cancel."
+    generatedAt: 2025-10-13T10:16:56.301Z
+  2b41c70c6a61942727984b2d99010cbe7e1d9b4c75686f65af8b5a245e9b800d:
+    path: ../assets/screenshots/doc-generate-docs.png
+    description: This image is a screenshot illustrating a user interface for a
+      documentation generation process. It depicts a dialog or panel with
+      various configuration options and controls, likely including output format
+      selections and a prominent "Generate" button to initiate the creation of
+      documentation.
+    generatedAt: 2025-10-13T10:16:56.301Z
+  44cb2fc222a3dd15fa82f1088d9113b0bb1bfc8b29a0e568a2273d80e8f50a7d:
+    path: ../assets/screenshots/doc-complete-setup.png
+    description: This screenshot depicts the "Setup Complete" screen from a user
+      interface, indicating the successful conclusion of an installation or
+      configuration process. It features a prominent confirmation message, such
+      as "Setup Complete!", often accompanied by a success icon and an
+      actionable button like "Continue" or "Go to Dashboard" to proceed.
+    generatedAt: 2025-10-13T10:16:56.301Z
+  13a9073d16762909e189af4e53ceb004abe1c55681d12726fceb262205fbf180:
+    path: ../assets/screenshots/doc-generate.png
+    description: This screenshot displays a user interface for generating
+      documentation. It features various input fields and controls, likely for
+      configuring options such as output format, target location, and content
+      selection. The image serves to illustrate the steps or settings involved
+      in the documentation generation process.
+    generatedAt: 2025-10-13T14:07:35.096Z
+  90c0daa8347df01c8154b6a5b30879b691c4a94b49c970b0480435591603bf55:
+    path: ../assets/screenshots/doc-complete-setup.png
+    description: This image is a screenshot displaying a "Setup Complete" success
+      message within a user interface. It shows a clear green checkmark icon, a
+      bold headline confirming the setup is finished, and additional descriptive
+      text below. A prominent "Done" button is visible at the bottom of the
+      interface, indicating the next action for the user.
+    generatedAt: 2025-10-13T14:07:35.097Z
+lastUpdated: 2025-10-13T14:07:35.098Z

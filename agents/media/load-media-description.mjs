@@ -236,5 +236,3 @@ loadMediaDescription.output_schema = {
     },
   },
 };
-
-loadMediaDescription.task_render_mode = "hide";
