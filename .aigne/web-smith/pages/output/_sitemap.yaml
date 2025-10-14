@@ -1,0 +1,235 @@
+sitemap:
+  - title: "AIGNE DocSmith: AI-Powered Documentation Generation"
+    path: /home
+    locales:
+      en:
+        title: AIGNE DocSmith | AI-Powered Documentation Generation for Your Codebase
+        description: Instantly generate, translate, and publish comprehensive
+          documentation with AIGNE DocSmith. Our AI understands your code to
+          create accurate, multi-language docs that stay automatically updated.
+          Get started in minutes!
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+    meta:
+      file: home.yaml
+      id: 616571b7c79a8472
+      createdAt: 2025-10-14T02:59:49.155Z
+      updatedAt: 2025-10-14T02:59:49.155Z
+      publishedAt: 2025-10-14T02:59:49.155Z
+      isPublic: true
+  - title: Features of AIGNE DocSmith
+    path: /features
+    locales:
+      en:
+        title: "AIGNE DocSmith Features: AI Generation, Multi-Language, Smart Updates"
+        description: Explore the powerful features of AIGNE DocSmith. From AI-powered
+          content generation and 12-language support to seamless LLM integration
+          and smart updates that sync with your code.
+        image: mediakit://doc-generate-docs.png
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+    meta:
+      file: features.yaml
+      id: 69ee505620f7efd5
+      createdAt: 2025-10-14T02:59:49.151Z
+      updatedAt: 2025-10-14T02:59:49.151Z
+      publishedAt: 2025-10-14T02:59:49.151Z
+      isPublic: true
+  - title: Quick Start Guide
+    path: /quick-start
+    locales:
+      en:
+        title: Quick Start Guide | AIGNE DocSmith
+        description: Get started with AIGNE DocSmith in minutes. Follow our step-by-step
+          guide to install the CLI, set up your project, and generate your first
+          AI-powered documentation.
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+    meta:
+      file: quick-start.yaml
+      id: 22f6776da30e7065
+      createdAt: 2025-10-14T02:59:49.165Z
+      updatedAt: 2025-10-14T02:59:49.165Z
+      publishedAt: 2025-10-14T02:59:49.165Z
+      isPublic: true
+  - title: Enterprise and Production Use
+    path: /enterprise
+    locales:
+      en:
+        title: Enterprise Features for AI Documentation | AIGNE DocSmith
+        description: Elevate your documentation with AIGNE DocSmith's enterprise
+          features. Get team collaboration, custom branding, private cloud
+          deployment, SSO, and priority support for secure, scalable
+          documentation pipelines.
+        image: ""
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+    meta:
+      file: enterprise.yaml
+      id: 8cec7f5a066a0bdf
+      createdAt: 2025-10-14T02:59:49.146Z
+      updatedAt: 2025-10-14T02:59:49.146Z
+      publishedAt: 2025-10-14T02:59:49.146Z
+      isPublic: true
+  - title: Community and Resources
+    path: /community
+    locales:
+      en:
+        title: AIGNE DocSmith Community & Resources | Support and Contribution
+        description: Join the AIGNE DocSmith community! Find official documentation,
+          tutorials, and support forums. Learn how to contribute, report issues,
+          and request features.
+        image: ""
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+    meta:
+      file: community.yaml
+      id: 423f8449a3d5581e
+      createdAt: 2025-10-14T02:59:49.139Z
+      updatedAt: 2025-10-14T02:59:49.139Z
+      publishedAt: 2025-10-14T02:59:49.139Z
+      isPublic: true
+navigations:
+  - id: e9022e7aa8630077-header
+    section: header
+    visible: true
+    title:
+      en: aigne-doc-smith
+    link:
+      en: /en
+    description: ""
+    parent: ""
+  - id: e9022e7aa8630077-footer
+    section: footer
+    visible: true
+    title:
+      en: aigne-doc-smith
+    link:
+      en: /en
+    description: ""
+    parent: ""
+  - id: 106a6c241b8797f5
+    section: header
+    visible: true
+    title:
+      en: Home
+    link:
+      en: /
+    description:
+      en: Discover AI-powered docs
+    parent: e9022e7aa8630077-header
+  - id: f5c5d15c42b3cf01
+    section: footer
+    visible: true
+    title:
+      en: Home
+    link:
+      en: /
+    description:
+      en: Discover AI-powered docs
+    parent: e9022e7aa8630077-footer
+  - id: 9f034b63948763d4
+    section: header
+    visible: true
+    title:
+      en: Features
+    link:
+      en: /features
+    description:
+      en: Explore product features
+    parent: e9022e7aa8630077-header
+  - id: 81f6d8ee2c5e662e
+    section: footer
+    visible: true
+    title:
+      en: Features
+    link:
+      en: /features
+    description:
+      en: Explore product features
+    parent: e9022e7aa8630077-footer
+  - id: a96216a022e66221
+    section: header
+    visible: true
+    title:
+      en: Quick Start
+    link:
+      en: /quick-start
+    description:
+      en: Get started in minutes
+    parent: e9022e7aa8630077-header
+  - id: f2b1e9c6dbf50fc7
+    section: footer
+    visible: true
+    title:
+      en: Quick Start
+    link:
+      en: /quick-start
+    description:
+      en: Get started in minutes
+    parent: e9022e7aa8630077-footer
+  - id: 09300df44b9d20cc
+    section: header
+    visible: true
+    title:
+      en: Enterprise
+    link:
+      en: /enterprise
+    description:
+      en: Solutions for your business
+    parent: e9022e7aa8630077-header
+  - id: 376eaf7d961ff2e8
+    section: footer
+    visible: true
+    title:
+      en: Enterprise
+    link:
+      en: /enterprise
+    description:
+      en: Solutions for your business
+    parent: e9022e7aa8630077-footer
+  - id: 82df41632da47606
+    section: header
+    visible: true
+    title:
+      en: Community
+    link:
+      en: /community
+    description:
+      en: Get help and contribute
+    parent: e9022e7aa8630077-header
+  - id: 3ee47fddc2f753a3
+    section: footer
+    visible: true
+    title:
+      en: Community
+    link:
+      en: /community
+    description:
+      en: Get help and contribute
+    parent: e9022e7aa8630077-footer

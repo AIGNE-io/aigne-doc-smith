@@ -6,7 +6,7 @@
 aigne doc generate
 ```
 
-Terminal playback data: `./generate.json`
+Terminal playback data: `generate.json`
 
 ## Update Docs
 
@@ -14,7 +14,7 @@ Terminal playback data: `./generate.json`
 aigne doc update
 ```
 
-Terminal playback data: `./update.json`
+Terminal playback data: `update.json`
 
 ## Translate Docs
 
@@ -22,7 +22,7 @@ Terminal playback data: `./update.json`
 aigne doc translate
 ```
 
-Terminal playback data: `./translate.json`
+Terminal playback data: `translate.json`
 
 ## Publish Docs
 
@@ -30,4 +30,4 @@ Terminal playback data: `./translate.json`
 aigne doc publish
 ```
 
-Terminal playback data: `./publish.json`
+Terminal playback data: `publish.json`
