@@ -18,9 +18,9 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-14T02:59:49.155Z
-      updatedAt: 2025-10-14T02:59:49.155Z
-      publishedAt: 2025-10-14T02:59:49.155Z
+      createdAt: 2025-10-14T08:16:22.709Z
+      updatedAt: 2025-10-14T08:16:22.709Z
+      publishedAt: 2025-10-14T08:16:22.709Z
       isPublic: true
   - title: Features of AIGNE DocSmith
     path: /features
@@ -41,9 +41,9 @@ sitemap:
     meta:
       file: features.yaml
       id: 69ee505620f7efd5
-      createdAt: 2025-10-14T02:59:49.151Z
-      updatedAt: 2025-10-14T02:59:49.151Z
-      publishedAt: 2025-10-14T02:59:49.151Z
+      createdAt: 2025-10-14T08:16:22.685Z
+      updatedAt: 2025-10-14T08:16:22.685Z
+      publishedAt: 2025-10-14T08:16:22.685Z
       isPublic: true
   - title: Quick Start Guide
     path: /quick-start
@@ -63,9 +63,9 @@ sitemap:
     meta:
       file: quick-start.yaml
       id: 22f6776da30e7065
-      createdAt: 2025-10-14T02:59:49.165Z
-      updatedAt: 2025-10-14T02:59:49.165Z
-      publishedAt: 2025-10-14T02:59:49.165Z
+      createdAt: 2025-10-14T08:16:22.694Z
+      updatedAt: 2025-10-14T08:16:22.694Z
+      publishedAt: 2025-10-14T08:16:22.694Z
       isPublic: true
   - title: Enterprise and Production Use
     path: /enterprise
@@ -87,9 +87,9 @@ sitemap:
     meta:
       file: enterprise.yaml
       id: 8cec7f5a066a0bdf
-      createdAt: 2025-10-14T02:59:49.146Z
-      updatedAt: 2025-10-14T02:59:49.146Z
-      publishedAt: 2025-10-14T02:59:49.146Z
+      createdAt: 2025-10-14T08:16:22.671Z
+      updatedAt: 2025-10-14T08:16:22.671Z
+      publishedAt: 2025-10-14T08:16:22.671Z
       isPublic: true
   - title: Community and Resources
     path: /community
@@ -110,9 +110,9 @@ sitemap:
     meta:
       file: community.yaml
       id: 423f8449a3d5581e
-      createdAt: 2025-10-14T02:59:49.139Z
-      updatedAt: 2025-10-14T02:59:49.139Z
-      publishedAt: 2025-10-14T02:59:49.139Z
+      createdAt: 2025-10-14T08:16:22.702Z
+      updatedAt: 2025-10-14T08:16:22.702Z
+      publishedAt: 2025-10-14T08:16:22.702Z
       isPublic: true
 navigations:
   - id: e9022e7aa8630077-header
