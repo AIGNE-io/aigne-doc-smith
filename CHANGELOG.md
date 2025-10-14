@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.12-beta.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.7...v0.8.12-beta.8) (2025-10-14)
+
+
+### Features
+
+* **media:** support filter and describe and use media files with AI ([#185](https://github.com/AIGNE-io/aigne-doc-smith/issues/185)) ([230271d](https://github.com/AIGNE-io/aigne-doc-smith/commit/230271d70ce2e701be8d6c6e3bdc27f5fadc6cf7))
+
+
+### Bug Fixes
+
+* update evaluate page template ([#182](https://github.com/AIGNE-io/aigne-doc-smith/issues/182)) ([aef2104](https://github.com/AIGNE-io/aigne-doc-smith/commit/aef21049ded2f1ddfe9309dac67d6db1a026d3f6))
+
 ## [0.8.12-beta.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.6...v0.8.12-beta.7) (2025-10-12)
 
 
