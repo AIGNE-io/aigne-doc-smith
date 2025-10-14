@@ -1,0 +1,23 @@
+- title: "AIGNE DocSmith: AI-Powered Documentation Generation"
+  description: "A comprehensive landing page for AIGNE DocSmith, designed to
+    convert visitors by clearly presenting its value. The page is structured
+    with sections including: a hero section with a powerful value proposition
+    and social proof; a 'Why DocSmith?' section highlighting key benefits like
+    intelligent analysis and multi-language support; interactive demos
+    showcasing core commands (generate, update, translate, publish); an overview
+    of features; a simple 'Quick Start' guide for immediate engagement; and
+    details on enterprise-level capabilities and community resources."
+  path: /home
+  navigation:
+    title: Home
+    description: Discover AIGNE DocSmith
+  sourceIds:
+    - README.md
+    - assets/terminal-playback/README.md
+    - assets/terminal-playback/generate.json
+    - assets/terminal-playback/publish.json
+    - assets/terminal-playback/translate.json
+    - assets/terminal-playback/update.json
+    - docs/getting-started.md
+    - docs/overview.md
+  parentId: ""

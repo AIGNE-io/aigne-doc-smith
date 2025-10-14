@@ -1,0 +1,87 @@
+descriptions:
+  9871bff567cc5f1b73e99b84c03781bffc7f531635b9bd40f23a2aee5f9885e5:
+    path: ../../../assets/screenshots/doc-update.png
+    description: A screenshot of a command-line interface (CLI) displaying a prompt
+      to select documents for updating. It features a configuration box
+      detailing API settings for AIGNEHub with a Google Gemini 2.5 Pro model.
+      Below this, a list of documentation topics, including "Overview," "Getting
+      Started," and "API Reference," is presented for user selection.
+    generatedAt: 2025-10-13T13:19:04.511Z
+  5838723847ec201191b002ef7d44937d92386a82755ca7a66374acff6b91325e:
+    path: ../../../assets/screenshots/doc-translate.png
+    description: This screenshot depicts a dark-themed command-line interface (CLI)
+      showing an interactive document translation utility. It displays details
+      of the AI translation provider, AIGNEHub, leveraging the Google
+      Gemini-2.5-pro model. The user is prompted to select documents from a
+      list, with "Overview" currently highlighted, for translation.
+    generatedAt: 2025-10-13T13:19:04.511Z
+  31353781ba6d1572359823faa399af9f5deca7b994f24939cb5f5143fcc96b14:
+    path: ../../../assets/screenshots/doc-translate-langs.png
+    description: This screenshot depicts a command-line interface (CLI) for a
+      document translation tool, powered by the `google/gemini-2.5-pro` model.
+      The user is in the process of selecting translation languages from a list,
+      with options like Simplified Chinese, Japanese, Korean, Spanish, French,
+      and German visible, and Simplified Chinese and Japanese highlighted as
+      selected.
+    generatedAt: 2025-10-13T13:19:04.511Z
+  f786c36289e0e5bfea866c9384edc7d44996c42adfad0cb6f613f46e27f0f2be:
+    path: ../../../assets/screenshots/doc-generate.png
+    description: This image is a screenshot of a command-line interface displaying
+      the interactive setup for "AIGNE DocSmith," a documentation generation
+      tool. It shows initial configuration details, including an AI provider
+      (AIGNEHub) and the Google Gemini 2.5-pro model. The interface then prompts
+      the user to select the primary goal for their documentation, with "Get
+      started quickly" currently highlighted.
+    generatedAt: 2025-10-13T13:19:04.511Z
+  c055a80de6c1120765757fd3ef91ef05718f77beb7d6dfdac41d8e234361a68a:
+    path: ../../../assets/screenshots/doc-generated-successfully.png
+    description: This image is a screenshot of a terminal output showing a
+      successful documentation generation message, indicated by a green
+      checkmark icon. It provides contextual follow-up instructions, including
+      how to publish the documentation using `aigne doc publish` and optional
+      commands like `aigne doc update` or `aigne doc generate` for further
+      refinement. The text is displayed in light gray and yellow against a dark
+      background, indicating steps and commands for a documentation tool.
+    generatedAt: 2025-10-13T13:19:04.511Z
+  ac51399fcd5ba2e36d7c84264dd28624acd10c57aa82f7d006da6f8434cb24de:
+    path: ../../../assets/screenshots/doc-regenerate.png
+    description: This screenshot displays a command-line interface (CLI) showing an
+      automated process for generating and updating documentation. It presents
+      the current documentation structure, prompts the user about optimizing it,
+      and then logs the execution steps of a `generate` command, indicating
+      checks for each document section to determine if it needs an update or
+      generation with associated timestamps. The bottom of the interface also
+      highlights "input tokens" and "agent calls," suggesting an AI or automated
+      system at work.
+    generatedAt: 2025-10-13T13:19:04.511Z
+  a42903e87ae020dcb81991e672b2a2990b94eb0e92d6c1cc87f3bf6223355344:
+    path: ../../../assets/screenshots/doc-publish.png
+    description: 'This screenshot depicts a command-line interface showing the
+      process of publishing documents. It displays API configuration details for
+      a service, followed by a prompt to "Select platform to publish your
+      documents." The user is presented with three options: "DocSmith Cloud"
+      (free hosting), "Your existing website," and "New website" (paid service),
+      with the first option highlighted.'
+    generatedAt: 2025-10-13T13:19:04.511Z
+  44cb2fc222a3dd15fa82f1088d9113b0bb1bfc8b29a0e568a2273d80e8f50a7d:
+    path: ../../../assets/screenshots/doc-complete-setup.png
+    description: 'This image is a screenshot of a command-line interface (CLI)
+      displaying the setup wizard for "AIGNE DocSmith," a documentation tool. It
+      shows a sequence of nine questions prompting the user to define
+      preferences like target audience, content detail, languages, and save
+      location. The first eight steps are marked as completed, while the user is
+      currently at "9/9: Content Sources," being prompted to enter file or
+      folder paths for documentation analysis.'
+    generatedAt: 2025-10-13T13:19:04.511Z
+  2b41c70c6a61942727984b2d99010cbe7e1d9b4c75686f65af8b5a245e9b800d:
+    path: ../../../assets/screenshots/doc-generate-docs.png
+    description: This screenshot depicts a console-like interface showing the
+      automated generation and translation of documentation. It lists the
+      current documentation structure and then outlines a multi-step process for
+      generating content and translating it into different languages using an AI
+      model (Gemini 2.5 Pro), detailing input/output tokens and AIGNE Hub
+      credits consumed for each step. The visual highlights the technical
+      execution of a documentation workflow, including checks for updates and
+      multilingual translation.
+    generatedAt: 2025-10-13T13:19:04.511Z
+lastUpdated: 2025-10-13T13:19:04.513Z
