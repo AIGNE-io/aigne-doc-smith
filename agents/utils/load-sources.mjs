@@ -1,10 +1,12 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import imageSize from "image-size";
 import {
   buildSourcesContent,
   calculateFileStats,
   loadFilesFromPaths,
   readFileContents,
+  getMimeType,
 } from "../../utils/file-utils.mjs";
 import {
   getCurrentGitHead,
@@ -29,8 +31,10 @@ export default async function loadSources({
   useDefaultPatterns = true,
   lastGitHead,
   reset = false,
+  media,
 } = {}) {
   let files = Array.isArray(sources) ? [...sources] : [];
+  const { minImageWidth } = media || { minImageWidth: 800 };
 
   if (sourcesPath) {
     const allFiles = await loadFilesFromPaths(sourcesPath, {
@@ -58,36 +62,102 @@ export default async function loadSources({
     ".bmp",
     ".webp",
     ".svg",
+    ".heic",
+    ".heif",
     ".mp4",
+    ".mpeg",
+    ".mpg",
     ".mov",
     ".avi",
+    ".flv",
     ".mkv",
     ".webm",
+    ".wmv",
     ".m4v",
+    ".3gpp",
   ];
 
   // Separate source files from media files
   const sourceFilesPaths = [];
   const mediaFiles = [];
 
-  for (const file of files) {
-    const ext = path.extname(file).toLowerCase();
+  // Helper function to determine file type from extension
+  const getFileType = (filePath) => {
+    const ext = path.extname(filePath).toLowerCase();
+    const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg", ".heic", ".heif"];
+    const videoExts = [
+      ".mp4",
+      ".mpeg",
+      ".mpg",
+      ".mov",
+      ".avi",
+      ".flv",
+      ".mkv",
+      ".webm",
+      ".wmv",
+      ".m4v",
+      ".3gpp",
+    ];
 
-    if (mediaExtensions.includes(ext)) {
-      // This is a media file
-      const relativePath = path.relative(docsDir, file);
-      const fileName = path.basename(file);
-      const description = path.parse(fileName).name;
+    if (imageExts.includes(ext)) return "image";
+    if (videoExts.includes(ext)) return "video";
+    return "media";
+  };
 
-      mediaFiles.push({
-        name: fileName,
-        path: relativePath,
-        description,
-      });
-    } else {
-      // This is a source file
-      sourceFilesPaths.push(file);
-    }
+  let filteredImageCount = 0;
+
+  await Promise.all(
+    files.map(async (file) => {
+      const ext = path.extname(file).toLowerCase();
+
+      if (mediaExtensions.includes(ext)) {
+        // This is a media file
+        const relativePath = path.relative(docsDir, file);
+        const fileName = path.basename(file);
+        const description = path.parse(fileName).name;
+
+        const mediaItem = {
+          name: fileName,
+          path: relativePath,
+          type: getFileType(relativePath),
+          description,
+          mimeType: getMimeType(file),
+        };
+
+        // For image files, get dimensions and filter by width
+        if (mediaItem.type === "image") {
+          try {
+            const buffer = await readFile(file);
+            const dimensions = imageSize(buffer);
+            mediaItem.width = dimensions.width;
+            mediaItem.height = dimensions.height;
+
+            // Filter out images with width less than minImageWidth
+            if (dimensions.width < minImageWidth) {
+              filteredImageCount++;
+              console.log(
+                `Filtered image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
+              );
+              return;
+            }
+          } catch (err) {
+            console.warn(`⚠️  Failed to get dimensions for ${fileName}: ${err.message}`);
+          }
+        }
+
+        mediaFiles.push(mediaItem);
+      } else {
+        // This is a source file
+        sourceFilesPaths.push(file);
+      }
+    }),
+  );
+
+  // Log summary of filtered images
+  if (filteredImageCount > 0) {
+    console.log(
+      `\nTotal ${filteredImageCount} low-resolution image(s) filtered for better documentation quality (minimum width: ${minImageWidth}px)\n`,
+    );
   }
 
   // Read all source files using the utility function
@@ -179,37 +249,6 @@ export default async function loadSources({
     }
   }
 
-  // Generate assets content from media files
-  let assetsContent = "# Available Media Assets for Documentation\n\n";
-
-  if (mediaFiles.length > 0) {
-    // Helper function to determine file type from extension
-    const getFileType = (filePath) => {
-      const ext = path.extname(filePath).toLowerCase();
-      const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg"];
-      const videoExts = [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"];
-
-      if (imageExts.includes(ext)) return "image";
-      if (videoExts.includes(ext)) return "video";
-      return "media";
-    };
-
-    const mediaYaml = mediaFiles.map((file) => ({
-      name: file.name,
-      path: file.path,
-      type: getFileType(file.path),
-    }));
-
-    assetsContent += "```yaml\n";
-    assetsContent += "assets:\n";
-    mediaYaml.forEach((asset) => {
-      assetsContent += `  - name: "${asset.name}"\n`;
-      assetsContent += `    path: "${asset.path}"\n`;
-      assetsContent += `    type: "${asset.type}"\n`;
-    });
-    assetsContent += "```\n";
-  }
-
   return {
     datasources: allSources,
     content,
@@ -218,7 +257,7 @@ export default async function loadSources({
     modifiedFiles,
     totalTokens,
     totalLines,
-    assetsContent,
+    mediaFiles,
     isLargeContext,
     allFilesPaths,
   };
@@ -280,9 +319,20 @@ loadSources.output_schema = {
       items: { type: "string" },
       description: "Array of modified files since last generation",
     },
-    assetsContent: {
-      type: "string",
-      description: "Markdown content for available media assets",
+    mediaFiles: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          path: { type: "string" },
+          type: { type: "string" },
+          width: { type: "number" },
+          height: { type: "number" },
+          mimeType: { type: "string" },
+        },
+      },
+      description: "Array of media file objects (images/videos)",
     },
   },
 };

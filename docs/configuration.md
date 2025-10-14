@@ -1,96 +1,69 @@
 # Configuration
 
-Proper configuration is essential for tailoring the documentation generation process to your project's specific needs. AIGNE DocSmith uses a primary configuration file and a command-line interface to manage your settings. This setup ensures that the generated documentation accurately reflects your project's goals, target audience, and structural requirements.
+Proper configuration is fundamental to guiding the AIGNE DocSmith tool in generating documentation that aligns with your project's specific needs. This process involves defining project-level settings through a central configuration file and managing personal preferences for fine-tuning the generation process.
 
-This section provides an overview of how to configure the tool. For step-by-step instructions, please refer to the following detailed guides:
+This section provides an overview of how to configure the tool. For detailed, step-by-step instructions, please refer to the specific guides linked below.
 
-<x-cards>
-  <x-card data-title="Initial Setup" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">Learn how to run the interactive setup to create your config.yaml file. This is the recommended first step for any new project.</x-card>
-  <x-card data-title="Managing Preferences" data-icon="lucide:list-checks" data-href="/configuration/managing-preferences">Understand how to view, enable, disable, or delete saved preferences to refine the documentation generation process over time.</x-card>
+<x-cards data-columns="2">
+  <x-card data-title="Initial Setup" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">
+    Follow the interactive setup guide to create the main `config.yaml` file. This is the essential first step for any new documentation project.
+  </x-card>
+  <x-card data-title="Managing Preferences" data-icon="lucide:user-cog" data-href="/configuration/managing-preferences">
+    Learn how to view, enable, disable, or delete personal preferences. These allow you to apply specific rules that can supplement the main project configuration.
+  </x-card>
 </x-cards>
 
-## The `config.yaml` File
+## Understanding the `config.yaml` File
 
-All project-level settings are stored in a file named `config.yaml`, located in the `.aigne/doc-smith/` directory within your project. The `aigne doc init` command creates this file for you through an interactive process. You can also modify this file manually with a text editor to adjust settings at any time.
+The `config.yaml` file serves as the primary source of truth for your documentation project. It is generated during the initial setup process and contains all the core directives that the AI uses to analyze your source code and generate content. A correctly configured file ensures that the output is tailored to your intended audience, purpose, and style.
 
-Below is an example of a `config.yaml` file, with comments explaining each section.
+Below is a breakdown of the key parameters you will find in the `config.yaml` file.
 
-```yaml Example config.yaml icon=logos:yaml
-# Project information for documentation publishing
-projectName: AIGNE DocSmith
-projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the AIGNE Framework. It automates the creation of detailed, structured, and multi-language documentation directly from your source code.
-projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
+### Core Configuration Parameters
 
-# =============================================================================
-# Documentation Configuration
-# =============================================================================
-
-# Purpose: What's the main outcome you want readers to achieve?
-# Available options (uncomment and modify as needed):
-#   getStarted       - Get started quickly: Help new users go from zero to working in <30 minutes
-#   completeTasks    - Complete specific tasks: Guide users through common workflows and use cases
-#   findAnswers      - Find answers fast: Provide searchable reference for all features and APIs
-#   understandSystem - Understand the system: Explain how it works, why design decisions were made
-#   solveProblems    - Solve problems: Help users troubleshoot and fix issues
-#   mixedPurpose     - Mix of above: Comprehensive documentation covering multiple needs
-documentPurpose:
-  - getStarted
-  - completeTasks
-
-# Target Audience: Who will be reading this most often?
-# Available options (uncomment and modify as needed):
-#   endUsers         - End users (non-technical): People who use the product but don't code
-#   developers       - Developers integrating: Engineers adding this to their projects
-#   devops           - DevOps/Infrastructure: Teams deploying, monitoring, maintaining systems
-#   decisionMakers   - Technical decision makers: Architects, leads evaluating or planning implementation
-#   supportTeams     - Support teams: People helping others use the product
-#   mixedTechnical   - Mixed technical audience: Developers, DevOps, and technical users
-targetAudienceTypes:
-  - endUsers
-
-# Reader Knowledge Level: What do readers typically know when they arrive?
-# Available options (uncomment and modify as needed):
-#   completeBeginners    - Complete beginners: New to this domain/technology entirely
-#   domainFamiliar       - Domain-familiar, tool-new: Know the problem space, new to this specific solution
-#   experiencedUsers     - Experienced users: Regular users needing reference/advanced topics
-#   emergencyTroubleshooting - Emergency/troubleshooting: Something's broken, need to fix it quickly
-#   exploringEvaluating  - Exploring/evaluating: Trying to understand if this fits their needs
-readerKnowledgeLevel: completeBeginners
-
-# Documentation Depth: How comprehensive should the documentation be?
-# Available options (uncomment and modify as needed):
-#   essentialOnly      - Essential only: Cover the 80% use cases, keep it concise
-#   balancedCoverage   - Balanced coverage: Good depth with practical examples [RECOMMENDED]
-#   comprehensive      - Comprehensive: Cover all features, edge cases, and advanced scenarios
-#   aiDecide           - Let AI decide: Analyze code complexity and suggest appropriate depth
-documentationDepth: comprehensive
-
-# Custom Rules: Define specific documentation generation rules and requirements
-rules: |
-  Avoid using vague or empty words that don't provide measurable or specific details, such as 'intelligently', 'seamlessly', 'comprehensive', or 'high-quality'. Focus on concrete, verifiable facts and information.
-  Focus on concrete, verifiable facts and information.
-  Must cover all subcommands of DocSmith
-
-# Target Audience: Describe your specific target audience and their characteristics
-targetAudience: |
-
-locale: en
-translateLanguages:
-  - zh
-  - zh-TW
-  - ja
-docsDir: ./docs  # Directory to save generated documentation
-sourcesPath:  # Source code paths to analyze
-  - ./README.md
-  - ./CHANGELOG.md
-  - ./aigne.yaml
-  - ./agents
-  - ./media.md
-  - ./.aigne/doc-smith/config.yaml
-```
+<x-field-group>
+  <x-field data-name="projectName" data-type="string" data-required="true">
+    <x-field-desc markdown>The official name of your project. This will be used in titles and other metadata throughout the documentation.</x-field-desc>
+  </x-field>
+  <x-field data-name="projectDesc" data-type="string" data-required="true">
+    <x-field-desc markdown>A concise, one-sentence description of your project's purpose and functionality.</x-field-desc>
+  </x-field>
+  <x-field data-name="projectLogo" data-type="string" data-required="false">
+    <x-field-desc markdown>A URL pointing to your project's logo image. This will be used for branding the published documentation site.</x-field-desc>
+  </x-field>
+  <x-field data-name="documentPurpose" data-type="array" data-required="true">
+    <x-field-desc markdown>Defines the primary goals of the documentation. Examples include `getStarted` for onboarding guides or `completeTasks` for procedural instructions.</x-field-desc>
+  </x-field>
+  <x-field data-name="targetAudienceTypes" data-type="array" data-required="true">
+    <x-field-desc markdown>Specifies the intended readers. Examples include `endUsers` for non-technical individuals or `developers` for engineers.</x-field-desc>
+  </x-field>
+  <x-field data-name="readerKnowledgeLevel" data-type="string" data-required="true">
+    <x-field-desc markdown>Describes the assumed technical knowledge and background of the target audience, such as `completeBeginners`.</x-field-desc>
+  </x-field>
+  <x-field data-name="documentationDepth" data-type="string" data-required="true">
+    <x-field-desc markdown>Controls the level of detail in the generated content. Options range from `essentialOnly` to `comprehensive`.</x-field-desc>
+  </x-field>
+  <x-field data-name="rules" data-type="string" data-required="false">
+    <x-field-desc markdown>A set of custom instructions, guidelines, or constraints for the AI to follow during the content generation process.</x-field-desc>
+  </x-field>
+  <x-field data-name="locale" data-type="string" data-required="true">
+    <x-field-desc markdown>The primary language code for the documentation, such as `en` for English.</x-field-desc>
+  </x-field>
+  <x-field data-name="translateLanguages" data-type="array" data-required="false">
+    <x-field-desc markdown>A list of language codes into which the primary documentation should be translated, for example, `zh` (Chinese) or `ja` (Japanese).</x-field-desc>
+  </x-field>
+  <x-field data-name="docsDir" data-type="string" data-required="true">
+    <x-field-desc markdown>The local directory path where the generated documentation files will be saved.</x-field-desc>
+  </x-field>
+  <x-field data-name="sourcesPath" data-type="array" data-required="true">
+    <x-field-desc markdown>A list of source files, directories, or glob patterns that the tool should analyze to generate documentation.</x-field-desc>
+  </x-field>
+</x-field-group>
 
 ## Summary
 
-With your configuration in place, the tool will have a clear understanding of your project, audience, and documentation goals, resulting in more accurate and relevant content.
+A well-defined configuration is essential for producing accurate, relevant, and effective documentation. By completing the initial setup and understanding the `config.yaml` file, you establish a solid foundation for all documentation tasks.
 
-To begin setting up your project, proceed to the [Initial Setup](./configuration-initial-setup.md) guide.
+To proceed with configuring your project, please refer to the following guides:
+*   **[Initial Setup](./configuration-initial-setup.md)**: Create your project's `config.yaml` file.
+*   **[Managing Preferences](./configuration-managing-preferences.md)**: Customize the tool's behavior with personal rules.

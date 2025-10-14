@@ -1,96 +1,69 @@
 # 配置
 
-合理的配置对于根据项目的具体需求定制文档生成过程至关重要。AIGNE DocSmith 使用一个主配置文件和命令行界面来管理您的设置。这种设置确保了生成的文档能够准确反映您的项目目标、目标受众和结构要求。
+正确的配置是指导 AIGNE DocSmith 工具生成符合项目特定需求的文档的基础。该过程涉及通过中央配置文件定义项目级设置，以及管理个人偏好以微调生成过程。
 
-本节概述了如何配置该工具。有关分步说明，请参阅以下详细指南：
+本节概述了如何配置该工具。有关详细的分步说明，请参阅下面链接的具体指南。
 
-<x-cards>
-  <x-card data-title="初始设置" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">了解如何运行交互式设置来创建您的 config.yaml 文件。这是任何新项目的推荐第一步。</x-card>
-  <x-card data-title="管理偏好设置" data-icon="lucide:list-checks" data-href="/configuration/managing-preferences">了解如何查看、启用、禁用或删除已保存的偏好设置，以便随着时间的推移优化文档生成过程。</x-card>
+<x-cards data-columns="2">
+  <x-card data-title="初始设置" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">
+    遵循交互式设置指南创建主 `config.yaml` 文件。这是任何新文档项目必不可少的第一步。
+  </x-card>
+  <x-card data-title="管理偏好设置" data-icon="lucide:user-cog" data-href="/configuration/managing-preferences">
+    了解如何查看、启用、禁用或删除个人偏好设置。这些设置允许您应用特定规则来补充主项目配置。
+  </x-card>
 </x-cards>
 
-## `config.yaml` 文件
+## 理解 `config.yaml` 文件
 
-所有项目级别的设置都存储在名为 `config.yaml` 的文件中，该文件位于您项目中的 `.aigne/doc-smith/` 目录内。`aigne doc init` 命令通过一个交互式过程为您创建此文件。您也可以随时使用文本编辑器手动修改此文件以调整设置。
+`config.yaml` 文件是您文档项目的主要可信来源。它在初始设置过程中生成，包含了 AI 用来分析源代码和生成内容的所有核心指令。正确配置的文件可确保输出内容符合您预期的受众、目的和风格。
 
-以下是一个 `config.yaml` 文件的示例，其中包含解释每个部分的注释。
+以下是您将在 `config.yaml` 文件中找到的关键参数的分解说明。
 
-```yaml Example config.yaml icon=logos:yaml
-# 用于文档发布的项目信息
-projectName: AIGNE DocSmith
-projectDesc: AIGNE DocSmith 是一款功能强大、由 AI 驱动的文档生成工具，构建于 AIGNE 框架之上。它可以直接从您的源代码中自动创建详细、结构化和多语言的文档。
-projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
+### 核心配置参数
 
-# =============================================================================
-# 文档配置
-# =============================================================================
-
-# 目的：您希望读者实现的主要成果是什么？
-# 可用选项（取消注释并根据需要修改）：
-#   getStarted       - 快速入门：帮助新用户在 30 分钟内从零开始上手
-#   completeTasks    - 完成特定任务：引导用户了解常见工作流程和用例
-#   findAnswers      - 快速查找答案：为所有功能和 API 提供可搜索的参考
-#   understandSystem - 理解系统：解释其工作原理以及做出设计决策的原因
-#   solveProblems    - 解决问题：帮助用户排查和修复问题
-#   mixedPurpose     - 多种目的混合：涵盖多种需求的综合文档
-documentPurpose:
-  - getStarted
-  - completeTasks
-
-# 目标受众：谁会最常阅读这些文档？
-# 可用选项（取消注释并根据需要修改）：
-#   endUsers         - 最终用户（非技术人员）：使用产品但不编码的人
-#   developers       - 集成开发者：将此添加到其项目中的工程师
-#   devops           - DevOps/基础设施：部署、监控、维护系统的团队
-#   decisionMakers   - 技术决策者：评估或规划实施的架构师、负责人
-#   supportTeams     - 支持团队：帮助他人使用产品的人
-#   mixedTechnical   - 混合技术受众：开发者、DevOps 和技术用户
-targetAudienceTypes:
-  - endUsers
-
-# 读者知识水平：读者通常具备哪些知识？
-# 可用选项（取消注释并根据需要修改）：
-#   completeBeginners    - 完全初学者：完全不熟悉该领域/技术
-#   domainFamiliar       - 熟悉领域，但工具是新的：了解问题领域，但对这个特定解决方案不熟悉
-#   experiencedUsers     - 经验丰富的用户：需要参考/高级主题的常规用户
-#   emergencyTroubleshooting - 紧急/故障排除：出现问题，需要快速修复
-#   exploringEvaluating  - 探索/评估：试图了解这是否满足他们的需求
-readerKnowledgeLevel: completeBeginners
-
-# 文档深度：文档应有多全面？
-# 可用选项（取消注释并根据需要修改）：
-#   essentialOnly      - 仅包含基本内容：覆盖 80% 的用例，保持简洁
-#   balancedCoverage   - 平衡覆盖：具有适当深度和实际示例 [推荐]
-#   comprehensive      - 全面：覆盖所有功能、边缘情况和高级场景
-#   aiDecide           - 让 AI 决定：分析代码复杂性并建议适当的深度
-documentationDepth: comprehensive
-
-# 自定义规则：定义具体的文档生成规则和要求
-rules: |
-  避免使用模糊或空洞的词语，这些词语无法提供可衡量或具体的细节，例如‘智能地’、‘无缝地’、‘全面地’或‘高质量地’。专注于具体、可验证的事实和信息。
-  专注于具体、可验证的事实和信息。
-  必须覆盖 DocSmith 的所有子命令
-
-# 目标受众：描述您的具体目标受众及其特征
-targetAudience: |
-
-locale: en
-translateLanguages:
-  - zh
-  - zh-TW
-  - ja
-docsDir: ./docs  # 保存生成文档的目录
-sourcesPath:  # 要分析的源代码路径
-  - ./README.md
-  - ./CHANGELOG.md
-  - ./aigne.yaml
-  - ./agents
-  - ./media.md
-  - ./.aigne/doc-smith/config.yaml
-```
+<x-field-group>
+  <x-field data-name="projectName" data-type="string" data-required="true">
+    <x-field-desc markdown>您项目的官方名称。该名称将用于整个文档的标题和其他元数据中。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectDesc" data-type="string" data-required="true">
+    <x-field-desc markdown>关于您项目目的和功能的简明单句描述。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectLogo" data-type="string" data-required="false">
+    <x-field-desc markdown>指向您项目徽标图像的 URL。该 URL 将用于已发布文档网站的品牌塑造。</x-field-desc>
+  </x-field>
+  <x-field data-name="documentPurpose" data-type="array" data-required="true">
+    <x-field-desc markdown>定义文档的主要目标。示例包括用于入门指南的 `getStarted` 或用于流程说明的 `completeTasks`。</x-field-desc>
+  </x-field>
+  <x-field data-name="targetAudienceTypes" data-type="array" data-required="true">
+    <x-field-desc markdown>指定预期的读者。示例包括非技术人员的 `endUsers` 或工程师的 `developers`。</x-field-desc>
+  </x-field>
+  <x-field data-name="readerKnowledgeLevel" data-type="string" data-required="true">
+    <x-field-desc markdown>描述目标受众假定的技术知识和背景，例如 `completeBeginners`。</x-field-desc>
+  </x-field>
+  <x-field data-name="documentationDepth" data-type="string" data-required="true">
+    <x-field-desc markdown>控制生成内容的详细程度。选项范围从 `essentialOnly` 到 `comprehensive`。</x-field-desc>
+  </x-field>
+  <x-field data-name="rules" data-type="string" data-required="false">
+    <x-field-desc markdown>一组供 AI 在内容生成过程中遵循的自定义指令、指南或约束。</x-field-desc>
+  </x-field>
+  <x-field data-name="locale" data-type="string" data-required="true">
+    <x-field-desc markdown>文档的主要语言代码，例如 `en` 代表英语。</x-field-desc>
+  </x-field>
+  <x-field data-name="translateLanguages" data-type="array" data-required="false">
+    <x-field-desc markdown>主要文档应翻译成的语言代码列表，例如 `zh`（中文）或 `ja`（日语）。</x-field-desc>
+  </x-field>
+  <x-field data-name="docsDir" data-type="string" data-required="true">
+    <x-field-desc markdown>用于保存生成的文档文件的本地目录路径。</x-field-desc>
+  </x-field>
+  <x-field data-name="sourcesPath" data-type="array" data-required="true">
+    <x-field-desc markdown>工具为生成文档而应分析的源文件、目录或 glob 模式的列表。</x-field-desc>
+  </x-field>
+</x-field-group>
 
 ## 总结
 
-完成配置后，该工具将清楚地了解您的项目、受众和文档目标，从而生成更准确、更相关的内容。
+定义良好的配置对于生成准确、相关且有效的文档至关重要。通过完成初始设置并理解 `config.yaml` 文件，您为所有文档任务奠定了坚实的基础。
 
-要开始设置您的项目，请继续阅读[初始设置](./configuration-initial-setup.md)指南。
+要继续配置您的项目，请参阅以下指南：
+*   **[初始设置](./configuration-initial-setup.md)**：创建您项目的 `config.yaml` 文件。
+*   **[管理偏好设置](./configuration-managing-preferences.md)**：使用个人规则自定义工具的行为。

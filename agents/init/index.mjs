@@ -418,6 +418,10 @@ export function generateYAML(input) {
     // Paths
     docsDir: input.docsDir || "./aigne/doc-smith/docs",
     sourcesPath: input.sourcesPath || [],
+    media: {
+      // Image filtering settings
+      minImageWidth: input.minImageWidth || 800,
+    },
   };
 
   // Generate comments and structure
@@ -529,6 +533,12 @@ export function generateYAML(input) {
 
   const sourcesPathSection = yamlStringify({ sourcesPath: config.sourcesPath }).trim();
   yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # Source code paths to analyze")}\n`;
+
+  // Image filtering settings
+  const mediaInfoSection = yamlStringify({
+    media: config.media,
+  }).trim();
+  yaml += `# minImageWidth: Only images wider than this value (in pixels) will be used in page generation\n${mediaInfoSection}\n`;
 
   return yaml;
 }
