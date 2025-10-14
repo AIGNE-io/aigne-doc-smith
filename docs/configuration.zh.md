@@ -1,105 +1,69 @@
 # 配置
 
-合理的配置是根据您项目的具体需求定制文档生成过程的基础。AIGNE DocSmith 使用一个主配置文件进行项目范围的设置，并使用一个单独的命令来管理个人偏好。这种方法确保生成的文档能准确地与您的项目目标、目标受众和结构需求保持一致。
+正确的配置是指导 AIGNE DocSmith 工具生成符合项目特定需求的文档的基础。该过程涉及通过中央配置文件定义项目级设置，以及管理个人偏好以微调生成过程。
 
-本节对配置过程进行了高层次的概述。有关详细的分步说明，请参阅以下指南：
+本节概述了如何配置该工具。有关详细的分步说明，请参阅下面链接的具体指南。
 
-<x-cards>
-  <x-card data-title="初始设置" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">学习如何运行交互式设置来创建您的 config.yaml 文件。这是任何新项目的推荐首要步骤。</x-card>
-  <x-card data-title="管理偏好设置" data-icon="lucide:list-checks" data-href="/configuration/managing-preferences">了解如何查看、启用、禁用或删除已保存的偏好设置，以便随着时间的推移优化文档生成过程。</x-card>
+<x-cards data-columns="2">
+  <x-card data-title="初始设置" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">
+    遵循交互式设置指南创建主 `config.yaml` 文件。这是任何新文档项目必不可少的第一步。
+  </x-card>
+  <x-card data-title="管理偏好设置" data-icon="lucide:user-cog" data-href="/configuration/managing-preferences">
+    了解如何查看、启用、禁用或删除个人偏好设置。这些设置允许您应用特定规则来补充主项目配置。
+  </x-card>
 </x-cards>
 
-## `config.yaml` 文件
+## 理解 `config.yaml` 文件
 
-所有项目级别的设置都存储在名为 `config.yaml` 的文件中，该文件位于您项目的 `.aigne/doc-smith/` 目录中。`aigne doc init` 命令通过一个交互式的引导过程为您创建此文件。您也可以随时使用文本编辑器手动修改此文件以调整设置。
+`config.yaml` 文件是您文档项目的主要可信来源。它在初始设置过程中生成，包含了 AI 用来分析源代码和生成内容的所有核心指令。正确配置的文件可确保输出内容符合您预期的受众、目的和风格。
 
-以下是一个 `config.yaml` 文件示例，其中包含解释每个配置选项的注释。
+以下是您将在 `config.yaml` 文件中找到的关键参数的分解说明。
 
-```yaml config.yaml icon=logos:yaml
-# 用于文档发布的项目信息
-projectName: AIGNE DocSmith
-projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the AIGNE Framework. It automates the creation of detailed, structured, and multi-language documentation directly from your source code.
-projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
+### 核心配置参数
 
-# =============================================================================
-# 文档配置
-# =============================================================================
-
-# 目的：您希望读者达成的核心成果是什么？
-# 可用选项：getStarted, completeTasks, findAnswers, understandSystem, solveProblems, mixedPurpose
-documentPurpose:
-  - getStarted
-  - completeTasks
-
-# 目标受众：谁会最常阅读这份文档？
-# 可用选项：endUsers, developers, devops, decisionMakers, supportTeams, mixedTechnical
-targetAudienceTypes:
-  - endUsers
-
-# 读者知识水平：读者在阅读文档时通常具备哪些知识？
-# 可用选项：completeBeginners, domainFamiliar, experiencedUsers, emergencyTroubleshooting, exploringEvaluating
-readerKnowledgeLevel: completeBeginners
-
-# 文档深度：文档应达到何种程度的全面性？
-# 可用选项：essentialOnly, balancedCoverage, comprehensive, aiDecide
-documentationDepth: comprehensive
-
-# 自定义规则：定义具体的文档生成规则和要求
-rules: |
-  避免使用模糊或空洞的词语，这些词语无法提供可衡量或具体的细节，例如“智能地”、“无缝地”、“全面地”或“高质量地”。专注于具体、可验证的事实和信息。
-  专注于具体、可验证的事实和信息。
-  必须涵盖 DocSmith 的所有子命令
-
-# 目标受众：详细描述您的特定目标受众及其特征
-targetAudience: |
-  
-# 术语表：定义项目特定的术语和定义
-# glossary: "@glossary.md"  # 包含术语表定义的 Markdown 文件路径
-
-# 文档的主要语言
-locale: en
-
-# 用于翻译的其他语言列表
-translateLanguages:
-  - zh
-  - zh-TW
-  - ja
-
-# 生成的文档将被保存的目录
-docsDir: ./docs
-
-# 用于分析以生成文档的源代码路径
-sourcesPath:
-  - ./README.md
-  - ./CHANGELOG.md
-  - ./aigne.yaml
-  - ./agents
-  - ./.aigne/doc-smith/config.yaml
-
-# =============================================================================
-# 媒体设置
-# =============================================================================
-
-# 图像质量筛选：只有宽度大于此值的图像才会被包含
-# 这有助于通过筛选掉低分辨率图像来保持文档质量
-# 推荐值：一般文档为 800px，高质量文档为 1200px
-media:
-  minImageWidth: 800
-```
-
-## 管理用户偏好设置
-
-除了项目范围的 `config.yaml` 文件外，您还可以管理个人偏好设置，以根据您的特定需求微调 AI 的行为。这些偏好设置存储在本地，可以被激活、停用或移除，而不会更改项目的配置文件。
-
-偏好设置使用 `aigne doc prefs` 命令进行管理，该命令支持以下操作：
-*   `--list`：查看所有已保存的偏好设置及其状态（激活/未激活）。
-*   `--remove`：删除一个或多个已保存的偏好设置。
-*   `--toggle`：启用或禁用特定的偏好设置。
-
-有关使用这些命令的完整指南，请参阅[管理偏好设置](./configuration-managing-preferences.md)。
+<x-field-group>
+  <x-field data-name="projectName" data-type="string" data-required="true">
+    <x-field-desc markdown>您项目的官方名称。该名称将用于整个文档的标题和其他元数据中。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectDesc" data-type="string" data-required="true">
+    <x-field-desc markdown>关于您项目目的和功能的简明单句描述。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectLogo" data-type="string" data-required="false">
+    <x-field-desc markdown>指向您项目徽标图像的 URL。该 URL 将用于已发布文档网站的品牌塑造。</x-field-desc>
+  </x-field>
+  <x-field data-name="documentPurpose" data-type="array" data-required="true">
+    <x-field-desc markdown>定义文档的主要目标。示例包括用于入门指南的 `getStarted` 或用于流程说明的 `completeTasks`。</x-field-desc>
+  </x-field>
+  <x-field data-name="targetAudienceTypes" data-type="array" data-required="true">
+    <x-field-desc markdown>指定预期的读者。示例包括非技术人员的 `endUsers` 或工程师的 `developers`。</x-field-desc>
+  </x-field>
+  <x-field data-name="readerKnowledgeLevel" data-type="string" data-required="true">
+    <x-field-desc markdown>描述目标受众假定的技术知识和背景，例如 `completeBeginners`。</x-field-desc>
+  </x-field>
+  <x-field data-name="documentationDepth" data-type="string" data-required="true">
+    <x-field-desc markdown>控制生成内容的详细程度。选项范围从 `essentialOnly` 到 `comprehensive`。</x-field-desc>
+  </x-field>
+  <x-field data-name="rules" data-type="string" data-required="false">
+    <x-field-desc markdown>一组供 AI 在内容生成过程中遵循的自定义指令、指南或约束。</x-field-desc>
+  </x-field>
+  <x-field data-name="locale" data-type="string" data-required="true">
+    <x-field-desc markdown>文档的主要语言代码，例如 `en` 代表英语。</x-field-desc>
+  </x-field>
+  <x-field data-name="translateLanguages" data-type="array" data-required="false">
+    <x-field-desc markdown>主要文档应翻译成的语言代码列表，例如 `zh`（中文）或 `ja`（日语）。</x-field-desc>
+  </x-field>
+  <x-field data-name="docsDir" data-type="string" data-required="true">
+    <x-field-desc markdown>用于保存生成的文档文件的本地目录路径。</x-field-desc>
+  </x-field>
+  <x-field data-name="sourcesPath" data-type="array" data-required="true">
+    <x-field-desc markdown>工具为生成文档而应分析的源文件、目录或 glob 模式的列表。</x-field-desc>
+  </x-field>
+</x-field-group>
 
 ## 总结
 
-通过正确配置 `config.yaml` 并管理您的个人偏好，您可以为工具提供关于项目、受众和文档目标的明确指令。这将生成更准确、更相关的内容。
+定义良好的配置对于生成准确、相关且有效的文档至关重要。通过完成初始设置并理解 `config.yaml` 文件，您为所有文档任务奠定了坚实的基础。
 
-要开始设置您的项目，请继续阅读[初始设置](./configuration-initial-setup.md)指南。
+要继续配置您的项目，请参阅以下指南：
+*   **[初始设置](./configuration-initial-setup.md)**：创建您项目的 `config.yaml` 文件。
+*   **[管理偏好设置](./configuration-managing-preferences.md)**：使用个人规则自定义工具的行为。
