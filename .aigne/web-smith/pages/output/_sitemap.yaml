@@ -3,11 +3,11 @@ sitemap:
     path: /home
     locales:
       en:
-        title: AIGNE DocSmith | AI-Powered Documentation Generation for Your Codebase
-        description: Instantly generate, translate, and publish comprehensive
-          documentation with AIGNE DocSmith. Our AI understands your code to
-          create accurate, multi-language docs that stay automatically updated.
-          Get started in minutes!
+        title: "AIGNE DocSmith: AI-Powered Documentation that Understands Your Code"
+        description: Generate comprehensive, multi-language documentation automatically
+          with AIGNE DocSmith. Our AI analyzes your code to create docs that are
+          always up-to-date. Try it now!
+        image: mediakit://doc-regenerate.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -18,9 +18,9 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-14T08:16:22.709Z
-      updatedAt: 2025-10-14T08:16:22.709Z
-      publishedAt: 2025-10-14T08:16:22.709Z
+      createdAt: 2025-10-14T10:31:07.870Z
+      updatedAt: 2025-10-14T10:31:07.870Z
+      publishedAt: 2025-10-14T10:31:07.870Z
       isPublic: true
   - title: Features of AIGNE DocSmith
     path: /features
@@ -41,9 +41,9 @@ sitemap:
     meta:
       file: features.yaml
       id: 69ee505620f7efd5
-      createdAt: 2025-10-14T08:16:22.685Z
-      updatedAt: 2025-10-14T08:16:22.685Z
-      publishedAt: 2025-10-14T08:16:22.685Z
+      createdAt: 2025-10-14T10:31:07.863Z
+      updatedAt: 2025-10-14T10:31:07.863Z
+      publishedAt: 2025-10-14T10:31:07.863Z
       isPublic: true
   - title: Quick Start Guide
     path: /quick-start
@@ -63,9 +63,9 @@ sitemap:
     meta:
       file: quick-start.yaml
       id: 22f6776da30e7065
-      createdAt: 2025-10-14T08:16:22.694Z
-      updatedAt: 2025-10-14T08:16:22.694Z
-      publishedAt: 2025-10-14T08:16:22.694Z
+      createdAt: 2025-10-14T10:31:07.878Z
+      updatedAt: 2025-10-14T10:31:07.878Z
+      publishedAt: 2025-10-14T10:31:07.878Z
       isPublic: true
   - title: Enterprise and Production Use
     path: /enterprise
@@ -87,9 +87,9 @@ sitemap:
     meta:
       file: enterprise.yaml
       id: 8cec7f5a066a0bdf
-      createdAt: 2025-10-14T08:16:22.671Z
-      updatedAt: 2025-10-14T08:16:22.671Z
-      publishedAt: 2025-10-14T08:16:22.671Z
+      createdAt: 2025-10-14T10:31:07.858Z
+      updatedAt: 2025-10-14T10:31:07.858Z
+      publishedAt: 2025-10-14T10:31:07.858Z
       isPublic: true
   - title: Community and Resources
     path: /community
@@ -110,9 +110,9 @@ sitemap:
     meta:
       file: community.yaml
       id: 423f8449a3d5581e
-      createdAt: 2025-10-14T08:16:22.702Z
-      updatedAt: 2025-10-14T08:16:22.702Z
-      publishedAt: 2025-10-14T08:16:22.702Z
+      createdAt: 2025-10-14T10:31:07.852Z
+      updatedAt: 2025-10-14T10:31:07.852Z
+      publishedAt: 2025-10-14T10:31:07.852Z
       isPublic: true
 navigations:
   - id: e9022e7aa8630077-header
