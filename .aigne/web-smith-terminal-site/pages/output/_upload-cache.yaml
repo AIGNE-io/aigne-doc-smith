@@ -1,0 +1,24 @@
+9871bff567cc5f1b73e99b84c03781bffc7f531635b9bd40f23a2aee5f9885e5:
+  local_path: assets/screenshots/doc-update.png
+  sites:
+    https://staging.websmith.aigne.io:
+      url: https://staging.websmith.aigne.io/image-bin/uploads/9871bff567cc5f1b.png
+      upload_time: 2025-10-14T11:08:33.866Z
+31353781ba6d1572359823faa399af9f5deca7b994f24939cb5f5143fcc96b14:
+  local_path: assets/screenshots/doc-translate-langs.png
+  sites:
+    https://staging.websmith.aigne.io:
+      url: https://staging.websmith.aigne.io/image-bin/uploads/31353781ba6d1572.png
+      upload_time: 2025-10-14T11:08:34.022Z
+2b41c70c6a61942727984b2d99010cbe7e1d9b4c75686f65af8b5a245e9b800d:
+  local_path: assets/screenshots/doc-generate-docs.png
+  sites:
+    https://staging.websmith.aigne.io:
+      url: https://staging.websmith.aigne.io/image-bin/uploads/2b41c70c6a619427.png
+      upload_time: 2025-10-14T11:08:35.238Z
+f786c36289e0e5bfea866c9384edc7d44996c42adfad0cb6f613f46e27f0f2be:
+  local_path: assets/screenshots/doc-generate.png
+  sites:
+    https://staging.websmith.aigne.io:
+      url: https://staging.websmith.aigne.io/image-bin/uploads/f786c36289e0e5bf.png
+      upload_time: 2025-10-14T11:08:44.792Z
