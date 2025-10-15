@@ -30,6 +30,7 @@ export default async function publishDocs(
     projectName,
     projectDesc,
     projectLogo,
+    metaTranslation,
     "with-branding": withBrandingOption,
   },
   options,
@@ -161,6 +162,7 @@ export default async function publishDocs(
     process.env.DOC_ROOT_DIR = docsDir;
 
     const sidebarPath = join(docsDir, "_sidebar.md");
+    const publishCacheFilePath = join(DOC_SMITH_DIR, "upload-cache.yaml");
 
     // Get project info from config
     const projectInfo = {
@@ -212,6 +214,9 @@ export default async function publishDocs(
         ...(config?.translateLanguages || []),
       ].filter((lang, index, arr) => arr.indexOf(lang) === index), // Remove duplicates
     };
+    if (metaTranslation) {
+      boardMeta.translation = metaTranslation;
+    }
 
     const {
       success,
@@ -228,7 +233,7 @@ export default async function publishDocs(
       boardDesc: projectInfo.description,
       boardCover: projectInfo.icon,
       mediaFolder: rawDocsDir,
-      cacheFilePath: join(DOC_SMITH_DIR, "upload-cache.yaml"),
+      cacheFilePath: publishCacheFilePath,
       boardMeta,
     });
 

@@ -1122,7 +1122,7 @@ export async function resolveFileReferences(obj, basePath = process.cwd()) {
  * @param {string} basePath - Base path for resolving relative paths
  * @returns {Promise<any>} - The loaded content or original path if loading fails
  */
-async function loadFileContent(filePath, basePath) {
+export async function loadFileContent(filePath, basePath) {
   try {
     // Resolve path - if absolute, use as is; if relative, resolve from basePath
     const resolvedPath = path.isAbsolute(filePath) ? filePath : path.resolve(basePath, filePath);
