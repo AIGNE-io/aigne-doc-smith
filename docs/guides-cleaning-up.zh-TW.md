@@ -1,51 +1,52 @@
 # 清理
 
-`aigne doc clear` 指令提供了一個直接的方法來移除生成的檔案、快取資料和配置設定。當您想要重設您的文件專案、從乾淨的狀態開始，或解決與過時或損壞檔案相關的問題時，這個指令非常有用。
+`aigne doc clear` 指令提供了一種系統化的方法，可從您的專案中移除產生的檔案、快取資料和組態設定。當您需要重設文件工作區、從乾淨的狀態開始，或解決可能由過期檔案引起的問題時，這是一個實用的步驟。
 
 ## 互動式清理
 
-使用此指令最簡單的方法是不帶任何參數直接執行：
+為了進行受控且精確的清理，建議的程序是不帶任何參數執行此指令。
 
 ```bash
 aigne doc clear
 ```
 
-執行此指令將啟動一個互動式提示，讓您精確選擇要移除的項目。這是大多數使用情境下的建議方法，因為它為每個選項提供了清晰的說明，並能防止意外的資料遺失。
+此操作會啟動一個互動式提示，列出所有可用的清理選項。每個選項都會附有清晰的功能說明，讓您可以選擇要移除的確切項目。這種互動式方法可以防止意外刪除重要資料。
 
-## 清理目標
+## 清理選項
 
-`clear` 指令可以移除幾種不同類型的資料。下表詳細說明了每個可用的目標、其功能以及它所影響的特定檔案或目錄。
+`clear` 指令可以移除數種不同類型的資料。下表詳細說明了每個可用選項、其功能以及所影響的特定檔案或目錄。
 
-| Target | 說明 | 受影響的檔案與目錄 |
+| 選項 | 說明 | 受影響的檔案和目錄 |
 | :--- | :--- | :--- |
-| `generatedDocs` | 刪除您輸出目錄中所有已生成的檔案，但保留文件結構計畫。 | 您設定中 `docsDir` 所指定的目錄。 |
-| `documentStructure` | 刪除所有已生成的檔案和文件結構計畫，有效地重設您的文件內容。 | `.aigne/doc-smith/output/structure-plan.json` 檔案和 `docsDir` 目錄。 |
-| `documentConfig` | 刪除專案的設定檔。此操作後，您將需要重新執行 `aigne doc init`。 | `.aigne/doc-smith/config.yaml` 檔案。 |
-| `authTokens` | 移除已儲存的發布網站授權權杖。系統將提示您選擇要清除哪些網站。 | 您家目錄中的 `~/.aigne/doc-smith-connected.yaml` 檔案。 |
-| `deploymentConfig` | 從您的設定檔中刪除 `appUrl`。 | `.aigne/doc-smith/config.yaml` 檔案。 |
+| `generatedDocs` | 刪除位於輸出目錄中的所有已產生文件。文件結構計畫將被保留。 | 您組態中由 `docsDir` 指定的目錄。 |
+| `documentStructure` | 刪除所有已產生的文件和文件結構計畫。此操作會重設所有文件內容。 | `.aigne/doc-smith/output/structure-plan.json` 檔案和 `docsDir` 目錄。 |
+| `documentConfig` | 刪除專案的組態檔。執行此操作後，必須執行 `aigne doc init` 來建立新的組態。 | `.aigne/doc-smith/config.yaml` 檔案。 |
+| `authTokens` | 移除已儲存的發布網站授權權杖。系統將提示您選擇要清除哪些網站的授權。 | 位於您家目錄中的 `~/.aigne/doc-smith-connected.yaml` 檔案。 |
+| `deploymentConfig` | 僅從您的組態檔中移除 `appUrl` 設定，其他設定保持不變。 | `.aigne/doc-smith/config.yaml` 檔案。 |
+| `mediaDescription` | 刪除媒體檔案的 AI 生成快取描述。這些描述將在下次建置文件時重新生成。 | `.aigne/doc-smith/cache/media-description.json` 檔案。 |
 
 ## 非互動式清理
 
-對於自動化腳本或偏好使用命令列的使用者，您可以使用 `--targets` 旗標直接指定一個或多個要清除的目標。這將繞過互動式提示。
+對於在自動化腳本中使用，或偏好直接進行命令列操作的使用者，您可以使用 `--targets` 旗標指定一個或多個清理目標。這會繞過互動式提示，並立即執行清理。
 
-### 清除單一目標
+### 清理單一選項
 
-若要僅清除已生成的檔案，請使用以下指令：
+若要僅移除已產生的文件，請執行以下指令：
 
 ```bash
 aigne doc clear --targets generatedDocs
 ```
 
-### 清除多個目標
+### 清理多個選項
 
-您可以提供多個目標名稱來一次清除多個項目。例如，若要同時移除文件設定和文件結構，請執行：
+您可以提供一個以空格分隔的目標名稱列表，以一次移除多個項目。例如，若要同時刪除文件組態和文件結構，請執行以下指令：
 
 ```bash
 aigne doc clear --targets documentConfig documentStructure
 ```
 
-清除您的設定後，您可以再次執行設定流程以重新開始。
+清除組態後，您可以開始新的設定流程。
 
 ---
 
-有關初始設定的更多資訊，請參閱 [初始設定](./configuration-initial-setup.md) 指南。
+關於建立新組態的詳細說明，請參閱 [初始設定](./configuration-initial-setup.md) 指南。

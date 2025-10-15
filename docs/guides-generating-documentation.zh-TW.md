@@ -1,151 +1,89 @@
 # 產生文件
 
-本指南提供了一套系統化程序，可從您的專案原始檔案建立一套完整的文件。此程序透過 `aigne doc generate` 指令啟動，該指令會分析您的程式碼庫、提出邏輯結構，然後為每份文件撰寫內容。
+本指南提供使用 `generate` 指令為您的專案建立一套新文件的逐步流程。這是從頭到尾將您的原始檔案轉換為結構化文件的主要指令。
 
-此指令是初次建立文件的主要工具。若要在文件建立後進行修改，請參閱 [更新文件](./guides-updating-documentation.md) 指南。
+產生過程設計為系統化且互動式，確保最終產出符合您專案的特定需求。
 
-### 產生工作流程
+## 產生流程
 
-`generate` 指令會執行一系列自動化步驟來建置您的文件。此程序設計為互動式，讓您能在內容撰寫前審閱並批准建議的結構。
+當您執行 `aigne doc generate` 時，該工具會遵循一個有條理的流程來建立您的文件。以下是每個步驟的詳細說明。
 
-```d2
-direction: down
+### 步驟 1：啟動產生程序
 
-start: {
-  label: "開始"
-  shape: oval
-}
+首先，在您的終端機中導覽至專案的根目錄，並執行核心指令。
 
-run_command: {
-  label: "執行 'aigne doc generate'"
-  shape: rectangle
-}
-
-check_config: {
-  label: "設定檔是否存在？"
-  shape: diamond
-}
-
-interactive_setup: {
-  label: "引導進行互動式設定"
-  shape: rectangle
-  tooltip: "若找不到 .aigne/doc-smith/config.yaml，將觸發互動式設定。"
-}
-
-propose_structure: {
-  label: "分析專案並提出文件結構"
-  shape: rectangle
-}
-
-review_structure: {
-  label: "使用者審閱建議的結構"
-  shape: rectangle
-}
-
-user_approve: {
-  label: "批准結構？"
-  shape: diamond
-}
-
-provide_feedback: {
-  label: "提供回饋以完善結構"
-  shape: rectangle
-  tooltip: "使用者可以要求變更，例如重新命名、新增或移除章節。"
-}
-
-generate_content: {
-  label: "為所有文件生成內容"
-  shape: rectangle
-}
-
-end: {
-  label: "結束"
-  shape: oval
-}
-
-start -> run_command
-run_command -> check_config
-check_config -> interactive_setup: {
-  label: "否"
-}
-interactive_setup -> propose_structure
-check_config -> propose_structure: {
-  label: "是"
-}
-propose_structure -> review_structure
-review_structure -> user_approve
-user_approve -> provide_feedback: {
-  label: "否"
-}
-provide_feedback -> review_structure
-user_approve -> generate_content: {
-  label: "是"
-}
-generate_content -> end
-```
-
-## 逐步流程
-
-若要產生您的文件，請在終端機中導覽至您專案的根目錄，並依照下列步驟操作。
-
-### 1. 執行 Generate 指令
-
-執行 `generate` 指令以開始此程序。工具將首先分析您專案的檔案與結構。
-
-```bash 基本產生指令
+```bash title="終端機" icon=lucide:terminal
 aigne doc generate
 ```
 
-為求簡潔，您也可以使用別名 `gen` 或 `g`。
+這個單一指令會啟動整個文件建立工作流程。如果您是第一次執行該指令，系統將引導您完成一個互動式的設定過程。
 
-### 2. 審閱文件結構
+![產生文件對話框](https://docsmith.aigne.io/image-bin/uploads/d409b85c2c7760778c18251e06d997d9.png)
 
-分析完成後，工具將顯示建議的文件結構，並提示您進行審閱：
+### 步驟 2：程式碼分析與結構規劃
 
+首先，DocSmith 會分析您的原始程式碼，以了解其結構、元件和關聯。基於此分析，它會提出一個初步的文件結構。這個計畫將主題組織成一個邏輯層次結構，可能包括「入門指南」、「指南」和「API 參考」等部分，並根據您專案的內容量身打造。
+
+### 步驟 3：互動式結構審查
+
+在初步結構規劃完成後，系統會提示您在終端機中進行審查。這是一個關鍵步驟，讓您在內容撰寫前，可以完善文件的組織架構。
+
+您可以直接批准該結構，或以自然語言提供回饋以進行變更。
+
+![審查文件結構](https://docsmith.aigne.io/image-bin/uploads/c530510525d8041c304d9c0258169904.png)
+
+您可以提供的回饋範例如下：
+
+*   重新命名一個章節（例如，將「入門指南」改為「快速入門」）。
+*   為「疑難排解」新增一份文件。
+*   移除一份不需要的文件。
+*   重新排序章節，將「API 參考」放在「設定」之前。
+
+該工具將套用您的回饋，並呈現更新後的結構供您再次審查。您可以重複此過程，直到結構完全符合您的要求。
+
+### 步驟 4：內容建立
+
+一旦您批准最終結構，DocSmith 就會開始為每份文件產生詳細內容。它會讀取相關的原始檔案，並為每個規劃好的章節撰寫清晰的解釋、程式碼範例和描述。此過程會對已批准計畫中的所有文件執行。
+
+### 步驟 5：完成
+
+當流程完成時，您會看到一條確認訊息，表示文件已成功產生。輸出檔案將位於您設定中指定的目錄（預設為 `./docs`）。
+
+![文件成功產生](https://docsmith.aigne.io/image-bin/uploads/19c72054cd662d51259e8f668571891e.png)
+
+## 指令選項
+
+您可以使用可選的旗標來修改 `generate` 指令的行為。這些旗標能讓您對產生過程有更多的控制權。
+
+| 選項 | 說明 |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--forceRegenerate` | 從頭開始重新建立所有文件，忽略任何現有檔案。如果您對原始程式碼進行了重大變更，或想要一個全新的建置，這個選項很有用。 |
+| `--glossary <path>` | 指定一個詞彙表檔案（例如，`--glossary @glossary.md`）。這能確保技術術語在所有產生的文件中被一致地定義和使用。 |
+
+### 使用範例
+
+以下是一些展示如何使用該指令及其選項的範例。
+
+**標準產生**
+這是建立初始文件集最常見的使用案例。
+```bash title="終端機" icon=lucide:terminal
+aigne doc generate
 ```
-Would you like to optimize the documentation structure?
-❯ No, looks good
-  Yes, optimize the structure (e.g. rename 'Getting Started' to 'Quick Start', move 'API Reference' before 'Configuration')
-```
 
--   **不，看起來不錯**：選擇此選項可批准建議的結構，並直接進入內容產生階段。
--   **是的，最佳化結構**：選擇此選項可修改計畫。工具接著會以互動式循環徵詢您的回饋。您可以用純文字提供指令，例如：
-    -   `新增一份名為「疑難排解」的文件`
-    -   `移除「舊版功能」文件`
-    -   `將「安裝」移至結構頂部`
-
-    在每次回饋後，AI 將會修訂結構，您可以再次審閱。若要結束循環並批准最終結構，直接按下 Enter 鍵，不輸入任何回饋即可。
-
-### 3. 內容產生
-
-文件結構一經批准，DocSmith 將開始為計畫中的每份文件產生詳細內容。此過程會自動執行，其持續時間取決於您專案的規模與複雜度。
-
-完成後，產生的檔案將儲存至您設定中指定的輸出目錄（例如 `./docs`）。
-
-## 指令參數
-
-`generate` 指令接受數個選用參數以控制其行為。
-
-| 參數 | 說明 | 範例 |
-|---|---|---|
-| `--forceRegenerate` | 從頭開始重建所有文件，忽略任何現有的結構或內容。當您想要完全重置時，此選項非常有用。 | `aigne doc generate --forceRegenerate` |
-| `--feedback` | 在互動式審閱開始前，提供初始的文字指令，以在結構產生階段指導 AI。 | `aigne doc generate --feedback "新增更多 API 範例"` |
-| `--glossary` | 指定一個詞彙表檔案（例如 glossary.md），以確保在整個文件中術語使用的一致性。 | `aigne doc generate --glossary @/path/to/glossary.md` |
-
-### 範例：強制完整重建
-
-如果您想捨棄所有先前產生的文件，並根據您程式碼的當前狀態建立一套新的文件，請使用 `--forceRegenerate` 旗標。
-
-```bash 強制重新產生
+**強制重新產生**
+當您需要捨棄所有現有文件並完全重新建置時，請使用此指令。
+```bash title="終端機" icon=lucide:terminal
 aigne doc generate --forceRegenerate
+```
+
+**使用詞彙表**
+為確保術語一致，請提供您的詞彙表檔案路徑。
+```bash title="終端機" icon=lucide:terminal
+aigne doc generate --glossary @./glossary.md
 ```
 
 ## 總結
 
-`generate` 指令統籌了建立您初始專案文件的整個過程。它結合了自動化程式碼分析與互動式審閱流程，以產出一套結構化且相關的文件。
+您現在已經學會從專案原始檔案產生文件的完整流程。此工作流程包括啟動指令、互動式審查建議的結構，以及讓工具撰寫內容。
 
-文件產生後，您可能會想：
-
--   [更新文件](./guides-updating-documentation.md)：對特定文件進行變更。
--   [翻譯文件](./guides-translating-documentation.md)：將您的內容翻譯成其他語言。
--   [發布您的文件](./guides-publishing-your-docs.md)：將您的文件發布上線。
+產生文件後，您的下一步可能是用新資訊[更新特定文件](./guides-updating-documentation.md)，或[發布您的文件](./guides-publishing-your-docs.md)，讓您的讀者可以存取。

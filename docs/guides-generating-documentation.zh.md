@@ -1,151 +1,89 @@
 # 生成文档
 
-本指南提供了从项目源文件创建一套完整文档的系统化流程。该流程通过 `aigne doc generate` 命令启动，该命令会分析你的代码库，提出一个逻辑结构，然后为每个文档编写内容。
+本指南提供了使用 `generate` 命令为您的项目创建一套新文档的分步流程。这是从头到尾将源文件转换为结构化文档集所使用的主要命令。
 
-该命令是初次创建文档的主要工具。如需在文档创建后进行修改，请参阅[更新文档](./guides-updating-documentation.md)指南。
+生成过程被设计为系统化和交互式的，确保最终输出满足您项目的特定需求。
 
-### 生成工作流
+## 生成过程
 
-`generate` 命令会执行一系列自动化步骤来构建你的文档。该流程设计为交互式，允许你在内容写入前审查并批准建议的结构。
+当您运行 `aigne doc generate` 时，该工具会遵循一个有条不紊的过程来创建您的文档。以下是每个步骤的分解说明。
 
-```d2
-direction: down
+### 步骤 1：启动生成
 
-start: {
-  label: "开始"
-  shape: oval
-}
+首先，在您的终端中导航到项目的根目录，并执行核心命令。
 
-run_command: {
-  label: "运行 'aigne doc generate'"
-  shape: rectangle
-}
-
-check_config: {
-  label: "配置文件是否存在？"
-  shape: diamond
-}
-
-interactive_setup: {
-  label: "引导进行交互式设置"
-  shape: rectangle
-  tooltip: "如果未找到 .aigne/doc-smith/config.yaml，则会触发交互式设置。"
-}
-
-propose_structure: {
-  label: "分析项目并提出文档结构"
-  shape: rectangle
-}
-
-review_structure: {
-  label: "用户审查建议的结构"
-  shape: rectangle
-}
-
-user_approve: {
-  label: "批准结构？"
-  shape: diamond
-}
-
-provide_feedback: {
-  label: "提供反馈以优化结构"
-  shape: rectangle
-  tooltip: "用户可以请求更改，例如重命名、添加或删除章节。"
-}
-
-generate_content: {
-  label: "为所有文档生成内容"
-  shape: rectangle
-}
-
-end: {
-  label: "结束"
-  shape: oval
-}
-
-start -> run_command
-run_command -> check_config
-check_config -> interactive_setup: {
-  label: "否"
-}
-interactive_setup -> propose_structure
-check_config -> propose_structure: {
-  label: "是"
-}
-propose_structure -> review_structure
-review_structure -> user_approve
-user_approve -> provide_feedback: {
-  label: "否"
-}
-provide_feedback -> review_structure
-user_approve -> generate_content: {
-  label: "是"
-}
-generate_content -> end
-```
-
-## 分步流程
-
-要生成文档，请在终端中导航到项目的根目录，并按照以下步骤操作。
-
-### 1. 运行生成命令
-
-执行 `generate` 命令以开始此过程。该工具将首先分析你项目的文件和结构。
-
-```bash 基本生成命令
+```bash title="终端" icon=lucide:terminal
 aigne doc generate
 ```
 
-为简洁起见，你也可以使用别名 `gen` 或 `g`。
+这个单一的命令会启动整个文档创建工作流。如果是您第一次运行该命令，系统将引导您完成一个交互式的设置过程。
 
-### 2. 审查文档结构
+![生成文档对话框](https://docsmith.aigne.io/image-bin/uploads/d409b85c2c7760778c18251e06d997d9.png)
 
-分析完成后，该工具将显示建议的文档结构并提示你进行审查：
+### 步骤 2：代码分析与结构规划
 
+首先，DocSmith 会分析您的源代码以理解其结构、组件和关系。基于此分析，它会提出一个初步的文档结构。该计划将主题组织成一个逻辑层次结构，其中可能包括“入门指南”、“指南”和“API 参考”等部分，这些都是根据您项目的内容量身定制的。
+
+### 步骤 3：交互式结构审查
+
+在初步结构规划完成后，系统会提示您在终端中进行审查。这是一个关键步骤，让您可以在内容编写之前完善文档的组织结构。
+
+您可以直接批准该结构，也可以用自然语言提供反馈以进行更改。
+
+![审查文档结构](https://docsmith.aigne.io/image-bin/uploads/c530510525d8041c304d9c0258169904.png)
+
+您可以提供的反馈示例：
+
+*   重命名一个部分（例如，将“入门指南”更改为“快速入门”）。
+*   为“故障排除”添加一个新文档。
+*   移除不需要的文档。
+*   重新排序各部分，将“API 参考”放在“配置”之前。
+
+该工具将应用您的反馈并呈现更新后的结构供您再次审查。您可以重复此过程，直到结构完全符合您的要求。
+
+### 步骤 4：内容创建
+
+一旦您批准了最终结构，DocSmith 就会着手为每个文档生成详细内容。它会读取相关的源文件，并为每个计划好的部分编写清晰的解释、代码示例和描述。此过程将对已批准计划中的所有文档执行。
+
+### 步骤 5：完成
+
+当过程完成时，您将看到一条确认消息，表明文档已成功生成。输出文件将位于您在配置中指定的目录中（默认为 `./docs`）。
+
+![文档成功生成](https://docsmith.aigne.io/image-bin/uploads/19c72054cd662d51259e8f668571891e.png)
+
+## 命令选项
+
+您可以使用可选标志来修改 `generate` 命令的行为。这些标志提供了对生成过程的更多控制。
+
+| 选项 | 描述 |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--forceRegenerate` | 从头开始重新创建所有文档，忽略任何现有文件。当您对源代码进行了重大更改或希望进行一次全新的构建时，此选项非常有用。 |
+| `--glossary <path>` | 指定一个术语表文件（例如，`--glossary @glossary.md`）。这可以确保技术术语在所有生成的文档中得到一致的定义和使用。 |
+
+### 用法示例
+
+以下是一些演示如何使用该命令及其选项的示例。
+
+**标准生成**
+这是创建初始文档集最常见的用例。
+```bash title="终端" icon=lucide:terminal
+aigne doc generate
 ```
-你希望优化文档结构吗？
-❯ 不，看起来不错
-  是的，优化结构（例如，将“入门指南”重命名为“快速入门”，将“API 参考”移至“配置”之前）
-```
 
--   **不，看起来不错**：选择此选项以批准建议的结构，并直接进入内容生成阶段。
--   **是的，优化结构**：选择此选项以修改计划。该工具将在一个交互式循环中征求你的反馈。你可以用纯文本提供指令，例如：
-    -   `添加一个新文档“故障排除”`
-    -   `删除“旧版功能”文档`
-    -   `将“安装”移动到结构顶部`
-
-    在每次反馈后，AI 将修订结构，你可以再次审查。不输入任何反馈直接按 Enter 键即可退出循环并批准最终结构。
-
-### 3. 内容生成
-
-文档结构一经批准，DocSmith 将开始为计划中的每个文档生成详细内容。此过程自动运行，其持续时间取决于项目的规模和复杂性。
-
-完成后，生成的文件将保存到你在配置中指定的输出目录（例如 `./docs`）。
-
-## 命令参数
-
-`generate` 命令接受几个可选参数以控制其行为。
-
-| 参数 | 描述 | 示例 |
-|---|---|---|
-| `--forceRegenerate` | 从头开始重建所有文档，忽略任何现有结构或内容。当你想要完全重置时，此选项非常有用。 | `aigne doc generate --forceRegenerate` |
-| `--feedback` | 在交互式审查开始前，提供基于文本的初始指令，以在结构生成阶段指导 AI。 | `aigne doc generate --feedback "添加更多 API 示例"` |
-| `--glossary` | 指定一个术语表文件（例如 `glossary.md`），以确保在整个文档中术语使用的一致性。 | `aigne doc generate --glossary @/path/to/glossary.md` |
-
-### 示例：强制完全重建
-
-如果你想丢弃所有先前生成的文档，并根据代码的当前状态创建一套新文档，请使用 `--forceRegenerate` 标志。
-
-```bash 强制重新生成
+**强制重新生成**
+当您需要丢弃所有现有文档并完全重新构建它们时，请使用此命令。
+```bash title="终端" icon=lucide:terminal
 aigne doc generate --forceRegenerate
+```
+
+**使用术语表**
+为确保术语一致，请提供术语表文件的路径。
+```bash title="终端" icon=lucide:terminal
+aigne doc generate --glossary @./glossary.md
 ```
 
 ## 总结
 
-`generate` 命令协调了创建初始项目文档的整个过程。它将自动代码分析与交互式审查过程相结合，以生成一套结构化且相关的文档。
+您现在已经了解了从项目源文件生成文档的完整过程。此工作流包括启动命令、交互式审查建议的结构，以及让工具编写内容。
 
-文档生成后，你可能希望：
-
--   [更新文档](./guides-updating-documentation.md)：对特定文档进行更改。
--   [翻译文档](./guides-translating-documentation.md)：将你的内容翻译成其他语言。
--   [发布你的文档](./guides-publishing-your-docs.md)：将你的文档在线发布。
+生成文档后，您的后续步骤可能是[更新特定文档](./guides-updating-documentation.md)以添加新信息，或[发布您的文档](./guides-publishing-your-docs.md)以供您的受众访问。
