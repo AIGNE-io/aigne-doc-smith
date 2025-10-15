@@ -1,61 +1,16 @@
-<user_locale>
-{{ locale }}
-</user_locale>
-
-
-<user_rules>
-{{ rules }}
-
-** Output content in {{ locale }} language **
-</user_rules>
-
-
-{% set operation_type = "generating" %}
-{% include "../../common/document/user-preferences.md" %}
-
-
-<datasources>
-{{ detailDataSources }}
-
-{{ additionalInformation }}
-
-<media_list>
-{{ assetsContent }}
-</media_list>
-
-{% include "../../common/document/media-handling-rules.md" %}
-
-</datasources>
-
-
-{% include "./detail-example.md" %}
-
-
-{% if content %}
-Content from previous generation:
-<last_content>
-{{content}}
-</last_content>
-{% endif %}
-
-
 {% if detailFeedback %}
 <content_review_feedback>
 {{ detailFeedback }}
 </content_review_feedback>
 {% endif %}
 
-
-{% include "../../common/afs/afs-tools-usage.md" %}
-
-{% include "../d2-diagram/guide.md" %}
+<user_feedback>
+{{feedback}}
+</user_feedback>
 
 <instructions>
-Generate detailed document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), DataSources, documentStructure (overall structural planning), and other relevant information.
+Generate detailed and well-structured document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), DataSources, documentStructure (overall structural planning), and other relevant information  and the following rules and constraints:
 
-{% include "../../common/afs/use-afs-instruction.md" %}
-
-Use generateDiagram tool to create and embed diagrams as per the diagram generation rules provided.
-
-{{feedback}}
+- Use AFS tools (afs_list/afs_search/afs_read) to gather relevant and accurate information to enhance the content.
+- Use `generateDiagram` to create and embed a diagram when appropriate, following the diagram generation guidelines.
 </instructions>

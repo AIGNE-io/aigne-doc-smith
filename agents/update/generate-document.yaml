@@ -3,8 +3,11 @@ description: Comprehensive content generator for documentation that creates deta
 instructions:
   - role: system
     url: ../../prompts/detail/generate/system-prompt.md
+  - role: system
+    url: ../../prompts/detail/generate/system-prompt-tools.md
   - role: user
     url: ../../prompts/detail/generate/user-prompt.md
+auto_reorder_system_messages: true
 input_schema:
   type: object
   properties:
