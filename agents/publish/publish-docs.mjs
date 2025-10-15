@@ -30,7 +30,7 @@ export default async function publishDocs(
     projectName,
     projectDesc,
     projectLogo,
-    metaTranslation,
+    translatedMetadata,
     "with-branding": withBrandingOption,
   },
   options,
@@ -214,8 +214,8 @@ export default async function publishDocs(
         ...(config?.translateLanguages || []),
       ].filter((lang, index, arr) => arr.indexOf(lang) === index), // Remove duplicates
     };
-    if (metaTranslation) {
-      boardMeta.translation = metaTranslation;
+    if (translatedMetadata) {
+      boardMeta.translation = translatedMetadata;
     }
 
     const {

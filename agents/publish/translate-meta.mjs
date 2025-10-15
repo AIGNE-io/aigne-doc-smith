@@ -49,7 +49,7 @@ export default async function translateMeta({ projectName, projectDesc, locale }
     }),
   });
   if (titleLanguages.length > 0 || descLanguages.length > 0) {
-    const metaTranslation = await options.context.invoke(agent, {
+    const translatedMetadata = await options.context.invoke(agent, {
       message: `Translate the following title and description into all target languages except the source language. Provide the translations in a JSON object with the language codes as keys. If the project title or description is empty, return an empty string for that field.
 
 Project Title: ${projectName || ""}
@@ -78,14 +78,14 @@ If no translation is needed, respond with:
   "desc": {}
 }`,
     });
-    Object.keys(metaTranslation.title || {}).forEach((lang) => {
-      if (metaTranslation.title[lang]) {
-        titleTranslation[lang] = metaTranslation.title[lang];
+    Object.keys(translatedMetadata.title || {}).forEach((lang) => {
+      if (translatedMetadata.title[lang]) {
+        titleTranslation[lang] = translatedMetadata.title[lang];
       }
     });
-    Object.keys(metaTranslation.desc || {}).forEach((lang) => {
-      if (metaTranslation.desc[lang]) {
-        descTranslation[lang] = metaTranslation.desc[lang];
+    Object.keys(translatedMetadata.desc || {}).forEach((lang) => {
+      if (translatedMetadata.desc[lang]) {
+        descTranslation[lang] = translatedMetadata.desc[lang];
       }
     });
   }
@@ -97,6 +97,6 @@ If no translation is needed, respond with:
   await fs.writeFile(translationCacheFilePath, yamlStringify(saveResult), { encoding: "utf8" });
 
   return {
-    metaTranslation: saveResult,
+    translatedMetadata: saveResult,
   };
 }
