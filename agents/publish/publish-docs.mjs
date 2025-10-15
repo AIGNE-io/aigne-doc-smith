@@ -244,6 +244,7 @@ export default async function publishDocs(
         await saveValueToConfig("boardId", newBoardId);
       }
       message = `✅ Documentation published successfully!`;
+      await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
     } else {
       // If the error is 401 or 403, it means the access token is invalid
       if (error?.includes("401") || error?.includes("403")) {
@@ -265,7 +266,6 @@ export default async function publishDocs(
     }
   }
 
-  await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
   return message ? { message } : {};
 }
 
