@@ -47,6 +47,16 @@ export function isGlobPattern(pattern) {
   return /[*?[\]]|(\*\*)/.test(pattern);
 }
 
+/**
+ * Check if a string is an HTTP/HTTPS URL
+ * @param {string} url - The string to check
+ * @returns {boolean} - True if the string starts with http:// or https://
+ */
+export function isHttp(url) {
+  if (typeof url !== "string") return false;
+  return url.startsWith("http://") || url.startsWith("https://");
+}
+
 export function processContent({ content }) {
   // Match markdown regular links [text](link), exclude images ![text](link)
   return content.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g, (match, text, link) => {

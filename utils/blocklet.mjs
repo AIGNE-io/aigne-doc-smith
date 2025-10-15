@@ -52,6 +52,11 @@ export async function getComponentInfo(appUrl) {
   return config;
 }
 
+export async function getBlockletMetaDid(appUrl) {
+  const config = await getComponentInfo(appUrl);
+  return config.did;
+}
+
 export async function getComponentMountPoint(appUrl, did) {
   const config = await getComponentInfo(appUrl);
 

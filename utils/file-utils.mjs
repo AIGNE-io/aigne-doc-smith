@@ -599,3 +599,30 @@ export function getMediaDescriptionCachePath() {
   const cwd = process.cwd();
   return path.join(cwd, ".aigne", "doc-smith", "media-description.yaml");
 }
+
+/**
+ * Get file extension (without dot) from content type
+ * Handles content types with parameters (e.g., "image/jpeg; charset=utf-8")
+ * @param {string} contentType - Content type string
+ * @returns {string} File extension without dot
+ */
+export function getExtnameFromContentType(contentType) {
+  if (!contentType) return "";
+  const base = String(contentType).split(";")[0].trim().toLowerCase();
+
+  const mimeToExt = {
+    "image/jpeg": "jpg",
+    "image/jpg": "jpg",
+    "image/png": "png",
+    "image/gif": "gif",
+    "image/webp": "webp",
+    "image/svg+xml": "svg",
+    "image/heic": "heic",
+    "image/heif": "heif",
+  };
+
+  if (mimeToExt[base]) return mimeToExt[base];
+
+  const parts = base.split("/");
+  return parts[1] || "";
+}

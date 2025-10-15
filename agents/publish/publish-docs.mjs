@@ -1,10 +1,12 @@
-import { basename, join } from "node:path";
-
+import { basename, extname, join, relative } from "node:path";
+import slugify from "slugify";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import fs from "fs-extra";
 
+import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
+import { isHttp } from "../../utils/utils.mjs";
 import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 import {
   CLOUD_SERVICE_URL_PROD,
@@ -16,14 +18,24 @@ import {
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+import updateBranding from "../utils/update-branding.mjs";
 
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 
 export default async function publishDocs(
-  { docsDir: rawDocsDir, appUrl, boardId, projectName, projectDesc, projectLogo },
+  {
+    docsDir: rawDocsDir,
+    appUrl,
+    boardId,
+    projectName,
+    projectDesc,
+    projectLogo,
+    "with-branding": withBrandingOption,
+  },
   options,
 ) {
   let message;
+  let shouldWithBranding = withBrandingOption || false;
 
   try {
     // move work dir to tmp-dir
@@ -119,6 +131,12 @@ export default async function publishDocs(
         // Ensure appUrl has protocol
         appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
       } else if (["new-instance", "new-instance-continue"].includes(choice)) {
+        if (options?.prompts?.confirm) {
+          shouldWithBranding = await options.prompts.confirm({
+            message: "Upload project branding (title, description, logo) to the website?",
+            default: true,
+          });
+        }
         // Deploy a new Discuss Kit service
         let id = "";
         let paymentUrl = "";
@@ -150,6 +168,39 @@ export default async function publishDocs(
       description: projectDesc || config?.projectDesc || "",
       icon: projectLogo || config?.projectLogo || "",
     };
+
+    // Handle project logo download if it's a URL
+    if (projectInfo.icon && isHttp(projectInfo.icon)) {
+      const tempFilePath = join(docsDir, slugify(basename(projectInfo.icon)));
+      const initialExt = extname(projectInfo.icon);
+      let ext = initialExt;
+
+      try {
+        const response = await fetch(projectInfo.icon);
+        const blob = await response.blob();
+        const arrayBuffer = await blob.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        if (response.ok) {
+          if (!ext) {
+            const contentType = response.headers.get("content-type");
+            ext = getExtnameFromContentType(contentType);
+          }
+
+          const finalPath = ext ? `${tempFilePath}.${ext}` : tempFilePath;
+          fs.writeFileSync(finalPath, buffer);
+
+          // Update to relative path
+          projectInfo.icon = relative(join(process.cwd(), DOC_SMITH_DIR), finalPath);
+        }
+      } catch (error) {
+        console.warn(`Failed to download project logo: ${error.message}`);
+      }
+    }
+
+    if (shouldWithBranding) {
+      updateBranding({ appUrl, projectInfo, accessToken });
+    }
 
     // Construct boardMeta object
     const boardMeta = {
@@ -233,6 +284,22 @@ publishDocs.input_schema = {
     boardId: {
       type: "string",
       description: "The id of the board",
+    },
+    "with-branding": {
+      type: "boolean",
+      description: "Upload project branding (title, description, logo) to website",
+    },
+    projectName: {
+      type: "string",
+      description: "The name of the project",
+    },
+    projectDesc: {
+      type: "string",
+      description: "The description of the project",
+    },
+    projectLogo: {
+      type: "string",
+      description: "The logo/icon of the project",
     },
   },
 };
