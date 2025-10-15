@@ -7,36 +7,7 @@ import pRetry from "p-retry";
 
 import { getComponentMountPoint } from "./blocklet.mjs";
 import { DISCUSS_KIT_DID } from "./constants/index.mjs";
-
-/**
- * Get MIME type from filename extension
- */
-function getMimeType(filename) {
-  const ext = path.extname(filename).toLowerCase();
-  const mimeTypes = {
-    ".jpg": "image/jpeg",
-    ".jpeg": "image/jpeg",
-    ".png": "image/png",
-    ".gif": "image/gif",
-    ".svg": "image/svg+xml",
-    ".webp": "image/webp",
-    ".heic": "image/heic",
-    ".heif": "image/heif",
-    ".mp4": "video/mp4",
-    ".webm": "video/webm",
-    ".mp3": "audio/mpeg",
-    ".wav": "audio/wav",
-    ".pdf": "application/pdf",
-    ".txt": "text/plain",
-    ".json": "application/json",
-    ".xml": "application/xml",
-    ".html": "text/html",
-    ".css": "text/css",
-    ".js": "application/javascript",
-  };
-
-  return mimeTypes[ext] || "application/octet-stream";
-}
+import { getMimeType } from "./file-utils.mjs";
 
 /**
  * Perform single file upload
