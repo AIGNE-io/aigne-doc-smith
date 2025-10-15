@@ -1,83 +1,83 @@
 # 翻译文档
 
-本指南介绍如何使用 `aigne doc translate` 命令将您生成的文档翻译成多种语言。该过程利用 AI 来确保翻译能够感知上下文并保持技术准确性。
+DocSmith 使您能够将文档翻译成多种语言，从而让全球受众都能访问您的内容。翻译过程设计得简单明了，利用人工智能提供上下文感知和技术上准确的翻译。本指南详细介绍了使用 `translate` 命令翻译文档的步骤。
 
-该工具支持 12 种语言，让您的内容能够触达全球受众。您源文档的主要语言将自动从可用翻译语言列表中排除。
+DocSmith 支持 12 种语言的专业翻译，确保为国际用户提供广泛的覆盖范围。
 
-## `translate` 命令
+## 如何翻译文档
 
-`aigne doc translate` 命令用于为现有文档文件生成翻译。您可以以交互方式运行它来选择要翻译的文档和语言，也可以直接使用命令行标志指定这些选项以实现自动化工作流程。
+翻译的主要命令是 `aigne doc translate`。您可以以交互方式运行它来选择您想要的文档和语言，也可以使用命令行标志直接指定这些选项以实现自动化工作流程。
 
 ### 交互模式
 
-如需引导式体验，请不带任何参数运行该命令：
+要获得引导式体验，只需运行不带任何参数的命令。
 
 ```bash
 aigne doc translate
 ```
 
-执行后，该工具将执行以下步骤：
-1.  扫描现有文档。
-2.  提示您从列表中选择要翻译的具体文档。
-3.  提示您选择目标翻译语言。为方便起见，先前选择的语言将被预先勾选。
-4.  为每个选定的文档和语言对开始翻译过程。
-5.  将翻译后的文件保存在同一目录中。新文件通过在原始文件名后附加语言代码来命名（例如，`overview.md` 的中文翻译将变为 `overview.zh.md`）。
+该工具将提示您：
+1.  从现有文档列表中**选择**您希望翻译的**文档**。
+2.  **选择**翻译的**目标语言**。为方便起见，先前选择的语言将被预先勾选。
 
-### 命令行选项
+![执行翻译命令](../assets/screenshots/doc-translate.png)
 
-对于非交互式使用或脚本编写，您可以使用以下命令行标志来控制翻译过程。
+选择文档后，您将看到一个可用语言的列表。
+
+![选择翻译语言](../assets/screenshots/doc-translate-langs.png)
+
+一旦您确认选择，DocSmith 将继续将每个文档翻译成每种选定的语言。
+
+### 命令行用法
+
+为了更直接的控制或在脚本中使用，您可以使用标志来指定您的要求。
+
+```bash
+aigne doc translate [options]
+```
+
+#### 选项
+
+`translate` 命令提供以下选项：
 
 <x-field-group>
-  <x-field data-name="--docs" data-type="array<string>">
-    <x-field-desc markdown>指定要翻译的一个或多个文档路径。如果未提供，该工具将进入交互模式，让您从可用文档列表中进行选择。</x-field-desc>
+  <x-field data-name="--docs" data-type="array" data-required="false">
+    <x-field-desc markdown>指定一个或多个要翻译的文档路径。如果未提供，系统将提示您以交互方式从列表中选择。</x-field-desc>
   </x-field>
-  <x-field data-name="--langs" data-type="array<string>">
-    <x-field-desc markdown>指定一个或多个目标语言代码（例如 `zh`、`ja`）。如果省略，系统将提示您以交互方式选择语言。</x-field-desc>
+  <x-field data-name="--langs" data-type="array" data-required="false">
+    <x-field-desc markdown>指定一个或多个目标语言代码（例如 `zh`、`ja`）。如果未提供，您可以在交互模式下选择语言。</x-field-desc>
   </x-field>
-  <x-field data-name="--glossary" data-type="string">
-    <x-field-desc markdown>提供词汇表文件的路径（例如 `@path/to/glossary.md`）。这可以确保特定技术术语在所有文档中得到一致的翻译。</x-field-desc>
+  <x-field data-name="--glossary" data-type="string" data-required="false">
+    <x-field-desc markdown>术语表文件的路径（例如 `@/path/to/glossary.md`），以确保所有翻译中的术语一致性。</x-field-desc>
   </x-field>
-  <x-field data-name="--feedback" data-type="string">
-    <x-field-desc markdown>提供具体说明或反馈以指导 AI 的翻译风格，例如调整语气或术语。</x-field-desc>
+  <x-field data-name="--feedback" data-type="string" data-required="false">
+    <x-field-desc markdown>提供具体说明或反馈以指导 AI 的翻译风格（例如，“使用正式语气，技术术语保留英文”）。此反馈会记录在文档的历史记录中。</x-field-desc>
   </x-field>
 </x-field-group>
 
-### 用法示例
+#### 示例
 
-#### 1. 将特定文档翻译成多种语言
-
-要将 `overview.md` 和 `examples.md` 翻译成中文（`zh`）和日文（`ja`），且无需交互式提示：
+要将 `overview.md` 和 `getting-started.md` 文档翻译成中文和日文，您需要运行以下命令：
 
 ```bash
-aigne doc translate --docs overview.md --docs examples.md --langs zh --langs ja
+aigne doc translate --docs /overview --docs /getting-started --langs zh ja
 ```
 
-#### 2. 使用词汇表确保术语一致
-
-为确保技术术语翻译正确，请提供词汇表文件。这对于保持品牌名称或专业词汇的一致性非常有用。
+要提供风格反馈并确保术语一致，您可以添加 `--feedback` 和 `--glossary` 标志：
 
 ```bash
-aigne doc translate --glossary @./glossary.md
+aigne doc translate --docs /overview --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
 ```
-
-#### 3. 提供反馈以优化翻译风格
-
-您可以通过提供反馈来指导翻译风格。例如，要求使用更正式的语气：
-
-```bash
-aigne doc translate --feedback "Use a formal, technical tone for all translations."
-```
-
-此反馈将被记录在更新后文档的历史记录中。
 
 ## 支持的语言
 
-该工具支持 12 种语言的翻译。文档的母语是英语（`en`）。
+DocSmith 为以下 12 种语言提供专业翻译。通过 `--langs` 标志指定语言时，请使用相应的代码。
 
 | 语言 | 代码 |
-| :--- | :--- |
-| 中文（简体） | `zh` |
-| 中文（繁体）| `zh-TW`|
+|---|---|
+| 英语 | `en` |
+| 简体中文 | `zh` |
+| 繁體中文 | `zh-TW` |
 | 日语 | `ja` |
 | 韩语 | `ko` |
 | 西班牙语 | `es` |
@@ -90,6 +90,6 @@ aigne doc translate --feedback "Use a formal, technical tone for all translation
 
 ## 总结
 
-`translate` 命令为本地化文档提供了一种结构化方法。您可以使用其交互模式进行引导式翻译，或使用命令行选项实现自动化工作流程。使用词汇表和反馈等功能有助于保持翻译内容的质量和一致性。
+现在您已经学会了如何使用 `aigne doc translate` 命令，通过交互式流程或使用命令行选项实现自动化，将您的文档翻译成多种语言。
 
-翻译完文档后，您可以继续[发布您的文档](./guides-publishing-your-docs.md)。
+翻译文档后，顺理成章的下一步是将其提供给您的用户。有关如何执行此操作的说明，请参阅[发布您的文档](./guides-publishing-your-docs.md)指南。

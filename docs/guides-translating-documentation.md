@@ -1,100 +1,95 @@
 # Translating Documentation
 
-This guide provides instructions on how to translate your generated documentation into multiple languages using the `aigne doc translate` command. The process uses AI to ensure translations are contextually aware and maintain technical accuracy.
+DocSmith enables you to translate your documentation into multiple languages, making your content accessible to a global audience. The translation process is designed to be straightforward, leveraging AI to provide context-aware and technically accurate translations. This guide details the steps to translate your documents using the `translate` command.
 
-The tool supports 12 languages, such as Chinese, Japanese, and German, allowing you to make your documentation accessible to a global audience. The primary language of your source documents is automatically excluded from the list of available translation languages.
+DocSmith supports professional translation for 12 languages, ensuring broad coverage for international users.
 
-## The `translate` Command
+## How to Translate Documents
 
-The `aigne doc translate` command generates translations for your existing documentation files. You can run it in an interactive mode for a step-by-step process or specify options directly on the command line for faster, automated workflows.
+The primary command for translation is `aigne doc translate`. You can run it interactively to select which documents and languages you want, or you can specify these options directly using command-line flags for automated workflows.
 
 ### Interactive Mode
 
-For a guided experience, run the command without any arguments. This is the recommended approach for new users.
+For a guided experience, simply run the command without any arguments.
 
 ```bash
 aigne doc translate
 ```
 
-When you run this command, the tool will guide you through the following steps:
+The tool will prompt you to:
+1.  **Select the documents** you wish to translate from a list of your existing documentation.
+2.  **Choose the target languages** for the translation. Previously selected languages will be pre-checked for convenience.
 
-1.  **Select Documents:** You will be prompted to choose the specific documents you wish to translate from a list of all available files in your project.
+![Executing the translate command](../assets/screenshots/doc-translate.png)
 
-    ![Select documents to translate](../assets/screenshots/doc-translate.png)
+After selecting the documents, you will be presented with a list of available languages.
 
-2.  **Select Languages:** Next, you will be asked to select the target languages for translation. Any languages you have used before will be pre-selected to save time.
+![Selecting translation languages](../assets/screenshots/doc-translate-langs.png)
 
-    ![Select languages for translation](../assets/screenshots/doc-translate-langs.png)
+Once you confirm your selections, DocSmith will proceed with the translation for each document into each selected language.
 
-3.  **Process and Save:** The tool begins the translation process. Once complete, the translated files are saved in the same directory as the original files. The new files are named by adding a language code to the original filename. For example, a Chinese translation of `overview.md` will be saved as `overview.zh.md`.
+### Command-Line Usage
 
-### Command-Line Options
+For more direct control or for use in scripts, you can use flags to specify your requirements.
 
-For non-interactive use or scripting, you can use command-line flags to control the translation process. This method is efficient when you already know which files and languages you need.
+```bash
+aigne doc translate [options]
+```
+
+#### Options
+
+The following options are available for the `translate` command:
 
 <x-field-group>
-  <x-field data-name="--docs" data-type="array<string>">
-    <x-field-desc markdown>Specify one or more document paths to translate. If this flag is not used, the tool will start in interactive mode to let you select from a list of available documents.</x-field-desc>
+  <x-field data-name="--docs" data-type="array" data-required="false">
+    <x-field-desc markdown>Specify one or more document paths to translate. If not provided, you will be prompted to select from a list interactively.</x-field-desc>
   </x-field>
-  <x-field data-name="--langs" data-type="array<string>">
-    <x-field-desc markdown>Specify one or more target language codes (e.g., `zh`, `ja`, `de`). If omitted, you will be prompted to select languages interactively.</x-field-desc>
+  <x-field data-name="--langs" data-type="array" data-required="false">
+    <x-field-desc markdown>Specify one or more target language codes (e.g., `zh`, `ja`). If not provided, you can select languages interactively.</x-field-desc>
   </x-field>
-  <x-field data-name="--glossary" data-type="string">
-    <x-field-desc markdown>Provide a path to a glossary file (e.g., `@path/to/glossary.md`). This ensures that specific technical terms, brand names, or acronyms are translated consistently across all documents.</x-field-desc>
+  <x-field data-name="--glossary" data-type="string" data-required="false">
+    <x-field-desc markdown>Path to a glossary file (e.g., `@/path/to/glossary.md`) to ensure consistent terminology across all translations.</x-field-desc>
   </x-field>
-  <x-field data-name="--feedback" data-type="string">
-    <x-field-desc markdown>Provide specific instructions to guide the AI's translation style. For example, you can ask for a more formal tone or specify how to handle certain phrases.</x-field-desc>
+  <x-field data-name="--feedback" data-type="string" data-required="false">
+    <x-field-desc markdown>Provide specific instructions or feedback to guide the AI's translation style (e.g., "Use a formal tone and keep technical terms in English"). This feedback is recorded in the document's history.</x-field-desc>
   </x-field>
 </x-field-group>
 
-### Usage Examples
+#### Example
 
-#### 1. Translate Specific Documents into Multiple Languages
-
-To translate `overview.md` and `examples.md` into Chinese (`zh`) and Japanese (`ja`) without any interactive prompts, run the following command:
+To translate the `overview.md` and `getting-started.md` documents into Chinese and Japanese, you would run the following command:
 
 ```bash
-aigne doc translate --docs overview.md --docs examples.md --langs zh --langs ja
+aigne doc translate --docs /overview --docs /getting-started --langs zh ja
 ```
 
-#### 2. Use a Glossary for Consistent Terminology
-
-If your documentation contains specialized vocabulary or brand names, you can use a glossary file to ensure they are always translated correctly.
+To provide stylistic feedback and ensure consistent terminology, you can add the `--feedback` and `--glossary` flags:
 
 ```bash
-aigne doc translate --glossary @./project-glossary.md
+aigne doc translate --docs /overview --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
 ```
-
-#### 3. Provide Feedback to Refine Translation Style
-
-You can guide the translation style by providing feedback. For instance, to request a more formal and technical tone for the output:
-
-```bash
-aigne doc translate --feedback "Use a formal, technical tone for all translations."
-```
-
-This feedback is recorded in the document's update history, which can be useful for tracking changes.
 
 ## Supported Languages
 
-The tool provides translation support for 12 languages. The native language of the documentation is English (`en`).
+DocSmith provides professional translation for the following 12 languages. Use the corresponding code when specifying languages via the `--langs` flag.
 
-| Language              | Code    |
-| --------------------- | ------- |
-| Chinese (Simplified)  | `zh`    |
-| Chinese (Traditional) | `zh-TW` |
-| Japanese              | `ja`    |
-| Korean                | `ko`    |
-| Spanish               | `es`    |
-| French                | `fr`    |
-| German                | `de`    |
-| Portuguese            | `pt`    |
-| Russian               | `ru`    |
-| Italian               | `it`    |
-| Arabic                | `ar`    |
+| Language | Code |
+|---|---|
+| English | `en` |
+| 简体中文 | `zh` |
+| 繁體中文 | `zh-TW` |
+| 日本語 | `ja` |
+| 한국어 | `ko` |
+| Español | `es` |
+| Français | `fr` |
+| Deutsch | `de` |
+| Português | `pt` |
+| Русский | `ru` |
+| Italiano | `it` |
+| العربية | `ar` |
 
 ## Summary
 
-The `translate` command offers a structured and reliable method for localizing your documentation. You can use its interactive mode for a guided process or its command-line options for efficient, automated workflows. Features like glossaries and feedback help maintain the quality and consistency of the translated content.
+You have now learned how to use the `aigne doc translate` command to make your documentation available in multiple languages, either through an interactive process or by using command-line options for automation.
 
-After translating your documents, the next step is to make them available to your users. For instructions on how to do this, see the [Publishing Your Docs](./guides-publishing-your-docs.md) guide.
+After translating your documents, the next logical step is to make them available to your users. For instructions on how to do this, please refer to the [Publishing Your Docs](./guides-publishing-your-docs.md) guide.

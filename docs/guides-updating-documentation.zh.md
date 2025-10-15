@@ -1,77 +1,69 @@
 # 更新文档
 
-维护文档的准确性和相关性是一个持续的过程。随着代码库的演进或收到新的反馈，您将需要修改现有文档。`update` 命令提供了一种结构化的方式，可以用新的指令重新生成特定文档，确保其保持最新。
+保持文档的准确性和相关性是一个持续的过程。随着项目的发展，更新文档的需求也会随之增加。本指南提供了修改现有文档的分步流程，无论您是需要采纳用户反馈、反映代码变更，还是完全重新生成某个部分。
 
-本指南将解释更新文档的两种主要方法：用于对单个文档进行详细优化的交互模式，以及用于一次性将变更应用于多个文档的批处理模式。
+`update` 命令为此提供了两种主要模式：用于优化单个文档的交互模式，以及用于将更改应用于多个文档或重置内容的批处理模式。
 
-## 两种操作模式
+## 交互式文档更新
 
-`update` 命令根据您选择的文档数量和提供的选项，在两种模式之一中运行。
+交互模式非常适合对单个文档进行迭代式更改。它允许您提供反馈、审阅更新后的内容，并持续优化，直到您对结果满意为止。当您运行命令而未指定特定文档时，这是默认模式。
 
-1.  **交互模式**：当您更新单个文档且未使用 `--reset` 标志时触发。此模式专为迭代优化而设计，允许您提供反馈、审查变更并重复此过程，直到文档符合您的标准。
-2.  **批处理模式**：当您同时更新多个文档或使用 `--reset` 标志时使用。此模式会在单次操作中将您的反馈应用于所有选定的文档，对于大范围的变更非常高效。
+要开始交互式更新会话，请按以下步骤操作：
 
-## 交互模式：优化单个文档
+1.  在您的终端中运行 `update` 命令：
 
-交互模式提供了一个受控的环境，可以对单个文档进行精确的更改。当您需要根据特定反馈仔细审查和调整内容时，这是理想的选择。
+    ```bash command aigne doc update icon=lucide:terminal
+    aigne doc update
+    ```
 
-要启动交互会话，请运行 `aigne doc update` 命令并从列表中选择单个文档。
+2.  该工具将显示您现有文档的列表。使用箭头键选择您希望修改的文档，然后按 Enter 键。
 
-```bash
-aigne doc update
-```
+    ![交互式文档更新提示的屏幕截图，显示可供选择的文档列表。](../assets/screenshots/doc-update.png)
 
-该工具将引导您完成以下步骤：
+3.  选择文档后，您将进入一个包含以下选项的审阅循环：
+    *   **View document**：直接在终端中显示文档当前版本的全部内容以供审阅。
+    *   **Give feedback**：提示您输入关于您希望更改内容的文本反馈。例如，“简化配置过程的说明”或“为常见错误添加故障排除部分”。
+    *   **Done**：退出交互式会话并保存文档的最新版本。
 
-1.  **文档分析**：系统首先会显示所选文档的结构大纲，展示其主要标题。
-2.  **用户操作**：然后系统会提示您选择以下三种操作之一：
-    *   **查看文档**：显示当前版本文档的全部内容，并在您的终端中渲染以便于阅读。
-    *   **提供反馈**：提示您输入修改请求。这可以是任何内容，从“添加一个关于错误处理的部分”到“阐明 `config` 对象的用途”。
-    *   **完成**：退出交互会话并保存最后生成的文档版本。
-3.  **内容重新生成**：在您提交反馈后，AI 会根据您的指令重新生成文档内容。然后会显示新的标题结构。
-4.  **迭代或完成**：您可以继续这个查看、提供反馈和重新生成的循环，直到您对结果满意为止。一旦选择“完成”，该过程即告结束。
+4.  在您提供反馈后，该工具将重新生成文档内容。然后，您可以查看更改并在需要时提供更多反馈。这个循环可以重复进行，直到文档满足您的要求。
 
-这种迭代循环可以对最终输出进行微调控制，确保更新后的文档准确而完整。
+## 批量文档更新
 
-## 批处理模式：更新多个文档
-
-批处理模式专为提高效率而设计，适用于需要将相同的通用反馈应用于多个文档或完全重新生成它们的情况。如果您选择多个文档或使用 `--docs` 或 `--reset` 等命令行标志，此模式将自动激活。
+批处理模式专为进行非交互式更改而设计。当您确切知道需要进行哪些更改并希望直接应用它们，或者当您需要同时更新多个文档时，此模式非常有用。
 
 ### 使用特定反馈进行更新
 
-您可以直接从命令行提供反馈来更新一个或多个文档，而无需进入交互会话。
+您可以直接从命令行提供反馈来更新一个或多个文档。这将绕过交互式会话并立即应用更改。
 
-```bash title="使用反馈更新单个文档"
-aigne doc update --docs overview.md --feedback "Add a section explaining the authentication flow"
+使用 `--docs` 标志指定文档的路径，并使用 `--feedback` 标志提供您的指令。
+
+```bash command aigne doc update with feedback icon=lucide:terminal
+aigne doc update --docs /guides/overview.md --feedback "Add a more detailed explanation of the core features."
 ```
 
-```bash title="使用相同的反馈更新多个文档"
-aigne doc update --docs overview.md --docs guides-getting-started.md --feedback "Improve the clarity of all code examples"
+要更新多个文档，只需提供多个 `--docs` 标志：
+
+```bash command aigne doc update multiple docs icon=lucide:terminal
+aigne doc update --docs /guides/overview.md --docs /guides/getting-started.md --feedback "Ensure the tone is consistent across both documents."
 ```
 
-### 重置和重新生成
+### 重置文档内容
 
-`--reset` 标志指示工具忽略文档的先前版本，并根据源代码从头开始重新生成它们。当代码中的重大变更使现有文档过时时，这非常有用。
+在某些情况下，您可能希望放弃文档的当前版本，并根据最新的源代码从头开始重新生成。`--reset` 标志会指示工具完全忽略现有内容。
 
-```bash title="从头开始重新生成特定文档"
-aigne doc update --docs overview.md --reset
+```bash command aigne doc update with reset icon=lucide:terminal
+aigne doc update --docs /guides/overview.md --reset
 ```
 
-## 命令参考
+当文档因底层代码的重大变更而变得严重过时时，此命令非常有用。
 
-`update` 命令接受几个标志来控制其行为。
+## 命令参数
 
-| Parameter | Description | Example |
-| :--- | :--- | :--- |
-| `--docs <path>` | 指定要更新的一个或多个文档路径。可多次使用。 | `--docs overview.md --docs guides-generating-documentation.md` |
-| `--feedback <text>` | 提供有关内容变更的指令。 | `--feedback "Add more detail to the installation steps"` |
-| `--glossary <file>` | 指定一个术语表文件，以确保在重新生成期间术语的一致性。 | `--glossary @/path/to/glossary.md` |
-| `--reset` | 一个布尔标志，强制完全重新生成所选文档，忽略其先前版本。 | `--reset` |
+`update` 命令接受多个参数来控制其行为。以下是可用选项的摘要：
 
-## 总结
-
-`update` 命令提供了一个灵活的工作流，可让您的文档与项目保持一致。使用交互模式对单个文档进行详细的迭代更改，使用批处理模式高效地将广泛的更新应用于多个文件。
-
-有关相关任务，请参阅以下指南：
-- [生成文档](./guides-generating-documentation.md)
-- [翻译文档](./guides-translating-documentation.md)
+| 参数 | 描述 | 示例 |
+| :--------- | :------------------------------------------------------------------------------------------------------ | :------------------------------------------------------- |
+| `--docs` | 指定要更新的一个或多个文档的路径。可多次使用以指定多个文件。 | `--docs /overview.md` |
+| `--feedback` | 为指定文档的更改提供文本指令。 | `--feedback "Clarify the installation steps."` |
+| `--reset` | 一个布尔标志，存在时会使文档从头开始重新生成。 | `--reset` |
+| `--glossary` | 指定词汇表文件的路径，以确保在更新过程中术语的一致性。 | `--glossary @/path/to/glossary.md` |
