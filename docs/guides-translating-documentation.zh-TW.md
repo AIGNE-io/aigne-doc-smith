@@ -1,83 +1,83 @@
 # 翻譯文件
 
-本指南說明如何使用 `aigne doc translate` 指令將您產生的文件翻譯成多種語言。此過程使用 AI 來確保翻譯具有情境感知能力並保持技術準確性。
+DocSmith 讓您能夠將文件翻譯成多種語言，讓您的內容觸及全球受眾。翻譯流程設計得簡單直接，利用 AI 提供與上下文相關且技術上準確的翻譯。本指南詳細介紹了使用 `translate` 指令翻譯文件的步驟。
 
-該工具支援 12 種語言，讓您能夠觸及全球受眾。您的來源文件的主要語言將自動從可用的翻譯語言清單中排除。
+DocSmith 支援 12 種語言的專業翻譯，確保為國際使用者提供廣泛的覆蓋範圍。
 
-## `translate` 指令
+## 如何翻譯文件
 
-`aigne doc translate` 指令用於為您現有的文件檔案產生翻譯。您可以以互動模式執行它來選擇您想要的文件和語言，或者您也可以使用命令列旗標直接指定這些選項以實現自動化工作流程。
+主要的翻譯指令是 `aigne doc translate`。您可以互動式地執行它來選擇您想要的文件和語言，或者您也可以使用命令列旗標直接指定這些選項，以實現自動化工作流程。
 
 ### 互動模式
 
-若要獲得引導式體驗，請在不帶任何參數的情況下執行此指令：
+若要獲得引導式體驗，只需執行不含任何參數的指令。
 
 ```bash
 aigne doc translate
 ```
 
-執行時，該工具將執行以下步驟：
-1.  掃描現有文件。
-2.  提示您從清單中選擇您希望翻譯的特定文件。
-3.  提示您選擇目標翻譯語言。為方便起見，先前選擇的語言將被預先勾選。
-4.  為每個選定的文件和語言組合開始翻譯過程。
-5.  將翻譯後的文件儲存在同一個目錄中。新檔案的命名方式是在原始檔名後附加語言代碼（例如，`overview.md` 的中文翻譯會變成 `overview.zh.md`）。
+該工具將提示您：
+1.  從您現有的文件清單中**選取您希望翻譯的文件**。
+2.  **選擇翻譯的目標語言**。為方便起見，先前選擇的語言將會被預先勾選。
 
-### 命令列選項
+![執行翻譯指令](https://docsmith.aigne.io/image-bin/uploads/9b47a9f979745a3089c287f73715c0a3.png)
 
-對於非互動式使用或腳本編寫，您可以使用以下命令列旗標來控制翻譯過程。
+選取文件後，您將看到可用語言的清單。
+
+![選擇翻譯語言](https://docsmith.aigne.io/image-bin/uploads/c53f880f08a9f65f377038198f1a1d1d.png)
+
+一旦您確認選擇，DocSmith 將會為每個文件進行每種所選語言的翻譯。
+
+### 命令列用法
+
+為了更直接的控制或在腳本中使用，您可以使用旗標來指定您的需求。
+
+```bash
+aigne doc translate [options]
+```
+
+#### 選項
+
+`translate` 指令提供以下選項：
 
 <x-field-group>
-  <x-field data-name="--docs" data-type="array<string>">
-    <x-field-desc markdown>指定一個或多個要翻譯的文件路徑。若未提供，該工具將進入互動模式，讓您從可用文件清單中進行選擇。</x-field-desc>
+  <x-field data-name="--docs" data-type="array" data-required="false">
+    <x-field-desc markdown>指定要翻譯的一個或多個文件路徑。如果未提供，系統將提示您以互動方式從清單中選擇。</x-field-desc>
   </x-field>
-  <x-field data-name="--langs" data-type="array<string>">
-    <x-field-desc markdown>指定一個或多個目標語言代碼（例如 `zh`、`ja`）。若省略，系統將提示您以互動方式選擇語言。</x-field-desc>
+  <x-field data-name="--langs" data-type="array" data-required="false">
+    <x-field-desc markdown>指定一個或多個目標語言代碼（例如 `zh`, `ja`）。如果未提供，您可以在互動模式下選擇語言。</x-field-desc>
   </x-field>
-  <x-field data-name="--glossary" data-type="string">
-    <x-field-desc markdown>提供詞彙表檔案的路徑（例如 `@path/to/glossary.md`）。這能確保特定的技術術語在所有文件中得到一致的翻譯。</x-field-desc>
+  <x-field data-name="--glossary" data-type="string" data-required="false">
+    <x-field-desc markdown>詞彙表檔案的路徑（例如 `@/path/to/glossary.md`），以確保所有翻譯中的術語一致性。</x-field-desc>
   </x-field>
-  <x-field data-name="--feedback" data-type="string">
-    <x-field-desc markdown>提供具體的指示或回饋來引導 AI 的翻譯風格，例如調整語氣或術語。</x-field-desc>
+  <x-field data-name="--feedback" data-type="string" data-required="false">
+    <x-field-desc markdown>提供具體指示或回饋來引導 AI 的翻譯風格（例如，「使用正式語氣並將技術術語保留為英文」）。此回饋會記錄在文件的歷史記錄中。</x-field-desc>
   </x-field>
 </x-field-group>
 
-### 使用範例
+#### 範例
 
-#### 1. 將特定文件翻譯成多種語言
-
-若要將 `overview.md` 和 `examples.md` 翻譯成中文（`zh`）和日文（`ja`）且不使用互動式提示：
+要將 `overview.md` 和 `getting-started.md` 文件翻譯成中文和日文，您需要執行以下指令：
 
 ```bash
-aigne doc translate --docs overview.md --docs examples.md --langs zh --langs ja
+aigne doc translate --docs /overview --docs /getting-started --langs zh ja
 ```
 
-#### 2. 使用詞彙表以確保術語一致
-
-為確保技術術語翻譯正確，請提供一個詞彙表檔案。這對於保持品牌名稱或專業詞彙的一致性很有用。
+若要提供風格上的回饋並確保術語一致，您可以加上 `--feedback` 和 `--glossary` 旗標：
 
 ```bash
-aigne doc translate --glossary @./glossary.md
+aigne doc translate --docs /overview --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
 ```
-
-#### 3. 提供回饋以完善翻譯風格
-
-您可以透過提供回饋來引導翻譯風格。例如，若要請求更正式的語氣：
-
-```bash
-aigne doc translate --feedback "Use a formal, technical tone for all translations."
-```
-
-此回饋將記錄在更新後文件的歷史記錄中。
 
 ## 支援的語言
 
-該工具支援 12 種語言的翻譯。文件的原生語言是英文（`en`）。
+DocSmith 為以下 12 種語言提供專業翻譯。透過 `--langs` 旗標指定語言時，請使用對應的代碼。
 
 | 語言 | 代碼 |
-| :--- | :--- |
+|---|---|
+| 英文 | `en` |
 | 簡體中文 | `zh` |
-| 繁體中文| `zh-TW`|
+| 繁體中文 | `zh-TW` |
 | 日文 | `ja` |
 | 韓文 | `ko` |
 | 西班牙文 | `es` |
@@ -90,6 +90,6 @@ aigne doc translate --feedback "Use a formal, technical tone for all translation
 
 ## 總結
 
-`translate` 指令提供了一種結構化的方法來本地化您的文件。您可以使用其互動模式進行引導式翻譯，或使用命令列選項進行自動化工作流程。使用詞彙表和回饋等功能有助於保持翻譯內容的品質和一致性。
+您現在已經學會如何使用 `aigne doc translate` 指令，透過互動式流程或使用命令列選項進行自動化，將您的文件以多種語言提供。
 
-翻譯完文件後，您可以繼續進行[發佈您的文件](./guides-publishing-your-docs.md)。
+翻譯文件後，下一個合理的步驟是將它們提供給您的使用者。有關如何執行的說明，請參閱 [發布您的文件](./guides-publishing-your-docs.md) 指南。
