@@ -97,6 +97,9 @@ If no translation is needed, respond with:
   await fs.writeFile(translationCacheFilePath, yamlStringify(saveResult), { encoding: "utf8" });
 
   return {
-    translatedMetadata: saveResult,
+    translatedMetadata: {
+      title: saveResult[projectName] || {},
+      desc: saveResult[projectDesc] || {},
+    },
   };
 }
