@@ -6,7 +6,8 @@ instructions:
     url: ../../prompts/detail/update/system-prompt.md
   - role: user
     url: ../../prompts/detail/update/user-prompt.md
-
+auto_reorder_system_messages: true
+auto_merge_system_messages: true
 input_schema:
   type: object
   properties:
@@ -53,6 +54,7 @@ afs:
         description: |
           Codebase of the project to be documented used as context for document generation,
           should search and read as needed while generating document content
+keep_text_in_tool_uses: false
 skills:
   - ./document-tools/update-document-content.mjs
 task_render_mode: collapse
