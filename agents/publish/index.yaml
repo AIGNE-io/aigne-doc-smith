@@ -9,6 +9,7 @@ skills:
     default_input:
       skipIfExists: true
       checkOnly: true
+  - translate-meta.mjs
   - publish-docs.mjs
 input_schema:
   type: object
