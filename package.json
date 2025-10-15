@@ -7,7 +7,7 @@
   },
   "files": [
     "agents",
-    "assets",
+    "assets/report-template",
     "docs-mcp",
     "prompts",
     "types",
