@@ -5,6 +5,18 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "agents",
+    "assets",
+    "docs-mcp",
+    "prompts",
+    "types",
+    "utils",
+    "aigne.yaml",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "bun test",
