@@ -10,7 +10,7 @@ The evaluation command executes a two-stage analysis to provide a comprehensive 
 direction: down
 
 start: {
-  label: "Run Command\naignite evaluate"
+  label: "Run Command\naigne doc evaluate"
   shape: oval
 }
 
@@ -54,7 +54,7 @@ To initiate the evaluation process, execute the `evaluate` command from your pro
 Open your terminal and run the following command:
 
 ```bash
-aignite evaluate
+aigne doc evaluate
 ```
 
 The tool will display its progress as it analyzes the documentation.

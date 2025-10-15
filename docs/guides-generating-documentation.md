@@ -18,7 +18,7 @@ aigne doc generate
 
 This single command initiates the entire documentation creation workflow. If it's your first time running the command, you will be guided through an interactive setup process.
 
-![Generate Documentation Dialog](https://docsmith.aigne.io/image-bin/uploads/d409b85c2c7760778c18251e06d997d9.png)
+![Generate Documentation Dialog](../assets/screenshots/doc-generate.png)
 
 ### Step 2: Code Analysis and Structure Planning
 
@@ -30,7 +30,7 @@ After the initial structure is planned, you will be prompted to review it in the
 
 You can either approve the structure as is or provide feedback in plain language to make changes.
 
-![Reviewing the Documentation Structure](https://docsmith.aigne.io/image-bin/uploads/c530510525d8041c304d9c0258169904.png)
+![Reviewing the Documentation Structure](../assets/screenshots/doc-generate-docs.png)
 
 Examples of feedback you can provide:
 
@@ -49,7 +49,7 @@ Once you approve the final structure, DocSmith proceeds to generate the detailed
 
 When the process is complete, you will see a confirmation message indicating that the documentation has been generated successfully. The output files will be located in the directory specified in your configuration (the default is `./docs`).
 
-![Documentation Generated Successfully](https://docsmith.aigne.io/image-bin/uploads/19c72054cd662d51259e8f668571891e.png)
+![Documentation Generated Successfully](../assets/screenshots/doc-generated-successfully.png)
 
 ## Command Options
 
