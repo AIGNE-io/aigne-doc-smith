@@ -16,6 +16,9 @@
     - Action: Create the most appropriate diagram type:
       - Flowchart: Use for step-by-step processes, algorithms, or decision-making logic.
       - Sequence Diagram: Use for time-ordered interactions between different components or actors (e.g., API calls).
+  - Others
+    - Trigger: For documents not skipped by the first rule but not clearly fitting the above categories.
+    - Action: Generate diagrams only if they significantly enhance understanding (e.g., complex class relationships).
 2. Constraints and Best Practices
   - Quantity: Generate a maximum of three (3) diagrams per document to ensure the content remains focused and readable.
   - Relevance: Ensure every diagram directly illustrates a concept explained in the surrounding text. Avoid generating diagrams for concepts that are easily understood via text alone.

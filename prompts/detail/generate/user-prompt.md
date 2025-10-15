@@ -38,13 +38,17 @@ Content from previous generation:
 </last_content>
 {% endif %}
 
+
 {% if detailFeedback %}
 <content_review_feedback>
 {{ detailFeedback }}
 </content_review_feedback>
 {% endif %}
 
-<user_feedback>
+
+{% if feedback %}
+User feedback on previous generation:
+<feedback>
 {{feedback}}
 </feedback>
 {% endif %}
