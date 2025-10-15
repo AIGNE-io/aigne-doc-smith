@@ -20,11 +20,11 @@ The tool will prompt you to:
 1.  **Select the documents** you wish to translate from a list of your existing documentation.
 2.  **Choose the target languages** for the translation. Previously selected languages will be pre-checked for convenience.
 
-![Executing the translate command](https://docsmith.aigne.io/image-bin/uploads/9b47a9f979745a3089c287f73715c0a3.png)
+![Executing the translate command](../assets/screenshots/doc-translate.png)
 
 After selecting the documents, you will be presented with a list of available languages.
 
-![Selecting translation languages](https://docsmith.aigne.io/image-bin/uploads/c53f880f08a9f65f377038198f1a1d1d.png)
+![Selecting translation languages](../assets/screenshots/doc-translate-langs.png)
 
 Once you confirm your selections, DocSmith will proceed with the translation for each document into each selected language.
 

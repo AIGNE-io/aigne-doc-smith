@@ -18,7 +18,7 @@ To begin an interactive update session, follow these steps:
 
 2.  The tool will display a list of your existing documents. Select the document you wish to modify using the arrow keys and press Enter.
 
-    ![Screenshot of the interactive document update prompt, showing a list of documents to choose from.](https://docsmith.aigne.io/image-bin/uploads/6e088d8b4e724ef383b149b5c2a38116.png)
+    ![Screenshot of the interactive document update prompt, showing a list of documents to choose from.](../assets/screenshots/doc-update.png)
 
 3.  Once a document is selected, you will enter a review loop with the following options:
     *   **View document**: Displays the full content of the current version of the document directly in your terminal for review.
