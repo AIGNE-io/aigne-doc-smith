@@ -1,10 +1,22 @@
 {
   "name": "@aigne/doc-smith",
-  "version": "0.8.12-beta.7",
+  "version": "0.8.12-beta.8",
   "description": "AI-driven documentation generation tool built on the AIGNE Framework",
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "agents",
+    "assets/report-template",
+    "docs-mcp",
+    "prompts",
+    "types",
+    "utils",
+    "aigne.yaml",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "bun test",
@@ -39,6 +51,7 @@
     "fs-extra": "^11.3.1",
     "glob": "^11.0.3",
     "gpt-tokenizer": "^3.2.0",
+    "image-size": "^2.0.2",
     "isbinaryfile": "^5.0.6",
     "jsdom": "^26.1.0",
     "marked": "^15.0.12",

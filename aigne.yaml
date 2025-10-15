@@ -49,6 +49,11 @@ agents:
   - ./agents/publish/publish-docs.mjs
   - ./agents/publish/index.yaml
 
+  # Media
+  - ./agents/media/load-media-description.mjs
+  - ./agents/media/batch-generate-media-description.yaml
+  - ./agents/media/generate-media-description.yaml
+
   # Clear/Cleanup
   - ./agents/clear/choose-contents.mjs
   - ./agents/clear/clear-document-structure.mjs
@@ -56,6 +61,7 @@ agents:
   - ./agents/clear/clear-document-config.mjs
   - ./agents/clear/clear-auth-tokens.mjs
   - ./agents/clear/clear-deployment-config.mjs
+  - ./agents/clear/clear-media-description.mjs
 
   # Utilities
   - ./agents/utils/load-sources.mjs

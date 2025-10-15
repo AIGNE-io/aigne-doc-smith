@@ -1,5 +1,10 @@
 import { getDocSmithEnvFilePath } from "../../utils/auth-utils.mjs";
-import { getConfigFilePath, getStructurePlanPath, toDisplayPath } from "../../utils/file-utils.mjs";
+import {
+  getConfigFilePath,
+  getMediaDescriptionCachePath,
+  getStructurePlanPath,
+  toDisplayPath,
+} from "../../utils/file-utils.mjs";
 
 const TARGET_METADATA = {
   generatedDocs: {
@@ -35,6 +40,14 @@ const TARGET_METADATA = {
     description: ({ workDir }) =>
       `Delete appUrl from './${toDisplayPath(getConfigFilePath(workDir))}'.`,
     agent: "clearDeploymentConfig",
+  },
+  mediaDescription: {
+    label: "media file descriptions",
+    description: () =>
+      `Delete AI-generated descriptions in './${toDisplayPath(
+        getMediaDescriptionCachePath(),
+      )}' (will regenerate on next generation).`,
+    agent: "clearMediaDescription",
   },
 };
 

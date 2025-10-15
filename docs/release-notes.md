@@ -1,6 +1,39 @@
 # Release Notes
 
-This document provides a summary of new features, improvements, and bug fixes for each version of the tool. All changes are listed in reverse chronological order.
+This document provides a chronological record of new features, improvements, and bug fixes for each version of the tool.
+
+## Version 0.8.12-beta.7 (2025-10-12)
+
+### New Features
+
+- The tool can now retrieve context more effectively from the project repository, leading to more accurate documentation.
+
+### Bug Fixes
+
+- Disabled Git-based update history tracking within repositories to prevent potential conflicts.
+
+## Version 0.8.12-beta.6 (2025-10-11)
+
+### Bug Fixes
+
+- Improved the reliability of the publishing process by enhancing login session checks.
+
+## Version 0.8.12-beta.5 (2025-10-11)
+
+### Bug Fixes
+
+- Fixed a bug where the correct language setting was not applied during document checks.
+
+## Version 0.8.12-beta.4 (2025-10-11)
+
+### New Features
+
+- Introduced optimizations for handling large projects, resulting in more efficient document generation.
+
+### Bug Fixes
+
+- Ensured that generated documents follow a strict heading hierarchy (e.g., no skipping from H1 to H3).
+- Improved the clarity of update notifications and added an option to clear deployment configurations.
 
 ## Version 0.8.12-beta.3 (2025-10-09)
 
@@ -12,19 +45,19 @@ This document provides a summary of new features, improvements, and bug fixes fo
 
 ### Bug Fixes
 
-- Corrected an error with file paths when updating documents.
-- Fixed a problem that could cause document generation and updates to fail.
+- Corrected an error with file path resolution when updating documents.
+- Fixed an issue that could cause document generation and updates to fail.
 
 ## Version 0.8.12-beta.1 (2025-10-08)
 
 ### New Features
 
 - Introduced history tracking, allowing you to view past changes to your documents.
-- Translation is now an optional step during the document update process, providing more flexibility.
+- Made translation an optional step during the document update process for greater flexibility.
 
-### Improvements
+### Bug Fixes
 
-- The document generation and update process has been refined for better reliability.
+- Refined the logic for document generation and updates to distinguish between system and user prompts.
 
 ## Version 0.8.12-beta (2025-10-07)
 
@@ -40,8 +73,8 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- Enhanced the document generator and updater for better performance.
-- Improved the speed of document structure analysis and content refinement by using a shared context.
+- Enhanced the document generator and updater with improved file system tools.
+- Implemented a shared context mechanism to speed up document structure analysis and content refinement.
 
 ### Bug Fixes
 
@@ -58,18 +91,18 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- Added a "check-only" option for agents that use selection inputs.
+- Added a "check-only" option for processes that use selection inputs.
 
 ### Bug Fixes
 
 - Improved error handling in the document selection utility.
-- Tuned the translation prompt; comments within code blocks are now translated correctly.
+- Tuned the translation prompt to ensure that only comments within code blocks are translated.
 
 ## Version 0.8.11-beta.3 (2025-09-29)
 
 ### Bug Fixes
 
-- Added a command-line entry for the evaluation agents.
+- Added a command-line interface entry for the document evaluation agents.
 
 ## Version 0.8.11-beta.2 (2025-09-27)
 
@@ -82,12 +115,12 @@ This version includes general maintenance and stability improvements.
 ### New Features
 
 - Introduced a document evaluation feature to generate quality reports.
-- Enhanced the document and structure update process with improved tools.
+- Enhanced the document and structure update process with improved internal tools.
 - Improved vendor handling and debugging capabilities during the publishing process.
 
 ### Bug Fixes
 
-- Fixed an issue where component descriptions were treated as attributes instead of text, improving custom component rendering.
+- Fixed an issue where component descriptions were incorrectly treated as attributes instead of text content, improving custom component rendering.
 
 ## Version 0.8.10 (2025-09-20)
 
@@ -97,14 +130,14 @@ This version includes general maintenance and stability improvements.
 
 ### Bug Fixes
 
-- Added links related to enterprise deployment.
-- Polished the copywriting for the document review prompt.
+- Added relevant links for enterprise deployment.
+- Polished the text for the document review prompt for better clarity.
 
 ## Version 0.8.10-beta.2 (2025-09-18)
 
 ### Bug Fixes
 
-- Improved the prompts and display for the documentation structure review.
+- Improved the prompts and display for the documentation structure review feature.
 - Updated the usage rules for field elements to ensure correct rendering.
 
 ## Version 0.8.10-beta.1 (2025-09-18)
@@ -128,7 +161,7 @@ This version includes general maintenance and stability improvements.
 
 ### Bug Fixes
 
-- Optimized the copy for inquiry feedback to be clearer and more helpful.
+- Optimized the text for inquiry feedback prompts to be clearer and more helpful.
 
 ## Version 0.8.7 (2025-09-12)
 
@@ -140,11 +173,11 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- The URL is now displayed by default after a successful publishing process.
+- The documentation URL is now displayed by default after a successful publishing process.
 
 ### Bug Fixes
 
-- Ensured that logs are saved correctly during the deployment process to prevent data loss.
+- Ensured that logs are saved correctly during deployment to prevent data loss.
 
 ## Version 0.8.5 (2025-09-10)
 
@@ -156,7 +189,7 @@ This version includes general maintenance and stability improvements.
 
 ### Bug Fixes
 
-- Markdown code blocks are now parsed into a custom `<x-code>` element with support for enhanced attributes like titles and icons.
+- Markdown code blocks are now parsed into a custom element with support for enhanced attributes like titles and icons.
 - Made the background for D2 diagrams transparent for better integration with different themes.
 
 ## Version 0.8.3 (2025-09-05)
@@ -169,7 +202,7 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- Tuned the D2 chart generation with more comprehensive examples to improve output quality.
+- Improved D2 chart generation with more comprehensive internal examples to enhance output quality.
 
 ## Version 0.8.0 (2025-09-03)
 
@@ -181,7 +214,7 @@ This version includes general maintenance and stability improvements.
 
 ### Bug Fixes
 
-- Fixed a bug where using the tab key for path selection did not work as expected.
+- Fixed a bug where using the Tab key for path selection did not work as expected.
 
 ## Version 0.7.0 (2025-08-30)
 
@@ -195,7 +228,7 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- Implemented complete support for media processing before publishing documents.
+- Implemented support for media processing before publishing documents.
 
 ## Version 0.5.0 (2025-08-26)
 
@@ -205,7 +238,7 @@ This version includes general maintenance and stability improvements.
 
 ### Bug Fixes
 
-- Polished the text of the questions asked during the initial setup process.
+- Polished the text of questions asked during the initial setup process.
 
 ## Version 0.4.4 (2025-08-22)
 
@@ -229,7 +262,7 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- Polished the workflow for collecting context during document generation.
+- Refined the workflow for collecting context during document generation.
 
 ### Bug Fixes
 
@@ -239,7 +272,7 @@ This version includes general maintenance and stability improvements.
 
 ### Bug Fixes
 
-- Switched the default language model to improve generation quality.
+- Switched the default large language model to improve generation quality.
 
 ## Version 0.2.5 (2025-08-08)
 
@@ -251,5 +284,5 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- The tool will now automatically initialize the configuration if it's missing when a command is run.
+- The tool will now automatically initialize the configuration if it is missing when a command is run.
 - Added a new `update` command to refresh documents when source files have changed.

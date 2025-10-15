@@ -4,9 +4,11 @@ Maintaining the accuracy and relevance of documentation is a continuous process.
 
 This guide explains the two primary methods for updating your documentation: an interactive mode for detailed, single-document refinement and a batch mode for applying changes to multiple documents at once.
 
+For information on creating documents from scratch, please see the [Generating Documentation](./guides-generating-documentation.md) guide.
+
 ## Two Modes of Operation
 
-The `update` command operates in one of two modes depending on the number of documents you select and the options you provide.
+The `update` command operates in one of two modes depending on the number of documents you select and the options you provide. The system automatically chooses the appropriate mode based on your command.
 
 1.  **Interactive Mode**: Triggered when you update a single document without the `--reset` flag. This mode is designed for iterative refinement, allowing you to provide feedback, review the changes, and repeat the process until the document meets your standards.
 2.  **Batch Mode**: Used when you update multiple documents simultaneously or when you use the `--reset` flag. This mode applies your feedback to all selected documents in a single operation, which is efficient for broad changes.
@@ -41,20 +43,20 @@ Batch mode is designed for efficiency when you need to apply the same general fe
 
 You can provide feedback directly from the command line to update one or more documents without entering an interactive session.
 
-```bash title="Update a single document with feedback"
-aigne doc update --docs overview.md --feedback "Add a section explaining the authentication flow"
+```bash Update a single document with feedback
+aigne doc update --docs /overview --feedback "Add a section explaining the authentication flow"
 ```
 
-```bash title="Update multiple documents with the same feedback"
-aigne doc update --docs overview.md --docs guides-getting-started.md --feedback "Improve the clarity of all code examples"
+```bash Update multiple documents with the same feedback
+aigne doc update --docs /overview --docs /getting-started --feedback "Improve the clarity of all code examples"
 ```
 
 ### Resetting and Regenerating
 
 The `--reset` flag instructs the tool to ignore the previous versions of the documents and regenerate them from scratch based on the source code. This is useful when significant changes in the code have made the existing documentation obsolete.
 
-```bash title="Regenerate a specific document from scratch"
-aigne doc update --docs overview.md --reset
+```bash Regenerate a specific document from scratch
+aigne doc update --docs /overview --reset
 ```
 
 ## Command Reference
@@ -63,7 +65,7 @@ The `update` command accepts several flags to control its behavior.
 
 | Parameter | Description | Example |
 | :--- | :--- | :--- |
-| `--docs <path>` | Specifies one or more document paths to update. Can be used multiple times. | `--docs overview.md --docs guides-generating-documentation.md` |
+| `--docs <path>` | Specifies one or more document paths to update. This flag can be used multiple times. | `--docs /overview --docs /guides/generating-documentation` |
 | `--feedback <text>` | Provides instructions for what to change in the content. | `--feedback "Add more detail to the installation steps"` |
 | `--glossary <file>` | Specifies a glossary file to ensure consistent terminology during regeneration. | `--glossary @/path/to/glossary.md` |
 | `--reset` | A boolean flag that forces a complete regeneration of the selected documents, ignoring their previous versions. | `--reset` |

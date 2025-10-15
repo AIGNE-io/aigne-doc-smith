@@ -1,0 +1,47 @@
+name: generateMediaDescription
+description: Generate description for a single media file (image/video)
+model: "google/gemini-2.5-flash"
+modalities: ["text", "image"]
+instructions:
+  - role: system
+    url: ../../prompts/media/media-description/system-prompt.md
+  - role: user
+    url: ../../prompts/media/media-description/user-prompt.md
+input_file_key: mediaFile
+include_input_in_output: true
+input_schema:
+  type: object
+  properties:
+    name:
+      type: string
+      description: Media file name
+    width:
+      type: number
+      description: Media width in pixels
+    height:
+      type: number
+      description: Media height in pixels
+    hash:
+      type: string
+    path:
+      type: string
+      description: Media path
+    type:
+      type: string
+      description: Media type (image/video)
+    mediaFile:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          path:
+            type: string
+          filename:
+            type: string
+          mimeType:
+            type: string
+  required:
+    - name
+output_key: description
