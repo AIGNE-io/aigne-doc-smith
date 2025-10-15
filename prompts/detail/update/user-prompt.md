@@ -35,5 +35,4 @@
 
 <instructions>
 Analyze the original document content and user feedback, then use available tools to implement the requested improvements while maintaining the document's integrity and style.
-{% include "../../common/afs/use-afs-instruction.md" %}
 </instructions>

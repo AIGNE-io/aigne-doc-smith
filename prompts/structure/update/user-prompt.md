@@ -39,6 +39,4 @@ Processing workflow:
 Rules:
 ** All changes must be made using Tools. **
 ** Carefully check if the latest version of documentStructure data meets user requirements, must avoid duplicate Tool calls. **
-
-{% include "../../common/afs/use-afs-instruction.md" %}
 </instructions>
