@@ -21,8 +21,6 @@ Initial Documentation Structure:
 {{ feedback }}
 </user_feedback>
 
-{% include "../../common/afs/afs-tools-usage.md" %}
-
 <instructions>
 
 Objectives:
