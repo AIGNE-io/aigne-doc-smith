@@ -6,19 +6,16 @@ import { parse as yamlParse, stringify as yamlStringify } from "yaml";
 
 import translateMeta from "../../../agents/publish/translate-meta.mjs";
 import { DOC_SMITH_DIR } from "../../../utils/constants/index.mjs";
-import * as utils from "../../../utils/utils.mjs";
 
 const CACHE_PATH = join(DOC_SMITH_DIR, "translation-cache.yaml");
 
 describe("translate-meta", () => {
-  let loadConfigSpy;
   let ensureFileSpy;
   let readFileSpy;
   let writeFileSpy;
   let agentFromSpy;
 
   beforeEach(() => {
-    loadConfigSpy = spyOn(utils, "loadConfigFromFile");
     ensureFileSpy = spyOn(fs, "ensureFile").mockResolvedValue();
     readFileSpy = spyOn(fs, "readFile").mockResolvedValue("");
     writeFileSpy = spyOn(fs, "writeFile").mockResolvedValue();
@@ -26,7 +23,6 @@ describe("translate-meta", () => {
   });
 
   afterEach(() => {
-    loadConfigSpy.mockRestore();
     ensureFileSpy.mockRestore();
     readFileSpy.mockRestore();
     writeFileSpy.mockRestore();
@@ -34,11 +30,6 @@ describe("translate-meta", () => {
   });
 
   test("translates missing languages and updates the cache", async () => {
-    loadConfigSpy.mockResolvedValue({
-      locale: "en",
-      translateLanguages: ["fr", "ja"],
-    });
-
     const mockAgent = { name: "translateMetaAgent" };
     agentFromSpy.mockReturnValue(mockAgent);
 
@@ -58,6 +49,7 @@ describe("translate-meta", () => {
         projectName: "My Project",
         projectDesc: "Project Description",
         locale: "en",
+        translateLanguages: ["fr", "ja"],
       },
       {
         context: {
@@ -110,10 +102,6 @@ describe("translate-meta", () => {
       },
     };
 
-    loadConfigSpy.mockResolvedValue({
-      locale: "en",
-      translateLanguages: ["fr"],
-    });
     readFileSpy.mockResolvedValue(yamlStringify(existingCache));
 
     const mockAgent = { name: "translateMetaAgent" };
@@ -128,6 +116,7 @@ describe("translate-meta", () => {
         projectName: "My Project",
         projectDesc: "Project Description",
         locale: "en",
+        translateLanguages: ["fr"],
       },
       {
         context: {
@@ -146,11 +135,6 @@ describe("translate-meta", () => {
   });
 
   test("ignores empty translation values returned by the agent", async () => {
-    loadConfigSpy.mockResolvedValue({
-      locale: "en",
-      translateLanguages: ["fr"],
-    });
-
     const mockAgent = { name: "translateMetaAgent" };
     agentFromSpy.mockReturnValue(mockAgent);
 
@@ -168,6 +152,7 @@ describe("translate-meta", () => {
         projectName: "My Project",
         projectDesc: "Project Description",
         locale: "en",
+        translateLanguages: ["fr"],
       },
       {
         context: {

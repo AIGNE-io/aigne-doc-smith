@@ -6,14 +6,12 @@ import { parse as yamlParse, stringify as yamlStringify } from "yaml";
 import z from "zod";
 
 import { DOC_SMITH_DIR } from "../../utils/constants/index.mjs";
-import { loadConfigFromFile } from "../../utils/utils.mjs";
 
-export default async function translateMeta({ projectName, projectDesc, locale }, options) {
-  const config = await loadConfigFromFile();
-  const languages = [
-    ...(config?.locale ? [config.locale] : []),
-    ...(config?.translateLanguages || []),
-  ].filter((lang, index, arr) => arr.indexOf(lang) === index);
+export default async function translateMeta(
+  { projectName, projectDesc, locale, translateLanguages = [] },
+  options,
+) {
+  const languages = [...new Set([...(locale ? [locale] : []), ...(translateLanguages || [])])];
 
   const translationCacheFilePath = join(DOC_SMITH_DIR, "translation-cache.yaml");
   await fs.ensureFile(translationCacheFilePath);
