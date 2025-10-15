@@ -133,7 +133,7 @@ export default async function publishDocs(
       } else if (["new-instance", "new-instance-continue"].includes(choice)) {
         if (options?.prompts?.confirm) {
           shouldWithBranding = await options.prompts.confirm({
-            message: "Upload project branding (title, description, logo) to the website?",
+            message: "Would you like to update the project branding (title, description, logo)?",
             default: true,
           });
         }
@@ -194,7 +194,7 @@ export default async function publishDocs(
           projectInfo.icon = relative(join(process.cwd(), DOC_SMITH_DIR), finalPath);
         }
       } catch (error) {
-        console.warn(`Failed to download project logo: ${error.message}`);
+        console.warn(`Failed to download project logo from ${projectInfo.icon}: ${error.message}`);
       }
     }
 
@@ -287,7 +287,7 @@ publishDocs.input_schema = {
     },
     "with-branding": {
       type: "boolean",
-      description: "Upload project branding (title, description, logo) to website",
+      description: "Update your website branding (title, description, logo)",
     },
     projectName: {
       type: "string",

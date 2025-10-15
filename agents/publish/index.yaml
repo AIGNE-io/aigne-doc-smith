@@ -18,4 +18,4 @@ input_schema:
       description: Website URL where docs will be published (optional - leave empty for interactive setup)
     with-branding:
       type: boolean
-      description: publish to website with branding
+      description: Update your website branding (title, description, logo)
