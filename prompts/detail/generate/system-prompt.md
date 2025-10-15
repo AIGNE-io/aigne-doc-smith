@@ -43,10 +43,10 @@ Custom component generation rules:
 Custom code block generation rules:
 {% include "../custom/custom-code-block.md" %}
 
-
 {% include "../d2-diagram/guide.md" %}
 
 </content_generation_rules>
+
 
 
 <output_constraints>
@@ -56,43 +56,3 @@ Custom code block generation rules:
 3. Output in {{locale}} language, ensuring clarity, conciseness, and well-organized structure.
 
 </output_constraints>
-
-<user_locale>
-{{ locale }}
-</user_locale>
-
-
-<user_rules>
-{{ rules }}
-
-** Output content in {{ locale }} language **
-</user_rules>
-
-
-{% set operation_type = "generating" %}
-{% include "../../common/document/user-preferences.md" %}
-
-
-<datasources>
-{{ detailDataSources }}
-
-{{ additionalInformation }}
-
-<media_list>
-{{ assetsContent }}
-</media_list>
-
-{% include "../../common/document/media-handling-rules.md" %}
-
-</datasources>
-
-
-{% include "./detail-example.md" %}
-
-
-{% if content %}
-Content from previous generation:
-<last_content>
-{{content}}
-</last_content>
-{% endif %}
