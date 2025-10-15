@@ -5,6 +5,8 @@ instructions:
     url: ../../prompts/detail/generate/system-prompt.md
   - role: user
     url: ../../prompts/detail/generate/user-prompt.md
+auto_reorder_system_messages: true
+auto_merge_system_messages: true
 input_schema:
   type: object
   properties:
@@ -54,31 +56,31 @@ afs:
         description: |
           Codebase of the project to be documented used as context for document generation,
           should search and read as needed while generating document content
-# skills:
-  # FIXME: @zhanghan temporary disable diagram tool
-  # - type: team
-  #   task_render_mode: collapse
-  #   name: generateDiagram
-  #   skills:
-  #     - ../generate/draw-diagram.yaml
-  #     - ../generate/wrap-diagram-code.mjs
-  #   reflection:
-  #     reviewer: ../generate/check-diagram.mjs
-  #     is_approved: isValid
-  #     max_iterations: 5
-  #     return_last_on_max_iterations: false
-  #     custom_error_message: "MUST NOT generate any diagram: validation failed after max iterations."
-  #   input_schema:
-  #     type: object
-  #     properties:
-  #       documentContent:
-  #         type: string
-  #         description: The **raw text content** of the current document. (**Note:** This is the original document and **does not include** any existing diagram source code.)
-  #     required:
-  #       - documentContent
-  #   output_schema:
-  #     type: object
-  #     properties:
-  #       diagramSourceCode:
-  #         type: string
-  #         description: The **diagram source code** generated from the input text.
+keep_text_in_tool_uses: false
+skills:
+  - type: team
+    task_render_mode: collapse
+    name: generateDiagram
+    skills:
+      - ../generate/draw-diagram.yaml
+      - ../generate/wrap-diagram-code.mjs
+    reflection:
+      reviewer: ../generate/check-diagram.mjs
+      is_approved: isValid
+      max_iterations: 5
+      return_last_on_max_iterations: false
+      custom_error_message: "MUST NOT generate any diagram: validation failed after max iterations."
+    input_schema:
+      type: object
+      properties:
+        documentContent:
+          type: string
+          description: The **raw text content** of the current document. (**Note:** This is the original document and **does not include** any existing diagram source code.)
+      required:
+        - documentContent
+    output_schema:
+      type: object
+      properties:
+        diagramSourceCode:
+          type: string
+          description: The **diagram source code** generated from the input text.

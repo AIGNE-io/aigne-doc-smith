@@ -21,8 +21,6 @@ Initial Documentation Structure:
 {{ feedback }}
 </user_feedback>
 
-{% include "../../common/afs/afs-tools-usage.md" %}
-
 <instructions>
 
 Objectives:
@@ -41,6 +39,4 @@ Processing workflow:
 Rules:
 ** All changes must be made using Tools. **
 ** Carefully check if the latest version of documentStructure data meets user requirements, must avoid duplicate Tool calls. **
-
-{% include "../../common/afs/use-afs-instruction.md" %}
 </instructions>
