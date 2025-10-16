@@ -21,14 +21,13 @@ import {
   validatePath,
 } from "../../utils/utils.mjs";
 
-// UI constants
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
 /**
- * Guide users through multi-turn dialogue to collect information and generate YAML configuration
+ * Guides the user through a multi-turn dialog to generate a YAML configuration file.
  * @param {Object} params
- * @param {string} params.outputPath - Output file path
- * @param {string} params.fileName - File name
+ * @param {string} params.outputPath - The path to the output file.
+ * @param {string} params.fileName - The name of the file.
  * @returns {Promise<Object>}
  */
 export default async function init(
@@ -47,7 +46,7 @@ export default async function init(
     const configContent = await readFile(filePath, "utf8").catch(() => null);
 
     if (!configContent || configContent.trim() === "") {
-      console.log(`⚠️ No configuration found.`);
+      console.log("⚠️ No configuration file found.");
       console.log(
         `🚀 Run ${chalk.cyan("aigne doc init")} to set up your documentation configuration.`,
       );
@@ -71,14 +70,12 @@ export default async function init(
   console.log("🚀 Welcome to AIGNE DocSmith!");
   console.log("Let's set up your documentation preferences.\n");
 
-  // Collect user information
   const input = {};
 
-  // 1. Primary purpose - what's the main outcome you want readers to achieve?
   const purposeChoices = await options.prompts.checkbox({
     message: "📝 [1/9]: What should your documentation help readers achieve?",
     choices: Object.entries(DOCUMENT_STYLES)
-      .filter(([key]) => key !== "custom") // Remove custom option for multiselect
+      .filter(([key]) => key !== "custom")
       .map(([key, style]) => ({
         name: `${style.name}`,
         description: style.description,
@@ -86,19 +83,18 @@ export default async function init(
       })),
     validate: (input) => {
       if (input.length === 0) {
-        return "Please choose at least one goal for your documentation.";
+        return "You must choose at least one goal for your documentation.";
       }
       return true;
     },
   });
 
-  // Follow-up logic: If ONLY mixedPurpose selected, ask for priority ranking
   let prioritizedPurposes = purposeChoices;
   if (purposeChoices.length === 1 && purposeChoices.includes("mixedPurpose")) {
     const topPriorities = await options.prompts.checkbox({
-      message: "🎯 Which is most important? (Select top 2 priorities)",
+      message: "🎯 Which is most important? (Select up to 2 priorities)",
       choices: Object.entries(DOCUMENT_STYLES)
-        .filter(([key]) => key !== "custom" && key !== "mixedPurpose") // Filter out custom and mixedPurpose
+        .filter(([key]) => key !== "custom" && key !== "mixedPurpose")
         .map(([key, style]) => ({
           name: `${style.name}`,
           description: style.description,
@@ -106,27 +102,24 @@ export default async function init(
         })),
       validate: (input) => {
         if (input.length === 0) {
-          return "Please choose at least one priority.";
+          return "You must choose at least one priority.";
         }
         if (input.length > 2) {
-          return "Please choose maximum 2 priorities.";
+          return "You may only choose up to 2 priorities.";
         }
         return true;
       },
     });
 
-    // Replace mixedPurpose with selected priorities
     prioritizedPurposes = topPriorities;
   }
 
-  // Save document purpose choices as keys
   input.documentPurpose = prioritizedPurposes;
 
-  // 2. Target audience - who will be reading this most often?
   const audienceChoices = await options.prompts.checkbox({
     message: "👥 [2/9]: Who will be reading your documentation?",
     choices: Object.entries(TARGET_AUDIENCES)
-      .filter(([key]) => key !== "custom") // Remove custom option for multiselect
+      .filter(([key]) => key !== "custom")
       .map(([key, audience]) => ({
         name: `${audience.name}`,
         description: audience.description,
@@ -134,23 +127,19 @@ export default async function init(
       })),
     validate: (input) => {
       if (input.length === 0) {
-        return "Please choose at least one audience.";
+        return "You must choose at least one audience.";
       }
       return true;
     },
   });
 
-  // Save target audience choices as keys
   input.targetAudienceTypes = audienceChoices;
 
-  // 3. Reader knowledge level - what do readers typically know when they arrive?
-  // Determine default based on selected purposes using mapping
   const mappedPurpose = prioritizedPurposes.find(
     (purpose) => PURPOSE_TO_KNOWLEDGE_MAPPING[purpose],
   );
   const defaultKnowledge = mappedPurpose ? PURPOSE_TO_KNOWLEDGE_MAPPING[mappedPurpose] : null;
 
-  // Filter knowledge level options based on previous selections
   const { filteredOptions: filteredKnowledgeOptions } = getFilteredOptions(
     "readerKnowledgeLevel",
     { documentPurpose: prioritizedPurposes, targetAudienceTypes: audienceChoices },
@@ -158,7 +147,7 @@ export default async function init(
   );
 
   const knowledgeChoice = await options.prompts.select({
-    message: "🧠 [3/9]: How much do readers already know about your project?",
+    message: "🧠 [3/9]: How much do your readers already know about your project?",
     choices: Object.entries(filteredKnowledgeOptions).map(([key, level]) => ({
       name: `${level.name}`,
       description: level.description,
@@ -221,7 +210,7 @@ export default async function init(
 
   // Let user select primary language from supported list
   const primaryLanguageChoice = await options.prompts.select({
-    message: "🌐 [5/9]: What's your main documentation language?",
+    message: "🌐 [5/9]: What is the main language of your documentation?",
     choices: SUPPORTED_LANGUAGES.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -238,7 +227,7 @@ export default async function init(
   );
 
   const translateLanguageChoices = await options.prompts.checkbox({
-    message: "🔄 [6/9]: Which languages should we translate to?",
+    message: "🔄 [6/9]: What languages should we translate to?",
     choices: availableTranslationLanguages.map((lang) => ({
       name: `${lang.label} - ${lang.sample}`,
       value: lang.code,
@@ -257,15 +246,17 @@ export default async function init(
   // 8. Content sources
   console.log("\n🔍 [8/9]: Content Sources");
   console.log(
-    "What folders/files should we analyze for documentation? (e.g., ./src, ./docs, ./README.md)",
+    "Please specify the folders and files we should analyze to generate your documentation (e.g., ./src, ./docs, ./README.md).",
   );
-  console.log("💡 Advanced: Use patterns like src/**/*.js or docs/**/*.md for specific files");
-  console.log("💡 Leave empty to scan everything");
+  console.log(
+    "💡 You can also use glob patterns like src/**/*.js or docs/**/*.md for more specific file matching.",
+  );
+  console.log("💡 If you leave this empty, we will scan the entire directory.");
 
   const sourcePaths = [];
   while (true) {
     const selectedPath = await options.prompts.search({
-      message: "File/folder path or pattern:",
+      message: "Please enter a file or folder path, or a glob pattern:",
       source: async (input) => {
         if (!input || input.trim() === "") {
           return [
@@ -292,7 +283,7 @@ export default async function init(
           options.push({
             name: searchTerm,
             value: searchTerm,
-            description: "This input will be used as a glob pattern for file matching",
+            description: "Use this glob pattern for file matching.",
           });
         }
 
@@ -342,7 +333,7 @@ export default async function init(
   // 9. Custom rules - any specific requirements for the documentation?
   const rulesInput = await options.prompts.input({
     message:
-      "📋 [9/9]: Any custom rules or requirements for your documentation? (Optional, press Enter to skip)",
+      "📋 [9/9]: Do you have any custom rules or requirements for your documentation? (Optional, press Enter to skip)",
     default: "",
   });
   input.rules = rulesInput.trim();
@@ -365,22 +356,24 @@ export default async function init(
     await mkdir(dirPath, { recursive: true });
 
     await writeFile(filePath, yamlContent, "utf8");
-    console.log(`\n✅ Setup complete! Configuration saved to: ${chalk.cyan(filePath)}`);
-    // Print YAML content for user review
+    console.log(
+      `\n✅ Setup complete! Your configuration has been saved to: ${chalk.cyan(filePath)}`,
+    );
     console.log(chalk.cyan("---"));
     console.log(chalk.cyan(yamlContent));
     console.log(chalk.cyan("---"));
-    console.log("💡 You can edit the configuration file anytime to modify settings.\n");
-    console.log(`🚀 Ready to generate docs? Run: ${chalk.cyan("aigne doc generate")}\n`);
+    console.log("💡 You can edit this file at any time to change your settings.\n");
+    console.log(`🚀 To generate your documentation, run: ${chalk.cyan("aigne doc generate")}\n`);
 
-    // load config from file
     if (skipIfExists) {
       return loadConfig({ config: filePath, appUrl });
     }
 
     return {};
   } catch (error) {
-    console.error(`❌ Failed to save configuration file: ${error.message}`);
+    console.error(
+      `❌ Sorry, I encountered an error while saving your configuration file: ${error.message}`,
+    );
     return {
       inputGeneratorStatus: false,
       inputGeneratorError: error.message,
@@ -502,14 +495,15 @@ export function generateYAML(input) {
   yaml += `${rulesSection.replace(/rules: ''/, "rules: |\n  ")}\n\n`;
 
   // Target Audience Description
-  yaml += "# Target Audience: Describe your specific target audience and their characteristics\n";
+  yaml += "# Target Audience: Describe your specific target audience and their characteristics.\n";
   const targetAudienceSection = yamlStringify({ targetAudience: config.targetAudience }).trim();
   // Use literal style for multiline strings
   yaml += `${targetAudienceSection.replace(/targetAudience: ''/, "targetAudience: |\n  ")}\n\n`;
 
   // Glossary Configuration
-  yaml += "# Glossary: Define project-specific terms and definitions\n";
-  yaml += '# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions\n\n';
+  yaml += "# Glossary: Define project-specific terms and definitions.\n";
+  yaml +=
+    '# glossary: "@glossary.md"  # Path to a markdown file containing glossary definitions.\n\n';
 
   // Language settings - safely serialize
   const localeSection = yamlStringify({ locale: config.locale }).trim();
@@ -522,25 +516,25 @@ export function generateYAML(input) {
     }).trim();
     yaml += `${translateLanguagesSection.replace(/^translateLanguages:/, "translateLanguages:")}\n`;
   } else {
-    yaml += "# translateLanguages:  # List of languages to translate the documentation to\n";
+    yaml += "# translateLanguages:  # A list of languages to translate the documentation to.\n";
     yaml += "#   - zh  # Example: Chinese translation\n";
     yaml += "#   - en  # Example: English translation\n";
   }
 
   // Directory and source path configurations - safely serialize
   const docsDirSection = yamlStringify({ docsDir: config.docsDir }).trim();
-  yaml += `${docsDirSection.replace(/^docsDir:/, "docsDir:")}  # Directory to save generated documentation\n`;
+  yaml += `${docsDirSection.replace(/^docsDir:/, "docsDir:")}  # The directory where the generated documentation will be saved.\n`;
 
   const sourcesPathSection = yamlStringify({ sourcesPath: config.sourcesPath }).trim();
-  yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # Source code paths to analyze")}\n`;
+  yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # The source code paths to analyze.")}\n`;
 
   // Image filtering settings
   const mediaInfoSection = yamlStringify({
     media: config.media,
   }).trim();
-  yaml += `# minImageWidth: Only images wider than this value (in pixels) will be used in page generation\n${mediaInfoSection}\n`;
+  yaml += `# minImageWidth: Only images wider than this value (in pixels) will be used in the page generation.\n${mediaInfoSection}\n`;
 
   return yaml;
 }
 
-init.description = "Generate a configuration file for the documentation generation process";
+init.description = "Create a configuration file for the documentation generation process.";

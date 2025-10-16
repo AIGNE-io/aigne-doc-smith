@@ -2,7 +2,7 @@ import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import { recordUpdate } from "../../utils/history-utils.mjs";
 
 function formatDocumentStructure(structure) {
-  // Build a tree structure for better display
+  // Create a map of nodes for easy lookup
   const nodeMap = new Map();
   const rootNodes = [];
 
@@ -14,7 +14,7 @@ function formatDocumentStructure(structure) {
     });
   });
 
-  // Second pass: build tree structure
+  // Build the tree structure
   structure.forEach((node) => {
     if (node.parentId) {
       const parent = nodeMap.get(node.parentId);
@@ -76,7 +76,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
 
   // Ask user if they want to review the documentation structure
   const needReview = await options.prompts.select({
-    message: "Would you like to optimize the documentation structure?",
+    message: "Would you like to refine the documentation structure?",
     choices: [
       {
         name: "No, looks good",
@@ -156,7 +156,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
             stage: "structure",
           });
         } catch (refinerError) {
-          console.warn("Could not save feedback as user preference:", refinerError.message);
+          console.warn("Could not save feedback as a user preference:", refinerError.message);
           console.warn("Your feedback was applied but not saved as a preference.");
         }
       }

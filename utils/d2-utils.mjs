@@ -32,12 +32,12 @@ export async function getChart({ content, strict }) {
   try {
     const { diagram, renderOptions, graph } = await d2.compile(contentWithBase64Img);
 
-    // Ignore stroke-dash in sequence diagram
+    // Do not apply a stroke-dash to sequence diagrams.
     if (
       graph?.root?.attributes?.shape &&
       graph.root.attributes.shape.value !== "sequence_diagram"
     ) {
-      // Save first level container
+      // Save the first-level container.
       const firstLevelContainer = new Set();
       diagram.shapes.forEach((x) => {
         const idList = x.id.split(".");
@@ -50,7 +50,7 @@ export async function getChart({ content, strict }) {
       });
       firstLevelContainer.forEach((shape) => {
         if (!shape.strokeDash) {
-          // NOTICE: The data structure here is different from the d2 source code.
+          // Note: The data structure here is different from the d2 source code.
           shape.strokeDash = 3;
         }
       });
@@ -69,8 +69,7 @@ export async function getChart({ content, strict }) {
   }
 }
 
-// Helper: save d2 svg assets alongside document
-export async function saveAssets({ markdown, docsDir }) {
+async function saveAssets({ markdown, docsDir }) {
   if (!markdown) {
     return markdown;
   }
@@ -87,10 +86,10 @@ export async function saveAssets({ markdown, docsDir }) {
       const svgPath = path.join(assetDir, fileName);
 
       if (await fs.pathExists(svgPath)) {
-        debug("Found assets cache, skipping generation", svgPath);
+        debug("Asset cache found, skipping generation", svgPath);
       } else {
         try {
-          debug("start generate d2 diagram", svgPath);
+          debug("Generating d2 diagram", svgPath);
           if (debug.enabled) {
             const d2FileName = `${getContentHash(d2Content)}.d2`;
             const d2Path = path.join(assetDir, d2FileName);
@@ -115,7 +114,7 @@ export async function saveAssets({ markdown, docsDir }) {
 }
 
 export async function beforePublishHook({ docsDir }) {
-  // Example: process each markdown file (replace with your logic)
+  // Process each markdown file to save d2 svg assets.
   const mdFilePaths = await glob("**/*.md", { cwd: docsDir });
   await pMap(
     mdFilePaths,
@@ -176,7 +175,7 @@ export async function checkContent({ content: _content }) {
   }
 
   if (await fs.pathExists(svgPath)) {
-    debug("Found assets cache, skipping generation", svgPath);
+    debug("Asset cache found, skipping generation", svgPath);
     return;
   }
 

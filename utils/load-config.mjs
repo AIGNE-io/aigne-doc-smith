@@ -10,9 +10,9 @@ export default async function loadConfig({ config, appUrl }) {
     // Check if config file exists
     await fs.access(configPath);
   } catch (_error) {
-    console.log(`Config file not found: ${configPath}`);
-    console.log("Please run 'aigne doc init' to create the config file.");
-    throw new Error(`Config file not found: ${configPath}`);
+    console.log(`The config file was not found at: ${configPath}`);
+    console.log("You can run 'aigne doc init' to create a new config file.");
+    throw new Error(`The config file was not found at: ${configPath}`);
   }
 
   try {
@@ -36,7 +36,7 @@ export default async function loadConfig({ config, appUrl }) {
       ...processedConfig,
     };
   } catch (error) {
-    console.error(`Error parsing config file: ${error.message}`);
-    throw new Error(`Failed to parse config file: ${error.message}`);
+    console.error(`I encountered an error while parsing the config file: ${error.message}`);
+    throw new Error(`I could not parse the config file: ${error.message}`);
   }
 }

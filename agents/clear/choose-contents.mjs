@@ -8,45 +8,45 @@ import {
 
 const TARGET_METADATA = {
   generatedDocs: {
-    label: "generated documents",
+    label: "Generated Documents",
     description: ({ docsDir }) =>
-      `Delete all generated documents in './${toDisplayPath(docsDir)}' (documentation structure stays).`,
+      `Delete all generated documents in './${toDisplayPath(docsDir)}'. The documentation structure will be preserved.`,
     agent: "clearGeneratedDocs",
   },
   documentStructure: {
-    label: "documentation structure",
+    label: "Documentation Structure",
     description: ({ docsDir, workDir }) =>
-      `Delete all generated documents in './${toDisplayPath(docsDir)}' and the documentation structure './${toDisplayPath(
+      `Delete all generated documents in './${toDisplayPath(docsDir)}' and the documentation structure in './${toDisplayPath(
         getStructurePlanPath(workDir),
-      )}' .`,
+      )}'.`,
     agent: "clearDocumentStructure",
   },
   documentConfig: {
-    label: "document configuration",
+    label: "Document Configuration",
     description: ({ workDir }) =>
-      `Delete the configuration file './${toDisplayPath(
+      `Delete the configuration file in './${toDisplayPath(
         getConfigFilePath(workDir),
-      )}' (requires 'aigne doc init' to regenerate).`,
+      )}'. You will need to run \`aigne doc init\` to regenerate it.`,
     agent: "clearDocumentConfig",
   },
   authTokens: {
-    label: "authorizations",
+    label: "Authorizations",
     description: () =>
-      `Delete authorization information in '${getDocSmithEnvFilePath()}' (requires re-authorization after clearing).`,
+      `Delete authorization information in '${getDocSmithEnvFilePath()}'. You will need to re-authorize after clearing.`,
     agent: "clearAuthTokens",
   },
   deploymentConfig: {
-    label: "deployment config",
+    label: "Deployment Config",
     description: ({ workDir }) =>
-      `Delete appUrl from './${toDisplayPath(getConfigFilePath(workDir))}'.`,
+      `Delete the appUrl from './${toDisplayPath(getConfigFilePath(workDir))}'.`,
     agent: "clearDeploymentConfig",
   },
   mediaDescription: {
-    label: "media file descriptions",
+    label: "Media File Descriptions",
     description: () =>
       `Delete AI-generated descriptions in './${toDisplayPath(
         getMediaDescriptionCachePath(),
-      )}' (will regenerate on next generation).`,
+      )}'. They will be regenerated on the next run.`,
     agent: "clearMediaDescription",
   },
 };
@@ -80,12 +80,11 @@ export default async function chooseContents(input = {}, options = {}) {
       }));
 
       selectedTargets = await options.prompts.checkbox({
-        message: "Select items to clear:",
+        message: "Please select the items you'd like to clear:",
         choices,
-        validate: (answer) => (answer.length > 0 ? true : "Please select at least one item."),
+        validate: (answer) => (answer.length > 0 ? true : "You must select at least one item."),
       });
     } else {
-      // If no prompts available, show available options
       return {
         message: `Available options to clear: ${TARGET_KEYS.join(", ")}`,
         availableTargets: TARGET_KEYS,
@@ -95,7 +94,7 @@ export default async function chooseContents(input = {}, options = {}) {
 
   if (selectedTargets.length === 0) {
     return {
-      message: "No items selected to clear.",
+      message: "You haven't selected any items to clear.",
     };
   }
 
@@ -103,7 +102,6 @@ export default async function chooseContents(input = {}, options = {}) {
   let hasError = false;
   let configCleared = false;
 
-  // Process each target using its dedicated agent
   for (const target of selectedTargets) {
     const metadata = TARGET_METADATA[target];
     if (!metadata) {
@@ -116,10 +114,9 @@ export default async function chooseContents(input = {}, options = {}) {
     }
 
     try {
-      // Get and invoke the specific agent using context
       const clearAgent = options.context?.agents?.[metadata.agent];
       if (!clearAgent) {
-        throw new Error(`Clear agent '${metadata.agent}' not found in context`);
+        throw new Error(`The clear agent '${metadata.agent}' was not found.`);
       }
 
       const result = await options.context.invoke(clearAgent, rest);
@@ -139,7 +136,6 @@ export default async function chooseContents(input = {}, options = {}) {
           suggestions: result.suggestions,
         });
 
-        // Track if document config was cleared
         if (target === "documentConfig" && result.cleared) {
           configCleared = true;
         }
@@ -153,13 +149,11 @@ export default async function chooseContents(input = {}, options = {}) {
     }
   }
 
-  // Prepare response message
   const header = hasError
     ? "Cleanup finished with some issues."
     : "Cleanup completed successfully!";
   const detailLines = results.map((item) => `- ${item.message}`).join("\n");
 
-  // Collect suggestions
   const suggestions = [];
   results.forEach((result) => {
     if (result.suggestions) {
@@ -167,7 +161,6 @@ export default async function chooseContents(input = {}, options = {}) {
     }
   });
 
-  // Add default suggestion if config was cleared
   if (configCleared && !suggestions.some((s) => s.includes("aigne doc init"))) {
     suggestions.push("Run `aigne doc init` to generate a fresh configuration file.");
   }
@@ -186,7 +179,7 @@ chooseContents.input_schema = {
   properties: {
     targets: {
       type: "array",
-      description: "Items to clear without confirmation",
+      description: "A list of items to clear without confirmation.",
       items: {
         type: "string",
         enum: TARGET_KEYS,
@@ -195,6 +188,6 @@ chooseContents.input_schema = {
   },
 };
 
-chooseContents.taskTitle = "Choose contents to clear";
+chooseContents.taskTitle = "Select and clear project contents";
 chooseContents.description =
-  "Choose contents to clear and execute the appropriate clearing operations";
+  "Select and clear project contents, such as generated documents, configuration, and authorization tokens.";
