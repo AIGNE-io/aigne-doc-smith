@@ -6,7 +6,7 @@ import pLimit from "p-limit";
 import pRetry from "p-retry";
 
 import { getComponentMountPoint } from "./blocklet.mjs";
-import { DISCUSS_KIT_DID } from "./constants/index.mjs";
+import { DISCUSS_KIT_DID, MEDIA_KIT_DID } from "./constants/index.mjs";
 import { getMimeType } from "./file-utils.mjs";
 
 /**
@@ -143,7 +143,7 @@ export async function uploadFiles(options) {
   }
 
   const url = new URL(appUrl);
-  const mountPoint = await getComponentMountPoint(appUrl, DISCUSS_KIT_DID);
+  const mountPoint = await getComponentMountPoint(appUrl, MEDIA_KIT_DID);
 
   // Use custom endpoint or default to discuss kit media endpoint
   const uploadEndpoint = endpoint || `${url.origin}${mountPoint}/api/uploads`;

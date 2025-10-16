@@ -25,8 +25,30 @@ export class ComponentNotFoundError extends Error {
   }
 }
 
+const BLOCKLET_INFO_CACHE = {};
+
+// Export for testing purposes
+export function clearBlockletCache() {
+  Object.keys(BLOCKLET_INFO_CACHE).forEach((key) => {
+    delete BLOCKLET_INFO_CACHE[key];
+  });
+}
+
 export async function getComponentInfo(appUrl) {
   const blockletJsUrl = joinURL(appUrl, "__blocklet__.js?type=json");
+
+  const cacheInfo = BLOCKLET_INFO_CACHE[appUrl];
+
+  // Cache for 10 min
+  if (cacheInfo) {
+    if (Date.now() > cacheInfo.__blocklet_info_cache_timestamp + 1000 * 60 * 10) {
+      delete BLOCKLET_INFO_CACHE[appUrl];
+    } else {
+      // Return a copy without the cache timestamp
+      const { __blocklet_info_cache_timestamp, ...config } = cacheInfo;
+      return config;
+    }
+  }
 
   let blockletJs;
   try {
@@ -45,6 +67,10 @@ export async function getComponentInfo(appUrl) {
   let config;
   try {
     config = await blockletJs.json();
+    BLOCKLET_INFO_CACHE[appUrl] = {
+      ...config,
+      __blocklet_info_cache_timestamp: Date.now(),
+    };
   } catch {
     throw new InvalidBlockletError(appUrl, null, "The server returned an invalid JSON response.");
   }
