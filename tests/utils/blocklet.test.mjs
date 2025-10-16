@@ -32,7 +32,7 @@ describe("blocklet", () => {
       expect(error).toBeInstanceOf(Error);
       expect(error.name).toBe("InvalidBlockletError");
       expect(error.message).toBe(
-        'Invalid application URL: "https://example.com". Unable to fetch configuration.',
+        'The application URL "https://example.com" is invalid. I was unable to fetch the configuration.',
       );
       expect(error.url).toBe(url);
       expect(error.status).toBe(status);
@@ -66,7 +66,7 @@ describe("blocklet", () => {
       expect(error).toBeInstanceOf(Error);
       expect(error.name).toBe("ComponentNotFoundError");
       expect(error.message).toBe(
-        'Your website "https://example.com" missing required component to host your docs.',
+        'Your website "https://example.com" is missing a required component to host your documentation.',
       );
       expect(error.did).toBe(did);
       expect(error.appUrl).toBe(appUrl);
@@ -160,7 +160,7 @@ describe("blocklet", () => {
       } catch (error) {
         expect(error.url).toBe(testAppUrl);
         expect(error.status).toBeNull();
-        expect(error.statusText).toBe("Invalid JSON response");
+        expect(error.statusText).toBe("The server returned an invalid JSON response.");
       }
     });
 

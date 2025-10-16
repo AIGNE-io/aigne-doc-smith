@@ -17,12 +17,13 @@ export default async function updateBranding({ appUrl, projectInfo, accessToken 
   try {
     const origin = new URL(appUrl).origin;
     if ([CLOUD_SERVICE_URL_PROD, CLOUD_SERVICE_URL_STAGING].includes(origin)) {
-      console.log("Skipped updating branding for official service\n");
+      console.log("ℹ️ Skipped updating branding for official service\n");
       return;
     }
 
     console.log(`🔄 Updating branding for ${chalk.cyan(origin)}`);
 
+    // Get component information and mount point
     const componentInfo = await getComponentInfoWithMountPoint(origin, DISCUSS_KIT_DID);
     const mountPoint = componentInfo.mountPoint || "/";
 
@@ -56,7 +57,7 @@ export default async function updateBranding({ appUrl, projectInfo, accessToken 
             endpoint: `${origin}/.well-known/service/blocklet/logo/upload/square/${componentInfo.did}`,
           });
         }
-        console.log("✅ Updated branding successfully!\n");
+        console.log("✅ Branding has been successfully updated\n");
       } catch (error) {
         console.warn(`⚠️ Just failed to update logo: ${error.message}\n`);
       }

@@ -193,7 +193,7 @@ E -> F
         expect(typeof result).toBe("string");
         expect(result).toContain(`![](${path.posix.join("..", TMP_ASSETS_DIR, "d2")}`);
         expect(
-          debugLogs.some((log) => log.includes("Found assets cache, skipping generation")),
+          debugLogs.some((log) => log.includes("Asset cache found, skipping generation")),
         ).toBe(true);
       } finally {
         process.stderr.write = originalWrite;
@@ -322,7 +322,7 @@ E -> F
         // Cache hit should be very fast (< 100ms)
         expect(endTime - startTime).toBeLessThan(100);
         expect(
-          debugLogs.some((log) => log.includes("Found assets cache, skipping generation")),
+          debugLogs.some((log) => log.includes("Asset cache found, skipping generation")),
         ).toBe(true);
       } finally {
         process.stderr.write = originalWrite;

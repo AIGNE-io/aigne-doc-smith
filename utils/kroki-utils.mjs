@@ -54,7 +54,7 @@ export async function getD2Svg({ content, strict = false }) {
   return svgContent;
 }
 
-async function saveD2Assets({ markdown, docsDir }) {
+export async function saveD2Assets({ markdown, docsDir }) {
   if (!markdown) {
     return markdown;
   }

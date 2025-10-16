@@ -69,7 +69,7 @@ export async function getChart({ content, strict }) {
   }
 }
 
-async function saveAssets({ markdown, docsDir }) {
+export async function saveAssets({ markdown, docsDir }) {
   if (!markdown) {
     return markdown;
   }
