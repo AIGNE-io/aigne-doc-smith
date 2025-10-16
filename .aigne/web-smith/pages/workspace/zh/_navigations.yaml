@@ -1,0 +1,4 @@
+- path: /home
+  navigation:
+    title: 主页
+    description: 探索 AI 驱动的文档生成

@@ -1,0 +1,4 @@
+- path: /home
+  navigation:
+    title: ホーム
+    description: AIを活用した文書の自動生成

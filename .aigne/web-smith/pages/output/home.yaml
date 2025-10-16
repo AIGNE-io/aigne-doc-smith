@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-16T13:59:04.497Z
-updatedAt: 2025-10-16T13:59:04.497Z
-publishedAt: 2025-10-16T13:59:04.497Z
+createdAt: 2025-10-16T14:25:13.600Z
+updatedAt: 2025-10-16T14:25:13.600Z
+publishedAt: 2025-10-16T14:25:13.600Z
 isPublic: true
 locales:
   en:
@@ -15,6 +15,42 @@ locales:
       codebase automatically with AIGNE DocSmith. Our AI-powered tool
       understands your code to create accurate, up-to-date docs, saving you time
       and effort.
+    image: mediakit://aigne-docsmith-hero.png
+    header:
+      sticky: true
+  zh:
+    backgroundColor: ""
+    style:
+      maxWidth: custom:1440px
+      paddingY: normal
+      paddingX: normal
+    title: AIGNE DocSmith | AI 驱动的代码文档
+    description: 使用 AIGNE DocSmith 自动从您的代码库生成全面的多语言文档。我们由 AI
+      驱动的工具能够理解您的代码，从而创建准确、最新的文档，为您节省时间和精力。
+    image: mediakit://aigne-docsmith-hero.png
+    header:
+      sticky: true
+  zh-TW:
+    backgroundColor: ""
+    style:
+      maxWidth: custom:1440px
+      paddingY: normal
+      paddingX: normal
+    title: AIGNE DocSmith | AI 驅動的程式碼文件
+    description: 使用 AIGNE DocSmith 自動從您的程式碼庫生成全面、多語言的文件。我們的 AI
+      能理解您的程式碼，以建立準確、最新的文件，為您節省時間與精力。
+    image: mediakit://aigne-docsmith-hero.png
+    header:
+      sticky: true
+  ja:
+    backgroundColor: ""
+    style:
+      maxWidth: custom:1440px
+      paddingY: normal
+      paddingX: normal
+    title: AIGNE DocSmith | AI搭載のコードドキュメンテーション
+    description: AIGNE
+      DocSmithを使えば、コードベースから包括的で多言語対応のドキュメンテーションを自動生成できます。AI搭載ツールがコードを理解し、正確で最新のドキュメントを作成。時間と労力を節約します。
     image: mediakit://aigne-docsmith-hero.png
     header:
       sticky: true
@@ -1438,26 +1474,241 @@ sections:
       gap: normal
       paddingY: none
       paddingX: none
-  d56d9e831889abb5:
-    id: d56d9e831889abb5
-    name: Full Background Hero
+  a86a994f8f1e3ef9:
+    id: a86a994f8f1e3ef9
+    name: Changelog
     component: layout-block
     sections:
-      d66823edd1527d2e:
-        id: d66823edd1527d2e
-        name: CTA
+      4e880f245e537ce0:
+        id: 4e880f245e537ce0
+        name: Title
         component: layout-block
         sections:
-          db2d6e57316f086b:
-            id: db2d6e57316f086b
-            name: Description
+          9ef337d6c1b8fe4f:
+            id: 9ef337d6c1b8fe4f
+            name: RichText
             component: custom-component
             config:
               useCache: true
               componentId: xoHu0J44322kDYc-
             sectionIds: []
-          06080d017bac5b6d:
-            id: 06080d017bac5b6d
+        sectionIds:
+          - 9ef337d6c1b8fe4f
+        config:
+          gap: small
+          paddingX: none
+          gridSettings:
+            desktop:
+              9ef337d6c1b8fe4f:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile: {}
+          alignContent: start
+      19a2b1776002f1e2:
+        id: 19a2b1776002f1e2
+        name: Logs
+        component: layout-block
+        sections:
+          f9a71d86dbbbab96:
+            id: f9a71d86dbbbab96
+            name: Card01
+            component: layout-block
+            sections:
+              7443a5cab8d91ba7:
+                id: 7443a5cab8d91ba7
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+            sectionIds:
+              - 7443a5cab8d91ba7
+            config:
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: center
+              gridSettings:
+                desktop:
+                  7443a5cab8d91ba7:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                mobile:
+                  t7hco63shuiga559:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: t7hco63shuiga559
+          10d9370f9bbade45:
+            id: 10d9370f9bbade45
+            name: Card02
+            component: layout-block
+            sections:
+              1907b7983beb6857:
+                id: 1907b7983beb6857
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+            sectionIds:
+              - 1907b7983beb6857
+            config:
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: center
+              gridSettings:
+                desktop:
+                  1907b7983beb6857:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                mobile:
+                  t7hco63shuiga559:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: t7hco63shuiga559
+                  1907b7983beb6857:
+                    id: 1907b7983beb6857
+          0227d1bb5d225e8b:
+            id: 0227d1bb5d225e8b
+            name: Card03
+            component: layout-block
+            sections:
+              d1fdc95d1f387d08:
+                id: d1fdc95d1f387d08
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+            sectionIds:
+              - d1fdc95d1f387d08
+            config:
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: center
+              gridSettings:
+                desktop:
+                  d1fdc95d1f387d08:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                mobile:
+                  t7hco63shuiga559:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: t7hco63shuiga559
+                  d1fdc95d1f387d08:
+                    id: d1fdc95d1f387d08
+          b31fa674a7d2d172:
+            id: b31fa674a7d2d172
+            name: Card04
+            component: layout-block
+            sections:
+              851d90d02786accf:
+                id: 851d90d02786accf
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+            sectionIds:
+              - 851d90d02786accf
+            config:
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: center
+              gridSettings:
+                desktop:
+                  851d90d02786accf:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                mobile:
+                  t7hco63shuiga559:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                    id: t7hco63shuiga559
+                  851d90d02786accf:
+                    id: 851d90d02786accf
+        sectionIds:
+          - f9a71d86dbbbab96
+          - 10d9370f9bbade45
+          - 0227d1bb5d225e8b
+          - b31fa674a7d2d172
+        config:
+          gap: small
+          paddingX: none
+          gridSettings:
+            desktop:
+              f9a71d86dbbbab96:
+                x: 0
+                y: 0
+                w: 3
+                h: 1
+              10d9370f9bbade45:
+                x: 3
+                y: 0
+                w: 3
+                h: 1
+              0227d1bb5d225e8b:
+                x: 6
+                y: 0
+                w: 3
+                h: 1
+              b31fa674a7d2d172:
+                x: 9
+                y: 0
+                w: 3
+                h: 1
+            mobile:
+              f9a71d86dbbbab96:
+                x: 0
+                y: 2
+                w: 12
+                h: 1
+                id: f9a71d86dbbbab96
+      b7cb8370689a006a:
+        id: b7cb8370689a006a
+        name: Action
+        component: layout-block
+        sections:
+          e042510a9b174c06:
+            id: e042510a9b174c06
             name: Action
             component: custom-component
             config:
@@ -1465,17 +1716,82 @@ sections:
               componentId: a44r0SiGV9AFn2Fj
             sectionIds: []
         sectionIds:
-          - db2d6e57316f086b
-          - 06080d017bac5b6d
+          - e042510a9b174c06
+        config:
+          gap: none
+          paddingX: none
+          gridSettings:
+            desktop:
+              e042510a9b174c06:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile: {}
+          alignContent: start
+    sectionIds:
+      - 4e880f245e537ce0
+      - 19a2b1776002f1e2
+      - b7cb8370689a006a
+    config:
+      gridSettings:
+        desktop:
+          4e880f245e537ce0:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+          19a2b1776002f1e2:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          b7cb8370689a006a:
+            x: 0
+            y: 2
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: none
+      paddingX: none
+  6edec3e84b5a8e8d:
+    id: 6edec3e84b5a8e8d
+    name: Full Background Hero
+    component: layout-block
+    sections:
+      b3de0f85ffafc96e:
+        id: b3de0f85ffafc96e
+        name: CTA
+        component: layout-block
+        sections:
+          b2fd4755c489229c:
+            id: b2fd4755c489229c
+            name: Description
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+          508276fbeb60a116:
+            id: 508276fbeb60a116
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+            sectionIds: []
+        sectionIds:
+          - b2fd4755c489229c
+          - 508276fbeb60a116
         config:
           gridSettings:
             desktop:
-              db2d6e57316f086b:
+              b2fd4755c489229c:
                 x: 2
                 y: 0
                 w: 8
                 h: 1
-              06080d017bac5b6d:
+              508276fbeb60a116:
                 x: 0
                 y: 1
                 w: 12
@@ -1487,11 +1803,11 @@ sections:
           background: background.paper
           borderRadius: small
     sectionIds:
-      - d66823edd1527d2e
+      - b3de0f85ffafc96e
     config:
       gridSettings:
         desktop:
-          d66823edd1527d2e:
+          b3de0f85ffafc96e:
             x: 0
             y: 0
             w: 12
@@ -1505,7 +1821,8 @@ sectionIds:
   - 132fd8695b7e37f9
   - 0204804ba50155ce
   - dd6c4ba4f1e73c06
-  - d56d9e831889abb5
+  - a86a994f8f1e3ef9
+  - 6edec3e84b5a8e8d
 dataSource:
   59932b13bee4343a:
     en:
@@ -1515,17 +1832,81 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: Stop writing docs and start shipping. AIGNE DocSmith uses AI to analyze
-                  your code and generate comprehensive, multi-language
-                  documentation automatically. Keep your docs perfectly in sync,
-                  effortlessly.
+                text: Generate, translate, and publish production-ready documentation straight
+                  from your codebase—kept in sync with every release.
                 style:
                   color: rgba(255, 255, 255, 0.8)
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: Documentation that Writes Itself
+            text: Create great docs without writing them
+            style:
+              color: common.white
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: 直接从您的代码库生成、翻译并发布生产就绪的文档——并与每个版本保持同步。
+                style:
+                  color: rgba(255, 255, 255, 0.8)
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 无需编写，即可创建出色的文档
+            style:
+              color: common.white
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh-TW:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: 直接從您的程式碼庫生成、翻譯並發布可供生產環境使用的文件——並與每個版本保持同步。
+                style:
+                  color: rgba(255, 255, 255, 0.8)
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 無需親手撰寫，即可建立出色的文件
+            style:
+              color: common.white
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+    ja:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: コードベースから直接、本番環境対応のドキュメントを生成、翻訳、公開。すべてのリリースと同期を保ちます。
+                style:
+                  color: rgba(255, 255, 255, 0.8)
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 書かずに素晴らしいドキュメントを作成
             style:
               color: common.white
               variant: h1
@@ -1556,6 +1937,72 @@ dataSource:
           value: 16
         v5utpm7bu9yvdpnq:
           value: center
+    zh:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 立即开始
+              url: https://docsmith.aigne.io/docs/docsmith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: 在 GitHub 上查看
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center
+    zh-TW:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 立即開始
+              url: https://docsmith.aigne.io/docs/docsmith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: 在 GitHub 上查看
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center
+    ja:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 今すぐはじめる
+              url: https://docsmith.aigne.io/docs/docsmith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: GitHubで見る
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center
   11087eae134dbead:
     en:
       properties:
@@ -1566,6 +2013,39 @@ dataSource:
         gs1rn5jmxfvpxptx:
           value:
             text: See DocSmith in Action
+            style:
+              variant: h2
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 查看 DocSmith 的实际操作
+            style:
+              variant: h2
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 實際了解 DocSmith 的運作方式
+            style:
+              variant: h2
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: DocSmithの動作を見る
             style:
               variant: h2
   1fda7fccdb7e0f5a:
@@ -1583,15 +2063,89 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: Run a single command. DocSmith analyzes your project, plans a logical
-                  structure, and generates comprehensive documentation from
-                  scratch. Zero config required.
+                text: Run one command. DocSmith analyzes your project, plans the structure, and
+                  generates comprehensive docs from scratch. No config needed.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 1. 生成您的文档
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: 运行一个命令。DocSmith 会分析您的项目、规划结构，并从头开始生成全面的文档。无需配置。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 1. 生成您的文件
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: 執行一個指令。DocSmith 會分析您的專案、規劃結構，並從頭開始生成全面的文件。無需設定。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 1. ドキュメントを生成
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: コマンドを1つ実行するだけ。DocSmithがプロジェクトを分析し、構造を計画して、包括的なドキュメントをゼロから生成します。設定は不要です。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   e28ffd07b0c0a3b4:
     en:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://generate.json
+    zh:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://generate.json
+    zh-TW:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://generate.json
+    ja:
       properties:
         6b0jh5aw4ptbo2t3:
           value: ""
@@ -1612,15 +2166,89 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: Code changes? No problem. DocSmith detects updates and intelligently
-                  regenerates only the affected sections, ensuring your docs are
-                  always accurate.
+                text: Code changes? DocSmith detects updates and regenerates only affected
+                  sections, keeping your docs accurate.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2. 保持同步
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: 代码有变动？DocSmith 会检测更新并仅重新生成受影响的部分，确保您的文档准确无误。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2. 保持文件同步
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: 程式碼有變動？DocSmith 會偵測更新並僅重新生成受影響的部分，確保您的文件保持準確。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2. 同期を維持
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: コードが変更されても大丈夫。DocSmithが更新を検知し、影響のあるセクションのみを再生成。ドキュメントを常に正確に保ちます。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   b8525470e7c2d473:
     en:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://update.json
+    zh:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://update.json
+    zh-TW:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://update.json
+    ja:
       properties:
         6b0jh5aw4ptbo2t3:
           value: ""
@@ -1641,15 +2269,89 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: Reach a worldwide audience. Translate your documentation into 12
-                  professionally supported languages with a single command,
-                  maintaining technical accuracy.
+                text: Go global. Translate your docs into 12 professionally supported languages
+                  with one command, ensuring technical accuracy.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 3. 即时走向全球
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: 走向全球。用一个命令将您的文档翻译成 12 种专业支持的语言，确保技术准确性。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 3. 立即全球化
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: 走向全球。透過一個指令，將您的文件翻譯成 12 種專業支援的語言，確保技術準確性。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 3. 即座にグローバル展開
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: グローバル展開へ。1つのコマンドで、ドキュメントを専門的にサポートされた12言語に翻訳。技術的な正確性を保証します。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   b2f1f7da73fbb1e8:
     en:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://translate.json
+    zh:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://translate.json
+    zh-TW:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://translate.json
+    ja:
       properties:
         6b0jh5aw4ptbo2t3:
           value: ""
@@ -1670,14 +2372,89 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: Make your docs live! Publish directly to the DocSmith platform or your own
-                  Discuss Kit instance and share with your team or the world.
+                text: Go live! Publish directly to the DocSmith platform or your Discuss Kit
+                  instance to share with your team or the world.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 4. 一键发布
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: 上线！直接发布到 DocSmith 平台或您的 Discuss Kit 实例，与您的团队或全世界分享。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 4. 一鍵發布
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: 上線發布！直接發布到 DocSmith 平台或您的 Discuss Kit 實例，與您的團隊或全世界分享。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 4. ワンクリックで公開
+            style:
+              variant: h3
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1760429942224-0t78ctd03
+                type: text
+                text: ライブに公開。DocSmithプラットフォームまたはお使いのDiscuss Kitインスタンスに直接公開し、チームや世界と共有できます。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   c90f340adf7efdfb:
     en:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://publish.json
+    zh:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://publish.json
+    zh-TW:
+      properties:
+        6b0jh5aw4ptbo2t3:
+          value: ""
+        n802svpu2aj3ecnm:
+          value: mediakit://publish.json
+    ja:
       properties:
         6b0jh5aw4ptbo2t3:
           value: ""
@@ -1693,6 +2470,39 @@ dataSource:
         gs1rn5jmxfvpxptx:
           value:
             text: Powerful Features, Effortless Experience
+            style:
+              variant: h2
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 强大功能，轻松体验
+            style:
+              variant: h2
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 強大功能，輕鬆體驗
+            style:
+              variant: h2
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: パワフルな機能、簡単な操作性
             style:
               variant: h2
   d6415ec1d624285f:
@@ -1712,15 +2522,102 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Our AI understands code intent, generating not just what your code does,
-                  but why. Get logical structure and context-rich content
-                  automatically.
+                text: Our AI understands code intent to generate context-rich content that
+                  explains the 'why,' not just the 'what.' Get a logical
+                  structure automatically.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 智能生成
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 我们的 AI 能理解代码意图，生成富含上下文的内容，解释“为什么”而不仅仅是“是什么”。自动获得逻辑清晰的结构。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 智慧生成
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 我們的 AI 能理解程式碼的意圖，生成富含情境的內容，解釋「為何如此」，而不僅是「做了什麼」。自動獲得邏輯清晰的結構。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: インテリジェントな生成
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: AIがコードの意図を理解し、「何」だけでなく「なぜ」を説明するコンテキスト豊かなコンテンツを生成します。論理的な構造が自動的に得られます。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   c2c0c505651f861a:
     en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:brain-circuit
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:brain-circuit
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh-TW:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:brain-circuit
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    ja:
       properties:
         5ek4m0kw9cu0ndns:
           value: lucide:brain-circuit
@@ -1745,14 +2642,101 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Translate your docs into 12 languages. Our context-aware AI ensures
-                  professional-grade, technically accurate translations.
+                text: Translate docs into 12 languages. Our context-aware AI ensures
+                  professional, technically accurate translations.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 全球就绪
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 将文档翻译成 12 种语言。我们具有上下文感知能力的 AI 可确保专业、技术准确的翻译。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 全球就緒
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 將文件翻譯成 12 種語言。我們具備情境感知能力的 AI 可確保專業且技術準確的翻譯。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: グローバル対応
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: ドキュメントを12言語に翻訳。コンテキストを認識するAIが、専門的で技術的に正確な翻訳を保証します。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   cf7f14f32caa64b7:
     en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:languages
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:languages
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh-TW:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:languages
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    ja:
       properties:
         5ek4m0kw9cu0ndns:
           value: lucide:languages
@@ -1777,14 +2761,101 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Use AIGNE Hub out-of-the-box or bring your own keys for OpenAI, Google,
+                text: Use AIGNE Hub instantly or bring your own keys for OpenAI, Google,
                   Anthropic, and more. You're in control.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 灵活的 LLM 支持
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 立即使用 AIGNE Hub，或自带 OpenAI、Google、Anthropic 等平台的密钥。一切由您掌控。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 彈性的 LLM 支援
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 立即使用 AIGNE Hub，或帶入您自己的 OpenAI、Google、Anthropic 等平台的金鑰。由您全權掌控。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 柔軟なLLMサポート
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: AIGNE Hubをすぐに利用するか、OpenAI、Google、Anthropicなどの独自キーを持ち込めます。すべてをコントロール可能です。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   5786ed1f0d301e6b:
     en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:cubes
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:cubes
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh-TW:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:cubes
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    ja:
       properties:
         5ek4m0kw9cu0ndns:
           value: lucide:cubes
@@ -1809,14 +2880,101 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: DocSmith automatically detects code changes and updates only the relevant
-                  documentation, saving time and ensuring accuracy.
+                text: DocSmith auto-detects code changes and updates only relevant docs, saving
+                  time and ensuring accuracy.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 始终保持最新
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: DocSmith 自动检测代码变更，并仅更新相关文档，从而节省时间并确保准确性。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 隨時保持最新
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: DocSmith 會自動偵測程式碼變動，並僅更新相關文件，節省時間並確保準確性。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 常に最新
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: DocSmithはコードの変更を自動検出し、関連ドキュメントのみを更新。時間を節約し、正確性を保証します。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   c36ed92b96a913d6:
     en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:refresh-cw
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:refresh-cw
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh-TW:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:refresh-cw
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    ja:
       properties:
         5ek4m0kw9cu0ndns:
           value: lucide:refresh-cw
@@ -1841,14 +2999,101 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Get started in seconds. DocSmith auto-detects your project's tech stack
-                  and smart defaults get you running instantly.
+                text: Get started in seconds. DocSmith auto-detects your tech stack with smart
+                  defaults to get you running instantly.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 零配置
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 数秒内即可开始。DocSmith 会自动检测您的技术栈，并提供智能默认设置，让您即刻运行。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 零設定
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 幾秒鐘內即可開始。DocSmith 會自動偵測您的技術堆疊，並提供智慧的預設值，讓您立即開始運作。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 設定不要
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 数秒で開始できます。DocSmithはスマートなデフォルト設定で技術スタックを自動検出し、即座に実行可能です。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   1b6e53646eb2dda9:
     en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:zap
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:zap
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh-TW:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:zap
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    ja:
       properties:
         5ek4m0kw9cu0ndns:
           value: lucide:zap
@@ -1873,14 +3118,102 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Publish your docs to DocSmith Cloud or your own Discuss Kit instance with
-                  a single command. Sharing has never been easier.
+                text: Publish docs to DocSmith Cloud or your Discuss Kit instance with one
+                  command. Sharing has never been easier.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 一键发布
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 用一个命令将文档发布到 DocSmith Cloud 或您的 Discuss Kit 实例。分享从未如此简单。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 一鍵發布
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 透過一個指令，將文件發布到 DocSmith Cloud 或您的 Discuss Kit 實例。分享從未如此簡單。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: ワンクリック公開
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 1つのコマンドでDocSmith Cloudまたはお使いのDiscuss
+                  Kitインスタンスにドキュメントを公開。共有がこれまでになく簡単になります。
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
   c24c6fca6b8c63cf:
     en:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:rocket
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:rocket
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    zh-TW:
+      properties:
+        5ek4m0kw9cu0ndns:
+          value: lucide:rocket
+        gugqsxx3xyveuu8n:
+          value: primary.main
+        529qbwiam7oypw8e:
+          value: 40px
+    ja:
       properties:
         5ek4m0kw9cu0ndns:
           value: lucide:rocket
@@ -1900,6 +3233,39 @@ dataSource:
             text: Get Started in 60 Seconds
             style:
               variant: h2
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 60 秒快速入门
+            style:
+              variant: h2
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 60 秒內快速上手
+            style:
+              variant: h2
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 60秒でスタート
+            style:
+              variant: h2
   f19eeffa4f87a133:
     en:
       properties:
@@ -1913,8 +3279,70 @@ dataSource:
             list:
               - id: item-1759185456428-p8i1jjk33
                 type: text
-                text: Get the power of DocSmith on your machine with a single global install
-                  command via npm.
+                text: Get DocSmith on your machine with one global npm install command.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 第 1 步：安装 AIGNE CLI
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 通过一个全局 npm 安装命令，在您的机器上获取 DocSmith。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh-TW:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 步驟 1：安裝 AIGNE CLI
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 透過一個全域 npm 安裝指令，將 DocSmith 安裝到您的電腦上。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    ja:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: ステップ1：AIGNE CLIをインストール
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 1つのグローバルnpmインストールコマンドで、お使いのマシンにDocSmithを導入します。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1925,6 +3353,36 @@ dataSource:
           value: flex-start
   c3e98bb9966017d0:
     en:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: npm install -g @aigne/cli
+        b2jrz12ik7esf93z:
+          value: bash
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: false
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: npm install -g @aigne/cli
+        b2jrz12ik7esf93z:
+          value: bash
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: false
+    zh-TW:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: npm install -g @aigne/cli
+        b2jrz12ik7esf93z:
+          value: bash
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: false
+    ja:
       properties:
         a7frn5jmx5vpxpt3:
           value: npm install -g @aigne/cli
@@ -1947,8 +3405,71 @@ dataSource:
             list:
               - id: item-1759185456428-p8i1jjk33
                 type: text
-                text: Navigate to your project's root directory and run the generate command.
-                  DocSmith handles the rest, from analysis to content creation.
+                text: Go to your project's root directory and run the generate command. DocSmith
+                  handles the rest, from analysis to creation.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 第 2 步：生成您的第一份文档
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 进入您项目的根目录并运行生成命令。DocSmith 会处理剩下的所有事情，从分析到创建。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh-TW:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 步驟 2：生成您的第一份文件
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: 前往您專案的根目錄並執行 generate 指令。DocSmith 會處理從分析到建立的所有後續工作。
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    ja:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: ステップ2：最初のドキュメントを生成
+            style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: プロジェクトのルートディレクトリに移動し、generateコマンドを実行します。分析から作成まで、残りはDocSmithが処理します。
                 style:
                   color: ""
                   fontSize: 16px
@@ -1963,6 +3484,7 @@ dataSource:
         a7frn5jmx5vpxpt3:
           value: |-
             cd /path/to/your/project
+
             aigne doc generate
         b2jrz12ik7esf93z:
           value: bash
@@ -1970,7 +3492,514 @@ dataSource:
           value: 1rem
         qvxiyadgn5bj6oq8:
           value: false
-  db2d6e57316f086b:
+    zh:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: |-
+            cd /path/to/your/project
+
+            aigne doc generate
+        b2jrz12ik7esf93z:
+          value: bash
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: false
+    zh-TW:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: |-
+            cd /path/to/your/project
+
+            aigne doc generate
+        b2jrz12ik7esf93z:
+          value: bash
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: false
+    ja:
+      properties:
+        a7frn5jmx5vpxpt3:
+          value: |-
+            cd /path/to/your/project
+
+            aigne doc generate
+        b2jrz12ik7esf93z:
+          value: bash
+        d8hvf7cxz93jk5p:
+          value: 1rem
+        qvxiyadgn5bj6oq8:
+          value: false
+  9ef337d6c1b8fe4f:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Latest Updates
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 最新更新
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    zh-TW:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 最新更新
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+    ja:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 最新の更新情報
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  7443a5cab8d91ba7:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: "Feature: Context retrieval from repositories is now supported via AFS."
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-12
+            style:
+              color: text.secondary
+              variant: body1
+    zh:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 功能：现已支持通过 AFS 从代码仓库中检索上下文。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-12
+            style:
+              color: text.secondary
+              variant: body1
+    zh-TW:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 功能：現已支援透過 AFS 從儲存庫中檢索情境。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-12
+            style:
+              color: text.secondary
+              variant: body1
+    ja:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 機能：AFSを介したリポジトリからのコンテキスト取得がサポートされました。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-12
+            style:
+              color: text.secondary
+              variant: body1
+  1907b7983beb6857:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: "Fix: Improved access token retrieval and session checking for
+                  publishing."
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+    zh:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 修复：改进了发布时的访问令牌检索和会话检查。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+    zh-TW:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 修復：改善了發布時的存取權杖檢索與工作階段檢查。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+    ja:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 修正：公開時のアクセストークン取得とセッションチェックを改善しました。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+  d1fdc95d1f387d08:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: "Fix: Addressed an issue with missing locale information during document
+                  checks."
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+    zh:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 修复：解决了文档检查期间区域设置信息缺失的问题。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+    zh-TW:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 修復：解決了文件檢查期間缺少地區設定資訊的問題。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+    ja:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 修正：ドキュメントチェック中にロケール情報が欠落する問題に対応しました。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+  851d90d02786accf:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: "Feature: Optimized for large context handling in document generation."
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+    zh:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 功能：优化了文档生成过程中的大上下文处理能力。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+    zh-TW:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 功能：優化了文件生成中的大型情境處理能力。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+    ja:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759143324880-zr95ywd04
+                type: text
+                text: 機能：ドキュメント生成における大規模なコンテキスト処理を最適化しました。
+                style:
+                  color: text.primary
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 2025-10-11
+            style:
+              color: text.secondary
+              variant: body1
+  e042510a9b174c06:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: View Full Changelog
+              url: https://github.com/AIGNE-io/aigne-doc-smith/blob/main/CHANGELOG.md
+              variant: text
+              size: medium
+              target: _self
+              needLogin: false
+    zh:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 查看完整更新日志
+              url: https://github.com/AIGNE-io/aigne-doc-smith/blob/main/CHANGELOG.md
+              variant: text
+              size: medium
+              target: _self
+              needLogin: false
+    zh-TW:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 查看完整更新日誌
+              url: https://github.com/AIGNE-io/aigne-doc-smith/blob/main/CHANGELOG.md
+              variant: text
+              size: medium
+              target: _self
+              needLogin: false
+    ja:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: すべての変更履歴を見る
+              url: https://github.com/AIGNE-io/aigne-doc-smith/blob/main/CHANGELOG.md
+              variant: text
+              size: medium
+              target: _self
+              needLogin: false
+  b2fd4755c489229c:
     en:
       properties:
         9ajrz12ik7esfk1z:
@@ -1978,9 +4007,8 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: Stop the manual grind and let AIGNE DocSmith build brilliant,
-                  always-current docs for you. Get started now and reclaim your
-                  time to code!
+                text: Stop the manual grind. Let AIGNE DocSmith build brilliant, always-current
+                  docs for you. Get started now and reclaim your time to code!
                 style:
                   color: ""
                   fontSize: 16px
@@ -1995,7 +4023,74 @@ dataSource:
           value: center
         kyg0hdy5uqq4gc1o:
           value: center
-  06080d017bac5b6d:
+    zh:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: 告别手动编写的繁琐。让 AIGNE DocSmith 为您构建出色、始终保持最新的文档。立即开始，将您的时间用在编码上！
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 准备好自动化您的文档了吗？
+            style:
+              color: ""
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+    zh-TW:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: 停止繁瑣的手動工作。讓 AIGNE DocSmith 為您建立出色且隨時保持最新的文件。立即開始，將時間重新投入到程式碼上！
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: 準備好自動化您的文件了嗎？
+            style:
+              color: ""
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+    ja:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: 手作業の繰り返しはもうやめましょう。AIGNE
+                  DocSmithが、常に最新の優れたドキュメントをあなたのために構築します。今すぐ始めて、コーディングの時間を取り戻しましょう！
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: ドキュメンテーションを自動化する準備はできましたか？
+            style:
+              color: ""
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+  508276fbeb60a116:
     en:
       properties:
         b8x4m3n9kp7qtw5r:
@@ -2010,6 +4105,72 @@ dataSource:
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
               text: See it on GitHub
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center
+    zh:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 立即试用
+              url: https://docsmith.aigne.io/docs/docsmith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: 在 GitHub 上查看
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center
+    zh-TW:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 立即試用
+              url: https://docsmith.aigne.io/docs/docsmith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: 在 GitHub 上查看
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center
+    ja:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: 今すぐ試す
+              url: https://docsmith.aigne.io/docs/docsmith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: GitHubで見る
               variant: outlined
               borderColor: common.white
               size: large

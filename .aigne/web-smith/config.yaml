@@ -93,9 +93,6 @@ rules: |
 # glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
 
 locale: en
-# translateLanguages:  # List of languages to translate the pages to
-#   - zh  # Example: Chinese translation
-#   - en  # Example: English translation
 pagesDir: .aigne/web-smith/pages # Directory to save generated pages
 sourcesPath: # Source code paths to analyze
   - ./README.md
@@ -111,8 +108,12 @@ defaultDatasources: # Default datasources included in every page
 # minImageWidth: Only images wider than this value (in pixels) will be used in page generation
 media:
   minImageWidth: 800
-lastGitHead: b391110d7a2894e9c91abede8b73be95823d9feb
+lastGitHead: a7c014cc2ab0ef094332f024b82bb79325c6db86
 appUrl: https://staging.docsmith.aigne.io/
 # Checkout ID for website deployment service
 checkoutId: ""
 projectCover: .aigne/web-smith/cover.png
+translateLanguages:
+  - zh
+  - zh-TW
+  - ja

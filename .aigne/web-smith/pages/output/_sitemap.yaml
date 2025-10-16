@@ -16,12 +16,48 @@ sitemap:
         backgroundColor: ""
         header:
           sticky: true
+      zh:
+        title: AIGNE DocSmith | AI 驱动的代码文档
+        description: 使用 AIGNE DocSmith 自动从您的代码库生成全面的多语言文档。我们由 AI
+          驱动的工具能够理解您的代码，从而创建准确、最新的文档，为您节省时间和精力。
+        image: mediakit://aigne-docsmith-hero.png
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+      zh-TW:
+        title: AIGNE DocSmith | AI 驅動的程式碼文件
+        description: 使用 AIGNE DocSmith 自動從您的程式碼庫生成全面、多語言的文件。我們的 AI
+          能理解您的程式碼，以建立準確、最新的文件，為您節省時間與精力。
+        image: mediakit://aigne-docsmith-hero.png
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+      ja:
+        title: AIGNE DocSmith | AI搭載のコードドキュメンテーション
+        description: AIGNE
+          DocSmithを使えば、コードベースから包括的で多言語対応のドキュメンテーションを自動生成できます。AI搭載ツールがコードを理解し、正確で最新のドキュメントを作成。時間と労力を節約します。
+        image: mediakit://aigne-docsmith-hero.png
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-16T13:59:04.497Z
-      updatedAt: 2025-10-16T13:59:04.497Z
-      publishedAt: 2025-10-16T13:59:04.497Z
+      createdAt: 2025-10-16T14:25:13.600Z
+      updatedAt: 2025-10-16T14:25:13.600Z
+      publishedAt: 2025-10-16T14:25:13.600Z
       isPublic: true
 navigations:
   - id: 106a6c241b8797f5
@@ -29,16 +65,34 @@ navigations:
     visible: true
     title:
       en: Home
+      zh: 主页
+      zh-TW: 首頁
+      ja: ホーム
     link:
       en: /
+      zh: /
+      zh-TW: /
+      ja: /
     description:
       en: Discover AI-powered documentation generation
+      zh: 探索 AI 驱动的文档生成
+      zh-TW: 探索 AI 驅動的文件生成
+      ja: AIを活用した文書の自動生成
   - id: f5c5d15c42b3cf01
     section: footer
     visible: true
     title:
       en: Home
+      zh: 主页
+      zh-TW: 首頁
+      ja: ホーム
     link:
       en: /
+      zh: /
+      zh-TW: /
+      ja: /
     description:
       en: Discover AI-powered documentation generation
+      zh: 探索 AI 驱动的文档生成
+      zh-TW: 探索 AI 驅動的文件生成
+      ja: AIを活用した文書の自動生成

@@ -3,34 +3,34 @@
   sites:
     https://staging.docsmith.aigne.io:
       url: https://staging.docsmith.aigne.io/image-bin/uploads/9c0909bf927a7d80.json
-      upload_time: 2025-10-16T14:00:18.975Z
+      upload_time: 2025-10-16T14:25:43.051Z
 07350c58d616e2da0dff809fb09d0af73236f7ede2195fba1ea06f857f4bfb2c:
   local_path: assets/images/hero-background.webp
   sites:
     https://staging.docsmith.aigne.io:
       url: https://staging.docsmith.aigne.io/image-bin/uploads/07350c58d616e2da.webp
-      upload_time: 2025-10-16T14:00:19.047Z
+      upload_time: 2025-10-16T14:25:43.745Z
 dbcb99928076f32ca73a278567f8564aa94d7f810ded83c419b8312e5655b068:
   local_path: .aigne/web-smith/assets/aigne-docsmith-hero.png
   sites:
     https://staging.docsmith.aigne.io:
       url: https://staging.docsmith.aigne.io/image-bin/uploads/dbcb99928076f32c.png
-      upload_time: 2025-10-16T14:00:19.427Z
+      upload_time: 2025-10-16T14:25:43.989Z
 5e466cf67770309388775e80f430d4dd371bdbdaff1be851abe09d09bf2bfd4d:
   local_path: assets/terminal-playback/update.json
   sites:
     https://staging.docsmith.aigne.io:
       url: https://staging.docsmith.aigne.io/image-bin/uploads/5e466cf677703093.json
-      upload_time: 2025-10-16T14:00:20.679Z
-6f55cf6fdab7fe0619c654eb2481746789302bc9b5772c141af0edc6dbabec7a:
-  local_path: assets/terminal-playback/publish.json
-  sites:
-    https://staging.docsmith.aigne.io:
-      url: https://staging.docsmith.aigne.io/image-bin/uploads/6f55cf6fdab7fe06.json
-      upload_time: 2025-10-16T14:00:21.082Z
+      upload_time: 2025-10-16T14:25:45.248Z
 3158fbeee5b0dffd8be48cc4c84dbd0c1a09730922bb4cf0cf39a52c24811f3d:
   local_path: assets/terminal-playback/translate.json
   sites:
     https://staging.docsmith.aigne.io:
       url: https://staging.docsmith.aigne.io/image-bin/uploads/3158fbeee5b0dffd.json
-      upload_time: 2025-10-16T14:00:21.146Z
+      upload_time: 2025-10-16T14:25:45.920Z
+6f55cf6fdab7fe0619c654eb2481746789302bc9b5772c141af0edc6dbabec7a:
+  local_path: assets/terminal-playback/publish.json
+  sites:
+    https://staging.docsmith.aigne.io:
+      url: https://staging.docsmith.aigne.io/image-bin/uploads/6f55cf6fdab7fe06.json
+      upload_time: 2025-10-16T14:25:47.389Z
