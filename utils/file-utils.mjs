@@ -1,11 +1,16 @@
 import { execSync } from "node:child_process";
+import { randomBytes } from "node:crypto";
 import { access, readFile, stat } from "node:fs/promises";
-import path from "node:path";
+import path, { join } from "node:path";
 import { glob } from "glob";
+import fs from "fs-extra";
 import { isBinaryFile } from "isbinaryfile";
 import { encode } from "gpt-tokenizer";
+import { fileTypeFromBuffer } from "file-type";
+import { gunzipSync } from "node:zlib";
 import { isGlobPattern } from "./utils.mjs";
 import { INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD } from "./constants/index.mjs";
+import { uploadFiles } from "./upload-files.mjs";
 
 /**
  * Check if a directory is inside a git repository using git command
@@ -643,4 +648,183 @@ export function getExtnameFromContentType(contentType) {
 export function getMediaDescriptionCachePath() {
   const cwd = process.cwd();
   return path.join(cwd, ".aigne", "doc-smith", "media-description.yaml");
+}
+
+/**
+ * Detect file type from buffer with comprehensive fallback strategy
+ * @param {Buffer} buffer - File buffer
+ * @param {string} contentType - HTTP Content-Type header
+ * @param {string} url - Original URL (for fallback)
+ * @returns {Promise<{ext: string, mime: string}>} File extension and MIME type
+ */
+export async function detectFileType(buffer, contentType, url = "") {
+  // 1. Try file-type for binary images (PNG, JPG, WebP, GIF, etc.)
+  try {
+    const fileType = await fileTypeFromBuffer(buffer);
+    if (fileType) {
+      return {
+        ext: fileType.ext,
+        mime: fileType.mime,
+      };
+    }
+  } catch (error) {
+    console.debug("file-type detection failed:", error.message);
+  }
+
+  // 2. Check for SVG/SVGZ
+  const svgResult = await detectSvgType(buffer, contentType);
+  if (svgResult) {
+    return svgResult;
+  }
+
+  // 3. Fallback to Content-Type
+  if (contentType) {
+    const ext = getExtnameFromContentType(contentType);
+    if (ext) {
+      return {
+        ext,
+        mime: contentType.split(";")[0].trim(),
+      };
+    }
+  }
+
+  // 4. Fallback to URL extension
+  if (url) {
+    const urlExt = path.extname(url).toLowerCase();
+    if (urlExt) {
+      return {
+        ext: urlExt.slice(1), // Remove leading dot
+        mime: getMimeType(url),
+      };
+    }
+  }
+
+  // 5. Default fallback
+  return {
+    ext: "bin",
+    mime: "application/octet-stream",
+  };
+}
+
+/**
+ * Detect SVG/SVGZ file type
+ * @param {Buffer} buffer - File buffer
+ * @param {string} contentType - HTTP Content-Type header
+ * @returns {Promise<{ext: string, mime: string} | null>} SVG info or null
+ */
+async function detectSvgType(buffer, contentType) {
+  // Check Content-Type first
+  if (contentType?.includes("image/svg+xml")) {
+    return {
+      ext: "svg",
+      mime: "image/svg+xml",
+    };
+  }
+
+  try {
+    let text = "";
+
+    // Check if it's gzipped (SVGZ)
+    if (buffer.length >= 2 && buffer[0] === 0x1f && buffer[1] === 0x8b) {
+      try {
+        const decompressed = gunzipSync(buffer);
+        text = decompressed.toString("utf8");
+        if (isSvgContent(text)) {
+          return {
+            ext: "svgz",
+            mime: "image/svg+xml",
+          };
+        }
+      } catch {
+        // Not gzipped, continue with regular text detection
+      }
+    }
+
+    // Try as regular text
+    if (!text) {
+      text = buffer.toString("utf8");
+    }
+
+    if (isSvgContent(text)) {
+      return {
+        ext: "svg",
+        mime: "image/svg+xml",
+      };
+    }
+  } catch (error) {
+    console.debug("SVG detection failed:", error.message);
+  }
+
+  return null;
+}
+
+/**
+ * Check if text content is SVG
+ * @param {string} text - Text content
+ * @returns {boolean} True if SVG
+ */
+function isSvgContent(text) {
+  if (!text || typeof text !== "string") return false;
+
+  // Remove BOM and trim
+  const cleanText = text.replace(/^\uFEFF/, "").trim();
+
+  // Check for SVG root element
+  return /^<\?xml\s+[^>]*>\s*<svg/i.test(cleanText) || /^<svg/i.test(cleanText);
+}
+
+/**
+ * Download and upload a remote image URL
+ * @param {string} imageUrl - The remote image URL
+ * @param {string} docsDir - Directory to save temporary files
+ * @param {string} appUrl - Application URL for upload
+ * @param {string} accessToken - Access token for upload
+ * @returns {Promise<{url: string, downloadFinalPath: string | null}>} The uploaded image URL and final path if failed
+ */
+export async function downloadAndUploadImage(imageUrl, docsDir, appUrl, accessToken) {
+  let downloadFinalPath = null;
+
+  try {
+    // 1. Download with timeout control
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+
+    const response = await fetch(imageUrl, {
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    // 2. Convert to Buffer for file type detection
+    const blob = await response.blob();
+    const arrayBuffer = await blob.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    // 3. Detect file type with comprehensive fallback
+    const contentType = response.headers.get("content-type");
+    const { ext } = await detectFileType(buffer, contentType, imageUrl);
+
+    // 4. Generate random filename and save file
+    const randomId = randomBytes(16).toString("hex");
+    const tempFilePath = join(docsDir, `temp-logo-${randomId}`);
+    downloadFinalPath = ext ? `${tempFilePath}.${ext}` : tempFilePath;
+    fs.writeFileSync(downloadFinalPath, buffer);
+
+    // 5. Upload and get URL
+    const { results: uploadResults } = await uploadFiles({
+      appUrl,
+      filePaths: [downloadFinalPath],
+      accessToken,
+      concurrency: 1,
+    });
+
+    // 6. Return uploaded URL
+    return { url: uploadResults?.[0]?.url || imageUrl, downloadFinalPath };
+  } catch (error) {
+    console.warn(`Failed to download and upload image from ${imageUrl}: ${error.message}`);
+    return { url: imageUrl, downloadFinalPath: null };
+  }
 }
