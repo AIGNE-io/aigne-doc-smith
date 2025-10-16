@@ -29,31 +29,31 @@ describe("check-update-is-single", () => {
   // INPUT VALIDATION TESTS
   test("should throw error when selectedDocs is not provided", async () => {
     await expect(checkUpdateIsSingle({}, mockOptions)).rejects.toThrow(
-      "selectedDocs must be provided as an array",
+      "A list of documents to update must be provided.",
     );
   });
 
   test("should throw error when selectedDocs is not an array", async () => {
     await expect(checkUpdateIsSingle({ selectedDocs: "not-array" }, mockOptions)).rejects.toThrow(
-      "selectedDocs must be provided as an array",
+      "A list of documents to update must be provided.",
     );
   });
 
   test("should throw error when selectedDocs is empty", async () => {
     await expect(checkUpdateIsSingle({ selectedDocs: [] }, mockOptions)).rejects.toThrow(
-      "selectedDocs cannot be empty",
+      "You must select at least one document to update.",
     );
   });
 
   test("should throw error when selectedDocs is null", async () => {
     await expect(checkUpdateIsSingle({ selectedDocs: null }, mockOptions)).rejects.toThrow(
-      "selectedDocs must be provided as an array",
+      "A list of documents to update must be provided.",
     );
   });
 
   test("should throw error when selectedDocs is undefined", async () => {
     await expect(checkUpdateIsSingle({ selectedDocs: undefined }, mockOptions)).rejects.toThrow(
-      "selectedDocs must be provided as an array",
+      "A list of documents to update must be provided.",
     );
   });
 
@@ -70,7 +70,7 @@ describe("check-update-is-single", () => {
 
     await expect(
       checkUpdateIsSingle({ selectedDocs: ["doc1"] }, optionsWithoutSingleAgent),
-    ).rejects.toThrow('Agent "updateSingleDocument" is not available');
+    ).rejects.toThrow('Sorry, I can\'t seem to find the "updateSingleDocument" agent.');
   });
 
   test("should throw error when batchUpdateDocument agent is not available", async () => {
@@ -85,7 +85,7 @@ describe("check-update-is-single", () => {
 
     await expect(
       checkUpdateIsSingle({ selectedDocs: ["doc1", "doc2"] }, optionsWithoutBatchAgent),
-    ).rejects.toThrow('Agent "batchUpdateDocument" is not available');
+    ).rejects.toThrow('Sorry, I can\'t seem to find the "batchUpdateDocument" agent.');
   });
 
   test("should throw error when no agents are available", async () => {
@@ -98,7 +98,7 @@ describe("check-update-is-single", () => {
 
     await expect(
       checkUpdateIsSingle({ selectedDocs: ["doc1"] }, optionsWithoutAgents),
-    ).rejects.toThrow('Agent "updateSingleDocument" is not available');
+    ).rejects.toThrow('Sorry, I can\'t seem to find the "updateSingleDocument" agent.');
   });
 
   // SINGLE DOCUMENT ROUTING TESTS
@@ -219,7 +219,7 @@ describe("check-update-is-single", () => {
     );
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Error invoking updateSingleDocument:",
+      "Sorry, I encountered an error while trying to run the updateSingleDocument agent:",
       "Agent execution failed",
     );
   });
@@ -233,7 +233,7 @@ describe("check-update-is-single", () => {
     ).rejects.toThrow("Batch processing failed");
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Error invoking batchUpdateDocument:",
+      "Sorry, I encountered an error while trying to run the batchUpdateDocument agent:",
       "Batch processing failed",
     );
   });
@@ -249,7 +249,7 @@ describe("check-update-is-single", () => {
     }
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Error invoking updateSingleDocument:",
+      "Sorry, I encountered an error while trying to run the updateSingleDocument agent:",
       "Network timeout",
     );
   });
@@ -265,7 +265,7 @@ describe("check-update-is-single", () => {
     }
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      "Error invoking batchUpdateDocument:",
+      "Sorry, I encountered an error while trying to run the batchUpdateDocument agent:",
       "Memory limit exceeded",
     );
   });

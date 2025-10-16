@@ -210,9 +210,12 @@ describe("auth-utils", () => {
     mockCreateConnect.mockRejectedValueOnce(new Error("Network error"));
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "Failed to obtain access token. Please check your network connection and try again later.",
+      "Could not get an access token. Please check your network connection and try again.",
     );
-    expect(consoleWarnSpy).toHaveBeenCalledWith("Failed to read config file:", "File read error");
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "Could not read the configuration file:",
+      "File read error",
+    );
   });
 
   test("should handle config file without DOC_DISCUSS_KIT_ACCESS_TOKEN keyword", async () => {
@@ -232,7 +235,7 @@ describe("auth-utils", () => {
     getComponentMountPointSpy.mockRejectedValue(new InvalidBlockletError());
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "The provided URL is not a valid website on ArcBlock platform",
+      "The provided URL is not a valid ArcBlock-powered website.",
     );
   });
 
@@ -242,14 +245,14 @@ describe("auth-utils", () => {
     getComponentMountPointSpy.mockRejectedValue(new ComponentNotFoundError());
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "This website does not have required components for publishing",
+      "This website is missing the required components for publishing.",
     );
   });
 
   test("should throw error for network issues", async () => {
     getComponentMountPointSpy.mockRejectedValue(new Error("Network error"));
 
-    await expect(getAccessToken("https://example.com")).rejects.toThrow("Unable to connect to:");
+    await expect(getAccessToken("https://example.com")).rejects.toThrow("Could not connect to:");
   });
 
   // AUTHORIZATION FLOW TESTS
@@ -344,7 +347,7 @@ describe("auth-utils", () => {
     mockCreateConnect.mockRejectedValue(new Error("Authorization failed"));
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "Failed to obtain access token. Please check your network connection and try again later.",
+      "Could not get an access token. Please check your network connection and try again.",
     );
     expect(consoleDebugSpy).toHaveBeenCalledWith(expect.any(Error));
   });
@@ -354,7 +357,7 @@ describe("auth-utils", () => {
     mockCreateConnect.mockRejectedValue(new TypeError("Network error"));
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "Failed to obtain access token. Please check your network connection and try again later.",
+      "Could not get an access token. Please check your network connection and try again.",
     );
   });
 
@@ -555,7 +558,7 @@ describe("auth-utils", () => {
       await capturedOpenPage("https://auth.example.com");
       expect(mockOpen).toHaveBeenCalledWith("https://auth.example.com");
       expect(consoleSpy).toHaveBeenCalledWith(
-        "🔗 Please open this URL in your browser to authorize access: ",
+        "🔗 Please open the following URL in your browser to authorize access: ",
         expect.any(String),
         "\n",
       );
@@ -566,7 +569,7 @@ describe("auth-utils", () => {
       mockCreateConnect.mockRejectedValue(new Error("Authorization failed"));
 
       await expect(getOfficialAccessToken("https://example.com")).rejects.toThrow(
-        "Failed to obtain official access token. Please check your network connection and try again later.",
+        "Could not get an official access token. Please check your network connection and try again.",
       );
       expect(consoleDebugSpy).toHaveBeenCalledWith(expect.any(Error));
     });
@@ -575,7 +578,7 @@ describe("auth-utils", () => {
       mockCreateConnect.mockRejectedValue(new TypeError("Network error"));
 
       await expect(getOfficialAccessToken("https://example.com")).rejects.toThrow(
-        "Failed to obtain official access token. Please check your network connection and try again later.",
+        "Could not get an official access token. Please check your network connection and try again.",
       );
     });
 
@@ -587,7 +590,7 @@ describe("auth-utils", () => {
 
       expect(result).toBe("new-access-token");
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        expect.stringContaining("Failed to save token to config file"),
+        expect.stringContaining("Could not save the token to the configuration file:"),
         expect.any(Error),
       );
       consoleWarnSpy.mockRestore();

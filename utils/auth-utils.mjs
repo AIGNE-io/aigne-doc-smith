@@ -53,7 +53,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
         }
       }
     } catch (error) {
-      console.warn("Failed to read config file:", error.message);
+      console.warn("Could not read the configuration file:", error.message);
     }
   }
 
@@ -69,25 +69,25 @@ export async function getAccessToken(appUrl, ltToken = "") {
     const storeLink = chalk.cyan(DISCUSS_KIT_STORE_URL);
     if (error instanceof InvalidBlockletError) {
       throw new Error(
-        `${chalk.yellow("⚠️  The provided URL is not a valid website on ArcBlock platform")}\n\n` +
-          `${chalk.bold("💡 Solution:")} Start here to run your own website that can host your docs:\n${storeLink}\n\n`,
+        `${chalk.yellow("⚠️  The provided URL is not a valid ArcBlock-powered website.")}\n\n` +
+          `${chalk.bold("💡 Solution:")} To host your documentation, you can get a website from the ArcBlock store:\n${storeLink}\n\n`,
       );
     } else if (error instanceof ComponentNotFoundError) {
       const docsLink = chalk.cyan(BLOCKLET_ADD_COMPONENT_DOCS);
       throw new Error(
-        `${chalk.yellow("⚠️  This website does not have required components for publishing")}\n\n` +
+        `${chalk.yellow("⚠️ This website is missing the required components for publishing.")}\n\n` +
           `${chalk.bold(
             "💡 Solution:",
-          )} Please refer to the documentation to add Discuss Kit component:\n${docsLink}\n\n`,
+          )} Please refer to the documentation to add the Discuss Kit component:\n${docsLink}\n\n`,
       );
     } else {
       throw new Error(
-        `❌ Unable to connect to: ${chalk.cyan(appUrl)}\n\n` +
+        `❌ Could not connect to: ${chalk.cyan(appUrl)}\n\n` +
           `${chalk.bold("Possible causes:")}\n` +
-          `• Network connection issues\n` +
-          `• Server temporarily unavailable\n` +
-          `• Incorrect URL address\n\n` +
-          `${chalk.green("Suggestion:")} Please check your network connection and URL, then try again`,
+          `• There may be a network issue.\n` +
+          `• The server may be temporarily unavailable.\n` +
+          `• The URL may be incorrect.\n\n` +
+          `${chalk.green("Suggestion:")} Please check your network connection and the URL, then try again.`,
       );
     }
   }
@@ -145,7 +145,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
   } catch (error) {
     console.debug(error);
     throw new Error(
-      "Failed to obtain access token. Please check your network connection and try again later.",
+      "Could not get an access token. Please check your network connection and try again.",
     );
   }
 
@@ -153,14 +153,13 @@ export async function getAccessToken(appUrl, ltToken = "") {
 }
 
 /**
- * Get official access token from environment, config file, or prompt user for authorization.
- * @param {string} baseUrl - The official service URL
- * @returns {Promise<string>} - The access token
+ * Gets the official access token from the environment, config file, or prompts the user to authorize.
+ * @param {string} baseUrl - The official service URL.
+ * @returns {Promise<string>} The access token.
  */
 export async function getOfficialAccessToken(baseUrl, openPage = true) {
-  // Early parameter validation
   if (!baseUrl) {
-    throw new Error("baseUrl parameter is required for getOfficialAccessToken.");
+    throw new Error("The baseUrl parameter is required for getOfficialAccessToken.");
   }
 
   // Parse URL once and reuse
@@ -183,7 +182,7 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
         }
       }
     } catch (_error) {
-      // ignore
+      // Ignore errors
     }
   }
 
@@ -205,7 +204,7 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
       openPage: (pageUrl) => {
         console.log(
-          "🔗 Please open this URL in your browser to authorize access: ",
+          "🔗 Please open the following URL in your browser to authorize access: ",
           chalk.cyan(pageUrl),
           "\n",
         );
@@ -226,7 +225,7 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
   } catch (error) {
     console.debug(error);
     throw new Error(
-      "Failed to obtain official access token. Please check your network connection and try again later.",
+      "Could not get an official access token. Please check your network connection and try again.",
     );
   }
 
@@ -234,11 +233,11 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
 }
 
 /**
- * Helper function to save access token to config file
- * @param {string} configFile - Path to config file
- * @param {string} hostname - Hostname key
- * @param {string} tokenKey - Token key name
- * @param {string} tokenValue - Token value
+ * Saves the access token to the configuration file.
+ * @param {string} configFile - The path to the config file.
+ * @param {string} hostname - The hostname key.
+ * @param {string} tokenKey - The token key name.
+ * @param {string} tokenValue - The token value.
  */
 async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue) {
   try {
@@ -266,7 +265,7 @@ async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue)
       }),
     );
   } catch (error) {
-    console.warn(`Failed to save token to config file ${configFile}: ${error.message}`, error);
-    // Don't throw here, as the token is already obtained and set in env
+    console.warn(`Could not save the token to the configuration file: ${error.message}`, error);
+    // The token is already in the environment, so we don't need to throw an error here.
   }
 }

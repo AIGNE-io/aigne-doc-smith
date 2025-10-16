@@ -214,7 +214,7 @@ describe("publish-docs", () => {
 
     expect(mockOptions.prompts.select).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: expect.stringContaining("Select platform"),
+        message: expect.stringContaining("Please select a platform to publish your documents:"),
         choices: expect.any(Array),
       }),
     );
@@ -237,7 +237,7 @@ describe("publish-docs", () => {
 
     expect(consoleSpy).toHaveBeenCalled();
     expect(mockOptions.prompts.input).toHaveBeenCalledWith({
-      message: "Please enter your website URL:",
+      message: "Please enter the URL of your website:",
       validate: expect.any(Function),
     });
     expect(getAccessTokenSpy).toHaveBeenCalledWith("https://custom.example.com", "");
@@ -460,7 +460,9 @@ describe("publish-docs", () => {
       mockOptions,
     );
 
-    expect(result.message).toBe("❌ Failed to publish docs: Cache session failed");
+    expect(result.message).toBe(
+      "❌ Sorry, I encountered an error while publishing your documentation: Cache session failed",
+    );
   });
 
   test("should handle publish failure", async () => {
@@ -474,7 +476,9 @@ describe("publish-docs", () => {
       mockOptions,
     );
 
-    expect(result.message).toBe("❌ Failed to publish docs: Publish failed");
+    expect(result.message).toBe(
+      "❌ Sorry, I encountered an error while publishing your documentation: Publish failed",
+    );
   });
 
   test("should handle unsuccessful publish", async () => {
@@ -659,7 +663,7 @@ describe("publish-docs", () => {
 
     expect(mockOptions.prompts.select).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: "Select platform to publish your documents:",
+        message: "Please select a platform to publish your documents:",
         choices: expect.arrayContaining([
           expect.objectContaining({
             name: expect.stringContaining("Resume previous website setup"),
@@ -695,7 +699,7 @@ describe("publish-docs", () => {
 
     expect(mockOptions.prompts.select).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: "Select platform to publish your documents:",
+        message: "Please select a platform to publish your documents:",
         choices: expect.not.arrayContaining([
           expect.objectContaining({
             value: "new-instance-continue",

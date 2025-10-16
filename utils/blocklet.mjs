@@ -1,11 +1,11 @@
 import { joinURL } from "ufo";
 
 /**
- * Custom error class for invalid blocklet application URLs
+ * Custom error class for invalid blocklet application URLs.
  */
 export class InvalidBlockletError extends Error {
   constructor(url, status, statusText) {
-    super(`Invalid application URL: "${url}". Unable to fetch configuration.`);
+    super(`The application URL "${url}" is invalid. I was unable to fetch the configuration.`);
     this.name = "InvalidBlockletError";
     this.url = url;
     this.status = status;
@@ -14,11 +14,11 @@ export class InvalidBlockletError extends Error {
 }
 
 /**
- * Custom error class for missing component mount points
+ * Custom error class for missing component mount points.
  */
 export class ComponentNotFoundError extends Error {
   constructor(did, appUrl) {
-    super(`Your website "${appUrl}" missing required component to host your docs.`);
+    super(`Your website "${appUrl}" is missing a required component to host your documentation.`);
     this.name = "ComponentNotFoundError";
     this.did = did;
     this.appUrl = appUrl;
@@ -46,7 +46,7 @@ export async function getComponentInfo(appUrl) {
   try {
     config = await blockletJs.json();
   } catch {
-    throw new InvalidBlockletError(appUrl, null, "Invalid JSON response");
+    throw new InvalidBlockletError(appUrl, null, "The server returned an invalid JSON response.");
   }
 
   return config;
