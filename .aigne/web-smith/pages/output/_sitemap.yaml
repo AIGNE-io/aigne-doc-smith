@@ -1,12 +1,14 @@
 sitemap:
-  - title: "AIGNE DocSmith: AI-Powered Code Documentation"
+  - title: AIGNE DocSmith | AI-Powered Code Documentation
     path: /home
     locales:
       en:
-        title: "AIGNE DocSmith: AI-Powered Code Documentation Generator"
-        description: Automatically generate, translate, and update comprehensive
-          documentation from your codebase with AIGNE DocSmith. AI-powered,
-          multi-language, and always in sync.
+        title: AIGNE DocSmith | AI-Powered Code Documentation
+        description: Generate comprehensive, multi-language documentation from your
+          codebase automatically with AIGNE DocSmith. Our AI-powered tool
+          understands your code to create accurate, up-to-date docs, saving you
+          time and effort.
+        image: mediakit://aigne-docsmith-hero.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -17,9 +19,9 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-16T03:01:49.267Z
-      updatedAt: 2025-10-16T03:01:49.267Z
-      publishedAt: 2025-10-16T03:01:49.267Z
+      createdAt: 2025-10-16T12:47:15.961Z
+      updatedAt: 2025-10-16T12:47:15.961Z
+      publishedAt: 2025-10-16T12:47:15.961Z
       isPublic: true
 navigations:
   - id: 106a6c241b8797f5
@@ -30,7 +32,7 @@ navigations:
     link:
       en: /
     description:
-      en: Discover how to generate code documentation automatically.
+      en: Discover AI-powered documentation generation
   - id: f5c5d15c42b3cf01
     section: footer
     visible: true
@@ -39,4 +41,4 @@ navigations:
     link:
       en: /
     description:
-      en: Discover how to generate code documentation automatically.
+      en: Discover AI-powered documentation generation

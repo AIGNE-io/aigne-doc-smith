@@ -1,21 +1,21 @@
-- title: "AIGNE DocSmith: AI-Powered Code Documentation"
-  description: "A single-page experience introducing AIGNE DocSmith, an AI tool
-    that automatically generates documentation from your codebase. The page
-    opens with a clear value proposition and a primary call-to-action. Key
-    sections include: a visual demonstration of the tool's core commands
-    (generate, update, translate), a breakdown of intelligent features like
-    multi-language support and smart updates, a step-by-step Quick Start guide
-    for installation and first use, an overview of advanced configuration and
-    enterprise solutions, and links to community resources."
+- title: AIGNE DocSmith | AI-Powered Code Documentation
+  description: A comprehensive single-page website for AIGNE DocSmith, an
+    AI-driven tool that automates documentation generation. The page follows a
+    clear narrative, starting with a Hero section that states the value
+    proposition and primary call-to-action. It then provides social proof and a
+    video demo, followed by a breakdown of benefit-driven Features. A 'Quick
+    Start' guide offers simple, actionable steps for installation and use. The
+    page concludes with an FAQ section addressing licensing, enterprise use, and
+    technical questions, before a final call-to-action.
   path: /home
   navigation:
     title: Home
-    description: Discover how to generate code documentation automatically.
+    description: Discover AI-powered documentation generation
   sourceIds:
     - README.md
-    - assets/terminal-playback/README.md
     - docs/overview.md
     - docs/getting-started.md
+    - assets/terminal-playback/README.md
     - aigne.yaml
     - CHANGELOG.md
   parentId: ""

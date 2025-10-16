@@ -1,10 +1,11 @@
 # Project information for page publishing
-projectName: aigne-doc-smith
+projectName: DocSmith Landing Pages
 projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation
   tool built on the AIGNE Framework. It automates the creation of detailed,
   structured, and multi-language documentation directly from your source code.
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
-projectId: pg4d0000-0000-4000-a000-000000000000
+# staging doc-smith pageskit
+projectId: 36edcca5-5b56-4a1b-98b9-3690595a7588
 projectSlug: /
 
 # =============================================================================
@@ -100,7 +101,7 @@ sourcesPath: # Source code paths to analyze
   - ./README.md
   - ./assets/images
   - ./assets/screenshots
-  - ./assets/terminal-playback
+  - ./assets/terminal-playback/README.md
   - ./aigne.yaml
   - ./docs/overview.md
   - ./docs/getting-started.md
@@ -110,7 +111,7 @@ defaultDatasources: # Default datasources included in every page
 # minImageWidth: Only images wider than this value (in pixels) will be used in page generation
 media:
   minImageWidth: 800
-lastGitHead: d93e47a28580ed7ab5b299bfeeeaf8ba56b04efc
+lastGitHead: 7bea8cc1c74fa8ae8d56f012131ec7e0592cf02f
 appUrl: https://staging.docsmith.aigne.io/
 # Checkout ID for website deployment service
 checkoutId: ""
