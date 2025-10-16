@@ -1,0 +1,44 @@
+type: team
+name: batchGenerateMediaDescription
+description: Batch generate media (image/video) descriptions with concurrency
+skills:
+  - url: ./generate-media-description.yaml
+task_render_mode: collapse
+task_title: Generate Media Description
+input_schema:
+  type: object
+  properties:
+    mediaToDescribe:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+          width:
+            type: number
+          height:
+            type: number
+          hash:
+            type: string
+          path:
+            type: string
+          type:
+            type: string
+          mediaFile:
+            type: array
+            items:
+              type: object
+              properties:
+                type:
+                  type: string
+                path:
+                  type: string
+                filename:
+                  type: string
+                mimeType:
+                  type: string
+      description: Array of media files (images/videos) that need descriptions
+iterate_on: mediaToDescribe
+concurrency: 5
+mode: sequential

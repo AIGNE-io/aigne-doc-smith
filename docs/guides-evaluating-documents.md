@@ -1,65 +1,107 @@
 # Evaluating Documents
 
-The `evaluate` command provides a systematic process to assess the quality and alignment of your generated documentation. It analyzes both the overall structure and the content of individual documents against the goals you defined during the initial setup. This process results in a detailed report, helping you identify areas for improvement and ensure the documentation effectively serves its intended purpose and audience.
+The `evaluate` command provides a systematic method to assess the quality and completeness of your generated documentation. It analyzes both the overall document structure and the content of individual files against the criteria defined during project setup. The process concludes by generating a detailed report, which helps identify areas for improvement and ensures the documentation aligns with its intended purpose and audience.
 
-## How It Works
+## The Evaluation Process
 
-The evaluation process operates in two primary stages. First, it assesses the high-level document structure, and second, it analyzes the content of each individual document.
+The evaluation command executes a two-stage analysis to provide a comprehensive assessment of your documentation.
 
-1.  **Structure Evaluation**: The tool examines your documentation's overall organization (like a table of contents). It verifies whether the structure is logical and complete based on the documentation goals, target audience, and content depth you selected.
-2.  **Content Evaluation**: After analyzing the structure, the tool inspects each document's content. It scores the document against several quality dimensions, including readability, coherence, and accuracy. It also checks for the correct implementation of code examples.
+```d2
+direction: down
 
-Upon completion, the tool compiles the findings into a user-friendly HTML report, providing both high-level scores and detailed, actionable feedback.
+start: {
+  label: "Run Command\naigne doc evaluate"
+  shape: oval
+}
 
-## Running the Evaluation
+structure-eval: {
+  label: "Stage 1: Evaluate\nDocument Structure"
+  shape: rectangle
+}
 
-To initiate the evaluation process, execute the following command in your terminal:
+content-eval: {
+  label: "Stage 2: Evaluate\nDocument Content"
+  shape: rectangle
+}
 
-```bash
-aignite evaluate
+report-gen: {
+  label: "Generate Report"
+  shape: rectangle
+}
+
+output: {
+  label: "Output HTML &\nJSON Report Files"
+  shape: oval
+}
+
+start -> structure-eval: "Analyzes overall organization"
+structure-eval -> content-eval: "Analyzes each file individually"
+content-eval -> report-gen: "Aggregates all findings"
+report-gen -> output: "Saves report to disk"
 ```
 
-The command will display progress as it analyzes your documentation. Once finished, it will provide a message indicating the location of the generated report files.
+1.  **Structure Evaluation**: The tool first examines the documentation's high-level organization, analogous to a table of contents. It verifies whether the structure is logical and complete based on the specified documentation goals, target audience, and content depth.
+2.  **Content Evaluation**: Following the structural analysis, the tool inspects the content of each document. It scores each file against several quality dimensions, including readability, coherence, and factual accuracy. It also validates the correctness and formatting of included code snippets.
+
+The findings from both stages are compiled into an HTML report that presents high-level scores and specific, actionable feedback.
+
+## How to Run an Evaluation
+
+To initiate the evaluation process, execute the `evaluate` command from your project's root directory.
+
+### Execute the Command
+
+Open your terminal and run the following command:
+
+```bash
+aigne doc evaluate
+```
+
+The tool will display its progress as it analyzes the documentation.
+
+### Review the Output
+
+Upon completion, a confirmation message will appear in the terminal, specifying the location of the generated report files.
 
 ```text
 ✔ Generate evaluation report
 Evaluation report generated successfully.
-- JSON Report: .aigc/evaluate/20231027103000/integrity-report.json
-- HTML Report: .aigc/evaluate/20231027103000/report.html
+- JSON Report: .aigc/evaluate/20240520114500/integrity-report.json
+- HTML Report: .aigc/evaluate/20240520114500/report.html
 ```
 
-You can open the `report.html` file in your web browser to view the detailed analysis.
+Open the `report.html` file in a web browser to view the detailed analysis.
 
-## Understanding the Report
+## Understanding the Evaluation Report
 
-The evaluation report is organized into two main sections, reflecting the two stages of the analysis process.
+The report is organized into sections that correspond to the stages of the evaluation process, providing a clear breakdown of the analysis.
 
-### Structure Evaluation
+### Structure Evaluation Details
 
-This section provides feedback on the overall architecture of your documentation. It measures how well the generated document hierarchy aligns with your specified configuration.
-
-| Dimension | Description |
-| :--- | :--- |
-| **Purpose Coverage** | Assesses if the document structure effectively supports the primary goals you selected (e.g., "Get started quickly"). |
-| **Audience Coverage** | Determines if the structure is appropriate for your defined target audience (e.g., "non-technical users"). |
-| **Depth Coverage** | Checks if the level of detail in the structure matches your selected content depth (e.g., "covers all parameters"). |
-
-### Document Content Evaluation
-
-This section provides a document-by-document breakdown of content quality. Each document is scored based on a set of standardized criteria.
+This section presents feedback on the overall architecture of your documentation. It measures how effectively the document hierarchy aligns with the project's configuration.
 
 | Dimension | Description |
 | :--- | :--- |
-| **Readability** | Measures how easy the text is to read and comprehend. |
+| **Purpose Coverage** | Assesses if the document structure adequately supports the primary goals selected (e.g., "Get started quickly"). |
+| **Audience Coverage** | Determines if the structure is organized in a way that is suitable for the defined target audience (e.g., "non-technical users"). |
+| **Depth Coverage** | Checks if the level of detail implied by the structure matches the selected content depth (e.g., "covers all parameters"). |
+
+### Document Content Evaluation Details
+
+This section provides a file-by-file breakdown of content quality. Each document is scored based on a set of standardized criteria.
+
+| Dimension | Description |
+| :--- | :--- |
+| **Readability** | Measures the ease with which the text can be read and understood. |
 | **Coherence** | Evaluates the logical flow and organization of information within the document. |
 | **Content Quality** | Assesses the accuracy, relevance, and clarity of the information presented. |
-| **Consistency** | Checks for uniform terminology, formatting, and style across the document. |
-| **Purpose Alignment** | Determines how well the content meets the specified documentation goals. |
-| **Audience Alignment** | Assesses if the language and examples are suitable for the target audience. |
-| **Knowledge Level Alignment** | Checks if the content complexity matches the defined reader knowledge level. |
+| **Consistency** | Checks for uniform terminology, formatting, and style throughout the document. |
+| **Purpose Alignment** | Determines how well the content fulfills the specified documentation goals. |
+| **Audience Alignment** | Assesses if the language, tone, and examples are appropriate for the target audience. |
+| **Knowledge Level Alignment** | Checks if the content's complexity matches the defined reader knowledge level. |
 
 ## Summary
 
-Using the `evaluate` command is a crucial step in maintaining accurate and effective documentation. It provides concrete metrics and specific feedback, allowing you to refine your content methodically. After reviewing the evaluation report, you can proceed to make targeted improvements.
+Using the `evaluate` command is an essential step for maintaining accurate and effective documentation. It provides objective metrics and specific feedback, enabling a methodical approach to refining your content. After reviewing the evaluation report, you can make targeted improvements to enhance documentation quality.
 
-For the next steps on modifying your documents based on this feedback, please see the guide on [Updating Documentation](./guides-updating-documentation.md).
+For guidance on modifying your documents based on this feedback, refer to the [Updating Documentation](./guides-updating-documentation.md) guide.

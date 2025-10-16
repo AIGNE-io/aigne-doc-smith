@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide provides a step-by-step procedure for installing AIGNE DocSmith and generating your first set of documentation. The process is designed to be straightforward and can be completed quickly.
+This guide provides a step-by-step procedure for installing AIGNE DocSmith and generating your first set of documentation. The process is designed to be straightforward and can be completed in a few minutes.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ Before proceeding with the installation, ensure your system meets the following 
 
 ## Installation
 
-The tool is distributed as part of the AIGNE command-line interface (CLI).
+The tool is distributed as part of the AIGNE command-line interface (CLI). The installation process consists of two simple steps.
 
 ### Step 1: Install the AIGNE CLI
 
@@ -22,17 +22,17 @@ To install the AIGNE CLI globally on your system, execute the following command 
 npm install -g @aigne/cli
 ```
 
-This command downloads and installs the package, making the `aigne` command available from any directory.
+This command downloads and installs the package from the npm registry, making the `aigne` command available from any directory in your terminal.
 
 ### Step 2: Verify the Installation
 
-After the installation is complete, verify it by running the help command for the documentation tool:
+After the installation is complete, you can verify it by running the help command for the documentation tool:
 
 ```bash title="Verify Installation"
 aigne doc --help
 ```
 
-This command should display a list of available DocSmith commands and options, confirming that the installation was successful.
+This command should display a list of available DocSmith commands and their options, which confirms that the installation was successful.
 
 ## Generating Your First Documents
 
@@ -48,7 +48,7 @@ cd /path/to/your/project
 
 ### Step 2: Run the Generate Command
 
-Execute the primary `generate` command. This single command handles the entire documentation creation process.
+Execute the primary `generate` command. This single command handles the entire documentation creation process from analysis to content generation.
 
 ```bash title="Run Generate Command"
 aigne doc generate
@@ -56,17 +56,36 @@ aigne doc generate
 
 ### Step 3: Complete the Interactive Setup
 
-The first time you run the `generate` command in a project, DocSmith will initiate a one-time interactive setup process. You will be asked a series of questions to configure your documentation preferences, such as its primary purpose, target audience, and language. A `config.yaml` file will be created in the `.aigne/doc-smith` directory to store your settings.
+The first time you run the `generate` command in a project, DocSmith will initiate a one-time interactive setup process. You will be guided through a series of questions to configure your documentation preferences, such as its primary purpose, target audience, and language.
+
+![Screenshot of the interactive setup process](../assets/screenshots/doc-complete-setup.png)
+
+Your answers are saved to a `config.yaml` file located in the `.aigne/doc-smith` directory. This file can be manually edited later if needed.
 
 ### Step 4: Await Generation
 
 Once the setup is complete, DocSmith will perform the following actions automatically:
 
-1.  **Analyze Codebase**: It scans your source files to understand the project's structure and logic.
-2.  **Plan Structure**: It creates a logical plan for the documentation, including sections and topics.
+1.  **Analyze Codebase**: It scans your source files to understand the project's structure, functions, and logic.
+2.  **Plan Structure**: It creates a logical plan for the documentation, outlining sections and topics.
 3.  **Generate Content**: It writes the documentation content based on the analysis and your configuration.
 
-Upon completion, a confirmation message will appear, and the generated files will be located in the output directory specified during setup (e.g., `.aigne/doc-smith/docs`).
+Upon completion, a confirmation message will appear, and the generated files will be located in the output directory specified during setup (by default, `.aigne/doc-smith/docs`).
+
+![Screenshot of the success message after generation](../assets/screenshots/doc-generated-successfully.png)
+
+## Exploring All Commands
+
+DocSmith provides a set of commands to manage the full lifecycle of your documentation. The table below lists all available commands and their functions.
+
+| Command     | Description                                                                                                   |
+| :---------- | :------------------------------------------------------------------------------------------------------------ |
+| `generate`  | Analyzes the codebase and generates a complete set of documentation based on the configuration.               |
+| `update`    | Interactively selects and regenerates specific parts of existing documentation, often with new feedback.      |
+| `translate` | Translates existing documentation into one or more of the 12 supported languages, such as `zh` or `ja`.       |
+| `publish`   | Publishes the generated documentation to a live platform, making it accessible via a URL.                     |
+| `init`      | Starts the interactive setup wizard to create or overwrite the `config.yaml` configuration file.              |
+| `prefs`     | Displays the current configuration settings from the `config.yaml` file.                                      |
 
 ## What's Next?
 

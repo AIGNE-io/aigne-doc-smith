@@ -27,8 +27,8 @@ importers:
         specifier: ^0.16.0
         version: 0.16.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/publish-docs':
-        specifier: ^0.11.0
-        version: 0.11.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
+        specifier: ^0.12.0
+        version: 0.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)
       '@blocklet/payment-broker-client':
         specifier: ^1.21.10
         version: 1.21.10
@@ -59,6 +59,9 @@ importers:
       gpt-tokenizer:
         specifier: ^3.2.0
         version: 3.2.0
+      image-size:
+        specifier: ^2.0.2
+        version: 2.0.2
       isbinaryfile:
         specifier: ^5.0.6
         version: 5.0.6
@@ -77,6 +80,9 @@ importers:
       open:
         specifier: ^10.2.0
         version: 10.2.0
+      p-limit:
+        specifier: ^7.1.1
+        version: 7.1.1
       p-map:
         specifier: ^7.0.3
         version: 7.0.3
@@ -92,6 +98,9 @@ importers:
       remark-parse:
         specifier: ^11.0.0
         version: 11.0.0
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
       terminal-link:
         specifier: ^4.0.0
         version: 4.0.0
@@ -193,8 +202,8 @@ packages:
   '@aigne/poe@1.0.26':
     resolution: {integrity: sha512-ZzeQeAgZyPHrHc8YvPqhwQkFSoumhf1+JJToSQ7Ddllf+IdjOePMVzLepvXXBzPW2DvW6pRGuHMo6V/Bd+VCBw==}
 
-  '@aigne/publish-docs@0.11.0':
-    resolution: {integrity: sha512-sDb2RH04vMEoRhzZmmKyvOWFCUjjXUZqIdxoO5T+CHjcUVKQtjLWVU17PSwx4agW5OjGbfEXnTpffrefFSgY+g==}
+  '@aigne/publish-docs@0.12.0':
+    resolution: {integrity: sha512-JUUAiwO//4jIJadzTaa3uXi1W1/RBKGuOf44LZ1/nG8Bp9uAhzL0vZeqDlyL5ZrC+02d8WVk6NtPGJqDJBEU4g==}
 
   '@aigne/sqlite@0.4.2':
     resolution: {integrity: sha512-xjSPeKDU01p5wMTaFOM6ZWEnt6dFeen+MsgCzbQUGkoHHHKSjjGNeHbhZ/Rar4f4ilp2jLeg9bmlTx779fpTOw==}
@@ -3371,8 +3380,8 @@ packages:
       zod:
         optional: true
 
-  p-limit@7.1.0:
-    resolution: {integrity: sha512-7LbrpOjbzBWFHFgRtVrIAwBwW1bB7c7n914Q2+CXr1TvOfbTrVHAEH1Ya9PwDwAoKLeiRrczymYWPwaHNOQ0vA==}
+  p-limit@7.1.1:
+    resolution: {integrity: sha512-i8PyM2JnsNChVSYWLr2BAjNoLi0BAYC+wecOnZnVV+YSNJkzP7cWmvI34dk0WArWfH9KwBHNoZI3P3MppImlIA==}
     engines: {node: '>=20'}
 
   p-map@7.0.3:
@@ -3756,6 +3765,10 @@ packages:
   slice-ansi@7.1.2:
     resolution: {integrity: sha512-iOBWFgUX7caIZiuutICxVgX1SdxwAVFFKwt1EvMYYec/NWO5meOJ6K5uQxhrYBdQJne4KxiqZc+KptFOWFSI9w==}
     engines: {node: '>=18'}
+
+  slugify@1.6.6:
+    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
+    engines: {node: '>=8.0.0'}
 
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
@@ -5071,7 +5084,7 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/publish-docs@0.11.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)':
+  '@aigne/publish-docs@0.12.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(yjs@13.6.27)':
     dependencies:
       '@lexical/code': 0.33.1
       '@lexical/headless': 0.33.1
@@ -5090,7 +5103,7 @@ snapshots:
       lexical: 0.33.1
       marked: 16.3.0
       open: 10.2.0
-      p-limit: 7.1.0
+      p-limit: 7.1.1
       p-retry: 7.0.0
       probe-image-size: 7.2.3
       terminal-link: 4.0.0
@@ -9309,7 +9322,7 @@ snapshots:
       ws: 8.18.3
       zod: 3.25.76
 
-  p-limit@7.1.0:
+  p-limit@7.1.1:
     dependencies:
       yocto-queue: 1.2.1
 
@@ -9742,6 +9755,8 @@ snapshots:
     dependencies:
       ansi-styles: 6.2.1
       is-fullwidth-code-point: 5.0.0
+
+  slugify@1.6.6: {}
 
   space-separated-tokens@2.0.2: {}
 

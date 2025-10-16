@@ -1,14 +1,14 @@
 # Publishing Your Docs
 
-Once you have generated your documentation, the next step is to publish it online, making it accessible to your audience. This guide provides a systematic overview of the publishing process using the `aigne doc publish` command.
+After generating your documentation, the next step is to make it accessible online. This guide provides a systematic procedure for publishing your documentation using the `aigne doc publish` command.
 
 ## The Publish Command
 
-The primary command for making your documentation live is `aigne doc publish`. This command uploads your generated files to a web service, where they can be viewed in a browser.
+The `aigne doc publish` command uploads your generated documentation files to a web service, making them available to your audience through a web browser.
 
-You can execute the command using its full name or its shorter aliases:
+You can execute the command using its full name or one of its aliases for convenience.
 
-```bash
+```bash Command Execution icon=lucide:terminal
 # Full command
 aigne doc publish
 
@@ -17,62 +17,67 @@ aigne doc pub
 aigne doc p
 ```
 
-When you run the publish command for the first time, you will be presented with an interactive prompt to select your preferred publishing platform.
+When this command is run for the first time, it initiates an interactive prompt to guide you through selecting a publishing platform.
 
-## Publishing Options
+![Publish Documentation Dialog](../assets/screenshots/doc-publish.png)
 
-You have several options for where to host your documentation. The interactive prompt will guide you through the selection.
+## Publishing Destinations
 
-### 1. DocSmith Cloud (Free Hosting)
+The tool provides several destinations for hosting your documentation. The interactive setup will present the following choices.
 
-This option publishes your documentation to `docsmith.aigne.io`, a free hosting service provided by AIGNE.
+### Option 1: DocSmith Cloud
 
--   **Use Case:** Ideal for open-source projects, personal blogs, or any scenario where public accessibility is desired without the need for custom infrastructure.
--   **Cost:** Free.
--   **Outcome:** Your documents will be publicly available at a URL provided upon successful publication.
+This option publishes your documentation to `docsmith.aigne.io`, a free hosting service.
 
-### 2. Your Existing Website
+*   **Intended Use**: This method is suitable for open-source projects or any documentation that is intended for public access.
+*   **Cost**: Free.
+*   **Outcome**: Your documentation will be publicly available at a URL provided after the publishing process is complete.
 
-This option allows you to publish the documentation to a website that you already own and manage.
+### Option 2: Your Existing Website
 
--   **Use Case:** Best for integrating documentation directly into an existing company website, product site, or personal domain. This method requires you to run your own instance of Discuss Kit.
--   **Cost:** Requires your own hosting infrastructure.
--   **Setup:**
-    1.  Select this option in the prompt.
-    2.  You will be asked to enter the URL of your website (e.g., `https://docs.your-company.com`).
-    3.  To set up your own documentation website, you can get a Discuss Kit instance from the official store: [https://www.web3kit.rocks/discuss-kit](https://www.web3kit.rocks/discuss-kit).
+This option allows you to publish documentation to a website you already own and manage. It requires you to operate your own instance of Discuss Kit.
 
-### 3. New Website (Paid Service)
+*   **Intended Use**: This is for integrating documentation directly into an existing company website, product portal, or personal domain.
+*   **Requirements**: You must have your own hosting infrastructure and a running instance of Discuss Kit.
+*   **Procedure**:
+    1.  Select the "Your existing website" option from the interactive prompt.
+    2.  When prompted, enter the full URL of your website (e.g., `https://docs.your-company.com`).
+    3.  To set up your own documentation website, you can obtain a Discuss Kit instance from the official store: [https://www.web3kit.rocks/discuss-kit](https://www.web3kit.rocks/discuss-kit). Discuss Kit is a non-open-source service that provides the necessary backend for hosting.
 
-If you do not have an existing website, this service helps you set up a new, dedicated site for your documentation.
+### Option 3: New Website
 
--   **Use Case:** Suitable for creating a professional, standalone documentation portal with a custom domain and hosting managed for you.
--   **Cost:** This is a paid service.
--   **Process:** The command will guide you through the necessary steps to deploy and configure a new Discuss Kit instance. If you have started this process before, you will also see an option to resume your previous setup.
+This option assists you in setting up a new, dedicated website for your documentation.
 
-## Direct Publishing
+*   **Intended Use**: This is for users who need a standalone documentation portal but do not have an existing website.
+*   **Cost**: This is a paid service.
+*   **Procedure**: The command-line interface will guide you through the process of deploying and configuring a new Discuss Kit instance. If you have previously started this process, an option to resume the setup will also be available.
 
-For automated workflows, such as CI/CD pipelines, or after you have completed the initial setup, you can bypass the interactive prompt by specifying the application URL directly.
+## Automated Publishing
 
-Use the `--appUrl` flag followed by your website's URL.
+For automated environments, such as a Continuous Integration/Continuous Deployment (CI/CD) pipeline, you can bypass the interactive prompt by specifying the destination URL directly.
 
-```bash
-# Example for a custom documentation site
+Use the `--appUrl` flag with the command to define the publishing target.
+
+```bash Direct Publishing Example icon=lucide:terminal
 aigne doc publish --appUrl https://docs.your-company.com
 ```
 
-Once you successfully publish to a specific URL (either by selecting an option in the prompt or by using the `--appUrl` flag), DocSmith saves this URL in your local configuration. On subsequent runs, it will automatically publish to the saved URL without asking again.
+Once you publish to a specific URL for the first time (either through the interactive prompt or the `--appUrl` flag), the tool saves this URL to your local configuration file. Subsequent executions of `aigne doc publish` will automatically use the saved URL, streamlining the update process.
 
 ## Troubleshooting
 
 ### Authorization Errors
 
-If you encounter an error message containing "401" or "403," it indicates that your authentication token is invalid or has expired. This can happen if permissions have changed or if the token is old.
+If the publishing process fails with an error message that includes "401" or "403," it signifies an issue with your authentication token. The token may be invalid, expired, or lack the required permissions.
 
-To resolve this, you can clear all stored configuration and credentials by running the `clear` command:
+To resolve this, reset your local configuration and credentials by running the `clear` command:
 
-```bash
+```bash Clear Configuration icon=lucide:terminal
 aigne doc clear
 ```
 
-After clearing the configuration, run `aigne doc publish` again. You will be guided through the authentication and setup process as if it were the first time.
+After the command completes, run `aigne doc publish` again. You will be prompted to re-authenticate and configure your publishing destination.
+
+---
+
+After successfully publishing your documentation, you may need to update it as your project evolves. For instructions on this process, please see the [Updating Documentation](./guides-updating-documentation.md) guide.

@@ -1,96 +1,69 @@
 # 設定
 
-正確的設定對於根據專案的特定需求客製化文件產生過程至關重要。AIGNE DocSmith 使用一個主要設定檔和一個命令列介面來管理您的設定。這種設定方式確保產生的文件能準確反映您的專案目標、目標受眾和結構需求。
+正確的設定是引導 AIGNE DocSmith 工具產生符合您專案特定需求文件的基礎。此過程涉及透過一個中央設定檔來定義專案層級的設定，並管理個人偏好設定以微調產生過程。
 
-本節概述了如何設定此工具。有關逐步說明，請參閱以下詳細指南：
+本節將概覽如何設定此工具。有關詳細的逐步說明，請參考下方連結的具體指南。
 
-<x-cards>
-  <x-card data-title="初始設定" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">了解如何執行互動式設定來建立您的 config.yaml 檔案。這是任何新專案的建議第一步。</x-card>
-  <x-card data-title="管理偏好設定" data-icon="lucide:list-checks" data-href="/configuration/managing-preferences">了解如何檢視、啟用、停用或刪除已儲存的偏好設定，以隨著時間的推移來完善文件產生過程。</x-card>
+<x-cards data-columns="2">
+  <x-card data-title="初始設定" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">
+    遵循互動式設定指南來建立主要的 `config.yaml` 檔案。這是任何新文件專案的必要第一步。
+  </x-card>
+  <x-card data-title="管理偏好設定" data-icon="lucide:user-cog" data-href="/configuration/managing-preferences">
+    了解如何檢視、啟用、停用或刪除個人偏好設定。這些設定可讓您應用特定規則來補充主要的專案設定。
+  </x-card>
 </x-cards>
 
-## `config.yaml` 檔案
+## 了解 `config.yaml` 檔案
 
-所有專案層級的設定都儲存在名為 `config.yaml` 的檔案中，該檔案位於您專案內的 `.aigne/doc-smith/` 目錄中。`aigne doc init` 指令會透過一個互動式過程為您建立此檔案。您也可以隨時使用文字編輯器手動修改此檔案以調整設定。
+`config.yaml` 檔案是您文件專案的唯一可信來源。它在初始設定過程中產生，並包含 AI 用於分析您的原始碼及產生內容的所有核心指令。一個設定正確的檔案可確保輸出內容是為您預期的受眾、目的和風格量身打造。
 
-以下是一個 `config.yaml` 檔案的範例，其中包含解釋每個區塊的註解。
+以下是您會在 `config.yaml` 檔案中找到的關鍵參數的詳細說明。
 
-```yaml Example config.yaml icon=logos:yaml
-# 用於文件發布的專案資訊
-projectName: AIGNE DocSmith
-projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on the AIGNE Framework. It automates the creation of detailed, structured, and multi-language documentation directly from your source code.
-projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
+### 核心設定參數
 
-# =============================================================================
-# 文件設定
-# =============================================================================
-
-# 目的：您希望讀者達成的最主要成果是什麼？
-# 可用選項（取消註解並根據需要修改）：
-#   getStarted       - 快速入門：幫助新使用者在 30 分鐘內從零到上手
-#   completeTasks    - 完成特定任務：引導使用者完成常見的工作流程和使用案例
-#   findAnswers      - 快速尋找答案：為所有功能和 API 提供可搜尋的參考資料
-#   understandSystem - 了解系統：解釋其運作方式及設計決策的原因
-#   solveProblems    - 解決問題：幫助使用者進行故障排除並修復問題
-#   mixedPurpose     - 綜合目的：涵蓋多種需求的綜合性文件
-documentPurpose:
-  - getStarted
-  - completeTasks
-
-# 目標受眾：誰會最常閱讀這份文件？
-# 可用選項（取消註解並根據需要修改）：
-#   endUsers         - 終端使用者（非技術人員）：使用產品但不寫程式的人
-#   developers       - 整合開發者：將此產品加入其專案的工程師
-#   devops           - DevOps/基礎設施：部署、監控、維護系統的團隊
-#   decisionMakers   - 技術決策者：評估或規劃實施的架構師、領導者
-#   supportTeams     - 支援團隊：幫助他人使用產品的人員
-#   mixedTechnical   - 混合技術受眾：開發者、DevOps 和技術使用者
-targetAudienceTypes:
-  - endUsers
-
-# 讀者知識水平：讀者在閱讀文件時通常具備哪些知識？
-# 可用選項（取消註解並根據需要修改）：
-#   completeBeginners    - 完全初學者：對此領域/技術完全陌生
-#   domainFamiliar       - 熟悉領域，工具新手：了解問題領域，但對此特定解決方案不熟
-#   experiencedUsers     - 有經驗的使用者：需要參考資料/進階主題的常規使用者
-#   emergencyTroubleshooting - 緊急/故障排除：出現問題，需要快速修復
-#   exploringEvaluating  - 探索/評估：試圖了解這是否符合他們的需求
-readerKnowledgeLevel: completeBeginners
-
-# 文件深度：文件應該要多詳盡？
-# 可用選項（取消註解並根據需要修改）：
-#   essentialOnly      - 僅涵蓋必要內容：涵蓋 80% 的使用案例，保持簡潔
-#   balancedCoverage   - 平衡的涵蓋範圍：具有足夠深度和實用範例 [建議]
-#   comprehensive      - 全面詳盡：涵蓋所有功能、邊界案例和進階情境
-#   aiDecide           - 讓 AI 決定：分析程式碼複雜度並建議適當的深度
-documentationDepth: comprehensive
-
-# 自訂規則：定義特定的文件產生規則與要求
-rules: |
-  Avoid using vague or empty words that don't provide measurable or specific details, such as 'intelligently', 'seamlessly', 'comprehensive', or 'high-quality'. Focus on concrete, verifiable facts and information.
-  Focus on concrete, verifiable facts and information.
-  Must cover all subcommands of DocSmith
-
-# 目標受眾：描述您的特定目標受眾及其特徵
-targetAudience: |
-
-locale: en
-translateLanguages:
-  - zh
-  - zh-TW
-  - ja
-docsDir: ./docs  # 儲存產生文件的目錄
-sourcesPath:  # 要分析的原始碼路徑
-  - ./README.md
-  - ./CHANGELOG.md
-  - ./aigne.yaml
-  - ./agents
-  - ./media.md
-  - ./.aigne/doc-smith/config.yaml
-```
+<x-field-group>
+  <x-field data-name="projectName" data-type="string" data-required="true">
+    <x-field-desc markdown>您專案的正式名稱。此名稱將用於整份文件的標題和其他元資料中。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectDesc" data-type="string" data-required="true">
+    <x-field-desc markdown>用一句話簡潔描述您專案的目的和功能。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectLogo" data-type="string" data-required="false">
+    <x-field-desc markdown>指向您專案標誌圖片的 URL。此圖片將用於已發佈文件網站的品牌識別。</x-field-desc>
+  </x-field>
+  <x-field data-name="documentPurpose" data-type="array" data-required="true">
+    <x-field-desc markdown>定義文件的主要目標。範例包含用於入門指南的 `getStarted` 或用於程序說明的 `completeTasks`。</x-field-desc>
+  </x-field>
+  <x-field data-name="targetAudienceTypes" data-type="array" data-required="true">
+    <x-field-desc markdown>指定預期的讀者。範例包含針對非技術人員的 `endUsers` 或針對工程師的 `developers`。</x-field-desc>
+  </x-field>
+  <x-field data-name="readerKnowledgeLevel" data-type="string" data-required="true">
+    <x-field-desc markdown>描述目標受眾的預期技術知識和背景，例如 `completeBeginners`。</x-field-desc>
+  </x-field>
+  <x-field data-name="documentationDepth" data-type="string" data-required="true">
+    <x-field-desc markdown>控制產生內容的詳細程度。選項範圍從 `essentialOnly` 到 `comprehensive`。</x-field-desc>
+  </x-field>
+  <x-field data-name="rules" data-type="string" data-required="false">
+    <x-field-desc markdown>一組自訂指令、指南或限制，供 AI 在內容產生過程中遵循。</x-field-desc>
+  </x-field>
+  <x-field data-name="locale" data-type="string" data-required="true">
+    <x-field-desc markdown>文件的主要語言代碼，例如 `en` 代表英文。</x-field-desc>
+  </x-field>
+  <x-field data-name="translateLanguages" data-type="array" data-required="false">
+    <x-field-desc markdown>應將主要文件翻譯成的語言代碼列表，例如 `zh` (中文) 或 `ja` (日文)。</x-field-desc>
+  </x-field>
+  <x-field data-name="docsDir" data-type="string" data-required="true">
+    <x-field-desc markdown>儲存所產生文件檔案的本機目錄路徑。</x-field-desc>
+  </x-field>
+  <x-field data-name="sourcesPath" data-type="array" data-required="true">
+    <x-field-desc markdown>工具應分析以產生文件的來源檔案、目錄或 glob 模式的列表。</x-field-desc>
+  </x-field>
+</x-field-group>
 
 ## 總結
 
-完成設定後，此工具將清楚了解您的專案、受眾和文件目標，從而產生更準確、更相關的內容。
+一個定義完善的設定對於產出準確、相關且有效的文件至關重要。透過完成初始設定並了解 `config.yaml` 檔案，您為所有的文件任務奠定了堅實的基礎。
 
-若要開始設定您的專案，請前往 [初始設定](./configuration-initial-setup.md) 指南。
+若要繼續設定您的專案，請參考以下指南：
+*   **[初始設定](./configuration-initial-setup.md)**：建立您專案的 `config.yaml` 檔案。
+*   **[管理偏好設定](./configuration-managing-preferences.md)**：使用個人規則自訂工具的行為。

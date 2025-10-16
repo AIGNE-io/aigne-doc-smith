@@ -53,9 +53,18 @@ User feedback on previous generation:
 </feedback>
 {% endif %}
 
-{% include "../../common/afs/afs-tools-usage.md" %}
 
 <instructions>
-Generate detailed document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), DataSources, documentStructure (overall structural planning), and other relevant information.
-{% include "../../common/afs/use-afs-instruction.md" %}
+Generate detailed and well-structured document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), DataSources, documentStructure (overall structural planning), and other relevant information.
+
+YOU SHOULD:
+- Use AFS tools `afs_list` `afs_search` or `afs_read` to gather relevant and accurate information to enhance the content.
+- Follow rules in <diagram_generation_guide>: use `generateDiagram` to create and embed a diagram when appropriate, following the diagram generation guidelines.
+
+<steps>
+1. Analyze the provided document structure and user requirements to plan the content.
+2. Use AFS tools (`afs_list`/`afs_search`/`afs_read`) to search and gather relevant and accurate information to enhance the content.
+3. Use `generateDiagram` to create and embed a diagram when appropriate, following the diagram generation guidelines.
+4. Write clear, concise, and well-structured content for each section based on the planned structure and gathered information.
+</steps>
 </instructions>

@@ -47,6 +47,16 @@ export function isGlobPattern(pattern) {
   return /[*?[\]]|(\*\*)/.test(pattern);
 }
 
+/**
+ * Check if a string is an HTTP/HTTPS URL
+ * @param {string} url - The string to check
+ * @returns {boolean} - True if the string starts with http:// or https://
+ */
+export function isHttp(url) {
+  if (typeof url !== "string") return false;
+  return url.startsWith("http://") || url.startsWith("https://");
+}
+
 export function processContent({ content }) {
   // Match markdown regular links [text](link), exclude images ![text](link)
   return content.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g, (match, text, link) => {
@@ -1112,7 +1122,7 @@ export async function resolveFileReferences(obj, basePath = process.cwd()) {
  * @param {string} basePath - Base path for resolving relative paths
  * @returns {Promise<any>} - The loaded content or original path if loading fails
  */
-async function loadFileContent(filePath, basePath) {
+export async function loadFileContent(filePath, basePath) {
   try {
     // Resolve path - if absolute, use as is; if relative, resolve from basePath
     const resolvedPath = path.isAbsolute(filePath) ? filePath : path.resolve(basePath, filePath);

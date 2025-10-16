@@ -22,3 +22,5 @@ input_schema:
           - generatedDocs
           - documentConfig
           - authTokens
+          - deploymentConfig
+          - mediaDescription

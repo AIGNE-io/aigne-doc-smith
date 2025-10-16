@@ -1,96 +1,69 @@
 # 設定
 
-適切な設定は、プロジェクト固有のニーズに合わせてドキュメント生成プロセスを調整するために不可欠です。AIGNE DocSmithは、主要な設定ファイルとコマンドラインインターフェースを使用して設定を管理します。このセットアップにより、生成されるドキュメントがプロジェクトの目標、対象読者、構造的要件を正確に反映することが保証されます。
+適切な設定は、AIGNE DocSmith ツールがプロジェクト固有のニーズに合ったドキュメントを生成するための基本です。このプロセスでは、中央の設定ファイルでプロジェクトレベルの設定を定義し、個人の設定を管理して生成プロセスを微調整します。
 
-このセクションでは、ツールの設定方法の概要を説明します。ステップバイステップの手順については、以下の詳細なガイドを参照してください。
+このセクションでは、ツールの設定方法の概要を説明します。詳細な手順については、以下の各ガイドを参照してください。
 
-<x-cards>
-  <x-card data-title="初期設定" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">対話式セットアップを実行して `config.yaml` ファイルを作成する方法を学びます。これは、新しいプロジェクトで推奨される最初のステップです。</x-card>
-  <x-card data-title="設定の管理" data-icon="lucide:list-checks" data-href="/configuration/managing-preferences">保存された設定を表示、有効化、無効化、または削除する方法を理解し、時間とともにドキュメント生成プロセスを洗練させます。</x-card>
+<x-cards data-columns="2">
+  <x-card data-title="初期設定" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">
+    対話式のセットアップガイドに従って、主要な `config.yaml` ファイルを作成します。これは、新しいドキュメントプロジェクトに不可欠な最初のステップです。
+  </x-card>
+  <x-card data-title="設定の管理" data-icon="lucide:user-cog" data-href="/configuration/managing-preferences">
+    個人の設定を表示、有効化、無効化、または削除する方法を学びます。これにより、主要なプロジェクト設定を補完する特定のルールを適用できます。
+  </x-card>
 </x-cards>
 
-## `config.yaml` ファイル
+## `config.yaml` ファイルについて
 
-すべてのプロジェクトレベルの設定は、プロジェクト内の `.aigne/doc-smith/` ディレクトリにある `config.yaml` という名前のファイルに保存されます。`aigne doc init` コマンドは、対話的なプロセスを通じてこのファイルを作成します。また、いつでもテキストエディタでこのファイルを手動で変更して設定を調整することもできます。
+`config.yaml` ファイルは、ドキュメントプロジェクトにおける信頼できる唯一の情報源（source of truth）として機能します。このファイルは初期設定プロセスで生成され、AI がソースコードを分析してコンテンツを生成するために使用するすべてのコアディレクティブを含んでいます。正しく設定されたファイルにより、意図した読者、目的、スタイルに合わせた出力が保証されます。
 
-以下は `config.yaml` ファイルの例で、各セクションを説明するコメントが付いています。
+以下に、`config.yaml` ファイルに含まれる主要なパラメータの内訳を示します。
 
-```yaml Example config.yaml icon=logos:yaml
-# ドキュメント公開のためのプロジェクト情報
-projectName: AIGNE DocSmith
-projectDesc: AIGNE DocSmithは、AIGNEフレームワーク上に構築された強力なAI駆動のドキュメント生成ツールです。ソースコードから直接、詳細で構造化された多言語のドキュメント作成を自動化します。
-projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
+### コア設定パラメータ
 
-# =============================================================================
-# ドキュメント設定
-# =============================================================================
-
-# 目的: 読者に達成してもらいたい主な成果は何ですか？
-# 利用可能なオプション（必要に応じてコメントを解除し、変更してください）：
-#   getStarted       - 迅速な開始：新規ユーザーが30分未満でゼロから作業を開始できるように支援します
-#   completeTasks    - 特定のタスクの完了：一般的なワークフローとユースケースを通じてユーザーをガイドします
-#   findAnswers      - 迅速な回答の検索：すべての機能とAPIに対して検索可能なリファレンスを提供します
-#   understandSystem - システムの理解：システムの仕組み、設計上の決定理由を説明します
-#   solveProblems    - 問題の解決：ユーザーのトラブルシューティングと問題修正を支援します
-#   mixedPurpose     - 上記の混合：複数のニーズをカバーする包括的なドキュメント
-documentPurpose:
-  - getStarted
-  - completeTasks
-
-# 対象読者: 主に誰がこれを読みますか？
-# 利用可能なオプション（必要に応じてコメントを解除し、変更してください）：
-#   endUsers         - エンドユーザー（非技術者）：製品を使用するがコーディングはしない人々
-#   developers       - 統合開発者：これを自分のプロジェクトに追加するエンジニア
-#   devops           - DevOps/インフラストラクチャ：システムをデプロイ、監視、維持するチーム
-#   decisionMakers   - 技術的な意思決定者：実装を評価または計画するアーキテクト、リーダー
-#   supportTeams     - サポートチーム：他者が製品を使用するのを助ける人々
-#   mixedTechnical   - 混合技術者層：開発者、DevOps、および技術ユーザー
-targetAudienceTypes:
-  - endUsers
-
-# 読者の知識レベル: 読者が訪れたときに通常何を知っていますか？
-# 利用可能なオプション（必要に応じてコメントを解除し、変更してください）：
-#   completeBeginners    - 完全な初心者：この分野/技術に全く新しい人々
-#   domainFamiliar       - 分野に精通、ツールは初めて：問題領域は知っているが、この特定のソリューションは初めて
-#   experiencedUsers     - 経験豊富なユーザー：リファレンス/高度なトピックを必要とする通常のユーザー
-#   emergencyTroubleshooting - 緊急/トラブルシューティング：何かが壊れており、迅速に修正する必要がある
-#   exploringEvaluating  - 探索/評価：これが自分のニーズに合うかどうかを理解しようとしている
-readerKnowledgeLevel: completeBeginners
-
-# ドキュメントの深さ: ドキュメントはどの程度包括的であるべきですか？
-# 利用可能なオプション（必要に応じてコメントを解除し、変更してください）：
-#   essentialOnly      - 必須事項のみ：80%のユースケースをカバーし、簡潔に保つ
-#   balancedCoverage   - バランスの取れたカバレッジ：実践的な例を伴う適切な深さ [推奨]
-#   comprehensive      - 包括的：すべての機能、エッジケース、および高度なシナリオをカバーする
-#   aiDecide           - AIに決定させる：コードの複雑さを分析し、適切な深さを提案する
-documentationDepth: comprehensive
-
-# カスタムルール: 特定のドキュメント生成ルールと要件を定義します
-rules: |
-  Avoid using vague or empty words that don't provide measurable or specific details, such as 'intelligently', 'seamlessly', 'comprehensive', or 'high-quality'. Focus on concrete, verifiable facts and information.
-  Focus on concrete, verifiable facts and information.
-  Must cover all subcommands of DocSmith
-
-# 対象読者: 特定の対象読者とその特徴を記述します
-targetAudience: |
-
-locale: en
-translateLanguages:
-  - zh
-  - zh-TW
-  - ja
-docsDir: ./docs  # 生成されたドキュメントを保存するディレクトリ
-sourcesPath:  # 分析するソースコードのパス
-  - ./README.md
-  - ./CHANGELOG.md
-  - ./aigne.yaml
-  - ./agents
-  - ./media.md
-  - ./.aigne/doc-smith/config.yaml
-```
+<x-field-group>
+  <x-field data-name="projectName" data-type="string" data-required="true">
+    <x-field-desc markdown>プロジェクトの正式名称。ドキュメント全体のタイトルやその他のメタデータで使用されます。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectDesc" data-type="string" data-required="true">
+    <x-field-desc markdown>プロジェクトの目的と機能を簡潔に一句で説明します。</x-field-desc>
+  </x-field>
+  <x-field data-name="projectLogo" data-type="string" data-required="false">
+    <x-field-desc markdown>プロジェクトのロゴ画像を指す URL。公開されるドキュメントサイトのブランディングに使用されます。</x-field-desc>
+  </x-field>
+  <x-field data-name="documentPurpose" data-type="array" data-required="true">
+    <x-field-desc markdown>ドキュメントの主要な目標を定義します。例として、オンボーディングガイドのための `getStarted` や、手順を説明するための `completeTasks` があります。</x-field-desc>
+  </x-field>
+  <x-field data-name="targetAudienceTypes" data-type="array" data-required="true">
+    <x-field-desc markdown>対象読者を指定します。例として、技術者ではない一般ユーザー向けの `endUsers` や、エンジニア向けの `developers` があります。</x-field-desc>
+  </x-field>
+  <x-field data-name="readerKnowledgeLevel" data-type="string" data-required="true">
+    <x-field-desc markdown>対象読者に想定される技術知識と背景を記述します。例：`completeBeginners`。</x-field-desc>
+  </x-field>
+  <x-field data-name="documentationDepth" data-type="string" data-required="true">
+    <x-field-desc markdown>生成されるコンテンツの詳細度を制御します。オプションは `essentialOnly` から `comprehensive` まであります。</x-field-desc>
+  </x-field>
+  <x-field data-name="rules" data-type="string" data-required="false">
+    <x-field-desc markdown>コンテンツ生成プロセス中に AI が従うべきカスタム指示、ガイドライン、または制約のセットです。</x-field-desc>
+  </x-field>
+  <x-field data-name="locale" data-type="string" data-required="true">
+    <x-field-desc markdown>ドキュメントの主要な言語コード。例：英語の場合は `en`。</x-field-desc>
+  </x-field>
+  <x-field data-name="translateLanguages" data-type="array" data-required="false">
+    <x-field-desc markdown>主要なドキュメントを翻訳する先の言語コードのリスト。例：`zh`（中国語）や `ja`（日本語）。</x-field-desc>
+  </x-field>
+  <x-field data-name="docsDir" data-type="string" data-required="true">
+    <x-field-desc markdown>生成されたドキュメントファイルが保存されるローカルディレクトリのパス。</x-field-desc>
+  </x-field>
+  <x-field data-name="sourcesPath" data-type="array" data-required="true">
+    <x-field-desc markdown>ツールがドキュメントを生成するために分析するソースファイル、ディレクトリ、または glob パターンのリスト。</x-field-desc>
+  </x-field>
+</x-field-group>
 
 ## まとめ
 
-設定が完了すると、ツールはプロジェクト、対象読者、ドキュメントの目標を明確に理解し、より正確で関連性の高いコンテンツが生成されます。
+明確に定義された設定は、正確で、関連性が高く、効果的なドキュメントを作成するために不可欠です。初期設定を完了し、`config.yaml` ファイルを理解することで、すべてのドキュメント作成タスクの強固な基盤を築くことができます。
 
-プロジェクトの設定を開始するには、[初期設定](./configuration-initial-setup.md) ガイドに進んでください。
+プロジェクトの設定を進めるには、以下のガイドを参照してください：
+*   **[初期設定](./configuration-initial-setup.md)**：プロジェクトの `config.yaml` ファイルを作成します。
+*   **[設定の管理](./configuration-managing-preferences.md)**：個人のルールでツールの動作をカスタマイズします。

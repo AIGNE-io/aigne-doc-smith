@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.8.12-beta.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.8...v0.8.12-beta.9) (2025-10-15)
+
+
+### Features
+
+* **branding:** support updating branding information during publish doc ([#190](https://github.com/AIGNE-io/aigne-doc-smith/issues/190)) ([1918cae](https://github.com/AIGNE-io/aigne-doc-smith/commit/1918cae6ceefd24d76b6086730b6e0d038057cb6))
+* support translate meta in publish ([#189](https://github.com/AIGNE-io/aigne-doc-smith/issues/189)) ([3a34e38](https://github.com/AIGNE-io/aigne-doc-smith/commit/3a34e38f4283d4b2a19a88e426a8b49f0dd52bb6))
+
+
+### Bug Fixes
+
+* generate d2 diagram by tool use ([#184](https://github.com/AIGNE-io/aigne-doc-smith/issues/184)) ([0d04349](https://github.com/AIGNE-io/aigne-doc-smith/commit/0d04349d14cde62388467f755dedc10b74d14980))
+
+## [0.8.12-beta.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.7...v0.8.12-beta.8) (2025-10-14)
+
+
+### Features
+
+* **media:** support filter and describe and use media files with AI ([#185](https://github.com/AIGNE-io/aigne-doc-smith/issues/185)) ([230271d](https://github.com/AIGNE-io/aigne-doc-smith/commit/230271d70ce2e701be8d6c6e3bdc27f5fadc6cf7))
+
+
+### Bug Fixes
+
+* update evaluate page template ([#182](https://github.com/AIGNE-io/aigne-doc-smith/issues/182)) ([aef2104](https://github.com/AIGNE-io/aigne-doc-smith/commit/aef21049ded2f1ddfe9309dac67d6db1a026d3f6))
+
 ## [0.8.12-beta.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.6...v0.8.12-beta.7) (2025-10-12)
 
 

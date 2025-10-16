@@ -1,45 +1,45 @@
 # Initial Setup
 
-This guide provides a step-by-step walkthrough of the interactive setup process for AIGNE DocSmith. This process is initiated the first time you run the `generate` command, or it can be started manually. Its purpose is to create a `config.yaml` file that stores your preferences for generating documentation.
+This document provides a step-by-step guide to the interactive setup process for AIGNE DocSmith. This procedure is initiated automatically the first time you run the `aigne doc generate` command, or it can be started manually. The objective is to create a `config.yaml` file that stores your preferences for generating documentation.
 
-## Starting the Process
+## How to Start the Setup Process
 
-To manually begin the configuration, navigate to your project's root directory in your terminal and execute the following command:
+To begin the configuration manually, navigate to your project's root directory in a terminal and execute the following command:
 
 ```bash
 aigne doc init
 ```
 
-This command launches an interactive questionnaire that will guide you through configuring your documentation settings.
+This command launches an interactive questionnaire to configure your documentation settings. The process consists of 10 steps designed to tailor the generated documentation to your specific requirements.
 
 ## Configuration Steps
 
-The setup process consists of nine questions designed to tailor the documentation to your specific needs.
+The setup process will prompt you with a series of questions. The following sections detail each step.
 
 ### Step 1: Define Documentation Purpose
 
-You will first be asked to define the primary goals of your documentation. This selection influences the tone, structure, and focus of the generated content.
+The first step is to define the primary goals of your documentation. This selection influences the tone, structure, and focus of the generated content.
 
-**Prompt:** `📝 [1/9]: What should your documentation help readers achieve?`
+**Prompt:** `📝 [1/10]: What should your documentation help readers achieve?`
 
-You can select multiple options from the list below:
+You can select one or more options from the following list:
 
 | Option | Name | Description |
 | :--- | :--- | :--- |
 | `getStarted` | Get started quickly | Help new users go from zero to working in <30 minutes. |
 | `completeTasks` | Complete specific tasks | Guide users through common workflows and use cases. |
-| `findAnswers` | Find answers fast | Provide searchable reference for all features and APIs. |
+| `findAnswers` | Find answers fast | Provide a searchable reference for all features and APIs. |
 | `understandSystem` | Understand the system | Explain how it works and the reasoning behind design decisions. |
 | `solveProblems` | Solve problems | Help users troubleshoot and fix issues. |
-| `mixedPurpose` | Mix of above | Cover multiple needs comprehensively. |
+| `mixedPurpose` | Mix of above | Cover multiple needs. |
 
 ### Step 2: Identify Target Audience
 
-Next, specify who will be the primary readers of your documentation. This helps tailor the language and technical depth appropriately.
+Next, specify the primary readers of your documentation. This helps to adjust the language and technical depth appropriately.
 
-**Prompt:** `👥 [2/9]: Who will be reading your documentation?`
+**Prompt:** `👥 [2/10]: Who will be reading your documentation?`
 
-You can select one or more of the following audiences:
+You may select multiple audiences from this list:
 
 | Option | Name | Description |
 | :--- | :--- | :--- |
@@ -50,37 +50,29 @@ You can select one or more of the following audiences:
 | `supportTeams` | Support teams | People helping others use the product. |
 | `mixedTechnical` | Mixed technical audience | A combination of developers, DevOps, and other technical users. |
 
-### Step 3: Provide Custom Rules
+### Step 3: Specify Reader Knowledge Level
 
-This optional step allows you to provide specific instructions or constraints for the AI to follow during content generation.
+Indicate the assumed knowledge level of your audience. This ensures the content is presented at an appropriate level, avoiding information that is either too basic or too complex.
 
-**Prompt:** `📋 [3/9]: Any custom rules or requirements for your documentation? (Optional, press Enter to skip)`
-
-You can input any specific requirements, such as tone, style, or content to exclude. For example: "Avoid using marketing language and focus on technical accuracy."
-
-### Step 4: Specify Reader Knowledge Level
-
-Indicate the assumed knowledge level of your audience. This ensures the content is pitched at the right level, without being too basic or too complex.
-
-**Prompt:** `🧠 [4/9]: How much do readers already know about your project?`
+**Prompt:** `🧠 [3/10]: How much do readers already know about your project?`
 
 Select the option that best describes your readers:
 
 | Option | Name | Description |
 | :--- | :--- | :--- |
 | `completeBeginners` | Complete beginners | New to the domain or technology entirely. |
-| `domainFamiliar` | Domain-familiar, tool-new | Know the problem space but are new to this solution. |
-| `experiencedUsers` | Experienced users | Regular users who need reference or advanced topics. |
+| `domainFamiliar` | Domain-familiar, tool-new | Know the problem space but are new to this specific solution. |
+| `experiencedUsers` | Experienced users | Regular users who need reference material or advanced topics. |
 | `emergencyTroubleshooting` | Emergency/troubleshooting | Users who need to fix a problem quickly. |
 | `exploringEvaluating` | Exploring/evaluating | Users trying to determine if the tool fits their needs. |
 
-### Step 5: Set Documentation Depth
+### Step 4: Set Documentation Depth
 
-Choose how detailed the documentation should be. This determines the scope and level of detail in the generated content.
+Choose how detailed the documentation should be. This parameter determines the scope and level of detail in the generated content.
 
-**Prompt:** `📊 [5/9]: How detailed should your documentation be?`
+**Prompt:** `📊 [4/10]: How detailed should your documentation be?`
 
-Select one of the following levels of detail:
+Select one of the following levels:
 
 | Option | Name | Description |
 | :--- | :--- | :--- |
@@ -89,49 +81,65 @@ Select one of the following levels of detail:
 | `comprehensive` | Comprehensive | Covers all features, edge cases, and advanced scenarios. |
 | `aiDecide` | Let AI decide | The tool analyzes code complexity to suggest an appropriate depth. |
 
-### Step 6: Select Primary Language
+### Step 5: Select Primary Language
 
 Choose the main language for your documentation. The system will detect your operating system's language and suggest it as the default.
 
-**Prompt:** `🌐 [6/9]: What's your main documentation language?`
+**Prompt:** `🌐 [5/10]: What's your main documentation language?`
 
-You will be presented with a list of 12 supported languages, including English, Chinese (Simplified), and Spanish.
+You can select from a list of 12 supported languages, including English, Chinese (Simplified), and Spanish.
 
-### Step 7: Choose Translation Languages
+### Step 6: Choose Translation Languages
 
-Select any additional languages you want the documentation to be translated into.
+Select any additional languages into which you want the documentation to be translated.
 
-**Prompt:** `🔄 [7/9]: Which languages should we translate to?`
+**Prompt:** `🔄 [6/10]: Which languages should we translate to?`
 
-You can choose multiple languages from the list of supported options, excluding the primary language you selected in the previous step.
+You can choose multiple languages from the supported options, excluding the primary language selected in the previous step.
 
-### Step 8: Define Output Directory
+### Step 7: Define Documentation Directory
 
-Specify the folder where the generated documentation files should be saved.
+Specify the folder where the generated documentation files will be saved.
 
-**Prompt:** `📁 [8/9]: Where should we save your documentation?`
+**Prompt:** `📁 [7/10]: Where should we save your documentation?`
 
-The default path is `.aigne/doc-smith/docs`. You can accept this or provide a different path.
+The default path is `.aigne/doc-smith/docs`. You can accept this default or provide a different path.
 
-### Step 9: Specify Content Sources
+### Step 8: Specify Content Sources
 
-Indicate which files and folders the tool should analyze to generate documentation. You can add multiple paths and use glob patterns for advanced filtering.
+Indicate which files and folders the tool should analyze to generate documentation. You can add multiple paths and use glob patterns for more specific file matching.
 
-**Prompt:** `🔍 [9/9]: Content Sources`
+**Prompt:** `🔍 [8/10]: Content Sources`
 
-You will be prompted to enter file paths, folder paths, or glob patterns (e.g., `src/**/*.js`). If you do not provide any paths, the tool will analyze the entire project directory by default.
+You will be prompted to enter file paths, folder paths, or glob patterns (e.g., `src/**/*.js`). If no paths are provided, the tool will analyze the entire project directory by default.
 
-## Generated Configuration File
+### Step 9: Provide Custom Rules
 
-After completing the questionnaire, DocSmith saves your responses to a configuration file named `config.yaml` in the `.aigne/doc-smith/` directory. This file serves as the blueprint for all future documentation generation and can be manually edited at any time.
+This optional step allows you to provide specific instructions or constraints for the AI to follow during content generation.
 
-Here is an example of a generated `config.yaml` file:
+**Prompt:** `📋 [9/10]: Any custom rules or requirements for your documentation? (Optional, press Enter to skip)`
 
-```yaml config.yaml title="config.yaml"
+You can input any requirements, such as tone, style, or content to exclude. For example: "Focus on technical accuracy and avoid marketing terminology."
+
+### Step 10: Configure Media Settings
+
+Set a minimum width for images to be included in the documentation. This helps filter out low-resolution images or icons.
+
+**Prompt:** `🖼️ [10/10]: Minimum image width (in pixels) to include in documentation:`
+
+The default value is `800`. You can enter a different positive number to adjust the filter.
+
+## The `config.yaml` File
+
+After you answer all the questions, DocSmith saves your responses to a configuration file named `config.yaml`, located in the `.aigne/doc-smith/` directory of your project. This file acts as the blueprint for all future documentation generation and can be manually edited at any time.
+
+Below is an example of a generated `config.yaml` file:
+
+```yaml config.yaml icon=logos:yaml
 # Project information for documentation publishing
 projectName: AIGNE DocSmith
 projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation tool...
-projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
+projectLogo: ../assets/screenshots/9645caf64b4232699982c4d940b03b90.svg
 
 # =============================================================================
 # Documentation Configuration
@@ -154,7 +162,7 @@ documentationDepth: comprehensive
 
 # Custom Rules: Define specific documentation generation rules and requirements
 rules: |
-  Avoid using vague or empty words...
+  Avoid using vague or empty words that don't provide measurable or specific details...
 
 # Target Audience: Describe your specific target audience and their characteristics
 targetAudience: |
@@ -163,17 +171,28 @@ targetAudience: |
 locale: en
 translateLanguages:
   - zh
+  - zh-TW
   - ja
 
-# Directory and source path configurations
+# Paths
 docsDir: ./docs  # Directory to save generated documentation
 sourcesPath:  # Source code paths to analyze
   - ./README.md
   - ./agents
+
+# =============================================================================
+# Media Settings
+# =============================================================================
+media:
+  minImageWidth: 800
 ```
 
-## Next Steps
+## Summary and Next Steps
 
-With your initial configuration complete, you are now ready to create your documentation.
+Once the setup is complete, you will see a confirmation message.
 
-*   Proceed to the [Generating Documentation](./guides-generating-documentation.md) guide to learn how to run the generation process.
+![Setup Complete](../assets/screenshots/doc-complete-setup.png)
+
+With your initial configuration saved, you are now prepared to create your documentation.
+
+*   To proceed, consult the [Generating Documentation](./guides-generating-documentation.md) guide for instructions on running the generation process.
