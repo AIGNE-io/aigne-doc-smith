@@ -1,42 +1,42 @@
-a42903e87ae020dcb81991e672b2a2990b94eb0e92d6c1cc87f3bf6223355344:
-  local_path: assets/screenshots/doc-publish.png
-  sites:
-    https://staging.websmith.aigne.io:
-      url: https://staging.websmith.aigne.io/image-bin/uploads/a42903e87ae020dc.png
-      upload_time: 2025-10-14T10:55:54.643Z
-31353781ba6d1572359823faa399af9f5deca7b994f24939cb5f5143fcc96b14:
-  local_path: assets/screenshots/doc-translate-langs.png
-  sites:
-    https://staging.websmith.aigne.io:
-      url: https://staging.websmith.aigne.io/image-bin/uploads/31353781ba6d1572.png
-      upload_time: 2025-10-14T10:55:54.892Z
-9871bff567cc5f1b73e99b84c03781bffc7f531635b9bd40f23a2aee5f9885e5:
-  local_path: assets/screenshots/doc-update.png
-  sites:
-    https://staging.websmith.aigne.io:
-      url: https://staging.websmith.aigne.io/image-bin/uploads/9871bff567cc5f1b.png
-      upload_time: 2025-10-14T10:55:55.497Z
 ac51399fcd5ba2e36d7c84264dd28624acd10c57aa82f7d006da6f8434cb24de:
   local_path: assets/screenshots/doc-regenerate.png
   sites:
-    https://staging.websmith.aigne.io:
-      url: https://staging.websmith.aigne.io/image-bin/uploads/ac51399fcd5ba2e3.png
-      upload_time: 2025-10-14T10:55:55.551Z
-c055a80de6c1120765757fd3ef91ef05718f77beb7d6dfdac41d8e234361a68a:
-  local_path: assets/screenshots/doc-generated-successfully.png
+    https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io:
+      url: https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io/media-kit/uploads/ac51399fcd5ba2e3.png
+      upload_time: 2025-10-16T06:18:36.715Z
+a42903e87ae020dcb81991e672b2a2990b94eb0e92d6c1cc87f3bf6223355344:
+  local_path: assets/screenshots/doc-publish.png
   sites:
-    https://staging.websmith.aigne.io:
-      url: https://staging.websmith.aigne.io/image-bin/uploads/c055a80de6c11207.png
-      upload_time: 2025-10-14T10:55:55.751Z
+    https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io:
+      url: https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io/media-kit/uploads/a42903e87ae020dc.png
+      upload_time: 2025-10-16T06:18:36.717Z
+9871bff567cc5f1b73e99b84c03781bffc7f531635b9bd40f23a2aee5f9885e5:
+  local_path: assets/screenshots/doc-update.png
+  sites:
+    https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io:
+      url: https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io/media-kit/uploads/9871bff567cc5f1b.png
+      upload_time: 2025-10-16T06:18:36.721Z
+31353781ba6d1572359823faa399af9f5deca7b994f24939cb5f5143fcc96b14:
+  local_path: assets/screenshots/doc-translate-langs.png
+  sites:
+    https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io:
+      url: https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io/media-kit/uploads/31353781ba6d1572.png
+      upload_time: 2025-10-16T06:18:36.771Z
 f786c36289e0e5bfea866c9384edc7d44996c42adfad0cb6f613f46e27f0f2be:
   local_path: assets/screenshots/doc-generate.png
   sites:
-    https://staging.websmith.aigne.io:
-      url: https://staging.websmith.aigne.io/image-bin/uploads/f786c36289e0e5bf.png
-      upload_time: 2025-10-14T10:55:56.380Z
+    https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io:
+      url: https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io/media-kit/uploads/f786c36289e0e5bf.png
+      upload_time: 2025-10-16T06:18:36.775Z
+c055a80de6c1120765757fd3ef91ef05718f77beb7d6dfdac41d8e234361a68a:
+  local_path: assets/screenshots/doc-generated-successfully.png
+  sites:
+    https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io:
+      url: https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io/media-kit/uploads/c055a80de6c11207.png
+      upload_time: 2025-10-16T06:18:36.777Z
 2b41c70c6a61942727984b2d99010cbe7e1d9b4c75686f65af8b5a245e9b800d:
   local_path: assets/screenshots/doc-generate-docs.png
   sites:
-    https://staging.websmith.aigne.io:
-      url: https://staging.websmith.aigne.io/image-bin/uploads/2b41c70c6a619427.png
-      upload_time: 2025-10-14T10:55:56.694Z
+    https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io:
+      url: https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io/media-kit/uploads/2b41c70c6a619427.png
+      upload_time: 2025-10-16T06:18:36.812Z
