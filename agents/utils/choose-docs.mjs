@@ -36,7 +36,7 @@ export default async function chooseDocs(
 
       if (mainLanguageFiles.length === 0) {
         throw new Error(
-          `No documents found in the docs directory. Please run ${chalk.yellow("`aigne docs generate`")} to generate the documents`,
+          `No documents found in the docs directory. Please run ${chalk.yellow("`aigne doc generate`")} to generate the documents`,
         );
       }
 
