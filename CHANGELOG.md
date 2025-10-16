@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.14-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.13...v0.8.14-beta) (2025-10-16)
+
+
+### Features
+
+* **file-utils:** add comprehensive file type detection and image upload functionality ([#200](https://github.com/AIGNE-io/aigne-doc-smith/issues/200)) ([ab7aae3](https://github.com/AIGNE-io/aigne-doc-smith/commit/ab7aae33ed9b5209e824ba91fbf9c94d37187d83))
+
+
+### Bug Fixes
+
+* use `output` field present tool result to enhance LLM understanding ([#202](https://github.com/AIGNE-io/aigne-doc-smith/issues/202)) ([511178d](https://github.com/AIGNE-io/aigne-doc-smith/commit/511178de7a88fdecf2136f90035d87957e23b23f))
+
 ## [0.8.13](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.13-beta...v0.8.13) (2025-10-16)
 
 
