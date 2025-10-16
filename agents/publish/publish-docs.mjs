@@ -88,14 +88,6 @@ export default async function publishDocs(
       const choice = await options.prompts.select({
         message: "Please select a platform to publish your documents:",
         choices: [
-          {
-            name: `${chalk.blue("DocSmith Cloud (docsmith.aigne.io)")} – ${chalk.green("Free")} hosting. Your documents will be publicly accessible. Best for open-source projects or community sharing.`,
-            value: "default",
-          },
-          {
-            name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
-            value: "custom",
-          },
           ...(sessionId
             ? [
                 {
@@ -104,6 +96,14 @@ export default async function publishDocs(
                 },
               ]
             : []),
+          {
+            name: `${chalk.blue("DocSmith Cloud (docsmith.aigne.io)")} – ${chalk.green("Free")} hosting. Your documents will be publicly accessible. Best for open-source projects or community sharing.`,
+            value: "default",
+          },
+          {
+            name: `${chalk.blue("Your existing website")} - Integrate and publish directly on your current site (setup required)`,
+            value: "custom",
+          },
           {
             name: `${chalk.blue("New website")} - ${chalk.yellow("Paid service.")} We'll help you set up a brand-new website with custom domain and hosting. Great if you want a professional presence.`,
             value: "new-instance",
