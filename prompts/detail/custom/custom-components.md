@@ -20,7 +20,7 @@ Suitable for displaying individual links with a richer and more visually appeali
 ### Children
 
 - Must be written within `<x-card>...</x-card>` children.
-- **Plain Text Only**: All markdown formatting is prohibited, including inline formats like `code`, **bold**, *italic*, [links](), and block-level formats like headers (# ##), lists (- *), code blocks (```), tables (|), and any other markdown syntax. Only plain text content is allowed.
+- **Plain Text Only**: All markdown formatting is prohibited, including inline formats like `code`, **bold**, _italic_, [links](), and block-level formats like headers (# ##), lists (- \*), code blocks (```), tables (|), and any other markdown syntax. Only plain text content is allowed.
 
 ### Good Examples
 
@@ -131,59 +131,82 @@ Suitable for displaying API parameters, return values, context data, and any str
 - **Maximum Nesting Depth**: 5 levels (to avoid overly complex structures)
 - **Description Mutually Exclusive**: Use either `data-desc` attribute OR `<x-field-desc>` element, not both
 - **Single Description Rule**: Only one `<x-field-desc>` element per `<x-field>` is allowed
+- **Structured Data Only**: Use `<x-field>` only for displaying structured object data such as API parameters, return values, network request body/query/headers, and complex object properties (e.g., ContextType). Do not use for individual field descriptions (e.g., name or version in package.json, logo or appUrl in config.yaml) - use regular Markdown text instead
+- **Grouping Requirement**: Wrap the outermost `<x-field>` elements with `<x-field-group>`, even if there's only one `<x-field>` element
+- **Recursive Structure**: Use recursive `<x-field>` structures to fully express complex object type hierarchies, decomposing all nested properties into more fundamental types
 
 ### Good Examples
 
 Example 1: Simple field with all attributes
 
 ```md
-<x-field data-name="user_id" data-type="string" data-default="u0911" data-required="true" data-deprecated="true" data-desc="Unique identifier for the user. Must be a valid UUID v4 format."></x-field>
+### Returns
+
+<x-field-group>
+  <x-field data-name="user_id" data-type="string" data-default="u0911" data-required="true" data-deprecated="true" data-desc="Unique identifier for the user. Must be a valid UUID v4 format."></x-field>
+</x-field-group>
 ```
 
 Example 2: Field with markdown description
 
 ```md
-<x-field data-name="api_key" data-type="string" data-required="true">
-  <x-field-desc markdown>Your **API key** for authentication. Generate one from the `Settings > API Keys` section. Keep it secure and never expose it in client-side code.</x-field-desc>
-</x-field>
+### Context
+
+<x-field-group>
+  <x-field data-name="api_key" data-type="string" data-required="true">
+    <x-field-desc markdown>Your **API key** for authentication. Generate one from the `Settings > API Keys` section. Keep it secure and never expose it in client-side code.</x-field-desc>
+  </x-field>
+</x-field-group>
 ```
 
 Example 3: Nested object structure
 
 ```md
-<x-field data-name="session" data-type="object" data-required="true">
-  <x-field-desc markdown>Contains all **authentication** and **authorization** data for the current user session. This object is automatically populated after successful login.</x-field-desc>
-  <x-field data-name="user" data-type="object" data-required="true" data-desc="User basic information">
-    <x-field data-name="name" data-type="string" data-required="true" data-default="John Doe" data-desc="User name"></x-field>
-    <x-field data-name="email" data-type="string" data-required="true" data-default="john.doe@example.com">
-        <x-field-desc markdown>Primary email address used for **login** and **notifications**. Must be a valid email format.</x-field-desc>
+### Properties
+
+<x-field-group>
+  <x-field data-name="session" data-type="object" data-required="true">
+    <x-field-desc markdown>Contains all **authentication** and **authorization** data for the current user session. This object is automatically populated after successful login.</x-field-desc>
+    <x-field data-name="user" data-type="object" data-required="true" data-desc="User basic information">
+      <x-field data-name="name" data-type="string" data-required="true" data-default="John Doe" data-desc="User name"></x-field>
+      <x-field data-name="email" data-type="string" data-required="true" data-default="john.doe@example.com">
+          <x-field-desc markdown>Primary email address used for **login** and **notifications**. Must be a valid email format.</x-field-desc>
+      </x-field>
+      <x-field data-name="avatar" data-type="string" data-required="false" data-default="https://example.com/avatars/john-doe.jpg" data-desc="User avatar URL"></x-field>
     </x-field>
-    <x-field data-name="avatar" data-type="string" data-required="false" data-default="https://example.com/avatars/john-doe.jpg" data-desc="User avatar URL"></x-field>
+    <x-field data-name="permissions" data-type="array" data-required="true" data-default='["read", "write", "admin"]'>
+      <x-field-desc markdown>Array of **permission strings** that determine what actions the user can perform. Common values: `"read"`, `"write"`, `"admin"`, `"delete"`.</x-field-desc>
+    </x-field>
   </x-field>
-  <x-field data-name="permissions" data-type="array" data-required="true" data-default='["read", "write", "admin"]'>
-    <x-field-desc markdown>Array of **permission strings** that determine what actions the user can perform. Common values: `"read"`, `"write"`, `"admin"`, `"delete"`.</x-field-desc>
+</x-field-group>
+```
+
+Example 4: Multiple fields for Parameters
+
+```md
+### Parameters
+
+<x-field-group>
+  <x-field data-name="user_id" data-type="string" data-required="true" data-desc="Unique identifier for the user. Must be a valid UUID v4 format."></x-field>
+  <x-field data-name="include_profile" data-type="boolean" data-required="false" data-default="false" data-desc="Whether to include the user's profile information in the response"></x-field>
+  <x-field data-name="options" data-type="object" data-required="false" data-desc="Additional options for the request">
+    <x-field data-name="format" data-type="string" data-required="false" data-default="json">
+      <x-field-desc>Response format: `json` or `xml`</x-field-desc>
+    </x-field>
+    <x-field data-name="locale" data-type="string" data-required="false" data-default="en" data-desc="Language locale for localized content"></x-field>
   </x-field>
-</x-field>
+</x-field-group>
 ```
 
 ### Bad Examples
 
-Example 1: Using multiple `<x-field-desc>` elements
-
-```md
-<x-field data-name="api_key" data-type="string" data-required="true">
-  <x-field-desc markdown>Your **API key** for authentication.</x-field-desc>
-  <x-field-desc markdown>Keep it secure and never expose it.</x-field-desc>
-</x-field>
-```
-
-Example 2: Using self-closing tag
+Example 1: Using self-closing tag (violates "Opening/Closing Tags Format" rule)
 
 ```md
 <x-field data-name="user_id" data-type="string" data-required="true" data-desc="User identifier" />
 ```
 
-Example 3: Using both `data-desc` and `<x-field-desc>`
+Example 2: Using both `data-desc` and `<x-field-desc>` (violates "Description Mutually Exclusive" rule)
 
 ```md
 <x-field data-name="api_key" data-type="string" data-required="true" data-desc="API key for authentication">
@@ -191,12 +214,58 @@ Example 3: Using both `data-desc` and `<x-field-desc>`
 </x-field>
 ```
 
-Example 4: Nesting other child elements
+Example 3: Using multiple `<x-field-desc>` elements (violates "Single Description Rule")
+
+```md
+<x-field data-name="config" data-type="object" data-required="true">
+  <x-field-desc markdown>Configuration object for the application.</x-field-desc>
+  <x-field-desc markdown>Contains all runtime settings and preferences.</x-field-desc>
+</x-field>
+```
+
+Example 4: Nesting other child elements (violates "Children" rule)
 
 ```md
 <x-field data-name="user" data-type="object" data-required="true">
   <div>User information</div>
   <x-field data-name="name" data-type="string" data-required="true" data-desc="User name"></x-field>
+</x-field>
+```
+
+Example 5: Using x-field for individual config field (violates "Structured Data Only" rule)
+
+```md
+### appName
+
+<x-field data-name="appName" data-type="string" data-required="true" data-desc="specifies the name of the application"></x-field>
+
+### version
+
+<x-field data-name="version" data-type="string" data-required="true" data-desc="the current version of the package"></x-field>
+```
+
+Example 6: Missing x-field-group wrapper (violates "Grouping Requirement" rule)
+
+```md
+<x-field data-name="apiConfig" data-type="object" data-required="true" data-desc="API configuration object">
+  <x-field data-name="baseUrl" data-type="string" data-required="true" data-desc="Base URL for API calls"></x-field>
+  <x-field data-name="timeout" data-type="number" data-required="false" data-default="5000" data-desc="Request timeout in milliseconds"></x-field>
+</x-field>
+```
+
+Example 7: Exceeding maximum nesting depth (violates "Maximum Nesting Depth" rule)
+
+```md
+<x-field data-name="level1" data-type="object" data-required="true">
+  <x-field data-name="level2" data-type="object" data-required="true">
+    <x-field data-name="level3" data-type="object" data-required="true">
+      <x-field data-name="level4" data-type="object" data-required="true">
+        <x-field data-name="level5" data-type="object" data-required="true">
+          <x-field data-name="level6" data-type="string" data-required="true" data-desc="Too deep nesting"></x-field>
+        </x-field>
+      </x-field>
+    </x-field>
+  </x-field>
 </x-field>
 ```
 
@@ -235,7 +304,7 @@ Example 2: Description with inline code
 
 ### Bad Examples
 
-Example 1: Missing markdown attribute
+Example 1: Missing markdown attribute (violates "markdown attribute required" rule)
 
 ```md
 <x-field data-name="api_key" data-type="string" data-required="true">
@@ -243,7 +312,7 @@ Example 1: Missing markdown attribute
 </x-field>
 ```
 
-Example 2: Incorrect markdown attribute usage
+Example 2: Incorrect markdown attribute usage (violates "markdown attribute format" rule)
 
 ```md
 <x-field data-name="api_key" data-type="string" data-required="true">
@@ -251,7 +320,7 @@ Example 2: Incorrect markdown attribute usage
 </x-field>
 ```
 
-Example 3: Using self-closing tag
+Example 3: Using self-closing tag (violates "opening/closing tags format" rule)
 
 ```md
 <x-field data-name="user_id" data-type="string" data-required="true">
@@ -259,31 +328,31 @@ Example 3: Using self-closing tag
 </x-field>
 ```
 
-Example 4: Containing block-level elements
+Example 4: Containing block-level elements (violates "Inline Content Only" rule)
 
-```md
+````md
 <x-field data-name="config" data-type="object" data-required="true">
   <x-field-desc markdown>
-    Configuration object for the application.
-
-    # Important Notes
+    **Configuration settings** for the application.
+    
+    ## Important Notes
     - Set debug to true for development
     - Use production database in production
-
-    \`\`\`javascript
+    
+    ```javascript
     const config = { debug: true };
-    \`\`\`
+    ```
   </x-field-desc>
 </x-field>
-```
+````
 
-Example 5: Used outside of x-field component
+Example 5: Used outside of x-field component (violates "Parent Requirement" rule)
 
 ```md
 <x-field-desc markdown>This description is not inside an x-field component.</x-field-desc>
 ```
 
-Example 6: Used as child of other components
+Example 6: Used as child of other components (violates "Parent Requirement" rule)
 
 ```md
 <x-field-group>
@@ -306,8 +375,7 @@ Used to group multiple related `<x-field>` elements at the top level, indicating
 
 ### Usage Rules
 
-- **Top-Level Only**: Used only at the top level for grouping related `<x-field>`
-- **No Nesting**: Cannot be nested inside other `<x-field>` or `<x-field-group>` elements
+- **Top-Level Only**: Used only at the top level for grouping related `<x-field>` elements. Cannot be nested inside other `<x-field>` or `<x-field-group>` elements
 
 ### Good Examples
 
@@ -326,7 +394,7 @@ Example 1: Product information fields
 
 ### Bad Examples
 
-Example 1: Nested inside x-field component
+Example 1: Nested inside x-field component (violates "Top-Level Only" rule)
 
 ```md
 <x-field data-name="user" data-type="object" data-required="true">
@@ -337,7 +405,7 @@ Example 1: Nested inside x-field component
 </x-field>
 ```
 
-Example 2: Nested inside another x-field-group
+Example 2: Nested inside another x-field-group (violates "Top-Level Only" rule)
 
 ```md
 <x-field-group>
@@ -349,13 +417,20 @@ Example 2: Nested inside another x-field-group
 </x-field-group>
 ```
 
-Example 3: Containing non-x-field elements
+Example 3: Containing non-x-field elements (violates "Only x-field elements allowed" rule)
 
 ```md
 <x-field-group>
   <x-field data-name="name" data-type="string" data-required="true" data-desc="User name"></x-field>
   <div>Additional information</div>
   <x-field data-name="email" data-type="string" data-required="true" data-desc="User email"></x-field>
+</x-field-group>
+```
+
+Example 4: Empty x-field-group (violates "Must contain x-field elements" rule)
+
+```md
+<x-field-group>
 </x-field-group>
 ```
 

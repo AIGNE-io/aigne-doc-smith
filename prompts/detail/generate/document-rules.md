@@ -7,16 +7,13 @@ Documentation Generation Rules:
 - Since API names are already specified in document titles, avoid repeating them in subheadings—use sub-API names directly
 - Include links to related documents in the introduction using Markdown format to help users navigate to relevant content
 - Add links to further reading materials in the summary section using Markdown format
+- **Markdown Syntax Constraint**: Use only GitHub Flavored Markdown (GFM) syntax by default. Prohibited extensions include: custom blocks `:::`, footnotes `[^1]: notes`, math formulas `$$ LaTeX`, highlighted text `==code==`, and other non-GFM syntax unless explicitly defined in custom component rules
 - Use proper Markdown link syntax, for example: [Next Chapter Title](next_chapter_path)
 - **Ensure next_chapter_path references either external URLs or valid paths from the documentation structure**—use absolute paths from the documentation structure
 - When DataSources includes third-party links, incorporate them appropriately throughout the document
 - Structure each section with: title, introduction, code examples, response data samples, and explanatory notes. Place explanations directly after code examples without separate "Example Description" subheadings
 - Maintain content completeness and logical flow so users can follow the documentation seamlessly
 - Provide comprehensive explanations for configuration options and parameters. When parameters accept multiple values, explain each option's purpose and include code examples where applicable
-- Use the `<x-field>` custom component only for displaying structured object data such as API parameters, return values, network request body/query/headers, and complex object properties (e.g., ContextType). This component does not exist independently but represents complete object structures
-- Do not use `<x-field>` for individual field descriptions (e.g., name or version in package.json, logo or appUrl in config.yaml) - use regular Markdown text instead
-- Wrap the outermost `<x-field>` elements with `<x-field-group>` when describing multiple properties of the same object, even if there's only one `<x-field>` element
-- Use recursive `<x-field>` structures to fully express complex object type hierarchies, decomposing all nested properties into more fundamental types. Limit nesting to 5 levels maximum
 - All interface and method documentation must include **response data examples**
 - For simple list data, use Markdown tables to present information clearly and improve readability
 - Validate output Markdown for completeness, ensuring tables are properly formatted
