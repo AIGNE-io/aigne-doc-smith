@@ -86,6 +86,9 @@ DocSmith provides a set of commands to manage the full lifecycle of your documen
 | `publish`   | Publishes the generated documentation to a live platform, making it accessible via a URL.                     |
 | `init`      | Starts the interactive setup wizard to create or overwrite the `config.yaml` configuration file.              |
 | `prefs`     | Displays the current configuration settings from the `config.yaml` file.                                      |
+| `eval`      | Evaluates the quality and completeness of the generated documentation.                                        |
+| `history`   | Shows the history of updates made to the documentation.                                                       |
+| `clear`     | Removes generated files, configurations, and cached data.                                                     |
 
 ## What's Next?
 

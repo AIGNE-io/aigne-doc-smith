@@ -38,13 +38,13 @@ You can provide feedback directly from the command line to update one or more do
 Use the `--docs` flag to specify the path of the document and the `--feedback` flag to provide your instructions.
 
 ```bash command aigne doc update with feedback icon=lucide:terminal
-aigne doc update --docs /guides/overview.md --feedback "Add a more detailed explanation of the core features."
+aigne doc update --docs overview.md --feedback "Add a more detailed explanation of the core features."
 ```
 
 To update multiple documents, simply provide multiple `--docs` flags:
 
 ```bash command aigne doc update multiple docs icon=lucide:terminal
-aigne doc update --docs /guides/overview.md --docs /guides/getting-started.md --feedback "Ensure the tone is consistent across both documents."
+aigne doc update --docs overview.md --docs getting-started.md --feedback "Ensure the tone is consistent across both documents."
 ```
 
 ### Resetting Document Content
@@ -52,7 +52,7 @@ aigne doc update --docs /guides/overview.md --docs /guides/getting-started.md --
 In some cases, you may want to discard the current version of a document and regenerate it from scratch based on the latest source code. The `--reset` flag instructs the tool to ignore the existing content entirely.
 
 ```bash command aigne doc update with reset icon=lucide:terminal
-aigne doc update --docs /guides/overview.md --reset
+aigne doc update --docs overview.md --reset
 ```
 
 This command is useful when a document has become significantly outdated due to major changes in the underlying code.
@@ -63,7 +63,7 @@ The `update` command accepts several parameters to control its behavior. Here is
 
 | Parameter  | Description                                                                                             | Example                                                  |
 | :--------- | :------------------------------------------------------------------------------------------------------ | :------------------------------------------------------- |
-| `--docs`   | Specifies the path(s) of the document(s) to update. This can be used multiple times for multiple files. | `--docs /overview.md`                                    |
+| `--docs`   | Specifies the path(s) of the document(s) to update. This can be used multiple times for multiple files. | `--docs overview.md`                                     |
 | `--feedback` | Provides textual instructions for the changes to be made to the specified document(s).                  | `--feedback "Clarify the installation steps."`           |
 | `--reset`  | A boolean flag that, when present, causes the document to be regenerated from scratch.                  | `--reset`                                                |
 | `--glossary` | Specifies the path to a glossary file to ensure consistent terminology during the update process.       | `--glossary @/path/to/glossary.md`                       |

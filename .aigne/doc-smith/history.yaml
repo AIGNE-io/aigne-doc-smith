@@ -1,4 +1,42 @@
 entries:
+  - timestamp: 2025-10-16T13:53:49.257Z
+    operation: document_update
+    feedback: The value of the --id parameter should be pref_ followed by a 16-digit alphanumeric random
+      code.
+    documentPath: /configuration/managing-preferences
+  - timestamp: 2025-10-16T13:42:59.543Z
+    operation: document_update
+    feedback: "No Step 10: Configure Media Settings"
+    documentPath: /configuration/initial-setup
+  - timestamp: 2025-10-16T13:38:22.044Z
+    operation: document_update
+    feedback: The chat subcommand does not exist.
+    documentPath: /getting-started
+  - timestamp: 2025-10-16T13:36:26.254Z
+    operation: document_update
+    feedback: In the section exploring all commands, not all commands are listed.
+    documentPath: /getting-started
+  - timestamp: 2025-10-16T13:29:00.674Z
+    operation: document_update
+    feedback: The --docs parameter value uses the xx.md filename without the directory prefix.
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-16T13:26:11.374Z
+    operation: document_update
+    feedback: Document structure feedback does not support sorting.
+    documentPath: /guides/generating-documentation
+  - timestamp: 2025-10-16T13:22:12.668Z
+    operation: document_update
+    feedback: In cases where authorized tokens need to be cleared, users can be prompted to choose to
+      clear authTokens.
+    documentPath: /guides/publishing-your-docs
+  - timestamp: 2025-10-16T13:15:35.526Z
+    operation: document_update
+    feedback: You should use the full command `aigne doc history view` instead of `aigne history view`
+    documentPath: /guides/managing-history
+  - timestamp: 2025-10-16T13:04:50.763Z
+    operation: document_update
+    feedback: In the Aigne Docs translation case, the docs path requires the full xx.md filename.
+    documentPath: /guides/translating-documentation
   - timestamp: 2025-10-16T12:51:53.464Z
     operation: document_update
     feedback: Chat is a beta feature and is accessed via the `aigne doc` command.

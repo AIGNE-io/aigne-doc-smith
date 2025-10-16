@@ -37,7 +37,6 @@ Examples of feedback you can provide:
 *   Rename a section (e.g., change "Getting Started" to "Quick Start").
 *   Add a new document for "Troubleshooting."
 *   Remove a document that is not needed.
-*   Reorder sections to place "API Reference" before "Configuration."
 
 The tool will apply your feedback and present the updated structure for another review. You can repeat this process until the structure aligns perfectly with your requirements.
 

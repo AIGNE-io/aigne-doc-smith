@@ -1,52 +1,146 @@
 # クリーンアップ
 
-`aigne doc clear` コマンドは、プロジェクトから生成されたファイル、キャッシュデータ、および設定を体系的に削除する方法を提供します。これは、ドキュメントのワークスペースをリセットしたり、クリーンな状態から開始したり、古いファイルが原因で発生する可能性のある問題を解決したりする必要がある場合に実用的なステップです。
+このガイドでは、`aigne doc clear` コマンドを使用して、プロジェクトから生成されたファイル、設定、キャッシュデータを削除する方法について説明します。このコマンドは、最初からやり直したり、機密情報を削除したりする場合に便利です。
 
-## 対話的なクリーンアップ
+`clear` コマンドは、対話モードと非対話モードの2つのモードで実行できます。引数なしで実行すると、利用可能なクリーンアップオプションを案内する対話型のウィザードが起動します。
 
-管理された正確なクリーンアップを行うには、引数なしでコマンドを実行することが推奨される手順です。
+```d2
+direction: down
+
+User: {
+  shape: c4-person
+}
+
+Command-Execution: {
+  label: "コマンド実行"
+  shape: rectangle
+
+  CLI: {
+    label: "`aigne doc clear [targets]`"
+  }
+
+  Decision: {
+    label: "引数が\n指定されているか？"
+    shape: diamond
+  }
+
+  Interactive-Wizard: {
+    label: "対話型ウィザード\n（ターゲットのチェックリスト）"
+  }
+}
+
+Cleanup-Targets: {
+  label: "クリーンアップターゲット"
+  shape: rectangle
+  grid-columns: 3
+
+  generatedDocs: {}
+  documentStructure: {}
+  documentConfig: {}
+  authTokens: {}
+  deploymentConfig: {}
+  mediaDescription: {}
+}
+
+Project-Artifacts: {
+  label: "プロジェクトアーティファクト"
+  shape: rectangle
+  grid-columns: 3
+
+  docs: {
+    label: "./docs"
+  }
+  structure-plan: {
+    label: "structure-plan.json"
+  }
+  config-yaml: {
+    label: "config.yaml"
+  }
+  auth-config: {
+    label: "~/.aigne/doc-smith-connected.yaml"
+  }
+  media-cache: {
+    label: "メディア記述\nキャッシュ"
+  }
+}
+
+User -> Command-Execution.CLI
+
+Command-Execution.CLI -> Command-Execution.Decision
+
+Command-Execution.Decision -> Command-Execution.Interactive-Wizard: "いいえ"
+Command-Execution.Decision -> Cleanup-Targets: "はい"
+
+Command-Execution.Interactive-Wizard -> Cleanup-Targets: "ユーザーが選択"
+
+Cleanup-Targets.generatedDocs -> Project-Artifacts.docs: "削除"
+Cleanup-Targets.documentStructure -> Project-Artifacts.docs: "削除"
+Cleanup-Targets.documentStructure -> Project-Artifacts.structure-plan: "削除"
+Cleanup-Targets.documentConfig -> Project-Artifacts.config-yaml: "削除"
+Cleanup-Targets.authTokens -> Project-Artifacts.auth-config: "削除"
+Cleanup-Targets.deploymentConfig -> Project-Artifacts.config-yaml: "appUrl を削除"
+Cleanup-Targets.mediaDescription -> Project-Artifacts.media-cache: "削除"
+```
+
+## コマンドの使用方法
+
+クリーンアップコマンドを使用するには、ターミナルで以下を実行します。
 
 ```bash
 aigne doc clear
 ```
 
-このアクションにより、利用可能なすべてのクリーンアップオプションをリスト表示する対話型プロンプトが開始されます。各オプションにはその機能が明確に説明されており、削除する項目を正確に選択できます。この対話的な方法により、重要なデータの偶発的な削除を防ぎます。
+または、1つ以上のターゲットを引数として直接指定して、非対話的にコマンドを実行することもできます。
+
+```bash
+aigne doc clear --targets <target1> <target2> ...
+```
 
 ## クリーンアップオプション
 
-`clear` コマンドは、いくつかの異なる種類のデータを削除できます。以下の表は、利用可能な各オプション、その機能、および影響を受ける特定のファイルやディレクトリの詳細な内訳を示しています。
+`aigne doc clear` コマンドを引数なしで実行すると、削除する項目の対話型チェックリストが表示されます。一度に複数の項目を選択してクリアできます。
 
-| Option | 説明 | 影響を受けるファイルとディレクトリ |
-| :--- | :--- | :--- |
-| `generatedDocs` | 出力ディレクトリにあるすべての生成済みドキュメントを削除します。ドキュメント構造計画は保持されます。 | 設定で指定された `docsDir` ディレクトリ。 |
-| `documentStructure` | すべての生成済みドキュメントとドキュメント構造計画を削除します。このアクションはすべてのドキュメントコンテンツをリセットします。 | `.aigne/doc-smith/output/structure-plan.json` ファイルと `docsDir` ディレクトリ。 |
-| `documentConfig` | プロジェクトの設定ファイルを削除します。このアクションの後、新しい設定を作成するには `aigne doc init` を実行する必要があります。 | `.aigne/doc-smith/config.yaml` ファイル。 |
-| `authTokens` | 公開サイト用に保存された認証トークンを削除します。どのサイトの認証をクリアするかを選択するよう求められます。 | ホームディレクトリにある `~/.aigne/doc-smith-connected.yaml` ファイル。 |
-| `deploymentConfig` | 設定ファイルから `appUrl` 設定のみを削除し、他の設定はそのまま残します。 | `.aigne/doc-smith/config.yaml` ファイル。 |
-| `mediaDescription` | メディアファイル用にキャッシュされた、AIが生成した説明を削除します。これらは次回のドキュメントビルド時に再生成されます。 | `.aigne/doc-smith/cache/media-description.json` ファイル。 |
+利用可能なクリーンアップターゲットの詳細は以下の通りです。
 
-## 非対話的なクリーンアップ
+| Target | 説明 |
+| :--- | :--- |
+| **`generatedDocs`** | 出力ディレクトリ（例：`./docs`）から生成されたすべてのドキュメントファイルを削除します。この操作では、ドキュメント構造ファイルは保持されます。 |
+| **`documentStructure`** | 生成されたすべてのドキュメントとドキュメント構造ファイル（例：`.aigne/doc-smith/output/structure-plan.json`）を削除します。 |
+| **`documentConfig`** | メインのプロジェクト設定ファイル（例：`.aigne/doc-smith/config.yaml`）を削除します。再生成するには `aigne doc init` を実行する必要があります。 |
+| **`authTokens`** | ファイル（例：`~/.aigne/doc-smith-connected.yaml`）から保存された認証トークンを削除します。どのサイトの認証をクリアするかを選択するよう求められます。 |
+| **`deploymentConfig`** | ドキュメント設定ファイルから `appUrl` を削除し、他の設定はそのまま残します。 |
+| **`mediaDescription`** | メディアファイル用にキャッシュされたAI生成の記述（例：`.aigne/doc-smith/media-description.yaml` から）を削除します。これらは次回の実行時に再生成されます。 |
 
-自動化スクリプトでの使用や、直接的なコマンドライン操作を好むユーザー向けに、`--targets` フラグを使用して1つ以上のクリーンアップターゲットを指定できます。これにより、対話型プロンプトをバイパスして、すぐにクリーンアップを実行します。
+## 例
 
-### 単一オプションのクリア
+### 対話型クリーンアップ
 
-生成されたドキュメントのみを削除するには、次のコマンドを実行します。
+対話型のクリーンアッププロセスを開始するには、引数なしでコマンドを実行します。これにより、スペースバーで削除したい項目を選択し、Enterで確定できるチェックリストが表示されます。
+
+```bash
+aigne doc clear
+```
+
+### 非対話型クリーンアップ
+
+特定の項目を直接クリアするには、そのターゲット名を引数として指定します。
+
+#### 生成されたドキュメントのみをクリア
+
+このコマンドは `docs` ディレクトリを削除しますが、`structure-plan.json` はそのまま残します。
 
 ```bash
 aigne doc clear --targets generatedDocs
 ```
 
-### 複数オプションのクリア
+#### 構造と設定をクリア
 
-スペースで区切られたターゲット名のリストを提供することで、一度に複数の項目を削除できます。例えば、ドキュメント設定とドキュメント構造の両方を削除するには、以下のコマンドを実行します。
+このコマンドは、生成されたドキュメント、構造プラン、および設定ファイルを削除します。
 
 ```bash
-aigne doc clear --targets documentConfig documentStructure
+aigne doc clear --targets documentStructure documentConfig
 ```
 
-設定をクリアした後、新しい設定プロセスを開始できます。
+## まとめ
 
----
-
-新しい設定の作成に関する詳細な手順については、[初期設定](./configuration-initial-setup.md)ガイドを参照してください。
+`clear` コマンドは、プロジェクトの状態を管理するためのツールです。ガイド付きのプロセスには対話モードを使用し、より迅速な実行のためにはターゲットを直接指定してください。これらの操作は不可逆であるため、クリーンアップを実行する前に重要なデータがバックアップされていることを確認してください。
