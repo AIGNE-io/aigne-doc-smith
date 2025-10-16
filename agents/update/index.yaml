@@ -8,6 +8,7 @@ skills:
     default_input:
       skipIfExists: true
       checkOnly: true
+  - url: ../init/check.mjs
   - ../utils/load-sources.mjs
   - type: transform
     task_render_mode: hide
