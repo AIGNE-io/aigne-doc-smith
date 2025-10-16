@@ -18,9 +18,9 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-16T07:17:46.699Z
-      updatedAt: 2025-10-16T07:17:46.699Z
-      publishedAt: 2025-10-16T07:17:46.699Z
+      createdAt: 2025-10-16T07:46:59.710Z
+      updatedAt: 2025-10-16T07:46:59.710Z
+      publishedAt: 2025-10-16T07:46:59.710Z
       isPublic: true
   - title: Features of AIGNE DocSmith
     path: /features
@@ -41,11 +41,11 @@ sitemap:
     meta:
       file: features.yaml
       id: 69ee505620f7efd5
-      createdAt: 2025-10-16T07:17:46.695Z
-      updatedAt: 2025-10-16T07:17:46.695Z
-      publishedAt: 2025-10-16T07:17:46.695Z
+      createdAt: 2025-10-16T07:46:59.706Z
+      updatedAt: 2025-10-16T07:46:59.706Z
+      publishedAt: 2025-10-16T07:46:59.706Z
       isPublic: true
-  - title: Quick Start Guide
+  - title: Quick Start
     path: /quick-start
     locales:
       en:
@@ -63,9 +63,9 @@ sitemap:
     meta:
       file: quick-start.yaml
       id: 22f6776da30e7065
-      createdAt: 2025-10-16T07:17:46.709Z
-      updatedAt: 2025-10-16T07:17:46.709Z
-      publishedAt: 2025-10-16T07:17:46.709Z
+      createdAt: 2025-10-16T07:46:59.723Z
+      updatedAt: 2025-10-16T07:46:59.723Z
+      publishedAt: 2025-10-16T07:46:59.723Z
       isPublic: true
   - title: Enterprise and Production Use
     path: /enterprise
@@ -87,9 +87,9 @@ sitemap:
     meta:
       file: enterprise.yaml
       id: 8cec7f5a066a0bdf
-      createdAt: 2025-10-16T07:17:46.690Z
-      updatedAt: 2025-10-16T07:17:46.690Z
-      publishedAt: 2025-10-16T07:17:46.690Z
+      createdAt: 2025-10-16T07:46:59.702Z
+      updatedAt: 2025-10-16T07:46:59.702Z
+      publishedAt: 2025-10-16T07:46:59.702Z
       isPublic: true
   - title: Community and Resources
     path: /community
@@ -110,9 +110,32 @@ sitemap:
     meta:
       file: community.yaml
       id: 423f8449a3d5581e
-      createdAt: 2025-10-16T07:17:46.683Z
-      updatedAt: 2025-10-16T07:17:46.683Z
-      publishedAt: 2025-10-16T07:17:46.683Z
+      createdAt: 2025-10-16T07:46:59.698Z
+      updatedAt: 2025-10-16T07:46:59.698Z
+      publishedAt: 2025-10-16T07:46:59.698Z
+      isPublic: true
+  - title: About AIGNE DocSmith
+    path: /about
+    locales:
+      en:
+        title: About AIGNE DocSmith | AI-Powered Code Documentation
+        description: Learn about AIGNE DocSmith, the AI tool that automatically
+          generates and updates documentation from your source code. Discover
+          how it works, its core features, and its place in the AIGNE ecosystem.
+        image: mediakit://about-hero-visual.png
+        style:
+          maxWidth: custom:1440px
+          paddingY: normal
+          paddingX: normal
+        backgroundColor: ""
+        header:
+          sticky: true
+    meta:
+      file: about.yaml
+      id: 0c8c2f1e1f437282
+      createdAt: 2025-10-16T07:46:59.693Z
+      updatedAt: 2025-10-16T07:46:59.693Z
+      publishedAt: 2025-10-16T07:46:59.693Z
       isPublic: true
 navigations:
   - id: e9022e7aa8630077-header
@@ -232,4 +255,28 @@ navigations:
       en: /community
     description:
       en: Get help and contribute
+    parent: e9022e7aa8630077-footer
+  - id: 46b3931b9959c927
+    section: header
+    visible: true
+    title:
+      en: About AIGNE DocSmith | AI-Powered Code Documentation
+    link:
+      en: /about
+    description:
+      en: Learn about AIGNE DocSmith, the AI tool that automatically generates and
+        updates documentation from your source code. Discover how it works, its
+        core features, and its place in the AIGNE ecosystem.
+    parent: e9022e7aa8630077-header
+  - id: 6fc88f0fd0fa0df8
+    section: footer
+    visible: true
+    title:
+      en: About AIGNE DocSmith | AI-Powered Code Documentation
+    link:
+      en: /about
+    description:
+      en: Learn about AIGNE DocSmith, the AI tool that automatically generates and
+        updates documentation from your source code. Discover how it works, its
+        core features, and its place in the AIGNE ecosystem.
     parent: e9022e7aa8630077-footer

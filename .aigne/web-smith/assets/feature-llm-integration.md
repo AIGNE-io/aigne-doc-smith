@@ -1,0 +1,1 @@
+An illustrative graphic for the 'LLM Integration' feature. It showcases the AIGNE Hub connecting to various Large Language Models, visually representing the flexibility and power of the integration.

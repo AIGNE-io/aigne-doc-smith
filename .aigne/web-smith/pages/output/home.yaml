@@ -1,7 +1,7 @@
 id: 616571b7c79a8472
-createdAt: 2025-10-16T07:17:46.699Z
-updatedAt: 2025-10-16T07:17:46.699Z
-publishedAt: 2025-10-16T07:17:46.699Z
+createdAt: 2025-10-16T07:46:59.710Z
+updatedAt: 2025-10-16T07:46:59.710Z
+publishedAt: 2025-10-16T07:46:59.710Z
 isPublic: true
 locales:
   en:
@@ -132,338 +132,150 @@ sections:
       background: transparent
       border: none
       paddingX: none
-  671827b9508f92f3:
-    id: 671827b9508f92f3
-    name: Testimonials/Reviews
+  322e00c93c36c37d:
+    id: 322e00c93c36c37d
+    name: Card01
     component: layout-block
     sections:
-      84dac969276de5a3:
-        id: 84dac969276de5a3
-        name: Title
-        component: layout-block
-        sections:
-          d79cdf28faac3108:
-            id: d79cdf28faac3108
-            name: LayoutTitle
-            component: custom-component
-            config:
-              useCache: true
-              componentId: xoHu0J44322kDYc-
-            sectionIds: []
-        sectionIds:
-          - d79cdf28faac3108
+      d379e54695cfbfab:
+        id: d379e54695cfbfab
+        name: RichText
+        component: custom-component
         config:
-          gap: small
-          paddingX: none
-          alignContent: start
-          gridSettings:
-            desktop:
-              d79cdf28faac3108:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-            mobile:
-              d79cdf28faac3108:
-                id: d79cdf28faac3108
-      029ef42ecf2f3c2d:
-        id: 029ef42ecf2f3c2d
-        name: Cards
-        component: layout-block
-        sections:
-          9736a35b6204c1d8:
-            id: 9736a35b6204c1d8
-            name: Cards-1
-            component: layout-block
-            sections:
-              8a0319c7be20285c:
-                id: 8a0319c7be20285c
-                name: Title
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
-              527d9e489ed1baa2:
-                id: 527d9e489ed1baa2
-                name: Icon
-                component: layout-block
-                sections:
-                  3ee66b593de1e036:
-                    id: 3ee66b593de1e036
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
-                sectionIds:
-                  - 3ee66b593de1e036
-                config:
-                  gridSettings:
-                    desktop:
-                      3ee66b593de1e036:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  height: 100%
-                  borderRadius: custom:0px
-                  alignContent: start
-            sectionIds:
-              - 8a0319c7be20285c
-              - 527d9e489ed1baa2
-            config:
-              gridSettings:
-                desktop:
-                  8a0319c7be20285c:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  527d9e489ed1baa2:
-                    x: 0
-                    y: 0
-                    w: 6
-                    h: 1
-                mobile:
-                  8a0319c7be20285c:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  527d9e489ed1baa2:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-              background: background.paper
-              paddingX: custom:32px
-              paddingY: custom:32px
-              borderRadius: small
-              gap: normal
-              border: solid
-              alignContent: start
-          c2753e6a35792fc3:
-            id: c2753e6a35792fc3
-            name: Cards-2
-            component: layout-block
-            sections:
-              051f5382aaa30930:
-                id: 051f5382aaa30930
-                name: Title
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
-              3fd5ca10c66e4eb0:
-                id: 3fd5ca10c66e4eb0
-                name: Icon
-                component: layout-block
-                sections:
-                  8aee431fd7b453d4:
-                    id: 8aee431fd7b453d4
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
-                sectionIds:
-                  - 8aee431fd7b453d4
-                config:
-                  gridSettings:
-                    desktop:
-                      8aee431fd7b453d4:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  height: 100%
-                  borderRadius: custom:0px
-                  alignContent: start
-            sectionIds:
-              - 051f5382aaa30930
-              - 3fd5ca10c66e4eb0
-            config:
-              gridSettings:
-                desktop:
-                  051f5382aaa30930:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  3fd5ca10c66e4eb0:
-                    x: 0
-                    y: 0
-                    w: 6
-                    h: 1
-                mobile:
-                  051f5382aaa30930:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  3fd5ca10c66e4eb0:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-              background: background.paper
-              paddingX: custom:32px
-              paddingY: custom:32px
-              borderRadius: small
-              gap: normal
-              border: solid
-              alignContent: start
-          4c12062dd7030da4:
-            id: 4c12062dd7030da4
-            name: Cards-3
-            component: layout-block
-            sections:
-              6cf87c8dd697af94:
-                id: 6cf87c8dd697af94
-                name: Title
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
-              eb1727d56ab40dd6:
-                id: eb1727d56ab40dd6
-                name: Icon
-                component: layout-block
-                sections:
-                  835229da4540f842:
-                    id: 835229da4540f842
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
-                sectionIds:
-                  - 835229da4540f842
-                config:
-                  gridSettings:
-                    desktop:
-                      835229da4540f842:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  height: 100%
-                  borderRadius: custom:0px
-                  alignContent: start
-            sectionIds:
-              - 6cf87c8dd697af94
-              - eb1727d56ab40dd6
-            config:
-              gridSettings:
-                desktop:
-                  6cf87c8dd697af94:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  eb1727d56ab40dd6:
-                    x: 0
-                    y: 0
-                    w: 6
-                    h: 1
-                mobile:
-                  6cf87c8dd697af94:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  eb1727d56ab40dd6:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-              background: background.paper
-              paddingX: custom:32px
-              paddingY: custom:32px
-              borderRadius: small
-              gap: normal
-              border: solid
-              alignContent: start
-        sectionIds:
-          - 9736a35b6204c1d8
-          - c2753e6a35792fc3
-          - 4c12062dd7030da4
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      eec45b621b3e77ea:
+        id: eec45b621b3e77ea
+        name: Media
+        component: custom-component
         config:
-          gridSettings:
-            desktop:
-              9736a35b6204c1d8:
-                x: 0
-                y: 0
-                w: 4
-                h: 1
-              c2753e6a35792fc3:
-                x: 4
-                y: 0
-                w: 4
-                h: 1
-              4c12062dd7030da4:
-                x: 8
-                y: 0
-                w: 4
-                h: 1
-            mobile:
-              9736a35b6204c1d8:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              c2753e6a35792fc3:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-              4c12062dd7030da4:
-                x: 0
-                y: 2
-                w: 12
-                h: 1
-          gap: small
-          paddingX: none
+          useCache: true
+          componentId: xoHu0JPjPs122kaaa-
+        sectionIds: []
     sectionIds:
-      - 84dac969276de5a3
-      - 029ef42ecf2f3c2d
+      - d379e54695cfbfab
+      - eec45b621b3e77ea
     config:
       gridSettings:
         desktop:
-          029ef42ecf2f3c2d:
-            x: 0
-            y: 1
-            w: 12
+          d379e54695cfbfab:
+            x: 8
+            y: 0
+            w: 4
             h: 1
-          84dac969276de5a3:
+          eec45b621b3e77ea:
             x: 0
             y: 0
-            w: 12
+            w: 8
             h: 1
+      paddingX: none
       gap: normal
       paddingY: none
+      background: transparent
+      border: none
+      borderRadius: none
+      alignContent: center
+  1d6eeaefcba2bd64:
+    id: 1d6eeaefcba2bd64
+    name: Card01
+    component: layout-block
+    sections:
+      562bd4eefaec55d3:
+        id: 562bd4eefaec55d3
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      ec80c940972f6e4e:
+        id: ec80c940972f6e4e
+        name: Media
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0JPjPs122kaaa-
+        sectionIds: []
+    sectionIds:
+      - 562bd4eefaec55d3
+      - ec80c940972f6e4e
+    config:
+      gridSettings:
+        desktop:
+          562bd4eefaec55d3:
+            x: 0
+            y: 0
+            w: 4
+            h: 1
+          ec80c940972f6e4e:
+            x: 4
+            y: 0
+            w: 8
+            h: 1
       paddingX: none
-  0bd9c287b4dac2cd:
-    id: 0bd9c287b4dac2cd
+      gap: normal
+      paddingY: none
+      background: transparent
+      border: none
+      borderRadius: none
+      alignContent: center
+  8319656ef9287a34:
+    id: 8319656ef9287a34
+    name: Card01
+    component: layout-block
+    sections:
+      f4eb0fdc9397ffea:
+        id: f4eb0fdc9397ffea
+        name: RichText
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      70830b5e44eaca8f:
+        id: 70830b5e44eaca8f
+        name: Media
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0JPjPs122kaaa-
+        sectionIds: []
+    sectionIds:
+      - f4eb0fdc9397ffea
+      - 70830b5e44eaca8f
+    config:
+      gridSettings:
+        desktop:
+          f4eb0fdc9397ffea:
+            x: 8
+            y: 0
+            w: 4
+            h: 1
+          70830b5e44eaca8f:
+            x: 0
+            y: 0
+            w: 8
+            h: 1
+      paddingX: none
+      gap: normal
+      paddingY: none
+      background: transparent
+      border: none
+      borderRadius: none
+      alignContent: center
+  fd8d7838606054f3:
+    id: fd8d7838606054f3
     name: Testimonials/Reviews
     component: layout-block
     sections:
-      3671fed2c6e10a65:
-        id: 3671fed2c6e10a65
+      0a92c820d2c2e178:
+        id: 0a92c820d2c2e178
         name: Title
         component: layout-block
         sections:
-          10c868964f4822ae:
-            id: 10c868964f4822ae
+          dacb6f2fd2435fa9:
+            id: dacb6f2fd2435fa9
             name: LayoutTitle
             component: custom-component
             config:
@@ -471,51 +283,51 @@ sections:
               componentId: xoHu0J44322kDYc-
             sectionIds: []
         sectionIds:
-          - 10c868964f4822ae
+          - dacb6f2fd2435fa9
         config:
           gap: small
           paddingX: none
           alignContent: start
           gridSettings:
             desktop:
-              10c868964f4822ae:
+              dacb6f2fd2435fa9:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
             mobile:
-              10c868964f4822ae:
-                id: 10c868964f4822ae
-      9c29689559529814:
-        id: 9c29689559529814
+              dacb6f2fd2435fa9:
+                id: dacb6f2fd2435fa9
+      01acc78568e15af5:
+        id: 01acc78568e15af5
         name: Cards
         component: layout-block
         sections:
-          d18783c099a3c03e:
-            id: d18783c099a3c03e
+          f13aee4081c63fa0:
+            id: f13aee4081c63fa0
             name: Cards-1
             component: layout-block
             sections:
-              c7a174f484db493f:
-                id: c7a174f484db493f
+              39e0936421b3761c:
+                id: 39e0936421b3761c
                 name: Section Layout
                 component: layout-block
                 sections:
-                  84e1ee6f04bcde77:
-                    id: 84e1ee6f04bcde77
+                  aa9b2790db90ac11:
+                    id: aa9b2790db90ac11
                     name: Step
                     component: layout-block
                     sections:
-                      e03b96a970985737:
-                        id: e03b96a970985737
+                      54c0855c3375e774:
+                        id: 54c0855c3375e774
                         name: RichText
                         component: custom-component
                         config:
                           useCache: true
                           componentId: xoHu0J44322kDYc-
                         sectionIds: []
-                      03b4c96f2f249a6d:
-                        id: 03b4c96f2f249a6d
+                      ab0d649fb23c7c74:
+                        id: ab0d649fb23c7c74
                         name: Action
                         component: custom-component
                         config:
@@ -523,17 +335,17 @@ sections:
                           componentId: a44r0SiGV9AFn2Fj
                         sectionIds: []
                     sectionIds:
-                      - e03b96a970985737
-                      - 03b4c96f2f249a6d
+                      - 54c0855c3375e774
+                      - ab0d649fb23c7c74
                     config:
                       gridSettings:
                         desktop:
-                          e03b96a970985737:
+                          54c0855c3375e774:
                             x: 0
                             y: 0
                             w: 12
                             h: 1
-                          03b4c96f2f249a6d:
+                          ab0d649fb23c7c74:
                             x: 0
                             y: 1
                             w: 12
@@ -545,27 +357,27 @@ sections:
                       background: transparent
                       border: none
                 sectionIds:
-                  - 84e1ee6f04bcde77
+                  - aa9b2790db90ac11
                 config:
                   gridSettings:
                     desktop:
-                      84e1ee6f04bcde77:
+                      aa9b2790db90ac11:
                         x: 0
                         y: 0
                         w: 12
                         h: 1
-              fd07d219956a3667:
-                id: fd07d219956a3667
+              cd3c504cdde43542:
+                id: cd3c504cdde43542
                 name: Section Layout
                 component: layout-block
                 sections:
-                  48acde4b53f8416b:
-                    id: 48acde4b53f8416b
+                  e4a55c5db362e236:
+                    id: e4a55c5db362e236
                     name: Step
                     component: layout-block
                     sections:
-                      d8dfd9132bc9e276:
-                        id: d8dfd9132bc9e276
+                      7b2358b6fe84a2d1:
+                        id: 7b2358b6fe84a2d1
                         name: Terminal
                         component: custom-component
                         config:
@@ -573,11 +385,11 @@ sections:
                           componentId: AwkO9eKiUWeU7Z8u
                         sectionIds: []
                     sectionIds:
-                      - d8dfd9132bc9e276
+                      - 7b2358b6fe84a2d1
                     config:
                       gridSettings:
                         desktop:
-                          d8dfd9132bc9e276:
+                          7b2358b6fe84a2d1:
                             x: 0
                             y: 0
                             w: 12
@@ -588,11 +400,11 @@ sections:
                       height: 100%
                       gap: none
                 sectionIds:
-                  - 48acde4b53f8416b
+                  - e4a55c5db362e236
                 config:
                   gridSettings:
                     desktop:
-                      48acde4b53f8416b:
+                      e4a55c5db362e236:
                         x: 0
                         y: 0
                         w: 12
@@ -603,17 +415,17 @@ sections:
                     100%)
                   borderRadius: small
             sectionIds:
-              - c7a174f484db493f
-              - fd07d219956a3667
+              - 39e0936421b3761c
+              - cd3c504cdde43542
             config:
               gridSettings:
                 desktop:
-                  c7a174f484db493f:
+                  39e0936421b3761c:
                     x: 8
                     y: 0
                     w: 4
                     h: 1
-                  fd07d219956a3667:
+                  cd3c504cdde43542:
                     x: 0
                     y: 0
                     w: 8
@@ -626,23 +438,23 @@ sections:
               textAlign: left
               borderRadius: small
               border: solid
-          9c25737f892ad825:
-            id: 9c25737f892ad825
+          ad47463a3a5be112:
+            id: ad47463a3a5be112
             name: Cards-2
             component: layout-block
             sections:
-              7f292aa410aea4d1:
-                id: 7f292aa410aea4d1
+              c8859af1d6e38fe6:
+                id: c8859af1d6e38fe6
                 name: Section Layout
                 component: layout-block
                 sections:
-                  43fa97e069ce277a:
-                    id: 43fa97e069ce277a
+                  f299f30c2fc67cc5:
+                    id: f299f30c2fc67cc5
                     name: Step
                     component: layout-block
                     sections:
-                      b7abc60c28ec680b:
-                        id: b7abc60c28ec680b
+                      9687faa9567ffb5c:
+                        id: 9687faa9567ffb5c
                         name: RichText
                         component: custom-component
                         config:
@@ -650,11 +462,11 @@ sections:
                           componentId: xoHu0J44322kDYc-
                         sectionIds: []
                     sectionIds:
-                      - b7abc60c28ec680b
+                      - 9687faa9567ffb5c
                     config:
                       gridSettings:
                         desktop:
-                          b7abc60c28ec680b:
+                          9687faa9567ffb5c:
                             x: 0
                             y: 0
                             w: 12
@@ -666,27 +478,27 @@ sections:
                       background: transparent
                       border: none
                 sectionIds:
-                  - 43fa97e069ce277a
+                  - f299f30c2fc67cc5
                 config:
                   gridSettings:
                     desktop:
-                      43fa97e069ce277a:
+                      f299f30c2fc67cc5:
                         x: 0
                         y: 0
                         w: 12
                         h: 1
-              90148d3506ab0f6f:
-                id: 90148d3506ab0f6f
+              a2aa40ad0c7573f5:
+                id: a2aa40ad0c7573f5
                 name: Section Layout
                 component: layout-block
                 sections:
-                  cc46ac61f88d61c6:
-                    id: cc46ac61f88d61c6
+                  079180da24d3f43a:
+                    id: 079180da24d3f43a
                     name: Step
                     component: layout-block
                     sections:
-                      105ddafc69d2b81b:
-                        id: 105ddafc69d2b81b
+                      0fedc6504b5b8473:
+                        id: 0fedc6504b5b8473
                         name: Terminal
                         component: custom-component
                         config:
@@ -694,11 +506,11 @@ sections:
                           componentId: AwkO9eKiUWeU7Z8u
                         sectionIds: []
                     sectionIds:
-                      - 105ddafc69d2b81b
+                      - 0fedc6504b5b8473
                     config:
                       gridSettings:
                         desktop:
-                          105ddafc69d2b81b:
+                          0fedc6504b5b8473:
                             x: 0
                             y: 0
                             w: 12
@@ -709,11 +521,11 @@ sections:
                       height: 100%
                       gap: normal
                 sectionIds:
-                  - cc46ac61f88d61c6
+                  - 079180da24d3f43a
                 config:
                   gridSettings:
                     desktop:
-                      cc46ac61f88d61c6:
+                      079180da24d3f43a:
                         x: 0
                         y: 0
                         w: 12
@@ -724,17 +536,17 @@ sections:
                     100%)
                   borderRadius: small
             sectionIds:
-              - 7f292aa410aea4d1
-              - 90148d3506ab0f6f
+              - c8859af1d6e38fe6
+              - a2aa40ad0c7573f5
             config:
               gridSettings:
                 desktop:
-                  7f292aa410aea4d1:
+                  c8859af1d6e38fe6:
                     x: 0
                     y: 0
                     w: 4
                     h: 1
-                  90148d3506ab0f6f:
+                  a2aa40ad0c7573f5:
                     x: 4
                     y: 0
                     w: 8
@@ -747,23 +559,23 @@ sections:
               textAlign: left
               borderRadius: small
               border: solid
-          d58d7f319f7dcb8f:
-            id: d58d7f319f7dcb8f
+          deb992467beb9bca:
+            id: deb992467beb9bca
             name: Cards-3
             component: layout-block
             sections:
-              8674be81fc0a2ab2:
-                id: 8674be81fc0a2ab2
+              8ec485dee494b53d:
+                id: 8ec485dee494b53d
                 name: Section Layout
                 component: layout-block
                 sections:
-                  63fc8ab5d5f0db52:
-                    id: 63fc8ab5d5f0db52
+                  cf0bc72f8832dfd1:
+                    id: cf0bc72f8832dfd1
                     name: Step
                     component: layout-block
                     sections:
-                      e152291ca34ba0ba:
-                        id: e152291ca34ba0ba
+                      8b3e2235c77ca0c7:
+                        id: 8b3e2235c77ca0c7
                         name: RichText
                         component: custom-component
                         config:
@@ -771,11 +583,11 @@ sections:
                           componentId: xoHu0J44322kDYc-
                         sectionIds: []
                     sectionIds:
-                      - e152291ca34ba0ba
+                      - 8b3e2235c77ca0c7
                     config:
                       gridSettings:
                         desktop:
-                          e152291ca34ba0ba:
+                          8b3e2235c77ca0c7:
                             x: 0
                             y: 0
                             w: 12
@@ -787,27 +599,27 @@ sections:
                       background: transparent
                       border: none
                 sectionIds:
-                  - 63fc8ab5d5f0db52
+                  - cf0bc72f8832dfd1
                 config:
                   gridSettings:
                     desktop:
-                      63fc8ab5d5f0db52:
+                      cf0bc72f8832dfd1:
                         x: 0
                         y: 0
                         w: 12
                         h: 1
-              058a5ea6899816d0:
-                id: 058a5ea6899816d0
+              10882fa0334e061f:
+                id: 10882fa0334e061f
                 name: Section Layout
                 component: layout-block
                 sections:
-                  b6e59e832eff5710:
-                    id: b6e59e832eff5710
+                  97641b7918a43576:
+                    id: 97641b7918a43576
                     name: Step
                     component: layout-block
                     sections:
-                      886092436203bfb3:
-                        id: 886092436203bfb3
+                      e987e6914685bef6:
+                        id: e987e6914685bef6
                         name: Terminal
                         component: custom-component
                         config:
@@ -815,11 +627,11 @@ sections:
                           componentId: AwkO9eKiUWeU7Z8u
                         sectionIds: []
                     sectionIds:
-                      - 886092436203bfb3
+                      - e987e6914685bef6
                     config:
                       gridSettings:
                         desktop:
-                          886092436203bfb3:
+                          e987e6914685bef6:
                             x: 0
                             y: 0
                             w: 12
@@ -830,11 +642,11 @@ sections:
                       height: 100%
                       gap: none
                 sectionIds:
-                  - b6e59e832eff5710
+                  - 97641b7918a43576
                 config:
                   gridSettings:
                     desktop:
-                      b6e59e832eff5710:
+                      97641b7918a43576:
                         x: 0
                         y: 0
                         w: 12
@@ -845,17 +657,17 @@ sections:
                     100%)
                   borderRadius: small
             sectionIds:
-              - 8674be81fc0a2ab2
-              - 058a5ea6899816d0
+              - 8ec485dee494b53d
+              - 10882fa0334e061f
             config:
               gridSettings:
                 desktop:
-                  8674be81fc0a2ab2:
+                  8ec485dee494b53d:
                     x: 8
                     y: 0
                     w: 4
                     h: 1
-                  058a5ea6899816d0:
+                  10882fa0334e061f:
                     x: 0
                     y: 0
                     w: 8
@@ -868,31 +680,31 @@ sections:
               textAlign: left
               borderRadius: small
               border: solid
-          9219e7f998b9e548:
-            id: 9219e7f998b9e548
+          e0f1a4dd3528857b:
+            id: e0f1a4dd3528857b
             name: Cards-4
             component: layout-block
             sections:
-              1d37248071d6c9f0:
-                id: 1d37248071d6c9f0
+              2d5789abdc59b283:
+                id: 2d5789abdc59b283
                 name: Section Layout
                 component: layout-block
                 sections:
-                  d17f7ec092cd0e7b:
-                    id: d17f7ec092cd0e7b
+                  e1ed28335cd53d71:
+                    id: e1ed28335cd53d71
                     name: Step
                     component: layout-block
                     sections:
-                      298df35e34fc85c3:
-                        id: 298df35e34fc85c3
+                      7ea7df602de0b986:
+                        id: 7ea7df602de0b986
                         name: RichText
                         component: custom-component
                         config:
                           useCache: true
                           componentId: xoHu0J44322kDYc-
                         sectionIds: []
-                      c71bf942d3a5cb35:
-                        id: c71bf942d3a5cb35
+                      9742cb3e7bb0e588:
+                        id: 9742cb3e7bb0e588
                         name: Action
                         component: custom-component
                         config:
@@ -900,17 +712,17 @@ sections:
                           componentId: a44r0SiGV9AFn2Fj
                         sectionIds: []
                     sectionIds:
-                      - 298df35e34fc85c3
-                      - c71bf942d3a5cb35
+                      - 7ea7df602de0b986
+                      - 9742cb3e7bb0e588
                     config:
                       gridSettings:
                         desktop:
-                          298df35e34fc85c3:
+                          7ea7df602de0b986:
                             x: 0
                             y: 0
                             w: 12
                             h: 1
-                          c71bf942d3a5cb35:
+                          9742cb3e7bb0e588:
                             x: 0
                             y: 1
                             w: 12
@@ -922,27 +734,27 @@ sections:
                       background: transparent
                       border: none
                 sectionIds:
-                  - d17f7ec092cd0e7b
+                  - e1ed28335cd53d71
                 config:
                   gridSettings:
                     desktop:
-                      d17f7ec092cd0e7b:
+                      e1ed28335cd53d71:
                         x: 0
                         y: 0
                         w: 12
                         h: 1
-              22fed6b62db6db5a:
-                id: 22fed6b62db6db5a
+              cd7426b4f38beb7c:
+                id: cd7426b4f38beb7c
                 name: Section Layout
                 component: layout-block
                 sections:
-                  c3ddd9f5e4228a0d:
-                    id: c3ddd9f5e4228a0d
+                  246429f02c210365:
+                    id: 246429f02c210365
                     name: Step
                     component: layout-block
                     sections:
-                      95b2b1b42d286bd8:
-                        id: 95b2b1b42d286bd8
+                      7aa1e7915960b7ab:
+                        id: 7aa1e7915960b7ab
                         name: Terminal
                         component: custom-component
                         config:
@@ -950,11 +762,11 @@ sections:
                           componentId: AwkO9eKiUWeU7Z8u
                         sectionIds: []
                     sectionIds:
-                      - 95b2b1b42d286bd8
+                      - 7aa1e7915960b7ab
                     config:
                       gridSettings:
                         desktop:
-                          95b2b1b42d286bd8:
+                          7aa1e7915960b7ab:
                             x: 0
                             y: 0
                             w: 12
@@ -965,11 +777,11 @@ sections:
                       height: 100%
                       gap: normal
                 sectionIds:
-                  - c3ddd9f5e4228a0d
+                  - 246429f02c210365
                 config:
                   gridSettings:
                     desktop:
-                      c3ddd9f5e4228a0d:
+                      246429f02c210365:
                         x: 0
                         y: 0
                         w: 12
@@ -980,17 +792,17 @@ sections:
                     100%)
                   borderRadius: small
             sectionIds:
-              - 1d37248071d6c9f0
-              - 22fed6b62db6db5a
+              - 2d5789abdc59b283
+              - cd7426b4f38beb7c
             config:
               gridSettings:
                 desktop:
-                  1d37248071d6c9f0:
+                  2d5789abdc59b283:
                     x: 0
                     y: 0
                     w: 4
                     h: 1
-                  22fed6b62db6db5a:
+                  cd7426b4f38beb7c:
                     x: 4
                     y: 0
                     w: 8
@@ -1004,45 +816,45 @@ sections:
               borderRadius: small
               border: solid
         sectionIds:
-          - d18783c099a3c03e
-          - 9c25737f892ad825
-          - d58d7f319f7dcb8f
-          - 9219e7f998b9e548
+          - f13aee4081c63fa0
+          - ad47463a3a5be112
+          - deb992467beb9bca
+          - e0f1a4dd3528857b
         config:
           gridSettings:
             desktop:
-              d18783c099a3c03e:
+              f13aee4081c63fa0:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              9c25737f892ad825:
+              ad47463a3a5be112:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
-              d58d7f319f7dcb8f:
+              deb992467beb9bca:
                 x: 0
                 y: 2
                 w: 12
                 h: 1
-              9219e7f998b9e548:
+              e0f1a4dd3528857b:
                 x: 0
                 y: 3
                 w: 12
                 h: 1
             mobile:
-              d18783c099a3c03e:
+              f13aee4081c63fa0:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
-              9c25737f892ad825:
+              ad47463a3a5be112:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
-              d58d7f319f7dcb8f:
+              deb992467beb9bca:
                 x: 0
                 y: 2
                 w: 12
@@ -1050,17 +862,17 @@ sections:
           gap: normal
           paddingX: none
     sectionIds:
-      - 3671fed2c6e10a65
-      - 9c29689559529814
+      - 0a92c820d2c2e178
+      - 01acc78568e15af5
     config:
       gridSettings:
         desktop:
-          9c29689559529814:
+          01acc78568e15af5:
             x: 0
             y: 1
             w: 12
             h: 1
-          3671fed2c6e10a65:
+          0a92c820d2c2e178:
             x: 0
             y: 0
             w: 12
@@ -1068,26 +880,26 @@ sections:
       gap: normal
       paddingY: none
       paddingX: none
-  94ce47f3e1c3fcde:
-    id: 94ce47f3e1c3fcde
+  2121cb6a6136df72:
+    id: 2121cb6a6136df72
     name: Feature Section_2
     component: layout-block
     sections:
-      b977cd6410271e9c:
-        id: b977cd6410271e9c
+      b7fa076da3f58d12:
+        id: b7fa076da3f58d12
         name: Title
         component: layout-block
         sections:
-          5c61b99269881c93:
-            id: 5c61b99269881c93
+          a1d63745b3064174:
+            id: a1d63745b3064174
             name: Title
             component: custom-component
             config:
               useCache: true
               componentId: xoHu0J44322kDYc-
             sectionIds: []
-          2f4eaa4bb8f44700:
-            id: 2f4eaa4bb8f44700
+          7cb6a64386dbf418:
+            id: 7cb6a64386dbf418
             name: Action
             component: custom-component
             config:
@@ -1095,39 +907,39 @@ sections:
               componentId: a44r0SiGV9AFn2Fj
             sectionIds: []
         sectionIds:
-          - 5c61b99269881c93
-          - 2f4eaa4bb8f44700
+          - a1d63745b3064174
+          - 7cb6a64386dbf418
         config:
           gap: small
           paddingX: none
           gridSettings:
             desktop:
-              5c61b99269881c93:
+              a1d63745b3064174:
                 x: 0
                 y: 0
                 w: 6
                 h: 1
-              2f4eaa4bb8f44700:
+              7cb6a64386dbf418:
                 x: 0
                 y: 1
                 w: 12
                 h: 1
             mobile:
-              5c61b99269881c93:
-                id: 5c61b99269881c93
+              a1d63745b3064174:
+                id: a1d63745b3064174
           alignContent: start
-      d61e3f7d0e5a208c:
-        id: d61e3f7d0e5a208c
+      9259283ebc21eba8:
+        id: 9259283ebc21eba8
         name: Logs
         component: layout-block
         sections:
-          a0b836312d0fb927:
-            id: a0b836312d0fb927
+          72424fd5713d0504:
+            id: 72424fd5713d0504
             name: Card01
             component: layout-block
             sections:
-              7fec4103171b93d2:
-                id: 7fec4103171b93d2
+              f18299c3022c28fc:
+                id: f18299c3022c28fc
                 name: Media
                 component: custom-component
                 config:
@@ -1135,7 +947,7 @@ sections:
                   componentId: xoHu0JPjPs122kaaa-
                 sectionIds: []
             sectionIds:
-              - 7fec4103171b93d2
+              - f18299c3022c28fc
             config:
               background: background.paper
               paddingX: custom:32px
@@ -1146,7 +958,7 @@ sections:
               alignContent: center
               gridSettings:
                 desktop:
-                  7fec4103171b93d2:
+                  f18299c3022c28fc:
                     x: 0
                     y: 0
                     w: 12
@@ -1158,39 +970,39 @@ sections:
                     w: 12
                     h: 1
                     id: t7hco63shuiga559
-                  7fec4103171b93d2:
-                    id: 7fec4103171b93d2
+                  f18299c3022c28fc:
+                    id: f18299c3022c28fc
         sectionIds:
-          - a0b836312d0fb927
+          - 72424fd5713d0504
         config:
           gap: small
           paddingX: none
           gridSettings:
             desktop:
-              a0b836312d0fb927:
+              72424fd5713d0504:
                 x: 0
                 y: 0
                 w: 12
                 h: 1
             mobile:
-              a0b836312d0fb927:
+              72424fd5713d0504:
                 x: 0
                 y: 2
                 w: 12
                 h: 1
-                id: a0b836312d0fb927
+                id: 72424fd5713d0504
     sectionIds:
-      - b977cd6410271e9c
-      - d61e3f7d0e5a208c
+      - b7fa076da3f58d12
+      - 9259283ebc21eba8
     config:
       gridSettings:
         desktop:
-          b977cd6410271e9c:
+          b7fa076da3f58d12:
             x: 0
             y: 0
             w: 12
             h: 1
-          d61e3f7d0e5a208c:
+          9259283ebc21eba8:
             x: 0
             y: 1
             w: 12
@@ -1198,31 +1010,31 @@ sections:
       gap: normal
       paddingY: none
       paddingX: none
-  93341a9558ff66aa:
-    id: 93341a9558ff66aa
+  1bc805287d19887a:
+    id: 1bc805287d19887a
     name: CTA_2
     component: layout-block
     sections:
-      748ed2b61796d05c:
-        id: 748ed2b61796d05c
+      10c96bad72cdd6ae:
+        id: 10c96bad72cdd6ae
         name: Content
         component: layout-block
         sections:
-          a00bd0a3eb145d15:
-            id: a00bd0a3eb145d15
+          53491b4028db6f73:
+            id: 53491b4028db6f73
             name: CTA
             component: layout-block
             sections:
-              edc2efefdf13a43d:
-                id: edc2efefdf13a43d
+              7dd58963d9cf8723:
+                id: 7dd58963d9cf8723
                 name: Description
                 component: custom-component
                 config:
                   useCache: true
                   componentId: xoHu0J44322kDYc-
                 sectionIds: []
-              67d26cdf853c4a75:
-                id: 67d26cdf853c4a75
+              50860d9aba6f5a31:
+                id: 50860d9aba6f5a31
                 name: Action
                 component: custom-component
                 config:
@@ -1230,17 +1042,17 @@ sections:
                   componentId: a44r0SiGV9AFn2Fj
                 sectionIds: []
             sectionIds:
-              - edc2efefdf13a43d
-              - 67d26cdf853c4a75
+              - 7dd58963d9cf8723
+              - 50860d9aba6f5a31
             config:
               gridSettings:
                 desktop:
-                  edc2efefdf13a43d:
+                  7dd58963d9cf8723:
                     x: 0
                     y: 0
                     w: 12
                     h: 1
-                  67d26cdf853c4a75:
+                  50860d9aba6f5a31:
                     x: 0
                     y: 1
                     w: 12
@@ -1249,13 +1061,13 @@ sections:
               gap: normal
               maxWidth: full
               paddingX: none
-          a39e323dad88939f:
-            id: a39e323dad88939f
+          0e82903d17963a3d:
+            id: 0e82903d17963a3d
             name: Image
             component: layout-block
             sections:
-              e2981f3c39ab9e15:
-                id: e2981f3c39ab9e15
+              54f99633f92c8583:
+                id: 54f99633f92c8583
                 name: Media
                 component: custom-component
                 config:
@@ -1263,12 +1075,12 @@ sections:
                   componentId: xoHu0JPjPs122kaaa-
                 sectionIds: []
             sectionIds:
-              - e2981f3c39ab9e15
+              - 54f99633f92c8583
             config:
               borderRadius: small
               gridSettings:
                 desktop:
-                  e2981f3c39ab9e15:
+                  54f99633f92c8583:
                     x: 0
                     y: 0
                     w: 12
@@ -1277,8 +1089,8 @@ sections:
               paddingX: small
               paddingY: small
         sectionIds:
-          - a00bd0a3eb145d15
-          - a39e323dad88939f
+          - 53491b4028db6f73
+          - 0e82903d17963a3d
         config:
           borderRadius: small
           paddingX: normal
@@ -1286,23 +1098,23 @@ sections:
           maxWidth: full
           gridSettings:
             desktop:
-              a00bd0a3eb145d15:
+              53491b4028db6f73:
                 x: 0
                 y: 0
                 w: 6
                 h: 1
-              a39e323dad88939f:
+              0e82903d17963a3d:
                 x: 6
                 y: 0
                 w: 6
                 h: 1
           gap: large
     sectionIds:
-      - 748ed2b61796d05c
+      - 10c96bad72cdd6ae
     config:
       gridSettings:
         desktop:
-          748ed2b61796d05c:
+          10c96bad72cdd6ae:
             x: 0
             y: 0
             w: 12
@@ -1312,26 +1124,26 @@ sections:
       background: background.paper
       border: solid
       borderRadius: small
-  6edec3e84b5a8e8d:
-    id: 6edec3e84b5a8e8d
+  4cebcfb31a079292:
+    id: 4cebcfb31a079292
     name: Full Background Hero
     component: layout-block
     sections:
-      b3de0f85ffafc96e:
-        id: b3de0f85ffafc96e
+      bf61d0f9efbe120b:
+        id: bf61d0f9efbe120b
         name: CTA
         component: layout-block
         sections:
-          b2fd4755c489229c:
-            id: b2fd4755c489229c
+          242d82f1e0127c79:
+            id: 242d82f1e0127c79
             name: Description
             component: custom-component
             config:
               useCache: true
               componentId: xoHu0J44322kDYc-
             sectionIds: []
-          508276fbeb60a116:
-            id: 508276fbeb60a116
+          a2645ed966573570:
+            id: a2645ed966573570
             name: Action
             component: custom-component
             config:
@@ -1339,17 +1151,17 @@ sections:
               componentId: a44r0SiGV9AFn2Fj
             sectionIds: []
         sectionIds:
-          - b2fd4755c489229c
-          - 508276fbeb60a116
+          - 242d82f1e0127c79
+          - a2645ed966573570
         config:
           gridSettings:
             desktop:
-              b2fd4755c489229c:
+              242d82f1e0127c79:
                 x: 2
                 y: 0
                 w: 8
                 h: 1
-              508276fbeb60a116:
+              a2645ed966573570:
                 x: 0
                 y: 1
                 w: 12
@@ -1361,11 +1173,11 @@ sections:
           background: background.paper
           borderRadius: small
     sectionIds:
-      - b3de0f85ffafc96e
+      - bf61d0f9efbe120b
     config:
       gridSettings:
         desktop:
-          b3de0f85ffafc96e:
+          bf61d0f9efbe120b:
             x: 0
             y: 0
             w: 12
@@ -1376,11 +1188,13 @@ sections:
       paddingX: none
 sectionIds:
   - e1c97b3710d489a2
-  - 671827b9508f92f3
-  - 0bd9c287b4dac2cd
-  - 94ce47f3e1c3fcde
-  - 93341a9558ff66aa
-  - 6edec3e84b5a8e8d
+  - 322e00c93c36c37d
+  - 1d6eeaefcba2bd64
+  - 8319656ef9287a34
+  - fd8d7838606054f3
+  - 2121cb6a6136df72
+  - 1bc805287d19887a
+  - 4cebcfb31a079292
 dataSource:
   087e8576fefadf0f:
     en:
@@ -1442,25 +1256,9 @@ dataSource:
             height: 1394
         jjv0hvr8wrixt1f3:
           value: 1
-  d79cdf28faac3108:
+  d379e54695cfbfab:
     en:
       properties:
-        v5utpm7bu9yvdpnq:
-          value: center
-        kyg0hdy5uqq4gc1o:
-          value: center
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Why You'll Love DocSmith
-            style:
-              variant: h2
-  8a0319c7be20285c:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
         gs1rn5jmxfvpxptx:
           value:
             text: Intelligent Analysis
@@ -1469,7 +1267,7 @@ dataSource:
         9ajrz12ik7esfk1z:
           value:
             list:
-              - id: item-1759143324880-zr95ywd04
+              - id: item-1759185456428-p8i1jjk33
                 type: text
                 text: Our AI doesn't just read your code—it understands its structure, patterns,
                   and intent to create truly meaningful docs.
@@ -1477,22 +1275,26 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  3ee66b593de1e036:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: lucide:brain-circuit
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  051f5382aaa30930:
-    en:
-      properties:
         v5utpm7bu9yvdpnq:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
+  eec45b621b3e77ea:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://placehold.co/800x450?text=Intelligent+Analysis
+            mediaKitUrl: https://placehold.co/800x450?text=Intelligent+Analysis
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: ""
+        jjv0hvr8wrixt1f3:
+          value: 1
+  562bd4eefaec55d3:
+    en:
+      properties:
         gs1rn5jmxfvpxptx:
           value:
             text: Global Ready
@@ -1501,7 +1303,7 @@ dataSource:
         9ajrz12ik7esfk1z:
           value:
             list:
-              - id: item-1759143324880-zr95ywd04
+              - id: item-1759185456428-p8i1jjk33
                 type: text
                 text: Instantly translate your documentation into 12 languages with
                   professional, context-aware AI translation.
@@ -1509,22 +1311,26 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  8aee431fd7b453d4:
-    en:
-      properties:
-        5ek4m0kw9cu0ndns:
-          value: lucide:globe
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  6cf87c8dd697af94:
-    en:
-      properties:
         v5utpm7bu9yvdpnq:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
+  ec80c940972f6e4e:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://placehold.co/800x450?text=Global+Ready
+            mediaKitUrl: https://placehold.co/800x450?text=Global+Ready
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: ""
+        jjv0hvr8wrixt1f3:
+          value: 1
+  f4eb0fdc9397ffea:
+    en:
+      properties:
         gs1rn5jmxfvpxptx:
           value:
             text: Always Current
@@ -1533,7 +1339,7 @@ dataSource:
         9ajrz12ik7esfk1z:
           value:
             list:
-              - id: item-1759143324880-zr95ywd04
+              - id: item-1759185456428-p8i1jjk33
                 type: text
                 text: DocSmith automatically detects code changes and updates your
                   documentation, so it's never out of sync.
@@ -1541,16 +1347,24 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  835229da4540f842:
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  70830b5e44eaca8f:
     en:
       properties:
-        5ek4m0kw9cu0ndns:
-          value: lucide:refresh-cw
-        gugqsxx3xyveuu8n:
-          value: primary.main
-        529qbwiam7oypw8e:
-          value: 40px
-  10c868964f4822ae:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://placehold.co/800x450?text=Always+Current
+            mediaKitUrl: https://placehold.co/800x450?text=Always+Current
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: ""
+        jjv0hvr8wrixt1f3:
+          value: 1
+  dacb6f2fd2435fa9:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -1562,7 +1376,7 @@ dataSource:
             text: "See It In Action: From Code to Docs in Minutes"
             style:
               variant: h2
-  e03b96a970985737:
+  54c0855c3375e774:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -1584,7 +1398,7 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  03b4c96f2f249a6d:
+  ab0d649fb23c7c74:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -1599,7 +1413,7 @@ dataSource:
               size: medium
               target: _blank
               needLogin: false
-  d8dfd9132bc9e276:
+  7b2358b6fe84a2d1:
     en:
       properties:
         6b0jh5aw4ptbo2t3:
@@ -2162,7 +1976,7 @@ dataSource:
                 }
               ]
             }
-  b7abc60c28ec680b:
+  9687faa9567ffb5c:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -2184,7 +1998,7 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  105ddafc69d2b81b:
+  0fedc6504b5b8473:
     en:
       properties:
         6b0jh5aw4ptbo2t3:
@@ -2675,7 +2489,7 @@ dataSource:
                 }
               ]
             }
-  e152291ca34ba0ba:
+  8b3e2235c77ca0c7:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -2696,7 +2510,7 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  886092436203bfb3:
+  e987e6914685bef6:
     en:
       properties:
         6b0jh5aw4ptbo2t3:
@@ -3079,7 +2893,7 @@ dataSource:
                 }
               ]
             }
-  298df35e34fc85c3:
+  7ea7df602de0b986:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -3100,7 +2914,7 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  c71bf942d3a5cb35:
+  9742cb3e7bb0e588:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -3115,7 +2929,7 @@ dataSource:
               size: medium
               target: _blank
               needLogin: false
-  95b2b1b42d286bd8:
+  7aa1e7915960b7ab:
     en:
       properties:
         6b0jh5aw4ptbo2t3:
@@ -3666,7 +3480,7 @@ dataSource:
                 }
               ]
             }
-  5c61b99269881c93:
+  a1d63745b3064174:
     en:
       properties:
         gs1rn5jmxfvpxptx:
@@ -3691,7 +3505,7 @@ dataSource:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  2f4eaa4bb8f44700:
+  7cb6a64386dbf418:
     en:
       properties:
         b8x4m3n9kp7qtw5r:
@@ -3709,7 +3523,7 @@ dataSource:
           value: flex-start
         v9979xeclpsbvn0n:
           value: flex-start
-  7fec4103171b93d2:
+  f18299c3022c28fc:
     en:
       properties:
         7m5pz8nefl5j9hqq:
@@ -3718,7 +3532,7 @@ dataSource:
             mediaKitUrl: mediakit://doc-translate-langs.png
             width: 3024
             height: 1034
-  edc2efefdf13a43d:
+  7dd58963d9cf8723:
     en:
       properties:
         9ajrz12ik7esfk1z:
@@ -3742,7 +3556,7 @@ dataSource:
           value: flex-start
         kyg0hdy5uqq4gc1o:
           value: flex-start
-  67d26cdf853c4a75:
+  50860d9aba6f5a31:
     en:
       properties:
         b8x4m3n9kp7qtw5r:
@@ -3776,7 +3590,7 @@ dataSource:
           value: flex-start
         v9979xeclpsbvn0n:
           value: flex-start
-  e2981f3c39ab9e15:
+  54f99633f92c8583:
     en:
       properties:
         7m5pz8nefl5j9hqq:
@@ -3791,7 +3605,7 @@ dataSource:
           value: 100%
         jjv0hvr8wrixt1f3:
           value: 1
-  b2fd4755c489229c:
+  242d82f1e0127c79:
     en:
       properties:
         9ajrz12ik7esfk1z:
@@ -3816,7 +3630,7 @@ dataSource:
           value: center
         kyg0hdy5uqq4gc1o:
           value: center
-  508276fbeb60a116:
+  a2645ed966573570:
     en:
       properties:
         b8x4m3n9kp7qtw5r:

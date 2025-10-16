@@ -29,7 +29,7 @@
     - aigne.yaml
     - docs/overview.md
   parentId: ""
-- title: Quick Start Guide
+- title: Quick Start
   description: A step-by-step guide for new users to install the AIGNE CLI, set up
     DocSmith, and generate their first set of documentation. It covers
     prerequisites, installation commands, and an overview of the core
@@ -68,3 +68,17 @@
   sourceIds:
     - README.md
   parentId: ""
+- title: About AIGNE DocSmith
+  description: This page provides a high-level overview of AIGNE DocSmith, an
+    AI-powered tool designed to automate documentation generation. It explains
+    the core purpose of the tool—to keep documentation current and accurate by
+    analyzing source code—and its place within the broader AIGNE ecosystem.
+  path: /about
+  navigation:
+    title: About
+    description: Learn about our mission
+  parentId: null
+  sourceIds:
+    - docs/overview.md
+    - README.md
+    - aigne.yaml

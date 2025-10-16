@@ -1,0 +1,1 @@
+A vibrant, abstract image for the hero section of the 'About' page. It visually communicates AIGNE DocSmith's core function: using AI to transform source code into beautifully structured documentation, setting a futuristic and innovative tone for the page.

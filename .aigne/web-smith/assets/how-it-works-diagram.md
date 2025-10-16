@@ -1,0 +1,1 @@
+A simplified, 3D visual diagram for the 'How It Works' section. This image illustrates the process of source code being analyzed by the DocSmith AI engine to produce generated documentation, making the concept easy to understand at a glance.
