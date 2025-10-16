@@ -1,4 +1,36 @@
 entries:
+  - timestamp: 2025-10-16T07:15:02.275Z
+    operation: page_update
+    feedback: section2 保持现在的信息，但是不使用列表展示
+    page: /home
+  - timestamp: 2025-10-16T07:13:00.942Z
+    operation: page_update
+    feedback: section2 只在第一个卡片中新增一个 action ，跳转：https://www.arcblock.io/en
+    page: /home
+  - timestamp: 2025-10-16T07:06:25.918Z
+    operation: page_update
+    feedback: section2 中不需要展示图片
+    page: /home
+  - timestamp: 2025-10-16T07:02:34.595Z
+    operation: page_update
+    feedback: section2 中不需要展示图片
+    page: /home
+  - timestamp: 2025-10-16T06:27:53.232Z
+    operation: page_update
+    feedback: section2 中每项需要展示一张图片
+    page: /home
+  - timestamp: 2025-10-16T06:25:31.655Z
+    operation: page_update
+    feedback: KeyBenefits 中第一项展示一个 action ，跳转：https://www.arcblock.io/
+    page: /home
+  - timestamp: 2025-10-16T06:22:06.126Z
+    operation: page_update
+    feedback: section2 中每项需要展示action ，但是不需要展示图片
+    page: /home
+  - timestamp: 2025-10-16T06:20:48.301Z
+    operation: page_update
+    feedback: section2 中不需要展示图片
+    page: /home
   - timestamp: 2025-10-16T06:17:51.578Z
     operation: page_update
     feedback: section2中第一项添加一个 action ，链接：https://www.arcblock.io/
