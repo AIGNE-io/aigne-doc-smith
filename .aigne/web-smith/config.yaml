@@ -111,7 +111,7 @@ defaultDatasources: # Default datasources included in every page
 # minImageWidth: Only images wider than this value (in pixels) will be used in page generation
 media:
   minImageWidth: 800
-lastGitHead: 7bea8cc1c74fa8ae8d56f012131ec7e0592cf02f
+lastGitHead: b391110d7a2894e9c91abede8b73be95823d9feb
 appUrl: https://staging.docsmith.aigne.io/
 # Checkout ID for website deployment service
 checkoutId: ""
