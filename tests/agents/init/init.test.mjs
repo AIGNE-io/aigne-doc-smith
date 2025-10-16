@@ -119,7 +119,9 @@ describe("generateYAML", () => {
       expect(config.projectLogo).toBe("");
 
       // Verify comments for empty translateLanguages (string matching for comments)
-      expect(result).toContain("# translateLanguages:  # List of languages to translate");
+      expect(result).toContain(
+        "# translateLanguages:  # A list of languages to translate the documentation to.",
+      );
     });
 
     test("should handle mixed purpose with priority selection", () => {
@@ -391,7 +393,9 @@ describe("generateYAML", () => {
       };
 
       const result = generateYAML(input);
-      expect(result).toContain("# translateLanguages:  # List of languages to translate");
+      expect(result).toContain(
+        "# translateLanguages:  # A list of languages to translate the documentation to.",
+      );
       expect(result).toContain("#   - zh  # Example: Chinese translation");
       expect(result).toContain("#   - en  # Example: English translation");
     });
@@ -1308,7 +1312,7 @@ describe("init", () => {
               // Test the validation function directly
               const validationResult = options.validate([]);
               expect(validationResult).toBe(
-                "Please choose at least one goal for your documentation.",
+                "You must choose at least one goal for your documentation.",
               );
               validateCalled = true;
               // Return valid result after testing validation
@@ -1348,7 +1352,7 @@ describe("init", () => {
             if (options.message.includes("[2/9]") && options.validate) {
               // Test the validation function for target audience
               const validationResult = options.validate([]);
-              expect(validationResult).toBe("Please choose at least one audience.");
+              expect(validationResult).toBe("You must choose at least one audience.");
               audienceValidateCalled = true;
               return Promise.resolve(["developers"]); // Valid result after testing
             }
@@ -1387,11 +1391,11 @@ describe("init", () => {
             if (options.message.includes("Which is most important?") && options.validate) {
               // Test validation for empty selection
               let validationResult = options.validate([]);
-              expect(validationResult).toBe("Please choose at least one priority.");
+              expect(validationResult).toBe("You must choose at least one priority.");
 
               // Test validation for too many selections
               validationResult = options.validate(["getStarted", "completeTasks", "findAnswers"]);
-              expect(validationResult).toBe("Please choose maximum 2 priorities.");
+              expect(validationResult).toBe("You may only choose up to 2 priorities.");
 
               // Test validation for valid selection
               validationResult = options.validate(["getStarted", "completeTasks"]);
@@ -1510,7 +1514,7 @@ targetAudienceTypes:
           ).rejects.toThrow("process.exit called");
 
           // Should log reminder messages
-          expect(logMessages.some((msg) => msg.includes("No configuration found"))).toBe(true);
+          expect(logMessages.some((msg) => msg.includes("No configuration file found"))).toBe(true);
           expect(logMessages.some((msg) => msg.includes("aigne doc init"))).toBe(true);
 
           // Should call process.exit(0)

@@ -2,12 +2,12 @@ import { SUPPORTED_LANGUAGES } from "../../utils/constants/index.mjs";
 import { loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
 /**
- * Interactive language selector for translation from configured languages
+ * Interactively selects languages for translation.
  * @param {Object} params
- * @param {Array<string>} [params.langs] - Pre-selected languages
- * @param {string} params.locale - Primary language code
- * @param {Object} options - Options object with prompts
- * @returns {Promise<Object>} Selected languages
+ * @param {Array<string>} [params.langs] - Pre-selected languages.
+ * @param {string} params.locale - The primary language code.
+ * @param {Object} options - Options object with prompts.
+ * @returns {Promise<Object>} The selected languages.
  */
 export default async function chooseLanguage({ langs, locale, selectedDocs }, options) {
   let selectedLanguages = [];
@@ -24,7 +24,7 @@ export default async function chooseLanguage({ langs, locale, selectedDocs }, op
     (lang) => lang.code !== primaryLanguage,
   );
 
-  // If languages are provided as parameter, validate against available languages
+  // If languages are provided as a parameter, validate them
   if (langs && Array.isArray(langs) && langs.length > 0) {
     const validLanguages = langs.filter((lang) =>
       availableTranslationLanguages.some((availableLang) => availableLang.code === lang),
@@ -35,8 +35,7 @@ export default async function chooseLanguage({ langs, locale, selectedDocs }, op
     } else {
       console.log(`⚠️  Invalid languages provided: ${langs.join(", ")}`);
       console.log(
-        "Available translation languages:",
-        availableTranslationLanguages.map((l) => l.code).join(", "),
+        `Available languages: ${availableTranslationLanguages.map((l) => l.code).join(", ")}`,
       );
     }
   }
@@ -51,11 +50,11 @@ export default async function chooseLanguage({ langs, locale, selectedDocs }, op
     }));
 
     selectedLanguages = await options.prompts.checkbox({
-      message: "Select translation languages:",
+      message: "Please select the languages you'd like to translate to:",
       choices: choices,
       validate: (answer) => {
         if (answer.length === 0) {
-          return "Please select at least one language";
+          return "You must select at least one language.";
         }
         return true;
       },
@@ -63,7 +62,7 @@ export default async function chooseLanguage({ langs, locale, selectedDocs }, op
   }
 
   if (selectedLanguages.length === 0) {
-    throw new Error("No languages selected for translation");
+    throw new Error("You must select at least one language to continue.");
   }
 
   // Find new languages that need to be added
@@ -98,12 +97,13 @@ chooseLanguage.input_schema = {
       items: {
         type: "string",
       },
-      description: "Pre-selected languages for translation",
+      description: "A list of pre-selected languages for translation.",
     },
 
     locale: {
       type: "string",
-      description: "Primary language code (will be excluded from translation options)",
+      description:
+        "The primary language code, which will be excluded from the translation options.",
     },
   },
   required: [],

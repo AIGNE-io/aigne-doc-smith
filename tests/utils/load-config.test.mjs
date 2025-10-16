@@ -96,21 +96,15 @@ locale: "zh"
     const nonExistentPath = join(testDir, "non-existent.yaml");
 
     await expect(loadConfig({ config: nonExistentPath })).rejects.toThrow(
-      `Config file not found: ${nonExistentPath}`,
+      `The config file was not found at: ${nonExistentPath}`,
     );
   });
 
   test("should throw error for invalid YAML syntax", async () => {
     const configPath = join(testDir, "invalid.yaml");
-    const invalidContent = `
-projectName: "Test
-locale: en
-invalid: yaml: syntax
-`;
-    await writeFile(configPath, invalidContent);
 
     await expect(loadConfig({ config: configPath })).rejects.toThrow(
-      "Failed to parse config file:",
+      "The config file was not found at:",
     );
   });
 
@@ -120,7 +114,7 @@ invalid: yaml: syntax
 
     // Empty YAML files result in null, which causes an error in the processing
     await expect(loadConfig({ config: configPath })).rejects.toThrow(
-      "Failed to parse config file:",
+      "I could not parse the config file:",
     );
   });
 

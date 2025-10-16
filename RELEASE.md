@@ -1,9 +1,7 @@
-### Release a beta version
+### Releasing a Beta Version
 
-Create a normal PR, and release-please will automatically create a beta version PR.  
-Merge that PR when appropriate.
+To release a beta version, create a pull request. The `release-please` workflow will then automatically create a new pull request for the beta release. Merge the `release-please` pull request to finalize the release.
 
-### Release a prod version
+### Releasing a Production Version
 
-When you want publish a prod version, manually execute the GitHub Action 'Create Release PR' to create a release PR for the prod version.
-Merge that PR when appropriate.
+To release a production version, manually trigger the "Create Release PR" GitHub Action. This will create a new pull request for the production release. Merge that pull request to finalize the release.

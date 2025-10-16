@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.8.13](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.13-beta...v0.8.13) (2025-10-16)
+
+
+### Miscellaneous Chores
+
+* release 0.8.13 ([496e30f](https://github.com/AIGNE-io/aigne-doc-smith/commit/496e30f60d7e78602ffdc0fc070bf09ce4415fde))
+
+## [0.8.13-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12...v0.8.13-beta) (2025-10-16)
+
+
+### Bug Fixes
+
+* add check before evaluate/publish/translate/update ([#196](https://github.com/AIGNE-io/aigne-doc-smith/issues/196)) ([3d6f40b](https://github.com/AIGNE-io/aigne-doc-smith/commit/3d6f40b77f1a50b95625db3fb561c44b940d04bd))
+* **assets:** reslove missing upload of local assets causing broken images in production ([#197](https://github.com/AIGNE-io/aigne-doc-smith/issues/197)) ([423cdc1](https://github.com/AIGNE-io/aigne-doc-smith/commit/423cdc1d7b2179f80e03c520a51ecfa65aff79de))
+* **ux:** optimize visible copy for improved user interaction ([#192](https://github.com/AIGNE-io/aigne-doc-smith/issues/192)) ([603e5d8](https://github.com/AIGNE-io/aigne-doc-smith/commit/603e5d8a5f94134452973972b32d48d0c09c5c5f))
+
+## [0.8.12](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.9...v0.8.12) (2025-10-16)
+
 ## [0.8.12-beta.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.12-beta.8...v0.8.12-beta.9) (2025-10-15)
 
 

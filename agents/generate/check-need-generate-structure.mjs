@@ -9,7 +9,7 @@ export default async function checkNeedGenerateStructure(
   // Check if originalDocumentStructure is empty and prompt user
   if (!originalDocumentStructure) {
     const choice = await options.prompts.select({
-      message: "Project configured successfully. Generate the documentation structure now?",
+      message: "Project configured. Generate documentation structure now?",
       choices: [
         {
           name: "Yes, generate now",
@@ -24,9 +24,7 @@ export default async function checkNeedGenerateStructure(
 
     if (choice === "later") {
       console.log(`\nConfiguration file: ${chalk.cyan("./.aigne/doc-smith/config.yaml")}`);
-      console.log(
-        "Review and edit your configuration as needed, then run 'aigne doc generate' to continue.",
-      );
+      console.log("Review and edit your configuration, then run `aigne doc generate` to continue.");
 
       // In test environment, return a special result instead of exiting
       if (process.env.NODE_ENV === "test") {
@@ -40,39 +38,33 @@ export default async function checkNeedGenerateStructure(
     }
   }
 
-  // Check if we need to regenerate documentation structure
   let finalFeedback = "";
 
-  // user requested regeneration
+  // User requested regeneration
   if (forceRegenerate) {
     finalFeedback = `
     User requested forced regeneration of documentation structure. Please regenerate based on the latest Data Sources and user requirements, **allowing any modifications**.
     `;
   }
 
-  // If no regeneration needed, return original documentation structure
   if (originalDocumentStructure && !forceRegenerate) {
     return {
       documentStructure: originalDocumentStructure,
     };
   }
 
-  // Performance optimization:
-  // Using both structured output and Tool with Gemini model causes redundant calls
-  // Only use Tool when context is very large
+  // Performance optimization: Using both structured output and tools with the Gemini model can cause redundant calls.
+  // Only use tools when the context is very large.
   const generateStructureAgent = isLargeContext
     ? options.context.agents["generateStructure"]
     : options.context.agents["generateStructureWithoutTools"];
 
-  // Get user preferences for documentation structure and global scope
   const structureRules = getActiveRulesForScope("structure", []);
   const globalRules = getActiveRulesForScope("global", []);
 
-  // Combine structure and global rules, extract only rule text
   const allApplicableRules = [...structureRules, ...globalRules];
   const ruleTexts = allApplicableRules.map((rule) => rule.rule);
 
-  // Convert rule texts to string format for passing to the agent
   const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
   const result = await options.context.invoke(generateStructureAgent, {
@@ -85,22 +77,21 @@ export default async function checkNeedGenerateStructure(
 
   let message = "";
 
-  // Check and save project information if user hasn't modified it
+  // Check and save project information
   if (result.projectName || result.projectDesc) {
     try {
       const currentConfig = await loadConfigFromFile();
       const projectInfo = await getProjectInfo();
 
-      // Check if user has modified project information
       const userModifiedProjectName =
         currentConfig?.projectName && currentConfig.projectName !== projectInfo.name;
       const userModifiedProjectDesc =
         currentConfig?.projectDesc && currentConfig.projectDesc !== projectInfo.description;
 
-      // If user hasn't modified project info and it's not from GitHub, save AI output
+      // Save AI-generated project info if not modified by the user and not from GitHub
       if (!userModifiedProjectName && !userModifiedProjectDesc) {
         let hasUpdated = false;
-        // Don't update if the current info is from GitHub (meaningful repository info)
+        // Don't update if the current info is from GitHub
         if (
           result.projectName &&
           result.projectName !== projectInfo.name &&
@@ -140,4 +131,5 @@ export default async function checkNeedGenerateStructure(
   };
 }
 
-checkNeedGenerateStructure.taskTitle = "Check if documentation structure needs generate or update";
+checkNeedGenerateStructure.taskTitle =
+  "Check if documentation structure needs to be generated or updated";
