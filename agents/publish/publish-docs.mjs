@@ -1,9 +1,8 @@
-import { basename, extname, join } from "node:path";
+import { basename, join } from "node:path";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import fs from "fs-extra";
-import slugify from "slugify";
 
 import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 import {
@@ -15,8 +14,6 @@ import {
 } from "../../utils/constants/index.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
-import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
-import { uploadFiles } from "../../utils/upload-files.mjs";
 import {
   getGithubRepoUrl,
   isHttp,
@@ -24,6 +21,7 @@ import {
   saveValueToConfig,
 } from "../../utils/utils.mjs";
 import updateBranding from "../utils/update-branding.mjs";
+import { downloadAndUploadImage } from "../../utils/file-utils.mjs";
 
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 
@@ -175,46 +173,22 @@ export default async function publishDocs(
       description: projectDesc || config?.projectDesc || "",
       icon: projectLogo || config?.projectLogo || "",
     };
+    let finalPath = null;
 
     // Handle project logo download if it's a URL
     if (projectInfo.icon && isHttp(projectInfo.icon)) {
-      const tempFilePath = join(docsDir, slugify(basename(projectInfo.icon)));
-      const initialExt = extname(projectInfo.icon);
-      let ext = initialExt;
-
-      try {
-        const response = await fetch(projectInfo.icon);
-        const blob = await response.blob();
-        const arrayBuffer = await blob.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-
-        if (response.ok) {
-          if (!ext) {
-            const contentType = response.headers.get("content-type");
-            ext = getExtnameFromContentType(contentType);
-          }
-
-          const finalPath = ext ? `${tempFilePath}.${ext}` : tempFilePath;
-          fs.writeFileSync(finalPath, buffer);
-
-          const filePath = join(process.cwd(), finalPath);
-          const { results: uploadResults } = await uploadFiles({
-            appUrl,
-            filePaths: [filePath],
-            accessToken,
-            concurrency: 1,
-          });
-
-          // FIXME: 暂时保持使用绝对路径，需要修改为相对路径 @pengfei
-          projectInfo.icon = uploadResults?.[0]?.url || projectInfo.icon;
-        }
-      } catch (error) {
-        console.warn(`Failed to download project logo from ${projectInfo.icon}: ${error.message}`);
-      }
+      const { url: uploadedImageUrl, downloadFinalPath } = await downloadAndUploadImage(
+        projectInfo.icon,
+        docsDir,
+        appUrl,
+        accessToken,
+      );
+      projectInfo.icon = uploadedImageUrl;
+      finalPath = downloadFinalPath;
     }
 
     if (shouldWithBranding) {
-      updateBranding({ appUrl, projectInfo, accessToken });
+      updateBranding({ appUrl, projectInfo, accessToken, finalPath });
     }
 
     // Construct boardMeta object
