@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import {
   addFeedbackToItems,
   findItemByPath,
@@ -35,7 +36,7 @@ export default async function chooseDocs(
 
       if (mainLanguageFiles.length === 0) {
         throw new Error(
-          "No documents found in the docs directory. Please run `aigne docs generate` to generate the documents",
+          `No documents found in the docs directory. Please run ${chalk.yellow("`aigne docs generate`")} to generate the documents`,
         );
       }
 
@@ -80,9 +81,8 @@ export default async function chooseDocs(
       // Process selected files and convert to found items
       foundItems = await processSelectedFiles(selectedFiles, documentExecutionStructure, docsDir);
     } catch (error) {
-      throw new Error(
-        getActionText(isTranslate, `\nFailed to select documents to {action}: ${error.message}`),
-      );
+      console.log(getActionText(isTranslate, `\nFailed to select documents to {action}: ${error.message}`))
+      process.exit(0);
     }
   } else {
     // Process the provided docs array
