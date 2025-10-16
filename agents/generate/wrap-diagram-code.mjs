@@ -4,11 +4,11 @@ export default async function wrapDiagramCode({ diagramSourceCode }) {
   try {
     const result = await wrapCode({ content: diagramSourceCode });
     return {
-      diagramSourceCode: result,
+      output: result,
     };
   } catch {
     return {
-      diagramSourceCode,
+      output: diagramSourceCode,
     };
   }
 }
@@ -26,10 +26,10 @@ wrapDiagramCode.input_schema = {
 wrapDiagramCode.output_schema = {
   type: "object",
   properties: {
-    diagramSourceCode: {
+    output: {
       type: "string",
       description: "Source code of d2 diagram",
     },
   },
-  required: ["diagramSourceCode"],
+  required: ["output"],
 };
