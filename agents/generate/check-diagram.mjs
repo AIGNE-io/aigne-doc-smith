@@ -1,8 +1,8 @@
 import { checkContent } from "../../utils/d2-utils.mjs";
 
-export default async function checkD2DiagramIsValid({ diagramSourceCode }) {
+export default async function checkD2DiagramIsValid({ output }) {
   try {
-    await checkContent({ content: diagramSourceCode });
+    await checkContent({ content: output });
     return {
       isValid: true,
     };
@@ -17,12 +17,12 @@ export default async function checkD2DiagramIsValid({ diagramSourceCode }) {
 checkD2DiagramIsValid.input_schema = {
   type: "object",
   properties: {
-    diagramSourceCode: {
+    output: {
       type: "string",
       description: "Source code of d2 diagram",
     },
   },
-  required: ["diagramSourceCode"],
+  required: ["output"],
 };
 checkD2DiagramIsValid.output_schema = {
   type: "object",
