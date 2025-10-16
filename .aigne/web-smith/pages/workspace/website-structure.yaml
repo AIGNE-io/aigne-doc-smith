@@ -1,70 +1,21 @@
-- title: "AIGNE DocSmith: AI-Powered Documentation Generation"
-  description: The main landing page for AIGNE DocSmith. It introduces the core
-    value proposition of AI-driven documentation, highlights key benefits like
-    intelligent analysis and multi-language support, and showcases the tool in
-    action through terminal playback animations.
+- title: "AIGNE DocSmith: AI-Powered Code Documentation"
+  description: "A single-page experience introducing AIGNE DocSmith, an AI tool
+    that automatically generates documentation from your codebase. The page
+    opens with a clear value proposition and a primary call-to-action. Key
+    sections include: a visual demonstration of the tool's core commands
+    (generate, update, translate), a breakdown of intelligent features like
+    multi-language support and smart updates, a step-by-step Quick Start guide
+    for installation and first use, an overview of advanced configuration and
+    enterprise solutions, and links to community resources."
   path: /home
   navigation:
     title: Home
-    description: Discover AI-powered docs
+    description: Discover how to generate code documentation automatically.
   sourceIds:
     - README.md
-    - assets/terminal-playback/generate.json
-    - assets/terminal-playback/update.json
-    - assets/terminal-playback/translate.json
-    - assets/terminal-playback/publish.json
     - assets/terminal-playback/README.md
-  parentId: ""
-- title: Features of AIGNE DocSmith
-  description: This page details the powerful features of DocSmith, including
-    AI-powered content generation, support for 12 languages, seamless
-    integration with Large Language Models (LLMs) via AIGNE Hub, and smart
-    update capabilities that keep documentation in sync with code changes.
-  path: /features
-  navigation:
-    title: Features
-    description: Explore product features
-  sourceIds:
-    - README.md
-    - aigne.yaml
     - docs/overview.md
-  parentId: ""
-- title: Quick Start Guide
-  description: A step-by-step guide for new users to install the AIGNE CLI, set up
-    DocSmith, and generate their first set of documentation. It covers
-    prerequisites, installation commands, and an overview of the core
-    functionalities like generate, update, and publish.
-  path: /quick-start
-  navigation:
-    title: Quick Start
-    description: Get started in minutes
-  sourceIds:
-    - README.md
     - docs/getting-started.md
-    - docs/overview.md
-  parentId: ""
-- title: Enterprise and Production Use
-  description: Information for businesses and large teams. This page outlines
-    enterprise-grade features such as team collaboration, custom branding, API
-    integration, and enhanced security options like private cloud deployment and
-    SSO integration. It also provides contact information for support and
-    services.
-  path: /enterprise
-  navigation:
-    title: Enterprise
-    description: Solutions for your business
-  sourceIds:
-    - README.md
-  parentId: ""
-- title: Community and Resources
-  description: A central hub for community support and resources. This page
-    provides links to official documentation, tutorials, community forums, and
-    social media channels. It also includes information on how to contribute to
-    the project by reporting issues or requesting features.
-  path: /community
-  navigation:
-    title: Community
-    description: Get help and contribute
-  sourceIds:
-    - README.md
+    - aigne.yaml
+    - CHANGELOG.md
   parentId: ""

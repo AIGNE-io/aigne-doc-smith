@@ -7,7 +7,7 @@
       "SHELL": "/bin/zsh",
       "TERM": "xterm-256color"
     },
-    "cols": 63,
+    "cols": 66,
     "rows": 20,
     "repeat": false,
     "autoplay": true,
@@ -21,7 +21,7 @@
     "maxIdleTime": 2000,
     "frameBox": {
       "type": "floating",
-      "title": "Terminal Recording - 2025/8/21 11:50:34",
+      "title": "Terminal Recording - 2025/10/16 15:08:22",
       "style": {
         "border": "0px black solid"
       }
@@ -66,7 +66,787 @@
   "records": [
     {
       "delay": 8,
-      "content": "\u001b[1m\u001b[7m\u001b[27m\u001b[1m\u001b[0m                                                              \r \r"
+      "content": "\u001b[1m\u001b[7m\u001b[27m\u001b[1m\u001b[0m                                                                 \r \r"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]7;file://Nate-Mac-Pro.local/Users/nategu/work/arcblock/ai-docs/doc-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]2;nategu@Nate-Mac-Pro\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]1;..docs/doc-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]7;file://Nate-Mac-Pro.local/Users/nategu/work/arcblock/ai-docs/doc-demo\u001b\\"
+    },
+    {
+      "delay": 8,
+      "content": "\r\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[01;32m➜  \u001b[36mdoc-demo\u001b[00m \u001b[K"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?1h\u001b="
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?2004h"
+    },
+    {
+      "delay": 594,
+      "content": "a"
+    },
+    {
+      "delay": 104,
+      "content": "\bai"
+    },
+    {
+      "delay": 141,
+      "content": "g"
+    },
+    {
+      "delay": 70,
+      "content": "n"
+    },
+    {
+      "delay": 198,
+      "content": "e"
+    },
+    {
+      "delay": 501,
+      "content": " "
+    },
+    {
+      "delay": 974,
+      "content": "d"
+    },
+    {
+      "delay": 100,
+      "content": "o"
+    },
+    {
+      "delay": 151,
+      "content": "c"
+    },
+    {
+      "delay": 133,
+      "content": " "
+    },
+    {
+      "delay": 265,
+      "content": "g"
+    },
+    {
+      "delay": 60,
+      "content": "e"
+    },
+    {
+      "delay": 525,
+      "content": "n"
+    },
+    {
+      "delay": 232,
+      "content": "e"
+    },
+    {
+      "delay": 241,
+      "content": "r"
+    },
+    {
+      "delay": 179,
+      "content": "a"
+    },
+    {
+      "delay": 230,
+      "content": "t"
+    },
+    {
+      "delay": 93,
+      "content": "e"
+    },
+    {
+      "delay": 282,
+      "content": "\u001b[?1l\u001b>\u001b[?2004l\r\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]2;aigne doc generate\u0007\u001b]1;aigne\u0007"
+    },
+    {
+      "delay": 3156,
+      "content": "\u001b[90mTIPS:\u001b[39m run \u001b[36maigne observe\u001b[39m to start the observability server.\r\n\r\n"
+    },
+    {
+      "delay": 1262,
+      "content": "\u001b[36m+-----------------------------------+\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mProvider\u001b[39m: \u001b[32mAIGNEHub\u001b[39m              \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mModel\u001b[39m: \u001b[32mgoogle/gemini-2.5-pro\u001b[39m    \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI URL\u001b[39m: \u001b[32mhttps://hub.aigne.io\u001b[39m   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI Key\u001b[39m: \u001b[32mbloc********vreR\u001b[39m       \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m+-----------------------------------+\u001b[39m\r\n\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "🚀 Welcome to AIGNE DocSmith!\r\nLet's set up your documentation preferences.\r\n\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 99,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 9,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m📝 [1/9]: What should your documentation help readers achieve?\u001b[22m\r\n\u001b[22m(Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m to select, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert\r\n\u001b[23mselection, and \u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n\u001b[36m❯◯ Get started quickly\u001b[39m\r\n ◯ Complete specific tasks\r\n ◯ Find answers fast\r\n ◯ Understand the system\r\n ◯ Troubleshoot common issues\r\n ◯ Serve multiple purposes\r\n\u001b[36mHelp new users go from zero to working in <30 minutes\u001b[39m\u001b[?25l\u001b[54G"
+    },
+    {
+      "delay": 2996,
+      "content": "\u001b[55G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m📝 [1/9]: What should your documentation help readers achieve?\u001b[22m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Get started quickly\u001b[39m\r\n ◯ Complete specific tasks\r\n ◯ Find answers fast\r\n ◯ Understand the system\r\n ◯ Troubleshoot common issues\r\n ◯ Serve multiple purposes\r\n\u001b[36mHelp new users go from zero to working in <30 minutes\u001b[39m\u001b[?25l\u001b[54G"
+    },
+    {
+      "delay": 873,
+      "content": "\u001b[53G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📝 [1/9]: What should your documentation help readers achieve?\u001b[22m\r\n\u001b[22m\u001b[36mGet started quickly\u001b[39m\u001b[19G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m👥 [2/9]: Who will be reading your documentation?\u001b[22m (Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m\r\n\u001b[23m to select, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert selection, and\r\n\u001b[23m\u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n\u001b[36m❯◯ End users (non-technical)\u001b[39m\r\n ◯ Developers integrating your product/API\r\n ◯ DevOps / SRE / Infrastructure teams\r\n ◯ Technical decision makers\r\n ◯ Support teams\r\n ◯ Mixed technical audience\r\n\u001b[36mPeople who use the product but don't code\u001b[39m\u001b[?25l\u001b[42G"
+    },
+    {
+      "delay": 1618,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m👥 [2/9]: Who will be reading your documentation?\u001b[22m (Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m\r\n\u001b[23m to select, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert selection, and\r\n\u001b[23m\u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n ◯ End users (non-technical)\r\n\u001b[36m❯◯ Developers integrating your product/API\u001b[39m\r\n ◯ DevOps / SRE / Infrastructure teams\r\n ◯ Technical decision makers\r\n ◯ Support teams\r\n ◯ Mixed technical audience\r\n\u001b[36mEngineers adding this to their projects\u001b[39m\u001b[?25l\u001b[40G"
+    },
+    {
+      "delay": 579,
+      "content": "\u001b[41G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m👥 [2/9]: Who will be reading your documentation?\u001b[22m\r\n ◯ End users (non-technical)\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Developers integrating your product/API\u001b[39m\r\n ◯ DevOps / SRE / Infrastructure teams\r\n ◯ Technical decision makers\r\n ◯ Support teams\r\n ◯ Mixed technical audience\r\n\u001b[36mEngineers adding this to their projects\u001b[39m\u001b[?25l\u001b[40G"
+    },
+    {
+      "delay": 1326,
+      "content": "\u001b[39G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m👥 [2/9]: Who will be reading your documentation?\u001b[22m \u001b[36mDevelopers\r\n\u001b[23mintegrating your product/API\u001b[39m\u001b[26G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m🧠 [3/9]: How much do readers already know about your project?\u001b[22m\r\n\u001b[36m❯ Is a total beginner, starting from scratch\u001b[39m\r\n  Has used similar tools before\r\n  Emergency/troubleshooting\r\n  Is evaluating this tool against others\r\n\r\n\u001b[36mNew to this domain/technology entirely\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 2817,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m🧠 [3/9]: How much do readers already know about your project?\u001b[22m\r\n  Is a total beginner, starting from scratch\r\n\u001b[36m❯ Has used similar tools before\u001b[39m\r\n  Emergency/troubleshooting\r\n  Is evaluating this tool against others\r\n\r\n\u001b[36mKnow the problem space, new to this specific solution\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 2355,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m🧠 [3/9]: How much do readers already know about your project?\u001b[22m\r\n  Is a total beginner, starting from scratch\r\n  Has used similar tools before\r\n\u001b[36m❯ Emergency/troubleshooting\u001b[39m\r\n  Is evaluating this tool against others\r\n\r\n\u001b[36mSomething's broken, need to fix it quickly\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 953,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m🧠 [3/9]: How much do readers already know about your project?\u001b[22m\r\n  Is a total beginner, starting from scratch\r\n  Has used similar tools before\r\n  Emergency/troubleshooting\r\n\u001b[36m❯ Is evaluating this tool against others\u001b[39m\r\n\r\n\u001b[36mTrying to understand if this fits their needs\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 1914,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m🧠 [3/9]: How much do readers already know about your project?\u001b[22m\r\n\u001b[36m❯ Is a total beginner, starting from scratch\u001b[39m\r\n  Has used similar tools before\r\n  Emergency/troubleshooting\r\n  Is evaluating this tool against others\r\n\r\n\u001b[36mNew to this domain/technology entirely\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 1024,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m🧠 [3/9]: How much do readers already know about your project?\u001b[22m\r\n\u001b[22m\u001b[36mIs a total beginner, starting from scratch\u001b[39m\u001b[42G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m📊 [4/9]: How detailed should your documentation be?\u001b[22m\r\n\u001b[36m❯ Essential only\u001b[39m\r\n  Balanced coverage\r\n  Comprehensive\r\n  Let AI decide\r\n\r\n\u001b[36mCover the 80% use cases, keep it concise\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 2592,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📊 [4/9]: How detailed should your documentation be?\u001b[22m \u001b[36mEssential\r\n\u001b[23monly\u001b[39m\u001b[4G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m🌐 [5/9]: What's your main documentation language?\u001b[22m\r\n  English (en) - Hello\r\n\u001b[36m❯ 简体中文 (zh) - 你好\u001b[39m\r\n  繁體中文 (zh-TW) - 你好\r\n  日本語 (ja) - こんにちは\r\n  한국어 (ko) - 안녕하세요\r\n  Español (es) - Hola\r\n  Français (fr) - Bonjour\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 1135,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m🌐 [5/9]: What's your main documentation language?\u001b[22m\r\n  العربية (ar) - مرحبا\r\n\u001b[36m❯ English (en) - Hello\u001b[39m\r\n  简体中文 (zh) - 你好\r\n  繁體中文 (zh-TW) - 你好\r\n  日本語 (ja) - こんにちは\r\n  한국어 (ko) - 안녕하세요\r\n  Español (es) - Hola\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 853,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m🌐 [5/9]: What's your main documentation language?\u001b[22m \u001b[36mEnglish (en)\r\n\u001b[23m- Hello\u001b[39m\u001b[8G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1m🔄 [6/9]: Which languages should we translate to?\u001b[22m (Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m\r\n\u001b[23m to select, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert selection, and\r\n\u001b[23m\u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n\u001b[36m❯◯ 简体中文 (zh) - 你好\u001b[39m\r\n ◯ 繁體中文 (zh-TW) - 你好\r\n ◯ 日本語 (ja) - こんにちは\r\n ◯ 한국어 (ko) - 안녕하세요\r\n ◯ Español (es) - Hola\r\n ◯ Français (fr) - Bonjour\r\n ◯ Deutsch (de) - Hallo\r\n\u001b[2m(Use arrow keys to reveal more choices)\u001b[22m\u001b[?25l\u001b[40G"
+    },
+    {
+      "delay": 4252,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m🔄 [6/9]: Which languages should we translate to?\u001b[22m \u001b[36m\u001b[39m\u001b[53G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 16,
+      "content": "\u001b[?25l\u001b[34m?\u001b[39m \u001b[1m📁 [7/9]: Where should we save your documentation?\u001b[22m\r\n  .aigne/doc-smith/docs\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 1098,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📁 [7/9]: Where should we save your documentation?\u001b[22m\r\n   .aigne/doc-smith/docs\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n🔍 [8/9]: Content Sources\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "What folders/files should we analyze for documentation? (e.g., ./src, ./docs, ./README.md)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "💡 Advanced: Use patterns like src/**/*.js or docs/**/*.md for specific files\r\n💡 Leave empty to scan everything\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mFile/folder path or pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[2A\u001b[32G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mFile/folder path or pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\r\n\u001b[36mPress Enter to finish\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[4A\u001b[32G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mFile/folder path or pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\r\n\u001b[36mPress Enter to finish\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[4A\u001b[32G"
+    },
+    {
+      "delay": 1467,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mFile/folder path or pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\r\n\u001b[36mPress Enter to finish\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[4A\u001b[32G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mFile/folder path or pattern:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ \u001b[39m\r\n\r\n\u001b[36mPress Enter to finish\u001b[39m\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[4A\u001b[32G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[4B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mFile/folder path or pattern:\u001b[22m \u001b[36m\u001b[39m\u001b[32G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 9,
+      "content": "\u001b[?25l\u001b[34m?\u001b[39m \u001b[1m📋 [9/9]: Any custom rules or requirements for your \u001b[22m\r\n  \u001b[1mdocumentation? (Optional, press Enter to skip)\u001b[22m \u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 2095,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📋 [9/9]: Any custom rules or requirements for your \u001b[22m\r\n   \u001b[1mdocumentation? (Optional, press Enter to skip)\u001b[22m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 24,
+      "content": "No git repository found, using current directory name\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n✅ Setup complete! Configuration saved to: \u001b[36m.aigne/doc-smith/config.yaml\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[36m---\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[36m# Project information for documentation publishing\u001b[39m\r\n\u001b[36mprojectName: doc-demo\u001b[39m\r\n\u001b[36mprojectDesc: \"\"\u001b[39m\r\n\u001b[36mprojectLogo: \"\"\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# =============================================================================\u001b[39m\r\n\u001b[36m# Documentation Configuration\u001b[39m\r\n\u001b[36m# =============================================================================\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Purpose: What's the main outcome you want readers to achieve?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   getStarted       - Get started quickly: Help new users go from zero to working in <30 minutes\u001b[39m\r\n\u001b[36m#   completeTasks    - Complete specific tasks: Guide users through common workflows and use cases\u001b[39m\r\n\u001b[36m#   findAnswers      - Find answers fast: Provide searchable reference for all features and APIs\u001b[39m\r\n\u001b[36m#   understandSystem - Understand the system: Explain how it works, why design decisions were made\u001b[39m\r\n\u001b[36m#   solveProblems    - Troubleshoot common iss"
+    },
+    {
+      "delay": 8,
+      "content": "ues: Help users troubleshoot and fix issues\u001b[39m\r\n\u001b[36m#   mixedPurpose     - Serve multiple purposes: Comprehensive documentation covering multiple needs\u001b[39m\r\n\u001b[36mdocumentPurpose:\u001b[39m\r\n\u001b[36m  - getStarted\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Target Audience: Who will be reading this most often?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   endUsers         - End users (non-technical): People who use the product but don't code\u001b[39m\r\n\u001b[36m#   developers       - Developers integrating your product/API: Engineers adding this to their projects\u001b[39m\r\n\u001b[36m#   devops           - DevOps / SRE / Infrastructure teams: Teams deploying, monitoring, maintaining systems\u001b[39m\r\n\u001b[36m#   decisionMakers   - Technical decision makers: Architects, leads evaluating or planning implementation\u001b[39m\r\n\u001b[36m#   supportTeams     - Support teams: People helping others use the product\u001b[39m\r\n\u001b[36m#   mixedTechnical   - Mixed technical audience: Developers, DevOps, and technical users\u001b[39m\r\n\u001b[36mtargetAudienceType"
+    },
+    {
+      "delay": 8,
+      "content": "s:\u001b[39m\r\n\u001b[36m  - developers\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Reader Knowledge Level: What do readers typically know when they arrive?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   completeBeginners    - Is a total beginner, starting from scratch: New to this domain/technology entirely\u001b[39m\r\n\u001b[36m#   domainFamiliar       - Has used similar tools before: Know the problem space, new to this specific solution\u001b[39m\r\n\u001b[36m#   experiencedUsers     - Is an expert trying to do something specific: Regular users needing reference/advanced topics\u001b[39m\r\n\u001b[36m#   emergencyTroubleshooting - Emergency/troubleshooting: Something's broken, need to fix it quickly\u001b[39m\r\n\u001b[36m#   exploringEvaluating  - Is evaluating this tool against others: Trying to understand if this fits their needs\u001b[39m\r\n\u001b[36mreaderKnowledgeLevel: completeBeginners\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Documentation Depth: How comprehensive should the documentation be?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m"
+    },
+    {
+      "delay": 8,
+      "content": "#   essentialOnly      - Essential only: Cover the 80% use cases, keep it concise\u001b[39m\r\n\u001b[36m#   balancedCoverage   - Balanced coverage: Good depth with practical examples [RECOMMENDED]\u001b[39m\r\n\u001b[36m#   comprehensive      - Comprehensive: Cover all features, edge cases, and advanced scenarios\u001b[39m\r\n\u001b[36m#   aiDecide           - Let AI decide: Analyze code complexity and suggest appropriate depth\u001b[39m\r\n\u001b[36mdocumentationDepth: essentialOnly\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Custom Rules: Define specific documentation generation rules and requirements\u001b[39m\r\n\u001b[36mrules: \"\"\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Target Audience: Describe your specific target audience and their characteristics\u001b[39m\r\n\u001b[36mtargetAudience: \"\"\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Glossary: Define project-specific terms and definitions\u001b[39m\r\n\u001b[36m# glossary: \"@glossary.md\"  # Path to markdown file containing glossary definitions\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36mlocale: en\u001b[39m\r\n\u001b[36m# translateLanguages:  # List of languages to translate the documentation to\u001b[39m\r\n\u001b[36m#   - zh  # "
+    },
+    {
+      "delay": 8,
+      "content": "Example: Chinese translation\u001b[39m\r\n\u001b[36m#   - en  # Example: English translation\u001b[39m\r\n\u001b[36mdocsDir: .aigne/doc-smith/docs  # Directory to save generated documentation\u001b[39m\r\n\u001b[36msourcesPath:  # Source code paths to analyze\u001b[39m\r\n\u001b[36m  - ./\u001b[39m\r\n\u001b[36m# minImageWidth: Only images wider than this value (in pixels) will be used in page generation\u001b[39m\r\n\u001b[36mmedia:\u001b[39m\r\n\u001b[36m  minImageWidth: 800\u001b[39m\r\n\u001b[36m\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[36m---\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "💡 You can edit the configuration file anytime to modify settings.\r\n\r\n🚀 Ready to generate docs? Run: \u001b[36maigne doc generate\u001b[39m\r\n\r\n"
+    },
+    {
+      "delay": 9,
+      "content": "\u001b[33m⠦\u001b[39m generate\r\n  \u001b[33m⠦\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 25,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m3\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 16,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkNeedGenerateStructure \u001b[36mCheck if documentation structure\u001b[39m\r\n    \u001b[36m needs generate or update\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m3\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mProject configured successfully. Generate the documentation \u001b[22m\r\n\u001b[1mstructure now?\u001b[22m\r\n\u001b[36m❯ Yes, generate now\u001b[39m\r\n  No, review configuration first\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 1771,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mProject configured successfully. Generate the documentation \u001b[22m\r\n\u001b[1mstructure now?\u001b[22m \u001b[36mYes, generate now\u001b[39m\u001b[29G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 98,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m checkNeedGenerateStructure \u001b[36mCheck if documentation structure \u001b[39m\r\n    \u001b[36mneeds generate or update\u001b[39m\r\n    \u001b[33m⠏\u001b[39m generateStructureWithoutTools \u001b[36mGenerate the structure of \u001b[39m\r\n      \u001b[36mthe documentation\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 32,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m checkNeedGenerateStructure \u001b[36mCheck if documentation structure \u001b[39m\r\n    \u001b[36mneeds generate or update\u001b[39m\r\n    \u001b[33m⠏\u001b[39m generateStructureWithoutTools \u001b[36mGenerate the structure of \u001b[39m\r\n      \u001b[36mthe documentation\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput \u001b[39m\r\n      \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 12,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m checkNeedGenerateStructure \u001b[36mCheck if documentation structure \u001b[39m\r\n    \u001b[36mneeds generate or update\u001b[39m\r\n    \u001b[32m✔\u001b[39m generateStructureWithoutTools \u001b[36mGenerate the structure of \u001b[39m\r\n      \u001b[36mthe documentation\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput \u001b[39m\r\n      \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 21,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 8,
+      "content": "No git repository found, using current directory name\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[33m⠏\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m checkNeedGenerateStructure \u001b[36mCheck if documentation structure \u001b[39m\r\n    \u001b[36mneeds generate or update\u001b[39m \u001b[90m[36.59s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m generateStructureWithoutTools \u001b[36mGenerate the structure of \u001b[39m\r\n      \u001b[36mthe documentation\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput \u001b[39m\r\n      \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkNeedGenerateStructure \u001b[36mCheck if documentation structure\u001b[39m\r\n    \u001b[36m needs generate or update\u001b[39m \u001b[90m[36.59s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m generateStructureWithoutTools \u001b[36mGenerate the structure of \u001b[39m\r\n      \u001b[36mthe documentation\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput \u001b[39m\r\n      \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 11,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkNeedGenerateStructure \u001b[36mCheck if documentation structure\u001b[39m\r\n    \u001b[36m needs generate or update\u001b[39m \u001b[90m[36.59s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m generateStructureWithoutTools \u001b[36mGenerate the structure of \u001b[39m\r\n      \u001b[36mthe documentation\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput \u001b[39m\r\n      \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[2m◼\u001b[22m userReviewDocumentStructure \u001b[36mUser review and modify \u001b[39m\r\n    \u001b[36mdocumentation structure\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m7\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\r\n  --------------------------------------------------\r\n  Current Documentation Structure\r\n  --------------------------------------------------\r\n  📁 Overview\r\n  📁 Getting Started\r\n  📁 Core Concepts\r\n    📄 Understanding DIDs\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "    📄 Managing DIDs\r\n    📄 Privacy and Security\r\n  📁 Authentication Protocol\r\n    📄 Authentication Flow\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "    📄 Verifiable Claims\r\n  📁 API Reference\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📁 Appendices\r\n    📄 DID Role Types\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "    📄 Hash Algorithms\r\n    📄 DSA Algorithms\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "    📄 Profile Items\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mWould you like to optimize the documentation structure?\u001b[22m\r\n\u001b[36m❯ No, looks good\u001b[39m\r\n  Yes, optimize the structure (e.g. rename 'Getting Started' to\r\n'Quick Start', move 'API Reference' before 'Configuration')\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 3115,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mWould you like to optimize the documentation structure?\u001b[22m \u001b[36mNo, \u001b[39m\r\n\u001b[36mlooks good\u001b[39m\u001b[7G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[33m⠙\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkNeedGenerateStructure \u001b[36mCheck if documentation structure\u001b[39m\r\n    \u001b[36m needs generate or update\u001b[39m \u001b[90m[36.59s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m generateStructureWithoutTools \u001b[36mGenerate the structure of \u001b[39m\r\n      \u001b[36mthe documentation\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput \u001b[39m\r\n      \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[33m⠙\u001b[39m userReviewDocumentStructure \u001b[36mUser review and modify \u001b[39m\r\n    \u001b[36mdocumentation structure\u001b[39m \u001b[90m[3.22s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m8\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 13,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkNeedGenerateStructure \u001b[36mCheck if documentation structure\u001b[39m\r\n    \u001b[36m needs generate or update\u001b[39m \u001b[90m[36.59s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m generateStructureWithoutTools \u001b[36mGenerate the structure of \u001b[39m\r\n      \u001b[36mthe documentation\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput \u001b[39m\r\n      \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m userReviewDocumentStructure \u001b[36mUser review and modify \u001b[39m\r\n    \u001b[36mdocumentation structure\u001b[39m \u001b[90m[3.22s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m8\u001b[39m \u001b[90ma"
+    },
+    {
+      "delay": 8,
+      "content": "gent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 105,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[36m update\u001b[39m \u001b[90m[14.18s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDoc"
+    },
+    {
+      "delay": 8,
+      "content": "umentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m890382\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m46392\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1168734\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m275\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 85,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[36m update\u001b[39m \u001b[90m[14.18s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDoc"
+    },
+    {
+      "delay": 8,
+      "content": "umentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m275\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 33,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[36m update\u001b[39m \u001b[90m[14.18s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDoc"
+    },
+    {
+      "delay": 8,
+      "content": "umentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m276\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 24,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[36m update\u001b[39m \u001b[90m[14.18s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDoc"
+    },
+    {
+      "delay": 8,
+      "content": "umentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m277\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 126,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[36m update\u001b[39m \u001b[90m[14.18s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDoc"
+    },
+    {
+      "delay": 8,
+      "content": "umentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m278\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 90,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[36m update\u001b[39m \u001b[90m[14.18s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDoc"
+    },
+    {
+      "delay": 8,
+      "content": "umentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m279\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 173,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39"
+    },
+    {
+      "delay": 8,
+      "content": "m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m279\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39"
+    },
+    {
+      "delay": 8,
+      "content": "m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m280\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 10,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39"
+    },
+    {
+      "delay": 8,
+      "content": "m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m280\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 67,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39"
+    },
+    {
+      "delay": 8,
+      "content": "m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m280\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 18,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90m"
+    },
+    {
+      "delay": 8,
+      "content": "model\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[2m◼\u001b[22m saveDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m280\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 17,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 8,
+      "content": "Failed to get git HEAD: Command failed: git rev-parse HEAD\r\n"
+    },
+    {
+      "delay": 10,
+      "content": "        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[3"
+    },
+    {
+      "delay": 8,
+      "content": "9m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[2m◼\u001b[22m saveDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m281\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90m"
+    },
+    {
+      "delay": 8,
+      "content": "model\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[33m⠋\u001b[39m saveDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m281\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 31,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90m"
+    },
+    {
+      "delay": 8,
+      "content": "model\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[33m⠙\u001b[39m saveDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m281\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 9,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90m"
+    },
+    {
+      "delay": 8,
+      "content": "model\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[33m⠙\u001b[39m saveDocs \u001b[90m[0.08s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m281\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 41,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90m"
+    },
+    {
+      "delay": 8,
+      "content": "model\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[32m✔\u001b[39m saveDocs \u001b[90m[0.08s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub\u001b[39m\r\n\u001b[90m credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m281\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 23,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minpu"
+    },
+    {
+      "delay": 8,
+      "content": "t \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[32m✔\u001b[39m saveDocs \u001b[90m[0.08s]\u001b[39m\r\n\r\n\u001b[0m💡 Optional: Update specific document (\u001b[33maigne doc update\u001b[39m) or refine\r\n documentation structure (\u001b[33maigne doc generate\u001b[39m)\u001b[0m\r\n\u001b[0m  \u001b[0m\r\n⠙\r\n"
+    },
+    {
+      "delay": 83,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[32m✔\u001b[39m generate \u001b[90m[5m48.81s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[30.97s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkNeedGenerateStructure \u001b[36mCheck if documentation structure\u001b[39m\r\n    \u001b[36m needs generate or update\u001b[39m \u001b[90m[36.59s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m generateStructureWithoutTools \u001b[36mGenerate the structure of \u001b[39m\r\n      \u001b[36mthe documentation\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m12900\u001b[39m \u001b[90minput \u001b[39m\r\n      \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1422\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21432\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m userReviewDocumentStructure \u001b[36mUser review and modify \u001b[39m\r\n    \u001b[36mdocumentation structure\u001b[39m \u001b[90m[3.22s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchGenerateDocument \u001b[90m[4m37.61s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Overview' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[1m5.99s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[1m5.79s]\u001b[39m\r\n       "
+    },
+    {
+      "delay": 8,
+      "content": " \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[1m5.59s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m62880\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m,\u001b[39m\r\n            \u001b[32m \u001b[39m\u001b[36m2370\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m77100\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Getting Started' needs generate \u001b[39m\r\n      \u001b[36mor update\u001b[39m \u001b[90m[1m39.92s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[1m39.66s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[1m39.49s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Getting Started'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m66326\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m5834\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b["
+    },
+    {
+      "delay": 8,
+      "content": "39m\u001b[34m101330\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Core Concepts' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[19.57s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[19.29s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[19.2s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'Core\u001b[39m\r\n            \u001b[36m Concepts'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24865\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m,\u001b[39m\r\n            \u001b[32m \u001b[39m\u001b[36m378\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27133\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.02s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Understanding DIDs' needs \u001b[39m\r\n      \u001b[36mgenerate or update\u001b[39m \u001b[90m[2m10.16s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[2m9.77s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdat"
+    },
+    {
+      "delay": 8,
+      "content": "e \u001b[90m[2m9.59s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Understanding DIDs'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m63296\u001b[39m\r\n            \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m9891\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m122642\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Managing DIDs' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[4m37.55s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[4m37.1s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[4m36.92s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Managing DIDs'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m188335\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m7231\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m231721"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Privacy and Security' needs \u001b[39m\r\n      \u001b[36mgenerate or update\u001b[39m \u001b[90m[1m8.68s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[1m8.16s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[1m7.95s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Privacy and Security'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m63170\u001b[39m\r\n            \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m2768\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m79778\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Authentication Protocol' needs \u001b[39m\r\n      \u001b[36mgenerate or update\u001b[39m \u001b[90m[1m26.19s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[1m25.61s]\u001b[39m\r\n        \u001b[32m✔\u001b"
+    },
+    {
+      "delay": 8,
+      "content": "[39m handleDocumentUpdate \u001b[90m[1m25.44s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Authentication Protocol'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\r\n            \u001b[32m\u001b[39m\u001b[33m90021\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3606\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m111657\u001b[39m \u001b[90mAIGNE \u001b[39m\r\n            \u001b[90mHub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Authentication Flow' needs \u001b[39m\r\n      \u001b[36mgenerate or update\u001b[39m \u001b[90m[3m8.52s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[3m7.87s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[3m7.7s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Authentication Flow'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m131644\u001b[39m\r\n            \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m8300\u001b[39m \u001b[90mou"
+    },
+    {
+      "delay": 8,
+      "content": "tput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m181444\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Verifiable Claims' needs generate\u001b[39m\r\n      \u001b[36m or update\u001b[39m \u001b[90m[37.77s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[37.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[36.95s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Verifiable Claims'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24881\u001b[39m\r\n            \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m2454\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m39605\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.03s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'API Reference' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[1m17.93s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocu"
+    },
+    {
+      "delay": 8,
+      "content": "ment \u001b[90m[1m17.14s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[1m16.96s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'API \u001b[39m\r\n            \u001b[36mReference'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m63852\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m,\u001b[39m\r\n            \u001b[32m \u001b[39m\u001b[36m3605\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m85482\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Appendices' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[13.02s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[12.97s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[12.85s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Appendices'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24868\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m348\u001b[39m \u001b[90moutp"
+    },
+    {
+      "delay": 8,
+      "content": "ut tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26956\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.03s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'DID Role Types' needs generate or\u001b[39m\r\n      \u001b[36m update\u001b[39m \u001b[90m[11.93s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.85s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.7s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DID \u001b[39m\r\n            \u001b[36mRole Types'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m452\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27576\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Hash Algorithms' needs generate \u001b[39m\r\n      \u001b[36mor update\u001b[39m \u001b[90m[12.08s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.1s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m ha"
+    },
+    {
+      "delay": 8,
+      "content": "ndleDocumentUpdate \u001b[90m[11.83s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'Hash\u001b[39m\r\n            \u001b[36m Algorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24861\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m295\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26631\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'DSA Algorithms' needs generate or\u001b[39m\r\n      \u001b[36m update\u001b[39m \u001b[90m[14.18s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[14.07s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[13.72s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for 'DSA \u001b[39m\r\n            \u001b[36mAlgorithms'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24858\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m266\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26454\u001b[39m \u001b["
+    },
+    {
+      "delay": 8,
+      "content": "90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDocument \u001b[36mCheck if 'Profile Items' needs generate or \u001b[39m\r\n      \u001b[36mupdate\u001b[39m \u001b[90m[11.44s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDocument \u001b[90m[11.33s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m handleDocumentUpdate \u001b[90m[11.1s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m generateDocumentContent \u001b[36mGenerate document for \u001b[39m\r\n            \u001b[36m'Profile Items'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m24864\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[32m✔\u001b[39m saveDocs \u001b[90m[0.08s]\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m916485\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m49694\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m1214649\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m281\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Documentation generated successfully! (\u001b[33m15\u001b[39m documents → \u001b[33m.aigne/doc-smith/docs\u001b[39m)\u001b[0m\r\n\r\n\u001b[32m\u001b[1m## Project Information Updated\u001b[22m\u001b[39m\r\n\r\n\u001b[0mSaved to \u001b[33m.aigne/doc-smith/config.yaml\u001b[39m:\u001b[0m\r\n\r\n\u001b[0mProject name: \u001b[33mABT DID\u001b[39m\u001b[0m\r\n\u001b[0mProject description: \u001b[33mABT DID is a specification for a decentralized identity and authentication protocol. It enables secure, peer-to-peer interactions between user wallets and decentralized applications (DApps) using verifiable claims and blockchain-based trust.\u001b[39m\u001b[0m\r\n\r\n\u001b[0m🚀 Next: Make your documentation live and generate a shareable link, run: \u001b[33maigne doc publish\u001b[39m\u001b[0m\r\n\u001b[0m💡 Optional: Update specific document (\u001b[33maigne doc update\u001b[39m) or refine documentation structure (\u001b[33maigne d"
+    },
+    {
+      "delay": 8,
+      "content": "oc generate\u001b[39m)\u001b[0m\r\n\u001b[0m  \u001b[0m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[1m\u001b[7m\u001b[27m\u001b[1m\u001b[0m                                                                 \r \r"
     },
     {
       "delay": 8,
@@ -82,475 +862,7 @@
     },
     {
       "delay": 8,
-      "content": "\r\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[01;32m➜  \u001b[36mdoc-demo\u001b[00m \u001b[K\u001b[?1h\u001b=\u001b[?2004h"
-    },
-    {
-      "delay": 782,
-      "content": "a"
-    },
-    {
-      "delay": 184,
-      "content": "\bai"
-    },
-    {
-      "delay": 106,
-      "content": "g"
-    },
-    {
-      "delay": 86,
-      "content": "n"
-    },
-    {
-      "delay": 123,
-      "content": "e"
-    },
-    {
-      "delay": 144,
-      "content": " "
-    },
-    {
-      "delay": 322,
-      "content": "d"
-    },
-    {
-      "delay": 89,
-      "content": "o"
-    },
-    {
-      "delay": 143,
-      "content": "c"
-    },
-    {
-      "delay": 105,
-      "content": " "
-    },
-    {
-      "delay": 521,
-      "content": "g"
-    },
-    {
-      "delay": 73,
-      "content": "e"
-    },
-    {
-      "delay": 83,
-      "content": "n"
-    },
-    {
-      "delay": 172,
-      "content": "e"
-    },
-    {
-      "delay": 474,
-      "content": "r"
-    },
-    {
-      "delay": 165,
-      "content": "a"
-    },
-    {
-      "delay": 236,
-      "content": "t"
-    },
-    {
-      "delay": 116,
-      "content": "e"
-    },
-    {
-      "delay": 252,
-      "content": "\u001b[?1l\u001b>"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?2004l\r\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b]2;aigne doc generate\u0007\u001b]1;aigne\u0007"
-    },
-    {
-      "delay": 801,
-      "content": "\r\n     \u001b[38;5;111m_\u001b[39m    \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m \u001b[38;5;111m_\u001b[39m   \u001b[38;5;111m_\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\r\n    \u001b[38;5;111m/\u001b[39m \u001b[38;5;111m\\\u001b[39m  \u001b[38;5;111m|\u001b[39m\u001b[38;5;111m_\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m/\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m|\u001b[39m \u001b[38;5;111m\\\u001b[39m \u001b[38;5;111m|\u001b[39m \u001b[38;5;111m|\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;105m_\u001b[39m\u001b[38;5;105m_\u001b[39m\u001b[38;5;105m_\u001b[39m\u001b[38;5;105m|\u001b[39m\r\n   \u001b[38;5;105m/\u001b[39m \u001b[38;5;105m_\u001b[39m \u001b[38;5;105m\\\u001b[39m  \u001b[38;5;105m|\u001b[39m \u001b[38;5;105m|\u001b[39m \u001b[38;5;105m|\u001b[39m  \u001b[38;5;105m_\u001b[39m\u001b[38;5;105m|\u001b[39m  \u001b[38;5;105m\\\u001b[39m\u001b[38;5;105m|\u001b[39m \u001b[38;5;105m|\u001b[39m  \u001b[38;5;105m_\u001b[39m\u001b[38;5;105m|\u001b[39m\r\n  \u001b[38;5;105m/\u001b[39m \u001b[38;5;105m_\u001b[39m\u001b[38;5;105m_\u001b[39m\u001b[38;5;141m_\u001b[39m \u001b[38;5;141m\\\u001b[39m \u001b[38;5;141m|\u001b[39m \u001b[38;5;140m|\u001b[39m \u001b[38;5;140m|\u001b[39m\u001b[38;5;140m_\u001b[39m\u001b[38;5;140m|\u001b[39m \u001b[38;5;140m|"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[39m \u001b[38;5;140m|\u001b[39m\u001b[38;5;140m\\\u001b[39m  \u001b[38;5;140m|\u001b[39m \u001b[38;5;140m|\u001b[39m\u001b[38;5;140m_\u001b[39m\u001b[38;5;140m_\u001b[39m\u001b[38;5;140m_\u001b[39m\r\n \u001b[38;5;140m/\u001b[39m\u001b[38;5;140m_\u001b[39m\u001b[38;5;176m/\u001b[39m   \u001b[38;5;176m\\\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m\\\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m\\\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m|\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m|\u001b[39m \u001b[38;5;176m\\\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;212m|\u001b[39m\u001b[38;5;212m_\u001b[39m\u001b[38;5;212m_\u001b[39m\u001b[38;5;211m_\u001b[39m\u001b[38;5;211m_\u001b[39m\u001b[38;5;211m_\u001b[39m\u001b[38;5;211m|\u001b[39m\r\n\r\n\u001b[36m            v1.38.1\u001b[39m\r\n\r\n\r\n"
-    },
-    {
-      "delay": 976,
-      "content": "\u001b[34m?\u001b[39m \u001b[1mSeems no API Key configured for google/gemini-2.5-pro, select\u001b[22m\r\n\u001b[1m your preferred way to continue:\u001b[22m \u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m❯ Connect to AIGNE Hub to use gemini-2.5-pro (Recommended since\u001b[39m\r\n\u001b[36m free credits available)\u001b[39m\r\n  Exit and bring my owner API Key by set GEMINI_API_KEY,\r\nGOOGLE_API_KEY\u001b[?25l\u001b[15G"
-    },
-    {
-      "delay": 903,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mSeems no API Key configured for google/gemini-2.5-pro, select\u001b[22m\r\n\u001b[1m your preferred way to continue:\u001b[22m \u001b[36mConnect to AIGNE Hub to use \u001b[39m\r\n\u001b[36mgemini-2.5-pro (Recommended since free credits available)\u001b[39m\u001b[56G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[90mTIPS:\u001b[39m run \u001b[36maigne observe\u001b[39m to start the observability server.\r\n\r\n"
-    },
-    {
-      "delay": 654,
-      "content": "\u001b[36m+-----------------------------------+\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mProvider\u001b[39m: \u001b[32mAIGNEHub\u001b[39m              \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mModel\u001b[39m: \u001b[32mgoogle/gemini-2.5-pro\u001b[39m    \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI URL\u001b[39m: \u001b[32mhttps://hub.aigne.io\u001b[39m   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI Key\u001b[39m: \u001b[32mbloc********vreR\u001b[39m       \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m+-----------------------------------+\u001b[39m\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n"
-    },
-    {
-      "delay": 10,
-      "content": "🚀 Welcome to AIGNE DocSmith!\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "Let's create your documentation configuration.\r\n\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?25l"
-    },
-    {
-      "delay": 96,
-      "content": "\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[34m?\u001b[39m \u001b[1m📝 Step 1/8: What's the main outcome you want readers to\r\n\u001b[22machieve? (Select all that apply)\u001b[22m (Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m to select, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m\r\n\u001b[23mto toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert selection, and \u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n\u001b[36m❯◯ Get started quickly\u001b[39m\r\n ◯ Complete specific tasks\r\n ◯ Find answers fast\r\n ◯ Understand the system\r\n ◯ Solve problems\r\n ◯ Mix of above\r\n\u001b[36mHelp new users go from zero to working in <30 minutes\u001b[39m\u001b[?25l\u001b[54G"
-    },
-    {
-      "delay": 1905,
-      "content": "\u001b[55G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m📝 Step 1/8: What's the main outcome you want readers to\r\n\u001b[22machieve? (Select all that apply)\u001b[22m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Get started quickly\u001b[39m\r\n ◯ Complete specific tasks\r\n ◯ Find answers fast\r\n ◯ Understand the system\r\n ◯ Solve problems\r\n ◯ Mix of above\r\n\u001b[36mHelp new users go from zero to working in <30 minutes\u001b[39m\u001b[?25l\u001b[54G"
-    },
-    {
-      "delay": 1709,
-      "content": "\u001b[53G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📝 Step 1/8: What's the main outcome you want readers to\r\n\u001b[22machieve? (Select all that apply)\u001b[22m \u001b[36mGet started quickly\u001b[39m\u001b[49G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?25l"
-    },
-    {
-      "delay": 102,
-      "content": "\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[34m?\u001b[39m \u001b[1m👥 Step 2/8: Who will be reading this most often? (Select all\r\n\u001b[22m that apply)\u001b[22m (Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m to select, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m\r\n\u001b[23mto invert selection, and \u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n\u001b[36m❯◯ End users (non-technical)\u001b[39m\r\n ◯ Developers integrating\r\n ◯ DevOps/Infrastructure\r\n ◯ Technical decision makers\r\n ◯ Support teams\r\n ◯ Mixed technical audience\r\n\u001b[36mPeople who use the product but don't code\u001b[39m\u001b[?25l\u001b[42G"
-    },
-    {
-      "delay": 1241,
-      "content": "\u001b[43G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m👥 Step 2/8: Who will be reading this most often? (Select all\r\n\u001b[22m that apply)\u001b[22m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m End users (non-technical)\u001b[39m\r\n ◯ Developers integrating\r\n ◯ DevOps/Infrastructure\r\n ◯ Technical decision makers\r\n ◯ Support teams\r\n ◯ Mixed technical audience\r\n\u001b[36mPeople who use the product but don't code\u001b[39m\u001b[?25l\u001b[42G"
-    },
-    {
-      "delay": 716,
-      "content": "\u001b[41G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m👥 Step 2/8: Who will be reading this most often? (Select all\r\n\u001b[22m that apply)\u001b[22m \u001b[36mEnd users (non-technical)\u001b[39m\u001b[39G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?25l"
-    },
-    {
-      "delay": 102,
-      "content": "\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[34m?\u001b[39m \u001b[1m🧠 Step 3/8: What do readers typically know when they arrive?\u001b[22m\r\n\u001b[22m \u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m❯ Complete beginners\u001b[39m\r\n  Domain-familiar, tool-new\r\n  Emergency/troubleshooting\r\n  Exploring/evaluating\r\n\u001b[36mNew to this domain/technology entirely\u001b[39m\u001b[?25l\u001b[39G"
-    },
-    {
-      "delay": 1492,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m🧠 Step 3/8: What do readers typically know when they arrive?\u001b[22m\r\n\u001b[22m \u001b[36mComplete beginners\u001b[39m\u001b[20G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?25l"
-    },
-    {
-      "delay": 103,
-      "content": "\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[34m?\u001b[39m \u001b[1m📊 Step 4/8: How comprehensive should the documentation be?\u001b[22m\r\n\u001b[22m\u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m❯ Balanced coverage\u001b[39m\r\n  Let AI decide\r\n\u001b[36mGood depth with practical examples [RECOMMENDED]\u001b[39m\u001b[?25l\u001b[49G"
-    },
-    {
-      "delay": 2833,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📊 Step 4/8: How comprehensive should the documentation be?\u001b[22m\r\n\u001b[22m\u001b[36mBalanced coverage\u001b[39m\u001b[17G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?25l"
-    },
-    {
-      "delay": 103,
-      "content": "\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[34m?\u001b[39m \u001b[1m🌐 Step 5/8: Choose primary documentation language:\u001b[22m\r\n  English (en) - Hello\r\n\u001b[36m❯ 简体中文 (zh) - 你好\u001b[39m\r\n  繁體中文 (zh-TW) - 你好\r\n  日本語 (ja) - こんにちは\r\n  한국어 (ko) - 안녕하세요\r\n  Español (es) - Hola\r\n  Français (fr) - Bonjour\r\n\u001b[2m(Use arrow keys to reveal more choices)\u001b[22m\u001b[?25l\u001b[40G"
-    },
-    {
-      "delay": 2167,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m🌐 Step 5/8: Choose primary documentation language:\u001b[22m\r\n  العربية (ar) - مرحبا\r\n\u001b[36m❯ English (en) - Hello\u001b[39m\r\n  简体中文 (zh) - 你好\r\n  繁體中文 (zh-TW) - 你好\r\n  日本語 (ja) - こんにちは\r\n  한국어 (ko) - 안녕하세요\r\n  Español (es) - Hola\u001b[?25l\u001b[22G"
-    },
-    {
-      "delay": 1001,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m🌐 Step 5/8: Choose primary documentation language:\u001b[22m \u001b[36mEnglish\r\n\u001b[23m(en) - Hello\u001b[39m\u001b[12G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?25l"
-    },
-    {
-      "delay": 101,
-      "content": "\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[34m?\u001b[39m \u001b[1m🔄 Step 6/8: Select translation languages:\u001b[22m (Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m to\r\n\u001b[23mselect, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to toggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert selection, and \u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m\r\n\u001b[23m to proceed)\r\n\u001b[36m❯◯ 简体中文 (zh) - 你好\u001b[39m\r\n ◯ 繁體中文 (zh-TW) - 你好\r\n ◯ 日本語 (ja) - こんにちは\r\n ◯ 한국어 (ko) - 안녕하세요\r\n ◯ Español (es) - Hola\r\n ◯ Français (fr) - Bonjour\r\n ◯ Deutsch (de) - Hallo\r\n\u001b[2m(Use arrow keys to reveal more choices)\u001b[22m\u001b[?25l\u001b[40G"
-    },
-    {
-      "delay": 1285,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m🔄 Step 6/8: Select translation languages:\u001b[22m \u001b[36m\u001b[39m\u001b[46G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?25l"
-    },
-    {
-      "delay": 102,
-      "content": "\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[34m?\u001b[39m \u001b[1m📁 Step 7/8: Where to save generated docs:\u001b[22m\r\n\u001b[22m\u001b[2m(.aigne/doc-smith/docs)\u001b[22m\u001b[7G"
-    },
-    {
-      "delay": 795,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m📁 Step 7/8: Where to save generated docs:\u001b[22m\r\n\u001b[22m\u001b[2m(.aigne/doc-smith/docs)\u001b[22m\u001b[7G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1m📁 Step 7/8: Where to save generated docs:\u001b[22m\r\n\u001b[22m.aigne/doc-smith/docs\u001b[4G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1m📁 Step 7/8: Where to save generated docs:\u001b[22m\r\n\u001b[22m\u001b[36m.aigne/doc-smith/docs\u001b[39m\u001b[4G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?25l"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n🔍 Step 8/8: Source Code Paths\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "Enter paths to analyze for documentation (e.g., ./src, ./lib)\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "💡 If no paths are configured, './' will be used as default\r\n"
-    },
-    {
-      "delay": 102,
-      "content": "\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[34m?\u001b[39m \u001b[1mPath:\u001b[22m \u001b[36m\u001b[39m\u001b[9G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ Press Enter to finish\u001b[39m\u001b[1A\u001b[9G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[1B\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ Press Enter to finish\u001b[39m\u001b[1A\u001b[9G"
-    },
-    {
-      "delay": 1310,
-      "content": "\u001b[1B\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ Press Enter to finish\u001b[39m\u001b[1A\u001b[9G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[1B\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mPath:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯ Press Enter to finish\u001b[39m\u001b[1A\u001b[9G"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[1B\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mPath:\u001b[22m \u001b[36mPress Enter to finish\u001b[39m\u001b[30G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[?25l"
-    },
-    {
-      "delay": 27,
-      "content": "No git repository found, using current directory name\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n🎉 Configuration saved to: \u001b[36m.aigne/doc-smith/config.yaml\u001b[39m\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[36m---\u001b[39m\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[36m# Project information for documentation publishing\u001b[39m\r\n\u001b[36mprojectName: doc-demo\u001b[39m\r\n\u001b[36mprojectDesc: \u001b[39m\r\n\u001b[36mprojectLogo: \u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# =============================================================================\u001b[39m\r\n\u001b[36m# Documentation Configuration\u001b[39m\r\n\u001b[36m# =============================================================================\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Purpose: What's the main outcome you want readers to achieve?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   getStarted       - Get started quickly: Help new users go from zero to working in <30 minutes\u001b[39m\r\n\u001b[36m#   completeTasks    - Complete specific tasks: Guide users through common workflows and use cases\u001b[39m\r\n\u001b[36m#   findAnswers      - Find answers fast: Provide searchable reference for all features and APIs\u001b[39m\r\n\u001b[36m#   understandSystem - Understand the system: Explain how it works, why design decisions were made\u001b[39m\r\n\u001b[36m#   solveProblems    - Solve problems: Help users "
-    },
-    {
-      "delay": 8,
-      "content": "troubleshoot and fix issues\u001b[39m\r\n\u001b[36m#   mixedPurpose     - Mix of above: Comprehensive documentation covering multiple needs\u001b[39m\r\n\u001b[36mdocumentPurpose:\u001b[39m\r\n\u001b[36m  - getStarted\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Target Audience: Who will be reading this most often?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   endUsers         - End users (non-technical): People who use the product but don't code\u001b[39m\r\n\u001b[36m#   developers       - Developers integrating: Engineers adding this to their projects\u001b[39m\r\n\u001b[36m#   devops           - DevOps/Infrastructure: Teams deploying, monitoring, maintaining systems\u001b[39m\r\n\u001b[36m#   decisionMakers   - Technical decision makers: Architects, leads evaluating or planning implementation\u001b[39m\r\n\u001b[36m#   supportTeams     - Support teams: People helping others use the product\u001b[39m\r\n\u001b[36m#   mixedTechnical   - Mixed technical audience: Developers, DevOps, and technical users\u001b[39m\r\n\u001b[36mtargetAudienceTypes:\u001b[39m\r\n\u001b[36m  - endUsers\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Reader"
-    },
-    {
-      "delay": 8,
-      "content": " Knowledge Level: What do readers typically know when they arrive?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   completeBeginners    - Complete beginners: New to this domain/technology entirely\u001b[39m\r\n\u001b[36m#   domainFamiliar       - Domain-familiar, tool-new: Know the problem space, new to this specific solution\u001b[39m\r\n\u001b[36m#   experiencedUsers     - Experienced users: Regular users needing reference/advanced topics\u001b[39m\r\n\u001b[36m#   emergencyTroubleshooting - Emergency/troubleshooting: Something's broken, need to fix it quickly\u001b[39m\r\n\u001b[36m#   exploringEvaluating  - Exploring/evaluating: Trying to understand if this fits their needs\u001b[39m\r\n\u001b[36mreaderKnowledgeLevel: completeBeginners\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Documentation Depth: How comprehensive should the documentation be?\u001b[39m\r\n\u001b[36m# Available options (uncomment and modify as needed):\u001b[39m\r\n\u001b[36m#   essentialOnly      - Essential only: Cover the 80% use cases, keep it concise\u001b[39m\r\n\u001b[36m#   balancedCoverage   - Balanced covera"
-    },
-    {
-      "delay": 8,
-      "content": "ge: Good depth with practical examples [RECOMMENDED]\u001b[39m\r\n\u001b[36m#   comprehensive      - Comprehensive: Cover all features, edge cases, and advanced scenarios\u001b[39m\r\n\u001b[36m#   aiDecide           - Let AI decide: Analyze code complexity and suggest appropriate depth\u001b[39m\r\n\u001b[36mdocumentationDepth: balancedCoverage\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Custom Rules: Define specific documentation generation rules and requirements\u001b[39m\r\n\u001b[36mrules: |\u001b[39m\r\n\u001b[36m  \u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Target Audience: Describe your specific target audience and their characteristics\u001b[39m\r\n\u001b[36mtargetAudience: |\u001b[39m\r\n\u001b[36m  \u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36m# Glossary: Define project-specific terms and definitions\u001b[39m\r\n\u001b[36m# glossary: \"@glossary.md\"  # Path to markdown file containing glossary definitions\u001b[39m\r\n\u001b[36m\u001b[39m\r\n\u001b[36mlocale: en\u001b[39m\r\n\u001b[36m# translateLanguages:  # List of languages to translate the documentation to\u001b[39m\r\n\u001b[36m#   - zh  # Example: Chinese translation\u001b[39m\r\n\u001b[36m#   - en  # Example: English translation\u001b[39m\r\n\u001b[36mdocsDir: .ai"
-    },
-    {
-      "delay": 8,
-      "content": "gne/doc-smith/docs  # Directory to save generated documentation\u001b[39m\r\n\u001b[36msourcesPath:  # Source code paths to analyze\u001b[39m\r\n\u001b[36m  - ./\u001b[39m\r\n\u001b[36m\u001b[39m\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[36m---\u001b[39m\r\n💡 You can edit the configuration file anytime to modify settings.\r\n\r\n🚀 Run \u001b[36m'aigne doc generate'\u001b[39m to start documentation generation!\r\n\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[33m⠙\u001b[39m generate\r\n  \u001b[33m⠙\u001b[39m init \u001b[90m[17.35s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m generate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[17.35s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
-    },
-    {
-      "delay": 32,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'API \u001b[39m\r\n            \u001b[36mReference'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17613\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1191\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m24759\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Appendix' needs regeneration\u001b[39m\r\n      \u001b[90m[20.61s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[20.49s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[20.41s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Appendix'\u001b[39m\r\n            \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17608\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m959\u001b[39"
-    },
-    {
-      "delay": 8,
-      "content": "m\r\n            \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m23362\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m saveDocs \u001b[90m[0.08s]\u001b[39m\r\n\r\n       \u001b[0m\u001b[0m\u001b[0mImprove the overall documentation structure\u001b[0m\u001b[0m\u001b[0m\r\n\r\n\u001b[0m--------------------------------------------------------------\u001b[0m\r\n⠼\r\n"
-    },
-    {
-      "delay": 87,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
-    },
-    {
-      "delay": 10,
-      "content": "\u001b[32m✔\u001b[39m generate \u001b[90m[3m55.1s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[17.35s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkStructurePlan \u001b[36mCheck if structure plan needs \u001b[39m\r\n    \u001b[36mregeneration\u001b[39m \u001b[90m[49.5s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m structurePlanning \u001b[36mPlan the structure of the \u001b[39m\r\n      \u001b[36mdocumentation\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m15084\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m,\u001b[39m\r\n      \u001b[32m \u001b[39m\u001b[36m1953\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m26802\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsDetailGenerate \u001b[90m[2m48.85s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Overview' needs regeneration\u001b[39m\r\n      \u001b[90m[23.81s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[23.77s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[23.76s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m\r\n            \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17612\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m,"
-    },
-    {
-      "delay": 8,
-      "content": " \u001b[39m\u001b[36m470\u001b[39m\r\n            \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m20432\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Getting Started' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[32.88s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[32.8s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[32.78s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting \u001b[39m\r\n            \u001b[36mStarted'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17624\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m862\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m22796\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.02s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Core Concepts' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[25.83s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[25.71s]\u001b[39m\r\n        \u001b[32m"
-    },
-    {
-      "delay": 8,
-      "content": "✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[25.69s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Core \u001b[39m\r\n            \u001b[36mConcepts'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17612\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m585\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21122\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.02s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'What is a DID?' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[30.33s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[30.29s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[30.27s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'What is a \u001b[39m\r\n            \u001b[36mDID?'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17632\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n            \u001b[32m\u001b[39m\u001b[36m923\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m23170\u001b[39m \u001b[90mAIGNE Hub cre"
-    },
-    {
-      "delay": 8,
-      "content": "dits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.02s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'How Authentication Works' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[27.71s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[27.67s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[27.65s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'How \u001b[39m\r\n            \u001b[36mAuthentication Works'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17622\u001b[39m\r\n             \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m865\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m22812\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.02s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Privacy and Security' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[21.92s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[21.88s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[21.85s]\u001b[39m\r\n       "
-    },
-    {
-      "delay": 8,
-      "content": "   \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Privacy and \u001b[39m\r\n            \u001b[36mSecurity'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17618\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m538\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m20846\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.03s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Managing Your Identity' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[25.72s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[25.68s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[25.64s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Managing \u001b[39m\r\n            \u001b[36mYour Identity'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17611\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m463\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m20389\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m"
-    },
-    {
-      "delay": 8,
-      "content": "✔\u001b[39m batchTranslate \u001b[90m[0.03s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Creating and Using DIDs' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[32.3s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[32.25s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[32.2s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Creating and\u001b[39m\r\n            \u001b[36m Using DIDs'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17631\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m772\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m22263\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.03s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Making a DID Public' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[27.88s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[27.82s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[27.77s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for '"
-    },
-    {
-      "delay": 8,
-      "content": "Making a DID\u001b[39m\r\n            \u001b[36m Public'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17628\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m633\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21426\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.03s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Updating and Revoking DIDs' \u001b[39m\r\n      \u001b[36mneeds regeneration\u001b[39m \u001b[90m[20.93s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[20.86s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[20.81s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Updating and\u001b[39m\r\n            \u001b[36m Revoking DIDs'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17635\u001b[39m \u001b[90minput\u001b[39m\r\n            \u001b[90m tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m459\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m20389\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m"
-    },
-    {
-      "delay": 8,
-      "content": "[0.03s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Responding to App Requests' \u001b[39m\r\n      \u001b[36mneeds regeneration\u001b[39m \u001b[90m[24.92s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[24.84s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.79s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Responding \u001b[39m\r\n            \u001b[36mto App Requests'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17619\u001b[39m\r\n            \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m675\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21669\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Sharing Your Profile' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[23.89s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[23.81s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[23.76s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Shari"
-    },
-    {
-      "delay": 8,
-      "content": "ng Your\u001b[39m\r\n            \u001b[36m Profile'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17621\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m610\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21281\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Signing Agreements' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[26.73s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[26.65s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[26.59s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Signing \u001b[39m\r\n            \u001b[36mAgreements'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17621\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m904\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m23045\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail "
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[36mCheck if 'Proving Asset Ownership' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[26.43s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[26.34s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[26.28s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Proving \u001b[39m\r\n            \u001b[36mAsset Ownership'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17629\u001b[39m\r\n            \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m597\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21211\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Approving Transactions' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[26.87s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[26.77s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[26.7s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Approving \u001b[39m\r\n            \u001b[36mTransactions'\u001b[39m \u001b"
-    },
-    {
-      "delay": 8,
-      "content": "[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17622\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m720\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m21942\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.04s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Use Cases' needs regeneration\u001b[39m\r\n      \u001b[90m[20.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[20.35s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[20.28s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Use Cases'\u001b[39m\r\n            \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17606\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m442\u001b[39m\r\n            \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m20258\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Developer Resources' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[18.71s]\u001b[39m\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[18.6s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[18.53s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Developer \u001b[39m\r\n            \u001b[36mResources'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17610\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m440\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m20250\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'API Reference' needs \u001b[39m\r\n      \u001b[36mregeneration\u001b[39m \u001b[90m[31.43s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[31.31s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[31.23s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'API \u001b[39m\r\n            \u001b[36mReference'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17613\u001b[39m \u001b[90minput \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1191\u001b"
-    },
-    {
-      "delay": 8,
-      "content": "[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m24759\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n            \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.05s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m checkDetail \u001b[36mCheck if 'Appendix' needs regeneration\u001b[39m\r\n      \u001b[90m[20.61s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m generateDetail \u001b[90m[20.49s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[20.41s]\u001b[39m\r\n          \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Appendix'\u001b[39m\r\n            \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m17608\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m959\u001b[39m\r\n            \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m23362\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n          \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m saveDocs \u001b[90m[0.08s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m349858\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m15061\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m440224\u001b[39m \u001b[90mAIGNE \u001b[39m\r\n\u001b[90mHub credits\u001b[39m\u001b[32m, \u001b"
-    },
-    {
-      "delay": 8,
-      "content": "[39m\u001b[35m243\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[32m\u001b[1m## ✅ Documentation Generated Successfully!\u001b[22m\u001b[39m\r\n\r\n\u001b[0m  Successfully generated \u001b[1m19\u001b[22m documents and saved to:\u001b[0m\r\n\u001b[0m  \u001b[33m.aigne/doc-smith/docs\u001b[39m\u001b[0m\r\n\r\n\u001b[32m\u001b[1m### Auto-updated Project Info to \u001b[33m.aigne/doc-smith/config.yaml\u001b[39m\u001b[32m\u001b[22m\u001b[39m\r\n\r\n\u001b[0mProject name: \u001b[33mABT DID Protocol Documentation\u001b[39m\u001b[0m\r\n\u001b[0mProject description: \u001b[33mA user-friendly guide to understanding and\u001b[39m\r\n\u001b[33m using the ABT Decentralized Identity (DID) protocol for \u001b[39m\r\n\u001b[33msecure, password-less authentication and data control.\u001b[39m\u001b[0m\r\n\r\n\u001b[32m\u001b[1m### 🚀 Next Steps\u001b[22m\u001b[39m\r\n\r\n    1. \u001b[0m\u001b[0m\u001b[0mPublish Documentation\u001b[0m\u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m    aigne doc publish\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\u001b[0mGet an online preview link to share with your team\u001b[0m\u001b[0m\u001b[0m\r\n\r\n\u001b[32m\u001b[1m### 🔧 Optional Improvements\u001b[22m\u001b[39m\r\n\r\n    1. \u001b[0m\u001b[0m\u001b[0mUpdate Specific Documents\u001b[0m\u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m    aigne doc"
-    },
-    {
-      "delay": 8,
-      "content": " update\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\u001b[0mRegenerate content for specific documents\u001b[0m\u001b[0m\u001b[0m\r\n    2. \u001b[0m\u001b[0m\u001b[0mProvide Structure Feedback\u001b[0m\u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m    aigne doc generate --feedback \u001b[32m\"Your feedback on \u001b[39m\r\n\u001b[32mdocument structure\"\u001b[39m\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\u001b[0mImprove the overall documentation structure\u001b[0m\u001b[0m\u001b[0m\r\n\r\n\u001b[0m--------------------------------------------------------------\u001b[0m\r\n\r\n"
+      "content": "\r\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[01;32m➜  \u001b[36mdoc-demo\u001b[00m \u001b[K"
     }
   ]
 }

@@ -7,7 +7,7 @@
       "SHELL": "/bin/zsh",
       "TERM": "xterm-256color"
     },
-    "cols": 65,
+    "cols": 66,
     "rows": 20,
     "repeat": false,
     "autoplay": true,
@@ -21,7 +21,7 @@
     "maxIdleTime": 2000,
     "frameBox": {
       "type": "floating",
-      "title": "Terminal Recording - 2025/9/3 11:09:24",
+      "title": "Terminal Recording - 2025/10/16 15:17:58",
       "style": {
         "border": "0px black solid"
       }
@@ -66,7 +66,7 @@
   "records": [
     {
       "delay": 8,
-      "content": "\u001b[1m\u001b[7m\u001b[27m\u001b[1m\u001b[0m                                                                \r \r"
+      "content": "\u001b[1m\u001b[7m\u001b[27m\u001b[1m\u001b[0m                                                                 \r \r"
     },
     {
       "delay": 8,
@@ -74,11 +74,7 @@
     },
     {
       "delay": 8,
-      "content": "\u001b]2;nategu@Nate-Mac-Pro\u0007"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b]1;..docs/doc-demo\u0007"
+      "content": "\u001b]2;nategu@Nate-Mac-Pro\u0007\u001b]1;..docs/doc-demo\u0007"
     },
     {
       "delay": 8,
@@ -90,90 +86,86 @@
     },
     {
       "delay": 8,
-      "content": "\u001b[?1h\u001b="
+      "content": "\u001b[?1h\u001b=\u001b[?2004h"
     },
     {
-      "delay": 8,
-      "content": "\u001b[?2004h"
-    },
-    {
-      "delay": 759,
+      "delay": 546,
       "content": "a"
     },
     {
-      "delay": 85,
+      "delay": 156,
       "content": "\bai"
     },
     {
-      "delay": 150,
+      "delay": 121,
       "content": "g"
     },
     {
-      "delay": 93,
+      "delay": 137,
       "content": "n"
     },
     {
-      "delay": 228,
+      "delay": 97,
       "content": "e"
     },
     {
-      "delay": 289,
+      "delay": 200,
       "content": " "
-    },
-    {
-      "delay": 897,
-      "content": "d"
-    },
-    {
-      "delay": 129,
-      "content": "o"
-    },
-    {
-      "delay": 266,
-      "content": "c"
     },
     {
       "delay": 180,
+      "content": "d"
+    },
+    {
+      "delay": 99,
+      "content": "o"
+    },
+    {
+      "delay": 128,
+      "content": "c"
+    },
+    {
+      "delay": 186,
       "content": " "
     },
     {
-      "delay": 428,
+      "delay": 810,
       "content": "t"
     },
     {
-      "delay": 245,
+      "delay": 216,
       "content": "r"
     },
     {
-      "delay": 108,
+      "delay": 128,
       "content": "a"
     },
     {
-      "delay": 239,
+      "delay": 162,
       "content": "n"
     },
     {
-      "delay": 145,
+      "delay": 178,
       "content": "s"
     },
     {
-      "delay": 158,
+      "delay": 205,
       "content": "l"
     },
     {
-      "delay": 385,
+      "delay": 88,
       "content": "a"
     },
     {
-      "delay": 236,
+      "delay": 205,
       "content": "t"
     },
     {
-      "delay": 92,
+      "delay": 74,
       "content": "e"
     },
     {
-      "delay": 157,
+      "delay": 266,
       "content": "\u001b[?1l\u001b>"
     },
     {
@@ -185,23 +177,11 @@
       "content": "\u001b]2;aigne doc translate\u0007\u001b]1;aigne\u0007"
     },
     {
-      "delay": 1335,
-      "content": "\u001b[34m?\u001b[39m \u001b[1mNo API key is configured for google/gemini-2.5-pro, How would \u001b[22m\r\n\u001b[1myou like to proceed?\u001b[22m \u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m❯ Connect to AIGNE Hub to use gemini-2.5-pro (recommended — \u001b[39m\r\n\u001b[36mincludes free credits)\u001b[39m\r\n  Exit and use my own API key (set GEMINI_API_KEY or\r\nGOOGLE_API_KEY)\u001b[?25l\u001b[16G"
-    },
-    {
-      "delay": 812,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mNo API key is configured for google/gemini-2.5-pro, How would \u001b[22m\r\n\u001b[1myou like to proceed?\u001b[22m \u001b[36mConnect to AIGNE Hub to use gemini-2.5-pro \u001b[39m\r\n\u001b[36m(recommended — includes free credits)\u001b[39m\u001b[36G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
+      "delay": 3588,
       "content": "\u001b[90mTIPS:\u001b[39m run \u001b[36maigne observe\u001b[39m to start the observability server.\r\n\r\n"
     },
     {
-      "delay": 741,
+      "delay": 600,
       "content": "\u001b[36m+-----------------------------------+\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mProvider\u001b[39m: \u001b[32mAIGNEHub\u001b[39m              \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mModel\u001b[39m: \u001b[32mgoogle/gemini-2.5-pro\u001b[39m    \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI URL\u001b[39m: \u001b[32mhttps://hub.aigne.io\u001b[39m   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI Key\u001b[39m: \u001b[32mbloc********vreR\u001b[39m       \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m+-----------------------------------+\u001b[39m\r\n"
     },
     {
@@ -209,7 +189,7 @@
       "content": "\r\n"
     },
     {
-      "delay": 17,
+      "delay": 18,
       "content": "\u001b[?25l"
     },
     {
@@ -225,144 +205,256 @@
       "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m translate\r\n  \u001b[2m◼\u001b[22m init\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
     },
     {
-      "delay": 104,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠴\u001b[39m batchTranslate\r\n      \u001b[33m⠴\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m translate\r\n  \u001b[33m⠋\u001b[39m init\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
     },
     {
-      "delay": 103,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠦\u001b[39m batchTranslate\r\n      \u001b[33m⠦\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m translate\r\n  \u001b[33m⠋\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
     },
     {
-      "delay": 100,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠧\u001b[39m batchTranslate\r\n      \u001b[33m⠧\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 43,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m chooseDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m chooseDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m chooseDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
     },
     {
       "delay": 102,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠇\u001b[39m batchTranslate\r\n      \u001b[33m⠇\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+      "content": "\u001b[?25h"
     },
     {
-      "delay": 99,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠏\u001b[39m batchTranslate\r\n      \u001b[33m⠏\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mSelect documents to translate:\u001b[22m \u001b[36m\u001b[39m\r\n\r\n\u001b[2m(Use arrow keys to navigate, ctrl+a to select all)\u001b[22m\u001b[2A\u001b[34G"
     },
     {
-      "delay": 103,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠋\u001b[39m batchTranslate\r\n      \u001b[33m⠋\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+      "delay": 8,
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to translate:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯◯ Overview\u001b[39m\r\n ◯ Getting Started\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[34G"
     },
     {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠙\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠙\u001b[39m batchTranslate\r\n      \u001b[33m⠙\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+      "delay": 8,
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to translate:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯◯ Overview\u001b[39m\r\n ◯ Getting Started\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[34G"
     },
     {
-      "delay": 100,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠹\u001b[39m batchTranslate\r\n      \u001b[33m⠹\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+      "delay": 8,
+      "content": "\u001b[10B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to translate:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Overview\u001b[39m\r\n ◯ Getting Started\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[34G"
     },
     {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠸\u001b[39m batchTranslate\r\n      \u001b[33m⠸\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+      "delay": 8,
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to translate:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Overview\u001b[39m\r\n ◯ Getting Started\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[34G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to translate:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Overview\u001b[39m\r\n ◯ Getting Started\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[34G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to translate:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Overview\u001b[39m\r\n ◯ Getting Started\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[34G"
+    },
+    {
+      "delay": 949,
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mSelect documents to translate:\u001b[22m \u001b[36mOverview\u001b[39m\u001b[42G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
     },
     {
       "delay": 102,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠼\u001b[39m batchTranslate\r\n      \u001b[33m⠼\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+      "content": "\u001b[?25h"
     },
     {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠴\u001b[39m batchTranslate\r\n      \u001b[33m⠴\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "delay": 22,
+      "content": "\u001b[?25l\u001b[34m?\u001b[39m \u001b[1mHow should we improve this document? (Enter to skip, will \u001b[22m\r\n  \u001b[1mauto-update from content sources):\u001b[22m \u001b[7m \u001b[27m\r\n"
     },
     {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠦\u001b[39m batchTranslate\r\n      \u001b[33m⠦\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+      "delay": 8,
+      "content": "\u001b[?25l"
     },
     {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠧\u001b[39m batchTranslate\r\n      \u001b[33m⠧\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+      "delay": 19773,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mHow should we improve this document? (Enter to skip, will \u001b[22m\r\n   \u001b[1mauto-update from content sources):\u001b[22m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[33m⠼\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m chooseLanguage\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m chooseLanguage\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m chooseLanguage\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m chooseLanguage\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m chooseLanguage\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
     },
     {
       "delay": 100,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠇\u001b[39m batchTranslate\r\n      \u001b[33m⠇\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
-    },
-    {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠏\u001b[39m batchTranslate\r\n      \u001b[33m⠏\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
-    },
-    {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠋\u001b[39m batchTranslate\r\n      \u001b[33m⠋\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
-    },
-    {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠙\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠙\u001b[39m batchTranslate\r\n      \u001b[33m⠙\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
-    },
-    {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠹\u001b[39m batchTranslate\r\n      \u001b[33m⠹\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
-    },
-    {
-      "delay": 100,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠸\u001b[39m batchTranslate\r\n      \u001b[33m⠸\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
-    },
-    {
-      "delay": 100,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠼\u001b[39m batchTranslate\r\n      \u001b[33m⠼\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
-    },
-    {
-      "delay": 102,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠴\u001b[39m batchTranslate\r\n      \u001b[33m⠴\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
-    },
-    {
-      "delay": 55,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠴\u001b[39m batchTranslate\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "content": "\u001b[?25h"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m batchDocsTranslate\r\n    \u001b[33m⠴\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "content": "\u001b[34m?\u001b[39m \u001b[1mSelect translation languages:\u001b[22m (Press \u001b[36m\u001b[1m<space>\u001b[22m\u001b[39m to select, \u001b[36m\u001b[1m<a>\u001b[22m\u001b[39m to\r\ntoggle all, \u001b[36m\u001b[1m<i>\u001b[22m\u001b[39m to invert selection, and \u001b[36m\u001b[1m<enter>\u001b[22m\u001b[39m to proceed)\r\n\u001b[36m❯◯ 简体中文 (zh) - 你好\u001b[39m\r\n ◯ 繁體中文 (zh-TW) - 你好\r\n ◯ 日本語 (ja) - こんにちは\r\n ◯ 한국어 (ko) - 안녕하세요\r\n ◯ Español (es) - Hola\r\n ◯ Français (fr) - Bonjour\r\n ◯ Deutsch (de) - Hallo\r\n\u001b[2m(Use arrow keys to reveal more choices)\u001b[22m\u001b[?25l\u001b[40G"
+    },
+    {
+      "delay": 1698,
+      "content": "\u001b[41G"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m batchDocsTranslate\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect translation languages:\u001b[22m\r\n\u001b[36m❯\u001b[32m◉\u001b[36m 简体中文 (zh) - 你好\u001b[39m\r\n ◯ 繁體中文 (zh-TW) - 你好\r\n ◯ 日本語 (ja) - こんにちは\r\n ◯ 한국어 (ko) - 안녕하세요\r\n ◯ Español (es) - Hola\r\n ◯ Français (fr) - Bonjour\r\n ◯ Deutsch (de) - Hallo\u001b[?25l\u001b[24G"
     },
     {
-      "delay": 10,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "delay": 570,
+      "content": "\u001b[23G"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mSelect translation languages:\u001b[22m \u001b[36m简体中文 (zh) - 你好\u001b[39m\u001b[53G"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m17\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "content": "\r\n\u001b[?25h"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[33m⠴\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m17\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "content": "\u001b[?25l"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[33m⠴\u001b[39m checkFeedbackRefiner \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m17\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+      "content": "\u001b[33m⠧\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m17\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
-    },
-    {
-      "delay": 15,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m translate \u001b[90m[40.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Do"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
     },
     {
       "delay": 8,
-      "content": "cument translated successfully\u001b[0m\r\n⠴\r\n"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m batchTranslateDocument\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m translate \u001b[90m[40.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[3"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m batchTranslateDocument\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m7\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
     },
     {
       "delay": 8,
-      "content": "9m\r\n\r\n\u001b[0m✅ Document translated successfully\u001b[0m\r\n⠴\r\n"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchTranslateDocument\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m7\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchTranslateDocument\r\n    \u001b[2m◼\u001b[22m translateMultilingual\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m7\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchTranslateDocument\r\n    \u001b[2m◼\u001b[22m translateMultilingual\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m8\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 22,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m batchTranslateDocument\r\n    \u001b[33m⠹\u001b[39m translateMultilingual\r\n      \u001b[33m⠹\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m14\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 9,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m batchTranslateDocument\r\n    \u001b[33m⠹\u001b[39m translateMultilingual\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m14\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m batchTranslateDocument\r\n    \u001b[33m⠹\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m14\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m batchTranslateDocument\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m14\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 9,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m batchTranslateDocument\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m batchTranslateDocument \u001b[90m[35.88s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchTranslateDocument \u001b[90m[35.88s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchTranslateDocument \u001b[90m[35.88s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchTranslateDocument \u001b[90m[35.88s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m17\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchTranslateDocument \u001b[90m[35.88s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[33m⠸\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m17\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchTranslateDocument \u001b[90m[35.88s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m17\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 9,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m translate \u001b[90m[1m2.96s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchTranslateDocument \u001b[90m[35.88s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Transl"
+    },
+    {
+      "delay": 8,
+      "content": "ation completed\u001b[0m\r\n⠸\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m translate \u001b[90m[1m2.96s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchTranslateDocument \u001b[90m[35.88s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[0m✅ Translation completed\u001b[0m\r\n⠸\r\n"
     },
     {
       "delay": 8,
@@ -370,7 +462,39 @@
     },
     {
       "delay": 8,
-      "content": "\u001b[32m✔\u001b[39m translate \u001b[90m[40.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[4.34s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m languageSelector \u001b[90m[4.86s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsTranslate \u001b[90m[30.69s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[30.66s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m1584\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m632\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m5376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Document translated successfully\u001b[0m\r\n\r\n"
+      "content": "\u001b[32m✔\u001b[39m translate \u001b[90m[1m2.96s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[24.58s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseLanguage \u001b[90m[2.39s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchTranslateDocument \u001b[90m[35.88s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[35.86s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m translate \u001b[36mTranslate 'Overview' to 'zh'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m3193\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1123\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m9931\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Translation completed\u001b[0m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[1m\u001b[7m\u001b[27m\u001b[1m\u001b[0m                                                                 \r \r"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]7;file://Nate-Mac-Pro.local/Users/nategu/work/arcblock/ai-docs/doc-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]2;nategu@Nate-Mac-Pro\u0007\u001b]1;..docs/doc-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]7;file://Nate-Mac-Pro.local/Users/nategu/work/arcblock/ai-docs/doc-demo\u001b\\"
+    },
+    {
+      "delay": 8,
+      "content": "\r\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[01;32m➜  \u001b[36mdoc-demo\u001b[00m "
     }
   ]
 }

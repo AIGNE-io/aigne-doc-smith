@@ -7,7 +7,7 @@
       "SHELL": "/bin/zsh",
       "TERM": "xterm-256color"
     },
-    "cols": 65,
+    "cols": 66,
     "rows": 20,
     "repeat": false,
     "autoplay": true,
@@ -21,7 +21,7 @@
     "maxIdleTime": 2000,
     "frameBox": {
       "type": "floating",
-      "title": "Terminal Recording - 2025/9/3 09:44:30",
+      "title": "Terminal Recording - 2025/10/16 15:14:49",
       "style": {
         "border": "0px black solid"
       }
@@ -66,11 +66,19 @@
   "records": [
     {
       "delay": 8,
+      "content": "\u001b[1m\u001b[7m\u001b[27m\u001b[1m\u001b[0m                                                                 \r \r"
+    },
+    {
+      "delay": 8,
       "content": "\u001b]7;file://Nate-Mac-Pro.local/Users/nategu/work/arcblock/ai-docs/doc-demo\u0007"
     },
     {
       "delay": 8,
-      "content": "\u001b]2;nategu@Nate-Mac-Pro\u0007\u001b]1;..docs/doc-demo\u0007"
+      "content": "\u001b]2;nategu@Nate-Mac-Pro\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]1;..docs/doc-demo\u0007"
     },
     {
       "delay": 8,
@@ -82,54 +90,50 @@
     },
     {
       "delay": 8,
-      "content": "\u001b[?1h\u001b="
+      "content": "\u001b[?1h\u001b=\u001b[?2004h"
     },
     {
-      "delay": 8,
-      "content": "\u001b[?2004h"
-    },
-    {
-      "delay": 611,
+      "delay": 616,
       "content": "a"
     },
     {
-      "delay": 250,
+      "delay": 119,
       "content": "\bai"
     },
     {
-      "delay": 116,
+      "delay": 143,
       "content": "g"
     },
     {
-      "delay": 140,
+      "delay": 116,
       "content": "n"
     },
     {
-      "delay": 121,
+      "delay": 139,
       "content": "e"
     },
     {
-      "delay": 150,
+      "delay": 155,
       "content": " "
     },
     {
-      "delay": 412,
+      "delay": 323,
       "content": "d"
     },
     {
-      "delay": 102,
+      "delay": 75,
       "content": "o"
     },
     {
-      "delay": 128,
+      "delay": 381,
       "content": "c"
     },
     {
-      "delay": 116,
+      "delay": 151,
       "content": " "
     },
     {
-      "delay": 359,
+      "delay": 266,
       "content": "u"
     },
     {
@@ -137,23 +141,23 @@
       "content": "p"
     },
     {
-      "delay": 128,
+      "delay": 123,
       "content": "d"
     },
     {
-      "delay": 82,
+      "delay": 96,
       "content": "a"
     },
     {
-      "delay": 147,
+      "delay": 148,
       "content": "t"
     },
     {
-      "delay": 94,
+      "delay": 84,
       "content": "e"
     },
     {
-      "delay": 494,
+      "delay": 213,
       "content": "\u001b[?1l\u001b>"
     },
     {
@@ -165,27 +169,15 @@
       "content": "\u001b]2;aigne doc update\u0007\u001b]1;aigne\u0007"
     },
     {
-      "delay": 2061,
-      "content": "\u001b[34m?\u001b[39m \u001b[1mNo API key is configured for google/gemini-2.5-pro, How would \u001b[22m\r\n\u001b[1myou like to proceed?\u001b[22m \u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m❯ Connect to AIGNE Hub to use gemini-2.5-pro (recommended — \u001b[39m\r\n\u001b[36mincludes free credits)\u001b[39m\r\n  Exit and use my own API key (set GEMINI_API_KEY or\r\nGOOGLE_API_KEY)\u001b[?25l\u001b[16G"
-    },
-    {
-      "delay": 718,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mNo API key is configured for google/gemini-2.5-pro, How would \u001b[22m\r\n\u001b[1myou like to proceed?\u001b[22m \u001b[36mConnect to AIGNE Hub to use gemini-2.5-pro \u001b[39m\r\n\u001b[36m(recommended — includes free credits)\u001b[39m\u001b[36G"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n\u001b[?25h"
-    },
-    {
-      "delay": 8,
+      "delay": 3838,
       "content": "\u001b[90mTIPS:\u001b[39m run \u001b[36maigne observe\u001b[39m to start the observability server.\r\n\r\n"
     },
     {
-      "delay": 2111,
+      "delay": 1201,
       "content": "\u001b[36m+-----------------------------------+\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mProvider\u001b[39m: \u001b[32mAIGNEHub\u001b[39m              \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mModel\u001b[39m: \u001b[32mgoogle/gemini-2.5-pro\u001b[39m    \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI URL\u001b[39m: \u001b[32mhttps://hub.aigne.io\u001b[39m   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI Key\u001b[39m: \u001b[32mbloc********vreR\u001b[39m       \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m+-----------------------------------+\u001b[39m\r\n\r\n"
     },
     {
-      "delay": 25,
+      "delay": 21,
       "content": "\u001b[?25l"
     },
     {
@@ -206,279 +198,583 @@
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m update\r\n  \u001b[33m⠋\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m update\r\n  \u001b[33m⠋\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
     },
     {
-      "delay": 46,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m selectedDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m25\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
-    },
-    {
-      "delay": 12,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠸\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠸\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "delay": 43,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m chooseDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m26\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
-    },
-    {
-      "delay": 28,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠼\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠼\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m chooseDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
-    },
-    {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠴\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠴\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m chooseDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
-    },
-    {
-      "delay": 105,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠦\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠦\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
-    },
-    {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠧\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠧\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 100,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠇\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠇\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
     },
     {
       "delay": 102,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠏\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠏\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "content": "\u001b[?25h"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
-    },
-    {
-      "delay": 99,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠋\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠋\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "content": "\u001b[34m?\u001b[39m \u001b[1mSelect documents to update:\u001b[22m \u001b[36m\u001b[39m\r\n\r\n\u001b[2m(Use arrow keys to navigate, ctrl+a to select all)\u001b[22m\u001b[2A\u001b[31G"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
-    },
-    {
-      "delay": 103,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠙\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠙\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠙\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "content": "\u001b[2B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to update:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯◯ Overview\u001b[39m\r\n ◯ Getting Started\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[31G"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to update:\u001b[22m \u001b[36m\u001b[39m\r\n\u001b[36m❯◯ Overview\u001b[39m\r\n ◯ Getting Started\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[31G"
     },
     {
-      "delay": 100,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠹\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠹\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "delay": 1701,
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to update:\u001b[22m \u001b[36m\u001b[39m\r\n ◯ Overview\r\n\u001b[36m❯◯ Getting Started\u001b[39m\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[31G"
     },
     {
-      "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
-    },
-    {
-      "delay": 101,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠸\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠸\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "delay": 385,
+      "content": "\u001b[32G"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
-    },
-    {
-      "delay": 98,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠼\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠼\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to update:\u001b[22m \u001b[36m\u001b[39m\r\n ◯ Overview\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Getting Started\u001b[39m\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[31G"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
-    },
-    {
-      "delay": 106,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠴\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠴\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to update:\u001b[22m \u001b[36m\u001b[39m\r\n ◯ Overview\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Getting Started\u001b[39m\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[31G"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
-    },
-    {
-      "delay": 99,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠦\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[33m⠦\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to update:\u001b[22m \u001b[36m\u001b[39m\r\n ◯ Overview\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Getting Started\u001b[39m\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[31G"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mSelect documents to update:\u001b[22m \u001b[36m\u001b[39m\r\n ◯ Overview\r\n\u001b[36m❯\u001b[32m◉\u001b[36m Getting Started\u001b[39m\r\n ◯ Core Concepts\r\n ◯ Understanding DIDs\r\n ◯ Managing DIDs\r\n ◯ Privacy and Security\r\n ◯ Authentication Protocol\r\n\u001b[2m(Use arrow keys to reveal more choices, ctrl+a to select all)\u001b[22m\u001b[8A\u001b[31G"
     },
     {
-      "delay": 103,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠦\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m27\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
-    },
-    {
-      "delay": 11,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠦\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, "
+      "delay": 367,
+      "content": "\u001b[8B\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mSelect documents to update:\u001b[22m \u001b[36mGetting Started\u001b[39m\u001b[46G"
     },
     {
       "delay": 8,
-      "content": "\u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[2m◼\u001b[22m batchTranslate\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m28\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+      "content": "\r\n\u001b[?25h"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠦\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39"
+      "content": "\u001b[?25l"
     },
     {
       "delay": 8,
-      "content": "m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[2m◼\u001b[22m batchTranslate\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m29\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+      "content": "\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m chooseDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
     },
     {
       "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠦\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
     },
     {
       "delay": 8,
-      "content": "m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[33m⠦\u001b[39m batchTranslate\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m29\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠦\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39"
-    },
-    {
-      "delay": 8,
-      "content": "m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[33m⠦\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m29\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠦\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39"
-    },
-    {
-      "delay": 8,
-      "content": "m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m29\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠧\u001b[39m detailGeneratorAndTranslate\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39"
-    },
-    {
-      "delay": 8,
-      "content": "m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m30\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[33m⠧\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n    "
-    },
-    {
-      "delay": 8,
-      "content": "    \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m30\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchDocsUpdate\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n    "
-    },
-    {
-      "delay": 8,
-      "content": "    \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m30\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m batchDocsUpdate \u001b[90m[29.13s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90"
-    },
-    {
-      "delay": 8,
-      "content": "moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m30\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsUpdate \u001b[90m[29.13s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90"
-    },
-    {
-      "delay": 8,
-      "content": "moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m30\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsUpdate \u001b[90m[29.13s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90"
-    },
-    {
-      "delay": 8,
-      "content": "moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m30\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsUpdate \u001b[90m[29.13s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b["
-    },
-    {
-      "delay": 8,
-      "content": "39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m31\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsUpdate \u001b[90m[29.13s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b["
-    },
-    {
-      "delay": 8,
-      "content": "39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m31\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsUpdate \u001b[90m[29.13s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b["
-    },
-    {
-      "delay": 8,
-      "content": "39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m checkFeedbackRefiner \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m31\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 8,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsUpdate \u001b[90m[29.13s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b["
-    },
-    {
-      "delay": 8,
-      "content": "39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m31\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
-    },
-    {
-      "delay": 10,
-      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsUpdate \u001b[90m[29.13s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r"
-    },
-    {
-      "delay": 8,
-      "content": "\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m32\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Document updated successfully\u001b[0m\r\n⠧\r\n"
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m5\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
     },
     {
       "delay": 12,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m loadMediaDescription\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m6\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m loadMediaDescription\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m7\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m loadMediaDescription\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m7\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m7\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m7\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m7\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m8\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m8\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[2m◼\u001b[22m updateSingleDocument\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m9\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠦\u001b[39m updateSingleDocument\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m9\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠦\u001b[39m updateSingleDocument\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m10\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠦\u001b[39m updateSingleDocument\r\n      \u001b[2m◼\u001b[22m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m10\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n  --------------------------------------------------\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  Current Document: Getting Started\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  --------------------------------------------------\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "📄 Getting Started (H1)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Authentication Flow Overview (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Step 1: Pre-knowledge (QR Code/Deep Link) (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Step 2: Request Authentication (Wallet -> DApp) (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Step 3: Response Authentication (Wallet -> DApp) (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Step 4: Subsequent Authentication Rounds (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Summary (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mWhat would you like to do next?\u001b[22m\r\n\u001b[36m❯ View document\u001b[39m\r\n  Give feedback\r\n  Done\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 5768,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mWhat would you like to do next?\u001b[22m\r\n  View document\r\n\u001b[36m❯ Give feedback\u001b[39m\r\n  Done\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 2360,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mWhat would you like to do next?\u001b[22m\r\n  View document\r\n  Give feedback\r\n\u001b[36m❯ Done\u001b[39m\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 494,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mWhat would you like to do next?\u001b[22m\r\n  View document\r\n\u001b[36m❯ Give feedback\u001b[39m\r\n  Done\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 331,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mWhat would you like to do next?\u001b[22m \u001b[36mGive feedback\u001b[39m\u001b[48G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 103,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 25,
+      "content": "\u001b[?25l\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m \u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 700,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m a\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 251,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m ad\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 161,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 282,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add \u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 286,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add m\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 107,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add mo\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 162,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add mor\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 56,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add more\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 121,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add more \u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 287,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add more s\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 641,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add more st\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 96,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add more ste\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 555,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n  \u001b[1mExamples:\u001b[22m\r\n  \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n  \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n  \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n  \u001b[1m  Your feedback:\u001b[22m add more step\u001b[7m \u001b[27m\r\n"
+    },
+    {
+      "delay": 1240,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mHow would you like to improve this document?\u001b[22m\r\n   \u001b[1mExamples:\u001b[22m\r\n   \u001b[1m  • Add troubleshooting section for common errors\u001b[22m\r\n   \u001b[1m  • Simplify the explanation for beginners\u001b[22m\r\n   \u001b[1m  • Remove the outdated information about version 1.0\u001b[22m\r\n\r\n   \u001b[1m  Your feedback:\u001b[22m add more step\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠦\u001b[39m updateSingleDocument\r\n      \u001b[33m⠦\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m\r\n        \u001b[2m◼\u001b[22m updateDocumentDetail\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m11\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠦\u001b[39m updateSingleDocument\r\n      \u001b[33m⠦\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m\r\n        \u001b[2m◼\u001b[22m updateDocumentDetail\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m12\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 17,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠏\u001b[39m updateSingleDocument\r\n      \u001b[33m⠏\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m\r\n        \u001b[33m⠏\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m38809\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3454\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59533\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m38809\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3454\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59533\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n"
+    },
+    {
+      "delay": 11,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠇\u001b[39m updateSingleDocument\r\n      \u001b[33m⠇\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠇\u001b[39m updateSingleDocument\r\n      \u001b[33m⠇\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m,"
+    },
+    {
+      "delay": 8,
+      "content": " \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m15\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠇\u001b[39m updateSingleDocument\r\n      \u001b[33m⠇\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[2m◼\u001b[22m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[3"
+    },
+    {
+      "delay": 8,
+      "content": "9m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠇\u001b[39m updateSingleDocument\r\n      \u001b[33m⠇\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[33m⠇\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b["
+    },
+    {
+      "delay": 8,
+      "content": "39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 10,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠇\u001b[39m updateSingleDocument\r\n      \u001b[33m⠇\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b["
+    },
+    {
+      "delay": 8,
+      "content": "39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n  --------------------------------------------------\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  Current Document: Getting Started\r\n  --------------------------------------------------\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "📄 Getting Started (H1)\r\n  📄 Prerequisites (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Authentication Flow Overview (H2)\r\n  📄 Step 1: DApp Generates Login QR Code (H2)\r\n  📄 Step 2: Wallet Requests Challenge (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Step 3: DApp Responds with Initial Challenge (H2)\r\n  📄 Step 4: Wallet Responds with `authPrincipal` (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Step 5: DApp Requests Additional Claims (H2)\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "  📄 Step 6: Wallet Fulfills Claims (H2)\r\n  📄 Step 7: DApp Verifies Claims and Manages Session (H2)\r\n  📄 Summary (H2)\r\n\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mWhat would you like to do next?\u001b[22m\r\n\u001b[36m❯ View document\u001b[39m\r\n  Give feedback\r\n  Done\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 3295,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mWhat would you like to do next?\u001b[22m\r\n  View document\r\n\u001b[36m❯ Give feedback\u001b[39m\r\n  Done\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 171,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[34m?\u001b[39m \u001b[1mWhat would you like to do next?\u001b[22m\r\n  View document\r\n  Give feedback\r\n\u001b[36m❯ Done\u001b[39m\r\n\r\n\u001b[1m↑↓\u001b[22m \u001b[2mnavigate\u001b[22m\u001b[2m • \u001b[22m\u001b[1m⏎\u001b[22m \u001b[2mselect\u001b[22m\u001b[?25l\u001b[23G"
+    },
+    {
+      "delay": 382,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mWhat would you like to do next?\u001b[22m \u001b[36mDone\u001b[39m\u001b[39G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠧\u001b[39m updateSingleDocument\r\n      \u001b[33m⠧\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m"
+    },
+    {
+      "delay": 8,
+      "content": ")\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠧\u001b[39m updateSingleDocument\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m"
+    },
+    {
+      "delay": 8,
+      "content": " \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[33m⠧\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m"
+    },
+    {
+      "delay": 8,
+      "content": ", \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m"
+    },
+    {
+      "delay": 8,
+      "content": ", \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90mi"
+    },
+    {
+      "delay": 8,
+      "content": "nput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90mi"
+    },
+    {
+      "delay": 8,
+      "content": "nput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[2m◼\u001b[22m saveAndTranslateDocument\r\n\r\n\u001b[90m✔\u001b[3"
+    },
+    {
+      "delay": 8,
+      "content": "9m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m16\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[2m◼\u001b[22m saveAndTranslateDocument\r\n\r\n\u001b[9"
+    },
+    {
+      "delay": 8,
+      "content": "0m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m17\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[33m⠧\u001b[39m saveAndTranslateDocument\r\n\r\n\u001b["
+    },
+    {
+      "delay": 8,
+      "content": "90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m17\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[33m⠧\u001b[39m saveAndTranslateDocument\r\n\r\n\u001b["
+    },
+    {
+      "delay": 8,
+      "content": "90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[33m⠇\u001b[39m saveAndTranslateDocument\r\n\r\n\u001b["
+    },
+    {
+      "delay": 8,
+      "content": "90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 75,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 8,
+      "content": "✔ Git history tracking initialized\r\n"
+    },
+    {
+      "delay": 42,
+      "content": "✔ Update history committed successfully\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[33m⠇\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[33m⠇\u001b[39m saveAndTranslateDocument \u001b[90m[0.13s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m"
+    },
+    {
+      "delay": 8,
+      "content": "105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m update\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[32m✔\u001b[39m saveAndTranslateDocument \u001b[90m"
+    },
+    {
+      "delay": 8,
+      "content": "[0.13s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m18\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 10,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m update \u001b[90m[2m22.29s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[32m✔\u001b[39m saveAndTr"
+    },
+    {
+      "delay": 8,
+      "content": "anslateDocument \u001b[90m[0.13s]\u001b[39m\r\n\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m19\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Documents updated successfully\u001b[0m\r\n⠇\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m update \u001b[90m[2m22.29s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[32m✔\u001b[39m s"
+    },
+    {
+      "delay": 8,
+      "content": "aveAndTranslateDocument \u001b[90m[0.13s]\u001b[39m\r\n\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m19\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Documents updated successfully\u001b[0m\r\n⠇\r\n"
+    },
+    {
+      "delay": 8,
       "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
     },
     {
       "delay": 8,
-      "content": "\u001b[32m✔\u001b[39m update \u001b[90m[33.2s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m selectedDocs \u001b[90m[3.95s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m batchDocsUpdate \u001b[90m[29.13s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[24.06s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Overview'\u001b[39m \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m:\r\n        gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25095\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m639\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\r\n        \u001b[32m\u001b[39m\u001b[34m28929\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchTranslate \u001b[90m[0.01s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m detailGeneratorAndTranslate \u001b[90m[29.11s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m detailGenerate \u001b[36mGenerate detail for 'Getting Started'\u001b[39m\r\n        \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m25299\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m858\u001b[39m \u001b[90moutput \u001b[39m\r\n        \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m30447\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n      \u001b[32m✔\u001b[39m batchT"
+      "content": "\u001b[32m✔\u001b[39m update \u001b[90m[2m22.29s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m chooseDocs \u001b[90m[2.57s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m loadMediaDescription \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkUpdateIsSingle \u001b[36mCheck document count and route to \u001b[39m\r\n    \u001b[36mappropriate update agent\u001b[39m \u001b[90m[2m19.46s]\u001b[39m\r\n    \u001b[32m✔\u001b[39m updateSingleDocument \u001b[90m[2m19.45s]\u001b[39m\r\n      \u001b[32m✔\u001b[39m userReviewDocument \u001b[36mUser review and modify document \u001b[39m\r\n        \u001b[36mcontent\u001b[39m \u001b[90m[2m19.42s]\u001b[39m\r\n        \u001b[32m✔\u001b[39m updateDocumentDetail \u001b[90m(\u001b[39m\u001b[90mmodel\u001b[39m: gemini-2.5-pro\u001b[32m, \u001b[39m\u001b[33m84804\u001b[39m\r\n          \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n          \u001b[90mcredits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[32m✔\u001b[39m saveAndTranslateDocument \u001b[90m[0.13s]\u001b[39m\r\n"
     },
     {
       "delay": 8,
-      "content": "ranslate \u001b[90m[0.01s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner \u001b[90m[0.01s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m50394\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m1497\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m59376\u001b[39m \u001b[90mAIGNE Hub \u001b[39m\r\n\u001b[90mcredits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m32\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Document updated successfully\u001b[0m\r\n\r\n"
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m84804\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m3455\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m105534\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[32m, \u001b[39m\u001b[35m19\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Documents updated successfully\u001b[0m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[1m\u001b[7m\u001b[27m\u001b[1m\u001b[0m                                                                 \r \r"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]7;file://Nate-Mac-Pro.local/Users/nategu/work/arcblock/ai-docs/doc-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]2;nategu@Nate-Mac-Pro\u0007\u001b]1;..docs/doc-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]7;file://Nate-Mac-Pro.local/Users/nategu/work/arcblock/ai-docs/doc-demo\u001b\\"
+    },
+    {
+      "delay": 8,
+      "content": "\r\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[01;32m➜  \u001b[36mdoc-demo\u001b[00m \u001b[K"
     }
   ]
 }

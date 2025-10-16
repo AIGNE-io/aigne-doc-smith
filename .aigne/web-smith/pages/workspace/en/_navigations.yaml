@@ -1,20 +1,4 @@
 - path: /home
   navigation:
     title: Home
-    description: Discover AI-powered docs
-- path: /features
-  navigation:
-    title: Features
-    description: Explore product features
-- path: /quick-start
-  navigation:
-    title: Quick Start
-    description: Get started in minutes
-- path: /enterprise
-  navigation:
-    title: Enterprise
-    description: Solutions for your business
-- path: /community
-  navigation:
-    title: Community
-    description: Get help and contribute
+    description: Discover how to generate code documentation automatically.

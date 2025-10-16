@@ -1,13 +1,12 @@
 sitemap:
-  - title: "AIGNE DocSmith: AI-Powered Documentation Generation"
+  - title: "AIGNE DocSmith: AI-Powered Code Documentation"
     path: /home
     locales:
       en:
-        title: "AIGNE DocSmith: AI-Powered Documentation that Understands Your Code"
-        description: Generate comprehensive, multi-language documentation automatically
-          with AIGNE DocSmith. Our AI analyzes your code to create docs that are
-          always up-to-date. Try it now!
-        image: mediakit://doc-regenerate.png
+        title: "AIGNE DocSmith: AI-Powered Code Documentation Generator"
+        description: Automatically generate, translate, and update comprehensive
+          documentation from your codebase with AIGNE DocSmith. AI-powered,
+          multi-language, and always in sync.
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -18,121 +17,11 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-14T10:31:07.870Z
-      updatedAt: 2025-10-14T10:31:07.870Z
-      publishedAt: 2025-10-14T10:31:07.870Z
-      isPublic: true
-  - title: Features of AIGNE DocSmith
-    path: /features
-    locales:
-      en:
-        title: "AIGNE DocSmith Features: AI Generation, Multi-Language, Smart Updates"
-        description: Explore the powerful features of AIGNE DocSmith. From AI-powered
-          content generation and 12-language support to seamless LLM integration
-          and smart updates that sync with your code.
-        image: mediakit://doc-generate-docs.png
-        style:
-          maxWidth: custom:1440px
-          paddingY: normal
-          paddingX: normal
-        backgroundColor: ""
-        header:
-          sticky: true
-    meta:
-      file: features.yaml
-      id: 69ee505620f7efd5
-      createdAt: 2025-10-14T10:31:07.863Z
-      updatedAt: 2025-10-14T10:31:07.863Z
-      publishedAt: 2025-10-14T10:31:07.863Z
-      isPublic: true
-  - title: Quick Start Guide
-    path: /quick-start
-    locales:
-      en:
-        title: Quick Start Guide | AIGNE DocSmith
-        description: Get started with AIGNE DocSmith in minutes. Follow our step-by-step
-          guide to install the CLI, set up your project, and generate your first
-          AI-powered documentation.
-        style:
-          maxWidth: custom:1440px
-          paddingY: normal
-          paddingX: normal
-        backgroundColor: ""
-        header:
-          sticky: true
-    meta:
-      file: quick-start.yaml
-      id: 22f6776da30e7065
-      createdAt: 2025-10-14T10:31:07.878Z
-      updatedAt: 2025-10-14T10:31:07.878Z
-      publishedAt: 2025-10-14T10:31:07.878Z
-      isPublic: true
-  - title: Enterprise and Production Use
-    path: /enterprise
-    locales:
-      en:
-        title: Enterprise Features for AI Documentation | AIGNE DocSmith
-        description: Elevate your documentation with AIGNE DocSmith's enterprise
-          features. Get team collaboration, custom branding, private cloud
-          deployment, SSO, and priority support for secure, scalable
-          documentation pipelines.
-        image: ""
-        style:
-          maxWidth: custom:1440px
-          paddingY: normal
-          paddingX: normal
-        backgroundColor: ""
-        header:
-          sticky: true
-    meta:
-      file: enterprise.yaml
-      id: 8cec7f5a066a0bdf
-      createdAt: 2025-10-14T10:31:07.858Z
-      updatedAt: 2025-10-14T10:31:07.858Z
-      publishedAt: 2025-10-14T10:31:07.858Z
-      isPublic: true
-  - title: Community and Resources
-    path: /community
-    locales:
-      en:
-        title: AIGNE DocSmith Community & Resources | Support and Contribution
-        description: Join the AIGNE DocSmith community! Find official documentation,
-          tutorials, and support forums. Learn how to contribute, report issues,
-          and request features.
-        image: ""
-        style:
-          maxWidth: custom:1440px
-          paddingY: normal
-          paddingX: normal
-        backgroundColor: ""
-        header:
-          sticky: true
-    meta:
-      file: community.yaml
-      id: 423f8449a3d5581e
-      createdAt: 2025-10-14T10:31:07.852Z
-      updatedAt: 2025-10-14T10:31:07.852Z
-      publishedAt: 2025-10-14T10:31:07.852Z
+      createdAt: 2025-10-16T03:01:49.267Z
+      updatedAt: 2025-10-16T03:01:49.267Z
+      publishedAt: 2025-10-16T03:01:49.267Z
       isPublic: true
 navigations:
-  - id: e9022e7aa8630077-header
-    section: header
-    visible: true
-    title:
-      en: aigne-doc-smith
-    link:
-      en: /en
-    description: ""
-    parent: ""
-  - id: e9022e7aa8630077-footer
-    section: footer
-    visible: true
-    title:
-      en: aigne-doc-smith
-    link:
-      en: /en
-    description: ""
-    parent: ""
   - id: 106a6c241b8797f5
     section: header
     visible: true
@@ -141,8 +30,7 @@ navigations:
     link:
       en: /
     description:
-      en: Discover AI-powered docs
-    parent: e9022e7aa8630077-header
+      en: Discover how to generate code documentation automatically.
   - id: f5c5d15c42b3cf01
     section: footer
     visible: true
@@ -151,85 +39,4 @@ navigations:
     link:
       en: /
     description:
-      en: Discover AI-powered docs
-    parent: e9022e7aa8630077-footer
-  - id: 9f034b63948763d4
-    section: header
-    visible: true
-    title:
-      en: Features
-    link:
-      en: /features
-    description:
-      en: Explore product features
-    parent: e9022e7aa8630077-header
-  - id: 81f6d8ee2c5e662e
-    section: footer
-    visible: true
-    title:
-      en: Features
-    link:
-      en: /features
-    description:
-      en: Explore product features
-    parent: e9022e7aa8630077-footer
-  - id: a96216a022e66221
-    section: header
-    visible: true
-    title:
-      en: Quick Start
-    link:
-      en: /quick-start
-    description:
-      en: Get started in minutes
-    parent: e9022e7aa8630077-header
-  - id: f2b1e9c6dbf50fc7
-    section: footer
-    visible: true
-    title:
-      en: Quick Start
-    link:
-      en: /quick-start
-    description:
-      en: Get started in minutes
-    parent: e9022e7aa8630077-footer
-  - id: 09300df44b9d20cc
-    section: header
-    visible: true
-    title:
-      en: Enterprise
-    link:
-      en: /enterprise
-    description:
-      en: Solutions for your business
-    parent: e9022e7aa8630077-header
-  - id: 376eaf7d961ff2e8
-    section: footer
-    visible: true
-    title:
-      en: Enterprise
-    link:
-      en: /enterprise
-    description:
-      en: Solutions for your business
-    parent: e9022e7aa8630077-footer
-  - id: 82df41632da47606
-    section: header
-    visible: true
-    title:
-      en: Community
-    link:
-      en: /community
-    description:
-      en: Get help and contribute
-    parent: e9022e7aa8630077-header
-  - id: 3ee47fddc2f753a3
-    section: footer
-    visible: true
-    title:
-      en: Community
-    link:
-      en: /community
-    description:
-      en: Get help and contribute
-    parent: e9022e7aa8630077-footer
+      en: Discover how to generate code documentation automatically.
