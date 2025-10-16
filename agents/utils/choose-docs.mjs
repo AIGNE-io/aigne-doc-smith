@@ -81,7 +81,9 @@ export default async function chooseDocs(
       // Process selected files and convert to found items
       foundItems = await processSelectedFiles(selectedFiles, documentExecutionStructure, docsDir);
     } catch (error) {
-      console.log(getActionText(isTranslate, `\nFailed to select documents to {action}: ${error.message}`))
+      console.log(
+        getActionText(isTranslate, `\nFailed to select documents to {action}: ${error.message}`),
+      );
       process.exit(0);
     }
   } else {
