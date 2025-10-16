@@ -1,4 +1,12 @@
 entries:
+  - timestamp: 2025-10-16T15:33:56.177Z
+    operation: document_update
+    feedback: Remove the leading ‘/’ from the --docs parameter value.
+    documentPath: /guides/translating-documentation
+  - timestamp: 2025-10-16T15:31:01.477Z
+    operation: document_update
+    feedback: No need for d2 diagram
+    documentPath: /guides/cleaning-up
   - timestamp: 2025-10-16T13:53:49.257Z
     operation: document_update
     feedback: The value of the --id parameter should be pref_ followed by a 16-digit alphanumeric random
