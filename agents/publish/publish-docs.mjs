@@ -177,6 +177,14 @@ export default async function publishDocs(
       }
     }
 
+    if (sessionId) {
+      authToken = await getOfficialAccessToken(BASE_URL, false);
+      client = client || new BrokerClient({ baseUrl: BASE_URL, authToken });
+
+      const { vendors } = await client.getSessionDetail(sessionId, false);
+      token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
+    }
+
     console.log(`\nPublishing your documentation to ${chalk.cyan(appUrl)}\n`);
 
     const accessToken = await getAccessToken(appUrl, token);
