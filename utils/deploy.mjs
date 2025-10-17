@@ -42,11 +42,6 @@ export async function deploy(id, cachedUrl) {
           sessionId,
           "Checkout ID for document deployment website",
         );
-        await saveValueToConfig(
-          "paymentUrl",
-          paymentUrl,
-          "Payment URL for document deployment website",
-        );
 
         if (!isResuming) {
           await open(paymentUrl);

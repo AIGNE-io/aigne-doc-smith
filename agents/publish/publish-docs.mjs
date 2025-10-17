@@ -57,12 +57,12 @@ export default async function publishDocs(
 
     // ----------------- main publish process flow -----------------------------
     // Check if DOC_DISCUSS_KIT_URL is set in environment variables
-    const envAppUrl = appUrl || process.env.DOC_DISCUSS_KIT_URL;
-    const useEnvAppUrl = !!envAppUrl;
+    const useEnvAppUrl = !!(process.env.DOC_DISCUSS_KIT_URL || appUrl);
 
     // Check if appUrl is default and not saved in config (only when not using env variable)
     const config = await loadConfigFromFile();
-    const hasInputAppUrl = !!(envAppUrl || config?.appUrl);
+    appUrl = process.env.DOC_DISCUSS_KIT_URL || appUrl || config?.appUrl;
+    const hasInputAppUrl = !!appUrl;
 
     let shouldSyncBranding = void 0;
     let token = "";
@@ -162,15 +162,13 @@ export default async function publishDocs(
 
         try {
           let id = "";
-          let paymentUrl = "";
           if (choice === "new-instance-continue") {
             id = sessionId;
-            paymentUrl = paymentLink;
             console.log(`\nResuming your previous website setup...`);
           } else {
             console.log(`\nCreating a new website for your documentation...`);
           }
-          const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentUrl)) || {};
+          const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentLink)) || {};
 
           appUrl = homeUrl;
           token = ltToken;
