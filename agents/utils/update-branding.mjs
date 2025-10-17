@@ -25,6 +25,18 @@ export default async function updateBranding({ appUrl, projectInfo, accessToken,
     const componentInfo = await getComponentInfoWithMountPoint(origin, DISCUSS_KIT_DID);
     const mountPoint = componentInfo.mountPoint || "/";
 
+    if (projectInfo.name.length > 40) {
+      console.warn(
+        `⚠️ Name is too long, it should be less than 40 characters\nWill be truncated to 40 characters`,
+      );
+    }
+
+    if (projectInfo.description.length > 160) {
+      console.warn(
+        `⚠️ Description is too long, it should be less than 160 characters\nWill be truncated to 160 characters`,
+      );
+    }
+
     const res = await requestWithAuthToken(
       joinURL(origin, mountPoint, "/api/branding"),
       {
@@ -33,8 +45,8 @@ export default async function updateBranding({ appUrl, projectInfo, accessToken,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          appName: projectInfo.name,
-          appDescription: projectInfo.description,
+          appName: projectInfo.name.slice(0, 40),
+          appDescription: projectInfo.description.slice(0, 160),
         }),
       },
       accessToken,
