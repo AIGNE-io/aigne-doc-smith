@@ -64,6 +64,7 @@ export default async function publishDocs(
     const config = await loadConfigFromFile();
     const hasInputAppUrl = !!(envAppUrl || config?.appUrl);
 
+    let shouldSyncBranding = void 0;
     let token = "";
     let client = null;
     let authToken = null;
@@ -132,12 +133,33 @@ export default async function publishDocs(
         // Ensure appUrl has protocol
         appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
       } else if (["new-instance", "new-instance-continue"].includes(choice)) {
-        if (options?.prompts?.confirm) {
-          shouldWithBranding = await options.prompts.confirm({
-            message: "Would you like to update the project branding (title, description, logo)?",
-            default: true,
-          });
+        // resume previous website setup
+        if (choice === "new-instance-continue") {
+          shouldSyncBranding = config?.shouldSyncBranding ?? void 0;
+          if (shouldSyncBranding !== void 0) {
+            shouldWithBranding = shouldWithBranding ?? shouldSyncBranding;
+          }
         }
+
+        if (options?.prompts?.confirm) {
+          if (shouldSyncBranding === void 0) {
+            shouldSyncBranding = await options.prompts.confirm({
+              message: "Would you like to update the project branding (title, description, logo)?",
+              default: true,
+            });
+            await saveValueToConfig(
+              "shouldSyncBranding",
+              shouldSyncBranding,
+              "Should sync branding for documentation",
+            );
+            shouldWithBranding = shouldSyncBranding;
+          } else {
+            console.log(
+              `Would you like to update the project branding (title, description, logo)? ${chalk.cyan(shouldSyncBranding ? "Yes" : "No")}`,
+            );
+          }
+        }
+
         // Deploy a new Discuss Kit service
         let id = "";
         let paymentUrl = "";
