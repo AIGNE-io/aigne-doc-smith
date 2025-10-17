@@ -268,6 +268,7 @@ export default async function publishDocs(
       }
       message = `✅ Documentation published successfully!`;
       await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
+      await saveValueToConfig("shouldSyncBranding", "", "Should sync branding for documentation");
     } else {
       // If the error is 401 or 403, it means the access token is invalid
       if (error?.includes("401") || error?.includes("403")) {
