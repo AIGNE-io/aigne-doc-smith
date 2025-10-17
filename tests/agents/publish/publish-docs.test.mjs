@@ -200,7 +200,7 @@ describe("publish-docs", () => {
   });
 
   // USER INTERACTION TESTS
-  test("using input appUrl should not prompt user to select platform", async () => {
+  test("should skip platform selection prompt when appUrl is provided", async () => {
     loadConfigFromFileSpy.mockResolvedValue({});
     mockOptions.prompts.select.mockResolvedValue("default");
 
