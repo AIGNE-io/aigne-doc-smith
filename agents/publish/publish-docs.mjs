@@ -57,25 +57,19 @@ export default async function publishDocs(
 
     // ----------------- main publish process flow -----------------------------
     // Check if DOC_DISCUSS_KIT_URL is set in environment variables
-    const envAppUrl = process.env.DOC_DISCUSS_KIT_URL;
+    const envAppUrl = appUrl || process.env.DOC_DISCUSS_KIT_URL;
     const useEnvAppUrl = !!envAppUrl;
-
-    // Use environment variable if available, otherwise use the provided appUrl
-    if (useEnvAppUrl) {
-      appUrl = envAppUrl;
-    }
 
     // Check if appUrl is default and not saved in config (only when not using env variable)
     const config = await loadConfigFromFile();
-    const isDefaultAppUrl = appUrl === CLOUD_SERVICE_URL_PROD;
-    const hasAppUrlInConfig = config?.appUrl;
+    const hasInputAppUrl = !!(envAppUrl || config?.appUrl);
 
     let token = "";
     let client = null;
     let authToken = null;
     let sessionId = null;
 
-    if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
+    if (!hasInputAppUrl) {
       authToken = await getOfficialAccessToken(BASE_URL, false);
 
       sessionId = "";
