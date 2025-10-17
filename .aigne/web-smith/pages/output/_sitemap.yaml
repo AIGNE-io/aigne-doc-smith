@@ -19,7 +19,7 @@ sitemap:
       zh:
         title: AIGNE DocSmith | 人工智能驱动的代码文档
         description: 使用 AIGNE DocSmith
-          自动从您的代码库生成全面的多语言文档。我们的人工智能工具能够理解您的代码，创建准确、最新的文档，为您节省时间和精力。
+          自动从您的代码库生成全面的多语言文档。我们的人工智能工具能够理解您的代码，从而创建准确、最新的文档，为您节省时间和精力。
         image: mediakit://aigne-docsmith-hero.png
         style:
           maxWidth: custom:1440px
@@ -30,8 +30,8 @@ sitemap:
           sticky: true
       zh-TW:
         title: AIGNE DocSmith | AI 驅動的程式碼文件
-        description: 使用 AIGNE DocSmith，從您的程式碼庫自動產生全面、多國語言的文件。我們的 AI
-          工具能理解您的程式碼，建立準確、最新的文件，為您節省時間與精力。
+        description: 使用 AIGNE DocSmith，從您的程式碼庫自動產生全面、多國語言的文件。我們由 AI
+          驅動的工具能理解您的程式碼，以建立準確、最新的文件，為您節省時間和精力。
         image: mediakit://aigne-docsmith-hero.png
         style:
           maxWidth: custom:1440px
@@ -41,9 +41,9 @@ sitemap:
         header:
           sticky: true
       ja:
-        title: AIGNE DocSmith | AIによるコードドキュメンテーション
+        title: AIGNE DocSmith | AIによるコードドキュメント生成
         description: AIGNE
-          DocSmithを使えば、コードベースから包括的な多言語ドキュメントを自動的に生成できます。AI搭載ツールがコードを理解し、正確で最新のドキュメントを作成することで、時間と労力を節約します。
+          DocSmithを使えば、コードベースから包括的で多言語対応のドキュメントを自動生成できます。AI搭載ツールがコードを理解し、正確で最新のドキュメントを作成。時間と労力を節約します。
         image: mediakit://aigne-docsmith-hero.png
         style:
           maxWidth: custom:1440px
@@ -55,9 +55,9 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-17T10:41:37.546Z
-      updatedAt: 2025-10-17T10:41:37.546Z
-      publishedAt: 2025-10-17T10:41:37.546Z
+      createdAt: 2025-10-17T11:06:19.357Z
+      updatedAt: 2025-10-17T11:06:19.357Z
+      publishedAt: 2025-10-17T11:06:19.357Z
       isPublic: true
 navigations:
   - id: 106a6c241b8797f5
