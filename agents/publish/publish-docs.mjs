@@ -71,15 +71,18 @@ export default async function publishDocs(
     const hasAppUrlInConfig = config?.appUrl;
 
     let token = "";
+    let client = null;
+    let authToken = null;
+    let sessionId = null;
 
     if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
-      const authToken = await getOfficialAccessToken(BASE_URL, false);
+      authToken = await getOfficialAccessToken(BASE_URL, false);
 
-      let sessionId = "";
+      sessionId = "";
       let paymentLink = "";
 
       if (authToken) {
-        const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
+        client = new BrokerClient({ baseUrl: BASE_URL, authToken });
         const info = await client.checkCacheSession({
           needShortUrl: true,
           sessionId: config?.checkoutId,
