@@ -6,6 +6,8 @@ projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation
 projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
 # staging doc-smith pageskit
 projectId: 36edcca5-5b56-4a1b-98b9-3690595a7588
+# production doc-smith pageskit
+# projectId: 32271a73-5577-4e85-953a-375231c7cc95
 projectSlug: /
 
 # =============================================================================
@@ -108,8 +110,7 @@ defaultDatasources: # Default datasources included in every page
 # minImageWidth: Only images wider than this value (in pixels) will be used in page generation
 media:
   minImageWidth: 800
-lastGitHead: a7c014cc2ab0ef094332f024b82bb79325c6db86
-appUrl: https://staging.docsmith.aigne.io/
+lastGitHead: db72f52b0b5e85a6f78eb772d5ceb4ff2b9f95f1
 # Checkout ID for website deployment service
 checkoutId: ""
 projectCover: .aigne/web-smith/cover.png
@@ -117,3 +118,5 @@ translateLanguages:
   - zh
   - zh-TW
   - ja
+# appUrl: https://docsmith.aigne.io/
+appUrl: https://staging.docsmith.aigne.io/
