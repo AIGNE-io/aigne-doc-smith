@@ -160,20 +160,24 @@ export default async function publishDocs(
           }
         }
 
-        // Deploy a new Discuss Kit service
-        let id = "";
-        let paymentUrl = "";
-        if (choice === "new-instance-continue") {
-          id = sessionId;
-          paymentUrl = paymentLink;
-          console.log(`\nResuming your previous website setup...`);
-        } else {
-          console.log(`\nCreating a new website for your documentation...`);
-        }
-        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentUrl)) || {};
+        try {
+          let id = "";
+          let paymentUrl = "";
+          if (choice === "new-instance-continue") {
+            id = sessionId;
+            paymentUrl = paymentLink;
+            console.log(`\nResuming your previous website setup...`);
+          } else {
+            console.log(`\nCreating a new website for your documentation...`);
+          }
+          const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentUrl)) || {};
 
-        appUrl = homeUrl;
-        token = ltToken;
+          appUrl = homeUrl;
+          token = ltToken;
+        } catch (error) {
+          const errorMsg = error?.message || "Unknown error occurred";
+          return { message: `${chalk.red("❌ Failed to create website:")} ${errorMsg}` };
+        }
       }
     }
 
