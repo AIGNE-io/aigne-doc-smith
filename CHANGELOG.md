@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.14-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14-beta...v0.8.14-beta.1) (2025-10-17)
+
+
+### Bug Fixes
+
+* doc review and update ([#199](https://github.com/AIGNE-io/aigne-doc-smith/issues/199)) ([0061323](https://github.com/AIGNE-io/aigne-doc-smith/commit/006132345a17a7fae10a803656b731144ecc54c9))
+* respect env vars for publish and improve reliability ([#204](https://github.com/AIGNE-io/aigne-doc-smith/issues/204)) ([bd14c2a](https://github.com/AIGNE-io/aigne-doc-smith/commit/bd14c2af54ebca89c8edb5861e3b1a6e3f76e92e))
+
 ## [0.8.14-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.13...v0.8.14-beta) (2025-10-16)
 
 
