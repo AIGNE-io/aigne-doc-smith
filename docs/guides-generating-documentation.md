@@ -22,7 +22,7 @@ This single command initiates the entire documentation creation workflow. If it'
 
 ### Step 2: Code Analysis and Structure Planning
 
-First, DocSmith analyzes your source code to understand its structure, components, and relationships. Based on this analysis, it proposes an initial documentation structure. This plan organizes topics into a logical hierarchy, which may include sections like "Getting Started," "Guides," and "API Reference," tailored to your project's content.
+First, DocSmith analyzes your source code to understand its structure, components, and relationships. Based on this analysis, it proposes an initial documentation structure. This plan organizes topics into a logical hierarchy, which may include documents like "Getting Started," "Guides," and "API Reference," tailored to your project's content.
 
 ### Step 3: Interactive Structure Review
 
@@ -34,7 +34,7 @@ You can either approve the structure as is or provide feedback in plain language
 
 Examples of feedback you can provide:
 
-*   Rename a section (e.g., change "Getting Started" to "Quick Start").
+*   Rename a document title (e.g., change "Getting Started" to "Quick Start").
 *   Add a new document for "Troubleshooting."
 *   Remove a document that is not needed.
 
@@ -42,7 +42,7 @@ The tool will apply your feedback and present the updated structure for another 
 
 ### Step 4: Content Creation
 
-Once you approve the final structure, DocSmith proceeds to generate the detailed content for each document. It reads the relevant source files and writes clear explanations, code examples, and descriptions for every planned section. This process is executed for all documents in the approved plan.
+Once you approve the final structure, DocSmith proceeds to generate the detailed content for each document. It reads the relevant source files and writes clear explanations, code examples, and descriptions for every planned document. This process is executed for all documents in the approved plan.
 
 ### Step 5: Completion
 

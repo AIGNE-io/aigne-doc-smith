@@ -1885,3 +1885,15 @@ eb36b75bdcfcf6b36a2ddf1ea1208f1eb267d0b090f8a7da429da89b7fd10fd7:
     https://docsmith.aigne.io:
       url: https://docsmith.aigne.io/image-bin/uploads/8000ea10daba67b7.svg
       upload_time: 2025-10-16T13:50:10.552Z
+30febf034d52845fe48c34af96dac6c2cf7f404bb30a0c54b1e4d1f9b57857ed:
+  local_path: .aigne/doc-smith/.tmp/assets/d2/3e4adda8cc05649005fd9c456ca4b1072f1cded6d92d782633d3e6807c17c083.svg
+  sites:
+    https://docsmith.aigne.io:
+      url: https://docsmith.aigne.io/image-bin/uploads/30febf034d52845f.svg
+      upload_time: 2025-10-17T05:14:21.420Z
+4fba5e49f07787bf9a0ba3ba94dcd187cf515ee6d4d57eaf362d89bc4d9a9995:
+  local_path: .aigne/doc-smith/.tmp/assets/d2/7915f6cd9c801fd80ee3104c7a610b1d5cf523e5efac1c34f9be063bcc67704f.svg
+  sites:
+    https://docsmith.aigne.io:
+      url: https://docsmith.aigne.io/image-bin/uploads/4fba5e49f07787bf.svg
+      upload_time: 2025-10-17T05:14:23.470Z

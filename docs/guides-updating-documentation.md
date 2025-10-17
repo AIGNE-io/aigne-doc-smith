@@ -2,13 +2,11 @@
 
 Maintaining the accuracy and relevance of documentation is a continuous process. As your project evolves, so too will the need to update your documents. This guide provides a step-by-step process for modifying existing documentation, whether you need to incorporate user feedback, reflect code changes, or completely regenerate a section.
 
-The `update` command provides two primary modes for this purpose: an interactive mode for refining a single document and a batch mode for applying changes to multiple documents or resetting content.
+The `update` command is a flexible tool that can be used interactively to select documents or non-interactively with command-line flags to apply specific changes.
 
-## Interactive Document Updating
+## Updating via Interactive Prompt
 
-The interactive mode is ideal for making iterative changes to a single document. It allows you to provide feedback, review the updated content, and continue refining until you are satisfied with the result. This is the default mode when you run the command without specifying a particular document.
-
-To begin an interactive update session, follow these steps:
+The default way to use the `update` command is to run it without any arguments. This starts an interactive session where you can select one or more documents to modify.
 
 1.  Run the `update` command in your terminal:
 
@@ -16,20 +14,28 @@ To begin an interactive update session, follow these steps:
     aigne doc update
     ```
 
-2.  The tool will display a list of your existing documents. Select the document you wish to modify using the arrow keys and press Enter.
+2.  The tool will display a list of your existing documents. Use the arrow keys to navigate, the spacebar to select one or more documents, and press Enter to confirm.
 
     ![Screenshot of the interactive document update prompt, showing a list of documents to choose from.](../assets/screenshots/doc-update.png)
 
-3.  Once a document is selected, you will enter a review loop with the following options:
-    *   **View document**: Displays the full content of the current version of the document directly in your terminal for review.
-    *   **Give feedback**: Prompts you to enter textual feedback on what you would like to change. For example, "Simplify the explanation of the configuration process" or "Add a troubleshooting section for common errors."
-    *   **Done**: Exits the interactive session and saves the latest version of the document.
+The next steps depend on how many documents you selected.
 
-4.  After you provide feedback, the tool will regenerate the document content. You can then view the changes and provide more feedback if needed. This cycle can be repeated until the document meets your requirements.
+### Refining a Single Document
 
-## Batch Document Updates
+If you select only one document, you will enter an iterative review loop. This mode is ideal for making precise changes to a single file. You will be presented with the following options:
+*   **View document**: Displays the full content of the current version of the document directly in your terminal for review.
+*   **Give feedback**: Prompts you to enter textual feedback on what you would like to change. For example, "Simplify the explanation of the configuration process" or "Add a troubleshooting section for common errors."
+*   **Done**: Exits the interactive session and saves the latest version of the document.
 
-Batch mode is designed for making non-interactive changes. It is useful when you know exactly what changes are needed and want to apply them directly, or when you need to update multiple documents simultaneously.
+After you provide feedback, the tool regenerates the document. You can then view the changes and provide more feedback. This cycle can be repeated until the document meets your requirements.
+
+### Updating Multiple Documents
+
+If you select multiple documents, the tool will perform a batch update. You will be prompted to provide a single piece of feedback that will be applied to all the selected documents. This is useful for making consistent changes across several files at once, such as standardizing terminology or updating a common section.
+
+## Direct Updates via Command-Line Flags
+
+Direct updates are designed for making changes without the interactive review loop. This approach is useful when you know exactly what changes are needed and want to apply them directly.
 
 ### Updating with Specific Feedback
 
@@ -56,6 +62,8 @@ aigne doc update --docs overview.md --reset
 ```
 
 This command is useful when a document has become significantly outdated due to major changes in the underlying code.
+
+
 
 ## Command Parameters
 

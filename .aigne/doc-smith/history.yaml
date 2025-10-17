@@ -1,4 +1,33 @@
 entries:
+  - timestamp: 2025-10-17T06:14:42.833Z
+    operation: document_update
+    feedback: Interactive mode can also update multiple articles.
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-17T06:11:30.111Z
+    operation: document_update
+    feedback: rename Batch Document Updates to Non-interactive document updates and remove the term
+      `Batch mode`
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-17T05:24:58.319Z
+    operation: document_update
+    feedback: rename Batch Document Updates to Non-interactive document updates
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-17T05:21:15.906Z
+    operation: document_update
+    feedback: The `generate` command plans documents, not sections.
+    documentPath: /guides/generating-documentation
+  - timestamp: 2025-10-17T05:13:33.889Z
+    operation: document_update
+    feedback: There is no chat subcommand
+    documentPath: /overview
+  - timestamp: 2025-10-17T05:11:19.144Z
+    operation: document_update
+    feedback: There is no chat subcommand; instead, you enter chat mode directly via `aigne doc`.
+    documentPath: /overview
+  - timestamp: 2025-10-17T05:09:04.433Z
+    operation: document_update
+    feedback: remove section Exploring All Commands
+    documentPath: /getting-started
   - timestamp: 2025-10-16T15:33:56.177Z
     operation: document_update
     feedback: Remove the leading ‘/’ from the --docs parameter value.

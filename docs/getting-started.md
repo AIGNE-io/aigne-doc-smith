@@ -74,22 +74,6 @@ Upon completion, a confirmation message will appear, and the generated files wil
 
 ![Screenshot of the success message after generation](../assets/screenshots/doc-generated-successfully.png)
 
-## Exploring All Commands
-
-DocSmith provides a set of commands to manage the full lifecycle of your documentation. The table below lists all available commands and their functions.
-
-| Command     | Description                                                                                                   |
-| :---------- | :------------------------------------------------------------------------------------------------------------ |
-| `generate`  | Analyzes the codebase and generates a complete set of documentation based on the configuration.               |
-| `update`    | Interactively selects and regenerates specific parts of existing documentation, often with new feedback.      |
-| `translate` | Translates existing documentation into one or more of the 12 supported languages, such as `zh` or `ja`.       |
-| `publish`   | Publishes the generated documentation to a live platform, making it accessible via a URL.                     |
-| `init`      | Starts the interactive setup wizard to create or overwrite the `config.yaml` configuration file.              |
-| `prefs`     | Displays the current configuration settings from the `config.yaml` file.                                      |
-| `eval`      | Evaluates the quality and completeness of the generated documentation.                                        |
-| `history`   | Shows the history of updates made to the documentation.                                                       |
-| `clear`     | Removes generated files, configurations, and cached data.                                                     |
-
 ## What's Next?
 
 You have successfully generated your first set of documents. Here are the common next steps to manage and enhance your documentation:
