@@ -303,7 +303,6 @@ publishDocs.input_schema = {
     appUrl: {
       type: "string",
       description: "The URL of the app.",
-      default: CLOUD_SERVICE_URL_PROD,
     },
     boardId: {
       type: "string",
