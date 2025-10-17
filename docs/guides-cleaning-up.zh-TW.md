@@ -1,52 +1,68 @@
 # 清理
 
-`aigne doc clear` 指令提供了一種系統化的方法，可從您的專案中移除產生的檔案、快取資料和組態設定。當您需要重設文件工作區、從乾淨的狀態開始，或解決可能由過期檔案引起的問題時，這是一個實用的步驟。
+本指南說明如何使用 `aigne doc clear` 指令，從您的專案中移除產生的檔案、設定檔和快取資料。此指令適用於重新開始或移除敏感資訊。
 
-## 互動式清理
+`clear` 指令可以以兩種模式執行：互動式和非互動式。不帶任何參數執行此指令將會啟動一個互動式精靈，引導您完成可用的清理選項。
 
-為了進行受控且精確的清理，建議的程序是不帶任何參數執行此指令。
+## 指令用法
+
+若要使用清理指令，請在您的終端機中執行以下指令：
 
 ```bash
 aigne doc clear
 ```
 
-此操作會啟動一個互動式提示，列出所有可用的清理選項。每個選項都會附有清晰的功能說明，讓您可以選擇要移除的確切項目。這種互動式方法可以防止意外刪除重要資料。
+或者，您也可以直接將一個或多個目標指定為參數，以非互動式方式執行指令。
+
+```bash
+aigne doc clear --targets <target1> <target2> ...
+```
 
 ## 清理選項
 
-`clear` 指令可以移除數種不同類型的資料。下表詳細說明了每個可用選項、其功能以及所影響的特定檔案或目錄。
+當您執行不含參數的 `aigne doc clear` 指令時，系統會顯示一個互動式清單，列出要移除的項目。您可以一次選取多個項目進行清理。
 
-| 選項 | 說明 | 受影響的檔案和目錄 |
-| :--- | :--- | :--- |
-| `generatedDocs` | 刪除位於輸出目錄中的所有已產生文件。文件結構計畫將被保留。 | 您組態中由 `docsDir` 指定的目錄。 |
-| `documentStructure` | 刪除所有已產生的文件和文件結構計畫。此操作會重設所有文件內容。 | `.aigne/doc-smith/output/structure-plan.json` 檔案和 `docsDir` 目錄。 |
-| `documentConfig` | 刪除專案的組態檔。執行此操作後，必須執行 `aigne doc init` 來建立新的組態。 | `.aigne/doc-smith/config.yaml` 檔案。 |
-| `authTokens` | 移除已儲存的發布網站授權權杖。系統將提示您選擇要清除哪些網站的授權。 | 位於您家目錄中的 `~/.aigne/doc-smith-connected.yaml` 檔案。 |
-| `deploymentConfig` | 僅從您的組態檔中移除 `appUrl` 設定，其他設定保持不變。 | `.aigne/doc-smith/config.yaml` 檔案。 |
-| `mediaDescription` | 刪除媒體檔案的 AI 生成快取描述。這些描述將在下次建置文件時重新生成。 | `.aigne/doc-smith/cache/media-description.json` 檔案。 |
+可用的清理目標詳述如下。
 
-## 非互動式清理
+| Target | Description |
+| :--- | :--- |
+| **`generatedDocs`** | 刪除輸出目錄（例如：`./docs`）中所有產生的文件檔案。此操作會保留文件結構檔案。 |
+| **`documentStructure`** | 刪除所有產生的文件及文件結構檔案（例如：`.aigne/doc-smith/output/structure-plan.json`）。 |
+| **`documentConfig`** | 刪除主要專案設定檔（例如：`.aigne/doc-smith/config.yaml`）。您必須執行 `aigne doc init` 才能重新產生它。 |
+| **`authTokens`** | 從檔案中刪除已儲存的授權權杖（例如：`~/.aigne/doc-smith-connected.yaml`）。系統會提示您選取要清除哪個網站的授權。 |
+| **`deploymentConfig`** | 從文件設定檔中移除 `appUrl`，同時保留其他設定不變。 |
+| **`mediaDescription`** | 刪除媒體檔案的快取 AI 生成描述（例如：來自 `.aigne/doc-smith/media-description.yaml`）。這些描述將在下次執行時重新產生。 |
 
-對於在自動化腳本中使用，或偏好直接進行命令列操作的使用者，您可以使用 `--targets` 旗標指定一個或多個清理目標。這會繞過互動式提示，並立即執行清理。
+## 範例
 
-### 清理單一選項
+### 互動式清理
 
-若要僅移除已產生的文件，請執行以下指令：
+若要開始互動式清理過程，請執行不含任何參數的指令。這將會顯示一個清單，您可以使用空格鍵選取希望移除的項目，並按 Enter 鍵確認。
+
+```bash
+aigne doc clear
+```
+
+### 非互動式清理
+
+若要直接清理特定項目，請提供其目標名稱作為參數。
+
+#### 僅清理產生的文件
+
+此指令會移除 `docs` 目錄，但會保留 `structure-plan.json` 檔案。
 
 ```bash
 aigne doc clear --targets generatedDocs
 ```
 
-### 清理多個選項
+#### 清理結構與設定檔
 
-您可以提供一個以空格分隔的目標名稱列表，以一次移除多個項目。例如，若要同時刪除文件組態和文件結構，請執行以下指令：
+此指令會移除產生的文件、結構計畫以及設定檔。
 
 ```bash
-aigne doc clear --targets documentConfig documentStructure
+aigne doc clear --targets documentStructure documentConfig
 ```
 
-清除組態後，您可以開始新的設定流程。
+## 總結
 
----
-
-關於建立新組態的詳細說明，請參閱 [初始設定](./configuration-initial-setup.md) 指南。
+`clear` 指令是一個管理專案狀態的工具。使用互動模式以獲得引導式流程，或直接指定目標以加快執行速度。由於這些操作是不可逆的，請確保在執行清理前已備份所有關鍵資料。

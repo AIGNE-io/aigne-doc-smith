@@ -68,15 +68,15 @@ Once you publish to a specific URL for the first time (either through the intera
 
 ### Authorization Errors
 
-If the publishing process fails with an error message that includes "401" or "403," it signifies an issue with your authentication token. The token may be invalid, expired, or lack the required permissions.
+If the publishing process fails with an error message containing "401" or "403," it indicates an issue with your authentication token. The token may be invalid, expired, or lack the required permissions.
 
-To resolve this, reset your local configuration and credentials by running the `clear` command:
+To resolve this, you can reset your local authentication token. The `clear` command provides an option to clear your saved credentials.
 
 ```bash Clear Configuration icon=lucide:terminal
 aigne doc clear
 ```
 
-After the command completes, run `aigne doc publish` again. You will be prompted to re-authenticate and configure your publishing destination.
+When prompted, you can choose to clear the `authTokens` to reset your login session. After the command completes, run `aigne doc publish` again. You will be prompted to re-authenticate, which will generate a new, valid token.
 
 ---
 

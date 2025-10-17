@@ -1,15 +1,15 @@
 # Interactive Chat
 
-The interactive chat assistant provides a conversational command-line interface to manage all aspects of your documentation lifecycle. It interprets natural language instructions to execute commands for document generation, updates, translation, and publishing.
+The interactive chat assistant provides a conversational command-line interface to manage all aspects of your documentation lifecycle. It interprets natural language instructions to execute commands for document generation, updates, translation, and publishing. This feature is currently in beta.
 
 This guided approach removes the need to memorize individual commands and options, making it the recommended method for most documentation tasks.
 
 ## Starting the Chat Assistant
 
-To begin an interactive session, run the `chat` command from your project's root directory:
+To begin an interactive session, run the `doc` command from your project's root directory:
 
 ```bash
-aigndoc chat
+aigne doc
 ```
 
 This command launches the assistant and presents a prompt, ready to receive your instructions.

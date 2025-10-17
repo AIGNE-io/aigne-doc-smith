@@ -60,13 +60,13 @@ The following options are available for the `translate` command:
 To translate the `overview.md` and `getting-started.md` documents into Chinese and Japanese, you would run the following command:
 
 ```bash
-aigne doc translate --docs /overview --docs /getting-started --langs zh ja
+aigne doc translate --docs overview.md --docs getting-started.md --langs zh ja
 ```
 
 To provide stylistic feedback and ensure consistent terminology, you can add the `--feedback` and `--glossary` flags:
 
 ```bash
-aigne doc translate --docs /overview --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
+aigne doc translate --docs overview.md --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
 ```
 
 ## Supported Languages

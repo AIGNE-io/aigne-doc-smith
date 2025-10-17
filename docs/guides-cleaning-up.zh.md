@@ -1,52 +1,68 @@
 # 清理
 
-`aigne doc clear` 命令提供了一种系统化的方法，用于从项目中移除生成的文件、缓存数据和配置设置。当您需要重置文档工作区、从一个干净的状态开始，或解决可能由过时文件引起的问题时，这是一个很实用的步骤。
+本指南说明了如何使用 `aigne doc clear` 命令从您的项目中移除生成的文件、配置和缓存数据。此命令对于重新开始或删除敏感信息非常有用。
 
-## 交互式清理
+`clear` 命令可以以两种模式运行：交互式和非交互式。不带任何参数运行该命令将启动一个交互式向导，引导您完成可用的清理选项。
 
-对于需要受控且精确的清理操作，建议不带任何参数直接运行该命令。
+## 命令用法
+
+要在终端中使用清理命令，请运行以下命令：
 
 ```bash
 aigne doc clear
 ```
 
-该操作会启动一个交互式提示，列出所有可用的清理选项。每个选项都会附有清晰的功能说明，让您可以选择要移除的确切项目。这种交互式方法可以防止意外删除重要数据。
+或者，您可以直接将一个或多个目标作为参数指定，以非交互方式运行该命令。
+
+```bash
+aigne doc clear --targets <target1> <target2> ...
+```
 
 ## 清理选项
 
-`clear` 命令可以移除几种不同类型的数据。下表详细列出了每个可用选项、其功能以及它所影响的具体文件或目录。
+当您运行不带参数的 `aigne doc clear` 命令时，您将看到一个可供移除项目的交互式清单。您可以一次选择多个项目进行清理。
 
-| 选项 | 描述 | 受影响的文件和目录 |
-| :--- | :--- | :--- |
-| `generatedDocs` | 删除输出目录中的所有生成文档。文档结构计划将被保留。 | 您配置中由 `docsDir` 指定的目录。 |
-| `documentStructure` | 删除所有生成的文档和文档结构计划。此操作将重置所有文档内容。 | `.aigne/doc-smith/output/structure-plan.json` 文件和 `docsDir` 目录。 |
-| `documentConfig` | 删除项目的配置文件。执行此操作后，必须运行 `aigne doc init` 来创建新配置。 | `.aigne/doc-smith/config.yaml` 文件。 |
-| `authTokens` | 移除已保存的用于发布站点的授权令牌。系统将提示您选择要清除哪些站点的授权。 | 位于您主目录下的 `~/.aigne/doc-smith-connected.yaml` 文件。 |
-| `deploymentConfig` | 仅从您的配置文件中移除 `appUrl` 设置，其他设置保持不变。 | `.aigne/doc-smith/config.yaml` 文件。 |
-| `mediaDescription` | 删除为您的媒体文件缓存的、由 AI 生成的描述。这些描述将在下次构建文档时重新生成。 | `.aigne/doc-smith/cache/media-description.json` 文件。 |
+可用的清理目标详情如下。
 
-## 非交互式清理
+| Target | Description |
+| :--- | :--- |
+| **`generatedDocs`** | 删除输出目录（例如 `./docs`）中的所有已生成文档文件。此操作会保留文档结构文件。 |
+| **`documentStructure`** | 删除所有已生成的文档和文档结构文件（例如 `.aigne/doc-smith/output/structure-plan.json`）。 |
+| **`documentConfig`** | 删除主项目配置文件（例如 `.aigne/doc-smith/config.yaml`）。您必须运行 `aigne doc init` 以重新生成该文件。 |
+| **`authTokens`** | 从文件（例如 `~/.aigne/doc-smith-connected.yaml`）中删除已保存的授权令牌。系统将提示您选择要清除哪些站点的授权。 |
+| **`deploymentConfig`** | 从文档配置文件中移除 `appUrl`，但保留其他设置不变。 |
+| **`mediaDescription`** | 删除媒体文件的缓存 AI 生成描述（例如，来自 `.aigne/doc-smith/media-description.yaml`）。这些描述将在下次运行时重新生成。 |
 
-对于在自动化脚本中使用，或偏好直接命令行操作的用户，您可以使用 `--targets` 标志指定一个或多个清理目标。这将绕过交互式提示并立即执行清理操作。
+## 示例
 
-### 清理单个选项
+### 交互式清理
 
-若要仅移除生成的文档，请执行以下命令：
+要启动交互式清理过程，请不带任何参数运行该命令。这将呈现一个清单，您可以使用空格键选择希望移除的项目，并按 Enter 键确认。
+
+```bash
+aigne doc clear
+```
+
+### 非交互式清理
+
+要直接清理特定项目，请将其目标名称作为参数提供。
+
+#### 仅清理生成的文档
+
+此命令会移除 `docs` 目录，但保留 `structure-plan.json` 文件。
 
 ```bash
 aigne doc clear --targets generatedDocs
 ```
 
-### 清理多个选项
+#### 清理结构和配置
 
-您可以提供一个以空格分隔的目标名称列表，来一次性移除多个项目。例如，要同时删除文档配置和文档结构，请运行以下命令：
+此命令会移除生成的文档、结构计划和配置文件。
 
 ```bash
-aigne doc clear --targets documentConfig documentStructure
+aigne doc clear --targets documentStructure documentConfig
 ```
 
-清理配置后，您可以开始新的设置过程。
+## 总结
 
----
-
-有关创建新配置的详细说明，请参阅 [初始设置](./configuration-initial-setup.md) 指南。
+`clear` 命令是管理项目状态的工具。使用交互模式以获得引导式流程，或直接指定目标以加快执行速度。由于这些操作是不可逆的，请确保在执行清理前已备份所有关键数据。

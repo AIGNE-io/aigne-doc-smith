@@ -52,7 +52,6 @@ DocSmith is operated through a set of commands. The following table provides a s
 | `publish` | Deploys your documentation to a live, accessible URL. |
 | `evaluate` | Assesses the quality and completeness of your generated documentation. |
 | `history` | Views the history of updates made to your documentation. |
-| `chat` | Starts an interactive chat session to assist with documentation tasks. |
 | `clear` | Removes generated files, configurations, and cached data. |
 | `prefs` | Manages saved preferences and configurations for documentation generation. |
 

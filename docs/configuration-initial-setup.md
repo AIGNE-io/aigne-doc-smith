@@ -10,7 +10,7 @@ To begin the configuration manually, navigate to your project's root directory i
 aigne doc init
 ```
 
-This command launches an interactive questionnaire to configure your documentation settings. The process consists of 10 steps designed to tailor the generated documentation to your specific requirements.
+This command launches an interactive questionnaire to configure your documentation settings. The process consists of 9 steps designed to tailor the generated documentation to your specific requirements.
 
 ## Configuration Steps
 
@@ -20,7 +20,7 @@ The setup process will prompt you with a series of questions. The following sect
 
 The first step is to define the primary goals of your documentation. This selection influences the tone, structure, and focus of the generated content.
 
-**Prompt:** `📝 [1/10]: What should your documentation help readers achieve?`
+**Prompt:** `📝 [1/9]: What should your documentation help readers achieve?`
 
 You can select one or more options from the following list:
 
@@ -37,7 +37,7 @@ You can select one or more options from the following list:
 
 Next, specify the primary readers of your documentation. This helps to adjust the language and technical depth appropriately.
 
-**Prompt:** `👥 [2/10]: Who will be reading your documentation?`
+**Prompt:** `👥 [2/9]: Who will be reading your documentation?`
 
 You may select multiple audiences from this list:
 
@@ -54,7 +54,7 @@ You may select multiple audiences from this list:
 
 Indicate the assumed knowledge level of your audience. This ensures the content is presented at an appropriate level, avoiding information that is either too basic or too complex.
 
-**Prompt:** `🧠 [3/10]: How much do readers already know about your project?`
+**Prompt:** `🧠 [3/9]: How much do your readers already know about your project?`
 
 Select the option that best describes your readers:
 
@@ -70,7 +70,7 @@ Select the option that best describes your readers:
 
 Choose how detailed the documentation should be. This parameter determines the scope and level of detail in the generated content.
 
-**Prompt:** `📊 [4/10]: How detailed should your documentation be?`
+**Prompt:** `📊 [4/9]: How detailed should your documentation be?`
 
 Select one of the following levels:
 
@@ -85,7 +85,7 @@ Select one of the following levels:
 
 Choose the main language for your documentation. The system will detect your operating system's language and suggest it as the default.
 
-**Prompt:** `🌐 [5/10]: What's your main documentation language?`
+**Prompt:** `🌐 [5/9]: What is the main language of your documentation?`
 
 You can select from a list of 12 supported languages, including English, Chinese (Simplified), and Spanish.
 
@@ -93,7 +93,7 @@ You can select from a list of 12 supported languages, including English, Chinese
 
 Select any additional languages into which you want the documentation to be translated.
 
-**Prompt:** `🔄 [6/10]: Which languages should we translate to?`
+**Prompt:** `🔄 [6/9]: What languages should we translate to?`
 
 You can choose multiple languages from the supported options, excluding the primary language selected in the previous step.
 
@@ -101,7 +101,7 @@ You can choose multiple languages from the supported options, excluding the prim
 
 Specify the folder where the generated documentation files will be saved.
 
-**Prompt:** `📁 [7/10]: Where should we save your documentation?`
+**Prompt:** `📁 [7/9]: Where should we save your documentation?`
 
 The default path is `.aigne/doc-smith/docs`. You can accept this default or provide a different path.
 
@@ -109,7 +109,7 @@ The default path is `.aigne/doc-smith/docs`. You can accept this default or prov
 
 Indicate which files and folders the tool should analyze to generate documentation. You can add multiple paths and use glob patterns for more specific file matching.
 
-**Prompt:** `🔍 [8/10]: Content Sources`
+**Prompt:** `🔍 [8/9]: Content Sources`
 
 You will be prompted to enter file paths, folder paths, or glob patterns (e.g., `src/**/*.js`). If no paths are provided, the tool will analyze the entire project directory by default.
 
@@ -117,17 +117,9 @@ You will be prompted to enter file paths, folder paths, or glob patterns (e.g., 
 
 This optional step allows you to provide specific instructions or constraints for the AI to follow during content generation.
 
-**Prompt:** `📋 [9/10]: Any custom rules or requirements for your documentation? (Optional, press Enter to skip)`
+**Prompt:** `📋 [9/9]: Do you have any custom rules or requirements for your documentation? (Optional, press Enter to skip)`
 
 You can input any requirements, such as tone, style, or content to exclude. For example: "Focus on technical accuracy and avoid marketing terminology."
-
-### Step 10: Configure Media Settings
-
-Set a minimum width for images to be included in the documentation. This helps filter out low-resolution images or icons.
-
-**Prompt:** `🖼️ [10/10]: Minimum image width (in pixels) to include in documentation:`
-
-The default value is `800`. You can enter a different positive number to adjust the filter.
 
 ## The `config.yaml` File
 
