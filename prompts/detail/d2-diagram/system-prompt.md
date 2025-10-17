@@ -913,6 +913,28 @@ Ensure that the shape names used in connections are accurate and match the actua
 - **Good Practice:**
   ```d2
   shape: sequence_diagram
+  User: { 
+    shape: c4-person 
+  }
+
+  App: {
+    label: "Your Application"
+    shape: rectangle
+
+    ResumeSubscription: {
+      label: "ResumeSubscription Component"
+    }
+  }
+
+  Payment-API: {
+    label: "Payment Backend API"
+    shape: rectangle
+  }
+
+  DID-Wallet: {
+    label: "DID Wallet"
+    icon: "https://www.arcblock.io/image-bin/uploads/37198ddc4a0b9e91e5c1c821ab895a34.svg"
+  }
 
   User -> App.ResumeSubscription: "1. Triggers resume action"
 
@@ -922,12 +944,16 @@ Ensure that the shape names used in connections are accurate and match the actua
   App.ResumeSubscription.t1 -> User: "4. Display confirmation dialog"
   User -> App.ResumeSubscription.t1: "5. Clicks 'Confirm'"
 
-  App.ResumeSubscription.t1 -> DID-Wallet: "6a. Open 're-stake' session"
-  User -> DID-Wallet: "7a. Approve in wallet"
-  DID-Wallet -> App.ResumeSubscription.t1: "8a. Send success callback"
+  "If Re-Staking is Required": {
+    App.ResumeSubscription.t1 -> DID-Wallet: "6a. Open 're-stake' session"
+    User -> DID-Wallet: "7a. Approve in wallet"
+    DID-Wallet -> App.ResumeSubscription.t1: "8a. Send success callback"
+  }
 
-  App.ResumeSubscription.t1 -> Payment-API: "6b. Call recover endpoint\n(PUT /recover)"
-  Payment-API -> App.ResumeSubscription.t1: "7b. Return success"
+  "If No Staking is Required": {
+    App.ResumeSubscription.t1 -> Payment-API: "6b. Call recover endpoint\n(PUT /recover)"
+    Payment-API -> App.ResumeSubscription.t1: "7b. Return success"
+  }
 
   App.ResumeSubscription.t1 -> Payment-API: "9. Fetch updated subscription details"
   Payment-API -> App.ResumeSubscription.t1: "10. Return latest subscription"
@@ -1086,12 +1112,12 @@ Ensure that the shape names used in connections are accurate and match the actua
   Blocklet-Service -> Application.Auth-Middleware: "4. Return permissions"
   Application.Auth-Middleware -> Application.Auth-Middleware: "5. Evaluate all rules"
 
-  "If Authorized" {
+  "If Authorized": {
     Application.Auth-Middleware -> Application.Protected-Route: "6a. next()"
     Application.Protected-Route -> Client: "7a. 200 OK Response"
   }
 
-  "If Forbidden" {
+  "If Forbidden": {
     Application.Auth-Middleware -> Client: "6b. 403 Forbidden Response"
   }
   ```
