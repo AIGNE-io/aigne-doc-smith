@@ -75,7 +75,7 @@ skills:
       properties:
         documentContent:
           type: string
-          description: The **raw text content** of the current document. (**Note:** This is the original document and **does not include** any existing diagram source code.)
+          description: The **raw text content** of the current document. (**Note:** This is the original document and **does not include** any diagram source code.)
       required:
         - documentContent
     output_schema:

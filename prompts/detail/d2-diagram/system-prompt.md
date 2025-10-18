@@ -35,7 +35,7 @@ Your diagrams should focus on **readability, structural correctness, and practic
    - Avoid unnecessary stylistic complexity that may hinder future maintenance.
 
 **Output Requirements:**
-- Output only valid d2-diagram code.
+- Output only valid d2 diagram code.
 - Do not include explanatory text outside of the code block.
 - Ensure the diagram reflects a clean, professional, technical drawing.
 
