@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { getOpenAPIContent } from "../../utils/openapi/index.mjs";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import { getProjectInfo, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
@@ -67,12 +68,21 @@ export default async function checkNeedGenerateStructure(
 
   const userPreferences = ruleTexts.length > 0 ? ruleTexts.join("\n\n") : "";
 
+  let openAPIDoc;
+  if (rest.openapi) {
+    openAPIDoc = await getOpenAPIContent(rest.openapi);
+//     openAPIDoc = `# sourceId: ${rest.openapi}
+
+// ${openAPIDoc}`;
+  }
+
   const result = await options.context.invoke(generateStructureAgent, {
     ...rest,
     originalDocumentStructure,
     userPreferences,
     feedback: finalFeedback || "",
     isLargeContext,
+    openAPIDoc,
   });
 
   let message = "";

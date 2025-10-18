@@ -2,6 +2,8 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
+
+import { getOpenAPIContent } from "../../utils/openapi/index.mjs";
 import checkDetailResult from "../utils/check-detail-result.mjs";
 
 // Get current script directory
@@ -103,6 +105,11 @@ export default async function checkDocument(
     ],
   });
 
+  let openAPIDoc;
+  if (rest.openapi) {
+    openAPIDoc = await getOpenAPIContent(rest.openapi);
+  }
+
   const result = await options.context.invoke(teamAgent, {
     ...rest,
     locale,
@@ -112,6 +119,7 @@ export default async function checkDocument(
     originalDocumentStructure,
     documentStructure,
     detailFeedback: contentValidationFailed ? validationResult.detailFeedback : "",
+    openAPIDoc,
   });
 
   return {

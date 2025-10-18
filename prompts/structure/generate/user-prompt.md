@@ -12,6 +12,13 @@
 {{ datasources }}
 </datasources>
 
+{% if openAPIDoc %}
+The OpenAPI documentation for the current project, the contents of this file must be used when performing structure planning, please carefully consider which document all interfaces in the OpenAPI documentation should be divided into, and make sure that all OpenAPI interfaces will have relevant documentation in the documentation.
+<openapi_doc>
+{{ openAPIDoc }}
+</openapi_doc>
+{% endif %}
+
 
 {% if originalDocumentStructure %}
 <last_document_structure>

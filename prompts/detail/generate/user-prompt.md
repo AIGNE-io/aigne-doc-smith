@@ -27,6 +27,13 @@
 
 </datasources>
 
+{% if openAPIDoc %}
+OpenAPI doc for this project, this **MUST be used** to increase the presentation of the document.
+<openapi_doc>
+{{ openAPIDoc }}
+</openapi_doc>
+{% endif %}
+
 
 {% include "./detail-example.md" %}
 
