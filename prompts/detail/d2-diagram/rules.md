@@ -28,4 +28,9 @@
    x -> y
    ```
    ````
+- Don't use `<d2>`
+- Don't use `<diagram>`
+- Don't use `<d2-diagram>`
+- Don't use `<img src="fake-url" />`
+- Don't convert diagram to a markdown image `![diagram](fake-url)`
 </diagram_generation_guide>
