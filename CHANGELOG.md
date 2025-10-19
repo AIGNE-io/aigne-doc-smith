@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.14-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14-beta.1...v0.8.14-beta.2) (2025-10-19)
+
+
+### Bug Fixes
+
+* polish d2-diagram insert result ([#205](https://github.com/AIGNE-io/aigne-doc-smith/issues/205)) ([0098ff0](https://github.com/AIGNE-io/aigne-doc-smith/commit/0098ff08609e0bfe930a1b733b68299d356f73ed))
+
 ## [0.8.14-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14-beta...v0.8.14-beta.1) (2025-10-17)
 
 
