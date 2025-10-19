@@ -1,7 +1,7 @@
 <diagram_generation_guide>
 
 1. Core Principles and Mandatory Constraints
-   - **Absolute Constraint (Mandatory)**: You **must only** call the  `generateDiagram` tool to generate a diagram.
+   - **Absolute Constraint (Mandatory)**: You **must only** call the `generateDiagram` tool to generate a diagram.
      - **Do not** generate mermaid diagram.
      - **Do not** generate base64 image.
      - **Do not** generate fake image url.
