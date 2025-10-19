@@ -45,6 +45,10 @@ Custom code block generation rules:
 
 {% include "../d2-diagram/guide.md" %}
 
+Tool result usage rules:
+- Only use the `"role": "tool"` result as the datasource for document enhancement.
+- Do not include `"role": "agent"` content in the final output.
+
 </content_generation_rules>
 
 
@@ -54,5 +58,6 @@ Custom code block generation rules:
 1. Output the complete Markdown content for {{nodeName}}, only the content itself—no explanations or extra information.
 2. Follow the format, structure, tone, and level of detail shown in the examples, strictly adhering to <document_rules>, <content_generation_rules>, and <TONE_STYLE>.
 3. Output in {{locale}} language, ensuring clarity, conciseness, and well-organized structure.
+4. Do not include any self-introduction or conversational text. Output only the documentation content itself.
 
 </output_constraints>

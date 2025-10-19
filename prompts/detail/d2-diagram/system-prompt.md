@@ -35,7 +35,7 @@ Your diagrams should focus on **readability, structural correctness, and practic
    - Avoid unnecessary stylistic complexity that may hinder future maintenance.
 
 **Output Requirements:**
-- Output only valid d2-diagram code.
+- Output only valid d2 diagram code.
 - Do not include explanatory text outside of the code block.
 - Ensure the diagram reflects a clean, professional, technical drawing.
 
@@ -1006,7 +1006,9 @@ Ensure that the shape names used in connections are accurate and match the actua
   User -> CLI: "blocklet init"
   ```
 
-#### If have alt, don't forget to add `shape: sequence_diagram`
+#### Don't forget to add `shape: sequence_diagram` to sequence diagram
+
+> Don't use alt as shape name
 
 - **Bad Practice:**
   ```d2
@@ -1084,12 +1086,12 @@ Ensure that the shape names used in connections are accurate and match the actua
   Blocklet-Service -> Application.Auth-Middleware: "4. Return permissions"
   Application.Auth-Middleware -> Application.Auth-Middleware: "5. Evaluate all rules"
 
-  alt "If Authorized" {
+  "If Authorized" {
     Application.Auth-Middleware -> Application.Protected-Route: "6a. next()"
     Application.Protected-Route -> Client: "7a. 200 OK Response"
   }
 
-  alt "If Forbidden" {
+  "If Forbidden" {
     Application.Auth-Middleware -> Client: "6b. 403 Forbidden Response"
   }
   ```
