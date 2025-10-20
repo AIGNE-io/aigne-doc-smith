@@ -1,31 +1,131 @@
 entries:
+  - timestamp: 2025-10-17T06:14:42.833Z
+    operation: document_update
+    feedback: Interactive mode can also update multiple articles.
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-17T06:11:30.111Z
+    operation: document_update
+    feedback: rename Batch Document Updates to Non-interactive document updates and remove the term
+      `Batch mode`
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-17T05:24:58.319Z
+    operation: document_update
+    feedback: rename Batch Document Updates to Non-interactive document updates
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-17T05:21:15.906Z
+    operation: document_update
+    feedback: The `generate` command plans documents, not sections.
+    documentPath: /guides/generating-documentation
+  - timestamp: 2025-10-17T05:13:33.889Z
+    operation: document_update
+    feedback: There is no chat subcommand
+    documentPath: /overview
+  - timestamp: 2025-10-17T05:11:19.144Z
+    operation: document_update
+    feedback: There is no chat subcommand; instead, you enter chat mode directly via `aigne doc`.
+    documentPath: /overview
+  - timestamp: 2025-10-17T05:09:04.433Z
+    operation: document_update
+    feedback: remove section Exploring All Commands
+    documentPath: /getting-started
+  - timestamp: 2025-10-16T15:33:56.177Z
+    operation: document_update
+    feedback: Remove the leading ‘/’ from the --docs parameter value.
+    documentPath: /guides/translating-documentation
+  - timestamp: 2025-10-16T15:31:01.477Z
+    operation: document_update
+    feedback: No need for d2 diagram
+    documentPath: /guides/cleaning-up
+  - timestamp: 2025-10-16T13:53:49.257Z
+    operation: document_update
+    feedback: The value of the --id parameter should be pref_ followed by a 16-digit alphanumeric random
+      code.
+    documentPath: /configuration/managing-preferences
+  - timestamp: 2025-10-16T13:42:59.543Z
+    operation: document_update
+    feedback: "No Step 10: Configure Media Settings"
+    documentPath: /configuration/initial-setup
+  - timestamp: 2025-10-16T13:38:22.044Z
+    operation: document_update
+    feedback: The chat subcommand does not exist.
+    documentPath: /getting-started
+  - timestamp: 2025-10-16T13:36:26.254Z
+    operation: document_update
+    feedback: In the section exploring all commands, not all commands are listed.
+    documentPath: /getting-started
+  - timestamp: 2025-10-16T13:29:00.674Z
+    operation: document_update
+    feedback: The --docs parameter value uses the xx.md filename without the directory prefix.
+    documentPath: /guides/updating-documentation
+  - timestamp: 2025-10-16T13:26:11.374Z
+    operation: document_update
+    feedback: Document structure feedback does not support sorting.
+    documentPath: /guides/generating-documentation
+  - timestamp: 2025-10-16T13:22:12.668Z
+    operation: document_update
+    feedback: In cases where authorized tokens need to be cleared, users can be prompted to choose to
+      clear authTokens.
+    documentPath: /guides/publishing-your-docs
+  - timestamp: 2025-10-16T13:15:35.526Z
+    operation: document_update
+    feedback: You should use the full command `aigne doc history view` instead of `aigne history view`
+    documentPath: /guides/managing-history
+  - timestamp: 2025-10-16T13:04:50.763Z
+    operation: document_update
+    feedback: In the Aigne Docs translation case, the docs path requires the full xx.md filename.
+    documentPath: /guides/translating-documentation
+  - timestamp: 2025-10-16T12:51:53.464Z
+    operation: document_update
+    feedback: Chat is a beta feature and is accessed via the `aigne doc` command.
+    documentPath: /guides/interactive-chat
+  - timestamp: 2025-10-16T12:32:51.574Z
+    operation: document_update
+    feedback: "Some Target path examples are incorrect. For instance: - documentStructure should be
+      ‘.aigne/doc-smith/output/structure-plan.json’ - documentConfig should be
+      ‘.aigne/doc-smith/config.yaml’ - authTokens should be ‘~/.aigne/doc-smith-connected.yaml’ -
+      mediaDescription should be '.aigne/doc-smith/media-description.yaml'
+      aigne/doc-smith/media-description.yaml'."
+    documentPath: /guides/cleaning-up
+  - timestamp: 2025-10-16T12:02:17.196Z
+    operation: document_update
+    feedback: The target must be passed via the --targets parameter
+    documentPath: /guides/cleaning-up
   - timestamp: 2025-10-11T13:21:51.992Z
     operation: translation_update
     feedback: Do not translate the Target column in the Cleanup Targets table.
     documentPath: /guides/cleaning-up
   - timestamp: 2025-10-11T13:20:30.314Z
     operation: document_update
-    feedback: The targets in Cleanup Targets are incomplete and need to be supplemented. The corresponding descriptions also require updating. Additionally, the target values should use the original enumeration values, such as 'generatedDocs'.
+    feedback: The targets in Cleanup Targets are incomplete and need to be supplemented. The
+      corresponding descriptions also require updating. Additionally, the target values should use
+      the original enumeration values, such as 'generatedDocs'.
     documentPath: /guides/cleaning-up
   - timestamp: 2025-10-11T13:03:20.327Z
     operation: document_update
-    feedback: The two aliases for the 'history' command in Viewing Update History can be combined into a single code block. The Short Hash in Understanding the History Output now consists of 8 characters. Additionally, operation types are separated by underscores, such as 'document_update'.
+    feedback: The two aliases for the 'history' command in Viewing Update History can be combined into a
+      single code block. The Short Hash in Understanding the History Output now consists of 8
+      characters. Additionally, operation types are separated by underscores, such as
+      'document_update'.
     documentPath: /guides/managing-history
   - timestamp: 2025-10-11T12:56:23.107Z
     operation: document_update
-    feedback: In interactive mode, translated files are saved with a suffix appended to their original filenames within the same directory, rather than in dedicated language directories.
+    feedback: In interactive mode, translated files are saved with a suffix appended to their original
+      filenames within the same directory, rather than in dedicated language directories.
     documentPath: /guides/translating-documentation
   - timestamp: 2025-10-11T12:50:25.563Z
     operation: document_update
-    feedback: The value of the 'docs' parameter in the demo should be a path separated by '-' rather than '/', and '.md' should be preserved.
+    feedback: The value of the 'docs' parameter in the demo should be a path separated by '-' rather
+      than '/', and '.md' should be preserved.
     documentPath: /guides/updating-documentation
   - timestamp: 2025-10-11T12:46:37.507Z
     operation: document_update
-    feedback: The value of the 'docs' parameter in the demo should be a path separated by '-' rather than '/'.
+    feedback: The value of the 'docs' parameter in the demo should be a path separated by '-' rather
+      than '/'.
     documentPath: /guides/updating-documentation
   - timestamp: 2025-10-11T12:39:53.222Z
     operation: document_update
-    feedback: The prompts in Review the Documentation Structure are outdated and need updating. Command Parameters also require updating.
+    feedback: The prompts in Review the Documentation Structure are outdated and need updating. Command
+      Parameters also require updating.
     documentPath: /guides/generating-documentation
   - timestamp: 2025-10-11T12:26:24.598Z
     operation: translation_update

@@ -1,9 +1,8 @@
-import { basename, extname, join } from "node:path";
+import { basename, join } from "node:path";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import fs from "fs-extra";
-import slugify from "slugify";
 
 import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 import {
@@ -15,8 +14,6 @@ import {
 } from "../../utils/constants/index.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
-import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
-import { uploadFiles } from "../../utils/upload-files.mjs";
 import {
   getGithubRepoUrl,
   isHttp,
@@ -24,6 +21,7 @@ import {
   saveValueToConfig,
 } from "../../utils/utils.mjs";
 import updateBranding from "../utils/update-branding.mjs";
+import { downloadAndUploadImage } from "../../utils/file-utils.mjs";
 
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 
@@ -59,29 +57,27 @@ export default async function publishDocs(
 
     // ----------------- main publish process flow -----------------------------
     // Check if DOC_DISCUSS_KIT_URL is set in environment variables
-    const envAppUrl = process.env.DOC_DISCUSS_KIT_URL;
-    const useEnvAppUrl = !!envAppUrl;
-
-    // Use environment variable if available, otherwise use the provided appUrl
-    if (useEnvAppUrl) {
-      appUrl = envAppUrl;
-    }
+    const useEnvAppUrl = !!(process.env.DOC_DISCUSS_KIT_URL || appUrl);
 
     // Check if appUrl is default and not saved in config (only when not using env variable)
     const config = await loadConfigFromFile();
-    const isDefaultAppUrl = appUrl === CLOUD_SERVICE_URL_PROD;
-    const hasAppUrlInConfig = config?.appUrl;
+    appUrl = process.env.DOC_DISCUSS_KIT_URL || appUrl || config?.appUrl;
+    const hasInputAppUrl = !!appUrl;
 
+    let shouldSyncBranding = void 0;
     let token = "";
+    let client = null;
+    let authToken = null;
+    let sessionId = null;
 
-    if (!useEnvAppUrl && isDefaultAppUrl && !hasAppUrlInConfig) {
-      const authToken = await getOfficialAccessToken(BASE_URL, false);
+    if (!hasInputAppUrl) {
+      authToken = await getOfficialAccessToken(BASE_URL, false);
 
-      let sessionId = "";
+      sessionId = "";
       let paymentLink = "";
 
       if (authToken) {
-        const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
+        client = new BrokerClient({ baseUrl: BASE_URL, authToken });
         const info = await client.checkCacheSession({
           needShortUrl: true,
           sessionId: config?.checkoutId,
@@ -137,27 +133,58 @@ export default async function publishDocs(
         // Ensure appUrl has protocol
         appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
       } else if (["new-instance", "new-instance-continue"].includes(choice)) {
-        if (options?.prompts?.confirm) {
-          shouldWithBranding = await options.prompts.confirm({
-            message: "Would you like to update the project branding (title, description, logo)?",
-            default: true,
-          });
-        }
-        // Deploy a new Discuss Kit service
-        let id = "";
-        let paymentUrl = "";
+        // resume previous website setup
         if (choice === "new-instance-continue") {
-          id = sessionId;
-          paymentUrl = paymentLink;
-          console.log(`\nResuming your previous website setup...`);
-        } else {
-          console.log(`\nCreating a new website for your documentation...`);
+          shouldSyncBranding = config?.shouldSyncBranding ?? void 0;
+          if (shouldSyncBranding !== void 0) {
+            shouldWithBranding = shouldWithBranding ?? shouldSyncBranding;
+          }
         }
-        const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentUrl)) || {};
 
-        appUrl = homeUrl;
-        token = ltToken;
+        if (options?.prompts?.confirm) {
+          if (shouldSyncBranding === void 0) {
+            shouldSyncBranding = await options.prompts.confirm({
+              message: "Would you like to update the project branding (title, description, logo)?",
+              default: true,
+            });
+            await saveValueToConfig(
+              "shouldSyncBranding",
+              shouldSyncBranding,
+              "Should sync branding for documentation",
+            );
+            shouldWithBranding = shouldSyncBranding;
+          } else {
+            console.log(
+              `Would you like to update the project branding (title, description, logo)? ${chalk.cyan(shouldSyncBranding ? "Yes" : "No")}`,
+            );
+          }
+        }
+
+        try {
+          let id = "";
+          if (choice === "new-instance-continue") {
+            id = sessionId;
+            console.log(`\nResuming your previous website setup...`);
+          } else {
+            console.log(`\nCreating a new website for your documentation...`);
+          }
+          const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentLink)) || {};
+
+          appUrl = homeUrl;
+          token = ltToken;
+        } catch (error) {
+          const errorMsg = error?.message || "Unknown error occurred";
+          return { message: `${chalk.red("❌ Failed to create website:")} ${errorMsg}` };
+        }
       }
+    }
+
+    if (sessionId) {
+      authToken = await getOfficialAccessToken(BASE_URL, false);
+      client = client || new BrokerClient({ baseUrl: BASE_URL, authToken });
+
+      const { vendors } = await client.getSessionDetail(sessionId, false);
+      token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
     }
 
     console.log(`\nPublishing your documentation to ${chalk.cyan(appUrl)}\n`);
@@ -175,46 +202,22 @@ export default async function publishDocs(
       description: projectDesc || config?.projectDesc || "",
       icon: projectLogo || config?.projectLogo || "",
     };
+    let finalPath = null;
 
     // Handle project logo download if it's a URL
     if (projectInfo.icon && isHttp(projectInfo.icon)) {
-      const tempFilePath = join(docsDir, slugify(basename(projectInfo.icon)));
-      const initialExt = extname(projectInfo.icon);
-      let ext = initialExt;
-
-      try {
-        const response = await fetch(projectInfo.icon);
-        const blob = await response.blob();
-        const arrayBuffer = await blob.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-
-        if (response.ok) {
-          if (!ext) {
-            const contentType = response.headers.get("content-type");
-            ext = getExtnameFromContentType(contentType);
-          }
-
-          const finalPath = ext ? `${tempFilePath}.${ext}` : tempFilePath;
-          fs.writeFileSync(finalPath, buffer);
-
-          const filePath = join(process.cwd(), finalPath);
-          const { results: uploadResults } = await uploadFiles({
-            appUrl,
-            filePaths: [filePath],
-            accessToken,
-            concurrency: 1,
-          });
-
-          // FIXME: 暂时保持使用绝对路径，需要修改为相对路径 @pengfei
-          projectInfo.icon = uploadResults?.[0]?.url || projectInfo.icon;
-        }
-      } catch (error) {
-        console.warn(`Failed to download project logo from ${projectInfo.icon}: ${error.message}`);
-      }
+      const { url: uploadedImageUrl, downloadFinalPath } = await downloadAndUploadImage(
+        projectInfo.icon,
+        docsDir,
+        appUrl,
+        accessToken,
+      );
+      projectInfo.icon = uploadedImageUrl;
+      finalPath = downloadFinalPath;
     }
 
     if (shouldWithBranding) {
-      updateBranding({ appUrl, projectInfo, accessToken });
+      updateBranding({ appUrl, projectInfo, accessToken, finalPath });
     }
 
     // Construct boardMeta object
@@ -263,6 +266,7 @@ export default async function publishDocs(
       }
       message = `✅ Documentation published successfully!`;
       await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
+      await saveValueToConfig("shouldSyncBranding", "", "Should sync branding for documentation");
     } else {
       // If the error is 401 or 403, it means the access token is invalid
       if (error?.includes("401") || error?.includes("403")) {
@@ -297,7 +301,6 @@ publishDocs.input_schema = {
     appUrl: {
       type: "string",
       description: "The URL of the app.",
-      default: CLOUD_SERVICE_URL_PROD,
     },
     boardId: {
       type: "string",

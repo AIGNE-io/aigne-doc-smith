@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.8.14](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14-beta.2...v0.8.14) (2025-10-19)
+
+## [0.8.14-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14-beta.1...v0.8.14-beta.2) (2025-10-19)
+
+
+### Bug Fixes
+
+* polish d2-diagram insert result ([#205](https://github.com/AIGNE-io/aigne-doc-smith/issues/205)) ([0098ff0](https://github.com/AIGNE-io/aigne-doc-smith/commit/0098ff08609e0bfe930a1b733b68299d356f73ed))
+
+## [0.8.14-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14-beta...v0.8.14-beta.1) (2025-10-17)
+
+
+### Bug Fixes
+
+* doc review and update ([#199](https://github.com/AIGNE-io/aigne-doc-smith/issues/199)) ([0061323](https://github.com/AIGNE-io/aigne-doc-smith/commit/006132345a17a7fae10a803656b731144ecc54c9))
+* respect env vars for publish and improve reliability ([#204](https://github.com/AIGNE-io/aigne-doc-smith/issues/204)) ([bd14c2a](https://github.com/AIGNE-io/aigne-doc-smith/commit/bd14c2af54ebca89c8edb5861e3b1a6e3f76e92e))
+
+## [0.8.14-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.13...v0.8.14-beta) (2025-10-16)
+
+
+### Features
+
+* **file-utils:** add comprehensive file type detection and image upload functionality ([#200](https://github.com/AIGNE-io/aigne-doc-smith/issues/200)) ([ab7aae3](https://github.com/AIGNE-io/aigne-doc-smith/commit/ab7aae33ed9b5209e824ba91fbf9c94d37187d83))
+
+
+### Bug Fixes
+
+* use `output` field present tool result to enhance LLM understanding ([#202](https://github.com/AIGNE-io/aigne-doc-smith/issues/202)) ([511178d](https://github.com/AIGNE-io/aigne-doc-smith/commit/511178de7a88fdecf2136f90035d87957e23b23f))
+
 ## [0.8.13](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.13-beta...v0.8.13) (2025-10-16)
 
 
