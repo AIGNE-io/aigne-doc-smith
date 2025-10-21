@@ -80,7 +80,9 @@ Here are some high-quality documentation details for your reference:
 
   **Returns**
 
-  <x-field data-name="product" data-type="TProductExpanded" data-desc="The newly created product object, including expanded details"></x-field>
+  <x-field-group>
+    <x-field data-name="product" data-type="TProductExpanded" data-desc="The newly created product object, including expanded details"></x-field>
+  </x-field-group>
 
   **Example**
 
@@ -130,11 +132,15 @@ Here are some high-quality documentation details for your reference:
 
   **Parameters**
 
-  <x-field data-name="id" data-type="string" data-required="true" data-desc="The unique identifier of the product to retrieve."></x-field>
+  <x-field-group>
+    <x-field data-name="id" data-type="string" data-required="true" data-desc="The unique identifier of the product to retrieve."></x-field>
+  </x-field-group>
 
   **Returns**
 
-  <x-field data-name="product" data-type="TProductExpanded" data-desc="The retrieved product object, including expanded details."></x-field>
+  <x-field-group>
+    <x-field data-name="product" data-type="TProductExpanded" data-desc="The retrieved product object, including expanded details."></x-field>
+  </x-field-group>
 
   **Example**
 
@@ -176,7 +182,9 @@ Here are some high-quality documentation details for your reference:
 
   **Returns**
 
-  <x-field data-name="product" data-type="TProductExpanded" data-desc="The updated product object."></x-field>
+  <x-field-group>
+    <x-field data-name="product" data-type="TProductExpanded" data-desc="The updated product object."></x-field>
+  </x-field-group>
 
   **Example**
 
@@ -341,11 +349,15 @@ Here are some high-quality documentation details for your reference:
 
   **Parameters**
 
-  <x-field data-name="id" data-type="string" data-required="true" data-desc="The unique identifier of the product to archive."></x-field>
+  <x-field-group>
+    <x-field data-name="id" data-type="string" data-required="true" data-desc="The unique identifier of the product to archive."></x-field>
+  </x-field-group>
 
   **Returns**
 
-  <x-field data-name="product" data-type="TProduct" data-desc="The archived product object."></x-field>
+  <x-field-group>
+    <x-field data-name="product" data-type="TProduct" data-desc="The archived product object."></x-field>
+  </x-field-group>
 
   **Example**
 
@@ -380,11 +392,15 @@ Here are some high-quality documentation details for your reference:
 
   **Parameters**
 
-  <x-field data-name="id" data-type="string" data-required="true" data-desc="The unique identifier of the product to delete."></x-field>
+  <x-field-group>
+    <x-field data-name="id" data-type="string" data-required="true" data-desc="The unique identifier of the product to delete."></x-field>
+  </x-field-group>
 
   **Returns**
 
-  <x-field data-name="product" data-type="TProduct" data-desc="The deleted product object."></x-field>
+  <x-field-group>
+    <x-field data-name="product" data-type="TProduct" data-desc="The deleted product object."></x-field>
+  </x-field-group>
 
   **Example**
 

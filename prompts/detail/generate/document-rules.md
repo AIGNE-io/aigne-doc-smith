@@ -15,7 +15,9 @@ Documentation Generation Rules:
 - Maintain content completeness and logical flow so users can follow the documentation seamlessly
 - Provide comprehensive explanations for configuration options and parameters. When parameters accept multiple values, explain each option's purpose and include code examples where applicable
 - All interface and method documentation must include **response data examples**
-- For simple list data, use Markdown tables to present information clearly and improve readability
+- **Use `<x-field-group>` for all structured data**: Represent objects with nested `<x-field>` elements, and expand each structure to the **deepest relevant level**.
+- **Enhance field descriptions with example values**: For structured data defined using `<x-field-group>`, extract example values from type definitions, comments, or test cases to make documentation more practical and user-friendly.
+- **Use Markdown tables** for predefined values (e.g., status types, options) or term definitions to improve clarity and allow side-by-side comparison.
 - Validate output Markdown for completeness, ensuring tables are properly formatted
 - **Content Integrity**: Generate complete, syntactically correct code blocks (JSON, etc.). Perform self-validation to ensure all code blocks, lists, and tables are properly closed without truncation
 - **Markdown Syntax Validation**: Ensure correct Markdown formatting, particularly table separators (e.g., `|---|---|---|`) that match column counts
