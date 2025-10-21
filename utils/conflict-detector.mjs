@@ -135,13 +135,15 @@ export function generateConflictResolutionRules(conflicts) {
   rules.push("");
   rules.push("Conflict Resolution Principles:");
   rules.push(
-    "1. Meet diverse needs through intelligent structural design, not simple concatenation",
+    "1. Meet diverse needs through intelligent structural design, not by simply concatenating information.",
   );
-  rules.push("2. Create clear navigation paths for different purposes and audiences");
+  rules.push("2. Create clear navigation paths for different purposes and audiences.");
   rules.push(
-    "3. Ensure content hierarchy is reasonable, avoid information duplication or contradiction",
+    "3. Ensure a reasonable content hierarchy that avoids information duplication and contradiction.",
   );
-  rules.push("4. Prioritize user experience, enable users to quickly find needed information");
+  rules.push(
+    "4. Prioritize the user experience by enabling users to quickly find the information they need.",
+  );
 
   return rules.join("\n");
 }

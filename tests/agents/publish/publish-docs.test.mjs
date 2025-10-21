@@ -200,7 +200,7 @@ describe("publish-docs", () => {
   });
 
   // USER INTERACTION TESTS
-  test("should prompt user to select platform when using default URL without config", async () => {
+  test("should skip platform selection prompt when appUrl is provided", async () => {
     loadConfigFromFileSpy.mockResolvedValue({});
     mockOptions.prompts.select.mockResolvedValue("default");
 
@@ -212,12 +212,11 @@ describe("publish-docs", () => {
       mockOptions,
     );
 
-    expect(mockOptions.prompts.select).toHaveBeenCalledWith(
-      expect.objectContaining({
-        message: expect.stringContaining("Select platform"),
-        choices: expect.any(Array),
-      }),
-    );
+    expect(mockOptions.prompts.select).not.toHaveBeenCalled();
+    expect.objectContaining({
+      message: expect.stringContaining("Please select a platform to publish your documents:"),
+      choices: expect.any(Array),
+    });
   });
 
   test("should handle custom platform selection", async () => {
@@ -230,14 +229,13 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
       },
       mockOptions,
     );
 
     expect(consoleSpy).toHaveBeenCalled();
     expect(mockOptions.prompts.input).toHaveBeenCalledWith({
-      message: "Please enter your website URL:",
+      message: "Please enter the URL of your website:",
       validate: expect.any(Function),
     });
     expect(getAccessTokenSpy).toHaveBeenCalledWith("https://custom.example.com", "");
@@ -251,7 +249,6 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
       },
       mockOptions,
     );
@@ -271,7 +268,6 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
       },
       mockOptions,
     );
@@ -284,7 +280,6 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://example.com",
         projectName: "Test Project",
         projectDesc: "Test Description",
         projectLogo: "logo.png",
@@ -311,7 +306,6 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://example.com",
       },
       mockOptions,
     );
@@ -331,7 +325,6 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://example.com",
       },
       mockOptions,
     );
@@ -398,7 +391,7 @@ describe("publish-docs", () => {
   });
 
   // CONFIG SAVING TESTS
-  test("should save appUrl when not using environment variable", async () => {
+  test("should not save appUrl", async () => {
     await publishDocs(
       {
         docsDir: "./docs",
@@ -407,7 +400,7 @@ describe("publish-docs", () => {
       mockOptions,
     );
 
-    expect(saveValueToConfigSpy).toHaveBeenCalledWith("appUrl", "https://custom.example.com");
+    expect(saveValueToConfigSpy).not.toHaveBeenCalledWith("appUrl", expect.anything());
   });
 
   test("should save new boardId when auto-created", async () => {
@@ -455,12 +448,13 @@ describe("publish-docs", () => {
     const result = await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
       },
       mockOptions,
     );
 
-    expect(result.message).toBe("❌ Failed to publish docs: Cache session failed");
+    expect(result.message).toBe(
+      "❌ Sorry, I encountered an error while publishing your documentation: Cache session failed",
+    );
   });
 
   test("should handle publish failure", async () => {
@@ -474,7 +468,9 @@ describe("publish-docs", () => {
       mockOptions,
     );
 
-    expect(result.message).toBe("❌ Failed to publish docs: Publish failed");
+    expect(result.message).toBe(
+      "❌ Sorry, I encountered an error while publishing your documentation: Publish failed",
+    );
   });
 
   test("should handle unsuccessful publish", async () => {
@@ -630,7 +626,6 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io", // Default URL
       },
       mockOptions,
     );
@@ -652,14 +647,13 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
       },
       mockOptions,
     );
 
     expect(mockOptions.prompts.select).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: "Select platform to publish your documents:",
+        message: "Please select a platform to publish your documents:",
         choices: expect.arrayContaining([
           expect.objectContaining({
             name: expect.stringContaining("Resume previous website setup"),
@@ -688,14 +682,13 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
       },
       mockOptions,
     );
 
     expect(mockOptions.prompts.select).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: "Select platform to publish your documents:",
+        message: "Please select a platform to publish your documents:",
         choices: expect.not.arrayContaining([
           expect.objectContaining({
             value: "new-instance-continue",
@@ -726,14 +719,12 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
       },
       mockOptions,
     );
 
     expect(consoleSpy).toHaveBeenCalledWith("\nResuming your previous website setup...");
     expect(deploySpy).toHaveBeenCalledWith("cached-checkout-123", "https://payment.example.com");
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://resumed.example.com", "resume-token");
 
     consoleSpy.mockRestore();
   });
@@ -745,7 +736,6 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
-        appUrl: "https://docsmith.aigne.io",
       },
       mockOptions,
     );

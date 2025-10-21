@@ -4,29 +4,29 @@ AIGNE DocSmith maintains a chronological log of all updates made to your documen
 
 ## Viewing Update History
 
-To view the log of all documentation updates, use the `history view` command. This command displays a compact, one-line summary for each entry, formatted similarly to a version control log.
+To view the log of all documentation updates, use the `aigne doc history view` command. This command displays a compact, one-line summary for each entry, formatted similarly to a version control log.
 
 Execute the following command in your project's root directory:
 
 ```bash Viewing History icon=material-symbols:history
-aigne history view
+aigne doc history view
 ```
 
-For convenience, the `history` command also supports two aliases for the `view` subcommand: `log` and `list`. The following commands are equivalent to the one above and will produce the identical output:
+For convenience, the `doc history` command also supports two aliases for the `view` subcommand: `log` and `list`. The following commands are equivalent to the one above and will produce the identical output:
 
 ```bash
-aigne history log
+aigne doc history log
 ```
 
 ```bash
-aigne history list
+aigne doc history list
 ```
 
 If no updates have been made yet, the tool will display the message: `No update history found`.
 
 ### Understanding the History Output
 
-The output of the `history view` command is structured to provide key information about each update in a concise format. Each line in the log represents a single update event.
+The output of the `aigne doc history view` command is structured to provide key information about each update in a concise format. Each line in the log represents a single update event.
 
 The format is composed of the following components:
 
@@ -40,7 +40,7 @@ The format is composed of the following components:
 
 ### Example Output
 
-Below is a sample output from running the `aigne history view` command. This example illustrates how different operations are recorded in the log.
+Below is a sample output from running the `aigne doc history view` command. This example illustrates how different operations are recorded in the log.
 
 ```bash
 📜 Update History

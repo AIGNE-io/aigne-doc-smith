@@ -1,10 +1,10 @@
 export default async function checkUpdateIsSingle({ selectedDocs, ...rest }, options) {
   if (!selectedDocs || !Array.isArray(selectedDocs)) {
-    throw new Error("selectedDocs must be provided as an array");
+    throw new Error("A list of documents to update must be provided.");
   }
 
   if (selectedDocs.length === 0) {
-    throw new Error("selectedDocs cannot be empty");
+    throw new Error("You must select at least one document to update.");
   }
 
   let targetAgent;
@@ -20,7 +20,7 @@ export default async function checkUpdateIsSingle({ selectedDocs, ...rest }, opt
   }
 
   if (!targetAgent) {
-    throw new Error(`Agent "${agentName}" is not available`);
+    throw new Error(`Sorry, I can't seem to find the "${agentName}" agent.`);
   }
 
   try {
@@ -31,7 +31,10 @@ export default async function checkUpdateIsSingle({ selectedDocs, ...rest }, opt
 
     return result;
   } catch (error) {
-    console.error(`Error invoking ${agentName}:`, error.message);
+    console.error(
+      `Sorry, I encountered an error while trying to run the ${agentName} agent:`,
+      error.message,
+    );
     throw error;
   }
 }

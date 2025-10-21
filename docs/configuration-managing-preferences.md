@@ -35,10 +35,10 @@ The list is formatted to provide clear information about each preference rule:
 - ID = Unique preference identifier
 - Paths = Specific file paths (if applicable)
 
-🟢 [document] 2af5c | Paths: /guides/generating-documentation.md
+🟢 [document] pref_a1b2c3d4e5f6a7b8 | Paths: /guides/generating-documentation.md
    Focus on concrete, verifiable facts and information. Avoid using vague or empty words that don't provide measurable or specific d...
 
-⚪ [global] 8b1e2
+⚪ [global] pref_b8a7f6e5d4c3b2a1
    Use a formal and academic tone throughout the documentation.
 
 ```
@@ -63,10 +63,10 @@ If you already know the unique IDs of the preferences you want to remove, you ca
 
 ```bash
 # Remove a single preference
-aigne doc prefs --remove --id 2af5c
+aigne doc prefs --remove --id pref_a1b2c3d4e5f6a7b8
 
 # Remove multiple preferences
-aigne doc prefs --remove --id 2af5c --id 8b1e2
+aigne doc prefs --remove --id pref_a1b2c3d4e5f6a7b8 --id pref_b8a7f6e5d4c3b2a1
 ```
 
 ## Toggling Preferences
@@ -89,10 +89,10 @@ To toggle specific preferences directly, use the `--id` flag.
 
 ```bash
 # Toggle a single preference
-aigne doc prefs --toggle --id 2af5c
+aigne doc prefs --toggle --id pref_a1b2c3d4e5f6a7b8
 
 # Toggle multiple preferences
-aigne doc prefs --toggle --id 2af5c --id 8b1e2
+aigne doc prefs --toggle --id pref_a1b2c3d4e5f6a7b8 --id pref_b8a7f6e5d4c3b2a1
 ```
 
 ---

@@ -8,7 +8,7 @@ import { isInGitRepository } from "./file-utils.mjs";
 const HISTORY_FILE = "history.yaml";
 
 /**
- * Check if git is available in the system
+ * Checks if Git is available in the system.
  */
 export function isGitAvailable() {
   try {
@@ -20,7 +20,7 @@ export function isGitAvailable() {
 }
 
 /**
- * Initialize git repo in DOC_SMITH_DIR if not exists
+ * Initializes a Git repository in the DOC_SMITH_DIR if it doesn't already exist.
  */
 export function ensureGitRepo() {
   if (!isGitAvailable()) return false;
@@ -43,10 +43,10 @@ export function ensureGitRepo() {
         stdio: "ignore",
       });
 
-      console.log("✔ Git history tracking initialized");
+      console.log("✔ Git history tracking has been initialized.");
       return true;
     } catch (error) {
-      console.warn("Failed to initialize git history:", error.message);
+      console.warn("Could not initialize the Git history:", error.message);
       return false;
     }
   }
@@ -76,10 +76,10 @@ function recordUpdateGit({ feedback }) {
     // Check if there are changes to commit
     try {
       execSync("git diff --cached --quiet", { cwd, stdio: "ignore" });
-      console.log("✔ No update history changes to commit");
-      return; // No changes
+      console.log("✔ No update history changes to commit.");
+      return;
     } catch {
-      // Has changes, continue
+      // There are changes, so we'll continue.
     }
 
     // Build commit message (only user feedback)
@@ -90,14 +90,14 @@ function recordUpdateGit({ feedback }) {
       cwd,
       stdio: "ignore",
     });
-    console.log("✔ Update history committed successfully");
+    console.log("✔ The update history has been committed successfully.");
   } catch (error) {
-    console.warn("Update history commit failed:", error.message);
+    console.warn("The update history commit failed:", error.message);
   }
 }
 
 /**
- * Record update in YAML file (always)
+ * Records an update in the YAML file.
  */
 function recordUpdateYaml({ operation, feedback, documentPath = null }) {
   try {
@@ -114,7 +114,7 @@ function recordUpdateYaml({ operation, feedback, documentPath = null }) {
         const content = readFileSync(historyPath, "utf8");
         history = parse(content) || { entries: [] };
       } catch (error) {
-        console.warn("Failed to read history file:", error.message);
+        console.warn("Could not read the history file:", error.message);
       }
     }
 
@@ -142,18 +142,18 @@ function recordUpdateYaml({ operation, feedback, documentPath = null }) {
 
     writeFileSync(historyPath, yamlContent, "utf8");
   } catch (error) {
-    console.warn("YAML history tracking failed:", error.message);
+    console.warn("The YAML history tracking failed:", error.message);
   }
 }
 
 /**
- * Record an update after user feedback
- * - Always writes to YAML
- * - Also commits to git if available
+ * Records an update after user feedback.
+ * - Always writes to YAML.
+ * - Also commits to Git if available.
  * @param {Object} params
- * @param {string} params.operation - Type of operation (e.g., 'document_update', 'structure_update', 'translation_update')
- * @param {string} params.feedback - User feedback text
- * @param {string} params.documentPath - Document path - should be a string
+ * @param {string} params.operation - The type of operation (e.g., 'document_update', 'structure_update', 'translation_update').
+ * @param {string} params.feedback - The user's feedback text.
+ * @param {string} params.documentPath - The document path.
  */
 export function recordUpdate({ operation, feedback, documentPath = null }) {
   // Skip if no feedback
@@ -167,12 +167,12 @@ export function recordUpdate({ operation, feedback, documentPath = null }) {
     ensureGitRepo();
     recordUpdateGit({ feedback });
   } else {
-    console.warn("Git is not available, skipping git based update history");
+    console.warn("Git is not available, so I am skipping the Git-based update history.");
   }
 }
 
 /**
- * Get history entries from YAML
+ * Gets the history entries from YAML.
  */
 export function getHistory() {
   const historyPath = join(process.cwd(), DOC_SMITH_DIR, HISTORY_FILE);
@@ -185,7 +185,7 @@ export function getHistory() {
     const content = readFileSync(historyPath, "utf8");
     return parse(content) || { entries: [] };
   } catch (error) {
-    console.warn("Failed to read history:", error.message);
+    console.warn("Could not read the history:", error.message);
     return { entries: [] };
   }
 }

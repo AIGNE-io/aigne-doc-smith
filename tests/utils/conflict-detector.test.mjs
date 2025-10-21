@@ -263,7 +263,7 @@ describe("conflict-detector", () => {
       expect(rules).toContain('User guide path: Uses "end users" style');
       expect(rules).toContain("Conflict Resolution Principles:");
       expect(rules).toContain(
-        "1. Meet diverse needs through intelligent structural design, not simple concatenation",
+        "1. Meet diverse needs through intelligent structural design, not by simply concatenating information.",
       );
     });
 

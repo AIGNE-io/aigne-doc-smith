@@ -156,7 +156,7 @@ describe("deploy", () => {
   test("handles missing auth token", async () => {
     getOfficialAccessTokenSpy.mockResolvedValue(null);
 
-    await expect(deploy()).rejects.toThrow("Failed to get official access token");
+    await expect(deploy()).rejects.toThrow("Could not get an official access token.");
 
     // Verify BrokerClient was not created
     expect(mockBrokerClientConstructor).not.toHaveBeenCalled();
@@ -261,17 +261,17 @@ describe("deploy", () => {
     // Test INSTALLATION_STARTING hook
     hooks.INSTALLATION_STARTING();
     let logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
-    expect(logs.some((log) => log.includes("📦 Step 2/4: Installing Website..."))).toBe(true);
+    expect(logs.some((log) => log.includes("📦 Step 2/4: Installing the website..."))).toBe(true);
 
     // Test SERVICE_STARTING hook
     hooks.SERVICE_STARTING();
     logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
-    expect(logs.some((log) => log.includes("🚀 Step 3/4: Starting Website..."))).toBe(true);
+    expect(logs.some((log) => log.includes("🚀 Step 3/4: Starting the website..."))).toBe(true);
 
     // Test ACCESS_PREPARING hook
     hooks.ACCESS_PREPARING();
     logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
-    expect(logs.some((log) => log.includes("🌐 Step 4/4: Getting Website URL..."))).toBe(true);
+    expect(logs.some((log) => log.includes("🌐 Step 4/4: Getting the website URL..."))).toBe(true);
 
     // Test ACCESS_READY hook without subscription
     await hooks.ACCESS_READY({

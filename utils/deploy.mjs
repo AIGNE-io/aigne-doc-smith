@@ -5,24 +5,23 @@ import { getOfficialAccessToken } from "./auth-utils.mjs";
 import { CLOUD_SERVICE_URL_PROD } from "./constants/index.mjs";
 import { saveValueToConfig } from "./utils.mjs";
 
-// ==================== Configuration ====================
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 const SUCCESS_MESSAGE = {
-  en: "Congratulations! Your website has been successfully installed. You can return to the command-line tool to continue the next steps.",
+  en: "Congratulations! Your website has been successfully installed. You can now return to the command-line tool to continue.",
   zh: "恭喜您，你的网站已安装成功！可以返回命令行工具继续后续操作！",
 };
 
 /**
- * Deploy a new Discuss Kit Website and return the installation URL
- * @param {string} id - Cached checkout ID (optional)
- * @param {string} cachedUrl - Cached payment URL (optional)
- * @returns {Promise<Object>} - The deployment result with URLs
+ * Deploys a new Discuss Kit Website and returns the installation URL.
+ * @param {string} id - The cached checkout ID (optional).
+ * @param {string} cachedUrl - The cached payment URL (optional).
+ * @returns {Promise<Object>} The deployment result with URLs.
  */
 export async function deploy(id, cachedUrl) {
   const authToken = await getOfficialAccessToken(BASE_URL);
 
   if (!authToken) {
-    throw new Error("Failed to get official access token");
+    throw new Error("Could not get an official access token.");
   }
 
   const client = new BrokerClient({ baseUrl: BASE_URL, authToken });
@@ -43,11 +42,6 @@ export async function deploy(id, cachedUrl) {
           sessionId,
           "Checkout ID for document deployment website",
         );
-        await saveValueToConfig(
-          "paymentUrl",
-          paymentUrl,
-          "Payment URL for document deployment website",
-        );
 
         if (!isResuming) {
           await open(paymentUrl);
@@ -55,15 +49,15 @@ export async function deploy(id, cachedUrl) {
       },
 
       [STEPS.INSTALLATION_STARTING]: () => {
-        console.log(`📦 Step 2/4: Installing Website...`);
+        console.log(`📦 Step 2/4: Installing the website...`);
       },
 
       [STEPS.SERVICE_STARTING]: () => {
-        console.log(`🚀 Step 3/4: Starting Website...`);
+        console.log(`🚀 Step 3/4: Starting the website...`);
       },
 
       [STEPS.ACCESS_PREPARING]: () => {
-        console.log(`🌐 Step 4/4: Getting Website URL...`);
+        console.log(`🌐 Step 4/4: Getting the website URL...`);
       },
 
       [STEPS.ACCESS_READY]: async ({ appUrl, homeUrl, subscriptionUrl }) => {
