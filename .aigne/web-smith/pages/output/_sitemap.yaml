@@ -18,9 +18,9 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-16T07:46:59.710Z
-      updatedAt: 2025-10-16T07:46:59.710Z
-      publishedAt: 2025-10-16T07:46:59.710Z
+      createdAt: 2025-10-16T11:41:54.089Z
+      updatedAt: 2025-10-16T11:41:54.089Z
+      publishedAt: 2025-10-16T11:41:54.089Z
       isPublic: true
   - title: Features of AIGNE DocSmith
     path: /features
@@ -41,9 +41,9 @@ sitemap:
     meta:
       file: features.yaml
       id: 69ee505620f7efd5
-      createdAt: 2025-10-16T07:46:59.706Z
-      updatedAt: 2025-10-16T07:46:59.706Z
-      publishedAt: 2025-10-16T07:46:59.706Z
+      createdAt: 2025-10-16T11:41:54.085Z
+      updatedAt: 2025-10-16T11:41:54.085Z
+      publishedAt: 2025-10-16T11:41:54.085Z
       isPublic: true
   - title: Quick Start
     path: /quick-start
@@ -63,9 +63,9 @@ sitemap:
     meta:
       file: quick-start.yaml
       id: 22f6776da30e7065
-      createdAt: 2025-10-16T07:46:59.723Z
-      updatedAt: 2025-10-16T07:46:59.723Z
-      publishedAt: 2025-10-16T07:46:59.723Z
+      createdAt: 2025-10-16T11:41:54.093Z
+      updatedAt: 2025-10-16T11:41:54.093Z
+      publishedAt: 2025-10-16T11:41:54.093Z
       isPublic: true
   - title: Enterprise and Production Use
     path: /enterprise
@@ -87,9 +87,9 @@ sitemap:
     meta:
       file: enterprise.yaml
       id: 8cec7f5a066a0bdf
-      createdAt: 2025-10-16T07:46:59.702Z
-      updatedAt: 2025-10-16T07:46:59.702Z
-      publishedAt: 2025-10-16T07:46:59.702Z
+      createdAt: 2025-10-16T11:41:54.080Z
+      updatedAt: 2025-10-16T11:41:54.080Z
+      publishedAt: 2025-10-16T11:41:54.080Z
       isPublic: true
   - title: Community and Resources
     path: /community
@@ -110,9 +110,9 @@ sitemap:
     meta:
       file: community.yaml
       id: 423f8449a3d5581e
-      createdAt: 2025-10-16T07:46:59.698Z
-      updatedAt: 2025-10-16T07:46:59.698Z
-      publishedAt: 2025-10-16T07:46:59.698Z
+      createdAt: 2025-10-16T11:41:54.075Z
+      updatedAt: 2025-10-16T11:41:54.075Z
+      publishedAt: 2025-10-16T11:41:54.075Z
       isPublic: true
   - title: About AIGNE DocSmith
     path: /about
@@ -133,9 +133,9 @@ sitemap:
     meta:
       file: about.yaml
       id: 0c8c2f1e1f437282
-      createdAt: 2025-10-16T07:46:59.693Z
-      updatedAt: 2025-10-16T07:46:59.693Z
-      publishedAt: 2025-10-16T07:46:59.693Z
+      createdAt: 2025-10-16T11:41:54.070Z
+      updatedAt: 2025-10-16T11:41:54.070Z
+      publishedAt: 2025-10-16T11:41:54.070Z
       isPublic: true
 navigations:
   - id: e9022e7aa8630077-header

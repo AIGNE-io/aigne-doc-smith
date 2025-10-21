@@ -1,7 +1,7 @@
 id: 0c8c2f1e1f437282
-createdAt: 2025-10-16T07:46:59.693Z
-updatedAt: 2025-10-16T07:46:59.693Z
-publishedAt: 2025-10-16T07:46:59.693Z
+createdAt: 2025-10-16T11:41:54.070Z
+updatedAt: 2025-10-16T11:41:54.070Z
+publishedAt: 2025-10-16T11:41:54.070Z
 isPublic: true
 locales:
   en:
@@ -942,9 +942,9 @@ dataSource:
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
-          value: flex-start
+          value: center
         kyg0hdy5uqq4gc1o:
-          value: flex-start
+          value: center
   d6415ec1d624285f:
     en:
       properties:

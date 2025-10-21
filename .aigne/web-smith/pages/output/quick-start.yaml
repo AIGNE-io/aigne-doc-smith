@@ -1,7 +1,7 @@
 id: 22f6776da30e7065
-createdAt: 2025-10-16T07:46:59.723Z
-updatedAt: 2025-10-16T07:46:59.723Z
-publishedAt: 2025-10-16T07:46:59.723Z
+createdAt: 2025-10-16T11:41:54.093Z
+updatedAt: 2025-10-16T11:41:54.093Z
+publishedAt: 2025-10-16T11:41:54.093Z
 isPublic: true
 locales:
   en:
@@ -1164,9 +1164,9 @@ dataSource:
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
-          value: flex-start
+          value: center
         kyg0hdy5uqq4gc1o:
-          value: flex-start
+          value: center
   8a0319c7be20285c:
     en:
       properties:
@@ -1408,9 +1408,9 @@ dataSource:
             style:
               variant: h2
         v5utpm7bu9yvdpnq:
-          value: flex-start
+          value: center
         kyg0hdy5uqq4gc1o:
-          value: flex-start
+          value: center
   63c93083d2c91977:
     en:
       properties:
