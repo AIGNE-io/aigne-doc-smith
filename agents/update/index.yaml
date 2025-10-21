@@ -36,7 +36,7 @@ skills:
   - ../update/save-and-translate-document.mjs
   - url: ../utils/action-success.mjs
     default_input:
-      action: "✅ Documents updated successfully"
+      action: "✅ Documents updated successfully!\n💡 Looks good? Run `aigne doc publish` to go live."
 input_schema:
   type: object
   properties:
