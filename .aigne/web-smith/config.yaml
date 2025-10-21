@@ -60,8 +60,8 @@ locale: en
 pagesDir: .aigne/web-smith/pages  # Directory to save generated pages
 sourcesPath:  # Source code paths to analyze
   - ./README.md
-  - ./assets/screenshots
-  - ./assets/terminal-playback/README.md
+  # - ./assets/screenshots
+  - ./assets/terminal-playback
   - ./aigne.yaml
   - ./docs/overview.md
   - ./docs/getting-started.md
@@ -70,8 +70,13 @@ defaultDatasources:  # Default datasources included in every page
 # minImageWidth: Only images wider than this value (in pixels) will be used in page generation
 media:
   minImageWidth: 800
-lastGitHead: 2ecf35d5f74d7653203f3641a938e900b2748518
+lastGitHead: 4bafdc154a8f9ef2a12da5935a3e235ae8c99618
 appUrl: https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io
 # Checkout ID for website deployment service
 checkoutId: ""
 projectId: 76816611-54e1-4a79-8c17-7d377874912d
+projectCover: .aigne/web-smith/cover.png
+# Navigation type for website
+navigationType: ""
+# Should sync all for website
+shouldSyncAll: ""

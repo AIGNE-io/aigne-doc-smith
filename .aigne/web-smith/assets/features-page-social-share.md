@@ -1,0 +1,1 @@
+A social sharing image for the 'Core Features' page. It uses minimalist icons and the product's color palette to visually summarize the key feature categories: AI Generation, Multi-Language Support, and Smart Updates.

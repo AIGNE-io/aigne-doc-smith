@@ -1,0 +1,1 @@
+A dynamic hero image for the Usage Guide page. It abstractly illustrates the power and flow of DocSmith's command-line tools, creating an energetic and tech-forward first impression for users looking to master the product's commands.

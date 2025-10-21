@@ -1,0 +1,1 @@
+A vibrant, abstract hero image for the features page. It visually represents the core concepts of AI-powered code analysis and documentation generation, setting an energetic and modern tone for the page.

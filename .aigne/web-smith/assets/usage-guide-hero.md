@@ -1,0 +1,1 @@
+A vibrant, abstract hero image for the Usage Guide page. It visually represents the power and speed of the DocSmith CLI commands, creating an energetic and tech-forward first impression for users learning about the tool's capabilities.

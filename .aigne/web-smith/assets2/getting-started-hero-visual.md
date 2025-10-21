@@ -1,0 +1,1 @@
+A vibrant, abstract hero image for the 'Getting Started' page. It visually represents the exciting transformation from a simple command into a complete set of documentation, setting an energetic tone for the user's first experience with DocSmith.

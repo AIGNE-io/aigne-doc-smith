@@ -1,0 +1,1 @@
+A hero image for the AIGNE DocSmith landing page. It visually represents the core concept of AI transforming raw code into structured, understandable documentation. The abstract, high-tech aesthetic will capture the visitor's attention and set a professional tone for the product.

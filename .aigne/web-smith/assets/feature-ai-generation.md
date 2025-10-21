@@ -1,0 +1,1 @@
+An abstract image for the 'AI-Powered Generation' feature card. It visually represents the core concept of AI analyzing code to create a logical documentation structure, reinforcing the message with a modern, tech-forward aesthetic.

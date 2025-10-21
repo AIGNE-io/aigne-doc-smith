@@ -1,0 +1,1 @@
+A vibrant, abstract hero image for the features page. It visually represents AIGNE DocSmith's core function: transforming raw code into structured, intelligent documentation through an AI-powered network, setting an energetic and high-tech tone for the page.

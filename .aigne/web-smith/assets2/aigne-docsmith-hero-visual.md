@@ -1,0 +1,1 @@
+An abstract hero image for the AIGNE DocSmith homepage, visually representing the core value proposition of AI-powered documentation generation. It sets a futuristic and innovative tone for the page.

@@ -1,13 +1,14 @@
 sitemap:
-  - title: "AIGNE DocSmith: AI-Powered Documentation Generation"
+  - title: "AIGNE DocSmith: AI-Powered Documentation"
     path: /home
     locales:
       en:
-        title: "AIGNE DocSmith: AI-Powered Documentation that Understands Your Code"
-        description: Generate comprehensive, multi-language documentation automatically
-          with AIGNE DocSmith. Our AI analyzes your code to create docs that are
-          always up-to-date. Try it now!
-        image: mediakit://doc-regenerate.png
+        title: "AIGNE DocSmith: AI-Powered Documentation That Understands Your Code"
+        description: Experience the future of documentation with AIGNE DocSmith.
+          Leverage our AI to automatically generate, translate, and maintain
+          comprehensive, structured docs that stay in sync with your code. Get
+          started in seconds!
+        image: mediakit://aigne-docsmith-hero.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -18,19 +19,20 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-16T11:41:54.089Z
-      updatedAt: 2025-10-16T11:41:54.089Z
-      publishedAt: 2025-10-16T11:41:54.089Z
+      createdAt: 2025-10-21T06:51:43.487Z
+      updatedAt: 2025-10-21T06:51:43.487Z
+      publishedAt: 2025-10-21T06:51:43.487Z
       isPublic: true
-  - title: Features of AIGNE DocSmith
+  - title: Core Features
     path: /features
     locales:
       en:
-        title: "AIGNE DocSmith Features: AI Generation, Multi-Language, Smart Updates"
-        description: Explore the powerful features of AIGNE DocSmith. From AI-powered
-          content generation and 12-language support to seamless LLM integration
-          and smart updates that sync with your code.
-        image: mediakit://doc-generate-docs.png
+        title: DocSmith Core Features | AI-Powered Documentation Generation &
+          Translation
+        description: "Explore DocSmith's powerful features: AI-driven content
+          generation, multi-language translation, seamless LLM integration, and
+          smart updates. Create accurate, up-to-date docs effortlessly."
+        image: mediakit://features-page-social-share.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -41,18 +43,19 @@ sitemap:
     meta:
       file: features.yaml
       id: 69ee505620f7efd5
-      createdAt: 2025-10-16T11:41:54.085Z
-      updatedAt: 2025-10-16T11:41:54.085Z
-      publishedAt: 2025-10-16T11:41:54.085Z
+      createdAt: 2025-10-21T06:51:43.480Z
+      updatedAt: 2025-10-21T06:51:43.480Z
+      publishedAt: 2025-10-21T06:51:43.480Z
       isPublic: true
-  - title: Quick Start
-    path: /quick-start
+  - title: Getting Started Guide
+    path: /getting-started
     locales:
       en:
-        title: Quick Start Guide | AIGNE DocSmith
-        description: Get started with AIGNE DocSmith in minutes. Follow our step-by-step
-          guide to install the CLI, set up your project, and generate your first
-          AI-powered documentation.
+        title: Getting Started with AIGNE DocSmith | Quick Install Guide
+        description: Your step-by-step guide to installing the AIGNE CLI and generating
+          your first set of AI-powered documents in minutes. Let's get you
+          started!
+        image: mediakit://getting-started-hero.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -61,22 +64,21 @@ sitemap:
         header:
           sticky: true
     meta:
-      file: quick-start.yaml
-      id: 22f6776da30e7065
-      createdAt: 2025-10-16T11:41:54.093Z
-      updatedAt: 2025-10-16T11:41:54.093Z
-      publishedAt: 2025-10-16T11:41:54.093Z
+      file: getting-started.yaml
+      id: 2215739be1a1f035
+      createdAt: 2025-10-21T06:51:43.483Z
+      updatedAt: 2025-10-21T06:51:43.483Z
+      publishedAt: 2025-10-21T06:51:43.483Z
       isPublic: true
-  - title: Enterprise and Production Use
-    path: /enterprise
+  - title: Usage Guide & Commands
+    path: /usage
     locales:
       en:
-        title: Enterprise Features for AI Documentation | AIGNE DocSmith
-        description: Elevate your documentation with AIGNE DocSmith's enterprise
-          features. Get team collaboration, custom branding, private cloud
-          deployment, SSO, and priority support for secure, scalable
-          documentation pipelines.
-        image: ""
+        title: DocSmith CLI Usage Guide | Master All Commands
+        description: Your ultimate guide to mastering AIGNE DocSmith's CLI. Explore
+          detailed walkthroughs for generate, update, translate, publish, and
+          other powerful commands to fully automate your documentation workflow.
+        image: mediakit://usage-guide-hero.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -85,21 +87,21 @@ sitemap:
         header:
           sticky: true
     meta:
-      file: enterprise.yaml
-      id: 8cec7f5a066a0bdf
-      createdAt: 2025-10-16T11:41:54.080Z
-      updatedAt: 2025-10-16T11:41:54.080Z
-      publishedAt: 2025-10-16T11:41:54.080Z
+      file: usage.yaml
+      id: b0b63f8263bffbbd
+      createdAt: 2025-10-21T06:51:43.494Z
+      updatedAt: 2025-10-21T06:51:43.494Z
+      publishedAt: 2025-10-21T06:51:43.494Z
       isPublic: true
-  - title: Community and Resources
+  - title: Community & Enterprise
     path: /community
     locales:
       en:
-        title: AIGNE DocSmith Community & Resources | Support and Contribution
-        description: Join the AIGNE DocSmith community! Find official documentation,
-          tutorials, and support forums. Learn how to contribute, report issues,
-          and request features.
-        image: ""
+        title: AIGNE DocSmith Community & Enterprise Solutions
+        description: Join the AIGNE DocSmith community to contribute, report issues, and
+          request features. Explore our enterprise solutions for team
+          collaboration, security, and dedicated support.
+        image: mediakit://hero-community-enterprise.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -110,32 +112,9 @@ sitemap:
     meta:
       file: community.yaml
       id: 423f8449a3d5581e
-      createdAt: 2025-10-16T11:41:54.075Z
-      updatedAt: 2025-10-16T11:41:54.075Z
-      publishedAt: 2025-10-16T11:41:54.075Z
-      isPublic: true
-  - title: About AIGNE DocSmith
-    path: /about
-    locales:
-      en:
-        title: About AIGNE DocSmith | AI-Powered Code Documentation
-        description: Learn about AIGNE DocSmith, the AI tool that automatically
-          generates and updates documentation from your source code. Discover
-          how it works, its core features, and its place in the AIGNE ecosystem.
-        image: mediakit://about-hero-visual.png
-        style:
-          maxWidth: custom:1440px
-          paddingY: normal
-          paddingX: normal
-        backgroundColor: ""
-        header:
-          sticky: true
-    meta:
-      file: about.yaml
-      id: 0c8c2f1e1f437282
-      createdAt: 2025-10-16T11:41:54.070Z
-      updatedAt: 2025-10-16T11:41:54.070Z
-      publishedAt: 2025-10-16T11:41:54.070Z
+      createdAt: 2025-10-21T06:51:43.474Z
+      updatedAt: 2025-10-21T06:51:43.474Z
+      publishedAt: 2025-10-21T06:51:43.474Z
       isPublic: true
 navigations:
   - id: e9022e7aa8630077-header
@@ -164,7 +143,7 @@ navigations:
     link:
       en: /
     description:
-      en: Discover AI-powered docs
+      en: AI-powered code documentation
     parent: e9022e7aa8630077-header
   - id: f5c5d15c42b3cf01
     section: footer
@@ -174,7 +153,7 @@ navigations:
     link:
       en: /
     description:
-      en: Discover AI-powered docs
+      en: AI-powered code documentation
     parent: e9022e7aa8630077-footer
   - id: 9f034b63948763d4
     section: header
@@ -184,7 +163,7 @@ navigations:
     link:
       en: /features
     description:
-      en: Explore product features
+      en: Explore core capabilities
     parent: e9022e7aa8630077-header
   - id: 81f6d8ee2c5e662e
     section: footer
@@ -194,47 +173,47 @@ navigations:
     link:
       en: /features
     description:
-      en: Explore product features
+      en: Explore core capabilities
     parent: e9022e7aa8630077-footer
-  - id: a96216a022e66221
+  - id: 8e0aab8c77d7ef1b
     section: header
     visible: true
     title:
-      en: Quick Start
+      en: Get Started
     link:
-      en: /quick-start
+      en: /getting-started
     description:
-      en: Get started in minutes
+      en: Install and run in minutes
     parent: e9022e7aa8630077-header
-  - id: f2b1e9c6dbf50fc7
+  - id: 19bd6504230feb81
     section: footer
     visible: true
     title:
-      en: Quick Start
+      en: Get Started
     link:
-      en: /quick-start
+      en: /getting-started
     description:
-      en: Get started in minutes
+      en: Install and run in minutes
     parent: e9022e7aa8630077-footer
-  - id: 09300df44b9d20cc
+  - id: 9366282e11c15155
     section: header
     visible: true
     title:
-      en: Enterprise
+      en: Usage Guide
     link:
-      en: /enterprise
+      en: /usage
     description:
-      en: Solutions for your business
+      en: Master the CLI commands
     parent: e9022e7aa8630077-header
-  - id: 376eaf7d961ff2e8
+  - id: 5340af7c30a00991
     section: footer
     visible: true
     title:
-      en: Enterprise
+      en: Usage Guide
     link:
-      en: /enterprise
+      en: /usage
     description:
-      en: Solutions for your business
+      en: Master the CLI commands
     parent: e9022e7aa8630077-footer
   - id: 82df41632da47606
     section: header
@@ -244,7 +223,7 @@ navigations:
     link:
       en: /community
     description:
-      en: Get help and contribute
+      en: Get support and contribute
     parent: e9022e7aa8630077-header
   - id: 3ee47fddc2f753a3
     section: footer
@@ -254,29 +233,5 @@ navigations:
     link:
       en: /community
     description:
-      en: Get help and contribute
-    parent: e9022e7aa8630077-footer
-  - id: 46b3931b9959c927
-    section: header
-    visible: true
-    title:
-      en: About AIGNE DocSmith | AI-Powered Code Documentation
-    link:
-      en: /about
-    description:
-      en: Learn about AIGNE DocSmith, the AI tool that automatically generates and
-        updates documentation from your source code. Discover how it works, its
-        core features, and its place in the AIGNE ecosystem.
-    parent: e9022e7aa8630077-header
-  - id: 6fc88f0fd0fa0df8
-    section: footer
-    visible: true
-    title:
-      en: About AIGNE DocSmith | AI-Powered Code Documentation
-    link:
-      en: /about
-    description:
-      en: Learn about AIGNE DocSmith, the AI tool that automatically generates and
-        updates documentation from your source code. Discover how it works, its
-        core features, and its place in the AIGNE ecosystem.
+      en: Get support and contribute
     parent: e9022e7aa8630077-footer

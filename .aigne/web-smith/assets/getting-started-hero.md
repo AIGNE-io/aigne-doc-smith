@@ -1,0 +1,1 @@
+A hero image for the 'Getting Started' page. It visually represents the action of starting the documentation generation process, conveying a sense of speed, energy, and automated creation. Suitable for a tech or developer audience.

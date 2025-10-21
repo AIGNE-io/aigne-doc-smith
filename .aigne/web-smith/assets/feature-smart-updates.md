@@ -1,0 +1,1 @@
+An image for the 'Smart Updates' feature card. The visual of a continuous loop of arrows represents the automatic change detection and targeted regeneration, assuring users that their documentation will always be current.

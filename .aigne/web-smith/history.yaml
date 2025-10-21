@@ -1,4 +1,16 @@
 entries:
+  - timestamp: 2025-10-21T06:50:10.182Z
+    operation: page_update
+    feedback: hero section 使用  Split Hero With Big Title  组件
+    page: /home
+  - timestamp: 2025-10-21T06:46:32.473Z
+    operation: page_update
+    feedback: section3 改为使用  Layout Bento Grid 2+2  来展示
+    page: /home
+  - timestamp: 2025-10-21T06:08:09.363Z
+    operation: page_update
+    feedback: See It in Action 中改为使用 Terminal PlayBack 组件展示执行效果
+    page: /home
   - timestamp: 2025-10-16T11:41:26.062Z
     operation: page_update
     feedback: section3 中的 generate 命令改为使用 doc-generate-docs.png 图片来展示，其他项不变

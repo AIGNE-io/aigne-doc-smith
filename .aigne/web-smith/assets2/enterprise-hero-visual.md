@@ -1,0 +1,1 @@
+A hero image for the Enterprise & Community page, visually representing the themes of team collaboration and advanced technology. It sets a professional and innovative tone for enterprise users.
