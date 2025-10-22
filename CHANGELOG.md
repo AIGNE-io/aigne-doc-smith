@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.15-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14...v0.8.15-beta) (2025-10-21)
+
+
+### Features
+
+* update document publish prompt for better user experience ([#208](https://github.com/AIGNE-io/aigne-doc-smith/issues/208)) ([0726c23](https://github.com/AIGNE-io/aigne-doc-smith/commit/0726c23ed2d47b2126c0896d71922860b7436895))
+
+
+### Bug Fixes
+
+* enforce stricter rules for x-field component and markdown ([#210](https://github.com/AIGNE-io/aigne-doc-smith/issues/210)) ([d69ee53](https://github.com/AIGNE-io/aigne-doc-smith/commit/d69ee53dbd113859a822d3391cc6cbf2f02bb75e))
+
 ## [0.8.14](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14-beta.2...v0.8.14) (2025-10-19)
 
 ## [0.8.14-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14-beta.1...v0.8.14-beta.2) (2025-10-19)
