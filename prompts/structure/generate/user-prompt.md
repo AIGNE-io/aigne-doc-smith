@@ -13,10 +13,37 @@
 </datasources>
 
 {% if openAPIDoc %}
-The OpenAPI documentation for the current project, the contents of this file must be used when performing structure planning, please carefully consider which document all interfaces in the OpenAPI documentation should be divided into, and make sure that all OpenAPI interfaces will have relevant documentation in the documentation.
+<openapi>
+
+**Goal:** Based on the provided OpenAPI (Swagger) document, plan how the OpenAPI content should be integrated with the overall documentation structure.
+
+**OpenAPI document content:**
 <openapi_doc>
+
 {{ openAPIDoc }}
+
 </openapi_doc>
+
+---
+
+### **Documentation generation requirements and constraints**
+
+1.  **Sections and titles:**
+    * Create a dedicated top-level section for the OpenAPI content.
+    * The section title should be professional and user-friendly; do **not** include the words OpenAPI, Swagger, or file format. Recommended titles: **"API Reference"** or **"Interface Reference"**.
+
+2.  **Content hierarchy and presentation:**
+    * **Ideal (single page):** Prefer consolidating all API endpoint content into a **single Markdown file (one page)**.
+    * **Split condition (two-level pages):** Only split into module pages when the number of endpoints makes a single file unwieldy; split by OpenAPI tags or logical modules and create separate Markdown files for each module.
+    * **File hierarchy constraint:** Whether using one-level or two-level structure, the generated API reference documentation files (Markdown files) must have at most two levels.
+        * **Example (two-level):** `/api-reference.md` (home) -> `/api/user.md`, `/api/order.md` (module pages)
+        * **Do not create three-level or deeper structures:** e.g., `/api/v1/user/get.md`.
+
+3.  **De-duplication constraint for Prompt API descriptions:**
+    * **Ensure the project's API introduction (in any preface, overview, etc.) appears only once — inside the API Reference section generated from the OpenAPI.**
+    * **Do not repeat or add API listings or descriptions anywhere else in the documentation (for example, in "Quick Start" or "Architecture Overview").**
+
+</openapi>
 {% endif %}
 
 

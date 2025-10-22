@@ -28,10 +28,39 @@
 </datasources>
 
 {% if openAPIDoc %}
-OpenAPI doc for this project, this **MUST be used** to increase the presentation of the document.
+<openapi>
+
+**Goal:** Using the provided OpenAPI (Swagger) document and the current page's purpose, intelligently leverage the OpenAPI content to improve the current documentation page.
+
+**OpenAPI document content:**
 <openapi_doc>
+
 {{ openAPIDoc }}
+
 </openapi_doc>
+
+---
+
+### **Documentation generation requirements and constraints**
+
+1.  **Core content extraction:**
+    * For each endpoint (Path Item), clearly include the following:
+        * HTTP method and path (Method Path)
+        * Short summary (Summary)
+        * Detailed description (Description)
+        * Request parameters (Parameters): include name, location (in), type, required, description
+        * Request body (Request Body): if present, describe its schema
+        * Responses: include main status codes (e.g., 200, 201, 400, 500) and their schemas
+
+2.  **De-duplication constraint for Prompt API descriptions:**
+    * **Ensure the project's API introduction (in any preface, overview, etc.) appears only once — inside the API Reference section generated from the OpenAPI.**
+    * **Do not repeat or add API listings or descriptions anywhere else in the documentation (for example, in "Quick Start" or "Architecture Overview").**
+
+---
+
+**Expected output format:** concise, clear, and easy-to-scan Markdown documentation.
+
+</openapi>
 {% endif %}
 
 
