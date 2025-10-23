@@ -286,7 +286,7 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
         continue;
       }
 
-      if (checkIsHttpFile(dir)) {
+      if (checkIsRemoteFile(dir)) {
         allFiles.push(dir);
         continue;
       }
@@ -387,7 +387,7 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
  * @returns {Promise<boolean>} True if file appears to be a text file
  */
 async function isTextFile(filePath) {
-  if (checkIsHttpFile(filePath)) {
+  if (checkIsRemoteFile(filePath)) {
     return checkIsHttpTextFile(filePath);
   }
 
@@ -400,7 +400,7 @@ async function isTextFile(filePath) {
   }
 }
 
-export function checkIsHttpFile(filepath) {
+export function checkIsRemoteFile(filepath) {
   if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
     return true;
   }
@@ -441,7 +441,8 @@ export async function getHttpFileContent(file) {
     const res = await fetch(file);
     const text = await res.text();
     return text;
-  } catch {
+  } catch (error) {
+    debug(`Failed to fetch HTTP file content: ${file} - ${error.message}`);
     return null;
   }
 }
@@ -459,7 +460,6 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
 
   const results = await Promise.all(
     files.map(async (file) => {
-      const isHttpFile = checkIsHttpFile(file);
       // Skip binary files if enabled
       if (skipBinaryFiles) {
         const isText = await isTextFile(file);
@@ -469,7 +469,7 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
       }
 
       try {
-        if (isHttpFile) {
+        if (checkIsRemoteFile(file)) {
           const content = await getHttpFileContent(file);
           if (content) {
             return {

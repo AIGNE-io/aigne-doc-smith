@@ -103,17 +103,17 @@ export default async function checkDocument(
       options.context.agents["saveSingleDoc"],
     ],
   });
-  let openAPIDoc = null;
+  let openAPISpec = null;
 
-  if (options.context?.userContext?.openAPIDoc?.sourceId) {
-    const hasFind = originalDocumentStructure.find((item) => {
+  if (options.context?.userContext?.openAPISpec?.sourceId) {
+    const matchingDocument = originalDocumentStructure.find((item) => {
       if (item.path === path) {
-        return item.sourceIds.find((x) => x === options.context.userContext.openAPIDoc.sourceId);
+        return item.sourceIds.find((x) => x === options.context.userContext.openAPISpec.sourceId);
       }
       return false;
     });
-    if (hasFind) {
-      openAPIDoc = options.context.userContext.openAPIDoc;
+    if (matchingDocument) {
+      openAPISpec = options.context.userContext.openAPISpec;
     }
   }
 
@@ -126,7 +126,7 @@ export default async function checkDocument(
     originalDocumentStructure,
     documentStructure,
     detailFeedback: contentValidationFailed ? validationResult.detailFeedback : "",
-    openAPIDoc,
+    openAPISpec,
   });
 
   return {

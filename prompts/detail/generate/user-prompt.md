@@ -27,7 +27,7 @@
 
 </datasources>
 
-{% if openAPIDoc %}
+{% if openAPISpec %}
 <openapi>
 
 **Goal:** Use the provided OpenAPI (Swagger) specification, align it with the current page objective, and leverage it to refine this document.
@@ -35,7 +35,7 @@
 **OpenAPI File Content:** 
 <openapi_doc>
 
-{{ openAPIDoc }}
+{{ openAPISpec }}
 
 </openapi_doc>
 

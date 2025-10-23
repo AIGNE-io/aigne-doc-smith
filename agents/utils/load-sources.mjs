@@ -8,7 +8,7 @@ import {
   loadFilesFromPaths,
   readFileContents,
   getMimeType,
-  checkIsHttpFile,
+  checkIsRemoteFile,
 } from "../../utils/file-utils.mjs";
 import {
   getCurrentGitHead,
@@ -20,7 +20,7 @@ import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
 } from "../../utils/constants/index.mjs";
-import { isOpenAPIFile } from "../../utils/openapi/index.mjs";
+import { isOpenAPISpecFile } from "../../utils/openapi/index.mjs";
 
 export default async function loadSources(
   {
@@ -55,19 +55,24 @@ export default async function loadSources(
 
     const customExcludePatterns = omitSourcesPath
       .map((x) => {
-        const stats = statSync(x);
-        if (stats.isFile()) {
-          return x;
+        try {
+          const stats = statSync(x);
+          if (stats.isFile()) {
+            return x;
+          }
+          if (stats.isDirectory()) {
+            return `${x}/**`;
+          }
+          return null;
+        } catch (error) {
+          console.warn(`Failed to stat path ${x}: ${error.message}`);
+          return null;
         }
-        if (stats.isDirectory()) {
-          return `${x}/**`;
-        }
-        return null;
       })
       .filter(Boolean);
     const allFiles = await loadFilesFromPaths(pickSourcesPath, {
       includePatterns,
-      excludePatterns: [...(excludePatterns || []), ...customExcludePatterns],
+      excludePatterns: [...new Set([...(excludePatterns || []), ...customExcludePatterns])],
       useDefaultPatterns,
       defaultIncludePatterns: DEFAULT_INCLUDE_PATTERNS,
       defaultExcludePatterns: DEFAULT_EXCLUDE_PATTERNS,
@@ -135,7 +140,7 @@ export default async function loadSources(
     files.map(async (file) => {
       const ext = path.extname(file).toLowerCase();
 
-      if (mediaExtensions.includes(ext) && !checkIsHttpFile(file)) {
+      if (mediaExtensions.includes(ext) && !checkIsRemoteFile(file)) {
         // This is a media file
         const relativePath = path.relative(docsDir, file);
         const fileName = path.basename(file);
@@ -196,11 +201,11 @@ export default async function loadSources(
 
   // filter OpenAPI doc should after check isLargeContext
   sourceFiles = sourceFiles.filter((file) => {
-    if (options?.context?.userContext.openAPIDoc) return true;
+    if (options?.context?.userContext.openAPISpec) return true;
 
-    const isOpenAPI = isOpenAPIFile(file.content);
-    if (isOpenAPI) {
-      options.context.userContext.openAPIDoc = file;
+    const isOpenAPI = isOpenAPISpecFile(file.content);
+    if (isOpenAPI && options?.context?.userContext) {
+      options.context.userContext.openAPISpec = file;
     }
     return !isOpenAPI;
   });
@@ -208,11 +213,13 @@ export default async function loadSources(
   const httpFileList = [];
 
   sourceFiles.forEach((file) => {
-    if (checkIsHttpFile(file.sourceId)) {
+    if (checkIsRemoteFile(file.sourceId)) {
       httpFileList.push(file);
     }
   });
-  options.context.userContext.httpFileList = httpFileList;
+  if (options?.context?.userContext) {
+    options.context.userContext.httpFileList = httpFileList;
+  }
 
   // Build allSources string using utility function
   const allSources = buildSourcesContent(sourceFiles, isLargeContext);

@@ -12,7 +12,7 @@
 {{ datasources }}
 </datasources>
 
-{% if userContext.openAPIDoc %}
+{% if userContext.openAPISpec %}
 <openapi>
 
 **Goal:** Use the provided OpenAPI (Swagger) specification to design how the OpenAPI content and the overall document should be structured together.
@@ -20,7 +20,7 @@
 **OpenAPI File Content:** 
 <openapi_doc>
 
-{{ userContext.openAPIDoc }}
+{{ userContext.openAPISpec }}
 
 </openapi_doc>
 
