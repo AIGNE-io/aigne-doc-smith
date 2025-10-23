@@ -317,4 +317,63 @@ describe("transformDetailDatasources utility", () => {
 
     expect(result.detailDataSources).toContain("Valid content");
   });
+
+  test("should return openAPI spec separately when provided in context", async () => {
+    const guidePath = path.join(testDir, "guide.md");
+    const openApiPath = path.join(testDir, "openapi.yaml");
+    await writeFile(guidePath, "Guide content");
+    await writeFile(openApiPath, "openapi: 3.0.0");
+
+    normalizePathSpy.mockImplementation((p) => p);
+    toRelativePathSpy.mockImplementation((p) => p);
+
+    const openAPISpec = {
+      sourceId: openApiPath,
+      content: "openapi: 3.0.0",
+    };
+    const options = {
+      context: {
+        userContext: {
+          openAPISpec,
+        },
+      },
+    };
+
+    const input = {
+      sourceIds: [guidePath, openApiPath],
+    };
+
+    const result = transformDetailDatasources(input, options);
+
+    expect(result.detailDataSources).toContain("Guide content");
+    expect(result.detailDataSources).not.toContain("openapi: 3.0.0");
+    expect(result.openAPISpec).toBe(openAPISpec);
+  });
+
+  test("should render remote HTTP sources using cached content", async () => {
+    const remoteUrl = "https://example.com/service.json";
+    const localPath = path.join(testDir, "local.md");
+    await writeFile(localPath, "Local content");
+
+    normalizePathSpy.mockImplementation((p) => p);
+    toRelativePathSpy.mockImplementation((p) => p);
+
+    const options = {
+      context: {
+        userContext: {
+          httpFileList: [{ sourceId: remoteUrl, content: '{ "name": "remote" }' }],
+        },
+      },
+    };
+
+    const input = {
+      sourceIds: [remoteUrl, localPath],
+    };
+
+    const result = transformDetailDatasources(input, options);
+
+    expect(result.detailDataSources).toContain("// sourceId: https://example.com/service.json");
+    expect(result.detailDataSources).toContain('"name": "remote"');
+    expect(result.detailDataSources).toContain("Local content");
+  });
 });

@@ -8,6 +8,8 @@ import { isBinaryFile } from "isbinaryfile";
 import { encode } from "gpt-tokenizer";
 import { fileTypeFromBuffer } from "file-type";
 import { gunzipSync } from "node:zlib";
+
+import { debug } from "./debug.mjs";
 import { isGlobPattern } from "./utils.mjs";
 import { INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD } from "./constants/index.mjs";
 import { uploadFiles } from "./upload-files.mjs";
@@ -284,6 +286,11 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
         continue;
       }
 
+      if (checkIsRemoteFile(dir)) {
+        allFiles.push(dir);
+        continue;
+      }
+
       // First try to access as a file or directory
       const stats = await stat(dir);
 
@@ -313,7 +320,13 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
             : [];
 
           finalIncludePatterns = [...defaultIncludePatterns, ...userInclude];
-          finalExcludePatterns = [...defaultExcludePatterns, ...userExclude];
+          finalExcludePatterns = [
+            ...defaultExcludePatterns,
+            ...userExclude.map((x) => {
+              const prefix = `${dir}/`;
+              return x.startsWith(prefix) ? x.slice(prefix.length) : x;
+            }),
+          ];
         } else {
           // Use only user patterns
           if (includePatterns) {
@@ -374,12 +387,63 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
  * @returns {Promise<boolean>} True if file appears to be a text file
  */
 async function isTextFile(filePath) {
+  if (checkIsRemoteFile(filePath)) {
+    return checkIsHttpTextFile(filePath);
+  }
+
   try {
     const isBinary = await isBinaryFile(filePath);
     return !isBinary;
   } catch (_error) {
     // If we can't read the file, assume it might be binary to be safe
     return false;
+  }
+}
+
+export function checkIsRemoteFile(filepath) {
+  if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
+    return true;
+  }
+  return false;
+}
+
+export async function checkIsHttpTextFile(fileUrl) {
+  try {
+    const res = await fetch(fileUrl, {
+      method: "HEAD",
+    });
+    const contentType = res.headers.get("content-type") || "";
+    const textMimeTypes = [
+      "application/json",
+      "application/ld+json",
+      "application/graphql+json",
+      "application/xml",
+      "application/xhtml+xml",
+      "application/javascript",
+      "application/ecmascript",
+      "application/x-www-form-urlencoded",
+      "application/rss+xml",
+      "application/atom+xml",
+    ];
+    if (contentType.startsWith("text/") || textMimeTypes.includes(contentType)) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    debug(`Failed to check HTTP file content type: ${fileUrl} - ${error.message}`);
+    return null;
+  }
+}
+
+export async function getHttpFileContent(file) {
+  if (!file) return null;
+  try {
+    const res = await fetch(file);
+    const text = await res.text();
+    return text;
+  } catch (error) {
+    debug(`Failed to fetch HTTP file content: ${file} - ${error.message}`);
+    return null;
   }
 }
 
@@ -405,12 +469,24 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
       }
 
       try {
-        const content = await readFile(file, "utf8");
-        const relativePath = path.relative(baseDir, file);
-        return {
-          sourceId: relativePath,
-          content,
-        };
+        if (checkIsRemoteFile(file)) {
+          const content = await getHttpFileContent(file);
+          if (content) {
+            return {
+              sourceId: file,
+              content,
+            };
+          }
+
+          return null;
+        } else {
+          const content = await readFile(file, "utf8");
+          const relativePath = path.relative(baseDir, file);
+          return {
+            sourceId: relativePath,
+            content,
+          };
+        }
       } catch (error) {
         // If reading as text fails (e.g., binary file), skip it
         console.warn(`Failed to read file as text: ${file} - ${error.message}`);

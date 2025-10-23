@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
+import { afterAll, afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -1434,6 +1434,112 @@ describe("load-sources", () => {
       for (const media of mediaTypes) {
         expect(result.assetsContent).toContain(media.name);
         expect(result.assetsContent).toContain(`type: "${media.type}"`);
+      }
+    });
+  });
+
+  describe("OpenAPI and remote source handling", () => {
+    test("should store OpenAPI specs in user context and exclude them from datasources", async () => {
+      const openApiPath = path.join(testDir, "api-spec.yaml");
+      const openApiContent = "openapi: 3.0.0\ninfo:\n  title: Sample API\n";
+      await writeFile(openApiPath, openApiContent);
+
+      const helperPath = path.join(testDir, "src", "helper.js");
+      await writeFile(helperPath, "export const helper = () => 'ok';");
+
+      const userContext = {};
+      const options = {
+        context: {
+          userContext,
+        },
+      };
+
+      const result = await loadSources(
+        {
+          sources: [openApiPath, helperPath],
+          docsDir: path.join(testDir, "docs"),
+        },
+        options,
+      );
+
+      expect(userContext.openAPISpec).toBeDefined();
+      expect(userContext.openAPISpec.content).toContain("openapi: 3.0.0");
+      expect(result.datasources).not.toContain("openapi: 3.0.0");
+      expect(result.datasources).toContain("helper.js");
+      expect(userContext.httpFileList).toEqual([]);
+    });
+
+    test("should reuse existing OpenAPI spec without filtering it from datasources", async () => {
+      const openApiPath = path.join(testDir, "api-existing.yaml");
+      await writeFile(openApiPath, "openapi: 3.1.0\ninfo:\n  title: Existing\n");
+
+      const initialSpec = {
+        sourceId: openApiPath,
+        content: "cached specification",
+      };
+      const options = {
+        context: {
+          userContext: {
+            openAPISpec: initialSpec,
+          },
+        },
+      };
+
+      const result = await loadSources(
+        {
+          sources: [openApiPath],
+          docsDir: path.join(testDir, "docs"),
+        },
+        options,
+      );
+
+      expect(options.context.userContext.openAPISpec).toBe(initialSpec);
+      expect(result.datasources).toContain("openapi: 3.1.0");
+    });
+
+    test("should include remote HTTP files and expose them through user context", async () => {
+      const remoteUrl = "https://example.com/schema.json";
+      const localPath = path.join(testDir, "src", "local.js");
+      await writeFile(localPath, "export const local = true;");
+
+      const userContext = {};
+      const options = {
+        context: {
+          userContext,
+        },
+      };
+
+      const originalFetch = globalThis.fetch;
+      const fetchMock = mock(async (_input, init) => {
+        if (init?.method === "HEAD") {
+          return {
+            headers: new Map([["content-type", "application/json"]]),
+          };
+        }
+        return {
+          async text() {
+            return '{"schema": "remote"}';
+          },
+        };
+      });
+      globalThis.fetch = fetchMock;
+
+      try {
+        const result = await loadSources(
+          {
+            sources: [remoteUrl, localPath],
+            docsDir: path.join(testDir, "docs"),
+          },
+          options,
+        );
+
+        expect(result.datasources).toContain(`// sourceId: ${remoteUrl}`);
+        expect(result.datasources).toContain('"remote"');
+        expect(userContext.httpFileList).toEqual([
+          { sourceId: remoteUrl, content: '{"schema": "remote"}' },
+        ]);
+      } finally {
+        globalThis.fetch = originalFetch;
       }
     });
   });

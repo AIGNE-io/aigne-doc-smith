@@ -2,6 +2,7 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
+
 import checkDetailResult from "../utils/check-detail-result.mjs";
 
 // Get current script directory
@@ -102,6 +103,19 @@ export default async function checkDocument(
       options.context.agents["saveSingleDoc"],
     ],
   });
+  let openAPISpec = null;
+
+  if (options.context?.userContext?.openAPISpec?.sourceId) {
+    const matchingDocument = originalDocumentStructure.find((item) => {
+      if (item.path === path) {
+        return item.sourceIds.find((x) => x === options.context.userContext.openAPISpec.sourceId);
+      }
+      return false;
+    });
+    if (matchingDocument) {
+      openAPISpec = options.context.userContext.openAPISpec;
+    }
+  }
 
   const result = await options.context.invoke(teamAgent, {
     ...rest,
@@ -112,6 +126,7 @@ export default async function checkDocument(
     originalDocumentStructure,
     documentStructure,
     detailFeedback: contentValidationFailed ? validationResult.detailFeedback : "",
+    openAPISpec,
   });
 
   return {

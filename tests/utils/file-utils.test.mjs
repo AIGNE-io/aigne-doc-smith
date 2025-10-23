@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, test } from "bun:test";
+import { afterEach, beforeEach, describe, expect, mock, test } from "bun:test";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,6 +12,9 @@ import {
   readFileContents,
   resolveToAbsolute,
   toDisplayPath,
+  checkIsRemoteFile,
+  checkIsHttpTextFile,
+  getHttpFileContent,
 } from "../../utils/file-utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -415,6 +418,34 @@ temp*
       const contents = await readFileContents([], testDir);
       expect(contents.length).toBe(0);
     });
+
+    test("should read remote HTTP files", async () => {
+      const remoteUrl = "https://example.com/data.json";
+      const originalFetch = globalThis.fetch;
+      const fetchMock = mock(async (_input, init) => {
+        if (init?.method === "HEAD") {
+          return {
+            headers: new Map([["content-type", "application/json"]]),
+          };
+        }
+        return {
+          async text() {
+            return '{"value": 1}';
+          },
+        };
+      });
+      globalThis.fetch = fetchMock;
+
+      try {
+        const contents = await readFileContents([remoteUrl], testDir);
+
+        expect(contents.length).toBe(1);
+        expect(contents[0].sourceId).toBe(remoteUrl);
+        expect(contents[0].content).toContain('"value": 1');
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
   });
 
   describe("calculateFileStats", () => {
@@ -516,6 +547,105 @@ temp*
 
       expect(sources).toContain("Note: Context is large");
       expect(sources).toContain("showing a sample of files");
+    });
+
+    describe("checkIsRemoteFile", () => {
+      test("should detect http and https URLs", () => {
+        expect(checkIsRemoteFile("http://example.com/file.md")).toBe(true);
+        expect(checkIsRemoteFile("https://example.com/file.md")).toBe(true);
+      });
+
+      test("should return false for local paths", () => {
+        expect(checkIsRemoteFile("file.md")).toBe(false);
+        expect(checkIsRemoteFile("/absolute/path/file.md")).toBe(false);
+      });
+    });
+
+    describe("checkIsHttpTextFile", () => {
+      test("should return true for text content types", async () => {
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = mock(async () => ({
+          headers: {
+            get(key) {
+              if (key === "content-type") {
+                return "text/plain";
+              }
+              return null;
+            },
+          },
+        }));
+
+        try {
+          const result = await checkIsHttpTextFile("https://example.com/file.txt");
+          expect(result).toBe(true);
+        } finally {
+          globalThis.fetch = originalFetch;
+        }
+      });
+
+      test("should return false for binary content types", async () => {
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = mock(async () => ({
+          headers: {
+            get() {
+              return "application/octet-stream";
+            },
+          },
+        }));
+
+        try {
+          const result = await checkIsHttpTextFile("https://example.com/image.png");
+          expect(result).toBe(false);
+        } finally {
+          globalThis.fetch = originalFetch;
+        }
+      });
+
+      test("should return null when request fails", async () => {
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = mock(async () => {
+          throw new Error("network error");
+        });
+
+        try {
+          const result = await checkIsHttpTextFile("https://example.com/file.txt");
+          expect(result).toBeNull();
+        } finally {
+          globalThis.fetch = originalFetch;
+        }
+      });
+    });
+
+    describe("getHttpFileContent", () => {
+      test("should return text content on success", async () => {
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = mock(async () => ({
+          async text() {
+            return "remote content";
+          },
+        }));
+
+        try {
+          const result = await getHttpFileContent("https://example.com/file.txt");
+          expect(result).toBe("remote content");
+        } finally {
+          globalThis.fetch = originalFetch;
+        }
+      });
+
+      test("should return null when fetch fails", async () => {
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = mock(async () => {
+          throw new Error("fetch failed");
+        });
+
+        try {
+          const result = await getHttpFileContent("https://example.com/file.txt");
+          expect(result).toBeNull();
+        } finally {
+          globalThis.fetch = originalFetch;
+        }
+      });
     });
   });
 });

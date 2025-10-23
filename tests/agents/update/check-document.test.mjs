@@ -286,6 +286,67 @@ describe("check-document", () => {
     expect(mockOptions.context.invoke).toHaveBeenCalled();
   });
 
+  test("should include openAPI spec in invocation when document references it", async () => {
+    accessSpy.mockRejectedValue(new Error("File not found"));
+    const openAPISpec = {
+      sourceId: "specs/openapi.yaml",
+      content: "openapi: 3.0.0",
+    };
+    mockOptions.context.userContext = { openAPISpec };
+
+    await checkDocument(
+      {
+        path: "/getting-started",
+        docsDir: "./docs",
+        sourceIds: ["file1.js"],
+        originalDocumentStructure: [
+          {
+            path: "/getting-started",
+            sourceIds: ["specs/openapi.yaml", "file1.js"],
+          },
+        ],
+        documentStructure: [{ path: "/getting-started" }],
+      },
+      mockOptions,
+    );
+
+    const invokeArgs = mockOptions.context.invoke.mock.calls.at(-1)[1];
+    expect(invokeArgs.openAPISpec).toBe(openAPISpec);
+
+    delete mockOptions.context.userContext;
+  });
+
+  test("should omit openAPI spec when not associated with document", async () => {
+    accessSpy.mockRejectedValue(new Error("File not found"));
+    mockOptions.context.userContext = {
+      openAPISpec: {
+        sourceId: "specs/openapi.yaml",
+        content: "openapi: 3.0.0",
+      },
+    };
+
+    await checkDocument(
+      {
+        path: "/getting-started",
+        docsDir: "./docs",
+        sourceIds: ["file1.js"],
+        originalDocumentStructure: [
+          {
+            path: "/another-doc",
+            sourceIds: ["specs/openapi.yaml"],
+          },
+        ],
+        documentStructure: [{ path: "/getting-started" }],
+      },
+      mockOptions,
+    );
+
+    const invokeArgs = mockOptions.context.invoke.mock.calls.at(-1)[1];
+    expect(invokeArgs.openAPISpec).toBeNull();
+
+    delete mockOptions.context.userContext;
+  });
+
   // TEAM AGENT TESTS
   test("should create team agent with correct configuration", async () => {
     accessSpy.mockRejectedValue(new Error("File not found"));
