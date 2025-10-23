@@ -43,9 +43,13 @@ export default async function loadSources(
   const { minImageWidth } = media || { minImageWidth: 800 };
 
   if (sourcesPath) {
+    const sourcesPathList = Array.isArray(sourcesPath) ? sourcesPath : [sourcesPath];
     const pickSourcesPath = [];
     const omitSourcesPath = [];
-    sourcesPath.forEach((x) => {
+    sourcesPathList.forEach((x) => {
+      if (typeof x !== "string" || !x) {
+        return;
+      }
       if (x.startsWith("!")) {
         omitSourcesPath.push(x.substring(1));
       } else {
