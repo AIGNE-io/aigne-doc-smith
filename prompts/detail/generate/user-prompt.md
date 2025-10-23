@@ -30,9 +30,9 @@
 {% if openAPIDoc %}
 <openapi>
 
-**Goal:** Using the provided OpenAPI (Swagger) document and the current page's purpose, intelligently leverage the OpenAPI content to improve the current documentation page.
+**Goal:** Use the provided OpenAPI (Swagger) specification, align it with the current page objective, and leverage it to refine this document.
 
-**OpenAPI document content:**
+**OpenAPI File Content:** 
 <openapi_doc>
 
 {{ openAPIDoc }}
@@ -41,24 +41,25 @@
 
 ---
 
-### **Documentation generation requirements and constraints**
+### **Documentation Requirements and Constraints**
 
-1.  **Core content extraction:**
-    * For each endpoint (Path Item), clearly include the following:
-        * HTTP method and path (Method Path)
-        * Short summary (Summary)
-        * Detailed description (Description)
-        * Request parameters (Parameters): include name, location (in), type, required, description
-        * Request body (Request Body): if present, describe its schema
-        * Responses: include main status codes (e.g., 200, 201, 400, 500) and their schemas
+1.  **Extract the core content:**
+    * Organize the document by functional modules.
+    * For each path item, include the following elements:
+        * HTTP method and path.
+        * Concise summary.
+        * Detailed description.
+        * Request parameters: name, location (`in`), type, required flag, description.
+        * Request body: describe its structure when present.
+        * Responses: at least the key status codes (e.g., 200, 201, 400, 500) and their schemas.
 
-2.  **De-duplication constraint for Prompt API descriptions:**
-    * **Ensure the project's API introduction (in any preface, overview, etc.) appears only once — inside the API Reference section generated from the OpenAPI.**
-    * **Do not repeat or add API listings or descriptions anywhere else in the documentation (for example, in "Quick Start" or "Architecture Overview").**
+2.  **Mandatory API description constraints (deduplication rule):**
+    * **Ensure that throughout the document (including preface, overview, etc.), any introduction to the project APIs appears only within this OpenAPI-generated "API reference" section.**
+    * **Never** repeat or expand the interface list elsewhere in the document (for example, "Quick Start" or "Architecture Overview" sections).
 
 ---
 
-**Expected output format:** concise, clear, and easy-to-scan Markdown documentation.
+**Expected output format:** A concise, clear, and easy-to-scan Markdown document.
 
 </openapi>
 {% endif %}

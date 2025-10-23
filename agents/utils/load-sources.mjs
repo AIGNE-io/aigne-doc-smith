@@ -7,6 +7,7 @@ import {
   loadFilesFromPaths,
   readFileContents,
   getMimeType,
+  checkIsHttpFile,
 } from "../../utils/file-utils.mjs";
 import {
   getCurrentGitHead,
@@ -18,21 +19,25 @@ import {
   DEFAULT_EXCLUDE_PATTERNS,
   DEFAULT_INCLUDE_PATTERNS,
 } from "../../utils/constants/index.mjs";
+import { isOpenAPIFile } from "../../utils/openapi/index.mjs";
 
-export default async function loadSources({
-  sources = [],
-  sourcesPath = [],
-  includePatterns,
-  excludePatterns,
-  outputDir,
-  docsDir,
-  "doc-path": docPath,
-  boardId,
-  useDefaultPatterns = true,
-  lastGitHead,
-  reset = false,
-  media,
-} = {}) {
+export default async function loadSources(
+  {
+    sources = [],
+    sourcesPath = [],
+    includePatterns,
+    excludePatterns,
+    outputDir,
+    docsDir,
+    "doc-path": docPath,
+    boardId,
+    useDefaultPatterns = true,
+    lastGitHead,
+    reset = false,
+    media,
+  } = {},
+  options,
+) {
   let files = Array.isArray(sources) ? [...sources] : [];
   const { minImageWidth } = media || { minImageWidth: 800 };
 
@@ -49,9 +54,6 @@ export default async function loadSources({
   }
 
   files = [...new Set(files)];
-
-  // all files path
-  const allFilesPaths = files.map((file) => `- ${toRelativePath(file)}`).join("\n");
 
   // Define media file extensions
   const mediaExtensions = [
@@ -110,7 +112,7 @@ export default async function loadSources({
     files.map(async (file) => {
       const ext = path.extname(file).toLowerCase();
 
-      if (mediaExtensions.includes(ext)) {
+      if (mediaExtensions.includes(ext) && !checkIsHttpFile(file)) {
         // This is a media file
         const relativePath = path.relative(docsDir, file);
         const fileName = path.basename(file);
@@ -161,7 +163,7 @@ export default async function loadSources({
   }
 
   // Read all source files using the utility function
-  const sourceFiles = await readFileContents(sourceFilesPaths, process.cwd());
+  let sourceFiles = await readFileContents(sourceFilesPaths, process.cwd());
 
   // Count tokens and lines using utility function
   const { totalTokens, totalLines } = calculateFileStats(sourceFiles);
@@ -169,8 +171,30 @@ export default async function loadSources({
   // check if totalTokens is too large
   const isLargeContext = totalTokens > INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD;
 
+  // filter OpenAPI doc should after check isLargeContext
+  sourceFiles = sourceFiles.filter((file) => {
+    if (options?.context?.userContext.openAPIDoc) return true;
+
+    const isOpenAPI = isOpenAPIFile(file.content);
+    if (isOpenAPI) {
+      options.context.userContext.openAPIDoc = file;
+    }
+    return !isOpenAPI;
+  });
+
+  const httpFileList = [];
+
+  sourceFiles.forEach((file) => {
+    if (checkIsHttpFile(file.sourceId)) {
+      httpFileList.push(file);
+    }
+  });
+  options.context.userContext.httpFileList = httpFileList;
+
   // Build allSources string using utility function
   const allSources = buildSourcesContent(sourceFiles, isLargeContext);
+  // all files path
+  const allFilesPaths = sourceFiles.map((x) => `- ${toRelativePath(x.sourceId)}`).join("\n");
 
   // Get the last documentation structure
   let originalDocumentStructure;

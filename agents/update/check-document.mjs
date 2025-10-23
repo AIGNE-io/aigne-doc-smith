@@ -3,7 +3,6 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
 
-import { getOpenAPIContent } from "../../utils/openapi/index.mjs";
 import checkDetailResult from "../utils/check-detail-result.mjs";
 
 // Get current script directory
@@ -104,10 +103,18 @@ export default async function checkDocument(
       options.context.agents["saveSingleDoc"],
     ],
   });
+  let openAPIDoc = null;
 
-  let openAPIDoc;
-  if (rest.openapi) {
-    openAPIDoc = await getOpenAPIContent(rest.openapi);
+  if (options.context?.userContext?.openAPIDoc?.sourceId) {
+    const hasFind = originalDocumentStructure.find(item => {
+      if (item.path === path) {
+        return item.sourceIds.find(x => x === options.context.userContext.openAPIDoc.sourceId)
+      }
+      return false;
+    });
+    if (hasFind) {
+      openAPIDoc = options.context.userContext.openAPIDoc;
+    }
   }
 
   const result = await options.context.invoke(teamAgent, {

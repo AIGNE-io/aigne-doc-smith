@@ -12,36 +12,36 @@
 {{ datasources }}
 </datasources>
 
-{% if openAPIDoc %}
+{% if userContext.openAPIDoc %}
 <openapi>
 
-**Goal:** Based on the provided OpenAPI (Swagger) document, plan how the OpenAPI content should be integrated with the overall documentation structure.
+**Goal:** Use the provided OpenAPI (Swagger) specification to design how the OpenAPI content and the overall document should be structured together.
 
-**OpenAPI document content:**
+**OpenAPI File Content:** 
 <openapi_doc>
 
-{{ openAPIDoc }}
+{{ userContext.openAPIDoc }}
 
 </openapi_doc>
 
 ---
 
-### **Documentation generation requirements and constraints**
+### **Documentation Requirements and Constraints**
 
-1.  **Sections and titles:**
+1.  **Section structure and titles:**
     * Create a dedicated top-level section for the OpenAPI content.
-    * The section title should be professional and user-friendly; do **not** include the words OpenAPI, Swagger, or file format. Recommended titles: **"API Reference"** or **"Interface Reference"**.
+    * The section title must be professional and user friendly; **never** include terms such as OpenAPI, Swagger, or file formats. Recommended titles include **"API Interface Reference"** or **"Interface Reference"**.
 
 2.  **Content hierarchy and presentation:**
-    * **Ideal (single page):** Prefer consolidating all API endpoint content into a **single Markdown file (one page)**.
-    * **Split condition (two-level pages):** Only split into module pages when the number of endpoints makes a single file unwieldy; split by OpenAPI tags or logical modules and create separate Markdown files for each module.
-    * **File hierarchy constraint:** Whether using one-level or two-level structure, the generated API reference documentation files (Markdown files) must have at most two levels.
-        * **Example (two-level):** `/api-reference.md` (home) -> `/api/user.md`, `/api/order.md` (module pages)
-        * **Do not create three-level or deeper structures:** e.g., `/api/v1/user/get.md`.
+    * **Ideal state (single-level page):** Prefer to present all API endpoints within **one Markdown file (one page)**.
+    * **Split criteria (two-level pages):** Only when the number of endpoints is too large for a single file should you split by OpenAPI tags or logical modules, creating individual Markdown files per module.
+    * **Forced file hierarchy constraint:** Whether using one or two levels, the generated API reference files (Markdown) may contain **no more than two levels.**
+        * **Example (two-level structure):** `/api-reference.md` (index) -> `/api/user.md`, `/api/order.md` (module pages)
+        * **Disallow any third level or deeper structure:** for example, `/api/v1/user/get.md`.
 
-3.  **De-duplication constraint for Prompt API descriptions:**
-    * **Ensure the project's API introduction (in any preface, overview, etc.) appears only once — inside the API Reference section generated from the OpenAPI.**
-    * **Do not repeat or add API listings or descriptions anywhere else in the documentation (for example, in "Quick Start" or "Architecture Overview").**
+3.  **Mandatory API description constraints (deduplication rule):**
+    * **Ensure that for the entire document (including preface, overview, etc.), any introduction to the project APIs appears only within this OpenAPI-generated "API reference" section.**
+    * **Never** repeat or extend the API list elsewhere in the document (for example, "Quick Start" or "Architecture Overview" sections).
 
 </openapi>
 {% endif %}
