@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.15-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta...v0.8.15-beta.1) (2025-10-23)
+
+
+### Features
+
+* support openapi datasource, generate better api docs ([#212](https://github.com/AIGNE-io/aigne-doc-smith/issues/212)) ([6a683f1](https://github.com/AIGNE-io/aigne-doc-smith/commit/6a683f117aa94f265383be6e1b3b957803004032))
+
 ## [0.8.15-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.14...v0.8.15-beta) (2025-10-21)
 
 
