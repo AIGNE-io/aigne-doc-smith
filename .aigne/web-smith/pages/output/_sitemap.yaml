@@ -4,11 +4,10 @@ sitemap:
     locales:
       en:
         title: "AIGNE DocSmith: AI-Powered Documentation That Understands Your Code"
-        description: Experience the future of documentation with AIGNE DocSmith.
-          Leverage our AI to automatically generate, translate, and maintain
-          comprehensive, structured docs that stay in sync with your code. Get
-          started in seconds!
-        image: mediakit://aigne-docsmith-hero.png
+        description: Experience the future of documentation with AIGNE DocSmith! Our
+          AI-driven tool analyzes your codebase to generate comprehensive,
+          multi-language docs automatically. Get started in seconds.
+        image: mediakit://home-hero-visual.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -19,20 +18,20 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-21T06:51:43.487Z
-      updatedAt: 2025-10-21T06:51:43.487Z
-      publishedAt: 2025-10-21T06:51:43.487Z
+      createdAt: 2025-10-22T08:52:09.477Z
+      updatedAt: 2025-10-22T08:52:09.477Z
+      publishedAt: 2025-10-22T08:52:09.477Z
       isPublic: true
   - title: Core Features
     path: /features
     locales:
       en:
-        title: DocSmith Core Features | AI-Powered Documentation Generation &
-          Translation
-        description: "Explore DocSmith's powerful features: AI-driven content
-          generation, multi-language translation, seamless LLM integration, and
-          smart updates. Create accurate, up-to-date docs effortlessly."
-        image: mediakit://features-page-social-share.png
+        title: AIGNE DocSmith Features | AI Documentation Generation & Translation
+        description: Explore the powerful features of AIGNE DocSmith. From AI-powered
+          content generation and multi-language support to seamless LLM
+          integration and smart updates, see how we automate your documentation
+          workflow.
+        image: mediakit://features-hero-visual.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -43,19 +42,19 @@ sitemap:
     meta:
       file: features.yaml
       id: 69ee505620f7efd5
-      createdAt: 2025-10-21T06:51:43.480Z
-      updatedAt: 2025-10-21T06:51:43.480Z
-      publishedAt: 2025-10-21T06:51:43.480Z
+      createdAt: 2025-10-22T08:52:09.466Z
+      updatedAt: 2025-10-22T08:52:09.466Z
+      publishedAt: 2025-10-22T08:52:09.466Z
       isPublic: true
   - title: Getting Started Guide
     path: /getting-started
     locales:
       en:
-        title: Getting Started with AIGNE DocSmith | Quick Install Guide
-        description: Your step-by-step guide to installing the AIGNE CLI and generating
-          your first set of AI-powered documents in minutes. Let's get you
-          started!
-        image: mediakit://getting-started-hero.png
+        title: Getting Started Guide | AIGNE DocSmith
+        description: Your step-by-step guide to installing AIGNE DocSmith and generating
+          your first set of AI-powered documentation in minutes. Covers
+          prerequisites, installation, and the 'aigne doc generate' command.
+        image: mediakit://getting-started-hero-visual.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -66,18 +65,18 @@ sitemap:
     meta:
       file: getting-started.yaml
       id: 2215739be1a1f035
-      createdAt: 2025-10-21T06:51:43.483Z
-      updatedAt: 2025-10-21T06:51:43.483Z
-      publishedAt: 2025-10-21T06:51:43.483Z
+      createdAt: 2025-10-22T08:52:09.471Z
+      updatedAt: 2025-10-22T08:52:09.471Z
+      publishedAt: 2025-10-22T08:52:09.471Z
       isPublic: true
   - title: Usage Guide & Commands
     path: /usage
     locales:
       en:
-        title: DocSmith CLI Usage Guide | Master All Commands
-        description: Your ultimate guide to mastering AIGNE DocSmith's CLI. Explore
-          detailed walkthroughs for generate, update, translate, publish, and
-          other powerful commands to fully automate your documentation workflow.
+        title: Usage Guide & Commands | AIGNE DocSmith
+        description: Master AIGNE DocSmith with this complete guide to CLI commands.
+          Learn how to generate, update, translate, and publish your AI-powered
+          documentation in seconds.
         image: mediakit://usage-guide-hero.png
         style:
           maxWidth: custom:1440px
@@ -89,19 +88,19 @@ sitemap:
     meta:
       file: usage.yaml
       id: b0b63f8263bffbbd
-      createdAt: 2025-10-21T06:51:43.494Z
-      updatedAt: 2025-10-21T06:51:43.494Z
-      publishedAt: 2025-10-21T06:51:43.494Z
+      createdAt: 2025-10-22T08:52:09.481Z
+      updatedAt: 2025-10-22T08:52:09.481Z
+      publishedAt: 2025-10-22T08:52:09.481Z
       isPublic: true
   - title: Community & Enterprise
     path: /community
     locales:
       en:
-        title: AIGNE DocSmith Community & Enterprise Solutions
-        description: Join the AIGNE DocSmith community to contribute, report issues, and
-          request features. Explore our enterprise solutions for team
-          collaboration, security, and dedicated support.
-        image: mediakit://hero-community-enterprise.png
+        title: Community & Enterprise Support for AIGNE DocSmith
+        description: Join the AIGNE DocSmith community to contribute, report issues, or
+          request features. Explore enterprise solutions for team collaboration,
+          security, and professional support.
+        image: mediakit://community-enterprise-hero.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -112,9 +111,9 @@ sitemap:
     meta:
       file: community.yaml
       id: 423f8449a3d5581e
-      createdAt: 2025-10-21T06:51:43.474Z
-      updatedAt: 2025-10-21T06:51:43.474Z
-      publishedAt: 2025-10-21T06:51:43.474Z
+      createdAt: 2025-10-22T08:52:09.460Z
+      updatedAt: 2025-10-22T08:52:09.460Z
+      publishedAt: 2025-10-22T08:52:09.460Z
       isPublic: true
 navigations:
   - id: e9022e7aa8630077-header

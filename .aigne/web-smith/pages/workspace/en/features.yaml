@@ -1,76 +1,126 @@
 meta:
-  title: "DocSmith Core Features | AI-Powered Documentation Generation & Translation"
-  description: "Explore DocSmith's powerful features: AI-driven content generation, multi-language
-    translation, seamless LLM integration, and smart updates. Create accurate,
-    up-to-date docs effortlessly."
-  image: "mediakit://features-page-social-share.png"
+  title: "AIGNE DocSmith Features | AI Documentation Generation & Translation"
+  description: "Explore the powerful features of AIGNE DocSmith. From AI-powered content
+    generation and multi-language support to seamless LLM integration and smart
+    updates, see how we automate your documentation workflow."
+  image: "mediakit://features-hero-visual.png"
 sections:
-  - sectionName: "featuresHero"
-    sectionSummary: "An engaging hero section that introduces the core features of
-      DocSmith with a vibrant, energetic tone. It sets the stage for the detailed
-      breakdown and encourages users to explore the tool's capabilities."
-    splitHeroTitle: "The Power Tools for Flawless Documentation"
-    splitHeroDescription: "Dive into the features that make DocSmith the smartest,
-      fastest way to generate, translate, and maintain your project documentation.
-      Let's make docs exciting!"
+  - sectionName: "FeaturesHero"
+    sectionSummary: "Engaging hero section to introduce the core features of DocSmith,
+      setting a vibrant and energetic tone for the page."
+    splitHeroTitle: "Unleash the Power of AI on Your Documentation"
+    splitHeroDescription: "Stop wrestling with outdated docs. AIGNE DocSmith dives
+      deep into your code to generate, translate, and maintain everything for you.
+      It's time to let your documentation write itself!"
     splitHeroActions:
-      - text: "Get Started Free"
-        link: "link:///getting-started"
-      - text: "See Usage Guide"
-        link: "link:///usage"
-    splitHeroRightImage: "mediakit://features-hero-visual.png"
-  - sectionName: "featureShowcase"
-    sectionSummary: "A comprehensive grid showcasing the four pillar features of DocSmith:
-      AI-Powered Generation, Multi-Language Support, Seamless LLM Integration,
-      and Smart Updates. Each feature is presented with a clear benefit and a
-      supporting visual to convince users of its value."
-    twoColumnGridTitle: "Everything You Need to Succeed"
-    list:
-      - sectionName: "aiPoweredGeneration"
-        sectionSummary: "Highlights the intelligent analysis and content creation
-          capabilities of DocSmith, showing how it transforms raw code into structured,
-          meaningful documentation."
-        contentCardTitle: "AI-Powered Generation"
-        contentCardDescription: "Let our AI analyze your codebase to create a flawless
-          documentation structure. It generates rich, contextual content that
-          explains the 'what' and the 'why,' so you don't have to."
-        contentCardBottomImage: "mediakit://doc-generate-docs.png"
-      - sectionName: "multiLanguageSupport"
-        sectionSummary: "Showcases the global reach enabled by DocSmith's translation
-          feature, emphasizing the professional quality and breadth of supported
-          languages."
-        contentCardTitle: "Go Global with Multi-Language Support"
-        contentCardDescription: "Reach a worldwide audience! Instantly translate your
-          docs into 12 languages with professional, context-aware accuracy. From
-          Spanish to Japanese, we've got you covered."
-        contentCardBottomImage: "mediakit://doc-translate-langs.png"
-      - sectionName: "seamlessLlmIntegration"
-        sectionSummary: "Details the flexibility of DocSmith's LLM integration, appealing
-          to users who want zero-config simplicity or the power to use their own
-          provider keys."
-        contentCardTitle: "Seamless LLM Integration"
-        contentCardDescription: "Use our powerful AIGNE Hub for zero-config access
-          to top models like Gemini and GPT-4o, or bring your own API keys. The
-          choice is yours!"
-        contentCardBottomImage: "mediakit://doc-publish.png"
-      - sectionName: "smartUpdates"
-        sectionSummary: "Addresses the critical pain point of outdated documentation
-          by explaining how DocSmith's smart update mechanism keeps content perpetually
-          in sync with the codebase."
-        contentCardTitle: "Stay Current with Smart Updates"
-        contentCardDescription: "Outdated docs are a thing of the past. DocSmith automatically
-          detects code changes and updates the relevant documentation, ensuring
-          your content is always in sync."
-        contentCardBottomImage: "mediakit://doc-update.png"
-  - sectionName: "featuresCta"
-    sectionSummary: "A final, energetic call-to-action that motivates users to
-      take the next step. It reinforces the core value proposition and provides
-      clear, direct paths to either get started or learn more."
-    ctaTitle: "Ready to Create Amazing Docs?"
-    ctaDescription: "Stop wrestling with manual documentation. Experience the power
-      of AI and get started with DocSmith in minutes."
-    cta:
-      - text: "Try It Now"
+      - text: "Get Started Now"
         link: "link:///getting-started"
       - text: "View Commands"
+        link: "link:///usage"
+    splitHeroRightImage: "mediakit://features-hero-visual.png"
+  - sectionName: "AiPoweredGeneration"
+    sectionSummary: "This section details the AI-powered generation capabilities. It's
+      designed to showcase how DocSmith intelligently analyzes code to create
+      structured, meaningful, and stylistically adaptive documentation."
+    oneColumnGridTitle: "🤖 AI-Powered Generation"
+    list:
+      - sectionName: "SmartStructurePlanning"
+        sectionSummary: "Highlighting the AI's ability to create a logical documentation
+          structure automatically."
+        contentCardTitle: "Smart Structure Planning"
+        contentCardDescription: "DocSmith doesn't just write; it thinks. Our AI analyzes
+          your entire codebase to map out a logical and comprehensive documentation
+          structure that makes perfect sense to your users."
+        contentCardBottomImage: "mediakit://doc-regenerate-beautified.png"
+      - sectionName: "IntelligentContentCreation"
+        sectionSummary: "Focusing on the quality and context of the AI-generated
+          content."
+        contentCardTitle: "Intelligent Content Creation"
+        contentCardDescription: "Go beyond basic API lists. DocSmith generates rich,
+          contextual content that explains both the 'what' and the 'why' behind
+          your code, creating guides that are genuinely helpful."
+        contentCardBottomImage: "mediakit://intelligent-content-creation-visual.png"
+      - sectionName: "AdaptiveWritingStyles"
+        sectionSummary: "Showcasing the versatility of the AI in adopting different
+          writing styles."
+        contentCardTitle: "Adaptive Writing Styles"
+        contentCardDescription: "Speak directly to your audience! Whether you need a
+          highly technical manual, a user-friendly guide, or a developer-focused
+          tutorial, DocSmith adapts its voice to match."
+        contentCardBottomImage: "mediakit://adaptive-writing-styles-visual.png"
+  - sectionName: "MultiLanguageSupport"
+    sectionSummary: "This section showcases the powerful multi-language and translation
+      features, emphasizing global readiness and technical accuracy."
+    oneColumnGridTitle: "🌍 Multi-Language Support"
+    list:
+      - sectionName: "ProfessionalTranslation"
+        sectionSummary: "A card explaining the professional, context-aware translation
+          feature with a visual aid."
+        contentCardTitle: "Translate with a Single Command"
+        contentCardDescription: "Reach a global audience instantly! DocSmith provides
+          professional, context-aware translations in 12 languages. Our AI understands
+          technical nuance, ensuring your docs are accurate everywhere."
+        contentCardLeftImage: "mediakit://doc-translate-langs-beautified.png"
+  - sectionName: "SeamlessIntegration"
+    sectionSummary: "Explains how easily DocSmith integrates with different LLMs,
+      highlighting the flexibility between the AIGNE Hub and custom API keys."
+    oneColumnGridTitle: "🔗 Seamless Integration"
+    list:
+      - sectionName: "LlmIntegration"
+        sectionSummary: "A card demonstrating the ease of switching between LLMs via
+          a simple command."
+        contentCardTitle: "Your AI, Your Choice"
+        contentCardDescription: "Use our managed AIGNE Hub for zero-config access to
+          top models from Google, OpenAI, and more, or plug in your own API keys.
+          Switching is as simple as a single command."
+        contentCardRightCode:
+          name: "bash"
+          content: "aigne doc generate --model google:gemini-2.5-pro\naigne doc generate
+            --model anthropic:claude-sonnet-4-5\naigne doc generate --model openai:gpt-4o"
+  - sectionName: "SmartUpdates"
+    sectionSummary: "This section highlights the automatic change detection and update
+      features, showing users how effortlessly they can keep their documentation
+      current."
+    oneColumnGridTitle: "🔄 Smart Updates"
+    list:
+      - sectionName: "AutomaticChangeDetection"
+        sectionSummary: "A feature card explaining how DocSmith automatically detects
+          code changes and updates documentation."
+        contentCardTitle: "Always In Sync With Your Code"
+        contentCardDescription: "Forget manual updates! DocSmith automatically detects
+          changes in your codebase and intelligently regenerates the relevant sections.
+          Your documentation is always a perfect reflection of your project."
+        contentCardLeftImage: "mediakit://doc-update-beautified.png"
+  - sectionName: "FrequentlyAskedQuestions"
+    sectionSummary: "A dedicated FAQ section to proactively answer common user questions
+      about features, capabilities, and limitations, helping to build trust
+      and clarity."
+    faqTitle: "Frequently Asked Questions"
+    faqList:
+      - question: "What programming languages does DocSmith analyze?"
+        answer: "DocSmith is designed to be language-agnostic and works with a wide
+          variety of tech stacks. It automatically detects your project's structure
+          to provide comprehensive analysis."
+      - question: "How many languages can I translate my documentation into?"
+        answer: "You can translate your documentation into 12 languages, including
+          English, Chinese (Simplified & Traditional), Japanese, Korean, Spanish,
+          French, and German."
+      - question: "Do I need my own API keys for the AI models?"
+        answer: "No! By default, DocSmith uses the AIGNE Hub, which gives you access
+          to premium models without needing any API keys. However, you have the
+          flexibility to configure your own keys if you prefer."
+      - question: "Can I customize the generated documentation?"
+        answer: "Absolutely! You can provide custom feedback and requirements during
+          generation or use the 'aigne doc update' command to regenerate specific
+          sections with new instructions."
+  - sectionName: "GetStartedCta"
+    sectionSummary: "A final, action-oriented CTA to guide users from learning about
+      features to actually trying the tool."
+    ctaTitle: "Ready to Revolutionize Your Docs?"
+    ctaDescription: "Stop writing and start generating. Get started with AIGNE DocSmith
+      in just a few minutes and see the magic for yourself."
+    cta:
+      - text: "Start Generating Now"
+        link: "link:///getting-started"
+      - text: "Explore the CLI"
         link: "link:///usage"

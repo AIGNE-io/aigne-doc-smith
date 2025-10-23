@@ -1,1 +1,0 @@
-An illustration for the 'Multi-Language Support' feature card. It uses a globe and language symbols to clearly communicate the product's ability to provide professional, context-aware translations for a global audience.

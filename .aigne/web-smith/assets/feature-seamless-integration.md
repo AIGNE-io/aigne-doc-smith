@@ -1,1 +1,0 @@
-A visual for the 'Seamless Integration' feature card. This image abstractly shows various AI provider logos connecting to a central point, symbolizing DocSmith's ability to integrate with multiple LLMs and the AIGNE Hub.

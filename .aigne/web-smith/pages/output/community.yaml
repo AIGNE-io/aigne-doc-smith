@@ -1,7 +1,7 @@
 id: 423f8449a3d5581e
-createdAt: 2025-10-21T06:51:43.474Z
-updatedAt: 2025-10-21T06:51:43.474Z
-publishedAt: 2025-10-21T06:51:43.474Z
+createdAt: 2025-10-22T08:52:09.460Z
+updatedAt: 2025-10-22T08:52:09.460Z
+publishedAt: 2025-10-22T08:52:09.460Z
 isPublic: true
 locales:
   en:
@@ -10,11 +10,11 @@ locales:
       maxWidth: custom:1440px
       paddingY: normal
       paddingX: normal
-    title: AIGNE DocSmith Community & Enterprise Solutions
-    description: Join the AIGNE DocSmith community to contribute, report issues, and
-      request features. Explore our enterprise solutions for team collaboration,
-      security, and dedicated support.
-    image: mediakit://hero-community-enterprise.png
+    title: Community & Enterprise Support for AIGNE DocSmith
+    description: Join the AIGNE DocSmith community to contribute, report issues, or
+      request features. Explore enterprise solutions for team collaboration,
+      security, and professional support.
+    image: mediakit://community-enterprise-hero.png
     header:
       sticky: true
 sections:
@@ -367,26 +367,466 @@ sections:
       gap: normal
       paddingY: none
       paddingX: none
-  58c96007fa8ad7fa:
-    id: 58c96007fa8ad7fa
+  0204804ba50155ce:
+    id: 0204804ba50155ce
+    name: Testimonials/Reviews
+    component: layout-block
+    sections:
+      50ff06b585a78927:
+        id: 50ff06b585a78927
+        name: Title
+        component: layout-block
+        sections:
+          6cbb8bd38caa66a4:
+            id: 6cbb8bd38caa66a4
+            name: LayoutTitle
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+        sectionIds:
+          - 6cbb8bd38caa66a4
+        config:
+          gap: small
+          paddingX: none
+          alignContent: start
+          gridSettings:
+            desktop:
+              6cbb8bd38caa66a4:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile:
+              6cbb8bd38caa66a4:
+                id: 6cbb8bd38caa66a4
+      515650d5c27bccdb:
+        id: 515650d5c27bccdb
+        name: Cards
+        component: layout-block
+        sections:
+          e062dc285fdab938:
+            id: e062dc285fdab938
+            name: Cards-1
+            component: layout-block
+            sections:
+              d6415ec1d624285f:
+                id: d6415ec1d624285f
+                name: Title
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              7ee4dec4719befe7:
+                id: 7ee4dec4719befe7
+                name: Icon
+                component: layout-block
+                sections:
+                  c2c0c505651f861a:
+                    id: c2c0c505651f861a
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                sectionIds:
+                  - c2c0c505651f861a
+                config:
+                  gridSettings:
+                    desktop:
+                      c2c0c505651f861a:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  height: 100%
+                  borderRadius: custom:0px
+                  alignContent: start
+            sectionIds:
+              - d6415ec1d624285f
+              - 7ee4dec4719befe7
+            config:
+              gridSettings:
+                desktop:
+                  d6415ec1d624285f:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                  7ee4dec4719befe7:
+                    x: 0
+                    y: 0
+                    w: 6
+                    h: 1
+                mobile:
+                  d6415ec1d624285f:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                  7ee4dec4719befe7:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: start
+          0d9c1e422791e55f:
+            id: 0d9c1e422791e55f
+            name: Cards-2
+            component: layout-block
+            sections:
+              1b291b01c21efffd:
+                id: 1b291b01c21efffd
+                name: Title
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              af61752ceba78e50:
+                id: af61752ceba78e50
+                name: Icon
+                component: layout-block
+                sections:
+                  cf7f14f32caa64b7:
+                    id: cf7f14f32caa64b7
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                sectionIds:
+                  - cf7f14f32caa64b7
+                config:
+                  gridSettings:
+                    desktop:
+                      cf7f14f32caa64b7:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  height: 100%
+                  borderRadius: custom:0px
+                  alignContent: start
+            sectionIds:
+              - 1b291b01c21efffd
+              - af61752ceba78e50
+            config:
+              gridSettings:
+                desktop:
+                  1b291b01c21efffd:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                  af61752ceba78e50:
+                    x: 0
+                    y: 0
+                    w: 6
+                    h: 1
+                mobile:
+                  1b291b01c21efffd:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                  af61752ceba78e50:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: start
+          2abfaf84fe1fcb09:
+            id: 2abfaf84fe1fcb09
+            name: Cards-3
+            component: layout-block
+            sections:
+              5e82ed859f92ece6:
+                id: 5e82ed859f92ece6
+                name: Title
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              e31ce457eeba350d:
+                id: e31ce457eeba350d
+                name: Icon
+                component: layout-block
+                sections:
+                  5786ed1f0d301e6b:
+                    id: 5786ed1f0d301e6b
+                    name: Icon
+                    component: custom-component
+                    config:
+                      useCache: true
+                      componentId: YwuDiIbyyF5vfGpt
+                    sectionIds: []
+                sectionIds:
+                  - 5786ed1f0d301e6b
+                config:
+                  gridSettings:
+                    desktop:
+                      5786ed1f0d301e6b:
+                        x: 0
+                        y: 0
+                        w: 12
+                        h: 1
+                  background: transparent
+                  height: 100%
+                  borderRadius: custom:0px
+                  alignContent: start
+            sectionIds:
+              - 5e82ed859f92ece6
+              - e31ce457eeba350d
+            config:
+              gridSettings:
+                desktop:
+                  5e82ed859f92ece6:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                  e31ce457eeba350d:
+                    x: 0
+                    y: 0
+                    w: 6
+                    h: 1
+                mobile:
+                  5e82ed859f92ece6:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+                  e31ce457eeba350d:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              background: background.paper
+              paddingX: custom:32px
+              paddingY: custom:32px
+              borderRadius: small
+              gap: normal
+              border: solid
+              alignContent: start
+        sectionIds:
+          - e062dc285fdab938
+          - 0d9c1e422791e55f
+          - 2abfaf84fe1fcb09
+        config:
+          gridSettings:
+            desktop:
+              e062dc285fdab938:
+                x: 0
+                y: 0
+                w: 4
+                h: 1
+              0d9c1e422791e55f:
+                x: 4
+                y: 0
+                w: 4
+                h: 1
+              2abfaf84fe1fcb09:
+                x: 8
+                y: 0
+                w: 4
+                h: 1
+            mobile:
+              e062dc285fdab938:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+              0d9c1e422791e55f:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+              2abfaf84fe1fcb09:
+                x: 0
+                y: 2
+                w: 12
+                h: 1
+          gap: small
+          paddingX: none
+    sectionIds:
+      - 50ff06b585a78927
+      - 515650d5c27bccdb
+    config:
+      gridSettings:
+        desktop:
+          515650d5c27bccdb:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          50ff06b585a78927:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: none
+      paddingX: none
+  dd6c4ba4f1e73c06:
+    id: dd6c4ba4f1e73c06
+    name: Testimonials/Reviews
+    component: layout-block
+    sections:
+      459a5cc4b163205e:
+        id: 459a5cc4b163205e
+        name: Title
+        component: layout-block
+        sections:
+          5b658d0ac413cd4c:
+            id: 5b658d0ac413cd4c
+            name: LayoutTitle
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+        sectionIds:
+          - 5b658d0ac413cd4c
+        config:
+          gap: small
+          paddingX: none
+          alignContent: start
+          gridSettings:
+            desktop:
+              5b658d0ac413cd4c:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile:
+              5b658d0ac413cd4c:
+                id: 5b658d0ac413cd4c
+      049488309074c8a6:
+        id: 049488309074c8a6
+        name: Cards
+        component: layout-block
+        sections:
+          26f45f1e041b53de:
+            id: 26f45f1e041b53de
+            name: Cards-1
+            component: layout-block
+            sections:
+              8b238f7b6abeda3b:
+                id: 8b238f7b6abeda3b
+                name: RichText
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              fdbe25dd3e3d160b:
+                id: fdbe25dd3e3d160b
+                name: Media
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0JPjPs122kaaa-
+                sectionIds: []
+            sectionIds:
+              - 8b238f7b6abeda3b
+              - fdbe25dd3e3d160b
+            config:
+              gridSettings:
+                desktop:
+                  8b238f7b6abeda3b:
+                    x: 0
+                    y: 0
+                    w: 4
+                    h: 1
+                  fdbe25dd3e3d160b:
+                    x: 4
+                    y: 0
+                    w: 8
+                    h: 1
+              paddingX: custom:32px
+              gap: normal
+              paddingY: custom:32px
+              background: background.paper
+              border: solid
+              borderRadius: small
+              alignContent: center
+        sectionIds:
+          - 26f45f1e041b53de
+        config:
+          gridSettings:
+            desktop:
+              26f45f1e041b53de:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+            mobile:
+              26f45f1e041b53de:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          gap: normal
+          paddingX: none
+    sectionIds:
+      - 459a5cc4b163205e
+      - 049488309074c8a6
+    config:
+      gridSettings:
+        desktop:
+          049488309074c8a6:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          459a5cc4b163205e:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: none
+      paddingX: none
+  d56d9e831889abb5:
+    id: d56d9e831889abb5
     name: Full Background Hero
     component: layout-block
     sections:
-      e99762f365dd6fa6:
-        id: e99762f365dd6fa6
+      d66823edd1527d2e:
+        id: d66823edd1527d2e
         name: CTA
         component: layout-block
         sections:
-          469c4ac987c6a29b:
-            id: 469c4ac987c6a29b
+          db2d6e57316f086b:
+            id: db2d6e57316f086b
             name: Description
             component: custom-component
             config:
               useCache: true
               componentId: xoHu0J44322kDYc-
             sectionIds: []
-          9c374e3f2f113acf:
-            id: 9c374e3f2f113acf
+          06080d017bac5b6d:
+            id: 06080d017bac5b6d
             name: Action
             component: custom-component
             config:
@@ -394,17 +834,17 @@ sections:
               componentId: a44r0SiGV9AFn2Fj
             sectionIds: []
         sectionIds:
-          - 469c4ac987c6a29b
-          - 9c374e3f2f113acf
+          - db2d6e57316f086b
+          - 06080d017bac5b6d
         config:
           gridSettings:
             desktop:
-              469c4ac987c6a29b:
+              db2d6e57316f086b:
                 x: 2
                 y: 0
                 w: 8
                 h: 1
-              9c374e3f2f113acf:
+              06080d017bac5b6d:
                 x: 0
                 y: 1
                 w: 12
@@ -416,11 +856,11 @@ sections:
           background: background.paper
           borderRadius: small
     sectionIds:
-      - e99762f365dd6fa6
+      - d66823edd1527d2e
     config:
       gridSettings:
         desktop:
-          e99762f365dd6fa6:
+          d66823edd1527d2e:
             x: 0
             y: 0
             w: 12
@@ -429,487 +869,12 @@ sections:
       paddingY: none
       backgroundFullWidth: false
       paddingX: none
-  952cc3c8c022f728:
-    id: 952cc3c8c022f728
-    name: Feature Grid_left
-    component: layout-block
-    sections:
-      5cdffd2c9d953da0:
-        id: 5cdffd2c9d953da0
-        name: Content
-        component: layout-block
-        sections:
-          d87116cca28a22aa:
-            id: d87116cca28a22aa
-            name: CTA
-            component: layout-block
-            sections:
-              c4c9a562bb4ff9d1:
-                id: c4c9a562bb4ff9d1
-                name: Description
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
-              ddeba0de1ffb9248:
-                id: ddeba0de1ffb9248
-                name: Action
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: a44r0SiGV9AFn2Fj
-                sectionIds: []
-            sectionIds:
-              - c4c9a562bb4ff9d1
-              - ddeba0de1ffb9248
-            config:
-              gridSettings:
-                desktop:
-                  c4c9a562bb4ff9d1:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-                  ddeba0de1ffb9248:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-              paddingY: normal
-              gap: normal
-              maxWidth: full
-              paddingX: none
-          f143f1ccba5dffed:
-            id: f143f1ccba5dffed
-            name: Image
-            component: layout-block
-            sections:
-              d19e9caada31f14b:
-                id: d19e9caada31f14b
-                name: Media
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0JPjPs122kaaa-
-                sectionIds: []
-            sectionIds:
-              - d19e9caada31f14b
-            config:
-              borderRadius: small
-              gridSettings:
-                desktop:
-                  d19e9caada31f14b:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-              background: background.paper
-              paddingX: small
-              paddingY: small
-        sectionIds:
-          - d87116cca28a22aa
-          - f143f1ccba5dffed
-        config:
-          borderRadius: small
-          paddingX: none
-          paddingY: normal
-          maxWidth: full
-          gridSettings:
-            desktop:
-              d87116cca28a22aa:
-                x: 7
-                y: 0
-                w: 5
-                h: 1
-              f143f1ccba5dffed:
-                x: 0
-                y: 0
-                w: 6
-                h: 1
-          gap: normal
-    sectionIds:
-      - 5cdffd2c9d953da0
-    config:
-      gridSettings:
-        desktop:
-          5cdffd2c9d953da0:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-      gap: normal
-      paddingY: normal
-      background: transparent
-      border: none
-      paddingX: none
-  50fc12ab8b75ac40:
-    id: 50fc12ab8b75ac40
-    name: Testimonials/Reviews
-    component: layout-block
-    sections:
-      f4c8c07152aa7dae:
-        id: f4c8c07152aa7dae
-        name: Title
-        component: layout-block
-        sections:
-          66660b01fa5df1ed:
-            id: 66660b01fa5df1ed
-            name: LayoutTitle
-            component: custom-component
-            config:
-              useCache: true
-              componentId: xoHu0J44322kDYc-
-            sectionIds: []
-        sectionIds:
-          - 66660b01fa5df1ed
-        config:
-          gap: small
-          paddingX: none
-          alignContent: start
-          gridSettings:
-            desktop:
-              66660b01fa5df1ed:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-            mobile:
-              66660b01fa5df1ed:
-                id: 66660b01fa5df1ed
-      255a120fd46a5e1b:
-        id: 255a120fd46a5e1b
-        name: Cards
-        component: layout-block
-        sections:
-          4091ced2dd07baa3:
-            id: 4091ced2dd07baa3
-            name: Cards-1
-            component: layout-block
-            sections:
-              63c93083d2c91977:
-                id: 63c93083d2c91977
-                name: Title
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
-              2f692cc0f6bc62f8:
-                id: 2f692cc0f6bc62f8
-                name: Icon
-                component: layout-block
-                sections:
-                  44e9ab7901339db4:
-                    id: 44e9ab7901339db4
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
-                sectionIds:
-                  - 44e9ab7901339db4
-                config:
-                  gridSettings:
-                    desktop:
-                      44e9ab7901339db4:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  height: 100%
-                  borderRadius: custom:0px
-                  alignContent: start
-            sectionIds:
-              - 63c93083d2c91977
-              - 2f692cc0f6bc62f8
-            config:
-              gridSettings:
-                desktop:
-                  63c93083d2c91977:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  2f692cc0f6bc62f8:
-                    x: 0
-                    y: 0
-                    w: 6
-                    h: 1
-                mobile:
-                  63c93083d2c91977:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  2f692cc0f6bc62f8:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-              background: background.paper
-              paddingX: custom:32px
-              paddingY: custom:32px
-              borderRadius: small
-              gap: normal
-              border: solid
-              alignContent: start
-          8ba38d4d8d1c3e4c:
-            id: 8ba38d4d8d1c3e4c
-            name: Cards-2
-            component: layout-block
-            sections:
-              f9fc8ddb14ac4d98:
-                id: f9fc8ddb14ac4d98
-                name: Title
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
-              7569df725d2b56a0:
-                id: 7569df725d2b56a0
-                name: Icon
-                component: layout-block
-                sections:
-                  8c46b4e66710e195:
-                    id: 8c46b4e66710e195
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
-                sectionIds:
-                  - 8c46b4e66710e195
-                config:
-                  gridSettings:
-                    desktop:
-                      8c46b4e66710e195:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  height: 100%
-                  borderRadius: custom:0px
-                  alignContent: start
-            sectionIds:
-              - f9fc8ddb14ac4d98
-              - 7569df725d2b56a0
-            config:
-              gridSettings:
-                desktop:
-                  f9fc8ddb14ac4d98:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  7569df725d2b56a0:
-                    x: 0
-                    y: 0
-                    w: 6
-                    h: 1
-                mobile:
-                  f9fc8ddb14ac4d98:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  7569df725d2b56a0:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-              background: background.paper
-              paddingX: custom:32px
-              paddingY: custom:32px
-              borderRadius: small
-              gap: normal
-              border: solid
-              alignContent: start
-          2d40676026b5e66f:
-            id: 2d40676026b5e66f
-            name: Cards-3
-            component: layout-block
-            sections:
-              af3058586d48a920:
-                id: af3058586d48a920
-                name: Title
-                component: custom-component
-                config:
-                  useCache: true
-                  componentId: xoHu0J44322kDYc-
-                sectionIds: []
-              03b4bfa930c85116:
-                id: 03b4bfa930c85116
-                name: Icon
-                component: layout-block
-                sections:
-                  3374e02e496ee2da:
-                    id: 3374e02e496ee2da
-                    name: Icon
-                    component: custom-component
-                    config:
-                      useCache: true
-                      componentId: YwuDiIbyyF5vfGpt
-                    sectionIds: []
-                sectionIds:
-                  - 3374e02e496ee2da
-                config:
-                  gridSettings:
-                    desktop:
-                      3374e02e496ee2da:
-                        x: 0
-                        y: 0
-                        w: 12
-                        h: 1
-                  background: transparent
-                  height: 100%
-                  borderRadius: custom:0px
-                  alignContent: start
-            sectionIds:
-              - af3058586d48a920
-              - 03b4bfa930c85116
-            config:
-              gridSettings:
-                desktop:
-                  af3058586d48a920:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  03b4bfa930c85116:
-                    x: 0
-                    y: 0
-                    w: 6
-                    h: 1
-                mobile:
-                  af3058586d48a920:
-                    x: 0
-                    y: 1
-                    w: 12
-                    h: 1
-                  03b4bfa930c85116:
-                    x: 0
-                    y: 0
-                    w: 12
-                    h: 1
-              background: background.paper
-              paddingX: custom:32px
-              paddingY: custom:32px
-              borderRadius: small
-              gap: normal
-              border: solid
-              alignContent: start
-        sectionIds:
-          - 4091ced2dd07baa3
-          - 8ba38d4d8d1c3e4c
-          - 2d40676026b5e66f
-        config:
-          gridSettings:
-            desktop:
-              4091ced2dd07baa3:
-                x: 0
-                y: 0
-                w: 4
-                h: 1
-              8ba38d4d8d1c3e4c:
-                x: 4
-                y: 0
-                w: 4
-                h: 1
-              2d40676026b5e66f:
-                x: 8
-                y: 0
-                w: 4
-                h: 1
-            mobile:
-              4091ced2dd07baa3:
-                x: 0
-                y: 0
-                w: 12
-                h: 1
-              8ba38d4d8d1c3e4c:
-                x: 0
-                y: 1
-                w: 12
-                h: 1
-              2d40676026b5e66f:
-                x: 0
-                y: 2
-                w: 12
-                h: 1
-          gap: small
-          paddingX: none
-    sectionIds:
-      - f4c8c07152aa7dae
-      - 255a120fd46a5e1b
-    config:
-      gridSettings:
-        desktop:
-          255a120fd46a5e1b:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-          f4c8c07152aa7dae:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-      gap: normal
-      paddingY: none
-      paddingX: none
-  bf0d51655e4bfa15:
-    id: bf0d51655e4bfa15
-    name: FAQs_2
-    component: layout-block
-    sections:
-      71bbc55d2063a5ee:
-        id: 71bbc55d2063a5ee
-        name: Title
-        component: custom-component
-        config:
-          useCache: true
-          componentId: xoHu0J44322kDYc-
-        sectionIds: []
-      1df34b028214a1af:
-        id: 1df34b028214a1af
-        name: FaqComponentV2
-        component: custom-component
-        config:
-          useCache: true
-          componentId: 4MikfrDpecX9hUD6
-        sectionIds: []
-    sectionIds:
-      - 71bbc55d2063a5ee
-      - 1df34b028214a1af
-    config:
-      gridSettings:
-        desktop:
-          1df34b028214a1af:
-            x: 0
-            y: 1
-            w: 12
-            h: 1
-          71bbc55d2063a5ee:
-            x: 0
-            y: 0
-            w: 12
-            h: 1
-      paddingX: none
-      gap: normal
-      paddingY: none
 sectionIds:
   - e1c97b3710d489a2
   - ed72cd5b470fab3d
-  - 58c96007fa8ad7fa
-  - 952cc3c8c022f728
-  - 50fc12ab8b75ac40
-  - bf0d51655e4bfa15
+  - 0204804ba50155ce
+  - dd6c4ba4f1e73c06
+  - d56d9e831889abb5
 dataSource:
   087e8576fefadf0f:
     en:
@@ -919,17 +884,16 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: Welcome! This is the hub for everything AIGNE DocSmith. Whether you're
-                  here to contribute to our open-source project or looking for
-                  robust, scalable solutions for your business, you're in the
-                  right place. Let's build something amazing together!
+                text: Whether you're a solo developer contributing to the community or a large
+                  team needing enterprise-grade features, you're in the right
+                  place. Let's build the future of documentation, together!
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: Join Our Community, Power Your Enterprise
+            text: "Stronger Together: Community & Enterprise"
             style:
               variant: h1
         v5utpm7bu9yvdpnq:
@@ -943,8 +907,8 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: Explore Community
-              url: https://community.arcblock.io/discussions/boards/aigne
+              text: Get Involved
+              url: https://github.com/AIGNE-io/aigne-doc-smith/issues
               variant: contained
               size: large
               target: auto
@@ -966,8 +930,8 @@ dataSource:
       properties:
         7m5pz8nefl5j9hqq:
           value:
-            url: mediakit://hero-community-enterprise.png
-            mediaKitUrl: mediakit://hero-community-enterprise.png
+            url: mediakit://community-enterprise-hero.png
+            mediaKitUrl: mediakit://community-enterprise-hero.png
             width: 2445
             height: 1394
         jjv0hvr8wrixt1f3:
@@ -977,7 +941,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Let's Build Together!
+            text: Join the Movement! How You Can Contribute
             style:
               variant: h1
         v5utpm7bu9yvdpnq:
@@ -993,7 +957,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: Report an Issue
+            text: Report Bugs & Issues
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1001,9 +965,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Found a bug? Awesome! Your discoveries help us make DocSmith more robust
-                  for everyone. Jump over to our GitHub Issues to share the
-                  details. We can't wait to see what you've found!
+                text: Found a glitch? Help us improve by reporting issues on GitHub. Clear
+                  reproduction steps make all the difference!
                 style:
                   color: ""
                   fontSize: 16px
@@ -1026,7 +989,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: Request a Feature
+            text: Request New Features
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1034,9 +997,8 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Have a brilliant idea that could make DocSmith even better? We're all
-                  ears! Share your vision in our GitHub Discussions and let's
-                  brainstorm the future of documentation together.
+                text: Have a brilliant idea? Share your feature requests in GitHub Discussions
+                  and help shape the future of DocSmith.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1050,128 +1012,19 @@ dataSource:
           value: primary.main
         529qbwiam7oypw8e:
           value: 40px
-  469c4ac987c6a29b:
+  6cbb8bd38caa66a4:
     en:
       properties:
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759121327460-gc8w9kaxt
-                type: text
-                text: Our GitHub is where the action happens! It's the best place to connect
-                  with other contributors, see what's new, and make your voice
-                  heard.
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Ready to Jump In?
-            style:
-              color: ""
-              variant: h1
         v5utpm7bu9yvdpnq:
           value: center
         kyg0hdy5uqq4gc1o:
           value: center
-  9c374e3f2f113acf:
-    en:
-      properties:
-        b8x4m3n9kp7qtw5r:
-          value:
-            - id: btn-default-1
-              type: link
-              text: Go to GitHub Issues
-              url: https://github.com/AIGNE-io/aigne-doc-smith/issues
-              variant: contained
-              size: large
-              target: auto
-              needLogin: false
-            - id: btn-1759121436561-6r9xmg35x
-              text: Start a Discussion
-              variant: outlined
-              borderColor: common.white
-              size: large
-              url: https://github.com/AIGNE-io/aigne-doc-smith/discussions
-        r8t5y6u7i1o2p3a4:
-          value: 16
-        v5utpm7bu9yvdpnq:
-          value: center
-  c4c9a562bb4ff9d1:
-    en:
-      properties:
-        9ajrz12ik7esfk1z:
-          value:
-            list:
-              - id: item-1759121327460-gc8w9kaxt
-                type: text
-                text: Take your documentation to the next level! Our enterprise-grade solutions
-                  are built for teams that demand security, seamless
-                  collaboration, and dedicated support. Let us handle the heavy
-                  lifting so you can focus on building incredible products.
-                style:
-                  color: ""
-                  fontSize: 16px
-                  variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: Supercharge Your Team with Enterprise
+            text: Power Up Your Team with Enterprise Solutions
             style:
               variant: h1
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        kyg0hdy5uqq4gc1o:
-          value: flex-start
-  ddeba0de1ffb9248:
-    en:
-      properties:
-        b8x4m3n9kp7qtw5r:
-          value:
-            - id: btn-default-1
-              type: link
-              text: Contact Sales
-              url: https://www.aigne.io/contact
-              variant: contained
-              size: large
-              target: auto
-              needLogin: false
-            - id: btn-1759121436561-6r9xmg35x
-              text: ""
-              variant: outlined
-              borderColor: primary.main
-              size: large
-              url: ""
-        r8t5y6u7i1o2p3a4:
-          value: 16
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        v9979xeclpsbvn0n:
-          value: flex-start
-  d19e9caada31f14b:
-    en:
-      properties:
-        7m5pz8nefl5j9hqq:
-          value:
-            url: mediakit://enterprise-features-visual.png
-            mediaKitUrl: mediakit://enterprise-features-visual.png
-            width: 2445
-            height: 1394
-        jjv0hvr8wrixt1f3:
-          value: 1
-  66660b01fa5df1ed:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: center
-        kyg0hdy5uqq4gc1o:
-          value: center
-        gs1rn5jmxfvpxptx:
-          value:
-            text: Everything You Need for Professional-Grade Docs
-            style:
-              variant: h1
-  63c93083d2c91977:
+  d6415ec1d624285f:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -1180,7 +1033,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: Team Collaboration
+            text: Enhanced Team Collaboration
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1188,13 +1041,13 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Bring your whole team on board! With multi-user workflows and role-based
-                  access, everyone stays in sync, making collaboration a breeze.
+                text: Streamline your documentation workflow with multi-user access, roles, and
+                  seamless collaboration tools.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  44e9ab7901339db4:
+  c2c0c505651f861a:
     en:
       properties:
         5ek4m0kw9cu0ndns:
@@ -1203,7 +1056,7 @@ dataSource:
           value: primary.main
         529qbwiam7oypw8e:
           value: 40px
-  f9fc8ddb14ac4d98:
+  1b291b01c21efffd:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -1212,7 +1065,7 @@ dataSource:
           value: flex-start
         gs1rn5jmxfvpxptx:
           value:
-            text: Security & Compliance
+            text: Advanced Security & Compliance
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1220,13 +1073,13 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: Your code and data are yours. Deploy on your own private cloud, integrate
-                  with SSO, and get full audit logs for complete peace of mind.
+                text: Deploy on your own infrastructure with private cloud, SSO, and complete
+                  audit logs for full control.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  8c46b4e66710e195:
+  cf7f14f32caa64b7:
     en:
       properties:
         5ek4m0kw9cu0ndns:
@@ -1235,7 +1088,7 @@ dataSource:
           value: primary.main
         529qbwiam7oypw8e:
           value: 40px
-  af3058586d48a920:
+  5e82ed859f92ece6:
     en:
       properties:
         v5utpm7bu9yvdpnq:
@@ -1252,64 +1105,115 @@ dataSource:
             list:
               - id: item-1759143324880-zr95ywd04
                 type: text
-                text: You're never alone! Get direct access to our engineers, custom team
-                  training, and professional services to guarantee your success.
+                text: Get direct access to our engineering team, custom training, and
+                  professional services to ensure your success.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  3374e02e496ee2da:
+  5786ed1f0d301e6b:
     en:
       properties:
         5ek4m0kw9cu0ndns:
-          value: lucide:life-buoy
+          value: lucide:rocket
         gugqsxx3xyveuu8n:
           value: primary.main
         529qbwiam7oypw8e:
           value: 40px
-  71bbc55d2063a5ee:
+  5b658d0ac413cd4c:
+    en:
+      properties:
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Transparent & Fair Licensing
+            style:
+              variant: h2
+  8b238f7b6abeda3b:
     en:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Understanding Our License
+            text: Our Open & Commercial-Friendly License
             style:
+              variant: h4
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759185456428-p8i1jjk33
+                type: text
+                text: DocSmith is licensed under the Elastic License 2.0. It's free for most use
+                  cases, including personal and commercial projects. The only
+                  restriction is that you cannot offer it as a competing hosted
+                  service. Simple, right?
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  fdbe25dd3e3d160b:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: mediakit://license-visual.png
+            mediaKitUrl: mediakit://license-visual.png
+            width: 1270
+            height: 520
+        70d4dvbqgjal3z6j:
+          value: ""
+        jjv0hvr8wrixt1f3:
+          value: 1
+  db2d6e57316f086b:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: Whether you're joining our community or exploring enterprise options,
+                  we're excited to have you on board. Reach out today!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Ready to Get Started?
+            style:
+              color: ""
               variant: h1
         v5utpm7bu9yvdpnq:
           value: center
         kyg0hdy5uqq4gc1o:
           value: center
-        9ajrz12ik7esfk1z:
-          value:
-            list: []
-  1df34b028214a1af:
+  06080d017bac5b6d:
     en:
       properties:
-        4221qi1bxy322mf4:
+        b8x4m3n9kp7qtw5r:
           value:
-            - title: What license does AIGNE DocSmith use?
-              answer: We use the Elastic License 2.0! It's an open-source-friendly license
-                that gives you a ton of freedom.
-            - title: So, I can use it for free?
-              answer: Absolutely! It's free for almost everything, including your personal
-                projects, internal business use, and most commercial
-                applications. Go for it!
-            - title: Are there any catch?
-              answer: "Just one small thing: you can't offer DocSmith as a competing hosted
-                service. Other than that, you're good to go! For all the
-                details, you can always check the full license text."
-            - title: Where can I read the full license?
-              answer: Right in our GitHub repository! You can find the complete LICENSE file
-                there to see all the specifics.
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
-            - title: ""
-              answer: ""
+            - id: btn-default-1
+              type: link
+              text: Contact Us
+              url: https://www.aigne.io/contact
+              variant: contained
+              size: large
+              target: auto
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: View on GitHub
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center

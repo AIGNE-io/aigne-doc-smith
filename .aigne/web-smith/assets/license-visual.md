@@ -1,0 +1,1 @@
+A supportive visual for the license section, this abstract image reinforces the concepts of clarity and trust associated with the Elastic License 2.0, adding a professional touch to the legal information.

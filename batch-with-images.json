@@ -1,0 +1,26 @@
+{
+  "mediaFiles": [
+    {
+      "mediaFile": [
+        {
+          "type": "local",
+          "filename": "doc-complete-setup.png",
+          "path": "/Users/lban/arcblock/code/aigne-doc-smith/assets/screenshots/doc-complete-setup.png",
+          "mimeType": "image/png"
+        }
+      ],
+      "imagePrompt": "Using the provided image, place the provided user interface screenshot on a gradient background. Ensure that the features of the user interface screenshot remain completely unchanged. The added background should be generated using random gradient colors inspired by these color pairs (#EBEFFD, #F9F8FF) and (#FCEFF0, #FEFBF1). Make sure that the longer side of the user screenshot is no more than 24px away from the edge of the background."
+    },
+    {
+      "mediaFile": [
+        {
+          "type": "local",
+          "filename": "doc-generate-docs.png",
+          "path": "/Users/lban/arcblock/code/aigne-doc-smith/assets/screenshots/doc-generate-docs.png",
+          "mimeType": "image/png"
+        }
+      ],
+      "imagePrompt": "Using the provided image, place the provided user interface screenshot on a gradient background. Ensure that the features of the user interface screenshot remain completely unchanged. The added background should be generated using random gradient colors inspired by these color pairs (#EBEFFD, #F9F8FF) and (#FCEFF0, #FEFBF1). Make sure that the longer side of the user screenshot is no more than 24px away from the edge of the background."
+    }
+  ]
+}

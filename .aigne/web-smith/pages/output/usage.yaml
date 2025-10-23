@@ -1,7 +1,7 @@
 id: b0b63f8263bffbbd
-createdAt: 2025-10-21T06:51:43.494Z
-updatedAt: 2025-10-21T06:51:43.494Z
-publishedAt: 2025-10-21T06:51:43.494Z
+createdAt: 2025-10-22T08:52:09.481Z
+updatedAt: 2025-10-22T08:52:09.481Z
+publishedAt: 2025-10-22T08:52:09.481Z
 isPublic: true
 locales:
   en:
@@ -10,10 +10,10 @@ locales:
       maxWidth: custom:1440px
       paddingY: normal
       paddingX: normal
-    title: DocSmith CLI Usage Guide | Master All Commands
-    description: Your ultimate guide to mastering AIGNE DocSmith's CLI. Explore
-      detailed walkthroughs for generate, update, translate, publish, and other
-      powerful commands to fully automate your documentation workflow.
+    title: Usage Guide & Commands | AIGNE DocSmith
+    description: Master AIGNE DocSmith with this complete guide to CLI commands.
+      Learn how to generate, update, translate, and publish your AI-powered
+      documentation in seconds.
     image: mediakit://usage-guide-hero.png
     header:
       sticky: true
@@ -194,28 +194,14 @@ sections:
                           useCache: true
                           componentId: xoHu0J44322kDYc-
                         sectionIds: []
-                      e33da7395c2f21bc:
-                        id: e33da7395c2f21bc
-                        name: Action
-                        component: custom-component
-                        config:
-                          useCache: true
-                          componentId: a44r0SiGV9AFn2Fj
-                        sectionIds: []
                     sectionIds:
                       - ca3deece793081be
-                      - e33da7395c2f21bc
                     config:
                       gridSettings:
                         desktop:
                           ca3deece793081be:
                             x: 0
                             y: 0
-                            w: 12
-                            h: 1
-                          e33da7395c2f21bc:
-                            x: 0
-                            y: 1
                             w: 12
                             h: 1
                       gap: small
@@ -1060,16 +1046,16 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: You're in the driver's seat! This guide is your ultimate co-pilot for
-                  every core DocSmith command. Let's turn your codebase into
-                  brilliant, ready-to-ship documentation, one command at a time.
+                text: Dive into the core commands that make DocSmith tick. From generating fresh
+                  docs to publishing updates, this is your command center for
+                  seamless, AI-powered documentation.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: Master the Command Line, Master Your Docs
+            text: Master Your Documentation Workflow
             style:
               variant: h1
         v5utpm7bu9yvdpnq:
@@ -1083,18 +1069,18 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: Get Started First
+              text: Get Started Now
               url: link:///getting-started
               variant: contained
               size: large
               target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: ""
+              text: Explore Features
               variant: outlined
               borderColor: primary.main
               size: large
-              url: ""
+              url: link:///features
         r8t5y6u7i1o2p3a4:
           value: 16
         v5utpm7bu9yvdpnq:
@@ -1139,38 +1125,20 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: Kick things off with a bang! This is your go-to command to scan your
-                  entire project and generate a complete, beautifully structured
-                  documentation set from scratch. It's the magic wand for your
-                  first run.
+                text: Kickstart your entire documentation with a single command. DocSmith
+                  analyzes your project and generates a complete, structured set
+                  of docs from scratch. It's the perfect first step!
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
-  e33da7395c2f21bc:
-    en:
-      properties:
-        v5utpm7bu9yvdpnq:
-          value: flex-start
-        b8x4m3n9kp7qtw5r:
-          value:
-            - id: btn-default-1
-              type: link
-              text: Learn More
-              url: link:///getting-started
-              variant: text
-              size: medium
-              target: auto
-              needLogin: false
-        v9979xeclpsbvn0n:
-          value: flex-start
   93ccfcf0de825ffa:
     en:
       properties:
-        6b0jh5aw4ptbo2t3:
-          value: ""
         n802svpu2aj3ecnm:
           value: mediakit://generate.json
+        6b0jh5aw4ptbo2t3:
+          value: ""
   0cb88a38c97c7228:
     en:
       properties:
@@ -1186,10 +1154,9 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: Did you refactor a feature or add a new function? No sweat! Run this
-                  command to intelligently refresh your existing docs. It
-                  pinpoints what's changed and updates only what's needed,
-                  saving you tons of time.
+                text: Keep your docs perfectly in sync with your code. Select specific files to
+                  regenerate or let DocSmith intelligently update only what's
+                  changed. You can even provide feedback to guide the AI.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1216,10 +1183,9 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: Go global in seconds! Pick a document, choose from 12 languages, and let
-                  DocSmith handle the rest. You'll get context-aware,
-                  technically accurate translations ready for your international
-                  users.
+                text: Go global in seconds! Translate your documentation into 12 different
+                  languages with professional, context-aware accuracy. Reach a
+                  worldwide audience without breaking a sweat.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1227,10 +1193,10 @@ dataSource:
   b3b85916533218a0:
     en:
       properties:
-        6b0jh5aw4ptbo2t3:
-          value: ""
         n802svpu2aj3ecnm:
           value: mediakit://translate.json
+        6b0jh5aw4ptbo2t3:
+          value: ""
   931a7899738945a4:
     en:
       properties:
@@ -1246,10 +1212,9 @@ dataSource:
             list:
               - id: item-1760429942224-0t78ctd03
                 type: text
-                text: Ready to go live? This command beams your documentation straight to the
-                  cloud or your own server. Share your beautiful, up-to-date
-                  docs with your team and users with a single, satisfying
-                  command.
+                text: Ready to go live? Publish your beautiful, AI-generated docs to the world
+                  with one command. Deploy to DocSmith Cloud for free hosting or
+                  to your own custom instance.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1266,7 +1231,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Configuration & Management
+            text: Fine-Tune Your Setup
             style:
               variant: h1
         v5utpm7bu9yvdpnq:
@@ -1278,7 +1243,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Initialize Your Project
+            text: Interactive Setup (`init`)
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1286,9 +1251,9 @@ dataSource:
             list:
               - id: item-1759185456428-p8i1jjk33
                 type: text
-                text: First time on a new project? Run `aigne doc init` to launch an interactive
-                  setup wizard. It's the quickest way to get everything
-                  configured perfectly.
+                text: Run the interactive setup wizard anytime to configure or reconfigure your
+                  project. It’s the easiest way to dial in your preferences for
+                  documentation styles, target audiences, and languages.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1313,7 +1278,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Check Your Settings
+            text: View Configuration (`prefs`)
             style:
               variant: h4
         9ajrz12ik7esfk1z:
@@ -1321,8 +1286,9 @@ dataSource:
             list:
               - id: item-1759185456428-p8i1jjk33
                 type: text
-                text: Want to see your current setup? Use `aigne doc prefs` to display all your
-                  saved configurations, from languages to documentation styles.
+                text: Need to check your current settings? This command displays the complete
+                  configuration for your project, so you always know exactly how
+                  DocSmith is set up to work its magic.
                 style:
                   color: ""
                   fontSize: 16px
@@ -1347,7 +1313,7 @@ dataSource:
       properties:
         gs1rn5jmxfvpxptx:
           value:
-            text: Frequently Asked Questions
+            text: Power-User Tips & Tricks
             style:
               variant: h1
         v5utpm7bu9yvdpnq:
@@ -1362,26 +1328,26 @@ dataSource:
       properties:
         4221qi1bxy322mf4:
           value:
-            - title: How can I customize the documentation style or target audience?
-              answer: You can customize styles (Technical, User-Friendly), target audiences
-                (Developers, End Users), and more during the `aigne doc init`
-                process or by editing the configuration file directly.
-            - title: Can I force a complete regeneration of all documents?
-              answer: "Absolutely! Just use the `--forceRegenerate` flag with the generate
-                command, like this: `aigne doc generate --forceRegenerate`. This
-                is perfect for when you want a completely fresh start."
-            - title: How do I provide feedback to improve a specific document?
-              answer: "It's easy! Use the `--feedback` flag with the `generate` or `update`
-                commands. For example: `aigne doc update --docs overview.md
-                --feedback \"Add a section on advanced usage\"`."
-            - title: Can I use my own API keys for services like OpenAI or Claude?
-              answer: Yes, you can! While DocSmith uses the AIGNE Hub by default (no keys
-                needed), you can easily configure your own API keys for direct
-                access to providers like OpenAI, Anthropic, and Google.
-            - title: What if I only want to translate specific documents?
-              answer: "No problem! The `translate` command lets you target specific files.
-                Just use the `--docs` flag, like this: `aigne doc translate
-                --langs ja --docs examples.md`."
+            - title: How do I force a complete regeneration of all documents?
+              answer: "Easy! Just use the `--forceRegenerate` flag with the generate command:
+                `aigne doc generate --forceRegenerate`. This tells DocSmith to
+                ignore the cache and rebuild everything from the ground up."
+            - title: Can I provide feedback to the AI during generation?
+              answer: 'Absolutely! The `--feedback` flag is your best friend. For example:
+                `aigne doc generate --feedback "Add more API examples"`. The AI
+                will use your input to refine the content.'
+            - title: How do I translate only specific documents?
+              answer: "You can target specific files using the `--docs` flag. Combine it with
+                `--langs` to get exactly what you need: `aigne doc translate
+                --langs ja --docs overview.md`."
+            - title: What if I want to publish to my own server?
+              answer: "No problem! Use the `--appUrl` flag to point to your custom Discuss Kit
+                instance: `aigne doc publish --appUrl https://your-docs.com`."
+            - title: How can I ensure consistent terminology in translations?
+              answer: "Use a custom glossary! The `--glossary` flag lets you provide a
+                markdown file with key terms to ensure they are translated
+                consistently across all languages: `aigne doc translate
+                --glossary @path/to/glossary.md`."
             - title: ""
               answer: ""
             - title: ""
@@ -1400,15 +1366,15 @@ dataSource:
             list:
               - id: item-1759121327460-gc8w9kaxt
                 type: text
-                text: You've seen the commands, now it's time to put them to work! Install the
-                  CLI and start generating incredible documentation in minutes.
+                text: You've seen the commands, now put them to work. Install the AIGNE CLI and
+                  transform your code into stunning documentation today.
                 style:
                   color: ""
                   fontSize: 16px
                   variant: body1
         gs1rn5jmxfvpxptx:
           value:
-            text: Ready to Automate Your Docs?
+            text: Ready to Supercharge Your Workflow?
             style:
               color: ""
               variant: h1
@@ -1423,18 +1389,18 @@ dataSource:
           value:
             - id: btn-default-1
               type: link
-              text: Get Started Now
+              text: Install AIGNE CLI
               url: link:///getting-started
               variant: contained
               size: large
               target: auto
               needLogin: false
             - id: btn-1759121436561-6r9xmg35x
-              text: Explore All Features
+              text: Join the Community
               variant: outlined
               borderColor: common.white
               size: large
-              url: link:///features
+              url: link:///community
         r8t5y6u7i1o2p3a4:
           value: 16
         v5utpm7bu9yvdpnq:

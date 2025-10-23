@@ -1,1 +1,0 @@
-A professional illustration for the Enterprise Features section, depicting a collaborative team environment. This image visually supports the benefits of enterprise-level services, such as team collaboration, custom branding, and analytics, making the offering feel tangible and people-focused.

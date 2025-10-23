@@ -1,0 +1,1 @@
+A vibrant, abstract hero image for the Getting Started page. It visually represents the flow and power of the CLI, creating an energetic and tech-forward first impression for users arriving to learn how to use the tool.

@@ -1,1 +1,0 @@
-An abstract visual for the hero section of the Community & Enterprise page, symbolizing the intersection of open-source community collaboration and professional enterprise solutions. The interconnected nodes represent a global network of contributors and users, while the clean, futuristic aesthetic aligns with the high-tech nature of the AIGNE DocSmith product.
