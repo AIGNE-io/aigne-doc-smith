@@ -320,7 +320,10 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
             : [];
 
           finalIncludePatterns = [...defaultIncludePatterns, ...userInclude];
-          finalExcludePatterns = [...defaultExcludePatterns, ...userExclude];
+          finalExcludePatterns = [...defaultExcludePatterns, ...userExclude.map(x => {
+            const reg = new RegExp(`^${dir}/`);
+            return x.replace(reg, '');
+          })];
         } else {
           // Use only user patterns
           if (includePatterns) {

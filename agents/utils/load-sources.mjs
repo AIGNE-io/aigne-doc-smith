@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { statSync } from "node:fs";
 import path from "node:path";
 import imageSize from "image-size";
 import {
@@ -21,6 +22,7 @@ import {
 } from "../../utils/constants/index.mjs";
 import { isOpenAPIFile } from "../../utils/openapi/index.mjs";
 
+
 export default async function loadSources(
   {
     sources = [],
@@ -42,9 +44,29 @@ export default async function loadSources(
   const { minImageWidth } = media || { minImageWidth: 800 };
 
   if (sourcesPath) {
-    const allFiles = await loadFilesFromPaths(sourcesPath, {
+    const pickSourcesPath = [];
+    const omitSourcesPath = [];
+    sourcesPath.forEach(x => {
+      if (x.startsWith("!")) {
+        omitSourcesPath.push(x.substring(1));
+      } else {
+        pickSourcesPath.push(x);
+      }
+    })
+
+    const customExcludePatterns = omitSourcesPath.map(x => {
+      const stats = statSync(x);
+      if (stats.isFile()) {
+        return x;
+      }
+      if (stats.isDirectory()) {
+        return `${x}/**`;
+      }
+      return null;
+    }).filter(Boolean);
+    const allFiles = await loadFilesFromPaths(pickSourcesPath, {
       includePatterns,
-      excludePatterns,
+      excludePatterns: [...(excludePatterns || []), ...customExcludePatterns],
       useDefaultPatterns,
       defaultIncludePatterns: DEFAULT_INCLUDE_PATTERNS,
       defaultExcludePatterns: DEFAULT_EXCLUDE_PATTERNS,
