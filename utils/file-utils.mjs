@@ -323,8 +323,8 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
           finalExcludePatterns = [
             ...defaultExcludePatterns,
             ...userExclude.map((x) => {
-              const reg = new RegExp(`^${dir}/`);
-              return x.replace(reg, "");
+              const prefix = `${dir}/`;
+              return x.startsWith(prefix) ? x.slice(prefix.length) : x;
             }),
           ];
         } else {
