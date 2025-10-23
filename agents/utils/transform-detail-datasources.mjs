@@ -6,17 +6,18 @@ export default function transformDetailDatasources({ sourceIds }, options) {
   // Read file content for each sourceId, ignoring failures
   let openAPIDoc;
   const httpFileList = options.context?.userContext?.httpFileList || [];
-  const contents = (sourceIds || []).filter(id => {
-    if (options.context?.userContext?.openAPIDoc?.sourceId === id) {
-      openAPIDoc = options.context.userContext.openAPIDoc;
-      return false;
-    }
-    return true;
-  })
+  const contents = (sourceIds || [])
+    .filter((id) => {
+      if (options.context?.userContext?.openAPIDoc?.sourceId === id) {
+        openAPIDoc = options.context.userContext.openAPIDoc;
+        return false;
+      }
+      return true;
+    })
     .map((id) => {
       try {
         if (checkIsHttpFile(id)) {
-          const findFile = httpFileList.find(f => f.sourceId === id);
+          const findFile = httpFileList.find((f) => f.sourceId === id);
           if (findFile) {
             return `// sourceId: ${id}\n${findFile.content}\n`;
           }

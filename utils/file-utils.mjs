@@ -320,10 +320,13 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
             : [];
 
           finalIncludePatterns = [...defaultIncludePatterns, ...userInclude];
-          finalExcludePatterns = [...defaultExcludePatterns, ...userExclude.map(x => {
-            const reg = new RegExp(`^${dir}/`);
-            return x.replace(reg, '');
-          })];
+          finalExcludePatterns = [
+            ...defaultExcludePatterns,
+            ...userExclude.map((x) => {
+              const reg = new RegExp(`^${dir}/`);
+              return x.replace(reg, "");
+            }),
+          ];
         } else {
           // Use only user patterns
           if (includePatterns) {
@@ -407,22 +410,22 @@ export function checkIsHttpFile(filepath) {
 export async function checkIsHttpTextFile(fileUrl) {
   try {
     const res = await fetch(fileUrl, {
-      method: 'HEAD'
+      method: "HEAD",
     });
-    const contentType = res.headers.get('content-type') || '';
+    const contentType = res.headers.get("content-type") || "";
     const textMimeTypes = [
-      'application/json',
-      'application/ld+json',
-      'application/graphql+json',
-      'application/xml',
-      'application/xhtml+xml',
-      'application/javascript',
-      'application/ecmascript',
-      'application/x-www-form-urlencoded',
-      'application/rss+xml',
-      'application/atom+xml',
-    ]
-    if (contentType.startsWith('text/') || textMimeTypes.includes(contentType)) {
+      "application/json",
+      "application/ld+json",
+      "application/graphql+json",
+      "application/xml",
+      "application/xhtml+xml",
+      "application/javascript",
+      "application/ecmascript",
+      "application/x-www-form-urlencoded",
+      "application/rss+xml",
+      "application/atom+xml",
+    ];
+    if (contentType.startsWith("text/") || textMimeTypes.includes(contentType)) {
       return true;
     }
     return false;
@@ -472,7 +475,7 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
             return {
               sourceId: file,
               content,
-            }
+            };
           }
 
           return null;

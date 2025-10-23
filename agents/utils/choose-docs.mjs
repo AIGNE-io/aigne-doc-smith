@@ -50,7 +50,7 @@ export default async function chooseDocs(
         });
 
         // Use title if available, otherwise fall back to filename
-        let displayName = docItem?.title
+        let displayName = docItem?.title;
         if (displayName) {
           displayName = `${displayName} (${file})`;
         } else {

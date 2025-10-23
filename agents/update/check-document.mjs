@@ -106,9 +106,9 @@ export default async function checkDocument(
   let openAPIDoc = null;
 
   if (options.context?.userContext?.openAPIDoc?.sourceId) {
-    const hasFind = originalDocumentStructure.find(item => {
+    const hasFind = originalDocumentStructure.find((item) => {
       if (item.path === path) {
-        return item.sourceIds.find(x => x === options.context.userContext.openAPIDoc.sourceId)
+        return item.sourceIds.find((x) => x === options.context.userContext.openAPIDoc.sourceId);
       }
       return false;
     });

@@ -22,7 +22,6 @@ import {
 } from "../../utils/constants/index.mjs";
 import { isOpenAPIFile } from "../../utils/openapi/index.mjs";
 
-
 export default async function loadSources(
   {
     sources = [],
@@ -46,24 +45,26 @@ export default async function loadSources(
   if (sourcesPath) {
     const pickSourcesPath = [];
     const omitSourcesPath = [];
-    sourcesPath.forEach(x => {
+    sourcesPath.forEach((x) => {
       if (x.startsWith("!")) {
         omitSourcesPath.push(x.substring(1));
       } else {
         pickSourcesPath.push(x);
       }
-    })
+    });
 
-    const customExcludePatterns = omitSourcesPath.map(x => {
-      const stats = statSync(x);
-      if (stats.isFile()) {
-        return x;
-      }
-      if (stats.isDirectory()) {
-        return `${x}/**`;
-      }
-      return null;
-    }).filter(Boolean);
+    const customExcludePatterns = omitSourcesPath
+      .map((x) => {
+        const stats = statSync(x);
+        if (stats.isFile()) {
+          return x;
+        }
+        if (stats.isDirectory()) {
+          return `${x}/**`;
+        }
+        return null;
+      })
+      .filter(Boolean);
     const allFiles = await loadFilesFromPaths(pickSourcesPath, {
       includePatterns,
       excludePatterns: [...(excludePatterns || []), ...customExcludePatterns],
