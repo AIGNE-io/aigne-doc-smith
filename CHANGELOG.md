@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.15-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.1...v0.8.15-beta.2) (2025-10-24)
+
+
+### Bug Fixes
+
+* locale not applied when generating D2 diagrams ([#215](https://github.com/AIGNE-io/aigne-doc-smith/issues/215)) ([7e6f42f](https://github.com/AIGNE-io/aigne-doc-smith/commit/7e6f42faf15a115e53c57dbc2d5a19a82cf44295))
+
 ## [0.8.15-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta...v0.8.15-beta.1) (2025-10-23)
 
 
