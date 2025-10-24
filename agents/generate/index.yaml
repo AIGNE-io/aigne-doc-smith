@@ -23,6 +23,7 @@ skills:
       savePath:
         $get: outputDir
       fileName: structure-plan.json
+  - ../utils/save-sidebar.mjs
   - type: transform
     name: transformData
     task_render_mode: hide
