@@ -70,7 +70,7 @@ defaultDatasources:  # Default datasources included in every page
 # minImageWidth: Only images wider than this value (in pixels) will be used in page generation
 media:
   minImageWidth: 800
-lastGitHead: 628ccd0d0a143f2bcf5fa65c26be784f8aac90e5
+lastGitHead: 63cab3f6aaa57a9ffbd1a3ef005ce073aafed129
 appUrl: https://bbqarhrnzt22nikvkeumdrh4ifnrikk25cfp7xcv4oa.did.abtnet.io
 # Checkout ID for website deployment service
 checkoutId: ""

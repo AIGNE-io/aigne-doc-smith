@@ -1,63 +1,61 @@
-- title: "AIGNE DocSmith: AI-Powered Documentation"
-  description: The main landing page for AIGNE DocSmith, introducing its core
-    value proposition of AI-driven code documentation. It highlights key
-    features, shows the AIGNE ecosystem, and provides a quick start command to
-    drive user adoption.
+- title: AIGNE DocSmith | AI-Powered Code Documentation
+  description: The main landing page for AIGNE DocSmith, introducing the core
+    value proposition of AI-driven documentation generation. It highlights key
+    features, benefits, and provides a clear call-to-action to get started.
   path: /home
   navigation:
     title: Home
-    description: AI-powered code documentation
-  parentId: "null"
+    description: Discover AI-powered documentation.
+  parentId: ""
   sourceIds:
     - README.md
-- title: Core Features
-  description: A detailed breakdown of DocSmith's main capabilities, including
-    AI-powered generation, multi-language support, seamless LLM integration, and
-    smart update mechanisms. This page aims to convince users of the tool's
-    power and versatility.
+- title: Features of AIGNE DocSmith
+  description: A detailed overview of DocSmith's capabilities, including
+    intelligent code analysis, multi-language translation support, seamless
+    integration with various Large Language Models (LLMs), and smart update
+    functionality.
   path: /features
   navigation:
     title: Features
-    description: Explore core capabilities
-  parentId: "null"
+    description: Explore DocSmith's capabilities.
+  parentId: ""
   sourceIds:
     - README.md
     - docs/overview.md
-- title: Getting Started Guide
-  description: A step-by-step tutorial for new users, covering prerequisites,
-    installation of the AIGNE CLI, and how to generate the first set of
-    documents using the 'aigne doc generate' command. Includes screenshots of
-    the process.
+- title: Getting Started with DocSmith
+  description: A step-by-step guide for new users on how to install and run
+    DocSmith for the first time. This page covers prerequisites and the simple
+    'generate' command to create your first set of documents, and includes
+    screenshots of the process.
   path: /getting-started
   navigation:
     title: Get Started
-    description: Install and run in minutes
-  parentId: "null"
+    description: Install and run in minutes.
+  parentId: ""
   sourceIds:
     - docs/getting-started.md
     - README.md
 - title: Usage Guide & Commands
-  description: A comprehensive reference for all core CLI commands such as
-    generate, update, translate, and publish. This page serves as a practical
-    guide for users to leverage the full potential of DocSmith.
+  description: A comprehensive reference for the core commands available in
+    DocSmith, such as 'generate', 'update', 'translate', and 'publish'. It
+    serves as a quick reference for everyday use and advanced configuration.
   path: /usage
   navigation:
     title: Usage Guide
-    description: Master the CLI commands
-  parentId: "null"
+    description: Master the core commands.
+  parentId: ""
   sourceIds:
     - README.md
     - docs/overview.md
     - assets/terminal-playback/README.md
-    - aigne.yaml
 - title: Community & Enterprise
-  description: A central hub for community engagement, contributions, and
-    enterprise inquiries. This page provides information on reporting issues,
-    requesting features, enterprise-level services, and the project's license.
+  description: Provides resources for community engagement, including links to
+    GitHub for contributions and discussions. It also outlines features and
+    support options available for enterprise and production use.
   path: /community
   navigation:
     title: Community
-    description: Get support and contribute
-  parentId: "null"
+    description: Get support or contribute.
+  parentId: ""
   sourceIds:
     - README.md

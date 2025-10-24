@@ -1,1 +1,0 @@
-A conceptual image illustrating adaptive writing styles. A central AI element branches out into different stylistic representations, symbolizing the tool's ability to tailor its voice for various audiences, such as technical, user-focused, or developer-centric.

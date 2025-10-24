@@ -1,0 +1,1 @@
+A full-bleed background image for the hero section of the Quick Start guide. It should be dark-themed with abstract representations of code and data to create a tech-forward feel, with ample empty space in the center for text.

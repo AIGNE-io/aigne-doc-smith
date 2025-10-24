@@ -1,1 +1,0 @@
-A vibrant, abstract hero image for the Usage Guide page. It visually represents the flow and power of CLI commands, creating an energetic and tech-forward first impression for users arriving to learn about the tool's capabilities.

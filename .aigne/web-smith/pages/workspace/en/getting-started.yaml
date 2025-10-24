@@ -1,134 +1,145 @@
 meta:
-  title: "Getting Started Guide | AIGNE DocSmith"
-  description: "Your step-by-step guide to installing AIGNE DocSmith and generating
-    your first set of AI-powered documentation in minutes. Covers prerequisites,
-    installation, and the 'aigne doc generate' command."
-  image: "mediakit://getting-started-hero-visual.png"
+  title: "Getting Started with DocSmith | Quick Installation Guide"
+  description: "Your step-by-step guide to installing AIGNE DocSmith. Learn how to
+    set up prerequisites, run the generate command, and create your first set of
+    AI-powered documents in minutes."
+  image: "mediakit://home-social-card.png"
 sections:
-- sectionName: "Hero"
-  sectionSummary: "A vibrant and welcoming hero section that immediately sets an energetic
-    tone, clearly stating the page's purpose: to get users up and running with
-    AIGNE DocSmith quickly and easily."
-  splitHeroTitle: "Get Started in Minutes"
-  splitHeroDescription: "Ready to go? This guide will walk you through installing
-    the AIGNE CLI and generating your first set of docs. It’s fast, simple, and
-    you'll be up and running in no time!"
+- sectionName: "gettingStartedHero"
+  sectionSummary: "A vibrant and welcoming hero section that sets an energetic tone.
+    It clearly states the page's purpose—a quick start guide—and provides an immediate
+    call to action to dive into the commands."
+  splitHeroBigTitle: "Get Started with DocSmith in Minutes"
+  splitHeroSubTitle: "Ready to create amazing documentation? This guide will walk
+    you through the simple installation and your first `generate` command. Let's
+    go!"
+  splitHeroDescription: ""
   splitHeroActions:
-  - text: "See All Commands"
+  - text: "View All Commands"
     link: "link:///usage"
-  - text: ""
-    link: ""
-  splitHeroRightImage: "mediakit://getting-started-hero-visual.png"
-- sectionName: "Prerequisites"
-  sectionSummary: "This section clearly and concisely outlines the necessary prerequisites,
-    ensuring users have everything they need before starting the installation.
-    It's designed to be scannable and reassuring, highlighting that no API keys
-    are needed to begin."
+  - text: "Explore Features"
+    link: "link:///features"
+  splitHeroImage: "mediakit://quick-start-hero-background.png"
+- sectionName: "prerequisites"
+  sectionSummary: "Clearly outlines the essential requirements before installation.
+    This section uses a two-column grid with icon cards to make the prerequisites
+    easy to scan and understand, ensuring users are prepared."
   twoColumnGridTitle: "What You'll Need"
   list:
-  - sectionName: "NodeJsRequirement"
-    sectionSummary: "A card explaining the Node.js version requirement."
-    iconName: "logos:nodejs-icon"
-    cardTitle: "Node.js (Version 20+)"
+  - sectionName: "nodeRequirement"
+    sectionSummary: "A content card detailing the Node.js version requirement for
+      running DocSmith."
+    cardTitle: "Node.js v20+"
     cardDescription: "DocSmith runs on Node.js. You'll need version 20 or newer.
-      It comes with npm, which you'll use for installation."
-  - sectionName: "NoApiKeys"
-    sectionSummary: "A card highlighting the benefit of not needing API keys to start."
+      It's a quick install from the official Node.js website."
+    iconName: "logos:nodejs-icon"
+  - sectionName: "apiKeyInfo"
+    sectionSummary: "A content card clarifying that no API keys are needed to start,
+      lowering the barrier to entry for new users."
+    cardTitle: "No API Keys Needed"
+    cardDescription: "Get started right away! DocSmith uses the AIGNE Hub by default,
+      so you don't need to configure any API keys to begin."
     iconName: "lucide:key-round"
-    cardTitle: "No API Keys Needed!"
-    cardDescription: "Jump right in! By default, DocSmith uses the AIGNE Hub, so
-      you can start generating docs without configuring any API keys."
-- sectionName: "Installation"
-  sectionSummary: "A step-by-step guide to the installation process. Each step is
-    presented in a clean card with a code block, making the commands easy to copy
-    and execute. The tone is encouraging and action-oriented."
-  oneColumnGridTitle: "Installation"
+- sectionName: "installationSteps"
+  sectionSummary: "Provides a step-by-step guide to installing the AIGNE CLI. This
+    section uses a single-column layout with code cards to present the installation
+    and verification commands clearly, making it easy for users to copy and paste."
+  oneColumnGridTitle: "Installation in Two Simple Steps"
   list:
-  - sectionName: "InstallCli"
-    sectionSummary: "Provides the command and context for installing the AIGNE CLI."
+  - sectionName: "installCliStep"
+    sectionSummary: "A content card for the first installation step, showing the
+      `npm install` command."
     contentCardTitle: "Step 1: Install the AIGNE CLI"
     contentCardDescription: "Pop open your terminal and run this command. It installs
-      the AIGNE CLI globally, so you can use the `aigne` command from anywhere."
-    contentCardBottomCode:
+      the AIGNE CLI globally on your system, so you can run it from anywhere!"
+    contentCardRightCode:
       name: "Install AIGNE CLI"
       content: "npm install -g @aigne/cli"
-  - sectionName: "VerifyInstallation"
-    sectionSummary: "Provides the command to verify a successful installation."
-    contentCardTitle: "Step 2: Verify the Installation"
-    contentCardDescription: "All done? Let's make sure. Run this command to see the
-      help menu. If it lists the available commands, you're good to go!"
-    contentCardBottomCode:
+  - sectionName: "verifyInstallStep"
+    sectionSummary: "A content card for the second installation step, showing the
+      `--help` command to verify the installation was successful."
+    contentCardTitle: "Step 2: Verify Your Installation"
+    contentCardDescription: "Let's make sure everything's working! Run the help command.
+      If you see a list of commands, you're all set and ready to go."
+    contentCardLeftCode:
       name: "Verify Installation"
       content: "aigne doc --help"
-- sectionName: "GenerateFirstDocs"
-  sectionSummary: "This section walks the user through the exciting process of generating
-    their first documents. It breaks down the 'generate' command into simple,
-    visual steps, showcasing the interactive setup and the final success message
-    to build confidence and excitement."
+- sectionName: "generateFirstDocs"
+  sectionSummary: "Walks the user through generating their first set of documents.
+    This section uses a visually engaging sequence of cards with screenshots to illustrate
+    each step, from navigating to the project directory to seeing the final success
+    message."
   oneColumnGridTitle: "Generate Your First Docs"
   list:
-  - sectionName: "NavigateToProject"
-    sectionSummary: "Instructs the user to navigate to their project directory."
-    contentCardTitle: "Step 1: Navigate to Your Project"
-    contentCardDescription: "First things first, head to your project's root directory
-      in your terminal."
-    contentCardBottomCode:
-      name: "Change Directory"
-      content: "cd /path/to/your/project"
-  - sectionName: "RunGenerate"
-    sectionSummary: "Highlights the main 'generate' command as the key action."
-    contentCardTitle: "Step 2: Run the Generate Command"
-    contentCardDescription: "This is where the magic happens! This one command kicks
-      off the entire process, from analysis to generation."
-    contentCardBottomCode:
-      name: "Run Generate Command"
-      content: "aigne doc generate"
-  - sectionName: "InteractiveSetup"
-    sectionSummary: "Visually demonstrates the one-time interactive setup process
-      with a screenshot."
+  - sectionName: "navigateAndGenerate"
+    sectionSummary: "A content card combining the first two steps of document generation:
+      navigating to the directory and running the `generate` command."
+    contentCardTitle: "Step 1 & 2: Navigate and Generate"
+    contentCardDescription: "Just two simple steps! First, `cd` into your project's
+      root directory. Then, kick off the magic with the `aigne doc generate` command.
+      That's it!"
+    contentCardRightCode:
+      name: "Navigate and Generate"
+      content: "cd /path/to/your/project\naigne doc generate"
+  - sectionName: "interactiveSetup"
+    sectionSummary: "A content card explaining the one-time interactive setup process,
+      accompanied by a screenshot to show users what to expect."
     contentCardTitle: "Step 3: Complete the Interactive Setup"
-    contentCardDescription: "The first time you run `generate`, you'll answer a few
-      quick questions to tailor the docs to your needs. Your choices get saved
-      in a config file for next time."
-    contentCardBottomImage: "mediakit://doc-complete-setup-beautified.png"
-  - sectionName: "AwaitGeneration"
-    sectionSummary: "Shows the successful completion message, providing a sense of
-      accomplishment."
-    contentCardTitle: "Step 4: Await Generation"
-    contentCardDescription: "Sit back and relax! DocSmith is now analyzing your code,
-      planning the structure, and writing the content. You'll see a success message
-      when it's done."
-    contentCardBottomImage: "mediakit://doc-generated-successfully-beautified.png"
-- sectionName: "WhatsNext"
-  sectionSummary: "A final, energetic call-to-action that encourages users to take
-    the next step. It directs them to other relevant guides, ensuring they know
-    where to go to continue their journey and explore more advanced features."
-  twoColumnGridTitle: "What's Next?"
+    contentCardDescription: "The first time you run `generate`, a quick setup wizard
+      will pop up. Just answer a few questions about your project, and DocSmith will
+      handle the rest, saving your preferences to a `config.yaml` file."
+    contentCardLeftScreenShot: "mediakit://doc-complete-setup.png"
+    screenShotBackground: "linear-gradient(120deg, rgba(96,89,171,1) 0%, rgba(130,125,190,1)
+      100%)"
+  - sectionName: "generationProcess"
+    sectionSummary: "A content card describing the final step where DocSmith generates
+      the documentation, complete with a screenshot of the success message."
+    contentCardTitle: "Step 4: Watch the Magic Happen!"
+    contentCardDescription: "Once the setup is done, DocSmith analyzes your code,
+      plans the structure, and writes the content. You'll see a success message when
+      it's all finished. Your new docs will be waiting for you in the output directory!"
+    contentCardRightScreenShot: "mediakit://doc-generated-successfully.png"
+    screenShotBackground: "linear-gradient(120deg, rgba(95,116,118,1) 0%, rgba(131,158,153,1)
+      100%)"
+- sectionName: "nextSteps"
+  sectionSummary: "Inspires users with potential next actions after their initial
+    success. This section uses a visually appealing bento grid to showcase key follow-up
+    tasks like updating, translating, and publishing their new documentation."
+  twoTwoBentoGridTitle: "What's Next?"
   list:
-  - sectionName: "UpdateDocumentation"
-    sectionSummary: "A card guiding users to the documentation on how to update
-      their generated docs."
+  - sectionName: "updateDocsCard"
+    sectionSummary: "A card highlighting the ability to update documentation."
     cardTitle: "Update Documentation"
-    cardDescription: "Modify or regenerate specific sections of your documentation
-      based on code changes or new requirements."
+    cardDescription: "Modify or regenerate specific sections as your code evolves."
     iconName: "lucide:refresh-cw"
-  - sectionName: "TranslateDocumentation"
-    sectionSummary: "A card guiding users to the documentation on how to translate
-      their docs."
+  - sectionName: "translateDocsCard"
+    sectionSummary: "A card showcasing the multi-language translation feature."
     cardTitle: "Translate Documentation"
-    cardDescription: "Translate your documents into any of the 12 supported languages,
-      such as Chinese, Spanish, or German."
+    cardDescription: "Translate your docs into 12+ languages like Chinese, Spanish,
+      or German."
     iconName: "lucide:languages"
-  - sectionName: "PublishDocs"
-    sectionSummary: "A card guiding users to the documentation on how to publish
-      their docs."
+  - sectionName: "publishDocsCard"
+    sectionSummary: "A card explaining how to publish the generated documentation."
     cardTitle: "Publish Your Docs"
     cardDescription: "Make your documentation available online for your team or the
       public."
     iconName: "lucide:rocket"
-  - sectionName: "ReviewConfiguration"
-    sectionSummary: "A card guiding users to the documentation on configuration."
+  - sectionName: "reviewConfigCard"
+    sectionSummary: "A card prompting users to review and customize their configuration."
     cardTitle: "Review Configuration"
-    cardDescription: "Review and modify the config.yaml file that was created during
-      the initial setup to adjust your preferences."
+    cardDescription: "Fine-tune the `config.yaml` file to adjust your preferences
+      anytime."
     iconName: "lucide:settings"
+- sectionName: "finalCta"
+  sectionSummary: "A final, energetic call-to-action that encourages users to explore
+    the full power of DocSmith. It directs them to the detailed usage guide for more
+    advanced commands and features."
+  ctaTitle: "You're Just Getting Started!"
+  ctaDescription: "You've generated your first set of docs—awesome! Now, dive into
+    the full command reference to unlock advanced features like translation, smart
+    updates, and publishing."
+  cta:
+  - text: "See All Commands"
+    link: "link:///usage"
+  - text: ""
+    link: ""

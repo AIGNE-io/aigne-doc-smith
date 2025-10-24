@@ -1,91 +1,177 @@
 meta:
-  title: "AIGNE DocSmith: AI-Powered Documentation That Understands Your Code"
-  description: "Experience the future of documentation with AIGNE DocSmith! Our AI-driven
-    tool analyzes your codebase to generate comprehensive, multi-language docs automatically.
-    Get started in seconds."
-  image: "mediakit://home-hero-visual.png"
+  title: "AIGNE DocSmith | AI-Powered Code Documentation"
+  description: "Generate comprehensive, multi-language documentation from your codebase
+    instantly. AIGNE DocSmith uses AI to analyze your code and create everything
+    from API references to user guides, keeping them always up-to-date."
+  image: "mediakit://home-social-card.png"
 sections:
-- sectionName: "Hero"
-  sectionSummary: "A vibrant and energetic introduction to AIGNE DocSmith, designed
-    to grab attention with a powerful value proposition and clear, immediate calls-to-action.
-    It pairs a benefit-driven headline with a stunning visual to inspire excitement."
-  splitHeroTitle: "AI-Powered Documentation That Understands Your Code"
-  splitHeroDescription: "Stop writing docs and start building! AIGNE DocSmith is your
-    AI partner that intelligently analyzes your codebase to generate comprehensive,
-    structured, and multi-language documentation that always stays in sync."
+- sectionName: "hero"
+  sectionSummary: "The hero section grabs attention with a powerful headline about
+    AI-powered documentation, a supporting description, and clear calls-to-action,
+    all complemented by a dynamic visual that represents the transformation of
+    code into docs."
+  splitHeroBigTitle: "AI-Powered Documentation That Understands Your Code"
+  splitHeroSubTitle: ""
+  splitHeroDescription: "Stop writing docs manually. AIGNE DocSmith analyzes your
+    codebase to generate comprehensive, structured, and multi-language documentation
+    that always stays in sync. It's magic for your workflow!"
   splitHeroActions:
-  - text: "Get Started Guide"
+  - text: "Get Started Now"
     link: "link:///getting-started"
   - text: "Explore Features"
     link: "link:///features"
-  splitHeroRightImage: "mediakit://home-hero-visual.png"
-- sectionName: "KeyFeatures"
-  sectionSummary: "This section provides a quick, scannable overview of DocSmith's
-    most compelling features. Using a four-column grid with icons, it communicates
-    the core benefits in a visually engaging way, making it easy for users to grasp
-    the tool's power at a glance."
-  fourColumnGridTitle: "Why You'll Love DocSmith"
+  splitHeroImage: "mediakit://hero-aipowered-docs.png"
+- sectionName: "features"
+  sectionSummary: "This section showcases the core benefits of DocSmith in a visually
+    engaging bento grid. Each feature is presented in a bite-sized card with an
+    icon, making it easy for users to quickly grasp the value and power of the
+    tool."
+  twoThreeBentoGridTitle: "Why You'll Love DocSmith"
   list:
-  - sectionName: "IntelligentAnalysis"
-    sectionSummary: "Highlighting the smarts behind DocSmith, this card explains
-      how the AI goes beyond simple parsing to understand the code's intent, ensuring
-      the generated documentation is truly insightful."
+  - sectionName: "intelligentAnalysis"
+    sectionSummary: "Highlights the smart code analysis capability."
     iconName: "lucide:brain-circuit"
     cardTitle: "Intelligent Analysis"
-    cardDescription: "Our AI doesn't just read your code—it understands its structure,
-      patterns, and intent to create documentation that's actually helpful."
-  - sectionName: "MultiLanguageSupport"
-    sectionSummary: "Showcasing the global reach of DocSmith, this card emphasizes
-      the ability to generate professional-grade translations, making projects accessible
-      to a worldwide audience."
-    iconName: "lucide:languages"
-    cardTitle: "Multi-Language Support"
-    cardDescription: "Go global! Instantly translate your docs into 12 languages
-      with context-aware, professional-grade accuracy."
-  - sectionName: "SeamlessIntegration"
-    sectionSummary: "This card focuses on the tool's flexibility, explaining how
-      easily it connects with different LLMs and platforms, making it a perfect fit
-      for any workflow."
-    iconName: "lucide:link"
-    cardTitle: "Seamless Integration"
-    cardDescription: "Connect to the AIGNE Hub for key-free access or bring your
-      own keys for OpenAI, Google, Anthropic, and more. It just works."
-  - sectionName: "SmartUpdates"
-    sectionSummary: "This card highlights the 'living' nature of the documentation,
-      assuring users that their docs will never become outdated by automatically detecting
-      and incorporating code changes."
+    cardDescription: "DocSmith doesn't just read your code—it understands its structure,
+      patterns, and intent to create docs that make perfect sense."
+  - sectionName: "comprehensiveCoverage"
+    sectionSummary: "Explains the wide range of documentation types it can generate."
+    iconName: "lucide:book-check"
+    cardTitle: "Comprehensive Coverage"
+    cardDescription: "From detailed API references to friendly user guides, get
+      every piece of documentation you need, generated in one go."
+  - sectionName: "globalReady"
+    sectionSummary: "Showcases the multi-language support."
+    iconName: "lucide:globe"
+    cardTitle: "Global Ready"
+    cardDescription: "Reach a worldwide audience with professional-grade, context-aware
+      translations in 12 languages."
+  - sectionName: "alwaysCurrent"
+    sectionSummary: "Emphasizes the automatic update feature."
     iconName: "lucide:sparkles"
-    cardTitle: "Smart Updates"
-    cardDescription: "Never worry about stale docs again. DocSmith automatically
-      detects changes in your code and updates your documentation."
-- sectionName: "QuickStart"
-  sectionSummary: "This section is all about immediate gratification. By showcasing
-    the single, simple command needed to get started, it demolishes friction and
-    invites developers to try it right away, proving the tool's 'Zero Config' promise."
-  verticalHeroTitle: "Generate Your First Docs in One Command"
-  verticalHeroDescription: ""
-  verticalHeroCode:
-    name: "bash"
-    content: "aigne doc generate"
-- sectionName: "AigneEcosystem"
-  sectionSummary: "This section builds credibility by positioning DocSmith within
-    the larger, powerful AIGNE ecosystem. It reassures users that they are adopting
-    a tool that is part of a comprehensive, well-supported AI development platform,
-    enhancing its value."
-  featureSectionTitle: "Integrated with the Powerful AIGNE Ecosystem"
-  featureSectionDescription: "DocSmith is a core component of the AIGNE platform,
-    a complete suite of tools for building next-generation AI applications. This seamless
-    integration unlocks powerful capabilities and ensures a cohesive developer experience."
-  featureSectionBottomImage: "mediakit://aigne-ecosystem-diagram.png"
-- sectionName: "FinalCta"
-  sectionSummary: "A final, energetic call-to-action that motivates visitors to take
-    the next step. With a clear, benefit-focused title and direct action buttons,
-    this section is designed to convert visitors into active users."
-  ctaTitle: "Ready to Automate Your Documentation?"
-  ctaDescription: "Join developers who are saving hours and shipping faster with
-    AI-powered docs. Try AIGNE DocSmith now and experience the magic for yourself!"
+    cardTitle: "Always Current"
+    cardDescription: "Forget about stale docs! DocSmith automatically detects code
+      changes and updates your documentation accordingly."
+  - sectionName: "zeroConfig"
+    sectionSummary: "Points out the ease of getting started."
+    iconName: "lucide:rocket"
+    cardTitle: "Zero Config"
+    cardDescription: "Works right out of the box with smart defaults. Just point
+      it at your project and watch the magic happen."
+- sectionName: "howItWorks"
+  sectionSummary: "This section provides a dynamic, step-by-step demonstration of
+    DocSmith's core commands. Using alternating terminal players, it gives users
+    a real feel for the CLI experience, making the process tangible and exciting."
+  oneColumnGridTitle: "See It in Action: From Zero to Docs in Minutes"
+  list:
+  - sectionName: "generate"
+    sectionSummary: "Demonstrates the initial documentation generation command."
+    terminalLeft:
+      title: "aigne doc generate"
+      description: "Kick things off with a single command. DocSmith auto-detects
+        your project and guides you through a quick, one-time setup. It then analyzes
+        your code and generates a complete documentation set. It’s that easy!"
+      actionTitle: "Learn about Generation"
+      actionLink: "link:///usage"
+    terminalPlaybackData: "mediakit://generate.json"
+  - sectionName: "update"
+    sectionSummary: "Shows how to update existing documentation with new feedback."
+    terminalRight:
+      title: "aigne doc update"
+      description: "Need to refine a section? Just run the update command. You can
+        interactively select specific documents and provide feedback to the AI,
+        like asking it to add more examples or simplify a concept."
+      actionTitle: "Explore Update Commands"
+      actionLink: "link:///usage"
+    terminalPlaybackData: "mediakit://update.json"
+  - sectionName: "translate"
+    sectionSummary: "Illustrates the powerful multi-language translation feature."
+    terminalLeft:
+      title: "aigne doc translate"
+      description: "Go global in seconds. Select the documents and choose from 12
+        languages. DocSmith provides professional, context-aware translations,
+        ensuring your technical terminology stays accurate everywhere."
+      actionTitle: "Discover Translation"
+      actionLink: "link:///usage"
+    terminalPlaybackData: "mediakit://translate.json"
+  - sectionName: "publish"
+    sectionSummary: "Highlights the one-click publishing process."
+    terminalRight:
+      title: "aigne doc publish"
+      description: "Ready to share your work? Publish your docs instantly to DocSmith
+        Cloud for free hosting or deploy to your own custom instance. One command
+        is all it takes to go live!"
+      actionTitle: "See Publishing Options"
+      actionLink: "link:///usage"
+    terminalPlaybackData: "mediakit://publish.json"
+- sectionName: "multiLanguageSupport"
+  sectionSummary: "This section visually emphasizes DocSmith's powerful translation
+    capabilities. It pairs a strong headline with a compelling visual to communicate
+    the global reach your documentation can achieve, making the benefit feel both
+    exciting and accessible."
+  featureSectionTitle: "Speak Your Users' Language, Everywhere"
+  featureSectionDescription: "Don't let language be a barrier. DocSmith provides
+    professional-grade, context-aware translations for 12 languages, including
+    Chinese, Japanese, Spanish, and German. With integrated glossary support,
+    your terminology stays consistent, no matter the language."
+  featureSectionBottomImage: "mediakit://multi-language-support-visual.png"
+- sectionName: "enterpriseReady"
+  sectionSummary: "A dedicated section to address the needs of larger teams and businesses.
+    It highlights key enterprise-grade features and provides a clear call-to-action
+    for users to learn more, positioning DocSmith as a scalable, secure, and collaborative
+    solution."
+  oneColumnGridTitle: "Built for Teams, Ready for Scale"
+  list:
+  - sectionName: "enterpriseCard"
+    sectionSummary: "A content card detailing enterprise features with a link to
+      the enterprise page."
+    contentCardTitle: "Enterprise & Production Use"
+    contentCardDescription: "Supercharge your team with features built for collaboration,
+      security, and scale. Get priority support, custom branding, API integration,
+      and private cloud deployment options to fit your workflow. Your code never
+      leaves your environment."
+    contentCardRightImage: "mediakit://hero-contact-enterprise.png"
+- sectionName: "faq"
+  sectionSummary: "This FAQ section proactively answers common user questions in
+    a clear, easy-to-scan accordion format. It helps build trust and confidence
+    by addressing potential concerns about security, cost, and integrations upfront."
+  faqTitle: "Frequently Asked Questions"
+  faqList:
+  - question: "Is my source code secure with AIGNE DocSmith?"
+    answer: "Absolutely. When using the AIGNE Hub, your code is processed securely
+      and is never stored or used for training. For maximum security, our enterprise
+      plan allows you to deploy DocSmith on your own private infrastructure, ensuring
+      your code never leaves your environment."
+  - question: "What programming languages and frameworks do you support?"
+    answer: "DocSmith is designed to be language-agnostic. It intelligently analyzes
+      your project structure and works with most modern languages and frameworks
+      right out of the box, including JavaScript/TypeScript, Python, Go, Java,
+      and more."
+  - question: "Do I need to provide my own API keys for the AI models?"
+    answer: "Nope! By default, DocSmith uses the AIGNE Hub, which requires zero
+      API keys and gives you access to top models like GPT-4o and Gemini 2.5 Pro.
+      However, you can easily configure your own keys if you prefer direct access
+      to providers like OpenAI, Anthropic, or Google."
+  - question: "How does DocSmith keep the documentation updated?"
+    answer: "DocSmith's smart update feature automatically detects changes in your
+      codebase. When you run the `update` command, it identifies which parts of
+      the documentation are affected and intelligently regenerates only those sections,
+      saving you time and effort."
+  - question: "Can I customize the style and structure of the output?"
+    answer: "Yes! You have full control. During the initial setup, you can choose
+      from different documentation styles (e.g., Technical, User-Friendly) and
+      target audiences. You can also customize the source paths and output structure
+      to perfectly match your project's needs."
+- sectionName: "cta"
+  sectionSummary: "This is the final, high-energy call-to-action, designed to convert
+    visitors into users. It presents a clear, compelling reason to start and provides
+    two distinct paths: diving right in or joining the community, catering to different
+    user motivations."
+  ctaTitle: "Ready to Revolutionize Your Documentation?"
+  ctaDescription: "Stop wasting time on manual updates and let AI do the heavy lifting.
+    Generate your first set of docs in minutes and see the magic for yourself."
   cta:
-  - text: "Get Started Free"
+  - text: "Try DocSmith Now"
     link: "link:///getting-started"
-  - text: "Read the Docs"
-    link: "link:///usage"
+  - text: "Join the Community"
+    link: "link:///community"

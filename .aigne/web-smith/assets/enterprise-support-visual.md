@@ -1,0 +1,1 @@
+An abstract image for the 'Priority Support & Services' feature card. The visual of guiding lines extending from a core represents direct, expert assistance from the engineering team, reinforcing the value of dedicated support, training, and professional services for enterprise clients.

@@ -1,1 +1,0 @@
-An abstract visualization of the AIGNE ecosystem, showing how DocSmith connects to other powerful AI tools on the platform. This image supports the narrative that DocSmith is part of a comprehensive, integrated solution, enhancing its credibility and value proposition.

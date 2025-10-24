@@ -1,0 +1,1 @@
+An abstract image for the 'Team Collaboration' feature card on the enterprise page. The visual metaphor of interconnected nodes represents how AIGne DocSmith facilitates seamless teamwork and shared workflows, reinforcing the benefit of multi-user access and role management.

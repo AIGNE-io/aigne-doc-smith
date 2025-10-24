@@ -1,92 +1,142 @@
 meta:
-  title: "Usage Guide & Commands | AIGNE DocSmith"
-  description: "Master AIGNE DocSmith with this complete guide to CLI commands. Learn how to generate, update, translate, and publish your AI-powered documentation in seconds."
-  image: "mediakit://usage-guide-hero.png"
+  title: "DocSmith CLI Usage Guide & Commands | AIGNE"
+  description: "Your complete reference to AIGNE DocSmith commands. Learn how to
+    use 'generate', 'update', 'translate', and 'publish' to automate your entire
+    documentation workflow."
+  image: "mediakit://usage-social-card.png"
 sections:
-  - sectionName: "UsageGuideHero"
-    sectionSummary: "A vibrant hero section that immediately communicates the page's purpose as a command reference, inviting users to master their documentation workflow with key actions."
-    splitHeroTitle: "Master Your Documentation Workflow"
-    splitHeroDescription: "Dive into the core commands that make DocSmith tick. From generating fresh docs to publishing updates, this is your command center for seamless, AI-powered documentation."
+  - sectionName: "usageHero"
+    sectionSummary: "A dynamic hero section to grab the user's attention, clearly
+      state the page's purpose as a command reference, and provide an immediate
+      link to the getting started guide for new users."
+    splitHeroTitle: "DocSmith Command Center"
+    splitHeroDescription: "Welcome to your complete reference for the DocSmith CLI.
+      Everything you need to generate, update, translate, and publish your documentation
+      is right here. Let's get shipping!"
     splitHeroActions:
-      - text: "Get Started Now"
+      - text: "Get Started First"
         link: "link:///getting-started"
-      - text: "Explore Features"
-        link: "link:///features"
-    splitHeroRightImage: "mediakit://usage-guide-hero.png"
-  - sectionName: "CoreCommandsInAction"
-    sectionSummary: "An interactive and dynamic showcase of the main DocSmith commands. Using alternating terminal players, this section demonstrates the real-world application of generate, update, translate, and publish, making it easy for users to see the commands in action."
-    oneColumnGridTitle: "Core Commands in Action"
+      - text: ""
+        link: ""
+    splitHeroRightImage: "mediakit://usage-hero-visual.png"
+  - sectionName: "coreCommands"
+    sectionSummary: "This section showcases the main DocSmith commands using interactive
+      terminal players. It provides a step-by-step visual guide to the core documentation
+      workflow, from generation to publishing, making it easy for users to see
+      each command in action."
+    oneColumnGridTitle: "Core Workflow Commands"
     list:
-      - sectionName: "GenerateCommand"
-        sectionSummary: "Demonstrates the 'aigne doc generate' command, showing users how to kickstart their documentation with a single, powerful action."
-        terminalRight:
-          title: "aigne doc generate"
-          description: "Kickstart your entire documentation with a single command. DocSmith analyzes your project and generates a complete, structured set of docs from scratch. It's the perfect first step!"
-          actionTitle: ""
-          actionLink: ""
+      - sectionName: "generateCommand"
+        sectionSummary: "Demonstrates the `aigne doc generate` command, showing users
+          how to create a complete set of documentation from their source code
+          with a single action. The terminal player provides a real-world look
+          at the process."
         terminalPlaybackData: "mediakit://generate.json"
-      - sectionName: "UpdateCommand"
-        sectionSummary: "Illustrates the 'aigne doc update' command, highlighting how to keep documentation synchronized with code changes effortlessly."
-        terminalLeft:
-          title: "aigne doc update"
-          description: "Keep your docs perfectly in sync with your code. Select specific files to regenerate or let DocSmith intelligently update only what's changed. You can even provide feedback to guide the AI."
-          actionTitle: ""
-          actionLink: ""
-        terminalPlaybackData: "mediakit://update.json"
-      - sectionName: "TranslateCommand"
-        sectionSummary: "Showcases the 'aigne doc translate' command, emphasizing the ease of reaching a global audience by translating docs into multiple languages."
         terminalRight:
-          title: "aigne doc translate"
-          description: "Go global in seconds! Translate your documentation into 12 different languages with professional, context-aware accuracy. Reach a worldwide audience without breaking a sweat."
+          title: "`aigne doc generate`"
+          description: "Kick things off by generating a full set of documentation
+            from your source code. DocSmith intelligently analyzes your project
+            and creates everything you need, zero config required."
           actionTitle: ""
           actionLink: ""
-        terminalPlaybackData: "mediakit://translate.json"
-      - sectionName: "PublishCommand"
-        sectionSummary: "Highlights the 'aigne doc publish' command, demonstrating the final step of making the AI-generated documentation live for the world to see."
+      - sectionName: "updateCommand"
+        sectionSummary: "Demonstrates the `aigne doc update` command, highlighting
+          how to keep documentation synchronized with code changes. The terminal
+          player visualizes the smart update process."
+        terminalPlaybackData: "mediakit://update.json"
         terminalLeft:
-          title: "aigne doc publish"
-          description: "Ready to go live? Publish your beautiful, AI-generated docs to the world with one command. Deploy to DocSmith Cloud for free hosting or to your own custom instance."
+          title: "`aigne doc update`"
+          description: "Keep your docs perfectly in sync. Run the update command
+            to intelligently refresh content based on code changes or apply new
+            feedback to specific sections."
           actionTitle: ""
           actionLink: ""
+      - sectionName: "translateCommand"
+        sectionSummary: "Demonstrates the `aigne doc translate` command, showcasing
+          the powerful multi-language translation feature. The terminal player
+          shows how simple it is to make documentation globally accessible."
+        terminalPlaybackData: "mediakit://translate.json"
+        terminalRight:
+          title: "`aigne doc translate`"
+          description: "Go global in seconds! Translate your documentation into
+            12 different languages with our context-aware, professional-grade
+            translation engine."
+          actionTitle: ""
+          actionLink: ""
+      - sectionName: "publishCommand"
+        sectionSummary: "Demonstrates the `aigne doc publish` command, illustrating
+          the final step in the workflow. The terminal player shows how to deploy
+          documentation to a live URL effortlessly."
         terminalPlaybackData: "mediakit://publish.json"
-  - sectionName: "ConfigurationCommands"
-    sectionSummary: "A focused section on configuration management, explaining the 'init' and 'prefs' commands to help users customize and verify their DocSmith setup."
-    twoColumnGridTitle: "Fine-Tune Your Setup"
+        terminalLeft:
+          title: "`aigne doc publish`"
+          description: "Ready to share your work? Publish your docs with a single
+            command to get a live, shareable URL on DocSmith Cloud or your own
+            custom instance."
+          actionTitle: ""
+          actionLink: ""
+  - sectionName: "configurationCommands"
+    sectionSummary: "This section explains the configuration and management commands,
+      `init` and `prefs`. It uses code cards to provide quick, scannable references
+      for setting up and viewing project configurations."
+    twoColumnGridTitle: "Configuration & Management"
     list:
-      - sectionName: "InitCommandCard"
-        sectionSummary: "Explains the 'aigne doc init' command for easy, interactive project setup and reconfiguration."
-        contentCardTitle: "Interactive Setup (`init`)"
-        contentCardDescription: "Run the interactive setup wizard anytime to configure or reconfigure your project. It’s the easiest way to dial in your preferences for documentation styles, target audiences, and languages."
+      - sectionName: "initCommand"
+        sectionSummary: "Explains the `aigne doc init` command using a content
+          card with a code snippet. This provides a quick, easy-to-digest reference
+          for users looking to start a new project configuration."
+        contentCardTitle: "Interactive Setup"
+        contentCardDescription: "Run the interactive wizard to configure DocSmith
+          for your project. It's the perfect way to dial in your settings for
+          audience, style, and languages."
         contentCardBottomCode:
           name: "bash"
           content: "aigne doc init"
-      - sectionName: "PrefsCommandCard"
-        sectionSummary: "Details the 'aigne doc prefs' command, allowing users to quickly view their current project configuration."
-        contentCardTitle: "View Configuration (`prefs`)"
-        contentCardDescription: "Need to check your current settings? This command displays the complete configuration for your project, so you always know exactly how DocSmith is set up to work its magic."
+      - sectionName: "prefsCommand"
+        sectionSummary: "Explains the `aigne doc prefs` command with a content
+          card and code snippet. This format offers a clear and concise guide
+          for users who need to review their current project settings."
+        contentCardTitle: "View Configuration"
+        contentCardDescription: "Need to check your current setup? This command
+          displays all your saved preferences for the project, so you always
+          know what settings are active."
         contentCardBottomCode:
           name: "bash"
           content: "aigne doc prefs"
-  - sectionName: "AdvancedUsageFAQ"
-    sectionSummary: "An FAQ section designed to empower advanced users by answering common questions about flags and parameters for commands like force regeneration, providing AI feedback, and custom publishing."
-    faqTitle: "Power-User Tips & Tricks"
+  - sectionName: "usageFaq"
+    sectionSummary: "Addresses common user questions about commands and configuration.
+      This section uses an accordion format to provide clear, concise answers,
+      helping users resolve potential issues quickly without leaving the page."
+    faqTitle: "Frequently Asked Questions"
     faqList:
-      - question: "How do I force a complete regeneration of all documents?"
-        answer: "Easy! Just use the `--forceRegenerate` flag with the generate command: `aigne doc generate --forceRegenerate`. This tells DocSmith to ignore the cache and rebuild everything from the ground up."
-      - question: "Can I provide feedback to the AI during generation?"
-        answer: "Absolutely! The `--feedback` flag is your best friend. For example: `aigne doc generate --feedback \"Add more API examples\"`. The AI will use your input to refine the content."
-      - question: "How do I translate only specific documents?"
-        answer: "You can target specific files using the `--docs` flag. Combine it with `--langs` to get exactly what you need: `aigne doc translate --langs ja --docs overview.md`."
-      - question: "What if I want to publish to my own server?"
-        answer: "No problem! Use the `--appUrl` flag to point to your custom Discuss Kit instance: `aigne doc publish --appUrl https://your-docs.com`."
-      - question: "How can I ensure consistent terminology in translations?"
-        answer: "Use a custom glossary! The `--glossary` flag lets you provide a markdown file with key terms to ensure they are translated consistently across all languages: `aigne doc translate --glossary @path/to/glossary.md`."
-  - sectionName: "FinalCTA"
-    sectionSummary: "A compelling call-to-action that encourages users to move from learning to doing by installing the AIGNE CLI and joining the community, reinforcing the page's action-oriented theme."
-    ctaTitle: "Ready to Supercharge Your Workflow?"
-    ctaDescription: "You've seen the commands, now put them to work. Install the AIGNE CLI and transform your code into stunning documentation today."
+      - question: "Do I need API keys to use these commands?"
+        answer: "Nope! By default, DocSmith uses the AIGNE Hub, which requires
+          no API keys and lets you switch between models like Gemini and GPT on
+          the fly. You can add your own keys for direct provider access if you
+          prefer."
+      - question: "How do I generate docs for only a specific folder?"
+        answer: "During the `aigne doc init` setup, you can specify exactly which
+          source paths to include or exclude. You can also edit the configuration
+          file directly for more granular control."
+      - question: "What's the difference between `generate` and `update`?"
+        answer: "`generate` is for creating the entire documentation set from
+          scratch, perfect for the first run. `update` is for making targeted
+          changes to existing documents based on code changes or new feedback,
+          which is much faster."
+      - question: "Can I customize the translation glossary?"
+        answer: "Absolutely! Use the `--glossary` flag with the `translate` command
+          to pass a custom glossary file. This ensures your key terminology stays
+          consistent across all languages."
+  - sectionName: "nextSteps"
+    sectionSummary: "A final, action-oriented section to guide the user's next
+      steps. It provides clear calls-to-action to either start using the tool
+      or join the community for support, ensuring a smooth transition from learning
+      to doing."
+    ctaTitle: "Ready to Automate Your Docs?"
+    ctaDescription: "You've seen the commands, now see the magic. Install the
+      CLI and generate your first set of AI-powered docs in minutes."
     cta:
-      - text: "Install AIGNE CLI"
+      - text: "Read Getting Started Guide"
         link: "link:///getting-started"
       - text: "Join the Community"
         link: "link:///community"

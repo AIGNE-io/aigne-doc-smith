@@ -1,13 +1,14 @@
 sitemap:
-  - title: "AIGNE DocSmith: AI-Powered Documentation"
+  - title: AIGNE DocSmith | AI-Powered Code Documentation
     path: /home
     locales:
       en:
-        title: "AIGNE DocSmith: AI-Powered Documentation That Understands Your Code"
-        description: Experience the future of documentation with AIGNE DocSmith! Our
-          AI-driven tool analyzes your codebase to generate comprehensive,
-          multi-language docs automatically. Get started in seconds.
-        image: mediakit://home-hero-visual.png
+        title: AIGNE DocSmith | AI-Powered Code Documentation
+        description: Generate comprehensive, multi-language documentation from your
+          codebase instantly. AIGNE DocSmith uses AI to analyze your code and
+          create everything from API references to user guides, keeping them
+          always up-to-date.
+        image: mediakit://home-social-card.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -18,20 +19,19 @@ sitemap:
     meta:
       file: home.yaml
       id: 616571b7c79a8472
-      createdAt: 2025-10-22T08:52:09.477Z
-      updatedAt: 2025-10-22T08:52:09.477Z
-      publishedAt: 2025-10-22T08:52:09.477Z
+      createdAt: 2025-10-24T07:02:55.684Z
+      updatedAt: 2025-10-24T07:02:55.684Z
+      publishedAt: 2025-10-24T07:02:55.684Z
       isPublic: true
-  - title: Core Features
+  - title: Features of AIGNE DocSmith
     path: /features
     locales:
       en:
-        title: AIGNE DocSmith Features | AI Documentation Generation & Translation
-        description: Explore the powerful features of AIGNE DocSmith. From AI-powered
-          content generation and multi-language support to seamless LLM
-          integration and smart updates, see how we automate your documentation
-          workflow.
-        image: mediakit://features-hero-visual.png
+        title: Features of AIGNE DocSmith | AI-Powered Documentation Generation
+        description: "Explore DocSmith's key features: AI-powered analysis,
+          multi-language translation, seamless LLM integration, and smart
+          updates to keep your documentation always current."
+        image: mediakit://features-social-card.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -42,19 +42,19 @@ sitemap:
     meta:
       file: features.yaml
       id: 69ee505620f7efd5
-      createdAt: 2025-10-22T08:52:09.466Z
-      updatedAt: 2025-10-22T08:52:09.466Z
-      publishedAt: 2025-10-22T08:52:09.466Z
+      createdAt: 2025-10-24T07:02:55.667Z
+      updatedAt: 2025-10-24T07:02:55.667Z
+      publishedAt: 2025-10-24T07:02:55.667Z
       isPublic: true
-  - title: Getting Started Guide
+  - title: Getting Started with DocSmith
     path: /getting-started
     locales:
       en:
-        title: Getting Started Guide | AIGNE DocSmith
-        description: Your step-by-step guide to installing AIGNE DocSmith and generating
-          your first set of AI-powered documentation in minutes. Covers
-          prerequisites, installation, and the 'aigne doc generate' command.
-        image: mediakit://getting-started-hero-visual.png
+        title: Getting Started with DocSmith | Quick Installation Guide
+        description: Your step-by-step guide to installing AIGNE DocSmith. Learn how to
+          set up prerequisites, run the generate command, and create your first
+          set of AI-powered documents in minutes.
+        image: mediakit://home-social-card.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -65,19 +65,19 @@ sitemap:
     meta:
       file: getting-started.yaml
       id: 2215739be1a1f035
-      createdAt: 2025-10-22T08:52:09.471Z
-      updatedAt: 2025-10-22T08:52:09.471Z
-      publishedAt: 2025-10-22T08:52:09.471Z
+      createdAt: 2025-10-24T07:02:55.679Z
+      updatedAt: 2025-10-24T07:02:55.679Z
+      publishedAt: 2025-10-24T07:02:55.679Z
       isPublic: true
   - title: Usage Guide & Commands
     path: /usage
     locales:
       en:
-        title: Usage Guide & Commands | AIGNE DocSmith
-        description: Master AIGNE DocSmith with this complete guide to CLI commands.
-          Learn how to generate, update, translate, and publish your AI-powered
-          documentation in seconds.
-        image: mediakit://usage-guide-hero.png
+        title: DocSmith CLI Usage Guide & Commands | AIGNE
+        description: Your complete reference to AIGNE DocSmith commands. Learn how to
+          use 'generate', 'update', 'translate', and 'publish' to automate your
+          entire documentation workflow.
+        image: mediakit://usage-social-card.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -88,19 +88,19 @@ sitemap:
     meta:
       file: usage.yaml
       id: b0b63f8263bffbbd
-      createdAt: 2025-10-22T08:52:09.481Z
-      updatedAt: 2025-10-22T08:52:09.481Z
-      publishedAt: 2025-10-22T08:52:09.481Z
+      createdAt: 2025-10-24T07:02:55.690Z
+      updatedAt: 2025-10-24T07:02:55.690Z
+      publishedAt: 2025-10-24T07:02:55.690Z
       isPublic: true
   - title: Community & Enterprise
     path: /community
     locales:
       en:
         title: Community & Enterprise Support for AIGNE DocSmith
-        description: Join the AIGNE DocSmith community to contribute, report issues, or
-          request features. Explore enterprise solutions for team collaboration,
-          security, and professional support.
-        image: mediakit://community-enterprise-hero.png
+        description: Join the AIGNE DocSmith community on GitHub, get involved with
+          contributions, and explore our enterprise solutions for team
+          collaboration, security, and dedicated support.
+        image: mediakit://hero-contact-enterprise.png
         style:
           maxWidth: custom:1440px
           paddingY: normal
@@ -111,9 +111,9 @@ sitemap:
     meta:
       file: community.yaml
       id: 423f8449a3d5581e
-      createdAt: 2025-10-22T08:52:09.460Z
-      updatedAt: 2025-10-22T08:52:09.460Z
-      publishedAt: 2025-10-22T08:52:09.460Z
+      createdAt: 2025-10-24T07:02:55.660Z
+      updatedAt: 2025-10-24T07:02:55.660Z
+      publishedAt: 2025-10-24T07:02:55.660Z
       isPublic: true
 navigations:
   - id: e9022e7aa8630077-header
@@ -142,7 +142,7 @@ navigations:
     link:
       en: /
     description:
-      en: AI-powered code documentation
+      en: Discover AI-powered documentation.
     parent: e9022e7aa8630077-header
   - id: f5c5d15c42b3cf01
     section: footer
@@ -152,7 +152,7 @@ navigations:
     link:
       en: /
     description:
-      en: AI-powered code documentation
+      en: Discover AI-powered documentation.
     parent: e9022e7aa8630077-footer
   - id: 9f034b63948763d4
     section: header
@@ -162,7 +162,7 @@ navigations:
     link:
       en: /features
     description:
-      en: Explore core capabilities
+      en: Explore DocSmith's capabilities.
     parent: e9022e7aa8630077-header
   - id: 81f6d8ee2c5e662e
     section: footer
@@ -172,7 +172,7 @@ navigations:
     link:
       en: /features
     description:
-      en: Explore core capabilities
+      en: Explore DocSmith's capabilities.
     parent: e9022e7aa8630077-footer
   - id: 8e0aab8c77d7ef1b
     section: header
@@ -182,7 +182,7 @@ navigations:
     link:
       en: /getting-started
     description:
-      en: Install and run in minutes
+      en: Install and run in minutes.
     parent: e9022e7aa8630077-header
   - id: 19bd6504230feb81
     section: footer
@@ -192,7 +192,7 @@ navigations:
     link:
       en: /getting-started
     description:
-      en: Install and run in minutes
+      en: Install and run in minutes.
     parent: e9022e7aa8630077-footer
   - id: 9366282e11c15155
     section: header
@@ -202,7 +202,7 @@ navigations:
     link:
       en: /usage
     description:
-      en: Master the CLI commands
+      en: Master the core commands.
     parent: e9022e7aa8630077-header
   - id: 5340af7c30a00991
     section: footer
@@ -212,7 +212,7 @@ navigations:
     link:
       en: /usage
     description:
-      en: Master the CLI commands
+      en: Master the core commands.
     parent: e9022e7aa8630077-footer
   - id: 82df41632da47606
     section: header
@@ -222,7 +222,7 @@ navigations:
     link:
       en: /community
     description:
-      en: Get support and contribute
+      en: Get support or contribute.
     parent: e9022e7aa8630077-header
   - id: 3ee47fddc2f753a3
     section: footer
@@ -232,5 +232,5 @@ navigations:
     link:
       en: /community
     description:
-      en: Get support and contribute
+      en: Get support or contribute.
     parent: e9022e7aa8630077-footer

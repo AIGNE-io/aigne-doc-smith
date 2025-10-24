@@ -1,0 +1,1 @@
+An abstract image for the 'Custom Branding & API Access' feature card. This visual represents the ability to white-label documentation and tailor it to a company's unique identity, reinforcing the idea of a seamless and integrated brand experience.

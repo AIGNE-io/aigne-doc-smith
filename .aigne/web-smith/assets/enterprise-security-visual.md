@@ -1,0 +1,1 @@
+An abstract image for the 'Security & Compliance' feature card. The glowing shield icon immediately communicates protection and robustness, visually supporting key enterprise features like private cloud deployment, SSO integration, and audit logs.

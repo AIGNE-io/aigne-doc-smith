@@ -1,20 +1,20 @@
 - path: /home
   navigation:
     title: Home
-    description: AI-powered code documentation
+    description: Discover AI-powered documentation.
 - path: /features
   navigation:
     title: Features
-    description: Explore core capabilities
+    description: Explore DocSmith's capabilities.
 - path: /getting-started
   navigation:
     title: Get Started
-    description: Install and run in minutes
+    description: Install and run in minutes.
 - path: /usage
   navigation:
     title: Usage Guide
-    description: Master the CLI commands
+    description: Master the core commands.
 - path: /community
   navigation:
     title: Community
-    description: Get support and contribute
+    description: Get support or contribute.

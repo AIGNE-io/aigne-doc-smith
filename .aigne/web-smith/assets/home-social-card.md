@@ -1,0 +1,1 @@
+This image will be used for the page's SEO meta tag for social sharing. It is designed to be visually appealing and informative when shared on platforms like Twitter or LinkedIn, clearly communicating the page's topic—AI-powered code documentation—to attract clicks.

@@ -1,1 +1,0 @@
-An abstract visual representing the concept of AI-driven intelligent content creation. It shows the transformation of complex data into clear, organized documentation, suitable for illustrating a feature that explains how AI generates meaningful content.

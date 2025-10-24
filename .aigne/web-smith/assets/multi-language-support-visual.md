@@ -1,0 +1,1 @@
+A visual for the multi-language support section on the AIGNE DocSmith homepage. This image abstractly represents the tool's capability to translate technical documentation into numerous languages, creating a high-tech and globally-focused impression for the user.

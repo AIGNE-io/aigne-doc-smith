@@ -1,1 +1,1 @@
-A vibrant, abstract hero image for the Features page. It visualizes the core concept of AI transforming code into clear documentation, setting an energetic and innovative tone for the features breakdown.
+This is a hero image for the features page, designed to visually represent the concept of AI-powered documentation. Its dynamic and colorful composition will capture the user's attention and convey innovation, setting an energetic tone for the page. The abstract nature of the image supports the headline without distracting from it.

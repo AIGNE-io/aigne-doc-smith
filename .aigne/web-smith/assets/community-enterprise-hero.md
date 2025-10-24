@@ -1,1 +1,0 @@
-A hero image for the Community & Enterprise page, this visual abstractly represents the concepts of collaboration, connection, and technological innovation. It sets an energetic and welcoming tone, inviting users to engage with the community and explore enterprise offerings.

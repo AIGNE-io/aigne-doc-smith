@@ -1,0 +1,1 @@
+A hero image for the 'Usage and Commands' page. It abstractly visualizes the power and dynamism of the AIGNE DocSmith CLI, creating an energetic and tech-forward first impression for developers.
