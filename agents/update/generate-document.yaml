@@ -76,6 +76,10 @@ skills:
         documentContent:
           type: string
           description: The **raw text content** of the current document. (**Note:** This is the original document and **does not include** any diagram source code.)
+        locale:
+          type: string
+          description: Language for diagram labels and text
+          default: en
       required:
         - documentContent
     output_schema:
