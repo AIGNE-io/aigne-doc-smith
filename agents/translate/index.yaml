@@ -34,9 +34,7 @@ skills:
     skills:
       - ../translate/translate-multilingual.yaml
       - url: ./record-translation-history.mjs
-      - url: ../utils/save-single-doc.mjs
-        default_input:
-          isTranslate: true
+      - url: ../utils/save-doc-translations.mjs
     iterate_on: selectedDocs
     concurrency: 10
   - url: ../utils/check-feedback-refiner.mjs

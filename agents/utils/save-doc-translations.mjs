@@ -1,24 +1,18 @@
 import { shutdownMermaidWorkerPool } from "../../utils/mermaid-worker-pool.mjs";
-import { saveDocWithTranslations } from "../../utils/utils.mjs";
+import { saveDocTranslations as _saveDocTranslations } from "../../utils/utils.mjs";
 
-export default async function saveSingleDoc({
+export default async function saveDocTranslations({
   path,
-  content,
   docsDir,
   translates,
   labels,
-  locale,
-  isTranslate = false,
   isShowMessage = false,
 }) {
-  const _results = await saveDocWithTranslations({
+  await _saveDocTranslations({
     path,
-    content,
     docsDir,
     translates,
     labels,
-    locale,
-    isTranslate,
   });
 
   if (isShowMessage) {
@@ -29,13 +23,11 @@ export default async function saveSingleDoc({
       console.warn("Failed to shutdown mermaid worker pool:", error.message);
     }
 
-    const message = isTranslate
-      ? `✅ Translation completed successfully`
-      : `✅ Document updated successfully`;
+    const message = `✅ Translation completed successfully`;
     return { message };
   }
 
   return {};
 }
 
-saveSingleDoc.task_render_mode = "hide";
+saveDocTranslations.task_render_mode = "hide";

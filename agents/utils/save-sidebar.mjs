@@ -1,4 +1,4 @@
-import { writeFile } from "node:fs/promises";
+import fs from "fs-extra";
 import { join } from "node:path";
 
 export default async function saveSidebar({ documentStructure, docsDir }) {
@@ -6,10 +6,13 @@ export default async function saveSidebar({ documentStructure, docsDir }) {
   try {
     const sidebar = generateSidebar(documentStructure);
     const sidebarPath = join(docsDir, "_sidebar.md");
-    await writeFile(sidebarPath, sidebar, "utf8");
+
+    await fs.ensureDir(docsDir);
+    await fs.writeFile(sidebarPath, sidebar, "utf8");
   } catch (err) {
     console.error("Failed to save _sidebar.md:", err.message);
   }
+  return {};
 }
 
 // Recursively generate sidebar text, the link path is the flattened file name

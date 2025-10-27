@@ -81,58 +81,62 @@ export function processContent({ content }) {
   });
 }
 
+// Helper function to generate filename based on language
+const getFileName = (docPath, language) => {
+  // Flatten path: remove leading /, replace all / with -
+  const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
+  const isEnglish = language === "en";
+  return isEnglish ? `${flatName}.md` : `${flatName}.${language}.md`;
+};
+
 /**
- * Save a single document and its translations to files
+ * Save a single document to files
  * @param {Object} params
  * @param {string} params.path - Relative path (without extension)
  * @param {string} params.content - Main document content
  * @param {string} params.docsDir - Root directory
  * @param {string} params.locale - Main content language (e.g., 'en', 'zh', 'fr')
+ * @param {Array<string>} [params.labels] - Document labels for front matter
+ * @returns {Promise<{ path: string, success: boolean, error?: string }>}
+ */
+export async function saveDoc({ path: docPath, content, docsDir, locale, labels }) {
+  try {
+    await fs.mkdir(docsDir, { recursive: true });
+    const mainFileName = getFileName(docPath, locale);
+    const mainFilePath = path.join(docsDir, mainFileName);
+
+    // Add labels front matter if labels are provided
+    let finalContent = processContent({ content });
+
+    if (labels && labels.length > 0) {
+      const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
+      finalContent = frontMatter + finalContent;
+    }
+
+    await fs.writeFile(mainFilePath, finalContent, "utf8");
+    return { path: mainFilePath, success: true };
+  } catch (err) {
+    return { path: docPath, success: false, error: err.message };
+  }
+}
+
+/**
+ * Save a single document's translations to files
+ * @param {Object} params
+ * @param {string} params.path - Relative path (without extension)
+ * @param {string} params.docsDir - Root directory
  * @param {Array<{language: string, translation: string}>} [params.translates] - Translation content
  * @param {Array<string>} [params.labels] - Document labels for front matter
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-export async function saveDocWithTranslations({
-  path: docPath,
-  content,
-  docsDir,
-  locale,
-  translates = [],
-  labels,
-  isTranslate = false,
-}) {
+export async function saveDocTranslations({ path: docPath, docsDir, translates = [], labels }) {
   const results = [];
   try {
-    // Flatten path: remove leading /, replace all / with -
-    const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
     await fs.mkdir(docsDir, { recursive: true });
-
-    // Helper function to generate filename based on language
-    const getFileName = (language) => {
-      const isEnglish = language === "en";
-      return isEnglish ? `${flatName}.md` : `${flatName}.${language}.md`;
-    };
-
-    // Save main content with appropriate filename based on locale (skip if isTranslate is true)
-    if (!isTranslate) {
-      const mainFileName = getFileName(locale);
-      const mainFilePath = path.join(docsDir, mainFileName);
-
-      // Add labels front matter if labels are provided
-      let finalContent = processContent({ content });
-
-      if (labels && labels.length > 0) {
-        const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
-        finalContent = frontMatter + finalContent;
-      }
-
-      await fs.writeFile(mainFilePath, finalContent, "utf8");
-      results.push({ path: mainFilePath, success: true });
-    }
 
     // Process all translations
     for (const translate of translates) {
-      const translateFileName = getFileName(translate.language);
+      const translateFileName = getFileName(docPath, translate.language);
       const translatePath = path.join(docsDir, translateFileName);
 
       // Add labels front matter to translation content if labels are provided

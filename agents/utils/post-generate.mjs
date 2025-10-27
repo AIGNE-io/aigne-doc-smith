@@ -10,7 +10,7 @@ import { getCurrentGitHead, saveGitHeadToConfig } from "../../utils/utils.mjs";
  * @param {Array<string>} [params.translateLanguages] - Translation languages
  * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
  */
-export default async function saveDocs({
+export default async function postGenerate({
   documentExecutionStructure: documentStructure,
   docsDir,
   translateLanguages = [],

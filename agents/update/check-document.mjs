@@ -99,8 +99,9 @@ export default async function checkDocument(
     name: "generateDocument",
     skills: [
       options.context.agents["handleDocumentUpdate"],
+      options.context.agents["saveDoc"],
       options.context.agents["translateMultilingual"],
-      options.context.agents["saveSingleDoc"],
+      options.context.agents["saveDocTranslations"],
     ],
   });
   let openAPISpec = null;

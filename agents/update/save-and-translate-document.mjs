@@ -9,17 +9,26 @@ export default async function saveAndTranslateDocument(input, options) {
 
   // Saves a document with optional translation data
   const saveDocument = async (doc, translates = null, isTranslate = false) => {
-    const saveAgent = options.context.agents["saveSingleDoc"];
+    if (doc.content) {
+      const saveAgent = options.context.agents["saveDoc"];
+      await options.context.invoke(saveAgent, {
+        path: doc.path,
+        content: doc.content,
+        docsDir: docsDir,
+        locale: locale,
+        labels: doc.labels,
+      });
+    }
 
-    return await options.context.invoke(saveAgent, {
-      path: doc.path,
-      content: doc.content,
-      docsDir: docsDir,
-      locale: locale,
-      translates: translates || doc.translates,
-      labels: doc.labels,
-      isTranslate: isTranslate,
-    });
+    if (isTranslate) {
+      const saveTranslationsAgent = options.context.agents["saveDocTranslations"];
+      await options.context.invoke(saveTranslationsAgent, {
+        path: doc.path,
+        docsDir: docsDir,
+        translates: translates || doc.translates,
+        labels: doc.labels,
+      });
+    }
   };
 
   // Only prompt user if translation is actually needed

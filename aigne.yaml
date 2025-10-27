@@ -66,10 +66,11 @@ agents:
 
   # Utilities
   - ./agents/utils/load-sources.mjs
-  - ./agents/utils/save-docs.mjs
+  - ./agents/utils/post-generate.mjs
   - ./agents/utils/save-sidebar.mjs
   - ./agents/utils/transform-detail-datasources.mjs
-  - ./agents/utils/save-single-doc.mjs
+  - ./agents/utils/save-doc.mjs
+  - ./agents/utils/save-doc-translations.mjs
   - ./agents/utils/save-output.mjs
   - ./agents/utils/format-document-structure.mjs
   - ./agents/utils/find-item-by-path.mjs
