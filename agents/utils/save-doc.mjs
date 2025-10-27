@@ -1,3 +1,4 @@
+import { recordUpdate } from "../../utils/history-utils.mjs";
 import { shutdownMermaidWorkerPool } from "../../utils/mermaid-worker-pool.mjs";
 import { saveDoc as _saveDoc } from "../../utils/utils.mjs";
 
@@ -7,7 +8,9 @@ export default async function saveDoc({
   docsDir,
   labels,
   locale,
+  feedback,
   isShowMessage = false,
+  ...rest
 }) {
   await _saveDoc({
     path,
@@ -28,9 +31,23 @@ export default async function saveDoc({
     const message = `✅ Document updated successfully`;
     return { message };
   }
+  if (feedback?.trim()) {
+    recordUpdate({
+      operation: "document_update",
+      feedback: feedback.trim(),
+      documentPath: path,
+    });
+  }
 
   return {
+    path,
     content,
+    docsDir,
+    labels,
+    locale,
+    feedback,
+    isShowMessage,
+    ...rest
   };
 }
 

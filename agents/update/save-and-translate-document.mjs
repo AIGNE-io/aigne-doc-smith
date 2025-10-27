@@ -1,5 +1,3 @@
-import { recordUpdate } from "../../utils/history-utils.mjs";
-
 export default async function saveAndTranslateDocument(input, options) {
   const { selectedDocs, docsDir, translateLanguages, locale } = input;
 
@@ -7,29 +5,6 @@ export default async function saveAndTranslateDocument(input, options) {
     return {};
   }
 
-  // Saves a document with optional translation data
-  const saveDocument = async (doc, translates = null, isTranslate = false) => {
-    if (doc.content) {
-      const saveAgent = options.context.agents["saveDoc"];
-      await options.context.invoke(saveAgent, {
-        path: doc.path,
-        content: doc.content,
-        docsDir: docsDir,
-        locale: locale,
-        labels: doc.labels,
-      });
-    }
-
-    if (isTranslate) {
-      const saveTranslationsAgent = options.context.agents["saveDocTranslations"];
-      await options.context.invoke(saveTranslationsAgent, {
-        path: doc.path,
-        docsDir: docsDir,
-        translates: translates || doc.translates,
-        labels: doc.labels,
-      });
-    }
-  };
 
   // Only prompt user if translation is actually needed
   let shouldTranslate = false;
@@ -55,28 +30,6 @@ export default async function saveAndTranslateDocument(input, options) {
 
   // Save documents in batches
   const batchSize = 3;
-  for (let i = 0; i < selectedDocs.length; i += batchSize) {
-    const batch = selectedDocs.slice(i, i + batchSize);
-
-    const savePromises = batch.map(async (doc) => {
-      try {
-        await saveDocument(doc);
-
-        // Record history for each document if feedback is provided
-        if (doc.feedback?.trim()) {
-          recordUpdate({
-            operation: "document_update",
-            feedback: doc.feedback.trim(),
-            documentPath: doc.path,
-          });
-        }
-      } catch (error) {
-        console.error(`❌ Failed to save document ${doc.path}:`, error.message);
-      }
-    });
-
-    await Promise.all(savePromises);
-  }
 
   // Return results if user chose to skip translation
   if (!shouldTranslate) {
@@ -102,7 +55,13 @@ export default async function saveAndTranslateDocument(input, options) {
         });
 
         // Save the translated content
-        await saveDocument(doc, result.translates, true);
+        const saveTranslationsAgent = options.context.agents["saveDocTranslations"];
+        await options.context.invoke(saveTranslationsAgent, {
+          path: doc.path,
+          docsDir: docsDir,
+          translates: result.translates || doc.translates,
+          labels: doc.labels,
+        });
       } catch (error) {
         console.error(`❌ Failed to translate document ${doc.path}:`, error.message);
       }
