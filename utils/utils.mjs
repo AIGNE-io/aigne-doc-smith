@@ -158,6 +158,29 @@ export async function saveDocTranslations({ path: docPath, docsDir, translates =
   return results;
 }
 
+export async function saveDocTranlation({ path: docPath, docsDir, translation, language, labels }) {
+  try {
+    await fs.mkdir(docsDir, { recursive: true });
+    const translateFileName = getFileName(docPath, language);
+    const translatePath = path.join(docsDir, translateFileName);
+
+    // Add labels front matter to translation content if labels are provided
+    let finalTranslationContent = processContent({
+      content: translation,
+    });
+
+    if (labels && labels.length > 0) {
+      const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
+      finalTranslationContent = frontMatter + finalTranslationContent;
+    }
+
+    await fs.writeFile(translatePath, finalTranslationContent, "utf8");
+    return { path: translatePath, success: true };
+  } catch (err) {
+    return { path: docPath, success: false, error: err.message };
+  }
+}
+
 /**
  * Get current git HEAD commit hash
  * @returns {string} - The current git HEAD commit hash

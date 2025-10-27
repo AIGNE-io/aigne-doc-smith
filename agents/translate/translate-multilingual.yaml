@@ -22,6 +22,7 @@ skills:
       max_iterations: 5
       return_last_on_max_iterations: true
     task_title: Translate '{{ title }}' to '{{ language }}'
+  - ../utils/save-doc-translation.mjs
 input_schema:
   type: object
   properties:
@@ -48,4 +49,3 @@ output_schema:
             type: string
 iterate_on: translates
 concurrency: 3
-
