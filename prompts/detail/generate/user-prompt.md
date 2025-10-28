@@ -97,6 +97,7 @@ Generate detailed and well-structured document for the current {{nodeName}} base
 YOU SHOULD:
 - Use AFS tools `afs_list` `afs_search` or `afs_read` to gather relevant and accurate information to enhance the content.
 - Follow rules in `<diagram_generation_guide>`: use `generateDiagram` tool to create and embed a diagram when appropriate, following the diagram generation guidelines.
+- If the `generateDiagram` tool is not called, do not attempt to add any diagrams.
 
 <steps>
 1. Analyze the provided document structure and user requirements to plan the content.
