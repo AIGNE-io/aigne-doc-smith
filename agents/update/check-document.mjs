@@ -2,7 +2,10 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
+import fs from "fs-extra";
+import pMap from "p-map";
 
+import { getFileName } from "../../utils/utils.mjs";
 import checkDetailResult from "../utils/check-detail-result.mjs";
 
 // Get current script directory
@@ -18,13 +21,13 @@ export default async function checkDocument(
     modifiedFiles,
     forceRegenerate,
     locale,
+    translates,
     ...rest
   },
   options,
 ) {
   // Check if the detail file already exists
-  const flatName = path.replace(/^\//, "").replace(/\//g, "-");
-  const fileFullName = locale === "en" ? `${flatName}.md` : `${flatName}.${locale}.md`;
+  const fileFullName = getFileName(path, locale);
   const filePath = join(docsDir, fileFullName);
   let detailGenerated = true;
   let fileContent = null;
@@ -84,24 +87,42 @@ export default async function checkDocument(
       contentValidationFailed = true;
     }
   }
+  const languages = translates.map((x) => x.language);
+  const lackLanguages = new Set(languages);
+  const skills = [];
 
   // If file exists, sourceIds haven't changed, source files haven't changed, and content validation passes, no need to regenerate
   if (detailGenerated && !sourceIdsChanged && !contentValidationFailed && !forceRegenerate) {
-    return {
-      path,
-      docsDir,
-      ...rest,
-      detailGenerated: true,
-    };
+    await pMap(
+      languages,
+      async (x) => {
+        const languageFileName = getFileName(path, x);
+        const languageFilePath = join(docsDir, languageFileName);
+        if (await fs.exists(languageFilePath)) {
+          lackLanguages.delete(x);
+        }
+      },
+      { concurrency: 10 },
+    );
+    if (lackLanguages.size === 0) {
+      return {
+        path,
+        docsDir,
+        ...rest,
+        detailGenerated: true,
+      };
+    }
+    // translations during generation don't need feedback, content is satisfactory
+    rest.content = fileContent;
+  } else {
+    skills.push(options.context.agents["handleDocumentUpdate"]);
   }
+
+  skills.push(options.context.agents["translateMultilingual"]);
 
   const teamAgent = TeamAgent.from({
     name: "generateDocument",
-    skills: [
-      options.context.agents["handleDocumentUpdate"],
-      options.context.agents["translateMultilingual"],
-      options.context.agents["saveSingleDoc"],
-    ],
+    skills,
   });
   let openAPISpec = null;
 
@@ -119,6 +140,7 @@ export default async function checkDocument(
 
   const result = await options.context.invoke(teamAgent, {
     ...rest,
+    translates: translates.filter((x) => lackLanguages.has(x.language)),
     locale,
     docsDir,
     path,

@@ -23,6 +23,7 @@ skills:
       max_iterations: 5
       return_last_on_max_iterations: true
     task_title: Generate document for '{{ title }}'
+  - ../utils/save-doc.mjs
 input_schema:
   type: object
   properties:

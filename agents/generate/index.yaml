@@ -23,6 +23,7 @@ skills:
       savePath:
         $get: outputDir
       fileName: structure-plan.json
+  - ../utils/save-sidebar.mjs
   - type: transform
     name: transformData
     task_render_mode: hide
@@ -47,7 +48,7 @@ skills:
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: document_structure
-  - ../utils/save-docs.mjs
+  - ../utils/post-generate.mjs
 
 input_schema:
   type: object
