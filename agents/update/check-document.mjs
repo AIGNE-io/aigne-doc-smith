@@ -93,13 +93,17 @@ export default async function checkDocument(
 
   // If file exists, sourceIds haven't changed, source files haven't changed, and content validation passes, no need to regenerate
   if (detailGenerated && !sourceIdsChanged && !contentValidationFailed && !forceRegenerate) {
-    await pMap(languages, async (x) => {
-      const languageFileName = getFileName(path, x);
-      const languageFilePath = join(docsDir, languageFileName);
-      if (await fs.exists(languageFilePath)) {
-        lackLanguages.delete(x);
-      }
-    });
+    await pMap(
+      languages,
+      async (x) => {
+        const languageFileName = getFileName(path, x);
+        const languageFilePath = join(docsDir, languageFileName);
+        if (await fs.exists(languageFilePath)) {
+          lackLanguages.delete(x);
+        }
+      },
+      { concurrency: 10 },
+    );
     if (lackLanguages.size === 0) {
       return {
         path,
@@ -108,7 +112,7 @@ export default async function checkDocument(
         detailGenerated: true,
       };
     }
-    // translation in generate don't need feedback, content is satisfied
+    // translations during generation don't need feedback, content is satisfactory
     rest.content = fileContent;
   } else {
     skills.push(options.context.agents["handleDocumentUpdate"]);
