@@ -82,7 +82,7 @@ export function processContent({ content }) {
 }
 
 // Helper function to generate filename based on language
-const getFileName = (docPath, language) => {
+export function getFileName (docPath, language) {
   // Flatten path: remove leading /, replace all / with -
   const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
   const isEnglish = language === "en";
