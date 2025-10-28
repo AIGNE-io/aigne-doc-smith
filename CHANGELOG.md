@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.15-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.2...v0.8.15-beta.3) (2025-10-28)
+
+
+### Features
+
+* glossary support load from remote-url ([#220](https://github.com/AIGNE-io/aigne-doc-smith/issues/220)) ([5d52746](https://github.com/AIGNE-io/aigne-doc-smith/commit/5d527469819a4dc08f17338b1d1fb2cd7ccf07c0))
+
+
+### Bug Fixes
+
+* polish generate/update/translate save doc logic ([#218](https://github.com/AIGNE-io/aigne-doc-smith/issues/218)) ([dada1a4](https://github.com/AIGNE-io/aigne-doc-smith/commit/dada1a422d589512f2a0f6e5c69df4845eca44ae))
+
 ## [0.8.15-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.1...v0.8.15-beta.2) (2025-10-24)
 
 
