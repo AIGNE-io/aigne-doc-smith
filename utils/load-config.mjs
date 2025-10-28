@@ -28,7 +28,7 @@ export default async function loadConfig({ config, appUrl }) {
     }
 
     // Parse new configuration fields and convert keys to actual content
-    const processedConfig = processConfigFields(parsedConfig);
+    const processedConfig = await processConfigFields(parsedConfig);
 
     return {
       lastGitHead: parsedConfig.lastGitHead || "",

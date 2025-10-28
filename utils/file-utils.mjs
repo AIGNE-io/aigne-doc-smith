@@ -286,7 +286,7 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
         continue;
       }
 
-      if (checkIsRemoteFile(dir)) {
+      if (isRemoteFile(dir)) {
         allFiles.push(dir);
         continue;
       }
@@ -387,8 +387,8 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
  * @returns {Promise<boolean>} True if file appears to be a text file
  */
 async function isTextFile(filePath) {
-  if (checkIsRemoteFile(filePath)) {
-    return checkIsHttpTextFile(filePath);
+  if (isRemoteFile(filePath)) {
+    return isRemoteTextFile(filePath);
   }
 
   try {
@@ -400,14 +400,21 @@ async function isTextFile(filePath) {
   }
 }
 
-export function checkIsRemoteFile(filepath) {
-  if (filepath.startsWith("http://") || filepath.startsWith("https://")) {
+/**
+ * Check if a string is an HTTP/HTTPS URL
+ * @param {string} fileUrl - The string to check
+ * @returns {boolean} - True if the string starts with http:// or https://
+ */
+export function isRemoteFile(fileUrl) {
+  if (typeof fileUrl !== "string") return false;
+
+  if (fileUrl.startsWith("http://") || fileUrl.startsWith("https://")) {
     return true;
   }
   return false;
 }
 
-export async function checkIsHttpTextFile(fileUrl) {
+export async function isRemoteTextFile(fileUrl) {
   try {
     const res = await fetch(fileUrl, {
       method: "HEAD",
@@ -435,14 +442,14 @@ export async function checkIsHttpTextFile(fileUrl) {
   }
 }
 
-export async function getHttpFileContent(file) {
-  if (!file) return null;
+export async function getRemoteFileContent(fileUrl) {
+  if (!fileUrl) return null;
   try {
-    const res = await fetch(file);
+    const res = await fetch(fileUrl);
     const text = await res.text();
     return text;
   } catch (error) {
-    debug(`Failed to fetch HTTP file content: ${file} - ${error.message}`);
+    debug(`Failed to fetch HTTP file content: ${fileUrl} - ${error.message}`);
     return null;
   }
 }
@@ -469,8 +476,8 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
       }
 
       try {
-        if (checkIsRemoteFile(file)) {
-          const content = await getHttpFileContent(file);
+        if (isRemoteFile(file)) {
+          const content = await getRemoteFileContent(file);
           if (content) {
             return {
               sourceId: file,
