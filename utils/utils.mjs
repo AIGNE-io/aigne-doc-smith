@@ -48,7 +48,6 @@ export function isGlobPattern(pattern) {
   return /[*?[\]]|(\*\*)/.test(pattern);
 }
 
-
 export function processContent({ content }) {
   // Match markdown regular links [text](link), exclude images ![text](link)
   return content.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g, (match, text, link) => {

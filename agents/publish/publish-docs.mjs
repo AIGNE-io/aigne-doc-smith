@@ -14,11 +14,7 @@ import {
 } from "../../utils/constants/index.mjs";
 import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
-import {
-  getGithubRepoUrl,
-  loadConfigFromFile,
-  saveValueToConfig,
-} from "../../utils/utils.mjs";
+import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 import updateBranding from "../utils/update-branding.mjs";
 import { checkIsRemoteFile, downloadAndUploadImage } from "../../utils/file-utils.mjs";
 
