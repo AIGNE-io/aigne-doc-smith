@@ -1,11 +1,11 @@
 import fs from "node:fs";
-import { normalizePath, toRelativePath } from "../../utils/utils.mjs";
 import { checkIsRemoteFile } from "../../utils/file-utils.mjs";
+import { normalizePath, toRelativePath } from "../../utils/utils.mjs";
 
 export default function transformDetailDatasources({ sourceIds }, options = {}) {
   // Read file content for each sourceId, ignoring failures
   let openAPISpec;
-  const httpFileList = options?.context?.userContext?.httpFileList || [];
+  const remoteFileList = options?.context?.userContext?.remoteFileList || [];
   const contents = (sourceIds || [])
     .filter((id) => {
       const openApiSourceId = options?.context?.userContext?.openAPISpec?.sourceId;
@@ -18,7 +18,7 @@ export default function transformDetailDatasources({ sourceIds }, options = {}) 
     .map((id) => {
       try {
         if (checkIsRemoteFile(id)) {
-          const findFile = httpFileList.find((f) => f.sourceId === id);
+          const findFile = remoteFileList.find((f) => f.sourceId === id);
           if (findFile) {
             return `// sourceId: ${id}\n${findFile.content}\n`;
           }

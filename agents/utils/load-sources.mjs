@@ -214,15 +214,15 @@ export default async function loadSources(
     return !isOpenAPI;
   });
 
-  const httpFileList = [];
+  const remoteFileList = [];
 
   sourceFiles.forEach((file) => {
     if (checkIsRemoteFile(file.sourceId)) {
-      httpFileList.push(file);
+      remoteFileList.push(file);
     }
   });
   if (options?.context?.userContext) {
-    options.context.userContext.httpFileList = httpFileList;
+    options.context.userContext.remoteFileList = remoteFileList;
   }
 
   // Build allSources string using utility function

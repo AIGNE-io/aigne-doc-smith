@@ -18,6 +18,7 @@ import {
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
 } from "./constants/index.mjs";
+import { checkIsRemoteFile, getRemoteFileContent } from "./file-utils.mjs";
 
 /**
  * Normalize path to absolute path for consistent comparison
@@ -47,15 +48,6 @@ export function isGlobPattern(pattern) {
   return /[*?[\]]|(\*\*)/.test(pattern);
 }
 
-/**
- * Check if a string is an HTTP/HTTPS URL
- * @param {string} url - The string to check
- * @returns {boolean} - True if the string starts with http:// or https://
- */
-export function isHttp(url) {
-  if (typeof url !== "string") return false;
-  return url.startsWith("http://") || url.startsWith("https://");
-}
 
 export function processContent({ content }) {
   // Match markdown regular links [text](link), exclude images ![text](link)
@@ -996,7 +988,7 @@ export function processTargetAudience(targetAudienceTypes, existingTargetAudienc
  * @param {Object} config - Parsed configuration
  * @returns {Object} Processed configuration with content fields
  */
-export function processConfigFields(config) {
+export async function processConfigFields(config) {
   const processed = {};
   const allRulesContent = [];
 
@@ -1028,7 +1020,15 @@ export function processConfigFields(config) {
     if (typeof config.rules === "string") {
       const existingRules = config.rules.trim();
       if (existingRules) {
-        allRulesContent.push(existingRules);
+        // load rules from remote url
+        if (checkIsRemoteFile(existingRules)) {
+          const remoteFileContent = await getRemoteFileContent(existingRules);
+          if (remoteFileContent) {
+            allRulesContent.push(remoteFileContent);
+          }
+        } else {
+          allRulesContent.push(existingRules);
+        }
       }
     } else if (Array.isArray(config.rules)) {
       // Handle array of rules - join them with newlines
@@ -1087,6 +1087,12 @@ export function processConfigFields(config) {
     }
   }
 
+  if (config.glossary) {
+    if (checkIsRemoteFile(config.glossary)) {
+      processed.glossary = await getRemoteFileContent(config.glossary);
+    }
+  }
+
   // Detect and handle conflicts in user selections
   const conflicts = detectResolvableConflicts(config);
   if (conflicts.length > 0) {
@@ -1130,8 +1136,10 @@ export function processConfigFields(config) {
  * @returns {Promise<any>} - The processed configuration with file content loaded in place of references.
  */
 export async function resolveFileReferences(obj, basePath = process.cwd()) {
-  if (typeof obj === "string" && obj.startsWith("@")) {
-    return await loadFileContent(obj.slice(1), basePath);
+  if (typeof obj === "string") {
+    if (obj.startsWith("@")) {
+      return await loadFileContent(obj.slice(1), basePath);
+    }
   }
 
   if (Array.isArray(obj)) {
