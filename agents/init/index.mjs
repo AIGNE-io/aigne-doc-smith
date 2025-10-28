@@ -20,6 +20,7 @@ import {
   isGlobPattern,
   validatePath,
 } from "../../utils/utils.mjs";
+import { checkIsRemoteFile } from "../../utils/file-utils.mjs";
 
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
@@ -246,17 +247,23 @@ export default async function init(
   // 8. Content sources
   console.log("\n🔍 [8/9]: Content Sources");
   console.log(
-    "Please specify the folders and files we should analyze to generate your documentation (e.g., ./src, ./docs, ./README.md, https://example.com/openapi.yaml).",
+    "Please specify the folders and files we should analyze to generate your documentation.",
   );
   console.log(
-    "💡 You can also use glob patterns like src/**/*.js or docs/**/*.md for more specific file matching.",
+    `  1. You can use local file paths like ${chalk.green('./src')}, ${chalk.green('./docs')}, ${chalk.green('./README.md')} (prefix with '!' to ignore a file or folder like ${chalk.green('!./src/private')}).`,
+  );
+  console.log(
+    `  2. You can also use glob patterns like ${chalk.green('src/**/*.js')} or ${chalk.green('docs/**/*.md')} for more specific file matching. (prefix with '!' to ignore a file or folder like ${chalk.green('!private/**/*.js')}).`,
+  );
+  console.log(
+    `  3. You can also use remote url like ${chalk.green('https://example.com/openapi.yaml')}.`,
   );
   console.log("💡 If you leave this empty, we will scan the entire directory.");
 
   const sourcePaths = [];
   while (true) {
     const selectedPath = await options.prompts.search({
-      message: "Please enter a file or folder path, or a glob pattern:",
+      message: "Please enter a file or folder path, or a glob pattern or remote url:",
       source: async (input) => {
         if (!input || input.trim() === "") {
           return [
@@ -268,13 +275,23 @@ export default async function init(
           ];
         }
 
+        let isIgnore = false;
         const searchTerm = input.trim();
+        let cleanSearchTerm = searchTerm;
+        if (cleanSearchTerm.startsWith("!")) {
+          isIgnore = true;
+          cleanSearchTerm = searchTerm.slice(1);
+        }
 
         // Search for matching files and folders in current directory
-        const availablePaths = getAvailablePaths(searchTerm);
+        const availablePaths = getAvailablePaths(cleanSearchTerm);
 
         // Also add option to use as glob pattern
-        const options = [...availablePaths];
+        const options = [...availablePaths].map(x => ({
+          ...x,
+          name: isIgnore ? `!${x.name}` : x.name,
+          value: isIgnore ? `!${x.value}` : x.value,
+        }));
 
         // Check if input looks like a glob pattern
         const isGlobPatternResult = isGlobPattern(searchTerm);
@@ -284,6 +301,14 @@ export default async function init(
             name: searchTerm,
             value: searchTerm,
             description: "Use this glob pattern for file matching.",
+          });
+        }
+
+        if (!isIgnore && checkIsRemoteFile(searchTerm)) {
+          options.push({
+            name: searchTerm,
+            value: searchTerm,
+            description: "Use this remote url for content source.",
           });
         }
 
@@ -301,6 +326,14 @@ export default async function init(
     // Check if it's a glob pattern
     const isGlobPatternResult = isGlobPattern(trimmedPath);
 
+    if (checkIsRemoteFile(trimmedPath)) {
+      // For remote urls, just add them without validation
+      if (sourcePaths.includes(trimmedPath)) {
+        console.log(`⚠️ URL already exists: ${trimmedPath}`);
+        continue;
+      }
+      sourcePaths.push(trimmedPath);
+    }
     if (isGlobPatternResult) {
       // For glob patterns, just add them without validation
       if (sourcePaths.includes(trimmedPath)) {
@@ -309,8 +342,9 @@ export default async function init(
       }
       sourcePaths.push(trimmedPath);
     } else {
+      const cleanTrimmedPath = trimmedPath.startsWith("!") ? trimmedPath.slice(1) : trimmedPath;
       // Use validatePath to check if path is valid for regular paths
-      const validation = validatePath(trimmedPath);
+      const validation = validatePath(cleanTrimmedPath);
 
       if (!validation.isValid) {
         console.log(`⚠️ ${validation.error}`);
