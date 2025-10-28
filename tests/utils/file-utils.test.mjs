@@ -12,9 +12,9 @@ import {
   readFileContents,
   resolveToAbsolute,
   toDisplayPath,
-  checkIsRemoteFile,
-  checkIsHttpTextFile,
-  getHttpFileContent,
+  isRemoteFile,
+  isRemoteTextFile,
+  getRemoteFileContent,
 } from "../../utils/file-utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -549,19 +549,19 @@ temp*
       expect(sources).toContain("showing a sample of files");
     });
 
-    describe("checkIsRemoteFile", () => {
+    describe("isRemoteFile", () => {
       test("should detect http and https URLs", () => {
-        expect(checkIsRemoteFile("http://example.com/file.md")).toBe(true);
-        expect(checkIsRemoteFile("https://example.com/file.md")).toBe(true);
+        expect(isRemoteFile("http://example.com/file.md")).toBe(true);
+        expect(isRemoteFile("https://example.com/file.md")).toBe(true);
       });
 
       test("should return false for local paths", () => {
-        expect(checkIsRemoteFile("file.md")).toBe(false);
-        expect(checkIsRemoteFile("/absolute/path/file.md")).toBe(false);
+        expect(isRemoteFile("file.md")).toBe(false);
+        expect(isRemoteFile("/absolute/path/file.md")).toBe(false);
       });
     });
 
-    describe("checkIsHttpTextFile", () => {
+    describe("isRemoteTextFile", () => {
       test("should return true for text content types", async () => {
         const originalFetch = globalThis.fetch;
         globalThis.fetch = mock(async () => ({
@@ -576,7 +576,7 @@ temp*
         }));
 
         try {
-          const result = await checkIsHttpTextFile("https://example.com/file.txt");
+          const result = await isRemoteTextFile("https://example.com/file.txt");
           expect(result).toBe(true);
         } finally {
           globalThis.fetch = originalFetch;
@@ -594,7 +594,7 @@ temp*
         }));
 
         try {
-          const result = await checkIsHttpTextFile("https://example.com/image.png");
+          const result = await isRemoteTextFile("https://example.com/image.png");
           expect(result).toBe(false);
         } finally {
           globalThis.fetch = originalFetch;
@@ -608,7 +608,7 @@ temp*
         });
 
         try {
-          const result = await checkIsHttpTextFile("https://example.com/file.txt");
+          const result = await isRemoteTextFile("https://example.com/file.txt");
           expect(result).toBeNull();
         } finally {
           globalThis.fetch = originalFetch;
@@ -616,7 +616,7 @@ temp*
       });
     });
 
-    describe("getHttpFileContent", () => {
+    describe("getRemoteFileContent", () => {
       test("should return text content on success", async () => {
         const originalFetch = globalThis.fetch;
         globalThis.fetch = mock(async () => ({
@@ -626,7 +626,7 @@ temp*
         }));
 
         try {
-          const result = await getHttpFileContent("https://example.com/file.txt");
+          const result = await getRemoteFileContent("https://example.com/file.txt");
           expect(result).toBe("remote content");
         } finally {
           globalThis.fetch = originalFetch;
@@ -640,7 +640,7 @@ temp*
         });
 
         try {
-          const result = await getHttpFileContent("https://example.com/file.txt");
+          const result = await getRemoteFileContent("https://example.com/file.txt");
           expect(result).toBeNull();
         } finally {
           globalThis.fetch = originalFetch;
