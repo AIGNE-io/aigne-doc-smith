@@ -47,7 +47,7 @@ export default async function saveDoc({
     locale,
     feedback,
     isShowMessage,
-    ...rest
+    ...rest,
   };
 }
 

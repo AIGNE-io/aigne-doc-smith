@@ -82,12 +82,12 @@ export function processContent({ content }) {
 }
 
 // Helper function to generate filename based on language
-export function getFileName (docPath, language) {
+export function getFileName(docPath, language) {
   // Flatten path: remove leading /, replace all / with -
   const flatName = docPath.replace(/^\//, "").replace(/\//g, "-");
   const isEnglish = language === "en";
   return isEnglish ? `${flatName}.md` : `${flatName}.${language}.md`;
-};
+}
 
 /**
  * Save a single document to files

@@ -2,7 +2,7 @@ import { access, readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
-import fs from 'fs-extra';
+import fs from "fs-extra";
 
 import checkDetailResult from "../utils/check-detail-result.mjs";
 import { getFileName } from "../../utils/utils.mjs";
@@ -87,7 +87,7 @@ export default async function checkDocument(
       contentValidationFailed = true;
     }
   }
-  const languages = translates.map(x => x.language);
+  const languages = translates.map((x) => x.language);
   const lackLanguages = new Set(languages);
   const skills = [];
 
@@ -99,7 +99,7 @@ export default async function checkDocument(
       if (await fs.exists(languageFilePath)) {
         lackLanguages.delete(x);
       }
-    })
+    });
     if (lackLanguages.length === 0) {
       return {
         path,
@@ -136,7 +136,7 @@ export default async function checkDocument(
 
   const result = await options.context.invoke(teamAgent, {
     ...rest,
-    translates: translates.filter(x => lackLanguages.has(x.language)),
+    translates: translates.filter((x) => lackLanguages.has(x.language)),
     locale,
     docsDir,
     path,
