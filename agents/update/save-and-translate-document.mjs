@@ -1,10 +1,11 @@
+import pMap from "p-map";
+
 export default async function saveAndTranslateDocument(input, options) {
   const { selectedDocs, docsDir, translateLanguages, locale } = input;
 
   if (!Array.isArray(selectedDocs) || selectedDocs.length === 0) {
     return {};
   }
-
 
   // Only prompt user if translation is actually needed
   let shouldTranslate = false;
@@ -39,10 +40,9 @@ export default async function saveAndTranslateDocument(input, options) {
   // Translate documents in batches
   const translateAgent = options.context.agents["translateMultilingual"];
 
-  for (let i = 0; i < selectedDocs.length; i += batchSize) {
-    const batch = selectedDocs.slice(i, i + batchSize);
-
-    const translatePromises = batch.map(async (doc) => {
+  await pMap(
+    selectedDocs,
+    async (doc) => {
       try {
         // Clear feedback to ensure translation is not affected by update feedback
         doc.feedback = "";
@@ -65,10 +65,9 @@ export default async function saveAndTranslateDocument(input, options) {
       } catch (error) {
         console.error(`❌ Failed to translate document ${doc.path}:`, error.message);
       }
-    });
-
-    await Promise.all(translatePromises);
-  }
+    },
+    { concurrency: batchSize },
+  );
 
   return {};
 }
