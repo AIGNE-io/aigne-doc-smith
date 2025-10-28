@@ -1,6 +1,6 @@
 import { saveDocTranslation as _saveDocTranslation } from "../../utils/utils.mjs";
 
-export default async function saveDocTranslations({
+export default async function saveDocTranslation({
   path,
   docsDir,
   translation,
@@ -24,4 +24,4 @@ export default async function saveDocTranslations({
   return {};
 }
 
-saveDocTranslations.task_render_mode = "hide";
+saveDocTranslation.task_render_mode = "hide";

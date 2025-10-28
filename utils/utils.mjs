@@ -111,44 +111,6 @@ export async function saveDoc({ path: docPath, content, docsDir, locale, labels 
   }
 }
 
-/**
- * Save a single document's translations to files
- * @param {Object} params
- * @param {string} params.path - Relative path (without extension)
- * @param {string} params.docsDir - Root directory
- * @param {Array<{language: string, translation: string}>} [params.translates] - Translation content
- * @param {Array<string>} [params.labels] - Document labels for front matter
- * @returns {Promise<Array<{ path: string, success: boolean, error?: string }>>}
- */
-export async function saveDocTranslations({ path: docPath, docsDir, translates = [], labels }) {
-  const results = [];
-  try {
-    await fs.mkdir(docsDir, { recursive: true });
-
-    // Process all translations
-    for (const translate of translates) {
-      const translateFileName = getFileName(docPath, translate.language);
-      const translatePath = path.join(docsDir, translateFileName);
-
-      // Add labels front matter to translation content if labels are provided
-      let finalTranslationContent = processContent({
-        content: translate.translation,
-      });
-
-      if (labels && labels.length > 0) {
-        const frontMatter = `---\nlabels: ${JSON.stringify(labels)}\n---\n\n`;
-        finalTranslationContent = frontMatter + finalTranslationContent;
-      }
-
-      await fs.writeFile(translatePath, finalTranslationContent, "utf8");
-      results.push({ path: translatePath, success: true });
-    }
-  } catch (err) {
-    results.push({ path: docPath, success: false, error: err.message });
-  }
-  return results;
-}
-
 export async function saveDocTranslation({
   path: docPath,
   docsDir,

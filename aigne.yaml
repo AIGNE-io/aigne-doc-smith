@@ -71,7 +71,6 @@ agents:
   - ./agents/utils/transform-detail-datasources.mjs
   - ./agents/utils/save-doc.mjs
   - ./agents/utils/save-doc-translation.mjs
-  - ./agents/utils/save-doc-translations.mjs
   - ./agents/utils/save-output.mjs
   - ./agents/utils/format-document-structure.mjs
   - ./agents/utils/find-item-by-path.mjs
