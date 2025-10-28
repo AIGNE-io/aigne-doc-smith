@@ -18,7 +18,7 @@ import {
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
 } from "./constants/index.mjs";
-import { checkIsRemoteFile, getRemoteFileContent } from "./file-utils.mjs";
+import { isRemoteFile, getRemoteFileContent } from "./file-utils.mjs";
 
 /**
  * Normalize path to absolute path for consistent comparison
@@ -1020,7 +1020,7 @@ export async function processConfigFields(config) {
       const existingRules = config.rules.trim();
       if (existingRules) {
         // load rules from remote url
-        if (checkIsRemoteFile(existingRules)) {
+        if (isRemoteFile(existingRules)) {
           const remoteFileContent = await getRemoteFileContent(existingRules);
           if (remoteFileContent) {
             allRulesContent.push(remoteFileContent);
@@ -1087,7 +1087,7 @@ export async function processConfigFields(config) {
   }
 
   if (config.glossary) {
-    if (checkIsRemoteFile(config.glossary)) {
+    if (isRemoteFile(config.glossary)) {
       processed.glossary = await getRemoteFileContent(config.glossary);
     }
   }

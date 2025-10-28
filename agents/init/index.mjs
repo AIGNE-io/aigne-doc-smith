@@ -20,7 +20,7 @@ import {
   isGlobPattern,
   validatePath,
 } from "../../utils/utils.mjs";
-import { checkIsRemoteFile } from "../../utils/file-utils.mjs";
+import { isRemoteFile } from "../../utils/file-utils.mjs";
 
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
@@ -304,7 +304,7 @@ export default async function init(
           });
         }
 
-        if (!isIgnore && checkIsRemoteFile(searchTerm)) {
+        if (!isIgnore && isRemoteFile(searchTerm)) {
           options.push({
             name: searchTerm,
             value: searchTerm,
@@ -326,7 +326,7 @@ export default async function init(
     // Check if it's a glob pattern
     const isGlobPatternResult = isGlobPattern(trimmedPath);
 
-    if (checkIsRemoteFile(trimmedPath)) {
+    if (isRemoteFile(trimmedPath)) {
       // For remote urls, just add them without validation
       if (sourcePaths.includes(trimmedPath)) {
         console.log(`⚠️ URL already exists: ${trimmedPath}`);

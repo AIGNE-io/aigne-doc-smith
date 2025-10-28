@@ -8,7 +8,7 @@ import {
   loadFilesFromPaths,
   readFileContents,
   getMimeType,
-  checkIsRemoteFile,
+  isRemoteFile,
 } from "../../utils/file-utils.mjs";
 import {
   getCurrentGitHead,
@@ -144,7 +144,7 @@ export default async function loadSources(
     files.map(async (file) => {
       const ext = path.extname(file).toLowerCase();
 
-      if (mediaExtensions.includes(ext) && !checkIsRemoteFile(file)) {
+      if (mediaExtensions.includes(ext) && !isRemoteFile(file)) {
         // This is a media file
         const relativePath = path.relative(docsDir, file);
         const fileName = path.basename(file);
@@ -217,7 +217,7 @@ export default async function loadSources(
   const remoteFileList = [];
 
   sourceFiles.forEach((file) => {
-    if (checkIsRemoteFile(file.sourceId)) {
+    if (isRemoteFile(file.sourceId)) {
       remoteFileList.push(file);
     }
   });

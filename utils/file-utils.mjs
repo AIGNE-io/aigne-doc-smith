@@ -286,7 +286,7 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
         continue;
       }
 
-      if (checkIsRemoteFile(dir)) {
+      if (isRemoteFile(dir)) {
         allFiles.push(dir);
         continue;
       }
@@ -387,8 +387,8 @@ export async function loadFilesFromPaths(sourcesPath, options = {}) {
  * @returns {Promise<boolean>} True if file appears to be a text file
  */
 async function isTextFile(filePath) {
-  if (checkIsRemoteFile(filePath)) {
-    return checkIsRemoteTextFile(filePath);
+  if (isRemoteFile(filePath)) {
+    return isRemoteTextFile(filePath);
   }
 
   try {
@@ -405,7 +405,7 @@ async function isTextFile(filePath) {
  * @param {string} fileUrl - The string to check
  * @returns {boolean} - True if the string starts with http:// or https://
  */
-export function checkIsRemoteFile(fileUrl) {
+export function isRemoteFile(fileUrl) {
   if (typeof fileUrl !== "string") return false;
 
   if (fileUrl.startsWith("http://") || fileUrl.startsWith("https://")) {
@@ -414,7 +414,7 @@ export function checkIsRemoteFile(fileUrl) {
   return false;
 }
 
-export async function checkIsRemoteTextFile(fileUrl) {
+export async function isRemoteTextFile(fileUrl) {
   try {
     const res = await fetch(fileUrl, {
       method: "HEAD",
@@ -476,7 +476,7 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
       }
 
       try {
-        if (checkIsRemoteFile(file)) {
+        if (isRemoteFile(file)) {
           const content = await getRemoteFileContent(file);
           if (content) {
             return {
