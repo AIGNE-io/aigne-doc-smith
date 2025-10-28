@@ -47,20 +47,13 @@ export default async function saveAndTranslateDocument(input, options) {
         // Clear feedback to ensure translation is not affected by update feedback
         doc.feedback = "";
 
-        const result = await options.context.invoke(translateAgent, {
+        await options.context.invoke(translateAgent, {
           ...input, // context is required
           content: doc.content,
           translates: doc.translates,
           title: doc.title,
-        });
-
-        // Save the translated content
-        const saveTranslationsAgent = options.context.agents["saveDocTranslations"];
-        await options.context.invoke(saveTranslationsAgent, {
           path: doc.path,
-          docsDir: docsDir,
-          translates: result.translates || doc.translates,
-          labels: doc.labels,
+          docsDir,
         });
       } catch (error) {
         console.error(`❌ Failed to translate document ${doc.path}:`, error.message);
