@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.15-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.3...v0.8.15-beta.4) (2025-10-28)
+
+
+### Bug Fixes
+
+* fix update translate not working ([#221](https://github.com/AIGNE-io/aigne-doc-smith/issues/221)) ([95bc49e](https://github.com/AIGNE-io/aigne-doc-smith/commit/95bc49ec8b1e18fe20dd1360d9707afdd6629bad))
+
 ## [0.8.15-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.2...v0.8.15-beta.3) (2025-10-28)
 
 
