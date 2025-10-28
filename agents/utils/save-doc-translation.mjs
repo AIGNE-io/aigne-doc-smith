@@ -1,4 +1,4 @@
-import { saveDocTranlation as _saveDocTranlation } from "../../utils/utils.mjs";
+import { saveDocTranslation as _saveDocTranslation } from "../../utils/utils.mjs";
 
 export default async function saveDocTranslations({
   path,
@@ -8,7 +8,7 @@ export default async function saveDocTranslations({
   labels,
   isShowMessage = false,
 }) {
-  await _saveDocTranlation({
+  await _saveDocTranslation({
     path,
     docsDir,
     language,
@@ -17,7 +17,7 @@ export default async function saveDocTranslations({
   });
 
   if (isShowMessage) {
-    const message = `✅ Translation completed successfully`;
+    const message = `✅ Translation completed successfully.`;
     return { message };
   }
 

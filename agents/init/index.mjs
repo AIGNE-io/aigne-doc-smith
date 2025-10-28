@@ -246,7 +246,7 @@ export default async function init(
   // 8. Content sources
   console.log("\n🔍 [8/9]: Content Sources");
   console.log(
-    "Please specify the folders and files we should analyze to generate your documentation (e.g., ./src, ./docs, ./README.md).",
+    "Please specify the folders and files we should analyze to generate your documentation (e.g., ./src, ./docs, ./README.md, https://example.com/openapi.yaml).",
   );
   console.log(
     "💡 You can also use glob patterns like src/**/*.js or docs/**/*.md for more specific file matching.",

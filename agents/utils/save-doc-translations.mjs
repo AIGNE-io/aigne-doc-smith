@@ -23,7 +23,7 @@ export default async function saveDocTranslations({
       console.warn("Failed to shutdown mermaid worker pool:", error.message);
     }
 
-    const message = `✅ Translation completed successfully`;
+    const message = `✅ Translation completed successfully.`;
     return { message };
   }
 

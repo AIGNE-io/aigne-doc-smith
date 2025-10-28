@@ -20,6 +20,14 @@ export default async function saveDoc({
     locale,
   });
 
+  if (feedback?.trim()) {
+    recordUpdate({
+      operation: "document_update",
+      feedback: feedback.trim(),
+      documentPath: path,
+    });
+  }
+
   if (isShowMessage) {
     // Shutdown mermaid worker pool to ensure clean exit
     try {
@@ -28,15 +36,8 @@ export default async function saveDoc({
       console.warn("Failed to shutdown mermaid worker pool:", error.message);
     }
 
-    const message = `✅ Document updated successfully`;
+    const message = `✅ Document updated successfully.`;
     return { message };
-  }
-  if (feedback?.trim()) {
-    recordUpdate({
-      operation: "document_update",
-      feedback: feedback.trim(),
-      documentPath: path,
-    });
   }
 
   return {

@@ -70,6 +70,7 @@ agents:
   - ./agents/utils/save-sidebar.mjs
   - ./agents/utils/transform-detail-datasources.mjs
   - ./agents/utils/save-doc.mjs
+  - ./agents/utils/save-doc-translation.mjs
   - ./agents/utils/save-doc-translations.mjs
   - ./agents/utils/save-output.mjs
   - ./agents/utils/format-document-structure.mjs

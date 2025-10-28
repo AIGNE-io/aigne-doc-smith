@@ -1,5 +1,5 @@
-import fs from "fs-extra";
 import { join } from "node:path";
+import fs from "fs-extra";
 
 export default async function saveSidebar({ documentStructure, docsDir }) {
   // Generate _sidebar.md

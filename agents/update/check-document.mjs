@@ -3,10 +3,10 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TeamAgent } from "@aigne/core";
 import fs from "fs-extra";
-
-import checkDetailResult from "../utils/check-detail-result.mjs";
-import { getFileName } from "../../utils/utils.mjs";
 import pMap from "p-map";
+
+import { getFileName } from "../../utils/utils.mjs";
+import checkDetailResult from "../utils/check-detail-result.mjs";
 
 // Get current script directory
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -100,7 +100,7 @@ export default async function checkDocument(
         lackLanguages.delete(x);
       }
     });
-    if (lackLanguages.length === 0) {
+    if (lackLanguages.size === 0) {
       return {
         path,
         docsDir,

@@ -158,7 +158,13 @@ export async function saveDocTranslations({ path: docPath, docsDir, translates =
   return results;
 }
 
-export async function saveDocTranlation({ path: docPath, docsDir, translation, language, labels }) {
+export async function saveDocTranslation({
+  path: docPath,
+  docsDir,
+  translation,
+  language,
+  labels,
+}) {
   try {
     await fs.mkdir(docsDir, { recursive: true });
     const translateFileName = getFileName(docPath, language);
