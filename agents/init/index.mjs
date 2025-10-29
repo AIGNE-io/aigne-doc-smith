@@ -245,25 +245,21 @@ export default async function init(
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
 
   // 8. Content sources
-  console.log("\n🔍 [8/9]: Content Sources");
+  console.log("\n🔍 [8/9]: Data Sources");
+  console.log("Please specify the data source we should analyze to generate your documentation.");
   console.log(
-    "Please specify the folders and files we should analyze to generate your documentation.",
+    `  1. Use paths like ${chalk.green("./src")}, ${chalk.green("./README.md")} or ${chalk.green("!./src/private")}.`,
   );
   console.log(
-    `  1. You can use local file paths like ${chalk.green("./src")}, ${chalk.green("./docs")}, ${chalk.green("./README.md")} (prefix with '!' to ignore a file or folder like ${chalk.green("!./src/private")}).`,
+    `  2. Use globs like ${chalk.green("src/**/*.js")} or ${chalk.green("!private/**/*.js")} for more specific file matching.`,
   );
-  console.log(
-    `  2. You can also use glob patterns like ${chalk.green("src/**/*.js")} or ${chalk.green("docs/**/*.md")} for more specific file matching. (prefix with '!' to ignore a file or folder like ${chalk.green("!private/**/*.js")}).`,
-  );
-  console.log(
-    `  3. You can also use remote url like ${chalk.green("https://example.com/openapi.yaml")}.`,
-  );
+  console.log(`  3. Use URLs like ${chalk.green("https://example.com/openapi.yaml")}.`);
   console.log("💡 If you leave this empty, we will scan the entire directory.");
 
   const sourcePaths = [];
   while (true) {
     const selectedPath = await options.prompts.search({
-      message: "Please enter a file or folder path, or a glob pattern or remote url:",
+      message: "Please enter a valid data source:",
       source: async (input) => {
         if (!input || input.trim() === "") {
           return [
