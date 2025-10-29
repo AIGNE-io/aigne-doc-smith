@@ -3,7 +3,7 @@ import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import { getProjectInfo, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 
 export default async function checkNeedGenerateStructure(
-  { originalDocumentStructure, forceRegenerate, isLargeContext, ...rest },
+  { originalDocumentStructure, forceRegenerate, ...rest },
   options,
 ) {
   // Check if originalDocumentStructure is empty and prompt user
@@ -53,11 +53,7 @@ export default async function checkNeedGenerateStructure(
     };
   }
 
-  // Performance optimization: Using both structured output and tools with the Gemini model can cause redundant calls.
-  // Only use tools when the context is very large.
-  const generateStructureAgent = isLargeContext
-    ? options.context.agents["generateStructure"]
-    : options.context.agents["generateStructureWithoutTools"];
+  const generateStructureAgent = options.context.agents["generateStructure"];
 
   const structureRules = getActiveRulesForScope("structure", []);
   const globalRules = getActiveRulesForScope("global", []);
@@ -72,7 +68,6 @@ export default async function checkNeedGenerateStructure(
     originalDocumentStructure,
     userPreferences,
     feedback: finalFeedback || "",
-    isLargeContext,
   });
 
   let message = "";

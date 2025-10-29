@@ -6,15 +6,15 @@ import {
   buildSourcesContent,
   calculateFileStats,
   getFilesWithGlob,
+  getRemoteFileContent,
+  isRemoteFile,
+  isRemoteTextFile,
   loadFilesFromPaths,
   loadGitignore,
   pathExists,
   readFileContents,
   resolveToAbsolute,
   toDisplayPath,
-  isRemoteFile,
-  isRemoteTextFile,
-  getRemoteFileContent,
 } from "../../utils/file-utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -493,27 +493,12 @@ temp*
         { sourceId: "file2.js", content: "const y = 2;" },
       ];
 
-      const sources = buildSourcesContent(sourceFiles, false);
+      const sources = buildSourcesContent(sourceFiles);
 
       expect(sources).toContain("// sourceId: file1.js");
       expect(sources).toContain("const x = 1;");
       expect(sources).toContain("// sourceId: file2.js");
       expect(sources).toContain("const y = 2;");
-      expect(sources).not.toContain("Note: Context is large");
-    });
-
-    test("should filter core files for large context", () => {
-      const sourceFiles = [
-        { sourceId: "package.json", content: '{"name": "test"}' },
-        { sourceId: "README.md", content: "# Test" },
-        { sourceId: "random.js", content: "const x = 1;" },
-      ];
-
-      const sources = buildSourcesContent(sourceFiles, true);
-
-      expect(sources).toContain("Note: Context is large");
-      expect(sources).toContain("package.json");
-      expect(sources).toContain("README.md");
     });
 
     test("should include core files matching patterns", () => {
@@ -524,7 +509,7 @@ temp*
         { sourceId: "api/routes.js", content: "// routes" },
       ];
 
-      const sources = buildSourcesContent(sourceFiles, true);
+      const sources = buildSourcesContent(sourceFiles);
 
       expect(sources).toContain("index.js");
       expect(sources).toContain("main.ts");
@@ -533,119 +518,107 @@ temp*
     });
 
     test("should handle empty sourceFiles array", () => {
-      const sources = buildSourcesContent([], false);
+      const sources = buildSourcesContent([]);
       expect(sources).toBe("");
     });
+  });
 
-    test("should use all files as fallback when no core files in large context", () => {
-      const sourceFiles = [
-        { sourceId: "random1.xyz", content: "test1" },
-        { sourceId: "random2.xyz", content: "test2" },
-      ];
-
-      const sources = buildSourcesContent(sourceFiles, true);
-
-      expect(sources).toContain("Note: Context is large");
-      expect(sources).toContain("showing a sample of files");
+  describe("isRemoteFile", () => {
+    test("should detect http and https URLs", () => {
+      expect(isRemoteFile("http://example.com/file.md")).toBe(true);
+      expect(isRemoteFile("https://example.com/file.md")).toBe(true);
     });
 
-    describe("isRemoteFile", () => {
-      test("should detect http and https URLs", () => {
-        expect(isRemoteFile("http://example.com/file.md")).toBe(true);
-        expect(isRemoteFile("https://example.com/file.md")).toBe(true);
-      });
+    test("should return false for local paths", () => {
+      expect(isRemoteFile("file.md")).toBe(false);
+      expect(isRemoteFile("/absolute/path/file.md")).toBe(false);
+    });
+  });
 
-      test("should return false for local paths", () => {
-        expect(isRemoteFile("file.md")).toBe(false);
-        expect(isRemoteFile("/absolute/path/file.md")).toBe(false);
-      });
+  describe("isRemoteTextFile", () => {
+    test("should return true for text content types", async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = mock(async () => ({
+        headers: {
+          get(key) {
+            if (key === "content-type") {
+              return "text/plain";
+            }
+            return null;
+          },
+        },
+      }));
+
+      try {
+        const result = await isRemoteTextFile("https://example.com/file.txt");
+        expect(result).toBe(true);
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
     });
 
-    describe("isRemoteTextFile", () => {
-      test("should return true for text content types", async () => {
-        const originalFetch = globalThis.fetch;
-        globalThis.fetch = mock(async () => ({
-          headers: {
-            get(key) {
-              if (key === "content-type") {
-                return "text/plain";
-              }
-              return null;
-            },
+    test("should return false for binary content types", async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = mock(async () => ({
+        headers: {
+          get() {
+            return "application/octet-stream";
           },
-        }));
+        },
+      }));
 
-        try {
-          const result = await isRemoteTextFile("https://example.com/file.txt");
-          expect(result).toBe(true);
-        } finally {
-          globalThis.fetch = originalFetch;
-        }
-      });
-
-      test("should return false for binary content types", async () => {
-        const originalFetch = globalThis.fetch;
-        globalThis.fetch = mock(async () => ({
-          headers: {
-            get() {
-              return "application/octet-stream";
-            },
-          },
-        }));
-
-        try {
-          const result = await isRemoteTextFile("https://example.com/image.png");
-          expect(result).toBe(false);
-        } finally {
-          globalThis.fetch = originalFetch;
-        }
-      });
-
-      test("should return null when request fails", async () => {
-        const originalFetch = globalThis.fetch;
-        globalThis.fetch = mock(async () => {
-          throw new Error("network error");
-        });
-
-        try {
-          const result = await isRemoteTextFile("https://example.com/file.txt");
-          expect(result).toBeNull();
-        } finally {
-          globalThis.fetch = originalFetch;
-        }
-      });
+      try {
+        const result = await isRemoteTextFile("https://example.com/image.png");
+        expect(result).toBe(false);
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
     });
 
-    describe("getRemoteFileContent", () => {
-      test("should return text content on success", async () => {
-        const originalFetch = globalThis.fetch;
-        globalThis.fetch = mock(async () => ({
-          async text() {
-            return "remote content";
-          },
-        }));
-
-        try {
-          const result = await getRemoteFileContent("https://example.com/file.txt");
-          expect(result).toBe("remote content");
-        } finally {
-          globalThis.fetch = originalFetch;
-        }
+    test("should return null when request fails", async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = mock(async () => {
+        throw new Error("network error");
       });
 
-      test("should return null when fetch fails", async () => {
-        const originalFetch = globalThis.fetch;
-        globalThis.fetch = mock(async () => {
-          throw new Error("fetch failed");
-        });
+      try {
+        const result = await isRemoteTextFile("https://example.com/file.txt");
+        expect(result).toBeNull();
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
+  });
 
-        try {
-          const result = await getRemoteFileContent("https://example.com/file.txt");
-          expect(result).toBeNull();
-        } finally {
-          globalThis.fetch = originalFetch;
-        }
+  describe("getRemoteFileContent", () => {
+    test("should return text content on success", async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = mock(async () => ({
+        async text() {
+          return "remote content";
+        },
+      }));
+
+      try {
+        const result = await getRemoteFileContent("https://example.com/file.txt");
+        expect(result).toBe("remote content");
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
+
+    test("should return null when fetch fails", async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = mock(async () => {
+        throw new Error("fetch failed");
       });
+
+      try {
+        const result = await getRemoteFileContent("https://example.com/file.txt");
+        expect(result).toBeNull();
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
     });
   });
 });

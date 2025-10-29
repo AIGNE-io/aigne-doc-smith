@@ -1,68 +1,151 @@
+type: team
 name: generateStructure
 description: Generate the structure and organization of your documentation
-instructions:
-  - role: system
-    url: ../../prompts/structure/generate/system-prompt.md
-  - role: user
-    url: ../../prompts/structure/generate/user-prompt.md
 skills:
-  - ./document-structure-tools/generate-sub-structure.mjs
-task_render_mode: collapse
-task_title: Generate the structure of the documentation
-tool_calls_concurrency: 5
-input_schema:
-  type: object
-  properties:
-    rules:
-      type: string
-      description: Your specific requirements for documentation structure
-    locale:
-      type: string
-      description: Primary language for documentation (e.g., zh, en, ja)
-    datasources:
-      type: string
-      description: Project content and context to help generate documentation structure
-    targetAudience:
-      type: string
-      description: Target audience for the documentation
-    nodeName:
-      type: string
-      description: Specific section or page name to focus on
-    glossary:
-      type: string
-      description: Glossary for consistent terminology
-    feedback:
-      type: string
-      description: Tell us how to improve the documentation structure
-    userPreferences:
-      type: string
-      description: Your saved preferences for structure and documentation style
-    docsType:
-      type: string
-      description: "Documentation type (options: general, getting-started, reference, faq)"
-      default: general
-  required:
-    - rules
-    - datasources
-output_schema:
-  type: object
-  properties:
-    projectName:
-      type: string
-      description: Project name identified from your content sources
-    projectDesc:
-      type: string
-      description: Brief project description generated from content analysis (under 50 words)
-    documentStructure: ../schema/document-structure.yaml
-    documentStructureTree:
-      type: string
-      description: |
-        Visual tree structure showing documentation hierarchy with indented levels for easy review:
-        ```
-        - Home
-          - Getting Started
-            - Installation
-              - Requirements
-        ```
-  required:
-    - documentStructure
+  - type: team
+    name: generateStructureWorker
+    iterate_on: datasources
+    skills:
+      - type: ai
+        instructions:
+          - role: system
+            url: ../../prompts/structure/generate/system-prompt.md
+          - role: user
+            url: ../../prompts/structure/generate/user-prompt.md
+        task_render_mode: collapse
+        task_title: Generate the structure of the documentation
+        tool_calls_concurrency: 5
+        input_schema:
+          type: object
+          properties:
+            rules:
+              type: string
+              description: Your specific requirements for documentation structure
+            locale:
+              type: string
+              description: Primary language for documentation (e.g., zh, en, ja)
+            datasources:
+              type: string
+              description: Project content and context to help generate documentation structure
+            targetAudience:
+              type: string
+              description: Target audience for the documentation
+            nodeName:
+              type: string
+              description: Specific section or page name to focus on
+            glossary:
+              type: string
+              description: Glossary for consistent terminology
+            feedback:
+              type: string
+              description: Tell us how to improve the documentation structure
+            userPreferences:
+              type: string
+              description: Your saved preferences for structure and documentation style
+            docsType:
+              type: string
+              description: "Documentation type (options: general, getting-started, reference, faq)"
+              default: general
+          required:
+            - rules
+            - datasources
+        output_schema:
+          type: object
+          properties:
+            projectName:
+              type: string
+              description: Project name identified from your content sources
+            projectDesc:
+              type: string
+              description: Brief project description generated from content analysis (under 50 words)
+            # documentStructure: ../schema/document-structure.yaml
+            add:
+              type: array
+              description: List of document structure items to add, null or empty array means no addition
+              items:
+                type: object
+                properties:
+                  index:
+                    type: integer
+                    description: Position to insert the new item, null means append to the end
+                  item: ../schema/document-structure-item.yaml
+                required:
+                  - item
+            update:
+              type: array
+              description: List of document structure items to update, replace the item with the same path, null or empty array means no update
+              items:
+                type: object
+                properties:
+                  path:
+                    type: string
+                    description: Path of the document structure item to update or replace
+                  item: ../schema/document-structure-item.yaml
+                required:
+                  - path
+                  - item
+            delete:
+              type: array
+              description: List of document structure items to delete by path, null or empty array means no deletion
+              items:
+                type: object
+                properties:
+                  path:
+                    type: string
+                required:
+                  - path
+      - type: function
+        name: mergeDocumentStructures
+        process: |
+          if (input.projectName) {
+            options.context.userContext.projectName = input.projectName
+          }
+          if (input.projectDesc) {
+            options.context.userContext.projectDesc = input.projectDesc
+          }
+
+          input.projectName = options.context.userContext.projectName
+          input.projectDesc = options.context.userContext.projectDesc
+
+          options.context.userContext.originalDocumentStructure ??= []
+
+          const structure = options.context.userContext.originalDocumentStructure
+
+          if (input.add) {
+            for (const { index, item } of input.add) {
+              if (index != null && index >= 0 && index < structure.length) {
+                structure.splice(index, 0, item)
+              } else {
+                structure.push(item)
+              }
+            }
+          }
+
+          if (input.update) {
+            for (const upd of input.update) {
+              const idx = structure.findIndex(i => i.path === upd.path)
+              if (idx !== -1) {
+                structure[idx] = upd.item
+              }
+            }
+          }
+
+          if (input.delete) {
+            for (const del of input.delete) {
+              const idx = structure.findIndex(i => i.path === del.path)
+              if (idx !== -1) {
+                structure.splice(idx, 1)
+              }
+            }
+          }
+
+          return {}
+  - type: function
+    name: finalizeDocumentStructure
+    process: |
+      // Final processing of the document structure if needed
+      return {
+        projectName: options.context.userContext.projectName,
+        projectDesc: options.context.userContext.projectDesc,
+        documentStructure: options.context.userContext.originalDocumentStructure
+      }

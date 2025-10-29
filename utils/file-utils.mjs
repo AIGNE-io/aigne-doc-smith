@@ -11,8 +11,8 @@ import { gunzipSync } from "node:zlib";
 
 import { debug } from "./debug.mjs";
 import { isGlobPattern } from "./utils.mjs";
-import { INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD } from "./constants/index.mjs";
 import { uploadFiles } from "./upload-files.mjs";
+import { extractApi } from "./extract-api.mjs";
 
 /**
  * Check if a directory is inside a git repository using git command
@@ -487,7 +487,9 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
 
           return null;
         } else {
-          const content = await readFile(file, "utf8");
+          const content = await extractApi(file);
+          if (!content) return null;
+
           const relativePath = path.relative(baseDir, file);
           return {
             sourceId: relativePath,
@@ -504,6 +506,11 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
 
   // Filter out null results
   return results.filter((result) => result !== null);
+}
+
+export function calculateTokens(text) {
+  const tokens = encode(text);
+  return tokens.length;
 }
 
 /**
@@ -531,97 +538,17 @@ export function calculateFileStats(sourceFiles) {
 }
 
 /**
- * Build sources content string based on context size
- * For large contexts, only include core project files to avoid token limit issues
+ * Build sources content string
  * @param {Array<{sourceId: string, content: string}>} sourceFiles - Array of source file objects
- * @param {boolean} isLargeContext - Whether the context is large
  * @returns {string} Concatenated sources content with sourceId comments
  */
-export function buildSourcesContent(sourceFiles, isLargeContext = false) {
-  // Define core file patterns that represent project structure and key information
-  const coreFilePatterns = [
-    // Configuration files
-    /package\.json$/,
-    /tsconfig\.json$/,
-    /jsconfig\.json$/,
-    /\.env\.example$/,
-    /Cargo\.toml$/,
-    /go\.mod$/,
-    /pom\.xml$/,
-    /build\.gradle$/,
-    /Gemfile$/,
-    /requirements\.txt$/,
-    /Pipfile$/,
-    /composer\.json$/,
-    /pyproject\.toml$/,
-
-    // Documentation
-    /README\.md$/i,
-    /CHANGELOG\.md$/i,
-    /CONTRIBUTING\.md$/i,
-    /\.github\/.*\.md$/i,
-
-    // Entry points and main files
-    /index\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
-    /main\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
-    /app\.(js|ts|jsx|tsx|py)$/,
-    /server\.(js|ts|jsx|tsx|py)$/,
-
-    // API definitions
-    /api\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
-    /routes\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
-    /controllers\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
-
-    // Type definitions and schemas
-    /types\.(ts|d\.ts)$/,
-    /schema\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
-    /.*\.d\.ts$/,
-
-    // Core utilities
-    /utils\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
-    /lib\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
-    /helpers\/.*\.(js|ts|jsx|tsx|py|go|rs|java|rb|php)$/,
-  ];
-
-  // Function to check if a file is a core file
-  const isCoreFile = (filePath) => {
-    return coreFilePatterns.some((pattern) => pattern.test(filePath));
-  };
-
+export function buildSourcesContent(sourceFiles) {
   // Build sources string
   let allSources = "";
 
-  if (isLargeContext) {
-    // Only include core files for large contexts
-    const coreFiles = sourceFiles.filter((source) => isCoreFile(source.sourceId));
-
-    // Determine which files to use and set appropriate message
-    const filesToInclude = coreFiles.length > 0 ? coreFiles : sourceFiles;
-    const noteMessage =
-      coreFiles.length > 0
-        ? "// Note: Context is large, showing only core project files.\n"
-        : "// Note: Context is large, showing a sample of files.\n";
-
-    allSources += noteMessage;
-    let accumulatedTokens = 0;
-
-    for (const source of filesToInclude) {
-      const fileContent = `// sourceId: ${source.sourceId}\n${source.content}\n`;
-      const fileTokens = encode(fileContent);
-
-      // Check if adding this file would exceed the token limit
-      if (accumulatedTokens + fileTokens.length > INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD) {
-        break;
-      }
-
-      allSources += fileContent;
-      accumulatedTokens += fileTokens.length;
-    }
-  } else {
-    // Include all files for normal contexts
-    for (const source of sourceFiles) {
-      allSources += `// sourceId: ${source.sourceId}\n${source.content}\n`;
-    }
+  // Include all files for normal contexts
+  for (const source of sourceFiles) {
+    allSources += `\n// sourceId: ${source.sourceId}\n${source.content}\n`;
   }
 
   return allSources;
