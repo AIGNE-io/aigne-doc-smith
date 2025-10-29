@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.15-beta.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.4...v0.8.15-beta.5) (2025-10-29)
+
+
+### Bug Fixes
+
+* simplify data source input and select tips ([#223](https://github.com/AIGNE-io/aigne-doc-smith/issues/223)) ([069928b](https://github.com/AIGNE-io/aigne-doc-smith/commit/069928bce2b4a70ee5a0444ecff34501e1158e5c))
+
 ## [0.8.15-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.3...v0.8.15-beta.4) (2025-10-28)
 
 
