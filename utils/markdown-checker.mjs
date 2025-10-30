@@ -3,12 +3,13 @@ import path from "node:path";
 import remarkGfm from "remark-gfm";
 import remarkLint from "remark-lint";
 import remarkParse from "remark-parse";
+import { isRelative } from "ufo";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 import { VFile } from "vfile";
-import { validateMermaidSyntax } from "./mermaid-validator.mjs";
-import { isRelative } from "ufo";
+
 import { isRemoteFile, isRemoteFileAvailable } from "./file-utils.mjs";
+import { validateMermaidSyntax } from "./mermaid-validator.mjs";
 
 /**
  * Parse table row and count actual columns
