@@ -3,6 +3,7 @@ The following formats are considered Code Blocks:
 
 - Wrapped with ```
 - Supports configurations: language, title, icon, where title and icon are optional
+- title may contain spaces but must never be wrapped in quotes
 - content can be code, command line examples, text or any other content
 
 <code_block_sample>
