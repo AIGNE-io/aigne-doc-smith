@@ -400,9 +400,10 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
     // 2. Check local images existence
     checkLocalImages(markdown, source, errorMessages, filePath, baseDir);
 
+    // 3. Check remote images existence
     await checkRemoteImages(markdown, source, errorMessages);
 
-    // 3. Check content structure and formatting issues
+    // 4. Check content structure and formatting issues
     checkContentStructure(markdown, source, errorMessages);
 
     // Check mermaid code blocks and other custom validations

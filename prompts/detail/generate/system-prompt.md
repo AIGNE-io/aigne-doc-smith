@@ -45,6 +45,8 @@ Custom code block generation rules:
 
 {% include "../d2-diagram/guide.md" %}
 
+{% include "../../common/document/media-file-list-usage-rules.md" %}
+
 Tool result usage rules:
 - Only use the `"role": "tool"` result as the datasource for document enhancement.
 - Do not include `"role": "agent"` content in the final output.

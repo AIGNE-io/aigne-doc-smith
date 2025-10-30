@@ -163,10 +163,19 @@ export default async function loadMediaDescription(input, options) {
   let enhancedAssetsContent = "# Available Media Assets for Documentation\n\n";
 
   if (mediaFiles.length > 0) {
-    enhancedAssetsContent += "```yaml\n";
-    enhancedAssetsContent += stringify({ assets: mediaFiles });
-
-    enhancedAssetsContent += "```\n";
+    const assets = mediaFiles.map(x => {
+      const mediaHash = mediaHashMap.get(x.path);
+      const description = cache[mediaHash]?.description;
+      const result = {
+        name: x.name,
+        path: x.path,
+      };
+      if (description) {
+        result.description = description;
+      }
+      return result;
+    });
+    enhancedAssetsContent += stringify(assets);
   }
 
   return {
