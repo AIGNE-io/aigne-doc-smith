@@ -1,9 +1,3 @@
-
-{% include "../../common/document-structure/user-locale-rules.md" %}
-
-{% include "../../common/document-structure/user-preferences.md" %}
-
-
 <datasources>
 Following are the partial or complete data sources provided by the user to help you design the document structure. Use these data sources to inform your structural planning.
 
@@ -52,7 +46,7 @@ projectDesc: |
   {{projectDesc}}
 
 {% if originalDocumentStructure %}
-{{ originalDocumentStructure }}
+{{ originalDocumentStructure | yaml.stringify }}
 {% else %}
 No previous document structure provided. generate a new structure based on the data sources!
 {% endif %}
@@ -60,16 +54,16 @@ No previous document structure provided. generate a new structure based on the d
 </last_document_structure>
 
 
-{#
-TODO: Use following rules for update workflow
+{% include "../../common/document-structure/user-locale-rules.md" %}
+
+{% include "../../common/document-structure/user-preferences.md" %}
+
 <last_document_structure_rule>
 If a previous structural plan (last_document_structure) is provided, follow these rules:
   1.  **Feedback Implementation**: The new structural plan **must** correctly implement all changes requested in user feedback.
   2.  **Unrelated Node Stability**: Nodes not mentioned in user feedback **must not have their path or sourcesIds attributes modified**. `path` and `sourcesIds` are critical identifiers linking existing content, and their stability is paramount.
     Ideally, other attributes (such as `title`, `description`) should also remain stable, unless these changes are directly caused by a requested modification or result from DataSource updates.
 </last_document_structure_rule>
-#}
-
 
 {% if documentStructure %}
 <review_document_structure>
@@ -128,7 +122,7 @@ Sub-structures must meet the following requirements:
 - **update**：需要修改的结构项（数组），每个项为一个对象，包含：
   - `path`: 指向被更新节点的路径；
   - `update`: 新的结构定义
-- **delete**：需要删除的结构项（数组），每个项包含：
+- **delete**：需要删除的结构项（数组），除非必要，否则请保持为空，避免删除其他数据源对应的文档。每个项为一个对象，包含：
   - `path`: 指向要删除节点的路径。
 
 ## 行为准则（Behavior Rules）
@@ -146,6 +140,7 @@ Sub-structures must meet the following requirements:
    - 若新内容补充了现有章节的细节，使用 `update`。
    - 若新内容引入了新的主题、模块或层级，使用 `add`。
    - 若发现结构中已有的章节已不再相关或内容重复，使用 `delete`。
+    - 注意：你当前拿到的 <datasources> 仅仅是整个项目的其中一部分，所以不要随意删除已有的结构节点，除非用户明确要求你这样么做。
    - 确保新增节点的位置、层级与命名符合文档整体逻辑。
 
 4. **一致性与清晰性**
@@ -153,7 +148,7 @@ Sub-structures must meet the following requirements:
    - 每个结构节点（无论新增或更新）应包含：
      - **标题（title）**
      - **一句简要说明（description）**，描述主要内容与目的
-   - 保持层次清晰、避免重复、逻辑连贯。
+   - 保持层次清晰、避免重复、逻辑连贯，优秀的文档应该让用户能快速了解项目结构与内容分布，应该按模块、功能特性等维度组织内容结构。
 
 5. **要求**
   - 遵循 <document_structure_rules> 中的所有规则和指导原则。

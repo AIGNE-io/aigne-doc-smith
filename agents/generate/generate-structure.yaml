@@ -60,7 +60,6 @@ skills:
             projectDesc:
               type: string
               description: Brief project description generated from content analysis (under 50 words)
-            # documentStructure: ../schema/document-structure.yaml
             add:
               type: array
               description: List of document structure items to add, null or empty array means no addition
@@ -88,7 +87,7 @@ skills:
                   - item
             delete:
               type: array
-              description: List of document structure items to delete by path, null or empty array means no deletion
+              description: List of document structure items to delete by path, null or empty array means no deletion, do not delete items unless necessary
               items:
                 type: object
                 properties:
@@ -140,6 +139,15 @@ skills:
               }
             }
           }
+
+          options.context.userContext.originalDocumentStructure = structure.map((i, index) => {
+            delete i.index
+
+            return ({
+              index,
+              ...i,
+            })
+          })
 
           return {}
   - type: function
