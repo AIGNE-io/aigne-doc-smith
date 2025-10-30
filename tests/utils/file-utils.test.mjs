@@ -6,15 +6,16 @@ import {
   buildSourcesContent,
   calculateFileStats,
   getFilesWithGlob,
+  getRemoteFileContent,
+  isRemoteFile,
+  isRemoteFileAvailable,
+  isRemoteTextFile,
   loadFilesFromPaths,
   loadGitignore,
   pathExists,
   readFileContents,
   resolveToAbsolute,
   toDisplayPath,
-  isRemoteFile,
-  isRemoteTextFile,
-  getRemoteFileContent,
 } from "../../utils/file-utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -558,6 +559,47 @@ temp*
       test("should return false for local paths", () => {
         expect(isRemoteFile("file.md")).toBe(false);
         expect(isRemoteFile("/absolute/path/file.md")).toBe(false);
+      });
+
+      test("should return false for unsupported protocols", () => {
+        expect(isRemoteFile("httpss://example.com/file.md")).toBe(false);
+      });
+    });
+
+    describe("isRemoteFileAvailable", () => {
+      test("should detect http and https URLs", async () => {
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = mock(async () => ({
+          ok: true,
+        }));
+        try {
+          const result = await isRemoteFileAvailable(
+            "https://www.arcblock.io/.well-known/glossary.txt",
+          );
+          expect(result).toBe(true);
+        } finally {
+          globalThis.fetch = originalFetch;
+        }
+      });
+
+      test("should return false for local paths", async () => {
+        let result = await isRemoteFileAvailable("file.md");
+        expect(result).toBe(false);
+        result = await isRemoteFileAvailable("/absolute/path/file.md");
+        expect(result).toBe(false);
+      });
+
+      test("should return false for 404 url", async () => {
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = mock(async () => ({
+          ok: false,
+        }));
+        try {
+          const result = await isRemoteFileAvailable("https://www.arcblock.io/.well-known/404.txt");
+          expect(result).toBe(false);
+        } finally {
+          globalThis.fetch = originalFetch;
+        }
       });
     });
 

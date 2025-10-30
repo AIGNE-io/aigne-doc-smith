@@ -163,31 +163,19 @@ export default async function loadMediaDescription(input, options) {
   let enhancedAssetsContent = "# Available Media Assets for Documentation\n\n";
 
   if (mediaFiles.length > 0) {
-    enhancedAssetsContent += "```yaml\n";
-    enhancedAssetsContent += "assets:\n";
-
-    for (const asset of mediaFiles) {
-      enhancedAssetsContent += `  - name: "${asset.name}"\n`;
-      enhancedAssetsContent += `    path: "${asset.path}"\n`;
-      enhancedAssetsContent += `    type: "${asset.type}"\n`;
-
-      // Add description for images and videos
-      if (asset.type === "image" || asset.type === "video") {
-        const mediaHash = mediaHashMap.get(asset.path);
-        const cachedDesc = cache[mediaHash];
-        if (cachedDesc?.description) {
-          enhancedAssetsContent += `    description: "${cachedDesc.description}"\n`;
-        }
+    const assets = mediaFiles.map((x) => {
+      const mediaHash = mediaHashMap.get(x.path);
+      const description = cache[mediaHash]?.description;
+      const result = {
+        name: x.name,
+        path: x.path,
+      };
+      if (description) {
+        result.description = description;
       }
-
-      // Add dimensions for images and videos
-      if (asset.width && asset.height) {
-        enhancedAssetsContent += `    width: ${asset.width}\n`;
-        enhancedAssetsContent += `    height: ${asset.height}\n`;
-      }
-    }
-
-    enhancedAssetsContent += "```\n";
+      return result;
+    });
+    enhancedAssetsContent += stringify(assets);
   }
 
   return {
