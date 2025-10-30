@@ -163,7 +163,7 @@ export default async function loadMediaDescription(input, options) {
   let enhancedAssetsContent = "# Available Media Assets for Documentation\n\n";
 
   if (mediaFiles.length > 0) {
-    const assets = mediaFiles.map(x => {
+    const assets = mediaFiles.map((x) => {
       const mediaHash = mediaHashMap.get(x.path);
       const description = cache[mediaHash]?.description;
       const result = {

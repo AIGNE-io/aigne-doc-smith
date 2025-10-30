@@ -408,10 +408,17 @@ async function isTextFile(filePath) {
 export function isRemoteFile(fileUrl) {
   if (typeof fileUrl !== "string") return false;
 
-  if (fileUrl.startsWith("http://") || fileUrl.startsWith("https://")) {
-    return true;
+  try {
+    const url = new URL(fileUrl);
+    // Only accept http and https url
+    if (["http:", "https:"].includes(url.protocol)) {
+      return true;
+    }
+    // other protocol will be treated as bad url
+    return false;
+  } catch {
+    return false;
   }
-  return false;
 }
 
 export async function isRemoteFileAvailable(fileUrl) {
