@@ -414,6 +414,20 @@ export function isRemoteFile(fileUrl) {
   return false;
 }
 
+export async function isRemoteFileAvailable(fileUrl) {
+  if (!isRemoteFile(fileUrl)) return false;
+
+  try {
+    const res = await fetch(fileUrl, {
+      method: "HEAD",
+    });
+    return res.ok;
+  } catch (error) {
+    debug(`Failed to check HTTP file availability: ${fileUrl} - ${error.message}`);
+    return false;
+  }
+}
+
 export async function isRemoteTextFile(fileUrl) {
   try {
     const res = await fetch(fileUrl, {

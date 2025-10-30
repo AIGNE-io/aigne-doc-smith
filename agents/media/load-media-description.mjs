@@ -164,28 +164,7 @@ export default async function loadMediaDescription(input, options) {
 
   if (mediaFiles.length > 0) {
     enhancedAssetsContent += "```yaml\n";
-    enhancedAssetsContent += "assets:\n";
-
-    for (const asset of mediaFiles) {
-      enhancedAssetsContent += `  - name: "${asset.name}"\n`;
-      enhancedAssetsContent += `    path: "${asset.path}"\n`;
-      enhancedAssetsContent += `    type: "${asset.type}"\n`;
-
-      // Add description for images and videos
-      if (asset.type === "image" || asset.type === "video") {
-        const mediaHash = mediaHashMap.get(asset.path);
-        const cachedDesc = cache[mediaHash];
-        if (cachedDesc?.description) {
-          enhancedAssetsContent += `    description: "${cachedDesc.description}"\n`;
-        }
-      }
-
-      // Add dimensions for images and videos
-      if (asset.width && asset.height) {
-        enhancedAssetsContent += `    width: ${asset.width}\n`;
-        enhancedAssetsContent += `    height: ${asset.height}\n`;
-      }
-    }
+    enhancedAssetsContent += stringify({ assets: mediaFiles });
 
     enhancedAssetsContent += "```\n";
   }
