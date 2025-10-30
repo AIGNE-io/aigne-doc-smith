@@ -1,12 +1,12 @@
 import { recordUpdate } from "../../utils/history-utils.mjs";
 
-export default function recordTranslationHistory({ selectedDocs, feedback }) {
+export default function recordTranslationHistory({ selectedPaths, feedback }) {
   // Skip if no feedback provided
   if (!feedback?.trim()) {
     return {};
   }
 
-  if (!Array.isArray(selectedDocs) || selectedDocs.length === 0) {
+  if (!Array.isArray(selectedPaths) || selectedPaths.length === 0) {
     return {};
   }
 
@@ -14,7 +14,7 @@ export default function recordTranslationHistory({ selectedDocs, feedback }) {
   recordUpdate({
     operation: "translation_update",
     feedback: feedback.trim(),
-    docPaths: selectedDocs.map((v) => v.path),
+    docPaths: selectedPaths,
   });
 
   return {};
