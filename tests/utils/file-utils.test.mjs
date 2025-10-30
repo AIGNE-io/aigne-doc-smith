@@ -6,16 +6,16 @@ import {
   buildSourcesContent,
   calculateFileStats,
   getFilesWithGlob,
+  getRemoteFileContent,
+  isRemoteFile,
+  isRemoteFileAvailable,
+  isRemoteTextFile,
   loadFilesFromPaths,
   loadGitignore,
   pathExists,
   readFileContents,
   resolveToAbsolute,
   toDisplayPath,
-  isRemoteFile,
-  isRemoteTextFile,
-  getRemoteFileContent,
-  isRemoteFileAvailable,
 } from "../../utils/file-utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
