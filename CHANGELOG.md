@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.15-beta.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.5...v0.8.15-beta.6) (2025-10-30)
+
+
+### Bug Fixes
+
+* ensure document embed image is accessible ([#226](https://github.com/AIGNE-io/aigne-doc-smith/issues/226)) ([47dfc5d](https://github.com/AIGNE-io/aigne-doc-smith/commit/47dfc5d48440f435258c7d4b5629712c7eb886e7))
+
 ## [0.8.15-beta.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.4...v0.8.15-beta.5) (2025-10-29)
 
 
