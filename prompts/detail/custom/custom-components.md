@@ -72,12 +72,11 @@ Suitable for displaying multiple links using a card list format, providing a ric
 
 ### Attributes
 
-- data-columns (optional): Number of columns, integer (e.g., 2, 3). Default is 2.
-  - Must contain multiple <x-card> elements internally.
+- data-columns (optional): Must be an **integer ≥ 2**. Values below 2 are disallowed. Default is 2.
 
 ### Children
 
-- Must contain multiple <x-card> elements internally.
+- Must contain multiple `<x-card>` elements internally.
 
 ### Usage Rules
 
@@ -104,6 +103,25 @@ Example 2: Two-column cards with images
 <x-cards data-columns="2">
   <x-card data-title="Card A" data-image="https://picsum.photos/id/10/300/300">Content A</x-card>
   <x-card data-title="Card B" data-image="https://picsum.photos/id/11/300/300">Content B</x-card>
+</x-cards>
+```
+
+### Bad Examples
+
+Example 1: Using a single-column layout (`data-columns="1"`) is not allowed
+
+```md
+<x-cards data-columns="1">
+  <x-card data-title="Feature 1" data-icon="lucide:rocket">Description of Feature 1.</x-card>
+  <x-card data-title="Feature 2" data-icon="lucide:bolt">Description of Feature 2.</x-card>
+</x-cards>
+```
+
+Example 2: Contains only one `<x-card>` (must include multiple cards)
+
+```md
+<x-cards data-columns="2">
+  <x-card data-title="Card A" data-image="https://picsum.photos/id/10/300/300">Content A</x-card>
 </x-cards>
 ```
 
