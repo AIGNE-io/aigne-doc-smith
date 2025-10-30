@@ -4,22 +4,8 @@
 {% include "../../common/document-structure/user-preferences.md" %}
 
 
-{#
-TODO: merge file list (without content) to the datasources
-<file_list>
-{{allFilesPaths}}
-</file_list>
-#}
-
 <datasources>
 Following are the partial or complete data sources provided by the user to help you design the document structure. Use these data sources to inform your structural planning.
-
-在使用这些数据源时，请注意以下几点：
-1. 充分尊重 readme 文件中的项目描述和使用说明，这些内容通常概括了项目的核心功能和目标。
-2. 关注源代码文件中的注释和文档字符串，这些内容揭示了代码的设计意图和使用方法。
-3. 理解各个模块和文件之间的关系，这有助于构建逻辑清晰、层次分明的文档结构。
-4. 注意代码中的关键概念、API 和配置选项，这些内容通常是文档结构的重要组成部分。
-5. 综合考虑所有数据源，确保生成的文档结构全面反映项目的实际内容和用户需求。
 
 {{ datasources }}
 </datasources>
@@ -29,7 +15,7 @@ Following are the partial or complete data sources provided by the user to help 
 
 **Goal:** Use the provided OpenAPI (Swagger) specification to design how the OpenAPI content and the overall document should be structured together.
 
-**OpenAPI File Content:** 
+**OpenAPI File Content:**
 <openapi_doc>
 
 {{ userContext.openAPISpec }}
@@ -65,7 +51,12 @@ projectName: |
 projectDesc: |
   {{projectDesc}}
 
-{{originalDocumentStructure}}
+{% if originalDocumentStructure %}
+{{ originalDocumentStructure }}
+{% else %}
+No previous document structure provided. generate a new structure based on the data sources!
+{% endif %}
+
 </last_document_structure>
 
 
@@ -118,6 +109,15 @@ Sub-structures must meet the following requirements:
 你的任务是基于当前提供的代码仓库部分内容，对现有的文档结构（`last_document_structure`）进行**分析、完善与调整**，生成一份结构性更新计划。
 你不是从零开始创建结构，而是**在理解已有结构的基础上进行智能更新**，使文档结构更准确地反映最新的代码内容、架构变化与逻辑关系。
 
+## 在使用 <datasource> 数据源时，请注意以下几点：
+
+- 充分尊重 readme 文件中的项目描述和使用说明，这些内容通常概括了项目的核心功能和目标。
+- 关注源代码文件中的注释和文档字符串，这些内容揭示了代码的设计意图和使用方法。
+- 理解各个模块和文件之间的关系，这有助于构建逻辑清晰、层次分明的文档结构。
+- 注意代码中的关键概念、API 和配置选项，这些内容通常是文档结构的重要组成部分。
+- 生成的文档结构必须包含所有公开的模块、接口和功能，以确保文档的完整性和可用性。
+
+
 ## 工作目标（Objective）
 
 你的输出应为一个包含以下三个部分的结构化变更计划，用于指示如何修改现有文档结构：
@@ -140,8 +140,7 @@ Sub-structures must meet the following requirements:
 
 2. **上下文关联分析**
    - 你将获得一部分代码仓库内容（例如部分源文件或目录内容），请分析其**文档价值与结构影响**。
-   - 识别哪些部分体现了新的概念、API、模块、配置或功能；
-     判断它们是否需要在文档结构中新增或修改对应章节。
+   - 识别哪些部分体现了新的概念、API、模块、配置或功能；判断它们是否需要在文档结构中新增或修改对应章节。
 
 3. **结构调整策略**
    - 若新内容补充了现有章节的细节，使用 `update`。
@@ -156,14 +155,11 @@ Sub-structures must meet the following requirements:
      - **一句简要说明（description）**，描述主要内容与目的
    - 保持层次清晰、避免重复、逻辑连贯。
 
-## 能力要求（Key Capabilities）
+5. **要求**
+  - 遵循 <document_structure_rules> 中的所有规则和指导原则。
+  - 生成的丰富的文档结构，应全面覆盖代码库的功能与模块，确保用户能够通过文档轻松地入门、理解和使用项目的各个模块和主要功能。
 
-- **文档结构理解力**：能够准确解析 `last_document_structure` 的层级与语义。
-- **增量变更分析**：能基于部分代码内容判断其在整体文档中的结构意义。
-- **结构化思维**：能以逻辑层次和语义组织的方式表达新增或更新的节点。
-- **审慎修改**：只在必要时变更结构，保持稳定性与演进性。
+{% include "../../common/document-structure/intj-traits.md" %}
 
-## 永远遵循的原则
-
-> 你必须在尊重现有结构的前提下，仅基于所提供的新信息进行合理的增量修改，使最终结构始终保持完整、清晰、可扩展。
+你必须在尊重现有结构的前提下，仅基于所提供的新信息进行合理的增量修改，使最终结构始终保持完整、清晰、可扩展。
 </instructions>
