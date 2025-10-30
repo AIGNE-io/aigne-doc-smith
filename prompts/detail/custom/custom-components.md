@@ -414,6 +414,7 @@ Used to group multiple related `<x-field>` elements at the top level, indicating
 
 - **Top-Level Only**: Used only at the top level for grouping related `<x-field>` elements. Cannot be nested inside other `<x-field>` or `<x-field-group>` elements
 - **Structured Data Only**: Use `<x-field-group>` for fields **other than simple types** (`string`, `number`, `boolean`, `symbol`), e.g., Properties, Context, Parameters, Return values. For simple-type fields, use plain Markdown text.
+- **Spacing Around**: Always insert a blank line before and after `<x-field-group>` when it’s adjacent to Markdown content.
 
 ### Good Examples
 
@@ -479,6 +480,22 @@ Example 5: Using x-field-group for simple-type (violates "Structured Data Only" 
 
 <x-field-group>
   <x-field data-name="appName" data-type="string" data-required="true" data-desc="specifies the name of the application"></x-field>
+</x-field-group>
+```
+
+Example 6: Missing blank line before x-field-group (violates "Spacing Around" rule)
+
+```md
+**Parameters**
+<x-field-group>
+  <x-field data-name="initialState" data-type="any" data-required="false">
+    <x-field-desc markdown>The initial state value.</x-field-desc>
+  </x-field>
+</x-field-group>
+
+`useReducer` returns an array with two items:
+<x-field-group>
+  <x-field data-name="dispatch" data-type="function" data-desc="A function that you can call with an action to update the state."></x-field>
 </x-field-group>
 ```
 
