@@ -99,7 +99,7 @@ function recordUpdateGit({ feedback }) {
 /**
  * Records an update in the YAML file.
  */
-function recordUpdateYaml({ operation, feedback, documentPath = null }) {
+function recordUpdateYaml({ operation, feedback, docPaths = null }) {
   try {
     const docSmithDir = join(process.cwd(), DOC_SMITH_DIR);
     if (!existsSync(docSmithDir)) {
@@ -125,9 +125,9 @@ function recordUpdateYaml({ operation, feedback, documentPath = null }) {
       feedback,
     };
 
-    // Add document path if provided
-    if (documentPath) {
-      entry.documentPath = documentPath;
+    // Add document paths if provided
+    if (Array.isArray(docPaths) && docPaths.length > 0) {
+      entry.docPaths = docPaths;
     }
 
     // Add to beginning (newest first)
@@ -153,14 +153,14 @@ function recordUpdateYaml({ operation, feedback, documentPath = null }) {
  * @param {Object} params
  * @param {string} params.operation - The type of operation (e.g., 'document_update', 'structure_update', 'translation_update').
  * @param {string} params.feedback - The user's feedback text.
- * @param {string} params.documentPath - The document path.
+ * @param {string[]} [params.docPaths] - Document path list for updates.
  */
-export function recordUpdate({ operation, feedback, documentPath = null }) {
+export function recordUpdate({ operation, feedback, docPaths = null }) {
   // Skip if no feedback
   if (!feedback?.trim()) return;
 
   // Always record in YAML
-  recordUpdateYaml({ operation, feedback, documentPath });
+  recordUpdateYaml({ operation, feedback, docPaths });
 
   // Also record in git if git is available and not in a git repository
   if (isGitAvailable() && !isInGitRepository(process.cwd())) {
@@ -183,7 +183,19 @@ export function getHistory() {
 
   try {
     const content = readFileSync(historyPath, "utf8");
-    return parse(content) || { entries: [] };
+    const parsed = parse(content) || { entries: [] };
+    const entries = Array.isArray(parsed.entries) ? parsed.entries : [];
+
+    const normalized = entries.map((entry) => {
+      if (!entry) return entry;
+      // Normalize legacy entries: documentPath -> docPaths: [documentPath]
+      if (!entry.docPaths && entry.documentPath) {
+        return { ...entry, docPaths: [entry.documentPath] };
+      }
+      return entry;
+    });
+
+    return { ...parsed, entries: normalized };
   } catch (error) {
     console.warn("Could not read the history:", error.message);
     return { entries: [] };

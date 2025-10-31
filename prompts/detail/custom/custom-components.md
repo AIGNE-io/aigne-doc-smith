@@ -72,12 +72,11 @@ Suitable for displaying multiple links using a card list format, providing a ric
 
 ### Attributes
 
-- data-columns (optional): Number of columns, integer (e.g., 2, 3). Default is 2.
-  - Must contain multiple <x-card> elements internally.
+- data-columns (optional): Must be an **integer ≥ 2**. Values below 2 are disallowed. Default is 2.
 
 ### Children
 
-- Must contain multiple <x-card> elements internally.
+- Must contain multiple `<x-card>` elements internally.
 
 ### Usage Rules
 
@@ -104,6 +103,25 @@ Example 2: Two-column cards with images
 <x-cards data-columns="2">
   <x-card data-title="Card A" data-image="https://picsum.photos/id/10/300/300">Content A</x-card>
   <x-card data-title="Card B" data-image="https://picsum.photos/id/11/300/300">Content B</x-card>
+</x-cards>
+```
+
+### Bad Examples
+
+Example 1: Using a single-column layout (`data-columns="1"`) is not allowed
+
+```md
+<x-cards data-columns="1">
+  <x-card data-title="Feature 1" data-icon="lucide:rocket">Description of Feature 1.</x-card>
+  <x-card data-title="Feature 2" data-icon="lucide:bolt">Description of Feature 2.</x-card>
+</x-cards>
+```
+
+Example 2: Contains only one `<x-card>` (must include multiple cards)
+
+```md
+<x-cards data-columns="2">
+  <x-card data-title="Card A" data-image="https://picsum.photos/id/10/300/300">Content A</x-card>
 </x-cards>
 ```
 
@@ -414,6 +432,7 @@ Used to group multiple related `<x-field>` elements at the top level, indicating
 
 - **Top-Level Only**: Used only at the top level for grouping related `<x-field>` elements. Cannot be nested inside other `<x-field>` or `<x-field-group>` elements
 - **Structured Data Only**: Use `<x-field-group>` for fields **other than simple types** (`string`, `number`, `boolean`, `symbol`), e.g., Properties, Context, Parameters, Return values. For simple-type fields, use plain Markdown text.
+- **Spacing Around**: Always insert a blank line before and after `<x-field-group>` when it’s adjacent to Markdown content.
 
 ### Good Examples
 
@@ -479,6 +498,22 @@ Example 5: Using x-field-group for simple-type (violates "Structured Data Only" 
 
 <x-field-group>
   <x-field data-name="appName" data-type="string" data-required="true" data-desc="specifies the name of the application"></x-field>
+</x-field-group>
+```
+
+Example 6: Missing blank line before x-field-group (violates "Spacing Around" rule)
+
+```md
+**Parameters**
+<x-field-group>
+  <x-field data-name="initialState" data-type="any" data-required="false">
+    <x-field-desc markdown>The initial state value.</x-field-desc>
+  </x-field>
+</x-field-group>
+
+`useReducer` returns an array with two items:
+<x-field-group>
+  <x-field data-name="dispatch" data-type="function" data-desc="A function that you can call with an action to update the state."></x-field>
 </x-field-group>
 ```
 

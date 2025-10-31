@@ -1,10 +1,21 @@
 import pMap from "p-map";
+import { recordUpdate } from "../../utils/history-utils.mjs";
 
 export default async function saveAndTranslateDocument(input, options) {
   const { selectedDocs, docsDir, translateLanguages, locale } = input;
 
   if (!Array.isArray(selectedDocs) || selectedDocs.length === 0) {
     return {};
+  }
+
+  // Record history if feedback is provided
+  const doc = selectedDocs[0];
+  if (doc.feedback?.trim()) {
+    recordUpdate({
+      operation: "document_update",
+      feedback: doc.feedback.trim(),
+      docPaths: selectedDocs.map((v) => v.path),
+    });
   }
 
   // Only prompt user if translation is actually needed

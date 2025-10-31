@@ -33,12 +33,12 @@ skills:
     name: batchTranslateDocument
     skills:
       - ../translate/translate-multilingual.yaml
-      - url: ./record-translation-history.mjs
     iterate_on: selectedDocs
     concurrency: 10
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: translation_refine
+  - url: ./record-translation-history.mjs
   - url: ../utils/action-success.mjs
     default_input:
       action: '✅ Translation completed'

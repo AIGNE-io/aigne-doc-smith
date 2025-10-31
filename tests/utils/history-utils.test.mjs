@@ -62,7 +62,7 @@ describe("History Utils", () => {
     recordUpdate({
       operation: "document_update",
       feedback: "Test feedback",
-      documentPath: "/test",
+      docPaths: ["/test"],
     });
 
     // Verify YAML record was created
@@ -70,7 +70,8 @@ describe("History Utils", () => {
     expect(history.entries.length).toBe(1);
     expect(history.entries[0].feedback).toBe("Test feedback");
     expect(history.entries[0].operation).toBe("document_update");
-    expect(history.entries[0].documentPath).toBe("/test");
+    expect(history.entries[0].docPaths).toBeDefined();
+    expect(history.entries[0].docPaths[0]).toBe("/test");
     expect(history.entries[0].timestamp).toBeDefined();
 
     // Verify no git repository was created
@@ -144,13 +145,13 @@ describe("History Utils", () => {
     recordUpdate({
       operation: "document_update",
       feedback: "First update",
-      documentPath: "/first",
+      docPaths: ["/first"],
     });
 
     recordUpdate({
       operation: "translation_update",
       feedback: "Second update",
-      documentPath: "/second",
+      docPaths: ["/second"],
     });
 
     // Verify YAML records

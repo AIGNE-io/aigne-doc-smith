@@ -2,13 +2,23 @@
 The following formats are considered Code Blocks:
 
 - Wrapped with ```
-- Supports configurations: language, title, icon, where title and icon are optional
+- Supports configurations: language, optional title, optional icon (icon uses key=value)
+- title is free text placed after the language (not as title=xxx), may contain spaces, and **must NEVER be wrapped in quotes**
 - content can be code, command line examples, text or any other content
 
 <code_block_sample>
 
-```{language} [{title}] [icon={icon}]
-{content}
+- `language`: javascript
+- `title`: Modern: Using createRoot()
+- `icon`: logos:javascript
+
+```javascript Modern: Using createRoot() icon=logos:javascript
+import { createRoot } from 'react-dom/client'
+
+const container = document.getElementById('root')
+const root = createRoot(container)
+
+root.unmount()
 ```
 
 </code_block_sample>
