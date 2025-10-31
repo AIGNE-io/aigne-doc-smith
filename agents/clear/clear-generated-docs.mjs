@@ -13,7 +13,7 @@ export default async function clearGeneratedDocs(input = {}, options = {}) {
 
   if (!docsDir) {
     return {
-      message: "No generated documents directory specified",
+      message: "📁 No generated documents directory specified",
     };
   }
 
@@ -24,7 +24,7 @@ export default async function clearGeneratedDocs(input = {}, options = {}) {
     const dirExists = await pathExists(generatedDocsPath);
     if (!dirExists) {
       return {
-        message: `Generated documents directory does not exist (${displayPath})`,
+        message: `📁 Generated documents directory does not exist (${displayPath})`,
         cleared: false,
       };
     }
@@ -47,7 +47,7 @@ export default async function clearGeneratedDocs(input = {}, options = {}) {
 
     if (!chooseResult?.selectedDocs || chooseResult.selectedDocs.length === 0) {
       return {
-        message: "No documents selected for deletion",
+        message: "📁 No documents selected for deletion",
         cleared: false,
         path: displayPath,
       };
@@ -70,7 +70,7 @@ export default async function clearGeneratedDocs(input = {}, options = {}) {
 
     if (filesToDelete.size === 0) {
       return {
-        message: "No documents were deleted.",
+        message: "📁 No documents were deleted.",
         cleared: false,
       };
     }
@@ -97,14 +97,16 @@ export default async function clearGeneratedDocs(input = {}, options = {}) {
 
     let message = "";
     if (deletedCount > 0) {
-      message = `Deleted ${deletedCount} document(s) in "${displayPath}":\n${deletedFiles
-        .map((f) => `  ${f}`)
+      const lastIndex = deletedFiles.length - 1;
+      message = `📁 Deleted ${deletedCount} document(s) in "${displayPath}":\n${deletedFiles
+        .map((f, i) => `  ${i === lastIndex ? "└─" : "├─"} ${f}`)
         .join("\n")}`;
     }
 
     if (failedCount > 0) {
-      message = `Failed to delete ${failedCount} document(s) in "${displayPath}":\n${failedFiles
-        .map((f) => `  ${f.file}: ${f.error}`)
+      const lastIndex = failedFiles.length - 1;
+      message = `⚠️ Failed to delete ${failedCount} document(s) in "${displayPath}":\n${failedFiles
+        .map((f, i) => `  ${i === lastIndex ? "└─" : "├─"} ${f.file}: ${f.error}`)
         .join("\n")}`;
     }
 
@@ -115,7 +117,7 @@ export default async function clearGeneratedDocs(input = {}, options = {}) {
     };
   } catch (error) {
     return {
-      message: `Failed to clear generated documents: ${error.message}`,
+      message: `⚠️ Failed to clear generated documents: ${error.message}`,
       error: true,
     };
   }

@@ -36,12 +36,12 @@ export default async function clearDeploymentConfig(input = {}) {
     }
 
     return {
-      message: `🧹 Cleared appUrl from config file (${displayPath})`,
+      message: `📦 Cleared appUrl from config file (${displayPath})`,
     };
   } catch (error) {
     return {
       error: true,
-      message: `❌ Failed to clear deployment config: ${error.message}`,
+      message: `⚠️ Failed to clear deployment config: ${error.message}`,
     };
   }
 }
