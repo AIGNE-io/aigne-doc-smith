@@ -291,7 +291,7 @@ export async function loadDocumentStructure(outputDir) {
   try {
     const structurePlanPath = join(outputDir, "structure-plan.json");
     const structureExists = await pathExists(structurePlanPath);
-    
+
     if (!structureExists) {
       return null;
     }
