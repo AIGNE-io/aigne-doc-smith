@@ -1,0 +1,544 @@
+{
+  "config": {
+    "command": "zsh",
+    "cwd": "/tmp",
+    "env": {
+      "recording": true,
+      "SHELL": "/bin/zsh",
+      "TERM": "xterm-256color"
+    },
+    "cols": 63,
+    "rows": 20,
+    "repeat": false,
+    "autoplay": true,
+    "speedFactor": 1,
+    "convertEol": true,
+    "cursorStyle": "block",
+    "cursorBlink": true,
+    "quality": 100,
+    "frameDelay": "auto",
+    "controls": true,
+    "maxIdleTime": 2000,
+    "frameBox": {
+      "type": "floating",
+      "title": "Terminal Recording - 2025/8/21 12:12:13",
+      "style": {
+        "border": "0px black solid"
+      }
+    },
+    "watermark": {
+      "imagePath": null,
+      "style": {
+        "position": "absolute",
+        "right": "15px",
+        "bottom": "15px",
+        "width": "100px",
+        "opacity": 0.9
+      }
+    },
+    "fontFamily": "source-code-pro, Menlo, Monaco, Consolas, \"Courier New\", monospace",
+    "fontSize": 16,
+    "lineHeight": 1.2,
+    "letterSpacing": 0,
+    "enableTheme": true,
+    "theme": {
+      "background": "transparent",
+      "foreground": "#afafaf",
+      "cursor": "#c7c7c7",
+      "black": "#232628",
+      "red": "#fc4384",
+      "green": "#b3e33b",
+      "yellow": "#ffa727",
+      "blue": "#75dff2",
+      "magenta": "#ae89fe",
+      "cyan": "#708387",
+      "white": "#d5d5d0",
+      "brightBlack": "#626566",
+      "brightRed": "#ff7fac",
+      "brightGreen": "#c8ed71",
+      "brightYellow": "#ebdf86",
+      "brightBlue": "#75dff2",
+      "brightMagenta": "#ae89fe",
+      "brightCyan": "#b1c6ca",
+      "brightWhite": "#f9f9f4"
+    }
+  },
+  "records": [
+    {
+      "delay": 8,
+      "content": "\u001b[1m\u001b[7m\u001b[27m\u001b[1m\u001b[0m                                                              \r \r"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]7;file://Nate-Mac-Pro.local/Users/nategu/work/arcblock/ai-docs/doc-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]2;nategu@Nate-Mac-Pro\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]1;..docs/doc-demo\u0007"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]7;file://Nate-Mac-Pro.local/Users/nategu/work/arcblock/ai-docs/doc-demo\u001b\\"
+    },
+    {
+      "delay": 8,
+      "content": "\r\u001b[0m\u001b[27m\u001b[24m\u001b[J\u001b[01;32m➜  \u001b[36mdoc-demo\u001b[00m \u001b[K"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?1h\u001b=\u001b[?2004h"
+    },
+    {
+      "delay": 720,
+      "content": "a"
+    },
+    {
+      "delay": 215,
+      "content": "\bai"
+    },
+    {
+      "delay": 735,
+      "content": "g"
+    },
+    {
+      "delay": 133,
+      "content": "n"
+    },
+    {
+      "delay": 103,
+      "content": "e"
+    },
+    {
+      "delay": 150,
+      "content": " "
+    },
+    {
+      "delay": 211,
+      "content": "d"
+    },
+    {
+      "delay": 99,
+      "content": "o"
+    },
+    {
+      "delay": 119,
+      "content": "c"
+    },
+    {
+      "delay": 129,
+      "content": " "
+    },
+    {
+      "delay": 206,
+      "content": "p"
+    },
+    {
+      "delay": 130,
+      "content": "u"
+    },
+    {
+      "delay": 97,
+      "content": "b"
+    },
+    {
+      "delay": 805,
+      "content": "l"
+    },
+    {
+      "delay": 67,
+      "content": "i"
+    },
+    {
+      "delay": 109,
+      "content": "s"
+    },
+    {
+      "delay": 75,
+      "content": "h"
+    },
+    {
+      "delay": 246,
+      "content": "\u001b[?1l\u001b>"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?2004l\r\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b]2;aigne doc publish\u0007\u001b]1;aigne\u0007"
+    },
+    {
+      "delay": 808,
+      "content": "\r\n     \u001b[38;5;111m_\u001b[39m    \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m \u001b[38;5;111m_\u001b[39m   \u001b[38;5;111m_\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\r\n    \u001b[38;5;111m/\u001b[39m \u001b[38;5;111m\\\u001b[39m  \u001b[38;5;111m|\u001b[39m\u001b[38;5;111m_\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m/\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m_\u001b[39m\u001b[38;5;111m|\u001b[39m \u001b[38;5;111m\\\u001b[39m \u001b[38;5;111m|\u001b[39m \u001b[38;5;111m|\u001b[39m \u001b[38;5;111m_\u001b[39m\u001b[38;5;105m_\u001b[39m\u001b[38;5;105m_\u001b[39m\u001b[38;5;105m_\u001b[39m\u001b[38;5;105m|\u001b[39m\r\n   \u001b[38;5;105m/\u001b[39m \u001b[38;5;105m_\u001b[39m \u001b[38;5;105m\\\u001b[39m  \u001b[38;5;105m|\u001b[39m \u001b[38;5;105m|\u001b[39m \u001b[38;5;105m|\u001b[39m  \u001b[38;5;105m_\u001b[39m\u001b[38;5;105m|\u001b[39m  \u001b[38;5;105m\\\u001b[39m\u001b[38;5;105m|\u001b[39m \u001b[38;5;105m|\u001b[39m  \u001b[38;5;105m_\u001b[39m\u001b[38;5;105m|\u001b[39m\r\n  \u001b[38;5;105m/\u001b[39m \u001b[38;5;105m_\u001b[39m\u001b[38;5;105m_\u001b[39m\u001b[38;5;141m_\u001b[39m \u001b[38;5;141m\\\u001b[39m \u001b[38;5;141m|\u001b[39m \u001b[38;5;140m|\u001b[39m \u001b[38;5;140m|\u001b[39m\u001b[38;5;140m_\u001b[39m\u001b[38;5;140m|\u001b[39m \u001b[38;5;140m|"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[39m \u001b[38;5;140m|\u001b[39m\u001b[38;5;140m\\\u001b[39m  \u001b[38;5;140m|\u001b[39m \u001b[38;5;140m|\u001b[39m\u001b[38;5;140m_\u001b[39m\u001b[38;5;140m_\u001b[39m\u001b[38;5;140m_\u001b[39m\r\n \u001b[38;5;140m/\u001b[39m\u001b[38;5;140m_\u001b[39m\u001b[38;5;176m/\u001b[39m   \u001b[38;5;176m\\\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m\\\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m\\\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m|\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;176m|\u001b[39m \u001b[38;5;176m\\\u001b[39m\u001b[38;5;176m_\u001b[39m\u001b[38;5;212m|\u001b[39m\u001b[38;5;212m_\u001b[39m\u001b[38;5;212m_\u001b[39m\u001b[38;5;211m_\u001b[39m\u001b[38;5;211m_\u001b[39m\u001b[38;5;211m_\u001b[39m\u001b[38;5;211m|\u001b[39m\r\n\r\n\u001b[36m            v1.38.1\u001b[39m\r\n\r\n\r\n"
+    },
+    {
+      "delay": 1015,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mSeems no API Key configured for google/gemini-2.5-pro, select\u001b[22m\r\n\u001b[1m your preferred way to continue:\u001b[22m \u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m❯ Connect to AIGNE Hub to use gemini-2.5-pro (Recommended since\u001b[39m\r\n\u001b[36m free credits available)\u001b[39m\r\n  Exit and bring my owner API Key by set GEMINI_API_KEY,\r\nGOOGLE_API_KEY\u001b[?25l\u001b[15G"
+    },
+    {
+      "delay": 1254,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mSeems no API Key configured for google/gemini-2.5-pro, select\u001b[22m\r\n\u001b[1m your preferred way to continue:\u001b[22m \u001b[36mConnect to AIGNE Hub to use \u001b[39m\r\n\u001b[36mgemini-2.5-pro (Recommended since free credits available)\u001b[39m\u001b[56G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 9,
+      "content": "\u001b[90mTIPS:\u001b[39m run \u001b[36maigne observe\u001b[39m to start the observability server.\r\n\r\n"
+    },
+    {
+      "delay": 625,
+      "content": "\u001b[36m+-----------------------------------+\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mProvider\u001b[39m: \u001b[32mAIGNEHub\u001b[39m              \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mModel\u001b[39m: \u001b[32mgoogle/gemini-2.5-pro\u001b[39m    \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI URL\u001b[39m: \u001b[32mhttps://hub.aigne.io\u001b[39m   \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m   \u001b[36mAPI Key\u001b[39m: \u001b[32mbloc********vreR\u001b[39m       \u001b[36m|\u001b[39m\r\n\u001b[36m|\u001b[39m                                   \u001b[36m|\u001b[39m\r\n\u001b[36m+-----------------------------------+\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n"
+    },
+    {
+      "delay": 16,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2m◼\u001b[22m publish\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[2m◼\u001b[22m init\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[33m⠋\u001b[39m init\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[33m⠋\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m2\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m3\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[2m◼\u001b[22m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[34m?\u001b[39m \u001b[1mSelect platform to publish your documents:\u001b[22m \u001b[2m(Use arrow keys)\u001b[22m\r\n\u001b[36m❯ Publish to docsmith.aigne.io - free, but your documents will \u001b[39m\r\n\u001b[36mbe public accessible, recommended for open-source projects\u001b[39m\r\n  Publish to your own website - you will need to run Discuss\r\nKit by your self\u001b[?25l\u001b[17G"
+    },
+    {
+      "delay": 1444,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m \u001b[1mSelect platform to publish your documents:\u001b[22m \u001b[36mPublish to \u001b[39m\r\n\u001b[36mdocsmith.aigne.io - free, but your documents will be public \u001b[39m\r\n\u001b[36maccessible, recommended for open-source projects\u001b[39m\u001b[39G"
+    },
+    {
+      "delay": 8,
+      "content": "\r\n\u001b[?25h"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[?25l"
+    },
+    {
+      "delay": 44,
+      "content": "\u001b[33m⠦\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠙\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠙\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 99,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠙\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 124,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 120,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠙\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 103,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠙\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠴\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠴\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠴\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠦\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠦\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠦\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠧\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠧\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠧\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠇\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠇\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠇\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠏\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠏\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠏\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠋\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠋\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠋\r\n"
+    },
+    {
+      "delay": 100,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠙\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠙\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠙\r\n"
+    },
+    {
+      "delay": 102,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠹\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠹\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠹\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠸\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠸\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠸\r\n"
+    },
+    {
+      "delay": 101,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m publishDocs\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+    },
+    {
+      "delay": 72,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 8,
+      "content": "Publishing docs collection: \u001b[36mABT DID Protocol Documentation\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "📖 Docs available at: \u001b[36mhttps://docsmith.aigne.io/c/docs/abt-did-protocol-documentation\u001b[39m\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[33m⠼\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[33m⠼\u001b[39m publishDocs \u001b[90m[7.57s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m publish\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m publishDocs \u001b[90m[7.57s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n⠼\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[33m⠼\u001b[39m publish \u001b[90m[7.6s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m publishDocs \u001b[90m[7.57s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Documentation Published Successfully!\u001b[0m\r\n⠼\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G\u001b[32m✔\u001b[39m publish \u001b[90m[7.6s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m publishDocs \u001b[90m[7.57s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Documentation Published Successfully!\u001b[0m\r\n⠼\r\n"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[1A\u001b[2K\u001b[G"
+    },
+    {
+      "delay": 8,
+      "content": "\u001b[32m✔\u001b[39m publish \u001b[90m[7.6s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m init \u001b[90m[0s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m publishDocs \u001b[90m[7.57s]\u001b[39m\r\n\r\n\u001b[90m✔\u001b[39m 🤖 \u001b[90m(\u001b[39m\u001b[33m0\u001b[39m \u001b[90minput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m0\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[35m4\u001b[39m \u001b[90magent calls\u001b[39m\u001b[90m)\u001b[39m\r\n\r\n\u001b[0m✅ Documentation Published Successfully!\u001b[0m\r\n\r\n"
+    }
+  ]
+}

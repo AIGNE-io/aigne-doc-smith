@@ -1,0 +1,4 @@
+- path: /home
+  navigation:
+    title: 首頁
+    description: 探索 AI 驅動的文件生成

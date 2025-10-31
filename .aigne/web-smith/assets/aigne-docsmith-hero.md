@@ -1,0 +1,1 @@
+A vibrant, abstract hero image for the AIGNE DocSmith landing page. It visually represents the AI-driven process of converting code into documentation, using flowing lines and glowing geometric shapes. This image sets a modern, intelligent tone for the page.

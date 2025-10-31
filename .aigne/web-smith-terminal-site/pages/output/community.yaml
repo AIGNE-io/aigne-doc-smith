@@ -1,0 +1,699 @@
+id: 423f8449a3d5581e
+createdAt: 2025-10-14T11:03:00.272Z
+updatedAt: 2025-10-14T11:03:00.272Z
+publishedAt: 2025-10-14T11:03:00.272Z
+isPublic: true
+locales:
+  en:
+    backgroundColor: ""
+    style:
+      maxWidth: custom:1440px
+      paddingY: normal
+      paddingX: normal
+    title: Community & Resources | AIGNE DocSmith
+    description: Join the AIGNE DocSmith community! Find official documentation,
+      tutorials, and support forums. Learn how you can contribute to the project
+      and help us grow.
+    image: ""
+    header:
+      sticky: true
+sections:
+  6d4ea39506007d1a:
+    id: 6d4ea39506007d1a
+    name: Centered Hero
+    component: layout-block
+    sections:
+      7458acd55e6fed14:
+        id: 7458acd55e6fed14
+        name: Section Layout
+        component: layout-block
+        sections:
+          d0385ae9d58c7d2a:
+            id: d0385ae9d58c7d2a
+            name: CTA
+            component: layout-block
+            sections:
+              a079909189bc9634:
+                id: a079909189bc9634
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              510667b34fa14f2b:
+                id: 510667b34fa14f2b
+                name: Action
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: a44r0SiGV9AFn2Fj
+                sectionIds: []
+            sectionIds:
+              - a079909189bc9634
+              - 510667b34fa14f2b
+            config:
+              paddingY: normal
+              gap: large
+              maxWidth: full
+              paddingX: normal
+              gridSettings:
+                desktop:
+                  a079909189bc9634:
+                    x: 2
+                    y: 0
+                    w: 8
+                    h: 1
+                  510667b34fa14f2b:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              background: transparent
+              borderRadius: small
+        sectionIds:
+          - d0385ae9d58c7d2a
+        config:
+          gridSettings:
+            desktop:
+              d0385ae9d58c7d2a:
+                x: 0
+                y: 0
+                w: 12
+                h: 1
+          paddingX: none
+          borderRadius: small
+          paddingY: none
+          background: transparent
+    sectionIds:
+      - 7458acd55e6fed14
+    config:
+      gridSettings:
+        desktop:
+          7458acd55e6fed14:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      background: background.paper
+      paddingY: normal
+      borderRadius: small
+      paddingX: none
+  f69398c849dc5e70:
+    id: f69398c849dc5e70
+    name: Feature Grid_left
+    component: layout-block
+    sections:
+      580a080fe301c191:
+        id: 580a080fe301c191
+        name: Content
+        component: layout-block
+        sections:
+          700802c26901abf7:
+            id: 700802c26901abf7
+            name: CTA
+            component: layout-block
+            sections:
+              94c3345817727c77:
+                id: 94c3345817727c77
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              35a95d1731ee2aa8:
+                id: 35a95d1731ee2aa8
+                name: Action
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: a44r0SiGV9AFn2Fj
+                sectionIds: []
+            sectionIds:
+              - 94c3345817727c77
+              - 35a95d1731ee2aa8
+            config:
+              gridSettings:
+                desktop:
+                  94c3345817727c77:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                  35a95d1731ee2aa8:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              paddingY: normal
+              gap: normal
+              maxWidth: full
+              paddingX: none
+          ccbad90a814ea854:
+            id: ccbad90a814ea854
+            name: Image
+            component: layout-block
+            sections:
+              5f4147305d6848bf:
+                id: 5f4147305d6848bf
+                name: Media
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0JPjPs122kaaa-
+                sectionIds: []
+            sectionIds:
+              - 5f4147305d6848bf
+            config:
+              borderRadius: small
+              gridSettings:
+                desktop:
+                  5f4147305d6848bf:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              background: background.paper
+              paddingX: small
+              paddingY: small
+        sectionIds:
+          - 700802c26901abf7
+          - ccbad90a814ea854
+        config:
+          borderRadius: small
+          paddingX: none
+          paddingY: normal
+          maxWidth: full
+          gridSettings:
+            desktop:
+              700802c26901abf7:
+                x: 0
+                y: 0
+                w: 5
+                h: 1
+              ccbad90a814ea854:
+                x: 6
+                y: 0
+                w: 6
+                h: 1
+          gap: normal
+    sectionIds:
+      - 580a080fe301c191
+    config:
+      gridSettings:
+        desktop:
+          580a080fe301c191:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: normal
+      background: transparent
+      border: none
+      paddingX: none
+  356d6f220ba08deb:
+    id: 356d6f220ba08deb
+    name: Feature Grid_left
+    component: layout-block
+    sections:
+      64bb4ffc49c1b0c4:
+        id: 64bb4ffc49c1b0c4
+        name: Content
+        component: layout-block
+        sections:
+          8f238e5d9970110f:
+            id: 8f238e5d9970110f
+            name: CTA
+            component: layout-block
+            sections:
+              3116bd7cac287fbc:
+                id: 3116bd7cac287fbc
+                name: Description
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0J44322kDYc-
+                sectionIds: []
+              ffac91398e233421:
+                id: ffac91398e233421
+                name: Action
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: a44r0SiGV9AFn2Fj
+                sectionIds: []
+            sectionIds:
+              - 3116bd7cac287fbc
+              - ffac91398e233421
+            config:
+              gridSettings:
+                desktop:
+                  3116bd7cac287fbc:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+                  ffac91398e233421:
+                    x: 0
+                    y: 1
+                    w: 12
+                    h: 1
+              paddingY: normal
+              gap: normal
+              maxWidth: full
+              paddingX: none
+          1874c997be4ce732:
+            id: 1874c997be4ce732
+            name: Image
+            component: layout-block
+            sections:
+              2cf6179b72ba8915:
+                id: 2cf6179b72ba8915
+                name: Media
+                component: custom-component
+                config:
+                  useCache: true
+                  componentId: xoHu0JPjPs122kaaa-
+                sectionIds: []
+            sectionIds:
+              - 2cf6179b72ba8915
+            config:
+              borderRadius: small
+              gridSettings:
+                desktop:
+                  2cf6179b72ba8915:
+                    x: 0
+                    y: 0
+                    w: 12
+                    h: 1
+              background: background.paper
+              paddingX: small
+              paddingY: small
+        sectionIds:
+          - 8f238e5d9970110f
+          - 1874c997be4ce732
+        config:
+          borderRadius: small
+          paddingX: none
+          paddingY: normal
+          maxWidth: full
+          gridSettings:
+            desktop:
+              8f238e5d9970110f:
+                x: 7
+                y: 0
+                w: 5
+                h: 1
+              1874c997be4ce732:
+                x: 0
+                y: 0
+                w: 6
+                h: 1
+          gap: normal
+    sectionIds:
+      - 64bb4ffc49c1b0c4
+    config:
+      gridSettings:
+        desktop:
+          64bb4ffc49c1b0c4:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      gap: normal
+      paddingY: normal
+      background: transparent
+      border: none
+      paddingX: none
+  8ea02137b1384131:
+    id: 8ea02137b1384131
+    name: FAQs_2
+    component: layout-block
+    sections:
+      69c7dd4036e9708e:
+        id: 69c7dd4036e9708e
+        name: Title
+        component: custom-component
+        config:
+          useCache: true
+          componentId: xoHu0J44322kDYc-
+        sectionIds: []
+      bb070bd6d4642bf3:
+        id: bb070bd6d4642bf3
+        name: FaqComponentV2
+        component: custom-component
+        config:
+          useCache: true
+          componentId: 4MikfrDpecX9hUD6
+        sectionIds: []
+    sectionIds:
+      - 69c7dd4036e9708e
+      - bb070bd6d4642bf3
+    config:
+      gridSettings:
+        desktop:
+          bb070bd6d4642bf3:
+            x: 0
+            y: 1
+            w: 12
+            h: 1
+          69c7dd4036e9708e:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      paddingX: none
+      gap: normal
+      paddingY: none
+  d56d9e831889abb5:
+    id: d56d9e831889abb5
+    name: Full Background Hero
+    component: layout-block
+    sections:
+      d66823edd1527d2e:
+        id: d66823edd1527d2e
+        name: CTA
+        component: layout-block
+        sections:
+          db2d6e57316f086b:
+            id: db2d6e57316f086b
+            name: Description
+            component: custom-component
+            config:
+              useCache: true
+              componentId: xoHu0J44322kDYc-
+            sectionIds: []
+          06080d017bac5b6d:
+            id: 06080d017bac5b6d
+            name: Action
+            component: custom-component
+            config:
+              useCache: true
+              componentId: a44r0SiGV9AFn2Fj
+            sectionIds: []
+        sectionIds:
+          - db2d6e57316f086b
+          - 06080d017bac5b6d
+        config:
+          gridSettings:
+            desktop:
+              db2d6e57316f086b:
+                x: 2
+                y: 0
+                w: 8
+                h: 1
+              06080d017bac5b6d:
+                x: 0
+                y: 1
+                w: 12
+                h: 1
+          paddingY: large
+          gap: large
+          maxWidth: full
+          paddingX: none
+          background: background.paper
+          borderRadius: small
+    sectionIds:
+      - d66823edd1527d2e
+    config:
+      gridSettings:
+        desktop:
+          d66823edd1527d2e:
+            x: 0
+            y: 0
+            w: 12
+            h: 1
+      background: transparent
+      paddingY: none
+      backgroundFullWidth: false
+      paddingX: none
+sectionIds:
+  - 6d4ea39506007d1a
+  - f69398c849dc5e70
+  - 356d6f220ba08deb
+  - 8ea02137b1384131
+  - d56d9e831889abb5
+dataSource:
+  a079909189bc9634:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: Welcome to the AIGNE DocSmith community hub! This is your space to
+                  connect, learn, and create with fellow developers. Let's build
+                  amazing things together!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: You're Part of the Crew!
+            style:
+              fontSize: '{"md":40}'
+              variant: h1
+  510667b34fa14f2b:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Explore on GitHub
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: Join the Discussion
+              variant: outlined
+              borderColor: primary.main
+              size: large
+              url: https://community.arcblock.io/discussions/boards/aigne
+        r8t5y6u7i1o2p3a4:
+          value: 16
+  94c3345817727c77:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: Whether you're just starting or you're a seasoned pro, we've got the
+                  resources to help you succeed. Dive into our official docs for
+                  in-depth guides, or check out our showcase to see what's
+                  possible.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Learn, Explore, and Get Inspired
+            style:
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  35a95d1731ee2aa8:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Read the Docs
+              url: https://docsmith.aigne.io/docs/
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: View Showcase
+              variant: outlined
+              borderColor: primary.main
+              size: large
+              url: https://docsmith.aigne.io/app
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+  5f4147305d6848bf:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://placehold.co/1440x700?text=Resources
+            mediaKitUrl: https://placehold.co/1440x700?text=Resources
+            width: 2445
+            height: 1394
+        jjv0hvr8wrixt1f3:
+          value: 1
+  3116bd7cac287fbc:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: Connect with us and hundreds of other developers! Follow us on Twitter for
+                  the latest news and announcements, or jump into our community
+                  forums to ask questions, share your projects, and get support.
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: Join the Conversation!
+            style:
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        kyg0hdy5uqq4gc1o:
+          value: flex-start
+  ffac91398e233421:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Follow on Twitter
+              url: https://twitter.com/arcblock_io
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: Visit Community Forum
+              variant: outlined
+              borderColor: primary.main
+              size: large
+              url: https://community.arcblock.io/discussions/boards/aigne
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: flex-start
+        v9979xeclpsbvn0n:
+          value: flex-start
+  2cf6179b72ba8915:
+    en:
+      properties:
+        7m5pz8nefl5j9hqq:
+          value:
+            url: https://placehold.co/1440x700?text=Community
+            mediaKitUrl: https://placehold.co/1440x700?text=Community
+            width: 2445
+            height: 1394
+        jjv0hvr8wrixt1f3:
+          value: 1
+  69c7dd4036e9708e:
+    en:
+      properties:
+        gs1rn5jmxfvpxptx:
+          value:
+            text: How You Can Contribute
+            style:
+              variant: h2
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+        9ajrz12ik7esfk1z:
+          value:
+            list: []
+  bb070bd6d4642bf3:
+    en:
+      properties:
+        4221qi1bxy322mf4:
+          value:
+            - title: How do I report a bug or issue?
+              answer: Great question! Please search existing issues first on our GitHub Issues
+                page. If you can't find it, open a new one using our bug report
+                template. Your feedback helps us make DocSmith better for
+                everyone!
+            - title: I have a great idea for a new feature. Where can I share it?
+              answer: We'd love to hear it! The best place for new ideas is our GitHub
+                Discussions. This lets the community vote on and discuss new
+                possibilities. Let's dream up the future of DocSmith together!
+            - title: I want to contribute code. Where do I start?
+              answer: Awesome! We're thrilled to have you. First, clone the repo, install
+                dependencies with `pnpm install`, and run the tests. Please
+                check out our Code of Conduct and contribution guidelines before
+                submitting a pull request. Welcome aboard!
+            - title: Where can I see what features are planned?
+              answer: You can check out our public roadmap on GitHub Projects to see what
+                we're working on and what's coming up next. Feel free to comment
+                and share your thoughts!
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+            - title: ""
+              answer: ""
+  db2d6e57316f086b:
+    en:
+      properties:
+        9ajrz12ik7esfk1z:
+          value:
+            list:
+              - id: item-1759121327460-gc8w9kaxt
+                type: text
+                text: Jump in and become a part of the AIGNE DocSmith story. Your next
+                  contribution could be the one that sparks a new idea for
+                  everyone!
+                style:
+                  color: ""
+                  fontSize: 16px
+                  variant: body1
+        gs1rn5jmxfvpxptx:
+          value:
+            text: What Are You Waiting For?
+            style:
+              color: ""
+              variant: h1
+        v5utpm7bu9yvdpnq:
+          value: center
+        kyg0hdy5uqq4gc1o:
+          value: center
+  06080d017bac5b6d:
+    en:
+      properties:
+        b8x4m3n9kp7qtw5r:
+          value:
+            - id: btn-default-1
+              type: link
+              text: Contribute on GitHub
+              url: https://github.com/AIGNE-io/aigne-doc-smith
+              variant: contained
+              size: large
+              target: _self
+              needLogin: false
+            - id: btn-1759121436561-6r9xmg35x
+              text: Say Hello in the Community
+              variant: outlined
+              borderColor: common.white
+              size: large
+              url: https://community.arcblock.io/discussions/boards/aigne
+        r8t5y6u7i1o2p3a4:
+          value: 16
+        v5utpm7bu9yvdpnq:
+          value: center

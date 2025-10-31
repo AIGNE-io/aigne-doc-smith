@@ -1,0 +1,238 @@
+"meta":
+  "title": "AIGNE DocSmith: AI-Powered Documentation That Understands Your Code"
+  "description": "Generate comprehensive, multi-language documentation
+    automatically from your codebase with AIGNE DocSmith. Stays in sync,
+    zero-config, and powered by the AIGNE framework."
+"sections":
+  - "sectionName": "hero"
+    "sectionSummary": "A powerful, attention-grabbing hero section designed to
+      communicate the core value proposition instantly and drive initial user
+      action through clear CTAs."
+    "centeredHeroTitle": "AI-Powered Documentation That Understands Your Code"
+    "centeredHeroDescription": "AIGNE DocSmith analyzes your codebase to
+      automatically generate comprehensive, structured, and multi-language
+      documentation that always stays in sync. Stop writing docs, start
+      building!"
+    "centeredHeroActions":
+      - "text": "Get Started Now"
+        "link": "https://www.npmjs.com/package/@aigne/doc-smith"
+      - "text": "View on GitHub"
+        "link": "https://github.com/AIGNE-io/aigne-doc-smith"
+  - "sectionName": "whyDocsmith"
+    "sectionSummary": "A visually engaging 3-column grid that highlights the top six
+      benefits of using DocSmith, making it easy for users to quickly scan and
+      understand its value."
+    "threeColumnGridTitle": "Why You'll Love DocSmith"
+    "list":
+      - "sectionName": "intelligentAnalysis"
+        "sectionSummary": "Benefit card highlighting DocSmith's intelligent code
+          analysis capabilities."
+        "iconName": "lucide:brain-circuit"
+        "cardTitle": "Intelligent Analysis"
+        "cardDescription": "Goes beyond keywords to understand your code's structure,
+          patterns, and intent, generating truly insightful docs."
+      - "sectionName": "comprehensiveCoverage"
+        "sectionSummary": "Benefit card explaining the comprehensive nature of the
+          documentation generated."
+        "iconName": "lucide:book-open-check"
+        "cardTitle": "Comprehensive Coverage"
+        "cardDescription": "From high-level user guides to detailed API references, get
+          the complete picture automatically."
+      - "sectionName": "globalReady"
+        "sectionSummary": "Benefit card showcasing the multi-language translation feature."
+        "iconName": "lucide:globe"
+        "cardTitle": "Global Ready"
+        "cardDescription": "Reach a worldwide audience with professional, context-aware
+          translation in 12 languages."
+      - "sectionName": "alwaysCurrent"
+        "sectionSummary": "Benefit card emphasizing that the documentation stays in sync
+          with the code."
+        "iconName": "lucide:history"
+        "cardTitle": "Always Current"
+        "cardDescription": "Automatically detects code changes and updates your
+          documentation, so it's never out of date."
+      - "sectionName": "zeroConfig"
+        "sectionSummary": "Benefit card promoting the ease of setup and use."
+        "iconName": "lucide:zap"
+        "cardTitle": "Zero Config"
+        "cardDescription": "Works out of the box with smart defaults and auto-detection.
+          Get started in seconds, not hours."
+      - "sectionName": "seamlessIntegration"
+        "sectionSummary": "Benefit card detailing the easy integration with various LLMs
+          and platforms."
+        "iconName": "lucide:puzzle"
+        "cardTitle": "Seamless Integration"
+        "cardDescription": "Connect to AIGNE Hub, OpenAI, Google, Anthropic, and publish
+          to anywhere with one-click."
+  - "sectionName": "interactiveDemos"
+    "sectionSummary": "An exciting, action-oriented section that uses terminal
+      players to demonstrate DocSmith's core commands, providing a dynamic and
+      engaging look at the product in action."
+    "oneColumnGridTitle": "See It in Action: One Command, Endless Possibilities"
+    "list":
+      - "sectionName": "generateDemo"
+        "sectionSummary": "A terminal player demo showcasing the 'aigne doc generate'
+          command to visualize the entire documentation creation process from a
+          single command."
+        "commandTitle": "Generate Your First Docs"
+        "command": "aigne doc generate"
+        "terminalPlaybackData": "@generate.json"
+      - "sectionName": "updateDemo"
+        "sectionSummary": "A terminal player demo for the 'aigne doc update' command,
+          showing how effortlessly users can refresh specific documents."
+        "commandTitle": "Update Existing Documents"
+        "command": "aigne doc update"
+        "terminalPlaybackData": "@update.json"
+      - "sectionName": "translateDemo"
+        "sectionSummary": "A terminal player demo for the 'aigne doc translate' command,
+          illustrating the simple, interactive process of translating
+          documentation into multiple languages."
+        "commandTitle": "Translate to Any Language"
+        "command": "aigne doc translate"
+        "terminalPlaybackData": "@translate.json"
+      - "sectionName": "publishDemo"
+        "sectionSummary": "A terminal player demo for the 'aigne doc publish' command,
+          highlighting the one-click process to get documentation live."
+        "commandTitle": "Publish & Share Instantly"
+        "command": "aigne doc publish"
+        "terminalPlaybackData": "@publish.json"
+  - "sectionName": "featuresOverview"
+    "sectionSummary": "A feature-rich grid that dives deeper into the four core
+      capabilities of DocSmith, using images to visually reinforce each point."
+    "twoColumnGridTitle": "Packed with Powerful Features"
+    "list":
+      - "sectionName": "aiGenerationFeature"
+        "sectionSummary": "Feature card detailing the AI-powered generation process,
+          from analysis to content creation."
+        "contentCardTitle": "AI-Powered Generation"
+        "contentCardDescription": "Our AI doesn't just write; it analyzes your codebase
+          to create a logical structure and generates contextual content that
+          explains both the 'what' and the 'why'."
+        "contentCardBottomImage": "mediakit://doc-generate-docs.png"
+      - "sectionName": "multiLanguageFeature"
+        "sectionSummary": "Feature card highlighting the professional, context-aware
+          multi-language translation capabilities."
+        "contentCardTitle": "Multi-Language Excellence"
+        "contentCardDescription": "Effortlessly translate your docs into 12 languages.
+          Our context-aware AI ensures technical accuracy is maintained, with
+          glossary integration for perfect consistency."
+        "contentCardBottomImage": "mediakit://doc-translate-langs.png"
+      - "sectionName": "integrationFeature"
+        "sectionSummary": "Feature card showcasing seamless integration with the AIGNE
+          ecosystem and multiple LLM providers."
+        "contentCardTitle": "Seamless Integration"
+        "contentCardDescription": "Connect to AIGNE Hub to switch between models from
+          Google, OpenAI, and more without API keys. Or, bring your own keys.
+          The choice is yours!"
+        "contentCardBottomImage": "https://docsmith.aigne.io/image-bin/uploads/def424c2\
+          0bbdb3c77483894fe0e22819.png"
+      - "sectionName": "smartUpdatesFeature"
+        "sectionSummary": "Feature card explaining the smart update and targeted
+          regeneration functionality."
+        "contentCardTitle": "Smart Updates"
+        "contentCardDescription": "DocSmith automatically identifies code changes and
+          updates only the relevant documentation. You can also regenerate
+          specific sections with custom feedback."
+        "contentCardBottomImage": "mediakit://doc-regenerate.png"
+  - "sectionName": "quickStart"
+    "sectionSummary": "A clear, action-oriented quick start guide that provides
+      simple, copy-pasteable commands to get users up and running in under a
+      minute."
+    "verticalHeroTitle": "Get Started in 60 Seconds"
+    "verticalHeroDescription": "Install the AIGNE CLI and run one command in your
+      project. That's it. DocSmith handles the rest, auto-detecting your setup
+      and generating beautiful docs instantly."
+    "verticalHeroCode":
+      "name": "bash"
+      "content": "# 1. Install the global CLI
+
+        npm install -g @aigne/cli
+
+
+        # 2. Navigate to your project folder
+
+        cd /path/to/your/project
+
+
+        # 3. Generate your docs!
+
+        aigne doc generate"
+  - "sectionName": "enterpriseFeatures"
+    "sectionSummary": "A section targeted at business users, showcasing
+      enterprise-grade features like team collaboration, security, and support
+      in a clean, professional grid layout."
+    "threeColumnGridTitle": "Built for Teams, Ready for Production"
+    "list":
+      - "sectionName": "teamCollaboration"
+        "sectionSummary": "Enterprise feature card for team collaboration."
+        "iconName": "lucide:users"
+        "cardTitle": "Team Collaboration"
+        "cardDescription": "Streamline your documentation workflow with multi-user
+          access and role-based permissions."
+      - "sectionName": "customBranding"
+        "sectionSummary": "Enterprise feature card for custom branding."
+        "iconName": "lucide:palette"
+        "cardTitle": "Custom Branding"
+        "cardDescription": "White-label your documentation with your own brand identity
+          for a seamless user experience."
+      - "sectionName": "apiIntegration"
+        "sectionSummary": "Enterprise feature card for API integration."
+        "iconName": "lucide:webhook"
+        "cardTitle": "API Integration"
+        "cardDescription": "Integrate with your CI/CD pipelines using our REST APIs for
+          fully automated documentation."
+      - "sectionName": "privateCloud"
+        "sectionSummary": "Enterprise feature card for security and compliance."
+        "iconName": "lucide:lock"
+        "cardTitle": "Security & Compliance"
+        "cardDescription": "Deploy on your own private cloud or on-premise
+          infrastructure. Your code never leaves your environment."
+      - "sectionName": "ssoIntegration"
+        "sectionSummary": "Enterprise feature card for SSO integration."
+        "iconName": "lucide:key-round"
+        "cardTitle": "SSO Integration"
+        "cardDescription": "Connect with your existing identity providers like Okta,
+          Auth0, or Azure AD for secure access."
+      - "sectionName": "prioritySupport"
+        "sectionSummary": "Enterprise feature card for priority support."
+        "iconName": "lucide:life-buoy"
+        "cardTitle": "Priority Support & Services"
+        "cardDescription": "Get direct access to our engineering team, custom training,
+          and professional services."
+  - "sectionName": "communityResources"
+    "sectionSummary": "A friendly and inviting section that provides clear links to
+      documentation, social channels, and community forums to help users and
+      encourage engagement."
+    "threeColumnGridTitle": "Join Our Growing Community"
+    "list":
+      - "sectionName": "documentationLink"
+        "sectionSummary": "Resource card linking to the full documentation."
+        "iconName": "lucide:book-open"
+        "cardTitle": "Full Documentation"
+        "cardDescription": "Dive deep into every feature, command, and configuration
+          option in our official docs."
+      - "sectionName": "twitterLink"
+        "sectionSummary": "Resource card linking to the company's Twitter profile for updates."
+        "iconName": "lucide:twitter"
+        "cardTitle": "Follow on Twitter"
+        "cardDescription": "Get the latest updates, announcements, and tips by following
+          us @arcblock_io."
+      - "sectionName": "communityChatLink"
+        "sectionSummary": "Resource card linking to the community discussion board."
+        "iconName": "lucide:message-square-plus"
+        "cardTitle": "Community Discussions"
+        "cardDescription": "Ask questions, share your projects, and connect with other
+          developers in our community chat."
+  - "sectionName": "finalCta"
+    "sectionSummary": "A final, high-impact Call to Action section at the bottom of
+      the page, designed to capture any remaining visitor interest and drive
+      conversion."
+    "ctaTitle": "Ready to Automate Your Documentation?"
+    "ctaDescription": "Stop writing docs and let AIGNE DocSmith do the heavy
+      lifting. Install the CLI and generate your first set of documents for
+      free, today!"
+    "cta":
+      - "text": "Install the CLI"
+        "link": "https://www.npmjs.com/package/@aigne/doc-smith"
+      - "text": "Star on GitHub"
+        "link": "https://github.com/AIGNE-io/aigne-doc-smith"
