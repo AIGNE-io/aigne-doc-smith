@@ -1,5 +1,6 @@
 import { access, readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { pathExists } from "./file-utils.mjs";
 
 /**
  * Get action-specific text based on isTranslate flag
@@ -275,4 +276,51 @@ export function addFeedbackToItems(items, feedback) {
     ...item,
     feedback: feedback.trim(),
   }));
+}
+
+/**
+ * Load document execution structure from structure-plan.json
+ * @param {string} outputDir - Output directory containing structure-plan.json
+ * @returns {Promise<Array|null>} Document execution structure array or null if not found/failed
+ */
+export async function loadDocumentStructure(outputDir) {
+  if (!outputDir) {
+    return null;
+  }
+
+  try {
+    const structurePlanPath = join(outputDir, "structure-plan.json");
+    const structureExists = await pathExists(structurePlanPath);
+    
+    if (!structureExists) {
+      return null;
+    }
+
+    const structureContent = await readFile(structurePlanPath, "utf8");
+    if (!structureContent?.trim()) {
+      return null;
+    }
+
+    try {
+      // Validate that the content looks like JSON before parsing
+      const trimmedContent = structureContent.trim();
+      if (!trimmedContent.startsWith("[") && !trimmedContent.startsWith("{")) {
+        console.warn("structure-plan.json contains non-JSON content, skipping parse");
+        return null;
+      }
+
+      const parsed = JSON.parse(structureContent);
+      // Return array if it's an array, otherwise return null
+      return Array.isArray(parsed) ? parsed : null;
+    } catch (parseError) {
+      console.error(`Failed to parse structure-plan.json: ${parseError.message}`);
+      return null;
+    }
+  } catch (readError) {
+    // Only warn if it's not a "file not found" error
+    if (readError.code !== "ENOENT") {
+      console.warn(`Error reading structure-plan.json: ${readError.message}`);
+    }
+    return null;
+  }
 }

@@ -10,7 +10,7 @@ const TARGET_METADATA = {
   generatedDocs: {
     label: "Generated Documents",
     description: ({ docsDir }) =>
-      `Delete all generated documents in './${toDisplayPath(docsDir)}'. The documentation structure will be preserved.`,
+      `Select and delete specific generated documents in './${toDisplayPath(docsDir)}'. The documentation structure will be preserved.`,
     agent: "clearGeneratedDocs",
   },
   documentStructure: {
