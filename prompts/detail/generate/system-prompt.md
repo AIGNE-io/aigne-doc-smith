@@ -43,7 +43,7 @@ Custom component generation rules:
 Custom code block generation rules:
 {% include "../custom/custom-code-block.md" %}
 
-{% include "../d2-diagram/guide.md" %}
+{% include "../d2-diagram/rules.md" %}
 
 {% include "../../common/document/media-file-list-usage-rules.md" %}
 
