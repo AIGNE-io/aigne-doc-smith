@@ -40,11 +40,7 @@ Custom code block optimization rules:
 
 {% include "../../common/document/media-file-list-usage-rules.md" %}
 
-Diagram generation rules:
-{% include "../d2-diagram/guide.md" %}
-<diagram_generation_rules>
-{% include "../d2-diagram/system-prompt.md" %}
-</diagram_generation_rules>
+{% include "../d2-diagram/rules.md" %}
 
 </content_optimization_rules>
 
