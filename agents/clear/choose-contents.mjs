@@ -10,7 +10,7 @@ const TARGET_METADATA = {
   generatedDocs: {
     label: "Generated Documents",
     description: ({ docsDir }) =>
-      `Delete all generated documents in './${toDisplayPath(docsDir)}'. The documentation structure will be preserved.`,
+      `Select and delete specific generated documents in './${toDisplayPath(docsDir)}'. The documentation structure will be preserved.`,
     agent: "clearGeneratedDocs",
   },
   documentStructure: {
@@ -150,9 +150,9 @@ export default async function chooseContents(input = {}, options = {}) {
   }
 
   const header = hasError
-    ? "Cleanup finished with some issues."
-    : "Cleanup completed successfully!";
-  const detailLines = results.map((item) => `- ${item.message}`).join("\n");
+    ? "🧹 Cleanup finished with some issues.\n"
+    : "🧹 Cleanup completed successfully!\n";
+  const detailLines = results.map((item) => `${item.message}`).join("\n\n");
 
   const suggestions = [];
   results.forEach((result) => {
