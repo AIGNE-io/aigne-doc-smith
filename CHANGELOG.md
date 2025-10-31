@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.15-beta.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.6...v0.8.15-beta.7) (2025-10-31)
+
+
+### Features
+
+* add web-smith powered web-pages ([#229](https://github.com/AIGNE-io/aigne-doc-smith/issues/229)) ([c3c00c1](https://github.com/AIGNE-io/aigne-doc-smith/commit/c3c00c12f092b125b6adb1a13ed5ff9720fbdab7))
+* support cleaning specific documents ([#231](https://github.com/AIGNE-io/aigne-doc-smith/issues/231)) ([67607c9](https://github.com/AIGNE-io/aigne-doc-smith/commit/67607c9ff3852cc81a29e5a11b2151d26879b000))
+
+
+### Bug Fixes
+
+* tune custom component prompt and batch update history ([#228](https://github.com/AIGNE-io/aigne-doc-smith/issues/228)) ([ab13b97](https://github.com/AIGNE-io/aigne-doc-smith/commit/ab13b9737e5f111d0939f9c39ee76e13c0692a68))
+
 ## [0.8.15-beta.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.5...v0.8.15-beta.6) (2025-10-30)
 
 
