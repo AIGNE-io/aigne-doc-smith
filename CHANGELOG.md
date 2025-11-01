@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.15-beta.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.7...v0.8.15-beta.8) (2025-11-01)
+
+
+### Features
+
+* smarter structure generation with team-based architecture ([#225](https://github.com/AIGNE-io/aigne-doc-smith/issues/225)) ([eb3404a](https://github.com/AIGNE-io/aigne-doc-smith/commit/eb3404a8889364912a077e84688cfcd48d69ef47))
+
 ## [0.8.15-beta.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.6...v0.8.15-beta.7) (2025-10-31)
 
 
