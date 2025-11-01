@@ -247,33 +247,4 @@ describe("check-need-generate-structure", () => {
     expect(mockOptions.prompts.select).toHaveBeenCalled();
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
-
-  test("should use generateStructure agent when isLargeContext is true", async () => {
-    await checkNeedGenerateStructure(
-      { originalDocumentStructure, forceRegenerate: true, isLargeContext: true, docsDir: "./docs" },
-      mockOptions,
-    );
-
-    expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.generateStructure,
-      expect.any(Object),
-    );
-  });
-
-  test("should use generateStructureWithoutTools agent when isLargeContext is false", async () => {
-    await checkNeedGenerateStructure(
-      {
-        originalDocumentStructure,
-        forceRegenerate: true,
-        isLargeContext: false,
-        docsDir: "./docs",
-      },
-      mockOptions,
-    );
-
-    expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.generateStructureWithoutTools,
-      expect.any(Object),
-    );
-  });
 });

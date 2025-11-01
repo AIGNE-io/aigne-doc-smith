@@ -1,15 +1,10 @@
-
-{% include "../../common/document-structure/user-locale-rules.md" %}
-
-{% include "../../common/document-structure/user-preferences.md" %}
-
-
-<file_list>
-{{allFilesPaths}}
-</file_list>
-
 <datasources>
+Following are the partial or complete data sources provided by the user to help you design the document structure. Use these data sources to inform your structural planning.
+
 {{ datasources }}
+
+
+NOTICE: There are additional data source contents not displayed. When operating on the document structure, be sure to consider these undisplayed contents and do not easily delete any nodes unless users explicitly request deletion.
 </datasources>
 
 {% if userContext.openAPISpec %}
@@ -17,7 +12,7 @@
 
 **Goal:** Use the provided OpenAPI (Swagger) specification to design how the OpenAPI content and the overall document should be structured together.
 
-**OpenAPI File Content:** 
+**OpenAPI File Content:**
 <openapi_doc>
 
 {{ userContext.openAPISpec }}
@@ -47,11 +42,24 @@
 {% endif %}
 
 
-{% if originalDocumentStructure %}
 <last_document_structure>
-{{originalDocumentStructure}}
+projectName: |
+  {{projectName}}
+projectDesc: |
+  {{projectDesc}}
+
+{% if originalDocumentStructure %}
+{{ originalDocumentStructure | yaml.stringify }}
+{% else %}
+No previous document structure provided. generate a new structure based on the data sources!
+{% endif %}
+
 </last_document_structure>
 
+
+{% include "../../common/document-structure/user-locale-rules.md" %}
+
+{% include "../../common/document-structure/user-preferences.md" %}
 
 <last_document_structure_rule>
 If a previous structural plan (last_document_structure) is provided, follow these rules:
@@ -59,8 +67,6 @@ If a previous structural plan (last_document_structure) is provided, follow thes
   2.  **Unrelated Node Stability**: Nodes not mentioned in user feedback **must not have their path or sourcesIds attributes modified**. `path` and `sourcesIds` are critical identifiers linking existing content, and their stability is paramount.
     Ideally, other attributes (such as `title`, `description`) should also remain stable, unless these changes are directly caused by a requested modification or result from DataSource updates.
 </last_document_structure_rule>
-{% endif %}
-
 
 {% if documentStructure %}
 <review_document_structure>
@@ -92,27 +98,62 @@ Sub-structures must meet the following requirements:
 - Sub-structures are planned based on DataSources and the parent document's description
 - The parent document provides an overview of the planned content, while sub-structures directly plan the specific content to be displayed
 - Further break down and comprehensively display the content planned in the parent document
-- All sub-structures must have their parentId value set to {{parentDocument.path}}
+- All sub-structures must have their parentPath value set to {{parentDocument.path}}
 </parent_document>
 {% endif %}
 
 <instructions>
-Your task is to design a detailed structural plan for the document to be generated. This plan will serve as a "blueprint" for subsequent content generation, guiding the LLM on how to organize and present information, ensuring the document is logically clear, easy to understand, well-structured, and comprehensive.
+Your task is to **analyze, refine, and adjust** the existing document structure (`last_document_structure`) based on the partial code repository content currently provided, generating a structural update plan.
+You are not creating a structure from scratch, but rather **performing intelligent updates based on understanding the existing structure** to make the document structure more accurately reflect the latest code content, architectural changes, and logical relationships.
 
-Key capabilities and behavioral principles:
-  - Data Comprehension: Ability to parse and understand structured and unstructured data, identifying key concepts, entities, attributes, relationships, and processes within them.
-  - Structured Thinking: Strong logical analysis capabilities to decompose complex information into clear chapters, sections, and items, establishing reasonable hierarchical relationships.
-  - User-Oriented Approach: Ability to flexibly adjust the focus and level of detail in structural planning based on document objectives and audience characteristics provided by users.
-  - Modular Design: Tendency to divide documents into independent, reusable modules or sections for easy content population and subsequent maintenance.
-  - Flexibility and Adaptability: Ability to handle multiple types of data sources and design the most suitable documentation structure based on data source characteristics (such as code function/class structures, API endpoints/parameters, text paragraphs/themes).
-  - Clarity and Completeness: Ensure the final structural plan is easy to understand and can guide the LLM to generate a comprehensive and well-organized document.
+## When using <datasource> data sources, please note the following:
+
+- Fully respect the project descriptions and usage instructions in README files, as these typically summarize the project's core functionality and objectives.
+- Pay attention to comments and docstrings in source code files, as these reveal the design intent and usage methods of the code.
+- Understand the relationships between various modules and files, which helps build a logically clear and well-structured document hierarchy.
+- Notice key concepts, APIs, and configuration options in the code, as these are typically important components of the document structure.
+- The generated document structure must include all public modules, interfaces, and features to ensure document completeness and usability.
 
 
-Objectives:
-  - Create a clear and logical structural plan that comprehensively presents information from the user-provided context while providing users with intuitive navigation paths.
-  - Each {{nodeName}} should include: a {{nodeName}} title, a one-sentence introduction describing its main content, with presentation and organization methods tailored to the target audience.
+## Objective
+
+Your output should be a structured change plan containing the following three sections to indicate how to modify the existing document structure:
+
+- **add**: New structure items (array), can use index to specify insertion position (optional), each item is an object containing:
+  - `index` (optional): Insertion position index, if not specified, append to the end;
+  - `item`: New structure definition
+- **update**: Structure items that need modification (array), each item is an object containing:
+  - `path`: Path pointing to the node being updated;
+  - `update`: New structure definition
+
+## Behavior Rules
+
+1. **Understanding and Inheritance**
+   - Fully understand the hierarchical logic, section divisions, and naming style in <last_document_structure>.
+   - Perform incremental updates based on this foundation, not complete rewrites.
+   - Preserve existing reasonable structures, only modify or extend when there is clear justification.
+
+2. **Contextual Association Analysis**
+   - You will receive part of the code repository content (such as partial source files or directory content), please analyze their **documentation value and structural impact**.
+   - Identify which parts represent new concepts, APIs, modules, configurations, or features; determine if they require adding or modifying corresponding sections in the document structure.
+
+3. **Structure Adjustment Strategy**
+   - If new content supplements details of existing sections, use `update`.
+   - If new content introduces new topics, modules, or hierarchies, use `add`.
+   - Ensure the position, hierarchy, and naming of new nodes align with the overall document logic.
+
+4. **Consistency and Clarity**
+   - Ensure new or modified structure items are consistent with existing structure style.
+   - Each structure node (whether new or updated) should include:
+     - **Title**
+     - **Brief description in one sentence**, describing main content and purpose
+   - Maintain clear hierarchy, avoid duplication, ensure logical coherence. Excellent documentation should allow users to quickly understand project structure and content distribution, organized by modules, functional features, and other dimensions.
+
+5. **Requirements**
+  - Follow all rules and guidelines in <document_structure_rules>.
+  - Generate rich document structure where functional modules must have sub-documents, comprehensively covering the codebase's functionality and modules, ensuring users can easily get started, understand, and use various modules and main features of the project through documentation.
 
 {% include "../../common/document-structure/intj-traits.md" %}
 
-Always follow one principle: You must ensure the final structural plan meets user requirements.
+You must make reasonable incremental modifications based solely on the new information provided while respecting the existing structure, ensuring the final structure remains complete, clear, and extensible.
 </instructions>
