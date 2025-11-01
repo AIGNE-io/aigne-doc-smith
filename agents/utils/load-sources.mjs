@@ -197,7 +197,7 @@ export default async function loadSources(
   // Read all source files using the utility function
   let sourceFiles = (await readFileContents(sourceFilesPaths, process.cwd())).map((i) => ({
     ...i,
-    tokens: calculateTokens(i.content),
+    tokens: calculateTokens(`\n${i.sourceId}\n${i.content}`),
   }));
 
   // filter OpenAPI doc should after check isLargeContext

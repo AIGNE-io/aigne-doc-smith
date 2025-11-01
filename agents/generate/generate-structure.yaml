@@ -85,77 +85,78 @@ skills:
                 required:
                   - path
                   - item
-            delete:
-              type: array
-              description: List of document structure items to delete by path, null or empty array means no deletion, do not delete items unless necessary
-              items:
-                type: object
-                properties:
-                  path:
-                    type: string
-                required:
-                  - path
-      - type: function
-        name: mergeDocumentStructures
-        process: |
-          if (input.projectName) {
-            options.context.userContext.projectName = input.projectName
-          }
-          if (input.projectDesc) {
-            options.context.userContext.projectDesc = input.projectDesc
-          }
 
-          input.projectName = options.context.userContext.projectName
-          input.projectDesc = options.context.userContext.projectDesc
+      - ./utils/merge-document-structures.mjs
 
-          options.context.userContext.originalDocumentStructure ??= []
+  - type: function
+    name: aggregateDocumentStructure
+    process: |
+      return {
+        documentStructure: options.context.userContext.originalDocumentStructure.map(i => ({
+          ...i,
+          id: i.title.toLowerCase().replace(/\s+/g, '-'),
+        })),
+        projectName: options.context.userContext.projectName,
+        projectDesc: options.context.userContext.projectDesc,
+      }
 
-          const structure = options.context.userContext.originalDocumentStructure
+  - type: ai
+    name: refineStructure
+    model:
+      reasoning_effort: 500
+    instructions:
+      - role: system
+        url: ../../prompts/structure/review/structure-review-system.md
+    output_schema:
+      type: object
+      properties:
+        refinedStructure:
+          type: array
+          description: Optimized document structure array
+          items:
+            type: object
+            description: Document structure item representing a node in the document hierarchy
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the document structure item
+              newIndex:
+                type: integer
+                description: Used for ordering purposes, indicates the new position index of the document structure item
+              newPath:
+                type: string
+                description: The new path of the document structure item if it has been changed, otherwise can be omitted
+              newParentPath:
+                type: string
+                description: The new parentPath of the document structure item if it has been changed, otherwise can be omitted
+            required:
+              - id
+      required:
+        - refinedStructure
 
-          if (input.add) {
-            for (const { index, item } of input.add) {
-              if (index != null && index >= 0 && index < structure.length) {
-                structure.splice(index, 0, item)
-              } else {
-                structure.push(item)
-              }
-            }
-          }
-
-          if (input.update) {
-            for (const upd of input.update) {
-              const idx = structure.findIndex(i => i.path === upd.path)
-              if (idx !== -1) {
-                structure[idx] = upd.item
-              }
-            }
-          }
-
-          if (input.delete) {
-            for (const del of input.delete) {
-              const idx = structure.findIndex(i => i.path === del.path)
-              if (idx !== -1) {
-                structure.splice(idx, 1)
-              }
-            }
-          }
-
-          options.context.userContext.originalDocumentStructure = structure.map((i, index) => {
-            delete i.index
-
-            return ({
-              index,
-              ...i,
-            })
-          })
-
-          return {}
   - type: function
     name: finalizeDocumentStructure
     process: |
-      // Final processing of the document structure if needed
       return {
-        projectName: options.context.userContext.projectName,
-        projectDesc: options.context.userContext.projectDesc,
-        documentStructure: options.context.userContext.originalDocumentStructure
+        projectName: input.projectName,
+        projectDesc: input.projectDesc,
+        documentStructure: input.documentStructure
+          .map((item) => {
+            const refined = input.refinedStructure?.find(i => i.id === item.id)
+
+            return {
+              ...item,
+              index: refined?.newIndex || item.index,
+              path: refined?.newPath || item.path,
+              parentId: refined?.newParentPath || item.parentPath,
+            }
+          })
+          .sort((a, b) => a.index - b.index)
+          .map(i => {
+            const newItem = { ...i }
+            delete newItem.index
+            delete newItem.id
+            delete newItem.parentPath
+            return newItem
+          }),
       }

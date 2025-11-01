@@ -2,6 +2,9 @@
 Following are the partial or complete data sources provided by the user to help you design the document structure. Use these data sources to inform your structural planning.
 
 {{ datasources }}
+
+
+NOTICE: There are additional data source contents not displayed. When operating on the document structure, be sure to consider these undisplayed contents and do not easily delete any nodes unless users explicitly request deletion.
 </datasources>
 
 {% if userContext.openAPISpec %}
@@ -95,66 +98,62 @@ Sub-structures must meet the following requirements:
 - Sub-structures are planned based on DataSources and the parent document's description
 - The parent document provides an overview of the planned content, while sub-structures directly plan the specific content to be displayed
 - Further break down and comprehensively display the content planned in the parent document
-- All sub-structures must have their parentId value set to {{parentDocument.path}}
+- All sub-structures must have their parentPath value set to {{parentDocument.path}}
 </parent_document>
 {% endif %}
 
 <instructions>
-你的任务是基于当前提供的代码仓库部分内容，对现有的文档结构（`last_document_structure`）进行**分析、完善与调整**，生成一份结构性更新计划。
-你不是从零开始创建结构，而是**在理解已有结构的基础上进行智能更新**，使文档结构更准确地反映最新的代码内容、架构变化与逻辑关系。
+Your task is to **analyze, refine, and adjust** the existing document structure (`last_document_structure`) based on the partial code repository content currently provided, generating a structural update plan.
+You are not creating a structure from scratch, but rather **performing intelligent updates based on understanding the existing structure** to make the document structure more accurately reflect the latest code content, architectural changes, and logical relationships.
 
-## 在使用 <datasource> 数据源时，请注意以下几点：
+## When using <datasource> data sources, please note the following:
 
-- 充分尊重 readme 文件中的项目描述和使用说明，这些内容通常概括了项目的核心功能和目标。
-- 关注源代码文件中的注释和文档字符串，这些内容揭示了代码的设计意图和使用方法。
-- 理解各个模块和文件之间的关系，这有助于构建逻辑清晰、层次分明的文档结构。
-- 注意代码中的关键概念、API 和配置选项，这些内容通常是文档结构的重要组成部分。
-- 生成的文档结构必须包含所有公开的模块、接口和功能，以确保文档的完整性和可用性。
+- Fully respect the project descriptions and usage instructions in README files, as these typically summarize the project's core functionality and objectives.
+- Pay attention to comments and docstrings in source code files, as these reveal the design intent and usage methods of the code.
+- Understand the relationships between various modules and files, which helps build a logically clear and well-structured document hierarchy.
+- Notice key concepts, APIs, and configuration options in the code, as these are typically important components of the document structure.
+- The generated document structure must include all public modules, interfaces, and features to ensure document completeness and usability.
 
 
-## 工作目标（Objective）
+## Objective
 
-你的输出应为一个包含以下三个部分的结构化变更计划，用于指示如何修改现有文档结构：
+Your output should be a structured change plan containing the following three sections to indicate how to modify the existing document structure:
 
-- **add**：新增的结构项（数组），可以使用 index 指定插入位置（可选），每个项为一个对象，包含：
-  - `index`（可选）：插入位置索引，若不指定则追加到末尾；
-  - `item`: 新的结构定义
-- **update**：需要修改的结构项（数组），每个项为一个对象，包含：
-  - `path`: 指向被更新节点的路径；
-  - `update`: 新的结构定义
-- **delete**：需要删除的结构项（数组），除非必要，否则请保持为空，避免删除其他数据源对应的文档。每个项为一个对象，包含：
-  - `path`: 指向要删除节点的路径。
+- **add**: New structure items (array), can use index to specify insertion position (optional), each item is an object containing:
+  - `index` (optional): Insertion position index, if not specified, append to the end;
+  - `item`: New structure definition
+- **update**: Structure items that need modification (array), each item is an object containing:
+  - `path`: Path pointing to the node being updated;
+  - `update`: New structure definition
 
-## 行为准则（Behavior Rules）
+## Behavior Rules
 
-1. **理解与继承**
-   - 充分理解 <last_document_structure> 中的层级逻辑、章节划分与命名风格。
-   - 在此基础上进行增量更新，而非全量重写。
-   - 保留已有的合理结构，仅在确有依据的情况下进行修改或扩展。
+1. **Understanding and Inheritance**
+   - Fully understand the hierarchical logic, section divisions, and naming style in <last_document_structure>.
+   - Perform incremental updates based on this foundation, not complete rewrites.
+   - Preserve existing reasonable structures, only modify or extend when there is clear justification.
 
-2. **上下文关联分析**
-   - 你将获得一部分代码仓库内容（例如部分源文件或目录内容），请分析其**文档价值与结构影响**。
-   - 识别哪些部分体现了新的概念、API、模块、配置或功能；判断它们是否需要在文档结构中新增或修改对应章节。
+2. **Contextual Association Analysis**
+   - You will receive part of the code repository content (such as partial source files or directory content), please analyze their **documentation value and structural impact**.
+   - Identify which parts represent new concepts, APIs, modules, configurations, or features; determine if they require adding or modifying corresponding sections in the document structure.
 
-3. **结构调整策略**
-   - 若新内容补充了现有章节的细节，使用 `update`。
-   - 若新内容引入了新的主题、模块或层级，使用 `add`。
-   - 若发现结构中已有的章节已不再相关或内容重复，使用 `delete`。
-    - 注意：你当前拿到的 <datasources> 仅仅是整个项目的其中一部分，所以不要随意删除已有的结构节点，除非用户明确要求你这样么做。
-   - 确保新增节点的位置、层级与命名符合文档整体逻辑。
+3. **Structure Adjustment Strategy**
+   - If new content supplements details of existing sections, use `update`.
+   - If new content introduces new topics, modules, or hierarchies, use `add`.
+   - Ensure the position, hierarchy, and naming of new nodes align with the overall document logic.
 
-4. **一致性与清晰性**
-   - 确保新增或修改的结构项与现有结构风格一致。
-   - 每个结构节点（无论新增或更新）应包含：
-     - **标题（title）**
-     - **一句简要说明（description）**，描述主要内容与目的
-   - 保持层次清晰、避免重复、逻辑连贯，优秀的文档应该让用户能快速了解项目结构与内容分布，应该按模块、功能特性等维度组织内容结构。
+4. **Consistency and Clarity**
+   - Ensure new or modified structure items are consistent with existing structure style.
+   - Each structure node (whether new or updated) should include:
+     - **Title**
+     - **Brief description in one sentence**, describing main content and purpose
+   - Maintain clear hierarchy, avoid duplication, ensure logical coherence. Excellent documentation should allow users to quickly understand project structure and content distribution, organized by modules, functional features, and other dimensions.
 
-5. **要求**
-  - 遵循 <document_structure_rules> 中的所有规则和指导原则。
-  - 生成的丰富的文档结构，应全面覆盖代码库的功能与模块，确保用户能够通过文档轻松地入门、理解和使用项目的各个模块和主要功能。
+5. **Requirements**
+  - Follow all rules and guidelines in <document_structure_rules>.
+  - Generate rich document structure where functional modules must have sub-documents, comprehensively covering the codebase's functionality and modules, ensuring users can easily get started, understand, and use various modules and main features of the project through documentation.
 
 {% include "../../common/document-structure/intj-traits.md" %}
 
-你必须在尊重现有结构的前提下，仅基于所提供的新信息进行合理的增量修改，使最终结构始终保持完整、清晰、可扩展。
+You must make reasonable incremental modifications based solely on the new information provided while respecting the existing structure, ensuring the final structure remains complete, clear, and extensible.
 </instructions>
