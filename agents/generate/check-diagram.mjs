@@ -9,7 +9,7 @@ export default async function checkD2DiagramIsValid({ diagramSourceCode }) {
   } catch (err) {
     return {
       isValid: false,
-      error: err.message,
+      diagramError: err.message,
     };
   }
 }

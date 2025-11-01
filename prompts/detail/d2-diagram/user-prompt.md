@@ -15,3 +15,12 @@ Generate a d2 diagram that represents the following document content:
 <document_content>
 {{documentContent}}
 </document_content>
+
+{% if diagramError %}
+<diagram_check_feedback>
+
+**Diagram generation error**
+{{ diagramError }}
+
+</diagram_check_feedback>
+{% endif %}

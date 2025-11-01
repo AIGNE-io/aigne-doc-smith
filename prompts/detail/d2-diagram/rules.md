@@ -1,13 +1,14 @@
-<diagram_generation_guide>
+<diagram_generation_rules>
+**Generation Workflow**
+1. Use the current `<datasources>`, `<content_review_feedback>`, and `<feedback>` to decide whether this document requires a diagram.
+2. When a diagram is needed, call the `generateDiagram` tool to create it and insert the returned content at the most fitting location in the document.
+3. Check whether the data sources include `diagramSourceCode`. If not, remove any embedded diagram from the document.
 
-1. Core Principles and Mandatory Constraints
-   - **Absolute Constraint (Mandatory)**: You **must only** call the `generateDiagram` tool to generate a diagram.
-     - **Do not** generate mermaid diagram.
-     - **Do not** generate base64 image.
-     - **Do not** generate fake image url.
-   - **Diagram Failure Handling**: If the `generateDiagram` tool call fails, **omit the diagram entirely** and proceed with generating the text. **Do not** attempt to describe the diagram in words as a replacement.
+**Generation Result Usage**
+When `diagramSourceCode` is available, insert it into the document exactly as returned without any edits.
 
-2. Diagram Triggers and Types: Call `generateDiagram` and select the most appropriate type when describing the following specific content
+**Generation Requirements**
+1. Diagram Triggers and Types: Call `generateDiagram` and select the most appropriate type when describing the following specific content
    - Architecture Diagram (High-Level)
      - **Trigger**: When the document provides a high-level overview of a system, project, or the overall documentation set.
      - **Content**: Must illustrate the main components, their relationships, and the overall structure.
@@ -19,11 +20,7 @@
      - **Diagram Type Selection**:
        - **Flowchart**: Use for step-by-step processes, algorithms, or decision-making logic.
        - **Sequence Diagram**: Use for time-ordered interactions between different components or actors (e.g., API calls).
-3. Constraints and Best Practices
+2. Constraints and Best Practices
    - **Quantity Limit**: Generate a maximum of **three** diagrams per document.
    - **Relevance**: Ensure every diagram **directly** illustrates a concept explained in the surrounding text. Avoid generating diagrams for simple concepts that are easily understood through text alone.
-4. Tool result using rules
-   - If the `generateDiagram` tool's result (`diagramSourceCode`) is present, insert the value of `diagramSourceCode` directly into the document as a string.
-   - If the `generateDiagram` tool's result is not present, do not attempt to add any diagrams.
-
-</diagram_generation_guide>
+</diagram_generation_rules>
