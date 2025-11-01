@@ -3,9 +3,12 @@ import path from "node:path";
 import remarkGfm from "remark-gfm";
 import remarkLint from "remark-lint";
 import remarkParse from "remark-parse";
+import { isRelative } from "ufo";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 import { VFile } from "vfile";
+
+import { isRemoteFile, isRemoteFileAvailable } from "./file-utils.mjs";
 import { validateMermaidSyntax } from "./mermaid-validator.mjs";
 
 /**
@@ -232,6 +235,34 @@ function checkLocalImages(markdown, source, errorMessages, markdownFilePath, bas
   }
 }
 
+async function checkRemoteImages(markdown, source, errorMessages) {
+  const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  let match;
+
+  while (true) {
+    match = imageRegex.exec(markdown);
+    if (match === null) break;
+    const imagePath = match[2].trim();
+    const altText = match[1];
+
+    if (isRelative(imagePath)) continue;
+    if (imagePath.startsWith("/")) continue;
+
+    // Skip data URLs
+    if (/^data:/.test(imagePath)) continue;
+
+    if (isRemoteFile(imagePath)) {
+      const isAvailable = await isRemoteFileAvailable(imagePath);
+      if (isAvailable) continue;
+      else {
+        errorMessages.push(
+          `Found invalid remote image in ${source}: ![${altText}](${imagePath}) - only valid media resources can be used`,
+        );
+      }
+    }
+  }
+}
+
 /**
  * Check content structure and formatting issues
  * @param {string} markdown - The markdown content
@@ -370,7 +401,10 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
     // 2. Check local images existence
     checkLocalImages(markdown, source, errorMessages, filePath, baseDir);
 
-    // 3. Check content structure and formatting issues
+    // 3. Check remote images existence
+    await checkRemoteImages(markdown, source, errorMessages);
+
+    // 4. Check content structure and formatting issues
     checkContentStructure(markdown, source, errorMessages);
 
     // Check mermaid code blocks and other custom validations

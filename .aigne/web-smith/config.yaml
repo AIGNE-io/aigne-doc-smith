@@ -1,0 +1,123 @@
+# Project information for page publishing
+projectName: DocSmith Landing Pages
+projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation
+  tool built on the AIGNE Framework. It automates the creation of detailed,
+  structured, and multi-language documentation directly from your source code.
+projectLogo: https://avatars.githubusercontent.com/u/143965177?v=4
+# staging doc-smith pageskit
+# projectId: 36edcca5-5b56-4a1b-98b9-3690595a7588
+# production doc-smith pageskit
+projectId: 32271a73-5577-4e85-953a-375231c7cc95
+projectSlug: /
+
+# =============================================================================
+# Website Configuration
+# =============================================================================
+
+# Purpose: What's the main outcome you want readers to achieve?
+# Available options (uncomment and modify as needed):
+#   landingPage      - Landing page / Homepage: Convert visitors into users or customers
+#   ecommerce        - E-commerce / Online store: Sell products or services online
+#   portfolio        - Portfolio / Showcase: Display creative work, projects, or achievements
+#   corporate        - Corporate / Business: Professional business website with company information
+#   blog             - Blog / Content site: Share articles, news, and regular content updates
+#   saas             - SaaS / Software product: Promote and onboard users to software services
+#   nonprofit        - Non-profit / Community: Promote causes, accept donations, engage volunteers
+#   education        - Educational / Learning: Provide courses, tutorials, or educational content
+#   mixedPurpose     - Multi-purpose website: Comprehensive website covering multiple needs
+pagePurpose:
+  - landingPage
+
+# Target Audience: Who will be reading this most often?
+# Available options (uncomment and modify as needed):
+#   customers        - Customers / End users: People who buy or use your products/services
+#   businessOwners   - Business owners / Entrepreneurs: People running businesses looking for solutions
+#   marketers        - Marketing teams: People promoting products or managing campaigns
+#   designers        - Designers / Creative professionals: People focused on visual design and user experience
+#   developers       - Developers / Technical users: People building or integrating technical solutions
+#   investors        - Investors / Stakeholders: People evaluating business potential and growth
+#   jobSeekers       - Job seekers / Potential employees: People looking for career opportunities
+#   students         - Students / Learners: People seeking educational content or resources
+#   generalPublic    - General public / Mixed audience: Broad audience with varied interests and backgrounds
+targetAudienceTypes:
+  - customers
+
+# Website Scale: How many pages should your website have?
+# Available options (uncomment and modify as needed):
+#   singlePage         - Single Page (only 1 page): All content consolidated into 1 page
+#   minimal            - Minimal (2-6 pages): Core pages only - quick to launch
+#   standard           - Standard (7-12 pages): Complete website with main sections [RECOMMENDED]
+#   comprehensive      - Comprehensive (12+ pages): Full-featured website with detailed sections
+#   aiDecide           - Let AI decide: Analyze project complexity and suggest appropriate scale
+websiteScale: singlePage
+
+# Custom Rules: Define specific page generation rules and requirements
+rules: |
+  ### I. Core Messaging & Strategy: Foundational elements that define *what* you communicate to the user.
+  1. Answer Critical Questions "Above the Fold": The very first screen a user sees must clearly and immediately answer:
+    * What it is: A concise description of the product.
+    * Who it's for: The specific target audience (e.g., solo founders, small teams).
+    * Why it's different: Your unique value proposition (e.g., "open, composable, exportable code, agent workflow").
+    * Primary Action: A single, clear Call to Action (CTA) that aligns with the user's main goal.
+  2. Establish Credibility with Proof: Don't expect users to trust your claims. Show them proof early in the narrative.
+    * Show, Don't Just Tell: The most powerful proof is a demo. Include a short (30-45s) silent video loop or a link to a real site built with the tool.
+    * Use Social Proof: Before explaining "How it Works," insert tangible evidence like a customer logo, a compelling data point (e.g., "Used by 50+ teams"), or a strong user quote.
+  3. Define a Clear Call to Action (CTA):
+    * Align CTA with the Audience: The primary CTA should be the main action you want your target user to take (e.g., "Generate My Site").
+    * Prioritize CTAs: Relegate secondary actions (like "See it on GitHub") to less prominent positions (tertiary buttons or footer links), especially for non-developer audiences.
+    * Maintain a Persistent Mobile CTA: On mobile, a single primary CTA should always be visible.
+  ### II. Structure & Narrative Flow: Present information to build interest and trust.
+  1. Adopt a Persuasive Narrative Arc: Structure the page to guide the user through a logical journey. A proven flow is:
+    * Problem: State the pain point you solve.
+    * Outcome: Show the successful result or benefit.
+    * Proof: Provide evidence (testimonials, demos, data).
+    * How It Works: Explain the process in simple steps.
+    * Quick Start / Get Started: Give clear, actionable instructions.
+    * Pricing / FAQ: Address practical questions and signal cost.
+    * Final CTA: The closing call to action.
+  2. Ensure Completeness: Never show incomplete processes. A "Quick Start" with only Step 1 of 3 erodes user confidence. Either show the full process or remove the section.
+  3. Anchor Features to Concrete Benefits: When listing features, don't just name them. Connect each feature to a specific, tangible output (e.g., instead of "Powerful Generator," use "Generates sitemaps, routes, and components").
+  4. Anticipate User Questions: End the page with an FAQ section that addresses common concerns like data ownership, code exporting, SEO capabilities, hosting, and usage limits.
+  ### III. Language & Copywriting: Focus on the tone, clarity, and impact of your words.
+  1. Be Specific and Factual:
+    * Avoid Hyperbole and Clichés: Eliminate marketing fluff like “magic,” “rock-solid,” “masterpiece,” or “speed of thought.” These phrases reduce credibility.
+    * Make Testable Claims: Instead of vague adjectives like “SEO-optimized,” state exactly what you do ("Generates titles, meta descriptions, OG tags, and sitemaps").
+  2. Write with Clarity and Confidence:
+    * Use Active Voice: Employ strong, direct verbs (e.g., "Plan, generate, publish"). Avoid passive phrases like "Let our AI be your strategist."
+    * Remove Filler Words: Cut words that weaken statements (e.g., change “*Even* supports multiple languages” to “Supports multiple languages”).
+    * Use Positive Framing: Focus on the benefit, not the problem. Instead of “Forget the tedious process…”, start with “Build your website in minutes…”
+  3. Maintain Consistency:
+    * Product Naming: Use exact product names consistently (e.g., always "Pages Kit," not "PagesKit"; ensure "AIGNE" is always used correctly).
+    * Terminology: Hyphenate terms uniformly ("AI-powered," "no-code").
+    * Structure: Use parallel structure in lists and headings for scannability (e.g., "Plan & Evaluate," "Generate Content," "Publish & Export").
+
+# Glossary: Define project-specific terms and definitions
+# glossary: "@glossary.md"  # Path to markdown file containing glossary definitions
+
+locale: en
+pagesDir: .aigne/web-smith/pages # Directory to save generated pages
+sourcesPath: # Source code paths to analyze
+  - ./README.md
+  - ./assets/images
+  - ./assets/screenshots
+  - ./assets/terminal-playback/README.md
+  - ./aigne.yaml
+  - ./docs/overview.md
+  - ./docs/getting-started.md
+  - ./CHANGELOG.md
+defaultDatasources: # Default datasources included in every page
+  - ./media.md
+# minImageWidth: Only images wider than this value (in pixels) will be used in page generation
+media:
+  minImageWidth: 800
+lastGitHead: 1174b9279ecceb4fe6f64396361329cacca3f923
+# Checkout ID for website deployment service
+checkoutId: ""
+projectCover: .aigne/web-smith/cover.png
+translateLanguages:
+  - zh
+  - zh-TW
+  - ja
+# appUrl: https://docsmith.aigne.io/
+# appUrl: https://staging.docsmith.aigne.io/
+appUrl: https://docsmith.aigne.io/

@@ -18,6 +18,7 @@ export default async function chooseDocs(
     locale,
     reset = false,
     requiredFeedback = true,
+    title,
   },
   options,
 ) {
@@ -65,7 +66,7 @@ export default async function chooseDocs(
 
       // Let user select multiple files
       selectedFiles = await options.prompts.checkbox({
-        message: getActionText(isTranslate, "Select documents to {action}:"),
+        message: title || getActionText(isTranslate, "Select documents to {action}:"),
         source: (term) => {
           if (!term) return choices;
 

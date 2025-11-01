@@ -19,11 +19,11 @@
 
 {{ additionalInformation }}
 
-<media_list>
+<media_file_list>
 {{ assetsContent }}
-</media_list>
+</media_file_list>
 
-{% include "../../common/document/media-handling-rules.md" %}
+
 
 </datasources>
 

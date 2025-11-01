@@ -21,6 +21,7 @@ import {
   DEFAULT_INCLUDE_PATTERNS,
 } from "../../utils/constants/index.mjs";
 import { isOpenAPISpecFile } from "../../utils/openapi/index.mjs";
+import { loadDocumentStructure } from "../../utils/docs-finder-utils.mjs";
 
 export default async function loadSources(
   {
@@ -236,31 +237,7 @@ export default async function loadSources(
   const allFilesPaths = sourceFiles.map((x) => `- ${toRelativePath(x.sourceId)}`).join("\n");
 
   // Get the last documentation structure
-  let originalDocumentStructure;
-  if (outputDir) {
-    const documentStructurePath = path.join(outputDir, "structure-plan.json");
-    try {
-      const documentExecutionStructure = await readFile(documentStructurePath, "utf8");
-      if (documentExecutionStructure?.trim()) {
-        try {
-          // Validate that the content looks like JSON before parsing
-          const trimmedContent = documentExecutionStructure.trim();
-          if (trimmedContent.startsWith("{") || trimmedContent.startsWith("[")) {
-            originalDocumentStructure = JSON.parse(documentExecutionStructure);
-          } else {
-            console.warn(`structure-plan.json contains non-JSON content, skipping parse`);
-          }
-        } catch (err) {
-          console.error(`Failed to parse structure-plan.json: ${err.message}`);
-        }
-      }
-    } catch (err) {
-      if (err.code !== "ENOENT") {
-        console.warn(`Error reading structure-plan.json: ${err.message}`);
-      }
-      // The file does not exist or is not readable, originalDocumentStructure remains undefined
-    }
-  }
+  const originalDocumentStructure = await loadDocumentStructure(outputDir);
 
   // Get the last output result of the specified path
   let content;

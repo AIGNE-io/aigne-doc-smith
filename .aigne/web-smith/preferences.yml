@@ -1,0 +1,7 @@
+rules:
+  - id: pref_402af4a94e9503ea
+    active: true
+    scope: translation
+    rule: The term 'DocSmith' must not be translated.
+    feedback: do not translate DocSmith
+    createdAt: 2025-10-16T14:18:29.145Z

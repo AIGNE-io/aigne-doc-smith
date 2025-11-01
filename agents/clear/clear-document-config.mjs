@@ -10,8 +10,8 @@ export default async function clearDocumentConfig({ workDir }) {
     await rm(documentConfigPath, { recursive: true, force: true });
 
     const message = existed
-      ? `Cleared document configuration (${displayPath})`
-      : `Document configuration already empty (${displayPath})`;
+      ? `⚙️ Cleared document configuration (${displayPath})`
+      : `⚙️ Document configuration already empty (${displayPath})`;
 
     const suggestions = existed
       ? ["Run `aigne doc init` to generate a fresh configuration file."]
@@ -25,7 +25,7 @@ export default async function clearDocumentConfig({ workDir }) {
     };
   } catch (error) {
     return {
-      message: `Failed to clear document configuration: ${error.message}`,
+      message: `⚠️ Failed to clear document configuration: ${error.message}`,
       error: true,
       path: displayPath,
     };

@@ -1,4 +1,3 @@
-import { recordUpdate } from "../../utils/history-utils.mjs";
 import { shutdownMermaidWorkerPool } from "../../utils/mermaid-worker-pool.mjs";
 import { saveDoc as _saveDoc } from "../../utils/utils.mjs";
 
@@ -19,14 +18,6 @@ export default async function saveDoc({
     labels,
     locale,
   });
-
-  if (feedback?.trim()) {
-    recordUpdate({
-      operation: "document_update",
-      feedback: feedback.trim(),
-      documentPath: path,
-    });
-  }
 
   if (isShowMessage) {
     // Shutdown mermaid worker pool to ensure clean exit

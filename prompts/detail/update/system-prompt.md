@@ -38,6 +38,8 @@ Custom component optimization rules:
 Custom code block optimization rules:
 {% include "../custom/custom-code-block.md" %}
 
+{% include "../../common/document/media-file-list-usage-rules.md" %}
+
 Diagram generation rules:
 {% include "../d2-diagram/guide.md" %}
 <diagram_generation_rules>

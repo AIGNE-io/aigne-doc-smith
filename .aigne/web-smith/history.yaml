@@ -1,0 +1,101 @@
+entries:
+  - timestamp: 2025-10-17T11:04:24.062Z
+    operation: page_update
+    feedback: "Add action link to publish step in section 4:
+      https://docsmith.aigne.io/docs/docsmith/guides-publishing-your-docs-21ae40"
+    page: /home
+  - timestamp: 2025-10-17T10:54:35.583Z
+    operation: page_update
+    feedback: Add action link to translate step in section
+      4:https://docsmith.aigne.io/docs/docsmith/guides-translating-documentation-21ae40
+    page: /home
+  - timestamp: 2025-10-17T10:52:50.217Z
+    operation: page_update
+    feedback: Add action link to update step in section
+      4:https://docsmith.aigne.io/docs/docsmith/guides-updating-documentation-21ae40
+    page: /home
+  - timestamp: 2025-10-17T10:51:00.832Z
+    operation: page_update
+    feedback: "Add action link to generate step in section 4:
+      https://docsmith.aigne.io/docs/docsmith/guides-generating-documentation-21ae40"
+    page: /home
+  - timestamp: 2025-10-17T10:20:41.423Z
+    operation: page_update
+    feedback: "remove Section 2: What is AIGNE DocSmith?"
+    page: /home
+  - timestamp: 2025-10-17T10:17:55.017Z
+    operation: page_update
+    feedback: add more sections below section1 to explain what is it, who uses it, why should i use it
+    page: /home
+  - timestamp: 2025-10-17T10:06:32.037Z
+    operation: page_update
+    feedback: remove Section 2:Finally, Documentation That Writes Itself
+    page: /home
+  - timestamp: 2025-10-17T03:57:42.660Z
+    operation: page_update
+    feedback: add more sections below section1 to explain what is it, who uses it, why should i use it
+    page: /home
+  - timestamp: 2025-10-16T14:09:47.661Z
+    operation: page_update
+    feedback: "change section1 title to: Create great docs without writing them , and change section1
+      desc to: Generate, translate, and publish production-ready documentation straight from your
+      codebase—kept in sync with every release."
+    page: /home
+  - timestamp: 2025-10-16T14:07:21.934Z
+    operation: page_update
+    feedback: |-
+      Please help to tune description in all sections to make them shorter by removing
+            redundancy or overly wordy phrasing without changing the meaning
+    page: /home
+  - timestamp: 2025-10-16T14:05:55.440Z
+    operation: page_update
+    feedback: Add a changelog section after section 4
+    page: /home
+  - timestamp: 2025-10-16T13:57:25.837Z
+    operation: page_update
+    feedback: 在最后增加一个section：Ready to Automate Your Documentation?
+    page: /home
+  - timestamp: 2025-10-16T13:47:18.818Z
+    operation: page_update
+    feedback: 删除 setcion5  Ready for Your Enterprise
+    page: /home
+  - timestamp: 2025-10-16T13:42:02.839Z
+    operation: page_update
+    feedback: 帮我把 section5 移除
+    page: /home
+  - timestamp: 2025-10-16T13:26:00.115Z
+    operation: page_update
+    feedback: 删除 Section 5
+    page: /home
+  - timestamp: 2025-10-16T13:11:42.424Z
+    operation: page_update
+    feedback: 把 section 1 的 Get Started Now 链接改成 https://docsmith.aigne.io/docs/docsmith
+    page: /home
+  - timestamp: 2025-10-16T13:09:56.255Z
+    operation: page_update
+    feedback: 帮我把 section1 使用 full background hero
+    page: /home
+  - timestamp: 2025-10-16T03:01:39.171Z
+    operation: page_update
+    feedback: 帮我把 section1 使用 full background hero
+    page: /home
+  - timestamp: 2025-10-15T15:26:43.467Z
+    operation: page_update
+    feedback: add hero background for section 1
+    page: /home
+  - timestamp: 2025-10-15T15:11:43.858Z
+    operation: page_update
+    feedback: remove Section 4
+    page: /home
+  - timestamp: 2025-10-15T14:29:20.190Z
+    operation: page_update
+    feedback: 重新生成 section 1
+    page: /home
+  - timestamp: 2025-10-15T14:16:06.562Z
+    operation: page_update
+    feedback: use hero-background as section background
+    page: /home
+  - timestamp: 2025-10-15T14:14:20.669Z
+    operation: page_update
+    feedback: remove section 2
+    page: /home
