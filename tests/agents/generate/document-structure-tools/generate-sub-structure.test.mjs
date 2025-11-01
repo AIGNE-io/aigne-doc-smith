@@ -45,56 +45,6 @@ describe("generate-sub-structure", () => {
       expect(result.message).toBeUndefined();
     });
 
-    test("should process single source path with small context", async () => {
-      const testFile = join(testDir, "test.js");
-      await writeFile(testFile, "// Small test file\nconst x = 1;");
-
-      const mockContext = {
-        agents: {
-          generateStructureWithoutTools: "mock-agent-without-tools",
-        },
-        invoke: async (agent, params) => {
-          expect(agent).toBe("mock-agent-without-tools");
-          expect(params.isSubStructure).toBe(true);
-          expect(params.parentDocument).toBeDefined();
-          expect(params.datasources).toBeDefined();
-          expect(params.allFilesPaths).toBeDefined();
-          expect(params.isLargeContext).toBe(false);
-          expect(params.files).toBeDefined();
-          expect(params.totalTokens).toBeGreaterThan(0);
-
-          return {
-            documentStructure: [
-              {
-                title: "Test Document",
-                path: "/test-doc",
-                description: "Generated from test file",
-              },
-            ],
-          };
-        },
-      };
-
-      const result = await generateSubStructure(
-        {
-          parentDocument: {
-            title: "Parent",
-            path: "/parent",
-            description: "Parent doc",
-          },
-          subSourcePaths: [{ path: testFile, reason: "Test file" }],
-        },
-        { context: mockContext },
-      );
-
-      expect(result).toBeDefined();
-      expect(result.subStructure).toBeDefined();
-      expect(Array.isArray(result.subStructure)).toBe(true);
-      expect(result.subStructure.length).toBe(1);
-      expect(result.message).toContain("Generated a sub structure");
-      expect(result.message).toContain("/parent");
-    });
-
     test("should process multiple source paths", async () => {
       const testFile1 = join(testDir, "test1.js");
       const testFile2 = join(testDir, "test2.js");
@@ -131,38 +81,6 @@ describe("generate-sub-structure", () => {
       );
 
       expect(result.subStructure.length).toBe(2);
-    });
-
-    test("should use generateStructure agent for large context", async () => {
-      const largeContent = `// Large file\n${"const x = 1;\n".repeat(150000)}`;
-      const testFile = join(testDir, "large.js");
-      await writeFile(testFile, largeContent);
-
-      const mockContext = {
-        agents: {
-          generateStructure: "mock-agent-with-tools",
-          generateStructureWithoutTools: "mock-agent-without-tools",
-        },
-        invoke: async (agent, params) => {
-          expect(agent).toBe("mock-agent-with-tools");
-          expect(params.isLargeContext).toBe(true);
-
-          return {
-            documentStructure: [{ title: "Large Doc", path: "/large" }],
-          };
-        },
-      };
-
-      const result = await generateSubStructure(
-        {
-          parentDocument: { title: "Parent", path: "/parent" },
-          subSourcePaths: [{ path: testFile, reason: "Large file" }],
-        },
-        { context: mockContext },
-      );
-
-      expect(result.subStructure).toBeDefined();
-      expect(result.subStructure.length).toBe(1);
     });
 
     test("should handle custom include and exclude patterns", async () => {

@@ -6,7 +6,7 @@ export const documentItemSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   path: z.string().startsWith("/", 'Path must start with "/"'),
-  parentId: z.string().nullable(),
+  parentId: z.string().nullish(),
   sourceIds: z.array(z.string()).min(1, "At least one source ID is required"),
 });
 
@@ -18,7 +18,7 @@ export const addDocumentInputSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   path: z.string().startsWith("/", 'Path must start with "/"'),
-  parentId: z.string().nullable().optional(),
+  parentId: z.string().nullish(),
   sourceIds: z.array(z.string()).min(1, "At least one source ID is required"),
 });
 
@@ -44,7 +44,7 @@ export const deleteDocumentOutputSchema = z.object({
 // Move document schemas
 export const moveDocumentInputSchema = z.object({
   path: z.string().min(1, "Path is required"),
-  newParentId: z.string().nullable().optional(),
+  newParentId: z.string().nullish(),
 });
 
 export const moveDocumentOutputSchema = z.object({

@@ -1,68 +1,162 @@
+type: team
 name: generateStructure
 description: Generate the structure and organization of your documentation
-instructions:
-  - role: system
-    url: ../../prompts/structure/generate/system-prompt.md
-  - role: user
-    url: ../../prompts/structure/generate/user-prompt.md
 skills:
-  - ./document-structure-tools/generate-sub-structure.mjs
-task_render_mode: collapse
-task_title: Generate the structure of the documentation
-tool_calls_concurrency: 5
-input_schema:
-  type: object
-  properties:
-    rules:
-      type: string
-      description: Your specific requirements for documentation structure
-    locale:
-      type: string
-      description: Primary language for documentation (e.g., zh, en, ja)
-    datasources:
-      type: string
-      description: Project content and context to help generate documentation structure
-    targetAudience:
-      type: string
-      description: Target audience for the documentation
-    nodeName:
-      type: string
-      description: Specific section or page name to focus on
-    glossary:
-      type: string
-      description: Glossary for consistent terminology
-    feedback:
-      type: string
-      description: Tell us how to improve the documentation structure
-    userPreferences:
-      type: string
-      description: Your saved preferences for structure and documentation style
-    docsType:
-      type: string
-      description: "Documentation type (options: general, getting-started, reference, faq)"
-      default: general
-  required:
-    - rules
-    - datasources
-output_schema:
-  type: object
-  properties:
-    projectName:
-      type: string
-      description: Project name identified from your content sources
-    projectDesc:
-      type: string
-      description: Brief project description generated from content analysis (under 50 words)
-    documentStructure: ../schema/document-structure.yaml
-    documentStructureTree:
-      type: string
-      description: |
-        Visual tree structure showing documentation hierarchy with indented levels for easy review:
-        ```
-        - Home
-          - Getting Started
-            - Installation
-              - Requirements
-        ```
-  required:
-    - documentStructure
+  - type: team
+    name: generateStructureWorker
+    iterate_on: datasources
+    skills:
+      - type: ai
+        model:
+          reasoning_effort: 500
+        instructions:
+          - role: system
+            url: ../../prompts/structure/generate/system-prompt.md
+          - role: user
+            url: ../../prompts/structure/generate/user-prompt.md
+        task_render_mode: collapse
+        task_title: Generate the structure of the documentation
+        tool_calls_concurrency: 5
+        input_schema:
+          type: object
+          properties:
+            rules:
+              type: string
+              description: Your specific requirements for documentation structure
+            locale:
+              type: string
+              description: Primary language for documentation (e.g., zh, en, ja)
+            datasources:
+              type: string
+              description: Project content and context to help generate documentation structure
+            targetAudience:
+              type: string
+              description: Target audience for the documentation
+            nodeName:
+              type: string
+              description: Specific section or page name to focus on
+            glossary:
+              type: string
+              description: Glossary for consistent terminology
+            feedback:
+              type: string
+              description: Tell us how to improve the documentation structure
+            userPreferences:
+              type: string
+              description: Your saved preferences for structure and documentation style
+            docsType:
+              type: string
+              description: "Documentation type (options: general, getting-started, reference, faq)"
+              default: general
+          required:
+            - rules
+            - datasources
+        output_schema:
+          type: object
+          properties:
+            projectName:
+              type: string
+              description: Project name identified from your content sources
+            projectDesc:
+              type: string
+              description: Brief project description generated from content analysis (under 50 words)
+            add:
+              type: array
+              description: List of document structure items to add, null or empty array means no addition
+              items:
+                type: object
+                properties:
+                  index:
+                    type: integer
+                    description: Position to insert the new item, null means append to the end
+                  item: ../schema/document-structure-item.yaml
+                required:
+                  - item
+            update:
+              type: array
+              description: List of document structure items to update, replace the item with the same path, null or empty array means no update
+              items:
+                type: object
+                properties:
+                  path:
+                    type: string
+                    description: Path of the document structure item to update or replace
+                  item: ../schema/document-structure-item.yaml
+                required:
+                  - path
+                  - item
+
+      - ./utils/merge-document-structures.mjs
+
+  - type: function
+    name: aggregateDocumentStructure
+    process: |
+      return {
+        documentStructure: options.context.userContext.originalDocumentStructure.map(i => ({
+          ...i,
+          id: i.title.toLowerCase().replace(/\s+/g, '-'),
+        })),
+        projectName: options.context.userContext.projectName,
+        projectDesc: options.context.userContext.projectDesc,
+      }
+
+  - type: ai
+    name: refineStructure
+    model:
+      reasoning_effort: 500
+    instructions:
+      - role: system
+        url: ../../prompts/structure/review/structure-review-system.md
+    output_schema:
+      type: object
+      properties:
+        refinedStructure:
+          type: array
+          description: Optimized document structure array
+          items:
+            type: object
+            description: Document structure item representing a node in the document hierarchy
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the document structure item
+              newIndex:
+                type: integer
+                description: Used for ordering purposes, indicates the new position index of the document structure item
+              newPath:
+                type: string
+                description: The new path of the document structure item if it has been changed, otherwise can be omitted
+              newParentPath:
+                type: string
+                description: The new parentPath of the document structure item if it has been changed, otherwise can be omitted
+            required:
+              - id
+      required:
+        - refinedStructure
+
+  - type: function
+    name: finalizeDocumentStructure
+    process: |
+      return {
+        projectName: input.projectName,
+        projectDesc: input.projectDesc,
+        documentStructure: input.documentStructure
+          .map((item) => {
+            const refined = input.refinedStructure?.find(i => i.id === item.id)
+
+            return {
+              ...item,
+              index: refined?.newIndex || item.index,
+              path: refined?.newPath || item.path,
+              parentId: refined?.newParentPath || item.parentPath,
+            }
+          })
+          .sort((a, b) => a.index - b.index)
+          .map(i => {
+            const newItem = { ...i }
+            delete newItem.index
+            delete newItem.id
+            delete newItem.parentPath
+            return newItem
+          }),
+      }

@@ -4,11 +4,11 @@ import path from "node:path";
 import imageSize from "image-size";
 import {
   buildSourcesContent,
-  calculateFileStats,
   loadFilesFromPaths,
   readFileContents,
   getMimeType,
   isRemoteFile,
+  calculateTokens,
 } from "../../utils/file-utils.mjs";
 import {
   getCurrentGitHead,
@@ -196,13 +196,10 @@ export default async function loadSources(
   }
 
   // Read all source files using the utility function
-  let sourceFiles = await readFileContents(sourceFilesPaths, process.cwd());
-
-  // Count tokens and lines using utility function
-  const { totalTokens, totalLines } = calculateFileStats(sourceFiles);
-
-  // check if totalTokens is too large
-  const isLargeContext = totalTokens > INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD;
+  let sourceFiles = (await readFileContents(sourceFilesPaths, process.cwd())).map((i) => ({
+    ...i,
+    tokens: calculateTokens(`\n${i.sourceId}\n${i.content}`),
+  }));
 
   // filter OpenAPI doc should after check isLargeContext
   sourceFiles = sourceFiles.filter((file) => {
@@ -215,6 +212,16 @@ export default async function loadSources(
     return !isOpenAPI;
   });
 
+  const totalTokens = sourceFiles.reduce((sum, file) => sum + file.tokens, 0);
+  const totalLines = sourceFiles.reduce(
+    (sum, file) => sum + file.content.split("\n").filter(Boolean).length,
+    0,
+  );
+
+  const datasources = splitSourcesToChunks(sourceFiles, INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD).map(
+    (i) => ({ datasources: buildSourcesContent(i) }),
+  );
+
   const remoteFileList = [];
 
   sourceFiles.forEach((file) => {
@@ -226,8 +233,6 @@ export default async function loadSources(
     options.context.userContext.remoteFileList = remoteFileList;
   }
 
-  // Build allSources string using utility function
-  const allSources = buildSourcesContent(sourceFiles, isLargeContext);
   // all files path
   const allFilesPaths = sourceFiles.map((x) => `- ${toRelativePath(x.sourceId)}`).join("\n");
 
@@ -285,7 +290,7 @@ export default async function loadSources(
   }
 
   return {
-    datasources: allSources,
+    datasources,
     content,
     originalDocumentStructure,
     files,
@@ -293,7 +298,6 @@ export default async function loadSources(
     totalTokens,
     totalLines,
     mediaFiles,
-    isLargeContext,
     allFilesPaths,
   };
 }
@@ -342,7 +346,13 @@ loadSources.output_schema = {
   type: "object",
   properties: {
     datasources: {
-      type: "string",
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          datasources: { type: "string" },
+        },
+      },
     },
     files: {
       type: "array",
@@ -373,3 +383,33 @@ loadSources.output_schema = {
 };
 
 loadSources.task_render_mode = "hide";
+
+function splitSourcesToChunks(sources, maxTokens) {
+  const chunks = [];
+
+  let currentChunk = [];
+  let currentTokens = 0;
+
+  for (const source of sources) {
+    const sourceTokens = source.tokens;
+
+    if (currentTokens + sourceTokens > maxTokens) {
+      // Start a new chunk
+      if (currentChunk.length > 0) {
+        chunks.push(currentChunk);
+      }
+      currentChunk = [source];
+      currentTokens = sourceTokens;
+    } else {
+      // Add to current chunk
+      currentChunk.push(source);
+      currentTokens += sourceTokens;
+    }
+  }
+
+  if (currentChunk.length > 0) {
+    chunks.push(currentChunk);
+  }
+
+  return chunks;
+}
