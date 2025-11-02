@@ -5,9 +5,12 @@
 <user_rules>
 {{ rules }}
 
-** Output content in {{ locale }} language **
-</user_rules>
+** Output content in {{ locale }} language. **
 
+** Don't generate any diagram in the document, give boolean value in `needDiagram` field. **
+
+- **Necessary**: Generate diagrams only when necessary.
+</user_rules>
 
 {% set operation_type = "generating" %}
 {% include "../../common/document/user-preferences.md" %}
@@ -34,13 +37,11 @@
 </previous_generation_content>
 {% endif %}
 
-<content_review_feedback>
-Remove `mermaid` diagram.
-
 {% if detailFeedback %}
+<content_review_feedback>
 {{ detailFeedback }}
-{% endif %}
 </content_review_feedback>
+{% endif %}
 
 {% if feedback %}
 User feedback on previous generation:
@@ -55,7 +56,6 @@ Generate detailed and well-structured document for the current {{nodeName}} base
 <steps>
 1. Analyze the provided document structure and user requirements to plan the content.
 2. Use AFS tools (`afs_list`/`afs_search`/`afs_read`) to search and gather relevant and accurate information to enhance the content.
-3. Use `generateDiagram` tool to create a diagram, following the `<diagram_generation_rules>`.
-4. Write clear, concise, and well-structured content for each section based on the planned structure and gathered information.
+3. Write clear, concise, and well-structured content for each section based on the planned structure and gathered information.
 </steps>
 </instructions>

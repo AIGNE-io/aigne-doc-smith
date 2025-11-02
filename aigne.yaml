@@ -95,6 +95,11 @@ agents:
   - ./agents/evaluate/document-structure.yaml
   - ./agents/evaluate/document.yaml
   - ./agents/evaluate/code-snippet.mjs
+
+  # Diagram
+  - ./agents/generate/merge-diagram.yaml
+  - ./agents/update/generate-diagram.yaml
+  - ./agents/update/check-generate-diagram.mjs
 cli:
   chat: ./agents/chat/index.yaml
   agents:

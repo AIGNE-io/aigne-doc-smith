@@ -40,8 +40,6 @@ Custom code block optimization rules:
 
 {% include "../../common/document/media-file-list-usage-rules.md" %}
 
-{% include "../d2-diagram/rules.md" %}
-
 </content_optimization_rules>
 
 

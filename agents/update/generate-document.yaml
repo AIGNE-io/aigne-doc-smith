@@ -46,7 +46,19 @@ input_schema:
     - rules
     - datasources
     - originalDocumentStructure
-output_key: content
+# output_key: content
+output_schema:
+  type: object
+  properties:
+    content:
+      type: string
+      description: Document content
+    needDiagram:
+      type: boolean
+      description: Does this document need to generate diagram?
+  required:
+    - content
+    - datasources
 afs:
   modules:
     - module: system-fs
@@ -57,5 +69,5 @@ afs:
           Codebase of the project to be documented used as context for document generation,
           should search and read as needed while generating document content
 keep_text_in_tool_uses: false
-skills:
-  - ./generate-diagram.yaml
+# skills:
+#   - ./generate-diagram.yaml

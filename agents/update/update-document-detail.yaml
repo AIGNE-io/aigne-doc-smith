@@ -57,5 +57,5 @@ afs:
 keep_text_in_tool_uses: false
 skills:
   - ./document-tools/update-document-content.mjs
-  - ./generate-diagram.yaml
+  # - ./generate-diagram.yaml
 task_render_mode: collapse
