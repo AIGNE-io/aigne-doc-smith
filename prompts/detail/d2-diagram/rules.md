@@ -1,11 +1,12 @@
 <diagram_generation_rules>
 **Generation Workflow**
-1. Use the current `<datasources>`, `<content_review_feedback>`, and `<feedback>` to decide whether this document requires a diagram.
-2. When a diagram is needed, call the `generateDiagram` tool to create it and insert the returned content at the most fitting location in the document.
-3. Check whether the data sources include `diagramSourceCode`. If not, remove any embedded diagram from the document.
+1. 根据当前提供的 `<datasources>`，`<content_review_feedback>` 和 `<feedback>` 来决定当前文档是否需要插入图表。
+2. 如果需要，请调用 `generateDiagram` 工具来生成图表，并将其结果插入到文档中合适的位置。
+3. 检查数据源是否包含 `diagramSourceCode` 数据，如果没有则应该移除文档中的图表嵌入。
+4. 检查文档中如果出现了 `mermaid` 图表，请改成使用 `generateDiagram` 工具来生成图表
 
 **Generation Result Usage**
-When `diagramSourceCode` is available, insert it into the document exactly as returned without any edits.
+如果包含了 `diagramSourceCode` 数据，请将其直接插入到文档中，不要做任何修改。
 
 **Generation Requirements**
 1. Diagram Triggers and Types: Call `generateDiagram` and select the most appropriate type when describing the following specific content
@@ -23,4 +24,6 @@ When `diagramSourceCode` is available, insert it into the document exactly as re
 2. Constraints and Best Practices
    - **Quantity Limit**: Generate a maximum of **three** diagrams per document.
    - **Relevance**: Ensure every diagram **directly** illustrates a concept explained in the surrounding text. Avoid generating diagrams for simple concepts that are easily understood through text alone.
+   - 不要直接生成图表内容，要使用 `generateDiagram` 工具来生成图表
+   - 不要使用 `mermaid` 来生成图表
 </diagram_generation_rules>

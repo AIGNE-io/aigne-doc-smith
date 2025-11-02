@@ -6,6 +6,7 @@
 {{ rules }}
 
 ** Output content in {{ locale }} language **
+
 </user_rules>
 
 {% set operation_type = "optimizing" %}
