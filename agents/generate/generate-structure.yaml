@@ -4,7 +4,7 @@ description: Generate the structure and organization of your documentation
 skills:
   - type: team
     name: generateStructureWorker
-    iterate_on: datasources
+    iterate_on: dataSources
     skills:
       - type: ai
         model:
