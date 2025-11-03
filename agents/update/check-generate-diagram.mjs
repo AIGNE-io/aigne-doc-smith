@@ -1,3 +1,5 @@
+const placeholder = 'DIAGRAM_PLACEHOLDER';
+
 export default async function checkGenerateDiagram({needDiagram, documentContent, locale}, options) {
   if (!needDiagram) {
     return {};
@@ -8,15 +10,11 @@ export default async function checkGenerateDiagram({needDiagram, documentContent
 
   try {
     const {diagramSourceCode} = await options.context.invoke(generateAgent, {documentContent, locale});
-    const mergeAgent = options.context?.agents?.['mergeDiagramToDocument'];
-
-    ({content} = await options.context.invoke(mergeAgent, {
-      diagramSourceCode,
-      content: documentContent,
-    }))
+    content = content.replace(placeholder, diagramSourceCode);
   } catch (error) {
-    // If diagram generation fails, just return the original document
-    console.log(error.message);
+    // FIXME: @zhanghan should regenerate document without diagram
+    content = content.replace(placeholder, '');
+    console.log(`⚠️  Skip generate any diagram: ${error.message}`);
   }
   return {content};
 }

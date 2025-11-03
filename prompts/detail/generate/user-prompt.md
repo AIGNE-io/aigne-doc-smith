@@ -7,7 +7,7 @@
 
 ** Output content in {{ locale }} language. **
 
-** Don't generate any diagram in the document, give boolean value in `needDiagram` field. **
+** Don't generate any diagram in the document, give boolean value in `needDiagram` field & plan a placeholder in document content for diagram (use `DIAGRAM_PLACEHOLDER` as placeholder text). **
 
 - **Necessary**: Generate diagrams only when necessary.
 </user_rules>
