@@ -122,10 +122,7 @@ async function showDocumentDetail(content, title) {
   }
 }
 
-export default async function userReviewDocument(
-  { content, description, ...rest },
-  options,
-) {
+export default async function userReviewDocument({ content, description, ...rest }, options) {
   // Check if document content exists
   if (!content || typeof content !== "string" || content.trim().length === 0) {
     console.log("Please provide document content to review.");
