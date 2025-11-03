@@ -44,7 +44,7 @@ export default async function loadConfig({ config, appUrl }) {
       const invalidPaths = await findInvalidSourcePaths(sourcesPath, excludePatterns);
       if (invalidPaths.length > 0) {
         console.warn(
-          `⚠️  Warning: The following source paths will be excluded and won't be processed:\n${invalidPaths.map((p) => `  - ${chalk.yellow(p)}`).join("\n")}\n💡 Tip: Remove these source paths or adjust your excludePatterns in ${toDisplayPath(configPath)}\n`,
+          `⚠️  Some source paths have been excluded and will not be processed:\n${invalidPaths.map((p) => `  - ${chalk.yellow(p)}`).join("\n")}\n💡 Tip: You can remove these paths in ${toDisplayPath(configPath)}\n`,
         );
       }
     }

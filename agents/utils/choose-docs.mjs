@@ -123,8 +123,9 @@ export default async function chooseDocs(
   // Prompt for feedback if not provided
   let userFeedback = feedback;
   if (!userFeedback && (requiredFeedback || foundItems?.length > 1)) {
-    const feedbackMessage =
-      "How should we improve this document? (Enter to skip, will auto-update from content sources):";
+    const feedbackMessage = isTranslate
+      ? "Any specific translation preferences or instructions? (Press Enter to skip):"
+      : "How would you like to improve this document? (Press Enter to skip):";
 
     userFeedback = await options.prompts.input({
       message: feedbackMessage,
