@@ -13,7 +13,7 @@ properties:
     description: Parent node path, if null indicates it is a top-level node
   sourceIds:
     type: array
-    description: Associated sourceId from `<data_sources>` for subsequent translation and content generation, must come from sourceId in `<data_sources>`, cannot have fake ids, **cannot be empty**
+    description: Associated sourceId from dataSources for subsequent translation and content generation, must come from sourceId in datasources, cannot have fake ids, **cannot be empty**
     items:
       type: string
 required:

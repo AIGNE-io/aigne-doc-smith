@@ -1439,7 +1439,7 @@ describe("load-sources", () => {
   });
 
   describe("OpenAPI and remote source handling", () => {
-    test("should store OpenAPI specs in user context and exclude them from dataSources", async () => {
+    test("should store OpenAPI specs in user context and exclude them from datasources", async () => {
       const openApiPath = path.join(testDir, "api-spec.yaml");
       const openApiContent = "openapi: 3.0.0\ninfo:\n  title: Sample API\n";
       await writeFile(openApiPath, openApiContent);
@@ -1464,12 +1464,12 @@ describe("load-sources", () => {
 
       expect(userContext.openAPISpec).toBeDefined();
       expect(userContext.openAPISpec.content).toContain("openapi: 3.0.0");
-      expect(result.dataSources).not.toContain("openapi: 3.0.0");
-      expect(result.dataSources).toContain("helper.js");
+      expect(result.datasources).not.toContain("openapi: 3.0.0");
+      expect(result.datasources).toContain("helper.js");
       expect(userContext.httpFileList).toEqual([]);
     });
 
-    test("should reuse existing OpenAPI spec without filtering it from dataSources", async () => {
+    test("should reuse existing OpenAPI spec without filtering it from datasources", async () => {
       const openApiPath = path.join(testDir, "api-existing.yaml");
       await writeFile(openApiPath, "openapi: 3.1.0\ninfo:\n  title: Existing\n");
 
@@ -1494,7 +1494,7 @@ describe("load-sources", () => {
       );
 
       expect(options.context.userContext.openAPISpec).toBe(initialSpec);
-      expect(result.dataSources).toContain("openapi: 3.1.0");
+      expect(result.datasources).toContain("openapi: 3.1.0");
     });
 
     test("should include remote HTTP files and expose them through user context", async () => {
@@ -1533,8 +1533,8 @@ describe("load-sources", () => {
           options,
         );
 
-        expect(result.dataSources).toContain(`// sourceId: ${remoteUrl}`);
-        expect(result.dataSources).toContain('"remote"');
+        expect(result.datasources).toContain(`// sourceId: ${remoteUrl}`);
+        expect(result.datasources).toContain('"remote"');
         expect(userContext.httpFileList).toEqual([
           { sourceId: remoteUrl, content: '{"schema": "remote"}' },
         ]);

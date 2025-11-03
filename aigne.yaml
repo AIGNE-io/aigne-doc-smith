@@ -68,7 +68,7 @@ agents:
   - ./agents/utils/load-sources.mjs
   - ./agents/utils/post-generate.mjs
   - ./agents/utils/save-sidebar.mjs
-  - ./agents/utils/transform-detail-data-sources.mjs
+  - ./agents/utils/transform-detail-datasources.mjs
   - ./agents/utils/save-doc.mjs
   - ./agents/utils/save-doc-translation.mjs
   - ./agents/utils/save-output.mjs

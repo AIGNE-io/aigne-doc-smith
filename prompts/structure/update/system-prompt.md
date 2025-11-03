@@ -99,7 +99,7 @@ Analyze the user feedback to determine the intended operation:
 
 When to use Tools:
 - During document structure update, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
-- When sourceIds or file content from `<file_list>` is needed but not provided in `<data_sources>`, use readFile to read the file content
+- When sourceIds or file content from <file_list> is needed but not provided in DataSources, use readFile to read the file content
 </file_tool_usage>
 
 

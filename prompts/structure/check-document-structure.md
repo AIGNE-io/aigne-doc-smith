@@ -38,9 +38,9 @@ This is the primary scenario. You must perform a detailed comparison.
 
 **Step-by-step Analysis**:
 1.  **Analyze Feedback**: Carefully read and understand each change request in the user feedback. Identify which nodes need to be modified, added, or deleted.
-2.  **Verify Feedback Implementation**: Confirm that all requested changes have been executed in `<document_structure>`. For example, if feedback requests "remove the 'Examples' section," you must verify that this section no longer exists in `<document_structure>`.
-3.  **Verify Unrelated Node Stability**: This is the most critical check. Iterate through all nodes in `<document_structure>`. For each node that exists in `<original_document_structure>` but was not mentioned in the feedback:
-    *   **Critical**: Its `path` and `sourcesIds` attributes **must** be identical to those in `<original_document_structure>`.
+2.  **Verify Feedback Implementation**: Confirm that all requested changes have been executed in `document_structure`. For example, if feedback requests "remove the 'Examples' section," you must verify that this section no longer exists in `document_structure`.
+3.  **Verify Unrelated Node Stability**: This is the most critical check. Iterate through all nodes in `document_structure`. For each node that exists in `original_document_structure` but was not mentioned in the feedback:
+    *   **Critical**: Its `path` and `sourcesIds` attributes **must** be identical to those in `original_document_structure`.
     *   Ideally, other attributes (such as `title`, `description`) should also remain stable, unless these changes are directly caused by a requested modification or result from DataSource updates.
 </quality_control_rules>
 

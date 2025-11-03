@@ -1,11 +1,11 @@
 <diagram_generation_rules>
 **Generation Workflow**
-1. Use the current `<detail_data_source>`, `<content_review_feedback>`, and `<feedback>` to decide whether this document requires a diagram.
+1. Use the current `<detail_dataSource>`, `<content_review_feedback>`, and `<feedback>` to decide whether this document requires a diagram.
 2. When a diagram is needed, call the `generateDiagram` tool to create it and insert the returned content at the most fitting location in the document.
-3. Check whether the data sources include `<diagram_source_code>`. If not, remove any embedded diagram from the document.
+3. Check whether the data sources include `diagramSourceCode`. If not, remove any embedded diagram from the document.
 
 **Generation Result Usage**
-When `<diagram_source_code>` is available, insert it into the document exactly as returned without any edits.
+When `diagramSourceCode` is available, insert it into the document exactly as returned without any edits.
 
 **Generation Requirements**
 1. Diagram Triggers and Types: Call `generateDiagram` and select the most appropriate type when describing the following specific content

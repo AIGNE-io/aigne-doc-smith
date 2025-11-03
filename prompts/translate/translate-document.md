@@ -299,5 +299,5 @@ Original text as follows:
 </content>
 
 <output_constraints>
-Please **accurately** translate the content within `<content>` tags (excluding the outermost `<content>` tags) into **{{ language }}**, strictly following the translation requirements.
+Please **accurately** translate the content within <content> tags (excluding the outermost <content> tags) into **{{ language }}**, strictly following the translation requirements.
 </output_constraints>

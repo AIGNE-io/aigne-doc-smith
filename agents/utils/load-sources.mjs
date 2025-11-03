@@ -218,7 +218,7 @@ export default async function loadSources(
     0,
   );
 
-  const dataSources = splitSourcesToChunks(sourceFiles, INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD).map(
+  const datasources = splitSourcesToChunks(sourceFiles, INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD).map(
     (i) => ({ dataSourceChunk: buildSourcesContent(i) }),
   );
 
@@ -290,7 +290,7 @@ export default async function loadSources(
   }
 
   return {
-    dataSources,
+    datasources,
     content,
     originalDocumentStructure,
     files,
@@ -345,7 +345,7 @@ loadSources.input_schema = {
 loadSources.output_schema = {
   type: "object",
   properties: {
-    dataSources: {
+    datasources: {
       type: "array",
       items: {
         type: "object",

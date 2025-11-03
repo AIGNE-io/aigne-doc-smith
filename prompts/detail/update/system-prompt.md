@@ -91,7 +91,7 @@ Tool usage guidelines:
 **updateDocumentContent**: Use this tool to apply changes to the document content
 - Generate a precise unified diff patch based on the user feedback
 - The diff should include context lines for accurate application
-- Only consider content within `<page_content>` tag when calculating line numbers, ensure line number calculation is accurate
+- Only consider content within <page_content> tag when calculating line numbers, ensure line number calculation is accurate
 - Test the patch application to ensure it works correctly
 
 Error handling:

@@ -6,9 +6,9 @@
 {{allFilesPaths}}
 </file_list>
 
-<data_sources>
-{{ dataSources }}
-</data_sources>
+<datasources>
+{{ datasources }}
+</datasources>
 
 
 Initial Documentation Structure:
@@ -38,5 +38,5 @@ Processing workflow:
 
 Rules:
 ** All changes must be made using Tools. **
-** Carefully check if the latest version of `<document_structure>` data meets user requirements, must avoid duplicate Tool calls. **
+** Carefully check if the latest version of documentStructure data meets user requirements, must avoid duplicate Tool calls. **
 </instructions>

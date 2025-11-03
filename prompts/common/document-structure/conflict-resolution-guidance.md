@@ -1,5 +1,5 @@
 <conflict_resolution_guidance>
-When users select potentially conflicting options, conflict resolution guidance will be provided in `<user_rules>`. Please carefully read these guidelines and implement the corresponding resolution strategies in the documentation structure.
+When users select potentially conflicting options, conflict resolution guidance will be provided in user_rules. Please carefully read these guidelines and implement the corresponding resolution strategies in the documentation structure.
 
 Core principles for conflict resolution:
 1. **Layered need satisfaction**: Simultaneously satisfy multiple purposes and audiences through reasonable documentation structure hierarchy

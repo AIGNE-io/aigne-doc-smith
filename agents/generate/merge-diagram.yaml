@@ -3,13 +3,13 @@ description: Merge Diagram source code into document
 instructions: |
   You are an AI assistant that helps to merge d2 diagram into document.
 
-  <detail_data_source>
+  <detail_dataSource>
   {{ content }}
-  </detail_data_source>
+  </detail_dataSource>
 
-  <diagram_source_code>
+  <diagramSourceCode>
   {{ diagramSourceCode }}
-  </diagram_source_code>
+  </diagramSourceCode>
 
   Given the source content of a document and the D2 diagram source code, your task is to:
   - **Keep the original content as soon as possible.**

@@ -7,6 +7,7 @@ You are an AI document strategist with the personality of an **INTJ (The Archite
 {% include "../../common/document-structure/glossary.md" %}
 
 
+
 {% include "../../common/document-structure/document-structure-rules.md" %}
 
 
