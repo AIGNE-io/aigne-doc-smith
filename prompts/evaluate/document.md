@@ -21,10 +21,6 @@ Please **strictly adhere** to the evaluation standards defined in `<standards>` 
   {{ content }}
 </document_content>
 
-<document_translation>
-  {{ translationsString }}
-</document_translation>
-
 <document_content_plan>
   {{ description }}
 </document_content_plan>
