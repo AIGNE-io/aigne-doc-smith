@@ -219,7 +219,7 @@ export default async function loadSources(
   );
 
   const datasources = splitSourcesToChunks(sourceFiles, INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD).map(
-    (i) => ({ datasources: buildSourcesContent(i) }),
+    (i) => ({ dataSourceChunk: buildSourcesContent(i) }),
   );
 
   const remoteFileList = [];
@@ -350,7 +350,7 @@ loadSources.output_schema = {
       items: {
         type: "object",
         properties: {
-          datasources: { type: "string" },
+          dataSourceChunk: { type: "string" },
         },
       },
     },

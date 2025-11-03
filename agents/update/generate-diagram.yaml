@@ -9,7 +9,6 @@ reflection:
   is_approved: isValid
   max_iterations: 5
   return_last_on_max_iterations: false
-  custom_error_message: "MUST NOT generate any diagram: validation failed after max iterations."
 input_schema:
   type: object
   properties:

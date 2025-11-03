@@ -1,14 +1,15 @@
-name: mergeD2DiagramToDocument
-description: Merge D2 Diagram source code into document
+name: mergeDiagramToDocument
+description: Merge Diagram source code into document
 instructions: |
   You are an AI assistant that helps to merge d2 diagram into document.
 
-  <datasources>
+  <detail_dataSource>
   {{ content }}
-  </datasources>
-  <datasources>
+  </detail_dataSource>
+
+  <diagramSourceCode>
   {{ diagramSourceCode }}
-  </datasources>
+  </diagramSourceCode>
 
   Given the source content of a document and the D2 diagram source code, your task is to:
   - **Keep the original content as soon as possible.**

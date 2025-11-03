@@ -1,7 +1,9 @@
 #!/usr/bin/env aigne
 
 model:
-  model: google/gemini-2.5-pro
+  model: aignehub/gemini-2.5-pro # reasoning_effort 128-32768
+  # https://github.com/AIGNE-io/aigne-framework/blob/main/models/gemini/src/gemini-chat-model.ts#L115
+  reasoning_effort: 502
   # name: gemini-2.5-flash
   temperature: 0.8
 agents:
@@ -93,6 +95,11 @@ agents:
   - ./agents/evaluate/document-structure.yaml
   - ./agents/evaluate/document.yaml
   - ./agents/evaluate/code-snippet.mjs
+
+  # Diagram
+  - ./agents/generate/merge-diagram.yaml
+  - ./agents/update/generate-diagram.yaml
+  - ./agents/update/check-generate-diagram.mjs
 cli:
   chat: ./agents/chat/index.yaml
   agents:

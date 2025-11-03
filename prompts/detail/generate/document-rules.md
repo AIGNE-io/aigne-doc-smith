@@ -10,7 +10,7 @@ Documentation Generation Rules:
 - **Markdown Syntax Constraint**: Use only GitHub Flavored Markdown (GFM) syntax by default. Prohibited extensions include: custom blocks `:::`, footnotes `[^1]: notes`, math formulas `$$ LaTeX`, highlighted text `==code==`, and other non-GFM syntax unless explicitly defined in custom component rules
 - Use proper Markdown link syntax, for example: [Next Chapter Title](next_chapter_path)
 - **Ensure next_chapter_path references either external URLs or valid paths from the documentation structure**—use absolute paths from the documentation structure
-- When DataSources includes third-party links, incorporate them appropriately throughout the document
+- When detailDataSource includes third-party links, incorporate them appropriately throughout the document
 - Structure each section with: title, introduction, code examples, response data samples, and explanatory notes. Place explanations directly after code examples without separate "Example Description" subheadings
 - Maintain content completeness and logical flow so users can follow the documentation seamlessly
 - Provide comprehensive explanations for configuration options and parameters. When parameters accept multiple values, explain each option's purpose and include code examples where applicable

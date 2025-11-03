@@ -201,20 +201,6 @@ D2 provides special syntax for creating complex, structured diagram types common
 - Lifeline activations, also known as spans, are defined by connecting to a nested object on an actor. This syntax indicates the start and end of an operation on an actor's lifeline. Example: `alice.t1 -> bob: "invoke operation"`.
 - Groups (fragments) like loops or optional blocks are defined using nested containers that are not connected to anything. Example: `loop: { alice -> bob: "ping"; bob -> alice: "pong" }`.
 
-#### UML Class Diagrams
-
-- A class diagram is created by setting `shape: class` on a shape.
-- Fields and methods are defined as key-value pairs within the shape's block.
-- Visibility is specified with a prefix: `+` for public (this is the default), `-` for private, and `#` for protected.
-- Methods are identified by keys containing parentheses `()`. The value of the key specifies the return type. Example: `D2Parser: { shape: class; +reader: io.RuneReader; "-lookahead:rune"; "+peek(): (rune, eof bool)" }`.
-
-#### SQL Table Diagrams
-
-- An SQL table is created by setting `shape: sql_table`.
-- Columns are defined as keys, with their data type as the value.
-- Constraints (e.g., `primary_key`, `foreign_key`, `unique`) are defined in a nested block for the relevant column. Example: `users: { shape: sql_table; id: int { constraint: primary_key }; email: string { constraint: unique } }`.
-- Foreign key relationships are established by creating a standard connection from the foreign key column in one table to the primary key column in another. Example: `orders.user_id -> users.id`.
-
 
 ### 1.4 Strict Adherence to Predefined Keyword Values
 

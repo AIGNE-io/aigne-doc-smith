@@ -2,12 +2,12 @@ import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import transformDetailDatasources from "../../../agents/utils/transform-detail-datasources.mjs";
+import transformDetailDatasource from "../../../agents/utils/transform-detail-datasources.mjs";
 import * as utils from "../../../utils/utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-describe("transformDetailDatasources utility", () => {
+describe("transformDetailDatasource utility", () => {
   let normalizePathSpy;
   let toRelativePathSpy;
   let testDir;
@@ -55,15 +55,15 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [guidePath, apiPath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
     expect(normalizePathSpy).toHaveBeenCalledWith(guidePath);
     expect(normalizePathSpy).toHaveBeenCalledWith(apiPath);
     expect(toRelativePathSpy).toHaveBeenCalledWith(guidePath);
     expect(toRelativePathSpy).toHaveBeenCalledWith(apiPath);
 
-    expect(result.detailDataSources).toContain("# User Guide\n\nThis is a guide.");
-    expect(result.detailDataSources).toContain("# API Reference\n\nAPI documentation.");
+    expect(result.detailDataSource).toContain("# User Guide\n\nThis is a guide.");
+    expect(result.detailDataSource).toContain("# API Reference\n\nAPI documentation.");
   });
 
   test("should handle single datasource", async () => {
@@ -77,9 +77,9 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [readmePath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
-    expect(result.detailDataSources).toContain("# README\n\nProject documentation.");
+    expect(result.detailDataSource).toContain("# README\n\nProject documentation.");
   });
 
   test("should maintain order of sourceIds", async () => {
@@ -97,12 +97,12 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [cPath, aPath, bPath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
     // Check order by finding indices
-    const indexC = result.detailDataSources.indexOf("Content C");
-    const indexA = result.detailDataSources.indexOf("Content A");
-    const indexB = result.detailDataSources.indexOf("Content B");
+    const indexC = result.detailDataSource.indexOf("Content C");
+    const indexA = result.detailDataSource.indexOf("Content A");
+    const indexB = result.detailDataSource.indexOf("Content B");
 
     expect(indexC).toBeLessThan(indexA);
     expect(indexA).toBeLessThan(indexB);
@@ -122,12 +122,12 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [guidePath, apiPath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
     expect(normalizePathSpy).toHaveBeenCalledWith(guidePath);
     expect(normalizePathSpy).toHaveBeenCalledWith(apiPath);
-    expect(result.detailDataSources).toContain("Guide content");
-    expect(result.detailDataSources).toContain("API content");
+    expect(result.detailDataSource).toContain("Guide content");
+    expect(result.detailDataSource).toContain("API content");
   });
 
   test("should handle relative path conversion", async () => {
@@ -144,12 +144,12 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [absPath, relPath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
     expect(toRelativePathSpy).toHaveBeenCalledWith(absPath);
     expect(toRelativePathSpy).toHaveBeenCalledWith(relPath);
-    expect(result.detailDataSources).toContain("Absolute content");
-    expect(result.detailDataSources).toContain("Relative content");
+    expect(result.detailDataSource).toContain("Absolute content");
+    expect(result.detailDataSource).toContain("Relative content");
   });
 
   // MISSING DATA TESTS
@@ -168,11 +168,11 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [guidePath, missingPath, apiPath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
-    expect(result.detailDataSources).toContain("Guide content");
-    expect(result.detailDataSources).toContain("API content");
-    expect(result.detailDataSources).not.toContain("missing");
+    expect(result.detailDataSource).toContain("Guide content");
+    expect(result.detailDataSource).toContain("API content");
+    expect(result.detailDataSource).not.toContain("missing");
   });
 
   test("should handle empty sourceIds array", () => {
@@ -180,9 +180,9 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
-    expect(result.detailDataSources).toBe("");
+    expect(result.detailDataSource).toBe("");
   });
 
   // NULL AND UNDEFINED HANDLING
@@ -191,9 +191,9 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: null,
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
-    expect(result.detailDataSources).toBe("");
+    expect(result.detailDataSource).toBe("");
   });
 
   test("should handle undefined sourceIds", () => {
@@ -201,9 +201,9 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: undefined,
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
-    expect(result.detailDataSources).toBe("");
+    expect(result.detailDataSource).toBe("");
   });
 
   // CONTENT FORMATTING TESTS
@@ -217,10 +217,10 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [mainPath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
-    expect(result.detailDataSources).toContain("console.log('Hello World');\nprocess.exit(0);");
-    expect(result.detailDataSources).toContain("// sourceId:");
+    expect(result.detailDataSource).toContain("console.log('Hello World');\nprocess.exit(0);");
+    expect(result.detailDataSource).toContain("// sourceId:");
   });
 
   test("should handle empty content", async () => {
@@ -233,11 +233,11 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [emptyPath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
     // Empty file content still gets included with sourceId comment
-    expect(result.detailDataSources).toContain("// sourceId:");
-    expect(result.detailDataSources.trim()).not.toBe("");
+    expect(result.detailDataSource).toContain("// sourceId:");
+    expect(result.detailDataSource.trim()).not.toBe("");
   });
 
   test("should handle whitespace-only content", async () => {
@@ -250,10 +250,10 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [whitespacePath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
     // Whitespace content is truthy, so it should be included
-    expect(result.detailDataSources).toContain("   \n\t  ");
+    expect(result.detailDataSource).toContain("   \n\t  ");
   });
 
   test("should handle content with special characters", async () => {
@@ -266,10 +266,10 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [specialPath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
-    expect(result.detailDataSources).toContain("中文标题");
-    expect(result.detailDataSources).toContain("@#$%^&*()");
+    expect(result.detailDataSource).toContain("中文标题");
+    expect(result.detailDataSource).toContain("@#$%^&*()");
   });
 
   // DUPLICATE HANDLING TESTS
@@ -283,21 +283,21 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [guidePath, guidePath], // Duplicate paths
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
     // Both duplicates should be included
-    const matches = result.detailDataSources.match(/Guide content/g);
+    const matches = result.detailDataSource.match(/Guide content/g);
     expect(matches?.length).toBe(2);
   });
 
   // RETURN VALUE STRUCTURE TESTS
-  test("should always return object with detailDataSources property", async () => {
+  test("should always return object with detailDataSource property", async () => {
     const inputs = [{ sourceIds: [] }, { sourceIds: null }];
 
     for (const input of inputs) {
-      const result = transformDetailDatasources(input);
-      expect(result).toHaveProperty("detailDataSources");
-      expect(typeof result.detailDataSources).toBe("string");
+      const result = transformDetailDatasource(input);
+      expect(result).toHaveProperty("detailDataSource");
+      expect(typeof result.detailDataSource).toBe("string");
     }
   });
 
@@ -313,9 +313,9 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [null, undefined, validPath],
     };
 
-    const result = transformDetailDatasources(input);
+    const result = transformDetailDatasource(input);
 
-    expect(result.detailDataSources).toContain("Valid content");
+    expect(result.detailDataSource).toContain("Valid content");
   });
 
   test("should return openAPI spec separately when provided in context", async () => {
@@ -343,10 +343,10 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [guidePath, openApiPath],
     };
 
-    const result = transformDetailDatasources(input, options);
+    const result = transformDetailDatasource(input, options);
 
-    expect(result.detailDataSources).toContain("Guide content");
-    expect(result.detailDataSources).not.toContain("openapi: 3.0.0");
+    expect(result.detailDataSource).toContain("Guide content");
+    expect(result.detailDataSource).not.toContain("openapi: 3.0.0");
     expect(result.openAPISpec).toBe(openAPISpec);
   });
 
@@ -370,10 +370,10 @@ describe("transformDetailDatasources utility", () => {
       sourceIds: [remoteUrl, localPath],
     };
 
-    const result = transformDetailDatasources(input, options);
+    const result = transformDetailDatasource(input, options);
 
-    expect(result.detailDataSources).toContain("// sourceId: https://example.com/service.json");
-    expect(result.detailDataSources).toContain('"name": "remote"');
-    expect(result.detailDataSources).toContain("Local content");
+    expect(result.detailDataSource).toContain("// sourceId: https://example.com/service.json");
+    expect(result.detailDataSource).toContain('"name": "remote"');
+    expect(result.detailDataSource).toContain("Local content");
   });
 });

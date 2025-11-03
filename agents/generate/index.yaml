@@ -38,8 +38,7 @@ skills:
                 'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
               }
             ])
-          }),
-          "datasources": ""
+          })
         }
       ])
   - ../utils/format-document-structure.mjs

@@ -105,6 +105,7 @@ async function showDocumentDetail(content, title) {
       renderer: new markedTerminal(),
     });
 
+    // FIXME: @zhanghan fix error "Could not find the language 'd2', did you forget to load/include a language module?"
     const renderedMarkdown = marked(content);
 
     // Restore original console.error
@@ -121,15 +122,14 @@ async function showDocumentDetail(content, title) {
   }
 }
 
-export default async function userReviewDocument(
-  { content, title, description, ...rest },
-  options,
-) {
+export default async function userReviewDocument({ content, description, ...rest }, options) {
   // Check if document content exists
   if (!content || typeof content !== "string" || content.trim().length === 0) {
     console.log("Please provide document content to review.");
     return { content };
   }
+
+  const title = rest.documentStructure?.find((x) => x.path === rest.path)?.title;
 
   // Print current document headings structure
   printDocumentHeadings(content, title || "Untitled Document");
@@ -190,7 +190,7 @@ export default async function userReviewDocument(
     feedbacks.push(feedback.trim());
 
     // Get the updateDocument agent
-    const updateAgent = options.context.agents["updateDocumentDetail"];
+    const updateAgent = options.context.agents["handleDocumentUpdate"];
     if (!updateAgent) {
       console.log(
         "We can't process your feedback right now. The document update feature is temporarily unavailable.",
@@ -213,6 +213,7 @@ export default async function userReviewDocument(
         originalContent: options.context.userContext.currentContent,
         feedback: feedback.trim(),
         userPreferences,
+        title,
       });
 
       // Check if feedback should be saved as user preference

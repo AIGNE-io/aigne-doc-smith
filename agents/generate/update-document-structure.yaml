@@ -16,7 +16,7 @@ input_schema:
     locale:
       type: string
       description: User language, e.g. zh, en
-    datasources:
+    dataSourceChunk:
       type: string
       description: Context for documentation structure
     glossary:
