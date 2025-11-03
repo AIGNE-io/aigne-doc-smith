@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.15-beta.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.8...v0.8.15-beta.9) (2025-11-03)
+
+
+### Bug Fixes
+
+* optimize the draw diagram process ([#234](https://github.com/AIGNE-io/aigne-doc-smith/issues/234)) ([7bdc0d9](https://github.com/AIGNE-io/aigne-doc-smith/commit/7bdc0d939df05b9d31e06ea0f0285ed0eafe74ae))
+* simplify document structure merging and add deletion support ([#235](https://github.com/AIGNE-io/aigne-doc-smith/issues/235)) ([7f10242](https://github.com/AIGNE-io/aigne-doc-smith/commit/7f1024294bde241f41034d3e01a542451030cbdc))
+
 ## [0.8.15-beta.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.7...v0.8.15-beta.8) (2025-11-01)
 
 
