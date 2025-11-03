@@ -6,7 +6,7 @@ skills:
 input_schema:
   type: object
   properties:
-    datasources:
+    detailDataSource:
       type: string
       description: Context for documentation structure generation, used to assist generate documentation structure
     documentExecutionStructure: ../schema/document-execution-structure.yaml

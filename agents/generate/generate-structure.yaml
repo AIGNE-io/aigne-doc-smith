@@ -26,7 +26,7 @@ skills:
             locale:
               type: string
               description: Primary language for documentation (e.g., zh, en, ja)
-            datasources:
+            dataSourceChunk:
               type: string
               description: Project content and context to help generate documentation structure
             targetAudience:
@@ -50,7 +50,7 @@ skills:
               default: general
           required:
             - rules
-            - datasources
+            - dataSourceChunk
         output_schema:
           type: object
           properties:

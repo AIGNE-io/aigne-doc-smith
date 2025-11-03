@@ -15,9 +15,9 @@
 {{originalContent}}
 </original_page_content>
 
-<datasources>
+<detail_dataSource>
 
-{{ detailDataSources }}
+{{ detailDataSource }}
 
 {{ additionalInformation }}
 
@@ -25,7 +25,7 @@
 {{ assetsContent }}
 </media_file_list>
 
-</datasources>
+</detail_dataSource>
 
 <user_feedback>
 {{feedback}}

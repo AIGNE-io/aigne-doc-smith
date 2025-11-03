@@ -3,9 +3,9 @@ description: Merge Diagram source code into document
 instructions: |
   You are an AI assistant that helps to merge d2 diagram into document.
 
-  <datasources>
+  <detail_dataSource>
   {{ content }}
-  </datasources>
+  </detail_dataSource>
 
   <diagramSourceCode>
   {{ diagramSourceCode }}

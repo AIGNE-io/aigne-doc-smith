@@ -23,7 +23,7 @@ input_schema:
     locale:
       type: string
       description: User language, e.g. zh, en
-    datasources:
+    detailDataSource:
       type: string
       description: Context for document content
     glossary:

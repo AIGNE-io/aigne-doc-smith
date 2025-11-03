@@ -16,9 +16,7 @@ skills:
       $merge([
         $,
         {
-          "documentStructure": originalDocumentStructure,
-          "datasources": "",
-          "datasourcesList": ""
+          "documentStructure": originalDocumentStructure
         }
       ])
   - ./document-structure.yaml

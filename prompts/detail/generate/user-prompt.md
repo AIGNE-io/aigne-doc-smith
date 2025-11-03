@@ -15,8 +15,8 @@
 {% set operation_type = "generating" %}
 {% include "../../common/document/user-preferences.md" %}
 
-<datasources>
-{{ detailDataSources }}
+<detail_dataSource>
+{{ detailDataSource }}
 
 {{ additionalInformation }}
 
@@ -24,7 +24,7 @@
 {{ assetsContent }}
 </media_file_list>
 
-</datasources>
+</detail_dataSource>
 
 
 {% include "../../common/document/openapi-usage-rules.md" %}
@@ -51,7 +51,7 @@ User feedback on previous generation:
 {% endif %}
 
 <instructions>
-Generate detailed and well-structured document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), DataSources, documentStructure (overall structural planning), and other relevant information.
+Generate detailed and well-structured document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), detailDataSource, documentStructure (overall structural planning), and other relevant information.
 
 <steps>
 1. Analyze the provided document structure and user requirements to plan the content.

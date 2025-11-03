@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { isRemoteFile } from "../../utils/file-utils.mjs";
 import { normalizePath, toRelativePath } from "../../utils/utils.mjs";
 
-export default function transformDetailDatasources({ sourceIds }, options = {}) {
+export default function transformDetailDatasource({ sourceIds }, options = {}) {
   // Read file content for each sourceId, ignoring failures
   let openAPISpec;
   const remoteFileList = options?.context?.userContext?.remoteFileList || [];
@@ -37,9 +37,9 @@ export default function transformDetailDatasources({ sourceIds }, options = {}) 
     .filter(Boolean);
 
   return {
-    detailDataSources: contents.join(""),
+    detailDataSource: contents.join(""),
     openAPISpec,
   };
 }
 
-transformDetailDatasources.task_render_mode = "hide";
+transformDetailDatasource.task_render_mode = "hide";
