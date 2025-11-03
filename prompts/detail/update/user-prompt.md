@@ -21,9 +21,11 @@
 
 {{ additionalInformation }}
 
+{% if assetsContent %}
 <media_file_list>
 {{ assetsContent }}
 </media_file_list>
+{% endif %}
 
 </detail_data_source>
 
