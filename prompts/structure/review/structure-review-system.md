@@ -57,20 +57,22 @@ Given an existing document structure (a JSON array or tree of sections), refine 
 - Do **not** rename or rewrite content.
 - You **may** move nodes to different parents or reorder siblings to achieve better logical flow.
 - You **must** maintain structural integrity for all remaining nodes.
-- The output must be a valid array of changes matching the expected schema.
+- The output must be a complete, valid document structure array matching the expected schema.
 
 ---
 
 ## Objective
 
-Output an `updates` array containing only the document structure items that need to be changed:
-1. Each item should include an `id` field to identify the node being modified
-2. Include appropriate change fields (`delete`, `newIndex`, `newPath`, `newParentPath`) as needed
-3. Provide a `reason` field explaining the change
-4. Only include nodes that require modifications to improve hierarchy and order
+Output a complete `structures` array containing the optimized document structure:
+1. Include ALL nodes from the input structure (whether modified or not)
+2. Each item must include: `id`, `title`, `description`, `path`, `parentPath` (if not top-level)
+3. Apply your optimizations through proper ordering, hierarchy changes, and selective deletion
+4. Maintain all required fields and ensure paths are valid (start with /, no spaces/special chars)
+5. **Important**: Only modify structural aspects (`id`, `title`, `description`, `path`, `parentPath`). Do NOT modify `sourceIds` or other data fields
 
-**Index Guidelines:**
-- To move a node to the beginning: set `newIndex` to 0 or negative value
-- To move a node to the end: set `newIndex` to a value greater than the current maximum index
-- For relative positioning: use intermediate values between existing indices
+**Optimization Approach:**
+- Reorder nodes by adjusting their position in the array
+- Change hierarchy by modifying `parentPath` values (use the path of the new parent node)
+- Delete problematic nodes by simply omitting them from the output array
+- Keep beneficial nodes with their original content intact
 </instructions>

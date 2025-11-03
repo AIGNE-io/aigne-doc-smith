@@ -90,35 +90,12 @@ skills:
     output_schema:
       type: object
       properties:
-        updates:
+        structures:
           type: array
           description: Document structure items that need to be updated or changed
-          items:
-            type: object
-            description: Document structure item representing a node in the document hierarchy
-            properties:
-              id:
-                type: string
-                description: Unique identifier for the document structure item
-              delete:
-                type: boolean
-                description: Indicates if the document structure item should be deleted
-              newIndex:
-                type: integer
-                description: Used for ordering purposes, indicates the new position index of the document structure item
-              newPath:
-                type: string
-                description: The new path of the document structure item if it has been changed, otherwise can be omitted
-              newParentPath:
-                type: string
-                description: The new parentPath of the document structure item if it has been changed, otherwise can be omitted
-              reason:
-                type: string
-                description: Simple explanation of the changes made to this document structure item
-            required:
-              - id
+          items: ../schema/document-structure-refine-item.yaml
       required:
-        - updates
+        - structures
 
   - type: function
     name: finalizeDocumentStructure
@@ -126,28 +103,18 @@ skills:
       return {
         projectName: input.projectName,
         projectDesc: input.projectDesc,
-        documentStructure: input.documentStructure
-          .map((item) => {
-            const update = input.updates?.find(i => i.id === item.id)
+        documentStructure: input.structures.map(refinedItem => {
+          // Find original item to get sourceIds and other fields
+          const originalItem = input.documentStructure.find(orig => orig.id === refinedItem.id)
 
-            if (update?.delete) {
-              return null
-            }
+          const newItem = {
+            title: refinedItem.title,
+            description: refinedItem.description,
+            path: refinedItem.path,
+            parentId: refinedItem.parentPath || null,  // Convert parentPath to parentId
+            sourceIds: originalItem?.sourceIds || [],
+          }
 
-            return {
-              ...item,
-              index: update?.newIndex || item.index,
-              path: update?.newPath || item.path,
-              parentId: update?.newParentPath || item.parentPath,
-            }
-          })
-          .filter(Boolean)
-          .sort((a, b) => a.index - b.index)
-          .map(i => {
-            const newItem = { ...i }
-            delete newItem.index
-            delete newItem.id
-            delete newItem.parentPath
-            return newItem
-          }),
+          return newItem
+        })
       }
