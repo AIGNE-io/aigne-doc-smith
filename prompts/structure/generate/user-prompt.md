@@ -50,7 +50,8 @@ projectDesc: |
 
 {% if originalDocumentStructure %}
 {{ originalDocumentStructure | yaml.stringify }}
-{% else %}
+{% elseif userContext.originalDocumentStructure %}
+{{ userContext.originalDocumentStructure | yaml.stringify }}
 No previous document structure provided. generate a new structure based on the data sources!
 {% endif %}
 
@@ -124,7 +125,10 @@ Your output should be a structured change plan containing the following three se
   - `item`: New structure definition
 - **update**: Structure items that need modification (array), each item is an object containing:
   - `path`: Path pointing to the node being updated;
-  - `update`: New structure definition
+  - `item`: New structure definition
+
+IMPORTANT: You should avoid duplicating existing structure items. Only add new items for genuinely new content,
+if the new structure node already exists in the last_document_structure, you should use `update` to modify it instead of adding a duplicate.
 
 ## Behavior Rules
 

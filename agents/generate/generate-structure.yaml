@@ -60,31 +60,10 @@ skills:
             projectDesc:
               type: string
               description: Brief project description generated from content analysis (under 50 words)
-            add:
+            structures:
               type: array
-              description: List of document structure items to add, null or empty array means no addition
-              items:
-                type: object
-                properties:
-                  index:
-                    type: integer
-                    description: Position to insert the new item, null means append to the end
-                  item: ../schema/document-structure-item.yaml
-                required:
-                  - item
-            update:
-              type: array
-              description: List of document structure items to update, replace the item with the same path, null or empty array means no update
-              items:
-                type: object
-                properties:
-                  path:
-                    type: string
-                    description: Path of the document structure item to update or replace
-                  item: ../schema/document-structure-item.yaml
-                required:
-                  - path
-                  - item
+              description: List of document structure items to add or update
+              items: ../schema/document-structure-item.yaml
 
       - ./utils/merge-document-structures.mjs
 
@@ -92,9 +71,10 @@ skills:
     name: aggregateDocumentStructure
     process: |
       return {
-        documentStructure: options.context.userContext.originalDocumentStructure.map(i => ({
+        documentStructure: options.context.userContext.originalDocumentStructure.map((i, index) => ({
           ...i,
           id: i.title.toLowerCase().replace(/\s+/g, '-'),
+          index
         })),
         projectName: options.context.userContext.projectName,
         projectDesc: options.context.userContext.projectDesc,
@@ -120,6 +100,9 @@ skills:
               id:
                 type: string
                 description: Unique identifier for the document structure item
+              delete:
+                type: boolean
+                description: Indicates if the document structure item should be deleted
               newIndex:
                 type: integer
                 description: Used for ordering purposes, indicates the new position index of the document structure item
@@ -129,6 +112,9 @@ skills:
               newParentPath:
                 type: string
                 description: The new parentPath of the document structure item if it has been changed, otherwise can be omitted
+              reason:
+                type: string
+                description: Simple explanation of the changes made to this document structure item
             required:
               - id
       required:
@@ -144,6 +130,10 @@ skills:
           .map((item) => {
             const refined = input.refinedStructure?.find(i => i.id === item.id)
 
+            if (refined?.delete) {
+              return null
+            }
+
             return {
               ...item,
               index: refined?.newIndex || item.index,
@@ -151,6 +141,7 @@ skills:
               parentId: refined?.newParentPath || item.parentPath,
             }
           })
+          .filter(Boolean)
           .sort((a, b) => a.index - b.index)
           .map(i => {
             const newItem = { ...i }
