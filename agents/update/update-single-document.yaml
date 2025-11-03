@@ -3,6 +3,5 @@ name: updateSingleDocument
 skills:
   - ../utils/transform-detail-datasources.mjs
   - ../update/user-review-document.mjs
-  - ../utils/save-doc.mjs
 iterate_on: selectedDocs
 concurrency: 1

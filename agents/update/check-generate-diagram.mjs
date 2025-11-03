@@ -4,12 +4,19 @@ export default async function checkGenerateDiagram({needDiagram, documentContent
   }
 
   const generateAgent = options.context?.agents?.['generateDiagram'];
-  const {diagramSourceCode} = await options.context.invoke(generateAgent, {documentContent, locale});
-  const mergeAgent = options.context?.agents?.['mergeDiagramToDocument'];
+  let content = documentContent;
 
-  const {content} = await options.context.invoke(mergeAgent, {
-    diagramSourceCode,
-    content: documentContent,
-  })
+  try {
+    const {diagramSourceCode} = await options.context.invoke(generateAgent, {documentContent, locale});
+    const mergeAgent = options.context?.agents?.['mergeDiagramToDocument'];
+
+    ({content} = await options.context.invoke(mergeAgent, {
+      diagramSourceCode,
+      content: documentContent,
+    }))
+  } catch (error) {
+    // If diagram generation fails, just return the original document
+    console.log(error.message);
+  }
   return {content};
 }
