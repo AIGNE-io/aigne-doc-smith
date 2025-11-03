@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.15-beta.10](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.9...v0.8.15-beta.10) (2025-11-03)
+
+
+### Bug Fixes
+
+* remove empty xml tag in prompt ([#239](https://github.com/AIGNE-io/aigne-doc-smith/issues/239)) ([1ec771e](https://github.com/AIGNE-io/aigne-doc-smith/commit/1ec771eb8855bca3730f732a1b68404275633787))
+* standardized variable names and xml tag usage ([#237](https://github.com/AIGNE-io/aigne-doc-smith/pull/237))([00f18b9](https://github.com/AIGNE-io/aigne-doc-smith/commit/00f18b95ba21cd376e369eefb102d2d258e95529))
+
 ## [0.8.15-beta.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.8...v0.8.15-beta.9) (2025-11-03)
 
 
