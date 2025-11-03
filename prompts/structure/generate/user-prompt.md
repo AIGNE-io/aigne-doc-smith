@@ -1,11 +1,11 @@
-<datasources>
+<data_sources>
 Following are the partial or complete data sources provided by the user to help you design the document structure. Use these data sources to inform your structural planning.
 
-{{ datasources }}
+{{ dataSources }}
 
 
 NOTICE: There are additional data source contents not displayed. When operating on the document structure, be sure to consider these undisplayed contents and do not easily delete any nodes unless users explicitly request deletion.
-</datasources>
+</data_sources>
 
 {% if userContext.openAPISpec %}
 <openapi>
@@ -96,7 +96,7 @@ The current process is planning sub-structures for the following section:
 {{parentDocument}}
 
 Sub-structures must meet the following requirements:
-- Sub-structures are planned based on DataSources and the parent document's description
+- Sub-structures are planned based on `<data_sources>` and the parent document's description
 - The parent document provides an overview of the planned content, while sub-structures directly plan the specific content to be displayed
 - Further break down and comprehensively display the content planned in the parent document
 - All sub-structures must have their parentPath value set to {{parentDocument.path}}
