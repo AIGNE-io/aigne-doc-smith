@@ -60,31 +60,10 @@ skills:
             projectDesc:
               type: string
               description: Brief project description generated from content analysis (under 50 words)
-            add:
+            structures:
               type: array
-              description: List of document structure items to add, null or empty array means no addition
-              items:
-                type: object
-                properties:
-                  index:
-                    type: integer
-                    description: Position to insert the new item, null means append to the end
-                  item: ../schema/document-structure-item.yaml
-                required:
-                  - item
-            update:
-              type: array
-              description: List of document structure items to update, replace the item with the same path, null or empty array means no update
-              items:
-                type: object
-                properties:
-                  path:
-                    type: string
-                    description: Path of the document structure item to update or replace
-                  item: ../schema/document-structure-item.yaml
-                required:
-                  - path
-                  - item
+              description: List of document structure items to add or update
+              items: ../schema/document-structure-item.yaml
 
       - ./utils/merge-document-structures.mjs
 
@@ -92,9 +71,10 @@ skills:
     name: aggregateDocumentStructure
     process: |
       return {
-        documentStructure: options.context.userContext.originalDocumentStructure.map(i => ({
+        documentStructure: options.context.userContext.originalDocumentStructure.map((i, index) => ({
           ...i,
           id: i.title.toLowerCase().replace(/\s+/g, '-'),
+          index
         })),
         projectName: options.context.userContext.projectName,
         projectDesc: options.context.userContext.projectDesc,
@@ -110,29 +90,12 @@ skills:
     output_schema:
       type: object
       properties:
-        refinedStructure:
+        structures:
           type: array
-          description: Optimized document structure array
-          items:
-            type: object
-            description: Document structure item representing a node in the document hierarchy
-            properties:
-              id:
-                type: string
-                description: Unique identifier for the document structure item
-              newIndex:
-                type: integer
-                description: Used for ordering purposes, indicates the new position index of the document structure item
-              newPath:
-                type: string
-                description: The new path of the document structure item if it has been changed, otherwise can be omitted
-              newParentPath:
-                type: string
-                description: The new parentPath of the document structure item if it has been changed, otherwise can be omitted
-            required:
-              - id
+          description: Document structure items that need to be updated or changed
+          items: ../schema/document-structure-refine-item.yaml
       required:
-        - refinedStructure
+        - structures
 
   - type: function
     name: finalizeDocumentStructure
@@ -140,23 +103,18 @@ skills:
       return {
         projectName: input.projectName,
         projectDesc: input.projectDesc,
-        documentStructure: input.documentStructure
-          .map((item) => {
-            const refined = input.refinedStructure?.find(i => i.id === item.id)
+        documentStructure: input.structures.map(refinedItem => {
+          // Find original item to get sourceIds and other fields
+          const originalItem = input.documentStructure.find(orig => orig.id === refinedItem.id)
 
-            return {
-              ...item,
-              index: refined?.newIndex || item.index,
-              path: refined?.newPath || item.path,
-              parentId: refined?.newParentPath || item.parentPath,
-            }
-          })
-          .sort((a, b) => a.index - b.index)
-          .map(i => {
-            const newItem = { ...i }
-            delete newItem.index
-            delete newItem.id
-            delete newItem.parentPath
-            return newItem
-          }),
+          const newItem = {
+            title: refinedItem.title,
+            description: refinedItem.description,
+            path: refinedItem.path,
+            parentId: refinedItem.parentPath || null,  // Convert parentPath to parentId
+            sourceIds: originalItem?.sourceIds || [],
+          }
+
+          return newItem
+        })
       }

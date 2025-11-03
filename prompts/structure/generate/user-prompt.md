@@ -50,7 +50,8 @@ projectDesc: |
 
 {% if originalDocumentStructure %}
 {{ originalDocumentStructure | yaml.stringify }}
-{% else %}
+{% elseif userContext.originalDocumentStructure %}
+{{ userContext.originalDocumentStructure | yaml.stringify }}
 No previous document structure provided. generate a new structure based on the data sources!
 {% endif %}
 
@@ -117,14 +118,11 @@ You are not creating a structure from scratch, but rather **performing intellige
 
 ## Objective
 
-Your output should be a structured change plan containing the following three sections to indicate how to modify the existing document structure:
+Your output should contain a `structures` array with document structure items that need to be added or updated:
 
-- **add**: New structure items (array), can use index to specify insertion position (optional), each item is an object containing:
-  - `index` (optional): Insertion position index, if not specified, append to the end;
-  - `item`: New structure definition
-- **update**: Structure items that need modification (array), each item is an object containing:
-  - `path`: Path pointing to the node being updated;
-  - `update`: New structure definition
+- **structures**: Array of document structure items representing incremental changes to the existing document structure. Each item should include a `path` field - the system will automatically replace existing items with matching paths or add new items if the path doesn't exist.
+
+IMPORTANT: You should avoid duplicating existing structure items. Only include items that are genuinely new or need updates. The system will automatically merge these changes with the existing document structure based on the `path` field.
 
 ## Behavior Rules
 
@@ -138,8 +136,8 @@ Your output should be a structured change plan containing the following three se
    - Identify which parts represent new concepts, APIs, modules, configurations, or features; determine if they require adding or modifying corresponding sections in the document structure.
 
 3. **Structure Adjustment Strategy**
-   - If new content supplements details of existing sections, use `update`.
-   - If new content introduces new topics, modules, or hierarchies, use `add`.
+   - If new content supplements details of existing sections, include the updated item in the `structures` array with the same path.
+   - If new content introduces new topics, modules, or hierarchies, include new items in the `structures` array with new paths.
    - Ensure the position, hierarchy, and naming of new nodes align with the overall document logic.
 
 4. **Consistency and Clarity**
