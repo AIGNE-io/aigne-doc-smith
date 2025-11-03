@@ -15,7 +15,7 @@ export default async function mergeDocumentStructures(input, options) {
 
   if (input.structures) {
     for (const item of input.structures) {
-      const old = originalStructures.find((s => s.path === item.path));
+      const old = originalStructures.find((s) => s.path === item.path);
       if (old) {
         Object.assign(old, item);
       } else {

@@ -90,9 +90,9 @@ skills:
     output_schema:
       type: object
       properties:
-        refinedStructure:
+        updates:
           type: array
-          description: Optimized document structure array
+          description: Document structure items that need to be updated or changed
           items:
             type: object
             description: Document structure item representing a node in the document hierarchy
@@ -118,7 +118,7 @@ skills:
             required:
               - id
       required:
-        - refinedStructure
+        - updates
 
   - type: function
     name: finalizeDocumentStructure
@@ -128,17 +128,17 @@ skills:
         projectDesc: input.projectDesc,
         documentStructure: input.documentStructure
           .map((item) => {
-            const refined = input.refinedStructure?.find(i => i.id === item.id)
+            const update = input.updates?.find(i => i.id === item.id)
 
-            if (refined?.delete) {
+            if (update?.delete) {
               return null
             }
 
             return {
               ...item,
-              index: refined?.newIndex || item.index,
-              path: refined?.newPath || item.path,
-              parentId: refined?.newParentPath || item.parentPath,
+              index: update?.newIndex || item.index,
+              path: update?.newPath || item.path,
+              parentId: update?.newParentPath || item.parentPath,
             }
           })
           .filter(Boolean)
