@@ -2,7 +2,7 @@ type: team
 name: handleDocumentUpdate
 description: Update a document in a batch
 skills:
-  - ../utils/transform-detail-datasources.mjs
+  - ../utils/transform-detail-data-sources.mjs
   - type: team
     task_render_mode: collapse
     name: generateDocumentContent

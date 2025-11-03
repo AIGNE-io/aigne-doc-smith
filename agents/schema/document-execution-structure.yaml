@@ -25,7 +25,7 @@ items:
       type: array
       items:
         type: string
-      description: Associated sourceId from dataSources for subsequent translation and content generation, must come from sourceId in datasources, cannot have fake ids, cannot be empty
+      description: Associated sourceId from `<data_sources>` for subsequent translation and content generation, must come from sourceId in `<data_sources>`, cannot have fake ids, cannot be empty
   required:
     - title
     - description

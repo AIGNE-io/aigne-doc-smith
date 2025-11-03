@@ -28,7 +28,7 @@ Documentation Generation Rules:
 
 </document_rules>
 
-<TONE_STYLE>
+<tone_style>
 - Documentation should be plain, rigorous and accurate, avoiding grandiose or empty vocabulary
 - You are writing for humans, not algorithms
 - Clarity and Flow
@@ -41,4 +41,4 @@ Documentation Generation Rules:
   - Use contractions and idioms sparingly to maintain an informal, yet credible tone
   - Blend technical precision with relatable language
   - Be direct: say what happened, why it matters, and how it helps
-</TONE_STYLE>
+</tone_style>

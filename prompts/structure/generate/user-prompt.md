@@ -1,11 +1,11 @@
-<datasources>
+<data_sources>
 Following are the partial or complete data sources provided by the user to help you design the document structure. Use these data sources to inform your structural planning.
 
-{{ datasources }}
+{{ dataSources }}
 
 
 NOTICE: There are additional data source contents not displayed. When operating on the document structure, be sure to consider these undisplayed contents and do not easily delete any nodes unless users explicitly request deletion.
-</datasources>
+</data_sources>
 
 {% if userContext.openAPISpec %}
 <openapi>
@@ -96,7 +96,7 @@ The current process is planning sub-structures for the following section:
 {{parentDocument}}
 
 Sub-structures must meet the following requirements:
-- Sub-structures are planned based on DataSources and the parent document's description
+- Sub-structures are planned based on `<data_sources>` and the parent document's description
 - The parent document provides an overview of the planned content, while sub-structures directly plan the specific content to be displayed
 - Further break down and comprehensively display the content planned in the parent document
 - All sub-structures must have their parentPath value set to {{parentDocument.path}}
@@ -107,7 +107,7 @@ Sub-structures must meet the following requirements:
 Your task is to **analyze, refine, and adjust** the existing document structure (`last_document_structure`) based on the partial code repository content currently provided, generating a structural update plan.
 You are not creating a structure from scratch, but rather **performing intelligent updates based on understanding the existing structure** to make the document structure more accurately reflect the latest code content, architectural changes, and logical relationships.
 
-## When using <datasource> data sources, please note the following:
+## When using `<data_sources>` data sources, please note the following:
 
 - Fully respect the project descriptions and usage instructions in README files, as these typically summarize the project's core functionality and objectives.
 - Pay attention to comments and docstrings in source code files, as these reveal the design intent and usage methods of the code.
@@ -127,7 +127,7 @@ IMPORTANT: You should avoid duplicating existing structure items. Only include i
 ## Behavior Rules
 
 1. **Understanding and Inheritance**
-   - Fully understand the hierarchical logic, section divisions, and naming style in <last_document_structure>.
+   - Fully understand the hierarchical logic, section divisions, and naming style in `<last_document_structure>`.
    - Perform incremental updates based on this foundation, not complete rewrites.
    - Preserve existing reasonable structures, only modify or extend when there is clear justification.
 
@@ -148,7 +148,7 @@ IMPORTANT: You should avoid duplicating existing structure items. Only include i
    - Maintain clear hierarchy, avoid duplication, ensure logical coherence. Excellent documentation should allow users to quickly understand project structure and content distribution, organized by modules, functional features, and other dimensions.
 
 5. **Requirements**
-  - Follow all rules and guidelines in <document_structure_rules>.
+  - Follow all rules and guidelines in `<document_structure_rules>`.
   - Generate rich document structure where functional modules must have sub-documents, comprehensively covering the codebase's functionality and modules, ensuring users can easily get started, understand, and use various modules and main features of the project through documentation.
 
 {% include "../../common/document-structure/intj-traits.md" %}
