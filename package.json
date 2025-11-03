@@ -58,6 +58,7 @@
     "marked": "^15.0.12",
     "marked-terminal": "^7.3.0",
     "mermaid": "^11.9.0",
+    "minimatch": "^10.1.1",
     "open": "^10.2.0",
     "p-limit": "^7.1.1",
     "p-map": "^7.0.3",
