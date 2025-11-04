@@ -6,7 +6,7 @@ export default async function checkNeedGenerate({ docsDir, locale, documentExecu
 
   if (mainLanguageFiles.length === 0) {
     console.log(
-      `123 No documents found in the docs directory. You can generate them with ${chalk.yellow("`aigne doc generate`")}`,
+      `No documents found in the docs directory. You can generate them with ${chalk.yellow("`aigne doc generate`")}`,
     );
     process.exit(0);
   }
