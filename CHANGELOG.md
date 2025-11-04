@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.15-beta.11](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.10...v0.8.15-beta.11) (2025-11-04)
+
+
+### Features
+
+* warn on invalid sources and tuning translate messages ([#241](https://github.com/AIGNE-io/aigne-doc-smith/issues/241)) ([bd786ca](https://github.com/AIGNE-io/aigne-doc-smith/commit/bd786cad8b0c6fa837511fdc2982c83b7f0095dd))
+
+
+### Bug Fixes
+
+* avoid useless diagram generate ([#245](https://github.com/AIGNE-io/aigne-doc-smith/issues/245)) ([de7600f](https://github.com/AIGNE-io/aigne-doc-smith/commit/de7600fb5839be9d1f0743adc34fd08c4c11729d))
+* iterate on chunk of datasource to generate structure ([#242](https://github.com/AIGNE-io/aigne-doc-smith/issues/242)) ([0b4db2a](https://github.com/AIGNE-io/aigne-doc-smith/commit/0b4db2a8cac77d6f4a1c197374b9dadbe078346b))
+
 ## [0.8.15-beta.10](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.9...v0.8.15-beta.10) (2025-11-03)
 
 
