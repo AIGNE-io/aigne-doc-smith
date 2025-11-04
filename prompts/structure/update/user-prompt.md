@@ -7,7 +7,7 @@
 </file_list>
 
 <data_sources>
-{{ dataSources }}
+{{ dataSourceChunk }}
 </data_sources>
 
 
