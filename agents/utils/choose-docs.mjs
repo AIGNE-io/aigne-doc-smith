@@ -6,6 +6,14 @@ import {
   getMainLanguageFiles,
   processSelectedFiles,
 } from "../../utils/docs-finder-utils.mjs";
+import { DOC_ACTION } from "../../utils/constants/index.mjs";
+
+function getFeedbackMessage(action) {
+  if (action === DOC_ACTION.translate) {
+    return "Any specific translation preferences or instructions? (Press Enter to skip):";
+  }
+  return "How would you like to improve this document? (Press Enter to skip)";
+}
 
 export default async function chooseDocs(
   {
@@ -18,12 +26,13 @@ export default async function chooseDocs(
     locale,
     reset = false,
     requiredFeedback = true,
-    title,
+    action,
   },
   options,
 ) {
   let foundItems = [];
   let selectedFiles = [];
+  const docAction = action || (isTranslate ? DOC_ACTION.translate : DOC_ACTION.update);
 
   // If docs is empty or not provided, let user select multiple documents
   if (!docs || docs.length === 0) {
@@ -37,7 +46,9 @@ export default async function chooseDocs(
 
       if (mainLanguageFiles.length === 0) {
         throw new Error(
-          `No documents found in the docs directory. Please run ${chalk.yellow("`aigne doc generate`")} to generate the documents`,
+          `No documents found in the docs directory. You can generate them with ${chalk.yellow(
+            "`aigne doc generate`",
+          )}`,
         );
       }
 
@@ -66,7 +77,7 @@ export default async function chooseDocs(
 
       // Let user select multiple files
       selectedFiles = await options.prompts.checkbox({
-        message: title || getActionText(isTranslate, "Select documents to {action}:"),
+        message: getActionText("Select documents to {action}:", docAction),
         source: (term) => {
           if (!term) return choices;
 
@@ -88,7 +99,7 @@ export default async function chooseDocs(
       foundItems = await processSelectedFiles(selectedFiles, documentExecutionStructure, docsDir);
     } catch (error) {
       console.log(
-        getActionText(isTranslate, `\nFailed to select documents to {action}: ${error.message}`),
+        getActionText(`\nFailed to select documents to {action}: ${error.message}`, docAction),
       );
       process.exit(0);
     }
@@ -123,8 +134,7 @@ export default async function chooseDocs(
   // Prompt for feedback if not provided
   let userFeedback = feedback;
   if (!userFeedback && (requiredFeedback || foundItems?.length > 1)) {
-    const feedbackMessage =
-      "How should we improve this document? (Enter to skip, will auto-update from content sources):";
+    const feedbackMessage = getFeedbackMessage(docAction);
 
     userFeedback = await options.prompts.input({
       message: feedbackMessage,

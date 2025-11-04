@@ -3,6 +3,7 @@ import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import {
   addFeedbackToItems,
+  buildDocumentTree,
   fileNameToFlatPath,
   findItemByFlatName,
   findItemByPath,
@@ -41,29 +42,34 @@ describe("docs-finder-utils", () => {
 
   // UTILITY FUNCTIONS TESTS
   describe("getActionText", () => {
-    test("should return 'update' action for non-translate", () => {
-      const result = getActionText(false, "Please {action} the docs");
+    test("should return 'update' action text", () => {
+      const result = getActionText("Please {action} the docs", "update");
       expect(result).toBe("Please update the docs");
     });
 
-    test("should return 'translate' action for translate", () => {
-      const result = getActionText(true, "Please {action} the docs");
+    test("should return 'translate' action text", () => {
+      const result = getActionText("Please {action} the docs", "translate");
       expect(result).toBe("Please translate the docs");
     });
 
     test("should handle multiple action placeholders", () => {
-      const result = getActionText(false, "{action} docs, then {action} more");
+      const result = getActionText("{action} docs, then {action} more", "update");
       expect(result).toBe("update docs, then {action} more");
     });
 
     test("should handle text without action placeholder", () => {
-      const result = getActionText(true, "No placeholders here");
+      const result = getActionText("No placeholders here", "translate");
       expect(result).toBe("No placeholders here");
     });
 
     test("should handle empty text", () => {
-      const result = getActionText(false, "");
+      const result = getActionText("", "update");
       expect(result).toBe("");
+    });
+
+    test("should handle custom action", () => {
+      const result = getActionText("Please {action} the docs", "clear");
+      expect(result).toBe("Please clear the docs");
     });
   });
 
@@ -563,10 +569,233 @@ describe("docs-finder-utils", () => {
     });
   });
 
+  // TREE STRUCTURE BUILDING TESTS
+  describe("buildDocumentTree", () => {
+    test("should build tree with single root node", () => {
+      const documentStructure = [{ path: "/overview", title: "Overview", parentId: null }];
+
+      const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
+
+      expect(rootNodes).toHaveLength(1);
+      expect(rootNodes[0].path).toBe("/overview");
+      expect(rootNodes[0].title).toBe("Overview");
+      expect(rootNodes[0].children).toEqual([]);
+      expect(nodeMap.size).toBe(1);
+      expect(nodeMap.get("/overview")).toBeDefined();
+    });
+
+    test("should build tree with multiple root nodes", () => {
+      const documentStructure = [
+        { path: "/overview", title: "Overview", parentId: null },
+        { path: "/getting-started", title: "Getting Started", parentId: null },
+        { path: "/api", title: "API", parentId: null },
+      ];
+
+      const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
+
+      expect(rootNodes).toHaveLength(3);
+      expect(rootNodes.map((n) => n.path)).toContain("/overview");
+      expect(rootNodes.map((n) => n.path)).toContain("/getting-started");
+      expect(rootNodes.map((n) => n.path)).toContain("/api");
+      rootNodes.forEach((node) => {
+        expect(node.children).toEqual([]);
+      });
+      expect(nodeMap.size).toBe(3);
+    });
+
+    test("should build tree with parent-child relationship", () => {
+      const documentStructure = [
+        { path: "/overview", title: "Overview", parentId: null },
+        { path: "/api/guide", title: "API Guide", parentId: "/api" },
+        { path: "/api", title: "API", parentId: null },
+      ];
+
+      const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
+
+      expect(rootNodes).toHaveLength(2);
+      const apiNode = rootNodes.find((n) => n.path === "/api");
+      const overviewNode = rootNodes.find((n) => n.path === "/overview");
+
+      expect(apiNode).toBeDefined();
+      expect(apiNode.children).toHaveLength(1);
+      expect(apiNode.children[0].path).toBe("/api/guide");
+      expect(apiNode.children[0].title).toBe("API Guide");
+      expect(overviewNode.children).toEqual([]);
+
+      expect(nodeMap.size).toBe(3);
+      expect(nodeMap.get("/api/guide").parentId).toBe("/api");
+    });
+
+    test("should build multi-level tree structure", () => {
+      const documentStructure = [
+        { path: "/guides", title: "Guides", parentId: null },
+        { path: "/guides/basics", title: "Basics", parentId: "/guides" },
+        { path: "/guides/basics/installation", title: "Installation", parentId: "/guides/basics" },
+        { path: "/guides/advanced", title: "Advanced", parentId: "/guides" },
+      ];
+
+      const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
+
+      expect(rootNodes).toHaveLength(1);
+      const guidesNode = rootNodes[0];
+      expect(guidesNode.path).toBe("/guides");
+      expect(guidesNode.children).toHaveLength(2);
+
+      const basicsNode = guidesNode.children.find((n) => n.path === "/guides/basics");
+      expect(basicsNode).toBeDefined();
+      expect(basicsNode.children).toHaveLength(1);
+      expect(basicsNode.children[0].path).toBe("/guides/basics/installation");
+
+      const advancedNode = guidesNode.children.find((n) => n.path === "/guides/advanced");
+      expect(advancedNode).toBeDefined();
+      expect(advancedNode.children).toEqual([]);
+
+      expect(nodeMap.size).toBe(4);
+    });
+
+    test("should handle nodes with missing parent (orphan nodes)", () => {
+      const documentStructure = [
+        { path: "/overview", title: "Overview", parentId: null },
+        { path: "/orphan", title: "Orphan", parentId: "/non-existent" },
+      ];
+
+      const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
+
+      expect(rootNodes).toHaveLength(2);
+      expect(rootNodes.map((n) => n.path)).toContain("/overview");
+      expect(rootNodes.map((n) => n.path)).toContain("/orphan");
+      expect(rootNodes.find((n) => n.path === "/orphan").children).toEqual([]);
+      expect(nodeMap.size).toBe(2);
+    });
+
+    test("should preserve all node properties", () => {
+      const documentStructure = [
+        {
+          path: "/overview",
+          title: "Overview",
+          description: "Main overview",
+          parentId: null,
+          sourceIds: ["source1"],
+        },
+        {
+          path: "/api",
+          title: "API",
+          description: "API documentation",
+          parentId: null,
+          sourceIds: ["source2"],
+        },
+      ];
+
+      const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
+
+      expect(rootNodes).toHaveLength(2);
+      const overviewNode = rootNodes.find((n) => n.path === "/overview");
+      expect(overviewNode.title).toBe("Overview");
+      expect(overviewNode.description).toBe("Main overview");
+      expect(overviewNode.sourceIds).toEqual(["source1"]);
+
+      const apiNode = nodeMap.get("/api");
+      expect(apiNode.title).toBe("API");
+      expect(apiNode.description).toBe("API documentation");
+      expect(apiNode.sourceIds).toEqual(["source2"]);
+    });
+
+    test("should handle empty document structure", () => {
+      const { rootNodes, nodeMap } = buildDocumentTree([]);
+
+      expect(rootNodes).toEqual([]);
+      expect(nodeMap.size).toBe(0);
+    });
+
+    test("should handle complex tree with multiple branches", () => {
+      const documentStructure = [
+        { path: "/overview", title: "Overview", parentId: null },
+        { path: "/guides", title: "Guides", parentId: null },
+        { path: "/guides/basics", title: "Basics", parentId: "/guides" },
+        { path: "/guides/advanced", title: "Advanced", parentId: "/guides" },
+        { path: "/api", title: "API", parentId: null },
+        { path: "/api/reference", title: "Reference", parentId: "/api" },
+        { path: "/api/examples", title: "Examples", parentId: "/api" },
+      ];
+
+      const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
+
+      expect(rootNodes).toHaveLength(3);
+
+      const guidesNode = rootNodes.find((n) => n.path === "/guides");
+      expect(guidesNode.children).toHaveLength(2);
+      expect(guidesNode.children.map((n) => n.path)).toContain("/guides/basics");
+      expect(guidesNode.children.map((n) => n.path)).toContain("/guides/advanced");
+
+      const apiNode = rootNodes.find((n) => n.path === "/api");
+      expect(apiNode.children).toHaveLength(2);
+      expect(apiNode.children.map((n) => n.path)).toContain("/api/reference");
+      expect(apiNode.children.map((n) => n.path)).toContain("/api/examples");
+
+      expect(nodeMap.size).toBe(7);
+    });
+
+    test("should ensure all nodes have children array", () => {
+      const documentStructure = [
+        { path: "/overview", title: "Overview", parentId: null },
+        { path: "/api", title: "API", parentId: null },
+        { path: "/api/guide", title: "Guide", parentId: "/api" },
+      ];
+
+      const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
+
+      rootNodes.forEach((node) => {
+        expect(Array.isArray(node.children)).toBe(true);
+      });
+
+      nodeMap.forEach((node) => {
+        expect(Array.isArray(node.children)).toBe(true);
+      });
+
+      const apiNode = rootNodes.find((n) => n.path === "/api");
+      apiNode.children.forEach((child) => {
+        expect(Array.isArray(child.children)).toBe(true);
+      });
+    });
+
+    test("should handle nodes with parentId as null string", () => {
+      const documentStructure = [
+        { path: "/overview", title: "Overview", parentId: "null" },
+        { path: "/api", title: "API", parentId: null },
+      ];
+
+      const { rootNodes } = buildDocumentTree(documentStructure);
+
+      // parentId "null" (string) should be treated as truthy, so it will try to find parent
+      // Since "/null" doesn't exist, it should be added to rootNodes
+      expect(rootNodes.length).toBeGreaterThanOrEqual(1);
+      expect(rootNodes.map((n) => n.path)).toContain("/api");
+    });
+
+    test("should maintain node references in nodeMap", () => {
+      const documentStructure = [
+        { path: "/overview", title: "Overview", parentId: null },
+        { path: "/api", title: "API", parentId: null },
+        { path: "/api/guide", title: "Guide", parentId: "/api" },
+      ];
+
+      const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
+
+      const apiNode = rootNodes.find((n) => n.path === "/api");
+      const apiNodeFromMap = nodeMap.get("/api");
+
+      // Should be the same reference
+      expect(apiNode).toBe(apiNodeFromMap);
+
+      // Children should reference the same objects
+      expect(apiNode.children[0]).toBe(nodeMap.get("/api/guide"));
+    });
+  });
+
   // EDGE CASES AND ERROR HANDLING
   describe("edge cases", () => {
     test("getActionText should handle case-sensitive action placeholder", () => {
-      const result = getActionText(true, "Please {ACTION} or {action} the docs");
+      const result = getActionText("Please {ACTION} or {action} the docs", "translate");
       expect(result).toBe("Please {ACTION} or translate the docs");
     });
 

@@ -13,6 +13,7 @@ import { debug } from "./debug.mjs";
 import { isGlobPattern } from "./utils.mjs";
 import { uploadFiles } from "./upload-files.mjs";
 import { extractApi } from "./extract-api.mjs";
+import { minimatch } from "minimatch";
 
 /**
  * Check if a directory is inside a git repository using git command
@@ -858,4 +859,100 @@ export async function downloadAndUploadImage(imageUrl, docsDir, appUrl, accessTo
     console.warn(`Failed to download and upload image from ${imageUrl}: ${error.message}`);
     return { url: imageUrl, downloadFinalPath: null };
   }
+}
+
+/**
+ * Extract the path prefix from a glob pattern until the first glob character
+ */
+export function getPathPrefix(pattern) {
+  const segments = pattern.split("/");
+  const result = [];
+
+  for (const segment of segments) {
+    if (isGlobPattern(segment)) {
+      break;
+    }
+    result.push(segment);
+  }
+
+  return result.join("/") || ".";
+}
+
+/**
+ * Check if a dir matches any exclude pattern
+ */
+export function isDirExcluded(dir, excludePatterns) {
+  if (!dir || typeof dir !== "string") {
+    return false;
+  }
+
+  let normalizedDir = dir.replace(/\\/g, "/").replace(/^\.\/+/, "");
+  normalizedDir = normalizedDir.endsWith("/") ? normalizedDir : `${normalizedDir}/`;
+
+  for (const excludePattern of excludePatterns) {
+    if (minimatch(normalizedDir, excludePattern, { dot: true })) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Return source paths that would be excluded by exclude patterns (files are skipped, directories use minimatch, glob patterns use path prefix heuristic)
+ */
+export async function findInvalidSourcePaths(sourcePaths, excludePatterns) {
+  if (!Array.isArray(sourcePaths) || sourcePaths.length === 0) {
+    return [];
+  }
+
+  if (!Array.isArray(excludePatterns) || excludePatterns.length === 0) {
+    return [];
+  }
+
+  const invalidPaths = [];
+
+  for (const sourcePath of sourcePaths) {
+    if (typeof sourcePath !== "string" || !sourcePath) {
+      continue;
+    }
+
+    // Skip paths starting with "!" (exclusion patterns)
+    if (sourcePath.startsWith("!")) {
+      continue;
+    }
+
+    // Skip remote URLs
+    if (isRemoteFile(sourcePath)) {
+      continue;
+    }
+
+    // Check glob pattern: use heuristic algorithm
+    if (isGlobPattern(sourcePath)) {
+      const representativePath = getPathPrefix(sourcePath);
+      if (isDirExcluded(representativePath, excludePatterns)) {
+        invalidPaths.push(sourcePath);
+      }
+      continue;
+    }
+
+    try {
+      const stats = await stat(sourcePath);
+      // Skip file
+      if (stats.isFile()) {
+        continue;
+      }
+      // Check dir with minimatch
+      if (stats.isDirectory()) {
+        if (isDirExcluded(sourcePath, excludePatterns)) {
+          invalidPaths.push(sourcePath);
+        }
+      }
+    } catch {
+      // Path doesn't exist
+      invalidPaths.push(sourcePath);
+    }
+  }
+
+  return invalidPaths;
 }

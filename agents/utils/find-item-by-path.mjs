@@ -1,3 +1,4 @@
+import { DOC_ACTION } from "../../utils/constants/index.mjs";
 import {
   fileNameToFlatPath,
   findItemByFlatName,
@@ -14,6 +15,7 @@ export default async function findItemByPath(
   let foundItem = null;
   let selectedFileContent = null;
   let docPath = doc;
+  const docAction = isTranslate ? DOC_ACTION.translate : DOC_ACTION.update;
 
   // If docPath is empty, let user select from available documents
   if (!docPath) {
@@ -31,7 +33,7 @@ export default async function findItemByPath(
 
       // Let user select a file
       const selectedFile = await options.prompts.search({
-        message: getActionText(isTranslate, "Select a document to {action}:"),
+        message: getActionText("Select a document to {action}:", docAction),
         source: async (input) => {
           if (!input || input.trim() === "") {
             return mainLanguageFiles.map((file) => ({
@@ -74,8 +76,8 @@ export default async function findItemByPath(
       console.debug(error?.message);
       throw new Error(
         getActionText(
-          isTranslate,
           "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
+          docAction,
         ),
       );
     }

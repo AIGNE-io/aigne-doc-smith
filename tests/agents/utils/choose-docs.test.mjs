@@ -29,7 +29,7 @@ describe("chooseDocs utility", () => {
       title: "Guide",
     });
     getActionTextSpy = spyOn(docsFinderUtils, "getActionText").mockImplementation(
-      (isTranslate, template) => template.replace("{action}", isTranslate ? "translate" : "update"),
+      (baseText, action) => baseText.replace("{action}", action),
     );
     addFeedbackToItemsSpy = spyOn(docsFinderUtils, "addFeedbackToItems").mockImplementation(
       (items, feedback) => items.map((item) => ({ ...item, feedback })),
@@ -169,7 +169,7 @@ describe("chooseDocs utility", () => {
     await chooseDocs(input, mockOptions);
 
     expect(getMainLanguageFilesSpy).toHaveBeenCalled();
-    expect(getActionTextSpy).toHaveBeenCalledWith(true, "Select documents to {action}:");
+    expect(getActionTextSpy).toHaveBeenCalledWith("Select documents to {action}:", "translate");
   });
 
   test("should throw error when no main language files found", async () => {

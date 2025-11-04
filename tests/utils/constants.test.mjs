@@ -8,6 +8,7 @@ import {
   DEFAULT_INCLUDE_PATTERNS,
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
+  DOC_ACTION,
   DOCUMENT_STYLES,
   DOCUMENTATION_DEPTH,
   FILE_CONCURRENCY,
@@ -290,6 +291,14 @@ describe("constants", () => {
         expect(typeof ext).toBe("string");
         expect(ext.startsWith(".")).toBe(true);
       });
+    });
+  });
+
+  describe("DOC_ACTION", () => {
+    test("should contain all expected action types", () => {
+      expect(DOC_ACTION).toHaveProperty("translate");
+      expect(DOC_ACTION).toHaveProperty("update");
+      expect(DOC_ACTION).toHaveProperty("clear");
     });
   });
 });

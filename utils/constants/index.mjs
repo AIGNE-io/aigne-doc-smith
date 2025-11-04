@@ -549,3 +549,9 @@ export const DOC_SMITH_DIR = ".aigne/doc-smith";
 export const TMP_DIR = ".tmp";
 export const TMP_DOCS_DIR = "docs";
 export const TMP_ASSETS_DIR = "assets";
+
+export const DOC_ACTION = {
+  translate: "translate",
+  update: "update",
+  clear: "clear",
+};
