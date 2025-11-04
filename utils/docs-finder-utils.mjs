@@ -323,3 +323,39 @@ export async function loadDocumentStructure(outputDir) {
     return null;
   }
 }
+
+/**
+ * Build a tree structure from a flat document structure array using parentId
+ * @param {Array} documentStructure - Flat array of document structure items with path and parentId
+ * @returns {Object} Object containing rootNodes (array of root nodes) and nodeMap (Map for lookups)
+ */
+export function buildDocumentTree(documentStructure) {
+  // Create a map of nodes for easy lookup
+  const nodeMap = new Map();
+  const rootNodes = [];
+
+  // First pass: create node map
+  documentStructure.forEach((node) => {
+    nodeMap.set(node.path, {
+      ...node,
+      children: [],
+    });
+  });
+
+  // Build the tree structure using parentId
+  documentStructure.forEach((node) => {
+    if (node.parentId) {
+      const parent = nodeMap.get(node.parentId);
+      if (parent) {
+        parent.children.push(nodeMap.get(node.path));
+      } else {
+        rootNodes.push(nodeMap.get(node.path));
+      }
+    } else {
+      rootNodes.push(nodeMap.get(node.path));
+    }
+  });
+
+  return { rootNodes, nodeMap };
+}
+

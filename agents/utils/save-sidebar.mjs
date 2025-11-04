@@ -1,5 +1,6 @@
 import { join } from "node:path";
 import fs from "fs-extra";
+import { buildDocumentTree } from "../../utils/docs-finder-utils.mjs";
 
 export default async function saveSidebar({ documentStructure, docsDir }) {
   // Generate _sidebar.md
@@ -16,44 +17,22 @@ export default async function saveSidebar({ documentStructure, docsDir }) {
 }
 
 // Recursively generate sidebar text, the link path is the flattened file name
-function walk(node, parentSegments = [], indent = "") {
+function walk(nodes, indent = "") {
   let out = "";
-  for (const key of Object.keys(node)) {
-    const item = node[key];
-    const fullSegments = [...parentSegments, key];
-    const flatFile = `${fullSegments.join("-")}.md`;
-    if (item.__title) {
-      const realIndent = item.__parentId === null ? "" : indent;
-      out += `${realIndent}* [${item.__title}](/${flatFile})\n`;
-    }
-    const children = item.__children;
-    if (Object.keys(children).length > 0) {
-      out += walk(children, fullSegments, `${indent}  `);
+  for (const node of nodes) {
+    const relPath = node.path.replace(/^\//, "");
+    const flatFile = `${relPath.split("/").join("-")}.md`;
+    const realIndent = node.parentId === null ? "" : indent;
+    out += `${realIndent}* [${node.title}](/${flatFile})\n`;
+    
+    if (node.children && node.children.length > 0) {
+      out += walk(node.children, `${indent}  `);
     }
   }
   return out;
 }
 
 function generateSidebar(documentStructure) {
-  // Build tree structure
-  const root = {};
-  for (const { path, title, parentId } of documentStructure) {
-    const relPath = path.replace(/^\//, "");
-    const segments = relPath.split("/");
-    let node = root;
-    for (let i = 0; i < segments.length; i++) {
-      const seg = segments[i];
-      if (!node[seg])
-        node[seg] = {
-          __children: {},
-          __title: null,
-          __fullPath: segments.slice(0, i + 1).join("/"),
-          __parentId: parentId,
-        };
-      if (i === segments.length - 1) node[seg].__title = title;
-      node = node[seg].__children;
-    }
-  }
-
-  return walk(root).replace(/\n+$/, "");
+  const { rootNodes } = buildDocumentTree(documentStructure);
+  return walk(rootNodes).replace(/\n+$/, "");
 }
