@@ -11,13 +11,13 @@ export default async function mergeDocumentStructures(input, options) {
 
   options.context.userContext.originalDocumentStructure ??= [];
 
-  const originalStructures = options.context.userContext.originalDocumentStructure;
+  const originalStructures = [...options.context.userContext.originalDocumentStructure];
 
   if (input.structures) {
     for (const item of input.structures) {
-      const old = originalStructures.find((s) => s.path === item.path);
-      if (old) {
-        Object.assign(old, item);
+      const index = originalStructures.findIndex((s) => s.path === item.path);
+      if (index !== -1) {
+        originalStructures[index] = item;
       } else {
         originalStructures.push(item);
       }

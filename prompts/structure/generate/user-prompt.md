@@ -1,7 +1,7 @@
 <data_sources>
 Following are the partial or complete data sources provided by the user to help you design the document structure. Use these data sources to inform your structural planning.
 
-{{ dataSources }}
+{{ dataSourceChunk }}
 
 
 NOTICE: There are additional data source contents not displayed. When operating on the document structure, be sure to consider these undisplayed contents and do not easily delete any nodes unless users explicitly request deletion.
@@ -52,6 +52,7 @@ projectDesc: |
 {{ originalDocumentStructure | yaml.stringify }}
 {% elseif userContext.originalDocumentStructure %}
 {{ userContext.originalDocumentStructure | yaml.stringify }}
+{% else %}
 No previous document structure provided. generate a new structure based on the data sources!
 {% endif %}
 
