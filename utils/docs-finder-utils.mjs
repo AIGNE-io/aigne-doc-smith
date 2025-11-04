@@ -4,12 +4,11 @@ import { pathExists } from "./file-utils.mjs";
 
 /**
  * Get action-specific text based on isTranslate flag
- * @param {boolean} isTranslate - Whether this is a translation action
  * @param {string} baseText - Base text template with {action} placeholder
+ * @param {string} action - doc action type
  * @returns {string} Text with action replaced
  */
-export function getActionText(isTranslate, baseText) {
-  const action = isTranslate ? "translate" : "update";
+export function getActionText(baseText, action) {
   return baseText.replace("{action}", action);
 }
 

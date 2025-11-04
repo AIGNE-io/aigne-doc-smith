@@ -37,7 +37,7 @@ describe("find-item-by-path", () => {
       content: "File content",
     });
     getActionTextSpy = spyOn(docsFinderUtils, "getActionText").mockImplementation(
-      (_, text) => text,
+      (baseText, action) => baseText.replace("{action}", action),
     );
     getMainLanguageFilesSpy = spyOn(docsFinderUtils, "getMainLanguageFiles").mockResolvedValue([
       "file1.md",
@@ -153,7 +153,7 @@ describe("find-item-by-path", () => {
   // USER SELECTION TESTS
   test("should prompt user selection when doc path is empty", async () => {
     mockOptions.prompts.search = async (options) => {
-      expect(options.message).toBe("Select a document to {action}:");
+      expect(options.message).toBe("Select a document to update:");
       expect(typeof options.source).toBe("function");
       return "file1.md";
     };
@@ -173,7 +173,7 @@ describe("find-item-by-path", () => {
     expect(getMainLanguageFilesSpy).toHaveBeenCalledWith("./docs", "en", [
       { path: "/api/users", title: "Mock Item" },
     ]);
-    expect(getActionTextSpy).toHaveBeenCalledWith(false, "Select a document to {action}:");
+    expect(getActionTextSpy).toHaveBeenCalledWith("Select a document to {action}:", "update");
     expect(readFileContentSpy).toHaveBeenCalledWith("./docs", "file1.md");
     expect(fileNameToFlatPathSpy).toHaveBeenCalledWith("file1.md");
     expect(findItemByFlatNameSpy).toHaveBeenCalledWith(
@@ -288,7 +288,7 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
+      "Please run 'aigne doc generate' first to generate documents, then select which document to update",
     );
 
     expect(consoleDebugSpy).toHaveBeenCalledWith("No documents found in the docs directory");
@@ -310,7 +310,7 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
+      "Please run 'aigne doc generate' first to generate documents, then select which document to update",
     );
 
     expect(consoleDebugSpy).toHaveBeenCalledWith("No document selected");
@@ -332,7 +332,7 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
+      "Please run 'aigne doc generate' first to generate documents, then select which document to update",
     );
 
     expect(consoleDebugSpy).toHaveBeenCalledWith("No document found");
@@ -354,7 +354,7 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
+      "Please run 'aigne doc generate' first to generate documents, then select which document to update",
     );
 
     expect(consoleDebugSpy).toHaveBeenCalledWith("Directory not found");
@@ -471,12 +471,12 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
+      "Please run 'aigne doc generate' first to generate documents, then select which document to translate",
     );
 
     expect(getActionTextSpy).toHaveBeenCalledWith(
-      true,
       "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
+      "translate",
     );
   });
 

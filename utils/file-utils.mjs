@@ -864,7 +864,7 @@ export async function downloadAndUploadImage(imageUrl, docsDir, appUrl, accessTo
 /**
  * Extract the path prefix from a glob pattern until the first glob character
  */
-function getPathPrefix(pattern) {
+export function getPathPrefix(pattern) {
   const segments = pattern.split("/");
   const result = [];
 
@@ -881,7 +881,7 @@ function getPathPrefix(pattern) {
 /**
  * Check if a dir matches any exclude pattern
  */
-function isDirExcluded(dir, excludePatterns) {
+export function isDirExcluded(dir, excludePatterns) {
   if (!dir || typeof dir !== "string") {
     return false;
   }

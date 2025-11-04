@@ -41,29 +41,34 @@ describe("docs-finder-utils", () => {
 
   // UTILITY FUNCTIONS TESTS
   describe("getActionText", () => {
-    test("should return 'update' action for non-translate", () => {
-      const result = getActionText(false, "Please {action} the docs");
+    test("should return 'update' action text", () => {
+      const result = getActionText("Please {action} the docs", "update");
       expect(result).toBe("Please update the docs");
     });
 
-    test("should return 'translate' action for translate", () => {
-      const result = getActionText(true, "Please {action} the docs");
+    test("should return 'translate' action text", () => {
+      const result = getActionText("Please {action} the docs", "translate");
       expect(result).toBe("Please translate the docs");
     });
 
     test("should handle multiple action placeholders", () => {
-      const result = getActionText(false, "{action} docs, then {action} more");
+      const result = getActionText("{action} docs, then {action} more", "update");
       expect(result).toBe("update docs, then {action} more");
     });
 
     test("should handle text without action placeholder", () => {
-      const result = getActionText(true, "No placeholders here");
+      const result = getActionText("No placeholders here", "translate");
       expect(result).toBe("No placeholders here");
     });
 
     test("should handle empty text", () => {
-      const result = getActionText(false, "");
+      const result = getActionText("", "update");
       expect(result).toBe("");
+    });
+
+    test("should handle custom action", () => {
+      const result = getActionText("Please {action} the docs", "clear");
+      expect(result).toBe("Please clear the docs");
     });
   });
 
@@ -566,7 +571,7 @@ describe("docs-finder-utils", () => {
   // EDGE CASES AND ERROR HANDLING
   describe("edge cases", () => {
     test("getActionText should handle case-sensitive action placeholder", () => {
-      const result = getActionText(true, "Please {ACTION} or {action} the docs");
+      const result = getActionText("Please {ACTION} or {action} the docs", "translate");
       expect(result).toBe("Please {ACTION} or translate the docs");
     });
 
