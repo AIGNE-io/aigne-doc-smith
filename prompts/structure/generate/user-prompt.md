@@ -41,12 +41,16 @@ NOTICE: There are additional data source contents not displayed. When operating 
 </openapi>
 {% endif %}
 
-
-<last_document_structure>
+<document_info>
 projectName: |
   {{projectName}}
+{% if projectDesc %}
 projectDesc: |
   {{projectDesc}}
+{% endif %}
+</document_info>
+
+<last_document_structure>
 
 {% if originalDocumentStructure %}
 {{ originalDocumentStructure | yaml.stringify }}
