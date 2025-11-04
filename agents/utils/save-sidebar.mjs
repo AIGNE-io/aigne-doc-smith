@@ -24,7 +24,7 @@ function walk(nodes, indent = "") {
     const flatFile = `${relPath.split("/").join("-")}.md`;
     const realIndent = node.parentId === null ? "" : indent;
     out += `${realIndent}* [${node.title}](/${flatFile})\n`;
-    
+
     if (node.children && node.children.length > 0) {
       out += walk(node.children, `${indent}  `);
     }

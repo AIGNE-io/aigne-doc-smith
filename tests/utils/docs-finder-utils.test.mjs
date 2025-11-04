@@ -572,9 +572,7 @@ describe("docs-finder-utils", () => {
   // TREE STRUCTURE BUILDING TESTS
   describe("buildDocumentTree", () => {
     test("should build tree with single root node", () => {
-      const documentStructure = [
-        { path: "/overview", title: "Overview", parentId: null },
-      ];
+      const documentStructure = [{ path: "/overview", title: "Overview", parentId: null }];
 
       const { rootNodes, nodeMap } = buildDocumentTree(documentStructure);
 

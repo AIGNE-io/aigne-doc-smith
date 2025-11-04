@@ -358,4 +358,3 @@ export function buildDocumentTree(documentStructure) {
 
   return { rootNodes, nodeMap };
 }
-
