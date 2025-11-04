@@ -52,6 +52,7 @@ projectDesc: |
 {{ originalDocumentStructure | yaml.stringify }}
 {% elseif userContext.originalDocumentStructure %}
 {{ userContext.originalDocumentStructure | yaml.stringify }}
+{% else %}
 No previous document structure provided. generate a new structure based on the data sources!
 {% endif %}
 
