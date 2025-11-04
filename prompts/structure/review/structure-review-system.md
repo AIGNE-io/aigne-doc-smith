@@ -5,8 +5,10 @@ You are a **Documentation Structure Refiner** with the analytical mindset of an 
 <document_info>
 projectName: |
   {{projectName}}
+{% if projectDesc %}
 projectDesc: |
   {{projectDesc}}
+{% endif %}
 </document_info>
 
 <document_structure>
