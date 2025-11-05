@@ -163,7 +163,11 @@ export default async function publishDocs(
           } else {
             console.log(`\nCreating a new website for your documentation...`);
           }
-          const { appUrl: homeUrl, token: ltToken, sessionId: newSessionId } = (await deploy(id, paymentLink)) || {};
+          const {
+            appUrl: homeUrl,
+            token: ltToken,
+            sessionId: newSessionId,
+          } = (await deploy(id, paymentLink)) || {};
 
           sessionId = newSessionId;
           appUrl = homeUrl;
