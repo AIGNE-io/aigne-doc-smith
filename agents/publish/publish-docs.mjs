@@ -163,8 +163,13 @@ export default async function publishDocs(
           } else {
             console.log(`\nCreating a new website for your documentation...`);
           }
-          const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentLink)) || {};
+          const {
+            appUrl: homeUrl,
+            token: ltToken,
+            sessionId: newSessionId,
+          } = (await deploy(id, paymentLink)) || {};
 
+          sessionId = newSessionId;
           appUrl = homeUrl;
           token = ltToken;
         } catch (error) {
@@ -174,13 +179,7 @@ export default async function publishDocs(
       }
     }
 
-    if (sessionId) {
-      authToken = await getOfficialAccessToken(BASE_URL, false);
-      client = client || new BrokerClient({ baseUrl: BASE_URL, authToken });
-
-      const { vendors } = await client.getSessionDetail(sessionId, false);
-      token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
-    }
+    appUrl = appUrl ?? CLOUD_SERVICE_URL_PROD;
 
     console.log(`\nPublishing your documentation to ${chalk.cyan(appUrl)}\n`);
 
@@ -264,8 +263,10 @@ export default async function publishDocs(
       await saveValueToConfig("shouldSyncBranding", "", "Should sync branding for documentation");
     } else {
       // If the error is 401 or 403, it means the access token is invalid
-      if (error?.includes("401") || error?.includes("403")) {
+      if (error?.includes("401")) {
         message = `❌ Publishing failed due to an authorization error. Please run ${chalk.cyan("aigne doc clear")} to reset your credentials and try again.`;
+      } else if (error?.includes("403")) {
+        message = `❌ Publishing failed due to an authorization error. \n  - Please confirm you have permission to modify this document [boardId: "${newBoardId || boardId}"]. \n  - Or run ${chalk.cyan("aigne doc clear")} to reset your credentials and try again.`;
       }
     }
 

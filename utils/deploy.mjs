@@ -71,7 +71,7 @@ export async function deploy(id, cachedUrl) {
     },
   });
 
-  const { appUrl, homeUrl, subscriptionUrl, dashboardUrl, vendors } = result;
+  const { appUrl, homeUrl, subscriptionUrl, dashboardUrl, vendors, sessionId } = result;
   const token = vendors?.[0]?.token;
 
   return {
@@ -80,5 +80,6 @@ export async function deploy(id, cachedUrl) {
     dashboardUrl,
     subscriptionUrl,
     token,
+    sessionId,
   };
 }
