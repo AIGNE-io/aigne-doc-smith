@@ -18,6 +18,11 @@ The following are the available enhanced attributes and their descriptions:
   * `language` and `title` are written directly after \`\`\`, separated by spaces.
   * Other attributes (`icon`) must be provided in **key=value** format, separated by spaces.
 
+### Special Rules
+- If the language is a shell (includes `sh`, `bash`, `zsh`, etc.):
+  - Executable shell code blocks must be a single-line command to make copying and running easier.
+  - Do not include comments inside executable shell code blocks; place explanatory comments outside the code block.
+
 ### Examples
 
 <code_block_good_examples>
@@ -70,9 +75,26 @@ class ShoppingCart {
   }
 }
 ```
+
+**Example 5: Shell code block should in one line**
+
+```sh Install aigne deps icon=lucide:terminal
+npm i -g @aigne/cli @aigne/doc-smith @aigne/websmith-smith
+```
+
+**Example 6: Shell code block use `\` to split multiple lines**
+```bash Deploying with Access Keys icon=lucide:terminal
+blocklet deploy . \
+  --endpoint https://my-server.arcblock.io \
+  --access-key 'your_access_key_id' \
+  --access-secret 'your_access_key_secret' \
+  --app-id z2qa9sD2tFAP8gM7C1i8iETg3a1T3A3aT3bQ
+```
+
 </code_block_good_examples>
 
 <code_block_bad_examples>
+
 **Example 1**
 
 There are two errors in this example:
@@ -95,6 +117,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
     Ok(())
 }
+```
+
+**Example 2: shell code block have multiple lines**
+```sh
+npm i -g @aigne/cli
+npm i -g @aigne/doc-smith
+npm i -g @aigne/websmith-smith
+```
+
+**Example 3: shell code block comments**
+```sh
+# add aigne deps
+npm i -g @aigne/cli
 ```
 
 </code_block_bad_examples>
