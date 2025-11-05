@@ -21,6 +21,7 @@ import {
   validatePath,
 } from "../../utils/utils.mjs";
 import { isRemoteFile } from "../../utils/file-utils.mjs";
+import { validateDocDir } from "./validate.mjs";
 
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
@@ -64,7 +65,19 @@ export default async function init(
     // Only skip if file exists AND has non-empty content
     if (configContent && configContent.trim() !== "") {
       // load config from file
-      return loadConfig({ config: filePath, appUrl });
+      const config = await loadConfig({ config: filePath, appUrl });
+      const isValid = validateDocDir(config.docsDir);
+      if (typeof isValid === "string") {
+        console.log(
+          `${chalk.red("Invalid docsDir")}: ${isValid}\nPlease check your configuration.`,
+        );
+        process.exit(1);
+      }
+      if (!isValid) {
+        console.log(`${chalk.red("Invalid docsDir")}, please check your configuration.`);
+        process.exit(1);
+      }
+      return config;
     }
   }
 
@@ -241,6 +254,7 @@ export default async function init(
   const docsDirInput = await options.prompts.input({
     message: `📁 [7/9]: Where should we save your documentation?`,
     default: `${outputPath}/docs`,
+    validate: validateDocDir,
   });
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
 
