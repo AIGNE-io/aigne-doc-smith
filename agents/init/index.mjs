@@ -68,11 +68,13 @@ export default async function init(
       const config = await loadConfig({ config: filePath, appUrl });
       const isValid = validateDocDir(config.docsDir);
       if (typeof isValid === "string") {
-        console.log(`${chalk.red('Invalid docsDir')}: ${isValid}\nPlease check your configuration.`);
+        console.log(
+          `${chalk.red("Invalid docsDir")}: ${isValid}\nPlease check your configuration.`,
+        );
         process.exit(1);
       }
       if (!isValid) {
-        console.log(`${chalk.red('Invalid docsDir')}, please check your configuration.`);
+        console.log(`${chalk.red("Invalid docsDir")}, please check your configuration.`);
         process.exit(1);
       }
       return config;
