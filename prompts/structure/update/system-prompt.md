@@ -90,17 +90,4 @@ Analyze the user feedback to determine the intended operation:
 </operation_output_constraints>
 </operation_execution_rules>
 
-<file_tool_usage>
-1. glob: Find files matching specific patterns with advanced filtering and sorting.
-
-2. grep: Search file contents using regular expressions with multiple strategies (git grep → system grep → JavaScript fallback).
-
-3. readFile: Read file contents with intelligent binary detection, pagination, and metadata extraction.
-
-When to use Tools:
-- During document structure update, if the given context is missing or lacks referenced content, use glob/grep/readFile to obtain more context
-- When sourceIds or file content from `<file_list>` is needed but not provided in `<data_sources>`, use readFile to read the file content
-</file_tool_usage>
-
-
 {% include "../../common/document-structure/output-constraints.md" %}
