@@ -163,8 +163,9 @@ export default async function publishDocs(
           } else {
             console.log(`\nCreating a new website for your documentation...`);
           }
-          const { appUrl: homeUrl, token: ltToken } = (await deploy(id, paymentLink)) || {};
+          const { appUrl: homeUrl, token: ltToken, sessionId: newSessionId } = (await deploy(id, paymentLink)) || {};
 
+          sessionId = newSessionId;
           appUrl = homeUrl;
           token = ltToken;
         } catch (error) {
@@ -172,14 +173,6 @@ export default async function publishDocs(
           return { message: `${chalk.red("❌ Failed to create website:")} ${errorMsg}` };
         }
       }
-    }
-
-    if (sessionId) {
-      authToken = await getOfficialAccessToken(BASE_URL, false);
-      client = client || new BrokerClient({ baseUrl: BASE_URL, authToken });
-
-      const { vendors } = await client.getSessionDetail(sessionId, false);
-      token = vendors?.find((vendor) => vendor.vendorType === "launcher" && vendor.token)?.token;
     }
 
     console.log(`\nPublishing your documentation to ${chalk.cyan(appUrl)}\n`);
