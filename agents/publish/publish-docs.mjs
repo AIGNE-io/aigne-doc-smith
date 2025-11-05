@@ -179,6 +179,8 @@ export default async function publishDocs(
       }
     }
 
+    appUrl = appUrl ?? CLOUD_SERVICE_URL_PROD;
+
     console.log(`\nPublishing your documentation to ${chalk.cyan(appUrl)}\n`);
 
     const accessToken = await getAccessToken(appUrl, token);
