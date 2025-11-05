@@ -76,6 +76,7 @@ agents:
   - ./agents/utils/find-item-by-path.mjs
   - ./agents/utils/check-feedback-refiner.mjs
   - ./agents/utils/feedback-refiner.yaml
+  - ./agents/utils/analyze-feedback-intent.yaml
 
   # User Preferences & Chat
   - ./agents/prefs/index.mjs

@@ -1,0 +1,31 @@
+name: analyzeFeedbackIntent
+description: Analyze user feedback to determine if data sources are needed for content modifications
+model:
+  reasoning_effort: 200
+task_render_mode: hide
+instructions:
+  url: ../../prompts/utils/analyze-feedback-intent.md
+input_schema:
+  type: object
+  properties:
+    feedback:
+      type: string
+      description: User feedback for content modifications
+  required:
+    - feedback
+output_schema:
+  type: object
+  properties:
+    needDataSources:
+      type: boolean
+      description: Whether data sources are needed - true for add/edit operations that need context, false for delete/move/reorder operations
+    intentType:
+      type: string
+      description: The primary type of user intention
+    reason:
+      type: string
+      description: Explanation of why data sources are or aren't needed
+  required:
+    - needDataSources
+    - intentType
+    - reason

@@ -6,10 +6,11 @@
 {{allFilesPaths}}
 </file_list>
 
+{% if needDataSources %}
 <data_sources>
 {{ dataSourceChunk }}
 </data_sources>
-
+{% endif %}
 
 Initial Documentation Structure:
 <initial_document_structure>

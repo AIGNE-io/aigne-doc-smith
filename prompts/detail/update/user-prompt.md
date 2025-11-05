@@ -15,6 +15,7 @@
 {{originalContent}}
 </original_page_content>
 
+{% if needDataSources %}
 <detail_data_source>
 
 {{ detailDataSource }}
@@ -28,6 +29,7 @@
 {% endif %}
 
 </detail_data_source>
+{% endif %}
 
 <user_feedback>
 {{feedback}}
