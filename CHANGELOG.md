@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.15-beta.13](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.12...v0.8.15-beta.13) (2025-11-05)
+
+
+### Bug Fixes
+
+* make paid deployment more smooth stable ([#266](https://github.com/AIGNE-io/aigne-doc-smith/issues/266)) ([ce8c00a](https://github.com/AIGNE-io/aigne-doc-smith/commit/ce8c00ab3eb045c482e07dc3c4e3bd149e754a06))
+* validate docsDir on init and ensure latest doc on view after publish ([#267](https://github.com/AIGNE-io/aigne-doc-smith/issues/267)) ([e45864d](https://github.com/AIGNE-io/aigne-doc-smith/commit/e45864da4a7fb5b09af2bbffdb7ca93abd74397c))
+
 ## [0.8.15-beta.12](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.11...v0.8.15-beta.12) (2025-11-05)
 
 
