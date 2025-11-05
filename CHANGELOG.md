@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.15-beta.12](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.11...v0.8.15-beta.12) (2025-11-05)
+
+
+### Features
+
+* tune token consumption for update ops with intent analysis ([#264](https://github.com/AIGNE-io/aigne-doc-smith/issues/264)) ([8c53d28](https://github.com/AIGNE-io/aigne-doc-smith/commit/8c53d288346ae622e8841866db1b6fbed9d5023d))
+
 ## [0.8.15-beta.11](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.10...v0.8.15-beta.11) (2025-11-04)
 
 
