@@ -208,13 +208,14 @@ export default async function userReviewDocument({ content, description, ...rest
 
     try {
       // Call updateDocument agent with feedback
-      await options.context.invoke(updateAgent, {
+      const result = await options.context.invoke(updateAgent, {
         ...rest,
         originalContent: options.context.userContext.currentContent,
         feedback: feedback.trim(),
         userPreferences,
         title,
       });
+      options.context.userContext.currentContent = result.content;
 
       // Check if feedback should be saved as user preference
       const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];
