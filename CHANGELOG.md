@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.15-beta.14](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.13...v0.8.15-beta.14) (2025-11-06)
+
+
+### Features
+
+* add reasoning effort configuration for customizable AI model settings ([#270](https://github.com/AIGNE-io/aigne-doc-smith/issues/270)) ([9f15638](https://github.com/AIGNE-io/aigne-doc-smith/commit/9f156387120e8705bf16cf611d7f8f39995c36b3))
+* **cli:** enhance auth with short link responses and detailed error reporting for publishing ([#269](https://github.com/AIGNE-io/aigne-doc-smith/issues/269)) ([31cc252](https://github.com/AIGNE-io/aigne-doc-smith/commit/31cc25236667236dfe91543acdd7e8cccff659c5))
+
+
+### Bug Fixes
+
+* use default reasoning effort for existing config ([#272](https://github.com/AIGNE-io/aigne-doc-smith/issues/272)) ([2fc9c89](https://github.com/AIGNE-io/aigne-doc-smith/commit/2fc9c89e383c1c5446f2109a2846e831d1e1e871))
+
 ## [0.8.15-beta.13](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.12...v0.8.15-beta.13) (2025-11-05)
 
 
