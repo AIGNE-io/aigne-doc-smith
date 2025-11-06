@@ -27,11 +27,11 @@ importers:
         specifier: ^0.16.5-beta.3
         version: 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/publish-docs':
-        specifier: ^0.12.0
-        version: 0.12.0(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)
+        specifier: ^0.12.1
+        version: 0.12.1(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)
       '@blocklet/payment-broker-client':
-        specifier: ^1.22.7
-        version: 1.22.7
+        specifier: ^1.22.8
+        version: 1.22.8
       '@terrastruct/d2':
         specifier: ^0.1.33
         version: 0.1.33
@@ -214,8 +214,8 @@ packages:
   '@aigne/poe@1.0.31-beta.3':
     resolution: {integrity: sha512-SM9q889FYqoHxefzqHFsau9vQl+g+HBBg0POGH+x78HZnk20jcb+TqKb98xweSunqD8qhTREWZgm5Pt3fuTChg==}
 
-  '@aigne/publish-docs@0.12.0':
-    resolution: {integrity: sha512-JUUAiwO//4jIJadzTaa3uXi1W1/RBKGuOf44LZ1/nG8Bp9uAhzL0vZeqDlyL5ZrC+02d8WVk6NtPGJqDJBEU4g==}
+  '@aigne/publish-docs@0.12.1':
+    resolution: {integrity: sha512-yYuIQE6qsH1ojU7b8AkmeMAgARQGk65cYUGFwE45mHfxvN9+axq8Nvw0MOlm0bAG/0q2bKDBYpHzG2+yVSqmMQ==}
 
   '@aigne/sqlite@0.4.3':
     resolution: {integrity: sha512-Ch5ysxwxr6c6vWPaPUn5rtJWwjnJs9lmlcSmT0qsrlZWI4lNCMcFEI8YhoT8tKAjoPS1EdoXi9EF06XWQ3iyNg==}
@@ -442,8 +442,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@blocklet/payment-broker-client@1.22.7':
-    resolution: {integrity: sha512-qtrKfng6/m/QqimcjkrEFSlamv+G/WhrPylLWR4nzzqfuBgXz1hgqV+t5vRPenVKUWwWpd/5+mgOON4IEvyLMA==}
+  '@blocklet/payment-broker-client@1.22.8':
+    resolution: {integrity: sha512-HEiRJeuTVtknrbZMUNpbn/GG4bINX+gX5+iTmN94u6HAl/apdRMo1+vE8QX40ukQyabBBeNtXu1NDeq707mQEg==}
     engines: {node: '>=14.0.0'}
 
   '@borewit/text-codec@0.1.1':
@@ -5461,7 +5461,7 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/publish-docs@0.12.0(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)':
+  '@aigne/publish-docs@0.12.1(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)':
     dependencies:
       '@lexical/code': 0.33.1
       '@lexical/headless': 0.33.1
@@ -6089,7 +6089,7 @@ snapshots:
   '@biomejs/cli-win32-x64@2.2.4':
     optional: true
 
-  '@blocklet/payment-broker-client@1.22.7': {}
+  '@blocklet/payment-broker-client@1.22.8': {}
 
   '@borewit/text-codec@0.1.1': {}
 
