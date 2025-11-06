@@ -1,4 +1,4 @@
-<custom_components_usage>
+<custom_components_usage_rules>
 When generating document details, you can use the following custom components at appropriate locations based on their descriptions and functionality to enhance document presentation:
 
 ## XCard: Individual link display card
@@ -48,11 +48,11 @@ Example 1: Inline Markdown formatting in card content
 
 Example 2: Code block inside card content
 
-```md
+````md
 <x-card data-title="ctrl_break()" data-icon="lucide:keyboard">
   Creates a listener for "ctrl-break" events.
 
-\`\`\`rust
+```rust
 use tokio::signal::windows::ctrl_break;
 
 #[tokio::main]
@@ -62,9 +62,10 @@ stream.recv().await;
 println!("got ctrl-break");
 Ok(())
 }
-\`\`\`
-</x-card>
 ```
+
+````
+
 
 ## XCards: Multiple cards container
 
@@ -80,7 +81,7 @@ Suitable for displaying multiple links using a card list format, providing a ric
 
 ### Usage Rules
 
-- **Visual Consistency**: All <x-card> elements within the same <x-cards> must maintain visual consistency:
+- **Visual Consistency**: All `<x-card>` elements within the same `<x-cards>` must maintain visual consistency:
   - It's recommended to always provide data-icon for each card.
   - Or all cards should have data-image.
   - Avoid mixing (some with icons, some with only images).
@@ -106,6 +107,17 @@ Example 2: Two-column cards with images
 </x-cards>
 ```
 
+Example 3: Replace markdown format multiple links
+
+```md
+For more detailed information on specific features, please refer to the following sections:
+<x-cards data-columns="3">
+  <x-card data-title="Using Discussions" data-href="/discussions">Introduce how to use discussions</x-card>
+  <x-card data-title="Using the Blog" data-href="/blog">Introduce how to use the Blog</x-card>
+  <x-card data-title="Using Chat" data-href="/chat">Introduce how to use Chat</x-card>
+</x-cards>
+```
+
 ### Bad Examples
 
 Example 1: Using a single-column layout (`data-columns="1"`) is not allowed
@@ -123,6 +135,15 @@ Example 2: Contains only one `<x-card>` (must include multiple cards)
 <x-cards data-columns="2">
   <x-card data-title="Card A" data-image="https://picsum.photos/id/10/300/300">Content A</x-card>
 </x-cards>
+```
+
+Example 3: Markdown format multiple links
+
+```md
+For more detailed information on specific features, please refer to the following sections:
+- [Using Discussions](./discussions.md)
+- [Using the Blog](./blog.md)
+- [Using Chat](./chat.md)
 ```
 
 ## XField: Structured data field
@@ -517,4 +538,4 @@ Example 6: Missing blank line before x-field-group (violates "Spacing Around" ru
 </x-field-group>
 ```
 
-</custom_components_usage>
+</custom_components_usage_rules>

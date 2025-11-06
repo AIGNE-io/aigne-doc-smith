@@ -37,8 +37,7 @@ Glossary of specialized terms. Please ensure correct spelling when using these t
 Documentation content generation rules:
 {% include "./document-rules.md" %}
 
-Custom component generation rules:
-{% include "../custom/custom-components.md" %}
+{% include "../custom/custom-components-usage-rules.md" %}
 
 Custom code block generation rules:
 {% include "../custom/custom-code-block.md" %}
