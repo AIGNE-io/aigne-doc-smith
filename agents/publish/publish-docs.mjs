@@ -263,10 +263,15 @@ export default async function publishDocs(
       await saveValueToConfig("shouldSyncBranding", "", "Should sync branding for documentation");
     } else {
       // If the error is 401 or 403, it means the access token is invalid
-      if (error?.includes("401")) {
-        message = `❌ Publishing failed due to an authorization error. Please run ${chalk.cyan("aigne doc clear")} to reset your credentials and try again.`;
-      } else if (error?.includes("403")) {
-        message = `❌ Publishing failed due to an authorization error. \n  - Please confirm you have permission to modify this document [boardId: "${newBoardId || boardId}"]. \n  - Or run ${chalk.cyan("aigne doc clear")} to reset your credentials and try again.`;
+      try {
+        const obj = JSON.parse(error);
+        message = `❌ Publishing failed with error: \n💡 ${obj.message || error}`;
+      } catch  {
+        if (error?.includes("401")) {
+          message = `❌ Publishing failed due to an authorization error: \n💡 Please run ${chalk.cyan("aigne doc clear")} to reset your credentials and try again.`;
+        } else if (error?.includes("403")) {
+          message = `❌ Publishing failed due to an authorization error: \n💡 You’re not the creator of this document (Board ID: ${boardId}). You can change the board ID and try again. \n💡  Or run ${chalk.cyan("aigne doc clear")} to reset your credentials and try again.`;
+        }
       }
     }
 
