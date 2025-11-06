@@ -266,7 +266,7 @@ export default async function publishDocs(
       try {
         const obj = JSON.parse(error);
         message = `❌ Publishing failed with error: \n💡 ${obj.message || error}`;
-      } catch  {
+      } catch {
         if (error?.includes("401")) {
           message = `❌ Publishing failed due to an authorization error: \n💡 Please run ${chalk.cyan("aigne doc clear")} to reset your credentials and try again.`;
         } else if (error?.includes("403")) {
