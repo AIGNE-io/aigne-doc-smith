@@ -1,7 +1,5 @@
 name: analyzeFeedbackIntent
 description: Analyze user feedback to determine if data sources are needed for content modifications
-model:
-  reasoning_effort: 200
 task_render_mode: hide
 instructions:
   url: ../../prompts/utils/analyze-feedback-intent.md

@@ -7,8 +7,6 @@ skills:
     iterate_on: dataSources
     skills:
       - type: ai
-        model:
-          reasoning_effort: 500
         instructions:
           - role: system
             url: ../../prompts/structure/generate/system-prompt.md
@@ -82,8 +80,6 @@ skills:
 
   - type: ai
     name: refineStructure
-    model:
-      reasoning_effort: 500
     instructions:
       - role: system
         url: ../../prompts/structure/review/structure-review-system.md
