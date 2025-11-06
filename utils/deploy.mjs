@@ -31,6 +31,7 @@ export async function deploy(id, cachedUrl) {
   const result = await client.deploy({
     cachedCheckoutId: id,
     cachedPaymentUrl: cachedUrl,
+    needShortUrl: true,
     pageInfo: { successMessage: SUCCESS_MESSAGE },
     hooks: {
       [STEPS.PAYMENT_PENDING]: async ({ sessionId, paymentUrl, isResuming }) => {
