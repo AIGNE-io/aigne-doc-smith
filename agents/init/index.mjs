@@ -25,6 +25,8 @@ import { validateDocDir } from "./validate.mjs";
 
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
+const DEFAULT_REASONING_EFFORT = 502;
+
 /**
  * Guides the user through a multi-turn dialog to generate a YAML configuration file.
  * @param {Object} params
@@ -35,7 +37,7 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 export default async function init(input, options) {
   const config = await _init(input, options);
 
-  options.context.userContext.reasoningEffort = config.reasoningEffort;
+  options.context.userContext.reasoningEffort = config.reasoningEffort || DEFAULT_REASONING_EFFORT;
 
   return config;
 }
@@ -396,7 +398,7 @@ async function _init(
   input.projectDesc = projectInfo.description;
   input.projectLogo = projectInfo.icon;
 
-  input.reasoningEffort = 502; // Default reasoning effort for init process
+  input.reasoningEffort = DEFAULT_REASONING_EFFORT;
 
   // Generate YAML content
   const yamlContent = generateYAML(input, outputPath);
