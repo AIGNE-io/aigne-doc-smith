@@ -79,6 +79,7 @@ agents:
   - ./agents/utils/check-feedback-refiner.mjs
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/utils/analyze-feedback-intent.yaml
+  - ./agents/utils/list-docs.mjs
 
   # User Preferences & Chat
   - ./agents/prefs/index.mjs
