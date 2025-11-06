@@ -32,7 +32,15 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @param {string} params.fileName - The name of the file.
  * @returns {Promise<Object>}
  */
-export default async function init(
+export default async function init(input, options) {
+  const config = await _init(input, options);
+
+  options.context.userContext.reasoningEffort = config.reasoningEffort;
+
+  return config;
+}
+
+async function _init(
   {
     outputPath = ".aigne/doc-smith",
     fileName = "config.yaml",
@@ -388,6 +396,8 @@ export default async function init(
   input.projectDesc = projectInfo.description;
   input.projectLogo = projectInfo.icon;
 
+  input.reasoningEffort = 502; // Default reasoning effort for init process
+
   // Generate YAML content
   const yamlContent = generateYAML(input, outputPath);
 
@@ -438,6 +448,8 @@ export function generateYAML(input) {
     projectDesc: input.projectDesc || "",
     projectLogo: input.projectLogo || "",
 
+    reasoningEffort: input.reasoningEffort || 502,
+
     // Documentation configuration
     documentPurpose: input.documentPurpose || [],
     targetAudienceTypes: input.targetAudienceTypes || [],
@@ -472,6 +484,18 @@ export function generateYAML(input) {
   }).trim();
 
   yaml += `${projectSection}\n\n`;
+
+  const modelSection = yamlStringify({
+    reasoningEffort: config.reasoningEffort,
+  }).trim();
+
+  yaml += `\
+# Model Configuration
+
+# Reasoning Effort: Level of reasoning effort for AI model, lower is faster but less thorough.
+# Options: minimal, low, medium, high, or numeric values 128-32768.
+${modelSection}
+\n`;
 
   // Add documentation configuration with comments
   yaml += "# =============================================================================\n";
