@@ -1,8 +1,18 @@
 const PLACEHOLDER = "DIAGRAM_PLACEHOLDER";
 const DEFAULT_DIAGRAMMING_EFFORT = 5;
+const MIN_DIAGRAMMING_EFFORT = 0;
+const MAX_DIAGRAMMING_EFFORT = 10;
 
 export default async function checkGenerateDiagram(
-  { documentContent, locale, feedback, detailFeedback, originalContent, path: docPath, diagramming,  },
+  {
+    documentContent,
+    locale,
+    feedback,
+    detailFeedback,
+    originalContent,
+    path: docPath,
+    diagramming,
+  },
   options,
 ) {
   let content = documentContent;
@@ -23,7 +33,20 @@ export default async function checkGenerateDiagram(
     content = preCheckResult.content;
   }
 
-  if (totalScore <= (diagramming?.effort ?? DEFAULT_DIAGRAMMING_EFFORT)) {
+  let diagrammingEffort = diagramming?.effort
+    ? Number(diagramming?.effort)
+    : DEFAULT_DIAGRAMMING_EFFORT;
+
+  if (Number.isNaN(diagrammingEffort)) {
+    diagrammingEffort = DEFAULT_DIAGRAMMING_EFFORT;
+  } else {
+    diagrammingEffort = Math.min(
+      Math.max(MIN_DIAGRAMMING_EFFORT, diagrammingEffort),
+      MAX_DIAGRAMMING_EFFORT,
+    );
+  }
+
+  if (totalScore <= diagrammingEffort) {
     skipGenerateDiagram = true;
   }
 
