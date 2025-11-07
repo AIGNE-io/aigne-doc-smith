@@ -8,7 +8,6 @@ model:
   reasoning_effort:
     $get: reasoningEffort
   temperature: 0.8
-diagramming_effort: 5
 agents:
   # Initialization
   - ./agents/init/index.mjs

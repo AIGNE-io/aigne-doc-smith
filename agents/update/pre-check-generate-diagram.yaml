@@ -16,6 +16,9 @@ input_schema:
     detailFeedback:
       type: string
       description: Current document detail feedback
+    previousGenerationContent:
+      type: string
+      description: Previous document content
   required:
     - documentContent
 output_schema:

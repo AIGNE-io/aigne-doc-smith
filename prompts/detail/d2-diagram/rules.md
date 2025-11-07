@@ -11,10 +11,11 @@ You must analyze the provided inputs to determine if a diagram is needed and whe
 
 ## Scoring conditions
 
-- `remove`: If `<feedback>` explicitly requests to remove a diagram, -20000
-- `path-exclude`: If the document path or filename matches excluded patterns (e.g., `/faq/`, `CHANGELOG`, `release-notes`), -20000
-- `less-words`: If document length <= 200 words AND less than 2 headings, -20000
-- `previous-exists`: If `<previous_generation_content>` contains diagram and not match scoring conditions `remove`, `path-exclude`, `less-words`, +10000
+- `add`: If `<feedback>` explicitly requests to add a diagram, ignore other conditions, +30000
+- `remove`: If `<feedback>` explicitly requests to remove a diagram, ignore other conditions, -30000
+- `previous-exists`: If `<previous_generation_content>` contains diagram, +21000
+- `path-exclude`: If the document path or filename matches excluded patterns (e.g., `/faq/`, `CHANGELOG`, `release-notes`), -10000
+- `less-words`: If document length <= 200 words AND less than 2 headings, -10000
 - `overview`: If `<document_content>` provides a high-level overview, +3
 - `architectural`: If `<document_content>` contains an architectural description (components/services/layers/modules), +3
 - `workflow`: If `<document_content>` describes a workflow, sequence, user interactions, or data flow, +2

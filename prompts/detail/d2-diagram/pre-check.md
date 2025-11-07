@@ -14,4 +14,10 @@
 </content_review_feedback>
 {% endif %}
 
+{% if previousGenerationContent %}
+<previous_generation_content>
+{{ previousGenerationContent }}
+</previous_generation_content>
+{% endif %}
+
 {% include "./rules.md" %}
