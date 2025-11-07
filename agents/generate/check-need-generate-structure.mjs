@@ -128,10 +128,6 @@ export default async function checkNeedGenerateStructure(
 
   return {
     ...result,
-    documentStructure: result.documentStructure.map((item) => ({
-      ...item,
-      // title: item.title.length > 10 ? item.title.slice(0, 10) + "..." : item.title,
-    })),
     feedback: "", // clear feedback
     projectInfoMessage: message,
     originalDocumentStructure: originalDocumentStructure
