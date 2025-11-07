@@ -555,3 +555,35 @@ export const DOC_ACTION = {
   update: "update",
   clear: "clear",
 };
+
+// Default thinking effort level, available options: 'lite', 'standard', 'pro'
+// This level can be defined by the user in the config file to influence reasoning effort mapping
+export const DEFAULT_THINKING_EFFORT_LEVEL = "standard";
+
+// Default reasoning effort level, available options: 'minimal', 'low', 'medium', 'high'
+export const DEFAULT_REASONING_EFFORT_LEVEL = "low";
+
+export const DEFAULT_REASONING_EFFORT_VALUE = 500;
+
+export const REASONING_EFFORT_LEVELS = {
+  minimal: {
+    lite: 100,
+    standard: 300,
+    pro: 500,
+  },
+  low: {
+    lite: 200,
+    standard: 500,
+    pro: 1000,
+  },
+  medium: {
+    lite: 300,
+    standard: 800,
+    pro: 1500,
+  },
+  high: {
+    lite: 500,
+    standard: 1000,
+    pro: 2000,
+  },
+};
