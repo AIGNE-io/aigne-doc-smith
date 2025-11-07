@@ -450,7 +450,7 @@ export function generateYAML(input) {
     projectDesc: input.projectDesc || "",
     projectLogo: input.projectLogo || "",
 
-    reasoningEffort: input.reasoningEffort || 502,
+    reasoningEffort: input.reasoningEffort || DEFAULT_REASONING_EFFORT,
 
     // Documentation configuration
     documentPurpose: input.documentPurpose || [],
