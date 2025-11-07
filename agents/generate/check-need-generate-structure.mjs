@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import { getProjectInfo, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+import streamlineDocumentTitlesIfNeeded from "../utils/streamline-document-titles-if-needed.mjs";
 
 export default async function checkNeedGenerateStructure(
   { originalDocumentStructure, forceRegenerate, ...rest },
@@ -70,6 +71,15 @@ export default async function checkNeedGenerateStructure(
     feedback: finalFeedback || "",
   });
 
+  if (!options.context.userContext.streamlinedDocumentTitles) {
+    // Streamline document titles if needed
+    await streamlineDocumentTitlesIfNeeded(
+      { documentStructure: result.documentStructure },
+      options,
+    );
+    options.context.userContext.streamlinedDocumentTitles = true;
+  }
+
   let message = "";
 
   // Check and save project information
@@ -118,6 +128,10 @@ export default async function checkNeedGenerateStructure(
 
   return {
     ...result,
+    documentStructure: result.documentStructure.map((item) => ({
+      ...item,
+      // title: item.title.length > 10 ? item.title.slice(0, 10) + "..." : item.title,
+    })),
     feedback: "", // clear feedback
     projectInfoMessage: message,
     originalDocumentStructure: originalDocumentStructure

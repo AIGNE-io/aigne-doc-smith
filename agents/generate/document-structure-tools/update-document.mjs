@@ -3,6 +3,7 @@ import {
   getUpdateDocumentOutputJsonSchema,
   validateUpdateDocumentInput,
 } from "../../../types/document-structure-schema.mjs";
+import streamlineDocumentTitlesIfNeeded from "../../utils/streamline-document-titles-if-needed.mjs";
 
 export default async function updateDocument(input, options) {
   // Validate input using Zod schema
@@ -43,6 +44,9 @@ export default async function updateDocument(input, options) {
     ...(description !== undefined && { description }),
     ...(sourceIds !== undefined && { sourceIds: [...sourceIds] }), // Create a copy of the array
   };
+
+  // Streamline document titles if needed (will streamline the updated document if title > 18 characters)
+  await streamlineDocumentTitlesIfNeeded({ documentStructure: [updatedDocument] }, options);
 
   // Update the document in the structure
   const updatedStructure = [...documentStructure];
