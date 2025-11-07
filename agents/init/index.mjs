@@ -4,6 +4,8 @@ import chalk from "chalk";
 import { stringify as yamlStringify } from "yaml";
 import { getFilteredOptions } from "../../utils/conflict-detector.mjs";
 import {
+  DEFAULT_REASONING_EFFORT_LEVEL,
+  DEFAULT_THINKING_EFFORT_LEVEL,
   DEPTH_RECOMMENDATION_LOGIC,
   DOCUMENT_STYLES,
   DOCUMENTATION_DEPTH,
@@ -22,10 +24,9 @@ import {
 } from "../../utils/utils.mjs";
 import { isRemoteFile } from "../../utils/file-utils.mjs";
 import { validateDocDir } from "./validate.mjs";
+import mapReasoningEffortLevel from "../utils/map-reasoning-effort-level.mjs";
 
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
-
-const DEFAULT_REASONING_EFFORT = 502;
 
 /**
  * Guides the user through a multi-turn dialog to generate a YAML configuration file.
@@ -37,7 +38,15 @@ const DEFAULT_REASONING_EFFORT = 502;
 export default async function init(input, options) {
   const config = await _init(input, options);
 
-  options.context.userContext.reasoningEffort = config.reasoningEffort || DEFAULT_REASONING_EFFORT;
+  // Set thinking effort (lite/standard/pro) and map to reasoningEffort
+  options.context.userContext.thinkingEffort =
+    config.thinking?.effort || DEFAULT_THINKING_EFFORT_LEVEL;
+
+  // Set global reasoningEffort based on thinkingEffort
+  options.context.userContext.reasoningEffort = mapReasoningEffortLevel(
+    { level: DEFAULT_REASONING_EFFORT_LEVEL },
+    options,
+  )?.reasoningEffort;
 
   return config;
 }
@@ -398,8 +407,6 @@ async function _init(
   input.projectDesc = projectInfo.description;
   input.projectLogo = projectInfo.icon;
 
-  input.reasoningEffort = DEFAULT_REASONING_EFFORT;
-
   // Generate YAML content
   const yamlContent = generateYAML(input, outputPath);
 
@@ -450,7 +457,9 @@ export function generateYAML(input) {
     projectDesc: input.projectDesc || "",
     projectLogo: input.projectLogo || "",
 
-    reasoningEffort: input.reasoningEffort || DEFAULT_REASONING_EFFORT,
+    thinking: {
+      effort: input.thinking?.effort || DEFAULT_THINKING_EFFORT_LEVEL,
+    },
 
     // Documentation configuration
     documentPurpose: input.documentPurpose || [],
@@ -488,14 +497,15 @@ export function generateYAML(input) {
   yaml += `${projectSection}\n\n`;
 
   const modelSection = yamlStringify({
-    reasoningEffort: config.reasoningEffort,
+    thinking: config.thinking,
   }).trim();
 
   yaml += `\
-# Model Configuration
-
-# Reasoning Effort: Level of reasoning effort for AI model, lower is faster but less thorough.
-# Options: minimal, low, medium, high, or numeric values 128-32768.
+# AI Thinking Configuration
+# thinking.effort: Determines the depth of reasoning and cognitive effort the AI uses when responding, available options:
+#   - lite: Fast responses with basic reasoning
+#   - standard: Balanced speed and reasoning capability
+#   - pro: In-depth reasoning with longer response times
 ${modelSection}
 \n`;
 
