@@ -32,13 +32,14 @@ Glossary of specialized terms. Please ensure correct spelling when using these t
 Documentation content optimization rules:
 {% include "../generate/document-rules.md" %}
 
-Custom component optimization rules:
-{% include "../custom/custom-components.md" %}
+{% include "../custom/custom-components-usage-rules.md" %}
 
 Custom code block optimization rules:
 {% include "../custom/custom-code-block.md" %}
 
 {% include "../../common/document/media-file-list-usage-rules.md" %}
+
+{% include "../d2-diagram/rules.md" %}
 
 </content_optimization_rules>
 

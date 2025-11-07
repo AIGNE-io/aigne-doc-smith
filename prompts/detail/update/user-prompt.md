@@ -11,9 +11,9 @@
 {% set operation_type = "optimizing" %}
 {% include "../../common/document/user-preferences.md" %}
 
-<original_page_content>
+<original_document_content>
 {{originalContent}}
-</original_page_content>
+</original_document_content>
 
 {% if needDataSources %}
 <detail_data_source>

@@ -7,12 +7,7 @@
 
 ** Output content in {{ locale }} language. **
 
-** Don't generate any diagram in the document, give boolean value in `needDiagram` field & plan a placeholder in document content for diagram (use `DIAGRAM_PLACEHOLDER` as placeholder text). **
-   - Use the current `<detail_data_source>`, `<content_review_feedback>`, and `<feedback>` to decide whether this document requires a diagram.
-   - If `<feedback>` contains a request to add a diagram, set `needDiagram` to true.
-   - If `<feedback>` contains a request to remove a diagram, set `needDiagram` to false.
 
-- **Necessary**: Generate diagrams only when necessary.
 </user_rules>
 
 {% set operation_type = "generating" %}

@@ -46,19 +46,7 @@ input_schema:
     - rules
     - detailDataSource
     - originalDocumentStructure
-# output_key: content
-output_schema:
-  type: object
-  properties:
-    content:
-      type: string
-      description: Document content
-    needDiagram:
-      type: boolean
-      description: Does this document need to generate diagram?
-  required:
-    - content
-    - detailDataSource
+output_key: content
 afs:
   modules:
     - module: system-fs
