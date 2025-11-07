@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.15-beta.15](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.14...v0.8.15-beta.15) (2025-11-07)
+
+
+### Bug Fixes
+
+* add two-tier thinking effort configuration system ([#273](https://github.com/AIGNE-io/aigne-doc-smith/issues/273)) ([b72d066](https://github.com/AIGNE-io/aigne-doc-smith/commit/b72d066698bae253a9ee2dfa231bf73cd59d7529))
+
 ## [0.8.15-beta.14](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.13...v0.8.15-beta.14) (2025-11-06)
 
 
