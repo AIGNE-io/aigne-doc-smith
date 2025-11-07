@@ -1,27 +1,58 @@
-const placeholder = "DIAGRAM_PLACEHOLDER";
+const PLACEHOLDER = "DIAGRAM_PLACEHOLDER";
+const DEFAULT_DIAGRAMMING_EFFORT = 5;
 
 export default async function checkGenerateDiagram(
-  { needDiagram, documentContent, locale },
+  { documentContent, locale, feedback, detailFeedback, path: docPath },
   options,
 ) {
-  if (!needDiagram) {
-    return {};
+  let content = documentContent;
+  let diagramSourceCode;
+  let skipGenerateDiagram = false;
+
+  const preCheckAgent = options.context?.agents?.["preCheckGenerateDiagram"];
+
+  const preCheckResult = await options.context.invoke(preCheckAgent, {
+    documentContent,
+    feedback,
+    detailFeedback,
+  });
+
+  const totalScore = (preCheckResult.details || []).reduce((acc, curr) => acc + curr.score, 0);
+  if (![false, "false", "", undefined, null].includes(preCheckResult.content)) {
+    content = preCheckResult.content;
   }
 
-  const generateAgent = options.context?.agents?.["generateDiagram"];
-  let content = documentContent;
+  if (totalScore <= DEFAULT_DIAGRAMMING_EFFORT) {
+    skipGenerateDiagram = true;
+  }
 
-  if (content.includes(placeholder)) {
+  if (skipGenerateDiagram) {
+    content = documentContent;
+  } else {
     try {
-      const { diagramSourceCode } = await options.context.invoke(generateAgent, {
-        documentContent,
+      const generateAgent = options.context?.agents?.["generateDiagram"];
+      ({ diagramSourceCode } = await options.context.invoke(generateAgent, {
+        documentContent: content,
         locale,
-      });
-      content = content.replace(placeholder, diagramSourceCode);
+      }));
     } catch (error) {
-      // FIXME: @zhanghan should regenerate document without diagram
-      content = content.replace(placeholder, "");
-      console.log(`⚠️  Skip generate any diagram: ${error.message}`);
+      diagramSourceCode = "";
+      skipGenerateDiagram = true;
+      console.log(`⚠️  Skip generate any diagram for ${docPath}: ${error.message}`);
+    }
+
+    if (diagramSourceCode && !skipGenerateDiagram) {
+      if (content.includes(PLACEHOLDER)) {
+        content = content.replace(PLACEHOLDER, diagramSourceCode);
+      } else {
+        const mergeAgent = options.context?.agents?.["mergeDiagramToDocument"];
+        ({ content } = await options.context.invoke(mergeAgent, {
+          diagramSourceCode,
+          content,
+        }));
+      }
+    } else {
+      content = documentContent;
     }
   }
 

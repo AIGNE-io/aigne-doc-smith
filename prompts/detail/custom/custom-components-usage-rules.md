@@ -111,6 +111,7 @@ Example 3: Replace markdown format multiple links
 
 ```md
 For more detailed information on specific features, please refer to the following sections:
+
 <x-cards data-columns="3">
   <x-card data-title="Using Discussions" data-href="/discussions">Introduce how to use discussions</x-card>
   <x-card data-title="Using the Blog" data-href="/blog">Introduce how to use the Blog</x-card>

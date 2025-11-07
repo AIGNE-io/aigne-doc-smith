@@ -1,26 +1,43 @@
 <diagram_generation_rules>
-**Generation Workflow**
-1. Use the current `<detail_data_source>`, `<content_review_feedback>`, and `<feedback>` to decide whether this document requires a diagram.
-2. When a diagram is needed, call the `generateDiagram` tool to create it and insert the returned content at the most fitting location in the document.
-3. Check whether the data sources include `<diagram_source_code>`. If not, remove any embedded diagram from the document.
 
-**Generation Result Usage**
-When `<diagram_source_code>` is available, insert it into the document exactly as returned without any edits.
+You must analyze the provided inputs to determine if a diagram is needed and where to insert a placeholder. You must not generate the diagram itself (e.g., no Mermaid, PlantUML, or other code). You are only deciding and placing the placeholder.
 
-**Generation Requirements**
-1. Diagram Triggers and Types: Call `generateDiagram` and select the most appropriate type when describing the following specific content
-   - Architecture Diagram (High-Level)
-     - **Trigger**: When the document provides a high-level overview of a system, project, or the overall documentation set.
-     - **Content**: Must illustrate the main components, their relationships, and the overall structure.
-   - Structural Diagram (Module-Level)
-     - **Trigger**: When generating the introductory document for a major section or module.
-     - **Content**: Must show the key sub-components, files, or core concepts within that specific module.
-   - Process and Interaction Diagrams (Detailed)
-     - **Trigger**: When the document describes a workflow, a sequence of events, user interactions, or data flow.
-     - **Diagram Type Selection**:
-       - **Flowchart**: Use for step-by-step processes, algorithms, or decision-making logic.
-       - **Sequence Diagram**: Use for time-ordered interactions between different components or actors (e.g., API calls).
-2. Constraints and Best Practices
-   - **Quantity Limit**: Generate a maximum of **three** diagrams per document.
-   - **Relevance**: Ensure every diagram **directly** illustrates a concept explained in the surrounding text. Avoid generating diagrams for simple concepts that are easily understood through text alone.
+## Inputs
+
+- `<document_content>`: The main body of text to be evaluated.
+- `<previous_generation_content>`: The content from the previous run, which may contain DIAGRAM_PLACEHOLDER.
+- `<feedback>`: Specific user instructions for this run (e.g., "add a diagram," "remove the diagram").
+- `<content_review_feedback>`: General automated or human feedback on the content.
+
+## Scoring conditions
+
+- `remove`: If `<feedback>` explicitly requests to remove a diagram, -20000
+- `path-exclude`: If the document path or filename matches excluded patterns (e.g., `/faq/`, `CHANGELOG`, `release-notes`), -20000
+- `less-words`: If document length <= 200 words AND less than 2 headings, -20000
+- `previous-exists`: If `<previous_generation_content>` contains diagram and not match scoring conditions `remove`, `path-exclude`, `less-words`, +10000
+- `overview`: If `<document_content>` provides a high-level overview, +3
+- `architectural`: If `<document_content>` contains an architectural description (components/services/layers/modules), +3
+- `workflow`: If `<document_content>` describes a workflow, sequence, user interactions, or data flow, +2
+- `hierarchy`: If `<document_content>` describes a clear hierarchy (linked sub-docs / deeply nested sections), +1
+- `introductory-major`: If `<document_content>` is an introductory page for a major section, +1
+
+## Output Requirements
+- `details` is an array. Each element must include:
+  - `type`: matched scoring condition's type name
+  - `score`: matched scoring condition's score
+  - `reason`: text explaining why this scoring condition is matched
+- `content`: `<document_content>` with placeholder inserted
+  - Identify the most logical insertion point in the `<document_content>`. (This is often after an introductory paragraph or before a list/section that the diagram will explain).
+  - Insert the exact placeholder string: DIAGRAM_PLACEHOLDER
+  - Crucially: Adjust the surrounding text to integrate the placeholder smoothly. Add a lead-in sentence.
+  - Good example: "The following diagram illustrates this data flow:"
+  - Good example: "This architecture is shown in the overview below:"
+  - Bad example: (Just inserting the placeholder with no context).
+  - Return the modified document content.
+    - Keep the original structure of the document, including page headings and hierarchy
+      - Only modify parts of the document text to improve the alignment between diagrams and their context
+      - The output must not include the `document_content` tag
+      - Do not provide any explanations; include only the document content itself
+
 </diagram_generation_rules>
+

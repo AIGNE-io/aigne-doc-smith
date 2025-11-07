@@ -1,0 +1,41 @@
+name: preCheckGenerateDiagram
+description: Pre-check for generating diagram
+model:
+  reasoning_effort: 1
+instructions:
+  url: ../../prompts/detail/d2-diagram/pre-check.md
+input_schema:
+  type: object
+  properties:
+    documentContent:
+      type: string
+      description: Source content of the document
+    feedback:
+      type: string
+      description: User generation feedback
+    detailFeedback:
+      type: string
+      description: Current document detail feedback
+  required:
+    - documentContent
+output_schema:
+  type: object
+  properties:
+    content:
+      type: string
+      description: Document content
+    details:
+      type: array
+      description: Detailed needDiagram score
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          score:
+            type: number
+          reason:
+            type: string
+  required:
+    - content
+
