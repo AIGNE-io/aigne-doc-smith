@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.15-beta.16](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.15...v0.8.15-beta.16) (2025-11-07)
+
+
+### Features
+
+* support customize diagramming quantity ([#277](https://github.com/AIGNE-io/aigne-doc-smith/issues/277)) ([9d9fa6a](https://github.com/AIGNE-io/aigne-doc-smith/commit/9d9fa6a1f344c93df187f2dc502c5479e304e0f4))
+
 ## [0.8.15-beta.15](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.14...v0.8.15-beta.15) (2025-11-07)
 
 
