@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import { getProjectInfo, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
+import streamlineDocumentTitlesIfNeeded from "../utils/streamline-document-titles-if-needed.mjs";
 
 export default async function checkNeedGenerateStructure(
   { originalDocumentStructure, forceRegenerate, ...rest },
@@ -69,6 +70,9 @@ export default async function checkNeedGenerateStructure(
     userPreferences,
     feedback: finalFeedback || "",
   });
+
+  await streamlineDocumentTitlesIfNeeded({ documentStructure: result.documentStructure }, options);
+  options.context.userContext.streamlinedDocumentTitles = true;
 
   let message = "";
 

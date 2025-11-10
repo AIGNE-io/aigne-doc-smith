@@ -79,7 +79,9 @@ agents:
   - ./agents/utils/check-feedback-refiner.mjs
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/utils/analyze-feedback-intent.yaml
-
+  - ./agents/utils/document-title-streamline.yaml
+  - ./agents/utils/streamline-document-titles-if-needed.mjs
+  
   # User Preferences & Chat
   - ./agents/prefs/index.mjs
   - ./agents/chat/index.yaml
