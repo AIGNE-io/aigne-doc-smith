@@ -1,7 +1,7 @@
 <x-field-usage-rules>
 ## XField Usage Rules
 
-XField is a structured data field, suitable for displaying API parameters, return values, context data, and any structured data with metadata in a clean, organized format. Supports nested structures for complex data types.
+XField is structured data field, suitable for displaying API parameters, return values, context data, and any structured data with metadata in a clean, organized format. Supports nested structures for complex data types.
 
 ### Attributes
 

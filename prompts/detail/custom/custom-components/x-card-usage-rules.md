@@ -1,7 +1,7 @@
 <x-card-useage-rules>
 ## XCard Usage Rules
 
-XCard is an individual link display card, suitable for displaying individual links with a richer and more visually appealing presentation format.
+XCard is individual link display card, suitable for displaying individual links with a richer and more visually appealing presentation format.
 
 ### Attributes
 

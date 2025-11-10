@@ -1,7 +1,7 @@
 <x-card-useage-rules>
 ## XCard Usage Rules
 
-XCards is a multiple `<x-card>` container, suitable for displaying multiple links using a card list format, providing a richer and more visually appealing presentation.
+XCards is multiple `<x-card>` container, suitable for displaying multiple links using a card list format, providing a richer and more visually appealing presentation.
 
 ### Attributes
 

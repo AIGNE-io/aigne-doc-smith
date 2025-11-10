@@ -1,7 +1,7 @@
 <x-field-group-usage-rules>
 ## XFieldGroup Usage Rules
 
-XFieldGroup is field grouping container. Used to group multiple related `<x-field>` elements at the top level, indicating they belong to the same object or context. This provides better organization and visual grouping for related parameters.
+XFieldGroup is `<x-field>` grouping container. Used to group multiple related `<x-field>` elements at the top level, indicating they belong to the same object or context. This provides better organization and visual grouping for related parameters.
 
 ### Attributes
 
