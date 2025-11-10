@@ -1,0 +1,48 @@
+name: documentTitleStreamline
+description: Streamline document titles by shortening them while preserving meaning for better sidebar navigation
+model:
+  reasoning_effort: low
+task_render_mode: hide
+instructions:
+  url: ../../prompts/common/document-structure/document-title-streamline.md
+input_schema:
+  type: object
+  properties:
+    documentList:
+      type: array
+      items:
+        type: object
+        properties:
+          path:
+            type: string
+            description: Document path for mapping purposes
+          title:
+            type: string
+            description: Document title to streamline
+        required:
+          - path
+          - title
+      description: List of document items with titles to streamline
+  required:
+    - documentList
+output_schema:
+  type: object
+  properties:
+    documentList:
+      type: array
+      items:
+        type: object
+        properties:
+          path:
+            type: string
+            description: Document path (same as input for mapping)
+          title:
+            type: string
+            description: Streamlined document title (max 24 characters for English, 12 characters for character-based languages)
+        required:
+          - path
+          - title
+      description: List of streamlined document items with shortened titles
+  required:
+    - documentList
+

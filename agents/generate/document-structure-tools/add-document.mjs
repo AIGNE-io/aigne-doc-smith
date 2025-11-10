@@ -3,6 +3,7 @@ import {
   getAddDocumentOutputJsonSchema,
   validateAddDocumentInput,
 } from "../../../types/document-structure-schema.mjs";
+import streamlineDocumentTitlesIfNeeded from "../../utils/streamline-document-titles-if-needed.mjs";
 
 export default async function addDocument(input, options) {
   // Validate input using Zod schema
@@ -56,7 +57,10 @@ export default async function addDocument(input, options) {
     sourceIds: [...sourceIds], // Create a copy of the array
   };
 
-  // Add the document to the structure
+  // Streamline document titles if needed (will streamline the new document if title > 18 characters)
+  await streamlineDocumentTitlesIfNeeded({ documentStructure: [newDocument] }, options);
+
+  // Add the document to the structure first
   const updatedStructure = [...documentStructure, newDocument];
 
   const successMessage = `addDocument executed successfully.
