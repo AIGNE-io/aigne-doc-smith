@@ -34,8 +34,7 @@ Documentation content optimization rules:
 
 {% include "../custom/custom-components-usage-rules.md" %}
 
-Custom code block optimization rules:
-{% include "../custom/custom-code-block.md" %}
+{% include "../custom/enhanced-code-block-usage-rules.md" %}
 
 {% include "../../common/document/media-file-list-usage-rules.md" %}
 
