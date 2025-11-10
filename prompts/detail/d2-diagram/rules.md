@@ -1,15 +1,17 @@
 <diagram_generation_rules>
 
+## Diagram Generation Rules
+
 You must analyze the provided inputs to determine if a diagram is needed and where to insert a placeholder. You must not generate the diagram itself (e.g., no Mermaid, PlantUML, or other code). You are only deciding and placing the placeholder.
 
-## Inputs
+### Inputs
 
 - `<document_content>`: The main body of text to be evaluated.
 - `<previous_generation_content>`: The content from the previous run, which may contain DIAGRAM_PLACEHOLDER.
 - `<feedback>`: Specific user instructions for this run (e.g., "add a diagram," "remove the diagram").
 - `<content_review_feedback>`: General automated or human feedback on the content.
 
-## Scoring conditions
+### Scoring conditions
 
 - `add`: If `<feedback>` explicitly requests to add a diagram, ignore other conditions, +30000
 - `remove`: If `<feedback>` explicitly requests to remove a diagram, ignore other conditions, -30000
@@ -22,7 +24,7 @@ You must analyze the provided inputs to determine if a diagram is needed and whe
 - `hierarchy`: If `<document_content>` describes a clear hierarchy (linked sub-docs / deeply nested sections), +1
 - `introductory-major`: If `<document_content>` is an introductory page for a major section, +1
 
-## Output Requirements
+### Output Requirements
 - `details` is an array. Each element must include:
   - `type`: matched scoring condition's type name
   - `score`: matched scoring condition's score

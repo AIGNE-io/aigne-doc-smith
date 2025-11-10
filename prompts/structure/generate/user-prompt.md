@@ -18,10 +18,7 @@ NOTICE: There are additional data source contents not displayed. When operating 
 <openapi_usage_rules>
 ## OpenAPI Usage Rules
 
-### Goal
 Use the provided OpenAPI (Swagger) specification to design how the OpenAPI content and the overall document should be structured together.
-
----
 
 ### Documentation Requirements and Constraints
 

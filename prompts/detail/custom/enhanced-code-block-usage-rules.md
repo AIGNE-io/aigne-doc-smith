@@ -1,4 +1,5 @@
 <enhanced_code_block_usage_rules>
+
 ## Enhanced Attributes for Markdown Code Blocks
 
 When generating Markdown, you can add enhanced attributes to code blocks to provide richer functionality and better display effects. These attributes allow you to specify **titles**, **icons**, and more for code blocks.

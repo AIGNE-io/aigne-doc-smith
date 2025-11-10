@@ -9,10 +9,7 @@
 <openapi_usage_rules>
 ## OpenAPI Usage Rules
 
-### Goal
-- Use the provided OpenAPI (Swagger) specification, align it with the current page objective, and leverage it to refine this document.
-
----
+Use the provided OpenAPI (Swagger) specification, align it with the current page objective, and leverage it to refine this document.
 
 ### Documentation Requirements and Constraints
 
@@ -30,8 +27,6 @@
 - Mandatory API description constraints (deduplication rule):
   - **Ensure** that throughout the document (including preface, overview, etc.), any introduction to the project APIs appears only within this OpenAPI-generated "API reference" section.
   - **Never** repeat or expand the interface list elsewhere in the document (for example, "Quick Start" or "Architecture Overview" sections).
-
----
 
 ### Expected Output Format
 - A concise, clear, and easy-to-scan Markdown document.
