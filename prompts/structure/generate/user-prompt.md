@@ -8,37 +8,41 @@ NOTICE: There are additional data source contents not displayed. When operating 
 </data_sources>
 
 {% if userContext.openAPISpec %}
-<openapi>
-
-**Goal:** Use the provided OpenAPI (Swagger) specification to design how the OpenAPI content and the overall document should be structured together.
-
-**OpenAPI File Content:**
-<openapi_doc>
+<openapi_spec_content>
+## OpenAPI Spec Content
 
 {{ userContext.openAPISpec }}
 
-</openapi_doc>
+</openapi_spec_content>
+
+<openapi_usage_rules>
+## OpenAPI Usage Rules
+
+### Goal
+Use the provided OpenAPI (Swagger) specification to design how the OpenAPI content and the overall document should be structured together.
 
 ---
 
-### **Documentation Requirements and Constraints**
+### Documentation Requirements and Constraints
 
-1.  **Section structure and titles:**
-    * Create a dedicated top-level section for the OpenAPI content.
-    * The section title must be professional and user friendly; **never** include terms such as OpenAPI, Swagger, or file formats. Recommended titles include **"API Interface Reference"** or **"Interface Reference"**.
+- Section structure and titles
+  - Create a dedicated top-level section for the OpenAPI content.
+  - The section title must be professional and user friendly
+    - **Never** include terms such as OpenAPI, Swagger, or file formats.
+    - Recommended titles include **"API Interface Reference"** or **"Interface Reference"**.
 
-2.  **Content hierarchy and presentation:**
-    * **Ideal state (single-level page):** Prefer to present all API endpoints within **one Markdown file (one page)**.
-    * **Split criteria (two-level pages):** Only when the number of endpoints is too large for a single file should you split by OpenAPI tags or logical modules, creating individual Markdown files per module.
-    * **Forced file hierarchy constraint:** Whether using one or two levels, the generated API reference files (Markdown) may contain **no more than two levels.**
-        * **Example (two-level structure):** `/api-reference.md` (index) -> `/api/user.md`, `/api/order.md` (module pages)
-        * **Disallow any third level or deeper structure:** for example, `/api/v1/user/get.md`.
+- Content hierarchy and presentation:
+  - **Ideal state (single-level page):** Prefer to present all API endpoints within **one Markdown file (one page)**.
+  - **Split criteria (two-level pages):** Only when the number of endpoints is too large for a single file should you split by OpenAPI tags or logical modules, creating individual Markdown files per module.
+  - **Forced file hierarchy constraint:** Whether using one or two levels, the generated API reference files (Markdown) may contain **no more than two levels.**
+    - **Example (two-level structure):** `/api-reference.md` (index) -> `/api/user.md`, `/api/order.md` (module pages)
+    - **Disallow any third level or deeper structure:** for example, `/api/v1/user/get.md`.
 
-3.  **Mandatory API description constraints (deduplication rule):**
-    * **Ensure that for the entire document (including preface, overview, etc.), any introduction to the project APIs appears only within this OpenAPI-generated "API reference" section.**
-    * **Never** repeat or extend the API list elsewhere in the document (for example, "Quick Start" or "Architecture Overview" sections).
+- Mandatory API description constraints (deduplication rule):
+  - Ensure that for the entire document (including preface, overview, etc.), any introduction to the project APIs appears only within this OpenAPI-generated "API reference" section.
+  - **Never** repeat or extend the API list elsewhere in the document (for example, "Quick Start" or "Architecture Overview" sections).
 
-</openapi>
+</openapi_usage_rules>
 {% endif %}
 
 <document_info>
@@ -62,16 +66,15 @@ No previous document structure provided. generate a new structure based on the d
 
 </last_document_structure>
 
-
 {% include "../../common/document-structure/user-locale-rules.md" %}
 
 {% include "../../common/document-structure/user-preferences.md" %}
 
 <last_document_structure_rule>
-If a previous structural plan (last_document_structure) is provided, follow these rules:
-  1.  **Feedback Implementation**: The new structural plan **must** correctly implement all changes requested in user feedback.
-  2.  **Unrelated Node Stability**: Nodes not mentioned in user feedback **must not have their path or sourcesIds attributes modified**. `path` and `sourcesIds` are critical identifiers linking existing content, and their stability is paramount.
-    Ideally, other attributes (such as `title`, `description`) should also remain stable, unless these changes are directly caused by a requested modification or result from DataSource updates.
+If a previous structural plan (`<last_document_structure>`) is provided, follow these rules:
+  1. **Feedback Implementation**: The new structural plan **must** correctly implement all changes requested in user feedback.
+  2. **Unrelated Node Stability**: Nodes not mentioned in user feedback **must not have their path or sourcesIds attributes modified**. `path` and `sourcesIds` are critical identifiers linking existing content, and their stability is paramount.
+     - Ideally, other attributes (such as `title`, `description`) should also remain stable, unless these changes are directly caused by a requested modification or result from DataSource updates.
 </last_document_structure_rule>
 
 {% if documentStructure %}
