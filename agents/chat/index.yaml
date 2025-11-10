@@ -14,7 +14,7 @@ afs:
 afs_config:
   inject_History: true
 skills:
-  - ../generate/index.yaml
+  - ./skills/generate-document.yaml
   - ./skills/update-document.yaml
   - ../publish/index.yaml
   - ../translate/index.yaml

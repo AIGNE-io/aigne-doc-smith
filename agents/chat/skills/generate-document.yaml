@@ -1,0 +1,15 @@
+type: team
+name: generateDocument
+description: Generate complete documentation for your project, or update/delete existing documents or structure based on user feedback
+input_schema:
+  type: object
+  properties:
+    feedback:
+      type: string
+      description: How to generate or update the document content
+  required:
+    - feedback
+skills:
+  - url: ../../generate/index.yaml
+    default_input:
+      isChat: true
