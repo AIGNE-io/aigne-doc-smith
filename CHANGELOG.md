@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.16-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15...v0.8.16-beta) (2025-11-10)
+
+
+### Features
+
+* enable AFS for chat agent & improve chat skills ([#281](https://github.com/AIGNE-io/aigne-doc-smith/issues/281)) ([b1c770e](https://github.com/AIGNE-io/aigne-doc-smith/commit/b1c770e60c8866dd08d41ebdd52817c14dd3dd41))
+* implement document title streamlining functionality ([#276](https://github.com/AIGNE-io/aigne-doc-smith/issues/276)) ([918edb8](https://github.com/AIGNE-io/aigne-doc-smith/commit/918edb8f1b2dc03572c4125971092ef0023cd7b3))
+
+
+### Bug Fixes
+
+* update chat model from aignehub/gemini-2.5-pro to google/gemini-2.5-pro ([#283](https://github.com/AIGNE-io/aigne-doc-smith/issues/283)) ([3559a56](https://github.com/AIGNE-io/aigne-doc-smith/commit/3559a56e49ca3105fd800110b67b3cb3346e3096))
+
 ## [0.8.15](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.16...v0.8.15) (2025-11-07)
 
 ## [0.8.15-beta.16](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15-beta.15...v0.8.15-beta.16) (2025-11-07)
