@@ -1,6 +1,7 @@
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import { recordUpdate } from "../../utils/history-utils.mjs";
 import { buildDocumentTree } from "../../utils/docs-finder-utils.mjs";
+import equal from "fast-deep-equal";
 
 function formatDocumentStructure(structure) {
   const { rootNodes } = buildDocumentTree(structure);
@@ -49,25 +50,27 @@ export default async function userReviewDocumentStructure({ documentStructure, .
   }
 
   // Print current documentation structure in a user-friendly format
-  printDocumentStructure(documentStructure);
+  if (!rest.isChat) {
+    printDocumentStructure(documentStructure);
 
-  // Ask user if they want to review the documentation structure
-  const needReview = await options.prompts.select({
-    message: "Would you like to refine the documentation structure?",
-    choices: [
-      {
-        name: "No, looks good",
-        value: "no",
-      },
-      {
-        name: "Yes, optimize the structure (e.g. rename 'Getting Started' to 'Quick Start', move 'API Reference' before 'Configuration')",
-        value: "yes",
-      },
-    ],
-  });
+    // Ask user if they want to review the documentation structure
+    const needReview = await options.prompts.select({
+      message: "Would you like to refine the documentation structure?",
+      choices: [
+        {
+          name: "No, looks good",
+          value: "no",
+        },
+        {
+          name: "Yes, optimize the structure (e.g. rename 'Getting Started' to 'Quick Start', move 'API Reference' before 'Configuration')",
+          value: "yes",
+        },
+      ],
+    });
 
-  if (needReview === "no") {
-    return { documentStructure };
+    if (needReview === "no") {
+      return { documentStructure };
+    }
   }
 
   let currentStructure = documentStructure;
@@ -81,15 +84,17 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     iterationCount++;
 
     // Ask for feedback
-    const feedback = await options.prompts.input({
-      message:
-        "How would you like to improve the structure?\n" +
-        "Examples:\n" +
-        "  • Add a new document 'Troubleshooting'\n" +
-        "  • Remove the 'Legacy Features' document\n" +
-        "  • Move 'Installation' to the top of the structure\n\n" +
-        "  Press Enter to finish reviewing:",
-    });
+    const feedback = rest.isChat
+      ? rest.feedback
+      : await options.prompts.input({
+          message:
+            "How would you like to improve the structure?\n" +
+            "Examples:\n" +
+            "  • Add a new document 'Troubleshooting'\n" +
+            "  • Remove the 'Legacy Features' document\n" +
+            "  • Move 'Installation' to the top of the structure\n\n" +
+            "  Press Enter to finish reviewing:",
+        });
 
     // If no feedback, break the loop
     if (!feedback?.trim()) {
@@ -115,7 +120,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
 
     try {
       // Call refineDocumentStructure agent with feedback
-      await options.context.invoke(refineAgent, {
+      const { message } = await options.context.invoke(refineAgent, {
         ...rest,
         dataSourceChunk: rest.dataSources[0].dataSourceChunk,
         feedback: feedback.trim(),
@@ -124,6 +129,12 @@ export default async function userReviewDocumentStructure({ documentStructure, .
       });
 
       currentStructure = options.context.userContext.currentStructure;
+
+      if (rest.isChat && equal(currentStructure, documentStructure)) {
+        throw new Error(
+          `The suggested structure changes did not modify the existing documentation structure. ${message}`,
+        );
+      }
 
       // Check if feedback should be saved as user preference
       const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];
@@ -147,6 +158,10 @@ export default async function userReviewDocumentStructure({ documentStructure, .
 
       // Print current documentation structure in a user-friendly format
       printDocumentStructure(currentStructure);
+
+      if (rest.isChat) {
+        break;
+      }
     } catch (error) {
       console.error("Error processing your feedback:");
       console.error(`Type: ${error.name}`);

@@ -132,7 +132,9 @@ export default async function userReviewDocument({ content, description, ...rest
   const title = rest.documentStructure?.find((x) => x.path === rest.path)?.title;
 
   // Print current document headings structure
-  printDocumentHeadings(content, title || "Untitled Document");
+  if (!rest.isChat) {
+    printDocumentHeadings(content, title || "Untitled Document");
+  }
 
   // Initialize shared context with current content
   options.context.userContext.currentContent = content;
@@ -140,54 +142,62 @@ export default async function userReviewDocument({ content, description, ...rest
   const MAX_ITERATIONS = 100;
   const feedbacks = [];
   let iterationCount = 0;
+
+  let feedback = "";
+
   while (iterationCount < MAX_ITERATIONS) {
+    feedback = "";
     iterationCount++;
 
-    // Ask user what they want to do
-    const action = await options.prompts.select({
-      message: "What would you like to do next?",
-      choices: [
-        {
-          name: "View document",
-          value: "view",
-        },
-        {
-          name: "Give feedback",
-          value: "feedback",
-        },
-        {
-          name: "Done",
-          value: "finish",
-        },
-      ],
-    });
+    if (rest.isChat && rest.feedback) {
+      feedback = rest.feedback;
+    } else {
+      // Ask user what they want to do
+      const action = await options.prompts.select({
+        message: "What would you like to do next?",
+        choices: [
+          {
+            name: "View document",
+            value: "view",
+          },
+          {
+            name: "Give feedback",
+            value: "feedback",
+          },
+          {
+            name: "Done",
+            value: "finish",
+          },
+        ],
+      });
 
-    if (action === "finish") {
-      break;
-    } else if (action === "view") {
-      await showDocumentDetail(
-        options.context.userContext.currentContent,
-        title || "Untitled Document",
-      );
+      if (action === "finish") {
+        break;
+      } else if (action === "view") {
+        await showDocumentDetail(
+          options.context.userContext.currentContent,
+          title || "Untitled Document",
+        );
+      }
+
+      // Ask for feedback
+      feedback = await options.prompts.input({
+        message:
+          "How would you like to improve this document?\n" +
+          "Examples:\n" +
+          "  • Add troubleshooting section for common errors\n" +
+          "  • Simplify the explanation for beginners\n" +
+          "  • Remove the outdated information about version 1.0\n\n" +
+          "  Your feedback:",
+      });
+
+      // If no feedback, finish the loop
+      if (!feedback?.trim()) {
+        break;
+      }
+
+      feedbacks.push(feedback.trim());
     }
-
-    // Ask for feedback
-    const feedback = await options.prompts.input({
-      message:
-        "How would you like to improve this document?\n" +
-        "Examples:\n" +
-        "  • Add troubleshooting section for common errors\n" +
-        "  • Simplify the explanation for beginners\n" +
-        "  • Remove the outdated information about version 1.0\n\n" +
-        "  Your feedback:",
-    });
-
-    // If no feedback, finish the loop
-    if (!feedback?.trim()) {
-      break;
-    }
-
-    feedbacks.push(feedback.trim());
 
     // Get the updateDocument agent
     const updateAgent = options.context.agents["handleDocumentUpdate"];
@@ -236,6 +246,10 @@ export default async function userReviewDocument({ content, description, ...rest
         options.context.userContext.currentContent,
         title || "Untitled Document",
       );
+
+      if (rest.isChat) {
+        break;
+      }
     } catch (error) {
       console.error("Error processing your feedback:");
       console.error(`Type: ${error.name}`);
