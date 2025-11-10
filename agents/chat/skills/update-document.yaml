@@ -1,0 +1,24 @@
+type: team
+name: updateDocument
+description: Update a existing document based on user feedback
+input_schema:
+  type: object
+  properties:
+    docs:
+      type: array
+      items:
+        type: string
+      description: Documents to update, must from listDocs output
+    feedback:
+      type: string
+      description: Tell us what to change in this content
+    reset:
+      type: boolean
+      description: Regenerate the document from scratch, ignoring previous versions
+  required:
+    - docs
+    - feedback
+skills:
+  - url: ../../update/index.yaml
+    default_input:
+      isChat: true

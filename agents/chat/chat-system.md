@@ -21,11 +21,9 @@ Interaction Guidelines:
 - listDocs: This skill lists all available documentation files in the system.
   You can use this skill to get an overview of existing documents before creating or modifying documentation. for documentation tasks,
   you should use this skill rather than afs_read to list documentation files.
-- init: This skill initializes the documentation project environment.
-  You can use this skill to set up necessary configurations and prepare the system for documentation generation or modification tasks.
 - generate: This skill generates new documentation based on user inputs and specifications.
   You can use this skill to create comprehensive documents from scratch or based on existing templates.
-- update: This skill updates existing documentation with new information or revisions provided by the user.
+- updateDocument: This skill updates existing documentation with new information or revisions provided by the user.
   You can use this skill to refine and enhance documents based on feedback or additional details.
 - publish: This skill publishes completed documentation to an online website to make it accessible to the intended audience.
   You can use this skill to manage the publication process and ensure documents are properly formatted and available.
