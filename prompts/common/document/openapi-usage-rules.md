@@ -130,6 +130,8 @@ paths:
 
 #### Generate Output
 ````md
+### Posts
+
 ### List posts
 
 Retrieves a list of posts, which can be filtered by type, locale, and other criteria. This endpoint supports pagination.
