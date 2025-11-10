@@ -4,7 +4,7 @@ model:
   reasoning_effort: low
 task_render_mode: hide
 instructions:
-  url: ../../prompts/utils/document-title-streamline.md
+  url: ../../prompts/common/document-structure/document-title-streamline.md
 input_schema:
   type: object
   properties:

@@ -45,8 +45,11 @@ export default async function updateDocument(input, options) {
     ...(sourceIds !== undefined && { sourceIds: [...sourceIds] }), // Create a copy of the array
   };
 
-  // Streamline document titles if needed (will streamline the updated document if title > 18 characters)
-  await streamlineDocumentTitlesIfNeeded({ documentStructure: [updatedDocument] }, options);
+  if (!options.context.userContext.streamlinedDocumentTitles) {
+    // Streamline document titles if needed (will streamline the updated document if title > 18 characters)
+    await streamlineDocumentTitlesIfNeeded({ documentStructure: [updatedDocument] }, options);
+    options.context.userContext.streamlinedDocumentTitles = true;
+  }
 
   // Update the document in the structure
   const updatedStructure = [...documentStructure];

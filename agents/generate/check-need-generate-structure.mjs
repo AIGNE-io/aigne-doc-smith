@@ -71,14 +71,8 @@ export default async function checkNeedGenerateStructure(
     feedback: finalFeedback || "",
   });
 
-  if (!options.context.userContext.streamlinedDocumentTitles) {
-    // Streamline document titles if needed
-    await streamlineDocumentTitlesIfNeeded(
-      { documentStructure: result.documentStructure },
-      options,
-    );
-    options.context.userContext.streamlinedDocumentTitles = true;
-  }
+  await streamlineDocumentTitlesIfNeeded({ documentStructure: result.documentStructure }, options);
+  options.context.userContext.streamlinedDocumentTitles = true;
 
   let message = "";
 
