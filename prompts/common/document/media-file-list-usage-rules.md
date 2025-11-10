@@ -8,5 +8,6 @@
 **Usage Requirements**
 - Insert images with Markdown syntax: `![Descriptive alt text](<path-from-media_file_list>)`.
 - Never invent, reinterpret, fabricate, normalize, or rewrite any media file path under any circumstances.
+ - After inserting a media file, update the surrounding document text to introduce, reference, or describe the media, so the media is properly integrated and its purpose is clear to readers.
 
 </media_file_list_usage_rules>

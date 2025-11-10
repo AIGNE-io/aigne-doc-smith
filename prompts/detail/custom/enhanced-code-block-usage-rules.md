@@ -25,6 +25,8 @@ The following are the available enhanced attributes and their descriptions:
 - Prefer use filename as title:
   - If the code block content demonstrates usage of a component or library (for example a React component file, a Vue component, or a util module), the `title` should be the filename used in real usage (for example `MyComponent.jsx`, `index.ts`, `utils.js`). Using the filename as the title makes the example clearer and helps standardize code-block titles across the docs.
   - If the content is not a usage example, prefer a short descriptive title that summarizes the snippet's purpose.
+- Ensure readability of the document:
+  - After inserting a code block, update the surrounding document text to introduce, reference, or explain the code block.
 
 ### Examples
 
