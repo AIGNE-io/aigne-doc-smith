@@ -9,7 +9,7 @@
 <openapi_usage_rules>
 ## OpenAPI Usage Rules
 
-Use the provided OpenAPI (Swagger) specification, align it with the current page objective, and leverage it to refine this document.
+Use the provided OpenAPI (Swagger) specification in `<openapi_usage_rules>`, align it with the current page objective, and leverage it to refine this document.
 
 ### Documentation Requirements and Constraints
 
