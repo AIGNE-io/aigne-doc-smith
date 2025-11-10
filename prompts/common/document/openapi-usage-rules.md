@@ -1,11 +1,4 @@
 {% if openAPISpec %}
-<openapi_spec_content>
-
-## OpenAPI File Content
-{{ openAPISpec }}
-
-</openapi_spec_content>
-
 <openapi_usage_rules>
 ## OpenAPI Usage Rules
 

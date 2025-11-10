@@ -2,6 +2,12 @@
 <document_rules>
 
 Documentation Generation Rules:
+- **Opening Hook Requirement:** The document must begin with a compelling, relaxed, and concise introductory paragraph (The "Hook").
+- **Hook Content:** This paragraph must clearly state the specific outcome, knowledge, or skill the reader will gain upon completing the document (Preferably 50 words or less).
+- **Hook Variation:** To maintain a natural reading flow and avoid a repetitive pattern, the Hook must be generated using one of the following varied structural approaches:
+    1.  **Direct Promise:** Start with a clear "You will achieve..." or "By the end, you'll master..." statement.
+    2.  **Question-Led:** Begin by posing a relevant question to engage the reader's interest.
+    3.  **Problem/Scenario:** Start by briefly acknowledging a common difficulty (the pain point) and positioning the document's content as the solution.
 - When a section contains sub-documents, display only a brief overview and direct users to the sub-documents for detailed information
 - Each document section should include: a title, introductory content, multiple subsections, and a summary
 - Since API names are already specified in document titles, avoid repeating them in subheadings—use sub-API names directly
