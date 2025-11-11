@@ -105,4 +105,14 @@ descriptions:
       sections, adding new documents, or reordering existing ones, indicating an
       interactive tool for documentation management.
     generatedAt: 2025-11-11T15:44:05.108Z
-lastUpdated: 2025-11-11T15:44:05.118Z
+  a9e1c9e2d0d32ae92505b1ce64b9d5b25cedbedaf46bf6fbe3d78c3708bc0460:
+    path: ../assets/screenshots/doc-complete-setup.png
+    description: This screenshot displays a terminal interface showing the
+      successful completion of the AIGNE DocSmith documentation setup wizard. It
+      features a series of nine questions regarding documentation preferences,
+      such as target audience, detail level, and data sources, each marked with
+      a green checkmark indicating successful input. The image concludes with a
+      "Setup complete!" message confirming the configuration has been saved and
+      instructions to generate documentation.
+    generatedAt: 2025-11-11T16:03:30.971Z
+lastUpdated: 2025-11-11T16:03:30.977Z

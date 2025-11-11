@@ -7,7 +7,6 @@
 
 ** Output content in {{ locale }} language. **
 
-
 </user_rules>
 
 {% set operation_type = "generating" %}
@@ -37,12 +36,6 @@
 
 {% include "./detail-example.md" %}
 
-{% if content %}
-<previous_generation_content>
-{{content}}
-</previous_generation_content>
-{% endif %}
-
 {% if detailFeedback %}
 <content_review_feedback>
 {{ detailFeedback }}
@@ -56,6 +49,28 @@ User feedback on previous generation:
 </feedback>
 {% endif %}
 
+{% if content %}
+
+<previous_generation_content>
+{{content}}
+</previous_generation_content>
+
+<instructions>
+Analyze the previous document content and user feedback, then use available tools to implement the requested improvements while maintaining the document's integrity and style.
+</instructions>
+
+{% elseif originalContent %}
+
+<previous_generation_content>
+{{originalContent}}
+</previous_generation_content>
+
+<instructions>
+Analyze the previous document content and user feedback, then use available tools to implement the requested improvements while maintaining the document's integrity and style.
+</instructions>
+
+{% else %}
+
 <instructions>
 Generate detailed and well-structured document for the current {{nodeName}} based on user-provided information: current {{nodeName}} details (including title, description, path), `<detail_data_source>`, `<document_structure>` (overall structural planning), and other relevant information.
 
@@ -65,3 +80,6 @@ Generate detailed and well-structured document for the current {{nodeName}} base
 3. Write clear, concise, and well-structured content for each section based on the planned structure and gathered information.
 </steps>
 </instructions>
+
+{% endif %}
+
