@@ -28,8 +28,11 @@ Structural planning rules:
 
 2. Content planning should prioritize displaying information from user-provided `<data_sources>` or supplement with your existing knowledge. Do not arbitrarily fabricate information.
 
-Icon generation rules for document structure:
-{% include "./structure-icon-rules.md" %}
+3. **Document Icon Generation:**
+   - For root-level nodes (where `parentPath` is null or empty), add an `icon` attribute
+   - Format: `lucide:icon-name` (only Lucide icons supported)
+   - Choose icons that semantically match the document's purpose based on title and description
+   - Common icons: `lucide:book` (documentation), `lucide:rocket` (quick start), `lucide:code` (API), `lucide:settings` (configuration), `lucide:graduation-cap` (tutorials), `lucide:folder-open` (overview), `lucide:users` (user guides), `lucide:shield` (security), `lucide:cloud` (deployment)
 
 {% ifAsync docsType == 'general' %}
   {% include "../../structure/document-rules.md" %}
