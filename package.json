@@ -49,6 +49,7 @@
     "glob": "^11.0.3",
     "gpt-tokenizer": "^3.2.0",
     "image-size": "^2.0.2",
+    "is-in-ci": "^2.0.0",
     "isbinaryfile": "^5.0.6",
     "jsdom": "^26.1.0",
     "marked": "^15.0.12",

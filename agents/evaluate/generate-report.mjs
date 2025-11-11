@@ -1,6 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { pick } from "@aigne/core/utils/type-utils.js";
+import isInCi from 'is-in-ci';
 import openTerminal from "open";
 
 import { DOC_SMITH_DIR } from "../../utils/constants/index.mjs";
@@ -37,7 +38,7 @@ export default async function generateEvaluationReport({
   readerKnowledgeLevel,
   documentationDepth,
   targetAudience,
-  open = false,
+  open = true,
 }) {
   const timestamp = new Date().toISOString();
   const timestampForFolder = generateTimestampForFolder();
@@ -72,7 +73,7 @@ export default async function generateEvaluationReport({
 
   // Generate success message
   const message = generateReportSuccessMessage(toRelativePath(jsonReportPath), htmlReportPath);
-  if (open) {
+  if (open && !isInCi) {
     openTerminal(htmlReportPath);
   }
 
