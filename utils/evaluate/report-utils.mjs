@@ -1,7 +1,9 @@
 import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import terminalLink from 'terminal-link';
+
 import { toRelativePath } from "../utils.mjs";
 
 /**
@@ -115,6 +117,8 @@ export async function copyHtmlReportTemplate(targetDir, data) {
  * @returns {string} Success message with links
  */
 export function generateReportSuccessMessage(jsonReportPath, htmlReportPath) {
+  const openHtmlPath = resolve(htmlReportPath);
+  const openUrl = pathToFileURL(openHtmlPath);
   return `# ✅ Documentation Evaluation Report Generated Successfully!
 
 Generated evaluation report and saved to:
@@ -125,7 +129,7 @@ Generated evaluation report and saved to:
 
 Open in your browser to view detailed analysis:
 
-\`${htmlReportPath}\`
+\`${terminalLink(openUrl, openUrl)}\`
 
 `;
 }

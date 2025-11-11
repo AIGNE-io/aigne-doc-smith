@@ -37,3 +37,9 @@ skills:
     mode: sequential
   - ./generate-report.mjs
 mode: sequential
+input_schema:
+  type: object
+  properties:
+    open:
+      type: boolean
+      description: Auto open generated report
