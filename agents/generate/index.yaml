@@ -58,6 +58,4 @@ input_schema:
     forceRegenerate:
       type: boolean
       description: Rebuild all documentation from scratch
-  required:
-    - config
 mode: sequential

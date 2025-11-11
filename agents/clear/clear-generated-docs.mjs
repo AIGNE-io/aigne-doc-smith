@@ -83,11 +83,14 @@ export default async function clearGeneratedDocs(input = {}, options = {}) {
     for (const file of filesToDelete) {
       try {
         const filePath = join(generatedDocsPath, file);
-        await rm(filePath, { force: true });
+        await rm(filePath);
         deletedFiles.push(file);
       } catch (error) {
-        hasError = true;
-        failedFiles.push({ file, error: error.message });
+        // ignore if file not found
+        if (!["ENOENT"].includes(error.code)) {
+          hasError = true;
+          failedFiles.push({ file, error: error.message });
+        }
       }
     }
 

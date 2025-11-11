@@ -1,60 +1,112 @@
 # 概要
 
-AIGNE DocSmithは、人工知能を利用してプロジェクトのソースコードからドキュメントを自動的に作成するツールです。これは[AIGNE Framework](https://www.aigne.io/en/framework)上に構築されており、コードベースを正確に反映した構造化された多言語ドキュメントを生成するように設計されています。
+絶えず変化するコードベースとドキュメントの同期を維持するのに苦労していませんか？AIGNE DocSmith はプロセス全体を自動化し、ソースコードを分析して正確で構造化された多言語ドキュメントを生成するため、あなたは優れたソフトウェアの構築に集中できます。
 
-DocSmithの主な目的は、手動でのドキュメント作成における一般的な課題、例えば作成に時間がかかる、コードの変更に伴い内容が古くなる、一貫性が欠けるといった問題に対処することです。このプロセスを自動化することで、DocSmithはドキュメントを常に最新かつ正確な状態に保つのに役立ちます。
+AIGNE DocSmith は、プロジェクトのソースコードからドキュメントを自動的に作成する AI 駆動のツールです。これは [AIGNE Framework](https://www.aigne.io/en/framework) 上に構築されており、コードベースを正確に反映した構造化された多言語ドキュメントを生成するように設計されています。
+
+このツールは、手動でのドキュメント作成に共通する課題、例えば作成に時間がかかる、コードの進化とともにすぐに古くなる、セクション間で一貫性がないといった問題に対処します。このプロセスを自動化することで、DocSmith はドキュメントを常に最新、正確、かつ有用な状態に保つのに役立ちます。
 
 ## 仕組み
 
-DocSmithは、プロジェクトのソースコードを分析して、その構造、コンポーネント、および機能を理解することによって動作します。この分析に基づいて、高レベルのガイドから詳細なAPIリファレンスまで、完全なドキュメントセットを生成します。
+DocSmith は、プロジェクトのソースコードを分析して、その構造、コンポーネント、および機能を理解することによって動作します。この分析に基づいて、高レベルのガイドから詳細な API リファレンスまで、完全なドキュメントセットを生成します。
 
 ```d2
 direction: down
 
 Source-Code: {
-  label: "プロジェクトのソースコード"
+  label: "ソースコード"
   shape: rectangle
 }
 
-DocSmith: {
-  label: "AIGNE DocSmith\n（AI分析エンジン）"
+AIGNE-DocSmith: {
+  label: "AIGNE DocSmith"
   shape: rectangle
+  style: {
+    stroke: "#888"
+    stroke-width: 2
+    stroke-dash: 4
+  }
+
+  Analysis-Engine: {
+    label: "分析エンジン"
+    shape: rectangle
+  }
+
+  Generation-Engine: {
+    label: "生成エンジン"
+    shape: rectangle
+  }
+
+  Translation-Engine: {
+    label: "翻訳エンジン"
+    shape: rectangle
+  }
+
+  LLMs: {
+    label: "大規模言語モデル"
+    shape: rectangle
+
+    AIGNE-Hub: {
+      label: "AIGNE Hub"
+    }
+
+    Direct-Access: {
+      label: "直接アクセス"
+      shape: rectangle
+      Google-Gemini: {}
+      OpenAI-GPT: {}
+    }
+  }
 }
 
-Docs: {
-  label: "生成されたドキュメント"
+Published-Documentation: {
+  label: "公開されたドキュメント"
   shape: rectangle
+
+  DocSmith-Platform: {
+    label: "DocSmith プラットフォーム"
+  }
+
+  Discuss-Kit: {
+    label: "Discuss Kit"
+  }
 }
 
-Source-Code -> DocSmith: "分析"
-DocSmith -> Docs: "生成"
+Source-Code -> AIGNE-DocSmith.Analysis-Engine: "分析する"
+AIGNE-DocSmith.Analysis-Engine -> AIGNE-DocSmith.Generation-Engine: "生成する"
+AIGNE-DocSmith.Generation-Engine <-> AIGNE-DocSmith.LLMs: "利用する"
+AIGNE-DocSmith.Generation-Engine -> AIGNE-DocSmith.Translation-Engine: "翻訳する"
+AIGNE-DocSmith.Translation-Engine -> Published-Documentation: "公開する"
+
 ```
 
 ## 主な機能
 
-DocSmithは、作成から公開までのドキュメントライフサイクルを管理するための一連の機能を提供します。
+DocSmith は、作成から公開までのドキュメントライフサイクルを管理するための一連の機能を提供します。
 
-*   **AIによる生成**：コードベースを分析して論理的なドキュメント構造を提案し、コードの機能を説明するコンテンツを生成します。
-*   **多言語サポート**：ドキュメントを英語、中国語（簡体字）、日本語を含む12言語に翻訳します。翻訳プロセスは文脈を認識し、技術的な正確性を維持します。
-*   **LLMとの連携**：さまざまな大規模言語モデル（LLM）と接続します。デフォルトでは、[AIGNE Hub](https://www.aigne.io/en/hub)を使用します。これは、Google GeminiやOpenAI GPTのようなモデルを個別のAPIキーなしで切り替えることができるサービスです。プロバイダーに直接アクセスするために、独自のAPIキーを設定することもできます。
-*   **スマートアップデート**：ソースコードの変更を検出し、ドキュメントの対応するセクションを更新します。また、生成されたコンテンツを洗練させるために、具体的なフィードバックを提供することもできます。
-*   **公開オプション**：生成されたドキュメントを1つのコマンドで公開します。公式のDocSmithプラットフォームにデプロイするか、独自の[Discuss Kit](https://www.web3kit.rocks/discuss-kit)インスタンスを実行することができます。Discuss Kitは、ドキュメントをホスティングおよび表示するためのサービスです。
+*   **AI による生成**: コードベースを分析して論理的なドキュメント構造を提案し、コードの機能を説明するコンテンツを生成します。
+*   **多言語サポート**: 英語、中国語（簡体字）、日本語を含む12言語にドキュメントを翻訳します。翻訳プロセスは文脈を認識し、技術的な正確性を維持します。
+*   **LLM との統合**: 様々な大規模言語モデル（LLM）と接続します。デフォルトでは [AIGNE Hub](https://www.aigne.io/en/hub) を使用します。これは、個別の API キーを必要とせずに Google Gemini や OpenAI GPT などのモデルを切り替えることができるサービスです。プロバイダーに直接アクセスするために独自の API キーを設定することもできます。
+*   **スマートアップデート**: ソースコードの変更を検出し、ドキュメントの対応するセクションを更新します。生成されたコンテンツを洗練させるために、具体的なフィードバックを提供することもできます。
+*   **公開オプション**: 単一のコマンドで生成されたドキュメントを公開します。公式の DocSmith プラットフォームにデプロイするか、独自の [Discuss Kit](https://www.web3kit.rocks/discuss-kit) インスタンスを実行できます。Discuss Kit は、ドキュメントをホスティングおよび表示するためのサービスです。
 
 ## 利用可能なコマンド
 
-DocSmithは一連のコマンドを通じて操作されます。以下の表は、主要なコマンドとその機能の概要です。
+DocSmith はコマンドラインインターフェースを通じて操作します。以下の表は、主要なコマンドとその機能の概要です。
 
-| Command | Description |
+| コマンド | 説明 |
 | :--- | :--- |
 | `generate` | ソースファイルから新しいドキュメントセットを作成します。 |
 | `update` | コードの変更や新しいフィードバックに基づいて既存のドキュメントを修正します。 |
-| `translate` | ドキュメントをサポートされている12言語のうち1つ以上に翻訳します。 |
-| `publish` | ドキュメントをライブでアクセス可能なURLにデプロイします。 |
+| `translate` | ドキュメントを12のサポートされている言語のいずれかまたは複数に翻訳します。 |
+| `publish` | ドキュメントをライブでアクセス可能な URL にデプロイします。 |
 | `evaluate` | 生成されたドキュメントの品質と完全性を評価します。 |
 | `history` | ドキュメントに加えられた更新の履歴を表示します。 |
-| `clear` | 生成されたファイル、設定、およびキャッシュされたデータを削除します。 |
+| `chat` | ドキュメントを生成・管理するための対話型チャットセッションを開始します。 |
+| `clear` | 生成されたファイル、設定、およびキャッシュデータを削除します。 |
+| `init` | 対話形式のプロセスを通じて、初期設定ファイルを作成するのをガイドします。 |
 | `prefs` | ドキュメント生成のために保存された設定や構成を管理します。 |
 
 ---
 
-この概要では、AIGNE DocSmithの目的と機能の全体像を説明しました。ツールを使い始めるには、[はじめに](./getting-started.md)ガイドに進み、インストールとセットアップの手順を確認してください。
+この概要は、AIGNE DocSmith の目的と機能の要約を提供します。ツールの使用を開始するには、インストールとセットアップの手順について[入門ガイド](./getting-started.md)に進んでください。

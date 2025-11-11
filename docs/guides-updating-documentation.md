@@ -1,77 +1,74 @@
 # Updating Documentation
 
-Maintaining the accuracy and relevance of documentation is a continuous process. As your project evolves, so too will the need to update your documents. This guide provides a step-by-step process for modifying existing documentation, whether you need to incorporate user feedback, reflect code changes, or completely regenerate a section.
+Need to make a quick change or overhaul a document? This guide explains how to use the `update` command to modify existing documentation, whether you're incorporating new feedback, reflecting code changes, or starting from scratch. The tool provides both an interactive mode for guided changes and a direct mode for quick, command-line updates.
 
-The `update` command is a flexible tool that can be used interactively to select documents or non-interactively with command-line flags to apply specific changes.
+## Interactive Updates
 
-## Updating via Interactive Prompt
+For a guided experience, run the `update` command without any arguments. This launches an interactive session where you can select the documents you want to change and provide instructions.
 
-The default way to use the `update` command is to run it without any arguments. This starts an interactive session where you can select one or more documents to modify.
-
-1.  Run the `update` command in your terminal:
-
-    ```bash command aigne doc update icon=lucide:terminal
+1.  Start the interactive update process:
+    ```bash aigne doc update icon=lucide:terminal
     aigne doc update
     ```
+2.  You will see a list of your project's documents. Use the arrow keys to move, the spacebar to select one or more files, and `Enter` to confirm your selection.
 
-2.  The tool will display a list of your existing documents. Use the arrow keys to navigate, the spacebar to select one or more documents, and press Enter to confirm.
+    ![A screenshot showing the interactive prompt where a user can select documents to update from a list.](../assets/screenshots/doc-update.png)
 
-    ![Screenshot of the interactive document update prompt, showing a list of documents to choose from.](../assets/screenshots/doc-update.png)
-
-The next steps depend on how many documents you selected.
+The process that follows depends on whether you select a single document or multiple documents.
 
 ### Refining a Single Document
 
-If you select only one document, you will enter an iterative review loop. This mode is ideal for making precise changes to a single file. You will be presented with the following options:
-*   **View document**: Displays the full content of the current version of the document directly in your terminal for review.
-*   **Give feedback**: Prompts you to enter textual feedback on what you would like to change. For example, "Simplify the explanation of the configuration process" or "Add a troubleshooting section for common errors."
-*   **Done**: Exits the interactive session and saves the latest version of the document.
+When you select one document, you enter an iterative refinement loop designed for making precise adjustments. You'll be presented with a set of choices:
 
-After you provide feedback, the tool regenerates the document. You can then view the changes and provide more feedback. This cycle can be repeated until the document meets your requirements.
+*   **View document**: Displays the current version of the document's content directly in your terminal.
+*   **Give feedback**: Prompts you to enter text describing the changes you want. For example, "Simplify the introduction for non-technical users" or "Add a code example for the authentication function."
+*   **Done**: Exits the refinement loop and saves the latest version of the document.
 
-### Updating Multiple Documents
+After you submit feedback, the tool regenerates the document content. You can then view the new version and provide more feedback, repeating the cycle until you are satisfied with the result.
 
-If you select multiple documents, the tool will perform a batch update. You will be prompted to provide a single piece of feedback that will be applied to all the selected documents. This is useful for making consistent changes across several files at once, such as standardizing terminology or updating a common section.
+### Batch Updating Multiple Documents
 
-## Direct Updates via Command-Line Flags
+If you select two or more documents, the tool performs a batch update. You will be prompted to provide a single instruction or piece of feedback. This feedback is then applied to all the selected documents simultaneously. This method is efficient for making consistent changes across your documentation, such as updating a recurring section or standardizing terminology.
 
-Direct updates are designed for making changes without the interactive review loop. This approach is useful when you know exactly what changes are needed and want to apply them directly.
+## Direct Updates with Command-Line Flags
 
-### Updating with Specific Feedback
+When you already know what changes are needed, you can use command-line flags to update documents directly, bypassing the interactive prompts.
 
-You can provide feedback directly from the command line to update one or more documents. This bypasses the interactive session and applies the changes immediately.
+### Applying Specific Feedback
 
-Use the `--docs` flag to specify the path of the document and the `--feedback` flag to provide your instructions.
+To apply feedback to one or more documents, use the `--docs` and `--feedback` flags. The `--docs` flag specifies the file path, and `--feedback` provides the instructions for the update.
 
-```bash command aigne doc update with feedback icon=lucide:terminal
-aigne doc update --docs overview.md --feedback "Add a more detailed explanation of the core features."
+```bash Update a single document icon=lucide:terminal
+aigne doc update --docs /overview --feedback "Add a more detailed explanation of the core features."
 ```
 
-To update multiple documents, simply provide multiple `--docs` flags:
+You can specify the `--docs` flag multiple times to apply the same feedback to several documents in one command.
 
-```bash command aigne doc update multiple docs icon=lucide:terminal
-aigne doc update --docs overview.md --docs getting-started.md --feedback "Ensure the tone is consistent across both documents."
+```bash Update multiple documents icon=lucide:terminal
+aigne doc update --docs /overview --docs /getting-started --feedback "Ensure the tone is consistent across both documents."
 ```
 
-### Resetting Document Content
+### Resetting a Document
 
-In some cases, you may want to discard the current version of a document and regenerate it from scratch based on the latest source code. The `--reset` flag instructs the tool to ignore the existing content entirely.
+To discard the current version of a document and regenerate it from the source code, use the `--reset` flag. This action tells the tool to ignore the existing content and create the document from scratch.
 
-```bash command aigne doc update with reset icon=lucide:terminal
-aigne doc update --docs overview.md --reset
+```bash Reset a document icon=lucide:terminal
+aigne doc update --docs /overview --reset
 ```
 
-This command is useful when a document has become significantly outdated due to major changes in the underlying code.
-
-
+This is particularly useful when a document is significantly out of date due to major changes in the project's codebase.
 
 ## Command Parameters
 
 The `update` command accepts several parameters to control its behavior. Here is a summary of the available options:
 
-| Parameter  | Description                                                                                             | Example                                                  |
-| :--------- | :------------------------------------------------------------------------------------------------------ | :------------------------------------------------------- |
-| `--docs`   | Specifies the path(s) of the document(s) to update. This can be used multiple times for multiple files. | `--docs overview.md`                                     |
-| `--feedback` | Provides textual instructions for the changes to be made to the specified document(s).                  | `--feedback "Clarify the installation steps."`           |
-| `--reset`  | A boolean flag that, when present, causes the document to be regenerated from scratch.                  | `--reset`                                                |
-| `--glossary` | Specifies the path to a glossary file to ensure consistent terminology during the update process.       | `--glossary @/path/to/glossary.md`                       |
+| Parameter | Description | Required |
+| :--- | :--- | :--- |
+| `--docs` | Specifies the path(s) of the document(s) to update. Can be used multiple times. | Optional |
+| `--feedback` | Provides textual instructions for the changes to be made to the specified document(s). | Optional |
+| `--reset` | A boolean flag that, when present, regenerates the document from scratch, ignoring existing content. | Optional |
+| `--glossary` | Specifies the path to a glossary file (`@/path/to/glossary.md`) to ensure consistent terminology. | Optional |
+
+---
+
+With these methods, you can efficiently manage your documentation, keeping it accurate and aligned with your project's development. For information on creating documents for the first time, see the [Generating Documentation](./guides-generating-documentation.md) guide.
