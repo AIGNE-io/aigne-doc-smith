@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.0-beta...v0.9.0-beta.1) (2025-11-11)
+
+
+### Bug Fixes
+
+* remove terminal-link ([#289](https://github.com/AIGNE-io/aigne-doc-smith/issues/289)) ([eaaad2f](https://github.com/AIGNE-io/aigne-doc-smith/commit/eaaad2f1713f32ea8e72929aaa9c06949dbd00ca))
+
 ## [0.9.0-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.16-beta.1...v0.9.0-beta) (2025-11-11)
 
 
