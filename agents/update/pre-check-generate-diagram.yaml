@@ -3,7 +3,7 @@ description: Pre-check for generating diagram
 model:
   reasoning_effort: 1
 instructions:
-  url: ../../prompts/detail/d2-diagram/pre-check.md
+  url: ../../prompts/detail/diagram/pre-check.md
 input_schema:
   type: object
   properties:

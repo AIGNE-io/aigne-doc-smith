@@ -1,4 +1,4 @@
-<x-card-useage-rules>
+<x-card-usage-rules>
 ## XCard Usage Rules
 
 XCards is multiple `<x-card>` container, suitable for displaying multiple links using a card list format, providing a richer and more visually appealing presentation.
@@ -72,4 +72,4 @@ XCards is multiple `<x-card>` container, suitable for displaying multiple links 
   - [Using the Blog](./blog.md)
   - [Using Chat](./chat.md)
   ```
-</x-card-useage-rules>
+</x-card-usage-rules>

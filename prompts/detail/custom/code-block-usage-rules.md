@@ -1,4 +1,4 @@
-<enhanced_code_block_usage_rules>
+<code_block_usage_rules>
 
 ## Enhanced Attributes for Markdown Code Blocks
 
@@ -15,7 +15,7 @@ The following are the available enhanced attributes and their descriptions:
 ### Attribute Usage
 
 - `language` and `title` are written directly after \`\`\`, separated by spaces.
-  - Don't add quotes around the `title` value.
+  - Do not add quotes around the `title` value.
 - Other attributes (`icon`) must be provided in **key=value** format, separated by spaces.
 
 ### Usage Requirements
@@ -160,4 +160,4 @@ npm i -g @aigne/websmith-smith
 npm i -g @aigne/cli
 ```
 
-</enhanced_code_block_usage_rules>
+</code_block_usage_rules>

@@ -25,7 +25,7 @@ projectDesc: |
 {% endif %}
 </document_info>
 
-<last_document_structure>
+<previous_document_structure>
 
 {% if originalDocumentStructure %}
 {{ originalDocumentStructure | yaml.stringify }}
@@ -35,18 +35,18 @@ projectDesc: |
 No previous document structure provided. generate a new structure based on the data sources!
 {% endif %}
 
-</last_document_structure>
+</previous_document_structure>
 
 {% include "../../common/document-structure/user-locale-rules.md" %}
 
 {% include "../../common/document-structure/user-preferences.md" %}
 
-<last_document_structure_rule>
-If a previous structural plan (`<last_document_structure>`) is provided, follow these rules:
+<previous_document_structure_rule>
+If a previous structural plan (`<previous_document_structure>`) is provided, follow these rules:
   1. **Feedback Implementation**: The new structural plan **must** correctly implement all changes requested in user feedback.
   2. **Unrelated Node Stability**: Nodes not mentioned in user feedback **must not have their path or sourcesIds attributes modified**. `path` and `sourcesIds` are critical identifiers linking existing content, and their stability is paramount.
      - Ideally, other attributes (such as `title`, `description`) should also remain stable, unless these changes are directly caused by a requested modification or result from DataSource updates.
-</last_document_structure_rule>
+</previous_document_structure_rule>
 
 {% if documentStructure %}
 <review_document_structure>
@@ -83,7 +83,8 @@ Sub-structures must meet the following requirements:
 {% endif %}
 
 <instructions>
-Your task is to **analyze, refine, and adjust** the existing document structure (`last_document_structure`) based on the partial code repository content currently provided, generating a structural update plan.
+
+Your task is to **analyze, refine, and adjust** the existing document structure (`<previous_document_structure>`) based on the partial code repository content currently provided, generating a structural update plan.
 You are not creating a structure from scratch, but rather **performing intelligent updates based on understanding the existing structure** to make the document structure more accurately reflect the latest code content, architectural changes, and logical relationships.
 
 ## When using `<data_sources>` data sources, please note the following:
@@ -106,7 +107,7 @@ IMPORTANT: You should avoid duplicating existing structure items. Only include i
 ## Behavior Rules
 
 1. **Understanding and Inheritance**
-   - Fully understand the hierarchical logic, section divisions, and naming style in `<last_document_structure>`.
+   - Fully understand the hierarchical logic, section divisions, and naming style in `<previous_document_structure>`.
    - Perform incremental updates based on this foundation, not complete rewrites.
    - Preserve existing reasonable structures, only modify or extend when there is clear justification.
 

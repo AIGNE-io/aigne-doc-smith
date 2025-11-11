@@ -39,7 +39,7 @@ Documentation content generation rules:
 
 {% include "../custom/custom-components-usage-rules.md" %}
 
-{% include "../custom/enhanced-code-block-usage-rules.md" %}
+{% include "../custom/code-block-usage-rules.md" %}
 
 {% include "../../common/document/media-file-list-usage-rules.md" %}
 

@@ -1,4 +1,4 @@
-<x-card-useage-rules>
+<x-card-usage-rules>
 ## XCard Usage Rules
 
 XCard is individual link display card, suitable for displaying individual links with a richer and more visually appealing presentation format.
@@ -59,4 +59,4 @@ XCard is individual link display card, suitable for displaying individual links 
   ```
 
   ````
-</x-card-useage-rules>
+</x-card-usage-rules>
