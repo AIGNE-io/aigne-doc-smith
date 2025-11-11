@@ -96,8 +96,10 @@ export default async function checkNeedGenerateStructure(
           result.projectName !== projectInfo.name &&
           !projectInfo.fromGitHub
         ) {
-          await saveValueToConfig("projectName", result.projectName);
-          message += `Project name: \`${result.projectName}\``;
+          // Remove leading and trailing spaces (middle spaces are preserved and count toward limit)
+          const trimmedProjectName = result.projectName.trim();
+          await saveValueToConfig("projectName", trimmedProjectName);
+          message += `Project name: \`${trimmedProjectName}\``;
           hasUpdated = true;
         }
 
@@ -106,8 +108,10 @@ export default async function checkNeedGenerateStructure(
           result.projectDesc !== projectInfo.description &&
           !projectInfo.fromGitHub
         ) {
-          await saveValueToConfig("projectDesc", result.projectDesc);
-          message += `\nProject description: \`${result.projectDesc}\``;
+          // Remove leading and trailing spaces (middle spaces are preserved and count toward limit)
+          const trimmedProjectDesc = result.projectDesc.trim();
+          await saveValueToConfig("projectDesc", trimmedProjectDesc);
+          message += `\nProject description: \`${trimmedProjectDesc}\``;
           hasUpdated = true;
         }
 

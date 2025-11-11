@@ -403,8 +403,9 @@ async function _init(
 
   // Save project info to config
   const projectInfo = await getProjectInfo();
-  input.projectName = projectInfo.name;
-  input.projectDesc = projectInfo.description;
+  // Remove leading and trailing spaces (middle spaces are preserved and count toward limit)
+  input.projectName = projectInfo.name.trim();
+  input.projectDesc = projectInfo.description.trim();
   input.projectLogo = projectInfo.icon;
 
   // Generate YAML content
@@ -453,8 +454,9 @@ export function generateYAML(input) {
   // Create the main configuration object that will be safely serialized
   const config = {
     // Project information (safely handled by yaml library)
-    projectName: input.projectName || "",
-    projectDesc: input.projectDesc || "",
+    // Remove leading and trailing spaces (middle spaces are preserved and count toward limit)
+    projectName: (input.projectName || "").trim(),
+    projectDesc: (input.projectDesc || "").trim(),
     projectLogo: input.projectLogo || "",
 
     thinking: {

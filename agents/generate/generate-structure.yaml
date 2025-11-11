@@ -54,10 +54,10 @@ skills:
           properties:
             projectName:
               type: string
-              description: Project name identified from your content sources
+              description: Project name identified from your content sources. Max 40 characters (any language, each character = 1). Leading/trailing spaces removed. Generate complete name within limit.
             projectDesc:
               type: string
-              description: Brief project description generated from content analysis (under 50 words)
+              description: Brief project description from content analysis. Max 160 characters (any language, each character = 1). Leading/trailing spaces removed. Generate complete description within limit.
             structures:
               type: array
               description: List of document structure items to add or update
