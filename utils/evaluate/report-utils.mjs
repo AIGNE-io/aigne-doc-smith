@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import terminalLink from 'terminal-link';
+import terminalLink from "terminal-link";
 
 import { toRelativePath } from "../utils.mjs";
 
