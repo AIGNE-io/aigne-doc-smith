@@ -23,10 +23,10 @@ Open your terminal and execute the `evaluate` command.
 aigne doc evaluate
 ```
 
-By default, the command will automatically open the generated HTML report in your web browser upon completion. To prevent this, you can add the `--no-open` flag.
+By default, the command will automatically open the generated HTML report in your web browser upon completion. To prevent this, you can add the `--open false` flag.
 
-```bash aigne doc evaluate --no-open icon=lucide:terminal
-aigne doc evaluate --no-open
+```bash aigne doc evaluate --open false icon=lucide:terminal
+aigne doc evaluate --open false
 ```
 
 ### Review the Output

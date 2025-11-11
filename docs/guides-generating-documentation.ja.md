@@ -28,7 +28,7 @@ aigne doc generate
 1.  **構造を受け入れる：** 提案された構成でよろしければ、それを承認して続行できます。
 2.  **改善のためのフィードバックを提供する：** プレーンテキストの指示を入力して構造を変更できます。
 
-![Interactive prompt to refine the documentation structure.](../assets/screenshots/doc-regenerate.png)
+![Interactive prompt to refine the documentation structure.](../assets/screenshots/doc-generate-feedback.png)
 
 フィードバックの例：
 *   「'Getting Started' を 'Quick Start' に名前変更してください。」
@@ -43,7 +43,7 @@ aigne doc generate
 
 ### ステップ5：完了
 
-すべてのドキュメントが生成されると、確認メッセージがターミナルに表示されます。出力ファイルは、設定で指定されたディレクトリ（デフォルトは `./docs`）に保存されます。
+すべてのドキュメントが生成されると、確認メッセージがターミナルに表示されます。出力ファイルは、設定で指定されたディレクトリ（デフォルトは `.aigne/doc-smith/docs`）に保存されます。
 
 ![Success notification banner indicating document generation is complete.](../assets/screenshots/doc-generated-successfully.png)
 

@@ -278,7 +278,7 @@ async function _init(
   input.docsDir = docsDirInput.trim() || `${outputPath}/docs`;
 
   // 8. Content sources
-  console.log("\n🔍 [8/9]: Data Sources");
+  console.log("🔍 [8/9]: Data Sources");
   console.log("Please specify the data source we should analyze to generate your documentation.");
   console.log(
     `  1. Use paths like ${chalk.green("./src")}, ${chalk.green("./README.md")} or ${chalk.green("!./src/private")}.`,

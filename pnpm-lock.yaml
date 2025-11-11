@@ -95,9 +95,6 @@ importers:
       remark-parse:
         specifier: ^11.0.0
         version: 11.0.0
-      terminal-link:
-        specifier: ^5.0.0
-        version: 5.0.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3

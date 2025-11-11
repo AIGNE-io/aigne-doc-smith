@@ -23,10 +23,10 @@
 aigne doc evaluate
 ```
 
-默认情况下，该命令在完成后会自动在您的网页浏览器中打开生成的 HTML 报告。要阻止此行为，您可以添加 `--no-open` 标志。
+默认情况下，该命令在完成后会自动在您的网页浏览器中打开生成的 HTML 报告。要阻止此行为，您可以添加 `--open false` 标志。
 
-```bash aigne doc evaluate --no-open icon=lucide:terminal
-aigne doc evaluate --no-open
+```bash aigne doc evaluate --open false icon=lucide:terminal
+aigne doc evaluate --open false
 ```
 
 ### 查看输出

@@ -28,7 +28,7 @@ aigne doc generate
 1.  **接受结构：** 如果提议的组织结构令人满意，您可以批准它以继续进行。
 2.  **提供反馈以进行优化：** 您可以输入纯文本指令来修改结构。
 
-![交互式提示，用于优化文档结构。](../assets/screenshots/doc-regenerate.png)
+![交互式提示，用于优化文档结构。](../assets/screenshots/doc-generate-feedback.png)
 
 反馈示例包括：
 *   “将‘Getting Started’重命名为‘快速入门’。”
@@ -43,7 +43,7 @@ aigne doc generate
 
 ### 步骤 5：完成
 
-所有文档生成完毕后，终端会显示一条确认消息。输出文件会保存到您配置中指定的目录，默认为 `./docs`。
+所有文档生成完毕后，终端会显示一条确认消息。输出文件会保存到您配置中指定的目录，默认为 `.aigne/doc-smith/docs`。
 
 ![成功通知横幅，指示文档生成已完成。](../assets/screenshots/doc-generated-successfully.png)
 
