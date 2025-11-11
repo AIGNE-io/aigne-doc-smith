@@ -30,6 +30,7 @@ Glossary of specialized terms. Please ensure correct spelling when using these t
 {% include "../../common/document/content-rules-core.md" %}
 
 Documentation content optimization rules:
+
 {% include "../generate/document-rules.md" %}
 
 {% include "../custom/custom-components-usage-rules.md" %}

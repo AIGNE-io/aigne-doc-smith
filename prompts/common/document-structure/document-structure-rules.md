@@ -29,12 +29,11 @@ Structural planning rules:
 2. Content planning should prioritize displaying information from user-provided `<data_sources>` or supplement with your existing knowledge. Do not arbitrarily fabricate information.
 
 {% ifAsync docsType == 'general' %}
-  {% include "../../structure/document-rules.md" %}
-
+{% include "../../structure/document-rules.md" %}
 {% endif %}
 
 {% ifAsync docsType == 'getting-started' %}
-  {% include "../../structure/structure-getting-started.md" %}
+{% include "../../structure/structure-getting-started.md" %}
 {% endif %}
 
 Other requirements:
