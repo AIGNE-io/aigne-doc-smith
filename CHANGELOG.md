@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.16-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.16-beta...v0.8.16-beta.1) (2025-11-11)
+
+
+### Features
+
+* add document icon generation functionality and update schemas ([#286](https://github.com/AIGNE-io/aigne-doc-smith/issues/286)) ([3e20fda](https://github.com/AIGNE-io/aigne-doc-smith/commit/3e20fdaf8a6e4713ed0756f52c620180c8b47f35))
+* support auto open evaluation report ([#287](https://github.com/AIGNE-io/aigne-doc-smith/issues/287)) ([93a64d5](https://github.com/AIGNE-io/aigne-doc-smith/commit/93a64d5bfb4602532efe5cc33cc90494e2b0cb48))
+
+
+### Bug Fixes
+
+* tune prompts increase document expressiveness ([#284](https://github.com/AIGNE-io/aigne-doc-smith/issues/284)) ([eb79742](https://github.com/AIGNE-io/aigne-doc-smith/commit/eb79742d0782405d6143ac0271359cd8ae97286b))
+
 ## [0.8.16-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.15...v0.8.16-beta) (2025-11-10)
 
 
