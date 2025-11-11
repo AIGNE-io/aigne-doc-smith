@@ -3,15 +3,25 @@
     "title": "Overview",
     "description": "Explains what AIGNE DocSmith does, the problems it solves, and its main capabilities based on your project's code.",
     "path": "/overview",
-    "sourceIds": ["README.md", "aigne.yaml", ".aigne/doc-smith/config.yaml"],
-    "parentId": ""
+    "sourceIds": [
+      "README.md",
+      "aigne.yaml",
+      ".aigne/doc-smith/config.yaml"
+    ],
+    "parentId": "",
+    "icon": "lucide:compass"
   },
   {
     "title": "Getting Started",
     "description": "Provides a step-by-step guide to installing the tool and generating your first set of documents.",
     "path": "/getting-started",
-    "sourceIds": ["README.md", "agents/init/index.mjs", "media.md"],
-    "parentId": ""
+    "sourceIds": [
+      "README.md",
+      "agents/init/index.mjs",
+      "media.md"
+    ],
+    "parentId": "",
+    "icon": "lucide:rocket"
   },
   {
     "title": "Guides",
@@ -29,7 +39,8 @@
       "agents/history/index.yaml",
       "agents/chat/index.yaml"
     ],
-    "parentId": ""
+    "parentId": "",
+    "icon": "lucide:book"
   },
   {
     "title": "Configuration",
@@ -41,14 +52,18 @@
       "agents/prefs/index.mjs",
       ".aigne/doc-smith/config.yaml"
     ],
-    "parentId": ""
+    "parentId": "",
+    "icon": "lucide:settings"
   },
   {
     "title": "Release Notes",
     "description": "Lists new features, improvements, and bug fixes for each version of the tool.",
     "path": "/release-notes",
-    "sourceIds": ["CHANGELOG.md"],
-    "parentId": ""
+    "sourceIds": [
+      "CHANGELOG.md"
+    ],
+    "parentId": "",
+    "icon": "lucide:scroll-text"
   },
   {
     "title": "Generating Documentation",
@@ -100,28 +115,43 @@
     "title": "Publishing Your Docs",
     "description": "Shows how to make your generated documentation live and accessible online.",
     "path": "/guides/publishing-your-docs",
-    "sourceIds": ["agents/publish/index.yaml", "agents/publish/publish-docs.mjs", "README.md"],
+    "sourceIds": [
+      "agents/publish/index.yaml",
+      "agents/publish/publish-docs.mjs",
+      "README.md"
+    ],
     "parentId": "/guides"
   },
   {
     "title": "Initial Setup",
     "description": "Guides you through the interactive setup process to create your initial configuration file.",
     "path": "/configuration/initial-setup",
-    "sourceIds": ["agents/init/index.mjs", "README.md", ".aigne/doc-smith/config.yaml"],
+    "sourceIds": [
+      "agents/init/index.mjs",
+      "README.md",
+      ".aigne/doc-smith/config.yaml"
+    ],
     "parentId": "/configuration"
   },
   {
     "title": "Managing Preferences",
     "description": "Explains how to view, remove, and toggle your saved preferences for documentation generation.",
     "path": "/configuration/managing-preferences",
-    "sourceIds": ["agents/prefs/index.mjs", "README.md"],
+    "sourceIds": [
+      "agents/prefs/index.mjs",
+      "README.md"
+    ],
     "parentId": "/configuration"
   },
   {
     "title": "Managing History",
     "description": "Shows how to view the history of updates made to your documentation.",
     "path": "/guides/managing-history",
-    "sourceIds": ["agents/history/view.mjs", "aigne.yaml", "agents/history/index.yaml"],
+    "sourceIds": [
+      "agents/history/view.mjs",
+      "aigne.yaml",
+      "agents/history/index.yaml"
+    ],
     "parentId": "/guides"
   },
   {
@@ -156,7 +186,10 @@
     "title": "Interactive Chat",
     "description": "Explains how to use the interactive chat assistant to generate, modify, and manage your documentation.",
     "path": "/guides/interactive-chat",
-    "sourceIds": ["agents/chat/index.yaml", "aigne.yaml"],
+    "sourceIds": [
+      "agents/chat/index.yaml",
+      "aigne.yaml"
+    ],
     "parentId": "/guides"
   }
 ]
