@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.16-beta.1...v0.9.0-beta) (2025-11-11)
+
+
+### Miscellaneous Chores
+
+* release 0.9.0-beta ([5f26ec8](https://github.com/AIGNE-io/aigne-doc-smith/commit/5f26ec853bcc7eafff8c7c6404d04535953c019e))
+
 ## [0.8.16-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.8.16-beta...v0.8.16-beta.1) (2025-11-11)
 
 
