@@ -8,24 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@aigne/aigne-hub':
-        specifier: ^0.10.5-beta.3
-        version: 0.10.5-beta.3(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/anthropic':
-        specifier: ^0.14.5-beta.3
-        version: 0.14.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/cli':
         specifier: ^1.53.1-beta.4
         version: 1.53.1-beta.4(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(debug@4.4.3)(listr2@9.0.1)(ws@8.18.3)
       '@aigne/core':
         specifier: ^1.65.1-beta.3
         version: 1.65.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/gemini':
-        specifier: ^0.14.5-beta.3
-        version: 0.14.5-beta.3(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.0)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/openai':
-        specifier: ^0.16.5-beta.3
-        version: 0.16.5-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/publish-docs':
         specifier: ^0.12.1
         version: 0.12.1(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)
@@ -38,9 +26,6 @@ importers:
       chalk:
         specifier: ^5.5.0
         version: 5.6.2
-      cli-highlight:
-        specifier: ^2.1.11
-        version: 2.1.11
       debug:
         specifier: ^4.4.1
         version: 4.4.3
