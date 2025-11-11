@@ -87,7 +87,7 @@ export default async function clearGeneratedDocs(input = {}, options = {}) {
         deletedFiles.push(file);
       } catch (error) {
         // ignore if file not found
-        if (!['ENOENT'].includes(error.code)) {
+        if (!["ENOENT"].includes(error.code)) {
           hasError = true;
           failedFiles.push({ file, error: error.message });
         }
