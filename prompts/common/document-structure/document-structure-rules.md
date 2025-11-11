@@ -35,12 +35,11 @@ Structural planning rules:
    - Common icons: `lucide:book` (documentation), `lucide:rocket` (quick start), `lucide:code` (API), `lucide:settings` (configuration), `lucide:graduation-cap` (tutorials), `lucide:folder-open` (overview), `lucide:users` (user guides), `lucide:shield` (security), `lucide:cloud` (deployment)
 
 {% ifAsync docsType == 'general' %}
-  {% include "../../structure/document-rules.md" %}
-
+{% include "../../structure/document-rules.md" %}
 {% endif %}
 
 {% ifAsync docsType == 'getting-started' %}
-  {% include "../../structure/structure-getting-started.md" %}
+{% include "../../structure/structure-getting-started.md" %}
 {% endif %}
 
 Other requirements:
