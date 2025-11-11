@@ -1,7 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { pick } from "@aigne/core/utils/type-utils.js";
-import isInCi from 'is-in-ci';
+import isInCi from "is-in-ci";
 import openTerminal from "open";
 
 import { DOC_SMITH_DIR } from "../../utils/constants/index.mjs";
