@@ -1,100 +1,166 @@
-# 設定の管理
+# プリファレンスの管理
 
-ドキュメントを生成または更新する際、`--feedback` フラグを使用してフィードバックを提供できます。このフィードバックは「設定」として保存され、将来のセッションで再利用されるため、AI が以前の指示との一貫性を保つことができます。`aigne doc prefs` コマンドは、これらの保存された設定を直接管理する方法を提供します。
+AI アシスタントに指示を覚えておいてほしいと思ったことはありませんか？このガイドでは、ドキュメント生成用に保存されたプリファレンスを表示、削除、切り替える方法を説明します。これにより、AI の出力を細かく制御し、プロジェクト固有のスタイルに一貫して従うようにすることができます。
 
-このガイドでは、保存された設定のリスト表示、削除、およびアクティブ状態の切り替え方法について詳しく説明します。
+ドキュメントを生成または更新する際、`--feedback` フラグを使用してフィードバックを提供できます。このフィードバックは「プリファレンス」として保存され、将来のセッションで再利用されるため、AI が以前の指示との一貫性を保つことができます。`aigne doc prefs` コマンドは、これらの保存されたプリファレンスを直接管理する方法を提供します。
 
-## 保存された設定の表示
+このガイドでは、保存されたプリファレンスのリスト表示、削除、アクティブ状態の切り替え方法について詳しく説明します。
 
-保存されているすべての設定を確認するには、`--list` フラグを使用します。このコマンドは、各設定をそのステータス、スコープ、一意の ID、および内容とともに表示します。
+```d2
+direction: down
 
-```bash
+User: {
+  shape: c4-person
+}
+
+CLI-Interface: {
+  label: "CLI: aigne doc prefs"
+  shape: rectangle
+
+  List-Action: {
+    label: "--list"
+    shape: oval
+  }
+
+  Remove-Action: {
+    label: "--remove"
+    shape: diamond
+
+    Interactive-Remove: {
+      label: "対話モード"
+      shape: rectangle
+    }
+
+    Direct-Remove: {
+      label: "直接モード\n(--id を使用)"
+      shape: rectangle
+    }
+  }
+
+  Toggle-Action: {
+    label: "--toggle"
+    shape: diamond
+
+    Interactive-Toggle: {
+      label: "対話モード"
+      shape: rectangle
+    }
+
+    Direct-Toggle: {
+      label: "直接モード\n(--id を使用)"
+      shape: rectangle
+    }
+  }
+}
+
+Preference-Storage: {
+  label: "プリファレンスストレージ"
+  shape: cylinder
+}
+
+User -> CLI-Interface: "コマンドを実行"
+CLI-Interface.List-Action -> Preference-Storage: "読み取り"
+CLI-Interface.Remove-Action -> CLI-Interface.Interactive-Remove: "ID なし"
+CLI-Interface.Remove-Action -> CLI-Interface.Direct-Remove: "ID 指定"
+CLI-Interface.Interactive-Remove -> Preference-Storage: "選択されたものを削除"
+CLI-Interface.Direct-Remove -> Preference-Storage: "指定されたものを削除"
+CLI-Interface.Toggle-Action -> CLI-Interface.Interactive-Toggle: "ID なし"
+CLI-Interface.Toggle-Action -> CLI-Interface.Direct-Toggle: "ID 指定"
+CLI-Interface.Interactive-Toggle -> Preference-Storage: "選択されたものを更新"
+CLI-Interface.Direct-Toggle -> Preference-Storage: "指定されたものを更新"
+```
+
+## 保存されたプリファレンスの表示
+
+保存されているすべてのプリファレンスを確認するには、`--list` フラグを使用します。このコマンドは、各プリファレンスの状態、スコープ、一意の ID、および内容を表示します。
+
+```bash icon=lucide:terminal
 aigne doc prefs --list
 ```
 
 ### 出力の理解
 
-リストは、各設定ルールに関する明確な情報を提供するためにフォーマットされています。
+リストは、各プリファレンスルールに関する情報を明確に提供するようにフォーマットされています。
 
-*   **ステータス**: 設定がアクティブか非アクティブかを示します。
+*   **Status**: プリファレンスがアクティブか非アクティブかを示します。
     *   `🟢`: アクティブ。このルールはドキュメント生成中に適用されます。
     *   `⚪`: 非アクティブ。ルールは保存されていますが、無視されます。
-*   **スコープ**: 設定が適用されるコンテキスト（例：`global`、`document`）。
-*   **ID**: 設定の一意の識別子で、削除や切り替えに使用されます。
-*   **Paths**: 設定が特定のファイルにのみ適用される場合、そのパスがここにリストされます。
-*   **ルール内容**: 設定ルール自体のテキストです。
+*   **Scope**: プリファレンスが適用されるコンテキスト（例：`global`, `document`）。
+*   **ID**: プリファレンスの一意の識別子で、削除や切り替えに使用されます。
+*   **Paths**: プリファレンスが特定のファイルにのみ適用される場合、そのパスがここにリストされます。
+*   **Rule Content**: プリファレンスルールのテキスト自体。
 
 **出力例：**
 
 ```
-# ユーザー設定
+# User Preferences
 
-**フォーマットの説明：**
-- 🟢 = アクティブな設定、⚪ = 非アクティブな設定
-- [scope] = 設定のスコープ (global, structure, document, translation)
-- ID = 設定の一意の識別子
-- Paths = 特定のファイルパス (該当する場合)
+**Format explanation:**
+- 🟢 = Active preference, ⚪ = Inactive preference
+- [scope] = Preference scope (global, structure, document, translation)
+- ID = Unique preference identifier
+- Paths = Specific file paths (if applicable)
 
 🟢 [document] pref_a1b2c3d4e5f6a7b8 | Paths: /guides/generating-documentation.md
-   具体的で検証可能な事実と情報に焦点を当ててください。測定可能または具体的な d... を提供しない、曖昧で空虚な言葉の使用は避けてください。
+   Focus on concrete, verifiable facts and information. Avoid using vague or empty words that don't provide measurable or specific d...
 
 ⚪ [global] pref_b8a7f6e5d4c3b2a1
-   ドキュメント全体で、フォーマルでアカデミックなトーンを使用してください。
+   Use a formal and academic tone throughout the documentation.
 
 ```
 
-## 設定の削除
+## プリファレンスの削除
 
-設定が不要になった場合、`--remove` フラグを使用して永久に削除できます。ID を指定するか、インタラクティブメニューを通じて設定を削除できます。
+プリファレンスが不要になった場合は、`--remove` フラグを使用して永久に削除できます。ID を指定するか、対話型メニューを通じてプリファレンスを削除できます。
 
-### インタラクティブモード
+### 対話モード
 
-リストから設定を選択するには、ID を指定せずにコマンドを実行します。これによりインタラクティブなプロンプトが開き、削除したい項目をチェックできます。
+リストからプリファレンスを選択するには、ID を指定せずにコマンドを実行します。これにより対話型プロンプトが開き、削除したい項目にチェックを入れることができます。
 
-```bash
+```bash icon=lucide:terminal
 aigne doc prefs --remove
 ```
 
-チェックリストが表示され、1つ以上の設定を選択できます。これは、正しい項目を確実に削除するための推奨される方法です。
+チェックリストが表示され、1つ以上のプリファレンスを選択できます。これは、正しい項目を確実に削除するための推奨される方法です。
 
 ### 直接モード
 
-削除したい設定の一意の ID をすでに知っている場合は、`--id` フラグを使用してそれらを指定できます。削除する項目について確信がある場合、この方法がより速いです。
+削除したいプリファレンスの一意の ID がすでにわかっている場合は、`--id` フラグを使用して指定できます。どの項目を削除するか確信がある場合は、この方法が高速です。
 
-```bash
-# 単一の設定を削除
+```bash icon=lucide:terminal
+# 単一のプリファレンスを削除
 aigne doc prefs --remove --id pref_a1b2c3d4e5f6a7b8
 
-# 複数の設定を削除
+# 複数のプリファレンスを削除
 aigne doc prefs --remove --id pref_a1b2c3d4e5f6a7b8 --id pref_b8a7f6e5d4c3b2a1
 ```
 
-## 設定の切り替え
+## プリファレンスの切り替え
 
-設定を永久に削除する代わりに、一時的に有効または無効にすることができます。これは、特定のタスクのためにルールを失うことなく一時停止したい場合に便利です。`--toggle` フラグを使用して、設定のアクティブ状態を変更します。
+プリファレンスを永久に削除する代わりに、一時的に有効または無効にすることができます。これは、特定のタスクのためにルールを失うことなく一時停止したい場合に便利です。`--toggle` フラグを使用して、プリファレンスのアクティブ状態を変更します。
 
-### インタラクティブモード
+### 対話モード
 
-ID を指定せずにコマンドを実行すると、削除コマンドと同様のインタラクティブなチェックリストが起動します。
+ID を指定せずにコマンドを実行すると、削除コマンドと同様に対話型のチェックリストが起動します。
 
-```bash
+```bash icon=lucide:terminal
 aigne doc prefs --toggle
 ```
 
-有効化または無効化したい設定を選択できます。ステータスアイコン（`🟢`/`⚪`）が更新され、新しい状態が反映されます。
+有効化または無効化したいプリファレンスを選択できます。ステータスアイコン（`🟢`/`⚪`）が更新され、新しい状態が反映されます。
 
 ### 直接モード
 
-特定の設定を直接切り替えるには、`--id` フラグを使用します。
+特定のプリファレンスを直接切り替えるには、`--id` フラグを使用します。
 
-```bash
-# 単一の設定を切り替え
+```bash icon=lucide:terminal
+# 単一のプリファレンスを切り替え
 aigne doc prefs --toggle --id pref_a1b2c3d4e5f6a7b8
 
-# 複数の設定を切り替え
+# 複数のプリファレンスを切り替え
 aigne doc prefs --toggle --id pref_a1b2c3d4e5f6a7b8 --id pref_b8a7f6e5d4c3b2a1
 ```
 
 ---
 
-設定を管理することで、ドキュメント生成プロセスをきめ細かく制御し、出力がプロジェクトの特定の要件やスタイルに一貫して沿うようにすることができます。
+プリファレンスを管理することで、ドキュメント生成プロセスを細かく制御し、出力がプロジェクト固有の要件やスタイルに一貫して合致するように維持できます。

@@ -1,77 +1,78 @@
 # ドキュメントの翻訳
 
-DocSmith を使用すると、ドキュメントを複数の言語に翻訳し、コンテンツを世界中のユーザーがアクセスできるようにすることができます。翻訳プロセスは、AI を活用して文脈を考慮した技術的に正確な翻訳を提供することで、簡単に行えるように設計されています。このガイドでは、`translate` コマンドを使用してドキュメントを翻訳する手順について詳しく説明します。
+ドキュメントを多言語で利用できるようにすることは、グローバルなオーディエンスにリーチするために不可欠です。このガイドでは、`aigne doc translate` コマンドを使用してコンテンツをサポートされている12の言語のいずれかに翻訳するためのステップバイステップのプロセスを提供し、世界中のユーザーがドキュメントにアクセスしやすく、理解しやすいようにします。
 
-DocSmith は 12 言語のプロフェッショナルな翻訳をサポートしており、海外のユーザーを幅広くカバーします。
+## 翻訳プロセスの概要
 
-## ドキュメントの翻訳方法
+ドキュメントを翻訳するための主要なコマンドは `aigne doc translate` です。このコマンドは、インタラクティブモードまたは非インタラクティブモード（コマンドラインフラグを使用）の2つのモードで実行できます。どちらの方法も直感的になるように設計されており、単一または多言語の翻訳を効率的に管理できます。
 
-翻訳の主要なコマンドは `aigne doc translate` です。対話形式で実行して、どのドキュメントや言語を翻訳するかを選択することも、コマンドラインフラグを使用してこれらのオプションを直接指定して、自動化されたワークフローに対応することもできます。
+### インタラクティブモード
 
-### 対話モード
+ガイド付きの体験をしたい場合は、引数なしでコマンドを実行してください。これは、翻訳機能を初めて使用するユーザーや、ステップバイステップのプロセスを好むユーザーにおすすめの方法です。
 
-ガイド付きの体験をしたい場合は、引数なしでコマンドを実行するだけです。
-
-```bash
+```bash icon=lucide:terminal
 aigne doc translate
 ```
 
-ツールは次のことを尋ねてきます：
-1.  **翻訳したいドキュメントを選択します**。既存のドキュメントのリストから選びます。
-2.  翻訳の**対象言語を選択します**。以前に選択した言語は、便宜上、事前にチェックされています。
+このコマンドを実行すると、DocSmithはインタラクティブセッションを開始します：
 
-![translate コマンドの実行](../assets/screenshots/doc-translate.png)
+1.  まず、プロジェクト内の利用可能なすべてのドキュメントファイルのリストから、翻訳したい特定のドキュメントを選択するよう求められます。
+2.  次に、ターゲット言語を選択するよう求められます。システムは12言語をサポートしており、以前に選択した言語はプロセスを効率化するために事前にチェックされています。
 
-ドキュメントを選択すると、利用可能な言語のリストが表示されます。
+![翻訳コマンドの実行](../assets/screenshots/doc-translate.png)
+
+ドキュメントを選択した後、利用可能な言語のリストが表示され、そこから選択します。
 
 ![翻訳言語の選択](../assets/screenshots/doc-translate-langs.png)
 
-選択を確定すると、DocSmith は各ドキュメントを各選択言語に翻訳する作業を進めます。
+選択が確定すると、DocSmithは選択した各ドキュメントを、選択したすべての言語に翻訳するプロセスを開始します。
 
-### コマンドラインの使用
+### コマンドラインの使用法
 
-より直接的な制御やスクリプトでの使用のために、フラグを使用して要件を指定できます。
+自動化、スクリプト作成、またはより直接的な制御のためには、コマンドラインで直接引数を指定できます。
 
-```bash
+```bash icon=lucide:terminal
 aigne doc translate [options]
 ```
 
 #### オプション
 
-`translate` コマンドで利用可能なオプションは次のとおりです：
+`translate` コマンドは、ドキュメント、言語、およびその他の設定を指定するために、以下のオプションを受け入れます。
 
 <x-field-group>
   <x-field data-name="--docs" data-type="array" data-required="false">
-    <x-field-desc markdown>翻訳する1つ以上のドキュメントパスを指定します。指定しない場合、対話形式でリストから選択するよう求められます。</x-field-desc>
+    <x-field-desc markdown>翻訳する1つ以上のドキュメントパスを指定します。このオプションを省略した場合、ツールはドキュメント選択のためのインタラクティブモードに入ります。</x-field-desc>
   </x-field>
   <x-field data-name="--langs" data-type="array" data-required="false">
-    <x-field-desc markdown>1つ以上の対象言語コード（例：`zh`、`ja`）を指定します。指定しない場合、対話形式で言語を選択できます。</x-field-desc>
+    <x-field-desc markdown>ターゲット言語コードのリスト（例：`zh`、`ja`、`de`）。指定しない場合、インタラクティブに言語を選択するよう求められます。</x-field-desc>
   </x-field>
   <x-field data-name="--glossary" data-type="string" data-required="false">
-    <x-field-desc markdown>すべての翻訳で一貫した用語を保証するための用語集ファイル（例：`@/path/to/glossary.md`）へのパス。</x-field-desc>
+    <x-field-desc markdown>用語集ファイルへのパス（例：`@/path/to/glossary.md`）。このファイルは、すべての翻訳にわたって特定の用語の用語統一を維持するのに役立ちます。</x-field-desc>
   </x-field>
   <x-field data-name="--feedback" data-type="string" data-required="false">
-    <x-field-desc markdown>AIの翻訳スタイルをガイドするための具体的な指示やフィードバックを提供します（例：「フォーマルなトーンを使用し、技術用語は英語のままにしてください」）。このフィードバックはドキュメントの履歴に記録されます。</x-field-desc>
+    <x-field-desc markdown>AIに特定の指示を与え、その翻訳スタイルをガイドします（例：「フォーマルなトーンを使用し、技術用語は英語のままにしてください」）。このフィードバックは、将来の参照のためにドキュメントの履歴にも記録されます。</x-field-desc>
   </x-field>
 </x-field-group>
 
 #### 例
 
-`overview.md` と `getting-started.md` ドキュメントを中国語と日本語に翻訳するには、次のコマンドを実行します：
+1.  **特定のドキュメントを複数の言語に翻訳する：**
 
-```bash
-aigne doc translate --docs overview.md --docs getting-started.md --langs zh ja
-```
+    `overview.md` と `getting-started.md` を中国語と日本語に翻訳するには、次のコマンドを使用します：
+    ```bash icon=lucide:terminal
+    aigne doc translate --docs overview.md --docs getting-started.md --langs zh ja
+    ```
 
-文体に関するフィードバックを提供し、一貫した用語を確保するために、`--feedback` と `--glossary` フラグを追加できます：
+2.  **用語集とスタイルに関するフィードバックを使用して翻訳する：**
 
-```bash
-aigne doc translate --docs overview.md --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
-```
+    `overview.md` をドイツ語に翻訳し、用語の一貫性とフォーマルなトーンを確保するには、`--glossary` と `--feedback` オプションを含めることができます：
+    ```bash icon=lucide:terminal
+    aigne doc translate --docs overview.md --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
+    ```
 
 ## サポートされている言語
 
-DocSmith は、以下の12言語のプロフェッショナルな翻訳を提供しています。`--langs` フラグで言語を指定する際は、対応するコードを使用してください。
+DocSmithは、12言語のプロフェッショナルレベルの翻訳を提供します。`--langs` フラグを使用する際は、以下の表の言語コードを使用してください。
 
 | Language | Code |
 |---|---|
@@ -90,6 +91,6 @@ DocSmith は、以下の12言語のプロフェッショナルな翻訳を提供
 
 ## まとめ
 
-これで、対話的なプロセスまたは自動化のためのコマンドラインオプションを使用して、`aigne doc translate` コマンドを使ってドキュメントを多言語で利用可能にする方法を学びました。
+このガイドでは、`aigne doc translate` コマンドを使用してドキュメントをグローバルなオーディエンスにアクセス可能にする方法について説明しました。ガイド付きプロセスにはインタラクティブモードを、自動化と精度のためにはコマンドラインオプションを使用できます。
 
-ドキュメントを翻訳した後、次の論理的なステップは、それらをユーザーに利用可能にすることです。その方法については、[ドキュメントの公開](./guides-publishing-your-docs.md)ガイドを参照してください。
+ドキュメントが翻訳されたら、次のステップはそれらを公開することです。このプロセスの詳細な手順については、[ドキュメントの公開](./guides-publishing-your-docs.md)ガイドを参照してください。

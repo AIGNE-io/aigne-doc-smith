@@ -1,72 +1,72 @@
 # Interactive Chat
 
-The interactive chat assistant provides a conversational command-line interface to manage all aspects of your documentation lifecycle. It interprets natural language instructions to execute commands for document generation, updates, translation, and publishing. This feature is currently in beta.
+Feeling overwhelmed by command-line options? This guide explains how to use the interactive chat assistant, a conversational interface that simplifies every step of the documentation process. By the end, you will be able to generate, update, translate, and publish your documents using simple, natural language instructions.
 
-This guided approach removes the need to memorize individual commands and options, making it the recommended method for most documentation tasks.
+The chat assistant is the recommended method for managing your documentation, as it provides a guided workflow that eliminates the need to memorize specific commands and their parameters.
 
-## Starting the Chat Assistant
+## Starting an Interactive Session
 
-To begin an interactive session, run the `doc` command from your project's root directory:
+To launch the chat assistant, execute the `chat` command from your project's root directory.
 
-```bash
-aigne doc
+```bash aigne doc chat icon=lucide:terminal
+aigne doc chat
 ```
 
-This command launches the assistant and presents a prompt, ready to receive your instructions.
+This command starts the interactive session, and the assistant will prompt you for instructions.
 
 ## Core Capabilities
 
-The chat assistant is designed to handle the entire documentation lifecycle. Its primary functions are based on a set of specialized skills that it can call upon based on your requests.
+The chat assistant streamlines the entire documentation lifecycle by integrating several core functions into a single conversational interface. You can state your goal in plain language, and the assistant will execute the necessary steps.
 
 <x-cards data-columns="2">
   <x-card data-title="Generate Documentation" data-icon="lucide:file-plus-2">
-    Creates a complete documentation structure and initial content by analyzing your project's source code.
+    Create a complete documentation structure and initial content by analyzing your project's source code.
   </x-card>
-  <x-card data-title="Refine and Update" data-icon="lucide:edit">
-    Modifies specific documents or sections based on your feedback or changes in the source code.
+  <x-card data-title="Update and Refine" data-icon="lucide:edit">
+    Modify specific documents or entire sections based on your feedback or recent changes in the source code.
   </x-card>
   <x-card data-title="Translate Content" data-icon="lucide:languages">
-    Translates existing documentation into multiple supported languages to reach a broader audience.
+    Translate your documentation into multiple supported languages to serve a global audience.
   </x-card>
-  <x-card data-title="Publish and Manage" data-icon="lucide:upload-cloud">
-    Guides you through the process of publishing your documentation and managing team-based workflows.
+  <x-card data-title="Publish Your Docs" data-icon="lucide:upload-cloud">
+    Follow a guided process to publish your documentation and make it available online.
   </x-card>
 </x-cards>
 
-## How It Works
+## Interaction Methods
 
-You can interact with the assistant in two ways:
+You can interact with the assistant in two primary ways:
 
-1.  **Natural Language**: State your goal in plain language. The assistant will identify the correct tool and guide you through the required steps. For example, you can type "update the getting started guide" or "I need to translate my docs into French."
-2.  **Direct Commands**: You can also type specific commands directly into the chat prompt to initiate a task, such as `generate` or `publish`.
+1.  **Natural Language Instructions**: Describe the task you want to accomplish. The assistant interprets your request and initiates the appropriate workflow. For example, you can type "generate docs for the project" or "translate the installation guide into German and French."
+2.  **Direct Commands**: You can also invoke a specific function by typing its command name directly into the chat prompt, such as `update` or `publish`.
 
 ## Available Commands
 
-The assistant understands a set of core commands that correspond to its specialized skills. You can invoke these directly or describe a task that requires them.
+The chat assistant understands a set of commands that correspond to its primary functions. While you can trigger these functions using natural language, you may also use the commands directly.
 
 | Command | Description |
 | :--- | :--- |
-| `generate` | Starts the process of creating a new documentation structure from your source files. |
-| `update` | Modifies existing documents based on code changes or specific feedback. |
-| `translate` | Translates documents into one or more supported languages. |
-| `publish` | Publishes your documentation to make it accessible online. |
-| `init` | Guides you through creating an initial configuration file for the project. |
-| `clear` | Removes generated files, configurations, and cached data. |
-| `prefs` | Manages your saved preferences for document generation. |
-| `evaluate` | Assesses the quality and completeness of your generated documentation. |
-| `history` | Shows the history of updates and changes made to your documentation. |
-| `exit` | Ends the interactive chat session and returns you to the standard terminal prompt. |
+| `generate` | Initiates the workflow to create a new documentation structure and content from source files. |
+| `update` | Starts the process of modifying existing documents based on code changes or user feedback. |
+| `translate` | Begins the process of translating documents into one or more supported languages. |
+| `publish` | Guides you through the steps to publish your documentation online. |
+| `init` | Helps create the initial configuration file (`docsmith.config.js`) for the project. |
+| `clear` | Removes generated files, configurations, and cached data from your project. |
+| `prefs` | Allows you to view and manage saved preferences for documentation generation. |
+| `evaluate` | Assesses the quality and completeness of your generated documentation and provides a report. |
+| `history` | Displays the history of updates and changes made to your documentation. |
+| `exit` | Terminates the interactive chat session and returns to the standard terminal prompt. |
 
 ## Example Interaction
 
-The following is a sample conversation that illustrates a typical workflow for generating new documentation.
+The following transcript demonstrates a typical workflow for generating new documentation using the chat assistant.
 
 ```text
 You:
-> I need to create documentation for my project located in the 'src' folder.
+> I need to create documentation for this project.
 
 AI Assistant:
-Understood. I will start the documentation generation process for the directory './src'.
+Understood. I will start the documentation generation process for the current directory.
 First, I will analyze your project to propose a documentation structure. This may take a few moments...
 ...
 Analysis complete. I have created a proposed structure. Would you like to review it before I generate the content? (yes/no)
@@ -77,17 +77,19 @@ You:
 AI Assistant:
 (The proposed documentation structure is displayed here for your review.)
 ...
-You can request changes, such as 'add a guide for API authentication' or 'remove the section on deployment'. If the structure is correct, simply type 'continue'.
+You can request changes, such as 'add a guide for API authentication' or 'merge the installation and setup guides'. If the structure is correct, simply type 'continue'.
 
 You:
 > continue
 
 AI Assistant:
-Great. I will now proceed with generating the content for each document. This may take a few minutes.
+Great. I will now proceed with generating the content for each document. This may take some time depending on the size of your project.
 ```
+
+This interaction shows how the assistant guides the user through analysis, review, and content generation, requiring only simple text-based responses.
 
 ## Summary
 
-The interactive chat assistant provides a structured and guided method for managing your documentation. It consolidates the functionality of all individual commands into a single, conversational interface, ensuring a consistent and straightforward workflow.
+The interactive chat assistant provides a systematic and guided method for managing documentation. It consolidates the tool's complete functionality into a single, conversational interface, ensuring a precise and efficient workflow.
 
-For a detailed walkthrough of creating your first set of documents using the assistant, please proceed to the [Generating Documentation](./guides-generating-documentation.md) guide.
+To see a practical application of the chat assistant, refer to the [Generating Documentation](./guides-generating-documentation.md) guide for a step-by-step walkthrough.

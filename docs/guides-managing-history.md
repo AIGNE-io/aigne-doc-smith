@@ -1,18 +1,22 @@
 # Managing History
 
-AIGNE DocSmith maintains a chronological log of all updates made to your documentation. This feature allows you to track changes, review the feedback provided for each update, and observe the evolution of your documents over time. This guide provides instructions on how to access and interpret this history log.
+Ever wondered what changes were made to your documentation and when? AIGNE DocSmith keeps a detailed log of every update. This guide will show you how to access and read this history, so you can easily track the evolution of your documents.
 
 ## Viewing Update History
 
-To view the log of all documentation updates, use the `aigne doc history view` command. This command displays a compact, one-line summary for each entry, formatted similarly to a version control log.
+To see the log of all documentation updates, you can use the `history view` command. This command provides a compact, one-line summary for each change, much like a version control system log.
 
-Execute the following command in your project's root directory:
+Run the following command from your project's root directory:
 
-```bash Viewing History icon=material-symbols:history
+```bash View History Log icon=lucide:history
 aigne doc history view
 ```
 
-For convenience, the `doc history` command also supports two aliases for the `view` subcommand: `log` and `list`. The following commands are equivalent to the one above and will produce the identical output:
+### Command Aliases
+
+For convenience, the `history` command includes two aliases for the `view` subcommand: `log` and `list`. These commands perform the exact same function and will produce the identical output.
+
+You can use either of the following commands as a shortcut:
 
 ```bash
 aigne doc history log
@@ -22,25 +26,25 @@ aigne doc history log
 aigne doc history list
 ```
 
-If no updates have been made yet, the tool will display the message: `No update history found`.
+If you haven't made any updates yet, the tool will inform you with the message: `No update history found`.
 
-### Understanding the History Output
+## Understanding the History Output
 
-The output of the `aigne doc history view` command is structured to provide key information about each update in a concise format. Each line in the log represents a single update event.
+The output from the `history` command is designed to give you a clear overview of each update at a glance. Every line in the log represents a single update event.
 
-The format is composed of the following components:
+The format for each entry is broken down as follows:
 
 | Component | Description |
 | :--- | :--- |
-| **Short Hash** | An 8-character unique identifier generated from the timestamp of the update. This hash is deterministic, meaning the same timestamp will always produce the same hash. |
-| **Date** | A relative timestamp indicating when the update occurred (e.g., "5 minutes ago", "2 days ago"). For entries older than one week, a specific date is shown. |
+| **Short Hash** | A unique 8-character identifier generated from the update's timestamp. This hash is deterministic, meaning the same timestamp will always produce the same hash. |
+| **Date** | A relative timestamp showing when the update occurred (e.g., "5 minutes ago," "2 days ago"). For entries older than a week, a specific date is displayed. |
 | **Operation** | The type of action performed, such as `generate_document` or `update_document_detail`. |
-| **Document Path** | The path of the specific document that was modified, if the operation targeted a single file. This is enclosed in parentheses for clarity. |
-| **Feedback** | The summary message or feedback that was provided when the update was executed. |
+| **Document Path** | The path of the document that was modified, if the operation was specific to a single file. This is shown in parentheses for clarity. |
+| **Feedback** | The summary or feedback message that was provided when the update was made. |
 
 ### Example Output
 
-Below is a sample output from running the `aigne doc history view` command. This example illustrates how different operations are recorded in the log.
+Here is a sample of what you might see when you run the `aigne doc history view` command. This example shows how different types of updates are recorded in the log.
 
 ```bash
 📜 Update History
@@ -50,4 +54,4 @@ a3b1c9d2 1 day ago  update_document_detail (/overview): Refined the introduction
 f8d2e0c3 3 days ago generate_document (/guides/managing-history): Initial generation of the history management guide.
 ```
 
-This log provides a clear and orderly record of your documentation's modification history, which is an effective tool for tracking progress and reviewing past changes.
+This log provides an orderly and scannable record of all changes, making it a useful tool for tracking progress and reviewing your documentation's history.

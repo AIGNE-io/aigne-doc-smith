@@ -75,3 +75,15 @@ boardId: "docsmith"
 appUrl: https://docsmith.aigne.io
 # Checkout ID for document deployment service
 checkoutId: ""
+
+diagramming:
+  effort: 5 # AI effort level for diagramming, 0-10, large is less diagram
+# AI Thinking Configuration
+# thinking.effort: Determines the depth of reasoning and cognitive effort the AI uses when responding, available options:
+#   - lite: Fast responses with basic reasoning
+#   - standard: Balanced speed and reasoning capability
+#   - pro: In-depth reasoning with longer response times
+thinking:
+  effort: standard
+# Should sync branding for documentation
+shouldSyncBranding: ""
