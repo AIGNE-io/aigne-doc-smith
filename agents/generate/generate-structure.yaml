@@ -109,6 +109,7 @@ skills:
             path: refinedItem.path,
             parentId: refinedItem.parentPath || null,  // Convert parentPath to parentId
             sourceIds: originalItem?.sourceIds || [],
+            ...(refinedItem.icon && { icon: refinedItem.icon }), // Preserve icon if updated during refinement
           }
 
           return newItem

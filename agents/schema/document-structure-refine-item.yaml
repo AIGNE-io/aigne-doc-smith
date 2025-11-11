@@ -14,6 +14,9 @@ properties:
   parentPath:
     type: string
     description: Parent node path, if null indicates it is a top-level node
+  icon: 
+    type: string
+    description: Iconify icon name, e.g., lucide:book, lucide:rocket, lucide:* etc.
 required:
   - title
   - description

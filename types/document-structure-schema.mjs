@@ -8,6 +8,7 @@ export const documentItemSchema = z.object({
   path: z.string().startsWith("/", 'Path must start with "/"'),
   parentId: z.string().nullish(),
   sourceIds: z.array(z.string()).min(1, "At least one source ID is required"),
+  icon: z.string().optional(), // Lucide icon name (e.g., lucide:book) for root-level documents
 });
 
 // Documentation structure schema - represents the entire documentation structure array

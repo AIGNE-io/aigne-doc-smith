@@ -28,6 +28,9 @@ Structural planning rules:
 
 2. Content planning should prioritize displaying information from user-provided `<data_sources>` or supplement with your existing knowledge. Do not arbitrarily fabricate information.
 
+Icon generation rules for document structure:
+{% include "./structure-icon-rules.md" %}
+
 {% ifAsync docsType == 'general' %}
   {% include "../../structure/document-rules.md" %}
 

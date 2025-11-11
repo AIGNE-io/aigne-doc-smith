@@ -1,0 +1,52 @@
+name: documentIconGenerate
+description: Generate appropriate Iconify icon names for document structure root nodes based on their title and description
+model:
+  reasoning_effort: low
+task_render_mode: hide
+instructions:
+  url: ../../prompts/common/document-structure/document-icon-generate.md
+input_schema:
+  type: object
+  properties:
+    documentList:
+      type: array
+      items:
+        type: object
+        properties:
+          path:
+            type: string
+            description: Document path for mapping purposes
+          title:
+            type: string
+            description: Document title to analyze for icon selection
+          description:
+            type: string
+            description: Document description to analyze for icon selection
+        required:
+          - path
+          - title
+          - description
+      description: List of root-level document items (parentId is null) that need icons generated
+  required:
+    - documentList
+output_schema:
+  type: object
+  properties:
+    documentList:
+      type: array
+      items:
+        type: object
+        properties:
+          path:
+            type: string
+            description: Document path (same as input for mapping)
+          icon:
+            type: string
+            description: Iconify icon name in the format collection:icon-name (e.g., lucide:book)
+        required:
+          - path
+          - icon
+      description: List of document items with generated Iconify icon names
+  required:
+    - documentList
+

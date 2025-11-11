@@ -19,6 +19,9 @@ items:
       description: Associated sourceId from `<data_sources>` for subsequent translation and content generation, must come from sourceId in `<data_sources>`, cannot have fake ids, **cannot be empty**
       items:
         type: string
+    icon:
+      type: string
+      description: Lucide icon name for root-level documents (just support lucide:icon-name, not support other icon collections)
   required:
     - title
     - description
