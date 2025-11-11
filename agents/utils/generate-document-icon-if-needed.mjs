@@ -91,4 +91,3 @@ export default async function generateDocumentIconIfNeeded(inputOrParams, option
 generateDocumentIconIfNeeded.taskTitle = "Generate document icons if needed";
 generateDocumentIconIfNeeded.description =
   "Generate appropriate Lucide icons for root-level document structure items based on their title and description, or update icon if title/description changed";
-
