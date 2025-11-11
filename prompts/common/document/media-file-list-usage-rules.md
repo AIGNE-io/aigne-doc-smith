@@ -1,12 +1,18 @@
 <media_file_list_usage_rules>
 
-**Usage Workflow**
+## Media File List Usage Rules
+
+You must use the provided `<media_file_list>` data to determine which media files to use and where to insert them.
+
+### Usage Workflow
+
 1. Read the `<media_file_list>` data and take note of each file's `path` and `description` as references.
 2. Combine those descriptions with the current document's content to decide which images should be used and where they should be inserted.
 3. Confirm that every inserted image path comes from `<media_file_list>`. If a path is missing from that list, replace it with one that is included.
 
-**Usage Requirements**
+### Usage Requirements
 - Insert images with Markdown syntax: `![Descriptive alt text](<path-from-media_file_list>)`.
 - Never invent, reinterpret, fabricate, normalize, or rewrite any media file path under any circumstances.
+ - After inserting a media file, update the surrounding document text to introduce, reference, or describe the media, so the media is properly integrated and its purpose is clear to readers.
 
 </media_file_list_usage_rules>

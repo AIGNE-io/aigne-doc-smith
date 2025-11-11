@@ -1,36 +1,42 @@
-<enhanced_code_block_rules>
+<code_block_usage_rules>
+
 ## Enhanced Attributes for Markdown Code Blocks
 
 When generating Markdown, you can add enhanced attributes to code blocks to provide richer functionality and better display effects. These attributes allow you to specify **titles**, **icons**, and more for code blocks.
-
-**Please use these enhanced attributes as much as possible to improve display effects**
 
 ### Attribute Definition
 
 The following are the available enhanced attributes and their descriptions:
 
-  * `language`: The language of the code block (e.g., `javascript`, `python`, `html`). This attribute is placed directly after the three backticks (\`\`\`).
-  * `title`: The title of the code block, which is optional.
-  * `icon`: The icon displayed next to the code block, which is optional. This value must be a valid **Iconify icon name** (e.g., `logos:javascript`, `mdi:folder-open`).
+- `language`: The language of the code block (e.g., `javascript`, `python`, `html`). This attribute is placed directly after the three backticks (\`\`\`).
+- `title`: The title of the code block (optional)
+- `icon`: The icon displayed next to the code block, which is optional. This value must be a valid **Iconify icon name** (e.g., `logos:javascript`, `mdi:folder-open`).
 
 ### Attribute Usage
 
-  * `language` and `title` are written directly after \`\`\`, separated by spaces.
-  * Other attributes (`icon`) must be provided in **key=value** format, separated by spaces.
+- `language` and `title` are written directly after \`\`\`, separated by spaces.
+  - Do not add quotes around the `title` value.
+- Other attributes (`icon`) must be provided in **key=value** format, separated by spaces.
 
-### Special Rules
+### Usage Requirements
+- Use these enhanced attributes as much as possible to improve display effects.
 - If the language is a shell (includes `sh`, `bash`, `zsh`, etc.):
   - Executable shell code blocks must be a single-line command to make copying and running easier.
   - Do not include comments inside executable shell code blocks; place explanatory comments outside the code block.
+- Prefer use filename as title:
+  - If the code block content demonstrates usage of a component or library (for example a React component file, a Vue component, or a util module), the `title` should be the filename used in real usage (for example `MyComponent.jsx`, `index.ts`, `utils.js`). Using the filename as the title makes the example clearer and helps standardize code-block titles across the docs.
+  - If the content is not a usage example, prefer a short descriptive title that summarizes the snippet's purpose.
+- Ensure readability of the document:
+  - After inserting a code block, update the surrounding document text to introduce, reference, or explain the code block.
 
 ### Examples
 
-<code_block_good_examples>
+#### Good Examples
 The following are some examples of Markdown code blocks using enhanced attributes:
 
 **Example 1: Code block with title and icon**
 
-```javascript Shopping Cart Class icon=logos:javascript
+```javascript shopping-cart.js icon=logos:javascript
 class ShoppingCart {
   constructor() {
     this.items = [];
@@ -54,7 +60,7 @@ class ShoppingCart {
 
 **Example 3: Code block with title only**
 
-```javascript Shopping Cart Class
+```javascript shopping-cart.js
 class ShoppingCart {
   constructor() {
     this.items = [];
@@ -76,6 +82,29 @@ class ShoppingCart {
 }
 ```
 
+**Example 7: Component usage example with filename title**
+
+```javascript MyComponent.jsx icon=logos:react
+import React from 'react';
+
+export default function MyComponent(props) {
+  return (
+    <div className="my-component">
+      <h1>{props.title}</h1>
+    </div>
+  );
+}
+```
+
+**Example 8: Utility module example with filename title**
+
+```javascript utils.js
+// simple utility function exported from utils.js
+export function formatDate(date) {
+  return new Date(date).toLocaleDateString();
+}
+```
+
 **Example 5: Shell code block should in one line**
 
 ```sh Install aigne deps icon=lucide:terminal
@@ -91,9 +120,8 @@ blocklet deploy . \
   --app-id z2qa9sD2tFAP8gM7C1i8iETg3a1T3A3aT3bQ
 ```
 
-</code_block_good_examples>
 
-<code_block_bad_examples>
+#### Bad Examples
 
 **Example 1**
 
@@ -132,5 +160,4 @@ npm i -g @aigne/websmith-smith
 npm i -g @aigne/cli
 ```
 
-</code_block_bad_examples>
-</enhanced_code_block_rules>
+</code_block_usage_rules>

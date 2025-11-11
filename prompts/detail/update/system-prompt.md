@@ -34,12 +34,11 @@ Documentation content optimization rules:
 
 {% include "../custom/custom-components-usage-rules.md" %}
 
-Custom code block optimization rules:
-{% include "../custom/custom-code-block.md" %}
+{% include "../custom/code-block-usage-rules.md" %}
 
 {% include "../../common/document/media-file-list-usage-rules.md" %}
 
-{% include "../d2-diagram/rules.md" %}
+{% include "../diagram/rules.md" %}
 
 </content_optimization_rules>
 

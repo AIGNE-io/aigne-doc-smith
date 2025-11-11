@@ -8,37 +8,12 @@ NOTICE: There are additional data source contents not displayed. When operating 
 </data_sources>
 
 {% if userContext.openAPISpec %}
-<openapi>
-
-**Goal:** Use the provided OpenAPI (Swagger) specification to design how the OpenAPI content and the overall document should be structured together.
-
-**OpenAPI File Content:**
-<openapi_doc>
+<openapi_spec_content>
+## OpenAPI Spec Content
 
 {{ userContext.openAPISpec }}
 
-</openapi_doc>
-
----
-
-### **Documentation Requirements and Constraints**
-
-1.  **Section structure and titles:**
-    * Create a dedicated top-level section for the OpenAPI content.
-    * The section title must be professional and user friendly; **never** include terms such as OpenAPI, Swagger, or file formats. Recommended titles include **"API Interface Reference"** or **"Interface Reference"**.
-
-2.  **Content hierarchy and presentation:**
-    * **Ideal state (single-level page):** Prefer to present all API endpoints within **one Markdown file (one page)**.
-    * **Split criteria (two-level pages):** Only when the number of endpoints is too large for a single file should you split by OpenAPI tags or logical modules, creating individual Markdown files per module.
-    * **Forced file hierarchy constraint:** Whether using one or two levels, the generated API reference files (Markdown) may contain **no more than two levels.**
-        * **Example (two-level structure):** `/api-reference.md` (index) -> `/api/user.md`, `/api/order.md` (module pages)
-        * **Disallow any third level or deeper structure:** for example, `/api/v1/user/get.md`.
-
-3.  **Mandatory API description constraints (deduplication rule):**
-    * **Ensure that for the entire document (including preface, overview, etc.), any introduction to the project APIs appears only within this OpenAPI-generated "API reference" section.**
-    * **Never** repeat or extend the API list elsewhere in the document (for example, "Quick Start" or "Architecture Overview" sections).
-
-</openapi>
+</openapi_spec_content>
 {% endif %}
 
 <document_info>
@@ -50,7 +25,7 @@ projectDesc: |
 {% endif %}
 </document_info>
 
-<last_document_structure>
+<previous_document_structure>
 
 {% if originalDocumentStructure %}
 {{ originalDocumentStructure | yaml.stringify }}
@@ -60,19 +35,18 @@ projectDesc: |
 No previous document structure provided. generate a new structure based on the data sources!
 {% endif %}
 
-</last_document_structure>
-
+</previous_document_structure>
 
 {% include "../../common/document-structure/user-locale-rules.md" %}
 
 {% include "../../common/document-structure/user-preferences.md" %}
 
-<last_document_structure_rule>
-If a previous structural plan (last_document_structure) is provided, follow these rules:
-  1.  **Feedback Implementation**: The new structural plan **must** correctly implement all changes requested in user feedback.
-  2.  **Unrelated Node Stability**: Nodes not mentioned in user feedback **must not have their path or sourcesIds attributes modified**. `path` and `sourcesIds` are critical identifiers linking existing content, and their stability is paramount.
-    Ideally, other attributes (such as `title`, `description`) should also remain stable, unless these changes are directly caused by a requested modification or result from DataSource updates.
-</last_document_structure_rule>
+<previous_document_structure_rule>
+If a previous structural plan (`<previous_document_structure>`) is provided, follow these rules:
+  1. **Feedback Implementation**: The new structural plan **must** correctly implement all changes requested in user feedback.
+  2. **Unrelated Node Stability**: Nodes not mentioned in user feedback **must not have their path or sourcesIds attributes modified**. `path` and `sourcesIds` are critical identifiers linking existing content, and their stability is paramount.
+     - Ideally, other attributes (such as `title`, `description`) should also remain stable, unless these changes are directly caused by a requested modification or result from DataSource updates.
+</previous_document_structure_rule>
 
 {% if documentStructure %}
 <review_document_structure>
@@ -109,7 +83,8 @@ Sub-structures must meet the following requirements:
 {% endif %}
 
 <instructions>
-Your task is to **analyze, refine, and adjust** the existing document structure (`last_document_structure`) based on the partial code repository content currently provided, generating a structural update plan.
+
+Your task is to **analyze, refine, and adjust** the existing document structure (`<previous_document_structure>`) based on the partial code repository content currently provided, generating a structural update plan.
 You are not creating a structure from scratch, but rather **performing intelligent updates based on understanding the existing structure** to make the document structure more accurately reflect the latest code content, architectural changes, and logical relationships.
 
 ## When using `<data_sources>` data sources, please note the following:
@@ -132,7 +107,7 @@ IMPORTANT: You should avoid duplicating existing structure items. Only include i
 ## Behavior Rules
 
 1. **Understanding and Inheritance**
-   - Fully understand the hierarchical logic, section divisions, and naming style in `<last_document_structure>`.
+   - Fully understand the hierarchical logic, section divisions, and naming style in `<previous_document_structure>`.
    - Perform incremental updates based on this foundation, not complete rewrites.
    - Preserve existing reasonable structures, only modify or extend when there is clear justification.
 

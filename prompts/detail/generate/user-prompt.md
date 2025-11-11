@@ -26,8 +26,14 @@
 
 </detail_data_source>
 
+{% if openAPISpec %}
+<openapi_spec_content>
 
-{% include "../../common/document/openapi-usage-rules.md" %}
+## OpenAPI File Content
+{{ openAPISpec }}
+
+</openapi_spec_content>
+{% endif %}
 
 {% include "./detail-example.md" %}
 
