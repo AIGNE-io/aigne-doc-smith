@@ -61,8 +61,8 @@ export default async function publishDocs(
     // Check if appUrl is default and not saved in config (only when not using env variable)
     const config = await loadConfigFromFile();
     appUrl =
-      process.env.DOC_DISCUSS_KIT_URL ||
       process.env.DOC_SMITH_PUBLISH_URL ||
+      process.env.DOC_DISCUSS_KIT_URL ||
       appUrl ||
       config?.appUrl;
     const hasInputAppUrl = !!appUrl;
