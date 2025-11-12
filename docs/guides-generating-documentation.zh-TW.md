@@ -1,17 +1,17 @@
-# 產生文件
+# 建立文件
 
-本指南將引導您使用單一指令，從專案的原始檔案建立一套完整的文件。此流程設計得簡單明瞭，從初始分析到最終內容產生，並包含一個互動式審查步驟，以確保輸出結構完全符合您的需求。
+本指南將引導您使用單一指令，從專案的原始檔案建立一套完整的文件。此流程設計得簡單明瞭，從初始分析到最終內容建立，並包含一個互動式審查步驟，以確保輸出結構完全符合您的需求。
 
-## 產生流程
+## 建立流程
 
-當您執行 `aigne doc generate` 時，該工具會執行一系列步驟來分析您的專案並產生文件。本節將對該工作流程進行事實性分解。
+當您執行 `aigne doc create` 時，該工具會執行一系列步驟來分析您的專案並建立文件。本節將對該工作流程進行事實性分解。
 
 ### 步驟 1：啟動指令
 
 此流程始於在您專案的根目錄中執行 `generate` 指令。此指令會協調從分析到內容建立的整個工作流程。
 
 ```bash Terminal icon=lucide:terminal
-aigne doc generate
+aigne doc create
 ```
 
 為求效率，您也可以使用別名 `gen` 或 `g`。
@@ -37,15 +37,15 @@ aigne doc generate
 
 該工具會根據您的回饋修訂結構，並再次呈現給您審查。此迭代過程會持續進行，直到結構符合您的要求。
 
-### 步驟 4：內容產生
+### 步驟 4：內容建立
 
-一旦文件結構最終確定並獲得批准，DocSmith 就會開始為計畫中的每份文件產生內容。它會處理相關的原始檔案，以撰寫詳細的解釋和程式碼範例。此操作會對每份文件執行，確保根據批准的結構進行完整覆蓋。
+一旦文件結構最終確定並獲得批准，DocSmith 就會開始為計畫中的每份文件建立內容。它會處理相關的原始檔案，以撰寫詳細的解釋和程式碼範例。此操作會對每份文件執行，確保根據批准的結構進行完整覆蓋。
 
 ### 步驟 5：完成
 
-在所有文件產生完畢後，終端機中會顯示一則確認訊息。輸出檔案會儲存到您設定中指定的目錄，預設為 `.aigne/doc-smith/docs`。
+在所有文件建立完畢後，終端機中會顯示一則確認訊息。輸出檔案會儲存到您設定中指定的目錄，預設為 `.aigne/doc-smith/docs`。
 
-![成功通知橫幅，表示文件產生已完成。](../assets/screenshots/doc-generated-successfully.png)
+![成功通知橫幅，表示文件建立已完成。](../assets/screenshots/doc-generated-successfully.png)
 
 ## 指令選項
 
@@ -61,7 +61,7 @@ aigne doc generate
 若要捨棄現有文件並從頭開始產生一套新的文件，請使用 `--forceRegenerate` 旗標。
 
 ```bash Terminal icon=lucide:terminal
-aigne doc generate --forceRegenerate
+aigne doc create --forceRegenerate
 ```
 
 ### 範例：使用詞彙表
@@ -69,11 +69,11 @@ aigne doc generate --forceRegenerate
 為保持術語一致性，請提供一個詞彙表檔案的路徑。
 
 ```bash Terminal icon=lucide:terminal
-aigne doc generate --glossary @./project-glossary.md
+aigne doc create --glossary @./project-glossary.md
 ```
 
 ## 總結
 
-本指南詳細介紹了產生一套新文件的系統流程。工作流程從指令啟動和原始碼分析開始，接著是互動式結構審查，然後是內容建立。
+本指南詳細介紹了建立一套新文件的系統流程。工作流程從指令啟動和原始碼分析開始，接著是互動式結構審查，然後是內容建立。
 
-文件產生後，您可以繼續 [更新現有文件](./guides-updating-documentation.md) 或 [發布您的文件](./guides-publishing-your-docs.md)。
+文件建立後，您可以繼續 [更新現有文件](./guides-updating-documentation.md) 或 [發布您的文件](./guides-publishing-your-docs.md)。

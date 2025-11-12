@@ -37,7 +37,7 @@ export default async function postGenerate({
 ✅ Documentation generated successfully! (\`${documentStructure.length}\` documents → \`${docsDir}\`)
 ${projectInfoMessage || ""}
 🚀 Next: Make your documentation live and generate a shareable link, run: \`aigne doc publish\`
-💡 Optional: Update specific document (\`aigne doc update\`) or refine documentation structure (\`aigne doc generate\`)
+💡 Optional: Update specific document (\`aigne doc update\`) or refine documentation structure (\`aigne doc create\`)
   `;
 
   // Shutdown mermaid worker pool to ensure clean exit

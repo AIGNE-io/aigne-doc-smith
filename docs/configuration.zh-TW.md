@@ -79,4 +79,4 @@
 若要繼續設定您的專案，請參閱以下指南：
 
 *   **[初始設定](./configuration-initial-setup.md)**：建立您專案的 `config.yaml` 檔案。
-*   **[管理偏好](./configuration-managing-preferences.md)**：使用個人規則自訂工具的行為。
+*   **[管理偏好設定](./configuration-managing-preferences.md)**：使用個人規則自訂工具的行為。

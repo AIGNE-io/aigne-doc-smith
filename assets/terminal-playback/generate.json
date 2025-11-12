@@ -174,7 +174,7 @@
     },
     {
       "delay": 8,
-      "content": "\u001b]2;aigne doc generate\u0007\u001b]1;aigne\u0007"
+      "content": "\u001b]2;aigne doc create\u0007\u001b]1;aigne\u0007"
     },
     {
       "delay": 3156,
@@ -502,7 +502,7 @@
     },
     {
       "delay": 8,
-      "content": "💡 You can edit the configuration file anytime to modify settings.\r\n\r\n🚀 Ready to generate docs? Run: \u001b[36maigne doc generate\u001b[39m\r\n\r\n"
+      "content": "💡 You can edit the configuration file anytime to modify settings.\r\n\r\n🚀 Ready to generate docs? Run: \u001b[36maigne doc create\u001b[39m\r\n\r\n"
     },
     {
       "delay": 9,
@@ -778,7 +778,7 @@
     },
     {
       "delay": 8,
-      "content": "t \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[32m✔\u001b[39m saveDocs \u001b[90m[0.08s]\u001b[39m\r\n\r\n\u001b[0m💡 Optional: Update specific document (\u001b[33maigne doc update\u001b[39m) or refine\r\n documentation structure (\u001b[33maigne doc generate\u001b[39m)\u001b[0m\r\n\u001b[0m  \u001b[0m\r\n⠙\r\n"
+      "content": "t \u001b[39m\r\n            \u001b[90mtokens\u001b[39m\u001b[32m, \u001b[39m\u001b[36m474\u001b[39m \u001b[90moutput tokens\u001b[39m\u001b[32m, \u001b[39m\u001b[34m27708\u001b[39m \u001b[90mAIGNE Hub credits\u001b[39m\u001b[90m)\u001b[39m\r\n        \u001b[32m✔\u001b[39m translateMultilingual \u001b[90m[0.05s]\u001b[39m\r\n  \u001b[32m✔\u001b[39m checkFeedbackRefiner\r\n  \u001b[32m✔\u001b[39m saveDocs \u001b[90m[0.08s]\u001b[39m\r\n\r\n\u001b[0m💡 Optional: Update specific document (\u001b[33maigne doc update\u001b[39m) or refine\r\n documentation structure (\u001b[33maigne doc create\u001b[39m)\u001b[0m\r\n\u001b[0m  \u001b[0m\r\n⠙\r\n"
     },
     {
       "delay": 83,

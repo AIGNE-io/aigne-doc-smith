@@ -76,7 +76,7 @@ export default async function findItemByPath(
       console.debug(error?.message);
       throw new Error(
         getActionText(
-          "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
+          "Please run 'aigne doc create' first to create documents, then select which document to {action}",
           docAction,
         ),
       );

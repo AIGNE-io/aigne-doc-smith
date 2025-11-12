@@ -71,4 +71,4 @@ aigne doc update --docs /overview --reset
 
 ---
 
-通过这些方法，您可以高效地管理您的文档，使其保持准确并与您的项目开发保持一致。有关首次创建文档的信息，请参阅[生成文档](./guides-generating-documentation.md)指南。
+通过这些方法，您可以高效地管理您的文档，使其保持准确并与您的项目开发保持一致。有关首次创建文档的信息，请参阅[创建文档](./guides-generating-documentation.md)指南。

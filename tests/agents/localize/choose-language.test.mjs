@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
-import chooseLanguage from "../../../agents/translate/choose-language.mjs";
+import chooseLanguage from "../../../agents/localize/choose-language.mjs";
 
 import * as utils from "../../../utils/utils.mjs";
 

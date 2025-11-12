@@ -288,7 +288,7 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to update",
+      "Please run 'aigne doc create' first to create documents, then select which document to update",
     );
 
     expect(consoleDebugSpy).toHaveBeenCalledWith("No documents found in the docs directory");
@@ -310,7 +310,7 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to update",
+      "Please run 'aigne doc create' first to create documents, then select which document to update",
     );
 
     expect(consoleDebugSpy).toHaveBeenCalledWith("No document selected");
@@ -332,7 +332,7 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to update",
+      "Please run 'aigne doc create' first to create documents, then select which document to update",
     );
 
     expect(consoleDebugSpy).toHaveBeenCalledWith("No document found");
@@ -354,7 +354,7 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to update",
+      "Please run 'aigne doc create' first to create documents, then select which document to update",
     );
 
     expect(consoleDebugSpy).toHaveBeenCalledWith("Directory not found");
@@ -471,11 +471,11 @@ describe("find-item-by-path", () => {
         mockOptions,
       ),
     ).rejects.toThrow(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to translate",
+      "Please run 'aigne doc create' first to create documents, then select which document to translate",
     );
 
     expect(getActionTextSpy).toHaveBeenCalledWith(
-      "Please run 'aigne doc generate' first to generate documents, then select which document to {action}",
+      "Please run 'aigne doc create' first to create documents, then select which document to {action}",
       "translate",
     );
   });

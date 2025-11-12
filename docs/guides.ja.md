@@ -5,16 +5,16 @@
 特定のコマンドとその機能について学ぶには、以下のガイドを選択してください。
 
 <x-cards data-columns="2">
-  <x-card data-title="ドキュメントの生成" data-icon="lucide:file-plus-2" data-href="/guides/generating-documentation">
+  <x-card data-title="ドキュメント生成" data-icon="lucide:file-plus-2" data-href="/guides/generating-documentation">
     ソースファイルから新しいドキュメント一式を作成するプロセスを最初から最後まで解説します。
   </x-card>
-  <x-card data-title="ドキュメントの更新" data-icon="lucide:file-edit" data-href="/guides/updating-documentation">
+  <x-card data-title="ドキュメント更新" data-icon="lucide:file-edit" data-href="/guides/updating-documentation">
     コードの変更や新しいフィードバックに基づいて、既存のドキュメントを修正する方法を説明します。
   </x-card>
-  <x-card data-title="ドキュメントの翻訳" data-icon="lucide:languages" data-href="/guides/translating-documentation">
+  <x-card data-title="ドキュメントローカライズ" data-icon="lucide:languages" data-href="/guides/translating-documentation">
     ドキュメントをサポートされている複数の言語に翻訳する手順を詳しく説明します。
   </x-card>
-  <x-card data-title="ドキュメントの公開" data-icon="lucide:send" data-href="/guides/publishing-your-docs">
+  <x-card data-title="ドキュメント公開" data-icon="lucide:send" data-href="/guides/publishing-your-docs">
     生成したドキュメントをオンラインで公開し、アクセス可能にする方法を示します。
   </x-card>
   <x-card data-title="履歴の管理" data-icon="lucide:history" data-href="/guides/managing-history">
@@ -26,7 +26,7 @@
   <x-card data-title="クリーンアップ" data-icon="lucide:trash-2" data-href="/guides/cleaning-up">
     clear コマンドを使用して、生成されたファイル、設定、キャッシュデータを削除する方法を説明します。
   </x-card>
-  <x-card data-title="対話型チャット" data-icon="lucide:bot" data-href="/guides/interactive-chat">
-    対話型チャットアシスタントを使用して、ドキュメントを生成、修正、管理する方法を説明します。
+  <x-card data-title="インタラクティブモード" data-icon="lucide:bot" data-href="/guides/interactive-chat">
+    インタラクティブモードを使用して、ドキュメントを生成、修正、管理する方法を説明します。
   </x-card>
 </x-cards>

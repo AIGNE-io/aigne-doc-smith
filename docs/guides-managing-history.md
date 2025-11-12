@@ -1,10 +1,10 @@
 # Managing History
 
-Ever wondered what changes were made to your documentation and when? AIGNE DocSmith keeps a detailed log of every update. This guide will show you how to access and read this history, so you can easily track the evolution of your documents.
+Ever wondered what changes were made to your documents and when? AIGNE DocSmith keeps a detailed log of every update. This guide will show you how to access and read this history, so you can easily track the evolution of your documents.
 
 ## Viewing Update History
 
-To see the log of all documentation updates, you can use the `history view` command. This command provides a compact, one-line summary for each change, much like a version control system log.
+To see the log of all document updates, you can use the `history view` command. This command provides a compact, one-line summary for each change, much like a version control system log.
 
 Run the following command from your project's root directory:
 
@@ -51,7 +51,7 @@ Here is a sample of what you might see when you run the `aigne doc history view`
 
 e5a4f8b1 2 hours ago update_document_detail (/guides/generating-documentation): Added a new section on advanced configuration options.
 a3b1c9d2 1 day ago  update_document_detail (/overview): Refined the introduction to be more concise.
-f8d2e0c3 3 days ago generate_document (/guides/managing-history): Initial generation of the history management guide.
+f8d2e0c3 3 days ago generate_document (/guides/managing-history): Initial creation of the history management guide.
 ```
 
 This log provides an orderly and scannable record of all changes, making it a useful tool for tracking progress and reviewing your documentation's history.

@@ -25,7 +25,7 @@
   },
   {
     "title": "Guides",
-    "description": "Contains step-by-step instructions for performing common documentation tasks.",
+    "description": "Contains step-by-step instructions for performing common document tasks.",
     "path": "/guides",
     "sourceIds": [
       "aigne.yaml",
@@ -66,7 +66,7 @@
     "icon": "lucide:scroll-text"
   },
   {
-    "title": "Generating Documentation",
+    "title": "Create Document",
     "description": "Walks through the process of creating a new set of documents from your source files from start to finish.",
     "path": "/guides/generating-documentation",
     "sourceIds": [
@@ -82,7 +82,7 @@
     "parentId": "/guides"
   },
   {
-    "title": "Updating Documentation",
+    "title": "Update Document",
     "description": "Explains how to modify existing documents based on code changes or new feedback.",
     "path": "/guides/updating-documentation",
     "sourceIds": [
@@ -98,8 +98,8 @@
     "parentId": "/guides"
   },
   {
-    "title": "Translating Documentation",
-    "description": "Details the steps to translate your documents into multiple supported languages.",
+    "title": "Localize Document",
+    "description": "Details the steps to localize your documents into multiple supported languages.",
     "path": "/guides/translating-documentation",
     "sourceIds": [
       "agents/translate/index.yaml",
@@ -112,8 +112,8 @@
     "parentId": "/guides"
   },
   {
-    "title": "Publishing Your Docs",
-    "description": "Shows how to make your generated documentation live and accessible online.",
+    "title": "Publishing Your Documents",
+    "description": "Shows how to make your generated documents live and accessible online.",
     "path": "/guides/publishing-your-docs",
     "sourceIds": [
       "agents/publish/index.yaml",
@@ -135,7 +135,7 @@
   },
   {
     "title": "Managing Preferences",
-    "description": "Explains how to view, remove, and toggle your saved preferences for documentation generation.",
+    "description": "Explains how to view, remove, and toggle your saved preferences for document generation.",
     "path": "/configuration/managing-preferences",
     "sourceIds": [
       "agents/prefs/index.mjs",
@@ -145,7 +145,7 @@
   },
   {
     "title": "Managing History",
-    "description": "Shows how to view the history of updates made to your documentation.",
+    "description": "Shows how to view the history of updates made to your documents.",
     "path": "/guides/managing-history",
     "sourceIds": [
       "agents/history/view.mjs",
@@ -156,7 +156,7 @@
   },
   {
     "title": "Evaluating Documents",
-    "description": "Details how to use the evaluation command to assess the quality and completeness of your generated documentation.",
+    "description": "Details how to use the evaluation command to assess the quality and completeness of your generated documents.",
     "path": "/guides/evaluating-documents",
     "sourceIds": [
       "agents/evaluate/index.yaml",
@@ -183,8 +183,8 @@
     "parentId": "/guides"
   },
   {
-    "title": "Interactive Chat",
-    "description": "Explains how to use the interactive chat assistant to generate, modify, and manage your documentation.",
+    "title": "Interactive Mode",
+    "description": "Explains how to use the interactive mode to generate, modify, and manage your documents.",
     "path": "/guides/interactive-chat",
     "sourceIds": [
       "agents/chat/index.yaml",

@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import generateSubStructure from "../../../../agents/generate/document-structure-tools/generate-sub-structure.mjs";
+import generateSubStructure from "../../../../agents/create/document-structure-tools/generate-sub-structure.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

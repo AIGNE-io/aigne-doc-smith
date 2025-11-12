@@ -1,6 +1,6 @@
 # 初始設定
 
-本指南將逐步引導您完成 AIGNE DocSmith 的互動式設定過程。此程序會在您首次執行 `aigne doc generate` 時自動執行，但您也可以手動啟動。設定的目標是建立一個 `config.yaml` 檔案，用以儲存您產生文件的偏好設定。
+本指南將逐步引導您完成 AIGNE DocSmith 的互動式設定過程。此程序會在您首次執行 `aigne doc create` 時自動執行，但您也可以手動啟動。設定的目標是建立一個 `config.yaml` 檔案，用以儲存您產生文件的偏好設定。
 
 ## 如何開始設定程序
 
@@ -162,7 +162,7 @@ rules: |
 
 # 目標受眾：描述您的具體目標受眾及其特徵
 targetAudience: |
-  
+
 # 語言設定
 locale: en
 translateLanguages:
@@ -190,8 +190,8 @@ media:
 儲存初始設定後，您現在已準備好建立您的文件。
 
 <x-cards data-columns="2">
-  <x-card data-title="產生文件" data-href="/guides/generating-documentation" data-icon="lucide:file-text">
-    了解如何執行產生程序以建立您的第一份文件。
+  <x-card data-title="建立文件" data-href="/guides/generating-documentation" data-icon="lucide:file-text">
+    了解如何執行建立程序以建立您的第一份文件。
   </x-card>
   <x-card data-title="管理偏好設定" data-href="/configuration/managing-preferences" data-icon="lucide:settings">
     了解如何隨時檢視和修改您已儲存的設定。

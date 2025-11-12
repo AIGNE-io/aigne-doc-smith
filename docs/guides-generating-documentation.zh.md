@@ -1,17 +1,17 @@
-# 生成文档
+# 创建文档
 
-本指南将引导您使用单个命令，从项目的源文件创建一套完整的文档。该过程设计得简单直接，从初始分析到最终内容生成，并包含一个交互式审查步骤，以确保输出的结构完全符合您的需求。
+本指南将引导您使用单个命令，从项目的源文件创建一套完整的文档。该过程设计得简单直接，从初始分析到最终内容创建，并包含一个交互式审查步骤，以确保输出的结构完全符合您的需求。
 
-## 生成过程
+## 创建过程
 
-当您运行 `aigne doc generate` 时，该工具会执行一系列步骤来分析您的项目并生成文档。本节对该工作流程进行了事实性的分解。
+当您运行 `aigne doc create` 时，该工具会执行一系列步骤来分析您的项目并生成文档。本节对该工作流程进行了事实性的分解。
 
 ### 步骤 1：启动命令
 
 该过程始于在您项目的根目录中运行 `generate` 命令。此命令会协调从分析到内容创建的整个工作流程。
 
 ```bash Terminal icon=lucide:terminal
-aigne doc generate
+aigne doc create
 ```
 
 为提高效率，您也可以使用别名 `gen` 或 `g`。
@@ -37,15 +37,15 @@ aigne doc generate
 
 该工具会根据您的反馈修订结构，并再次呈现给您审查。这个迭代过程会持续进行，直到结构满足您的要求。
 
-### 步骤 4：内容生成
+### 步骤 4：内容创建
 
-一旦文档结构最终确定并获得批准，DocSmith 就会开始为计划中的每个文档生成内容。它会处理相关的源文件，以编写详细的解释和代码示例。此操作会针对每个文档执行，确保按照批准的结构实现完整覆盖。
+一旦文档结构最终确定并获得批准，DocSmith 就会开始为计划中的每个文档创建内容。它会处理相关的源文件，以编写详细的解释和代码示例。此操作会针对每个文档执行，确保按照批准的结构实现完整覆盖。
 
 ### 步骤 5：完成
 
-所有文档生成完毕后，终端会显示一条确认消息。输出文件会保存到您配置中指定的目录，默认为 `.aigne/doc-smith/docs`。
+所有文档创建完毕后，终端会显示一条确认消息。输出文件会保存到您配置中指定的目录，默认为 `.aigne/doc-smith/docs`。
 
-![成功通知横幅，指示文档生成已完成。](../assets/screenshots/doc-generated-successfully.png)
+![成功通知横幅，指示文档创建已完成。](../assets/screenshots/doc-generated-successfully.png)
 
 ## 命令选项
 
@@ -61,7 +61,7 @@ aigne doc generate
 要舍弃现有文档并从头开始生成一套新的文档，请使用 `--forceRegenerate` 标志。
 
 ```bash Terminal icon=lucide:terminal
-aigne doc generate --forceRegenerate
+aigne doc create --forceRegenerate
 ```
 
 ### 示例：使用词汇表
@@ -69,11 +69,11 @@ aigne doc generate --forceRegenerate
 为保持术语的一致性，请提供词汇表文件的路径。
 
 ```bash Terminal icon=lucide:terminal
-aigne doc generate --glossary @./project-glossary.md
+aigne doc create --glossary @./project-glossary.md
 ```
 
 ## 摘要
 
-本指南详细介绍了生成一套新文档的系统流程。该工作流程从命令启动和源分析开始，经过交互式结构审查，最后进行内容创建。
+本指南详细介绍了创建一套新文档的系统流程。该工作流程从命令启动和源分析开始，经过交互式结构审查，最后进行内容创建。
 
-在生成文档后，您可以继续[更新现有文档](./guides-updating-documentation.md)或[发布您的文档](./guides-publishing-your-docs.md)。
+在创建文档后，您可以继续[更新现有文档](./guides-updating-documentation.md)或[发布文档](./guides-publishing-your-docs.md)。

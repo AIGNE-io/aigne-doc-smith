@@ -25,7 +25,7 @@ export default async function checkNeedGenerateStructure(
 
     if (choice === "later") {
       console.log(`\nConfiguration file: ${chalk.cyan("./.aigne/doc-smith/config.yaml")}`);
-      console.log("Review and edit your configuration, then run `aigne doc generate` to continue.");
+      console.log("Review and edit your configuration, then run `aigne doc create` to continue.");
 
       // In test environment, return a special result instead of exiting
       if (process.env.NODE_ENV === "test") {

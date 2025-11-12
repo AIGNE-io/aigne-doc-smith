@@ -1,10 +1,10 @@
 # Overview
 
-Struggling to keep your documentation in sync with your ever-changing codebase? AIGNE DocSmith automates the entire process, analyzing your source code to generate accurate, structured, and multi-language documentation, so you can focus on building great software.
+Struggling to keep your documents in sync with your ever-changing codebase? AIGNE DocSmith automates the entire process, analyzing your source code to generate accurate, structured, and multi-language documents, so you can focus on building great software.
 
-AIGNE DocSmith is an AI-driven tool that automatically creates documentation from your project's source code. It is built on the [AIGNE Framework](https://www.aigne.io/en/framework) and is designed to produce structured, multi-language documents that accurately reflect your codebase.
+AIGNE DocSmith is an AI-driven tool that automatically creates documents from your project's source code. It is built on the [AIGNE Framework](https://www.aigne.io/en/framework) and is designed to produce structured, multi-language documents that accurately reflect your codebase.
 
-The tool addresses the common challenges of manual documentation, such as being time-consuming to create, quickly becoming outdated as code evolves, and lacking consistency across different sections. By automating this process, DocSmith helps ensure your documentation remains current, accurate, and useful.
+The tool addresses the common challenges of manual document creation, such as being time-consuming to create, quickly becoming outdated as code evolves, and lacking consistency across different sections. By automating this process, DocSmith helps ensure your documents remain current, accurate, and useful.
 
 ## How It Works
 
@@ -59,8 +59,8 @@ AIGNE-DocSmith: {
   }
 }
 
-Published-Documentation: {
-  label: "Published Documentation"
+Published-Documents: {
+  label: "Published Documents"
   shape: rectangle
 
   DocSmith-Platform: {
@@ -76,19 +76,19 @@ Source-Code -> AIGNE-DocSmith.Analysis-Engine: "Analyzes"
 AIGNE-DocSmith.Analysis-Engine -> AIGNE-DocSmith.Generation-Engine: "Generates"
 AIGNE-DocSmith.Generation-Engine <-> AIGNE-DocSmith.LLMs: "Utilizes"
 AIGNE-DocSmith.Generation-Engine -> AIGNE-DocSmith.Translation-Engine: "Translates"
-AIGNE-DocSmith.Translation-Engine -> Published-Documentation: "Publishes"
+AIGNE-DocSmith.Translation-Engine -> Published-Documents: "Publishes"
 
 ```
 
 ## Core Features
 
-DocSmith provides a set of features to handle the documentation lifecycle from creation to publication.
+DocSmith provides a set of features to handle the document lifecycle from creation to publication.
 
-*   **AI-Powered Generation**: Analyzes your codebase to propose a logical documentation structure and generates content that explains your code's functionality.
-*   **Multi-Language Support**: Translates documentation into 12 languages, including English, Chinese (Simplified), and Japanese. The translation process is context-aware to maintain technical accuracy.
+*   **AI-Powered Generation**: Analyzes your codebase to propose a logical document structure and generates content that explains your code's functionality.
+*   **Multi-Language Support**: Translates documents into 12 languages, including English, Chinese (Simplified), and Japanese. The translation process is context-aware to maintain technical accuracy.
 *   **Integration with LLMs**: Connects with various Large Language Models (LLMs). By default, it uses [AIGNE Hub](https://www.aigne.io/en/hub), a service that allows you to switch between models like Google Gemini and OpenAI GPT without needing separate API keys. You can also configure your own API keys for direct provider access.
-*   **Smart Updates**: Detects changes in your source code and updates the corresponding sections of your documentation. You can also provide specific feedback to refine generated content.
-*   **Publishing Options**: Publish your generated documentation with a single command. You can deploy to the official DocSmith platform or run your own instance of [Discuss Kit](https://www.web3kit.rocks/discuss-kit). Discuss Kit is a service for hosting and displaying documentation.
+*   **Smart Updates**: Detects changes in your source code and updates the corresponding sections of your documents. You can also provide specific feedback to refine generated content.
+*   **Publishing Options**: Publish your generated documents with a single command. You can deploy to the official DocSmith platform or run your own instance of [Discuss Kit](https://www.web3kit.rocks/discuss-kit). Discuss Kit is a service for hosting and displaying documents.
 
 ## Available Commands
 
@@ -96,16 +96,16 @@ DocSmith is operated through a command-line interface. The following table provi
 
 | Command | Description |
 | :--- | :--- |
-| `generate` | Creates a new set of documentation from your source files. |
+| `create` | Creates a new set of documents from your source files. |
 | `update` | Modifies existing documents based on code changes or new feedback. |
-| `translate` | Translates documents into one or more of the 12 supported languages. |
-| `publish` | Deploys your documentation to a live, accessible URL. |
-| `evaluate` | Assesses the quality and completeness of your generated documentation. |
-| `history` | Views the history of updates made to your documentation. |
-| `chat` | Starts an interactive chat session to generate and manage documentation. |
+| `localize` | Translates documents into one or more of the 12 supported languages. |
+| `publish` | Deploys your documents to a live, accessible URL. |
+| `evaluate` | Assesses the quality and completeness of your generated documents. |
+| `history` | Views the history of updates made to your documents. |
+| `chat` | Starts an interactive mode session to generate and manage documents. |
 | `clear` | Removes generated files, configurations, and cached data. |
 | `init` | Guides you through an interactive process to create an initial configuration file. |
-| `prefs` | Manages saved preferences and configurations for documentation generation. |
+| `prefs` | Manages saved preferences and configurations for document creation. |
 
 ---
 

@@ -1,9 +1,9 @@
 type: team
-name: generate
+name: create
 alias:
+  - generate
   - gen
-  - g
-description: Generate complete documentation for your project
+description: Create complete documentation for your project
 skills:
   - url: ../init/index.mjs
     default_input:

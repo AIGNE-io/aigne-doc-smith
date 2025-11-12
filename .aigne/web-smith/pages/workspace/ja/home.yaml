@@ -141,7 +141,7 @@
           "content": "cd /path/to/your/project
 
 
-            aigne doc generate"
+            aigne doc create"
   - "sectionName": "changelog"
     "sectionSummary": "Displays the latest updates for AIGNE DocSmith in a scannable format, with a link to the full changelog."
     "changelogTitle": "最新の更新情報"

@@ -1,22 +1,22 @@
-# Translating Documentation
+# Localize Document
 
-Making your documentation available in multiple languages is essential for reaching a global audience. This guide provides a step-by-step process for using the `aigne doc translate` command to translate your content into any of the 12 supported languages, ensuring your documentation is accessible and easy to understand for users everywhere.
+Making your documents available in multiple languages is essential for reaching a global audience. This guide provides a step-by-step process for using the `aigne doc localize` command to localize your content into any of the 12 supported languages, ensuring your documents are accessible and easy to understand for users everywhere.
 
 ## Translation Process Overview
 
-The primary command for translating documents is `aigne doc translate`. This command can be executed in two modes: interactive or non-interactive (using command-line flags). Both methods are designed to be straightforward, allowing you to manage single or multi-language translations efficiently.
+The primary command for translating documents is `aigne doc localize`. This command can be executed in two modes: interactive or non-interactive (using command-line flags). Both methods are designed to be straightforward, allowing you to manage single or multi-language translations efficiently.
 
 ### Interactive Mode
 
 For a guided experience, run the command without any arguments. This is the recommended approach for users who are new to the translation feature or prefer a step-by-step process.
 
 ```bash icon=lucide:terminal
-aigne doc translate
+aigne doc localize
 ```
 
 When you run this command, DocSmith will initiate an interactive session:
 
-1.  First, you will be prompted to select the specific documents you wish to translate from a list of all available documentation files in your project.
+1.  First, you will be prompted to select the specific documents you wish to localize from a list of all available document files in your project.
 2.  Next, you will be asked to choose the target languages. The system supports 12 languages, and any languages you have previously selected will be pre-checked to streamline the process.
 
 ![Executing the translate command](../assets/screenshots/doc-translate.png)
@@ -32,12 +32,12 @@ Once your selections are confirmed, DocSmith will begin the translation process 
 For automation, scripting, or more direct control, you can provide arguments directly on the command line.
 
 ```bash icon=lucide:terminal
-aigne doc translate [options]
+aigne doc localize [options]
 ```
 
 #### Options
 
-The `translate` command accepts the following options to specify documents, languages, and other settings.
+The `localize` command accepts the following options to specify documents, languages, and other settings.
 
 <x-field-group>
   <x-field data-name="--docs" data-type="array" data-required="false">
@@ -60,14 +60,14 @@ The `translate` command accepts the following options to specify documents, lang
 
     To translate `overview.md` and `getting-started.md` into Chinese and Japanese, use the following command:
     ```bash icon=lucide:terminal
-    aigne doc translate --docs overview.md --docs getting-started.md --langs zh ja
+    aigne doc localize --docs overview.md --docs getting-started.md --langs zh ja
     ```
 
 2.  **Translate with a glossary and stylistic feedback:**
 
     To translate `overview.md` into German while ensuring consistent terminology and a formal tone, you can include the `--glossary` and `--feedback` options:
     ```bash icon=lucide:terminal
-    aigne doc translate --docs overview.md --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
+    aigne doc localize --docs overview.md --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
     ```
 
 ## Supported Languages
@@ -91,6 +91,6 @@ DocSmith provides professional-grade translations for 12 languages. Use the lang
 
 ## Summary
 
-This guide has covered the use of the `aigne doc translate` command to make your documentation accessible to a global audience. You can use the interactive mode for a guided process or command-line options for automation and precision.
+This guide has covered the use of the `aigne doc localize` command to make your documents accessible to a global audience. You can use the interactive mode for a guided process or command-line options for automation and precision.
 
-Once your documents are translated, the next step is to publish them. For detailed instructions on this process, please see the [Publishing Your Docs](./guides-publishing-your-docs.md) guide.
+Once your documents are translated, the next step is to publish them. For detailed instructions on this process, please see the [Publishing Your Documents](./guides-publishing-your-docs.md) guide.

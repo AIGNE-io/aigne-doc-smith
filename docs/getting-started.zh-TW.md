@@ -84,7 +84,7 @@ Generation: {
 Developer -> Terminal: "執行指令"
 Terminal -> Installation.Install-CLI: "`npm install -g @aigne/cli`"
 Installation.Install-CLI -> Installation.Verify-Installation: "`aigne doc --help`"
-Installation.Verify-Installation -> Generation.Run-Generate: "`aigne doc generate`"
+Installation.Verify-Installation -> Generation.Run-Generate: "`aigne doc create`"
 Generation.Run-Generate -> Generation.Interactive-Setup: "首次執行"
 Generation.Interactive-Setup -> Generation.Automated-Process: "儲存 config.yaml"
 Generation.Automated-Process -> Generation.Output-Docs: "輸出至 docs/ 資料夾"
@@ -138,7 +138,7 @@ cd /path/to/your/project
 執行 `generate` 指令。這個單一指令會啟動整個文件建立過程，從專案分析到內容產生。
 
 ```bash 執行產生指令 icon=lucide:terminal
-aigne doc generate
+aigne doc create
 ```
 
 ### 步驟 3：完成互動式設定
@@ -167,10 +167,10 @@ aigne doc generate
 
 <x-cards data-columns="2">
   <x-card data-title="更新文件" data-icon="lucide:refresh-cw" data-href="/guides/updating-documentation">
-    修改或重新產生文件的特定部分，以反映程式碼變更或整合新的回饋。
+    修改或重新建立文件的特定部分，以反映程式碼變更或整合新的回饋。
   </x-card>
-  <x-card data-title="翻譯文件" data-icon="lucide:languages" data-href="/guides/translating-documentation">
-    將您的文件翻譯成 12 種支援的語言之一，包括中文、西班牙文和德文。
+  <x-card data-title="本地化文件" data-icon="lucide:languages" data-href="/guides/translating-documentation">
+    將您的文件本地化成 12 種支援的語言之一，包括中文、西班牙文和德文。
   </x-card>
   <x-card data-title="發布您的文件" data-icon="lucide:rocket" data-href="/guides/publishing-your-docs">
     讓您的文件在線上可供您的團隊或公眾存取。

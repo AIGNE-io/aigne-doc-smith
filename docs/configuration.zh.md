@@ -56,7 +56,7 @@
     <x-field-desc markdown>文档的主要语言代码，例如 `en` 代表英语。</x-field-desc>
   </x-field>
   <x-field data-name="translateLanguages" data-type="array" data-required="false">
-    <x-field-desc markdown>文档应翻译成的语言代码列表，例如 `zh`（中文）或 `ja`（日语）。</x-field-desc>
+    <x-field-desc markdown>文档应本地化为的语言代码列表，例如 `zh`（中文）或 `ja`（日语）。</x-field-desc>
   </x-field>
   <x-field data-name="docsDir" data-type="string" data-required="true">
     <x-field-desc markdown>用于保存生成的文档文件的本地目录路径。</x-field-desc>

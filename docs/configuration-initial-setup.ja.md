@@ -1,6 +1,6 @@
 # 初期設定
 
-このガイドでは、AIGNE DocSmith の対話式セットアッププロセスをステップバイステップで説明します。この手順は `aigne doc generate` を初めて実行する際に自動的に実行されますが、手動で開始することも可能です。目的は、ドキュメント生成のための設定を保存する `config.yaml` ファイルを作成することです。
+このガイドでは、AIGNE DocSmith の対話式セットアッププロセスをステップバイステップで説明します。この手順は `aigne doc create` を初めて実行する際に自動的に実行されますが、手動で開始することも可能です。目的は、ドキュメント生成のための設定を保存する `config.yaml` ファイルを作成することです。
 
 ## セットアッププロセスの開始方法
 
@@ -130,7 +130,7 @@ aigne doc init
 ```yaml config.yaml icon=logos:yaml
 # Project information for documentation publishing
 projectName: AIGNE DocSmith
-projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation generation tool...
+projectDesc: AIGNE DocSmith is a powerful, AI-driven documentation creation tool...
 projectLogo: https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg
 
 # AI Thinking Configuration
@@ -156,13 +156,13 @@ readerKnowledgeLevel: completeBeginners
 # Documentation Depth: How comprehensive should the documentation be?
 documentationDepth: comprehensive
 
-# Custom Rules: Define specific documentation generation rules and requirements
+# Custom Rules: Define specific documentation creation rules and requirements
 rules: |
   Avoid using vague or empty words that don't provide measurable or specific details...
 
 # Target Audience: Describe your specific target audience and their characteristics
 targetAudience: |
-  
+
 # Language settings
 locale: en
 translateLanguages:
@@ -190,7 +190,7 @@ media:
 初期設定が保存されたので、ドキュメントを作成する準備が整いました。
 
 <x-cards data-columns="2">
-  <x-card data-title="ドキュメントの生成" data-href="/guides/generating-documentation" data-icon="lucide:file-text">
+  <x-card data-title="ドキュメント生成" data-href="/guides/generating-documentation" data-icon="lucide:file-text">
     生成プロセスを実行して最初のドキュメントセットを作成する方法を学びます。
   </x-card>
   <x-card data-title="設定の管理" data-href="/configuration/managing-preferences" data-icon="lucide:settings">

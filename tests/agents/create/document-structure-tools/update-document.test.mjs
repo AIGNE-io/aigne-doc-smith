@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
-import updateDocument from "../../../../agents/generate/document-structure-tools/update-document.mjs";
+import updateDocument from "../../../../agents/create/document-structure-tools/update-document.mjs";
 
 describe("update-document", () => {
   let consoleSpy;

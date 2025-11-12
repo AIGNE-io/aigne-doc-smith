@@ -141,7 +141,7 @@ sections:
           content: "cd /path/to/your/project
 
 
-            aigne doc generate"
+            aigne doc create"
   - sectionName: "changelog"
     sectionSummary: "以易於掃描的格式顯示 AIGNE DocSmith 的最新更新，並提供完整更新日誌的連結。"
     changelogTitle: "最新更新"

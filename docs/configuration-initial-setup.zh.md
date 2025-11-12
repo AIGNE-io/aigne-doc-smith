@@ -1,6 +1,6 @@
 # 初始设置
 
-本指南将逐步引导您完成 AIGNE DocSmith 的交互式设置过程。该过程在您首次执行 `aigne doc generate` 时会自动运行，但您也可以手动启动。其目标是创建一个 `config.yaml` 文件，用于存储您生成文档时的偏好设置。
+本指南将逐步引导您完成 AIGNE DocSmith 的交互式设置过程。该过程在您首次执行 `aigne doc create` 时会自动运行，但您也可以手动启动。其目标是创建一个 `config.yaml` 文件，用于存储您生成文档时的偏好设置。
 
 ## 如何启动设置过程
 
@@ -89,11 +89,11 @@ aigne doc init
 
 您可以从包含英语、中文（简体）和西班牙语等 12 种支持的语言列表中进行选择。
 
-### 第 6 步：选择翻译语言
+### 第 6 步：选择本地化语言
 
-选择您希望将文档翻译成的其他语言。
+选择您希望将文档本地化为的其他语言。
 
-**提示：** `🔄 [6/9]: 我们应该将文档翻译成哪些语言？`
+**提示：** `🔄 [6/9]: 我们应该将文档本地化为哪些语言？`
 
 您可以从支持的选项中选择多种语言，不包括上一步中选择的主要语言。
 
@@ -162,7 +162,7 @@ rules: |
 
 # 目标受众：描述您的具体目标受众及其特征
 targetAudience: |
-  
+
 # 语言设置
 locale: en
 translateLanguages:
@@ -190,8 +190,8 @@ media:
 初始配置保存后，您现在就可以开始创建文档了。
 
 <x-cards data-columns="2">
-  <x-card data-title="生成文档" data-href="/guides/generating-documentation" data-icon="lucide:file-text">
-    了解如何运行生成过程以创建您的第一批文档。
+  <x-card data-title="创建文档" data-href="/guides/generating-documentation" data-icon="lucide:file-text">
+    了解如何运行创建过程以生成您的第一批文档。
   </x-card>
   <x-card data-title="管理偏好设置" data-href="/configuration/managing-preferences" data-icon="lucide:settings">
     了解如何随时查看和修改您已保存的配置。

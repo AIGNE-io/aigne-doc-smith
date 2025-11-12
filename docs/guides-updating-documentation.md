@@ -1,6 +1,6 @@
-# Updating Documentation
+# Update Document
 
-Need to make a quick change or overhaul a document? This guide explains how to use the `update` command to modify existing documentation, whether you're incorporating new feedback, reflecting code changes, or starting from scratch. The tool provides both an interactive mode for guided changes and a direct mode for quick, command-line updates.
+Need to make a quick change or overhaul a document? This guide explains how to use the `update` command to modify existing documents, whether you're incorporating new feedback, reflecting code changes, or starting from scratch. The tool provides both an interactive mode for guided changes and a direct mode for quick, command-line updates.
 
 ## Interactive Updates
 
@@ -71,4 +71,4 @@ The `update` command accepts several parameters to control its behavior. Here is
 
 ---
 
-With these methods, you can efficiently manage your documentation, keeping it accurate and aligned with your project's development. For information on creating documents for the first time, see the [Generating Documentation](./guides-generating-documentation.md) guide.
+With these methods, you can efficiently manage your documents, keeping them accurate and aligned with your project's development. For information on creating documents for the first time, see the [Create Document](./guides-generating-documentation.md) guide.

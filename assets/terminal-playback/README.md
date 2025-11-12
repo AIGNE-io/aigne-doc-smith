@@ -3,7 +3,7 @@
 ## Init & Generate Docs
 
 ```bash
-aigne doc generate
+aigne doc create
 ```
 
 Terminal playback data: `generate.json`
@@ -19,7 +19,7 @@ Terminal playback data: `update.json`
 ## Translate Docs
 
 ```bash
-aigne doc translate
+aigne doc localize
 ```
 
 Terminal playback data: `translate.json`

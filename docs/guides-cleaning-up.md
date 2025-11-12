@@ -26,8 +26,8 @@ The interactive wizard presents a checklist of items you can remove. The table b
 
 | Target | Description |
 | :--- | :--- |
-| **`generatedDocs`** | Allows you to select and delete specific generated documents from your output directory (e.g., `./docs`). The overall documentation structure is preserved. |
-| **`documentStructure`** | Deletes all generated documentation files and the structure plan file (e.g., `.aigne/doc-smith/output/structure-plan.json`). |
+| **`generatedDocs`** | Allows you to select and delete specific generated documents from your output directory (e.g., `./docs`). The overall document structure is preserved. |
+| **`documentStructure`** | Deletes all generated document files and the structure plan file (e.g., `.aigne/doc-smith/output/structure-plan.json`). |
 | **`documentConfig`** | Removes the main project configuration file (e.g., `.aigne/doc-smith/config.yaml`). After deleting it, you will need to run `aigne doc init` to create a new one. |
 | **`authTokens`** | Deletes saved authorization credentials used for publishing (e.g., from `~/.aigne/doc-smith-connected.yaml`). You will be prompted to select which site authorizations to clear. |
 | **`deploymentConfig`** | Removes only the `appUrl` key from your project's configuration file, leaving all other settings intact. |
