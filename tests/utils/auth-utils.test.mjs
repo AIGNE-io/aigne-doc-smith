@@ -56,6 +56,7 @@ describe("auth-utils", () => {
   beforeEach(() => {
     originalEnv = { ...process.env };
     delete process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
+    delete process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN;
     delete process.env[DOC_OFFICIAL_ACCESS_TOKEN];
 
     // Reset external mocks
@@ -108,7 +109,7 @@ describe("auth-utils", () => {
   });
 
   test("should return access token from environment variable", async () => {
-    process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "env-token";
+    process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN = "env-token";
 
     const result = await getAccessToken("https://example.com");
 
@@ -116,7 +117,7 @@ describe("auth-utils", () => {
   });
 
   test("should handle different URL formats", async () => {
-    process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "test-token";
+    process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN = "test-token";
 
     // Test different URL formats
     const urls = [
@@ -133,13 +134,13 @@ describe("auth-utils", () => {
   });
 
   test("should handle invalid URL", async () => {
-    process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "test-token";
+    process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN = "test-token";
 
     await expect(getAccessToken("invalid-url")).rejects.toThrow();
   });
 
   test("should work with localhost URLs", async () => {
-    process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "local-token";
+    process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN = "local-token";
 
     const result = await getAccessToken("http://localhost:3000");
 
@@ -147,11 +148,11 @@ describe("auth-utils", () => {
   });
 
   test("should preserve environment variable after function call", async () => {
-    process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "persistent-token";
+    process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN = "persistent-token";
 
     await getAccessToken("https://example.com");
 
-    expect(process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN).toBe("persistent-token");
+    expect(process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN).toBe("persistent-token");
   });
 
   // CONFIG FILE READING TESTS
@@ -280,7 +281,7 @@ describe("auth-utils", () => {
     );
 
     // Verify environment variable is set
-    expect(process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN).toBe("new-access-token");
+    expect(process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN).toBe("new-access-token");
 
     // Verify config file is saved
     expect(writeFileSpy).toHaveBeenCalledWith(

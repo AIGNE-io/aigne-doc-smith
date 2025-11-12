@@ -53,8 +53,8 @@ export default async function publishDocs(
     // ----------------- main publish process flow -----------------------------
     // Check if DOC_DISCUSS_KIT_URL is set in environment variables
     const useEnvAppUrl = !!(
-      process.env.DOC_DISCUSS_KIT_URL ||
       process.env.DOC_SMITH_PUBLISH_URL ||
+      process.env.DOC_DISCUSS_KIT_URL ||
       appUrl
     );
 

@@ -118,7 +118,6 @@ export async function getAccessToken(appUrl, ltToken = "") {
     });
 
     accessToken = result.accessKeySecret;
-    process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = accessToken;
     process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN = accessToken;
 
     // Save the access token to config file
