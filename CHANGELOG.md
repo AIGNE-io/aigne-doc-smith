@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.1-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.0...v0.9.1-beta) (2025-11-12)
+
+
+### Bug Fixes
+
+* polish openapi spec check condition ([#293](https://github.com/AIGNE-io/aigne-doc-smith/issues/293)) ([39632f5](https://github.com/AIGNE-io/aigne-doc-smith/commit/39632f5193fafbb658efe15c6f8e3eaf9a881b0d))
+* setup AFS storage for chat agent & improve chatbot prompt ([#292](https://github.com/AIGNE-io/aigne-doc-smith/issues/292)) ([5541e52](https://github.com/AIGNE-io/aigne-doc-smith/commit/5541e52333ad0b0b7a3280ee7c75cb745f49f535))
+
 ## [0.9.0](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.0-beta.1...v0.9.0) (2025-11-11)
 
 ## [0.9.0-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.0-beta...v0.9.0-beta.1) (2025-11-11)
