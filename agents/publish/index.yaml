@@ -10,6 +10,7 @@ skills:
       skipIfExists: true
       checkOnly: true
   - url: ../init/check.mjs
+  - url: ../utils/load-sources.mjs
   - translate-meta.mjs
   - publish-docs.mjs
 input_schema:
