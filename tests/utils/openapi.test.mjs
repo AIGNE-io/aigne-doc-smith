@@ -29,7 +29,58 @@ paths: {}
 # README
 This is not an OpenAPI spec.
 `.trim();
+    expect(isOpenAPISpecFile(content)).toBe(false);
+  });
 
+  test("should return false for error yaml format OpenAPI documents", () => {
+    let content = `
+openapi: 3.0.1
+`.trim();
+    expect(isOpenAPISpecFile(content)).toBe(false);
+
+    content = `
+openapi: 3.0.1
+info:
+  title: Sample
+`.trim();
+    expect(isOpenAPISpecFile(content)).toBe(false);
+
+    content = `
+openapi: 3.0.1
+info:
+  version: "1.0.0"
+`.trim();
+    expect(isOpenAPISpecFile(content)).toBe(false);
+
+    content = `
+info:
+  title: Sample
+  version: "1.0.0"
+`.trim();
+    expect(isOpenAPISpecFile(content)).toBe(false);
+  });
+
+  test("should return false for error json format OpenAPI documents", () => {
+    let content = JSON.stringify({
+      openapi: "3.1.0",
+    });
+    expect(isOpenAPISpecFile(content)).toBe(false);
+
+    content = JSON.stringify({
+      openapi: "3.1.0",
+      info: { title: "Sample" },
+    });
+    expect(isOpenAPISpecFile(content)).toBe(false);
+
+    content = JSON.stringify({
+      openapi: "3.1.0",
+      info: { version: "1.0.0" },
+    });
+    expect(isOpenAPISpecFile(content)).toBe(false);
+
+    content = JSON.stringify({
+      info: { title: "Sample", version: "1.0.0" },
+    });
     expect(isOpenAPISpecFile(content)).toBe(false);
   });
 });
