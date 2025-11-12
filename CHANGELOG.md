@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.2-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.1...v0.9.2-beta) (2025-11-12)
+
+
+### Bug Fixes
+
+* handle nullable config in chat agent ([#298](https://github.com/AIGNE-io/aigne-doc-smith/issues/298)) ([dc1f206](https://github.com/AIGNE-io/aigne-doc-smith/commit/dc1f206c6aafd437732ae9ab17e8c1d8a29fb412))
+
 ## [0.9.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.1-beta...v0.9.1) (2025-11-12)
 
 ## [0.9.1-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.0...v0.9.1-beta) (2025-11-12)
