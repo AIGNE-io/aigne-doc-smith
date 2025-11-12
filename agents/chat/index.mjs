@@ -47,7 +47,7 @@ export default {
     "./skills/generate-document.yaml",
     "./skills/update-document.yaml",
     "../publish/index.yaml",
-    "../translate/index.yaml",
+    "../localize/index.yaml",
     "../utils/exit.mjs",
   ],
 };

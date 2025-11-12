@@ -71,11 +71,11 @@
     "oneColumnGridTitle": "See It in Action: One Command, Endless Possibilities"
     "list":
       - "sectionName": "generateDemo"
-        "sectionSummary": "A terminal player demo showcasing the 'aigne doc generate'
+        "sectionSummary": "A terminal player demo showcasing the 'aigne doc create'
           command to visualize the entire documentation creation process from a
           single command."
         "commandTitle": "Generate Your First Docs"
-        "command": "aigne doc generate"
+        "command": "aigne doc create"
         "terminalPlaybackData": "@generate.json"
       - "sectionName": "updateDemo"
         "sectionSummary": "A terminal player demo for the 'aigne doc update' command,
@@ -84,11 +84,11 @@
         "command": "aigne doc update"
         "terminalPlaybackData": "@update.json"
       - "sectionName": "translateDemo"
-        "sectionSummary": "A terminal player demo for the 'aigne doc translate' command,
+        "sectionSummary": "A terminal player demo for the 'aigne doc localize' command,
           illustrating the simple, interactive process of translating
           documentation into multiple languages."
         "commandTitle": "Translate to Any Language"
-        "command": "aigne doc translate"
+        "command": "aigne doc localize"
         "terminalPlaybackData": "@translate.json"
       - "sectionName": "publishDemo"
         "sectionSummary": "A terminal player demo for the 'aigne doc publish' command,
@@ -156,7 +156,7 @@
 
         # 3. Generate your docs!
 
-        aigne doc generate"
+        aigne doc create"
   - "sectionName": "enterpriseFeatures"
     "sectionSummary": "A section targeted at business users, showcasing
       enterprise-grade features like team collaboration, security, and support

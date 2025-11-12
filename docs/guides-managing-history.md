@@ -1,10 +1,10 @@
-# Managing History
+# Manage Update History
 
-Ever wondered what changes were made to your documentation and when? AIGNE DocSmith keeps a detailed log of every update. This guide will show you how to access and read this history, so you can easily track the evolution of your documents.
+Ever wondered what changes were made to your documents and when? AIGNE DocSmith keeps a detailed log of every update. This guide will show you how to access and read this history, so you can easily track the evolution of your documents.
 
 ## Viewing Update History
 
-To see the log of all documentation updates, you can use the `history view` command. This command provides a compact, one-line summary for each change, much like a version control system log.
+To see the log of all document updates, you can use the `history view` command. This command provides a compact, one-line summary for each change, much like a version control system log.
 
 Run the following command from your project's root directory:
 
@@ -36,7 +36,7 @@ The format for each entry is broken down as follows:
 
 | Component | Description |
 | :--- | :--- |
-| **Short Hash** | A unique 8-character identifier generated from the update's timestamp. This hash is deterministic, meaning the same timestamp will always produce the same hash. |
+| **Short Hash** | A unique 8-character identifier created document from the update's timestamp. This hash is deterministic, meaning the same timestamp will always produce the same hash. |
 | **Date** | A relative timestamp showing when the update occurred (e.g., "5 minutes ago," "2 days ago"). For entries older than a week, a specific date is displayed. |
 | **Operation** | The type of action performed, such as `generate_document` or `update_document_detail`. |
 | **Document Path** | The path of the document that was modified, if the operation was specific to a single file. This is shown in parentheses for clarity. |
@@ -51,7 +51,7 @@ Here is a sample of what you might see when you run the `aigne doc history view`
 
 e5a4f8b1 2 hours ago update_document_detail (/guides/generating-documentation): Added a new section on advanced configuration options.
 a3b1c9d2 1 day ago  update_document_detail (/overview): Refined the introduction to be more concise.
-f8d2e0c3 3 days ago generate_document (/guides/managing-history): Initial generation of the history management guide.
+f8d2e0c3 3 days ago generate_document (/guides/managing-history): Initial creation of the history management guide.
 ```
 
 This log provides an orderly and scannable record of all changes, making it a useful tool for tracking progress and reviewing your documentation's history.

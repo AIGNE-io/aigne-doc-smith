@@ -84,7 +84,7 @@ Generation: {
 Developer -> Terminal: "执行命令"
 Terminal -> Installation.Install-CLI: "`npm install -g @aigne/cli`"
 Installation.Install-CLI -> Installation.Verify-Installation: "`aigne doc --help`"
-Installation.Verify-Installation -> Generation.Run-Generate: "`aigne doc generate`"
+Installation.Verify-Installation -> Generation.Run-Generate: "`aigne doc create`"
 Generation.Run-Generate -> Generation.Interactive-Setup: "首次运行"
 Generation.Interactive-Setup -> Generation.Automated-Process: "保存 config.yaml"
 Generation.Automated-Process -> Generation.Output-Docs: "输出到 docs/ 文件夹"
@@ -138,7 +138,7 @@ cd /path/to/your/project
 执行 `generate` 命令。这个单一命令启动了从项目分析到内容生成的整个文档创建过程。
 
 ```bash 运行生成命令 icon=lucide:terminal
-aigne doc generate
+aigne doc create
 ```
 
 ### 步骤 3：完成交互式设置
@@ -167,12 +167,12 @@ aigne doc generate
 
 <x-cards data-columns="2">
   <x-card data-title="更新文档" data-icon="lucide:refresh-cw" data-href="/guides/updating-documentation">
-    修改或重新生成文档的特定部分，以反映代码更改或采纳新反馈。
+    修改或重新创建文档的特定部分，以反映代码更改或采纳新反馈。
   </x-card>
-  <x-card data-title="翻译文档" data-icon="lucide:languages" data-href="/guides/translating-documentation">
-    将您的文档翻译成 12 种支持的语言中的任何一种，包括中文、西班牙语和德语。
+  <x-card data-title="本地化文档" data-icon="lucide:languages" data-href="/guides/translating-documentation">
+    将您的文档本地化为 12 种支持的语言中的任何一种，包括中文、西班牙语和德语。
   </x-card>
-  <x-card data-title="发布您的文档" data-icon="lucide:rocket" data-href="/guides/publishing-your-docs">
+  <x-card data-title="发布文档" data-icon="lucide:rocket" data-href="/guides/publishing-your-docs">
     将您的文档在线发布，供您的团队或公众访问。
   </x-card>
   <x-card data-title="审阅配置" data-icon="lucide:settings" data-href="/configuration/initial-setup">

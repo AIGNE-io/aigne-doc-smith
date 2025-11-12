@@ -37,10 +37,10 @@ sections:
     oneColumnGridTitle: "See It In Action"
     list:
       - sectionName: "DemoGenerate"
-        sectionSummary: "Shows the initial documentation generation process, highlighting its simplicity and power with the 'aigne doc generate' command."
+        sectionSummary: "Shows the initial documentation generation process, highlighting its simplicity and power with the 'aigne doc create' command."
         terminalPlaybackData: "@generate.json"
         terminalRight:
-          title: "aigne doc generate"
+          title: "aigne doc create"
           description: "Kick things off with one simple command. DocSmith analyzes your project and builds a complete set of documentation from scratch. No config required!"
           actionTitle: "Learn How to Generate"
           actionLink: "link:///quick-start"
@@ -53,10 +53,10 @@ sections:
           actionLink: "link:///features"
         terminalPlaybackData: "@update.json"
       - sectionName: "DemoTranslate"
-        sectionSummary: "Highlights the seamless translation workflow using the 'aigne doc translate' command, showcasing the tool's global capabilities."
+        sectionSummary: "Highlights the seamless translation workflow using the 'aigne doc localize' command, showcasing the tool's global capabilities."
         terminalPlaybackData: "@translate.json"
         terminalRight:
-          title: "aigne doc translate"
+          title: "aigne doc localize"
           description: "Go global in seconds. Interactively choose from 12 languages and let our AI provide professional, technically accurate translations."
           actionTitle: ""
           actionLink: ""

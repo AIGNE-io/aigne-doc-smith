@@ -1,5 +1,7 @@
 type: team
-name: translate
+name: localize
+alias:
+  - translate
 description: Translate documents into other languages
 skills:
   - url: ../init/index.mjs
@@ -28,11 +30,11 @@ skills:
   - url: ../utils/choose-docs.mjs
     default_input:
       isTranslate: true
-  - ../translate/choose-language.mjs
+  - ../localize/choose-language.mjs
   - type: team
     name: batchTranslateDocument
     skills:
-      - ../translate/translate-multilingual.yaml
+      - ../localize/translate-multilingual.yaml
     iterate_on: selectedDocs
     concurrency: 10
   - url: ../utils/check-feedback-refiner.mjs

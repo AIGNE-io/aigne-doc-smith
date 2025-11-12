@@ -84,7 +84,7 @@ Generation: {
 Developer -> Terminal: "コマンドを実行"
 Terminal -> Installation.Install-CLI: "`npm install -g @aigne/cli`"
 Installation.Install-CLI -> Installation.Verify-Installation: "`aigne doc --help`"
-Installation.Verify-Installation -> Generation.Run-Generate: "`aigne doc generate`"
+Installation.Verify-Installation -> Generation.Run-Generate: "`aigne doc create`"
 Generation.Run-Generate -> Generation.Interactive-Setup: "初回実行時"
 Generation.Interactive-Setup -> Generation.Automated-Process: "config.yaml を保存"
 Generation.Automated-Process -> Generation.Output-Docs: "docs/ フォルダに出力"
@@ -138,7 +138,7 @@ cd /path/to/your/project
 `generate` コマンドを実行します。この単一のコマンドで、プロジェクトの分析からコンテンツの生成まで、ドキュメント作成プロセス全体が開始されます。
 
 ```bash 生成コマンドの実行 icon=lucide:terminal
-aigne doc generate
+aigne doc create
 ```
 
 ### ステップ 3: 対話型セットアップを完了する
@@ -166,13 +166,13 @@ aigne doc generate
 これで、最初のドキュメントセットの生成が正常に完了しました。以下は、ドキュメントの管理と強化のための一般的な次のステップです。
 
 <x-cards data-columns="2">
-  <x-card data-title="ドキュメントの更新" data-icon="lucide:refresh-cw" data-href="/guides/updating-documentation">
+  <x-card data-title="ドキュメント更新" data-icon="lucide:refresh-cw" data-href="/guides/updating-documentation">
     コードの変更を反映したり、新しいフィードバックを取り入れたりするために、ドキュメントの特定の部分を修正または再生成します。
   </x-card>
-  <x-card data-title="ドキュメントの翻訳" data-icon="lucide:languages" data-href="/guides/translating-documentation">
+  <x-card data-title="ドキュメントローカライズ" data-icon="lucide:languages" data-href="/guides/translating-documentation">
     ドキュメントを、中国語、スペイン語、ドイツ語など、サポートされている 12 の言語のいずれかに翻訳します。
   </x-card>
-  <x-card data-title="ドキュメントの公開" data-icon="lucide:rocket" data-href="/guides/publishing-your-docs">
+  <x-card data-title="ドキュメント公開" data-icon="lucide:rocket" data-href="/guides/publishing-your-docs">
     チームや一般の人がオンラインでドキュメントにアクセスできるようにします。
   </x-card>
   <x-card data-title="設定の確認" data-icon="lucide:settings" data-href="/configuration/initial-setup">

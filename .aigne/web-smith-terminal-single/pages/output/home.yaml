@@ -2677,7 +2677,7 @@ dataSource:
     en:
       properties:
         a7frn5jmx5vpxpt3:
-          value: aigne doc generate
+          value: aigne doc create
         b2jrz12ik7esf93z:
           value: Generate Your First Docs
         c4kvf6b7zyskk8m:
@@ -2857,7 +2857,7 @@ dataSource:
                 },
                 {
                   "delay": 8,
-                  "content": "\u001b]2;aigne doc generate\u0007\u001b]1;aigne\u0007"
+                  "content": "\u001b]2;aigne doc create\u0007\u001b]1;aigne\u0007"
                 },
                 {
                   "delay": 801,
@@ -3161,7 +3161,7 @@ dataSource:
                 },
                 {
                   "delay": 8,
-                  "content": "\u001b[36m---\u001b[39m\r\n💡 You can edit the configuration file anytime to modify settings.\r\n\r\n🚀 Run \u001b[36m'aigne doc generate'\u001b[39m to start documentation generation!\r\n\r\n"
+                  "content": "\u001b[36m---\u001b[39m\r\n💡 You can edit the configuration file anytime to modify settings.\r\n\r\n🚀 Run \u001b[36m'aigne doc create'\u001b[39m to start documentation generation!\r\n\r\n"
                 },
                 {
                   "delay": 8,
@@ -3241,7 +3241,7 @@ dataSource:
                 },
                 {
                   "delay": 8,
-                  "content": " update\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\u001b[0mRegenerate content for specific documents\u001b[0m\u001b[0m\u001b[0m\r\n    2. \u001b[0m\u001b[0m\u001b[0mProvide Structure Feedback\u001b[0m\u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m    aigne doc generate --feedback \u001b[32m\"Your feedback on \u001b[39m\r\n\u001b[32mdocument structure\"\u001b[39m\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\u001b[0mImprove the overall documentation structure\u001b[0m\u001b[0m\u001b[0m\r\n\r\n\u001b[0m--------------------------------------------------------------\u001b[0m\r\n\r\n"
+                  "content": " update\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\u001b[0mRegenerate content for specific documents\u001b[0m\u001b[0m\u001b[0m\r\n    2. \u001b[0m\u001b[0m\u001b[0mProvide Structure Feedback\u001b[0m\u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m    aigne doc create --feedback \u001b[32m\"Your feedback on \u001b[39m\r\n\u001b[32mdocument structure\"\u001b[39m\u001b[0m\r\n       \u001b[0m\u001b[0m\r\n       \u001b[0m\u001b[0m\u001b[0mImprove the overall documentation structure\u001b[0m\u001b[0m\u001b[0m\r\n\r\n\u001b[0m--------------------------------------------------------------\u001b[0m\r\n\r\n"
                 }
               ]
             }
@@ -3749,7 +3749,7 @@ dataSource:
     en:
       properties:
         a7frn5jmx5vpxpt3:
-          value: aigne doc translate
+          value: aigne doc localize
         b2jrz12ik7esf93z:
           value: Translate to Any Language
         c4kvf6b7zyskk8m:
@@ -3945,7 +3945,7 @@ dataSource:
                 },
                 {
                   "delay": 8,
-                  "content": "\u001b]2;aigne doc translate\u0007\u001b]1;aigne\u0007"
+                  "content": "\u001b]2;aigne doc localize\u0007\u001b]1;aigne\u0007"
                 },
                 {
                   "delay": 1335,
@@ -4893,7 +4893,7 @@ dataSource:
             cd /path/to/your/project
 
             # 3. Generate your docs!
-            aigne doc generate
+            aigne doc create
         qvxiyadgn5bj6oq8:
           value: false
         c4kvf6b7zyskk8m:

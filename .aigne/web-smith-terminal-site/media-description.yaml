@@ -2,7 +2,7 @@ descriptions:
   5838723847ec201191b002ef7d44937d92386a82755ca7a66374acff6b91325e:
     path: ../../../assets/screenshots/doc-translate.png
     description: This screenshot displays a dark-themed terminal window, showcasing
-      the execution of an `aigne doc translate` command. It shows the
+      the execution of an `aigne doc localize` command. It shows the
       configuration for using AIGNEHub with the `google/gemini-2.5-pro` model
       and presents a prompt for the user to select documents from a list for
       translation, with "Overview" highlighted as the current selection.
@@ -52,7 +52,7 @@ descriptions:
       it provides "Next" steps with a rocket icon, instructing the user to run
       "aigne doc publish" to make the documentation live, and "Optional" actions
       with a lightbulb icon, suggesting commands like "aigne doc update" or
-      "aigne doc generate" for further modifications. The text is light grey
+      "aigne doc create" for further modifications. The text is light grey
       with yellow highlights on a dark grey background.
     generatedAt: 2025-10-14T01:35:19.627Z
   f786c36289e0e5bfea866c9384edc7d44996c42adfad0cb6f613f46e27f0f2be:

@@ -2,10 +2,10 @@ type: team
 task_render_mode: collapse
 name: generateDiagram
 skills:
-  - ../generate/draw-diagram.yaml
-  - ../generate/wrap-diagram-code.mjs
+  - ../create/draw-diagram.yaml
+  - ../create/wrap-diagram-code.mjs
 reflection:
-  reviewer: ../generate/check-diagram.mjs
+  reviewer: ../create/check-diagram.mjs
   is_approved: isValid
   max_iterations: 5
   return_last_on_max_iterations: false

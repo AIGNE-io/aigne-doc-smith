@@ -5218,7 +5218,7 @@ dataSource:
           value: |-
             cd /path/to/your/project
 
-            aigne doc generate
+            aigne doc create
         b2jrz12ik7esf93z:
           value: bash
         d8hvf7cxz93jk5p:
@@ -5231,7 +5231,7 @@ dataSource:
           value: |-
             cd /path/to/your/project
 
-            aigne doc generate
+            aigne doc create
         b2jrz12ik7esf93z:
           value: bash
         d8hvf7cxz93jk5p:
@@ -5244,7 +5244,7 @@ dataSource:
           value: |-
             cd /path/to/your/project
 
-            aigne doc generate
+            aigne doc create
         b2jrz12ik7esf93z:
           value: bash
         d8hvf7cxz93jk5p:
@@ -5257,7 +5257,7 @@ dataSource:
           value: |-
             cd /path/to/your/project
 
-            aigne doc generate
+            aigne doc create
         b2jrz12ik7esf93z:
           value: bash
         d8hvf7cxz93jk5p:

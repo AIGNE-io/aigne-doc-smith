@@ -1,17 +1,17 @@
-# ドキュメントの生成
+# ドキュメント生成
 
 このガイドでは、単一のコマンドを使用して、プロジェクトのソースファイルから完全なドキュメントセットを作成する方法を順を追って説明します。このプロセスは、初期分析から最終的なコンテンツ生成まで、対話的なレビュー手順を挟んで、出力が必要な構造に正確に合致するように設計されています。
 
 ## 生成プロセス
 
-`aigne doc generate` を実行すると、ツールは一連のステップを実行してプロジェクトを分析し、ドキュメントを作成します。このセクションでは、そのワークフローの事実に基づいた内訳を説明します。
+`aigne doc create` を実行すると、ツールは一連のステップを実行してプロジェクトを分析し、ドキュメントを作成します。このセクションでは、そのワークフローの事実に基づいた内訳を説明します。
 
 ### ステップ1：コマンドの開始
 
 プロセスは、プロジェクトのルートディレクトリで `generate` コマンドを実行することから始まります。このコマンドは、分析からコンテンツ作成までのワークフロー全体を統括します。
 
 ```bash Terminal icon=lucide:terminal
-aigne doc generate
+aigne doc create
 ```
 
 効率化のために、エイリアス `gen` または `g` を使用することもできます。
@@ -45,7 +45,7 @@ aigne doc generate
 
 すべてのドキュメントが生成されると、確認メッセージがターミナルに表示されます。出力ファイルは、設定で指定されたディレクトリ（デフォルトは `.aigne/doc-smith/docs`）に保存されます。
 
-![Success notification banner indicating document generation is complete.](../assets/screenshots/doc-generated-successfully.png)
+![Success notification banner indicating document creation is complete.](../assets/screenshots/doc-generated-successfully.png)
 
 ## コマンドオプション
 
@@ -61,7 +61,7 @@ aigne doc generate
 既存のドキュメントを破棄し、最初から新しいセットを生成するには、`--forceRegenerate` フラグを使用します。
 
 ```bash Terminal icon=lucide:terminal
-aigne doc generate --forceRegenerate
+aigne doc create --forceRegenerate
 ```
 
 ### 例：用語集の使用
@@ -69,11 +69,11 @@ aigne doc generate --forceRegenerate
 用語の一貫性を保つために、用語集ファイルへのパスを指定します。
 
 ```bash Terminal icon=lucide:terminal
-aigne doc generate --glossary @./project-glossary.md
+aigne doc create --glossary @./project-glossary.md
 ```
 
 ## まとめ
 
 このガイドでは、新しいドキュメントセットを生成するための体系的なプロセスについて詳しく説明しました。ワークフローは、コマンドの開始とソース分析から、対話的な構造レビュー、そしてコンテンツ作成へと進みます。
 
-ドキュメントが生成されたら、[既存のドキュメントの更新](./guides-updating-documentation.md)または[ドキュメントの公開](./guides-publishing-your-docs.md)に進むことができます。
+ドキュメントが生成されたら、[既存のドキュメント更新](./guides-updating-documentation.md)または[ドキュメント公開](./guides-publishing-your-docs.md)に進むことができます。

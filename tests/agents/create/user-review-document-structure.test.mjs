@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
-import userReviewDocumentStructure from "../../../agents/generate/user-review-document-structure.mjs";
+import userReviewDocumentStructure from "../../../agents/create/user-review-document-structure.mjs";
 
 import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
 import * as historyUtils from "../../../utils/history-utils.mjs";

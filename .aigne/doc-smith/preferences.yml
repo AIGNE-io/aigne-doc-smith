@@ -72,8 +72,8 @@ rules:
   - id: pref_6da200d8e6fec09e
     active: true
     scope: structure
-    rule: Do not generate documentation about contribution guidelines.
-    feedback: Remove contribution guidelines related documentation, this content is not ready yet
+    rule: Do not generate documents about contribution guidelines.
+    feedback: Remove contribution guidelines related documents, this content is not ready yet
     createdAt: 2025-08-30T14:46:32.741Z
   - id: pref_8c619b5228f791e5
     active: true
@@ -84,14 +84,14 @@ rules:
   - id: pref_0e154f58c22329fb
     active: true
     scope: document
-    rule: Do not generate documentation content about development commands that are no longer supported.
-    feedback: Remove development command related documentation, these development commands are no longer supported
+    rule: Do not generate document content about development commands that are no longer supported.
+    feedback: Remove development command related documents, these development commands are no longer supported
     createdAt: 2025-08-30T14:13:50.446Z
   - id: pref_0112657e4103ba88
     active: true
     scope: structure
-    rule: Update documentation structure based on the latest source code, can add new documents and modify document
+    rule: Update document structure based on the latest source code, can add new documents and modify document
       dependencies on source code, but prohibit modifying any existing document paths.
-    feedback: Update documentation structure based on the latest source code, allow adding new documents and modifying
+    feedback: Update document structure based on the latest source code, allow adding new documents and modifying
       document dependencies on source code, cannot modify existing document paths
     createdAt: 2025-08-30T14:03:47.434Z

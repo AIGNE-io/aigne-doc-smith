@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
-import deleteDocument from "../../../../agents/generate/document-structure-tools/delete-document.mjs";
+import deleteDocument from "../../../../agents/create/document-structure-tools/delete-document.mjs";
 
 describe("delete-document", () => {
   let consoleSpy;

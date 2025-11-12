@@ -423,11 +423,8 @@ async function _init(
     console.log(
       `\n✅ Setup complete! Your configuration has been saved to: ${chalk.cyan(filePath)}`,
     );
-    console.log(chalk.cyan("---"));
-    console.log(chalk.cyan(yamlContent));
-    console.log(chalk.cyan("---"));
     console.log("💡 You can edit this file at any time to change your settings.\n");
-    console.log(`🚀 To generate your documentation, run: ${chalk.cyan("aigne doc generate")}\n`);
+    console.log(`🚀 To generate your documentation, run: ${chalk.cyan("aigne doc create")}\n`);
 
     if (skipIfExists) {
       return loadConfig({ config: filePath, appUrl });

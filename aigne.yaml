@@ -13,19 +13,19 @@ agents:
   - ./agents/init/index.mjs
 
   # Documentation Structure Generation
-  - ./agents/generate/generate-structure.yaml
-  - ./agents/generate/update-document-structure.yaml
-  - ./agents/generate/check-need-generate-structure.mjs
-  - ./agents/generate/refine-document-structure.yaml
-  - ./agents/generate/check-document-structure.yaml
-  - ./agents/generate/user-review-document-structure.mjs
-  - ./agents/generate/index.yaml
+  - ./agents/create/generate-structure.yaml
+  - ./agents/create/update-document-structure.yaml
+  - ./agents/create/check-need-generate-structure.mjs
+  - ./agents/create/refine-document-structure.yaml
+  - ./agents/create/check-document-structure.yaml
+  - ./agents/create/user-review-document-structure.mjs
+  - ./agents/create/index.yaml
 
   # Documentation Structure Tools
-  - ./agents/generate/document-structure-tools/add-document.mjs
-  - ./agents/generate/document-structure-tools/delete-document.mjs
-  - ./agents/generate/document-structure-tools/update-document.mjs
-  - ./agents/generate/document-structure-tools/move-document.mjs
+  - ./agents/create/document-structure-tools/add-document.mjs
+  - ./agents/create/document-structure-tools/delete-document.mjs
+  - ./agents/create/document-structure-tools/update-document.mjs
+  - ./agents/create/document-structure-tools/move-document.mjs
 
   # Document Content Generation & Updates
   - ./agents/update/batch-generate-document.yaml
@@ -42,10 +42,10 @@ agents:
 
 
   # Translation
-  - ./agents/translate/translate-document.yaml
-  - ./agents/translate/translate-multilingual.yaml
-  - ./agents/translate/choose-language.mjs
-  - ./agents/translate/index.yaml
+  - ./agents/localize/translate-document.yaml
+  - ./agents/localize/translate-multilingual.yaml
+  - ./agents/localize/choose-language.mjs
+  - ./agents/localize/index.yaml
 
   # Publishing
   - ./agents/publish/publish-docs.mjs
@@ -105,7 +105,7 @@ agents:
   - ./agents/evaluate/code-snippet.mjs
 
   # Diagram
-  - ./agents/generate/merge-diagram.yaml
+  - ./agents/create/merge-diagram.yaml
   - ./agents/update/generate-diagram.yaml
   - ./agents/update/check-generate-diagram.mjs
   - ./agents/update/pre-check-generate-diagram.yaml
@@ -113,10 +113,10 @@ cli:
   chat: ./agents/chat/index.mjs
   agents:
     - ./agents/init/index.mjs
-    - ./agents/generate/index.yaml
+    - ./agents/create/index.yaml
     - ./agents/update/index.yaml
     - ./agents/publish/index.yaml
-    - ./agents/translate/index.yaml
+    - ./agents/localize/index.yaml
     - ./agents/clear/index.yaml
     - ./agents/prefs/index.mjs
     - ./agents/evaluate/index.yaml

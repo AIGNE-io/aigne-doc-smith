@@ -50,7 +50,7 @@ sections:
         contentCardDescription: "Navigate into your project folder and kick things off. DocSmith will start a fun, interactive setup to learn about your project and tailor the perfect docs."
         contentCardBottomCode:
           name: "bash"
-          content: "cd /path/to/your/project\naigne doc generate"
+          content: "cd /path/to/your/project\naigne doc create"
   - sectionName: "WhatsNext"
     sectionSummary: "A forward-looking section that inspires users to explore more of DocSmith's capabilities, presented as a vibrant, four-column grid of feature highlights."
     fourColumnGridTitle: "What's Next on Your Adventure?"

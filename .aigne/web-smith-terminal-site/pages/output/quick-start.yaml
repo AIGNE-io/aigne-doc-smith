@@ -1317,7 +1317,7 @@ dataSource:
         a7frn5jmx5vpxpt3:
           value: |-
             cd /path/to/your/project
-            aigne doc generate
+            aigne doc create
         b2jrz12ik7esf93z:
           value: bash
         d8hvf7cxz93jk5p:

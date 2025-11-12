@@ -1,4 +1,4 @@
-# Cleaning Up
+# Cleanup Workspace
 
 Need to reset your project or remove sensitive data? This guide explains how to use the `aigne doc clear` command to safely remove generated files, configuration settings, and cached information, helping you maintain a clean and organized workspace.
 
@@ -26,8 +26,8 @@ The interactive wizard presents a checklist of items you can remove. The table b
 
 | Target | Description |
 | :--- | :--- |
-| **`generatedDocs`** | Allows you to select and delete specific generated documents from your output directory (e.g., `./docs`). The overall documentation structure is preserved. |
-| **`documentStructure`** | Deletes all generated documentation files and the structure plan file (e.g., `.aigne/doc-smith/output/structure-plan.json`). |
+| **`generatedDocs`** | Allows you to select and delete specific generated documents from your output directory (e.g., `./docs`). The overall document structure is preserved. |
+| **`documentStructure`** | Deletes all generated document files and the structure plan file (e.g., `.aigne/doc-smith/output/structure-plan.json`). |
 | **`documentConfig`** | Removes the main project configuration file (e.g., `.aigne/doc-smith/config.yaml`). After deleting it, you will need to run `aigne doc init` to create a new one. |
 | **`authTokens`** | Deletes saved authorization credentials used for publishing (e.g., from `~/.aigne/doc-smith-connected.yaml`). You will be prompted to select which site authorizations to clear. |
 | **`deploymentConfig`** | Removes only the `appUrl` key from your project's configuration file, leaving all other settings intact. |
@@ -47,9 +47,9 @@ aigne doc clear
 
 To clear specific items without prompts, use the `--targets` flag followed by the names of the targets you wish to remove.
 
-#### Clear Generated Documents Only
+#### Clear Created Documents Only
 
-This command deletes the generated document files but preserves the `structure-plan.json` file, allowing you to regenerate the content later.
+This command deletes the created document files but preserves the `structure-plan.json` file, allowing you to regenerate the content later.
 
 ```sh aigne doc clear --targets generatedDocs icon=lucide:file-minus
 aigne doc clear --targets generatedDocs
@@ -57,7 +57,7 @@ aigne doc clear --targets generatedDocs
 
 #### Clear Structure and Configuration
 
-This command performs a more thorough cleanup by removing all generated documents, the structure plan, and the main configuration file.
+This command performs a more thorough cleanup by removing all created documents, the structure plan, and the main configuration file.
 
 ```sh aigne doc clear --targets documentStructure documentConfig icon=lucide:files
 aigne doc clear --targets documentStructure documentConfig
@@ -65,4 +65,4 @@ aigne doc clear --targets documentStructure documentConfig
 
 ## Summary
 
-The `clear` command provides a straightforward method for managing your project's generated assets and configuration. Use the interactive mode for a safe, guided process or specify targets directly for automated workflows. Since these actions permanently delete files, it is advisable to back up any important data before proceeding.
+The `clear` command provides a straightforward method for managing your project's created assets and configuration. Use the interactive mode for a safe, guided process or specify targets directly for automated workflows. Since these actions permanently delete files, it is advisable to back up any important data before proceeding.

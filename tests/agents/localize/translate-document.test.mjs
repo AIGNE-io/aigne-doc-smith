@@ -14,7 +14,7 @@ describe("translateDocument Agent", () => {
   });
   test("should load agent correctly with proper configuration", async () => {
     const agent = await loadAgent(
-      join(import.meta.dirname, "../../../agents/translate/translate-document.yaml"),
+      join(import.meta.dirname, "../../../agents/localize/translate-document.yaml"),
       {
         model: loadModel,
       },
@@ -30,7 +30,7 @@ describe("translateDocument Agent", () => {
 
   test("should have instructions loaded from file", async () => {
     const agent = await loadAgent(
-      join(import.meta.dirname, "../../../agents/translate/translate-document.yaml"),
+      join(import.meta.dirname, "../../../agents/localize/translate-document.yaml"),
       {
         model: loadModel,
       },

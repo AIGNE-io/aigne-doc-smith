@@ -1,12 +1,12 @@
-# Evaluating Documents
+# Evaluate Documents
 
-Wondering if your documentation hits the mark? This guide introduces the `evaluate` command, a powerful tool that systematically assesses your documentation's quality and completeness, providing a clear, actionable report to guide your improvements. You'll learn how to run an evaluation and interpret its results.
+Wondering if your documents hit the mark? This guide introduces the `evaluate` command, a powerful tool that systematically assesses your documents quality and completeness, providing a clear, actionable report to guide your improvements. You'll learn how to run an evaluation and interpret its results.
 
 ## The Evaluation Process
 
-The `evaluate` command performs a comprehensive, two-stage analysis to give you a complete picture of your documentation's health. It checks both the high-level organization and the fine-grained details of each file.
+The `evaluate` command performs a comprehensive, two-stage analysis to give you a complete picture of your documents health. It checks both the high-level organization and the fine-grained details of each file.
 
-1.  **Structure Evaluation**: First, the tool inspects the overall architecture of your documentation. It verifies that the hierarchy of topics is logical and fully covers the goals, audience, and depth you defined during the initial setup.
+1.  **Structure Evaluation**: First, the tool inspects the overall architecture of your documents. It verifies that the hierarchy of topics is logical and fully covers the goals, audience, and depth you defined during the initial setup.
 2.  **Content Evaluation**: Next, it drills down into each individual document. This stage assesses the quality of the written content based on dimensions like readability, coherence, and alignment with your stated purpose. It also validates any code snippets for correctness.
 
 After both stages are complete, the findings are compiled into a detailed HTML report that provides scores, identifies specific issues, and offers actionable feedback.
@@ -48,7 +48,7 @@ The report is structured to provide a clear and organized breakdown of the evalu
 
 ### Structure Evaluation Details
 
-This section focuses on the high-level organization of your documentation. It assesses how well the document structure aligns with the project's defined objectives.
+This section focuses on the high-level organization of your documents. It assesses how well the document structure aligns with the project's defined objectives.
 
 | Dimension | Description |
 | :--- | :--- |
@@ -66,12 +66,12 @@ This section provides a file-by-file analysis of content quality. Each document 
 | **Coherence** | Evaluates the logical flow and organization of topics within the document. |
 | **Content Quality** | Assesses the accuracy, relevance, and clarity of the information provided. |
 | **Consistency** | Checks for uniform use of terminology, formatting, and style across all documents. |
-| **Purpose Alignment** | Determines how well the content achieves the specified documentation goals. |
+| **Purpose Alignment** | Determines how well the content achieves the specified document goals. |
 | **Audience Alignment** | Assesses whether the language, tone, and examples are appropriate for the target audience. |
 | **Knowledge Level Alignment** | Verifies that the content's complexity matches the defined reader knowledge level. |
 
 ## Summary
 
-Regularly using the `evaluate` command is a key practice for maintaining high-quality documentation. It provides objective metrics and specific feedback, allowing you to refine your content methodically. After reviewing the report, you can make targeted improvements to ensure your documentation is as clear and effective as possible.
+Regularly using the `evaluate` command is a key practice for maintaining high-quality documents. It provides objective metrics and specific feedback, allowing you to refine your content methodically. After reviewing the report, you can make targeted improvements to ensure your documents are as clear and effective as possible.
 
-For detailed instructions on how to apply the feedback from the report, see the [Updating Documentation](./guides-updating-documentation.md) guide.
+For detailed instructions on how to apply the feedback from the report, see the [Update Document](./guides-updating-documentation.md) guide.

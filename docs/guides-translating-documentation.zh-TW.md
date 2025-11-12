@@ -1,17 +1,17 @@
-# 翻譯文件
+# 本地化文件
 
-將您的文件提供多種語言版本，對於觸及全球受眾至關重要。本指南提供逐步流程，說明如何使用 `aigne doc translate` 命令將您的內容翻譯成 12 種支援的語言之一，確保您的文件易於各地使用者存取和理解。
+將您的文件提供多種語言版本，對於觸及全球受眾至關重要。本指南提供逐步流程，說明如何使用 `aigne doc localize` 命令將您的內容翻譯成 12 種支援的語言之一，確保您的文件易於各地使用者存取和理解。
 
-## 翻譯流程概覽
+## 本地化流程概覽
 
-翻譯文件的主要命令是 `aigne doc translate`。此命令可以透過兩種模式執行：互動式或非互動式（使用命令列旗標）。兩種方法都設計得簡單明瞭，讓您能有效率地管理單一或多語言的翻譯。
+本地化文件的主要命令是 `aigne doc localize`。此命令可以透過兩種模式執行：互動式或非互動式（使用命令列旗標）。兩種方法都設計得簡單明瞭，讓您能有效率地管理單一或多語言的本地化。
 
 ### 互動模式
 
 若想獲得引導式體驗，請在不帶任何參數的情況下執行此命令。對於初次使用翻譯功能或偏好逐步流程的使用者，建議採用此方法。
 
 ```bash icon=lucide:terminal
-aigne doc translate
+aigne doc localize
 ```
 
 當您執行此命令時，DocSmith 將啟動一個互動式會話：
@@ -32,7 +32,7 @@ aigne doc translate
 若要實現自動化、指令稿編寫或更直接的控制，您可以直接在命令列中提供參數。
 
 ```bash icon=lucide:terminal
-aigne doc translate [options]
+aigne doc localize [options]
 ```
 
 #### 選項
@@ -60,14 +60,14 @@ aigne doc translate [options]
 
     若要將 `overview.md` 和 `getting-started.md` 翻譯成中文和日文，請使用以下命令：
     ```bash icon=lucide:terminal
-    aigne doc translate --docs overview.md --docs getting-started.md --langs zh ja
+    aigne doc localize --docs overview.md --docs getting-started.md --langs zh ja
     ```
 
 2.  **使用詞彙表和風格回饋進行翻譯：**
 
     若要將 `overview.md` 翻譯成德文，同時確保術語一致性和正式語氣，您可以包含 `--glossary` 和 `--feedback` 選項：
     ```bash icon=lucide:terminal
-    aigne doc translate --docs overview.md --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
+    aigne doc localize --docs overview.md --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
     ```
 
 ## 支援的語言
@@ -91,6 +91,6 @@ DocSmith 為 12 種語言提供專業級的翻譯。使用 `--langs` 旗標時�
 
 ## 總結
 
-本指南介紹了如何使用 `aigne doc translate` 命令，讓您的文件能夠觸及全球受眾。您可以使用互動模式進行引導式操作，或使用命令列選項以實現自動化和精確控制。
+本指南介紹了如何使用 `aigne doc localize` 命令，讓您的文件能夠觸及全球受眾。您可以使用互動模式進行引導式操作，或使用命令列選項以實現自動化和精確控制。
 
-文件翻譯完成後，下一步就是發佈它們。有關此流程的詳細說明，請參閱[發佈您的文件](./guides-publishing-your-docs.md)指南。
+文件本地化完成後，下一步就是發佈它們。有關此流程的詳細說明，請參閱[發佈您的文件](./guides-publishing-your-docs.md)指南。

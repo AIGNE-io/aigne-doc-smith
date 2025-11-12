@@ -25,14 +25,14 @@
   },
   {
     "title": "Guides",
-    "description": "Contains step-by-step instructions for performing common documentation tasks.",
+    "description": "Contains step-by-step instructions for performing common document tasks.",
     "path": "/guides",
     "sourceIds": [
       "aigne.yaml",
       "README.md",
-      "agents/generate/index.yaml",
+      "agents/create/index.yaml",
       "agents/update/index.yaml",
-      "agents/translate/index.yaml",
+      "agents/localize/index.yaml",
       "agents/publish/index.yaml",
       "agents/clear/index.yaml",
       "agents/evaluate/index.yaml",
@@ -66,23 +66,23 @@
     "icon": "lucide:scroll-text"
   },
   {
-    "title": "Generating Documentation",
+    "title": "Create Document",
     "description": "Walks through the process of creating a new set of documents from your source files from start to finish.",
     "path": "/guides/generating-documentation",
     "sourceIds": [
-      "agents/generate/index.yaml",
-      "agents/generate/generate-structure.yaml",
-      "agents/generate/user-review-document-structure.mjs",
+      "agents/create/index.yaml",
+      "agents/create/generate-structure.yaml",
+      "agents/create/user-review-document-structure.mjs",
       "agents/update/batch-generate-document.yaml",
       "README.md",
-      "agents/generate/check-need-generate-structure.mjs",
-      "agents/generate/refine-document-structure.yaml",
-      "agents/generate/check-document-structure.yaml"
+      "agents/create/check-need-generate-structure.mjs",
+      "agents/create/refine-document-structure.yaml",
+      "agents/create/check-document-structure.yaml"
     ],
     "parentId": "/guides"
   },
   {
-    "title": "Updating Documentation",
+    "title": "Update Document",
     "description": "Explains how to modify existing documents based on code changes or new feedback.",
     "path": "/guides/updating-documentation",
     "sourceIds": [
@@ -98,22 +98,33 @@
     "parentId": "/guides"
   },
   {
-    "title": "Translating Documentation",
-    "description": "Details the steps to translate your documents into multiple supported languages.",
+    "title": "Manage Update History",
+    "description": "Shows how to view the history of updates made to your documents.",
+    "path": "/guides/managing-history",
+    "sourceIds": [
+      "agents/history/view.mjs",
+      "aigne.yaml",
+      "agents/history/index.yaml"
+    ],
+    "parentId": "/guides/updating-documentation"
+  },
+  {
+    "title": "Localize Document",
+    "description": "Details the steps to localize your documents into multiple supported languages.",
     "path": "/guides/translating-documentation",
     "sourceIds": [
-      "agents/translate/index.yaml",
-      "agents/translate/translate-multilingual.yaml",
-      "agents/translate/choose-language.mjs",
+      "agents/localize/index.yaml",
+      "agents/localize/translate-multilingual.yaml",
+      "agents/localize/choose-language.mjs",
       "README.md",
-      "agents/translate/translate-document.yaml",
-      "agents/translate/record-translation-history.mjs"
+      "agents/localize/translate-document.yaml",
+      "agents/localize/record-translation-history.mjs"
     ],
     "parentId": "/guides"
   },
   {
-    "title": "Publishing Your Docs",
-    "description": "Shows how to make your generated documentation live and accessible online.",
+    "title": "Publish Documents",
+    "description": "Shows how to make your generated documents live and accessible online.",
     "path": "/guides/publishing-your-docs",
     "sourceIds": [
       "agents/publish/index.yaml",
@@ -134,8 +145,8 @@
     "parentId": "/configuration"
   },
   {
-    "title": "Managing Preferences",
-    "description": "Explains how to view, remove, and toggle your saved preferences for documentation generation.",
+    "title": "Manage Preferences",
+    "description": "Explains how to view, remove, and toggle your saved preferences for document generation.",
     "path": "/configuration/managing-preferences",
     "sourceIds": [
       "agents/prefs/index.mjs",
@@ -144,19 +155,8 @@
     "parentId": "/configuration"
   },
   {
-    "title": "Managing History",
-    "description": "Shows how to view the history of updates made to your documentation.",
-    "path": "/guides/managing-history",
-    "sourceIds": [
-      "agents/history/view.mjs",
-      "aigne.yaml",
-      "agents/history/index.yaml"
-    ],
-    "parentId": "/guides"
-  },
-  {
-    "title": "Evaluating Documents",
-    "description": "Details how to use the evaluation command to assess the quality and completeness of your generated documentation.",
+    "title": "Evaluate Documents",
+    "description": "Details how to use the evaluation command to assess the quality and completeness of your generated documents.",
     "path": "/guides/evaluating-documents",
     "sourceIds": [
       "agents/evaluate/index.yaml",
@@ -168,7 +168,7 @@
     "parentId": "/guides"
   },
   {
-    "title": "Cleaning Up",
+    "title": "Cleanup Workspace",
     "description": "Provides instructions on how to use the clear command to remove generated files, configurations, and cached data.",
     "path": "/guides/cleaning-up",
     "sourceIds": [
@@ -183,8 +183,8 @@
     "parentId": "/guides"
   },
   {
-    "title": "Interactive Chat",
-    "description": "Explains how to use the interactive chat assistant to generate, modify, and manage your documentation.",
+    "title": "Interactive Mode (Beta)",
+    "description": "Explains how to use the interactive mode to create, modify, and manage your documents.",
     "path": "/guides/interactive-chat",
     "sourceIds": [
       "agents/chat/index.yaml",

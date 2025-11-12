@@ -9,7 +9,7 @@ skills:
       - url: ../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: translation
-      - ../translate/translate-document.yaml
+      - ../localize/translate-document.yaml
       - type: transform
         jsonata: |
           $merge([

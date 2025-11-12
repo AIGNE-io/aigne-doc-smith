@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import * as fsPromises from "node:fs/promises";
-import checkNeedGenerateStructure from "../../../agents/generate/check-need-generate-structure.mjs";
+import checkNeedGenerateStructure from "../../../agents/create/check-need-generate-structure.mjs";
 
 import * as preferencesUtils from "../../../utils/preferences-utils.mjs";
 import * as utils from "../../../utils/utils.mjs";

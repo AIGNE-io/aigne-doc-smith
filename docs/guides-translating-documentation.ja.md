@@ -1,17 +1,17 @@
-# ドキュメントの翻訳
+# ドキュメントローカライズ
 
-ドキュメントを多言語で利用できるようにすることは、グローバルなオーディエンスにリーチするために不可欠です。このガイドでは、`aigne doc translate` コマンドを使用してコンテンツをサポートされている12の言語のいずれかに翻訳するためのステップバイステップのプロセスを提供し、世界中のユーザーがドキュメントにアクセスしやすく、理解しやすいようにします。
+ドキュメントを多言語で利用できるようにすることは、グローバルなオーディエンスにリーチするために不可欠です。このガイドでは、`aigne doc localize` コマンドを使用してコンテンツをサポートされている12の言語のいずれかに翻訳するためのステップバイステップのプロセスを提供し、世界中のユーザーがドキュメントにアクセスしやすく、理解しやすいようにします。
 
 ## 翻訳プロセスの概要
 
-ドキュメントを翻訳するための主要なコマンドは `aigne doc translate` です。このコマンドは、インタラクティブモードまたは非インタラクティブモード（コマンドラインフラグを使用）の2つのモードで実行できます。どちらの方法も直感的になるように設計されており、単一または多言語の翻訳を効率的に管理できます。
+ドキュメントを翻訳するための主要なコマンドは `aigne doc localize` です。このコマンドは、インタラクティブモードまたは非インタラクティブモード（コマンドラインフラグを使用）の2つのモードで実行できます。どちらの方法も直感的になるように設計されており、単一または多言語の翻訳を効率的に管理できます。
 
 ### インタラクティブモード
 
 ガイド付きの体験をしたい場合は、引数なしでコマンドを実行してください。これは、翻訳機能を初めて使用するユーザーや、ステップバイステップのプロセスを好むユーザーにおすすめの方法です。
 
 ```bash icon=lucide:terminal
-aigne doc translate
+aigne doc localize
 ```
 
 このコマンドを実行すると、DocSmithはインタラクティブセッションを開始します：
@@ -32,7 +32,7 @@ aigne doc translate
 自動化、スクリプト作成、またはより直接的な制御のためには、コマンドラインで直接引数を指定できます。
 
 ```bash icon=lucide:terminal
-aigne doc translate [options]
+aigne doc localize [options]
 ```
 
 #### オプション
@@ -60,14 +60,14 @@ aigne doc translate [options]
 
     `overview.md` と `getting-started.md` を中国語と日本語に翻訳するには、次のコマンドを使用します：
     ```bash icon=lucide:terminal
-    aigne doc translate --docs overview.md --docs getting-started.md --langs zh ja
+    aigne doc localize --docs overview.md --docs getting-started.md --langs zh ja
     ```
 
 2.  **用語集とスタイルに関するフィードバックを使用して翻訳する：**
 
     `overview.md` をドイツ語に翻訳し、用語の一貫性とフォーマルなトーンを確保するには、`--glossary` と `--feedback` オプションを含めることができます：
     ```bash icon=lucide:terminal
-    aigne doc translate --docs overview.md --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
+    aigne doc localize --docs overview.md --langs de --feedback "Use a formal tone" --glossary @/path/to/glossary.md
     ```
 
 ## サポートされている言語
@@ -91,6 +91,6 @@ DocSmithは、12言語のプロフェッショナルレベルの翻訳を提供�
 
 ## まとめ
 
-このガイドでは、`aigne doc translate` コマンドを使用してドキュメントをグローバルなオーディエンスにアクセス可能にする方法について説明しました。ガイド付きプロセスにはインタラクティブモードを、自動化と精度のためにはコマンドラインオプションを使用できます。
+このガイドでは、`aigne doc localize` コマンドを使用してドキュメントをグローバルなオーディエンスにアクセス可能にする方法について説明しました。ガイド付きプロセスにはインタラクティブモードを、自動化と精度のためにはコマンドラインオプションを使用できます。
 
-ドキュメントが翻訳されたら、次のステップはそれらを公開することです。このプロセスの詳細な手順については、[ドキュメントの公開](./guides-publishing-your-docs.md)ガイドを参照してください。
+ドキュメントが翻訳されたら、次のステップはそれらを公開することです。このプロセスの詳細な手順については、[ドキュメント公開](./guides-publishing-your-docs.md)ガイドを参照してください。

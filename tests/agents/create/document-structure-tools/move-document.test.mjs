@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
-import moveDocument from "../../../../agents/generate/document-structure-tools/move-document.mjs";
+import moveDocument from "../../../../agents/create/document-structure-tools/move-document.mjs";
 
 describe("move-document", () => {
   let consoleSpy;

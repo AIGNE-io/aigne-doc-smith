@@ -39,7 +39,7 @@ descriptions:
       successful documentation generation message, indicated by a green
       checkmark icon. It provides contextual follow-up instructions, including
       how to publish the documentation using `aigne doc publish` and optional
-      commands like `aigne doc update` or `aigne doc generate` for further
+      commands like `aigne doc update` or `aigne doc create` for further
       refinement. The text is displayed in light gray and yellow against a dark
       background, indicating steps and commands for a documentation tool.
     generatedAt: 2025-10-13T13:19:04.511Z

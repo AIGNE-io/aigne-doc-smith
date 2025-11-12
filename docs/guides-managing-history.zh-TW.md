@@ -51,7 +51,7 @@ aigne doc history list
 
 e5a4f8b1 2 hours ago update_document_detail (/guides/generating-documentation): Added a new section on advanced configuration options.
 a3b1c9d2 1 day ago  update_document_detail (/overview): Refined the introduction to be more concise.
-f8d2e0c3 3 days ago generate_document (/guides/managing-history): Initial generation of the history management guide.
+f8d2e0c3 3 days ago generate_document (/guides/managing-history): Initial creation of the history management guide.
 ```
 
 此日誌提供了一份井然有序且易於掃視的所有變更記錄，使其成為追蹤進度和檢視文件歷史的實用工具。

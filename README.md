@@ -80,7 +80,7 @@ Navigate to your project directory and run:
 
 ```bash
 # One command to generate your documentation
-aigne doc generate
+aigne doc create
 ```
 
 DocSmith will:
@@ -105,9 +105,9 @@ DocSmith supports multiple AI providers:
 
 ```bash
 # Switch models effortlessly
-aigne doc generate --model google:gemini-2.5-pro
-aigne doc generate --model anthropic:claude-sonnet-4-5
-aigne doc generate --model openai:gpt-4o
+aigne doc create --model google:gemini-2.5-pro
+aigne doc create --model anthropic:claude-sonnet-4-5
+aigne doc create --model openai:gpt-4o
 ```
 
 **🔑 Custom API Keys**
@@ -126,13 +126,13 @@ Configure your own API keys for direct provider access:
 
 ```bash
 # Smart generation with auto-configuration
-aigne doc generate
+aigne doc create
 
 # Force a complete regeneration of the documentation
-aigne doc generate --forceRegenerate
+aigne doc create --forceRegenerate
 
 # Generate with custom feedback
-aigne doc generate --feedback "Add more API examples and troubleshooting sections"
+aigne doc create --feedback "Add more API examples and troubleshooting sections"
 ```
 
 #### 🔄 Update Existing Documents
@@ -149,13 +149,13 @@ aigne doc update --docs overview.md --feedback "Add comprehensive FAQ section"
 
 ```bash
 # Interactive translation with smart language selection
-aigne doc translate
+aigne doc localize
 
 # Translate specific documents into multiple languages
-aigne doc translate --langs zh --langs ja --docs examples.md --docs overview.md
+aigne doc localize --langs zh --langs ja --docs examples.md --docs overview.md
 
 # Translate with a custom glossary for consistent terminology
-aigne doc translate --glossary @path/to/glossary.md --feedback "Use technical terminology consistently"
+aigne doc localize --glossary @path/to/glossary.md --feedback "Use technical terminology consistently"
 ```
 
 #### 🚀 Publishing & Deployment
@@ -300,4 +300,3 @@ This project is licensed under the **Elastic License 2.0**. See the [LICENSE](LI
 - ❌ **Restrictions**: You cannot offer DocSmith as a competing hosted service.
 
 [Learn more about the Elastic License 2.0](https://www.elastic.co/licensing/elastic-license)
-

@@ -15,13 +15,13 @@ This is a maintenance release focused on general stability and performance impro
 
 ### Bug Fixes
 
-- **Improved Prompts**: Fine-tuned internal prompts to generate more expressive and detailed documentation.
+- **Improved Prompts**: Fine-tuned internal prompts to generate more expressive and detailed documents.
 
 ## Version 0.8.16-beta (2025-11-10)
 
 ### New Features
 
-- **Enhanced Chat Assistant**: The interactive chat agent now utilizes the AIGNE File System (AFS) to access your project's context, leading to more accurate and relevant assistance.
+- **Enhanced Interactive Mode**: The interactive mode agent now utilizes the AIGNE File System (AFS) to access your project's context, leading to more accurate and relevant assistance.
 - **Title Streamlining**: Implemented a function to automatically streamline and standardize document titles.
 
 ### Bug Fixes
@@ -36,13 +36,13 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- **Customizable Diagram Generation**: You can now specify the number of diagrams to be generated for your documentation.
+- **Customizable Diagram Generation**: You can now specify the number of diagrams to be generated for your documents.
 
 ## Version 0.8.15-beta.15 (2025-11-07)
 
 ### Bug Fixes
 
-- **Configuration System**: Added a two-tier configuration system for managing the AI's "thinking effort," allowing for more granular control over generation quality and speed.
+- **Configuration System**: Added a two-tier configuration system for managing the AI's "thinking effort," allowing for more granular control over creation quality and speed.
 
 ## Version 0.8.15-beta.14 (2025-11-06)
 
@@ -60,7 +60,7 @@ This version includes general maintenance and stability improvements.
 ### Bug Fixes
 
 - **Publishing Stability**: Improved the stability and smoothness of the paid deployment process.
-- **Validation and Viewing**: The tool now validates the documentation directory during initialization and ensures the latest version is displayed after publishing.
+- **Validation and Viewing**: The tool now validates the document directory during initialization and ensures the latest version is displayed after publishing.
 
 ## Version 0.8.15-beta.12 (2025-11-05)
 
@@ -76,7 +76,7 @@ This version includes general maintenance and stability improvements.
 
 ### Bug Fixes
 
-- **Efficient Diagram Generation**: Prevented the generation of unnecessary diagrams.
+- **Efficient Diagram Generation**: Prevented the creation of unnecessary diagrams.
 - **Structure Generation**: Improved the process of generating the document structure by iterating through data source chunks more effectively.
 
 ## Version 0.8.11 (2025-10-05)
@@ -103,13 +103,13 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- **API Parameter Fields**: Added support for defining API parameters using the `<x-field>` custom component for more structured API documentation.
+- **API Parameter Fields**: Added support for defining API parameters using the `<x-field>` custom component for more structured API documents.
 
 ## Version 0.8.6 (2025-09-11)
 
 ### New Features
 
-- **Publish URL Display**: The documentation URL is now displayed by default after a successful publishing process.
+- **Publish URL Display**: The document URL is now displayed by default after a successful publishing process.
 
 ### Bug Fixes
 
@@ -138,7 +138,7 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- **Improved D2 Charts**: Enhanced D2 chart generation with more comprehensive internal examples to improve the quality and accuracy of visual outputs.
+- **Improved D2 Charts**: Enhanced D2 chart creation with more comprehensive internal examples to improve the quality and accuracy of visual outputs.
 
 ## Version 0.8.0 (2025-09-03)
 
@@ -156,8 +156,8 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- **Interactive Chat Mode**: Added a chat assistant for generating and managing documentation interactively. See the [Interactive Chat](./guides-interactive-chat.md) guide for more details.
-- **D2 Chart Support**: Introduced support for D2 charts in the document generation and publishing workflow.
+- **Interactive Mode**: Added interactive mode for generating and managing documents interactively. See the [Interactive Mode](./guides-interactive-chat.md) guide for more details.
+- **D2 Chart Support**: Introduced support for D2 charts in the document creation and publishing workflow.
 - **Custom Components**: Enabled support for custom components and more robust configuration handling.
 
 ## Version 0.6.0 (2025-08-27)
@@ -170,7 +170,7 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- **Persistent Preferences**: User feedback can now be saved as persistent preferences for future sessions. Learn more in our [Managing Preferences](./configuration-managing-preferences.md) guide.
+- **Persistent Preferences**: User feedback can now be saved as persistent preferences for future sessions. Learn more in our [Manage Preferences](./configuration-managing-preferences.md) guide.
 
 ### Bug Fixes
 
@@ -180,17 +180,17 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- **Translate Command**: Introduced a new `translate` command for translating documents into multiple languages. See the [Translating Documentation](./guides-translating-documentation.md) guide to get started.
+- **Localize Command**: Introduced a new `localize` command for translating documents into multiple languages. See the [Localize Document](./guides-translating-documentation.md) guide to get started.
 
 ## Version 0.3.0 (2025-08-19)
 
 ### New Features
 
-- **Context Collection**: Refined the workflow for collecting context during document generation, leading to more relevant output.
+- **Context Collection**: Refined the workflow for collecting context during document creation, leading to more relevant output.
 
 ## Version 0.2.0 (2025-08-05)
 
 ### New Features
 
 - **Automatic Configuration**: The tool will now automatically initialize the configuration if it is missing when a command is run.
-- **Update Command**: Added a new `update` command to refresh documents when source files have changed. You can find more information in the [Updating Documentation](./guides-updating-documentation.md) guide.
+- **Update Command**: Added a new `update` command to refresh documents when source files have changed. You can find more information in the [Update Document](./guides-updating-documentation.md) guide.

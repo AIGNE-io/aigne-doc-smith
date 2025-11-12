@@ -1,12 +1,12 @@
-# 互動式聊天
+# 互動模式
 
-是否對命令列選項感到不知所措？本指南將說明如何使用互動式聊天助理，這是一個對話式介面，能簡化文件處理過程的每一步。讀完本指南後，您將能夠使用簡單、自然的語言指令來生成、更新、翻譯和發布您的文件。
+是否對命令列選項感到不知所措？本指南將說明如何使用互動模式，這是一個對話式介面，能簡化文件處理過程的每一步。讀完本指南後，您將能夠使用簡單、自然的語言指令來建立、更新、本地化和發布您的文件。
 
-聊天助理是管理文件的建議方法，因为它提供了一個引導式工作流程，無需記憶特定的指令及其參數。
+互動模式是管理文件的建議方法，因为它提供了一個引導式工作流程，無需記憶特定的指令及其參數。
 
 ## 啟動互動式會話
 
-若要啟動聊天助理，請在您專案的根目錄中執行 `chat` 指令。
+若要啟動互動模式，請在您專案的根目錄中執行 `chat` 指令。
 
 ```bash aigne doc chat icon=lucide:terminal
 aigne doc chat
@@ -16,17 +16,17 @@ aigne doc chat
 
 ## 核心功能
 
-聊天助理將多個核心功能整合到一個單一的對話式介面中，從而簡化了整個文件生命週期。您可以用淺白的語言說明您的目標，助理將執行必要的步驟。
+互動模式將多個核心功能整合到一個單一的對話式介面中，從而簡化了整個文件生命週期。您可以用淺白的語言說明您的目標，助理將執行必要的步驟。
 
 <x-cards data-columns="2">
-  <x-card data-title="生成文件" data-icon="lucide:file-plus-2">
+  <x-card data-title="建立文件" data-icon="lucide:file-plus-2">
     透過分析您專案的原始碼，建立完整的文件結構和初始內容。
   </x-card>
   <x-card data-title="更新與優化" data-icon="lucide:edit">
     根據您的回饋或原始碼的最新變更，修改特定文件或整個章節。
   </x-card>
-  <x-card data-title="翻譯內容" data-icon="lucide:languages">
-    將您的文件翻譯成多種支援的語言，以服務全球受眾。
+  <x-card data-title="本地化內容" data-icon="lucide:languages">
+    將您的文件本地化成多種支援的語言，以服務全球受眾。
   </x-card>
   <x-card data-title="發布您的文件" data-icon="lucide:upload-cloud">
     遵循引導式流程來發布您的文件，並使其在線上可用。
@@ -66,7 +66,7 @@ You:
 > I need to create documentation for this project.
 
 AI Assistant:
-Understood. I will start the documentation generation process for the current directory.
+Understood. I will start the documentation creation process for the current directory.
 First, I will analyze your project to propose a documentation structure. This may take a few moments...
 ...
 Analysis complete. I have created a proposed structure. Would you like to review it before I generate the content? (yes/no)
@@ -90,6 +90,6 @@ Great. I will now proceed with generating the content for each document. This ma
 
 ## 總結
 
-互動式聊天助理提供了一種系統化且引導式的文件管理方法。它將工具的完整功能整合到一個單一的對話式介面中，確保了工作流程的精確與高效。
+互動模式提供了一種系統化且引導式的文件管理方法。它將工具的完整功能整合到一個單一的對話式介面中，確保了工作流程的精確與高效。
 
-若要查看聊天助理的實際應用，請參考 [生成文件](./guides-generating-documentation.md) 指南，其中有詳細的逐步解說。
+若要查看互動模式的實際應用，請參考 [建立文件](./guides-generating-documentation.md) 指南，其中有詳細的逐步解說。
