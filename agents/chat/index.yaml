@@ -5,6 +5,8 @@ instructions:
   url: ./chat-system.md
 input_key: message
 afs:
+  storage:
+    url: file:.aigne/doc-smith/.local/afs-storage.sqlite3
   modules:
     - module: system-fs
       options:
