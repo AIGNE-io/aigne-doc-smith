@@ -34,7 +34,7 @@ export function ensureGitRepo() {
       execSync("git init", { cwd, stdio: "ignore" });
 
       // Create .gitignore to exclude temporary files
-      const gitignore = "*.tmp\n";
+      const gitignore = "*.tmp\n.local/\n";
       writeFileSync(join(cwd, ".gitignore"), gitignore);
 
       // Initial commit

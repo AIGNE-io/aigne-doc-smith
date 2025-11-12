@@ -8,7 +8,7 @@ input_schema:
       type: array
       items:
         type: string
-      description: Documents to update, must from listDocs output
+      description: Documents to update, must from listDocuments output
     feedback:
       type: string
       description: Tell us what to change in this content

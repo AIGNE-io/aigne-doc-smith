@@ -79,7 +79,6 @@ agents:
   - ./agents/utils/check-feedback-refiner.mjs
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/utils/analyze-feedback-intent.yaml
-  - ./agents/utils/list-docs.mjs
 
   - ./agents/utils/document-title-streamline.yaml
   - ./agents/utils/streamline-document-titles-if-needed.mjs
@@ -88,7 +87,7 @@ agents:
 
   # User Preferences & Chat
   - ./agents/prefs/index.mjs
-  - ./agents/chat/index.yaml
+  - ./agents/chat/index.mjs
 
   # Documentation MCP Server
   - ./docs-mcp/get-docs-structure.mjs
@@ -111,7 +110,7 @@ agents:
   - ./agents/update/check-generate-diagram.mjs
   - ./agents/update/pre-check-generate-diagram.yaml
 cli:
-  chat: ./agents/chat/index.yaml
+  chat: ./agents/chat/index.mjs
   agents:
     - ./agents/init/index.mjs
     - ./agents/generate/index.yaml
