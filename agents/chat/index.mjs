@@ -6,7 +6,7 @@ const config = await readFile(".aigne/doc-smith/config.yaml", "utf-8")
   .then((raw) => parse(raw))
   .catch(() => null);
 
-const docsDir = config.docsDir || ".aigne/doc-smith/docs";
+const docsDir = config?.docsDir || ".aigne/doc-smith/docs";
 
 export default {
   type: "ai",
