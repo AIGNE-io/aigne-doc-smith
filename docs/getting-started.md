@@ -172,7 +172,7 @@ You have now successfully generated your first set of documents. The following a
   <x-card data-title="Localize Document" data-icon="lucide:languages" data-href="/guides/translating-documentation">
     Translate your documents into any of the 12 supported languages, including Chinese, Spanish, and German.
   </x-card>
-  <x-card data-title="Publishing Your Documents" data-icon="lucide:rocket" data-href="/guides/publishing-your-docs">
+  <x-card data-title="Publish Documents" data-icon="lucide:rocket" data-href="/guides/publishing-your-docs">
     Make your documents accessible online for your team or the public.
   </x-card>
   <x-card data-title="Review Configuration" data-icon="lucide:settings" data-href="/configuration/initial-setup">

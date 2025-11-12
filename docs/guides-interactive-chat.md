@@ -1,4 +1,4 @@
-# Interactive Mode
+# Interactive Mode (Beta)
 
 Feeling overwhelmed by command-line options? This guide explains how to use the interactive mode, a conversational interface that simplifies every step of the document process. By the end, you will be able to generate, update, translate, and publish your documents using simple, natural language instructions.
 

@@ -1,4 +1,4 @@
-# Managing History
+# Manage Update History
 
 Ever wondered what changes were made to your documents and when? AIGNE DocSmith keeps a detailed log of every update. This guide will show you how to access and read this history, so you can easily track the evolution of your documents.
 

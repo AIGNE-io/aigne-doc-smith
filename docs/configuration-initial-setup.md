@@ -193,7 +193,7 @@ With your initial configuration saved, you are now prepared to create your docum
   <x-card data-title="Create Document" data-href="/guides/generating-documentation" data-icon="lucide:file-text">
     Learn how to run the creation process to create your first set of documents.
   </x-card>
-  <x-card data-title="Managing Preferences" data-href="/configuration/managing-preferences" data-icon="lucide:settings">
+  <x-card data-title="Manage Preferences" data-href="/configuration/managing-preferences" data-icon="lucide:settings">
     Find out how to view and modify your saved configuration at any time.
   </x-card>
 </x-cards>

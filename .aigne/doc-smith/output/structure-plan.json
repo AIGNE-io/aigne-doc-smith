@@ -98,6 +98,17 @@
     "parentId": "/guides"
   },
   {
+    "title": "Manage Update History",
+    "description": "Shows how to view the history of updates made to your documents.",
+    "path": "/guides/managing-history",
+    "sourceIds": [
+      "agents/history/view.mjs",
+      "aigne.yaml",
+      "agents/history/index.yaml"
+    ],
+    "parentId": "/guides/updating-documentation"
+  },
+  {
     "title": "Localize Document",
     "description": "Details the steps to localize your documents into multiple supported languages.",
     "path": "/guides/translating-documentation",
@@ -112,7 +123,7 @@
     "parentId": "/guides"
   },
   {
-    "title": "Publishing Your Documents",
+    "title": "Publish Documents",
     "description": "Shows how to make your generated documents live and accessible online.",
     "path": "/guides/publishing-your-docs",
     "sourceIds": [
@@ -134,7 +145,7 @@
     "parentId": "/configuration"
   },
   {
-    "title": "Managing Preferences",
+    "title": "Manage Preferences",
     "description": "Explains how to view, remove, and toggle your saved preferences for document generation.",
     "path": "/configuration/managing-preferences",
     "sourceIds": [
@@ -144,18 +155,7 @@
     "parentId": "/configuration"
   },
   {
-    "title": "Managing History",
-    "description": "Shows how to view the history of updates made to your documents.",
-    "path": "/guides/managing-history",
-    "sourceIds": [
-      "agents/history/view.mjs",
-      "aigne.yaml",
-      "agents/history/index.yaml"
-    ],
-    "parentId": "/guides"
-  },
-  {
-    "title": "Evaluating Documents",
+    "title": "Evaluate Documents",
     "description": "Details how to use the evaluation command to assess the quality and completeness of your generated documents.",
     "path": "/guides/evaluating-documents",
     "sourceIds": [
@@ -168,7 +168,7 @@
     "parentId": "/guides"
   },
   {
-    "title": "Cleaning Up",
+    "title": "Cleanup Workspace",
     "description": "Provides instructions on how to use the clear command to remove generated files, configurations, and cached data.",
     "path": "/guides/cleaning-up",
     "sourceIds": [
@@ -183,8 +183,8 @@
     "parentId": "/guides"
   },
   {
-    "title": "Interactive Mode",
-    "description": "Explains how to use the interactive mode to generate, modify, and manage your documents.",
+    "title": "Interactive Mode (Beta)",
+    "description": "Explains how to use the interactive mode to create, modify, and manage your documents.",
     "path": "/guides/interactive-chat",
     "sourceIds": [
       "agents/chat/index.yaml",

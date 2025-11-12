@@ -1,4 +1,4 @@
-# Publishing Your Documents
+# Publish Documents
 
 Once your documents are generated, the final step is to make them available online. This document provides a step-by-step guide on how to publish your documents using the `aigne doc publish` command, making them accessible to your audience.
 

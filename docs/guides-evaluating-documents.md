@@ -1,4 +1,4 @@
-# Evaluating Documents
+# Evaluate Documents
 
 Wondering if your documents hit the mark? This guide introduces the `evaluate` command, a powerful tool that systematically assesses your document quality and completeness, providing a clear, actionable report to guide your improvements. You'll learn how to run an evaluation and interpret its results.
 

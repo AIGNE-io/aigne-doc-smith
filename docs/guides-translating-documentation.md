@@ -6,7 +6,7 @@ Making your documents available in multiple languages is essential for reaching 
 
 The primary command for translating documents is `aigne doc localize`. This command can be executed in two modes: interactive or non-interactive (using command-line flags). Both methods are designed to be straightforward, allowing you to manage single or multi-language translations efficiently.
 
-### Interactive Mode
+### Interactive Mode (Beta)
 
 For a guided experience, run the command without any arguments. This is the recommended approach for users who are new to the translation feature or prefer a step-by-step process.
 
@@ -93,4 +93,4 @@ DocSmith provides professional-grade translations for 12 languages. Use the lang
 
 This guide has covered the use of the `aigne doc localize` command to make your documents accessible to a global audience. You can use the interactive mode for a guided process or command-line options for automation and precision.
 
-Once your documents are translated, the next step is to publish them. For detailed instructions on this process, please see the [Publishing Your Documents](./guides-publishing-your-docs.md) guide.
+Once your documents are translated, the next step is to publish them. For detailed instructions on this process, please see the [Publish Documents](./guides-publishing-your-docs.md) guide.

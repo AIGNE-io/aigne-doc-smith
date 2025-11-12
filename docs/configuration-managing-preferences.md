@@ -1,4 +1,4 @@
-# Managing Preferences
+# Manage Preferences
 
 Have you ever wished your AI assistant would remember your instructions? This guide explains how to view, remove, and toggle your saved preferences for document creation, giving you fine-grained control over the AI's output and ensuring it consistently follows your project's specific style.
 
@@ -27,7 +27,7 @@ CLI-Interface: {
     shape: diamond
 
     Interactive-Remove: {
-      label: "Interactive Mode"
+      label: "Interactive Mode (Beta)"
       shape: rectangle
     }
 
@@ -42,7 +42,7 @@ CLI-Interface: {
     shape: diamond
 
     Interactive-Toggle: {
-      label: "Interactive Mode"
+      label: "Interactive Mode (Beta)"
       shape: rectangle
     }
 
@@ -113,7 +113,7 @@ The list is formatted to provide clear information about each preference rule:
 
 When a preference is no longer needed, you can permanently delete it using the `--remove` flag. You can remove preferences either by specifying their IDs or through an interactive menu.
 
-### Interactive Mode
+### Interactive Mode (Beta)
 
 To select preferences from a list, run the command without any IDs. This will open an interactive prompt where you can check the items you wish to delete.
 
@@ -139,7 +139,7 @@ aigne doc prefs --remove --id pref_a1b2c3d4e5f6a7b8 --id pref_b8a7f6e5d4c3b2a1
 
 Instead of permanently deleting a preference, you can temporarily enable or disable it. This is useful when you want to suspend a rule for a specific task without losing it. Use the `--toggle` flag to change a preference's active status.
 
-### Interactive Mode
+### Interactive Mode (Beta)
 
 Running the command without IDs will launch an interactive checklist, similar to the remove command.
 

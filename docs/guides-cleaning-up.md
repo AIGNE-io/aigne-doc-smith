@@ -1,4 +1,4 @@
-# Cleaning Up
+# Cleanup Workspace
 
 Need to reset your project or remove sensitive data? This guide explains how to use the `aigne doc clear` command to safely remove generated files, configuration settings, and cached information, helping you maintain a clean and organized workspace.
 

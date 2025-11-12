@@ -8,7 +8,7 @@ This section provides an overview of how to configure the tool. For detailed, st
   <x-card data-title="Initial Setup" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">
     Follow the interactive setup guide to create the main `config.yaml` file. This is the essential first step for any new document project.
   </x-card>
-  <x-card data-title="Managing Preferences" data-icon="lucide:user-cog" data-href="/configuration/managing-preferences">
+  <x-card data-title="Manage Preferences" data-icon="lucide:user-cog" data-href="/configuration/managing-preferences">
     Learn how to view, enable, disable, or delete personal preferences. These allow you to apply specific rules that can supplement the main project configuration.
   </x-card>
 </x-cards>
@@ -79,4 +79,4 @@ A well-defined configuration is essential for producing accurate, relevant, and 
 To proceed with configuring your project, please refer to the following guides:
 
 *   **[Initial Setup](./configuration-initial-setup.md)**: Create your project's `config.yaml` file.
-*   **[Managing Preferences](./configuration-managing-preferences.md)**: Customize the tool's behavior with personal rules.
+*   **[Manage Preferences](./configuration-managing-preferences.md)**: Customize the tool's behavior with personal rules.

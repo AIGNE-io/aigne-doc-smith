@@ -170,7 +170,7 @@ This version includes general maintenance and stability improvements.
 
 ### New Features
 
-- **Persistent Preferences**: User feedback can now be saved as persistent preferences for future sessions. Learn more in our [Managing Preferences](./configuration-managing-preferences.md) guide.
+- **Persistent Preferences**: User feedback can now be saved as persistent preferences for future sessions. Learn more in our [Manage Preferences](./configuration-managing-preferences.md) guide.
 
 ### Bug Fixes
 

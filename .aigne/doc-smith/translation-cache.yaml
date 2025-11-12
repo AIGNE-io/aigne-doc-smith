@@ -13,3 +13,13 @@ AIGNE DocSmith is a powerful, AI-driven documentation generation tool built on t
     驅動型文件產生工具。它能直接從您的原始碼，自動建立內容詳細、結構完整的多語言文件。
   ja: 「AIGNE
     DocSmith」は、AIGNEフレームワークを基盤に構築された、強力なAI駆動のドキュメント生成ツールです。ソースコードから直接、詳細で構造化された多言語対応のドキュメント作成を自動化します。
+AIGNE DocSmith is a powerful, AI-driven documentation creation tool built on the AIGNE Framework. It automates the creation of detailed, structured, and multi-language documentation directly from your source code.:
+  en: AIGNE DocSmith is a powerful, AI-driven documentation creation tool built on
+    the AIGNE Framework. It automates the creation of detailed, structured, and
+    multi-language documentation directly from your source code.
+  zh: AIGNE DocSmith 是一款基于 AIGNE
+    框架构建的、由人工智能驱动的强大文档创建工具。它可以直接从您的源代码中自动创建详细、结构化且支持多语言的文档。
+  zh-TW: AIGNE DocSmith 是一款基於 AIGNE 框架構建的、由 AI
+    驅動的強大文件建立工具。它能直接從您的原始碼自動建立詳細、結構化且支援多國語言的文件。
+  ja: AIGNE
+    DocSmithは、AIGNEフレームワーク上に構築された、AI駆動の強力なドキュメント作成ツールです。ソースコードから直接、詳細で構造化された多言語対応のドキュメント作成を自動化します。
