@@ -52,11 +52,19 @@ export default async function publishDocs(
 
     // ----------------- main publish process flow -----------------------------
     // Check if DOC_DISCUSS_KIT_URL is set in environment variables
-    const useEnvAppUrl = !!(process.env.DOC_DISCUSS_KIT_URL || appUrl);
+    const useEnvAppUrl = !!(
+      process.env.DOC_SMITH_PUBLISH_URL ||
+      process.env.DOC_DISCUSS_KIT_URL ||
+      appUrl
+    );
 
     // Check if appUrl is default and not saved in config (only when not using env variable)
     const config = await loadConfigFromFile();
-    appUrl = process.env.DOC_DISCUSS_KIT_URL || appUrl || config?.appUrl;
+    appUrl =
+      process.env.DOC_SMITH_PUBLISH_URL ||
+      process.env.DOC_DISCUSS_KIT_URL ||
+      appUrl ||
+      config?.appUrl;
     const hasInputAppUrl = !!appUrl;
 
     let shouldSyncBranding = void 0;
