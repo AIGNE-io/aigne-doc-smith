@@ -30,9 +30,9 @@
     "sourceIds": [
       "aigne.yaml",
       "README.md",
-      "agents/generate/index.yaml",
+      "agents/create/index.yaml",
       "agents/update/index.yaml",
-      "agents/translate/index.yaml",
+      "agents/localize/index.yaml",
       "agents/publish/index.yaml",
       "agents/clear/index.yaml",
       "agents/evaluate/index.yaml",
@@ -70,14 +70,14 @@
     "description": "Walks through the process of creating a new set of documents from your source files from start to finish.",
     "path": "/guides/generating-documentation",
     "sourceIds": [
-      "agents/generate/index.yaml",
-      "agents/generate/generate-structure.yaml",
-      "agents/generate/user-review-document-structure.mjs",
+      "agents/create/index.yaml",
+      "agents/create/generate-structure.yaml",
+      "agents/create/user-review-document-structure.mjs",
       "agents/update/batch-generate-document.yaml",
       "README.md",
-      "agents/generate/check-need-generate-structure.mjs",
-      "agents/generate/refine-document-structure.yaml",
-      "agents/generate/check-document-structure.yaml"
+      "agents/create/check-need-generate-structure.mjs",
+      "agents/create/refine-document-structure.yaml",
+      "agents/create/check-document-structure.yaml"
     ],
     "parentId": "/guides"
   },
@@ -102,12 +102,12 @@
     "description": "Details the steps to localize your documents into multiple supported languages.",
     "path": "/guides/translating-documentation",
     "sourceIds": [
-      "agents/translate/index.yaml",
-      "agents/translate/translate-multilingual.yaml",
-      "agents/translate/choose-language.mjs",
+      "agents/localize/index.yaml",
+      "agents/localize/translate-multilingual.yaml",
+      "agents/localize/choose-language.mjs",
       "README.md",
-      "agents/translate/translate-document.yaml",
-      "agents/translate/record-translation-history.mjs"
+      "agents/localize/translate-document.yaml",
+      "agents/localize/record-translation-history.mjs"
     ],
     "parentId": "/guides"
   },

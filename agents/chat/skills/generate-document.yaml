@@ -10,6 +10,6 @@ input_schema:
   required:
     - feedback
 skills:
-  - url: ../../generate/index.yaml
+  - url: ../../create/index.yaml
     default_input:
       isChat: true
