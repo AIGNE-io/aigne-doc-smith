@@ -4,7 +4,11 @@ import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import fs from "fs-extra";
 
-import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
+import {
+  getAccessToken,
+  getDiscussKitMountPoint,
+  getOfficialAccessToken,
+} from "../../utils/auth-utils.mjs";
 import {
   CLOUD_SERVICE_URL_PROD,
   DISCUSS_KIT_STORE_URL,
@@ -17,6 +21,7 @@ import { deploy } from "../../utils/deploy.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 import updateBranding from "../utils/update-branding.mjs";
 import { isRemoteFile, downloadAndUploadImage } from "../../utils/file-utils.mjs";
+import { joinURL } from "ufo";
 
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 
@@ -182,9 +187,14 @@ export default async function publishDocs(
 
     appUrl = appUrl ?? CLOUD_SERVICE_URL_PROD;
 
-    console.log(`\nPublishing your documentation to ${chalk.cyan(appUrl)}\n`);
+    const appUrlInfo = new URL(appUrl);
 
-    const accessToken = await getAccessToken(appUrl, token);
+    const discussKitMountPoint = await getDiscussKitMountPoint(appUrlInfo.origin);
+    const discussKitUrl = joinURL(appUrlInfo.origin, discussKitMountPoint);
+
+    console.log(`\nPublishing your documentation to ${chalk.cyan(discussKitUrl)}\n`);
+
+    const accessToken = await getAccessToken(appUrlInfo.origin, token);
 
     process.env.DOC_ROOT_DIR = docsDir;
 
@@ -204,7 +214,7 @@ export default async function publishDocs(
       const { url: uploadedImageUrl, downloadFinalPath } = await downloadAndUploadImage(
         projectInfo.icon,
         docsDir,
-        appUrl,
+        discussKitUrl,
         accessToken,
       );
       projectInfo.icon = uploadedImageUrl;
@@ -212,7 +222,7 @@ export default async function publishDocs(
     }
 
     if (shouldWithBranding) {
-      updateBranding({ appUrl, projectInfo, accessToken, finalPath });
+      updateBranding({ appUrl: discussKitUrl, projectInfo, accessToken, finalPath });
     }
 
     const iconMap = {};
@@ -243,7 +253,7 @@ export default async function publishDocs(
     } = await publishDocsFn({
       sidebarPath,
       accessToken,
-      appUrl,
+      appUrl: discussKitUrl,
       boardId,
       autoCreateBoard: true,
       // Pass additional project information if available
@@ -260,7 +270,7 @@ export default async function publishDocs(
     if (success) {
       // Save appUrl to config only when not using environment variable
       if (!useEnvAppUrl) {
-        await saveValueToConfig("appUrl", appUrl);
+        await saveValueToConfig("appUrl", appUrl.origin);
       }
 
       // Save boardId to config if it was auto-created
