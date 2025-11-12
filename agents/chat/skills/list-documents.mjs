@@ -1,7 +1,7 @@
-import { getMainLanguageFiles } from "../../utils/docs-finder-utils.mjs";
-import init from "../init/index.mjs";
+import { getMainLanguageFiles } from "../../../utils/docs-finder-utils.mjs";
+import init from "../../init/index.mjs";
 
-export default async function listDocs(_, options) {
+export default async function listDocuments(_, options) {
   const config = await init({ checkOnly: true }, options);
 
   // Get all main language .md files in docsDir
@@ -12,4 +12,4 @@ export default async function listDocs(_, options) {
   };
 }
 
-listDocs.description = "List all available documentation files";
+listDocuments.description = "List all available documentation files";
