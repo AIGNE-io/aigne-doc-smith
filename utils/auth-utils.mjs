@@ -20,9 +20,17 @@ import {
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
   DOC_OFFICIAL_ACCESS_TOKEN,
+  PAYMENT_KIT_DID,
 } from "./constants/index.mjs";
+import { requestWithAuthToken } from "./request.mjs";
+import { withQuery } from "ufo";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
+
+const TIMEOUT_MINUTES = 5; // Just wait 5 min
+const FETCH_INTERVAL = 3000; // 3 seconds
+
+const RETRY_COUNT = (TIMEOUT_MINUTES * 60 * 1000) / FETCH_INTERVAL;
 
 export function getDocSmithEnvFilePath() {
   return join(homedir(), ".aigne", "doc-smith-connected.yaml");
@@ -30,26 +38,25 @@ export function getDocSmithEnvFilePath() {
 
 /**
  * Get access token from environment, config file, or prompt user for authorization
- * @param {string} appUrl - The application URL
+ * @param {string} baseUrl - The application URL
  * @returns {Promise<string>} - The access token
  */
-export async function getAccessToken(appUrl, ltToken = "") {
-  const { hostname } = new URL(appUrl);
+async function getCachedAccessToken(baseUrl) {
+  const { hostname: targetHostname } = new URL(baseUrl);
   const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
 
-  let accessToken =
-    process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN || process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
+  let accessToken = process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN ||process.env[DOC_OFFICIAL_ACCESS_TOKEN];
 
   // Check if access token exists in environment or config file
   if (!accessToken) {
     try {
       if (existsSync(DOC_SMITH_ENV_FILE)) {
         const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
-        if (data.includes("DOC_DISCUSS_KIT_ACCESS_TOKEN")) {
+        if (data.includes(DOC_OFFICIAL_ACCESS_TOKEN)) {
           // Handle empty or invalid YAML files
           const envs = data.trim() ? parse(data) : null;
-          if (envs?.[hostname]?.DOC_DISCUSS_KIT_ACCESS_TOKEN) {
-            accessToken = envs[hostname].DOC_DISCUSS_KIT_ACCESS_TOKEN;
+          if (envs?.[targetHostname]?.[DOC_OFFICIAL_ACCESS_TOKEN]) {
+            accessToken = envs[targetHostname][DOC_OFFICIAL_ACCESS_TOKEN];
           }
         }
       }
@@ -58,14 +65,13 @@ export async function getAccessToken(appUrl, ltToken = "") {
     }
   }
 
-  // If still no access token, prompt user to authorize
-  if (accessToken) {
-    return accessToken;
-  }
+  return accessToken;
+}
 
-  // Check if Discuss Kit is running at the provided URL
+export const getDiscussKitMountPoint = async (origin) => {
   try {
-    await getComponentMountPoint(appUrl, DISCUSS_KIT_DID);
+    const mountPoint = await getComponentMountPoint(origin, DISCUSS_KIT_DID);
+    return mountPoint;
   } catch (error) {
     const storeLink = chalk.cyan(DISCUSS_KIT_STORE_URL);
     if (error instanceof InvalidBlockletError) {
@@ -83,7 +89,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
       );
     } else {
       throw new Error(
-        `❌ Could not connect to: ${chalk.cyan(appUrl)}\n\n` +
+        `❌ Could not connect to: ${chalk.cyan(origin)}\n\n` +
           `${chalk.bold("Possible causes:")}\n` +
           `• There may be a network issue.\n` +
           `• The server may be temporarily unavailable.\n` +
@@ -92,9 +98,24 @@ export async function getAccessToken(appUrl, ltToken = "") {
       );
     }
   }
+};
 
-  const DISCUSS_KIT_URL = appUrl;
-  const connectUrl = joinURL(new URL(DISCUSS_KIT_URL).origin, WELLKNOWN_SERVICE_PATH_PREFIX);
+/**
+ * Get access token from environment, config file, or prompt user for authorization
+ * @param {string} appUrl - The application URL
+ * @returns {Promise<string>} - The access token
+ */
+export async function getAccessToken(appUrl, ltToken = "") {
+  const { hostname: targetHostname, origin: targetOrigin } = new URL(appUrl);
+
+  let accessToken = await getCachedAccessToken(targetOrigin);
+
+  // If still no access token, prompt user to authorize
+  if (accessToken) {
+    return accessToken;
+  }
+
+  const connectUrl = joinURL(targetOrigin, WELLKNOWN_SERVICE_PATH_PREFIX);
 
   try {
     const result = await createConnect({
@@ -104,47 +125,56 @@ export async function getAccessToken(appUrl, ltToken = "") {
       closeOnSuccess: true,
       appName: "AIGNE DocSmith",
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
-      openPage: (pageUrl) => {
+      retry: RETRY_COUNT,
+      fetchInterval: FETCH_INTERVAL,
+      openPage: async (pageUrl) => {
         const url = new URL(pageUrl);
-        if ([CLOUD_SERVICE_URL_PROD, CLOUD_SERVICE_URL_STAGING].includes(url.origin) === false) {
+        const isOfficial = [CLOUD_SERVICE_URL_PROD, CLOUD_SERVICE_URL_STAGING].includes(url.origin);
+        if (!isOfficial) {
           url.searchParams.set("required_roles", "owner,admin");
         }
         if (ltToken) {
           url.searchParams.set("__lt", ltToken);
         }
 
-        open(url.toString());
+        let connectUrl = url.toString();
+        open(connectUrl);
+
+        try {
+          const officialBaseUrl = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
+          const officialAccessToken = await getOfficialAccessToken(officialBaseUrl, false);
+          if (officialAccessToken) {
+            const mountPoint = await getComponentMountPoint(officialBaseUrl, PAYMENT_KIT_DID);
+            const data = await requestWithAuthToken(
+              withQuery(joinURL(officialBaseUrl, mountPoint, "/api/tool/short-url"), {
+                url: connectUrl,
+              }),
+              {},
+              officialAccessToken,
+            );
+            connectUrl = data.url;
+          }
+        } catch {
+          // Ignore error
+        }
+
+        console.log(
+          "🔗 Please open the following URL in your browser to authorize access: ",
+          chalk.cyan(connectUrl),
+          "\n",
+        );
       },
     });
 
     accessToken = result.accessKeySecret;
     process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN = accessToken;
+    process.env[DOC_OFFICIAL_ACCESS_TOKEN] = accessToken;
 
     // Save the access token to config file
-    const aigneDir = join(homedir(), ".aigne");
-    if (!existsSync(aigneDir)) {
-      mkdirSync(aigneDir, { recursive: true });
-    }
-
-    let existingConfig = {};
-    if (existsSync(DOC_SMITH_ENV_FILE)) {
-      const fileContent = await readFile(DOC_SMITH_ENV_FILE, "utf8");
-      const parsedConfig = fileContent.trim() ? parse(fileContent) : null;
-      existingConfig = parsedConfig || {};
-    }
-
-    await writeFile(
-      DOC_SMITH_ENV_FILE,
-      stringify({
-        ...existingConfig,
-        [hostname]: {
-          DOC_DISCUSS_KIT_ACCESS_TOKEN: accessToken,
-          DOC_DISCUSS_KIT_URL: DISCUSS_KIT_URL,
-        },
-      }),
-    );
-  } catch (error) {
-    console.debug(error);
+    await saveTokenToConfigFile(targetHostname, {
+      [DOC_OFFICIAL_ACCESS_TOKEN]: accessToken,
+    });
+  } catch {
     throw new Error(
       "Could not get an access token. Please check your network connection and try again.",
     );
@@ -164,28 +194,10 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
   }
 
   // Parse URL once and reuse
-  const urlObj = new URL(baseUrl);
-  const { hostname, origin } = urlObj;
-  const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
+  const { hostname: targetHostname, origin: targetOrigin } = new URL(baseUrl);
 
   // 1. Check environment variable
-  let accessToken = process.env[DOC_OFFICIAL_ACCESS_TOKEN];
-
-  // 2. Check config file if not in env
-  if (!accessToken) {
-    try {
-      if (existsSync(DOC_SMITH_ENV_FILE)) {
-        const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
-        // Handle empty or invalid YAML files
-        const envs = data.trim() ? parse(data) : null;
-        if (envs) {
-          accessToken = envs[hostname]?.[DOC_OFFICIAL_ACCESS_TOKEN];
-        }
-      }
-    } catch (_error) {
-      // Ignore errors
-    }
-  }
+  let accessToken = await getCachedAccessToken(targetOrigin);
 
   // If token is found, return it
   if (accessToken || !openPage) {
@@ -193,7 +205,7 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
   }
 
   // Generate new access token
-  const connectUrl = joinURL(origin, WELLKNOWN_SERVICE_PATH_PREFIX);
+  const connectUrl = joinURL(targetOrigin, WELLKNOWN_SERVICE_PATH_PREFIX);
 
   try {
     const result = await createConnect({
@@ -201,15 +213,18 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
       connectAction: "gen-simple-access-key",
       source: "AIGNE DocSmith connect to official service",
       closeOnSuccess: true,
+      retry: RETRY_COUNT,
+      fetchInterval: FETCH_INTERVAL,
       appName: "AIGNE DocSmith",
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
       openPage: (pageUrl) => {
+        open(pageUrl);
+
         console.log(
           "🔗 Please open the following URL in your browser to authorize access: ",
           chalk.cyan(pageUrl),
           "\n",
         );
-        open(pageUrl);
       },
     });
 
@@ -217,14 +232,10 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
     process.env[DOC_OFFICIAL_ACCESS_TOKEN] = accessToken;
 
     // Save the access token to config file
-    await saveTokenToConfigFile(
-      DOC_SMITH_ENV_FILE,
-      hostname,
-      DOC_OFFICIAL_ACCESS_TOKEN,
-      accessToken,
-    );
-  } catch (error) {
-    console.debug(error);
+    await saveTokenToConfigFile(targetHostname, {
+      [DOC_OFFICIAL_ACCESS_TOKEN]: accessToken,
+    });
+  } catch {
     throw new Error(
       "Could not get an official access token. Please check your network connection and try again.",
     );
@@ -234,14 +245,15 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
 }
 
 /**
- * Saves the access token to the configuration file.
+ * Saves the access token and related fields to the configuration file.
  * @param {string} configFile - The path to the config file.
  * @param {string} hostname - The hostname key.
- * @param {string} tokenKey - The token key name.
- * @param {string} tokenValue - The token value.
+ * @param {Object} fields - Fields to save (e.g., { DOC_DISCUSS_KIT_ACCESS_TOKEN: "..." }).
  */
-async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue) {
+async function saveTokenToConfigFile(hostname, fields) {
   try {
+    const configFile = getDocSmithEnvFilePath();
+
     const aigneDir = join(homedir(), ".aigne");
     if (!existsSync(aigneDir)) {
       mkdirSync(aigneDir, { recursive: true });
@@ -250,7 +262,6 @@ async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue)
     let existingConfig = {};
     if (existsSync(configFile)) {
       const fileContent = await readFile(configFile, "utf8");
-      // Handle empty or invalid YAML files
       const parsedConfig = fileContent.trim() ? parse(fileContent) : null;
       existingConfig = parsedConfig || {};
     }
@@ -259,10 +270,7 @@ async function saveTokenToConfigFile(configFile, hostname, tokenKey, tokenValue)
       configFile,
       stringify({
         ...existingConfig,
-        [hostname]: {
-          ...existingConfig[hostname],
-          [tokenKey]: tokenValue,
-        },
+        [hostname]: fields,
       }),
     );
   } catch (error) {
