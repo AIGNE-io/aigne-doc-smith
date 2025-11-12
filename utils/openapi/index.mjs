@@ -2,9 +2,9 @@ import { parse } from "yaml";
 
 function isMatchOpenAPISpec(content) {
   if (!content) return false;
-  if (!content.openapi && !content.swagger) return false;
-  if (!content.info && !content.info.title && !content.info.version) return false;
+  if (!(content.openapi || content.swagger)) return false;
   if (!content.paths) return false;
+  if (!(content.info?.title && content.info?.version)) return false;
   return true;
 }
 
