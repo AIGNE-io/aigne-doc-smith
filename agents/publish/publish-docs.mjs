@@ -77,6 +77,7 @@ export default async function publishDocs(
     let client = null;
     let authToken = null;
     let sessionId = null;
+    let locale = "en";
 
     if (!hasInputAppUrl) {
       authToken = await getOfficialAccessToken(BASE_URL, false);
@@ -180,11 +181,13 @@ export default async function publishDocs(
             appUrl: homeUrl,
             token: ltToken,
             sessionId: newSessionId,
+            data,
           } = (await deploy(id, paymentLink)) || {};
 
           sessionId = newSessionId;
           appUrl = homeUrl;
           token = ltToken;
+          locale = data?.preferredLocale || "en";
         } catch (error) {
           const errorMsg = error?.message || "Unknown error occurred";
           return { message: `${chalk.red("❌ Failed to create website:")} ${errorMsg}` };
@@ -201,7 +204,7 @@ export default async function publishDocs(
 
     console.log(`\nPublishing your documentation to ${chalk.cyan(discussKitUrl)}\n`);
 
-    const accessToken = await getAccessToken(appUrlInfo.origin, token);
+    const accessToken = await getAccessToken(appUrlInfo.origin, token, locale);
 
     process.env.DOC_ROOT_DIR = docsDir;
 

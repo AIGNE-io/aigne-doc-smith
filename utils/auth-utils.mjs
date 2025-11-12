@@ -105,7 +105,7 @@ export const getDiscussKitMountPoint = async (origin) => {
  * @param {string} appUrl - The application URL
  * @returns {Promise<string>} - The access token
  */
-export async function getAccessToken(appUrl, ltToken = "") {
+export async function getAccessToken(appUrl, ltToken = "", locale = "en") {
   const { hostname: targetHostname, origin: targetOrigin } = new URL(appUrl);
 
   let accessToken = await getCachedAccessToken(targetOrigin);
@@ -136,6 +136,7 @@ export async function getAccessToken(appUrl, ltToken = "") {
         if (ltToken) {
           url.searchParams.set("__lt", ltToken);
         }
+        url.searchParams.set("locale", locale);
 
         let connectUrl = url.toString();
         open(connectUrl);
