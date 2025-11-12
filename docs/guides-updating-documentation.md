@@ -66,7 +66,7 @@ The `update` command accepts several parameters to control its behavior. Here is
 | :--- | :--- | :--- |
 | `--docs` | Specifies the path(s) of the document(s) to update. Can be used multiple times. | Optional |
 | `--feedback` | Provides textual instructions for the changes to be made to the specified document(s). | Optional |
-| `--reset` | A boolean flag that, when present, regenerates the document from scratch, ignoring existing content. | Optional |
+| `--reset` | A boolean flag that, when present, recreate the document(s) from scratch, ignoring existing content. | Optional |
 | `--glossary` | Specifies the path to a glossary file (`@/path/to/glossary.md`) to ensure consistent terminology. | Optional |
 
 ---

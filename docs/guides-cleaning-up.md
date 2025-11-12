@@ -47,9 +47,9 @@ aigne doc clear
 
 To clear specific items without prompts, use the `--targets` flag followed by the names of the targets you wish to remove.
 
-#### Clear Generated Documents Only
+#### Clear Created Documents Only
 
-This command deletes the generated document files but preserves the `structure-plan.json` file, allowing you to regenerate the content later.
+This command deletes the created document files but preserves the `structure-plan.json` file, allowing you to regenerate the content later.
 
 ```sh aigne doc clear --targets generatedDocs icon=lucide:file-minus
 aigne doc clear --targets generatedDocs
@@ -57,7 +57,7 @@ aigne doc clear --targets generatedDocs
 
 #### Clear Structure and Configuration
 
-This command performs a more thorough cleanup by removing all generated documents, the structure plan, and the main configuration file.
+This command performs a more thorough cleanup by removing all created documents, the structure plan, and the main configuration file.
 
 ```sh aigne doc clear --targets documentStructure documentConfig icon=lucide:files
 aigne doc clear --targets documentStructure documentConfig
@@ -65,4 +65,4 @@ aigne doc clear --targets documentStructure documentConfig
 
 ## Summary
 
-The `clear` command provides a straightforward method for managing your project's generated assets and configuration. Use the interactive mode for a safe, guided process or specify targets directly for automated workflows. Since these actions permanently delete files, it is advisable to back up any important data before proceeding.
+The `clear` command provides a straightforward method for managing your project's created assets and configuration. Use the interactive mode for a safe, guided process or specify targets directly for automated workflows. Since these actions permanently delete files, it is advisable to back up any important data before proceeding.

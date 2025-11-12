@@ -88,7 +88,7 @@ DocSmith provides a set of features to handle the document lifecycle from creati
 *   **Multi-Language Support**: Translates documents into 12 languages, including English, Chinese (Simplified), and Japanese. The translation process is context-aware to maintain technical accuracy.
 *   **Integration with LLMs**: Connects with various Large Language Models (LLMs). By default, it uses [AIGNE Hub](https://www.aigne.io/en/hub), a service that allows you to switch between models like Google Gemini and OpenAI GPT without needing separate API keys. You can also configure your own API keys for direct provider access.
 *   **Smart Updates**: Detects changes in your source code and updates the corresponding sections of your documents. You can also provide specific feedback to refine generated content.
-*   **Publishing Options**: Publish your generated documents with a single command. You can deploy to the official DocSmith platform or run your own instance of [Discuss Kit](https://www.web3kit.rocks/discuss-kit). Discuss Kit is a service for hosting and displaying documents.
+*   **Publishing Options**: Publish your created documents with a single command. You can deploy to the official DocSmith platform or run your own instance of [Discuss Kit](https://www.web3kit.rocks/discuss-kit). Discuss Kit is a service for hosting and displaying documents.
 
 ## Available Commands
 
@@ -100,10 +100,10 @@ DocSmith is operated through a command-line interface. The following table provi
 | `update` | Modifies existing documents based on code changes or new feedback. |
 | `localize` | Translates documents into one or more of the 12 supported languages. |
 | `publish` | Deploys your documents to a live, accessible URL. |
-| `evaluate` | Assesses the quality and completeness of your generated documents. |
+| `evaluate` | Assesses the quality and completeness of your created documents. |
 | `history` | Views the history of updates made to your documents. |
 | `chat` | Starts an interactive mode session to generate and manage documents. |
-| `clear` | Removes generated files, configurations, and cached data. |
+| `clear` | Removes created files, configurations, and cached data. |
 | `init` | Guides you through an interactive process to create an initial configuration file. |
 | `prefs` | Manages saved preferences and configurations for document creation. |
 

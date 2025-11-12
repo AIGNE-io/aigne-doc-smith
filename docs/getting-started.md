@@ -36,8 +36,8 @@ Installation: {
   }
 }
 
-Generation: {
-  label: "Generation"
+Creation: {
+  label: "Creation"
   shape: rectangle
   style: {
     stroke: "#888"
@@ -45,8 +45,8 @@ Generation: {
     stroke-dash: 4
   }
 
-  Run-Generate: {
-    label: "3. Run Generate Command"
+  Run-Created: {
+    label: "3. Run Created Command"
     shape: oval
   }
 
@@ -56,7 +56,7 @@ Generation: {
   }
 
   Automated-Process: {
-    label: "5. Automated Generation"
+    label: "5. Automated Creation"
     shape: rectangle
 
     Analyze-Code: {
@@ -67,28 +67,28 @@ Generation: {
       label: "Plan Structure"
     }
 
-    Generate-Content: {
-      label: "Generate Content"
+    Created-Content: {
+      label: "Create Content"
     }
   }
 
   Output-Docs: {
-    label: "6. Documents Generated"
+    label: "6. Documents Created"
     shape: oval
   }
 
   Analyze-Code -> Plan-Structure
-  Plan-Structure -> Generate-Content
+  Plan-Structure -> Created-Content
 }
 
 Developer -> Terminal: "Executes commands"
 Terminal -> Installation.Install-CLI: "`npm install -g @aigne/cli`"
 Installation.Install-CLI -> Installation.Verify-Installation: "`aigne doc --help`"
-Installation.Verify-Installation -> Generation.Run-Generate: "`aigne doc create`"
-Generation.Run-Generate -> Generation.Interactive-Setup: "First time run"
-Generation.Interactive-Setup -> Generation.Automated-Process: "Saves config.yaml"
-Generation.Automated-Process -> Generation.Output-Docs: "Outputs to docs/ folder"
-Generation.Output-Docs -> Developer: "Reviews documents"
+Installation.Verify-Installation -> Creation.Run-Created: "`aigne doc create`"
+Creation.Run-Created -> Creation.Interactive-Setup: "First time run"
+Creation.Interactive-Setup -> Creation.Automated-Process: "Saves config.yaml"
+Creation.Automated-Process -> Creation.Output-Docs: "Outputs to docs/ folder"
+Creation.Output-Docs -> Developer: "Reviews documents"
 ```
 
 ## Prerequisites
@@ -123,7 +123,7 @@ A successful installation will result in a displayed list of available DocSmith 
 
 ## Generating Your First Documents
 
-Follow these steps to analyze your project and generate a complete set of documents.
+Follow these steps to analyze your project and create a complete set of documents.
 
 ### Step 1: Navigate to Your Project Directory
 
@@ -149,7 +149,7 @@ When you run the `create` command for the first time in a project, DocSmith laun
 
 These settings are saved to a `config.yaml` file located in the `.aigne/doc-smith` directory, which you can modify manually at any time.
 
-### Step 4: Await Generation
+### Step 4: Await Creation
 
 After the setup is complete, DocSmith will automatically perform the following actions:
 
@@ -157,13 +157,13 @@ After the setup is complete, DocSmith will automatically perform the following a
 2.  **Plan Structure**: Creates a logical outline for the documents, defining sections and topics.
 3.  **Generate Content**: Writes the documents based on the analysis and your specified configuration.
 
-Upon completion, a confirmation message will be displayed. The generated files will be available in the output directory specified during setup, which defaults to `.aigne/doc-smith/docs`.
+Upon completion, a confirmation message will be displayed. The created files will be available in the output directory specified during setup, which defaults to `.aigne/doc-smith/docs`.
 
 ![Screenshot of the success message after creation](../assets/screenshots/doc-generated-successfully.png)
 
 ## What's Next?
 
-You have now successfully generated your first set of documents. The following are common next steps for managing and enhancing your documents:
+You have now successfully created your first set of documents. The following are common next steps for managing and enhancing your documents:
 
 <x-cards data-columns="2">
   <x-card data-title="Update Document" data-icon="lucide:refresh-cw" data-href="/guides/updating-documentation">

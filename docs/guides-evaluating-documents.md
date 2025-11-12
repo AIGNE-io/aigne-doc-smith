@@ -1,10 +1,10 @@
 # Evaluate Documents
 
-Wondering if your documents hit the mark? This guide introduces the `evaluate` command, a powerful tool that systematically assesses your document quality and completeness, providing a clear, actionable report to guide your improvements. You'll learn how to run an evaluation and interpret its results.
+Wondering if your documents hit the mark? This guide introduces the `evaluate` command, a powerful tool that systematically assesses your documents quality and completeness, providing a clear, actionable report to guide your improvements. You'll learn how to run an evaluation and interpret its results.
 
 ## The Evaluation Process
 
-The `evaluate` command performs a comprehensive, two-stage analysis to give you a complete picture of your document health. It checks both the high-level organization and the fine-grained details of each file.
+The `evaluate` command performs a comprehensive, two-stage analysis to give you a complete picture of your documents health. It checks both the high-level organization and the fine-grained details of each file.
 
 1.  **Structure Evaluation**: First, the tool inspects the overall architecture of your documents. It verifies that the hierarchy of topics is logical and fully covers the goals, audience, and depth you defined during the initial setup.
 2.  **Content Evaluation**: Next, it drills down into each individual document. This stage assesses the quality of the written content based on dimensions like readability, coherence, and alignment with your stated purpose. It also validates any code snippets for correctness.

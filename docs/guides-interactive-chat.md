@@ -51,9 +51,9 @@ The interactive mode understands a set of commands that correspond to its primar
 | `localize` | Begins the process of translating documents into one or more supported languages. |
 | `publish` | Guides you through the steps to publish your documents online. |
 | `init` | Helps create the initial configuration file (`docsmith.config.js`) for the project. |
-| `clear` | Removes generated files, configurations, and cached data from your project. |
+| `clear` | Removes created files, configurations, and cached data from your project. |
 | `prefs` | Allows you to view and manage saved preferences for document creation. |
-| `evaluate` | Assesses the quality and completeness of your generated documents and provides a report. |
+| `evaluate` | Assesses the quality and completeness of your created documents and provides a report. |
 | `history` | Displays the history of updates and changes made to your documents. |
 | `exit` | Terminates the interactive session and returns to the standard terminal prompt. |
 

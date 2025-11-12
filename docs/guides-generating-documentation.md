@@ -2,7 +2,7 @@
 
 This guide walks you through creating a complete set of documents from your project's source files using a single command. The process is designed to be straightforward, moving from initial analysis to final content creation, with an interactive review step to ensure the output is structured exactly as you need.
 
-## The Generation Process
+## The Creation Process
 
 When you run `aigne doc create`, the tool executes a sequence of steps to analyze your project and produce documents. This section provides a factual breakdown of that workflow.
 
@@ -43,7 +43,7 @@ Once the document structure is finalized and approved, DocSmith begins generatin
 
 ### Step 5: Completion
 
-After all documents have been generated, a confirmation message is displayed in the terminal. The output files are saved to the directory specified in your configuration, which defaults to `.aigne/doc-smith/docs`.
+After all documents have been created, a confirmation message is displayed in the terminal. The output files are saved to the directory specified in your configuration, which defaults to `.aigne/doc-smith/docs`.
 
 ![Success notification banner indicating document creation is complete.](../assets/screenshots/doc-generated-successfully.png)
 
@@ -76,4 +76,4 @@ aigne doc create --glossary @./project-glossary.md
 
 This guide has detailed the systematic process for generating a new set of documents. The workflow proceeds from command initiation and source analysis to an interactive structure review, followed by content creation.
 
-With your documents generated, you may proceed to [Update Existing Documents](./guides-updating-documentation.md) or [Publish Your Documents](./guides-publishing-your-docs.md).
+With your documents created, you may proceed to [Update Existing Documents](./guides-updating-documentation.md) or [Publish Your Documents](./guides-publishing-your-docs.md).

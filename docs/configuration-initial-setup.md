@@ -10,7 +10,7 @@ To begin the configuration manually, navigate to your project's root directory i
 aigne doc init
 ```
 
-This command starts a 9-step interactive questionnaire to configure your document settings.
+This command starts a 9-step interactive questionnaire to configure your documents settings.
 
 ## Configuration Steps
 
@@ -99,7 +99,7 @@ You can choose multiple languages from the supported options, excluding the prim
 
 ### Step 7: Define Document Directory
 
-Specify the folder where the generated document files will be saved.
+Specify the folder where the created document files will be saved.
 
 **Prompt:** `📁 [7/9]: Where should we save your documents?`
 
@@ -171,7 +171,7 @@ translateLanguages:
   - ja
 
 # Paths
-docsDir: ./docs  # The directory where the generated documentation will be saved.
+docsDir: ./docs  # The directory where the created documents will be saved.
 sourcesPath:  # The source code paths to analyze.
   - ./README.md
   - ./agents

@@ -1,10 +1,10 @@
 # Publish Documents
 
-Once your documents are generated, the final step is to make them available online. This document provides a step-by-step guide on how to publish your documents using the `aigne doc publish` command, making them accessible to your audience.
+Once your documents are created, the final step is to make them available online. This document provides a step-by-step guide on how to publish your documents using the `aigne doc publish` command, making them accessible to your audience.
 
 ## The Publish Command
 
-The `aigne doc publish` command uploads your generated document files to a web service, allowing users to view them in a web browser. For efficiency, you can use the main command or its shorter aliases.
+The `aigne doc publish` command uploads your created document files to a web service, allowing users to view them in a web browser. For efficiency, you can use the main command or its shorter aliases.
 
 ```bash Command Aliases icon=lucide:terminal
 # Full command

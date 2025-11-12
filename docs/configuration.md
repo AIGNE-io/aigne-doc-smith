@@ -15,7 +15,7 @@ This section provides an overview of how to configure the tool. For detailed, st
 
 ## Understanding the `config.yaml` File
 
-The `config.yaml` file serves as the primary source of instruction for your document project. It is generated during the initial setup process and contains all the core directives that the AI uses to analyze your source code and generate content. A correctly configured file ensures that the output is tailored to your intended audience, purpose, and style.
+The `config.yaml` file serves as the primary source of instruction for your documents project. It is generated during the initial setup process and contains all the core directives that the AI uses to analyze your source code and generate content. A correctly configured file ensures that the output is tailored to your intended audience, purpose, and style.
 
 Below is a breakdown of the key parameters you will find in the `config.yaml` file.
 
@@ -59,7 +59,7 @@ Below is a breakdown of the key parameters you will find in the `config.yaml` fi
     <x-field-desc markdown>A list of language codes into which the documents should be translated, for example, `zh` (Chinese) or `ja` (Japanese).</x-field-desc>
   </x-field>
   <x-field data-name="docsDir" data-type="string" data-required="true">
-    <x-field-desc markdown>The local directory path where the generated document files will be saved.</x-field-desc>
+    <x-field-desc markdown>The local directory path where the created document files will be saved.</x-field-desc>
   </x-field>
   <x-field data-name="sourcesPath" data-type="array" data-required="true">
     <x-field-desc markdown>A list of source files, directories, or glob patterns that the tool should analyze to generate documents.</x-field-desc>

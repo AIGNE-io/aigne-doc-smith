@@ -171,7 +171,7 @@ translateLanguages:
   - ja
 
 # Paths
-docsDir: ./docs  # The directory where the generated documentation will be saved.
+docsDir: ./docs  # The directory where the created documents will be saved.
 sourcesPath:  # The source code paths to analyze.
   - ./README.md
   - ./agents

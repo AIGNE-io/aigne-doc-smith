@@ -36,7 +36,7 @@ The format for each entry is broken down as follows:
 
 | Component | Description |
 | :--- | :--- |
-| **Short Hash** | A unique 8-character identifier generated from the update's timestamp. This hash is deterministic, meaning the same timestamp will always produce the same hash. |
+| **Short Hash** | A unique 8-character identifier created document from the update's timestamp. This hash is deterministic, meaning the same timestamp will always produce the same hash. |
 | **Date** | A relative timestamp showing when the update occurred (e.g., "5 minutes ago," "2 days ago"). For entries older than a week, a specific date is displayed. |
 | **Operation** | The type of action performed, such as `generate_document` or `update_document_detail`. |
 | **Document Path** | The path of the document that was modified, if the operation was specific to a single file. This is shown in parentheses for clarity. |
