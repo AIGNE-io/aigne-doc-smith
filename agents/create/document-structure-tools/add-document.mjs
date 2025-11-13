@@ -4,7 +4,6 @@ import {
   validateAddDocumentInput,
 } from "../../../types/document-structure-schema.mjs";
 import streamlineDocumentTitlesIfNeeded from "../../utils/streamline-document-titles-if-needed.mjs";
-import generateDocumentIconIfNeeded from "../../utils/generate-document-icon-if-needed.mjs";
 
 export default async function addDocument(input, options) {
   // Validate input using Zod schema
@@ -61,11 +60,8 @@ export default async function addDocument(input, options) {
   // Streamline document titles if needed (will streamline the new document if title > 18 characters)
   await streamlineDocumentTitlesIfNeeded({ documentStructure: [newDocument] }, options);
 
-  // Add the document to the structure first
+  // Add the document to the structure
   const updatedStructure = [...documentStructure, newDocument];
-
-  // Generate icon for root-level documents if needed
-  await generateDocumentIconIfNeeded({ documentStructure: updatedStructure }, options);
 
   const successMessage = `addDocument executed successfully.
   Successfully added document '${title}' with path '${path}'.

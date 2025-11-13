@@ -4,7 +4,6 @@ import {
   validateUpdateDocumentInput,
 } from "../../../types/document-structure-schema.mjs";
 import streamlineDocumentTitlesIfNeeded from "../../utils/streamline-document-titles-if-needed.mjs";
-import generateDocumentIconIfNeeded from "../../utils/generate-document-icon-if-needed.mjs";
 
 export default async function updateDocument(input, options) {
   // Validate input using Zod schema
@@ -55,16 +54,6 @@ export default async function updateDocument(input, options) {
   // Update the document in the structure
   const updatedStructure = [...documentStructure];
   updatedStructure[documentIndex] = updatedDocument;
-
-  // Generate/update icon for root-level documents if needed
-  // Pass original document for comparison to detect title/description changes
-  await generateDocumentIconIfNeeded(
-    {
-      documentStructure: updatedStructure,
-      originalItems: [originalDocument],
-    },
-    options,
-  );
 
   const updates = [];
   if (title !== undefined) updates.push(`title to '${title}'`);

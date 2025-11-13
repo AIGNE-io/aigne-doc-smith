@@ -83,7 +83,6 @@ agents:
   - ./agents/utils/document-title-streamline.yaml
   - ./agents/utils/streamline-document-titles-if-needed.mjs
   - ./agents/utils/document-icon-generate.yaml
-  - ./agents/utils/generate-document-icon-if-needed.mjs
 
   # User Preferences & Chat
   - ./agents/prefs/index.mjs
