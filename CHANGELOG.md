@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.3-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.3-beta.1...v0.9.3-beta.2) (2025-11-13)
+
+
+### Features
+
+* allow manual triggering of the publish docs process ([#306](https://github.com/AIGNE-io/aigne-doc-smith/issues/306)) ([9a76a49](https://github.com/AIGNE-io/aigne-doc-smith/commit/9a76a491c1511397b32b60db62142896637dfed2))
+* move ensure document icons to sub-agent ([#305](https://github.com/AIGNE-io/aigne-doc-smith/issues/305)) ([f139070](https://github.com/AIGNE-io/aigne-doc-smith/commit/f1390706cda9348de094c9f5e592a4c34a1b1389))
+
 ## [0.9.3-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.3-beta...v0.9.3-beta.1) (2025-11-13)
 
 
