@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.3-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.2...v0.9.3-beta) (2025-11-13)
+
+
+### Features
+
+* **docs:** Enhance publishing with Discuss Kit and localized access tokens ([#301](https://github.com/AIGNE-io/aigne-doc-smith/issues/301)) ([c34f16f](https://github.com/AIGNE-io/aigne-doc-smith/commit/c34f16fdc3a07cb1408f50c5e10aa80f1c7b90cf))
+
 ## [0.9.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.2-beta...v0.9.2) (2025-11-12)
 
 ## [0.9.2-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.1...v0.9.2-beta) (2025-11-12)
