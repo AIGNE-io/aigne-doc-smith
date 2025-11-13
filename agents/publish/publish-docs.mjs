@@ -34,6 +34,7 @@ export default async function publishDocs(
     projectDesc,
     projectLogo,
     translatedMetadata,
+    originalDocumentStructure,
     "with-branding": withBrandingOption,
   },
   options,
@@ -233,6 +234,13 @@ export default async function publishDocs(
       updateBranding({ appUrl: discussKitUrl, projectInfo, accessToken, finalPath });
     }
 
+    const iconMap = {};
+    for (const item of originalDocumentStructure) {
+      if (item.icon) {
+        iconMap[item.title] = item.icon;
+      }
+    }
+
     // Construct boardMeta object
     const boardMeta = {
       category: config?.documentPurpose || [],
@@ -264,6 +272,7 @@ export default async function publishDocs(
       mediaFolder: rawDocsDir,
       cacheFilePath: publishCacheFilePath,
       boardMeta,
+      iconMap,
     });
 
     // Save values to config.yaml if publish was successful
