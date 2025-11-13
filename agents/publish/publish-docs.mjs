@@ -77,14 +77,12 @@ export default async function publishDocs(
     let client = null;
     let authToken = null;
     let sessionId = null;
-    let locale = "en";
+    let locale = config?.locale;
 
     if (!hasInputAppUrl) {
       authToken = await getOfficialAccessToken(BASE_URL, false);
 
       sessionId = "";
-      let paymentLink = "";
-
       if (authToken) {
         client = new BrokerClient({ baseUrl: BASE_URL, authToken });
         const info = await client.checkCacheSession({
@@ -92,7 +90,6 @@ export default async function publishDocs(
           sessionId: config?.checkoutId,
         });
         sessionId = info.sessionId;
-        paymentLink = info.paymentLink;
       }
 
       const choice = await options.prompts.select({
@@ -143,7 +140,8 @@ export default async function publishDocs(
         appUrl = userInput.includes("://") ? userInput : `https://${userInput}`;
       } else if (["new-instance", "new-instance-continue"].includes(choice)) {
         // resume previous website setup
-        if (choice === "new-instance-continue") {
+        const isNewInstance = choice === "new-instance";
+        if (!isNewInstance) {
           shouldSyncBranding = config?.shouldSyncBranding ?? void 0;
           if (shouldSyncBranding !== void 0) {
             shouldWithBranding = shouldWithBranding ?? shouldSyncBranding;
@@ -171,7 +169,7 @@ export default async function publishDocs(
 
         try {
           let id = "";
-          if (choice === "new-instance-continue") {
+          if (!isNewInstance) {
             id = sessionId;
             console.log(`\nResuming your previous website setup...`);
           } else {
@@ -182,12 +180,12 @@ export default async function publishDocs(
             token: ltToken,
             sessionId: newSessionId,
             data,
-          } = (await deploy(id, paymentLink)) || {};
+          } = (await deploy(id, isNewInstance ? locale : undefined)) || {};
 
           sessionId = newSessionId;
           appUrl = homeUrl;
           token = ltToken;
-          locale = data?.preferredLocale || "en";
+          locale = data?.preferredLocale || locale;
         } catch (error) {
           const errorMsg = error?.message || "Unknown error occurred";
           return { message: `${chalk.red("❌ Failed to create website:")} ${errorMsg}` };

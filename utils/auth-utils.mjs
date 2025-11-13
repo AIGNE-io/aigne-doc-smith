@@ -189,7 +189,7 @@ export async function getAccessToken(appUrl, ltToken = "", locale = "en") {
  * @param {string} baseUrl - The official service URL.
  * @returns {Promise<string>} The access token.
  */
-export async function getOfficialAccessToken(baseUrl, openPage = true) {
+export async function getOfficialAccessToken(baseUrl, openPage = true, locale = "en") {
   if (!baseUrl) {
     throw new Error("The baseUrl parameter is required for getOfficialAccessToken.");
   }
@@ -219,11 +219,15 @@ export async function getOfficialAccessToken(baseUrl, openPage = true) {
       appName: "AIGNE DocSmith",
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
       openPage: (pageUrl) => {
-        open(pageUrl);
+        const url = new URL(pageUrl);
+        if (locale) {
+          url.searchParams.set("locale", locale);
+        }
+        open(url.toString());
 
         console.log(
           "🔗 Please open the following URL in your browser to authorize access: ",
-          chalk.cyan(pageUrl),
+          chalk.cyan(url.toString()),
           "\n",
         );
       },
