@@ -31,6 +31,7 @@ skills:
     default_input:
       requiredFeedback: false
   - ../utils/format-document-structure.mjs
+  - ../utils/ensure-document-icons.mjs
   - ../media/load-media-description.mjs
   - ../update/check-update-is-single.mjs
   - ../update/save-and-translate-document.mjs
