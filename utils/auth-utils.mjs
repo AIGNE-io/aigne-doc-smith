@@ -45,7 +45,7 @@ async function getCachedAccessToken(baseUrl) {
   const { hostname: targetHostname } = new URL(baseUrl);
   const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
 
-  let accessToken = process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN ||process.env[DOC_OFFICIAL_ACCESS_TOKEN];
+  let accessToken = process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN || process.env[DOC_OFFICIAL_ACCESS_TOKEN];
 
   // Check if access token exists in environment or config file
   if (!accessToken) {

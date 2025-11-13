@@ -270,7 +270,7 @@ export default async function publishDocs(
     if (success) {
       // Save appUrl to config only when not using environment variable
       if (!useEnvAppUrl) {
-        await saveValueToConfig("appUrl", appUrl.origin);
+        await saveValueToConfig("appUrl", appUrlInfo.origin);
       }
 
       // Save boardId to config if it was auto-created
