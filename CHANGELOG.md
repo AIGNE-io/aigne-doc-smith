@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.3-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.3-beta...v0.9.3-beta.1) (2025-11-13)
+
+
+### Features
+
+* add load-sources utility and enhance document publishing with icon mapping ([#303](https://github.com/AIGNE-io/aigne-doc-smith/issues/303)) ([243928c](https://github.com/AIGNE-io/aigne-doc-smith/commit/243928c5330171e63b085de1d859246944f4230a))
+
 ## [0.9.3-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.2...v0.9.3-beta) (2025-11-13)
 
 
