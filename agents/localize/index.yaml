@@ -36,7 +36,7 @@ skills:
     skills:
       - ../localize/translate-multilingual.yaml
     iterate_on: selectedDocs
-    concurrency: 10
+    concurrency: 5
   - url: ../utils/check-feedback-refiner.mjs
     default_input:
       stage: translation_refine
