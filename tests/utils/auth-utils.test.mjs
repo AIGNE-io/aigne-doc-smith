@@ -304,7 +304,9 @@ describe("auth-utils", () => {
 
     // Test that openPage calls the mock open function
     await capturedOpenPage("https://auth.example.com");
-    expect(mockOpen).toHaveBeenCalledWith("https://auth.example.com/?required_roles=owner%2Cadmin&locale=en");
+    expect(mockOpen).toHaveBeenCalledWith(
+      "https://auth.example.com/?required_roles=owner%2Cadmin&locale=en",
+    );
   });
 
   test("should handle createConnect with different error types", async () => {

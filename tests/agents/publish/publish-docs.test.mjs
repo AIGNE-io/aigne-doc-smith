@@ -17,10 +17,6 @@ import * as d2Utils from "../../../utils/d2-utils.mjs";
 import * as utils from "../../../utils/utils.mjs";
 import * as deployUtils from "../../../utils/deploy.mjs";
 import * as fileUtils from "../../../utils/file-utils.mjs";
-import {
-  InvalidBlockletError,
-  ComponentNotFoundError,
-} from "../../../utils/blocklet.mjs";
 
 // Mock all external dependencies
 const mockPublishDocs = {
@@ -879,7 +875,9 @@ describe("publish-docs", () => {
         "⚠️ This website is missing the required components for publishing.",
       );
       expect(result.message).toContain("💡 Solution:");
-      expect(result.message).toContain("Please refer to the documentation to add the Discuss Kit component");
+      expect(result.message).toContain(
+        "Please refer to the documentation to add the Discuss Kit component",
+      );
     });
 
     test("should handle network errors with appropriate error message", async () => {
@@ -917,9 +915,7 @@ describe("publish-docs", () => {
 
     test("should clean up temporary directory when getDiscussKitMountPoint fails", async () => {
       loadConfigFromFileSpy.mockResolvedValue({});
-      getDiscussKitMountPointSpy.mockRejectedValue(
-        new Error("Connection failed"),
-      );
+      getDiscussKitMountPointSpy.mockRejectedValue(new Error("Connection failed"));
 
       await publishDocs(
         {

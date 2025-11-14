@@ -4,7 +4,11 @@ import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import fs from "fs-extra";
 
-import { getAccessToken, getCachedAccessToken, getDiscussKitMountPoint } from "../../utils/auth-utils.mjs";
+import {
+  getAccessToken,
+  getCachedAccessToken,
+  getDiscussKitMountPoint,
+} from "../../utils/auth-utils.mjs";
 import {
   CLOUD_SERVICE_URL_PROD,
   DISCUSS_KIT_STORE_URL,
@@ -255,7 +259,7 @@ export default async function publishDocs(
       success,
       boardId: newBoardId,
       error,
-      docsUrl
+      docsUrl,
     } = await publishDocsFn({
       sidebarPath,
       accessToken,
