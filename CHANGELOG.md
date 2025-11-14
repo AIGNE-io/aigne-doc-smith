@@ -1,5 +1,7 @@
 # Changelog
 
+## [0.9.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.4-beta...v0.9.4) (2025-11-14)
+
 ## [0.9.4-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.3...v0.9.4-beta) (2025-11-14)
 
 
