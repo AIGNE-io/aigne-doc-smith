@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.5-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.5-beta...v0.9.5-beta.1) (2025-11-14)
+
+
+### Bug Fixes
+
+* update translate concurrency ([#315](https://github.com/AIGNE-io/aigne-doc-smith/issues/315)) ([a99eed2](https://github.com/AIGNE-io/aigne-doc-smith/commit/a99eed2c64e362f54912dbfcb30703854497c4a7))
+* upgrade afs configuration ([#317](https://github.com/AIGNE-io/aigne-doc-smith/issues/317)) ([b556781](https://github.com/AIGNE-io/aigne-doc-smith/commit/b5567812e36401525506fe1f473426e27e181450))
+
 ## [0.9.5-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.4...v0.9.5-beta) (2025-11-14)
 
 
