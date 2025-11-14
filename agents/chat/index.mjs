@@ -7,6 +7,7 @@ const config = await readFile(".aigne/doc-smith/config.yaml", "utf-8")
   .catch(() => null);
 
 const docsDir = config?.docsDir || ".aigne/doc-smith/docs";
+await mkdir(docsDir, { recursive: true });
 
 export default {
   type: "ai",
