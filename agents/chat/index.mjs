@@ -18,23 +18,28 @@ export default {
   },
   input_key: "message",
   afs: {
-    storage: {
-      url: "file:.aigne/doc-smith/.local/afs-storage.sqlite3",
-    },
     modules: [
+      {
+        module: "history",
+        options: {
+          storage: {
+            url: "file:.aigne/doc-smith/.local/afs-storage.sqlite3",
+          },
+        },
+      },
       {
         module: "system-fs",
         options: {
-          path: ".",
-          mount: "/source",
+          name: "source",
+          localPath: ".",
           description: "Project root directory for document generation",
         },
       },
       {
         module: "system-fs",
         options: {
-          path: docsDir,
-          mount: "/docs",
+          name: "docs",
+          localPath: docsDir,
           description: "Generated documentation files directory",
         },
       },

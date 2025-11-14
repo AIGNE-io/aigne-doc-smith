@@ -56,8 +56,8 @@ skills:
       modules:
         - module: system-fs
           options:
-            mount: /sources
-            path: .
+            name: sources
+            localPath: .
             description: |
               Codebase of the project to be documented used as context for document generation,
               should search and read as needed while generating document content
