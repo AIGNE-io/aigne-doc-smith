@@ -15,5 +15,5 @@ input_schema:
       items: { type: string }
       description: Array of modified files since last generation
 iterate_on: documentExecutionStructure
-concurrency: 10
+concurrency: 5
 mode: sequential

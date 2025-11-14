@@ -102,7 +102,7 @@ export default async function checkDocument(
           lackLanguages.delete(x);
         }
       },
-      { concurrency: 10 },
+      { concurrency: 5 },
     );
     if (lackLanguages.size === 0) {
       return {
