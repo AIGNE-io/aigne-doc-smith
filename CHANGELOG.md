@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.4-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.3...v0.9.4-beta) (2025-11-14)
+
+
+### Bug Fixes
+
+* resolve access key parsing issues and improve log output ([#309](https://github.com/AIGNE-io/aigne-doc-smith/issues/309)) ([c8d9bf3](https://github.com/AIGNE-io/aigne-doc-smith/commit/c8d9bf3e61d0126c7f117b38308c34cf73c8f141))
+
 ## [0.9.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.3-beta.2...v0.9.3) (2025-11-13)
 
 ## [0.9.3-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.3-beta.1...v0.9.3-beta.2) (2025-11-13)
