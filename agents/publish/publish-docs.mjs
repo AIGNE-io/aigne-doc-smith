@@ -4,11 +4,7 @@ import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import fs from "fs-extra";
 
-import {
-  getAccessToken,
-  getDiscussKitMountPoint,
-  getOfficialAccessToken,
-} from "../../utils/auth-utils.mjs";
+import { getAccessToken, getCachedAccessToken, getDiscussKitMountPoint } from "../../utils/auth-utils.mjs";
 import {
   CLOUD_SERVICE_URL_PROD,
   DISCUSS_KIT_STORE_URL,
@@ -76,16 +72,15 @@ export default async function publishDocs(
     let shouldSyncBranding = void 0;
     let token = "";
     let client = null;
-    let authToken = null;
     let sessionId = null;
     let locale = config?.locale;
 
     if (!hasInputAppUrl) {
-      authToken = await getOfficialAccessToken(BASE_URL, false);
+      const officialAccessToken = await getCachedAccessToken(BASE_URL);
 
       sessionId = "";
-      if (authToken) {
-        client = new BrokerClient({ baseUrl: BASE_URL, authToken });
+      if (officialAccessToken) {
+        client = new BrokerClient({ baseUrl: BASE_URL, authToken: officialAccessToken });
         const info = await client.checkCacheSession({
           needShortUrl: true,
           sessionId: config?.checkoutId,

@@ -19,7 +19,6 @@ import {
   CLOUD_SERVICE_URL_STAGING,
   DISCUSS_KIT_DID,
   DISCUSS_KIT_STORE_URL,
-  DOC_OFFICIAL_ACCESS_TOKEN,
   PAYMENT_KIT_DID,
 } from "./constants/index.mjs";
 import { requestWithAuthToken } from "./request.mjs";
@@ -41,23 +40,23 @@ export function getDocSmithEnvFilePath() {
  * @param {string} baseUrl - The application URL
  * @returns {Promise<string>} - The access token
  */
-async function getCachedAccessToken(baseUrl) {
+export async function getCachedAccessToken(baseUrl) {
   const { hostname: targetHostname } = new URL(baseUrl);
   const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
 
   let accessToken =
-    process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN || process.env[DOC_OFFICIAL_ACCESS_TOKEN];
+    process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN || process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
 
   // Check if access token exists in environment or config file
   if (!accessToken) {
     try {
       if (existsSync(DOC_SMITH_ENV_FILE)) {
         const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
-        if (data.includes(DOC_OFFICIAL_ACCESS_TOKEN)) {
+        if (data.includes("DOC_DISCUSS_KIT_ACCESS_TOKEN")) {
           // Handle empty or invalid YAML files
           const envs = data.trim() ? parse(data) : null;
-          if (envs?.[targetHostname]?.[DOC_OFFICIAL_ACCESS_TOKEN]) {
-            accessToken = envs[targetHostname][DOC_OFFICIAL_ACCESS_TOKEN];
+          if (envs?.[targetHostname]?.DOC_DISCUSS_KIT_ACCESS_TOKEN) {
+            accessToken = envs[targetHostname].DOC_DISCUSS_KIT_ACCESS_TOKEN;
           }
         }
       }
@@ -144,7 +143,7 @@ export async function getAccessToken(appUrl, ltToken = "", locale = "en") {
 
         try {
           const officialBaseUrl = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
-          const officialAccessToken = await getOfficialAccessToken(officialBaseUrl, false);
+          const officialAccessToken = await getCachedAccessToken(officialBaseUrl);
           if (officialAccessToken) {
             const mountPoint = await getComponentMountPoint(officialBaseUrl, PAYMENT_KIT_DID);
             const data = await requestWithAuthToken(
@@ -170,12 +169,10 @@ export async function getAccessToken(appUrl, ltToken = "", locale = "en") {
 
     accessToken = result.accessKeySecret;
     process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN = accessToken;
-    process.env[DOC_OFFICIAL_ACCESS_TOKEN] = accessToken;
+    process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = accessToken;
 
     // Save the access token to config file
-    await saveTokenToConfigFile(targetHostname, {
-      [DOC_OFFICIAL_ACCESS_TOKEN]: accessToken,
-    });
+    await saveTokenToConfigFile(targetHostname, { DOC_DISCUSS_KIT_ACCESS_TOKEN: accessToken });
   } catch {
     throw new Error(
       `${chalk.yellow("⚠️ Failed to obtain access token. This may be due to network issues or authorization timeout.")}\n\n` +
@@ -239,12 +236,9 @@ export async function getOfficialAccessToken(baseUrl, openPage = true, locale = 
     });
 
     accessToken = result.accessKeySecret;
-    process.env[DOC_OFFICIAL_ACCESS_TOKEN] = accessToken;
 
     // Save the access token to config file
-    await saveTokenToConfigFile(targetHostname, {
-      [DOC_OFFICIAL_ACCESS_TOKEN]: accessToken,
-    });
+    await saveTokenToConfigFile(targetHostname, { DOC_DISCUSS_KIT_ACCESS_TOKEN: accessToken });
   } catch {
     throw new Error(
       `${chalk.yellow("⚠️ Failed to obtain official access token. This may be due to network issues or authorization timeout.")}\n\n` +

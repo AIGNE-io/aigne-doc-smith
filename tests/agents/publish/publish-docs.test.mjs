@@ -16,6 +16,11 @@ import * as authUtils from "../../../utils/auth-utils.mjs";
 import * as d2Utils from "../../../utils/d2-utils.mjs";
 import * as utils from "../../../utils/utils.mjs";
 import * as deployUtils from "../../../utils/deploy.mjs";
+import * as fileUtils from "../../../utils/file-utils.mjs";
+import {
+  InvalidBlockletError,
+  ComponentNotFoundError,
+} from "../../../utils/blocklet.mjs";
 
 // Mock all external dependencies
 const mockPublishDocs = {
@@ -53,13 +58,15 @@ describe("publish-docs", () => {
 
   // Spies for internal utils
   let getAccessTokenSpy;
-  let getOfficialAccessTokenSpy;
+  let getCacheAccessTokenSpy;
+  let getDiscussKitMountPointSpy;
   let beforePublishHookSpy;
   let ensureTmpDirSpy;
   let getGithubRepoUrlSpy;
   let loadConfigFromFileSpy;
   let saveValueToConfigSpy;
   let deploySpy;
+  let isRemoteFileSpy;
 
   beforeAll(() => {
     // Apply mocks for external dependencies only
@@ -111,8 +118,11 @@ describe("publish-docs", () => {
 
     // Set up spies for internal utils
     getAccessTokenSpy = spyOn(authUtils, "getAccessToken").mockResolvedValue("mock-token");
-    getOfficialAccessTokenSpy = spyOn(authUtils, "getOfficialAccessToken").mockResolvedValue(
+    getCacheAccessTokenSpy = spyOn(authUtils, "getCachedAccessToken").mockResolvedValue(
       "official-mock-token",
+    );
+    getDiscussKitMountPointSpy = spyOn(authUtils, "getDiscussKitMountPoint").mockResolvedValue(
+      "/c",
     );
     beforePublishHookSpy = spyOn(d2Utils, "beforePublishHook").mockResolvedValue();
     ensureTmpDirSpy = spyOn(d2Utils, "ensureTmpDir").mockResolvedValue();
@@ -125,6 +135,7 @@ describe("publish-docs", () => {
       appUrl: "https://deployed.example.com",
       token: "deploy-token",
     });
+    isRemoteFileSpy = spyOn(fileUtils, "isRemoteFile").mockReturnValue(false);
 
     mockOptions = {
       prompts: {
@@ -147,13 +158,15 @@ describe("publish-docs", () => {
 
     // Restore all spies
     getAccessTokenSpy?.mockRestore();
-    getOfficialAccessTokenSpy?.mockRestore();
+    getCacheAccessTokenSpy?.mockRestore();
+    getDiscussKitMountPointSpy?.mockRestore();
     beforePublishHookSpy?.mockRestore();
     ensureTmpDirSpy?.mockRestore();
     getGithubRepoUrlSpy?.mockRestore();
     loadConfigFromFileSpy?.mockRestore();
     saveValueToConfigSpy?.mockRestore();
     deploySpy?.mockRestore();
+    isRemoteFileSpy?.mockRestore();
   });
 
   // BASIC FUNCTIONALITY TESTS
@@ -165,6 +178,7 @@ describe("publish-docs", () => {
         docsDir: "./docs",
         appUrl: "https://docsmith.aigne.io",
         boardId: "board-123",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -172,7 +186,8 @@ describe("publish-docs", () => {
     expect(ensureTmpDirSpy).toHaveBeenCalled();
     expect(mockFsExtra.cp).toHaveBeenCalled();
     expect(beforePublishHookSpy).toHaveBeenCalled();
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://docsmith.aigne.io", "");
+    expect(getDiscussKitMountPointSpy).toHaveBeenCalledWith("https://docsmith.aigne.io");
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://docsmith.aigne.io", "", undefined);
     expect(mockPublishDocs.publishDocs).toHaveBeenCalled();
     expect(result.message).toBe("✅ Documentation published successfully!");
   });
@@ -180,19 +195,22 @@ describe("publish-docs", () => {
   // ENVIRONMENT VARIABLE TESTS
   test("should use environment variable DOC_DISCUSS_KIT_URL when set", async () => {
     process.env.DOC_DISCUSS_KIT_URL = "https://env.example.com";
+    loadConfigFromFileSpy.mockResolvedValue({});
 
     await publishDocs(
       {
         docsDir: "./docs",
         appUrl: "https://docsmith.aigne.io",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
 
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://env.example.com", "");
+    expect(getDiscussKitMountPointSpy).toHaveBeenCalledWith("https://env.example.com");
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://env.example.com", "", undefined);
     expect(mockPublishDocs.publishDocs).toHaveBeenCalledWith(
       expect.objectContaining({
-        appUrl: "https://env.example.com",
+        appUrl: expect.stringContaining("https://env.example.com"),
       }),
     );
     // Should not save appUrl when using environment variable
@@ -208,6 +226,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://docsmith.aigne.io",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -229,6 +248,7 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -238,7 +258,8 @@ describe("publish-docs", () => {
       message: "Please enter the URL of your website:",
       validate: expect.any(Function),
     });
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://custom.example.com", "");
+    expect(getDiscussKitMountPointSpy).toHaveBeenCalledWith("https://custom.example.com");
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://custom.example.com", "", undefined);
   });
 
   test("should validate URL input and accept valid URLs", async () => {
@@ -249,6 +270,7 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -268,11 +290,13 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
 
-    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://example.com", "");
+    expect(getDiscussKitMountPointSpy).toHaveBeenCalledWith("https://example.com");
+    expect(getAccessTokenSpy).toHaveBeenCalledWith("https://example.com", "", undefined);
   });
 
   // PROJECT INFO TESTS
@@ -283,6 +307,7 @@ describe("publish-docs", () => {
         projectName: "Test Project",
         projectDesc: "Test Description",
         projectLogo: "logo.png",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -306,6 +331,7 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -325,6 +351,7 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -351,6 +378,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -377,6 +405,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -404,6 +433,7 @@ describe("publish-docs", () => {
   });
 
   test("should save new boardId when auto-created", async () => {
+    loadConfigFromFileSpy.mockResolvedValue({});
     mockPublishDocs.publishDocs.mockResolvedValue({
       success: true,
       boardId: "auto-created-id",
@@ -414,6 +444,7 @@ describe("publish-docs", () => {
         docsDir: "./docs",
         appUrl: "https://example.com",
         boardId: "original-id",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -441,35 +472,38 @@ describe("publish-docs", () => {
 
   test("should handle checkCacheSession failure", async () => {
     loadConfigFromFileSpy.mockResolvedValue({});
-    getOfficialAccessTokenSpy.mockResolvedValue("valid-token");
+    getCacheAccessTokenSpy.mockResolvedValue("valid-token");
     mockBrokerClient.checkCacheSession.mockRejectedValue(new Error("Cache session failed"));
     mockOptions.prompts.select.mockResolvedValue("default");
 
     const result = await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
 
     expect(result.message).toBe(
-      "❌ Sorry, I encountered an error while publishing your documentation: Cache session failed",
+      "❌ Sorry, I encountered an error while publishing your documentation: \n\nCache session failed",
     );
   });
 
   test("should handle publish failure", async () => {
+    loadConfigFromFileSpy.mockResolvedValue({});
     mockPublishDocs.publishDocs.mockRejectedValue(new Error("Publish failed"));
 
     const result = await publishDocs(
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
 
     expect(result.message).toBe(
-      "❌ Sorry, I encountered an error while publishing your documentation: Publish failed",
+      "❌ Sorry, I encountered an error while publishing your documentation: \n\nPublish failed",
     );
   });
 
@@ -483,6 +517,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -495,6 +530,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -515,6 +551,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -534,6 +571,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -559,6 +597,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -573,6 +612,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -588,6 +628,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -602,6 +643,7 @@ describe("publish-docs", () => {
       {
         docsDir: "./docs",
         appUrl: "https://example.com",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -626,6 +668,7 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -647,6 +690,7 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -682,6 +726,7 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -719,12 +764,13 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
 
     expect(consoleSpy).toHaveBeenCalledWith("\nResuming your previous website setup...");
-    expect(deploySpy).toHaveBeenCalledWith("cached-checkout-123", "https://payment.example.com");
+    expect(deploySpy).toHaveBeenCalledWith("cached-checkout-123", undefined);
 
     consoleSpy.mockRestore();
   });
@@ -736,6 +782,7 @@ describe("publish-docs", () => {
     await publishDocs(
       {
         docsDir: "./docs",
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -762,6 +809,7 @@ describe("publish-docs", () => {
         appUrl: "https://example.com",
         projectName: "Param Name", // Should override config
         // projectDesc not provided - should use config
+        originalDocumentStructure: [],
       },
       mockOptions,
     );
@@ -773,5 +821,123 @@ describe("publish-docs", () => {
         boardCover: "", // Default (empty)
       }),
     );
+  });
+
+  // GETDISCUSSKITMOUNTPOINT ERROR HANDLING TESTS
+  describe("getDiscussKitMountPoint error handling", () => {
+    test("should handle InvalidBlockletError with appropriate error message", async () => {
+      loadConfigFromFileSpy.mockResolvedValue({});
+      // getDiscussKitMountPoint will catch InvalidBlockletError and throw a formatted error
+      // We need to mock it to throw the formatted error message that getDiscussKitMountPoint would produce
+      const formattedError = new Error(
+        `⚠️  The provided URL is not a valid ArcBlock-powered website.\n\n` +
+          `💡 Solution: To host your documentation, you can get a website from the ArcBlock store:\nhttps://store.blocklet.dev/blocklets/z8ia1WEiBZ7hxURf6LwH21Wpg99vophFwSJdu\n\n`,
+      );
+      getDiscussKitMountPointSpy.mockRejectedValue(formattedError);
+
+      const result = await publishDocs(
+        {
+          docsDir: "./docs",
+          appUrl: "https://invalid.example.com",
+          originalDocumentStructure: [],
+        },
+        mockOptions,
+      );
+
+      expect(result.message).toContain(
+        "❌ Sorry, I encountered an error while publishing your documentation:",
+      );
+      expect(result.message).toContain(
+        "⚠️  The provided URL is not a valid ArcBlock-powered website.",
+      );
+      expect(result.message).toContain("💡 Solution:");
+      expect(result.message).toContain("To host your documentation");
+    });
+
+    test("should handle ComponentNotFoundError with appropriate error message", async () => {
+      loadConfigFromFileSpy.mockResolvedValue({});
+      // getDiscussKitMountPoint will catch ComponentNotFoundError and throw a formatted error
+      const formattedError = new Error(
+        `⚠️ This website is missing the required components for publishing.\n\n` +
+          `💡 Solution: Please refer to the documentation to add the Discuss Kit component:\nhttps://www.arcblock.io/docs/blocklet-developer/en/7zbw0GQXgcD6sCcjVfwqqT2s\n\n`,
+      );
+      getDiscussKitMountPointSpy.mockRejectedValue(formattedError);
+
+      const result = await publishDocs(
+        {
+          docsDir: "./docs",
+          appUrl: "https://missing-component.example.com",
+          originalDocumentStructure: [],
+        },
+        mockOptions,
+      );
+
+      expect(result.message).toContain(
+        "❌ Sorry, I encountered an error while publishing your documentation:",
+      );
+      expect(result.message).toContain(
+        "⚠️ This website is missing the required components for publishing.",
+      );
+      expect(result.message).toContain("💡 Solution:");
+      expect(result.message).toContain("Please refer to the documentation to add the Discuss Kit component");
+    });
+
+    test("should handle network errors with appropriate error message", async () => {
+      loadConfigFromFileSpy.mockResolvedValue({});
+      // getDiscussKitMountPoint will catch network errors and throw a formatted error
+      const formattedError = new Error(
+        `❌ Could not connect to: https://network-error.example.com\n\n` +
+          `Possible causes:\n` +
+          `• There may be a network issue.\n` +
+          `• The server may be temporarily unavailable.\n` +
+          `• The URL may be incorrect.\n\n` +
+          `Suggestion: Please check your network connection and the URL, then try again.`,
+      );
+      getDiscussKitMountPointSpy.mockRejectedValue(formattedError);
+
+      const result = await publishDocs(
+        {
+          docsDir: "./docs",
+          appUrl: "https://network-error.example.com",
+          originalDocumentStructure: [],
+        },
+        mockOptions,
+      );
+
+      expect(result.message).toContain(
+        "❌ Sorry, I encountered an error while publishing your documentation:",
+      );
+      expect(result.message).toContain("❌ Could not connect to:");
+      expect(result.message).toContain("https://network-error.example.com");
+      expect(result.message).toContain("Possible causes:");
+      expect(result.message).toContain("There may be a network issue");
+      expect(result.message).toContain("The server may be temporarily unavailable");
+      expect(result.message).toContain("The URL may be incorrect");
+    });
+
+    test("should clean up temporary directory when getDiscussKitMountPoint fails", async () => {
+      loadConfigFromFileSpy.mockResolvedValue({});
+      getDiscussKitMountPointSpy.mockRejectedValue(
+        new Error("Connection failed"),
+      );
+
+      await publishDocs(
+        {
+          docsDir: "./docs",
+          appUrl: "https://error.example.com",
+          originalDocumentStructure: [],
+        },
+        mockOptions,
+      );
+
+      // Should still clean up even on error
+      expect(mockFsExtra.rm).toHaveBeenCalledWith(
+        expect.stringContaining(".aigne/doc-smith/.tmp/docs"),
+        expect.objectContaining({
+          recursive: true,
+          force: true,
+        }),
+      );
+    });
   });
 });

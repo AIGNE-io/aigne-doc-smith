@@ -333,8 +333,6 @@ export const MEDIA_KIT_DID = "z8ia1mAXo8ZE7ytGF36L5uBf9kD2kenhqFGp9";
 
 export const PAYMENT_KIT_DID = "z2qaCNvKMv5GjouKdcDWexv6WqtHbpNPQDnAk";
 
-export const DOC_OFFICIAL_ACCESS_TOKEN = "DOC_OFFICIAL_ACCESS_TOKEN";
-
 // Default application URL for the document deployment website.
 export const CLOUD_SERVICE_URL_PROD = "https://docsmith.aigne.io";
 export const CLOUD_SERVICE_URL_STAGING = "https://staging.docsmith.aigne.io";
