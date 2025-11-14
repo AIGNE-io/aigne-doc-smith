@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.5-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.4...v0.9.5-beta) (2025-11-14)
+
+
+### Bug Fixes
+
+* ensure docs directory exists before use ([#313](https://github.com/AIGNE-io/aigne-doc-smith/issues/313)) ([e498163](https://github.com/AIGNE-io/aigne-doc-smith/commit/e498163c12486af694a4b591771a00c255fbfce6))
+
 ## [0.9.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.4-beta...v0.9.4) (2025-11-14)
 
 ## [0.9.4-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.3...v0.9.4-beta) (2025-11-14)
