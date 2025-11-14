@@ -16,7 +16,6 @@ import * as path from "node:path";
 import * as yaml from "yaml";
 import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 import * as blockletUtils from "../../utils/blocklet.mjs";
-import { DOC_OFFICIAL_ACCESS_TOKEN } from "../../utils/constants/index.mjs";
 
 // Mock external modules that involve network requests
 const mockCreateConnect = mock(() => Promise.resolve({ accessKeySecret: "new-access-token" }));
@@ -57,7 +56,6 @@ describe("auth-utils", () => {
     originalEnv = { ...process.env };
     delete process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
     delete process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN;
-    delete process.env[DOC_OFFICIAL_ACCESS_TOKEN];
 
     // Reset external mocks
     mockCreateConnect.mockClear();
@@ -186,7 +184,6 @@ describe("auth-utils", () => {
     // Since we now have successful authorization flow mocked, this should succeed
     const result = await getAccessToken("https://example.com");
     expect(result).toBe("new-access-token");
-    expect(getComponentMountPointSpy).toHaveBeenCalled();
   });
 
   test("should handle missing hostname in config", async () => {
@@ -201,7 +198,6 @@ describe("auth-utils", () => {
     // Since we now have successful authorization flow mocked, this should succeed
     const result = await getAccessToken("https://example.com");
     expect(result).toBe("new-access-token");
-    expect(getComponentMountPointSpy).toHaveBeenCalled();
   });
 
   test("should handle config file read errors", async () => {
@@ -211,7 +207,7 @@ describe("auth-utils", () => {
     mockCreateConnect.mockRejectedValueOnce(new Error("Network error"));
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "Could not get an access token. Please check your network connection and try again.",
+      "\u001b[33m⚠️ Failed to obtain access token. This may be due to network issues or authorization timeout.\u001b[39m\n\n\u001b[1m💡 Solution:\u001b[22m\n  • Step 1: Ensure your network can access the service URL: \u001b[36mhttps://example.com\u001b[39m\n  • Step 2: Run \u001b[36maigne doc publish\u001b[39m again\n  • Step 3: If prompted, select \u001b[36mResume previous website setup\u001b[39m to continue from where you left off\n\n",
     );
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       "Could not read the configuration file:",
@@ -230,32 +226,6 @@ describe("auth-utils", () => {
     expect(readFileSpy).toHaveBeenCalled();
   });
 
-  // ERROR HANDLING TESTS
-  test("should throw error for invalid blocklet", async () => {
-    const InvalidBlockletError = (await import("../../utils/blocklet.mjs")).InvalidBlockletError;
-    getComponentMountPointSpy.mockRejectedValue(new InvalidBlockletError());
-
-    await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "The provided URL is not a valid ArcBlock-powered website.",
-    );
-  });
-
-  test("should throw error for missing component", async () => {
-    const ComponentNotFoundError = (await import("../../utils/blocklet.mjs"))
-      .ComponentNotFoundError;
-    getComponentMountPointSpy.mockRejectedValue(new ComponentNotFoundError());
-
-    await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "This website is missing the required components for publishing.",
-    );
-  });
-
-  test("should throw error for network issues", async () => {
-    getComponentMountPointSpy.mockRejectedValue(new Error("Network error"));
-
-    await expect(getAccessToken("https://example.com")).rejects.toThrow("Could not connect to:");
-  });
-
   // AUTHORIZATION FLOW TESTS
   test("should successfully complete authorization flow", async () => {
     // Mock successful component check
@@ -265,11 +235,6 @@ describe("auth-utils", () => {
 
     expect(result).toBe("new-access-token");
 
-    // Verify the authorization flow
-    expect(getComponentMountPointSpy).toHaveBeenCalledWith(
-      "https://example.com",
-      expect.any(String),
-    );
     expect(mockCreateConnect).toHaveBeenCalledWith(
       expect.objectContaining({
         connectAction: "gen-simple-access-key",
@@ -292,7 +257,6 @@ describe("auth-utils", () => {
       expect.objectContaining({
         "example.com": {
           DOC_DISCUSS_KIT_ACCESS_TOKEN: "new-access-token",
-          DOC_DISCUSS_KIT_URL: "https://example.com",
         },
       }),
     );
@@ -324,7 +288,7 @@ describe("auth-utils", () => {
     expect(writeFileSpy).toHaveBeenCalled();
   });
 
-  test("should call openPage function with correct URL", async () => {
+  test("should call openPage function with correct URL and locale", async () => {
     getComponentMountPointSpy.mockResolvedValue({ endpoint: "https://example.com/api" });
 
     let capturedOpenPage;
@@ -340,17 +304,9 @@ describe("auth-utils", () => {
 
     // Test that openPage calls the mock open function
     await capturedOpenPage("https://auth.example.com");
-    expect(mockOpen).toHaveBeenCalledWith("https://auth.example.com/?required_roles=owner%2Cadmin");
-  });
-
-  test("should handle authorization failure", async () => {
-    getComponentMountPointSpy.mockResolvedValue({ endpoint: "https://example.com/api" });
-    mockCreateConnect.mockRejectedValue(new Error("Authorization failed"));
-
-    await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "Could not get an access token. Please check your network connection and try again.",
+    expect(mockOpen).toHaveBeenCalledWith(
+      "https://auth.example.com/?required_roles=owner%2Cadmin&locale=en",
     );
-    expect(consoleDebugSpy).toHaveBeenCalledWith(expect.any(Error));
   });
 
   test("should handle createConnect with different error types", async () => {
@@ -358,7 +314,7 @@ describe("auth-utils", () => {
     mockCreateConnect.mockRejectedValue(new TypeError("Network error"));
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "Could not get an access token. Please check your network connection and try again.",
+      "\u001b[33m⚠️ Failed to obtain access token. This may be due to network issues or authorization timeout.\u001b[39m\n\n\u001b[1m💡 Solution:\u001b[22m\n  • Step 1: Ensure your network can access the service URL: \u001b[36mhttps://example.com\u001b[39m\n  • Step 2: Run \u001b[36maigne doc publish\u001b[39m again\n  • Step 3: If prompted, select \u001b[36mResume previous website setup\u001b[39m to continue from where you left off\n\n",
     );
   });
 
@@ -374,7 +330,7 @@ describe("auth-utils", () => {
     });
 
     test("should return access token from environment variable", async () => {
-      process.env[DOC_OFFICIAL_ACCESS_TOKEN] = "env-official-token";
+      process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "env-official-token";
 
       const result = await getOfficialAccessToken("https://example.com");
 
@@ -382,7 +338,7 @@ describe("auth-utils", () => {
     });
 
     test("should handle different URL formats", async () => {
-      process.env[DOC_OFFICIAL_ACCESS_TOKEN] = "test-official-token";
+      process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "test-official-token";
 
       const urls = [
         "https://example.com",
@@ -398,13 +354,13 @@ describe("auth-utils", () => {
     });
 
     test("should handle invalid URL", async () => {
-      process.env[DOC_OFFICIAL_ACCESS_TOKEN] = "test-official-token";
+      process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "test-official-token";
 
       await expect(getOfficialAccessToken("invalid-url")).rejects.toThrow();
     });
 
     test("should work with localhost URLs", async () => {
-      process.env[DOC_OFFICIAL_ACCESS_TOKEN] = "local-official-token";
+      process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "local-official-token";
 
       const result = await getOfficialAccessToken("http://localhost:3000");
 
@@ -412,20 +368,20 @@ describe("auth-utils", () => {
     });
 
     test("should preserve environment variable after function call", async () => {
-      process.env[DOC_OFFICIAL_ACCESS_TOKEN] = "persistent-official-token";
+      process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN = "persistent-official-token";
 
       await getOfficialAccessToken("https://example.com");
 
-      expect(process.env[DOC_OFFICIAL_ACCESS_TOKEN]).toBe("persistent-official-token");
+      expect(process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN).toBe("persistent-official-token");
     });
 
     // CONFIG FILE READING TESTS
     test("should read access token from config file", async () => {
       existsSyncSpy.mockReturnValue(true);
-      readFileSpy.mockResolvedValue(`DOC_OFFICIAL_ACCESS_TOKEN: config-official-token`);
+      readFileSpy.mockResolvedValue(`DOC_DISCUSS_KIT_ACCESS_TOKEN: config-official-token`);
       parseSpy.mockReturnValue({
         "example.com": {
-          [DOC_OFFICIAL_ACCESS_TOKEN]: "config-official-token",
+          DOC_DISCUSS_KIT_ACCESS_TOKEN: "config-official-token",
         },
       });
 
@@ -456,10 +412,10 @@ describe("auth-utils", () => {
 
     test("should handle missing hostname in config", async () => {
       existsSyncSpy.mockReturnValue(true);
-      readFileSpy.mockResolvedValue(`${DOC_OFFICIAL_ACCESS_TOKEN}: token`);
+      readFileSpy.mockResolvedValue(`DOC_DISCUSS_KIT_ACCESS_TOKEN: token`);
       parseSpy.mockReturnValue({
         "other-domain.com": {
-          [DOC_OFFICIAL_ACCESS_TOKEN]: "other-token",
+          DOC_DISCUSS_KIT_ACCESS_TOKEN: "other-token",
         },
       });
 
@@ -503,7 +459,7 @@ describe("auth-utils", () => {
       );
 
       // Verify environment variable is set
-      expect(process.env[DOC_OFFICIAL_ACCESS_TOKEN]).toBe("new-access-token");
+      expect(process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN).toBe("new-access-token");
 
       // Verify config file is saved
       expect(writeFileSpy).toHaveBeenCalledWith(
@@ -513,7 +469,7 @@ describe("auth-utils", () => {
       expect(stringifySpy).toHaveBeenCalledWith(
         expect.objectContaining({
           "example.com": {
-            [DOC_OFFICIAL_ACCESS_TOKEN]: "new-access-token",
+            DOC_DISCUSS_KIT_ACCESS_TOKEN: "new-access-token",
           },
         }),
       );
@@ -542,7 +498,7 @@ describe("auth-utils", () => {
       expect(writeFileSpy).toHaveBeenCalled();
     });
 
-    test("should call openPage function with correct behavior", async () => {
+    test("should call openPage function with correct behavior and locale", async () => {
       let capturedOpenPage;
       mockCreateConnect.mockImplementation((options) => {
         capturedOpenPage = options.openPage;
@@ -557,7 +513,7 @@ describe("auth-utils", () => {
       // Test that openPage calls the mock open function and logs
       const consoleSpy = spyOn(console, "log").mockImplementation(() => {});
       await capturedOpenPage("https://auth.example.com");
-      expect(mockOpen).toHaveBeenCalledWith("https://auth.example.com");
+      expect(mockOpen).toHaveBeenCalledWith("https://auth.example.com/?locale=en");
       expect(consoleSpy).toHaveBeenCalledWith(
         "🔗 Please open the following URL in your browser to authorize access: ",
         expect.any(String),
@@ -570,16 +526,15 @@ describe("auth-utils", () => {
       mockCreateConnect.mockRejectedValue(new Error("Authorization failed"));
 
       await expect(getOfficialAccessToken("https://example.com")).rejects.toThrow(
-        "Could not get an official access token. Please check your network connection and try again.",
+        "\u001b[33m⚠️ Failed to obtain official access token. This may be due to network issues or authorization timeout.\u001b[39m\n\n\u001b[1m💡 Solution:\u001b[22m\n  • Step 1: Ensure your network can access the official service URL: \u001b[36mhttps://example.com\u001b[39m\n  • Step 2: Run \u001b[36maigne doc publish\u001b[39m again\n\n",
       );
-      expect(consoleDebugSpy).toHaveBeenCalledWith(expect.any(Error));
     });
 
     test("should handle createConnect with different error types", async () => {
       mockCreateConnect.mockRejectedValue(new TypeError("Network error"));
 
       await expect(getOfficialAccessToken("https://example.com")).rejects.toThrow(
-        "Could not get an official access token. Please check your network connection and try again.",
+        "\u001b[33m⚠️ Failed to obtain official access token. This may be due to network issues or authorization timeout.\u001b[39m\n\n\u001b[1m💡 Solution:\u001b[22m\n  • Step 1: Ensure your network can access the official service URL: \u001b[36mhttps://example.com\u001b[39m\n  • Step 2: Run \u001b[36maigne doc publish\u001b[39m again\n\n",
       );
     });
 

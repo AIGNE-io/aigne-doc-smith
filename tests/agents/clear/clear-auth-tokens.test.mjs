@@ -40,7 +40,7 @@ describe("clear-auth-tokens", () => {
     expect(result).toBeDefined();
     expect(result.message).toBeDefined();
     expect(typeof result.message).toBe("string");
-    expect(result.message).toBe("No site authorizations found to clear");
+    expect(result.message).toBe("🔑 No site authorizations found to clear");
   });
 
   test("should handle missing prompts gracefully", async () => {
@@ -63,7 +63,7 @@ describe("clear-auth-tokens", () => {
     const result = await clearAuthTokens({});
     expect(result).toBeDefined();
     expect(result.message).toBeDefined();
-    expect(result.message).toBe("No site authorizations found to clear");
+    expect(result.message).toBe("🔑 No site authorizations found to clear");
   });
 
   test("should return consistent result structure", async () => {
@@ -118,7 +118,7 @@ describe("clear-auth-tokens", () => {
     expect(result.message).toBeDefined();
     expect(result.message.length).toBeGreaterThan(0);
     expect(typeof result.message).toBe("string");
-    expect(result.message).toBe("No site authorizations found to clear");
+    expect(result.message).toBe("🔑 No site authorizations found to clear");
   });
 
   test("should handle undefined input parameters", async () => {
@@ -128,7 +128,7 @@ describe("clear-auth-tokens", () => {
     const result = await clearAuthTokens(undefined, undefined);
     expect(result).toBeDefined();
     expect(result.message).toBeDefined();
-    expect(result.message).toBe("No site authorizations found to clear");
+    expect(result.message).toBe("🔑 No site authorizations found to clear");
   });
 
   test("should handle null input parameters", async () => {
@@ -138,7 +138,7 @@ describe("clear-auth-tokens", () => {
     const result = await clearAuthTokens(null, null);
     expect(result).toBeDefined();
     expect(result.message).toBeDefined();
-    expect(result.message).toBe("No site authorizations found to clear");
+    expect(result.message).toBe("🔑 No site authorizations found to clear");
   });
 
   test("should handle various option configurations", async () => {
@@ -156,7 +156,7 @@ describe("clear-auth-tokens", () => {
       const result = await clearAuthTokens({}, config);
       expect(result).toBeDefined();
       expect(result.message).toBeDefined();
-      expect(result.message).toBe("No site authorizations found to clear");
+      expect(result.message).toBe("🔑 No site authorizations found to clear");
     }
   });
 
@@ -235,7 +235,7 @@ describe("clear-auth-tokens", () => {
     const result = await clearAuthTokens({}, {});
     expect(result).toBeDefined();
     expect(result.message).toBeDefined();
-    expect(result.message).toBe("No site authorizations found to clear");
+    expect(result.message).toBe("🔑 No site authorizations found to clear");
   });
 
   test("should handle malformed YAML content", async () => {
@@ -263,6 +263,6 @@ describe("clear-auth-tokens", () => {
 
     const result = await clearAuthTokens({}, emptySelectionOptions);
     expect(result).toBeDefined();
-    expect(result.message).toBe("No sites selected for clearing authorization");
+    expect(result.message).toBe("🔑 No sites selected for clearing authorization");
   });
 });
