@@ -196,7 +196,7 @@ export default async function publishDocs(
     const discussKitMountPoint = await getDiscussKitMountPoint(appUrlInfo.origin);
     const discussKitUrl = joinURL(appUrlInfo.origin, discussKitMountPoint);
 
-    console.log(`\nPublishing your documentation to ${chalk.cyan(discussKitUrl)}\n`);
+    console.log(`\nPublishing your documentation to ${chalk.cyan(discussKitUrl)}`);
 
     const accessToken = await getAccessToken(appUrlInfo.origin, token, locale);
 
@@ -212,6 +212,8 @@ export default async function publishDocs(
       icon: projectLogo || config?.projectLogo || "",
     };
     let finalPath = null;
+
+    console.log(`Publishing docs collection: ${chalk.cyan(projectInfo.name || boardId)}\n`);
 
     // Handle project logo download if it's a URL
     if (projectInfo.icon && isRemoteFile(projectInfo.icon)) {
@@ -249,11 +251,11 @@ export default async function publishDocs(
     if (translatedMetadata) {
       boardMeta.translation = translatedMetadata;
     }
-
     const {
       success,
       boardId: newBoardId,
       error,
+      docsUrl
     } = await publishDocsFn({
       sidebarPath,
       accessToken,
@@ -281,7 +283,8 @@ export default async function publishDocs(
       if (boardId !== newBoardId) {
         await saveValueToConfig("boardId", newBoardId);
       }
-      message = `✅ Documentation published successfully!`;
+      message = `✅ Documentation published successfully!\n📖 Docs available at: ${chalk.cyan(docsUrl)}`;
+
       await saveValueToConfig("checkoutId", "", "Checkout ID for document deployment service");
       await saveValueToConfig("shouldSyncBranding", "", "Should sync branding for documentation");
     } else {
