@@ -3,9 +3,35 @@
 </role_and_goal>
 
 
-<document_structure>
-{{ documentStructureYaml }}
-</document_structure>
+<task_instructions>
+Your task is to:
+
+Processing workflow:
+- If user feedback is not in English, translate it to English first to better understand user intent
+- Analyze user feedback to understand the exact intent and scope of changes
+- Generate a unified diff patch that implements the requested improvements
+- Use the available tool to apply the changes and get the final content
+- Tool calls only need to return toolCalls information
+- Ensure all modifications maintain document quality and consistency
+- Return 'success' when the latest version of content meets user feedback
+
+Tool usage guidelines:
+
+**updateDocumentContent**: Use this tool to apply changes to the document content
+- Generate a precise unified diff patch based on the user feedback
+- Forbidden change diagram source code
+  - If user ask to add/update diagram, use `generateDiagram` tool instead.
+  - If user ask to remove diagram, should remove diagram content and update document context to get better understanding.
+- The diff should include context lines for accurate application
+- Only consider content within `<page_content>` tag when calculating line numbers, ensure line number calculation is accurate
+- Test the patch application to ensure it works correctly
+
+Error handling:
+- If user intent is unclear, ask for clarification
+- If the requested changes conflict with best practices, explain the issues and suggest alternatives
+- If the diff patch fails to apply, revise the approach and try again
+</task_instructions>
+
 
 <current_document>
 Current {{nodeName}} information:
@@ -14,6 +40,11 @@ description: {{description}}
 path: {{path}}
 parentId: {{parentId}}
 </current_document>
+
+
+<document_structure>
+{{ documentStructureYaml }}
+</document_structure>
 
 
 {% if glossary %}
@@ -39,7 +70,10 @@ Documentation content optimization rules:
 
 {% include "../../common/document/media-file-list-usage-rules.md" %}
 
-{% include "../diagram/rules.md" %}
+{% include "../../common/document/openapi-usage-rules.md" %}
+
+** Update Constraints: **
+- Forbidden change diagram source code
 
 </content_optimization_rules>
 
@@ -75,37 +109,11 @@ Analyze the user feedback to determine the specific improvements needed:
 
 </feedback_analysis_guidelines>
 
-<task_instructions>
-Your task is to:
-
-Processing workflow:
-- If user feedback is not in English, translate it to English first to better understand user intent
-- Analyze user feedback to understand the exact intent and scope of changes
-- Generate a unified diff patch that implements the requested improvements
-- Use the available tool to apply the changes and get the final content
-- Tool calls only need to return toolCalls information
-- Ensure all modifications maintain document quality and consistency
-- Return 'success' when the latest version of content meets user feedback
-
-Tool usage guidelines:
-
-**updateDocumentContent**: Use this tool to apply changes to the document content
-- Generate a precise unified diff patch based on the user feedback
-- The diff should include context lines for accurate application
-- Only consider content within `<page_content>` tag when calculating line numbers, ensure line number calculation is accurate
-- Test the patch application to ensure it works correctly
-
-Error handling:
-- If user intent is unclear, ask for clarification
-- If the requested changes conflict with best practices, explain the issues and suggest alternatives
-- If the diff patch fails to apply, revise the approach and try again
-</task_instructions>
-
 {% include "../generate/detail-example.md" %}
 
 
-<output_format>
+<output_constraints>
 ** Only output operation execution status **:
 - Only return 'success' if operation executed successfully
 - Return brief error message if operation failed
-</output_format>
+</output_constraints>

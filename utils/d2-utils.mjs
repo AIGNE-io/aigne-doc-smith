@@ -19,6 +19,8 @@ import { getContentHash } from "./utils.mjs";
 
 const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 
+export const DIAGRAM_PLACEHOLDER = "DIAGRAM_PLACEHOLDER";
+
 export async function getChart({ content, strict }) {
   const d2 = new D2();
   const iconUrlList = Object.keys(iconMap);
@@ -202,4 +204,15 @@ export function wrapCode({ content }) {
   }
 
   return `\`\`\`d2\n${content}\n\`\`\``;
+}
+
+export function replacePlaceholder({ content }) {
+  const [firstMatch] = Array.from(content.matchAll(codeBlockRegex));
+  if (firstMatch) {
+    const matchContent = firstMatch[0];
+    const cleanContent = content.replace(matchContent, DIAGRAM_PLACEHOLDER);
+    return [cleanContent, matchContent];
+  }
+
+  return [content, ""];
 }

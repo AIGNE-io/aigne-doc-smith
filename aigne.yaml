@@ -39,6 +39,7 @@ agents:
   - ./agents/update/check-update-is-single.mjs
   - ./agents/update/save-and-translate-document.mjs
   - ./agents/update/index.yaml
+  - ./agents/update/update-single/update-single-document-detail.mjs
 
 
   # Translation
