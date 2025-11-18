@@ -3,7 +3,7 @@ name: updateDocumentDetail
 description: Update and optimize document content based on user feedback using diff patches
 task_render_mode: collapse
 skills:
-  - url: ../utils/analyze-feedback-intent.yaml
+  - url: ../utils/analyze-document-feedback-intent.yaml
   - type: ai
     instructions:
       - role: system

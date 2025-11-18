@@ -1,8 +1,8 @@
-name: analyzeFeedbackIntent
+name: analyzeDocumentFeedbackIntent
 description: Analyze user feedback to determine if data sources are needed for content modifications
 task_render_mode: hide
 instructions:
-  url: ../../prompts/utils/analyze-feedback-intent.md
+  url: ../../prompts/utils/analyze-document-feedback-intent.md
 input_schema:
   type: object
   properties:

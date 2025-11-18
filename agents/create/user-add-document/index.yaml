@@ -1,0 +1,41 @@
+type: team
+name: userAddDocument
+description: Add documents to the documentation structure
+skills:
+  - url: ../../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../../utils/load-sources.mjs
+  - ./add-documents-to-structure.mjs
+  - url: ../../utils/save-output.mjs
+    default_input:
+      saveKey: documentStructure
+      savePath:
+        $get: outputDir
+      fileName: structure-plan.json
+  - ../../utils/save-sidebar.mjs
+  # 批量 generate
+  - ./find-documents-to-add-links.mjs
+  - ../../utils/add-translates-to-structure.mjs
+  - ./review-documents-with-new-links.mjs
+  - ../../utils/format-document-structure.mjs
+  - ../../media/load-media-description.mjs
+  - type: team
+    name: batchAddNewLinks
+    description: Batch add new links to documents
+    skills:
+      - ../utils/init-current-content.mjs
+      - ../../utils/transform-detail-data-sources.mjs
+      - ../../update/update-single/update-single-document-detail.mjs
+    iterate_on: documentsWithNewLinks
+    concurrency: 5
+  - type: team
+    name: batchTranslateDocuments
+    description: Batch translate documents to multiple languages
+    skills:
+      - ../../localize/translate-multilingual.yaml
+    iterate_on: documentsWithNewLinks
+    concurrency: 5
+  - ../../utils/post-generate.mjs
+  - ./print-add-document-summary.mjs
+mode: sequential

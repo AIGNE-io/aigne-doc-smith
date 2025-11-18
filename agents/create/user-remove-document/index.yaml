@@ -1,6 +1,6 @@
 type: team
 name: userRemoveDocument
-description: Remove a document from the documentation structure
+description: Remove documents from the documentation structure
 skills:
   - url: ../../init/index.mjs
     default_input:
@@ -23,16 +23,16 @@ skills:
     name: batchRemoveInvalidLinks
     description: Batch remove invalid links from documents
     skills:
-      - ./init-current-content.mjs
-      - ../utils/transform-detail-data-sources.mjs
-      - ../update/update-single/update-single-document-detail.mjs
+      - ../utils/init-current-content.mjs
+      - ../../utils/transform-detail-data-sources.mjs
+      - ../../update/update-single/update-single-document-detail.mjs
     iterate_on: documentsWithInvalidLinks
     concurrency: 5
   - type: team
     name: batchTranslateDocuments
     description: Batch translate documents to multiple languages
     skills:
-      - ../localize/translate-multilingual.yaml
+      - ../../localize/translate-multilingual.yaml
     iterate_on: documentsWithInvalidLinks
     concurrency: 5
   - ../../utils/post-generate.mjs

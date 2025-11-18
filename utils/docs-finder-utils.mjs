@@ -392,3 +392,51 @@ export function buildDocumentTree(documentStructure) {
 
   return { rootNodes, nodeMap };
 }
+
+/**
+ * Format document structure for printing
+ * @param {Array} structure - Document structure array
+ * @returns {Object} Object containing rootNodes and printNode function
+ */
+function formatDocumentStructure(structure) {
+  const { rootNodes } = buildDocumentTree(structure);
+
+  function printNode(node, depth = 0) {
+    const INDENT_SPACES = "  ";
+    const FOLDER_ICON = "  📁";
+    const FILE_ICON = "  📄";
+    const indent = INDENT_SPACES.repeat(depth);
+    const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
+
+    console.log(`${indent}${prefix} ${node.title}`);
+
+    if (node.children && node.children.length > 0) {
+      node.children.forEach((child) => {
+        printNode(child, depth + 1);
+      });
+    }
+  }
+
+  return { rootNodes, printNode };
+}
+
+/**
+ * Print document structure in a user-friendly format
+ * @param {Array} structure - Document structure array
+ */
+export function printDocumentStructure(structure) {
+  console.log(`\n  ${"-".repeat(50)}`);
+  console.log("  Current Documentation Structure");
+  console.log(`  ${"-".repeat(50)}`);
+
+  const { rootNodes, printNode } = formatDocumentStructure(structure);
+
+  if (rootNodes.length === 0) {
+    console.log("  No documentation structure found.");
+  } else {
+    rootNodes.forEach((node) => {
+      printNode(node);
+    });
+  }
+  console.log();
+}
