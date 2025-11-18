@@ -13,7 +13,7 @@ Processing workflow:
 - Use the available tool to apply the changes and get the final content
 - Tool calls only need to return toolCalls information
 - Ensure all modifications maintain document quality and consistency
-- Return 'success' when the latest version of content meets user feedback
+- Return 'success' when the latest version of content meets user feedback(Don't add any explanation)
 
 Tool usage guidelines:
 
