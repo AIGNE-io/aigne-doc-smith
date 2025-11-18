@@ -37,13 +37,4 @@ skills:
     concurrency: 5
   - ../../utils/post-generate.mjs
   - ./print-remove-document-summary.mjs
-input_schema:
-  type: object
-  properties:
-    glossary:
-      type: string
-      description: Glossary file for consistent terminology (use @filename.md)
-    forceRegenerate:
-      type: boolean
-      description: Rebuild all documentation from scratch
 mode: sequential
