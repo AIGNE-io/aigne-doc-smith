@@ -11,6 +11,6 @@ export default async function checkNeedGenerate({ docsDir, locale, documentExecu
     process.exit(0);
   }
   return {
-    message: 'Documents found in the docs directory, skipping "generate" step',
+    message: 'Documents found in the docs directory, skipping "create" step',
   };
 }

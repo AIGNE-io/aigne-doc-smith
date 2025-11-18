@@ -61,7 +61,7 @@ translateLanguages:
   - zh
   - zh-TW
   - ja
-docsDir: ./docs  # Directory to save generated documentation
+docsDir: .aigne/doc-smith/docs  # Directory to save generated documentation
 sourcesPath:  # Source code paths to analyze
   - ./README.md
   - ./CHANGELOG.md

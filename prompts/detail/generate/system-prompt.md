@@ -49,7 +49,6 @@ Documentation content generation rules:
 </content_generation_rules>
 
 
-
 <output_constraints>
 
 1. Output the complete Markdown content for {{nodeName}}, only the content itself—no explanations or extra information.

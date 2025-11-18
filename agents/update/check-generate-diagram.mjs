@@ -1,4 +1,5 @@
-const PLACEHOLDER = "DIAGRAM_PLACEHOLDER";
+import { DIAGRAM_PLACEHOLDER } from "../../utils/d2-utils.mjs";
+
 const DEFAULT_DIAGRAMMING_EFFORT = 5;
 const MIN_DIAGRAMMING_EFFORT = 0;
 const MAX_DIAGRAMMING_EFFORT = 10;
@@ -66,8 +67,8 @@ export default async function checkGenerateDiagram(
     }
 
     if (diagramSourceCode && !skipGenerateDiagram) {
-      if (content.includes(PLACEHOLDER)) {
-        content = content.replace(PLACEHOLDER, diagramSourceCode);
+      if (content.includes(DIAGRAM_PLACEHOLDER)) {
+        content = content.replace(DIAGRAM_PLACEHOLDER, diagramSourceCode);
       } else {
         const mergeAgent = options.context?.agents?.["mergeDiagramToDocument"];
         ({ content } = await options.context.invoke(mergeAgent, {
