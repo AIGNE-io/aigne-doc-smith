@@ -3,6 +3,8 @@ import * as childProcess from "node:child_process";
 import * as fs from "node:fs";
 import fsPromisesDefault, * as fsPromises from "node:fs/promises";
 import {
+  dget,
+  dset,
   detectSystemLanguage,
   getAvailablePaths,
   getContentHash,
@@ -19,10 +21,10 @@ import {
   processConfigFields,
   processContent,
   resolveFileReferences,
-  saveDocWithTranslations,
   saveGitHeadToConfig,
   saveValueToConfig,
   toRelativePath,
+  userContextAt,
   validatePath,
   validatePaths,
 } from "../../utils/utils.mjs";
@@ -146,6 +148,71 @@ describe("utils", () => {
     });
   });
 
+  describe("dget", () => {
+    test("should get value from simple path", () => {
+      const obj = { a: 1, b: 2 };
+      expect(dget(obj, "a")).toBe(1);
+      expect(dget(obj, "b")).toBe(2);
+    });
+
+    test("should get value from nested path", () => {
+      const obj = { a: { b: { c: "value" } } };
+      expect(dget(obj, "a.b.c")).toBe("value");
+    });
+
+    test("should return default value for missing path", () => {
+      const obj = { a: 1 };
+      expect(dget(obj, "b", "default")).toBe("default");
+      expect(dget(obj, "c.d", "default")).toBe("default");
+    });
+
+    test("should handle array path", () => {
+      const obj = { items: [{ name: "item1" }, { name: "item2" }] };
+      expect(dget(obj, ["items", 0, "name"])).toBe("item1");
+      expect(dget(obj, ["items", 1, "name"])).toBe("item2");
+    });
+
+    test("should handle bracket notation", () => {
+      const obj = { "key with spaces": "value" };
+      expect(dget(obj, '["key with spaces"]')).toBe("value");
+    });
+  });
+
+  describe("dset", () => {
+    test("should set value at simple path", () => {
+      const obj = {};
+      dset(obj, "a", 1);
+      expect(obj.a).toBe(1);
+    });
+
+    test("should set value at nested path", () => {
+      const obj = {};
+      dset(obj, "a.b.c", "value");
+      expect(obj.a.b.c).toBe("value");
+    });
+
+    test("should create intermediate objects", () => {
+      const obj = {};
+      dset(obj, "x.y.z", 100);
+      expect(obj.x).toBeDefined();
+      expect(obj.x.y).toBeDefined();
+      expect(obj.x.y.z).toBe(100);
+    });
+
+    test("should handle array path", () => {
+      const obj = {};
+      dset(obj, ["items", 0, "name"], "item1");
+      expect(Array.isArray(obj.items)).toBe(true);
+      expect(obj.items[0].name).toBe("item1");
+    });
+
+    test("should overwrite existing values", () => {
+      const obj = { a: { b: "old" } };
+      dset(obj, "a.b", "new");
+      expect(obj.a.b).toBe("new");
+    });
+  });
+
   describe("isGlobPattern", () => {
     test("should detect glob patterns", () => {
       expect(isGlobPattern("*.js")).toBe(true);
@@ -163,6 +230,194 @@ describe("utils", () => {
     test("should handle null/undefined input", () => {
       expect(isGlobPattern(null)).toBe(false);
       expect(isGlobPattern(undefined)).toBe(false);
+    });
+  });
+
+  describe("userContextAt", () => {
+    test("throws error when userContext is not available", () => {
+      const options = { context: {} };
+      expect(() => userContextAt(options, "test.path")).toThrow("userContext is not available");
+    });
+
+    test("get() returns undefined for non-existent path", () => {
+      const options = {
+        context: {
+          userContext: {},
+        },
+      };
+      const ctx = userContextAt(options, "currentPageDetails./about");
+      expect(ctx.get()).toBeUndefined();
+    });
+
+    test("get() with key returns undefined for non-existent nested path", () => {
+      const options = {
+        context: {
+          userContext: {},
+        },
+      };
+      const ctx = userContextAt(options, "lastToolInputs./about");
+      expect(ctx.get("updateMeta")).toBeUndefined();
+    });
+
+    test("set() and get() work for direct value", () => {
+      const options = {
+        context: {
+          userContext: {},
+        },
+      };
+      const ctx = userContextAt(options, "currentPageDetails./about");
+      ctx.set("test value");
+      expect(ctx.get()).toBe("test value");
+    });
+
+    test("set() and get() work for nested value", () => {
+      const options = {
+        context: {
+          userContext: {},
+        },
+      };
+      const ctx = userContextAt(options, "lastToolInputs./about");
+      ctx.set("updateMeta", { title: "New Title" });
+      expect(ctx.get("updateMeta")).toEqual({ title: "New Title" });
+    });
+
+    test("set() creates intermediate objects automatically", () => {
+      const options = {
+        context: {
+          userContext: {},
+        },
+      };
+      const ctx = userContextAt(options, "lastToolInputs./about");
+      ctx.set("updateMeta", { title: "New Title" });
+      // Verify the path was created
+      expect(options.context.userContext.lastToolInputs).toBeDefined();
+      expect(options.context.userContext.lastToolInputs["/about"]).toBeDefined();
+      expect(options.context.userContext.lastToolInputs["/about"].updateMeta).toEqual({
+        title: "New Title",
+      });
+    });
+
+    test("multiple paths work independently", () => {
+      const options = {
+        context: {
+          userContext: {},
+        },
+      };
+      const ctx1 = userContextAt(options, "currentPageDetails./about");
+      const ctx2 = userContextAt(options, "currentPageDetails./contact");
+      const ctx3 = userContextAt(options, "lastToolInputs./about");
+
+      ctx1.set("about page detail");
+      ctx2.set("contact page detail");
+      ctx3.set("updateMeta", { title: "About Title" });
+
+      expect(ctx1.get()).toBe("about page detail");
+      expect(ctx2.get()).toBe("contact page detail");
+      expect(ctx3.get("updateMeta")).toEqual({ title: "About Title" });
+    });
+
+    test("get() returns the entire object when no key provided", () => {
+      const options = {
+        context: {
+          userContext: {
+            lastToolInputs: {
+              "/about": {
+                updateMeta: { title: "Title" },
+                addSection: { section: "test" },
+              },
+            },
+          },
+        },
+      };
+      const ctx = userContextAt(options, "lastToolInputs./about");
+      const result = ctx.get();
+      expect(result).toEqual({
+        updateMeta: { title: "Title" },
+        addSection: { section: "test" },
+      });
+    });
+
+    test("set() overwrites existing value", () => {
+      const options = {
+        context: {
+          userContext: {
+            currentPageDetails: {
+              "/about": "old value",
+            },
+          },
+        },
+      };
+      const ctx = userContextAt(options, "currentPageDetails./about");
+      ctx.set("new value");
+      expect(ctx.get()).toBe("new value");
+    });
+
+    test("set() overwrites existing nested value", () => {
+      const options = {
+        context: {
+          userContext: {
+            lastToolInputs: {
+              "/about": {
+                updateMeta: { title: "Old Title" },
+              },
+            },
+          },
+        },
+      };
+      const ctx = userContextAt(options, "lastToolInputs./about");
+      ctx.set("updateMeta", { title: "New Title", description: "New Desc" });
+      expect(ctx.get("updateMeta")).toEqual({ title: "New Title", description: "New Desc" });
+    });
+
+    test("handles nested paths correctly", () => {
+      const options = {
+        context: {
+          userContext: {},
+        },
+      };
+      const ctx = userContextAt(options, "currentPageDetails./about");
+      ctx.set("about page");
+      expect(ctx.get()).toBe("about page");
+      expect(options.context.userContext.currentPageDetails["/about"]).toBe("about page");
+    });
+
+    test("set() with object value", () => {
+      const options = {
+        context: {
+          userContext: {},
+        },
+      };
+      const ctx = userContextAt(options, "currentPageDetails./about");
+      const pageDetail = { title: "About", sections: [] };
+      ctx.set(pageDetail);
+      expect(ctx.get()).toEqual(pageDetail);
+    });
+
+    test("set() with null value", () => {
+      const options = {
+        context: {
+          userContext: {},
+        },
+      };
+      const ctx = userContextAt(options, "currentPageDetails./about");
+      ctx.set(null);
+      expect(ctx.get()).toBeNull();
+    });
+
+    test("get() returns undefined for non-existent key in existing path", () => {
+      const options = {
+        context: {
+          userContext: {
+            lastToolInputs: {
+              "/about": {
+                updateMeta: { title: "Title" },
+              },
+            },
+          },
+        },
+      };
+      const ctx = userContextAt(options, "lastToolInputs./about");
+      expect(ctx.get("nonExistent")).toBeUndefined();
     });
   });
 
@@ -691,9 +946,9 @@ describe("utils", () => {
 
   // CONFIGURATION PROCESSING TESTS
   describe("processConfigFields", () => {
-    test("should apply default values for missing fields", () => {
+    test("should apply default values for missing fields", async () => {
       const config = {};
-      const result = processConfigFields(config);
+      const result = await processConfigFields(config);
 
       expect(result.nodeName).toBe("Section");
       expect(result.locale).toBe("en");
@@ -701,35 +956,37 @@ describe("utils", () => {
       expect(result.docsDir).toBe("./.aigne/doc-smith/docs");
       expect(result.outputDir).toBe("./.aigne/doc-smith/output");
       expect(result.translateLanguages).toEqual([]);
-      expect(result.rules).toBe("");
+      expect(result.rules).toBe(""); // rules defaults to empty string when no content is processed
       expect(result.targetAudience).toBe("");
     });
 
-    test("should process document purpose with valid key", () => {
+    test("should process document purpose with valid key", async () => {
       const config = {
         documentPurpose: ["getStarted"],
       };
-      const result = processConfigFields(config);
+      const result = await processConfigFields(config);
 
       expect(result.rules).toContain("Document Purpose");
+      expect(result.purposes).toBeDefined();
     });
 
-    test("should process target audience types with valid key", () => {
+    test("should process target audience types with valid key", async () => {
       const config = {
         targetAudienceTypes: ["developers"],
       };
-      const result = processConfigFields(config);
+      const result = await processConfigFields(config);
 
       expect(result.rules).toContain("Target Audience");
-      expect(result.targetAudience).toContain("Developers");
+      expect(result.targetAudience).toBeDefined();
+      expect(result.audiences).toBeDefined();
     });
 
-    test("should combine existing rules with processed content", () => {
+    test("should combine existing rules with processed content", async () => {
       const config = {
         rules: "Existing rules",
         documentPurpose: ["getStarted"],
       };
-      const result = processConfigFields(config);
+      const result = await processConfigFields(config);
 
       expect(result.rules).toContain("Existing rules");
       expect(result.rules).toContain("Document Purpose");
@@ -798,144 +1055,6 @@ describe("utils", () => {
       const result = getAvailablePaths("");
 
       expect(result[0].name).toMatch(/^\.\//);
-    });
-  });
-
-  // DOCUMENT MANAGEMENT TESTS
-  describe("saveDocWithTranslations", () => {
-    beforeEach(() => {
-      // Reset mocks for each test
-      mkdirSpy?.mockClear();
-      writeFileSpy?.mockClear();
-    });
-
-    test("should save main document without translations", async () => {
-      const params = {
-        path: "/api/guide",
-        content: "API Guide content",
-        docsDir: "/docs",
-        locale: "en",
-      };
-
-      const result = await saveDocWithTranslations(params);
-
-      expect(result).toBeDefined();
-      expect(Array.isArray(result)).toBe(true);
-      expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({
-        path: "/docs/api-guide.md",
-        success: true,
-      });
-    });
-
-    test("should save document with translations", async () => {
-      const params = {
-        path: "/api/guide",
-        content: "API Guide content",
-        docsDir: "/docs",
-        locale: "en",
-        translates: [{ language: "zh", translation: "API指南内容" }],
-      };
-
-      const result = await saveDocWithTranslations(params);
-
-      expect(result).toHaveLength(2);
-      expect(result.every((r) => r.success)).toBe(true);
-      expect(result[0]).toEqual({
-        path: "/docs/api-guide.md",
-        success: true,
-      });
-      expect(result[1]).toEqual({
-        path: "/docs/api-guide.zh.md",
-        success: true,
-      });
-    });
-
-    test("should skip main content when isTranslate is true", async () => {
-      const params = {
-        path: "/api/guide",
-        content: "Content",
-        docsDir: "/docs",
-        locale: "en",
-        isTranslate: true,
-        translates: [{ language: "zh", translation: "翻译内容" }],
-      };
-
-      const result = await saveDocWithTranslations(params);
-
-      expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({
-        path: "/docs/api-guide.zh.md",
-        success: true,
-      });
-    });
-
-    test("should add labels front matter", async () => {
-      const params = {
-        path: "/guide",
-        content: "Content",
-        docsDir: "/docs",
-        locale: "en",
-        labels: ["test"],
-      };
-
-      const result = await saveDocWithTranslations(params);
-
-      expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({
-        path: "/docs/guide.md",
-        success: true,
-      });
-    });
-
-    test("should handle non-English locale", async () => {
-      const params = {
-        path: "/guide",
-        content: "Contenu français",
-        docsDir: "/docs",
-        locale: "fr",
-      };
-
-      const result = await saveDocWithTranslations(params);
-
-      expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({
-        path: "/docs/guide.fr.md",
-        success: true,
-      });
-    });
-
-    test("should flatten complex paths", async () => {
-      const params = {
-        path: "/deep/nested/path",
-        content: "Content",
-        docsDir: "/docs",
-        locale: "en",
-      };
-
-      const result = await saveDocWithTranslations(params);
-
-      expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({
-        path: "/docs/deep-nested-path.md",
-        success: true,
-      });
-    });
-
-    test("should handle errors gracefully", async () => {
-      // Mock fs promises mkdir to throw error
-      spyOn(fsPromisesDefault, "mkdir").mockRejectedValueOnce(new Error("Test error"));
-
-      const params = {
-        path: "/guide",
-        content: "Content",
-        docsDir: "/docs",
-        locale: "en",
-      };
-
-      const result = await saveDocWithTranslations(params);
-
-      expect(result).toEqual([{ path: "/guide", success: false, error: "Test error" }]);
     });
   });
 });

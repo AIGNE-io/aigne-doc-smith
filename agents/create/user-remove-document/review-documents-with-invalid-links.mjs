@@ -1,5 +1,5 @@
 export default async function reviewDocumentsWithInvalidLinks(input = {}, options = {}) {
-  const { documentsWithInvalidLinks = [] } = input;
+  const { documentsWithInvalidLinks = [], documentExecutionStructure = [] } = input;
 
   // If no documents with invalid links, return empty array
   if (!Array.isArray(documentsWithInvalidLinks) || documentsWithInvalidLinks.length === 0) {
@@ -34,7 +34,33 @@ export default async function reviewDocumentsWithInvalidLinks(input = {}, option
   const selectedPaths = new Set(selectedDocs.map((doc) => doc.path));
   const filteredDocs = documentsWithInvalidLinks.filter((doc) => selectedPaths.has(doc.path));
 
+  if (filteredDocs.length === 0) {
+    return {
+      documentsWithInvalidLinks: [],
+    };
+  }
+
+  // Prepare documents: add necessary fields for update (without content)
+  const preparedDocs = [];
+
+  for (const doc of filteredDocs) {
+    if (!doc.path) continue;
+
+    // Find corresponding document in documentStructure to get additional fields
+    const structureDoc = documentExecutionStructure.find((item) => item.path === doc.path);
+
+    // Generate feedback message for removing invalid links
+    const invalidLinksList = doc.invalidLinks.map((link) => `- ${link}`).join("\n");
+    const feedback = `Please remove the following invalid links from this document:\n\n${invalidLinksList}\n`;
+
+    preparedDocs.push({
+      ...structureDoc,
+      feedback,
+      invalidLinks: doc.invalidLinks,
+    });
+  }
+
   return {
-    documentsWithInvalidLinks: filteredDocs,
+    documentsWithInvalidLinks: preparedDocs,
   };
 }

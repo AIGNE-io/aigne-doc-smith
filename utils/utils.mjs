@@ -1225,3 +1225,106 @@ export function getContentHash(str, { trim = true } = {}) {
   const input = trim && typeof str === "string" ? str.trim() : str;
   return crypto.createHash("sha256").update(input).digest("hex");
 }
+
+function toPath(path) {
+  if (Array.isArray(path)) return path;
+
+  const result = [];
+  path.replace(/[^.[\]]+|\[(\d+|(["'])(.*?)\2)\]/g, (match, bracketContent, quote, quotedKey) => {
+    if (quote) {
+      // ["key"] or ['key']
+      result.push(quotedKey);
+    } else if (bracketContent !== undefined) {
+      // [123]
+      result.push(bracketContent);
+    } else {
+      // dot notation
+      result.push(match);
+    }
+  });
+  return result;
+}
+
+/**
+ * Deeply get the value at a given path from an object, or return a default value if missing.
+ * @param {object} obj - The object to query.
+ * @param {string|Array<string|number>} path - The path to get, as a string or array.
+ * @param {*} defaultValue - The value returned if the resolved value is undefined.
+ * @returns {*} The value at the path or defaultValue.
+ */
+export function dget(obj, path, defaultValue) {
+  const parts = toPath(path);
+
+  let current = obj;
+  for (const key of parts) {
+    if (current == null || !(key in current)) return defaultValue;
+    current = current[key];
+  }
+  return current;
+}
+
+/**
+ * Deeply set the value at a given path in an object.
+ * @param {object} obj - The object to modify.
+ * @param {string|Array<string|number>} path - The path to set, as a string or array.
+ * @param {*} value - The value to set.
+ * @returns {object} The modified object.
+ */
+export function dset(obj, path, value) {
+  const parts = toPath(path);
+
+  let current = obj;
+  for (let i = 0; i < parts.length; i++) {
+    const key = parts[i];
+
+    if (i === parts.length - 1) {
+      current[key] = value;
+    } else {
+      if (current[key] == null || typeof current[key] !== "object") {
+        current[key] = String(parts[i + 1]).match(/^\d+$/) ? [] : {};
+      }
+      current = current[key];
+    }
+  }
+  return obj;
+}
+
+/**
+ * Create a context path manager that provides get/set/clear operations
+ * @param {object} options - The options object containing user context
+ * @param {string} path - The context path (e.g., 'currentPageDetails./about' or 'lastToolInputs./about')
+ * @returns {object} An object with { get, set } methods and a contextPath method for sub-paths
+ */
+export function userContextAt(options, path) {
+  const userContext = options?.context?.userContext || null;
+  if (!userContext) {
+    throw new Error("userContext is not available");
+  }
+
+  return {
+    /**
+     * Get a value from the context path
+     * @param {string} [key] - Optional key for nested access (e.g., 'updateMeta' for lastToolInputs)
+     * @returns {*} The value at the path, or undefined if not found
+     */
+    get(key) {
+      if (key !== undefined) {
+        return dget(userContext, `${path}.${key}`);
+      }
+      return dget(userContext, path);
+    },
+
+    /**
+     * Set a value in the context path
+     * @param {string|*} key - If key is provided, this is the key; otherwise this is the value
+     * @param {*} [value] - The value to set (required if first param is a key)
+     */
+    set(key, value) {
+      if (value !== undefined) {
+        dset(userContext, `${path}.${key}`, value);
+      } else {
+        dset(userContext, path, key);
+      }
+    },
+  };
+}

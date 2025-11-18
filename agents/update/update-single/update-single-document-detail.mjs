@@ -2,6 +2,7 @@ import { AIAgent } from "@aigne/core";
 import { pick } from "@aigne/core/utils/type-utils.js";
 import z from "zod";
 import { DIAGRAM_PLACEHOLDER, replacePlaceholder } from "../../../utils/d2-utils.mjs";
+import { userContextAt } from "../../../utils/utils.mjs";
 
 async function getIntentType(input, options) {
   const instructions = `<role>
@@ -47,19 +48,24 @@ async function saveDoc(input, options, { content }) {
 }
 
 async function addDiagram(input, options) {
+  const contentContext = userContextAt(options, `currentContents.${input.path}`);
+  const currentContent = contentContext.get();
   const generateDiagramAgent = options.context.agents["checkGenerateDiagram"];
   const generateDiagramResult = await options.context.invoke(generateDiagramAgent, {
     ...pick(input, ["locale", "path", "diagramming", "feedback"]),
-    documentContent: options.context.userContext.currentContent,
+    documentContent: currentContent,
   });
   const content = generateDiagramResult.content;
+  contentContext.set(content);
   await saveDoc(input, options, { content });
   return { content };
 }
 
 async function updateDiagram(input, options) {
+  const contentContext = userContextAt(options, `currentContents.${input.path}`);
+  const currentContent = contentContext.get();
   let [content, previousDiagramContent] = replacePlaceholder({
-    content: options.context.userContext.currentContent,
+    content: currentContent,
   });
   const generateAgent = options.context?.agents?.["generateDiagram"];
   const { diagramSourceCode } = await options.context.invoke(generateAgent, {
@@ -69,13 +75,16 @@ async function updateDiagram(input, options) {
     feedback: input.feedback,
   });
   content = content.replace(DIAGRAM_PLACEHOLDER, diagramSourceCode);
+  contentContext.set(content);
   await saveDoc(input, options, { content });
   return { content };
 }
 
 async function deleteDiagram(input, options) {
+  const contentContext = userContextAt(options, `currentContents.${input.path}`);
+  const currentContent = contentContext.get();
   const [documentContent] = replacePlaceholder({
-    content: options.context.userContext.currentContent,
+    content: currentContent,
   });
   const instructions = `<role>
 Your task is to remove ${DIAGRAM_PLACEHOLDER} and adjust the document context (based on the user's feedback) to make it easier to understand.
@@ -103,22 +112,28 @@ Your task is to remove ${DIAGRAM_PLACEHOLDER} and adjust the document context (b
     documentContent,
     feedback: input.feedback,
   });
+  contentContext.set(content);
   await saveDoc(input, options, { content });
 
   return { content };
 }
 
 async function updateDocument(input, options) {
+  const contentContext = userContextAt(options, `currentContents.${input.path}`);
+  const currentContent = contentContext.get();
   const updateAgent = options.context.agents["updateDocumentDetail"];
   const updateResult = await options.context.invoke(updateAgent, {
     ...input,
-    originalContent: options.context.userContext.currentContent,
+    originalContent: currentContent,
   });
   if (updateResult.message === "success") {
-    await saveDoc(input, options, { content: options.context.userContext.currentContent });
+    const updatedContent = contentContext.get();
+
+    contentContext.set(updatedContent);
+    await saveDoc(input, options, { content: updatedContent });
   }
   return {
-    content: options.context.userContext.currentContent,
+    content: contentContext.get(),
   };
 }
 

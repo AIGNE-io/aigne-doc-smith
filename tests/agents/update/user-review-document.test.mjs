@@ -29,7 +29,7 @@ describe("user-review-document", () => {
       },
       context: {
         agents: {
-          updateDocumentDetail: {},
+          updateSingleDocumentDetail: {},
           checkFeedbackRefiner: {},
         },
         invoke: mock(async () => ({
@@ -37,7 +37,7 @@ describe("user-review-document", () => {
           operationSummary: "Document updated successfully",
         })),
         userContext: {
-          currentContent: "",
+          currentContents: {},
         },
       },
     };
@@ -106,8 +106,13 @@ describe("user-review-document", () => {
   test("should extract markdown headings correctly", async () => {
     mockOptions.prompts.select.mockImplementation(async () => "finish");
 
+    const testPath = "/test-doc";
     const result = await userReviewDocument(
-      { content: mockContent, title: "Test Doc" },
+      {
+        content: mockContent,
+        path: testPath,
+        documentStructure: [{ path: testPath, title: "Test Doc" }],
+      },
       mockOptions,
     );
 
@@ -167,8 +172,13 @@ describe("user-review-document", () => {
       "Rendered markdown content",
     );
 
+    const testPath = "/test-doc";
     const result = await userReviewDocument(
-      { content: mockContent, title: "Test Doc" },
+      {
+        content: mockContent,
+        path: testPath,
+        documentStructure: [{ path: testPath, title: "Test Doc" }],
+      },
       mockOptions,
     );
 
@@ -189,8 +199,13 @@ describe("user-review-document", () => {
       throw new Error("Rendering error");
     });
 
+    const testPath = "/test-doc";
     const result = await userReviewDocument(
-      { content: mockContent, title: "Test Doc" },
+      {
+        content: mockContent,
+        path: testPath,
+        documentStructure: [{ path: testPath, title: "Test Doc" }],
+      },
       mockOptions,
     );
 
@@ -206,6 +221,7 @@ describe("user-review-document", () => {
   test("should process user feedback and update content", async () => {
     const feedback = "Please add more examples";
     const updatedContent = "# Updated Content\n\nThis has more examples.";
+    const testPath = "/test-doc";
 
     mockOptions.prompts.select.mockImplementation(async () => "feedback");
     mockOptions.prompts.input
@@ -214,21 +230,22 @@ describe("user-review-document", () => {
 
     mockOptions.context.invoke.mockImplementation(async () => {
       // Simulate the agent updating the shared context
-      mockOptions.context.userContext.currentContent = updatedContent;
+      mockOptions.context.userContext.currentContents[testPath] = updatedContent;
       return {
-        updatedContent,
+        content: updatedContent,
         operationSummary: "Added examples successfully",
       };
     });
 
-    const result = await userReviewDocument({ content: mockContent }, mockOptions);
+    const result = await userReviewDocument({ content: mockContent, path: testPath }, mockOptions);
 
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.updateDocumentDetail,
+      mockOptions.context.agents.updateSingleDocumentDetail,
       expect.objectContaining({
         originalContent: mockContent,
         feedback: feedback,
         userPreferences: "",
+        path: testPath,
       }),
     );
     expect(result.content).toBe(updatedContent);
@@ -274,9 +291,10 @@ describe("user-review-document", () => {
     expect(getActiveRulesForScopeSpy).toHaveBeenCalledWith("document", ["/test-doc"]);
     expect(getActiveRulesForScopeSpy).toHaveBeenCalledWith("global");
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.updateDocumentDetail,
+      mockOptions.context.agents.updateSingleDocumentDetail,
       expect.objectContaining({
         userPreferences: expectedPreferences,
+        path: "/test-doc",
       }),
     );
   });
@@ -299,15 +317,16 @@ describe("user-review-document", () => {
     await userReviewDocument({ content: mockContent, path: "/test-doc" }, mockOptions);
 
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.updateDocumentDetail,
+      mockOptions.context.agents.updateSingleDocumentDetail,
       expect.objectContaining({
         userPreferences: expectedPreferences,
+        path: "/test-doc",
       }),
     );
   });
 
   // AGENT ERROR HANDLING TESTS
-  test("should handle missing updateDocumentDetail agent", async () => {
+  test("should handle missing updateSingleDocumentDetail agent", async () => {
     const feedback = "Some feedback";
     mockOptions.context.agents = {}; // No updateDocumentDetail agent
 
@@ -325,7 +344,7 @@ describe("user-review-document", () => {
     );
   });
 
-  test("should handle updateDocumentDetail agent errors", async () => {
+  test("should handle updateSingleDocumentDetail agent errors", async () => {
     const feedback = "Some feedback";
     mockOptions.prompts.select.mockImplementation(async () => "feedback");
     mockOptions.prompts.input
@@ -348,7 +367,7 @@ describe("user-review-document", () => {
     expect(consoleErrorSpy).toHaveBeenCalledWith("Stack: Stack trace here");
   });
 
-  test("should handle updateDocumentDetail agent returning no content", async () => {
+  test("should handle updateSingleDocumentDetail agent returning no content", async () => {
     const feedback = "Some feedback";
     mockOptions.prompts.select.mockImplementation(async () => "feedback");
     mockOptions.prompts.input
@@ -393,7 +412,8 @@ describe("user-review-document", () => {
   test("should handle missing checkFeedbackRefiner agent gracefully", async () => {
     const feedback = "Some feedback";
     const updatedContent = "# Updated Content\n\nThis is updated content.";
-    mockOptions.context.agents = { updateDocumentDetail: {} }; // No checkFeedbackRefiner
+    const testPath = "/test-doc";
+    mockOptions.context.agents = { updateSingleDocumentDetail: {} }; // No checkFeedbackRefiner
 
     mockOptions.prompts.select.mockImplementation(async () => "feedback");
     mockOptions.prompts.input
@@ -401,13 +421,13 @@ describe("user-review-document", () => {
       .mockImplementationOnce(async () => "");
 
     mockOptions.context.invoke.mockImplementation(async () => {
-      mockOptions.context.userContext.currentContent = updatedContent;
-      return { updatedContent, operationSummary: "Updated" };
+      mockOptions.context.userContext.currentContents[testPath] = updatedContent;
+      return { content: updatedContent, operationSummary: "Updated" };
     });
 
-    const result = await userReviewDocument({ content: mockContent }, mockOptions);
+    const result = await userReviewDocument({ content: mockContent, path: testPath }, mockOptions);
 
-    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(1); // Only updateDocumentDetail called
+    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(1); // Only updateSingleDocumentDetail called
     expect(result.content).toBe(updatedContent);
   });
 
@@ -419,19 +439,20 @@ describe("user-review-document", () => {
       .mockImplementationOnce(async () => feedback)
       .mockImplementationOnce(async () => "");
 
+    const testPath = "/test-doc";
     mockOptions.context.invoke
       .mockImplementationOnce(async () => {
-        mockOptions.context.userContext.currentContent = updatedContent;
+        mockOptions.context.userContext.currentContents[testPath] = updatedContent;
         return {
-          updatedContent,
+          content: updatedContent,
           operationSummary: "Updated successfully",
         };
-      }) // updateDocumentDetail
+      }) // updateSingleDocumentDetail
       .mockImplementationOnce(async () => {
         throw new Error("Refiner failed");
       }); // checkFeedbackRefiner
 
-    const result = await userReviewDocument({ content: mockContent }, mockOptions);
+    const result = await userReviewDocument({ content: mockContent, path: testPath }, mockOptions);
 
     expect(result.content).toBe(updatedContent);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
@@ -449,6 +470,7 @@ describe("user-review-document", () => {
     const secondFeedback = "Improve clarity";
     const firstUpdate = "# Content with examples";
     const secondUpdate = "# Clear content with examples";
+    const testPath = "/test-doc";
 
     mockOptions.prompts.select.mockImplementation(async () => "feedback");
     mockOptions.prompts.input
@@ -461,22 +483,22 @@ describe("user-review-document", () => {
       invokeCount++;
       if (invokeCount === 1) {
         // First update
-        mockOptions.context.userContext.currentContent = firstUpdate;
-        return { updatedContent: firstUpdate, operationSummary: "Added examples" };
+        mockOptions.context.userContext.currentContents[testPath] = firstUpdate;
+        return { content: firstUpdate, operationSummary: "Added examples" };
       } else if (invokeCount === 2) {
         // First refiner
         return {};
       } else if (invokeCount === 3) {
         // Second update
-        mockOptions.context.userContext.currentContent = secondUpdate;
-        return { updatedContent: secondUpdate, operationSummary: "Improved clarity" };
+        mockOptions.context.userContext.currentContents[testPath] = secondUpdate;
+        return { content: secondUpdate, operationSummary: "Improved clarity" };
       } else {
         // Second refiner
         return {};
       }
     });
 
-    const result = await userReviewDocument({ content: mockContent }, mockOptions);
+    const result = await userReviewDocument({ content: mockContent, path: testPath }, mockOptions);
 
     expect(mockOptions.context.invoke).toHaveBeenCalledTimes(4);
     expect(result.content).toBe(secondUpdate);
