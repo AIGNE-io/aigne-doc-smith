@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.6-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.5...v0.9.6-beta) (2025-11-18)
+
+
+### Features
+
+* smaller granularity of updated single-document ([#320](https://github.com/AIGNE-io/aigne-doc-smith/issues/320)) ([588b924](https://github.com/AIGNE-io/aigne-doc-smith/commit/588b924649f5f116a07586a1f6760ee6f7e79953))
+
+
+### Bug Fixes
+
+* always use short url during doc publish process ([#319](https://github.com/AIGNE-io/aigne-doc-smith/issues/319)) ([5fcf067](https://github.com/AIGNE-io/aigne-doc-smith/commit/5fcf067c2caf822576ee60e3f58a69040e5813f4))
+* tune document detail update output constraint ([#322](https://github.com/AIGNE-io/aigne-doc-smith/issues/322)) ([6ac8aa4](https://github.com/AIGNE-io/aigne-doc-smith/commit/6ac8aa49e9bb761164c60ccddc4b601b9c612203))
+
 ## [0.9.5](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.5-beta.1...v0.9.5) (2025-11-14)
 
 ## [0.9.5-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.5-beta...v0.9.5-beta.1) (2025-11-14)
