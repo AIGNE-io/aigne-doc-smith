@@ -16,7 +16,7 @@ export default async function deleteDocument(input, options) {
     };
   }
 
-  const { path } = validation.data;
+  const { path, recursive = false } = validation.data;
   let documentStructure = options?.context?.userContext?.currentStructure;
 
   if (!documentStructure) {
@@ -36,10 +36,27 @@ export default async function deleteDocument(input, options) {
 
   const documentToDelete = documentStructure[documentIndex];
 
-  // Check if any other documents have this document as parent
-  const childDocuments = documentStructure.filter((item) => item.parentId === path);
-  if (childDocuments.length > 0) {
-    const errorMessage = `Cannot delete document: Document '${path}' has ${childDocuments.length} child document(s): ${childDocuments.map((p) => p.path).join(", ")}. Please first move or delete these child documents.`;
+  // Find all child documents (direct and indirect)
+  const findAllChildren = (parentPath, structure) => {
+    const children = structure.filter((item) => item.parentId === parentPath);
+    const allChildren = [...children];
+    for (const child of children) {
+      allChildren.push(...findAllChildren(child.path, structure));
+    }
+    return allChildren;
+  };
+
+  const childDocuments = findAllChildren(path, documentStructure);
+
+  // If recursive is false and there are child documents, return error
+  if (!recursive && childDocuments.length > 0) {
+    const errorMessage = `Cannot delete document: Document '${path}' has ${
+      childDocuments.length
+    } child document(s): ${childDocuments
+      .map((p) => p.path)
+      .join(
+        ", ",
+      )}. Please first move or delete these child documents, or set recursive=true to delete them all.`;
     console.log(`⚠️  ${errorMessage}`);
     return {
       documentStructure,
@@ -47,11 +64,17 @@ export default async function deleteDocument(input, options) {
     };
   }
 
-  // Remove the document from the structure
-  const updatedStructure = documentStructure.filter((_, index) => index !== documentIndex);
+  // Collect all documents to delete (children first, then parent)
+  const documentsToDelete = recursive ? [...childDocuments, documentToDelete] : [documentToDelete];
+  const pathsToDelete = new Set(documentsToDelete.map((doc) => doc.path));
+  const deletedCount = pathsToDelete.size - 1;
 
+  // Remove all documents from the structure
+  const updatedStructure = documentStructure.filter((item) => !pathsToDelete.has(item.path));
+
+  // Build success message
   const successMessage = `deleteDocument executed successfully.
-  Successfully deleted document '${documentToDelete.title}' with path '${path}'.
+  Successfully deleted document '${documentToDelete.title}' with path '${path}'${recursive && deletedCount > 0 ? ` along with ${deletedCount} child document(s)` : ""}.
   Check if the latest version of documentStructure meets user feedback, if so, just return 'success'.`;
 
   // update shared document structure
@@ -62,7 +85,7 @@ export default async function deleteDocument(input, options) {
   return {
     documentStructure: updatedStructure,
     message: successMessage,
-    deletedDocument: documentToDelete,
+    deletedDocuments: documentsToDelete,
   };
 }
 

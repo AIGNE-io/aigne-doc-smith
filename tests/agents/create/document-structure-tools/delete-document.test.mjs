@@ -58,7 +58,8 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toHaveLength(4);
-    expect(result.deletedDocument).toEqual({
+    expect(result.deletedDocuments).toHaveLength(1);
+    expect(result.deletedDocuments[0]).toEqual({
       title: "Rate Limiting",
       description: "API rate limiting documentation",
       path: "/api/rate-limiting",
@@ -84,7 +85,8 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toHaveLength(4);
-    expect(result.deletedDocument).toEqual({
+    expect(result.deletedDocuments).toHaveLength(1);
+    expect(result.deletedDocuments[0]).toEqual({
       title: "OAuth",
       description: "OAuth authentication flow",
       path: "/api/auth/oauth",
@@ -104,7 +106,8 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toHaveLength(4);
-    expect(result.deletedDocument).toEqual({
+    expect(result.deletedDocuments).toHaveLength(1);
+    expect(result.deletedDocuments[0]).toEqual({
       title: "Getting Started",
       description: "Introduction to the project",
       path: "/getting-started",
@@ -123,7 +126,7 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
-    expect(result.deletedDocument).toBeUndefined();
+    expect(result.deletedDocuments).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot delete document: path: Required");
   });
 
@@ -134,7 +137,7 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
-    expect(result.deletedDocument).toBeUndefined();
+    expect(result.deletedDocuments).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith("⚠️  Cannot delete document: path: Path is required");
   });
 
@@ -145,7 +148,7 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
-    expect(result.deletedDocument).toBeUndefined();
+    expect(result.deletedDocuments).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
       "⚠️  Cannot delete document: Document '/nonexistent-document' does not exist. Please choose an existing document to delete.",
     );
@@ -159,9 +162,9 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
-    expect(result.deletedDocument).toBeUndefined();
+    expect(result.deletedDocuments).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/api' has 2 child document(s): /api/auth, /api/rate-limiting. Please first move or delete these child documents.",
+      "⚠️  Cannot delete document: Document '/api' has 3 child document(s): /api/auth, /api/rate-limiting, /api/auth/oauth. Please first move or delete these child documents, or set recursive=true to delete them all.",
     );
   });
 
@@ -172,9 +175,9 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
-    expect(result.deletedDocument).toBeUndefined();
+    expect(result.deletedDocuments).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/api/auth' has 1 child document(s): /api/auth/oauth. Please first move or delete these child documents.",
+      "⚠️  Cannot delete document: Document '/api/auth' has 1 child document(s): /api/auth/oauth. Please first move or delete these child documents, or set recursive=true to delete them all.",
     );
   });
 
@@ -192,7 +195,59 @@ describe("delete-document", () => {
     });
 
     expect(secondResult.documentStructure).toHaveLength(3);
-    expect(secondResult.deletedDocument.path).toBe("/api/auth");
+    expect(secondResult.deletedDocuments).toHaveLength(1);
+    expect(secondResult.deletedDocuments[0].path).toBe("/api/auth");
+    expect(consoleSpy).not.toHaveBeenCalled();
+  });
+
+  test("should recursively delete children documents when recursive=true", async () => {
+    const complexStructure = [
+      ...baseDocumentStructure,
+      {
+        title: "OAuth Scopes",
+        description: "OAuth scope documentation",
+        path: "/api/auth/oauth/scopes",
+        parentId: "/api/auth/oauth",
+        sourceIds: ["scopes.md"],
+      },
+      {
+        title: "JWT Tokens",
+        description: "JWT token handling",
+        path: "/api/auth/oauth/jwt",
+        parentId: "/api/auth/oauth",
+        sourceIds: ["jwt.js"],
+      },
+    ];
+
+    const result = await deleteDocument({
+      documentStructure: complexStructure,
+      path: "/api/auth",
+      recursive: true,
+    });
+
+    // Should delete /api/auth, /api/auth/oauth, /api/auth/oauth/scopes, /api/auth/oauth/jwt (4 documents total)
+    expect(result.documentStructure).toHaveLength(3);
+    expect(result.deletedDocuments).toHaveLength(4);
+
+    // Verify all documents are in deletedDocuments
+    const deletedPaths = result.deletedDocuments.map((doc) => doc.path);
+    expect(deletedPaths).toContain("/api/auth");
+    expect(deletedPaths).toContain("/api/auth/oauth");
+    expect(deletedPaths).toContain("/api/auth/oauth/scopes");
+    expect(deletedPaths).toContain("/api/auth/oauth/jwt");
+
+    // Verify all documents are removed from structure
+    expect(result.documentStructure.find((doc) => doc.path === "/api/auth")).toBeUndefined();
+    expect(result.documentStructure.find((doc) => doc.path === "/api/auth/oauth")).toBeUndefined();
+    expect(
+      result.documentStructure.find((doc) => doc.path === "/api/auth/oauth/scopes"),
+    ).toBeUndefined();
+    expect(
+      result.documentStructure.find((doc) => doc.path === "/api/auth/oauth/jwt"),
+    ).toBeUndefined();
+
+    // Verify parent document still exists
+    expect(result.documentStructure.find((doc) => doc.path === "/api")).toBeDefined();
     expect(consoleSpy).not.toHaveBeenCalled();
   });
 
@@ -204,7 +259,7 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toEqual([]);
-    expect(result.deletedDocument).toBeUndefined();
+    expect(result.deletedDocuments).toBeUndefined();
     expect(consoleSpy).toHaveBeenCalledWith(
       "⚠️  Cannot delete document: Document '/any-path' does not exist. Please choose an existing document to delete.",
     );
@@ -227,7 +282,8 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toEqual([]);
-    expect(result.deletedDocument).toEqual(singleDocStructure[0]);
+    expect(result.deletedDocuments).toHaveLength(1);
+    expect(result.deletedDocuments[0]).toEqual(singleDocStructure[0]);
     expect(consoleSpy).not.toHaveBeenCalled();
   });
 
@@ -258,11 +314,11 @@ describe("delete-document", () => {
 
     expect(result.documentStructure).toEqual(complexStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/api/auth/oauth' has 2 child document(s): /api/auth/oauth/scopes, /api/auth/oauth/jwt. Please first move or delete these child documents.",
+      "⚠️  Cannot delete document: Document '/api/auth/oauth' has 2 child document(s): /api/auth/oauth/scopes, /api/auth/oauth/jwt. Please first move or delete these child documents, or set recursive=true to delete them all.",
     );
   });
 
-  test("should correctly identify all direct children", async () => {
+  test("should correctly identify all children recursively", async () => {
     const structureWithManyChildren = [
       {
         title: "Parent",
@@ -308,7 +364,7 @@ describe("delete-document", () => {
 
     expect(result.documentStructure).toEqual(structureWithManyChildren);
     expect(consoleSpy).toHaveBeenCalledWith(
-      "⚠️  Cannot delete document: Document '/parent' has 3 child document(s): /parent/child1, /parent/child2, /parent/child3. Please first move or delete these child documents.",
+      "⚠️  Cannot delete document: Document '/parent' has 4 child document(s): /parent/child1, /parent/child2, /parent/child3, /parent/child1/grandchild. Please first move or delete these child documents, or set recursive=true to delete them all.",
     );
   });
 
@@ -363,7 +419,8 @@ describe("delete-document", () => {
     });
 
     expect(result.documentStructure).toHaveLength(5);
-    expect(result.deletedDocument.path).toBe("/api/special-chars_and.numbers123");
+    expect(result.deletedDocuments).toHaveLength(1);
+    expect(result.deletedDocuments[0].path).toBe("/api/special-chars_and.numbers123");
     expect(consoleSpy).not.toHaveBeenCalled();
   });
 
@@ -374,7 +431,8 @@ describe("delete-document", () => {
       path: "/api/rate-limiting",
     });
 
-    expect(result.deletedDocument).toEqual({
+    expect(result.deletedDocuments).toHaveLength(1);
+    expect(result.deletedDocuments[0]).toEqual({
       title: "Rate Limiting",
       description: "API rate limiting documentation",
       path: "/api/rate-limiting",
@@ -383,11 +441,11 @@ describe("delete-document", () => {
     });
 
     // Verify all properties are present
-    expect(result.deletedDocument).toHaveProperty("title");
-    expect(result.deletedDocument).toHaveProperty("description");
-    expect(result.deletedDocument).toHaveProperty("path");
-    expect(result.deletedDocument).toHaveProperty("parentId");
-    expect(result.deletedDocument).toHaveProperty("sourceIds");
+    expect(result.deletedDocuments[0]).toHaveProperty("title");
+    expect(result.deletedDocuments[0]).toHaveProperty("description");
+    expect(result.deletedDocuments[0]).toHaveProperty("path");
+    expect(result.deletedDocuments[0]).toHaveProperty("parentId");
+    expect(result.deletedDocuments[0]).toHaveProperty("sourceIds");
   });
 
   test("should return updated documentation structure without deleted document", async () => {
