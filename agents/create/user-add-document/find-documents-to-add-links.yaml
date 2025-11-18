@@ -1,0 +1,47 @@
+name: findDocumentsToAddLinks
+description: Use AI to analyze document structure and determine which documents should reference newly added documents
+task_render_mode: hide
+instructions:
+  - role: system
+    url: ../../../prompts/structure/find-documents-to-add-links.md
+input_schema:
+  type: object
+  properties:
+    originalDocumentStructure:
+      type: array
+      description: Original document structure before adding documents
+    documentStructure:
+      type: array
+      description: Updated document structure after adding documents
+    newDocuments:
+      type: array
+      description: Array of newly added documents
+  required:
+    - originalDocumentStructure
+    - documentStructure
+    - newDocuments
+output_schema:
+  type: object
+  properties:
+    documentsWithNewLinks:
+      type: array
+      description: Array of existing documents that should add links to new documents
+      items:
+        type: object
+        properties:
+          path:
+            type: string
+            description: The path of the existing document that should be updated
+          newLinks:
+            type: array
+            description: Array of new document paths that should be added as links to this document
+            items:
+              type: string
+        required:
+          - path
+          - newLinks
+  required:
+    - documentsWithNewLinks
+
+
+
