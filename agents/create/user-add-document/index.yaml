@@ -14,21 +14,17 @@ skills:
         $get: outputDir
       fileName: structure-plan.json
   - ../../utils/save-sidebar.mjs
-  # structure 准备工作
   - ../../utils/ensure-document-icons.mjs
   - ../../utils/add-translates-to-structure.mjs
   - ../../utils/format-document-structure.mjs
   - ../../media/load-media-description.mjs
   - ../../update/batch-generate-document.yaml
-  # 批量 generate
   - type: team
     skills:
       - ../../update/check-document.mjs
     iterate_on: newDocuments
     concurrency: 5
-  # 查找需要添加链接的文档
   - ./find-documents-to-add-links.yaml
-  # review
   - ./review-documents-with-new-links.mjs
   - type: team
     name: batchAddNewLinks
