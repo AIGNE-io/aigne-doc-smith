@@ -21,7 +21,6 @@ import {
   DISCUSS_KIT_STORE_URL,
   PAYMENT_KIT_DID,
 } from "./constants/index.mjs";
-import { requestWithAuthToken } from "./request.mjs";
 import { withQuery } from "ufo";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
@@ -143,16 +142,15 @@ export async function getAccessToken(appUrl, ltToken = "", locale = "en") {
 
         try {
           const officialBaseUrl = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
-          const officialAccessToken = await getCachedAccessToken(officialBaseUrl);
-          if (officialAccessToken) {
-            const mountPoint = await getComponentMountPoint(officialBaseUrl, PAYMENT_KIT_DID);
-            const data = await requestWithAuthToken(
-              withQuery(joinURL(officialBaseUrl, mountPoint, "/api/tool/short-url"), {
-                url: connectUrl,
-              }),
-              {},
-              officialAccessToken,
-            );
+          const mountPoint = await getComponentMountPoint(officialBaseUrl, PAYMENT_KIT_DID);
+          const response = await fetch(
+            withQuery(joinURL(officialBaseUrl, mountPoint, "/api/tool/short-connect-url"), {
+              url: connectUrl,
+              locale,
+            }),
+          );
+          const data = await response.json();
+          if (data.url) {
             connectUrl = data.url;
           }
         } catch {
@@ -160,7 +158,7 @@ export async function getAccessToken(appUrl, ltToken = "", locale = "en") {
         }
 
         console.log(
-          "🔗 Please open the following URL in your browser to authorize access: ",
+          "🔗 Please open the following URL in your browser to authorize access:",
           chalk.cyan(connectUrl),
           "\n",
         );
@@ -220,16 +218,34 @@ export async function getOfficialAccessToken(baseUrl, openPage = true, locale = 
       fetchInterval: FETCH_INTERVAL,
       appName: "AIGNE DocSmith",
       appLogo: "https://docsmith.aigne.io/image-bin/uploads/9645caf64b4232699982c4d940b03b90.svg",
-      openPage: (pageUrl) => {
+      openPage: async (pageUrl) => {
         const url = new URL(pageUrl);
         if (locale) {
           url.searchParams.set("locale", locale);
         }
-        open(url.toString());
+
+        let connectUrl = url.toString();
+        open(connectUrl);
+        try {
+          const officialBaseUrl = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
+          const mountPoint = await getComponentMountPoint(officialBaseUrl, PAYMENT_KIT_DID);
+          const response = await fetch(
+            withQuery(joinURL(officialBaseUrl, mountPoint, "/api/tool/short-connect-url"), {
+              url: connectUrl,
+              locale,
+            }),
+          );
+          const data = await response.json();
+          if (data.url) {
+            connectUrl = data.url;
+          }
+        } catch {
+          // Ignore error
+        }
 
         console.log(
-          "🔗 Please open the following URL in your browser to authorize access: ",
-          chalk.cyan(url.toString()),
+          "🔗 Please open the following URL in your browser to authorize access:",
+          chalk.cyan(connectUrl),
           "\n",
         );
       },
