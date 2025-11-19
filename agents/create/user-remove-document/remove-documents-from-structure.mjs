@@ -75,7 +75,7 @@ export default async function removeDocumentsFromStructure(input = {}, options =
   if (errors.length > 0) {
     console.warn(
       `🗑️ Remove Documents\n  • Failed to remove documents:\n${errors
-        .map((e) => `    - ${e.title}: ${e.error}`)
+        .map((e) => `    - ${e.path}: ${e.error}`)
         .join("\n")}`,
     );
     process.exit(0);

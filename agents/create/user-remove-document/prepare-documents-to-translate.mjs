@@ -11,12 +11,12 @@ export default async function prepareDocumentsToTranslate(input, options) {
         content,
       });
     } else {
-      console.warn(`⚠️  Could not read content from userContext at path: ${doc.path}`);
+      console.warn(`⚠️  Could not find content from userContext at path: ${doc.path}`);
     }
   });
 
   return {
-    documentsToUpdate: [], // clear, reduce tokens consumption
+    documentsToUpdate: [], // clear, reduce token consumption
     documentsToTranslate,
   };
 }
