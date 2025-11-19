@@ -38,6 +38,7 @@ export default async function reviewDocumentsWithNewLinks(
   if (filteredDocs.length === 0) {
     return {
       documentsWithNewLinks: [],
+      documentsToUpdate: [],
     };
   }
 
@@ -61,7 +62,10 @@ export default async function reviewDocumentsWithNewLinks(
     });
   }
 
-  return { documentsWithNewLinks: preparedDocs };
+  return {
+    documentsWithNewLinks: preparedDocs, // for print summary
+    documentsToUpdate: JSON.parse(JSON.stringify(preparedDocs)), // for batch update
+  };
 }
 
 reviewDocumentsWithNewLinks.taskTitle = "Review documents to update";

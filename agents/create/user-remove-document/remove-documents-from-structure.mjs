@@ -29,7 +29,7 @@ export default async function removeDocumentsFromStructure(input = {}, options =
       docsDir,
       locale,
       isTranslate: false,
-      feedback: "",
+      feedback: "no feedback",
       requiredFeedback: false,
       action: DOC_ACTION.clear,
     },

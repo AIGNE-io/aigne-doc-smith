@@ -4,9 +4,7 @@ import {
   pathToFlatName,
   readFileContent,
 } from "../../../utils/docs-finder-utils.mjs";
-import { checkMarkdown } from "../../../utils/markdown-checker.mjs";
-
-const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+import { checkMarkdown, getLinkFromError } from "../../../utils/markdown-checker.mjs";
 
 export default async function findDocumentsWithInvalidLinks({
   documentStructure = [],
@@ -52,17 +50,7 @@ export default async function findDocumentsWithInvalidLinks({
     });
 
     // Filter only dead link errors and extract invalid links
-    const invalidLinks = allErrors
-      .filter((msg) => msg.toLowerCase().includes("found a dead link in"))
-      .map((msg) => {
-        const match = linkRegex.exec(msg);
-        if (match?.[2]) {
-          return match[2].trim();
-        }
-
-        return "";
-      })
-      .filter(Boolean);
+    const invalidLinks = allErrors.map(getLinkFromError).filter(Boolean);
 
     if (invalidLinks.length > 0) {
       documentsWithInvalidLinks.push({

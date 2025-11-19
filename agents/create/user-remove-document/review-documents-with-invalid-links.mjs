@@ -24,19 +24,20 @@ export default async function reviewDocumentsWithInvalidLinks(input = {}, option
   });
 
   // Let user select documents (default all selected)
-  const selectedDocs = await options.prompts.checkbox({
+  const selectedPaths = await options.prompts.checkbox({
     message:
       "Select documents with invalid links to fix (all selected by default, press Enter to confirm, or unselect all to skip):",
     choices,
   });
 
   // Filter documents based on user selection
-  const selectedPaths = new Set(selectedDocs.map((doc) => doc.path));
-  const filteredDocs = documentsWithInvalidLinks.filter((doc) => selectedPaths.has(doc.path));
+  const selectedPathsSet = new Set(selectedPaths);
+  const filteredDocs = documentsWithInvalidLinks.filter((doc) => selectedPathsSet.has(doc.path));
 
   if (filteredDocs.length === 0) {
     return {
       documentsWithInvalidLinks: [],
+      documentsToUpdate: [],
     };
   }
 
@@ -61,6 +62,7 @@ export default async function reviewDocumentsWithInvalidLinks(input = {}, option
   }
 
   return {
-    documentsWithInvalidLinks: preparedDocs,
+    documentsWithInvalidLinks: preparedDocs, // for print summary
+    documentsToUpdate: JSON.parse(JSON.stringify(preparedDocs)), // for batch update
   };
 }
