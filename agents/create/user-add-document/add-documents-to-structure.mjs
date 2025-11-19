@@ -1,8 +1,9 @@
 import { getActiveRulesForScope } from "../../../utils/preferences-utils.mjs";
 import { printDocumentStructure } from "../../../utils/docs-finder-utils.mjs";
+import addTranslatesToStructure from "../../utils/add-translates-to-structure.mjs";
 
 export default async function addDocumentsToStructure(input = {}, options = {}) {
-  const { originalDocumentStructure = [] } = input;
+  const { originalDocumentStructure = [], translateLanguages = [] } = input;
   const analyzeIntent = options.context?.agents?.["analyzeStructureFeedbackIntent"];
   const updateDocumentStructure = options.context?.agents?.["updateDocumentStructure"];
   const allFeedback = [];
@@ -75,10 +76,16 @@ export default async function addDocumentsToStructure(input = {}, options = {}) 
 
   if (currentStructure.length > originalDocumentStructure.length) {
     const originalPaths = new Set(originalDocumentStructure.map((doc) => doc.path));
-    const newDocuments = currentStructure.filter((doc) => !originalPaths.has(doc.path));
+    const { documentExecutionStructure } = addTranslatesToStructure({
+      originalDocumentStructure: currentStructure,
+      translateLanguages,
+    });
+    const newDocuments = documentExecutionStructure.filter((doc) => !originalPaths.has(doc.path));
 
     return {
-      documentStructure: currentStructure,
+      originalDocumentStructure: currentStructure,
+      documentStructure: JSON.parse(JSON.stringify(currentStructure)),
+      documentExecutionStructure,
       newDocuments,
       allFeedback,
     };
