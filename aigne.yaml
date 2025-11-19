@@ -132,7 +132,7 @@ cli:
       alias: ["add"]
       url: ./agents/create/user-add-document/index.yaml
     - name: remove-document
-      alias: ["rm"]
+      alias: ["remove", "rm"]
       url: ./agents/create/user-remove-document/index.yaml
     - ./agents/clear/index.yaml
 mcp_server:

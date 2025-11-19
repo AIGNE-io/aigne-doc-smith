@@ -7,9 +7,8 @@ export default async function printAddDocumentSummary({
   newDocuments = [],
   documentsWithNewLinks = [],
 }) {
-  let message = `\n${"=".repeat(80)}\n`;
-  message += `${chalk.bold.cyan("📊 Summary")}\n`;
-  message += `${"=".repeat(80)}\n\n`;
+  let message = `\n---\n`;
+  message += `${chalk.bold.cyan("📊 Summary")}\n\n`;
 
   // Display added documents
   if (newDocuments && newDocuments.length > 0) {
@@ -46,8 +45,6 @@ export default async function printAddDocumentSummary({
     message += `✅ Documents updated (Added new links):\n`;
     message += `${chalk.gray("   No documents needed to be updated.\n\n")}`;
   }
-
-  message += `${"=".repeat(80)}\n\n`;
 
   return { message };
 }

@@ -50,6 +50,7 @@ export default async function reviewDocumentsWithInvalidLinks(input = {}, option
   if (!Array.isArray(documentsWithInvalidLinks) || documentsWithInvalidLinks.length === 0) {
     return {
       documentsWithInvalidLinks: [],
+      documentsToUpdate: [],
     };
   }
 
