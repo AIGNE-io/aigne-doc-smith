@@ -23,6 +23,9 @@ output_schema:
     reason:
       type: string
       description: Explanation of why data sources are or aren't needed
+    error: 
+      type: boolean
+      description: If an error occurs during the analysis process
   required:
     - needDataSources
     - intentType
