@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.6-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6-beta...v0.9.6-beta.1) (2025-11-19)
+
+
+### Features
+
+* support for add document and remove document ([#323](https://github.com/AIGNE-io/aigne-doc-smith/issues/323)) ([2672942](https://github.com/AIGNE-io/aigne-doc-smith/commit/26729424ca820eb962e79b4746c069887dd5a649))
+
 ## [0.9.6-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.5...v0.9.6-beta) (2025-11-18)
 
 
