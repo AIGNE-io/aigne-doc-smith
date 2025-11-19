@@ -4,6 +4,7 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 // Update document content schemas
 export const updateDocumentContentInputSchema = z.object({
   diffPatch: z.string().min(1, "Diff patch is required"),
+  path: z.string().min(1, "Path is required for concurrent document updates"),
 });
 
 export const updateDocumentContentOutputSchema = z.object({
@@ -18,6 +19,7 @@ export const getUpdateDocumentContentInputJsonSchema = () => {
   const schema = zodToJsonSchema(updateDocumentContentInputSchema);
   if (schema.properties) {
     schema.properties.diffPatch.description = "Diff patch string to apply to the original content";
+    schema.properties.path.description = "Document path";
   }
   return schema;
 };

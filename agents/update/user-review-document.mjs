@@ -1,6 +1,7 @@
 import { marked } from "marked";
 import markedTerminal from "marked-terminal";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
+import { userContextAt } from "../../utils/utils.mjs";
 
 function extractMarkdownHeadings(content) {
   if (!content || typeof content !== "string") {
@@ -136,8 +137,9 @@ export default async function userReviewDocument({ content, description, ...rest
     printDocumentHeadings(content, title || "Untitled Document");
   }
 
-  // Initialize shared context with current content
-  options.context.userContext.currentContent = content;
+  // Initialize shared context with current content using path
+  const contentContext = userContextAt(options, `currentContents.${rest.path}`);
+  contentContext.set(content);
 
   const MAX_ITERATIONS = 100;
   const feedbacks = [];
@@ -174,10 +176,7 @@ export default async function userReviewDocument({ content, description, ...rest
       if (action === "finish") {
         break;
       } else if (action === "view") {
-        await showDocumentDetail(
-          options.context.userContext.currentContent,
-          title || "Untitled Document",
-        );
+        await showDocumentDetail(contentContext.get(), title || "Untitled Document");
       }
 
       // Ask for feedback
@@ -218,14 +217,15 @@ export default async function userReviewDocument({ content, description, ...rest
 
     try {
       // Call updateDocument agent with feedback
+      const currentContent = contentContext.get();
       const result = await options.context.invoke(updateAgent, {
         ...rest,
-        originalContent: options.context.userContext.currentContent,
+        originalContent: currentContent,
         feedback: feedback.trim(),
         userPreferences,
         title,
       });
-      options.context.userContext.currentContent = result.content;
+      contentContext.set(result.content);
 
       // Check if feedback should be saved as user preference
       const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];
@@ -242,10 +242,7 @@ export default async function userReviewDocument({ content, description, ...rest
       }
 
       // Print updated document headings structure
-      printDocumentHeadings(
-        options.context.userContext.currentContent,
-        title || "Untitled Document",
-      );
+      printDocumentHeadings(contentContext.get(), title || "Untitled Document");
 
       if (rest.isChat) {
         break;
@@ -267,7 +264,7 @@ export default async function userReviewDocument({ content, description, ...rest
     title,
     description,
     ...rest,
-    content: options.context.userContext.currentContent,
+    content: contentContext.get(),
     feedback: feedbacks.join(". "),
   };
 }

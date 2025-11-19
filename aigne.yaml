@@ -68,6 +68,7 @@ agents:
   - ./agents/clear/clear-media-description.mjs
 
   # Utilities
+  - ./agents/utils/add-translates-to-structure.mjs
   - ./agents/utils/load-sources.mjs
   - ./agents/utils/post-generate.mjs
   - ./agents/utils/save-sidebar.mjs
@@ -79,7 +80,8 @@ agents:
   - ./agents/utils/find-item-by-path.mjs
   - ./agents/utils/check-feedback-refiner.mjs
   - ./agents/utils/feedback-refiner.yaml
-  - ./agents/utils/analyze-feedback-intent.yaml
+  - ./agents/utils/analyze-structure-feedback-intent.yaml
+  - ./agents/utils/analyze-document-feedback-intent.yaml
 
   - ./agents/utils/document-title-streamline.yaml
   - ./agents/utils/streamline-document-titles-if-needed.mjs
@@ -126,6 +128,13 @@ cli:
         - url: ./agents/history/view.mjs
           name: view
           alias: ["log", "list"]
+    - name: add-document
+      alias: ["add"]
+      url: ./agents/create/user-add-document/index.yaml
+    - name: remove-document
+      alias: ["rm"]
+      url: ./agents/create/user-remove-document/index.yaml
+    - ./agents/clear/index.yaml
 mcp_server:
   agents:
     - ./docs-mcp/get-docs-structure.mjs

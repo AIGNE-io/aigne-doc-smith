@@ -3,6 +3,7 @@ import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import {
   addFeedbackToItems,
+  buildAllowedLinksFromStructure,
   buildDocumentTree,
   fileNameToFlatPath,
   findItemByFlatName,
@@ -566,6 +567,92 @@ describe("docs-finder-utils", () => {
           content: "content",
         },
       ]);
+    });
+  });
+
+  // ALLOWED LINKS BUILDING TESTS
+  describe("buildAllowedLinksFromStructure", () => {
+    test("should build allowed links set with original and processed paths", () => {
+      const documentStructure = [
+        { path: "/getting-started", title: "Getting Started" },
+        { path: "/api/overview", title: "API Overview" },
+      ];
+
+      const result = buildAllowedLinksFromStructure(documentStructure);
+
+      expect(result).toBeInstanceOf(Set);
+      expect(result.size).toBe(4); // 2 original + 2 processed
+      expect(result.has("/getting-started")).toBe(true);
+      expect(result.has("/api/overview")).toBe(true);
+      expect(result.has("./getting-started.md")).toBe(true);
+      expect(result.has("./api-overview.md")).toBe(true);
+    });
+
+    test("should handle paths starting with dot", () => {
+      const documentStructure = [{ path: "./relative-path", title: "Relative" }];
+
+      const result = buildAllowedLinksFromStructure(documentStructure);
+
+      expect(result.size).toBe(2);
+      expect(result.has("./relative-path")).toBe(true);
+      expect(result.has("./relative-path.md")).toBe(true);
+    });
+
+    test("should handle paths without leading slash", () => {
+      const documentStructure = [{ path: "no-slash-path", title: "No Slash" }];
+
+      const result = buildAllowedLinksFromStructure(documentStructure);
+
+      expect(result.size).toBe(2);
+      expect(result.has("no-slash-path")).toBe(true);
+      expect(result.has("./no-slash-path.md")).toBe(true);
+    });
+
+    test("should handle nested paths correctly", () => {
+      const documentStructure = [
+        { path: "/api/auth/oauth", title: "OAuth" },
+        { path: "/guides/advanced/patterns", title: "Patterns" },
+      ];
+
+      const result = buildAllowedLinksFromStructure(documentStructure);
+
+      expect(result.size).toBe(4);
+      expect(result.has("/api/auth/oauth")).toBe(true);
+      expect(result.has("./api-auth-oauth.md")).toBe(true);
+      expect(result.has("/guides/advanced/patterns")).toBe(true);
+      expect(result.has("./guides-advanced-patterns.md")).toBe(true);
+    });
+
+    test("should handle empty array", () => {
+      const result = buildAllowedLinksFromStructure([]);
+
+      expect(result).toBeInstanceOf(Set);
+      expect(result.size).toBe(0);
+    });
+
+    test("should handle non-array input", () => {
+      const result = buildAllowedLinksFromStructure({ path: "/test" });
+
+      expect(result).toBeInstanceOf(Set);
+      expect(result.size).toBe(0);
+    });
+
+    test("should skip items without path property", () => {
+      const documentStructure = [
+        { path: "/valid", title: "Valid" },
+        { title: "No Path" },
+        { path: "/another-valid", title: "Another Valid" },
+        { path: null, title: "Null Path" },
+        { path: undefined, title: "Undefined Path" },
+      ];
+
+      const result = buildAllowedLinksFromStructure(documentStructure);
+
+      expect(result.size).toBe(4); // 2 valid items * 2 paths each
+      expect(result.has("/valid")).toBe(true);
+      expect(result.has("./valid.md")).toBe(true);
+      expect(result.has("/another-valid")).toBe(true);
+      expect(result.has("./another-valid.md")).toBe(true);
     });
   });
 

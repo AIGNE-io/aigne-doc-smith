@@ -325,6 +325,40 @@ export async function loadDocumentStructure(outputDir) {
 }
 
 /**
+ * Build allowed links set from document structure
+ * Includes both original paths and processed .md paths for link validation
+ * @param {Array} documentStructure - Array of documentation structure items with path property
+ * @returns {Set<string>} Set of allowed link paths
+ */
+export function buildAllowedLinksFromStructure(documentStructure) {
+  const allowedLinks = new Set();
+
+  if (!Array.isArray(documentStructure)) {
+    return allowedLinks;
+  }
+
+  documentStructure.forEach((item) => {
+    if (!item?.path) {
+      return;
+    }
+
+    // Add original path
+    allowedLinks.add(item.path);
+
+    // Add processed .md path (same logic as processContent in utils.mjs)
+    let processedPath = item.path;
+    if (processedPath.startsWith(".")) {
+      processedPath = processedPath.replace(/^\./, "");
+    }
+    let flatPath = processedPath.replace(/^\//, "").replace(/\//g, "-");
+    flatPath = `./${flatPath}.md`;
+    allowedLinks.add(flatPath);
+  });
+
+  return allowedLinks;
+}
+
+/**
  * Build a tree structure from a flat document structure array using parentId
  * @param {Array} documentStructure - Flat array of document structure items with path and parentId
  * @returns {Object} Object containing rootNodes (array of root nodes) and nodeMap (Map for lookups)
@@ -357,4 +391,52 @@ export function buildDocumentTree(documentStructure) {
   });
 
   return { rootNodes, nodeMap };
+}
+
+/**
+ * Format document structure for printing
+ * @param {Array} structure - Document structure array
+ * @returns {Object} Object containing rootNodes and printNode function
+ */
+function formatDocumentStructure(structure) {
+  const { rootNodes } = buildDocumentTree(structure);
+
+  function printNode(node, depth = 0) {
+    const INDENT_SPACES = "  ";
+    const FOLDER_ICON = "  📁";
+    const FILE_ICON = "  📄";
+    const indent = INDENT_SPACES.repeat(depth);
+    const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
+
+    console.log(`${indent}${prefix} ${node.title}`);
+
+    if (node.children && node.children.length > 0) {
+      node.children.forEach((child) => {
+        printNode(child, depth + 1);
+      });
+    }
+  }
+
+  return { rootNodes, printNode };
+}
+
+/**
+ * Print document structure in a user-friendly format
+ * @param {Array} structure - Document structure array
+ */
+export function printDocumentStructure(structure) {
+  console.log(`\n  ${"-".repeat(50)}`);
+  console.log("  Current Documentation Structure");
+  console.log(`  ${"-".repeat(50)}`);
+
+  const { rootNodes, printNode } = formatDocumentStructure(structure);
+
+  if (rootNodes.length === 0) {
+    console.log("  No documentation structure found.");
+  } else {
+    rootNodes.forEach((node) => {
+      printNode(node);
+    });
+  }
+  console.log();
 }

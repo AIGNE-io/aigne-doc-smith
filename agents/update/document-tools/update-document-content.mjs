@@ -4,15 +4,9 @@ import {
   getUpdateDocumentContentOutputJsonSchema,
   validateUpdateDocumentContentInput,
 } from "../../../types/document-schema.mjs";
+import { userContextAt } from "../../../utils/utils.mjs";
 
 export default async function updateDocumentContent(input, options) {
-  // Get originalContent from shared context, fallback to input
-  let originalContent = options?.context?.userContext?.currentContent;
-
-  if (!originalContent) {
-    originalContent = input.originalContent;
-  }
-
   // Validate input using Zod schema
   const validation = validateUpdateDocumentContentInput(input);
   if (!validation.success) {
@@ -22,7 +16,15 @@ export default async function updateDocumentContent(input, options) {
     };
   }
 
-  const { diffPatch } = validation.data;
+  const { diffPatch, path } = validation.data;
+
+  // Get originalContent from shared context using path, fallback to input
+  const contentContext = userContextAt(options, `currentContents.${path}`);
+  let originalContent = contentContext.get();
+
+  if (!originalContent) {
+    originalContent = input.originalContent;
+  }
 
   try {
     // Parse and validate diff patch
@@ -56,10 +58,8 @@ export default async function updateDocumentContent(input, options) {
       };
     }
 
-    // Update shared context with new content if options is provided
-    if (options?.context?.userContext) {
-      options.context.userContext.currentContent = result;
-    }
+    // Update shared context with new content using path
+    contentContext.set(result);
 
     return {
       success: true,

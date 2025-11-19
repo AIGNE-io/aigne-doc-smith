@@ -1,0 +1,41 @@
+type: team
+name: userRemoveDocument
+description: Remove documents from the documentation structure
+skills:
+  - url: ../../init/index.mjs
+    default_input:
+      skipIfExists: true
+  - ../../utils/load-sources.mjs
+  - ./remove-documents-from-structure.mjs
+  - url: ../../utils/save-output.mjs
+    default_input:
+      saveKey: documentStructure
+      savePath:
+        $get: outputDir
+      fileName: structure-plan.json
+  - ../../utils/save-sidebar.mjs
+  - ./find-documents-with-invalid-links.mjs
+  - ../../utils/add-translates-to-structure.mjs
+  - ./review-documents-with-invalid-links.mjs
+  - ../../utils/format-document-structure.mjs
+  - ../../media/load-media-description.mjs
+  - type: team
+    name: batchRemoveInvalidLinks
+    description: Batch remove invalid links from documents
+    skills:
+      - ../utils/init-current-content.mjs
+      - ../../utils/transform-detail-data-sources.mjs
+      - ../../update/update-single/update-single-document-detail.mjs
+    iterate_on: documentsToUpdate
+    concurrency: 5
+  - ./prepare-documents-to-translate.mjs
+  - type: team
+    name: batchTranslateDocuments
+    description: Batch translate documents to multiple languages
+    skills:
+      - ../../localize/translate-multilingual.yaml
+    iterate_on: documentsToTranslate
+    concurrency: 5
+  - ../../utils/post-generate.mjs
+  - ./print-remove-document-summary.mjs
+mode: sequential

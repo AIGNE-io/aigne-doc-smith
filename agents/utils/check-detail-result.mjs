@@ -1,4 +1,5 @@
 import { checkMarkdown } from "../../utils/markdown-checker.mjs";
+import { buildAllowedLinksFromStructure } from "../../utils/docs-finder-utils.mjs";
 
 export default async function checkDetailResult({ documentStructure, reviewContent, docsDir }) {
   if (!reviewContent || reviewContent.trim() === "") {
@@ -12,20 +13,7 @@ export default async function checkDetailResult({ documentStructure, reviewConte
   const detailFeedback = [];
 
   // Create a set of allowed links, including both original paths and processed .md paths
-  const allowedLinks = new Set();
-  documentStructure.forEach((item) => {
-    // Add original path
-    allowedLinks.add(item.path);
-
-    // Add processed .md path (same logic as processContent in utils.mjs)
-    let processedPath = item.path;
-    if (processedPath.startsWith(".")) {
-      processedPath = processedPath.replace(/^\./, "");
-    }
-    let flatPath = processedPath.replace(/^\//, "").replace(/\//g, "-");
-    flatPath = `./${flatPath}.md`;
-    allowedLinks.add(flatPath);
-  });
+  const allowedLinks = buildAllowedLinksFromStructure(documentStructure);
 
   // Run comprehensive markdown validation with all checks
   try {

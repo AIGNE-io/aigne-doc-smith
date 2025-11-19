@@ -33,12 +33,13 @@ export const addDocumentOutputSchema = z.object({
 // Delete document schemas
 export const deleteDocumentInputSchema = z.object({
   path: z.string().min(1, "Path is required"),
+  recursive: z.boolean().optional(),
 });
 
 export const deleteDocumentOutputSchema = z.object({
   documentStructure: documentStructureSchema,
   message: z.string().optional(),
-  deletedDocument: documentItemSchema.optional(),
+  deletedDocuments: z.array(documentItemSchema).optional(),
   error: z.object({ message: z.string() }).optional(),
 });
 
@@ -113,6 +114,8 @@ export const getDeleteDocumentInputJsonSchema = () => {
   const schema = zodToJsonSchema(deleteDocumentInputSchema);
   if (schema.properties) {
     schema.properties.path.description = "URL path of the document to delete";
+    schema.properties.recursive.description =
+      "If true, recursively delete all child documents. If false or not provided, deletion will fail if child documents exist.";
   }
   return schema;
 };
@@ -123,7 +126,8 @@ export const getDeleteDocumentOutputJsonSchema = () => {
     schema.properties.documentStructure.description =
       "Updated documentation structure array with the document removed";
     schema.properties.message.description = "Success message describing the operation result";
-    schema.properties.deletedDocument.description = "The deleted document object";
+    schema.properties.deletedDocuments.description =
+      "Array of deleted document objects (includes all recursively deleted child documents if recursive=true)";
     schema.properties.error.description =
       "Error object containing error message if operation failed";
   }

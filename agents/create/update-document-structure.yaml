@@ -2,7 +2,7 @@ type: team
 name: updateDocumentStructure
 description: Update documentation structure based on user feedback and intentions using structure modification tools
 skills:
-  - url: ../utils/analyze-feedback-intent.yaml
+  - url: ../utils/analyze-structure-feedback-intent.yaml
   - type: ai
     instructions:
       - role: system

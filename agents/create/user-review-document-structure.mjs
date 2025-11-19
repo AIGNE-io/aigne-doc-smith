@@ -1,46 +1,7 @@
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import { recordUpdate } from "../../utils/history-utils.mjs";
-import { buildDocumentTree } from "../../utils/docs-finder-utils.mjs";
+import { printDocumentStructure } from "../../utils/docs-finder-utils.mjs";
 import equal from "fast-deep-equal";
-
-function formatDocumentStructure(structure) {
-  const { rootNodes } = buildDocumentTree(structure);
-
-  function printNode(node, depth = 0) {
-    const INDENT_SPACES = "  ";
-    const FOLDER_ICON = "  📁";
-    const FILE_ICON = "  📄";
-    const indent = INDENT_SPACES.repeat(depth);
-    const prefix = depth === 0 ? FOLDER_ICON : FILE_ICON;
-
-    console.log(`${indent}${prefix} ${node.title}`);
-
-    if (node.children && node.children.length > 0) {
-      node.children.forEach((child) => {
-        printNode(child, depth + 1);
-      });
-    }
-  }
-
-  return { rootNodes, printNode };
-}
-
-function printDocumentStructure(structure) {
-  console.log(`\n  ${"-".repeat(50)}`);
-  console.log("  Current Documentation Structure");
-  console.log(`  ${"-".repeat(50)}`);
-
-  const { rootNodes, printNode } = formatDocumentStructure(structure);
-
-  if (rootNodes.length === 0) {
-    console.log("  No documentation structure found.");
-  } else {
-    rootNodes.forEach((node) => {
-      printNode(node);
-    });
-  }
-  console.log();
-}
 
 export default async function userReviewDocumentStructure({ documentStructure, ...rest }, options) {
   // Check if documentation structure exists

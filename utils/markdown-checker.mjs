@@ -59,6 +59,9 @@ function countTableColumns(line) {
   return columns.length;
 }
 
+const linkPattern = /(?<!!)\[([^\]]+)\]\(([^)]+)\)/g;
+const hrefPattern = /<x-card[^>]*\s+data-href\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s>]+))/gi;
+
 /**
  * Check for dead links in markdown content
  * @param {string} markdown - The markdown content
@@ -67,16 +70,33 @@ function countTableColumns(line) {
  * @param {Array} errorMessages - Array to push error messages to
  */
 function checkDeadLinks(markdown, source, allowedLinks, errorMessages) {
-  const linkRegex = /(?<!!)\[([^\]]+)\]\(([^)]+)\)/g;
-  let match;
+  const links = [];
 
+  // Collect Markdown format links: [text](link)
+  const linkRegex = new RegExp(linkPattern.source, linkPattern.flags);
+  let match;
   while (true) {
     match = linkRegex.exec(markdown);
     if (match === null) break;
+    links.push({ trimLink: match[2].trim(), display: `[${match[1]}](${match[2].trim()})` });
+  }
 
-    const link = match[2];
-    const trimLink = link.trim();
+  // Collect data-href attribute values from <x-card> elements
+  const hrefRegex = new RegExp(hrefPattern.source, hrefPattern.flags);
+  let attrMatch;
+  while (true) {
+    attrMatch = hrefRegex.exec(markdown);
+    if (attrMatch === null) break;
+    const attrValue = (attrMatch[1] || attrMatch[2] || attrMatch[3] || "").trim();
+    if (attrValue) {
+      // Preserve original format with quotes if present
+      const originalMatch = attrMatch[0];
+      links.push({ trimLink: attrValue, display: originalMatch });
+    }
+  }
 
+  // Process all collected links with the same logic
+  for (const { trimLink, display } of links) {
     // Only check links that processContent would process
     // Exclude external links and mailto
     if (/^(https?:\/\/|mailto:)/.test(trimLink)) continue;
@@ -90,10 +110,35 @@ function checkDeadLinks(markdown, source, allowedLinks, errorMessages) {
     // Check if this link is in the allowed links set
     if (!allowedLinks.has(path)) {
       errorMessages.push(
-        `Found a dead link in ${source}: [${match[1]}](${trimLink}), ensure the link exists in the documentation structure path`,
+        `Found a dead link in ${source}: ${display}, ensure the link exists in the documentation structure path`,
       );
     }
   }
+}
+
+/**
+ * Extract link from error message
+ * @param {string} error - The error message
+ * @returns {string} - The link
+ */
+export function getLinkFromError(error) {
+  if (!error || !error.includes("Found a dead link in")) {
+    return "";
+  }
+
+  const linkRegex = new RegExp(linkPattern.source, linkPattern.flags);
+  let match = linkRegex.exec(error);
+  if (match) {
+    return match[2].trim();
+  }
+
+  const hrefRegex = new RegExp(hrefPattern.source, hrefPattern.flags);
+  match = hrefRegex.exec(error);
+  if (match) {
+    return (match[1] || match[2] || match[3] || "").trim();
+  }
+
+  return "";
 }
 
 /**
