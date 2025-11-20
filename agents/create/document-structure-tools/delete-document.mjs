@@ -30,7 +30,7 @@ export default async function deleteDocument(input, options) {
   // Check if path has already been deleted
   if (recursive) {
     if (deletedPaths.includes(path)) {
-      const message = `Skipping duplicate deletion. Document '${path}' have already been deleted.`;
+      const message = `Skipping duplicate deletion. Document '${path}' has already been deleted.`;
       return {
         documentStructure,
         message,
