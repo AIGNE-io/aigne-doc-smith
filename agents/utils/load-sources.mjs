@@ -1,27 +1,42 @@
-import { readFile } from "node:fs/promises";
 import { statSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 import imageSize from "image-size";
 import {
+  DEFAULT_EXCLUDE_PATTERNS,
+  DEFAULT_INCLUDE_PATTERNS,
+  INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD,
+} from "../../utils/constants/index.mjs";
+import { loadDocumentStructure } from "../../utils/docs-finder-utils.mjs";
+import {
   buildSourcesContent,
-  loadFilesFromPaths,
-  readFileContents,
+  calculateTokens,
   getMimeType,
   isRemoteFile,
-  calculateTokens,
+  loadFilesFromPaths,
+  readFileContents,
 } from "../../utils/file-utils.mjs";
+import { isOpenAPISpecFile } from "../../utils/openapi/index.mjs";
 import {
   getCurrentGitHead,
   getModifiedFilesBetweenCommits,
   toRelativePath,
 } from "../../utils/utils.mjs";
-import {
-  INTELLIGENT_SUGGESTION_TOKEN_THRESHOLD,
-  DEFAULT_EXCLUDE_PATTERNS,
-  DEFAULT_INCLUDE_PATTERNS,
-} from "../../utils/constants/index.mjs";
-import { isOpenAPISpecFile } from "../../utils/openapi/index.mjs";
-import { loadDocumentStructure } from "../../utils/docs-finder-utils.mjs";
+
+const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg", ".heic", ".heif"];
+const videoExts = [
+  ".mp4",
+  ".mpeg",
+  ".mpg",
+  ".mov",
+  ".avi",
+  ".flv",
+  ".mkv",
+  ".webm",
+  ".wmv",
+  ".m4v",
+  ".3gpp",
+];
 
 export default async function loadSources(
   {
@@ -77,7 +92,13 @@ export default async function loadSources(
       .filter(Boolean);
     const allFiles = await loadFilesFromPaths(pickSourcesPath, {
       includePatterns,
-      excludePatterns: [...new Set([...(excludePatterns || []), ...customExcludePatterns])],
+      excludePatterns: [
+        ...new Set([
+          ...(excludePatterns || []),
+          ...customExcludePatterns,
+          ...videoExts.map((x) => `**/*${x}`),
+        ]),
+      ],
       useDefaultPatterns,
       defaultIncludePatterns: DEFAULT_INCLUDE_PATTERNS,
       defaultExcludePatterns: DEFAULT_EXCLUDE_PATTERNS,
@@ -90,26 +111,9 @@ export default async function loadSources(
 
   // Define media file extensions
   const mediaExtensions = [
-    ".jpg",
-    ".jpeg",
-    ".png",
-    ".gif",
-    ".bmp",
-    ".webp",
-    ".svg",
-    ".heic",
-    ".heif",
-    ".mp4",
-    ".mpeg",
-    ".mpg",
-    ".mov",
-    ".avi",
-    ".flv",
-    ".mkv",
-    ".webm",
-    ".wmv",
-    ".m4v",
-    ".3gpp",
+    ...imageExts,
+    // ignore video temporary
+    // ...videoExts
   ];
 
   // Separate source files from media files
@@ -119,20 +123,6 @@ export default async function loadSources(
   // Helper function to determine file type from extension
   const getFileType = (filePath) => {
     const ext = path.extname(filePath).toLowerCase();
-    const imageExts = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".svg", ".heic", ".heif"];
-    const videoExts = [
-      ".mp4",
-      ".mpeg",
-      ".mpg",
-      ".mov",
-      ".avi",
-      ".flv",
-      ".mkv",
-      ".webm",
-      ".wmv",
-      ".m4v",
-      ".3gpp",
-    ];
 
     if (imageExts.includes(ext)) return "image";
     if (videoExts.includes(ext)) return "video";
