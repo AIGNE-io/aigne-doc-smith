@@ -1,46 +1,8 @@
 import deleteDocument from "../document-structure-tools/delete-document.mjs";
-import { buildDocumentTree } from "../../../utils/docs-finder-utils.mjs";
-import chalk from "chalk";
-
-/**
- * Build checkbox choices from tree structure with visual hierarchy
- * @param {Array} nodes - Array of tree nodes
- * @param {string} prefix - Current prefix for indentation
- * @param {number} depth - Current depth level (0 for root)
- * @returns {Array} Array of choice objects
- */
-function buildChoicesFromTree(nodes, prefix = "", depth = 0) {
-  const choices = [];
-
-  for (let i = 0; i < nodes.length; i++) {
-    const node = nodes[i];
-    const isLastSibling = i === nodes.length - 1;
-    const hasChildren = node.children && node.children.length > 0;
-
-    // Build the tree prefix - top level nodes don't have ├─ or └─
-    const treePrefix = depth === 0 ? "" : prefix + (isLastSibling ? "└─ " : "├─ ");
-    const warningText = hasChildren
-      ? chalk.yellow(" - will cascade delete all child documents")
-      : "";
-    const displayName = `${treePrefix}${node.title} (${node.path})${warningText}`;
-
-    choices.push({
-      name: displayName,
-      value: node.path,
-    });
-
-    // Recursively add children with updated prefix
-    if (hasChildren) {
-      const childPrefix = depth === 0 ? "" : prefix + (isLastSibling ? "   " : "│  ");
-      choices.push(...buildChoicesFromTree(node.children, childPrefix, depth + 1));
-    }
-  }
-
-  return choices;
-}
+import { buildDocumentTree, buildChoicesFromTree } from "../../../utils/docs-finder-utils.mjs";
 
 export default async function removeDocumentsFromStructure(input = {}, options = {}) {
-  const { originalDocumentStructure } = input;
+  const { originalDocumentStructure, locale = "en", docsDir } = input;
 
   if (!Array.isArray(originalDocumentStructure) || originalDocumentStructure.length === 0) {
     console.warn(
@@ -56,7 +18,7 @@ export default async function removeDocumentsFromStructure(input = {}, options =
   const { rootNodes } = buildDocumentTree(originalDocumentStructure);
 
   // Build choices with tree structure visualization
-  const choices = buildChoicesFromTree(rootNodes);
+  const choices = await buildChoicesFromTree(rootNodes, "", 0, { locale, docsDir });
 
   // Let user select documents to delete
   let selectedPaths = [];
