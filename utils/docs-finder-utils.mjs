@@ -1,6 +1,7 @@
 import { access, readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import chalk from "chalk";
+import pLimit from "p-limit";
 import { pathExists } from "./file-utils.mjs";
 
 /**
@@ -408,49 +409,62 @@ export async function buildChoicesFromTree(nodes, prefix = "", depth = 0, contex
   const { locale = "en", docsDir } = context;
   const choices = [];
 
-  for (let i = 0; i < nodes.length; i++) {
-    const node = nodes[i];
-    const isLastSibling = i === nodes.length - 1;
-    const hasChildren = node.children && node.children.length > 0;
+  // Limit concurrent file checks to 50 per level to avoid overwhelming the file system
+  const limit = pLimit(50);
 
-    // Build the tree prefix - top level nodes don't have ├─ or └─
-    const treePrefix = depth === 0 ? "" : prefix + (isLastSibling ? "└─ " : "├─ ");
-    const flatName = pathToFlatName(node.path);
-    const filename = generateFileName(flatName, locale);
+  // Process nodes with controlled concurrency while maintaining order
+  const nodePromises = nodes.map((node, i) =>
+    limit(async () => {
+      const isLastSibling = i === nodes.length - 1;
+      const hasChildren = node.children && node.children.length > 0;
 
-    // Check file existence if docsDir is provided
-    let fileExists = true;
-    let missingFileText = "";
-    if (docsDir) {
-      const filePath = join(docsDir, filename);
-      fileExists = await pathExists(filePath);
-      if (!fileExists) {
-        missingFileText = chalk.red(" - file not found");
+      // Build the tree prefix - top level nodes don't have ├─ or └─
+      const treePrefix = depth === 0 ? "" : prefix + (isLastSibling ? "└─ " : "├─ ");
+      const flatName = pathToFlatName(node.path);
+      const filename = generateFileName(flatName, locale);
+
+      // Check file existence if docsDir is provided
+      let fileExists = true;
+      let missingFileText = "";
+      if (docsDir) {
+        const filePath = join(docsDir, filename);
+        fileExists = await pathExists(filePath);
+        if (!fileExists) {
+          missingFileText = chalk.red(" - file not found");
+        }
       }
-    }
 
-    // warningText only shows when file exists, missingFileText has higher priority
-    const warningText =
-      fileExists && hasChildren ? chalk.yellow(" - will cascade delete all child documents") : "";
+      // warningText only shows when file exists, missingFileText has higher priority
+      const warningText =
+        fileExists && hasChildren ? chalk.yellow(" - will cascade delete all child documents") : "";
 
-    const displayName = `${treePrefix}${node.title} (${filename})${warningText}${missingFileText}`;
+      const displayName = `${treePrefix}${node.title} (${filename})${warningText}${missingFileText}`;
 
-    choices.push({
-      name: displayName,
-      value: node.path,
-      short: node.title,
-      disabled: !fileExists,
-    });
+      const choice = {
+        name: displayName,
+        value: node.path,
+        short: node.title,
+        disabled: !fileExists,
+      };
 
-    // Recursively add children with updated prefix
-    if (hasChildren) {
-      const childPrefix = depth === 0 ? "" : prefix + (isLastSibling ? "   " : "│  ");
-      const childChoices = await buildChoicesFromTree(
-        node.children,
-        childPrefix,
-        depth + 1,
-        context,
-      );
+      // Recursively process children
+      let childChoices = [];
+      if (hasChildren) {
+        const childPrefix = depth === 0 ? "" : prefix + (isLastSibling ? "   " : "│  ");
+        childChoices = await buildChoicesFromTree(node.children, childPrefix, depth + 1, context);
+      }
+
+      return { choice, childChoices };
+    }),
+  );
+
+  // Wait for all nodes at this level to complete, maintaining order
+  const results = await Promise.all(nodePromises);
+
+  // Build choices array in order
+  for (const { choice, childChoices } of results) {
+    choices.push(choice);
+    if (childChoices.length > 0) {
       choices.push(...childChoices);
     }
   }
