@@ -7,7 +7,7 @@ export default async function reviewDocumentsWithNewLinks(
 ) {
   // If no documents to review, return empty array
   if (!documentsWithNewLinks || documentsWithNewLinks.length === 0) {
-    return { documentsWithNewLinks: [] };
+    return { documentsWithNewLinks: [], documentsToUpdate: [] };
   }
 
   // Let user select which documents to update (default: all selected)
