@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.6-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6-beta.1...v0.9.6-beta.2) (2025-11-20)
+
+
+### Bug Fixes
+
+* enhance the robustness of add/remove document ([#325](https://github.com/AIGNE-io/aigne-doc-smith/issues/325)) ([f78668a](https://github.com/AIGNE-io/aigne-doc-smith/commit/f78668ad93fb1c9913cfd62de466018f177990b3))
+* ignore video media temporary ([#326](https://github.com/AIGNE-io/aigne-doc-smith/issues/326)) ([e65e7fd](https://github.com/AIGNE-io/aigne-doc-smith/commit/e65e7fda49d870c1e60b433fac121193ee72a328))
+
 ## [0.9.6-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6-beta...v0.9.6-beta.1) (2025-11-19)
 
 
