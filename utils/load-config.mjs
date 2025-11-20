@@ -41,11 +41,28 @@ export default async function loadConfig({ config, appUrl }) {
         ...(processedConfig.excludePatterns || parsedConfig.excludePatterns || []),
       ];
 
-      const invalidPaths = await findInvalidSourcePaths(sourcesPath, excludePatterns);
-      if (invalidPaths.length > 0) {
-        console.warn(
-          `⚠️  Some source paths have been excluded and will not be processed:\n${invalidPaths.map((p) => `  - ${chalk.yellow(p)}`).join("\n")}\n💡 Tip: You can remove these paths in ${toDisplayPath(configPath)}\n`,
+      const { excluded, notFound } = await findInvalidSourcePaths(sourcesPath, excludePatterns);
+
+      if (excluded.length > 0 || notFound.length > 0) {
+        const warnings = [];
+
+        if (excluded.length > 0) {
+          warnings.push(
+            `⚠️  These paths were excluded (ignored by config):\n${excluded.map((p) => `  - ${chalk.yellow(p)}`).join("\n")}`,
+          );
+        }
+
+        if (notFound.length > 0) {
+          warnings.push(
+            `🚫 These paths were skipped because they do not exist:\n${notFound.map((p) => `  - ${chalk.red(p)}`).join("\n")}`,
+          );
+        }
+
+        warnings.push(
+          `💡 Tip: You can remove these paths in ${chalk.cyan(toDisplayPath(configPath))}`,
         );
+
+        console.warn(`${warnings.join("\n\n")}\n`);
       }
     }
 

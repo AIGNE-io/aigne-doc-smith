@@ -28,8 +28,8 @@ export default async function deleteDocument(input, options) {
   const deletedPaths = deletedPathsContext.get() || [];
 
   // Check if path has already been deleted
-  if(recursive){
-    if(deletedPaths.includes(path)){
+  if (recursive) {
+    if (deletedPaths.includes(path)) {
       const message = `Skipping duplicate deletion. Document '${path}' have already been deleted.`;
       return {
         documentStructure,
@@ -89,7 +89,7 @@ export default async function deleteDocument(input, options) {
   const updatedStructure = documentStructure.filter((item) => !pathsToDelete.has(item.path));
 
   // Add paths to deleted paths
-  if(recursive){
+  if (recursive) {
     deletedPathsContext.set(deletedPaths.concat(Array.from(pathsToDelete)));
   }
 

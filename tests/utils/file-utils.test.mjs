@@ -784,20 +784,41 @@ temp*
   });
 
   describe("findInvalidSourcePaths", () => {
-    test("returns empty array for empty sourcePaths", async () => {
-      expect(await findInvalidSourcePaths([], ["node_modules/**"])).toEqual([]);
+    test("returns empty arrays for empty sourcePaths", async () => {
+      expect(await findInvalidSourcePaths([], ["node_modules/**"])).toEqual({
+        excluded: [],
+        notFound: [],
+      });
     });
 
-    test("returns empty array for non-array sourcePaths", async () => {
-      expect(await findInvalidSourcePaths(null, ["node_modules/**"])).toEqual([]);
-      expect(await findInvalidSourcePaths(undefined, ["node_modules/**"])).toEqual([]);
-      expect(await findInvalidSourcePaths("string", ["node_modules/**"])).toEqual([]);
+    test("returns empty arrays for non-array sourcePaths", async () => {
+      expect(await findInvalidSourcePaths(null, ["node_modules/**"])).toEqual({
+        excluded: [],
+        notFound: [],
+      });
+      expect(await findInvalidSourcePaths(undefined, ["node_modules/**"])).toEqual({
+        excluded: [],
+        notFound: [],
+      });
+      expect(await findInvalidSourcePaths("string", ["node_modules/**"])).toEqual({
+        excluded: [],
+        notFound: [],
+      });
     });
 
-    test("returns empty array for empty excludePatterns", async () => {
-      expect(await findInvalidSourcePaths(["src/file.js"], [])).toEqual([]);
-      expect(await findInvalidSourcePaths(["src/file.js"], null)).toEqual([]);
-      expect(await findInvalidSourcePaths(["src/file.js"], undefined)).toEqual([]);
+    test("returns empty arrays for empty excludePatterns", async () => {
+      expect(await findInvalidSourcePaths(["src/file.js"], [])).toEqual({
+        excluded: [],
+        notFound: [],
+      });
+      expect(await findInvalidSourcePaths(["src/file.js"], null)).toEqual({
+        excluded: [],
+        notFound: [],
+      });
+      expect(await findInvalidSourcePaths(["src/file.js"], undefined)).toEqual({
+        excluded: [],
+        notFound: [],
+      });
     });
 
     test("skips paths starting with !", async () => {
@@ -805,7 +826,7 @@ temp*
         ["!src/file.js", "!node_modules"],
         ["node_modules/**"],
       );
-      expect(result).toEqual([]);
+      expect(result).toEqual({ excluded: [], notFound: [] });
     });
 
     test("skips remote URLs", async () => {
@@ -813,17 +834,19 @@ temp*
         ["http://example.com", "https://example.com/file.js"],
         ["node_modules/**"],
       );
-      expect(result).toEqual([]);
+      expect(result).toEqual({ excluded: [], notFound: [] });
     });
 
     test("includes invalid glob patterns that match exclude patterns", async () => {
       const result = await findInvalidSourcePaths(["node_modules/**/*.js"], ["node_modules/**"]);
-      expect(result).toContain("node_modules/**/*.js");
+      expect(result.excluded).toContain("node_modules/**/*.js");
+      expect(result.notFound).not.toContain("node_modules/**/*.js");
     });
 
     test("skips valid glob patterns that don't match exclude patterns", async () => {
       const result = await findInvalidSourcePaths(["src/**/*.js"], ["node_modules/**"]);
-      expect(result).not.toContain("src/**/*.js");
+      expect(result.excluded).not.toContain("src/**/*.js");
+      expect(result.notFound).not.toContain("src/**/*.js");
     });
 
     test("skips files", async () => {
@@ -833,7 +856,8 @@ temp*
 
       try {
         const result = await findInvalidSourcePaths([testFile], ["test.txt"]);
-        expect(result).not.toContain(testFile);
+        expect(result.excluded).not.toContain(testFile);
+        expect(result.notFound).not.toContain(testFile);
       } finally {
         rmSync(tempDir, { recursive: true, force: true });
       }
@@ -847,7 +871,8 @@ temp*
       try {
         // For absolute paths, need to use **/ prefix in pattern to match anywhere
         const result = await findInvalidSourcePaths([excludedDir], ["**/node_modules/**"]);
-        expect(result).toContain(excludedDir);
+        expect(result.excluded).toContain(excludedDir);
+        expect(result.notFound).not.toContain(excludedDir);
       } finally {
         rmSync(tempDir, { recursive: true, force: true });
       }
@@ -860,7 +885,8 @@ temp*
 
       try {
         const result = await findInvalidSourcePaths([validDir], ["node_modules/**"]);
-        expect(result).not.toContain(validDir);
+        expect(result.excluded).not.toContain(validDir);
+        expect(result.notFound).not.toContain(validDir);
       } finally {
         rmSync(tempDir, { recursive: true, force: true });
       }
@@ -869,12 +895,13 @@ temp*
     test("includes non-existent paths", async () => {
       const nonExistent = join("/non/existent/path", "file.js");
       const result = await findInvalidSourcePaths([nonExistent], ["node_modules/**"]);
-      expect(result).toContain(nonExistent);
+      expect(result.notFound).toContain(nonExistent);
+      expect(result.excluded).not.toContain(nonExistent);
     });
 
     test("skips invalid string inputs", async () => {
       const result = await findInvalidSourcePaths([null, undefined, "", 123], ["node_modules/**"]);
-      expect(result).toEqual([]);
+      expect(result).toEqual({ excluded: [], notFound: [] });
     });
 
     test("handles mixed valid and invalid paths", async () => {
@@ -903,13 +930,17 @@ temp*
           ["**/node_modules/**"],
         );
 
-        expect(result).toContain(excludedDir);
-        expect(result).toContain(nonExistent);
-        expect(result).toContain("node_modules/**/*.js");
-        expect(result).not.toContain(validDir);
-        expect(result).not.toContain(testFile);
-        expect(result).not.toContain("http://example.com");
-        expect(result).not.toContain("!excluded");
+        expect(result.excluded).toContain(excludedDir);
+        expect(result.excluded).toContain("node_modules/**/*.js");
+        expect(result.notFound).toContain(nonExistent);
+        expect(result.excluded).not.toContain(validDir);
+        expect(result.excluded).not.toContain(testFile);
+        expect(result.notFound).not.toContain(validDir);
+        expect(result.notFound).not.toContain(testFile);
+        expect(result.excluded).not.toContain("http://example.com");
+        expect(result.excluded).not.toContain("!excluded");
+        expect(result.notFound).not.toContain("http://example.com");
+        expect(result.notFound).not.toContain("!excluded");
       } finally {
         rmSync(tempDir, { recursive: true, force: true });
       }
@@ -922,7 +953,8 @@ temp*
 
       try {
         const result = await findInvalidSourcePaths([nestedExcluded], ["**/node_modules/**"]);
-        expect(result).toContain(nestedExcluded);
+        expect(result.excluded).toContain(nestedExcluded);
+        expect(result.notFound).not.toContain(nestedExcluded);
       } finally {
         rmSync(tempDir, { recursive: true, force: true });
       }
@@ -932,12 +964,14 @@ temp*
       // getPathPrefix("node_modules/**/*.js") returns "node_modules"
       // So it should be excluded if "node_modules/**" is in exclude patterns
       const result1 = await findInvalidSourcePaths(["node_modules/**/*.js"], ["node_modules/**"]);
-      expect(result1).toContain("node_modules/**/*.js");
+      expect(result1.excluded).toContain("node_modules/**/*.js");
+      expect(result1.notFound).not.toContain("node_modules/**/*.js");
 
       // getPathPrefix("src/**/*.js") returns "src"
       // So it should not be excluded if "node_modules/**" is in exclude patterns
       const result2 = await findInvalidSourcePaths(["src/**/*.js"], ["node_modules/**"]);
-      expect(result2).not.toContain("src/**/*.js");
+      expect(result2.excluded).not.toContain("src/**/*.js");
+      expect(result2.notFound).not.toContain("src/**/*.js");
     });
   });
 });

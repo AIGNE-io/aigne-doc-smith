@@ -16,10 +16,12 @@ function buildChoicesFromTree(nodes, prefix = "", depth = 0) {
     const node = nodes[i];
     const isLastSibling = i === nodes.length - 1;
     const hasChildren = node.children && node.children.length > 0;
-    
+
     // Build the tree prefix - top level nodes don't have ├─ or └─
     const treePrefix = depth === 0 ? "" : prefix + (isLastSibling ? "└─ " : "├─ ");
-    const warningText = hasChildren ? chalk.yellow(" - will cascade delete all child documents") : "";
+    const warningText = hasChildren
+      ? chalk.yellow(" - will cascade delete all child documents")
+      : "";
     const displayName = `${treePrefix}${node.title} (${node.path})${warningText}`;
 
     choices.push({
