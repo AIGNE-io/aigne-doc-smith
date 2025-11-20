@@ -46,7 +46,9 @@ jobs:
         run: pnpm lint
 
       - name: Test
-        run: pnpm test:coverage
+        run: |
+          set -eo pipefail
+          bun test --coverage --coverage-reporter=lcov --coverage-reporter=text
         continue-on-error: false
 
       - name: Upload coverage reports to Codecov
