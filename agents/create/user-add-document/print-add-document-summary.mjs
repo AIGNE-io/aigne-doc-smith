@@ -1,14 +1,24 @@
 import chalk from "chalk";
 
+import { recordUpdate } from "../../../utils/history-utils.mjs";
 /**
  * Print summary of added documents and documents with new links
  */
 export default async function printAddDocumentSummary({
   newDocuments = [],
   documentsWithNewLinks = [],
+  allFeedback = [],
 }) {
   let message = `\n---\n`;
   message += `${chalk.bold.cyan("📊 Summary")}\n\n`;
+
+  // Record the update
+  if(allFeedback.length > 0) {
+    recordUpdate({
+      operation: "structure_update",
+      feedback: allFeedback.join("\n"),
+    });
+  }
 
   // Display added documents
   if (newDocuments && newDocuments.length > 0) {
