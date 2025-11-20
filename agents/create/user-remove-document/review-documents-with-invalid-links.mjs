@@ -1,4 +1,8 @@
-import { buildAllowedLinksFromStructure } from "../../../utils/docs-finder-utils.mjs";
+import {
+  buildAllowedLinksFromStructure,
+  generateFileName,
+  pathToFlatName,
+} from "../../../utils/docs-finder-utils.mjs";
 
 /**
  * Generate feedback message for fixing invalid links in a document
@@ -44,27 +48,26 @@ ${allowedLinksList}
 }
 
 export default async function reviewDocumentsWithInvalidLinks(input = {}, options = {}) {
-  const { documentsWithInvalidLinks = [], documentExecutionStructure = [] } = input;
+  const { documentsWithInvalidLinks = [], documentExecutionStructure = [], locale = "en" } = input;
 
   // If no documents with invalid links, return empty array
   if (!Array.isArray(documentsWithInvalidLinks) || documentsWithInvalidLinks.length === 0) {
     return {
       documentsWithInvalidLinks: [],
+      documentsToUpdate: [],
     };
   }
 
   // Create choices for user selection, default all checked
   const choices = documentsWithInvalidLinks.map((doc) => {
-    const invalidLinksText =
-      doc.invalidLinks && doc.invalidLinks.length > 0
-        ? ` (${doc.invalidLinks.length} invalid link${doc.invalidLinks.length > 1 ? "s" : ""})`
-        : "";
+    const flatName = pathToFlatName(doc.path);
+    const filename = generateFileName(flatName, locale);
 
     return {
-      name: `${doc.title || doc.path}${invalidLinksText}`,
+      name: `${doc.title} (${filename})`,
       value: doc.path,
       checked: true, // Default all selected
-      description: `Invalid Links: ${doc.invalidLinks.join(", ")}`,
+      description: `Invalid Links(${doc.invalidLinks?.length || 0}): ${doc.invalidLinks?.join(", ")}`,
     };
   });
 

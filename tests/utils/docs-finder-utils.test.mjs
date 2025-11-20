@@ -4,6 +4,7 @@ import * as path from "node:path";
 import {
   addFeedbackToItems,
   buildAllowedLinksFromStructure,
+  buildChoicesFromTree,
   buildDocumentTree,
   fileNameToFlatPath,
   findItemByFlatName,
@@ -14,6 +15,7 @@ import {
   processSelectedFiles,
   readFileContent,
 } from "../../utils/docs-finder-utils.mjs";
+import * as fileUtils from "../../utils/file-utils.mjs";
 
 describe("docs-finder-utils", () => {
   let readdirSpy;
@@ -21,6 +23,7 @@ describe("docs-finder-utils", () => {
   let accessSpy;
   let joinSpy;
   let consoleWarnSpy;
+  let pathExistsSpy;
 
   beforeEach(() => {
     // Mock file system operations
@@ -28,6 +31,7 @@ describe("docs-finder-utils", () => {
     readFileSpy = spyOn(fs, "readFile").mockResolvedValue("test content");
     accessSpy = spyOn(fs, "access").mockResolvedValue(undefined);
     joinSpy = spyOn(path, "join").mockImplementation((...paths) => paths.join("/"));
+    pathExistsSpy = spyOn(fileUtils, "pathExists").mockResolvedValue(true);
 
     // Mock console methods
     consoleWarnSpy = spyOn(console, "warn").mockImplementation(() => {});
@@ -39,6 +43,7 @@ describe("docs-finder-utils", () => {
     accessSpy?.mockRestore();
     joinSpy?.mockRestore();
     consoleWarnSpy?.mockRestore();
+    pathExistsSpy?.mockRestore();
   });
 
   // UTILITY FUNCTIONS TESTS
@@ -961,6 +966,157 @@ describe("docs-finder-utils", () => {
       expect(generateFileName("api-v1-guide", "en")).toBe("api-v1-guide.md");
       expect(generateFileName("api-v1-guide", "zh")).toBe("api-v1-guide.zh.md");
       expect(generateFileName("test_special-chars", "fr")).toBe("test_special-chars.fr.md");
+    });
+  });
+
+  // BUILD CHOICES FROM TREE TESTS
+  describe("buildChoicesFromTree", () => {
+    test("should build choices from three-level nested structure", async () => {
+      const threeLevelTree = [
+        {
+          path: "/guides",
+          title: "Guides",
+          children: [
+            {
+              path: "/guides/basics",
+              title: "Basics",
+              children: [
+                {
+                  path: "/guides/basics/installation",
+                  title: "Installation",
+                  children: [],
+                },
+                {
+                  path: "/guides/basics/getting-started",
+                  title: "Getting Started",
+                  children: [],
+                },
+              ],
+            },
+            {
+              path: "/guides/advanced",
+              title: "Advanced",
+              children: [
+                {
+                  path: "/guides/advanced/patterns",
+                  title: "Patterns",
+                  children: [],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+
+      pathExistsSpy.mockResolvedValue(true);
+
+      const result = await buildChoicesFromTree(threeLevelTree, "", 0, {
+        locale: "en",
+        docsDir: "/docs",
+      });
+
+      expect(result).toHaveLength(6);
+      expect(result[0].value).toBe("/guides");
+      expect(result[0].name).toContain("Guides");
+      expect(result[0].name).toContain("guides.md");
+      expect(result[0].disabled).toBe(false);
+
+      expect(result[1].value).toBe("/guides/basics");
+      expect(result[1].name).toContain("Basics");
+      expect(result[1].name).toContain("├─");
+
+      expect(result[2].value).toBe("/guides/basics/installation");
+      expect(result[2].name).toContain("Installation");
+      expect(result[2].name).toContain("│  ├─");
+
+      expect(result[3].value).toBe("/guides/basics/getting-started");
+      expect(result[3].name).toContain("Getting Started");
+      expect(result[3].name).toContain("│  └─");
+
+      expect(result[4].value).toBe("/guides/advanced");
+      expect(result[4].name).toContain("Advanced");
+      expect(result[4].name).toContain("└─");
+
+      expect(result[5].value).toBe("/guides/advanced/patterns");
+      expect(result[5].name).toContain("Patterns");
+      expect(result[5].name).toContain("   └─");
+    });
+
+    test("should mark items as disabled when files do not exist", async () => {
+      const treeWithMissingFiles = [
+        {
+          path: "/overview",
+          title: "Overview",
+          children: [],
+        },
+        {
+          path: "/api",
+          title: "API",
+          children: [
+            {
+              path: "/api/guide",
+              title: "API Guide",
+              children: [],
+            },
+            {
+              path: "/api/reference",
+              title: "API Reference",
+              children: [],
+            },
+          ],
+        },
+        {
+          path: "/missing",
+          title: "Missing Document",
+          children: [],
+        },
+      ];
+
+      // Mock pathExists to return false for specific files
+      pathExistsSpy.mockImplementation((filePath) => {
+        if (filePath.includes("missing.md")) {
+          return Promise.resolve(false);
+        }
+        if (filePath.includes("api-reference.md")) {
+          return Promise.resolve(false);
+        }
+        return Promise.resolve(true);
+      });
+
+      const result = await buildChoicesFromTree(treeWithMissingFiles, "", 0, {
+        locale: "en",
+        docsDir: "/docs",
+      });
+
+      expect(result).toHaveLength(5);
+
+      // Overview should be enabled
+      const overviewChoice = result.find((c) => c.value === "/overview");
+      expect(overviewChoice).toBeDefined();
+      expect(overviewChoice.disabled).toBe(false);
+      expect(overviewChoice.name).not.toContain("file not found");
+
+      // API should be enabled
+      const apiChoice = result.find((c) => c.value === "/api");
+      expect(apiChoice).toBeDefined();
+      expect(apiChoice.disabled).toBe(false);
+
+      // API Guide should be enabled
+      const apiGuideChoice = result.find((c) => c.value === "/api/guide");
+      expect(apiGuideChoice).toBeDefined();
+      expect(apiGuideChoice.disabled).toBe(false);
+
+      // API Reference should be disabled
+      const apiReferenceChoice = result.find((c) => c.value === "/api/reference");
+      expect(apiReferenceChoice).toBeDefined();
+      expect(apiReferenceChoice.disabled).toBe(true);
+      expect(apiReferenceChoice.name).toContain("file not found");
+
+      // Missing document should be disabled
+      const missingChoice = result.find((c) => c.value === "/missing");
+      expect(missingChoice).toBeDefined();
+      expect(missingChoice.disabled).toBe(true);
+      expect(missingChoice.name).toContain("file not found");
     });
   });
 });

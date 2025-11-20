@@ -1,9 +1,11 @@
+import { join } from "node:path";
 import {
   buildAllowedLinksFromStructure,
   generateFileName,
   pathToFlatName,
   readFileContent,
 } from "../../../utils/docs-finder-utils.mjs";
+import { pathExists } from "../../../utils/file-utils.mjs";
 import { checkMarkdown, getLinkFromError } from "../../../utils/markdown-checker.mjs";
 
 export default async function findDocumentsWithInvalidLinks({
@@ -34,6 +36,15 @@ export default async function findDocumentsWithInvalidLinks({
     // Generate filename from document path
     const flatName = pathToFlatName(doc.path);
     const fileName = generateFileName(flatName, locale);
+
+    // Check if file exists before reading
+    const filePath = join(docsDir, fileName);
+    const fileExists = await pathExists(filePath);
+
+    if (!fileExists) {
+      // Skip if file doesn't exist
+      continue;
+    }
 
     // Read document content
     const content = await readFileContent(docsDir, fileName);

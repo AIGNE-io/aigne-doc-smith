@@ -3,6 +3,7 @@ import {
   getDeleteDocumentOutputJsonSchema,
   validateDeleteDocumentInput,
 } from "../../../types/document-structure-schema.mjs";
+import { userContextAt } from "../../../utils/utils.mjs";
 
 export default async function deleteDocument(input, options) {
   // Validate input using Zod schema
@@ -21,6 +22,21 @@ export default async function deleteDocument(input, options) {
 
   if (!documentStructure) {
     documentStructure = input.documentStructure;
+  }
+
+  const deletedPathsContext = userContextAt(options, "deletedPaths");
+  const deletedPaths = deletedPathsContext.get() || [];
+
+  // Check if path has already been deleted
+  if (recursive) {
+    if (deletedPaths.includes(path)) {
+      const message = `Skipping duplicate deletion. Document '${path}' has already been deleted.`;
+      return {
+        documentStructure,
+        message,
+        deletedDocuments: [],
+      };
+    }
   }
 
   // Find the document to delete
@@ -71,6 +87,11 @@ export default async function deleteDocument(input, options) {
 
   // Remove all documents from the structure
   const updatedStructure = documentStructure.filter((item) => !pathsToDelete.has(item.path));
+
+  // Add paths to deleted paths
+  if (recursive) {
+    deletedPathsContext.set(deletedPaths.concat(Array.from(pathsToDelete)));
+  }
 
   // Build success message
   const successMessage = `deleteDocument executed successfully.

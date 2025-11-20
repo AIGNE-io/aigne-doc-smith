@@ -1,10 +1,8 @@
-import chooseDocs from "../../utils/choose-docs.mjs";
 import deleteDocument from "../document-structure-tools/delete-document.mjs";
-import { DOC_ACTION } from "../../../utils/constants/index.mjs";
-import addTranslatesToStructure from "../../utils/add-translates-to-structure.mjs";
+import { buildDocumentTree, buildChoicesFromTree } from "../../../utils/docs-finder-utils.mjs";
 
 export default async function removeDocumentsFromStructure(input = {}, options = {}) {
-  const { docsDir, locale = "en", translateLanguages = [], originalDocumentStructure } = input;
+  const { originalDocumentStructure, locale = "en", docsDir } = input;
 
   if (!Array.isArray(originalDocumentStructure) || originalDocumentStructure.length === 0) {
     console.warn(
@@ -13,43 +11,43 @@ export default async function removeDocumentsFromStructure(input = {}, options =
     process.exit(0);
   }
 
-  const { documentExecutionStructure } = addTranslatesToStructure({
-    originalDocumentStructure,
-    translateLanguages,
-  });
-
   // Initialize currentStructure in userContext
   options.context.userContext.currentStructure = [...originalDocumentStructure];
 
-  // Use chooseDocs to select documents to delete
-  const chooseResult = await chooseDocs(
-    {
-      docs: [],
-      documentExecutionStructure,
-      docsDir,
-      locale,
-      isTranslate: false,
-      feedback: "no feedback",
-      requiredFeedback: false,
-      action: DOC_ACTION.clear,
-    },
-    options,
-  );
+  // Build tree structure
+  const { rootNodes } = buildDocumentTree(originalDocumentStructure);
 
-  if (!chooseResult?.selectedDocs || chooseResult.selectedDocs.length === 0) {
-    console.log("No documents selected for removal.");
+  // Build choices with tree structure visualization
+  const choices = await buildChoicesFromTree(rootNodes, "", 0, { locale, docsDir });
+
+  // Let user select documents to delete
+  let selectedPaths = [];
+  try {
+    selectedPaths = await options.prompts.checkbox({
+      message: "Select documents to remove (Press Enter with no selection to finish):",
+      choices,
+    });
+  } catch {
+    // User cancelled or no selection made
+    console.log("No documents were removed.");
     process.exit(0);
   }
 
-  // Delete each selected document
+  // If no documents selected, exit
+  if (!selectedPaths || selectedPaths.length === 0) {
+    console.log("No documents were removed.");
+    process.exit(0);
+  }
+
+  // Delete each selected document with cascade deletion
   const deletedDocuments = [];
   const errors = [];
 
-  for (const selectedDoc of chooseResult.selectedDocs) {
+  for (const path of selectedPaths) {
     try {
       const deleteResult = await deleteDocument(
         {
-          path: selectedDoc.path,
+          path,
           recursive: true,
         },
         options,
@@ -57,21 +55,21 @@ export default async function removeDocumentsFromStructure(input = {}, options =
 
       if (deleteResult.error) {
         errors.push({
-          path: selectedDoc.path,
+          path,
           error: deleteResult.error.message,
         });
       } else {
-        // deletedDocuments is now always an array
         deletedDocuments.push(...deleteResult.deletedDocuments);
       }
     } catch (error) {
       errors.push({
-        path: selectedDoc.path,
+        path,
         error: error.message,
       });
     }
   }
 
+  // Check if there are errors
   if (errors.length > 0) {
     console.warn(
       `🗑️ Remove Documents\n  • Failed to remove documents:\n${errors
@@ -81,7 +79,12 @@ export default async function removeDocumentsFromStructure(input = {}, options =
     process.exit(0);
   }
 
-  // Get updated document structure
+  if (deletedDocuments.length === 0) {
+    console.log("No documents were removed.");
+    process.exit(0);
+  }
+
+  // Get final updated document structure
   const updatedStructure = options.context.userContext.currentStructure;
 
   return {

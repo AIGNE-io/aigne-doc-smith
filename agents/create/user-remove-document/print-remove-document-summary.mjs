@@ -7,9 +7,8 @@ export default async function printRemoveDocumentSummary({
   deletedDocuments = [],
   documentsWithInvalidLinks = [],
 }) {
-  let message = `\n${"=".repeat(80)}\n`;
-  message += `${chalk.bold.cyan("📊 Summary")}\n`;
-  message += `${"=".repeat(80)}\n\n`;
+  let message = `\n---\n`;
+  message += `${chalk.bold.cyan("📊 Summary")}\n\n`;
 
   // Display removed documents
   if (deletedDocuments && deletedDocuments.length > 0) {
@@ -46,8 +45,6 @@ export default async function printRemoveDocumentSummary({
     message += `✅ Documents fixed (Removed invalid links):\n`;
     message += `${chalk.gray("   No documents needed to be fixed.\n\n")}`;
   }
-
-  message += `${"=".repeat(80)}\n\n`;
 
   return { message };
 }
