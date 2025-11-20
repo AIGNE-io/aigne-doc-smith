@@ -5,7 +5,7 @@ XCards is multiple `<x-card>` container, suitable for displaying multiple links 
 
 ### Attributes
 
-- `data-columns` (optional): Must be an **integer ≥ 2**. Values below 2 are disallowed. Default is 2.
+- `data-columns` (required): must be an integer ≥ 2; no upper bound.
 
 ### Children
 
@@ -20,20 +20,21 @@ XCards is multiple `<x-card>` container, suitable for displaying multiple links 
 
 ### Good Examples
 
-- Example 1: Three-column cards with icons
-  ```md
-  <x-cards data-columns="3">
-    <x-card data-title="Feature 1" data-icon="lucide:rocket">Description of Feature 1.</x-card>
-    <x-card data-title="Feature 2" data-icon="lucide:bolt">Description of Feature 2.</x-card>
-    <x-card data-title="Feature 3" data-icon="material-symbols:rocket-outline">Description of Feature 3.</x-card>
-  </x-cards>
-  ```
-
-- Example 2: Two-column cards with images
+- Example 1: Two-column cards with images
   ```md
   <x-cards data-columns="2">
     <x-card data-title="Card A" data-image="https://picsum.photos/id/10/300/300">Content A</x-card>
     <x-card data-title="Card B" data-image="https://picsum.photos/id/11/300/300">Content B</x-card>
+  </x-cards>
+  ```
+
+- Example 2: Four-column cards with icons
+  ```md
+  <x-cards data-columns="4">
+    <x-card data-title="Feature 1" data-icon="lucide:rocket">Description of Feature 1.</x-card>
+    <x-card data-title="Feature 2" data-icon="lucide:bolt">Description of Feature 2.</x-card>
+    <x-card data-title="Feature 3" data-icon="material-symbols:rocket-outline">Description of Feature 3.</x-card>
+    <x-card data-title="Feature 4" data-icon="lucide:star">Description of Feature 4.</x-card>
   </x-cards>
   ```
 
@@ -72,4 +73,11 @@ XCards is multiple `<x-card>` container, suitable for displaying multiple links 
   - [Using the Blog](./blog.md)
   - [Using Chat](./chat.md)
   ```
+
+- Example 4: Missing `data-columns` attribute (required)
+  <x-cards>
+    <x-card data-title="Feature 1" data-icon="lucide:rocket">Description of Feature 1.</x-card>
+    <x-card data-title="Feature 2" data-icon="lucide:bolt">Description of Feature 2.</x-card>
+  </x-cards>
+  
 </x-card-usage-rules>
