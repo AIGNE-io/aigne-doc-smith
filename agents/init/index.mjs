@@ -14,6 +14,7 @@ import {
   SUPPORTED_LANGUAGES,
   TARGET_AUDIENCES,
 } from "../../utils/constants/index.mjs";
+import { isRemoteFile } from "../../utils/file-utils.mjs";
 import loadConfig from "../../utils/load-config.mjs";
 import {
   detectSystemLanguage,
@@ -22,9 +23,8 @@ import {
   isGlobPattern,
   validatePath,
 } from "../../utils/utils.mjs";
-import { isRemoteFile } from "../../utils/file-utils.mjs";
-import { validateDocDir } from "./validate.mjs";
 import mapReasoningEffortLevel from "../utils/map-reasoning-effort-level.mjs";
+import { validateDocDir } from "./validate.mjs";
 
 const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
 
@@ -362,8 +362,7 @@ async function _init(
         continue;
       }
       sourcePaths.push(trimmedPath);
-    }
-    if (isGlobPatternResult) {
+    } else if (isGlobPatternResult) {
       // For glob patterns, just add them without validation
       if (sourcePaths.includes(trimmedPath)) {
         console.log(`⚠️ Pattern already exists: ${trimmedPath}`);
