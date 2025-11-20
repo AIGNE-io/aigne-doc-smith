@@ -13,7 +13,7 @@ export default async function printAddDocumentSummary({
   message += `${chalk.bold.cyan("📊 Summary")}\n\n`;
 
   // Record the update
-  if(allFeedback.length > 0) {
+  if (allFeedback.length > 0) {
     recordUpdate({
       operation: "structure_update",
       feedback: allFeedback.join("\n"),
