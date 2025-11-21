@@ -28,7 +28,7 @@ You have two options:
 1.  **Accept the structure:** If the proposed organization is satisfactory, you can approve it to proceed.
 2.  **Provide feedback for refinement:** You can input plain-text instructions to modify the structure.
 
-![Interactive prompt to refine the document structure.](../assets/screenshots/doc-generate-feedback.png)
+![Interactive prompt to refine the document structure.](../../../assets/screenshots/doc-generate-feedback.png)
 
 Examples of feedback include:
 *   "Rename 'Getting Started' to 'Quick Start'."
@@ -45,7 +45,7 @@ Once the document structure is finalized and approved, DocSmith begins generatin
 
 After all documents have been created, a confirmation message is displayed in the terminal. The output files are saved to the directory specified in your configuration, which defaults to `.aigne/doc-smith/docs`.
 
-![Success notification banner indicating document creation is complete.](../assets/screenshots/doc-generated-successfully.png)
+![Success notification banner indicating document creation is complete.](../../../assets/screenshots/doc-generated-successfully.png)
 
 ## Command Options
 

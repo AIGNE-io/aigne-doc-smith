@@ -19,11 +19,11 @@ When you run this command, DocSmith will initiate an interactive session:
 1.  First, you will be prompted to select the specific documents you wish to localize from a list of all available document files in your project.
 2.  Next, you will be asked to choose the target languages. The system supports 12 languages, and any languages you have previously selected will be pre-checked to streamline the process.
 
-![Executing the translate command](../assets/screenshots/doc-translate.png)
+![Executing the translate command](../../../assets/screenshots/doc-translate.png)
 
 After selecting the documents, you will be presented with a list of available languages to choose from.
 
-![Selecting translation languages](../assets/screenshots/doc-translate-langs.png)
+![Selecting translation languages](../../../assets/screenshots/doc-translate-langs.png)
 
 Once your selections are confirmed, DocSmith will begin the translation process for each document into every language you selected.
 

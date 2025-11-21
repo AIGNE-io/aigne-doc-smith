@@ -12,7 +12,7 @@ For a guided experience, run the `update` command without any arguments. This la
     ```
 2.  You will see a list of your project's documents. Use the arrow keys to move, the spacebar to select one or more files, and `Enter` to confirm your selection.
 
-    ![A screenshot showing the interactive prompt where a user can select documents to update from a list.](../assets/screenshots/doc-update.png)
+    ![A screenshot showing the interactive prompt where a user can select documents to update from a list.](../../../assets/screenshots/doc-update.png)
 
 The process that follows depends on whether you select a single document or multiple documents.
 

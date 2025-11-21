@@ -185,7 +185,7 @@ media:
 
 設定完成後，您將看到一則確認訊息，顯示您新設定檔的路徑。
 
-![設定完成](../assets/screenshots/doc-complete-setup.png)
+![設定完成](../../../assets/screenshots/doc-complete-setup.png)
 
 儲存初始設定後，您現在已準備好建立您的文件。
 

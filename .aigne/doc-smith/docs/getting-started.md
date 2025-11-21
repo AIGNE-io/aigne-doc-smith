@@ -145,7 +145,7 @@ aigne doc create
 
 When you run the `create` command for the first time in a project, DocSmith launches a one-time interactive setup process. You will be guided through a series of questions to configure preferences for your documents, such as their purpose, target audience, and primary language.
 
-![Screenshot of the interactive setup process](../assets/screenshots/doc-complete-setup.png)
+![Screenshot of the interactive setup process](../../../assets/screenshots/doc-complete-setup.png)
 
 These settings are saved to a `config.yaml` file located in the `.aigne/doc-smith` directory, which you can modify manually at any time.
 
@@ -159,7 +159,7 @@ After the setup is complete, DocSmith will automatically perform the following a
 
 Upon completion, a confirmation message will be displayed. The created files will be available in the output directory specified during setup, which defaults to `.aigne/doc-smith/docs`.
 
-![Screenshot of the success message after creation](../assets/screenshots/doc-generated-successfully.png)
+![Screenshot of the success message after creation](../../../assets/screenshots/doc-generated-successfully.png)
 
 ## What's Next?
 

@@ -19,7 +19,7 @@ aigne doc p
 
 首次执行此命令将启动一个交互式设置过程，引导您为文档选择一个发布平台。
 
-![命令行界面提示用户选择发布平台的截图。](../assets/screenshots/doc-publish.png)
+![命令行界面提示用户选择发布平台的截图。](../../../assets/screenshots/doc-publish.png)
 
 ## 发布选项
 

@@ -185,7 +185,7 @@ media:
 
 设置完成后，您将看到一条确认消息，显示新配置文件的路径。
 
-![设置完成](../assets/screenshots/doc-complete-setup.png)
+![设置完成](../../../assets/screenshots/doc-complete-setup.png)
 
 初始配置保存后，您现在就可以开始创建文档了。
 

@@ -19,11 +19,11 @@ aigne doc localize
 1.  首先，系統會提示您從專案中所有可用的文件檔案清單中，選取您希望翻譯的特定文件。
 2.  接著，系統會要求您選擇目標語言。本系統支援 12 種語言，您先前選擇過的任何語言都會被預先勾選，以簡化流程。
 
-![執行翻譯命令](../assets/screenshots/doc-translate.png)
+![執行翻譯命令](../../../assets/screenshots/doc-translate.png)
 
 選取文件後，您將看到可供選擇的語言清單。
 
-![選取翻譯語言](../assets/screenshots/doc-translate-langs.png)
+![選取翻譯語言](../../../assets/screenshots/doc-translate-langs.png)
 
 一旦您的選擇被確認，DocSmith 將開始為每份文件進行您所選的每種語言的翻譯工作。
 
