@@ -185,7 +185,7 @@ media:
 
 セットアップが完了すると、新しい設定ファイルへのパスを示す確認メッセージが表示されます。
 
-![Setup Complete](../assets/screenshots/doc-complete-setup.png)
+![Setup Complete](../../../assets/screenshots/doc-complete-setup.png)
 
 初期設定が保存されたので、ドキュメントを作成する準備が整いました。
 

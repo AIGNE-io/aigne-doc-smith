@@ -28,7 +28,7 @@ aigne doc create
 1.  **接受結構：** 如果提議的組織結構令人滿意，您可以批准它以繼續。
 2.  **提供回饋以進行優化：** 您可以輸入純文字指令來修改結構。
 
-![互動式提示，用於優化文件結構。](../assets/screenshots/doc-generate-feedback.png)
+![互動式提示，用於優化文件結構。](../../../assets/screenshots/doc-generate-feedback.png)
 
 回饋範例如下：
 *   「將『Getting Started』重新命名為『Quick Start』。」
@@ -45,7 +45,7 @@ aigne doc create
 
 在所有文件建立完畢後，終端機中會顯示一則確認訊息。輸出檔案會儲存到您設定中指定的目錄，預設為 `.aigne/doc-smith/docs`。
 
-![成功通知橫幅，表示文件建立已完成。](../assets/screenshots/doc-generated-successfully.png)
+![成功通知橫幅，表示文件建立已完成。](../../../assets/screenshots/doc-generated-successfully.png)
 
 ## 指令選項
 

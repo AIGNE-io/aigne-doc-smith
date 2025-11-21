@@ -19,11 +19,11 @@ aigne doc localize
 1.  首先，系统会提示您从项目中所有可用的文档文件列表中选择要本地化的具体文档。
 2.  接着，系统会要求您选择目标语言。系统支持 12 种语言，您之前选择过的任何语言都会被预先勾选，以简化流程。
 
-![执行本地化命令](../assets/screenshots/doc-translate.png)
+![执行本地化命令](../../../assets/screenshots/doc-translate.png)
 
 选择文档后，您将看到一个可用语言列表供您选择。
 
-![选择本地化语言](../assets/screenshots/doc-translate-langs.png)
+![选择本地化语言](../../../assets/screenshots/doc-translate-langs.png)
 
 确认选择后，DocSmith 将开始把每个文档本地化为您选择的每一种语言。
 

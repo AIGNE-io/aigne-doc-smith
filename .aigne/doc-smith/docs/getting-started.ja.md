@@ -145,7 +145,7 @@ aigne doc create
 
 プロジェクトで初めて `generate` コマンドを実行すると、DocSmith は一度限りの対話型セットアッププロセスを起動します。ドキュメントの目的、対象読者、主要言語など、ドキュメントの設定に関する一連の質問に答えていきます。
 
-![対話型セットアッププロセスのスクリーンショット](../assets/screenshots/doc-complete-setup.png)
+![対話型セットアッププロセスのスクリーンショット](../../../assets/screenshots/doc-complete-setup.png)
 
 これらの設定は `.aigne/doc-smith` ディレクトリにある `config.yaml` ファイルに保存され、いつでも手動で変更できます。
 
@@ -159,7 +159,7 @@ aigne doc create
 
 完了すると、確認メッセージが表示されます。生成されたファイルは、セットアップ時に指定した出力ディレクトリ（デフォルトは `.aigne/doc-smith/docs`）で利用可能になります。
 
-![生成後の成功メッセージのスクリーンショット](../assets/screenshots/doc-generated-successfully.png)
+![生成後の成功メッセージのスクリーンショット](../../../assets/screenshots/doc-generated-successfully.png)
 
 ## 次のステップ
 

@@ -185,7 +185,7 @@ media:
 
 Once the setup is complete, you will see a confirmation message displaying the path to your new configuration file.
 
-![Setup Complete](../assets/screenshots/doc-complete-setup.png)
+![Setup Complete](../../../assets/screenshots/doc-complete-setup.png)
 
 With your initial configuration saved, you are now prepared to create your documents.
 

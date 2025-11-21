@@ -19,11 +19,11 @@ aigne doc localize
 1.  まず、プロジェクト内の利用可能なすべてのドキュメントファイルのリストから、翻訳したい特定のドキュメントを選択するよう求められます。
 2.  次に、ターゲット言語を選択するよう求められます。システムは12言語をサポートしており、以前に選択した言語はプロセスを効率化するために事前にチェックされています。
 
-![翻訳コマンドの実行](../assets/screenshots/doc-translate.png)
+![翻訳コマンドの実行](../../../assets/screenshots/doc-translate.png)
 
 ドキュメントを選択した後、利用可能な言語のリストが表示され、そこから選択します。
 
-![翻訳言語の選択](../assets/screenshots/doc-translate-langs.png)
+![翻訳言語の選択](../../../assets/screenshots/doc-translate-langs.png)
 
 選択が確定すると、DocSmithは選択した各ドキュメントを、選択したすべての言語に翻訳するプロセスを開始します。
 
