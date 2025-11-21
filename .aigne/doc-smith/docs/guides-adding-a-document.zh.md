@@ -1,8 +1,8 @@
-是否曾发现您的文档存在空白？`aigne doc add-document` 命令提供了一种直接、交互式的方式，将新主题引入您现有的文档结构中，确保您的内容与项目同步增长。
+您是否发现您的文档存在缺漏？`aigne doc add-document` 命令提供了一种简单直接的交互式方法，可将新主题引入您现有的文档结构中，确保您的内容与项目同步增长。
 
 # 添加文档
 
-`aigne doc add-document` 命令，也可用别名 `aigne doc add`，会启动一个交互式会话，向您项目的文档结构中添加一个或多个新文档。它不仅会添加新文件，还会智能地更新现有文档，添加相关链接，以确保新内容可被发现。
+`aigne doc add-document` 命令（也可通过别名 `aigne doc add` 使用）会启动一个交互式会话，用于向您项目的文档结构中添加一个或多个新文档。它不仅会添加新文件，还会智能地更新现有文档，加入相关链接，以确保新内容可被发现。
 
 ## 命令用法
 
@@ -12,15 +12,21 @@
 aigne doc add-document
 ```
 
-此命令会启动一个交互式向导，引导您完成整个过程。
+或者，您可以使用更短的别名 `add`：
+
+```sh aigne doc add icon=lucide:terminal
+aigne doc add
+```
+
+此命令将启动一个交互式向导，引导您完成整个过程。
 
 ## 流程
 
-该命令遵循一个结构化的、分步的流程，以无缝地集成新文档。
+该命令遵循一个结构化的、分步进行的过程，以无缝集成新文档。
 
-### 1. 交互式添加新文档
+### 1. 交互式地添加新文档
 
-该命令首先会显示当前的文档结构，然后提示您指定新文档。您可以用自然语言描述您的请求。您可以逐个添加文档。每次添加后，该工具都会显示更新后的结构并提示您添加下一个。要完成添加文档，只需直接按 `Enter` 键，无需输入任何内容。
+该命令首先会显示当前的文档结构，然后提示您指定新文档。您可以使用自然语言描述您的请求。您可以逐个添加文档。每次添加后，该工具都会显示更新后的结构，并提示您添加下一个。要完成添加文档，只需直接按 `Enter` 键，无需输入任何内容。
 
 ```sh
 Current Document Structure:
@@ -38,21 +44,28 @@ Press Enter to finish: Add a 'Deployment Guide' under 'Guides'
 
 ### 2. 审查并链接到现有文档
 
-当您完成添加文档后，DocSmith 会分析现有内容，并识别出哪些文档可以从链接到新文档中受益。然后，它会展示这些文档的列表，您可以审查并选择希望工具修改的文档。这一步让您完全控制对现有内容的更改。
+在您完成添加文档后，DocSmith 会分析现有内容，并识别出哪些文档可以从链接到新文档中受益。然后，它会展示这些文档的列表，供您审查并选择哪些文档应由工具修改。这一步让您完全控制对现有内容的更改。
 
-![文档更新选择屏幕的截图。](../../../assets/screenshots/doc-update.png)
+默认情况下，所有建议的文档都会被选中。您可以按 `Space` 键取消选择项目，按 `Enter` 键确认您的选择。
 
-### 3. 内容生成与翻译
+```sh
+? Select documents that need new links added (all selected by default, press Enter to confirm, or unselect all to skip):
+❯ ◯ Overview (overview.md)
+  ◯ Getting Started (getting-started.md)
+  ◉ Guides (guides.md)
+```
 
-确认后，系统将并行进行两项主要任务：
+### 3. 内容生成和翻译
+
+确认后，系统会并行进行两项主要任务：
 *   **生成内容：** 为您添加的新文档创建完整内容。
 *   **更新链接：** 修改选定的现有文档，以包含指向新页面的链接。
 
 如果您配置了多种语言，新文档和更新后的文档都会自动添加到翻译队列中。
 
-### 4. 总结报告
+### 4. 摘要报告
 
-最后，该命令会打印一份已执行操作的摘要。这份报告包括所有新创建文档的列表，以及所有已更新并添加了新链接的现有文档的列表。
+最后，该命令会打印一份执行操作的摘要报告。该报告包括所有新创建文档的列表，以及所有已更新并添加了新链接的现有文档的列表。
 
 ```text
 📊 Summary
@@ -72,4 +85,17 @@ Press Enter to finish: Add a 'Deployment Guide' under 'Guides'
       New links added: /guides/deployment-guide
 ```
 
-这个结构化的流程确保了新文档不仅被创建，而且还被融入到您现有内容的结构中，从而改善了导航和可发现性。
+这种结构化的流程确保了新文档不仅被创建，而且被融入到您现有内容的结构中，从而改善了导航和可发现性。
+
+## 相关指南
+
+有关其他文档管理任务，请参阅以下指南：
+
+<x-cards data-columns="2">
+  <x-card data-title="删除文档" data-icon="lucide:file-minus" data-href="/guides/adding-a-document">
+    了解如何从您的项目中删除文档。
+  </x-card>
+  <x-card data-title="更新内容" data-icon="lucide:file-pen" data-href="/guides/updating-document">
+    查看如何修改现有文档的内容。
+  </x-card>
+</x-cards>

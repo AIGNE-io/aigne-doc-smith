@@ -12,6 +12,12 @@ To start the process, navigate to your project's root directory and run the foll
 aigne doc add-document
 ```
 
+Alternatively, you can use the shorter alias `add`:
+
+```sh aigne doc add icon=lucide:terminal
+aigne doc add
+```
+
 This command launches an interactive wizard that guides you through the process.
 
 ## The Process
@@ -38,9 +44,16 @@ Press Enter to finish: Add a 'Deployment Guide' under 'Guides'
 
 ### 2. Review and Link to Existing Documents
 
-Once you have finished adding documents, DocSmith analyzes the existing content and identifies which documents would benefit from linking to the new ones. It then presents a list of these documents, and you can review and select which ones you want the tool to modify. This step gives you full control over changes to your existing content.
+After you finish adding documents, DocSmith analyzes the existing content and identifies which documents would benefit from linking to the new ones. It then presents a list of these documents for you to review and select which ones the tool should modify. This step gives you full control over changes to your existing content.
 
-![Screenshot of the document update selection screen.](../../../assets/screenshots/doc-update.png)
+By default, all suggested documents are selected. You can press `Space` to unselect items and `Enter` to confirm your selection.
+
+```sh
+? Select documents that need new links added (all selected by default, press Enter to confirm, or unselect all to skip):
+❯ ◯ Overview (overview.md)
+  ◯ Getting Started (getting-started.md)
+  ◉ Guides (guides.md)
+```
 
 ### 3. Content Generation and Translation
 
@@ -73,3 +86,16 @@ Finally, the command prints a summary of the operations performed. This report i
 ```
 
 This structured process ensures that new documentation is not just created but is also woven into the fabric of your existing content, improving navigation and discoverability.
+
+## Related Guides
+
+For other document management tasks, refer to the following guides:
+
+<x-cards data-columns="2">
+  <x-card data-title="Remove a Document" data-icon="lucide:file-minus" data-href="/guides/adding-a-document">
+    Learn how to remove documents from your project.
+  </x-card>
+  <x-card data-title="Update Content" data-icon="lucide:file-pen" data-href="/guides/updating-document">
+    See how to modify the content of existing documents.
+  </x-card>
+</x-cards>

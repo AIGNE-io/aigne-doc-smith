@@ -7,7 +7,7 @@ Keeping your documentation current is a continuous process. Whether you are refi
 For detailed instructions on each task, please refer to the specific guides below.
 
 <x-cards data-columns="3">
-  <x-card data-title="Update Content" data-icon="lucide:file-pen" data-href="/guides/updating-documentation">
+  <x-card data-title="Update Content" data-icon="lucide:file-pen" data-href="/guides/updating-document">
     Learn how to modify the text, examples, and structure of your existing documents to reflect the latest changes in your project.
   </x-card>
   <x-card data-title="Add a Document" data-icon="lucide:file-plus" data-href="/guides/adding-a-document">

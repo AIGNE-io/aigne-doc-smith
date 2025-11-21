@@ -2,25 +2,31 @@
 
 # 新增文件
 
-`aigne doc add-document` 指令（也可透過別名 `aigne doc add` 使用）會啟動一個互動式對話，將一份或多份新文件新增至您專案的文件結構中。它不僅會新增檔案，還會智慧地更新現有文件，加入相關連結，以確保新內容可被找到。
+`aigne doc add-document` 指令（也可透過別名 `aigne doc add` 使用）會啟動一個互動式會話，以將一份或多份新文件新增至您專案的文件結構中。它不僅會新增新檔案，還會智慧地更新現有文件，加入相關連結，以確保新內容能被輕易找到。
 
 ## 指令用法
 
-若要開始此程序，請導覽至您專案的根目錄並執行以下指令：
+要開始此流程，請導覽至您專案的根目錄並執行以下指令：
 
 ```sh aigne doc add-document icon=lucide:terminal
 aigne doc add-document
 ```
 
-此指令會啟動一個互動式精靈，引導您完成整個過程。
+或者，您可以使用更短的別名 `add`：
+
+```sh aigne doc add icon=lucide:terminal
+aigne doc add
+```
+
+此指令會啟動一個互動式精靈，引導您完成整個流程。
 
 ## 流程
 
-此指令遵循一個結構化的分步流程，以無縫整合新文件。
+此指令遵循一個結構化的、循序漸進的流程，以無縫整合新文件。
 
 ### 1. 互動式新增文件
 
-指令會先顯示目前的文件結構，然後提示您指定新文件。您可以用自然語言描述您的請求。您可以逐一新增文件。每次新增後，工具會顯示更新後的結構並提示您新增另一份文件。若要完成新增文件，只需直接按下 `Enter` 鍵，無需輸入任何內容。
+指令首先會顯示目前的文件結構，然後提示您指定新文件。您可以用自然語言描述您的請求。您可以逐一新增文件。每次新增後，工具會顯示更新後的結構，並提示您新增另一份文件。若要完成新增文件，只需直接按下 `Enter` 鍵，無需輸入任何內容。
 
 ```sh
 Current Document Structure:
@@ -38,21 +44,28 @@ Press Enter to finish: Add a 'Deployment Guide' under 'Guides'
 
 ### 2. 審查並連結至現有文件
 
-當您完成新增文件後，DocSmith 會分析現有內容，並找出哪些文件可以從連結至新文件中受益。然後，它會呈現這些文件的清單，您可以審查並選擇希望工具修改哪些文件。此步驟讓您完全掌控對現有內容的變更。
+當您完成新增文件後，DocSmith 會分析現有內容，並識別哪些文件可以透過連結至新文件而受益。接著，它會呈現一份這些文件的清單，供您審查並選擇哪些文件應由工具修改。此步驟讓您完全掌控對現有內容的變更。
 
-![文件更新選擇畫面的螢幕截圖。](../../../assets/screenshots/doc-update.png)
+預設情況下，所有建議的文件都會被選中。您可以按 `Space` 鍵取消選取項目，並按 `Enter` 鍵確認您的選擇。
+
+```sh
+? Select documents that need new links added (all selected by default, press Enter to confirm, or unselect all to skip):
+❯ ◯ Overview (overview.md)
+  ◯ Getting Started (getting-started.md)
+  ◉ Guides (guides.md)
+```
 
 ### 3. 內容生成與翻譯
 
-確認後，系統會並行進行兩項主要任務：
+確認後，系統將並行進行兩項主要任務：
 *   **生成內容：** 為您新增的文件建立完整內容。
 *   **更新連結：** 修改所選的現有文件，以包含指向新頁面的連結。
 
-如果您設定了多種語言，新文件和更新後的文件都會自動加入翻譯佇列。
+如果您設定了多種語言，新文件和更新後的文件都會自動被加入翻譯佇列。
 
 ### 4. 摘要報告
 
-最後，指令會印出所執行操作的摘要。此報告包含所有新建立文件的清單，以及所有已更新並加入新連結的現有文件清單。
+最後，指令會印出一份所執行操作的摘要。此報告包含所有新建立文件的清單，以及所有已更新並加入新連結的現有文件清單。
 
 ```text
 📊 Summary
@@ -73,3 +86,16 @@ Press Enter to finish: Add a 'Deployment Guide' under 'Guides'
 ```
 
 這個結構化的流程確保新文件不僅被建立，還能融入您現有內容的結構中，從而改善導覽和可發現性。
+
+## 相關指南
+
+關於其他文件管理任務，請參考以下指南：
+
+<x-cards data-columns="2">
+  <x-card data-title="移除文件" data-icon="lucide:file-minus" data-href="/guides/adding-a-document">
+    了解如何從您的專案中移除文件。
+  </x-card>
+  <x-card data-title="更新內容" data-icon="lucide:file-pen" data-href="/guides/updating-document">
+    查看如何修改現有文件的內容。
+  </x-card>
+</x-cards>

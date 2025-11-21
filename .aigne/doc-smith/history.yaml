@@ -1,4 +1,38 @@
 entries:
+  - timestamp: 2025-11-21T10:22:23.464Z
+    operation: document_update
+    feedback: add 'Related Guides' at the end to reference to the 'Remove a Document' and the 'Update
+      Content'
+    docPaths:
+      - /guides/adding-a-document
+  - timestamp: 2025-11-21T10:16:44.317Z
+    operation: document_update
+    feedback: merge '1. Select Documents' and '2. Confirm Selection'. Merge the '1. Select Documents
+      (H3)' and the '2. Confirm Selection (H3)'
+    docPaths:
+      - /guides/removing-a-document
+  - timestamp: 2025-11-21T10:13:08.808Z
+    operation: document_update
+    feedback: Rename 'How to Remove Documents' to 'Command Usage'. Move 'Step-by-Step Process' to H2 and
+      rename to 'The Process'. Make every step under 'The Process' to H3 and provider code block
+      use-cases
+    docPaths:
+      - /guides/removing-a-document
+  - timestamp: 2025-11-21T10:08:09.517Z
+    operation: document_update
+    feedback: use x-card to link to 'Update Content' and 'Remove Document'
+    docPaths:
+      - /guides/adding-a-document
+  - timestamp: 2025-11-21T10:01:13.990Z
+    operation: document_update
+    feedback: Adding alias use-case in 'Command Usage'
+    docPaths:
+      - /guides/adding-a-document
+  - timestamp: 2025-11-21T09:57:33.498Z
+    operation: document_update
+    feedback: Rewrite ‘2. Review and Link to Existing Documents’ using code blocks as use case examples.
+    docPaths:
+      - /guides/adding-a-document
   - timestamp: 2025-11-21T09:51:21.728Z
     operation: document_update
     feedback: merge '1. Initial Prompt' and '2. Adding Documents'. merge '3. Automatic Link Analysis'
