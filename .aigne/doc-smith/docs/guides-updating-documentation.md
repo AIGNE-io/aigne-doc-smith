@@ -58,6 +58,12 @@ aigne doc update --docs /overview --reset
 
 This is particularly useful when a document is significantly out of date due to major changes in the project's codebase.
 
+## Adding and Removing Documents
+
+While the `update` command modifies existing content, you may also need to add new documents or remove ones that are no longer relevant. For these tasks, DocSmith provides dedicated commands:
+
+*   **To add a new document**, see the [Add a Document](./guides-adding-a-document.md) guide.
+*   **To remove an existing document**, refer to the [Remove a Document](./guides-removing-a-document.md) guide.
 ## Command Parameters
 
 The `update` command accepts several parameters to control its behavior. Here is a summary of the available options:
@@ -71,4 +77,4 @@ The `update` command accepts several parameters to control its behavior. Here is
 
 ---
 
-With these methods, you can efficiently manage your documents, keeping them accurate and aligned with your project's development. For information on creating documents for the first time, see the [Create Document](./guides-generating-documentation.md) guide.
+By using the `update`, `add-document`, and `remove-document` commands, you can manage the complete lifecycle of your documentation, keeping it aligned with your project's development. For information on creating documents for the first time, see the [Create Document](./guides-generating-documentation.md) guide.

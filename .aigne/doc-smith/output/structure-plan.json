@@ -191,5 +191,37 @@
       "aigne.yaml"
     ],
     "parentId": "/guides"
+  },
+  {
+    "title": "Add a Document",
+    "description": "Guides users on how to use the `aigne doc add-document` subcommand to add new documentation files to the existing structure.",
+    "path": "/guides/adding-a-document",
+    "parentId": "/guides/updating-documentation",
+    "sourceIds": [
+      "agents/create/user-add-document/index.yaml",
+      "agents/create/user-add-document/add-documents-to-structure.mjs",
+      "agents/create/user-add-document/find-documents-to-add-links.yaml",
+      "agents/create/user-add-document/print-add-document-summary.mjs",
+      "agents/create/user-add-document/prepare-documents-to-translate.mjs",
+      "agents/create/user-add-document/review-documents-with-new-links.mjs",
+      "aigne.yaml",
+      "README.md"
+    ]
+  },
+  {
+    "title": "Remove a Document",
+    "description": "Guides users on how to use the `aigne doc remove-document` subcommand to remove documentation files from the existing structure.",
+    "path": "/guides/removing-a-document",
+    "parentId": "/guides/updating-documentation",
+    "sourceIds": [
+      "agents/create/user-remove-document/index.yaml",
+      "agents/create/user-remove-document/remove-documents-from-structure.mjs",
+      "agents/create/user-remove-document/find-documents-with-invalid-links.mjs",
+      "agents/create/user-remove-document/print-remove-document-summary.mjs",
+      "agents/create/user-remove-document/prepare-documents-to-translate.mjs",
+      "agents/create/user-remove-document/review-documents-with-invalid-links.mjs",
+      "aigne.yaml",
+      "README.md"
+    ]
   }
 ]
