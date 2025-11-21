@@ -19,7 +19,7 @@ aigne doc p
 
 Executing this command for the first time will start an interactive setup process, guiding you to select a publishing platform for your documents.
 
-![A screenshot of the command-line interface prompting the user to select a publishing platform.](../assets/screenshots/doc-publish.png)
+![A screenshot of the command-line interface prompting the user to select a publishing platform.](../../../assets/screenshots/doc-publish.png)
 
 ## Publishing Options
 

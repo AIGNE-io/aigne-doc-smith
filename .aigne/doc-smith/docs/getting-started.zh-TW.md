@@ -145,7 +145,7 @@ aigne doc create
 
 當您首次在專案中執行 `generate` 指令時，DocSmith 會啟動一次性的互動式設定過程。系統將引導您回答一系列問題，以設定您的文件偏好，例如其目的、目標受眾和主要語言。
 
-![互動式設定過程的螢幕截圖](../assets/screenshots/doc-complete-setup.png)
+![互動式設定過程的螢幕截圖](../../../assets/screenshots/doc-complete-setup.png)
 
 這些設定會儲存到位於 `.aigne/doc-smith` 目錄中的 `config.yaml` 檔案，您可以隨時手動修改。
 
@@ -159,7 +159,7 @@ aigne doc create
 
 完成後，將會顯示一則確認訊息。產生的檔案將位於設定過程中指定的輸出目錄中，預設為 `.aigne/doc-smith/docs`。
 
-![產生成功後的成功訊息螢幕截圖](../assets/screenshots/doc-generated-successfully.png)
+![產生成功後的成功訊息螢幕截圖](../../../assets/screenshots/doc-generated-successfully.png)
 
 ## 接下來呢？
 

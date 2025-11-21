@@ -145,7 +145,7 @@ aigne doc create
 
 当您在项目中首次运行 `generate` 命令时，DocSmith 会启动一次性的交互式设置过程。您将被引导通过一系列问题来配置文档的偏好，例如其用途、目标受众和主要语言。
 
-![交互式设置过程的屏幕截图](../assets/screenshots/doc-complete-setup.png)
+![交互式设置过程的屏幕截图](../../../assets/screenshots/doc-complete-setup.png)
 
 这些设置将保存到位于 `.aigne/doc-smith` 目录中的 `config.yaml` 文件中，您可以随时手动修改该文件。
 
@@ -159,7 +159,7 @@ aigne doc create
 
 完成后，将显示一条确认消息。生成的文件将位于设置期间指定的输出目录中，默认为 `.aigne/doc-smith/docs`。
 
-![生成成功后的成功消息屏幕截图](../assets/screenshots/doc-generated-successfully.png)
+![生成成功后的成功消息屏幕截图](../../../assets/screenshots/doc-generated-successfully.png)
 
 ## 接下来做什么？
 
