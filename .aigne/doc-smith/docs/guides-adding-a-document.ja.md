@@ -92,7 +92,7 @@ Press Enter to finish: Add a 'Deployment Guide' under 'Guides'
 その他のドキュメント管理タスクについては、以下のガイドを参照してください。
 
 <x-cards data-columns="2">
-  <x-card data-title="ドキュメントの削除" data-icon="lucide:file-minus" data-href="/guides/adding-a-document">
+  <x-card data-title="ドキュメントの削除" data-icon="lucide:file-minus" data-href="/guides/removing-a-document">
     プロジェクトからドキュメントを削除する方法を学びます。
   </x-card>
   <x-card data-title="コンテンツの更新" data-icon="lucide:file-pen" data-href="/guides/updating-document">

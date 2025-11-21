@@ -92,7 +92,7 @@ Press Enter to finish: Add a 'Deployment Guide' under 'Guides'
 有关其他文档管理任务，请参阅以下指南：
 
 <x-cards data-columns="2">
-  <x-card data-title="删除文档" data-icon="lucide:file-minus" data-href="/guides/adding-a-document">
+  <x-card data-title="删除文档" data-icon="lucide:file-minus" data-href="/guides/removing-a-document">
     了解如何从您的项目中删除文档。
   </x-card>
   <x-card data-title="更新内容" data-icon="lucide:file-pen" data-href="/guides/updating-document">

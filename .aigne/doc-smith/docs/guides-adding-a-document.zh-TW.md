@@ -92,7 +92,7 @@ Press Enter to finish: Add a 'Deployment Guide' under 'Guides'
 關於其他文件管理任務，請參考以下指南：
 
 <x-cards data-columns="2">
-  <x-card data-title="移除文件" data-icon="lucide:file-minus" data-href="/guides/adding-a-document">
+  <x-card data-title="移除文件" data-icon="lucide:file-minus" data-href="/guides/removing-a-document">
     了解如何從您的專案中移除文件。
   </x-card>
   <x-card data-title="更新內容" data-icon="lucide:file-pen" data-href="/guides/updating-document">

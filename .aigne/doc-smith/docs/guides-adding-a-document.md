@@ -92,7 +92,7 @@ This structured process ensures that new documentation is not just created but i
 For other document management tasks, refer to the following guides:
 
 <x-cards data-columns="2">
-  <x-card data-title="Remove a Document" data-icon="lucide:file-minus" data-href="/guides/adding-a-document">
+  <x-card data-title="Remove a Document" data-icon="lucide:file-minus" data-href="/guides/removing-a-document">
     Learn how to remove documents from your project.
   </x-card>
   <x-card data-title="Update Content" data-icon="lucide:file-pen" data-href="/guides/updating-document">
