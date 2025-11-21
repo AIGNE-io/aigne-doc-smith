@@ -84,7 +84,7 @@
   {
     "title": "Update Document",
     "description": "Provides an overview of all operations related to updating documents, including modifying content, adding new files, and removing old ones.",
-    "path": "/guides/update-document",
+    "path": "/guides/updating-documentation",
     "parentId": "/guides",
     "sourceIds": [
       "agents/update/index.yaml",
@@ -97,7 +97,7 @@
   {
     "title": "Update Content",
     "description": "Explains how to modify existing documents based on code changes or new feedback.",
-    "path": "/guides/updating-documentation",
+    "path": "/guides/updating-document",
     "sourceIds": [
       "agents/update/index.yaml",
       "agents/update/update-single-document.yaml",
@@ -108,7 +108,7 @@
       "agents/update/handle-document-update.yaml",
       "agents/update/generate-document.yaml"
     ],
-    "parentId": "/guides/update-document"
+    "parentId": "/guides/updating-documentation"
   },
   {
     "title": "Manage Update History",
@@ -119,7 +119,7 @@
       "aigne.yaml",
       "agents/history/index.yaml"
     ],
-    "parentId": "/guides/update-document"
+    "parentId": "/guides/updating-documentation"
   },
   {
     "title": "Localize Document",
@@ -209,7 +209,7 @@
     "title": "Add a Document",
     "description": "Guides users on how to use the `aigne doc add-document` subcommand to add new documentation files to the existing structure.",
     "path": "/guides/adding-a-document",
-    "parentId": "/guides/update-document",
+    "parentId": "/guides/updating-documentation",
     "sourceIds": [
       "agents/create/user-add-document/index.yaml",
       "agents/create/user-add-document/add-documents-to-structure.mjs",
@@ -225,7 +225,7 @@
     "title": "Remove a Document",
     "description": "Guides users on how to use the `aigne doc remove-document` subcommand to remove documentation files from the existing structure.",
     "path": "/guides/removing-a-document",
-    "parentId": "/guides/update-document",
+    "parentId": "/guides/updating-documentation",
     "sourceIds": [
       "agents/create/user-remove-document/index.yaml",
       "agents/create/user-remove-document/remove-documents-from-structure.mjs",

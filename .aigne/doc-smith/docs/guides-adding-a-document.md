@@ -18,9 +18,9 @@ This command launches an interactive wizard that guides you through the process.
 
 The command follows a structured, step-by-step process to integrate new documents seamlessly.
 
-### 1. Initial Prompt
+### 1. Add New Documents Interactively
 
-The command first displays the current documentation structure and then prompts you to specify the new document you wish to add. You can describe your request in natural language.
+The command first displays the current documentation structure and then prompts you to specify new documents. You can describe your request in natural language. You can add documents one by one. After each addition, the tool displays the updated structure and prompts you to add another. To finish adding documents, simply press `Enter` without typing anything.
 
 ```sh
 Current Document Structure:
@@ -33,31 +33,16 @@ Current Document Structure:
 You can add a new document.
   • e.g. Add a new document 'Troubleshooting'
 
-Press Enter to finish:
-```
-
-### 2. Adding Documents
-
-You can add documents one by one. After each addition, the tool displays the updated structure and prompts you to add another. To finish adding documents, simply press `Enter` without typing anything.
-
-```sh
-You can add a new document.
-  • e.g. Add a new document 'Troubleshooting'
-
 Press Enter to finish: Add a 'Deployment Guide' under 'Guides'
 ```
 
-### 3. Automatic Link Analysis
+### 2. Review and Link to Existing Documents
 
-Once you have finished adding documents, DocSmith analyzes the new additions and the existing content. It identifies which of your existing documents would benefit from linking to the new ones you've just added.
-
-### 4. Review and Confirm Updates
-
-DocSmith presents a list of existing documents that it suggests updating with new links. You can review this list and select which documents you want the tool to modify. This step ensures that you have full control over changes to your existing content.
+Once you have finished adding documents, DocSmith analyzes the existing content and identifies which documents would benefit from linking to the new ones. It then presents a list of these documents, and you can review and select which ones you want the tool to modify. This step gives you full control over changes to your existing content.
 
 ![Screenshot of the document update selection screen.](../../../assets/screenshots/doc-update.png)
 
-### 5. Content Generation and Translation
+### 3. Content Generation and Translation
 
 After confirmation, the system proceeds with two main tasks in parallel:
 *   **Generates Content:** Creates the full content for the new documents you added.
@@ -65,7 +50,7 @@ After confirmation, the system proceeds with two main tasks in parallel:
 
 If you have configured multiple languages, both the new documents and the updated ones are automatically added to the translation queue.
 
-### 6. Summary Report
+### 4. Summary Report
 
 Finally, the command prints a summary of the operations performed. This report includes a list of all newly created documents and a list of all existing documents that were updated with new links.
 

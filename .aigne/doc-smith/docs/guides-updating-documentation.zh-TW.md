@@ -1,80 +1,25 @@
 # 更新文件
 
-需要對文件進行快速修改或徹底翻新嗎？本指南將說明如何使用 `update` 指令來修改現有文件，無論是整合新的回饋、反映程式碼變更，還是從頭開始。此工具提供了互動模式以引導您進行變更，也提供了直接模式以供快速的命令列更新。
+隨著專案的發展，您的文件也需要跟上腳步。本節提供了一個中心樞紐，用於處理所有與修改文件集相關的任務，確保其保持準確和相關。在這裡，您將找到關於修改現有內容、整合新文件以及移除過時檔案的指南。
 
-## 互動式更新
+保持文件最新是一個持續的過程。無論您是根據使用者回饋來完善說明、為新功能新增指南，還是透過移除過時頁面來重組內容，這裡提供的工具都能幫助您有效管理這些變更。
 
-若想獲得引導式體驗，請在不帶任何參數的情況下執行 `update` 指令。這會啟動一個互動式會話，您可以在其中選擇要變更的文件並提供指示。
+有關每項任務的詳細說明，請參閱下方的具體指南。
 
-1.  開始互動式更新流程：
-    ```bash aigne doc update icon=lucide:terminal
-    aigne doc update
-    ```
-2.  您將看到專案中的文件列表。使用方向鍵移動，使用空格鍵選擇一個或多個檔案，然後按 `Enter` 確認您的選擇。
+<x-cards data-columns="3">
+  <x-card data-title="更新內容" data-icon="lucide:file-pen" data-href="/guides/updating-documentation">
+    學習如何修改現有文件的文字、範例和結構，以反映專案的最新變更。
+  </x-card>
+  <x-card data-title="新增文件" data-icon="lucide:file-plus" data-href="/guides/adding-a-document">
+    遵循這些步驟，將新文件檔案整合到您現有的結構中，確保它們被正確連結和格式化。
+  </x-card>
+  <x-card data-title="移除文件" data-icon="lucide:file-minus" data-href="/guides/removing-a-document">
+    了解如何安全地從專案中刪除文件，包括如何處理和更新任何失效的連結。
+  </x-card>
+</x-cards>
 
-    ![顯示互動式提示的螢幕截圖，使用者可以從列表中選擇要更新的文件。](../../../assets/screenshots/doc-update.png)
+## 總結
 
-接下來的流程取決於您是選擇單一文件還是多個文件。
+本節是管理文件在初次建立後生命週期的入口。透過遵循連結的指南，您可以隨著專案的成長和變化，自信地更新、新增或移除文件檔案。
 
-### 精修單一文件
-
-當您選擇一份文件時，您會進入一個為精確調整而設計的迭代精修循環。您將看到一組選項：
-
-*   **View document**：直接在您的終端機中顯示文件內容的目前版本。
-*   **Give feedback**：提示您輸入文字以描述您想要的變更。例如，「為非技術使用者簡化介紹」或「為驗證函數新增一個程式碼範例」。
-*   **Done**：退出精修循環並儲存文件的最新版本。
-
-在您提交回饋後，工具會重新生成文件內容。然後您可以檢視新版本並提供更多回饋，重複此循環直到您對結果滿意為止。
-
-### 批次更新多個文件
-
-如果您選擇兩個或多個文件，工具將執行批次更新。您將被提示提供單一的指示或回饋。此回饋將同時應用於所有選定的文件。這種方法對於在您的文件中進行一致性變更非常有效，例如更新一個重複出現的章節或標準化術語。
-
-## 使用命令列旗標直接更新
-
-當您已經知道需要進行哪些變更時，可以使用命令列旗標直接更新文件，跳過互動式提示。
-
-### 應用特定回饋
-
-若要將回饋應用於一個或多個文件，請使用 `--docs` 和 `--feedback` 旗標。`--docs` 旗標指定檔案路徑，而 `--feedback` 則提供更新的指示。
-
-```bash 更新單一文件 icon=lucide:terminal
-aigne doc update --docs /overview --feedback "Add a more detailed explanation of the core features."
-```
-
-您可以多次指定 `--docs` 旗標，以在一個指令中將相同的回饋應用於多個文件。
-
-```bash 更新多個文件 icon=lucide:terminal
-aigne doc update --docs /overview --docs /getting-started --feedback "Ensure the tone is consistent across both documents."
-```
-
-### 重設文件
-
-若要捨棄文件的目前版本並從原始碼重新生成，請使用 `--reset` 旗標。此操作會告知工具忽略現有內容，並從頭開始建立文件。
-
-```bash 重設文件 icon=lucide:terminal
-aigne doc update --docs /overview --reset
-```
-
-當文件因專案程式碼庫的重大變更而嚴重過時時，此功能特別有用。
-
-## 新增與移除文件
-
-雖然 `update` 指令用於修改現有內容，但您可能也需要新增文件或移除不再相關的文件。對於這些任務，DocSmith 提供了專門的指令：
-
-*   **若要新增文件**，請參閱[新增文件](./guides-adding-a-document.md)指南。
-*   **若要移除現有文件**，請參考[移除文件](./guides-removing-a-document.md)指南。
-## 指令參數
-
-`update` 指令接受數個參數以控制其行為。以下是可用選項的摘要：
-
-| 參數 | 說明 | 必要 |
-| :--- | :--- | :--- |
-| `--docs` | 指定要更新的文件路徑。可多次使用。 | 選用 |
-| `--feedback` | 提供對指定文件進行變更的文字指示。 | 選用 |
-| `--reset` | 一個布林旗標，若存在，則會從頭重新建立文件，忽略現有內容。 | 選用 |
-| `--glossary` | 指定詞彙表檔案的路徑（`@/path/to/glossary.md`），以確保術語的一致性。 | 選用 |
-
----
-
-透過使用 `update`、`add-document` 和 `remove-document` 指令，您可以管理文件的完整生命週期，使其與您的專案開發保持一致。關於首次建立文件的資訊，請參閱[建立文件](./guides-generating-documentation.md)指南。
+關於從頭開始建立一個新文件集的完整演練，請參閱[建立文件](./guides-generating-documentation.md)指南。
