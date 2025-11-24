@@ -7,11 +7,11 @@ import {
 /**
  * Generate feedback message for fixing invalid links in a document
  */
-function generateInvalidLinksFeedback(invalidLinks, documentPath, documentExecutionStructure) {
+function generateInvalidLinksFeedback(invalidLinks, documentPath, documentStructure) {
   const invalidLinksList = invalidLinks.map((link) => `- ${link}`).join("\n");
 
   // Build allowed links from document structure for replacement suggestions
-  const allowedLinks = buildAllowedLinksFromStructure(documentExecutionStructure);
+  const allowedLinks = buildAllowedLinksFromStructure(documentStructure);
   const allowedLinksArray = Array.from(allowedLinks)
     .filter((link) => link !== documentPath) // Exclude current document path
     .sort();
@@ -48,7 +48,7 @@ ${allowedLinksList}
 }
 
 export default async function reviewDocumentsWithInvalidLinks(input = {}, options = {}) {
-  const { documentsWithInvalidLinks = [], documentExecutionStructure = [], locale = "en" } = input;
+  const { documentsWithInvalidLinks = [], documentStructure = [], locale = "en" } = input;
 
   // If no documents with invalid links, return empty array
   if (!Array.isArray(documentsWithInvalidLinks) || documentsWithInvalidLinks.length === 0) {
@@ -96,13 +96,13 @@ export default async function reviewDocumentsWithInvalidLinks(input = {}, option
     if (!doc.path) continue;
 
     // Find corresponding document in documentStructure to get additional fields
-    const structureDoc = documentExecutionStructure.find((item) => item.path === doc.path);
+    const structureDoc = documentStructure.find((item) => item.path === doc.path);
 
     // Generate feedback message for fixing invalid links
     const feedback = generateInvalidLinksFeedback(
       doc.invalidLinks,
       doc.path,
-      documentExecutionStructure,
+      documentStructure,
     );
 
     preparedDocs.push({

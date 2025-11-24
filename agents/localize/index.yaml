@@ -16,15 +16,7 @@ skills:
       $merge([
         $,
         {
-          'documentStructure': originalDocumentStructure,
-          'documentExecutionStructure': $map(originalDocumentStructure, function($item) {
-            $merge([
-              $item,
-              {
-                'translates': [$map(translateLanguages, function($lang) { {"language": $lang} })]
-              }
-            ])
-          })
+          'documentStructure': originalDocumentStructure
         }
       ])
   - url: ../utils/choose-docs.mjs

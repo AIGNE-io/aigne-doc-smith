@@ -36,7 +36,7 @@ export function generateFileName(flatName, locale) {
 
 /**
  * Find a single item by path in documentation structure result and read its content
- * @param {Array} documentExecutionStructure - Array of documentation structure items
+ * @param {Array} documentStructure - Array of documentation structure items
  * @param {string} docPath - Document path to find (supports .md filenames)
  * @param {string} boardId - Board ID for fallback matching
  * @param {string} docsDir - Docs directory path for reading content
@@ -44,7 +44,7 @@ export function generateFileName(flatName, locale) {
  * @returns {Promise<Object|null>} Found item with content or null
  */
 export async function findItemByPath(
-  documentExecutionStructure,
+  documentStructure,
   docPath,
   boardId,
   docsDir,
@@ -57,10 +57,10 @@ export async function findItemByPath(
   if (docPath.endsWith(".md")) {
     fileName = docPath;
     const flatName = fileNameToFlatPath(docPath);
-    foundItem = findItemByFlatName(documentExecutionStructure, flatName);
+    foundItem = findItemByFlatName(documentStructure, flatName);
   } else {
     // First try direct path matching
-    foundItem = documentExecutionStructure.find((item) => item.path === docPath);
+    foundItem = documentStructure.find((item) => item.path === docPath);
 
     // If not found and boardId is provided, try boardId-flattenedPath format matching
     if (!foundItem && boardId) {
@@ -70,7 +70,7 @@ export async function findItemByPath(
         const flattenedPath = docPath.substring(boardId.length + 1);
 
         // Find item by comparing flattened paths
-        foundItem = documentExecutionStructure.find((item) => {
+        foundItem = documentStructure.find((item) => {
           // Convert item.path to flattened format (replace / with -)
           const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
           return itemFlattenedPath === flattenedPath;
@@ -127,10 +127,10 @@ export async function readFileContent(docsDir, fileName) {
  * Get main language markdown files from docs directory
  * @param {string} docsDir - Docs directory path
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
- * @param {Array} documentExecutionStructure - Array of documentation structure items to determine file order
- * @returns {Promise<string[]>} Array of main language .md files ordered by documentExecutionStructure
+ * @param {Array} documentStructure - Array of documentation structure items to determine file order
+ * @returns {Promise<string[]>} Array of main language .md files ordered by documentStructure
  */
-export async function getMainLanguageFiles(docsDir, locale, documentExecutionStructure = null) {
+export async function getMainLanguageFiles(docsDir, locale, documentStructure = null) {
   // Check if docsDir exists
   try {
     await access(docsDir);
@@ -162,17 +162,17 @@ export async function getMainLanguageFiles(docsDir, locale, documentExecutionStr
     }
   });
 
-  // If documentExecutionStructure is provided, sort files according to the order in documentExecutionStructure
-  if (documentExecutionStructure && Array.isArray(documentExecutionStructure)) {
+  // If documentStructure is provided, sort files according to the order in documentStructure
+  if (documentStructure && Array.isArray(documentStructure)) {
     // Create a map from flat file name to documentation structure order
     const orderMap = new Map();
-    documentExecutionStructure.forEach((item, index) => {
+    documentStructure.forEach((item, index) => {
       const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
       const expectedFileName = generateFileName(itemFlattenedPath, locale);
       orderMap.set(expectedFileName, index);
     });
 
-    // Sort filtered files based on their order in documentExecutionStructure
+    // Sort filtered files based on their order in documentStructure
     return filteredFiles.sort((a, b) => {
       const orderA = orderMap.get(a);
       const orderB = orderMap.get(b);
@@ -191,7 +191,7 @@ export async function getMainLanguageFiles(docsDir, locale, documentExecutionStr
     });
   }
 
-  // If no documentExecutionStructure provided, return files in alphabetical order
+  // If no documentStructure provided, return files in alphabetical order
   return filteredFiles.sort();
 }
 
@@ -212,12 +212,12 @@ export function fileNameToFlatPath(fileName) {
 
 /**
  * Find documentation structure item by flattened file name
- * @param {Array} documentExecutionStructure - Array of documentation structure items
+ * @param {Array} documentStructure - Array of documentation structure items
  * @param {string} flatName - Flattened file name
  * @returns {Object|null} Found item or null
  */
-export function findItemByFlatName(documentExecutionStructure, flatName) {
-  return documentExecutionStructure.find((item) => {
+export function findItemByFlatName(documentStructure, flatName) {
+  return documentStructure.find((item) => {
     const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
     return itemFlattenedPath === flatName;
   });
@@ -226,11 +226,11 @@ export function findItemByFlatName(documentExecutionStructure, flatName) {
 /**
  * Process selected files and convert to found items with content
  * @param {string[]} selectedFiles - Array of selected file names
- * @param {Array} documentExecutionStructure - Array of documentation structure items
+ * @param {Array} documentStructure - Array of documentation structure items
  * @param {string} docsDir - Docs directory path
  * @returns {Promise<Object[]>} Array of found items with content
  */
-export async function processSelectedFiles(selectedFiles, documentExecutionStructure, docsDir) {
+export async function processSelectedFiles(selectedFiles, documentStructure, docsDir) {
   const foundItems = [];
 
   for (const selectedFile of selectedFiles) {
@@ -241,7 +241,7 @@ export async function processSelectedFiles(selectedFiles, documentExecutionStruc
     const flatName = fileNameToFlatPath(selectedFile);
 
     // Try to find matching item by comparing flattened paths
-    const foundItemByFile = findItemByFlatName(documentExecutionStructure, flatName);
+    const foundItemByFile = findItemByFlatName(documentStructure, flatName);
 
     if (foundItemByFile) {
       const result = {

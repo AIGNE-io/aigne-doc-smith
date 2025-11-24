@@ -66,13 +66,13 @@ describe("save-docs", () => {
       },
     ];
 
-    // Test with translation languages
-    const translateLanguages = ["zh", "en"];
+    // Test with translation languages (translates format)
+    const translates = [{ language: "zh" }, { language: "en" }];
 
     const result = await saveDocs({
-      documentExecutionStructure: documentStructure,
+      documentStructure,
       docsDir: testDir,
-      translateLanguages,
+      translates,
     });
 
     expect(result).toBeDefined();

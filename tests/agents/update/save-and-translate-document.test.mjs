@@ -17,7 +17,6 @@ describe("save-and-translate-document", () => {
       },
       context: {
         agents: {
-          saveSingleDoc: { mockSaveAgent: true },
           translateMultilingual: { mockTranslateAgent: true },
         },
         invoke: mock(async () => ({ mockResult: true })),
@@ -77,7 +76,6 @@ describe("save-and-translate-document", () => {
           {
             path: "/docs/test.md",
             content: "# Test Document",
-            translates: {},
             labels: {},
             feedback: "Good content",
           },
@@ -91,11 +89,11 @@ describe("save-and-translate-document", () => {
 
       expect(result).toEqual({});
       expect(mockOptions.prompts.select).not.toHaveBeenCalled();
-      expect(mockOptions.context.invoke).toHaveBeenCalledTimes(1);
+      expect(mockOptions.context.invoke).not.toHaveBeenCalled();
       expect(recordUpdateSpy).toHaveBeenCalledWith({
         operation: "document_update",
         feedback: "Good content",
-        documentPath: "/docs/test.md",
+        docPaths: ["/docs/test.md"],
       });
 
       // Reset mocks for next iteration
@@ -106,27 +104,24 @@ describe("save-and-translate-document", () => {
   });
 
   // SCENARIO 2: USER CHOOSES NOT TO TRANSLATE
-  test("should save documents and skip translation when user chooses no", async () => {
+  test("should skip translation when user chooses no", async () => {
     const input = {
       selectedDocs: [
         {
           path: "/docs/test1.md",
           content: "# Test Document 1",
-          translates: {},
           labels: {},
           feedback: "Update needed",
         },
         {
           path: "/docs/test2.md",
           content: "# Test Document 2",
-          translates: {},
           labels: {},
           feedback: "Second feedback",
         },
         {
           path: "/docs/test3.md",
           content: "# Test Document 3",
-          translates: {},
           labels: {},
           feedback: "   ", // Whitespace only
         },
@@ -154,28 +149,21 @@ describe("save-and-translate-document", () => {
         },
       ],
     });
-    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(3); // Only saveDocument calls
-    expect(recordUpdateSpy).toHaveBeenCalledTimes(2); // Only documents with non-empty feedback
+    expect(mockOptions.context.invoke).not.toHaveBeenCalled();
     expect(recordUpdateSpy).toHaveBeenCalledWith({
       operation: "document_update",
       feedback: "Update needed",
-      documentPath: "/docs/test1.md",
-    });
-    expect(recordUpdateSpy).toHaveBeenCalledWith({
-      operation: "document_update",
-      feedback: "Second feedback",
-      documentPath: "/docs/test2.md",
+      docPaths: ["/docs/test1.md", "/docs/test2.md", "/docs/test3.md"],
     });
   });
 
   // SCENARIO 3: USER CHOOSES TO TRANSLATE
-  test("should save and translate documents when user chooses yes", async () => {
+  test("should translate documents when user chooses yes", async () => {
     const input = {
       selectedDocs: [
         {
           path: "/docs/test1.md",
           content: "# Test Document 1",
-          translates: {},
           labels: {},
           feedback: "Translation needed",
           title: "Test Document 1",
@@ -183,7 +171,6 @@ describe("save-and-translate-document", () => {
         {
           path: "/docs/test2.md",
           content: "# Test Document 2",
-          translates: {},
           labels: {},
           title: "Test Document 2",
         },
@@ -194,13 +181,7 @@ describe("save-and-translate-document", () => {
     };
 
     mockOptions.prompts.select.mockResolvedValue("yes");
-    mockOptions.context.invoke
-      .mockResolvedValueOnce({ mockSaveResult: true }) // saveDocument 1
-      .mockResolvedValueOnce({ mockSaveResult: true }) // saveDocument 2
-      .mockResolvedValueOnce({ translates: { zh: "# 测试文档 1" } }) // translateMultilingual 1
-      .mockResolvedValueOnce({ translates: { zh: "# 测试文档 2" } }) // translateMultilingual 2
-      .mockResolvedValueOnce({ mockSaveResult: true }) // saveDocument with translation 1
-      .mockResolvedValueOnce({ mockSaveResult: true }); // saveDocument with translation 2
+    mockOptions.context.invoke.mockResolvedValue({ mockTranslateResult: true });
 
     const result = await saveAndTranslateDocument(input, mockOptions);
 
@@ -218,7 +199,7 @@ describe("save-and-translate-document", () => {
         },
       ],
     });
-    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(6);
+    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(2);
 
     // Verify feedback is cleared before translation
     expect(input.selectedDocs[0].feedback).toBe("");
@@ -227,53 +208,18 @@ describe("save-and-translate-document", () => {
     expect(recordUpdateSpy).toHaveBeenCalledWith({
       operation: "document_update",
       feedback: "Translation needed",
-      documentPath: "/docs/test1.md",
+      docPaths: ["/docs/test1.md", "/docs/test2.md"],
     });
   });
 
   // ERROR HANDLING TESTS
   test("should handle errors gracefully", async () => {
-    // Test saveDocument error
-    const saveErrorInput = {
-      selectedDocs: [
-        {
-          path: "/docs/test1.md",
-          content: "# Test Document 1",
-          translates: {},
-          labels: {},
-          feedback: "Error test",
-        },
-      ],
-      docsDir: "./docs",
-      translateLanguages: ["en", "zh"],
-      locale: "en",
-    };
-
-    mockOptions.prompts.select.mockResolvedValue("no");
-    mockOptions.context.invoke.mockRejectedValue(new Error("Save failed"));
-
-    const saveErrorResult = await saveAndTranslateDocument(saveErrorInput, mockOptions);
-
-    expect(saveErrorResult).toEqual({});
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      "❌ Failed to save document /docs/test1.md:",
-      "Save failed",
-    );
-    expect(recordUpdateSpy).not.toHaveBeenCalled(); // Should not record if save failed
-
-    // Reset mocks
-    mockOptions.prompts.select.mockClear();
-    mockOptions.context.invoke.mockClear();
-    consoleErrorSpy.mockClear();
-    recordUpdateSpy.mockClear();
-
     // Test translateMultilingual error
     const translateErrorInput = {
       selectedDocs: [
         {
           path: "/docs/test2.md",
           content: "# Test Document 2",
-          translates: {},
           labels: {},
           title: "Test Document 2",
         },
@@ -284,9 +230,7 @@ describe("save-and-translate-document", () => {
     };
 
     mockOptions.prompts.select.mockResolvedValue("yes");
-    mockOptions.context.invoke
-      .mockResolvedValueOnce({ mockSaveResult: true }) // saveDocument succeeds
-      .mockRejectedValueOnce(new Error("Translation failed")); // translateMultilingual fails
+    mockOptions.context.invoke.mockRejectedValue(new Error("Translation failed"));
 
     const translateErrorResult = await saveAndTranslateDocument(translateErrorInput, mockOptions);
 
@@ -295,7 +239,7 @@ describe("save-and-translate-document", () => {
       "❌ Failed to translate document /docs/test2.md:",
       "Translation failed",
     );
-    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(2);
+    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(1);
   });
 
   // EDGE CASES AND INTEGRATION
@@ -306,21 +250,18 @@ describe("save-and-translate-document", () => {
         {
           path: "/docs/test1.md",
           content: "# Test Document 1",
-          translates: null, // null translates
           labels: {},
           feedback: "", // empty feedback
         },
         {
           path: "/docs/test2.md",
           content: "# Test Document 2",
-          translates: undefined, // undefined translates
           labels: {},
           feedback: "   ", // whitespace feedback
         },
         {
           path: "/docs/test3.md",
           content: "# Test Document 3",
-          translates: {},
           labels: {},
           // no title
         },
@@ -335,7 +276,7 @@ describe("save-and-translate-document", () => {
     const edgeCaseResult = await saveAndTranslateDocument(edgeCaseInput, mockOptions);
 
     expect(edgeCaseResult).toEqual({});
-    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(3);
+    expect(mockOptions.context.invoke).not.toHaveBeenCalled();
     expect(recordUpdateSpy).not.toHaveBeenCalled(); // No valid feedback
 
     // Reset mocks
@@ -348,7 +289,6 @@ describe("save-and-translate-document", () => {
       selectedDocs: Array.from({ length: 5 }, (_, i) => ({
         path: `/docs/batch${i + 1}.md`,
         content: `# Batch Document ${i + 1}`,
-        translates: {},
         labels: {},
         title: `Batch Document ${i + 1}`,
       })),
@@ -363,7 +303,7 @@ describe("save-and-translate-document", () => {
     const batchResult = await saveAndTranslateDocument(batchInput, mockOptions);
 
     expect(batchResult).toEqual({});
-    // 5 documents * 3 calls each (save, translate, save) = 15 calls
-    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(15);
+    // 5 documents * 1 translate call each = 5 calls
+    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(5);
   });
 });

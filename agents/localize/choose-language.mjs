@@ -76,16 +76,13 @@ export default async function chooseLanguage({ langs, locale, selectedDocs }, op
     await saveValueToConfig("translateLanguages", updatedTranslateLanguages);
   }
 
-  const newSelectedDocs = selectedDocs.map((doc) => {
-    return {
-      ...doc,
-      translates: selectedLanguages.map((lang) => ({ language: lang })),
-    };
-  });
+  // Convert selectedLanguages to translates format
+  const translates = selectedLanguages.map((lang) => ({ language: lang }));
 
   return {
     selectedLanguages,
-    selectedDocs: newSelectedDocs,
+    selectedDocs,
+    translates,
   };
 }
 

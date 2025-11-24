@@ -68,7 +68,6 @@ agents:
   - ./agents/clear/clear-media-description.mjs
 
   # Utilities
-  - ./agents/utils/add-translates-to-structure.mjs
   - ./agents/utils/load-sources.mjs
   - ./agents/utils/post-generate.mjs
   - ./agents/utils/save-sidebar.mjs
