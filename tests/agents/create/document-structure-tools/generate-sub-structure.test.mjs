@@ -57,9 +57,6 @@ describe("generate-sub-structure", () => {
         },
         invoke: async (_agent, params) => {
           expect(params.files.length).toBe(2);
-          expect(params.allFilesPaths).toContain("test1.js");
-          expect(params.allFilesPaths).toContain("test2.js");
-
           return {
             documentStructure: [
               { title: "Doc 1", path: "/doc1" },

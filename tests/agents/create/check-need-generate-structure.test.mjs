@@ -47,6 +47,7 @@ describe("check-need-generate-structure", () => {
           projectName: "Test Project",
           projectDesc: "Test Description",
         })),
+        userContext: {},
       },
     };
 
@@ -230,7 +231,7 @@ describe("check-need-generate-structure", () => {
     );
 
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.generateStructureWithoutTools,
+      mockOptions.context.agents.generateStructure,
       expect.objectContaining(additionalParams),
     );
   });

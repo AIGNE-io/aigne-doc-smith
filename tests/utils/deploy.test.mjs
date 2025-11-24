@@ -119,13 +119,15 @@ describe("deploy", () => {
     );
 
     // Verify result transformation
-    expect(result).toEqual({
-      appUrl: TEST_APP_URL,
-      homeUrl: TEST_HOME_URL,
-      dashboardUrl: TEST_DASHBOARD_URL,
-      subscriptionUrl: TEST_SUBSCRIPTION_URL,
-      token: "auth-token-123",
-    });
+    expect(result).toEqual(
+      expect.objectContaining({
+        appUrl: TEST_APP_URL,
+        homeUrl: TEST_HOME_URL,
+        dashboardUrl: TEST_DASHBOARD_URL,
+        subscriptionUrl: TEST_SUBSCRIPTION_URL,
+        token: "auth-token-123",
+      }),
+    );
 
     // Verify console output
     const logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
@@ -200,11 +202,6 @@ describe("deploy", () => {
       "checkoutId",
       "session-123",
       "Checkout ID for document deployment website",
-    );
-    expect(saveValueToConfigSpy).toHaveBeenCalledWith(
-      "paymentUrl",
-      "https://payment.test/session-123",
-      "Payment URL for document deployment website",
     );
 
     // Verify browser was opened

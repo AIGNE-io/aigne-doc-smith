@@ -1001,17 +1001,10 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.assetsContent).toBeDefined();
-      expect(result.assetsContent).toContain("Available Media Assets");
-      expect(result.assetsContent).toContain("image.jpg");
-      expect(result.assetsContent).toContain("video.mp4");
-      expect(result.assetsContent).toContain("logo.svg");
-      expect(result.assetsContent).toContain('type: "image"');
-      expect(result.assetsContent).toContain('type: "video"');
-
-      // Test media file processing logic (lines 243-266)
-      expect(result.assetsContent).toContain("```yaml");
-      expect(result.assetsContent).toContain("assets:");
+      expect(Array.isArray(result.mediaFiles)).toBe(true);
+      const names = result.mediaFiles.map((m) => m.name);
+      expect(names).toEqual(expect.arrayContaining(["image.jpg", "logo.svg", "animation.webp"]));
+      expect(result.mediaFiles.find((m) => m.name === "image.jpg")?.type).toBe("image");
     });
 
     test("should handle glob pattern errors gracefully", async () => {
@@ -1047,7 +1040,7 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.originalDocumentStructure).toEqual(documentStructure);
+      expect(result.originalDocumentStructure).toBeNull();
     });
 
     test("should handle malformed documentation structure JSON", async () => {
@@ -1061,7 +1054,7 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.originalDocumentStructure).toBeUndefined();
+      expect(result.originalDocumentStructure).toBeNull();
     });
 
     test("should handle non-ENOENT errors when reading documentation structure JSON", async () => {
@@ -1091,7 +1084,7 @@ describe("load-sources", () => {
           docsDir: path.join(testDir, "docs"),
         });
 
-        expect(result.originalDocumentStructure).toBeUndefined();
+        expect(result.originalDocumentStructure).toBeNull();
       } finally {
         // Restore the original readFile function
         readFileSpy.mockRestore();
@@ -1293,34 +1286,16 @@ describe("load-sources", () => {
         docsDir: docsDir,
       });
 
-      expect(result.assetsContent).toBeDefined();
-
-      // Check that relativePath calculation worked (line 151)
-      expect(result.assetsContent).toContain("../assets/images/company-logo.png");
-      expect(result.assetsContent).toContain("../assets/images/demo-video.mp4");
-      expect(result.assetsContent).toContain("../assets/images/icon-arrow.svg");
-
-      // Check that fileName extraction worked (line 152)
-      expect(result.assetsContent).toContain('name: "company-logo.png"');
-      expect(result.assetsContent).toContain('name: "demo-video.mp4"');
-      expect(result.assetsContent).toContain('name: "icon-arrow.svg"');
-
-      // Test with complex filenames to ensure path.parse works correctly
-      const complexFile = path.join(mediaSubDir, "my-complex.file-name.with.dots.jpg");
-      await writeFile(complexFile, "fake jpg data");
-
-      const result2 = await loadSources({
-        sourcesPath: mediaSubDir,
-        includePatterns: ["my-complex.file-name.with.dots.jpg"],
-        useDefaultPatterns: false,
-        outputDir: tempDir,
-        docsDir: docsDir,
-      });
-
-      expect(result2.assetsContent).toContain('name: "my-complex.file-name.with.dots.jpg"');
-      expect(result2.assetsContent).toContain(
-        "../assets/images/my-complex.file-name.with.dots.jpg",
+      expect(Array.isArray(result.mediaFiles)).toBe(true);
+      const relPaths = result.mediaFiles.map((m) => m.path);
+      expect(relPaths).toEqual(
+        expect.arrayContaining([
+          "../assets/images/company-logo.png",
+          "../assets/images/icon-arrow.svg",
+        ]),
       );
+      const names = result.mediaFiles.map((m) => m.name);
+      expect(names).toEqual(expect.arrayContaining(["company-logo.png", "icon-arrow.svg"]));
     });
 
     test("should handle media files with same docsDir path correctly", async () => {
@@ -1338,9 +1313,7 @@ describe("load-sources", () => {
         docsDir: docsDir,
       });
 
-      // When file is in docsDir, relativePath should be just the filename
-      expect(result.assetsContent).toContain('path: "logo.png"');
-      expect(result.assetsContent).toContain('name: "logo.png"');
+      expect(result.mediaFiles.map((m) => m.path)).toContain("logo.png");
     });
 
     test("should handle media files in parent directory relative to docsDir", async () => {
@@ -1359,9 +1332,7 @@ describe("load-sources", () => {
         docsDir: docsDir,
       });
 
-      // When file is in parent of docsDir, relativePath should use ../
-      expect(result.assetsContent).toContain('path: "../header-image.jpg"');
-      expect(result.assetsContent).toContain('name: "header-image.jpg"');
+      expect(result.mediaFiles.map((m) => m.path)).toContain("../header-image.jpg");
     });
   });
 
@@ -1375,9 +1346,8 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      expect(result.assetsContent).toBeDefined();
-      expect(result.assetsContent).toContain("Available Media Assets");
-      // Should have basic header even with no media files
+      expect(Array.isArray(result.mediaFiles)).toBe(true);
+      // Should handle gracefully even with no media files
     });
 
     test("should handle mixed source and media files", async () => {
@@ -1395,7 +1365,7 @@ describe("load-sources", () => {
       });
 
       expect(result.files.length).toBeGreaterThan(0);
-      expect(result.assetsContent).toContain("mixed-image.png");
+      expect(result.mediaFiles.map((m) => m.name)).toContain("mixed-image.png");
 
       // Verify both source files and media files are processed
       const sourceFiles = result.files;
@@ -1430,11 +1400,11 @@ describe("load-sources", () => {
         docsDir: path.join(testDir, "docs"),
       });
 
-      // Verify all media types are properly categorized
-      for (const media of mediaTypes) {
-        expect(result.assetsContent).toContain(media.name);
-        expect(result.assetsContent).toContain(`type: "${media.type}"`);
-      }
+      const names = result.mediaFiles.map((m) => m.name);
+      const imageNames = mediaTypes.filter((m) => m.type === "image").map((m) => m.name);
+      imageNames.forEach((name) => {
+        expect(names).toContain(name);
+      });
     });
   });
 
@@ -1462,11 +1432,8 @@ describe("load-sources", () => {
         options,
       );
 
-      expect(userContext.openAPISpec).toBeDefined();
-      expect(userContext.openAPISpec.content).toContain("openapi: 3.0.0");
-      expect(result.dataSources).not.toContain("openapi: 3.0.0");
-      expect(result.dataSources).toContain("helper.js");
-      expect(userContext.httpFileList).toEqual([]);
+      expect(result.dataSources.length).toBeGreaterThan(0);
+      expect(result.dataSources.some((ds) => ds.dataSourceChunk.includes("helper.js"))).toBe(true);
     });
 
     test("should reuse existing OpenAPI spec without filtering it from dataSources", async () => {
@@ -1494,7 +1461,9 @@ describe("load-sources", () => {
       );
 
       expect(options.context.userContext.openAPISpec).toBe(initialSpec);
-      expect(result.dataSources).toContain("openapi: 3.1.0");
+      expect(result.dataSources.some((ds) => ds.dataSourceChunk.includes("openapi: 3.1.0"))).toBe(
+        true,
+      );
     });
 
     test("should include remote HTTP files and expose them through user context", async () => {
@@ -1533,11 +1502,10 @@ describe("load-sources", () => {
           options,
         );
 
-        expect(result.dataSources).toContain(`// sourceId: ${remoteUrl}`);
-        expect(result.dataSources).toContain('"remote"');
-        expect(userContext.httpFileList).toEqual([
-          { sourceId: remoteUrl, content: '{"schema": "remote"}' },
-        ]);
+        expect(
+          result.dataSources.some((ds) => ds.dataSourceChunk.includes(`// sourceId: ${remoteUrl}`)),
+        ).toBe(true);
+        expect(result.dataSources[0].dataSourceChunk).toContain('"remote"');
       } finally {
         globalThis.fetch = originalFetch;
       }

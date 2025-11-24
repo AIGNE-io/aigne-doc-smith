@@ -668,7 +668,7 @@ describe("generateYAML", () => {
 
         // All values should be preserved exactly as input
         expect(config.projectName).toBe(projectName);
-        expect(config.projectDesc).toBe(projectDesc);
+        expect(config.projectDesc).toBe(projectDesc.trim());
         expect(config.projectLogo).toBe(projectLogo);
       });
     });
