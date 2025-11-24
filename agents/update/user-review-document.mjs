@@ -225,7 +225,8 @@ export default async function userReviewDocument({ content, description, ...rest
         userPreferences,
         title,
       });
-      contentContext.set(result.content);
+      const nextContent = result.content ?? result.updatedContent ?? currentContent;
+      contentContext.set(nextContent);
 
       // Check if feedback should be saved as user preference
       const feedbackRefinerAgent = options.context.agents["checkFeedbackRefiner"];

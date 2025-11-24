@@ -5,7 +5,7 @@ import {
 } from "../../../types/document-structure-schema.mjs";
 import { userContextAt } from "../../../utils/utils.mjs";
 
-export default async function deleteDocument(input, options) {
+export default async function deleteDocument(input, options = {}) {
   // Validate input using Zod schema
   const validation = validateDeleteDocumentInput(input);
   if (!validation.success) {
@@ -21,10 +21,15 @@ export default async function deleteDocument(input, options) {
   let documentStructure = options?.context?.userContext?.currentStructure;
 
   if (!documentStructure) {
-    documentStructure = input.documentStructure;
+    documentStructure = input.documentStructure ?? [];
   }
 
-  const deletedPathsContext = userContextAt(options, "deletedPaths");
+  const deletedPathsContext = options?.context?.userContext
+    ? userContextAt(options, "deletedPaths")
+    : {
+        get: () => [],
+        set: () => {},
+      };
   const deletedPaths = deletedPathsContext.get() || [];
 
   // Check if path has already been deleted
