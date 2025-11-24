@@ -2,7 +2,7 @@ import { getActiveRulesForScope } from "../../../utils/preferences-utils.mjs";
 import { printDocumentStructure } from "../../../utils/docs-finder-utils.mjs";
 
 export default async function addDocumentsToStructure(input = {}, options = {}) {
-  const { originalDocumentStructure = [], } = input;
+  const { originalDocumentStructure = [] } = input;
   const analyzeIntent = options.context?.agents?.["analyzeStructureFeedbackIntent"];
   const updateDocumentStructure = options.context?.agents?.["updateDocumentStructure"];
   const allFeedback = [];

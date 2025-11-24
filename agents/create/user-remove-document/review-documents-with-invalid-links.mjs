@@ -99,11 +99,7 @@ export default async function reviewDocumentsWithInvalidLinks(input = {}, option
     const structureDoc = documentStructure.find((item) => item.path === doc.path);
 
     // Generate feedback message for fixing invalid links
-    const feedback = generateInvalidLinksFeedback(
-      doc.invalidLinks,
-      doc.path,
-      documentStructure,
-    );
+    const feedback = generateInvalidLinksFeedback(doc.invalidLinks, doc.path, documentStructure);
 
     preparedDocs.push({
       ...structureDoc,

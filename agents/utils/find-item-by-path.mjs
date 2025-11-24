@@ -21,11 +21,7 @@ export default async function findItemByPath(
   if (!docPath) {
     try {
       // Get all main language .md files in docsDir
-      const mainLanguageFiles = await getMainLanguageFiles(
-        docsDir,
-        locale,
-        documentStructure,
-      );
+      const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale, documentStructure);
 
       if (mainLanguageFiles.length === 0) {
         throw new Error("No documents found in the docs directory");
@@ -84,13 +80,7 @@ export default async function findItemByPath(
   }
 
   // Use the utility function to find item and read content
-  foundItem = await findItemByPathUtil(
-    documentStructure,
-    docPath,
-    boardId,
-    docsDir,
-    locale,
-  );
+  foundItem = await findItemByPathUtil(documentStructure, docPath, boardId, docsDir, locale);
 
   if (!foundItem) {
     throw new Error(`Item with path "${docPath}" not found in documentStructure`);

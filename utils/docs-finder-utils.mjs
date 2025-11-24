@@ -43,13 +43,7 @@ export function generateFileName(flatName, locale) {
  * @param {string} locale - Main language locale (e.g., 'en', 'zh', 'fr')
  * @returns {Promise<Object|null>} Found item with content or null
  */
-export async function findItemByPath(
-  documentStructure,
-  docPath,
-  boardId,
-  docsDir,
-  locale = "en",
-) {
+export async function findItemByPath(documentStructure, docPath, boardId, docsDir, locale = "en") {
   let foundItem = null;
   let fileName = null;
 

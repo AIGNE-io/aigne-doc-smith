@@ -38,11 +38,7 @@ export default async function chooseDocs(
   if (!docs || docs.length === 0) {
     try {
       // Get all main language .md files in docsDir
-      const mainLanguageFiles = await getMainLanguageFiles(
-        docsDir,
-        locale,
-        documentStructure,
-      );
+      const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale, documentStructure);
 
       if (mainLanguageFiles.length === 0) {
         throw new Error(
@@ -106,13 +102,7 @@ export default async function chooseDocs(
   } else {
     // Process the provided docs array
     for (const docPath of docs) {
-      const foundItem = await findItemByPath(
-        documentStructure,
-        docPath,
-        boardId,
-        docsDir,
-        locale,
-      );
+      const foundItem = await findItemByPath(documentStructure, docPath, boardId, docsDir, locale);
 
       if (!foundItem) {
         console.warn(`⚠️  Item with path "${docPath}" not found in documentStructure`);
@@ -125,9 +115,7 @@ export default async function chooseDocs(
     }
 
     if (foundItems.length === 0) {
-      throw new Error(
-        "None of the specified document paths were found in documentStructure",
-      );
+      throw new Error("None of the specified document paths were found in documentStructure");
     }
   }
 
