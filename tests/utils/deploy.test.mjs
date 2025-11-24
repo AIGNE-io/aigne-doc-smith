@@ -19,15 +19,17 @@ const mockBrokerClient = {
 const mockBrokerClientConstructor = mock(() => mockBrokerClient);
 
 // Mock the payment broker client module
+const STEPS = {
+  PAYMENT_PENDING: "PAYMENT_PENDING",
+  INSTALLATION_STARTING: "INSTALLATION_STARTING",
+  SERVICE_STARTING: "SERVICE_STARTING",
+  ACCESS_PREPARING: "ACCESS_PREPARING",
+  ACCESS_READY: "ACCESS_READY",
+};
+
 mock.module("@blocklet/payment-broker-client/node", () => ({
   BrokerClient: mockBrokerClientConstructor,
-  STEPS: {
-    PAYMENT_PENDING: "PAYMENT_PENDING",
-    INSTALLATION_STARTING: "INSTALLATION_STARTING",
-    SERVICE_STARTING: "SERVICE_STARTING",
-    ACCESS_PREPARING: "ACCESS_PREPARING",
-    ACCESS_READY: "ACCESS_READY",
-  },
+  STEPS,
 }));
 
 describe("deploy", () => {
@@ -99,7 +101,7 @@ describe("deploy", () => {
     expect(mockBrokerClient.deploy).toHaveBeenCalledWith(
       expect.objectContaining({
         cachedCheckoutId: undefined,
-        cachedPaymentUrl: undefined,
+        needShortUrl: true,
         pageInfo: expect.objectContaining({
           successMessage: expect.objectContaining({
             en: expect.stringContaining("Congratulations"),
@@ -107,11 +109,11 @@ describe("deploy", () => {
           }),
         }),
         hooks: expect.objectContaining({
-          PAYMENT_PENDING: expect.any(Function),
-          INSTALLATION_STARTING: expect.any(Function),
-          SERVICE_STARTING: expect.any(Function),
-          ACCESS_PREPARING: expect.any(Function),
-          ACCESS_READY: expect.any(Function),
+          [STEPS.PAYMENT_PENDING]: expect.any(Function),
+          [STEPS.INSTALLATION_STARTING]: expect.any(Function),
+          [STEPS.SERVICE_STARTING]: expect.any(Function),
+          [STEPS.ACCESS_PREPARING]: expect.any(Function),
+          [STEPS.ACCESS_READY]: expect.any(Function),
         }),
       }),
     );
@@ -139,13 +141,13 @@ describe("deploy", () => {
 
     mockBrokerClient.deploy.mockResolvedValue(mockResult);
 
-    const result = await deploy("cached-checkout-id", "https://cached-payment.url");
+    const result = await deploy("cached-checkout-id", "en");
 
     // Verify deploy was called with cached parameters
     expect(mockBrokerClient.deploy).toHaveBeenCalledWith(
       expect.objectContaining({
         cachedCheckoutId: "cached-checkout-id",
-        cachedPaymentUrl: "https://cached-payment.url",
+        needShortUrl: true,
       }),
     );
 
