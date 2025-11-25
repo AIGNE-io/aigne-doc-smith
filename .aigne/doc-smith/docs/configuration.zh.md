@@ -260,11 +260,3 @@ shouldSyncBranding: ""
 ## 总结
 
 `config.yaml` 文件是控制文档生成的核心。通过合理配置项目信息、文档策略和数据源，您可以引导 AI 生成符合项目需求的高质量文档。建议从基础配置开始，逐步根据实际效果调整各项参数。
-
-如需更多实践指导，请参阅以下指南：
-
-<x-cards data-columns="3">
-  <x-card data-title="初始设置" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">了解从头开始创建您的第一个文档项目的完整工作流程。</x-card>
-  <x-card data-title="准备材料" data-icon="lucide:folder-check" data-href="/reference/prepare-materials">了解如何准备源文档以获得最佳效果。</x-card>
-  <x-card data-title="问题排查" data-icon="lucide:wrench" data-href="/reference/trouble-shooting">查找常见配置和生成问题的解决方案。</x-card>
-</x-cards>

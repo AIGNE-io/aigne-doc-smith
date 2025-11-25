@@ -260,11 +260,3 @@ shouldSyncBranding: ""
 ## Summary
 
 The `config.yaml` file is the core of controlling documentation generation. By properly configuring project information, documentation strategy, and data sources, you can guide AI to generate high-quality documentation that meets your project needs. It is recommended to start with basic configuration and gradually adjust parameters based on actual results.
-
-For more practical guidance, please refer to the following guides:
-
-<x-cards data-columns="3">
-  <x-card data-title="Initial Setup" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">Learn the complete workflow for creating your first documentation project from scratch.</x-card>
-  <x-card data-title="Prepare Materials" data-icon="lucide:folder-check" data-href="/reference/prepare-materials">Learn how to prepare source documentation for best results.</x-card>
-  <x-card data-title="Troubleshooting" data-icon="lucide:wrench" data-href="/reference/trouble-shooting">Find solutions to common configuration and generation issues.</x-card>
-</x-cards>

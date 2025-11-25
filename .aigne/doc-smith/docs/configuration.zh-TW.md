@@ -260,11 +260,3 @@ shouldSyncBranding: ""
 ## 總結
 
 `config.yaml` 檔案是控制文件產生的核心。透過適當地設定專案資訊、文件策略和資料來源，您可以引導 AI 產生符合您專案需求的高品質文件。建議從基本設定開始，並根據實際結果逐步調整參數。
-
-如需更多實用指引，請參考以下指南：
-
-<x-cards data-columns="3">
-  <x-card data-title="初始設定" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">學習從零開始建立您第一個文件專案的完整工作流程。</x-card>
-  <x-card data-title="準備材料" data-icon="lucide:folder-check" data-href="/guides/prepare-materials">了解如何準備來源文件以獲得最佳效果。</x-card>
-  <x-card data-title="疑難排解" data-icon="lucide:wrench" data-href="/guides/troubleshooting">尋找常見設定和產生問題的解決方案。</x-card>
-</x-cards>

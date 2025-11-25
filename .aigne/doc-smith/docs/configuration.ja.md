@@ -260,11 +260,3 @@ shouldSyncBranding: ""
 ## まとめ
 
 `config.yaml`ファイルは、ドキュメント生成を制御する中心です。プロジェクト情報、ドキュメンテーション戦略、データソースを適切に設定することで、AIを導き、プロジェクトのニーズに合った高品質なドキュメントを生成できます。基本的な設定から始め、実際の結果に基づいて徐々にパラメータを調整することをお勧めします。
-
-より実践的なガイダンスについては、以下のガイドを参照してください。
-
-<x-cards data-columns="3">
-  <x-card data-title="初期設定" data-icon="lucide:settings-2" data-href="/configuration/initial-setup">ゼロから最初のドキュメントプロジェクトを作成するための完全なワークフローを学びます。</x-card>
-  <x-card data-title="資料の準備" data-icon="lucide:folder-check" data-href="/reference/prepare-materials">最良の結果を得るためにソースドキュメントを準備する方法を学びます。</x-card>
-  <x-card data-title="トラブルシューティング" data-icon="lucide:wrench" data-href="/reference/troubleshooting">一般的な設定や生成の問題に対する解決策を見つけます。</x-card>
-</x-cards>
