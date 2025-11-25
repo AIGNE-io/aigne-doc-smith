@@ -27,11 +27,6 @@ XField is structured data field, suitable for displaying API parameters, return 
 - **Recursive Structure**: Use recursive `<x-field>` structures to fully express complex object type hierarchies, decomposing all nested properties into more fundamental types
 - **Fixed Value Fields**: For fields that accept a limited set of predefined values (including enums, constants, or fixed strings), use `<x-field>` with the base data type (e.g., "string", "number") in the `data-type` attribute, and list all possible values in the description.
 - **Function-Type Fields**: For fields with `data-type="function"`, nest `<x-field>` elements for parameters (`data-name="parameters"`) and return value (`data-name="returnValue"`) **whenever their types are available**.
-- **Avoid Redundant Information**: Do not repeat information in `data-desc` or `<x-field-desc>` that is already expressed by other attributes. Specifically:
-  - **Required Status**: Do not mention "required" or "optional" in descriptions since `data-required` attribute already indicates this
-  - **Default Values**: Do not repeat default values in descriptions since `data-default` attribute already shows this
-  - **Deprecated Status**: Do not mention "deprecated" in descriptions since `data-deprecated` attribute already indicates this
-  - Focus descriptions on the field's purpose, format, constraints, example values, and usage guidance instead
 
 ### Good Examples
 
@@ -188,23 +183,6 @@ XField is structured data field, suitable for displaying API parameters, return 
         </x-field>
       </x-field>
     </x-field>
-  </x-field-group>
-  ```
-
-- Example 7: Redundant required information in description (violates "Avoid Redundant Information" rule)
-  ```md
-  <x-field-group>
-    <x-field data-name="api_key" data-type="string" data-required="true" data-desc="API key for authentication. This field is required."></x-field>
-    <x-field data-name="timeout" data-type="number" data-required="false" data-default="5000" data-desc="Request timeout in milliseconds. Optional, defaults to 5000."></x-field>
-    <x-field data-name="old_api" data-type="string" data-deprecated="true" data-desc="Old API endpoint. This field is deprecated."></x-field>
-  </x-field-group>
-  ```
-  **Correct approach:**
-  ```md
-  <x-field-group>
-    <x-field data-name="api_key" data-type="string" data-required="true" data-desc="API key for authentication. Generate one from the Settings > API Keys section."></x-field>
-    <x-field data-name="timeout" data-type="number" data-required="false" data-default="5000" data-desc="Request timeout in milliseconds."></x-field>
-    <x-field data-name="old_api" data-type="string" data-deprecated="true" data-desc="Old API endpoint. Use the new endpoint instead."></x-field>
   </x-field-group>
   ```
 
