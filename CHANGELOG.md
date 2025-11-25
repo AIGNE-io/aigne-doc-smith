@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.7-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6...v0.9.7-beta) (2025-11-25)
+
+
+### Bug Fixes
+
+* documentExecutionStructure might be an object ([#332](https://github.com/AIGNE-io/aigne-doc-smith/issues/332)) ([337b350](https://github.com/AIGNE-io/aigne-doc-smith/commit/337b350d5fa045edb7b2db84f0892151aa8518ab))
+* update default exclusion patterns, keeping only the necessary items ([#334](https://github.com/AIGNE-io/aigne-doc-smith/issues/334)) ([f1431cf](https://github.com/AIGNE-io/aigne-doc-smith/commit/f1431cf3d600c77c05c8e346712f79aa689ffe27))
+
 ## [0.9.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6-beta.2...v0.9.6) (2025-11-21)
 
 ## [0.9.6-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6-beta.1...v0.9.6-beta.2) (2025-11-20)
