@@ -29,12 +29,12 @@ export default async function clearGeneratedDocs(input = {}, options = {}) {
       };
     }
 
-    const documentExecutionStructure = (await loadDocumentStructure(outputDir)) || [];
+    const documentStructure = (await loadDocumentStructure(outputDir)) || [];
     // select documents interactively
     const chooseResult = await chooseDocs(
       {
         docs: [], // Empty to trigger interactive selection
-        documentExecutionStructure,
+        documentStructure,
         docsDir: generatedDocsPath,
         locale: locale || "en",
         isTranslate: false,

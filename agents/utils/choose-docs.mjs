@@ -18,7 +18,7 @@ function getFeedbackMessage(action) {
 export default async function chooseDocs(
   {
     docs,
-    documentExecutionStructure,
+    documentStructure,
     boardId,
     docsDir,
     isTranslate,
@@ -38,11 +38,7 @@ export default async function chooseDocs(
   if (!docs || docs.length === 0) {
     try {
       // Get all main language .md files in docsDir
-      const mainLanguageFiles = await getMainLanguageFiles(
-        docsDir,
-        locale,
-        documentExecutionStructure,
-      );
+      const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale, documentStructure);
 
       if (mainLanguageFiles.length === 0) {
         throw new Error(
@@ -56,7 +52,7 @@ export default async function chooseDocs(
       const choices = mainLanguageFiles.map((file) => {
         // Convert filename to flat path to find corresponding documentation structure item
         const flatName = file.replace(/\.md$/, "").replace(/\.\w+(-\w+)?$/, "");
-        const docItem = documentExecutionStructure.find((item) => {
+        const docItem = documentStructure.find((item) => {
           const itemFlattenedPath = item.path.replace(/^\//, "").replace(/\//g, "-");
           return itemFlattenedPath === flatName;
         });
@@ -96,7 +92,7 @@ export default async function chooseDocs(
       }
 
       // Process selected files and convert to found items
-      foundItems = await processSelectedFiles(selectedFiles, documentExecutionStructure, docsDir);
+      foundItems = await processSelectedFiles(selectedFiles, documentStructure, docsDir);
     } catch (error) {
       console.log(
         getActionText(`\nFailed to select documents to {action}: ${error.message}`, docAction),
@@ -106,16 +102,10 @@ export default async function chooseDocs(
   } else {
     // Process the provided docs array
     for (const docPath of docs) {
-      const foundItem = await findItemByPath(
-        documentExecutionStructure,
-        docPath,
-        boardId,
-        docsDir,
-        locale,
-      );
+      const foundItem = await findItemByPath(documentStructure, docPath, boardId, docsDir, locale);
 
       if (!foundItem) {
-        console.warn(`⚠️  Item with path "${docPath}" not found in documentExecutionStructure`);
+        console.warn(`⚠️  Item with path "${docPath}" not found in documentStructure`);
         continue;
       }
 
@@ -125,9 +115,7 @@ export default async function chooseDocs(
     }
 
     if (foundItems.length === 0) {
-      throw new Error(
-        "None of the specified document paths were found in documentExecutionStructure",
-      );
+      throw new Error("None of the specified document paths were found in documentStructure");
     }
   }
 

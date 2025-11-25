@@ -9,11 +9,19 @@ input_schema:
     detailDataSource:
       type: string
       description: Context for documentation structure generation, used to assist generate documentation structure
-    documentExecutionStructure: ../schema/document-execution-structure.yaml
+    documentStructure: ../schema/document-structure.yaml
+    translates:
+      type: array
+      items:
+        type: object
+        properties:
+          language:
+            type: string
+      description: List of languages to translate documents to
     modifiedFiles:
       type: array
       items: { type: string }
       description: Array of modified files since last generation
-iterate_on: documentExecutionStructure
+iterate_on: documentStructure
 concurrency: 5
 mode: sequential

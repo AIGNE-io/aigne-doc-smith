@@ -8,7 +8,7 @@ import { pathExists } from "../../../utils/file-utils.mjs";
  * Review documentsWithNewLinks and let user select which documents should be updated
  */
 export default async function reviewDocumentsWithNewLinks(
-  { documentsWithNewLinks = [], documentExecutionStructure = [], locale = "en", docsDir },
+  { documentsWithNewLinks = [], documentStructure = [], locale = "en", docsDir },
   options,
 ) {
   // If no documents to review, return empty array
@@ -22,7 +22,7 @@ export default async function reviewDocumentsWithNewLinks(
     documentsWithNewLinks.map((document, index) =>
       limit(async () => {
         // Find corresponding document in documentStructure to get title
-        const structureDoc = documentExecutionStructure.find((item) => item.path === document.path);
+        const structureDoc = documentStructure.find((item) => item.path === document.path);
         const title = structureDoc?.title || document.path;
 
         // Generate filename from document path
@@ -86,7 +86,7 @@ export default async function reviewDocumentsWithNewLinks(
     if (!doc.path) continue;
 
     // Find corresponding document in documentStructure to get additional fields
-    const structureDoc = documentExecutionStructure.find((item) => item.path === doc.path);
+    const structureDoc = documentStructure.find((item) => item.path === doc.path);
 
     // Generate feedback message for adding new links
     const newLinksList = doc.newLinks.join(", ");

@@ -15,7 +15,6 @@ skills:
       fileName: structure-plan.json
   - ../../utils/save-sidebar.mjs
   - ./find-documents-with-invalid-links.mjs
-  - ../../utils/add-translates-to-structure.mjs
   - ./review-documents-with-invalid-links.mjs
   - ../../utils/format-document-structure.mjs
   - ../../media/load-media-description.mjs

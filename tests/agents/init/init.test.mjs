@@ -1033,6 +1033,8 @@ describe("init", () => {
         expect(config.documentationDepth).toBe("balancedCoverage");
         expect(config.locale).toBe("en");
         expect(config.translateLanguages).toEqual(["zh", "ja"]);
+        // Verify translates is converted from translateLanguages
+        expect(config.translates).toEqual([{ language: "zh" }, { language: "ja" }]);
         expect(config.docsDir).toBe(join(tempDir, "docs"));
         expect(config.sourcesPath).toEqual(["./"]); // Default when no paths provided
       } finally {
@@ -1083,6 +1085,8 @@ describe("init", () => {
         expect(config.documentationDepth).toBe("comprehensive");
         expect(config.locale).toBe("zh-CN");
         expect(config.translateLanguages).toEqual(["en"]);
+        // Verify translates is converted from translateLanguages
+        expect(config.translates).toEqual([{ language: "en" }]);
       } finally {
         await cleanupTempDir(tempDir);
       }
@@ -1478,6 +1482,14 @@ targetAudienceTypes:
         expect(result).toBeDefined();
         expect(result.projectName).toBe("Test Project");
         expect(result.locale).toBe("en");
+        // Verify translates is converted from translateLanguages
+        if (result.translateLanguages && result.translateLanguages.length > 0) {
+          expect(result.translates).toEqual(
+            result.translateLanguages.map((lang) => ({ language: lang })),
+          );
+        } else {
+          expect(result.translates).toEqual([]);
+        }
       } finally {
         await cleanupTempDir(tempDir);
       }

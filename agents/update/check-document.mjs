@@ -21,7 +21,7 @@ export default async function checkDocument(
     modifiedFiles,
     forceRegenerate,
     locale,
-    translates,
+    translates = [],
     ...rest
   },
   options,
