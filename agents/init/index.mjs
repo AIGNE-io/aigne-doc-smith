@@ -610,10 +610,7 @@ ${modelSection}
 
   // Directory and source path configurations - safely serialize
   const docsDirSection = yamlStringify({ docsDir: config.docsDir }).trim();
-  yaml += `${docsDirSection.replace(
-    /^docsDir:/,
-    "docsDir:",
-  )}  # The directory where the generated documentation will be saved.\n`;
+  yaml += `${docsDirSection}  # The directory where the generated documentation will be saved.\n`;
 
   const sourcesPathSection = yamlStringify({ sourcesPath: config.sourcesPath }).trim();
   yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # The source code paths to analyze.")}\n`;
