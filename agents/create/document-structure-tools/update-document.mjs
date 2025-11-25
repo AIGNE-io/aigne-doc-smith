@@ -5,7 +5,7 @@ import {
 } from "../../../types/document-structure-schema.mjs";
 import streamlineDocumentTitlesIfNeeded from "../../utils/streamline-document-titles-if-needed.mjs";
 
-export default async function updateDocument(input, options = {}) {
+export default async function updateDocument(input, options) {
   // Validate input using Zod schema
   const validation = validateUpdateDocumentInput(input);
   if (!validation.success) {
@@ -18,13 +18,10 @@ export default async function updateDocument(input, options = {}) {
   }
 
   const { path, title, description, sourceIds } = validation.data;
-  const context = options.context ?? {};
-  const userContext = context.userContext ?? {};
-
-  let documentStructure = userContext.currentStructure;
+  let documentStructure = options?.context?.userContext?.currentStructure;
 
   if (!documentStructure) {
-    documentStructure = input.documentStructure ?? [];
+    documentStructure = input.documentStructure;
   }
 
   // Find the document to update
@@ -48,10 +45,10 @@ export default async function updateDocument(input, options = {}) {
     ...(sourceIds !== undefined && { sourceIds: [...sourceIds] }), // Create a copy of the array
   };
 
-  if (!userContext.streamlinedDocumentTitles) {
+  if (!options.context.userContext.streamlinedDocumentTitles) {
     // Streamline document titles if needed (will streamline the updated document if title > 18 characters)
     await streamlineDocumentTitlesIfNeeded({ documentStructure: [updatedDocument] }, options);
-    userContext.streamlinedDocumentTitles = true;
+    options.context.userContext.streamlinedDocumentTitles = true;
   }
 
   // Update the document in the structure
@@ -69,7 +66,9 @@ export default async function updateDocument(input, options = {}) {
   Check if the latest version of documentStructure meets user feedback, if so, just return 'success'.`;
 
   // update shared document structure
-  userContext.currentStructure = updatedStructure;
+  if (options?.context?.userContext) {
+    options.context.userContext.currentStructure = updatedStructure;
+  }
 
   return {
     documentStructure: updatedStructure,
