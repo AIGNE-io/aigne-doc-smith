@@ -60,10 +60,11 @@ describe("constants", () => {
   describe("DEFAULT_EXCLUDE_PATTERNS", () => {
     test("should contain common exclusion patterns", () => {
       expect(DEFAULT_EXCLUDE_PATTERNS).toContain("**/*node_modules/**");
-      expect(DEFAULT_EXCLUDE_PATTERNS).toContain("**/*test/**");
-      expect(DEFAULT_EXCLUDE_PATTERNS).toContain("**/*tests/**");
+      expect(DEFAULT_EXCLUDE_PATTERNS).toContain("**/dist/**");
       expect(DEFAULT_EXCLUDE_PATTERNS).toContain("**/dist/**");
       expect(DEFAULT_EXCLUDE_PATTERNS).toContain(".git/**");
+      expect(DEFAULT_EXCLUDE_PATTERNS).toContain("**/pnpm-lock.yaml");
+      expect(DEFAULT_EXCLUDE_PATTERNS).toContain("**/bun.lock");
     });
 
     test("should be an array of strings", () => {
