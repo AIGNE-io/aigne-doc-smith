@@ -270,4 +270,49 @@ describe("clear-generated-docs", () => {
     expect(await pathExists(join(docsDir, "multi.zh.md"))).toBe(false);
     expect(await pathExists(join(docsDir, "multi.ja.md"))).toBe(false);
   });
+
+  test("should report failed deletions when rm errors", async () => {
+    // create a directory named like a file to trigger EISDIR
+    const dirAsFile = join(docsDir, "oops.md");
+    await mkdir(dirAsFile, { recursive: true });
+    chooseDocsMock = async () => ({ selectedDocs: [{ path: "/oops" }] });
+
+    const result = await clearGeneratedDocs({ docsDir });
+
+    expect(result.error).toBe(true);
+    expect(result.message).toContain("Failed to delete");
+    expect(result.message).toContain("oops.md");
+  });
+
+  test("should return no-op when generated filenames are ignored", async () => {
+    // Force Set.add to skip undefined values and generateFileName to return undefined
+    const originalAdd = Set.prototype.add;
+    Set.prototype.add = function (value) {
+      if (value === undefined) return this;
+      return originalAdd.call(this, value);
+    };
+    const utils = await import("../../../utils/docs-finder-utils.mjs");
+    const genSpy = spyOn(utils, "generateFileName").mockReturnValue(undefined);
+
+    chooseDocsMock = async () => ({ selectedDocs: [{ path: "/noop" }] });
+    const result = await clearGeneratedDocs({ docsDir });
+
+    expect(result.cleared).toBe(false);
+    expect(result.message).toContain("No documents were deleted.");
+
+    genSpy.mockRestore();
+    Set.prototype.add = originalAdd;
+  });
+
+  test("should hit catch block when pathExists throws", async () => {
+    const fileUtils = await import("../../../utils/file-utils.mjs");
+    const pathExistsSpy = spyOn(fileUtils, "pathExists").mockRejectedValue(new Error("boom"));
+
+    const result = await clearGeneratedDocs({ docsDir });
+
+    expect(result.error).toBe(true);
+    expect(result.message).toContain("Failed to clear generated documents");
+
+    pathExistsSpy.mockRestore();
+  });
 });

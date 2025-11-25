@@ -350,4 +350,39 @@ describe("user-review-document-structure", () => {
 
     warnSpy.mockRestore();
   });
+
+  test("should log error in chat mode when structure is unchanged", async () => {
+    const feedback = "No changes";
+    mockOptions.prompts.select.mockImplementation(async () => "yes");
+    mockOptions.prompts.input
+      .mockImplementationOnce(async () => feedback)
+      .mockImplementationOnce(async () => "");
+
+    mockOptions.context.invoke.mockImplementation(async () => {
+      // simulate refine agent returning same structure
+      mockOptions.context.userContext.currentStructure = documentStructure;
+      return { message: "No-op" };
+    });
+
+    const errorSpy = spyOn(console, "error").mockImplementation(() => {});
+
+    const result = await userReviewDocumentStructure(
+      {
+        documentStructure,
+        dataSources: [{ dataSourceChunk: "chunk" }],
+        isChat: true,
+        feedback,
+      },
+      mockOptions,
+    );
+
+    expect(result.documentStructure).toEqual(documentStructure);
+    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(1);
+    expect(errorSpy).toHaveBeenCalledWith("Error processing your feedback:");
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("did not modify the existing documentation structure"),
+    );
+
+    errorSpy.mockRestore();
+  });
 });
