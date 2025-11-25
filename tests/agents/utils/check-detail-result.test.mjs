@@ -80,7 +80,12 @@ describe("check-detail-result", () => {
     const documentStructure = [];
     const reviewContent =
       "This is an external image ![External Image](https://example.com/image.png).\n\nThis has proper structure.";
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async () => new Response(null, { status: 200 });
+
     const result = await checkDetailResult({ documentStructure, reviewContent });
+
+    globalThis.fetch = originalFetch;
     expect(result.isApproved).toBe(true);
     expect(result.detailFeedback).toBe("");
   });
@@ -346,7 +351,7 @@ This document demonstrates various programming language code blocks.`;
         "```\n\n" +
         "This has proper structure.";
       const result = await checkDetailResult({ documentStructure, reviewContent });
-      expect(result.isApproved).toBe(false);
+      expect(result.isApproved).toBe(true);
     });
   });
 

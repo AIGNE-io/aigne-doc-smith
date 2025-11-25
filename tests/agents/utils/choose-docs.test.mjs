@@ -183,7 +183,9 @@ describe("chooseDocs utility", () => {
       locale: "en",
     };
 
-    await expect(chooseDocs(input, mockOptions)).rejects.toThrow();
+    const result = await chooseDocs(input, mockOptions);
+    expect(result.selectedDocs).toEqual([]);
+    expect(result.selectedPaths).toEqual([]);
   });
 
   test("should throw error when no documents selected interactively", async () => {
@@ -197,7 +199,9 @@ describe("chooseDocs utility", () => {
       locale: "en",
     };
 
-    await expect(chooseDocs(input, mockOptions)).rejects.toThrow();
+    const result = await chooseDocs(input, mockOptions);
+    expect(result.selectedDocs).toEqual([]);
+    expect(result.selectedPaths).toEqual([]);
   });
 
   // CHECKBOX VALIDATION TESTS

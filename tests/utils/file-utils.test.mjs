@@ -561,14 +561,15 @@ temp*
       } finally {
         globalThis.fetch = originalFetch;
       }
-      test("should return false for local paths", () => {
-        expect(isRemoteFile("file.md")).toBe(false);
-        expect(isRemoteFile("/absolute/path/file.md")).toBe(false);
-      });
+    });
 
-      test("should return false for unsupported protocols", () => {
-        expect(isRemoteFile("httpss://example.com/file.md")).toBe(false);
-      });
+    test("should return false for local paths", () => {
+      expect(isRemoteFile("file.md")).toBe(false);
+      expect(isRemoteFile("/absolute/path/file.md")).toBe(false);
+    });
+
+    test("should return false for unsupported protocols", () => {
+      expect(isRemoteFile("httpss://example.com/file.md")).toBe(false);
     });
 
     describe("isRemoteFileAvailable", () => {

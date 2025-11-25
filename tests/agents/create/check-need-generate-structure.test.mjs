@@ -40,13 +40,13 @@ describe("check-need-generate-structure", () => {
       context: {
         agents: {
           generateStructure: {},
-          generateStructureWithoutTools: {},
         },
         invoke: mock(async () => ({
           documentStructure: originalDocumentStructure,
           projectName: "Test Project",
           projectDesc: "Test Description",
         })),
+        userContext: {},
       },
     };
 
@@ -230,7 +230,7 @@ describe("check-need-generate-structure", () => {
     );
 
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
-      mockOptions.context.agents.generateStructureWithoutTools,
+      mockOptions.context.agents.generateStructure,
       expect.objectContaining(additionalParams),
     );
   });

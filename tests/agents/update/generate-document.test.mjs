@@ -12,11 +12,25 @@ describe("generateDocument Agent", () => {
   afterAll(() => {
     delete process.env.AIGNE_OBSERVABILITY_DISABLED;
   });
+
+  const afsOptions = {
+    afs: {
+      availableModules: [
+        {
+          module: "system-fs",
+          create: () => ({}),
+          options: {},
+        },
+      ],
+    },
+  };
+
   test("should load agent correctly with proper configuration", async () => {
     const agent = await loadAgent(
       join(import.meta.dirname, "../../../agents/update/generate-document.yaml"),
       {
         model: loadModel,
+        ...afsOptions,
       },
     );
 
@@ -33,6 +47,7 @@ describe("generateDocument Agent", () => {
       join(import.meta.dirname, "../../../agents/update/generate-document.yaml"),
       {
         model: loadModel,
+        ...afsOptions,
       },
     );
 

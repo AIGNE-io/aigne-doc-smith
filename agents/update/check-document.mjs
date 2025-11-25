@@ -87,7 +87,8 @@ export default async function checkDocument(
       contentValidationFailed = true;
     }
   }
-  const languages = translates.map((x) => x.language);
+  const translateList = Array.isArray(translates) ? translates : [];
+  const languages = translateList.map((x) => x.language);
   const lackLanguages = new Set(languages);
   const skills = [];
 
@@ -140,7 +141,7 @@ export default async function checkDocument(
 
   const result = await options.context.invoke(teamAgent, {
     ...rest,
-    translates: translates.filter((x) => lackLanguages.has(x.language)),
+    translates: translateList.filter((x) => lackLanguages.has(x.language)),
     locale,
     docsDir,
     path,

@@ -1,5 +1,5 @@
 // Default file patterns for inclusion and exclusion
-export const DEFAULT_INCLUDE_PATTERNS = [
+export const DEFAULT_INCLUDE_PATTERNS = Object.freeze([
   // Python
   "*.py",
   "*.pyi",
@@ -100,9 +100,9 @@ export const DEFAULT_INCLUDE_PATTERNS = [
   "*.mkv",
   "*.webm",
   "*.m4v",
-];
+]);
 
-export const DEFAULT_EXCLUDE_PATTERNS = [
+export const DEFAULT_EXCLUDE_PATTERNS = Object.freeze([
   "**/doc-smith/**",
   "**/.aigne/**",
   "**/vendor/**",
@@ -130,7 +130,7 @@ export const DEFAULT_EXCLUDE_PATTERNS = [
   "**/bun.lockb",
   "**/bun.lock",
   "**/bun.lockb",
-];
+]);
 
 // Supported languages for documentation
 export const SUPPORTED_LANGUAGES = [

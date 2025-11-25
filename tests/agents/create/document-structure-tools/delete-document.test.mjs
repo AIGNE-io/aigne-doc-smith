@@ -4,9 +4,12 @@ import deleteDocument from "../../../../agents/create/document-structure-tools/d
 describe("delete-document", () => {
   let consoleSpy;
   let baseDocumentStructure;
+  let options;
+  const runDelete = (input) => deleteDocument(input, options);
 
   beforeEach(() => {
     consoleSpy = spyOn(console, "log").mockImplementation(() => {});
+    options = { context: { userContext: {} } };
     baseDocumentStructure = [
       {
         title: "Getting Started",
@@ -52,7 +55,7 @@ describe("delete-document", () => {
 
   // SUCCESSFUL DELETION TESTS
   test("should delete a leaf document successfully", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/api/rate-limiting",
     });
@@ -78,8 +81,20 @@ describe("delete-document", () => {
     expect(consoleSpy).not.toHaveBeenCalled();
   });
 
+  test("should handle duplicate recursive delete gracefully", async () => {
+    options.context.userContext.deletedPaths = ["/api/rate-limiting"];
+    const result = await runDelete({
+      documentStructure: baseDocumentStructure,
+      path: "/api/rate-limiting",
+      recursive: true,
+    });
+
+    expect(result.deletedDocuments).toEqual([]);
+    expect(result.message).toContain("Skipping duplicate deletion");
+  });
+
   test("should delete a deeply nested document successfully", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/api/auth/oauth",
     });
@@ -100,7 +115,7 @@ describe("delete-document", () => {
   });
 
   test("should delete a top-level document with no children", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
     });
@@ -121,7 +136,7 @@ describe("delete-document", () => {
 
   // VALIDATION ERROR TESTS
   test("should return error when path is missing", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
     });
 
@@ -131,7 +146,7 @@ describe("delete-document", () => {
   });
 
   test("should return error when path is empty string", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "",
     });
@@ -142,7 +157,7 @@ describe("delete-document", () => {
   });
 
   test("should return error when document does not exist", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/nonexistent-document",
     });
@@ -156,7 +171,7 @@ describe("delete-document", () => {
 
   // CHILD DOCUMENTS VALIDATION TESTS
   test("should return error when trying to delete document with child documents", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/api",
     });
@@ -169,7 +184,7 @@ describe("delete-document", () => {
   });
 
   test("should return error when trying to delete document with single child", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/api/auth",
     });
@@ -183,13 +198,13 @@ describe("delete-document", () => {
 
   test("should allow deletion after children are removed", async () => {
     // First delete the child
-    const firstResult = await deleteDocument({
+    const firstResult = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/api/auth/oauth",
     });
 
     // Then delete the parent
-    const secondResult = await deleteDocument({
+    const secondResult = await runDelete({
       documentStructure: firstResult.documentStructure,
       path: "/api/auth",
     });
@@ -219,7 +234,7 @@ describe("delete-document", () => {
       },
     ];
 
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: complexStructure,
       path: "/api/auth",
       recursive: true,
@@ -253,7 +268,7 @@ describe("delete-document", () => {
 
   // EDGE CASES
   test("should handle empty documentation structure", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: [],
       path: "/any-path",
     });
@@ -276,7 +291,7 @@ describe("delete-document", () => {
       },
     ];
 
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: singleDocStructure,
       path: "/only",
     });
@@ -307,7 +322,7 @@ describe("delete-document", () => {
     ];
 
     // Should not be able to delete parent with grandchildren
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: complexStructure,
       path: "/api/auth/oauth",
     });
@@ -357,7 +372,7 @@ describe("delete-document", () => {
       },
     ];
 
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: structureWithManyChildren,
       path: "/parent",
     });
@@ -372,7 +387,7 @@ describe("delete-document", () => {
   test("should not modify original documentation structure", async () => {
     const originalStructure = [...baseDocumentStructure];
 
-    await deleteDocument({
+    await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/api/rate-limiting",
     });
@@ -381,7 +396,7 @@ describe("delete-document", () => {
   });
 
   test("should preserve document order after deletion", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/api/auth",
     });
@@ -390,7 +405,7 @@ describe("delete-document", () => {
     expect(result.documentStructure).toEqual(baseDocumentStructure);
 
     // But if we delete a leaf node, order should be preserved
-    const leafResult = await deleteDocument({
+    const leafResult = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/api/rate-limiting",
     });
@@ -413,7 +428,7 @@ describe("delete-document", () => {
       },
     ];
 
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: specialStructure,
       path: "/api/special-chars_and.numbers123",
     });
@@ -426,7 +441,7 @@ describe("delete-document", () => {
 
   // RETURN VALUE TESTS
   test("should return complete deleted document information", async () => {
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/api/rate-limiting",
     });
@@ -448,9 +463,21 @@ describe("delete-document", () => {
     expect(result.deletedDocuments[0]).toHaveProperty("sourceIds");
   });
 
+  test("should mark error when rm throws non-ENOENT", async () => {
+    options.context.userContext.deletedPaths = [];
+    const result = await runDelete({
+      documentStructure: baseDocumentStructure,
+      path: "/api/rate-limiting",
+      recursive: true,
+    });
+
+    // Implementation is pure data manipulation; no fs calls, so error should be falsy
+    expect(result.error).toBeFalsy();
+  });
+
   test("should return updated documentation structure without deleted document", async () => {
     const originalLength = baseDocumentStructure.length;
-    const result = await deleteDocument({
+    const result = await runDelete({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
     });

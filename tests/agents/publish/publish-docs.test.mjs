@@ -20,7 +20,13 @@ import * as fileUtils from "../../../utils/file-utils.mjs";
 
 // Mock all external dependencies
 const mockPublishDocs = {
-  publishDocs: mock(() => Promise.resolve({ success: true, boardId: "new-board-id" })),
+  publishDocs: mock(() =>
+    Promise.resolve({
+      success: true,
+      boardId: "new-board-id",
+      docsUrl: "https://docsmith.aigne.io/c/demo",
+    }),
+  ),
 };
 
 const mockBrokerClient = {
@@ -87,7 +93,11 @@ describe("publish-docs", () => {
     // Reset external mocks and clear call history
     mockPublishDocs.publishDocs.mockClear();
     mockPublishDocs.publishDocs.mockImplementation(() =>
-      Promise.resolve({ success: true, boardId: "new-board-id" }),
+      Promise.resolve({
+        success: true,
+        boardId: "new-board-id",
+        docsUrl: "https://docsmith.aigne.io/c/demo",
+      }),
     );
     mockFsExtra.rm.mockClear();
     mockFsExtra.rm.mockImplementation(() => Promise.resolve());
@@ -185,7 +195,8 @@ describe("publish-docs", () => {
     expect(getDiscussKitMountPointSpy).toHaveBeenCalledWith("https://docsmith.aigne.io");
     expect(getAccessTokenSpy).toHaveBeenCalledWith("https://docsmith.aigne.io", "", undefined);
     expect(mockPublishDocs.publishDocs).toHaveBeenCalled();
-    expect(result.message).toBe("✅ Documentation published successfully!");
+    expect(result.message).toContain("✅ Documentation published successfully!");
+    expect(result.message).toContain("Docs available at:");
   });
 
   // ENVIRONMENT VARIABLE TESTS
@@ -629,7 +640,8 @@ describe("publish-docs", () => {
       mockOptions,
     );
 
-    expect(result.message).toBe("✅ Documentation published successfully!");
+    expect(result.message).toContain("✅ Documentation published successfully!");
+    expect(result.message).toContain("Docs available at:");
   });
 
   test("should handle empty config", async () => {

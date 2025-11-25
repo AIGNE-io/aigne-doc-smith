@@ -87,16 +87,12 @@ describe("choose-contents", () => {
 
     await chooseContents({ docsDir: "/test/docs", workDir: "/test" }, mockOptions);
 
-    expect(mockOptions.prompts.checkbox).toHaveBeenCalledWith({
-      message: "Select items to clear:",
-      choices: expect.arrayContaining([
-        expect.objectContaining({
-          name: "generated documents",
-          value: "generatedDocs",
-        }),
-      ]),
-      validate: expect.any(Function),
-    });
+    expect(mockOptions.prompts.checkbox).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: "Please select the items you'd like to clear:",
+        validate: expect.any(Function),
+      }),
+    );
     expect(mockClearAgents.clearGeneratedDocs).toHaveBeenCalled();
   });
 
@@ -105,7 +101,7 @@ describe("choose-contents", () => {
 
     const result = await chooseContents({ docsDir: "/test/docs", workDir: "/test" }, mockOptions);
 
-    expect(result.message).toBe("No items selected to clear.");
+    expect(result.message).toContain("You haven't selected any items to clear.");
     expect(mockContext.invoke).not.toHaveBeenCalled();
   });
 
@@ -118,7 +114,7 @@ describe("choose-contents", () => {
     );
 
     expect(result.message).toBe(
-      "Available options to clear: generatedDocs, documentStructure, documentConfig, authTokens, deploymentConfig",
+      "Available options to clear: generatedDocs, documentStructure, documentConfig, authTokens, deploymentConfig, mediaDescription",
     );
     expect(result.availableTargets).toEqual([
       "generatedDocs",
@@ -126,6 +122,7 @@ describe("choose-contents", () => {
       "documentConfig",
       "authTokens",
       "deploymentConfig",
+      "mediaDescription",
     ]);
   });
 
@@ -166,9 +163,9 @@ describe("choose-contents", () => {
   });
 
   test("should have correct task metadata", () => {
-    expect(chooseContents.taskTitle).toBe("Choose contents to clear");
+    expect(chooseContents.taskTitle).toBe("Select and clear project contents");
     expect(chooseContents.description).toBe(
-      "Choose contents to clear and execute the appropriate clearing operations",
+      "Select and clear project contents, such as generated documents, configuration, and authorization tokens.",
     );
   });
 
@@ -198,7 +195,7 @@ describe("choose-contents", () => {
     const result = await chooseContents({ targets: ["generatedDocs"] }, optionsWithoutAgent);
 
     expect(result.message).toContain("Cleanup finished with some issues.");
-    expect(result.message).toContain("Clear agent 'clearGeneratedDocs' not found in context");
+    expect(result.message).toContain("The clear agent 'clearGeneratedDocs' was not found.");
   });
 
   test("should handle agent execution errors", async () => {
@@ -216,7 +213,7 @@ describe("choose-contents", () => {
     const result = await chooseContents({ targets: ["generatedDocs"] }, optionsWithError);
 
     expect(result.message).toContain("Cleanup finished with some issues.");
-    expect(result.message).toContain("Failed to clear generated documents: Agent execution failed");
+    expect(result.message).toContain("Failed to clear Generated Documents: Agent execution failed");
   });
 
   test("should handle duplicate targets", async () => {

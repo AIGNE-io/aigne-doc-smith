@@ -19,15 +19,17 @@ const mockBrokerClient = {
 const mockBrokerClientConstructor = mock(() => mockBrokerClient);
 
 // Mock the payment broker client module
+const STEPS = {
+  PAYMENT_PENDING: "PAYMENT_PENDING",
+  INSTALLATION_STARTING: "INSTALLATION_STARTING",
+  SERVICE_STARTING: "SERVICE_STARTING",
+  ACCESS_PREPARING: "ACCESS_PREPARING",
+  ACCESS_READY: "ACCESS_READY",
+};
+
 mock.module("@blocklet/payment-broker-client/node", () => ({
   BrokerClient: mockBrokerClientConstructor,
-  STEPS: {
-    PAYMENT_PENDING: "PAYMENT_PENDING",
-    INSTALLATION_STARTING: "INSTALLATION_STARTING",
-    SERVICE_STARTING: "SERVICE_STARTING",
-    ACCESS_PREPARING: "ACCESS_PREPARING",
-    ACCESS_READY: "ACCESS_READY",
-  },
+  STEPS,
 }));
 
 describe("deploy", () => {
@@ -99,7 +101,7 @@ describe("deploy", () => {
     expect(mockBrokerClient.deploy).toHaveBeenCalledWith(
       expect.objectContaining({
         cachedCheckoutId: undefined,
-        cachedPaymentUrl: undefined,
+        needShortUrl: true,
         pageInfo: expect.objectContaining({
           successMessage: expect.objectContaining({
             en: expect.stringContaining("Congratulations"),
@@ -107,23 +109,25 @@ describe("deploy", () => {
           }),
         }),
         hooks: expect.objectContaining({
-          PAYMENT_PENDING: expect.any(Function),
-          INSTALLATION_STARTING: expect.any(Function),
-          SERVICE_STARTING: expect.any(Function),
-          ACCESS_PREPARING: expect.any(Function),
-          ACCESS_READY: expect.any(Function),
+          [STEPS.PAYMENT_PENDING]: expect.any(Function),
+          [STEPS.INSTALLATION_STARTING]: expect.any(Function),
+          [STEPS.SERVICE_STARTING]: expect.any(Function),
+          [STEPS.ACCESS_PREPARING]: expect.any(Function),
+          [STEPS.ACCESS_READY]: expect.any(Function),
         }),
       }),
     );
 
     // Verify result transformation
-    expect(result).toEqual({
-      appUrl: TEST_APP_URL,
-      homeUrl: TEST_HOME_URL,
-      dashboardUrl: TEST_DASHBOARD_URL,
-      subscriptionUrl: TEST_SUBSCRIPTION_URL,
-      token: "auth-token-123",
-    });
+    expect(result).toEqual(
+      expect.objectContaining({
+        appUrl: TEST_APP_URL,
+        homeUrl: TEST_HOME_URL,
+        dashboardUrl: TEST_DASHBOARD_URL,
+        subscriptionUrl: TEST_SUBSCRIPTION_URL,
+        token: "auth-token-123",
+      }),
+    );
 
     // Verify console output
     const logs = consoleOutput.filter((o) => o.type === "log").map((o) => o.args.join(" "));
@@ -139,13 +143,13 @@ describe("deploy", () => {
 
     mockBrokerClient.deploy.mockResolvedValue(mockResult);
 
-    const result = await deploy("cached-checkout-id", "https://cached-payment.url");
+    const result = await deploy("cached-checkout-id", "en");
 
     // Verify deploy was called with cached parameters
     expect(mockBrokerClient.deploy).toHaveBeenCalledWith(
       expect.objectContaining({
         cachedCheckoutId: "cached-checkout-id",
-        cachedPaymentUrl: "https://cached-payment.url",
+        needShortUrl: true,
       }),
     );
 
@@ -198,11 +202,6 @@ describe("deploy", () => {
       "checkoutId",
       "session-123",
       "Checkout ID for document deployment website",
-    );
-    expect(saveValueToConfigSpy).toHaveBeenCalledWith(
-      "paymentUrl",
-      "https://payment.test/session-123",
-      "Payment URL for document deployment website",
     );
 
     // Verify browser was opened

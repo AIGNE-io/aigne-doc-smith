@@ -24,7 +24,7 @@ describe("update-document-content", () => {
   test("should return error when path is not provided", async () => {
     const result = await updateDocumentContent({ diffPatch: "some patch" }, mockOptions);
     expect(result.success).toBe(false);
-    expect(result.error.message).toContain("Path is required");
+    expect(result.error.message).toContain("path: Required");
   });
 
   test("should return error when diffPatch is not provided", async () => {

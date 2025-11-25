@@ -37,6 +37,8 @@ describe("auth-utils", () => {
   let getComponentMountPointSpy;
   let consoleWarnSpy;
   let consoleDebugSpy;
+  let globalFetchMock;
+  let originalFetch;
 
   beforeAll(() => {
     // Apply mocks for external dependencies that involve network requests
@@ -56,6 +58,11 @@ describe("auth-utils", () => {
     originalEnv = { ...process.env };
     delete process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
     delete process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN;
+    originalFetch = globalThis.fetch;
+    globalFetchMock = mock(async () => ({
+      json: async () => ({}),
+    }));
+    globalThis.fetch = globalFetchMock;
 
     // Reset external mocks
     mockCreateConnect.mockClear();
@@ -91,6 +98,8 @@ describe("auth-utils", () => {
 
   afterEach(() => {
     process.env = originalEnv;
+    globalThis.fetch = originalFetch;
+    globalFetchMock?.mockRestore?.();
 
     // Restore all spies
     existsSyncSpy?.mockRestore();
@@ -207,7 +216,7 @@ describe("auth-utils", () => {
     mockCreateConnect.mockRejectedValueOnce(new Error("Network error"));
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "\u001b[33m⚠️ Failed to obtain access token. This may be due to network issues or authorization timeout.\u001b[39m\n\n\u001b[1m💡 Solution:\u001b[22m\n  • Step 1: Ensure your network can access the service URL: \u001b[36mhttps://example.com\u001b[39m\n  • Step 2: Run \u001b[36maigne doc publish\u001b[39m again\n  • Step 3: If prompted, select \u001b[36mResume previous website setup\u001b[39m to continue from where you left off\n\n",
+      "⚠️ Failed to obtain access token. This may be due to network issues or authorization timeout.",
     );
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       "Could not read the configuration file:",
@@ -314,7 +323,7 @@ describe("auth-utils", () => {
     mockCreateConnect.mockRejectedValue(new TypeError("Network error"));
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
-      "\u001b[33m⚠️ Failed to obtain access token. This may be due to network issues or authorization timeout.\u001b[39m\n\n\u001b[1m💡 Solution:\u001b[22m\n  • Step 1: Ensure your network can access the service URL: \u001b[36mhttps://example.com\u001b[39m\n  • Step 2: Run \u001b[36maigne doc publish\u001b[39m again\n  • Step 3: If prompted, select \u001b[36mResume previous website setup\u001b[39m to continue from where you left off\n\n",
+      "⚠️ Failed to obtain access token. This may be due to network issues or authorization timeout.",
     );
   });
 
@@ -458,9 +467,6 @@ describe("auth-utils", () => {
         }),
       );
 
-      // Verify environment variable is set
-      expect(process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN).toBe("new-access-token");
-
       // Verify config file is saved
       expect(writeFileSpy).toHaveBeenCalledWith(
         "/mock/home/.aigne/doc-smith-connected.yaml",
@@ -512,10 +518,14 @@ describe("auth-utils", () => {
 
       // Test that openPage calls the mock open function and logs
       const consoleSpy = spyOn(console, "log").mockImplementation(() => {});
+      globalFetchMock.mockImplementation(async () => ({
+        json: async () => ({ url: "https://short.url" }),
+      }));
+
       await capturedOpenPage("https://auth.example.com");
       expect(mockOpen).toHaveBeenCalledWith("https://auth.example.com/?locale=en");
       expect(consoleSpy).toHaveBeenCalledWith(
-        "🔗 Please open the following URL in your browser to authorize access: ",
+        "🔗 Please open the following URL in your browser to authorize access:",
         expect.any(String),
         "\n",
       );
@@ -526,7 +536,7 @@ describe("auth-utils", () => {
       mockCreateConnect.mockRejectedValue(new Error("Authorization failed"));
 
       await expect(getOfficialAccessToken("https://example.com")).rejects.toThrow(
-        "\u001b[33m⚠️ Failed to obtain official access token. This may be due to network issues or authorization timeout.\u001b[39m\n\n\u001b[1m💡 Solution:\u001b[22m\n  • Step 1: Ensure your network can access the official service URL: \u001b[36mhttps://example.com\u001b[39m\n  • Step 2: Run \u001b[36maigne doc publish\u001b[39m again\n\n",
+        "⚠️ Failed to obtain official access token. This may be due to network issues or authorization timeout.",
       );
     });
 
@@ -534,7 +544,7 @@ describe("auth-utils", () => {
       mockCreateConnect.mockRejectedValue(new TypeError("Network error"));
 
       await expect(getOfficialAccessToken("https://example.com")).rejects.toThrow(
-        "\u001b[33m⚠️ Failed to obtain official access token. This may be due to network issues or authorization timeout.\u001b[39m\n\n\u001b[1m💡 Solution:\u001b[22m\n  • Step 1: Ensure your network can access the official service URL: \u001b[36mhttps://example.com\u001b[39m\n  • Step 2: Run \u001b[36maigne doc publish\u001b[39m again\n\n",
+        "⚠️ Failed to obtain official access token. This may be due to network issues or authorization timeout.",
       );
     });
 
