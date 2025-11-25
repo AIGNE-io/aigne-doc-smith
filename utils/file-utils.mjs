@@ -188,7 +188,7 @@ export async function getFilesWithGlob(dir, includePatterns, excludePatterns, gi
   }
 
   // Add default exclusions if not already present
-  const defaultExclusions = ["node_modules/**", "test/**", "temp/**"];
+  const defaultExclusions = ["node_modules/**", "temp/**"];
   for (const exclusion of defaultExclusions) {
     if (!allIgnorePatterns.includes(exclusion)) {
       allIgnorePatterns.push(exclusion);
