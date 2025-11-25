@@ -55,12 +55,10 @@ describe("delete-document", () => {
 
   // SUCCESSFUL DELETION TESTS
   test("should delete a leaf document successfully", async () => {
-    const result = await runDelete(
-      {
-        documentStructure: baseDocumentStructure,
-        path: "/api/rate-limiting",
-      },
-    );
+    const result = await runDelete({
+      documentStructure: baseDocumentStructure,
+      path: "/api/rate-limiting",
+    });
 
     expect(result.documentStructure).toHaveLength(4);
     expect(result.deletedDocuments).toHaveLength(1);
@@ -84,12 +82,10 @@ describe("delete-document", () => {
   });
 
   test("should delete a deeply nested document successfully", async () => {
-    const result = await runDelete(
-      {
-        documentStructure: baseDocumentStructure,
-        path: "/api/auth/oauth",
-      },
-    );
+    const result = await runDelete({
+      documentStructure: baseDocumentStructure,
+      path: "/api/auth/oauth",
+    });
 
     expect(result.documentStructure).toHaveLength(4);
     expect(result.deletedDocuments).toHaveLength(1);
@@ -107,12 +103,10 @@ describe("delete-document", () => {
   });
 
   test("should delete a top-level document with no children", async () => {
-    const result = await runDelete(
-      {
-        documentStructure: baseDocumentStructure,
-        path: "/getting-started",
-      },
-    );
+    const result = await runDelete({
+      documentStructure: baseDocumentStructure,
+      path: "/getting-started",
+    });
 
     expect(result.documentStructure).toHaveLength(4);
     expect(result.deletedDocuments).toHaveLength(1);
@@ -130,11 +124,9 @@ describe("delete-document", () => {
 
   // VALIDATION ERROR TESTS
   test("should return error when path is missing", async () => {
-    const result = await runDelete(
-      {
-        documentStructure: baseDocumentStructure,
-      },
-    );
+    const result = await runDelete({
+      documentStructure: baseDocumentStructure,
+    });
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocuments).toBeUndefined();
@@ -142,12 +134,10 @@ describe("delete-document", () => {
   });
 
   test("should return error when path is empty string", async () => {
-    const result = await runDelete(
-      {
-        documentStructure: baseDocumentStructure,
-        path: "",
-      },
-    );
+    const result = await runDelete({
+      documentStructure: baseDocumentStructure,
+      path: "",
+    });
 
     expect(result.documentStructure).toEqual(baseDocumentStructure);
     expect(result.deletedDocuments).toBeUndefined();
