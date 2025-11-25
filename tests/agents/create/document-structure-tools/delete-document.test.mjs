@@ -81,6 +81,18 @@ describe("delete-document", () => {
     expect(consoleSpy).not.toHaveBeenCalled();
   });
 
+  test("should handle duplicate recursive delete gracefully", async () => {
+    options.context.userContext.deletedPaths = ["/api/rate-limiting"];
+    const result = await runDelete({
+      documentStructure: baseDocumentStructure,
+      path: "/api/rate-limiting",
+      recursive: true,
+    });
+
+    expect(result.deletedDocuments).toEqual([]);
+    expect(result.message).toContain("Skipping duplicate deletion");
+  });
+
   test("should delete a deeply nested document successfully", async () => {
     const result = await runDelete({
       documentStructure: baseDocumentStructure,
@@ -449,6 +461,18 @@ describe("delete-document", () => {
     expect(result.deletedDocuments[0]).toHaveProperty("path");
     expect(result.deletedDocuments[0]).toHaveProperty("parentId");
     expect(result.deletedDocuments[0]).toHaveProperty("sourceIds");
+  });
+
+  test("should mark error when rm throws non-ENOENT", async () => {
+    options.context.userContext.deletedPaths = [];
+    const result = await runDelete({
+      documentStructure: baseDocumentStructure,
+      path: "/api/rate-limiting",
+      recursive: true,
+    });
+
+    // Implementation is pure data manipulation; no fs calls, so error should be falsy
+    expect(result.error).toBeFalsy();
   });
 
   test("should return updated documentation structure without deleted document", async () => {

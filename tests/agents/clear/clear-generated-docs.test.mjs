@@ -237,4 +237,37 @@ describe("clear-generated-docs", () => {
       rmSpy.mockRestore();
     }
   });
+
+  test("should skip when no documents selected", async () => {
+    chooseDocsMock = async () => ({ selectedDocs: [] });
+    await writeFile(join(docsDir, "keep.md"), "keep");
+
+    const result = await clearGeneratedDocs({ docsDir });
+
+    expect(result.cleared).toBe(false);
+    expect(result.message).toContain("No documents selected for deletion");
+    // File should remain
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    expect(await pathExists(join(docsDir, "keep.md"))).toBe(true);
+  });
+
+  test("should delete all language variants for selected docs", async () => {
+    chooseDocsMock = async () => ({ selectedDocs: [{ path: "/multi" }] });
+    // Create files for en (default), zh, ja
+    await writeFile(join(docsDir, "multi.md"), "en");
+    await writeFile(join(docsDir, "multi.zh.md"), "zh");
+    await writeFile(join(docsDir, "multi.ja.md"), "ja");
+
+    const result = await clearGeneratedDocs({
+      docsDir,
+      locale: "en",
+      translateLanguages: ["zh", "ja"],
+    });
+
+    expect(result.cleared).toBe(true);
+    const { pathExists } = await import("../../../utils/file-utils.mjs");
+    expect(await pathExists(join(docsDir, "multi.md"))).toBe(false);
+    expect(await pathExists(join(docsDir, "multi.zh.md"))).toBe(false);
+    expect(await pathExists(join(docsDir, "multi.ja.md"))).toBe(false);
+  });
 });
