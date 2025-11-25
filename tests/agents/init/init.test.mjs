@@ -1033,8 +1033,8 @@ describe("init", () => {
         expect(config.documentationDepth).toBe("balancedCoverage");
         expect(config.locale).toBe("en");
         expect(config.translateLanguages).toEqual(["zh", "ja"]);
-        // Verify translates is converted from translateLanguages
-        expect(config.translates).toEqual([{ language: "zh" }, { language: "ja" }]);
+        // Current implementation keeps translateLanguages only
+        expect(config.translates).toBeUndefined();
         expect(config.docsDir).toBe(join(tempDir, "docs"));
         expect(config.sourcesPath).toEqual(["./"]); // Default when no paths provided
       } finally {
@@ -1085,8 +1085,8 @@ describe("init", () => {
         expect(config.documentationDepth).toBe("comprehensive");
         expect(config.locale).toBe("zh-CN");
         expect(config.translateLanguages).toEqual(["en"]);
-        // Verify translates is converted from translateLanguages
-        expect(config.translates).toEqual([{ language: "en" }]);
+        // Current implementation keeps translateLanguages only
+        expect(config.translates).toBeUndefined();
       } finally {
         await cleanupTempDir(tempDir);
       }

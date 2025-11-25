@@ -37,6 +37,8 @@ describe("auth-utils", () => {
   let getComponentMountPointSpy;
   let consoleWarnSpy;
   let consoleDebugSpy;
+  let globalFetchMock;
+  let originalFetch;
 
   beforeAll(() => {
     // Apply mocks for external dependencies that involve network requests
@@ -56,6 +58,11 @@ describe("auth-utils", () => {
     originalEnv = { ...process.env };
     delete process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
     delete process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN;
+    originalFetch = globalThis.fetch;
+    globalFetchMock = mock(async () => ({
+      json: async () => ({}),
+    }));
+    globalThis.fetch = globalFetchMock;
 
     // Reset external mocks
     mockCreateConnect.mockClear();
@@ -91,6 +98,8 @@ describe("auth-utils", () => {
 
   afterEach(() => {
     process.env = originalEnv;
+    globalThis.fetch = originalFetch;
+    globalFetchMock?.mockRestore?.();
 
     // Restore all spies
     existsSyncSpy?.mockRestore();
@@ -509,6 +518,10 @@ describe("auth-utils", () => {
 
       // Test that openPage calls the mock open function and logs
       const consoleSpy = spyOn(console, "log").mockImplementation(() => {});
+      globalFetchMock.mockImplementation(async () => ({
+        json: async () => ({ url: "https://short.url" }),
+      }));
+
       await capturedOpenPage("https://auth.example.com");
       expect(mockOpen).toHaveBeenCalledWith("https://auth.example.com/?locale=en");
       expect(consoleSpy).toHaveBeenCalledWith(

@@ -40,7 +40,6 @@ describe("check-need-generate-structure", () => {
       context: {
         agents: {
           generateStructure: {},
-          generateStructureWithoutTools: {},
         },
         invoke: mock(async () => ({
           documentStructure: originalDocumentStructure,

@@ -13,6 +13,16 @@ describe("translate-meta", () => {
 
   beforeEach(() => {
     mock.restore();
+    // Ensure fs-extra has callable methods even if other tests mocked the module
+    if (typeof fs.ensureFile !== "function") {
+      fs.ensureFile = () => Promise.resolve();
+    }
+    if (typeof fs.readFile !== "function") {
+      fs.readFile = () => Promise.resolve("");
+    }
+    if (typeof fs.writeFile !== "function") {
+      fs.writeFile = () => Promise.resolve();
+    }
     ensureFileSpy = spyOn(fs, "ensureFile").mockResolvedValue();
     readFileSpy = spyOn(fs, "readFile").mockResolvedValue("");
     writeFileSpy = spyOn(fs, "writeFile").mockResolvedValue();
@@ -41,27 +51,24 @@ describe("translate-meta", () => {
       },
     }));
 
-    let result;
-    let error;
-    try {
-      result = await translateMeta(
-        {
-          projectName: "My Project",
-          projectDesc: "Project Description",
-          locale: "en",
-          translateLanguages: ["fr", "ja"],
+    const result = await translateMeta(
+      {
+        projectName: "My Project",
+        projectDesc: "Project Description",
+        locale: "en",
+        translateLanguages: ["fr", "ja"],
+      },
+      {
+        context: {
+          invoke: contextInvokeMock,
         },
-        {
-          context: {
-            invoke: contextInvokeMock,
-          },
-        },
-      );
-    } catch (err) {
-      error = err;
-    }
+      },
+    );
 
-    expect(result || error).toBeDefined();
+    expect(contextInvokeMock).toHaveBeenCalledTimes(1);
+    expect(result.translatedMetadata.title.fr).toBe("Titre du projet");
+    expect(result.translatedMetadata.desc.ja).toBe("プロジェクトの説明");
+    expect(writeFileSpy).toHaveBeenCalled();
   });
 
   test("skips agent invocation when all translations exist", async () => {
@@ -85,27 +92,23 @@ describe("translate-meta", () => {
       throw new Error("Agent should not be invoked when cache is complete");
     });
 
-    let result;
-    let error;
-    try {
-      result = await translateMeta(
-        {
-          projectName: "My Project",
-          projectDesc: "Project Description",
-          locale: "en",
-          translateLanguages: ["fr"],
+    const result = await translateMeta(
+      {
+        projectName: "My Project",
+        projectDesc: "Project Description",
+        locale: "en",
+        translateLanguages: ["fr"],
+      },
+      {
+        context: {
+          invoke: contextInvokeMock,
         },
-        {
-          context: {
-            invoke: contextInvokeMock,
-          },
-        },
-      );
-    } catch (err) {
-      error = err;
-    }
+      },
+    );
 
-    expect(result || error).toBeDefined();
+    expect(contextInvokeMock).not.toHaveBeenCalled();
+    expect(result.translatedMetadata.title.fr).toBe("Titre du projet");
+    expect(result.translatedMetadata.desc.fr).toBe("Description du projet");
   });
 
   test("ignores empty translation values returned by the agent", async () => {
@@ -121,26 +124,21 @@ describe("translate-meta", () => {
       },
     }));
 
-    let result;
-    let error;
-    try {
-      result = await translateMeta(
-        {
-          projectName: "My Project",
-          projectDesc: "Project Description",
-          locale: "en",
-          translateLanguages: ["fr"],
+    const result = await translateMeta(
+      {
+        projectName: "My Project",
+        projectDesc: "Project Description",
+        locale: "en",
+        translateLanguages: ["fr"],
+      },
+      {
+        context: {
+          invoke: contextInvokeMock,
         },
-        {
-          context: {
-            invoke: contextInvokeMock,
-          },
-        },
-      );
-    } catch (err) {
-      error = err;
-    }
+      },
+    );
 
-    expect(result || error).toBeDefined();
+    expect(result.translatedMetadata.title.fr).toBeUndefined();
+    expect(result.translatedMetadata.desc.fr).toBeUndefined();
   });
 });
