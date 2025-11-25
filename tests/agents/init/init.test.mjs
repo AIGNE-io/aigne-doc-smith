@@ -1000,7 +1000,12 @@ describe("init", () => {
         };
 
         const mockPrompts = createMockPrompts(mockResponses);
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           {
@@ -1060,7 +1065,12 @@ describe("init", () => {
         };
 
         const mockPrompts = createMockPrompts(mockResponses);
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           {
@@ -1109,7 +1119,12 @@ describe("init", () => {
         };
 
         const mockPrompts = createMockPrompts(mockResponses);
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           {
@@ -1158,7 +1173,12 @@ describe("init", () => {
           },
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         // First let's create the directories that will be searched for
         await fs.mkdir(join(process.cwd(), "src"), { recursive: true }).catch(() => {
@@ -1215,7 +1235,12 @@ describe("init", () => {
           search: () => Promise.resolve(""), // Immediately finish without adding paths
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1252,7 +1277,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: true },
@@ -1284,7 +1314,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: true },
@@ -1329,7 +1364,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1367,7 +1407,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1415,7 +1460,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1439,7 +1489,12 @@ describe("init", () => {
         search: () => Promise.resolve(""),
       };
 
-      const options = { prompts: mockPrompts };
+      const options = {
+        prompts: mockPrompts,
+        context: {
+          userContext: {},
+        },
+      };
 
       const result = await init(
         { outputPath: invalidPath, fileName: "config.yaml", skipIfExists: false },
@@ -1475,7 +1530,7 @@ targetAudienceTypes:
             fileName: "config.yaml",
             checkOnly: true,
           },
-          { prompts: {} }, // Options not needed for checkOnly
+          { prompts: {}, context: { userContext: {} } }, // Options not needed for checkOnly
         );
 
         // Should return loaded config
@@ -1521,7 +1576,7 @@ targetAudienceTypes:
                 fileName: "config.yaml",
                 checkOnly: true,
               },
-              { prompts: {} },
+              { prompts: {}, context: {} },
             ),
           ).rejects.toThrow("process.exit called");
 
@@ -1556,7 +1611,12 @@ targetAudienceTypes:
           search: "",
         });
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           {
@@ -1612,7 +1672,12 @@ targetAudienceTypes:
           },
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1657,7 +1722,12 @@ targetAudienceTypes:
           },
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },

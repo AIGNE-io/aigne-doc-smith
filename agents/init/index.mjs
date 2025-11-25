@@ -35,16 +35,12 @@ const _PRESS_ENTER_TO_FINISH = "Press Enter to finish";
  * @param {string} params.fileName - The name of the file.
  * @returns {Promise<Object>}
  */
-export default async function init(input = {}, options = {}) {
-  // Ensure context/userContext exists to avoid runtime errors in tests and non-interactive calls
-  if (!options.context) options.context = {};
-  if (!options.context.userContext) options.context.userContext = {};
-
+export default async function init(input, options) {
   const config = await _init(input, options);
 
   // Set thinking effort (lite/standard/pro) and map to reasoningEffort
   options.context.userContext.thinkingEffort =
-    config?.thinking?.effort || DEFAULT_THINKING_EFFORT_LEVEL;
+    config.thinking?.effort || DEFAULT_THINKING_EFFORT_LEVEL;
 
   // Set global reasoningEffort based on thinkingEffort
   options.context.userContext.reasoningEffort = mapReasoningEffortLevel(
