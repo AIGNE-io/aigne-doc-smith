@@ -17,6 +17,11 @@ XFieldDesc is rich field description. Used to provide rich text descriptions for
 ### Usage Rules
 
 - **Parent Requirement**: Must be child of `<x-field>`: `<x-field-desc>` can only appear as a child element of `<x-field>` components
+- **Avoid Redundant Information**: Do not repeat information in `<x-field-desc>` that is already expressed by the parent `<x-field>` attributes. Specifically:
+  - **Required Status**: Do not mention "required" or "optional" in descriptions since `data-required` attribute already indicates this
+  - **Default Values**: Do not repeat default values in descriptions since `data-default` attribute already shows this
+  - **Deprecated Status**: Do not mention "deprecated" in descriptions since `data-deprecated` attribute already indicates this
+  - Focus descriptions on the field's purpose, format, constraints, example values, and usage guidance instead
 
 ### Good Examples
 
@@ -80,6 +85,35 @@ XFieldDesc is rich field description. Used to provide rich text descriptions for
   <x-field-group>
     <x-field data-name="name" data-type="string" data-required="true" data-desc="User name"></x-field>
     <x-field-desc markdown>This description is not inside an x-field component.</x-field-desc>
+  </x-field-group>
+  ```
+
+- Example 7: Redundant required information in description (violates "Avoid Redundant Information" rule)
+  ```md
+  <x-field-group>
+    <x-field data-name="api_key" data-type="string" data-required="true">
+      <x-field-desc markdown>Your **API key** for authentication. **This field is required.**</x-field-desc>
+    </x-field>
+    <x-field data-name="timeout" data-type="number" data-required="false" data-default="5000">
+      <x-field-desc markdown>Request timeout in milliseconds. **Optional**, defaults to `5000`.</x-field-desc>
+    </x-field>
+    <x-field data-name="old_api" data-type="string" data-deprecated="true">
+      <x-field-desc markdown>Old API endpoint. **This field is deprecated.**</x-field-desc>
+    </x-field>
+  </x-field-group>
+  ```
+  **Correct approach:**
+  ```md
+  <x-field-group>
+    <x-field data-name="api_key" data-type="string" data-required="true">
+      <x-field-desc markdown>Your **API key** for authentication. Generate one from the `Settings > API Keys` section.</x-field-desc>
+    </x-field>
+    <x-field data-name="timeout" data-type="number" data-required="false" data-default="5000">
+      <x-field-desc markdown>Request timeout in milliseconds.</x-field-desc>
+    </x-field>
+    <x-field data-name="old_api" data-type="string" data-deprecated="true">
+      <x-field-desc markdown>Old API endpoint. Use the new endpoint instead.</x-field-desc>
+    </x-field>
   </x-field-group>
   ```
 
