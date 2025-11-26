@@ -13,7 +13,7 @@ Documentation Generation Rules:
 - Since API names are already specified in document titles, avoid repeating them in subheadings—use sub-API names directly
 - Include links to related documents in the introduction using Markdown format to help users navigate to relevant content
 - Add links to further reading materials in the summary section using Markdown format
-- **Markdown Syntax Constraint**: Use only GitHub Flavored Markdown (GFM) syntax by default. Prohibited extensions include: custom blocks `:::`, footnotes `[^1]: notes`, math formulas `$$ LaTeX`, highlighted text `==code==`, and other non-GFM syntax unless explicitly defined in custom component rules
+- **Markdown Syntax Constraint**: Use GitHub Flavored Markdown (GFM) syntax by default. Prohibited extensions include: footnotes `[^1]: notes`, math formulas `$$ LaTeX`, highlighted text `==code==`, and other non-GFM syntax unless explicitly defined in custom rules
 - Use proper Markdown link syntax, for example: [Next Chapter Title](next_chapter_path)
 - **Ensure next_chapter_path references either external URLs or valid paths from the documentation structure**—use absolute paths from the documentation structure
 - When detailDataSource includes third-party links, incorporate them appropriately throughout the document
