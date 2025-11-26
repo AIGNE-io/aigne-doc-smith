@@ -9,6 +9,8 @@ model:
     $get: reasoningEffort
   temperature: 0.8
 agents:
+  - ./_exp_/index.yaml
+
   # Initialization
   - ./agents/init/index.mjs
 
