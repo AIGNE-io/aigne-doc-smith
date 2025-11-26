@@ -236,5 +236,17 @@
       "aigne.yaml",
       "README.md"
     ]
+  },
+  {
+    "title": "Troubleshooting",
+    "description": "Provides solutions for common problems and errors you might encounter while using the tool.",
+    "path": "/configuration/troubleshooting",
+    "parentId": "/configuration",
+    "sourceIds": [
+      "README.md",
+      ".aigne/doc-smith/config.yaml",
+      "agents/init/validate.mjs",
+      "agents/utils/exit.mjs"
+    ]
   }
 ]
