@@ -206,7 +206,12 @@ export function wrapCode({ content }) {
   return `\`\`\`d2\n${content}\n\`\`\``;
 }
 
-export function replacePlaceholder({ content }) {
+/**
+ * Replaces D2 code block with DIAGRAM_PLACEHOLDER.
+ * @param {string} content - Document content containing D2 code block
+ * @returns {Array} - [contentWithPlaceholder, originalCodeBlock]
+ */
+export function replaceD2WithPlaceholder({ content }) {
   const [firstMatch] = Array.from(content.matchAll(codeBlockRegex));
   if (firstMatch) {
     const matchContent = firstMatch[0];
@@ -215,4 +220,40 @@ export function replacePlaceholder({ content }) {
   }
 
   return [content, ""];
+}
+
+/**
+ * Replaces DIAGRAM_PLACEHOLDER with D2 code block, ensuring proper spacing.
+ * @param {string} content - Document content containing DIAGRAM_PLACEHOLDER
+ * @param {string} diagramSourceCode - D2 diagram source code (without markdown wrapper)
+ * @returns {string} - Content with placeholder replaced by code block
+ */
+export function replacePlaceholderWithD2({ content, diagramSourceCode }) {
+  if (!content || !diagramSourceCode) {
+    return content;
+  }
+
+  const placeholderIndex = content.indexOf(DIAGRAM_PLACEHOLDER);
+  if (placeholderIndex === -1) {
+    return content;
+  }
+
+  // Check if placeholder has newlines around it
+  const beforePlaceholder = content.substring(0, placeholderIndex);
+  const afterPlaceholder = content.substring(
+    placeholderIndex + DIAGRAM_PLACEHOLDER.length,
+  );
+
+  const codeBlock = wrapCode({ content: diagramSourceCode });
+
+  // Add newlines if missing
+  let replacement = codeBlock;
+  if (beforePlaceholder && !beforePlaceholder.endsWith("\n")) {
+    replacement = `\n${replacement}`;
+  }
+  if (afterPlaceholder && !afterPlaceholder.startsWith("\n")) {
+    replacement = `${replacement}\n`;
+  }
+
+  return content.replace(DIAGRAM_PLACEHOLDER, replacement);
 }
