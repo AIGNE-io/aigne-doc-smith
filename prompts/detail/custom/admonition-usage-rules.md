@@ -8,11 +8,11 @@ Admonition is a Markdown block extension used to highlight important information
 
 ```
 :::severity
-text
+content
 :::
 ```
 
-### Severity (required)
+### Syntax Rules
 
 The `severity` is **required** and must be one of the following:
 
@@ -21,17 +21,17 @@ The `severity` is **required** and must be one of the following:
 - `warning`: Cautions or potential issues
 - `error`: Critical risks or breaking operations
 
-### Text Rules
+The `content` is **required** and MUST strictly comply with the rules below:
 
-- The text must be **plain text only**
-- Remove all Markdown syntax, including links, code, lists, and other formatting symbols
-- Nesting other Markdown blocks or Admonitions is not allowed
-- Multi-line or multi-paragraph content is not allowed (must be a single paragraph)
-- It is recommended to keep the text within 200 characters
+- The `content` MUST be plain text only
+- The `content` MUST be a single paragraph (no line breaks).
+- Nesting any blocks or Admonitions is forbidden.
+- Recommended length: within 200 characters.
 
 ### Usage Guidelines
 
 - Use sparingly, only for messages that truly require user attention
+- Do not use Admonition if the content needs any Markdown syntax from <markdown_syntax_rules> — use regular paragraphs instead
 - Keep the text short, clear, and actionable
 - Choose the severity level according to the importance of the message
 

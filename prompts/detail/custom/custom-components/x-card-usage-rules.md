@@ -18,7 +18,7 @@ XCard is individual link display card, suitable for displaying individual links 
 ### Children
 
 - Must be written within `<x-card>...</x-card>` children.
-- **Plain Text Only**: All markdown formatting is prohibited, including inline formats like `code`, **bold**, _italic_, [links](), and block-level formats like headers (# ##), lists (- \*), code blocks (```), tables (|), and any other markdown syntax. Only plain text content is allowed.
+- Plain Text Only: Do not use any Markdown syntax (see `<markdown_syntax_rules>` for the full list).
 
 ### Good Examples
 

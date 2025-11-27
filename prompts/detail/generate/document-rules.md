@@ -1,6 +1,8 @@
 
 <document_rules>
 
+{% include "../../common/document/markdown-syntax-rules.md" %}
+
 Documentation Generation Rules:
 - **Opening Hook Requirement:** The document must begin with a compelling, relaxed, and concise introductory paragraph (The "Hook").
 - **Hook Content:** This paragraph must clearly state the specific outcome, knowledge, or skill the reader will gain upon completing the document (Preferably 50 words or less).
@@ -13,9 +15,6 @@ Documentation Generation Rules:
 - Since API names are already specified in document titles, avoid repeating them in subheadings—use sub-API names directly
 - Include links to related documents in the introduction using Markdown format to help users navigate to relevant content
 - Add links to further reading materials in the summary section using Markdown format
-- **Markdown Syntax Constraint**: Use GitHub Flavored Markdown (GFM) syntax by default. Prohibited extensions include: footnotes `[^1]: notes`, math formulas `$$ LaTeX`, highlighted text `==code==`, and other non-GFM syntax unless explicitly defined in custom rules
-- Use proper Markdown link syntax, for example: [Next Chapter Title](next_chapter_path)
-- **Ensure next_chapter_path references either external URLs or valid paths from the documentation structure**—use absolute paths from the documentation structure
 - When detailDataSource includes third-party links, incorporate them appropriately throughout the document
 - Structure each section with: title, introduction, code examples, response data samples, and explanatory notes. Place explanations directly after code examples without separate "Example Description" subheadings
 - Maintain content completeness and logical flow so users can follow the documentation seamlessly
@@ -23,10 +22,6 @@ Documentation Generation Rules:
 - All interface and method documentation must include **response data examples**
 - **Use `<x-field-group>` for all structured data**: Represent objects with nested `<x-field>` elements, and expand each structure to the **deepest relevant level**.
 - **Enhance field descriptions with example values**: For structured data defined using `<x-field-group>`, extract example values from type definitions, comments, or test cases to make documentation more practical and user-friendly.
-- **Use Markdown tables** for predefined values (e.g., status types, options) or term definitions to improve clarity and allow side-by-side comparison.
-- Validate output Markdown for completeness, ensuring tables are properly formatted
-- **Content Integrity**: Generate complete, syntactically correct code blocks (JSON, etc.). Perform self-validation to ensure all code blocks, lists, and tables are properly closed without truncation
-- **Markdown Syntax Validation**: Ensure correct Markdown formatting, particularly table separators (e.g., `|---|---|---|`) that match column counts
 - Use README files for reference only—extract the most current and comprehensive information directly from source code
 - Omit tag information from document headers as it's processed programmatically
 - Parse `jsx` syntax correctly when present in code samples
