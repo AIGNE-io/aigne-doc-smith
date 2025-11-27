@@ -1,7 +1,4 @@
-import {
-  DIAGRAM_PLACEHOLDER,
-  replacePlaceholderWithD2,
-} from "../../utils/d2-utils.mjs";
+import { DIAGRAM_PLACEHOLDER, replacePlaceholderWithD2 } from "../../utils/d2-utils.mjs";
 
 const DEFAULT_DIAGRAMMING_EFFORT = 5;
 const MIN_DIAGRAMMING_EFFORT = 0;

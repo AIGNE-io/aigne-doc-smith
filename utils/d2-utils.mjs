@@ -240,9 +240,7 @@ export function replacePlaceholderWithD2({ content, diagramSourceCode }) {
 
   // Check if placeholder has newlines around it
   const beforePlaceholder = content.substring(0, placeholderIndex);
-  const afterPlaceholder = content.substring(
-    placeholderIndex + DIAGRAM_PLACEHOLDER.length,
-  );
+  const afterPlaceholder = content.substring(placeholderIndex + DIAGRAM_PLACEHOLDER.length);
 
   const codeBlock = wrapCode({ content: diagramSourceCode });
 
