@@ -16,8 +16,8 @@ describe("chat Agent", () => {
   const afsOptions = {
     afs: {
       availableModules: [
-        { module: "history", create: () => ({}), options: {} },
-        { module: "system-fs", create: () => ({}), options: {} },
+        { module: "history", create: () => ({ name: "history" }), options: {} },
+        { module: "system-fs", create: (opts) => ({ name: opts?.name || "system-fs" }), options: {} },
       ],
     },
   };

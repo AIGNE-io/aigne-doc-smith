@@ -18,7 +18,7 @@ describe("generateDocument Agent", () => {
       availableModules: [
         {
           module: "system-fs",
-          create: () => ({}),
+          create: (opts) => ({ name: opts?.name || "system-fs" }),
           options: {},
         },
       ],
