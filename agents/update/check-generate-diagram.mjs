@@ -56,6 +56,8 @@ export default async function checkGenerateDiagram(
       const result = await options.context.invoke(generateAgent, {
         documentContent: content,
         locale,
+        diagramming: diagramming || {},
+        feedback: feedback || "",
       });
       
       // generateDiagram now returns { content } with image already inserted

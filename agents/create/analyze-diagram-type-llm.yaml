@@ -1,0 +1,132 @@
+name: analyzeDiagramTypeLLM
+description: Analyze document content using LLM to determine diagram type and select appropriate style
+model:
+  reasoning_effort: 1
+instructions: |
+  You are an AI assistant that analyzes document content to determine the most appropriate diagram type and visual style.
+
+  Your task:
+  1. Analyze the document content to determine the diagram type
+  2. Select the most appropriate visual style from the available styles
+  3. Provide clear reasoning for your decisions
+
+  Available Diagram Types:
+  - architecture: System architecture showing components, services, and their relationships
+  - flowchart: Process flow showing steps, decisions, and workflow
+  - guide: Guided diagram showing user journey or tutorial flow
+  - intro: Introduction diagram providing overview or conceptual explanation
+  - sequence: Sequence diagram showing interactions over time
+  - network: Network topology showing network structure and connections
+
+  Available Styles:
+  {{#each availableStyles}}
+  - {{this}}: {{lookup ../styleDescriptions this}}
+  {{/each}}
+
+  Keyword Analysis Results:
+  {{#if keywordScores}}
+  {{#each keywordScores}}
+  - {{type}}: score {{score}}
+  {{/each}}
+  {{else}}
+  No keyword matches found
+  {{/if}}
+
+  Document Content:
+  <document_content>
+  {{ documentContent }}
+  </document_content>
+
+  {% if feedback %}
+  User Feedback:
+  <feedback>
+  {{ feedback }}
+  </feedback>
+  {% endif %}
+
+  {% if feedbackPreferences %}
+  {% if feedbackPreferences.style or feedbackPreferences.type %}
+  User Preferences from Feedback:
+  {% if feedbackPreferences.style %}
+  - Requested style: {{ feedbackPreferences.style }}
+  {% endif %}
+  {% if feedbackPreferences.type %}
+  - Requested type: {{ feedbackPreferences.type }}
+  {% endif %}
+  {% endif %}
+  {% endif %}
+
+  Instructions:
+  1. Analyze the document content to understand what it describes
+  2. Consider the keyword analysis results, but make your own judgment
+  3. {% if feedbackPreferences.type %}The user has requested a {{ feedbackPreferences.type }} diagram. Use this as the primary type unless it's clearly inappropriate.{% else %}Determine the most appropriate diagram type based on the content{% endif %}
+  4. {% if feedbackPreferences.style %}The user has requested {{ feedbackPreferences.style }} style. Prioritize this style if it's available.{% else %}Select the best visual style from available styles that matches:{% endif %}
+     - The diagram type
+     - The content's tone and purpose
+     - The target audience (if inferable from content)
+  5. Provide clear reasoning for both decisions, noting if user preferences were considered
+
+  Output your analysis in the following JSON format:
+  {
+    "diagramType": "one of the available types",
+    "diagramStyle": "one of the available styles",
+    "reasoning": "explanation of why these choices were made"
+  }
+
+input_schema:
+  type: object
+  properties:
+    documentContent:
+      type: string
+      description: The document content to analyze
+    keywordScores:
+      type: array
+      description: Keyword matching results from keyword-based detection
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          score:
+            type: number
+    availableStyles:
+      type: array
+      description: List of available diagram styles
+      items:
+        type: string
+    locale:
+      type: string
+      description: Language for analysis
+      default: en
+    feedback:
+      type: string
+      description: User feedback that may contain style or type preferences
+      default: ""
+    feedbackPreferences:
+      type: object
+      description: Extracted preferences from user feedback
+      properties:
+        style:
+          type: string
+        type:
+          type: string
+  required:
+    - documentContent
+    - availableStyles
+output_schema:
+  type: object
+  properties:
+    diagramType:
+      type: string
+      description: The detected diagram type
+    diagramStyle:
+      type: string
+      description: The selected diagram style
+    reasoning:
+      type: string
+      description: Explanation of the decision
+  required:
+    - diagramType
+    - diagramStyle
+    - reasoning
+

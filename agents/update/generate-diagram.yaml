@@ -2,22 +2,11 @@ type: team
 task_render_mode: collapse
 name: generateDiagram
 skills:
-  - ../create/draw-diagram.yaml
-  - ../create/wrap-diagram-code.mjs
-  # - ../create/merge-diagram.yaml
-  - type: transform
-    jsonata: |
-      $merge([
-        $,
-        { "documentContent": documentContent }
-      ])
+  # Step 1: Analyze document content to determine diagram type and style
+  - ../create/analyze-diagram-type.mjs
+  # Step 2: Generate diagram image based on type and style
   - ../create/generate-diagram-image.yaml
-  - type: transform
-    jsonata: |
-      $merge([
-        $,
-        { "documentContent": documentContent }
-      ])
+  # Step 3: Replace placeholder with generated image
   - ../create/replace-d2-with-image.mjs
 input_schema:
   type: object
@@ -29,6 +18,24 @@ input_schema:
       type: string
       description: Language for diagram labels and text
       default: en
+    diagramming:
+      type: object
+      description: Diagramming configuration including available styles
+      properties:
+        styles:
+          type: array
+          description: Available diagram styles configured by user
+          items:
+            type: string
+        types:
+          type: array
+          description: Supported diagram types (optional, for reference)
+          items:
+            type: string
+    feedback:
+      type: string
+      description: User feedback that may contain style or type preferences (e.g., 'use anthropomorphic style', 'create architecture diagram')
+      default: ""
   required:
     - documentContent
 output_schema:

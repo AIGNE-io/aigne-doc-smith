@@ -11,7 +11,7 @@ import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
  * This mimics the @image insertion pattern
  * Saves images to TMP_DIR/assets/diagram and replaces DIAGRAM_PLACEHOLDER with image reference
  */
-export default async function replaceD2WithImage({ imageResult, images, content, diagramSourceCode, documentContent }) {
+export default async function replaceD2WithImage({ imageResult, images, content, documentContent }) {
   // documentContent contains DIAGRAM_PLACEHOLDER from preCheckGenerateDiagram
   // content might be available from previous steps, but we should use documentContent
   // as it contains the placeholder that needs to be replaced
@@ -95,19 +95,27 @@ export default async function replaceD2WithImage({ imageResult, images, content,
     ext = ".jpg";
   }
 
-  // Generate filename based on diagram source code hash (if available) or use hash of image path
+  // Generate filename based on document content hash (for caching)
+  // Use documentContent to generate consistent filename for the same content
   let fileName;
-  if (diagramSourceCode) {
-    // Extract clean D2 code for hashing
-    let cleanD2Code = diagramSourceCode;
-    const codeBlockMatch = diagramSourceCode.match(/```d2\s*\n([\s\S]*?)```/);
-    if (codeBlockMatch) {
-      cleanD2Code = codeBlockMatch[1];
+  if (documentContent) {
+    // Use a portion of document content around DIAGRAM_PLACEHOLDER for hashing
+    // This ensures same document content generates same filename (cache hit)
+    const placeholderIndex = documentContent.indexOf(DIAGRAM_PLACEHOLDER);
+    let contentForHash = documentContent;
+    if (placeholderIndex > 0) {
+      // Use content before and after placeholder (context around diagram)
+      const beforeContext = documentContent.slice(Math.max(0, placeholderIndex - 500), placeholderIndex);
+      const afterContext = documentContent.slice(
+        placeholderIndex + DIAGRAM_PLACEHOLDER.length,
+        placeholderIndex + DIAGRAM_PLACEHOLDER.length + 500,
+      );
+      contentForHash = beforeContext + afterContext;
     }
-    const hash = getContentHash(cleanD2Code);
+    const hash = getContentHash(contentForHash);
     fileName = `${hash}${ext}`;
   } else {
-    // Use hash of image path as filename
+    // Fallback: Use hash of image path as filename
     const hash = getContentHash(image.path);
     fileName = `${hash}${ext}`;
   }
@@ -143,8 +151,10 @@ export default async function replaceD2WithImage({ imageResult, images, content,
   const altText = extractAltText(documentContent);
 
   // Create relative path from docs directory to assets directory
-  // Similar to d2-utils.mjs saveAssets: path.posix.join("..", TMP_ASSETS_DIR, "d2", fileName)
-  const relativePath = path.posix.join("..", TMP_DIR, TMP_ASSETS_DIR, "diagram", fileName);
+  // Docs are in: .aigne/doc-smith/.tmp/docs/
+  // Assets are in: .aigne/doc-smith/.tmp/assets/diagram/
+  // So relative path from docs to assets: ../assets/diagram/filename
+  const relativePath = path.posix.join("..", TMP_ASSETS_DIR, "diagram", fileName);
 
   // Create markdown image reference
   const imageMarkdown = `![${altText}](${relativePath})`;
@@ -152,45 +162,8 @@ export default async function replaceD2WithImage({ imageResult, images, content,
   // Replace DIAGRAM_PLACEHOLDER with image reference
   if (finalContent.includes(DIAGRAM_PLACEHOLDER)) {
     finalContent = finalContent.replace(DIAGRAM_PLACEHOLDER, imageMarkdown);
-  } else if (diagramSourceCode) {
-    // Try to find and replace D2 code blocks
-    let cleanD2Code = diagramSourceCode;
-    const codeBlockMatch = diagramSourceCode.match(/```d2\s*\n([\s\S]*?)```/);
-    if (codeBlockMatch) {
-      cleanD2Code = codeBlockMatch[1];
-    }
-
-    // Try to find the D2 code block in content and replace it
-    const d2CodeBlockRegex = new RegExp(
-      `\`\`\`d2\\s*\\n${escapeRegex(cleanD2Code.trim())}\\s*\`\`\``,
-      "s",
-    );
-
-    if (d2CodeBlockRegex.test(finalContent)) {
-      // Replace the exact D2 code block
-      finalContent = finalContent.replace(d2CodeBlockRegex, imageMarkdown);
-    } else {
-      // Try to find any d2 code block and replace the first one
-      const anyD2BlockRegex = /```d2\s*\n[\s\S]*?```/;
-      if (anyD2BlockRegex.test(finalContent)) {
-        finalContent = finalContent.replace(anyD2BlockRegex, imageMarkdown);
-      } else {
-        // Insert image at the beginning or after first paragraph
-        const firstParagraphEnd = finalContent.indexOf("\n\n");
-        if (firstParagraphEnd > 0) {
-          finalContent =
-            finalContent.slice(0, firstParagraphEnd) +
-            "\n\n" +
-            imageMarkdown +
-            "\n\n" +
-            finalContent.slice(firstParagraphEnd + 2);
-        } else {
-          finalContent = `${imageMarkdown}\n\n${finalContent}`;
-        }
-      }
-    }
   } else {
-    // Insert at the beginning or after first paragraph
+    // If no placeholder found, insert image at the beginning or after first paragraph
     const firstParagraphEnd = finalContent.indexOf("\n\n");
     if (firstParagraphEnd > 0) {
       finalContent =
@@ -226,13 +199,6 @@ function extractAltText(documentContent) {
   return "Diagram";
 }
 
-/**
- * Escape special regex characters
- */
-function escapeRegex(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 replaceD2WithImage.input_schema = {
   type: "object",
   properties: {
@@ -246,15 +212,11 @@ replaceD2WithImage.input_schema = {
     },
     content: {
       type: "string",
-      description: "The document content (may contain D2 code blocks)",
-    },
-    diagramSourceCode: {
-      type: "string",
-      description: "The D2 diagram source code to replace",
+      description: "The document content (may contain DIAGRAM_PLACEHOLDER)",
     },
     documentContent: {
       type: "string",
-      description: "Original document content for context",
+      description: "Original document content containing DIAGRAM_PLACEHOLDER",
     },
   },
   required: ["documentContent"],

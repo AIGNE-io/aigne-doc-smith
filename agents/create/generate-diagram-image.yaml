@@ -7,55 +7,61 @@ image_model:
     imageSize: "2K"
 
 instructions: |
-  Generate a professional flowchart or diagram image based on the document content.
+  Generate a professional diagram image based on the document content, diagram type, and visual style.
   
-  Style Requirements:
-  - Clean, modern, technical diagram style
-  - Professional color scheme suitable for technical documentation
-  - Clear visual hierarchy and readable text
-  - Use standard flowchart/diagram symbols and shapes
+  Diagram Type: {{ diagramType }}
+  Visual Style: {{ diagramStyle }}
   
   Content Requirements:
-  - Accurately represent the system architecture, process flow, or relationships described in the document
-  - Include all key components, connections, and relationships
-  - Use clear labels and annotations
-  - Maintain logical flow direction (top-to-bottom or left-to-right)
+  {{ diagramTypeRequirements }}
   
-  Technical Diagram Elements:
-  - Rectangles for processes/components
-  - Arrows for connections/flows
-  - Diamonds for decisions (if applicable)
-  - Cylinders for data storage (if applicable)
-  - Clear, readable text labels
+  Style Requirements:
+  {{ diagramStyleRequirements }}
+  
+  General Requirements:
+  - Accurately represent the content described in the document
+  - Include all key components, connections, and relationships
+  - Use clear labels and annotations in the specified language
+  - Maintain logical organization and flow
+  - Ensure readability and clarity
+  - **Important: Do NOT include any border, frame, or outer box around the diagram. The diagram should fill the entire image area without any decorative borders or frames.**
   
   Negative Prompt:
   typography, letters, writing, words, watermark, signature, logo, signage, banner, username,
   clutter, cluttered, messy, jumbled, superfluous detail, unwanted objects, lines, draft, sketch,
   lowres, low quality, bad composition, artifacts, noise, grainy, pixelated, blurry, out of focus,
-  decorative elements, artistic style, abstract art, cartoon style.
+  decorative elements, artistic style, abstract art, cartoon style,
+  border, frame, outer box, bounding box, decorative border, frame border, outer frame, border line, frame line, rectangular border, square border, rounded border{{ negativePromptExclusions }}.
 
-  You are an AI assistant that helps to generate diagram image based on d2 diagram source code.
-
-  <diagram_source_code>
-  {{ diagramSourceCode }}
-  </diagram_source_code>
+  You are an AI assistant that helps to generate diagram image based on document content.
+  {{ documentContent }}
 
   Generate the diagram image in the following language:
-  <locale>
   {{ locale }}
-  </locale>
+
+  Note: The document contains a DIAGRAM_PLACEHOLDER marker indicating where this diagram should be inserted. Generate a diagram that fits naturally at that location and complements the surrounding text.
 
 input_schema:
   type: object
   properties:
-    diagramSourceCode:
+    documentContent:
       type: string
-      description: The D2 diagram source code
+      description: The document content that describes the system, process, or architecture to diagram
+    diagramType:
+      type: string
+      description: The type of diagram to generate (architecture, flowchart, guide, intro, sequence, network)
+      enum: ["architecture", "flowchart", "guide", "intro", "sequence", "network"]
+    diagramStyle:
+      type: string
+      description: The visual style for the diagram (modern, standard, hand-drawn, anthropomorphic, flat, minimalist, 3d)
+      enum: ["modern", "standard", "hand-drawn", "anthropomorphic", "flat", "minimalist", "3d"]
     locale:
       type: string
       description: Language for diagram labels
       default: en
   required:
-    - diagramSourceCode
+    - documentContent
+    - diagramType
+    - diagramStyle
 include_input_in_output: true
 

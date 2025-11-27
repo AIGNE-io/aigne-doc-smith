@@ -74,6 +74,7 @@ async function updateDiagram(input, options) {
   const result = await options.context.invoke(generateAgent, {
     documentContent: content,
     locale: input.locale,
+    diagramming: input.diagramming || {},
     feedback: input.feedback,
   });
   
