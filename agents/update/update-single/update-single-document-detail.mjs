@@ -4,7 +4,6 @@ import z from "zod";
 import {
   DIAGRAM_PLACEHOLDER,
   replaceD2WithPlaceholder,
-  replacePlaceholderWithD2,
 } from "../../../utils/d2-utils.mjs";
 import { userContextAt } from "../../../utils/utils.mjs";
 
@@ -68,20 +67,22 @@ async function addDiagram(input, options) {
 async function updateDiagram(input, options) {
   const contentContext = userContextAt(options, `currentContents.${input.path}`);
   const currentContent = contentContext.get();
-  let [content, previousDiagramContent] = replaceD2WithPlaceholder({
+  let [content] = replaceD2WithPlaceholder({
     content: currentContent,
   });
   const generateAgent = options.context?.agents?.["generateDiagram"];
-  const { diagramSourceCode } = await options.context.invoke(generateAgent, {
+  const result = await options.context.invoke(generateAgent, {
     documentContent: content,
     locale: input.locale,
-    previousDiagramContent,
     feedback: input.feedback,
   });
-  content = replacePlaceholderWithD2({
-    content,
-    diagramSourceCode,
-  });
+  
+  // generateDiagram now returns { content } with image already inserted
+  // The image replaces DIAGRAM_PLACEHOLDER or D2 code blocks
+  if (result?.content) {
+    content = result.content;
+  }
+  
   contentContext.set(content);
   await saveDoc(input, options, { content });
   return { content };

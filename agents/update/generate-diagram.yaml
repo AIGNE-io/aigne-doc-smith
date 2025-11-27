@@ -4,11 +4,21 @@ name: generateDiagram
 skills:
   - ../create/draw-diagram.yaml
   - ../create/wrap-diagram-code.mjs
-reflection:
-  reviewer: ../create/check-diagram.mjs
-  is_approved: isValid
-  max_iterations: 5
-  return_last_on_max_iterations: false
+  # - ../create/merge-diagram.yaml
+  - type: transform
+    jsonata: |
+      $merge([
+        $,
+        { "documentContent": documentContent }
+      ])
+  - ../create/generate-diagram-image.yaml
+  - type: transform
+    jsonata: |
+      $merge([
+        $,
+        { "documentContent": documentContent }
+      ])
+  - ../create/replace-d2-with-image.mjs
 input_schema:
   type: object
   properties:
@@ -24,6 +34,8 @@ input_schema:
 output_schema:
   type: object
   properties:
-    diagramSourceCode:
+    content:
       type: string
-      description: The **diagram source code** generated from the input text.
+      description: The document content with D2 code blocks replaced by generated diagram image.
+  required:
+    - content

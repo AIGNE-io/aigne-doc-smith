@@ -1,0 +1,61 @@
+type: image
+name: generateDiagramImage
+image_model:
+  model: gemini-3-pro-image-preview
+  imageConfig:
+    aspectRatio: "16:9"
+    imageSize: "2K"
+
+instructions: |
+  Generate a professional flowchart or diagram image based on the document content.
+  
+  Style Requirements:
+  - Clean, modern, technical diagram style
+  - Professional color scheme suitable for technical documentation
+  - Clear visual hierarchy and readable text
+  - Use standard flowchart/diagram symbols and shapes
+  
+  Content Requirements:
+  - Accurately represent the system architecture, process flow, or relationships described in the document
+  - Include all key components, connections, and relationships
+  - Use clear labels and annotations
+  - Maintain logical flow direction (top-to-bottom or left-to-right)
+  
+  Technical Diagram Elements:
+  - Rectangles for processes/components
+  - Arrows for connections/flows
+  - Diamonds for decisions (if applicable)
+  - Cylinders for data storage (if applicable)
+  - Clear, readable text labels
+  
+  Negative Prompt:
+  typography, letters, writing, words, watermark, signature, logo, signage, banner, username,
+  clutter, cluttered, messy, jumbled, superfluous detail, unwanted objects, lines, draft, sketch,
+  lowres, low quality, bad composition, artifacts, noise, grainy, pixelated, blurry, out of focus,
+  decorative elements, artistic style, abstract art, cartoon style.
+
+  You are an AI assistant that helps to generate diagram image based on d2 diagram source code.
+
+  <diagram_source_code>
+  {{ diagramSourceCode }}
+  </diagram_source_code>
+
+  Generate the diagram image in the following language:
+  <locale>
+  {{ locale }}
+  </locale>
+
+input_schema:
+  type: object
+  properties:
+    diagramSourceCode:
+      type: string
+      description: The D2 diagram source code
+    locale:
+      type: string
+      description: Language for diagram labels
+      default: en
+  required:
+    - diagramSourceCode
+include_input_in_output: true
+

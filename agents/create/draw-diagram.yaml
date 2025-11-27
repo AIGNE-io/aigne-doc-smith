@@ -23,5 +23,9 @@ output_schema:
     diagramSourceCode:
       type: string
       description: The **diagram source code** generated from the input text.
+    locale:
+      type: string
+      description: Language for diagram labels and text
+      default: en
   required:
     - diagramSourceCode

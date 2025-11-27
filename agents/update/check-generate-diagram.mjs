@@ -1,5 +1,3 @@
-import { DIAGRAM_PLACEHOLDER, replacePlaceholderWithD2 } from "../../utils/d2-utils.mjs";
-
 const DEFAULT_DIAGRAMMING_EFFORT = 5;
 const MIN_DIAGRAMMING_EFFORT = 0;
 const MAX_DIAGRAMMING_EFFORT = 10;
@@ -17,7 +15,6 @@ export default async function checkGenerateDiagram(
   options,
 ) {
   let content = documentContent;
-  let diagramSourceCode;
   let skipGenerateDiagram = false;
 
   const preCheckAgent = options.context?.agents?.["preCheckGenerateDiagram"];
@@ -56,30 +53,23 @@ export default async function checkGenerateDiagram(
   } else {
     try {
       const generateAgent = options.context?.agents?.["generateDiagram"];
-      ({ diagramSourceCode } = await options.context.invoke(generateAgent, {
+      const result = await options.context.invoke(generateAgent, {
         documentContent: content,
         locale,
-      }));
+      });
+      
+      // generateDiagram now returns { content } with image already inserted
+      // The image replaces DIAGRAM_PLACEHOLDER or D2 code blocks
+      if (result?.content) {
+        content = result.content;
+      } else {
+        // Fallback: if no content returned, use original document content
+        content = documentContent;
+      }
     } catch (error) {
-      diagramSourceCode = "";
       skipGenerateDiagram = true;
       console.log(`⚠️  Skip generate any diagram for ${docPath}: ${error.message}`);
-    }
-
-    if (diagramSourceCode && !skipGenerateDiagram) {
-      if (content.includes(DIAGRAM_PLACEHOLDER)) {
-        content = replacePlaceholderWithD2({
-          content,
-          diagramSourceCode,
-        });
-      } else {
-        const mergeAgent = options.context?.agents?.["mergeDiagramToDocument"];
-        ({ content } = await options.context.invoke(mergeAgent, {
-          diagramSourceCode,
-          content,
-        }));
-      }
-    } else {
+      // On error, return original document content
       content = documentContent;
     }
   }
