@@ -42,6 +42,8 @@ Documentation content generation rules:
 
 {% include "../custom/code-block-usage-rules.md" %}
 
+{% include "../custom/admonition-usage-rules.md" %}
+
 {% include "../../common/document/media-file-list-usage-rules.md" %}
 
 {% include "../../common/document/openapi-usage-rules.md" %}

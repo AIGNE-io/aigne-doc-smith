@@ -1,7 +1,11 @@
 import { AIAgent } from "@aigne/core";
 import { pick } from "@aigne/core/utils/type-utils.js";
 import z from "zod";
-import { DIAGRAM_PLACEHOLDER, replacePlaceholder } from "../../../utils/d2-utils.mjs";
+import {
+  DIAGRAM_PLACEHOLDER,
+  replaceD2WithPlaceholder,
+  replacePlaceholderWithD2,
+} from "../../../utils/d2-utils.mjs";
 import { userContextAt } from "../../../utils/utils.mjs";
 
 async function getIntentType(input, options) {
@@ -64,7 +68,7 @@ async function addDiagram(input, options) {
 async function updateDiagram(input, options) {
   const contentContext = userContextAt(options, `currentContents.${input.path}`);
   const currentContent = contentContext.get();
-  let [content, previousDiagramContent] = replacePlaceholder({
+  let [content, previousDiagramContent] = replaceD2WithPlaceholder({
     content: currentContent,
   });
   const generateAgent = options.context?.agents?.["generateDiagram"];
@@ -74,7 +78,10 @@ async function updateDiagram(input, options) {
     previousDiagramContent,
     feedback: input.feedback,
   });
-  content = content.replace(DIAGRAM_PLACEHOLDER, diagramSourceCode);
+  content = replacePlaceholderWithD2({
+    content,
+    diagramSourceCode,
+  });
   contentContext.set(content);
   await saveDoc(input, options, { content });
   return { content };
@@ -83,7 +90,7 @@ async function updateDiagram(input, options) {
 async function deleteDiagram(input, options) {
   const contentContext = userContextAt(options, `currentContents.${input.path}`);
   const currentContent = contentContext.get();
-  const [documentContent] = replacePlaceholder({
+  const [documentContent] = replaceD2WithPlaceholder({
     content: currentContent,
   });
   const instructions = `<role>
