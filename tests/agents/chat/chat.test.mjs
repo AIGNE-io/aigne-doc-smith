@@ -17,7 +17,11 @@ describe("chat Agent", () => {
     afs: {
       availableModules: [
         { module: "history", create: () => ({ name: "history" }), options: {} },
-        { module: "system-fs", create: (opts) => ({ name: opts?.name || "system-fs" }), options: {} },
+        {
+          module: "system-fs",
+          create: (opts) => ({ name: opts?.name || "system-fs" }),
+          options: {},
+        },
       ],
     },
   };
