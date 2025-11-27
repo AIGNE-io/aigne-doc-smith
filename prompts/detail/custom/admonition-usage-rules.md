@@ -8,9 +8,7 @@ Admonition is a Markdown block extension used to highlight important information
 
 ```
 :::severity
-
 text
-
 :::
 ```
 
@@ -64,16 +62,7 @@ Never commit API keys to version control.
 ```
 
 ### Bad Examples
-
-1. Title after severity:
-
-```md
-:::warning Important Notice
-Title after severity is not allowed.
-:::
-```
-
-2. Contains Markdown Syntax:
+1. Contains Markdown Syntax:
 
 ```md
 :::info
@@ -90,7 +79,7 @@ No [links](https://example.com) allowed.
 :::
 ```
 
-3. Multi-paragraph:
+2. Multi-paragraph:
 
 ```md
 :::warning
