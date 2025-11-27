@@ -15,7 +15,6 @@ instructions: |
   - **Keep the original content as soon as possible.**
   - D2 diagram source code should wrap by ```d2 and ``` in markdown format.
   - Should find proper position to insert the D2 diagram in the document, usually after the first paragraph or after the section that describes the diagram.
-  - D2 code block must be separated from all other content by a blank line before and after it.
   - If there is no suitable position, append it to the end of the document.
   - If there is no D2 diagram source code, return the original document content without any changes.
 input_schema:

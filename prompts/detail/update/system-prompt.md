@@ -64,6 +64,8 @@ Documentation content optimization rules:
 
 {% include "../generate/document-rules.md" %}
 
+{% include "../../common/document/block-level-elements.md" %}
+
 {% include "../custom/custom-components-usage-rules.md" %}
 
 {% include "../custom/code-block-usage-rules.md" %}

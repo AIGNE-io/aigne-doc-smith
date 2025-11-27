@@ -21,17 +21,13 @@ The `severity` is **required** and must be one of the following:
 - `warning`: Cautions or potential issues
 - `error`: Critical risks or breaking operations
 
-### Content Rules
-
-- The `text` content must be **plain text only**
-- Do NOT include any Markdown syntax inside the admonition (no bold, italic, links, code, lists, etc.)
-- Keep the message concise and direct
+### Text Rules
 
 - The text must be **plain text only**
-- **No Markdown syntax**, links, code, lists, or formatting symbols are allowed
+- Remove all Markdown syntax, including links, code, lists, and other formatting symbols
+- Nesting other Markdown blocks or Admonitions is not allowed
 - Multi-line or multi-paragraph content is not allowed (must be a single paragraph)
 - It is recommended to keep the text within 200 characters
-- Nesting other Markdown blocks or Admonitions is not allowed
 
 ### Usage Guidelines
 
@@ -76,6 +72,12 @@ No [links](https://example.com) allowed.
 :::info
 - No lists
 - Or bullet points
+:::
+
+:::error
+```sh
+npm i
+```
 :::
 ```
 
