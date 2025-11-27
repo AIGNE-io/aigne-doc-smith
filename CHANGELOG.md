@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.7-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta...v0.9.7-beta.1) (2025-11-27)
+
+
+### Bug Fixes
+
+* **ci:** ensure pipeline fails on test failures ([#328](https://github.com/AIGNE-io/aigne-doc-smith/issues/328)) ([56fb4d5](https://github.com/AIGNE-io/aigne-doc-smith/commit/56fb4d5259a21a6cf76f67c6ac5a43a7c1403b99))
+* supports admonition syntax ([#338](https://github.com/AIGNE-io/aigne-doc-smith/issues/338)) ([db19661](https://github.com/AIGNE-io/aigne-doc-smith/commit/db19661e1c2d654181d932e0834e7e011a3ad8a5))
+
 ## [0.9.7-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6...v0.9.7-beta) (2025-11-25)
 
 
