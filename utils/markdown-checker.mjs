@@ -308,6 +308,67 @@ async function checkRemoteImages(markdown, source, errorMessages) {
   }
 }
 
+async function checkXCardImage(markdown, source, errorMessages, markdownFilePath, baseDir) {
+  const imageRegex = /data-image="([^"]*)"/g;
+  let match;
+
+  while (true) {
+    match = imageRegex.exec(markdown);
+    if (match === null) break;
+    const imagePath = match[1].trim();
+
+    // Skip data URLs
+    if (/^data:/.test(imagePath)) continue;
+
+    if (isRelative(imagePath)) {
+      try {
+        let resolvedPath;
+        if (markdownFilePath) {
+          // Resolve relative to the markdown file's directory
+          const markdownDir = path.dirname(markdownFilePath);
+          resolvedPath = path.resolve(markdownDir, imagePath);
+        } else if (baseDir) {
+          // Resolve relative to the provided base directory
+          resolvedPath = path.resolve(baseDir, imagePath);
+        } else {
+          // Fallback to current working directory
+          resolvedPath = path.resolve(imagePath);
+        }
+
+        if (!fs.existsSync(resolvedPath)) {
+          errorMessages.push(
+            `Found invalid local image in ${source}: ${imagePath} - only valid media resources can be used`,
+          );
+        }
+      } catch {
+        errorMessages.push(
+          `Found invalid local image in ${source}: ${imagePath} - only valid media resources can be used`,
+        );
+      }
+    } else if (imagePath.startsWith("/")) {
+      try {
+        if (!fs.existsSync(imagePath)) {
+          errorMessages.push(
+            `Found invalid local image in ${source}: ${imagePath} - only valid media resources can be used`,
+          );
+        }
+      } catch {
+        errorMessages.push(
+          `Found invalid local image in ${source}: ${imagePath} - only valid media resources can be used`,
+        );
+      }
+    } else if (isRemoteFile(imagePath)) {
+      const isAvailable = await isRemoteFileAvailable(imagePath);
+      if (isAvailable) continue;
+      else {
+        errorMessages.push(
+          `Found invalid remote image in ${source}: ${imagePath} - only valid media resources can be used`,
+        );
+      }
+    }
+  }
+}
+
 /**
  * Check content structure and formatting issues
  * @param {string} markdown - The markdown content
@@ -448,6 +509,8 @@ export async function checkMarkdown(markdown, source = "content", options = {}) 
 
     // 3. Check remote images existence
     await checkRemoteImages(markdown, source, errorMessages);
+
+    await checkXCardImage(markdown, source, errorMessages, filePath, baseDir);
 
     // 4. Check content structure and formatting issues
     checkContentStructure(markdown, source, errorMessages);

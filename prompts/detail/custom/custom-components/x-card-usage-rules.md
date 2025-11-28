@@ -9,6 +9,7 @@ XCard is individual link display card, suitable for displaying individual links 
 - `data-icon` (optional): Icon identifier (e.g., lucide:icon-name or material-symbols:rocket-outline).
   - Icons should prioritize Lucide (lucide:icon-name). If not available in Lucide, use Iconify (collection:icon-name, e.g., material-symbols:rocket-outline).
 - `data-image` (optional): Image URL, can coexist with icon.
+  - Prefer to use image url from `<media_file_list>`.
   - **Requirement**: At least one of `data-icon` or `data-image` must be provided.
   - It's recommended to always provide data-icon.
 - `data-href` (optional): Navigation link for clicking the card or button.
