@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, test, mock, spyOn } from "bun:test";
+import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import chalk from "chalk";
 import viewHistory from "../../../agents/history/view.mjs";
 import * as historyUtils from "../../../utils/history-utils.mjs";
@@ -6,13 +6,24 @@ import * as historyUtils from "../../../utils/history-utils.mjs";
 describe("History View", () => {
   let consoleLogMock;
   let getHistorySpy;
+  let chalkDimSpy;
+  let chalkCyanSpy;
+  let chalkYellowSpy;
 
   beforeEach(async () => {
     mock.restore();
-    // Ensure chalk helpers exist even if mutated by other tests
-    chalk.dim = chalk.dim || ((x) => x);
-    chalk.cyan = chalk.cyan || ((x) => x);
-    chalk.yellow = chalk.yellow || ((x) => x);
+    // Ensure chalk helpers exist even if mutated by other tests — use spies
+    try {
+      chalkDimSpy = spyOn(chalk, "dim").mockImplementation((x) => x);
+    } catch {
+      // ignore if not writable
+    }
+    try {
+      chalkCyanSpy = spyOn(chalk, "cyan").mockImplementation((x) => x);
+    } catch {}
+    try {
+      chalkYellowSpy = spyOn(chalk, "yellow").mockImplementation((x) => x);
+    } catch {}
 
     consoleLogMock = spyOn(console, "log").mockImplementation(() => {});
     getHistorySpy = spyOn(historyUtils, "getHistory").mockReturnValue({ entries: [] });
@@ -21,6 +32,9 @@ describe("History View", () => {
   afterEach(() => {
     consoleLogMock?.mockRestore();
     getHistorySpy?.mockRestore();
+    chalkDimSpy?.mockRestore?.();
+    chalkCyanSpy?.mockRestore?.();
+    chalkYellowSpy?.mockRestore?.();
     mock.restore();
   });
 
