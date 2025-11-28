@@ -17,6 +17,9 @@ importers:
       '@aigne/publish-docs':
         specifier: ^0.14.1
         version: 0.14.1(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)
+      '@aigne/secrets':
+        specifier: ^0.1.1-beta.3
+        version: 0.1.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@blocklet/payment-broker-client':
         specifier: ^1.22.24
         version: 1.22.24
@@ -207,6 +210,9 @@ packages:
 
   '@aigne/publish-docs@0.14.1':
     resolution: {integrity: sha512-Blc+o0BTzg4q02IB4MHDPYDZdcXz80XBrZV3o3H+4XSXE4u3Kky8pf5m1N1hoM9/EpF/UHUS5miKHgs9aRH2Pw==}
+
+  '@aigne/secrets@0.1.1-beta.3':
+    resolution: {integrity: sha512-Uing8+lvaZQ5tPzYlnLc8SO5JxybbdcCD0G3zqeeJk6p8isHSRqcFGjtYkN+REYqqOg5d/z1hSbdVf9gvznkXw==}
 
   '@aigne/sqlite@0.4.6':
     resolution: {integrity: sha512-R5N4pnIlPrHpy7iYRwA4VdCuNsLV6hAvxYc8/JJQymTtU8FbVIFnaF8yskJFlZL0KtmEopC2FfNTtarxwRmojA==}
@@ -1710,6 +1716,10 @@ packages:
   '@zenoaihq/tson@1.0.0':
     resolution: {integrity: sha512-sYziUsCIeMYn1RZQXgaCnXrOlYHST0NMOt4XEDkwLrii93lM5jApfwt5J3c7QsBBLzkvilQoUSZitk1rgALJ1Q==}
     engines: {node: '>=16.0.0'}
+
+  '@zowe/secrets-for-zowe-sdk@8.29.4':
+    resolution: {integrity: sha512-fiRfuEuFNapwhVbN3LJIA2ZgVajNB+QNFN7O7ES/fIYGM612PKcXuvbZUJSlU69IZ8eUF8SP+9OnveK4s+GLgw==}
+    engines: {node: '>=14'}
 
   a-sync-waterfall@1.0.1:
     resolution: {integrity: sha512-RYTOHHdWipFUliRFMCS4X2Yn2X8M87V/OpSqWzKKOGhzqyUxzyVmhHDH9sAvG+ZuQf/TAOFsLCpMw09I1ufUnA==}
@@ -5499,6 +5509,48 @@ snapshots:
       - utf-8-validate
       - yjs
 
+  '@aigne/secrets@0.1.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)':
+    dependencies:
+      '@aigne/core': 1.69.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
+      '@zowe/secrets-for-zowe-sdk': 8.29.4
+      yaml: 2.8.1
+    transitivePeerDependencies:
+      - '@aws-sdk/client-rds-data'
+      - '@cloudflare/workers-types'
+      - '@electric-sql/pglite'
+      - '@libsql/client'
+      - '@libsql/client-wasm'
+      - '@neondatabase/serverless'
+      - '@op-engineering/op-sqlite'
+      - '@planetscale/database'
+      - '@prisma/client'
+      - '@tidbcloud/serverless'
+      - '@types/better-sqlite3'
+      - '@types/node'
+      - '@types/pg'
+      - '@types/sql.js'
+      - '@upstash/redis'
+      - '@vercel/postgres'
+      - '@xata.io/client'
+      - bare-abort-controller
+      - better-sqlite3
+      - bufferutil
+      - bun-types
+      - chokidar
+      - expo-sqlite
+      - gel
+      - knex
+      - kysely
+      - mysql2
+      - pg
+      - postgres
+      - prisma
+      - react-native-b4a
+      - sql.js
+      - sqlite3
+      - supports-color
+      - utf-8-validate
+
   '@aigne/sqlite@0.4.6(@opentelemetry/api@1.9.0)':
     dependencies:
       '@libsql/client': 0.15.15
@@ -7859,6 +7911,8 @@ snapshots:
   '@xmldom/xmldom@0.8.11': {}
 
   '@zenoaihq/tson@1.0.0': {}
+
+  '@zowe/secrets-for-zowe-sdk@8.29.4': {}
 
   a-sync-waterfall@1.0.1: {}
 

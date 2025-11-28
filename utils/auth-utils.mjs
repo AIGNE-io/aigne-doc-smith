@@ -1,13 +1,10 @@
 import { existsSync, mkdirSync } from "node:fs";
-import { readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { createConnect } from "@aigne/cli/utils/aigne-hub/credential.js";
 import chalk from "chalk";
 import open from "open";
-import { joinURL } from "ufo";
-import { parse, stringify } from "yaml";
-
+import { joinURL, withQuery } from "ufo";
 import {
   ComponentNotFoundError,
   getComponentMountPoint,
@@ -21,7 +18,7 @@ import {
   DISCUSS_KIT_STORE_URL,
   PAYMENT_KIT_DID,
 } from "./constants/index.mjs";
-import { withQuery } from "ufo";
+import { createStore } from "./store/index.mjs";
 
 const WELLKNOWN_SERVICE_PATH_PREFIX = "/.well-known/service";
 
@@ -30,10 +27,6 @@ const FETCH_INTERVAL = 3000; // 3 seconds
 
 const RETRY_COUNT = (TIMEOUT_MINUTES * 60 * 1000) / FETCH_INTERVAL;
 
-export function getDocSmithEnvFilePath() {
-  return join(homedir(), ".aigne", "doc-smith-connected.yaml");
-}
-
 /**
  * Get access token from environment, config file, or prompt user for authorization
  * @param {string} baseUrl - The application URL
@@ -41,7 +34,7 @@ export function getDocSmithEnvFilePath() {
  */
 export async function getCachedAccessToken(baseUrl) {
   const { hostname: targetHostname } = new URL(baseUrl);
-  const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
+  const store = await createStore();
 
   let accessToken =
     process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN || process.env.DOC_DISCUSS_KIT_ACCESS_TOKEN;
@@ -49,16 +42,8 @@ export async function getCachedAccessToken(baseUrl) {
   // Check if access token exists in environment or config file
   if (!accessToken) {
     try {
-      if (existsSync(DOC_SMITH_ENV_FILE)) {
-        const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
-        if (data.includes("DOC_DISCUSS_KIT_ACCESS_TOKEN")) {
-          // Handle empty or invalid YAML files
-          const envs = data.trim() ? parse(data) : null;
-          if (envs?.[targetHostname]?.DOC_DISCUSS_KIT_ACCESS_TOKEN) {
-            accessToken = envs[targetHostname].DOC_DISCUSS_KIT_ACCESS_TOKEN;
-          }
-        }
-      }
+      const storeItem = await store.getItem(targetHostname);
+      accessToken = storeItem?.DOC_DISCUSS_KIT_ACCESS_TOKEN;
     } catch (error) {
       console.warn("Could not read the configuration file:", error.message);
     }
@@ -275,27 +260,14 @@ export async function getOfficialAccessToken(baseUrl, openPage = true, locale = 
  */
 async function saveTokenToConfigFile(hostname, fields) {
   try {
-    const configFile = getDocSmithEnvFilePath();
+    const store = await createStore();
 
     const aigneDir = join(homedir(), ".aigne");
     if (!existsSync(aigneDir)) {
       mkdirSync(aigneDir, { recursive: true });
     }
 
-    let existingConfig = {};
-    if (existsSync(configFile)) {
-      const fileContent = await readFile(configFile, "utf8");
-      const parsedConfig = fileContent.trim() ? parse(fileContent) : null;
-      existingConfig = parsedConfig || {};
-    }
-
-    await writeFile(
-      configFile,
-      stringify({
-        ...existingConfig,
-        [hostname]: fields,
-      }),
-    );
+    await store.setItem(hostname, fields);
   } catch (error) {
     console.warn(`Could not save the token to the configuration file: ${error.message}`, error);
     // The token is already in the environment, so we don't need to throw an error here.
