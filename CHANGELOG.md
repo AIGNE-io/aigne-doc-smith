@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.7-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta.1...v0.9.7-beta.2) (2025-11-28)
+
+
+### Features
+
+* support secret store for publish config ([#339](https://github.com/AIGNE-io/aigne-doc-smith/issues/339)) ([31bb282](https://github.com/AIGNE-io/aigne-doc-smith/commit/31bb282065707ad718d68d65722a9ced70047c91))
+
 ## [0.9.7-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta...v0.9.7-beta.1) (2025-11-27)
 
 
