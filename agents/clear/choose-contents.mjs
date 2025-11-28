@@ -31,7 +31,7 @@ const TARGET_METADATA = {
   authTokens: {
     label: "Authorizations",
     description: () =>
-      'Delete authorization information. You will need to re-authorize after clearing.',
+      "Delete authorization information. You will need to re-authorize after clearing.",
     agent: "clearAuthTokens",
   },
   deploymentConfig: {

@@ -3,16 +3,15 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 import createSecretStore, { FileStore } from "@aigne/secrets";
 
-
 export async function createStore() {
   const filepath = join(homedir(), ".aigne", "doc-smith-connected.yaml");
   const secretStore = await createSecretStore({
-    serviceName: "aigne-doc-smith-publish",
     filepath,
+    serviceName: "aigne-doc-smith-publish",
   });
 
   async function migrate() {
-    // system don't support keyring
+    // system doesn't support keyring
     if (secretStore instanceof FileStore) {
       return true;
     }
@@ -30,21 +29,6 @@ export async function createStore() {
     }
     await rm(filepath);
   }
-  function getItem(...args) {
-    return secretStore.getItem(...args);
-  }
-
-  function setItem(...args) {
-    return secretStore.setItem(...args);
-  }
-
-  function deleteItem(...args) {
-    return secretStore.deleteItem(...args);
-  }
-
-  function listMap() {
-    return secretStore.listMap();
-  }
 
   async function clear() {
     const map = await secretStore.listMap();
@@ -55,11 +39,7 @@ export async function createStore() {
 
   await migrate();
 
-  return {
-    getItem,
-    setItem,
-    deleteItem,
-    clear,
-    listMap,
-  };
+  secretStore.clear = clear;
+
+  return secretStore;
 }
