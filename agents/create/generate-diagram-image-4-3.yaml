@@ -27,6 +27,8 @@ instructions: |
   - **DO NOT** copy the template's content - generate new content based on the document content below
   - Match the template's artistic style, color palette, and visual design language
   - Keep the same level of detail and visual complexity as the template
+  - **Keep labels SHORT and SIMPLE - avoid long text strings unless absolutely necessary for understanding**
+
   {% endif %}
   
   General Requirements:
