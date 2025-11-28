@@ -1,5 +1,5 @@
-import chalk from "chalk";
 import { createHash } from "node:crypto";
+import chalk from "chalk";
 import { getHistory } from "../../utils/history-utils.mjs";
 
 export default function viewHistory() {
