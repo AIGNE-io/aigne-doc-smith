@@ -7,6 +7,7 @@ import { DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR } from "../../utils/constants/in
 import { getContentHash } from "../../utils/utils.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
 import { debug } from "../../utils/debug.mjs";
+import { compressImage } from "../../utils/image-compress.mjs";
 
 const SIZE_THRESHOLD = 1 * 1024 * 1024; // 1MB
 
@@ -47,10 +48,14 @@ export default async function replaceD2WithImage({
   originalContent,
   feedback,
 }) {
-  // For update scenarios: use originalContent to find existing diagrams
-  // For new generation: use documentContent which may contain DIAGRAM_PLACEHOLDER
+  // Determine which content to use for finding diagrams and final replacement
+  // Priority: 
+  // 1. documentContent (may contain DIAGRAM_PLACEHOLDER from replaceD2WithPlaceholder)
+  // 2. originalContent (for finding existing diagrams when updating)
+  // 3. content (fallback)
   const contentForFindingDiagrams = originalContent || documentContent || content || "";
-  let finalContent = originalContent || documentContent || content || "";
+  // For final content, prefer documentContent first (may have placeholder), then originalContent
+  let finalContent = documentContent || originalContent || content || "";
   
   // Extract diagram index from feedback if not explicitly provided
   let targetDiagramIndex = diagramIndex;
@@ -170,9 +175,26 @@ export default async function replaceD2WithImage({
     if (await fs.pathExists(destPath)) {
       debug(`Diagram image cache found, skipping copy: ${destPath}`);
     } else {
-      // Destination doesn't exist, copy the file
-      await copyFile(image.path, destPath);
-      debug(`✅ Diagram image saved to: ${destPath}`);
+      // Compress the image directly to destination path
+      try {
+        debug(`Compressing image directly to destination: ${image.path} -> ${destPath}`);
+        const compressedPath = await compressImage(image.path, { 
+          quality: 85,
+          outputPath: destPath 
+        });
+        
+        // If compression failed, fallback to copying original file
+        if (compressedPath === image.path) {
+          debug(`Compression failed, copying original file: ${image.path}`);
+          await copyFile(image.path, destPath);
+        }
+        debug(`✅ Diagram image saved to: ${destPath}`);
+      } catch (error) {
+        debug(`Image compression failed, copying original: ${error.message}`);
+        // Fallback to copying original file if compression fails
+        await copyFile(image.path, destPath);
+        debug(`✅ Diagram image saved to: ${destPath}`);
+      }
     }
   } catch (error) {
     console.error(
@@ -191,7 +213,8 @@ export default async function replaceD2WithImage({
   // Docs are in: .aigne/doc-smith/.tmp/docs/
   // Assets are in: .aigne/doc-smith/.tmp/assets/diagram/
   // So relative path from docs to assets: ../assets/diagram/filename
-  const relativePath = path.posix.join("..", TMP_ASSETS_DIR, "diagram", fileName);
+  // If docs are not in .tmp/docs/, include .tmp in the path
+  const relativePath = path.posix.join("..", TMP_DIR, TMP_ASSETS_DIR, "diagram", fileName);
 
   // Create markdown image reference with markers for easy replacement
   // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
@@ -218,9 +241,17 @@ export default async function replaceD2WithImage({
   }
 
   // Replace DIAGRAM_PLACEHOLDER first (highest priority)
-  if (finalContent.includes(DIAGRAM_PLACEHOLDER)) {
+  // Check both finalContent and documentContent for placeholder
+  const hasPlaceholder = finalContent.includes(DIAGRAM_PLACEHOLDER) || 
+                         documentContent?.includes(DIAGRAM_PLACEHOLDER);
+  
+  if (hasPlaceholder) {
     debug("Replacing DIAGRAM_PLACEHOLDER");
-    finalContent = finalContent.replace(DIAGRAM_PLACEHOLDER, imageMarkdown);
+    // Use documentContent if it has placeholder, otherwise use finalContent
+    const contentWithPlaceholder = documentContent?.includes(DIAGRAM_PLACEHOLDER)
+      ? documentContent 
+      : finalContent;
+    finalContent = contentWithPlaceholder.replace(DIAGRAM_PLACEHOLDER, imageMarkdown);
   } else if (diagramLocations.length > 0 && targetIndex >= 0) {
     // Replace the diagram at the specified index
     // Use originalContent if available (for accurate position), otherwise use finalContent
@@ -235,15 +266,22 @@ export default async function replaceD2WithImage({
       debug(`⚠️  Target location at index ${targetIndex} not found`);
     }
   } else {
-    // No diagrams found and no placeholder, this shouldn't happen in normal flow
-    // But if it does, don't insert at the beginning - this is an error case
-    debug("⚠️  No diagram location found to replace. Content may be missing diagram markers.");
+    // No diagrams found and no placeholder
+    // This can happen when:
+    // 1. User requests to update a diagram but no diagrams exist in the document
+    // 2. New document generation without any diagram markers
+    // In this case, append the diagram to the end of the document
+    debug("⚠️  No diagram location found to replace. Appending diagram to end of document.");
     debug(`  - Content length: ${finalContent.length}`);
     debug(`  - Contains DIAGRAM_PLACEHOLDER: ${finalContent.includes(DIAGRAM_PLACEHOLDER)}`);
     debug(`  - Contains DIAGRAM_IMAGE_START: ${finalContent.includes("DIAGRAM_IMAGE_START")}`);
     debug(`  - Contains \`\`\`d2: ${finalContent.includes("```d2")}`);
     debug(`  - Contains \`\`\`mermaid: ${finalContent.includes("```mermaid")}`);
-    return { content: finalContent };
+    
+    // Append diagram to the end of the document with proper spacing
+    const trimmedContent = finalContent.trimEnd();
+    const separator = trimmedContent && !trimmedContent.endsWith("\n") ? "\n\n" : "\n";
+    finalContent = trimmedContent + separator + imageMarkdown;
   }
 
   return { content: finalContent };
