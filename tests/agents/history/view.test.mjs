@@ -1,18 +1,26 @@
-import { afterEach, beforeEach, describe, expect, test, mock, spyOn } from "bun:test";
-import chalk from "chalk";
-import viewHistory from "../../../agents/history/view.mjs";
+import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
+
+// We'll mock `chalk` before importing the module under test to avoid
+// environment-specific issues where `chalk.dim` may be undefined.
+let viewHistory;
+
 import * as historyUtils from "../../../utils/history-utils.mjs";
 
 describe("History View", () => {
   let consoleLogMock;
   let getHistorySpy;
+  // chalk will be mocked before importing the module under test
 
   beforeEach(async () => {
     mock.restore();
-    // Ensure chalk helpers exist even if mutated by other tests
-    chalk.dim = chalk.dim || ((x) => x);
-    chalk.cyan = chalk.cyan || ((x) => x);
-    chalk.yellow = chalk.yellow || ((x) => x);
+    mock.module("chalk", () => ({
+      default: { dim: (x) => x, cyan: (x) => x, yellow: (x) => x },
+      dim: (x) => x,
+      cyan: (x) => x,
+      yellow: (x) => x,
+    }));
+    // dynamic import after mocking chalk
+    viewHistory = (await import("../../../agents/history/view.mjs")).default;
 
     consoleLogMock = spyOn(console, "log").mockImplementation(() => {});
     getHistorySpy = spyOn(historyUtils, "getHistory").mockReturnValue({ entries: [] });

@@ -1,25 +1,13 @@
-import { existsSync } from "node:fs";
-import { readFile, writeFile } from "node:fs/promises";
 import chalk from "chalk";
-import { parse, stringify } from "yaml";
-import { getDocSmithEnvFilePath } from "../../utils/auth-utils.mjs";
+import { createStore } from "../../utils/store/index.mjs";
 
 export default async function clearAuthTokens(_input = {}, options = {}) {
-  const DOC_SMITH_ENV_FILE = getDocSmithEnvFilePath();
-  // Check if the file exists
-  if (!existsSync(DOC_SMITH_ENV_FILE)) {
-    return {
-      message: "🔑 No site authorizations found to clear",
-    };
-  }
+  const store = await createStore();
 
   try {
-    // Read existing configuration
-    const data = await readFile(DOC_SMITH_ENV_FILE, "utf8");
-    const envs = parse(data) || {};
-
+    const listMap = await store.listMap();
     // Get all available sites
-    const siteHostnames = Object.keys(envs);
+    const siteHostnames = Object.keys(listMap);
 
     if (siteHostnames.length === 0) {
       return {
@@ -67,24 +55,15 @@ export default async function clearAuthTokens(_input = {}, options = {}) {
 
     if (selectedSites.includes("__ALL__")) {
       // Clear all site authorizations
-      await writeFile(DOC_SMITH_ENV_FILE, stringify({}));
+      await store.clear();
       results.push(`✔ Cleared site authorization for all sites (${siteHostnames.length} sites)`);
       clearedCount = siteHostnames.length;
     } else {
-      // Clear site authorizations for selected sites
-      const updatedEnvs = { ...envs };
-
       for (const hostname of selectedSites) {
-        if (updatedEnvs[hostname]) {
-          // Remove the entire site object
-          delete updatedEnvs[hostname];
-
-          results.push(`✔ Cleared site authorization for ${chalk.cyan(hostname)}`);
-          clearedCount++;
-        }
+        await store.deleteItem(hostname);
+        results.push(`✔ Cleared site authorization for ${chalk.cyan(hostname)}`);
+        clearedCount++;
       }
-
-      await writeFile(DOC_SMITH_ENV_FILE, stringify(updatedEnvs));
     }
 
     const header = `🔑 Successfully cleared site authorizations!`;

@@ -16,6 +16,7 @@ import * as path from "node:path";
 import * as yaml from "yaml";
 import { getAccessToken, getOfficialAccessToken } from "../../utils/auth-utils.mjs";
 import * as blockletUtils from "../../utils/blocklet.mjs";
+import * as storeModule from "../../utils/store/index.mjs";
 
 // Mock external modules that involve network requests
 const mockCreateConnect = mock(() => Promise.resolve({ accessKeySecret: "new-access-token" }));
@@ -30,6 +31,7 @@ describe("auth-utils", () => {
   let readFileSpy;
   let writeFileSpy;
   let mkdirSyncSpy;
+  let createStoreSpy;
   let homedirSpy;
   let joinSpy;
   let parseSpy;
@@ -80,6 +82,15 @@ describe("auth-utils", () => {
     writeFileSpy = spyOn(fsPromises, "writeFile").mockResolvedValue();
     mkdirSyncSpy = spyOn(fs, "mkdirSync").mockImplementation(() => {});
 
+    // Spy on createStore to provide a mock store by default
+    const defaultStore = {
+      getItem: mock(() => Promise.resolve(null)),
+      setItem: mock(() => Promise.resolve()),
+      listMap: mock(() => Promise.resolve({})),
+      deleteItem: mock(() => Promise.resolve()),
+    };
+    createStoreSpy = spyOn(storeModule, "createStore").mockResolvedValue(defaultStore);
+
     // Spy on path operations
     homedirSpy = spyOn(os, "homedir").mockReturnValue("/mock/home");
     joinSpy = spyOn(path, "join").mockImplementation((...paths) => paths.join("/"));
@@ -106,6 +117,7 @@ describe("auth-utils", () => {
     readFileSpy?.mockRestore();
     writeFileSpy?.mockRestore();
     mkdirSyncSpy?.mockRestore();
+    createStoreSpy?.mockRestore();
     homedirSpy?.mockRestore();
     joinSpy?.mockRestore();
     parseSpy?.mockRestore();
@@ -164,21 +176,17 @@ describe("auth-utils", () => {
 
   // CONFIG FILE READING TESTS
   test("should read access token from config file", async () => {
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue("DOC_DISCUSS_KIT_ACCESS_TOKEN: config-token");
-    parseSpy.mockReturnValue({
-      "example.com": {
-        DOC_DISCUSS_KIT_ACCESS_TOKEN: "config-token",
-      },
-    });
+    // Mock store to return a stored token
+    const store = {
+      getItem: mock(() => Promise.resolve({ DOC_DISCUSS_KIT_ACCESS_TOKEN: "config-token" })),
+    };
+    createStoreSpy.mockResolvedValueOnce(store);
 
     const result = await getAccessToken("https://example.com");
 
     expect(result).toBe("config-token");
-    expect(joinSpy).toHaveBeenCalledWith("/mock/home", ".aigne", "doc-smith-connected.yaml");
-    expect(existsSyncSpy).toHaveBeenCalledWith("/mock/home/.aigne/doc-smith-connected.yaml");
-    expect(readFileSpy).toHaveBeenCalledWith("/mock/home/.aigne/doc-smith-connected.yaml", "utf8");
-    expect(parseSpy).toHaveBeenCalled();
+    expect(createStoreSpy).toHaveBeenCalled();
+    expect(store.getItem).toHaveBeenCalledWith("example.com");
   });
 
   test("should handle config file without token field", async () => {
@@ -210,9 +218,10 @@ describe("auth-utils", () => {
   });
 
   test("should handle config file read errors", async () => {
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockRejectedValue(new Error("File read error"));
-    // Make createConnect fail to test the error path
+    // Make store.getItem throw to simulate read error
+    const store = { getItem: mock(() => Promise.reject(new Error("File read error"))) };
+    createStoreSpy.mockResolvedValueOnce(store);
+    // Make createConnect fail to test the overall error path
     mockCreateConnect.mockRejectedValueOnce(new Error("Network error"));
 
     await expect(getAccessToken("https://example.com")).rejects.toThrow(
@@ -225,20 +234,27 @@ describe("auth-utils", () => {
   });
 
   test("should handle config file without DOC_DISCUSS_KIT_ACCESS_TOKEN keyword", async () => {
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue("some other content");
+    // Simulate store returning no token
+    const store = { getItem: mock(() => Promise.resolve(null)) };
+    createStoreSpy.mockResolvedValueOnce(store);
 
     // Should succeed with authorization flow
     const result = await getAccessToken("https://example.com");
     expect(result).toBe("new-access-token");
-    // Verify that the config file was read but the flow proceeded to authorization
-    expect(readFileSpy).toHaveBeenCalled();
+    // Verify that the store getItem was called
+    expect(store.getItem).toHaveBeenCalledWith("example.com");
   });
 
   // AUTHORIZATION FLOW TESTS
   test("should successfully complete authorization flow", async () => {
     // Mock successful component check
     getComponentMountPointSpy.mockResolvedValue({ endpoint: "https://example.com/api" });
+    // Provide a mock store and capture setItem
+    const store = {
+      getItem: mock(() => Promise.resolve(null)),
+      setItem: mock(() => Promise.resolve()),
+    };
+    createStoreSpy.mockResolvedValue(store);
 
     const result = await getAccessToken("https://example.com");
 
@@ -257,18 +273,10 @@ describe("auth-utils", () => {
     // Verify environment variable is set
     expect(process.env.DOC_SMITH_PUBLISH_ACCESS_TOKEN).toBe("new-access-token");
 
-    // Verify config file is saved
-    expect(writeFileSpy).toHaveBeenCalledWith(
-      "/mock/home/.aigne/doc-smith-connected.yaml",
-      "mock yaml",
-    );
-    expect(stringifySpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        "example.com": {
-          DOC_DISCUSS_KIT_ACCESS_TOKEN: "new-access-token",
-        },
-      }),
-    );
+    // Verify token was saved via store.setItem
+    expect(store.setItem).toHaveBeenCalledWith("example.com", {
+      DOC_DISCUSS_KIT_ACCESS_TOKEN: "new-access-token",
+    });
   });
 
   test("should create .aigne directory if it doesn't exist", async () => {
@@ -283,18 +291,16 @@ describe("auth-utils", () => {
 
   test("should merge with existing config file", async () => {
     getComponentMountPointSpy.mockResolvedValue({ endpoint: "https://example.com/api" });
-    existsSyncSpy
-      .mockReturnValueOnce(true) // .aigne directory exists
-      .mockReturnValueOnce(true); // config file exists at save time
-    readFileSpy.mockResolvedValue("other.com:\n  token: other-token");
-    parseSpy.mockReturnValue({ "other.com": { token: "other-token" } });
+    const store = {
+      getItem: mock(() => Promise.resolve(null)),
+      setItem: mock(() => Promise.resolve()),
+    };
+    createStoreSpy.mockResolvedValue(store);
 
     const result = await getAccessToken("https://example.com");
 
     expect(result).toBe("new-access-token");
-    expect(stringifySpy).toHaveBeenCalled();
-    // Verify that config file writing was attempted
-    expect(writeFileSpy).toHaveBeenCalled();
+    expect(store.setItem).toHaveBeenCalled();
   });
 
   test("should call openPage function with correct URL and locale", async () => {
@@ -386,24 +392,19 @@ describe("auth-utils", () => {
 
     // CONFIG FILE READING TESTS
     test("should read access token from config file", async () => {
-      existsSyncSpy.mockReturnValue(true);
-      readFileSpy.mockResolvedValue(`DOC_DISCUSS_KIT_ACCESS_TOKEN: config-official-token`);
-      parseSpy.mockReturnValue({
-        "example.com": {
-          DOC_DISCUSS_KIT_ACCESS_TOKEN: "config-official-token",
-        },
-      });
+      // Mock store to return a stored token
+      const store = {
+        getItem: mock(() =>
+          Promise.resolve({ DOC_DISCUSS_KIT_ACCESS_TOKEN: "config-official-token" }),
+        ),
+      };
+      createStoreSpy.mockResolvedValueOnce(store);
 
       const result = await getOfficialAccessToken("https://example.com");
 
       expect(result).toBe("config-official-token");
-      expect(joinSpy).toHaveBeenCalledWith("/mock/home", ".aigne", "doc-smith-connected.yaml");
-      expect(existsSyncSpy).toHaveBeenCalledWith("/mock/home/.aigne/doc-smith-connected.yaml");
-      expect(readFileSpy).toHaveBeenCalledWith(
-        "/mock/home/.aigne/doc-smith-connected.yaml",
-        "utf8",
-      );
-      expect(parseSpy).toHaveBeenCalled();
+      expect(createStoreSpy).toHaveBeenCalled();
+      expect(store.getItem).toHaveBeenCalledWith("example.com");
     });
 
     test("should handle config file without token field", async () => {
@@ -452,6 +453,12 @@ describe("auth-utils", () => {
 
     // AUTHORIZATION FLOW TESTS
     test("should successfully complete authorization flow", async () => {
+      const store = {
+        getItem: mock(() => Promise.resolve(null)),
+        setItem: mock(() => Promise.resolve()),
+      };
+      createStoreSpy.mockResolvedValue(store);
+
       const result = await getOfficialAccessToken("https://example.com");
 
       expect(result).toBe("new-access-token");
@@ -467,18 +474,10 @@ describe("auth-utils", () => {
         }),
       );
 
-      // Verify config file is saved
-      expect(writeFileSpy).toHaveBeenCalledWith(
-        "/mock/home/.aigne/doc-smith-connected.yaml",
-        "mock yaml",
-      );
-      expect(stringifySpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          "example.com": {
-            DOC_DISCUSS_KIT_ACCESS_TOKEN: "new-access-token",
-          },
-        }),
-      );
+      // Verify token was saved via store.setItem
+      expect(store.setItem).toHaveBeenCalledWith("example.com", {
+        DOC_DISCUSS_KIT_ACCESS_TOKEN: "new-access-token",
+      });
     });
 
     test("should create .aigne directory if it doesn't exist", async () => {
@@ -491,17 +490,16 @@ describe("auth-utils", () => {
     });
 
     test("should merge with existing config file", async () => {
-      existsSyncSpy
-        .mockReturnValueOnce(true) // .aigne directory exists
-        .mockReturnValueOnce(true); // config file exists at save time
-      readFileSpy.mockResolvedValue("other.com:\n  token: other-token");
-      parseSpy.mockReturnValue({ "other.com": { token: "other-token" } });
+      const store = {
+        getItem: mock(() => Promise.resolve(null)),
+        setItem: mock(() => Promise.resolve()),
+      };
+      createStoreSpy.mockResolvedValue(store);
 
       const result = await getOfficialAccessToken("https://example.com");
 
       expect(result).toBe("new-access-token");
-      expect(stringifySpy).toHaveBeenCalled();
-      expect(writeFileSpy).toHaveBeenCalled();
+      expect(store.setItem).toHaveBeenCalled();
     });
 
     test("should call openPage function with correct behavior and locale", async () => {
@@ -550,6 +548,11 @@ describe("auth-utils", () => {
 
     test("should handle config file save errors gracefully", async () => {
       writeFileSpy.mockRejectedValue(new Error("Write error"));
+      const store = {
+        getItem: mock(() => Promise.resolve(null)),
+        setItem: mock(() => Promise.reject(new Error("Write error"))),
+      };
+      createStoreSpy.mockResolvedValue(store);
       const consoleWarnSpy = spyOn(console, "warn").mockImplementation(() => {});
 
       const result = await getOfficialAccessToken("https://example.com");
