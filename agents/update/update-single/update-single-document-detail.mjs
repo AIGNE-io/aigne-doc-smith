@@ -103,7 +103,11 @@ Your task is to remove ${DIAGRAM_PLACEHOLDER} and adjust the document context (b
 
 <user_feedback>
 {{feedback}}
-</user_feedback>`;
+</user_feedback>
+
+<output_constraints>
+- Do not provide any explanations; include only the document content itself
+</output_constraints>`;
   const deleteAgent = AIAgent.from({
     name: "deleteDiagram",
     description: "Remove a diagram from the document content",
