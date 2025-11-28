@@ -62,7 +62,9 @@ export async function compressImage(inputPath, options = {}) {
     // Write compressed image directly to output path
     await sharpInstance.toFile(finalOutputPath);
 
-    debug(`✅ Image compressed: ${inputPath} -> ${finalOutputPath} (format: ${format}, quality: ${quality})`);
+    debug(
+      `✅ Image compressed: ${inputPath} -> ${finalOutputPath} (format: ${format}, quality: ${quality})`,
+    );
 
     return finalOutputPath;
   } catch (error) {
@@ -71,4 +73,3 @@ export async function compressImage(inputPath, options = {}) {
     return inputPath;
   }
 }
-

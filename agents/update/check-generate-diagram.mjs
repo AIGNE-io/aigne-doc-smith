@@ -60,7 +60,7 @@ export default async function checkGenerateDiagram(
         feedback: feedback || "",
         originalContent: originalContent || documentContent,
       });
-      
+
       // generateDiagram now returns { content } with image already inserted
       // The image replaces DIAGRAM_PLACEHOLDER or D2 code blocks
       if (result?.content) {

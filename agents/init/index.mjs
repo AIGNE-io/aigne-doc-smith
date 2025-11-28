@@ -625,10 +625,12 @@ ${modelSection}
 
   // Diagramming configuration
   yaml += "\n# Diagramming Configuration\n";
-  yaml += "# diagramming.effort: AI effort level for diagramming, 0-10, larger value means fewer diagrams\n";
+  yaml +=
+    "# diagramming.effort: AI effort level for diagramming, 0-10, larger value means fewer diagrams\n";
   yaml += "diagramming:\n";
   yaml += "  effort: 5  # AI effort level for diagramming, 0-10, large is less diagram\n";
-  yaml += "  # Diagram styles: Available visual styles for diagram generation (multiple selection supported)\n";
+  yaml +=
+    "  # Diagram styles: Available visual styles for diagram generation (multiple selection supported)\n";
   yaml += "  # Available options:\n";
   Object.entries(DIAGRAM_STYLES).forEach(([key, style]) => {
     yaml += `  #   ${key.padEnd(16)} - ${style.name}: ${style.description}\n`;

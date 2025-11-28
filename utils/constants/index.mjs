@@ -578,37 +578,44 @@ export const DIAGRAM_STYLES = {
   modern: {
     name: "Modern",
     description: "Modern, clean, professional style with contemporary design elements",
-    prompt: "Modern, clean, professional diagram style with contemporary design elements, smooth lines, and a professional color scheme",
+    prompt:
+      "Modern, clean, professional diagram style with contemporary design elements, smooth lines, and a professional color scheme",
   },
   standard: {
     name: "Standard Flowchart",
     description: "Standard flowchart style with traditional symbols and formats",
-    prompt: "Standard flowchart style with traditional symbols (rectangles for processes, diamonds for decisions, arrows for flows), clear and conventional formatting",
+    prompt:
+      "Standard flowchart style with traditional symbols (rectangles for processes, diamonds for decisions, arrows for flows), clear and conventional formatting",
   },
   "hand-drawn": {
     name: "Hand-drawn",
     description: "Hand-drawn style with natural, organic lines and sketch-like appearance",
-    prompt: "Hand-drawn, sketch-like style with natural, organic lines, slightly imperfect shapes, and a casual, approachable appearance",
+    prompt:
+      "Hand-drawn, sketch-like style with natural, organic lines, slightly imperfect shapes, and a casual, approachable appearance",
   },
   anthropomorphic: {
     name: "Anthropomorphic",
     description: "Anthropomorphic style with personified elements and vivid imagery",
-    prompt: "Anthropomorphic style with personified elements, vivid and lively imagery, characters or objects with human-like features, engaging and memorable",
+    prompt:
+      "Anthropomorphic style with personified elements, vivid and lively imagery, characters or objects with human-like features, engaging and memorable",
   },
   flat: {
     name: "Flat Design",
     description: "Flat design style without shadows or 3D effects",
-    prompt: "Flat design style with no shadows, gradients, or 3D effects, clean geometric shapes, bold colors, and minimalist aesthetics",
+    prompt:
+      "Flat design style with no shadows, gradients, or 3D effects, clean geometric shapes, bold colors, and minimalist aesthetics",
   },
   minimalist: {
     name: "Minimalist",
     description: "Minimalist style with minimal elements and maximum clarity",
-    prompt: "Minimalist style with the fewest possible elements, maximum clarity, simple shapes, ample white space, and essential information only",
+    prompt:
+      "Minimalist style with the fewest possible elements, maximum clarity, simple shapes, ample white space, and essential information only",
   },
   "3d": {
     name: "3D",
     description: "3D style with three-dimensional effects and perspective",
-    prompt: "3D style with three-dimensional effects, perspective, depth, shadows, and realistic spatial relationships",
+    prompt:
+      "3D style with three-dimensional effects, perspective, depth, shadows, and realistic spatial relationships",
   },
 };
 
@@ -617,12 +624,34 @@ export const DIAGRAM_TYPES = {
   architecture: {
     name: "Architecture Diagram",
     description: "System architecture showing components, services, and their relationships",
-    keywords: ["架构", "architecture", "组件", "component", "服务", "service", "系统", "system", "模块", "module"],
+    keywords: [
+      "架构",
+      "architecture",
+      "组件",
+      "component",
+      "服务",
+      "service",
+      "系统",
+      "system",
+      "模块",
+      "module",
+    ],
   },
   flowchart: {
     name: "Flowchart",
     description: "Process flow showing steps, decisions, and workflow",
-    keywords: ["流程", "flow", "步骤", "step", "工作流", "workflow", "过程", "process", "顺序", "sequence"],
+    keywords: [
+      "流程",
+      "flow",
+      "步骤",
+      "step",
+      "工作流",
+      "workflow",
+      "过程",
+      "process",
+      "顺序",
+      "sequence",
+    ],
   },
   guide: {
     name: "Guide Diagram",
@@ -632,16 +661,47 @@ export const DIAGRAM_TYPES = {
   intro: {
     name: "Introduction Diagram",
     description: "Introduction diagram providing overview or conceptual explanation",
-    keywords: ["介绍", "introduction", "概述", "overview", "概念", "concept", "说明", "explanation"],
+    keywords: [
+      "介绍",
+      "introduction",
+      "概述",
+      "overview",
+      "概念",
+      "concept",
+      "说明",
+      "explanation",
+    ],
   },
   sequence: {
     name: "Sequence Diagram",
     description: "Sequence diagram showing interactions over time",
-    keywords: ["时序", "sequence", "交互", "interaction", "时间", "time", "消息", "message", "调用", "call"],
+    keywords: [
+      "时序",
+      "sequence",
+      "交互",
+      "interaction",
+      "时间",
+      "time",
+      "消息",
+      "message",
+      "调用",
+      "call",
+    ],
   },
   network: {
     name: "Network Topology",
     description: "Network topology showing network structure and connections",
-    keywords: ["网络", "network", "拓扑", "topology", "连接", "connection", "节点", "node", "路由", "route"],
+    keywords: [
+      "网络",
+      "network",
+      "拓扑",
+      "topology",
+      "连接",
+      "connection",
+      "节点",
+      "node",
+      "路由",
+      "route",
+    ],
   },
 };

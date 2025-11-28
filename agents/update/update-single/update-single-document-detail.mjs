@@ -1,10 +1,7 @@
 import { AIAgent } from "@aigne/core";
 import { pick } from "@aigne/core/utils/type-utils.js";
 import z from "zod";
-import {
-  DIAGRAM_PLACEHOLDER,
-  replaceD2WithPlaceholder,
-} from "../../../utils/d2-utils.mjs";
+import { DIAGRAM_PLACEHOLDER, replaceD2WithPlaceholder } from "../../../utils/d2-utils.mjs";
 import { userContextAt } from "../../../utils/utils.mjs";
 
 async function getIntentType(input, options) {
@@ -78,13 +75,13 @@ async function updateDiagram(input, options) {
     feedback: input.feedback,
     originalContent: currentContent, // Pass original content to find existing diagrams
   });
-  
+
   // generateDiagram now returns { content } with image already inserted
   // The image replaces DIAGRAM_PLACEHOLDER or D2 code blocks
   if (result?.content) {
     content = result.content;
   }
-  
+
   contentContext.set(content);
   await saveDoc(input, options, { content });
   return { content };

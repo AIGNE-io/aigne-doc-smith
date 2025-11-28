@@ -2,7 +2,13 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
 import fs from "fs-extra";
-import { DIAGRAM_STYLES, DIAGRAM_TYPES, DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR } from "../../utils/constants/index.mjs";
+import {
+  DIAGRAM_STYLES,
+  DIAGRAM_TYPES,
+  DOC_SMITH_DIR,
+  TMP_DIR,
+  TMP_ASSETS_DIR,
+} from "../../utils/constants/index.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -94,7 +100,7 @@ export default async function analyzeDiagramType(
 ) {
   // Step 0: Extract style and type preferences from user feedback (if provided)
   const feedbackPreferences = extractPreferencesFromFeedback(feedback || "");
-  
+
   // Step 1: Keyword-based type detection
   const keywordScores = detectDiagramTypeByKeywords(documentContent);
 
@@ -106,13 +112,15 @@ export default async function analyzeDiagramType(
     try {
       // Build styleDescriptions object for template
       const styleDescriptions = {};
-      const stylesToUse = availableStyles.length > 0 ? availableStyles : Object.keys(DIAGRAM_STYLES);
+      const stylesToUse =
+        availableStyles.length > 0 ? availableStyles : Object.keys(DIAGRAM_STYLES);
       for (const style of stylesToUse) {
         if (DIAGRAM_STYLES[style]) {
-          styleDescriptions[style] = DIAGRAM_STYLES[style].description || DIAGRAM_STYLES[style].name;
+          styleDescriptions[style] =
+            DIAGRAM_STYLES[style].description || DIAGRAM_STYLES[style].name;
         }
       }
-      
+
       // Only include feedbackPreferences if it has non-null values
       const llmInput = {
         documentContent,
@@ -122,12 +130,12 @@ export default async function analyzeDiagramType(
         locale,
         feedback: feedback || "",
       };
-      
+
       // Only add feedbackPreferences if at least one field is not null
       if (feedbackPreferences && (feedbackPreferences.style || feedbackPreferences.type)) {
         llmInput.feedbackPreferences = feedbackPreferences;
       }
-      
+
       llmResult = await options.context.invoke(llmAgent, llmInput);
     } catch (error) {
       console.warn(`⚠️  LLM analysis failed, using keyword-based detection: ${error.message}`);
@@ -148,17 +156,19 @@ export default async function analyzeDiagramType(
   // Step 4: Select style
   // Priority: feedback preference > LLM result > single configured style > type-based selection > default
   let diagramStyle = DEFAULT_DIAGRAM_STYLE;
-  
+
   // First check if user specified a style in feedback
   if (feedbackPreferences.style) {
     // Validate that the requested style is available
     if (availableStyles.length === 0 || availableStyles.includes(feedbackPreferences.style)) {
       diagramStyle = feedbackPreferences.style;
     } else {
-      console.warn(`⚠️  Requested style "${feedbackPreferences.style}" not in available styles, using fallback`);
+      console.warn(
+        `⚠️  Requested style "${feedbackPreferences.style}" not in available styles, using fallback`,
+      );
     }
   }
-  
+
   // If no feedback preference, proceed with normal selection
   if (!feedbackPreferences.style) {
     if (availableStyles && availableStyles.length > 0) {
@@ -190,9 +200,11 @@ export default async function analyzeDiagramType(
   }
 
   // Step 6: Generate prompt requirements for image generation
-  const diagramTypeRequirements = TYPE_REQUIREMENTS[diagramType] || TYPE_REQUIREMENTS[DEFAULT_DIAGRAM_TYPE];
-  const diagramStyleRequirements = STYLE_REQUIREMENTS[diagramStyle] || STYLE_REQUIREMENTS[DEFAULT_DIAGRAM_STYLE];
-  
+  const diagramTypeRequirements =
+    TYPE_REQUIREMENTS[diagramType] || TYPE_REQUIREMENTS[DEFAULT_DIAGRAM_TYPE];
+  const diagramStyleRequirements =
+    STYLE_REQUIREMENTS[diagramStyle] || STYLE_REQUIREMENTS[DEFAULT_DIAGRAM_STYLE];
+
   // Generate negative prompt exclusions based on style
   let negativePromptExclusions = "";
   if (diagramStyle !== "anthropomorphic") {
@@ -224,7 +236,6 @@ export default async function analyzeDiagramType(
       "flowchart-template.jpg",
     );
 
-
     // Check if template image exists, if not, fallback to temp directory
     let finalTemplatePath = templateImagePath;
     if (!(await fs.pathExists(templateImagePath))) {
@@ -240,11 +251,13 @@ export default async function analyzeDiagramType(
         finalTemplatePath = fallbackPath;
       } else {
         // Template not found, skip template image
-        console.warn(`⚠️  Flowchart template image not found at ${templateImagePath} or ${fallbackPath}`);
+        console.warn(
+          `⚠️  Flowchart template image not found at ${templateImagePath} or ${fallbackPath}`,
+        );
       }
     }
-    
-    if (finalTemplatePath && await fs.pathExists(finalTemplatePath)) {
+
+    if (finalTemplatePath && (await fs.pathExists(finalTemplatePath))) {
       templateImage = {
         type: "local",
         path: finalTemplatePath,
@@ -418,7 +431,8 @@ analyzeDiagramType.input_schema = {
     },
     feedback: {
       type: "string",
-      description: "User feedback that may contain style or type preferences (e.g., 'use anthropomorphic style', 'create architecture diagram')",
+      description:
+        "User feedback that may contain style or type preferences (e.g., 'use anthropomorphic style', 'create architecture diagram')",
       default: "",
     },
   },
@@ -475,6 +489,13 @@ analyzeDiagramType.output_schema = {
       nullable: true,
     },
   },
-  required: ["diagramType", "diagramStyle", "aspectRatio", "reasoning", "diagramTypeRequirements", "diagramStyleRequirements", "negativePromptExclusions"],
+  required: [
+    "diagramType",
+    "diagramStyle",
+    "aspectRatio",
+    "reasoning",
+    "diagramTypeRequirements",
+    "diagramStyleRequirements",
+    "negativePromptExclusions",
+  ],
 };
-

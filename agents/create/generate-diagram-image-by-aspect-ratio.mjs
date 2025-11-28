@@ -49,7 +49,8 @@ generateDiagramImageByAspectRatio.input_schema = {
   properties: {
     documentContent: {
       type: "string",
-      description: "The document content that describes the system, process, or architecture to diagram",
+      description:
+        "The document content that describes the system, process, or architecture to diagram",
     },
     diagramType: {
       type: "string",
@@ -146,4 +147,3 @@ generateDiagramImageByAspectRatio.output_schema = {
     },
   },
 };
-
