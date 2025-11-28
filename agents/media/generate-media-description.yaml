@@ -1,6 +1,6 @@
 name: generateMediaDescription
 description: Generate description for a single media file (image/video)
-model: "google/gemini-2.5-flash"
+model: gemini-2.5-flash
 modalities: ["text", "image"]
 instructions:
   - role: system
