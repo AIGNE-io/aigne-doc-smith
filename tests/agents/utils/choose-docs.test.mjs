@@ -172,7 +172,7 @@ describe("chooseDocs utility", () => {
     expect(getActionTextSpy).toHaveBeenCalledWith("Select documents to {action}:", "translate");
   });
 
-  test("should throw error when no main language files found", async () => {
+  test("should handle no main language files found by exiting gracefully", async () => {
     getMainLanguageFilesSpy.mockResolvedValue([]);
 
     const input = {
@@ -183,12 +183,25 @@ describe("chooseDocs utility", () => {
       locale: "en",
     };
 
-    const result = await chooseDocs(input, mockOptions);
-    expect(result.selectedDocs).toEqual([]);
-    expect(result.selectedPaths).toEqual([]);
+    const exitSpy = spyOn(process, "exit").mockImplementation(() => {
+      throw new Error("process.exit called");
+    });
+    const consoleLogSpy = spyOn(console, "log").mockImplementation(() => {});
+
+    try {
+      await chooseDocs(input, mockOptions);
+    } catch (err) {
+      expect(err?.message).toBe("process.exit called");
+    }
+
+    expect(exitSpy).toHaveBeenCalledWith(0);
+    expect(consoleLogSpy).toHaveBeenCalled();
+
+    exitSpy.mockRestore();
+    consoleLogSpy.mockRestore();
   });
 
-  test("should throw error when no documents selected interactively", async () => {
+  test("should handle no documents selected interactively by exiting gracefully", async () => {
     mockOptions.prompts.checkbox.mockResolvedValue([]);
 
     const input = {
@@ -199,9 +212,22 @@ describe("chooseDocs utility", () => {
       locale: "en",
     };
 
-    const result = await chooseDocs(input, mockOptions);
-    expect(result.selectedDocs).toEqual([]);
-    expect(result.selectedPaths).toEqual([]);
+    const exitSpy = spyOn(process, "exit").mockImplementation(() => {
+      throw new Error("process.exit called");
+    });
+    const consoleLogSpy = spyOn(console, "log").mockImplementation(() => {});
+
+    try {
+      await chooseDocs(input, mockOptions);
+    } catch (err) {
+      expect(err?.message).toBe("process.exit called");
+    }
+
+    expect(exitSpy).toHaveBeenCalledWith(0);
+    expect(consoleLogSpy).toHaveBeenCalled();
+
+    exitSpy.mockRestore();
+    consoleLogSpy.mockRestore();
   });
 
   // CHECKBOX VALIDATION TESTS
