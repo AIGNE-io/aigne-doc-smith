@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.7-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta.2...v0.9.7-beta.3) (2025-11-28)
+
+
+### Bug Fixes
+
+* ensure x-card data-image is accessible ([#341](https://github.com/AIGNE-io/aigne-doc-smith/issues/341)) ([9209990](https://github.com/AIGNE-io/aigne-doc-smith/commit/92099909d9b1a0d5760a9b9977c940287af1aaec))
+
 ## [0.9.7-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta.1...v0.9.7-beta.2) (2025-11-28)
 
 
