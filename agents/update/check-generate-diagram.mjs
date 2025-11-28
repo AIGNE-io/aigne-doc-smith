@@ -58,6 +58,7 @@ export default async function checkGenerateDiagram(
         locale,
         diagramming: diagramming || {},
         feedback: feedback || "",
+        originalContent: originalContent || documentContent,
       });
       
       // generateDiagram now returns { content } with image already inserted

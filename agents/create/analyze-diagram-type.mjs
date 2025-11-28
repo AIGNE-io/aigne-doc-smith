@@ -1,6 +1,13 @@
-import { DIAGRAM_STYLES, DIAGRAM_TYPES } from "../../utils/constants/index.mjs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { dirname } from "node:path";
+import fs from "fs-extra";
+import { DIAGRAM_STYLES, DIAGRAM_TYPES, DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR } from "../../utils/constants/index.mjs";
 
-const DEFAULT_DIAGRAM_STYLE = "modern";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const DEFAULT_DIAGRAM_STYLE = "anthropomorphic";
 const DEFAULT_DIAGRAM_TYPE = "flowchart";
 
 // Type-specific content requirements
@@ -97,14 +104,31 @@ export default async function analyzeDiagramType(
 
   if (llmAgent) {
     try {
-      llmResult = await options.context.invoke(llmAgent, {
+      // Build styleDescriptions object for template
+      const styleDescriptions = {};
+      const stylesToUse = availableStyles.length > 0 ? availableStyles : Object.keys(DIAGRAM_STYLES);
+      for (const style of stylesToUse) {
+        if (DIAGRAM_STYLES[style]) {
+          styleDescriptions[style] = DIAGRAM_STYLES[style].description || DIAGRAM_STYLES[style].name;
+        }
+      }
+      
+      // Only include feedbackPreferences if it has non-null values
+      const llmInput = {
         documentContent,
         keywordScores,
-        availableStyles: availableStyles.length > 0 ? availableStyles : Object.keys(DIAGRAM_STYLES),
+        availableStyles: stylesToUse,
+        styleDescriptions,
         locale,
         feedback: feedback || "",
-        feedbackPreferences,
-      });
+      };
+      
+      // Only add feedbackPreferences if at least one field is not null
+      if (feedbackPreferences && (feedbackPreferences.style || feedbackPreferences.type)) {
+        llmInput.feedbackPreferences = feedbackPreferences;
+      }
+      
+      llmResult = await options.context.invoke(llmAgent, llmInput);
     } catch (error) {
       console.warn(`⚠️  LLM analysis failed, using keyword-based detection: ${error.message}`);
     }
@@ -178,13 +202,65 @@ export default async function analyzeDiagramType(
     negativePromptExclusions += ", hand-drawn, sketch";
   }
 
+  // Step 7: Determine aspect ratio based on diagram type
+  // flowchart, guide: 4:3
+  // architecture, sequence, network, intro: 16:9
+  let aspectRatio = "16:9";
+  if (diagramType === "flowchart") {
+    aspectRatio = "4:3";
+  }
+
+  // Step 8: Prepare template image for flowchart type
+  let templateImage = null;
+  if (diagramType === "flowchart") {
+    // Get project root directory (3 levels up from agents/create/)
+    // agents/create/ -> agents/ -> root/
+    const projectRoot = path.resolve(__dirname, "../..");
+    const templateImagePath = path.join(
+      projectRoot,
+      "assets",
+      "images",
+      "diagram-templates",
+      "flowchart-template.jpg",
+    );
+
+
+    // Check if template image exists, if not, fallback to temp directory
+    let finalTemplatePath = templateImagePath;
+    if (!(await fs.pathExists(templateImagePath))) {
+      // Fallback to temp directory (for backward compatibility)
+      const fallbackPath = path.join(
+        process.cwd(),
+        DOC_SMITH_DIR,
+        TMP_DIR,
+        TMP_ASSETS_DIR,
+        "image.jpg",
+      );
+      if (await fs.pathExists(fallbackPath)) {
+        finalTemplatePath = fallbackPath;
+      } else {
+        // Template not found, skip template image
+        console.warn(`⚠️  Flowchart template image not found at ${templateImagePath} or ${fallbackPath}`);
+      }
+    }
+    
+    if (finalTemplatePath && await fs.pathExists(finalTemplatePath)) {
+      templateImage = {
+        type: "local",
+        path: finalTemplatePath,
+      };
+    }
+  }
+
   return {
     diagramType,
     diagramStyle,
+    aspectRatio,
     reasoning,
     diagramTypeRequirements,
     diagramStyleRequirements,
     negativePromptExclusions,
+    templateImage,
   };
 }
 
@@ -378,7 +454,27 @@ analyzeDiagramType.output_schema = {
       type: "string",
       description: "Additional negative prompt exclusions based on style",
     },
+    aspectRatio: {
+      type: "string",
+      description: "Aspect ratio for the diagram (4:3 or 16:9)",
+      enum: ["4:3", "16:9"],
+    },
+    templateImage: {
+      type: "object",
+      description: "Template image reference for flowchart type (null for other types)",
+      properties: {
+        type: {
+          type: "string",
+          enum: ["local"],
+        },
+        path: {
+          type: "string",
+          description: "Absolute path to template image",
+        },
+      },
+      nullable: true,
+    },
   },
-  required: ["diagramType", "diagramStyle", "reasoning", "diagramTypeRequirements", "diagramStyleRequirements", "negativePromptExclusions"],
+  required: ["diagramType", "diagramStyle", "aspectRatio", "reasoning", "diagramTypeRequirements", "diagramStyleRequirements", "negativePromptExclusions"],
 };
 

@@ -78,7 +78,7 @@ checkoutId: ""
 
 diagramming:
   effort: 5 # AI effort level for diagramming, 0-10, large is less diagram
-  # Diagram styles: Available visual styles for diagram generation (multiple selection supported)
+  # Diagram styles: Available visual styles for diagram generation
   # Available options:
   #   modern          - Modern, clean, professional style
   #   standard        - Standard flowchart with traditional symbols
@@ -87,7 +87,7 @@ diagramming:
   #   flat            - Flat design without shadows or 3D effects
   #   minimalist      - Minimalist style with minimal elements
   #   3d              - 3D style with three-dimensional effects
-  styles: []
+  styles: "anthropomorphic"
   # Diagram types: Supported diagram types for intelligent type detection (optional)
   # Available options:
   #   architecture    - System architecture diagram
@@ -96,7 +96,8 @@ diagramming:
   #   intro           - Introduction/overview diagram
   #   sequence        - Sequence diagram showing interactions
   #   network         - Network topology diagram
-  types: []
+  types: "flowchart"
+
   
 # AI Thinking Configuration
 # thinking.effort: Determines the depth of reasoning and cognitive effort the AI uses when responding, available options:

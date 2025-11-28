@@ -19,18 +19,18 @@ instructions: |
   - network: Network topology showing network structure and connections
 
   Available Styles:
-  {{#each availableStyles}}
-  - {{this}}: {{lookup ../styleDescriptions this}}
-  {{/each}}
+  {% for style in availableStyles %}
+  - {{ style }}: {{ styleDescriptions[style] }}
+  {% endfor %}
 
   Keyword Analysis Results:
-  {{#if keywordScores}}
-  {{#each keywordScores}}
-  - {{type}}: score {{score}}
-  {{/each}}
-  {{else}}
+  {% if keywordScores %}
+  {% for item in keywordScores %}
+  - {{ item.type }}: score {{ item.score }}
+  {% endfor %}
+  {% else %}
   No keyword matches found
-  {{/if}}
+  {% endif %}
 
   Document Content:
   <document_content>
@@ -94,6 +94,11 @@ input_schema:
       description: List of available diagram styles
       items:
         type: string
+    styleDescriptions:
+      type: object
+      description: Style descriptions for template rendering
+      additionalProperties:
+        type: string
     locale:
       type: string
       description: Language for analysis
@@ -104,7 +109,7 @@ input_schema:
       default: ""
     feedbackPreferences:
       type: object
-      description: Extracted preferences from user feedback
+      description: Extracted preferences from user feedback (optional)
       properties:
         style:
           type: string

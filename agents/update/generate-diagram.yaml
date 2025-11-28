@@ -4,8 +4,8 @@ name: generateDiagram
 skills:
   # Step 1: Analyze document content to determine diagram type and style
   - ../create/analyze-diagram-type.mjs
-  # Step 2: Generate diagram image based on type and style
-  - ../create/generate-diagram-image.yaml
+  # Step 2: Generate diagram image based on type and style (routes to 16:9 or 4:3 agent)
+  - ../create/generate-diagram-image-by-aspect-ratio.mjs
   # Step 3: Replace placeholder with generated image
   - ../create/replace-d2-with-image.mjs
 input_schema:
@@ -34,8 +34,14 @@ input_schema:
             type: string
     feedback:
       type: string
-      description: User feedback that may contain style or type preferences (e.g., 'use anthropomorphic style', 'create architecture diagram')
+      description: User feedback that may contain style or type preferences, or diagram index (e.g., 'use anthropomorphic style', 'update the second diagram')
       default: ""
+    originalContent:
+      type: string
+      description: Original document content before modifications. Used to find existing diagrams when updating (may contain DIAGRAM_IMAGE_START, ```d2, or ```mermaid code blocks)
+    diagramIndex:
+      type: number
+      description: Index of the diagram to replace (0-based). If not provided, will try to extract from feedback.
   required:
     - documentContent
 output_schema:

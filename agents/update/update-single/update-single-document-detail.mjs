@@ -76,6 +76,7 @@ async function updateDiagram(input, options) {
     locale: input.locale,
     diagramming: input.diagramming || {},
     feedback: input.feedback,
+    originalContent: currentContent, // Pass original content to find existing diagrams
   });
   
   // generateDiagram now returns { content } with image already inserted

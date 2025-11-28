@@ -1,21 +1,66 @@
-import { copyFile } from "node:fs/promises";
+import { copyFile, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import fs from "fs-extra";
+import { createHash } from "node:crypto";
 import { DIAGRAM_PLACEHOLDER, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR } from "../../utils/constants/index.mjs";
 import { getContentHash } from "../../utils/utils.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
+import { debug } from "../../utils/debug.mjs";
+
+const SIZE_THRESHOLD = 1 * 1024 * 1024; // 1MB
+
+/**
+ * Calculate hash for an image file
+ * For files < 1MB: use file content
+ * For files >= 1MB: use path + size + mtime to avoid memory issues
+ * @param {string} absolutePath - The absolute path to the image file
+ * @returns {Promise<string>} - The hash of the file
+ */
+async function calculateImageHash(absolutePath) {
+  const stats = await stat(absolutePath);
+
+  if (stats.size < SIZE_THRESHOLD) {
+    // Small file: use full content
+    const content = await readFile(absolutePath);
+    return createHash("sha256").update(content).digest("hex");
+  }
+
+  // Large file: use path + size + mtime
+  const hashInput = `${absolutePath}:${stats.size}:${stats.mtimeMs}`;
+  return createHash("sha256").update(hashInput).digest("hex");
+}
 
 /**
  * Replace D2 code blocks with generated image in document content
  * This mimics the @image insertion pattern
  * Saves images to TMP_DIR/assets/diagram and replaces DIAGRAM_PLACEHOLDER with image reference
  */
-export default async function replaceD2WithImage({ imageResult, images, content, documentContent }) {
-  // documentContent contains DIAGRAM_PLACEHOLDER from preCheckGenerateDiagram
-  // content might be available from previous steps, but we should use documentContent
-  // as it contains the placeholder that needs to be replaced
-  let finalContent = documentContent || content || "";
+export default async function replaceD2WithImage({
+  imageResult,
+  images,
+  content,
+  documentContent,
+  diagramType,
+  aspectRatio,
+  diagramIndex,
+  originalContent,
+  feedback,
+}) {
+  // For update scenarios: use originalContent to find existing diagrams
+  // For new generation: use documentContent which may contain DIAGRAM_PLACEHOLDER
+  const contentForFindingDiagrams = originalContent || documentContent || content || "";
+  let finalContent = originalContent || documentContent || content || "";
+  
+  // Extract diagram index from feedback if not explicitly provided
+  let targetDiagramIndex = diagramIndex;
+  if (targetDiagramIndex === undefined && feedback) {
+    const extractedIndex = extractDiagramIndexFromFeedback(feedback);
+    if (extractedIndex !== null) {
+      targetDiagramIndex = extractedIndex;
+      debug(`Extracted diagram index ${targetDiagramIndex} from feedback: "${feedback}"`);
+    }
+  }
 
   // Extract image from the image generation result
   // In team agent, image agent output is merged into the context
@@ -29,7 +74,7 @@ export default async function replaceD2WithImage({ imageResult, images, content,
   }
   // Then check imageResult (might be the whole output object)
   else if (imageResult) {
-    // Check for images array (new format from generate-diagram-image.yaml)
+    // Check for images array (from image generation agents)
     if (imageResult.images && Array.isArray(imageResult.images) && imageResult.images.length > 0) {
       image = imageResult.images[0];
     }
@@ -59,10 +104,10 @@ export default async function replaceD2WithImage({ imageResult, images, content,
 
   if (!image || !image.path || image.type !== "local") {
     // Debug: log what we received to help diagnose the issue
-    console.log("⚠️  No valid image found in replace-d2-with-image.mjs");
-    console.log("  - images:", images ? `${Array.isArray(images) ? images.length : 'not array'} items` : "undefined");
-    console.log("  - imageResult:", imageResult ? Object.keys(imageResult).join(", ") : "undefined");
-    console.log("  - documentContent contains DIAGRAM_PLACEHOLDER:", finalContent.includes("DIAGRAM_PLACEHOLDER"));
+    debug("⚠️  No valid image found in replace-d2-with-image.mjs");
+    debug("  - images:", images ? `${Array.isArray(images) ? images.length : 'not array'} items` : "undefined");
+    debug("  - imageResult:", imageResult ? Object.keys(imageResult).join(", ") : "undefined");
+    debug("  - documentContent contains DIAGRAM_PLACEHOLDER:", finalContent.includes("DIAGRAM_PLACEHOLDER"));
     // If no image, return content as-is (keep D2 code blocks or placeholder)
     return { content: finalContent };
   }
@@ -95,27 +140,17 @@ export default async function replaceD2WithImage({ imageResult, images, content,
     ext = ".jpg";
   }
 
-  // Generate filename based on document content hash (for caching)
-  // Use documentContent to generate consistent filename for the same content
+  // Generate filename based on image file hash (for caching)
+  // Use image file content hash to ensure same image generates same filename
+  // This allows proper cache hits while ensuring new images get new filenames
   let fileName;
-  if (documentContent) {
-    // Use a portion of document content around DIAGRAM_PLACEHOLDER for hashing
-    // This ensures same document content generates same filename (cache hit)
-    const placeholderIndex = documentContent.indexOf(DIAGRAM_PLACEHOLDER);
-    let contentForHash = documentContent;
-    if (placeholderIndex > 0) {
-      // Use content before and after placeholder (context around diagram)
-      const beforeContext = documentContent.slice(Math.max(0, placeholderIndex - 500), placeholderIndex);
-      const afterContext = documentContent.slice(
-        placeholderIndex + DIAGRAM_PLACEHOLDER.length,
-        placeholderIndex + DIAGRAM_PLACEHOLDER.length + 500,
-      );
-      contentForHash = beforeContext + afterContext;
-    }
-    const hash = getContentHash(contentForHash);
-    fileName = `${hash}${ext}`;
-  } else {
-    // Fallback: Use hash of image path as filename
+  try {
+    // Calculate hash of the actual image file
+    const imageHash = await calculateImageHash(image.path);
+    fileName = `${imageHash}${ext}`;
+  } catch (error) {
+    // Fallback: Use hash of image path if file hash calculation fails
+    debug(`Failed to calculate image hash, using path hash: ${error.message}`);
     const hash = getContentHash(image.path);
     fileName = `${hash}${ext}`;
   }
@@ -131,18 +166,20 @@ export default async function replaceD2WithImage({ imageResult, images, content,
     }
 
     // Check if destination already exists (cache hit)
+    // Since filename is based on file hash, if file exists, it's the same file
     if (await fs.pathExists(destPath)) {
-      console.log(`Diagram image cache found, skipping copy: ${destPath}`);
+      debug(`Diagram image cache found, skipping copy: ${destPath}`);
     } else {
+      // Destination doesn't exist, copy the file
       await copyFile(image.path, destPath);
-      console.log(`✅ Diagram image saved to: ${destPath}`);
+      debug(`✅ Diagram image saved to: ${destPath}`);
     }
   } catch (error) {
     console.error(
       `Failed to copy diagram image from ${image.path} to ${destPath}: ${error.message}`,
     );
-    console.error(`  Source exists: ${await fs.pathExists(image.path)}`);
-    console.error(`  Dest dir exists: ${await fs.pathExists(assetDir)}`);
+    debug(`  Source exists: ${await fs.pathExists(image.path)}`);
+    debug(`  Dest dir exists: ${await fs.pathExists(assetDir)}`);
     // If copy fails, return content as-is (keep D2 code blocks or placeholder)
     return { content: finalContent };
   }
@@ -156,28 +193,179 @@ export default async function replaceD2WithImage({ imageResult, images, content,
   // So relative path from docs to assets: ../assets/diagram/filename
   const relativePath = path.posix.join("..", TMP_ASSETS_DIR, "diagram", fileName);
 
-  // Create markdown image reference
-  const imageMarkdown = `![${altText}](${relativePath})`;
+  // Create markdown image reference with markers for easy replacement
+  // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
+  const diagramTypeTag = diagramType || "unknown";
+  const aspectRatioTag = aspectRatio || "unknown";
+  const imageMarkdown = `<!-- DIAGRAM_IMAGE_START:${diagramTypeTag}:${aspectRatioTag} -->\n![${altText}](${relativePath})\n<!-- DIAGRAM_IMAGE_END -->`;
 
-  // Replace DIAGRAM_PLACEHOLDER with image reference
+  // Find all diagram locations in the content
+  // Use contentForFindingDiagrams which contains original diagrams (if originalContent provided)
+  // or documentContent which may contain DIAGRAM_PLACEHOLDER
+  const diagramLocations = findAllDiagramLocations(contentForFindingDiagrams);
+  
+  // Debug: log found locations
+  if (diagramLocations.length > 0) {
+    debug(`Found ${diagramLocations.length} diagram location(s):`, diagramLocations.map(loc => `${loc.type} at ${loc.start}-${loc.end}`).join(", "));
+  }
+  
+  // Determine which diagram to replace
+  let targetIndex = targetDiagramIndex !== undefined ? targetDiagramIndex : 0; // Default to first diagram (index 0)
+  
+  if (targetIndex < 0 || targetIndex >= diagramLocations.length) {
+    // If index is out of range, default to first available or insert new
+    targetIndex = diagramLocations.length > 0 ? 0 : -1;
+  }
+
+  // Replace DIAGRAM_PLACEHOLDER first (highest priority)
   if (finalContent.includes(DIAGRAM_PLACEHOLDER)) {
+    debug("Replacing DIAGRAM_PLACEHOLDER");
     finalContent = finalContent.replace(DIAGRAM_PLACEHOLDER, imageMarkdown);
-  } else {
-    // If no placeholder found, insert image at the beginning or after first paragraph
-    const firstParagraphEnd = finalContent.indexOf("\n\n");
-    if (firstParagraphEnd > 0) {
-      finalContent =
-        finalContent.slice(0, firstParagraphEnd) +
-        "\n\n" +
-        imageMarkdown +
-        "\n\n" +
-        finalContent.slice(firstParagraphEnd + 2);
+  } else if (diagramLocations.length > 0 && targetIndex >= 0) {
+    // Replace the diagram at the specified index
+    // Use originalContent if available (for accurate position), otherwise use finalContent
+    const contentToReplace = originalContent || finalContent;
+    const targetLocation = diagramLocations[targetIndex];
+    if (targetLocation) {
+      debug(`Replacing diagram at index ${targetIndex} (type: ${targetLocation.type}, position: ${targetLocation.start}-${targetLocation.end})`);
+      const beforeReplace = contentToReplace.slice(0, targetLocation.start);
+      const afterReplace = contentToReplace.slice(targetLocation.end);
+      finalContent = beforeReplace + imageMarkdown + afterReplace;
     } else {
-      finalContent = `${imageMarkdown}\n\n${finalContent}`;
+      debug(`⚠️  Target location at index ${targetIndex} not found`);
     }
+  } else {
+    // No diagrams found and no placeholder, this shouldn't happen in normal flow
+    // But if it does, don't insert at the beginning - this is an error case
+    debug("⚠️  No diagram location found to replace. Content may be missing diagram markers.");
+    debug(`  - Content length: ${finalContent.length}`);
+    debug(`  - Contains DIAGRAM_PLACEHOLDER: ${finalContent.includes(DIAGRAM_PLACEHOLDER)}`);
+    debug(`  - Contains DIAGRAM_IMAGE_START: ${finalContent.includes("DIAGRAM_IMAGE_START")}`);
+    debug(`  - Contains \`\`\`d2: ${finalContent.includes("```d2")}`);
+    debug(`  - Contains \`\`\`mermaid: ${finalContent.includes("```mermaid")}`);
+    return { content: finalContent };
   }
 
   return { content: finalContent };
+}
+
+/**
+ * Find all diagram locations in content
+ * Returns array of { type, start, end } for each diagram found
+ * Types: 'placeholder', 'image', 'd2', 'mermaid'
+ */
+function findAllDiagramLocations(content) {
+  const locations = [];
+  
+  // 1. Find DIAGRAM_PLACEHOLDER
+  let placeholderIndex = content.indexOf(DIAGRAM_PLACEHOLDER);
+  while (placeholderIndex !== -1) {
+    locations.push({
+      type: "placeholder",
+      start: placeholderIndex,
+      end: placeholderIndex + DIAGRAM_PLACEHOLDER.length,
+    });
+    placeholderIndex = content.indexOf(DIAGRAM_PLACEHOLDER, placeholderIndex + 1);
+  }
+  
+  // 2. Find DIAGRAM_IMAGE_START markers
+  // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->...<!-- DIAGRAM_IMAGE_END -->
+  // Note: aspectRatio can contain colon (e.g., "16:9"), so we need to match until -->
+  const diagramImageRegex = /<!-- DIAGRAM_IMAGE_START:[^>]+ -->[\s\S]*?<!-- DIAGRAM_IMAGE_END -->/g;
+  let match = diagramImageRegex.exec(content);
+  while (match !== null) {
+    locations.push({
+      type: "image",
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    match = diagramImageRegex.exec(content);
+  }
+  
+  // 3. Find D2 code blocks
+  const d2CodeBlockRegex = /```d2\s*\n([\s\S]*?)```/g;
+  match = d2CodeBlockRegex.exec(content);
+  while (match !== null) {
+    locations.push({
+      type: "d2",
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    match = d2CodeBlockRegex.exec(content);
+  }
+  
+  // 4. Find Mermaid code blocks
+  const mermaidCodeBlockRegex = /```mermaid\s*\n([\s\S]*?)```/g;
+  match = mermaidCodeBlockRegex.exec(content);
+  while (match !== null) {
+    locations.push({
+      type: "mermaid",
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    match = mermaidCodeBlockRegex.exec(content);
+  }
+  
+  // Sort by position in document (top to bottom)
+  locations.sort((a, b) => a.start - b.start);
+  
+  return locations;
+}
+
+/**
+ * Extract diagram index from feedback
+ * Returns 0-based index, or null if not specified
+ * Examples: "first diagram" -> 0, "second diagram" -> 1, "第2张图" -> 1
+ */
+/**
+ * Extract diagram index from feedback
+ * Returns 0-based index, or null if not specified
+ * Examples: "first diagram" -> 0, "second diagram" -> 1, "第2张图" -> 1
+ */
+function extractDiagramIndexFromFeedback(feedback) {
+  if (!feedback) return null;
+
+  const feedbackLower = feedback.toLowerCase();
+  
+  // Check Chinese patterns first (more specific)
+  // Examples: "第一张图", "第二张图", "第2张图"
+  const chinesePattern = /第([一二三四五六七八九十]|\d+)[张个]图/i;
+  const chineseMatch = feedbackLower.match(chinesePattern);
+  if (chineseMatch?.[1]) {
+    const chineseNumbers = {
+      "一": 1, "二": 2, "三": 3, "四": 4, "五": 5,
+      "六": 6, "七": 7, "八": 8, "九": 9, "十": 10,
+    };
+    const numStr = chineseMatch[1];
+    const num = chineseNumbers[numStr] || parseInt(numStr, 10);
+    return num > 0 ? num - 1 : 0; // Convert to 0-based index
+  }
+  
+  // Check number patterns (diagram #2, image 3, etc.)
+  const numberPattern = /(?:diagram|image|picture|chart|graph)\s*#?(\d+)/i;
+  const numberMatch = feedbackLower.match(numberPattern);
+  if (numberMatch?.[1]) {
+    const num = parseInt(numberMatch[1], 10);
+    return num > 0 ? num - 1 : 0; // Convert to 0-based index
+  }
+  
+  // Check ordinal patterns (first, second, third, etc.)
+  const ordinalMap = {
+    "first": 0, "1st": 0, "1": 0,
+    "second": 1, "2nd": 1, "2": 1,
+    "third": 2, "3rd": 2, "3": 2,
+    "fourth": 3, "4th": 3, "4": 3,
+    "fifth": 4, "5th": 4, "5": 4,
+  };
+  
+  for (const [ordinal, index] of Object.entries(ordinalMap)) {
+    const ordinalPattern = new RegExp(`(?:${ordinal})\\s+(?:diagram|image|picture|chart|graph)`, "i");
+    if (ordinalPattern.test(feedbackLower)) {
+      return index;
+    }
+  }
+
+  return null;
 }
 
 /**
@@ -217,6 +405,24 @@ replaceD2WithImage.input_schema = {
     documentContent: {
       type: "string",
       description: "Original document content containing DIAGRAM_PLACEHOLDER",
+    },
+    diagramType: {
+      type: "string",
+      description: "The diagram type (for marking the image)",
+      enum: ["architecture", "flowchart", "guide", "intro", "sequence", "network"],
+    },
+    aspectRatio: {
+      type: "string",
+      description: "The aspect ratio of the diagram (for marking the image)",
+      enum: ["4:3", "16:9"],
+    },
+    diagramIndex: {
+      type: "number",
+      description: "Index of the diagram to replace (0-based). If not provided, will try to extract from feedback (e.g., 'first diagram' -> 0, 'second diagram' -> 1), otherwise defaults to 0.",
+    },
+    originalContent: {
+      type: "string",
+      description: "Original document content before any modifications. Used to find existing diagrams when updating.",
     },
   },
   required: ["documentContent"],

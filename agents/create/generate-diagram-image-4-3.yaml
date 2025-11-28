@@ -1,10 +1,12 @@
 type: image
-name: generateDiagramImage
+name: generateDiagramImage4_3
 image_model:
   model: gemini-3-pro-image-preview
   imageConfig:
-    aspectRatio: "16:9"
-    imageSize: "2K"
+    aspectRatio: "4:3"
+    imageSize: "1K"
+
+input_file_key: templateImage
 
 instructions: |
   Generate a professional diagram image based on the document content, diagram type, and visual style.
@@ -18,16 +20,29 @@ instructions: |
   Style Requirements:
   {{ diagramStyleRequirements }}
   
+  {% if templateImage %}
+  Template Image Reference:
+  - A template image is provided as a style reference
+  - **IMPORTANT**: Only mimic the template's visual style and appearance (colors, shapes, layout style, line styles, etc.)
+  - **DO NOT** copy the template's content - generate new content based on the document content below
+  - Match the template's artistic style, color palette, and visual design language
+  - Keep the same level of detail and visual complexity as the template
+  {% endif %}
+  
   General Requirements:
   - Accurately represent the content described in the document
   - Include all key components, connections, and relationships
-  - Use clear labels and annotations in the specified language
+  - Use clear, concise labels and annotations in the specified language
+  - **Keep labels SHORT and SIMPLE - avoid long text strings unless absolutely necessary for understanding**
+  - **DO NOT include any title, heading, or caption text at the top or bottom of the diagram**
   - Maintain logical organization and flow
   - Ensure readability and clarity
   - **Important: Do NOT include any border, frame, or outer box around the diagram. The diagram should fill the entire image area without any decorative borders or frames.**
   
   Negative Prompt:
   typography, letters, writing, words, watermark, signature, logo, signage, banner, username,
+  title, heading, caption, subtitle, text title, diagram title, chart title, image title,
+  long text labels, verbose labels, lengthy annotations, excessive text,
   clutter, cluttered, messy, jumbled, superfluous detail, unwanted objects, lines, draft, sketch,
   lowres, low quality, bad composition, artifacts, noise, grainy, pixelated, blurry, out of focus,
   decorative elements, artistic style, abstract art, cartoon style,
@@ -59,6 +74,17 @@ input_schema:
       type: string
       description: Language for diagram labels
       default: en
+    templateImage:
+      type: object
+      description: Template image reference for style matching (optional, typically for flowchart type)
+      nullable: true
+      properties:
+        type:
+          type: string
+          enum: ["local"]
+        path:
+          type: string
+          description: Absolute path to template image
   required:
     - documentContent
     - diagramType
