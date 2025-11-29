@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocSmith - AI-Powered Documentation That Writes Itself</title>
+    <meta name="description" content="Stop writing docs. Start shipping code. DocSmith generates comprehensive, multi-language documentation that stays in sync with your codebase automatically.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --gray: #64748b;
+            --gray-light: #cbd5e1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: var(--white);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .btn-large {
+            padding: 20px 48px;
+            font-size: 20px;
+        }
+
+        /* ============================================
+           1. HERO SECTION
+        ============================================ */
+        .hero {
+            position: relative;
+            background: var(--gradient-hero);
+            color: var(--white);
+            padding: 120px 0 100px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            background: linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subheadline {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .hero-cta {
+            margin-bottom: 48px;
+        }
+
+        .hero-cta .btn {
+            margin: 0 12px 12px;
+        }
+
+        .trust-signals {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            margin-top: 48px;
+            padding-top: 48px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .trust-signal {
+            text-align: center;
+        }
+
+        .trust-signal-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .trust-signal-label {
+            font-size: 14px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ============================================
+           2. SUCCESS SECTION (Hidden by default)
+        ============================================ */
+        .success-section {
+            display: none;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .success-section.active {
+            display: block;
+            animation: slideDown 0.5s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 40px;
+        }
+
+        .success-section h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .success-section p {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 32px;
+        }
+
+        .deliverable-list {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 32px;
+            border-radius: 16px;
+        }
+
+        .deliverable-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+
+        .deliverable-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .deliverable-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--white);
+            color: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* ============================================
+           3. PROBLEM-AGITATE SECTION
+        ============================================ */
+        .problem-section {
+            padding: 100px 0;
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-header h2 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 20px;
+            opacity: 0.8;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-bottom: 64px;
+        }
+
+        .problem-card {
+            background: var(--dark-light);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .problem-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .problem-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--secondary);
+        }
+
+        .problem-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+
+        .problem-agitation {
+            font-style: italic;
+            opacity: 0.7;
+            border-left: 3px solid var(--secondary);
+            padding-left: 16px;
+        }
+
+        .transition-box {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 48px;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .transition-box h3 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .transition-box p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        /* ============================================
+           4. VALUE STACK SECTION
+        ============================================ */
+        .value-section {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, var(--white) 0%, #f8fafc 100%);
+        }
+
+        .value-tiers {
+            max-width: 700px;
+            margin: 0 auto 48px;
+        }
+
+        .value-tier {
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .value-tier:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
+            transform: translateX(10px);
+        }
+
+        .value-tier-content h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .value-tier-content p {
+            font-size: 16px;
+            color: var(--gray);
+        }
+
+        .value-tier-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: right;
+        }
+
+        .value-tier-price small {
+            display: block;
+            font-size: 14px;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .value-summary {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 48px;
+            background: var(--dark);
+            color: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .value-total {
+            font-size: 20px;
+            margin-bottom: 16px;
+            opacity: 0.8;
+        }
+
+        .value-total-amount {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .value-your-price {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--primary-light);
+        }
+
+        .value-your-price-amount {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .value-savings {
+            font-size: 18px;
+            padding: 16px 32px;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           5. SOCIAL PROOF SECTION
+        ============================================ */
+        .social-proof-section {
+            padding: 100px 0;
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: var(--dark-light);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-quote {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-result {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 16px;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .testimonial-info h4 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-info p {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        /* ============================================
+           6. TRANSFORMATION SECTION
+        ============================================ */
+        .transformation-section {
+            padding: 100px 0;
+            background: linear-gradient(to bottom, #f8fafc 0%, var(--white) 100%);
+        }
+
+        .transformation-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .transformation-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-1);
+            transform: translateX(-50%);
+        }
+
+        .transformation-stage {
+            display: flex;
+            margin-bottom: 64px;
+            position: relative;
+        }
+
+        .transformation-stage:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .transformation-stage:last-child {
+            margin-bottom: 0;
+        }
+
+        .transformation-content {
+            width: calc(50% - 40px);
+            background: var(--white);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .transformation-content:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .transformation-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            color: var(--white);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .transformation-content h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .transformation-content p {
+            font-size: 16px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .transformation-icon {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            z-index: 1;
+        }
+
+        /* ============================================
+           7. SECONDARY CTA SECTION
+        ============================================ */
+        .secondary-cta-section {
+            padding: 100px 0;
+            background: var(--gradient-1);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .avatar-stack {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .avatar-stack-item {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            margin-left: -20px;
+            background: var(--gradient-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .avatar-stack-item:first-child {
+            margin-left: 0;
+        }
+
+        .avatar-stack-count {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            margin-left: -20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .secondary-cta-section h2 {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+
+        .secondary-cta-section p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        /* ============================================
+           8. FOOTER SECTION
+        ============================================ */
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 80px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand h3 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-brand p {
+            font-size: 16px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary-light);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        .footer-legal {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .footer-legal a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            opacity: 1;
+        }
+
+        /* ============================================
+           EMAIL FORM
+        ============================================ */
+        .email-form {
+            display: flex;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 16px 24px;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+        }
+
+        .email-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: var(--white);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+        ============================================ */
+        @media (max-width: 968px) {
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero-subheadline {
+                font-size: 20px;
+            }
+
+            .section-header h2 {
+                font-size: 36px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .transformation-timeline::before {
+                left: 20px;
+            }
+
+            .transformation-stage,
+            .transformation-stage:nth-child(even) {
+                flex-direction: row;
+            }
+
+            .transformation-content {
+                width: calc(100% - 80px);
+                margin-left: auto;
+            }
+
+            .transformation-icon {
+                left: 20px;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                padding: 80px 0 60px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-subheadline {
+                font-size: 18px;
+            }
+
+            .btn {
+                padding: 14px 24px;
+                font-size: 16px;
+            }
+
+            .btn-large {
+                padding: 16px 32px;
+                font-size: 18px;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+
+            .trust-signals {
+                gap: 32px;
+            }
+
+            .section-header h2 {
+                font-size: 28px;
+            }
+
+            .problems-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .value-tier {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+
+            .value-your-price-amount {
+                font-size: 48px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .secondary-cta-section h2 {
+                font-size: 32px;
+            }
+
+            .footer-legal {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        /* ============================================
+           ANIMATIONS
+        ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         1. HERO SECTION
+    ============================================ -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <span class="hero-eyebrow">🚀 AI-Powered Documentation</span>
+                <h1>Stop Writing Docs.<br>Start Shipping Code.</h1>
+                <p class="hero-subheadline">
+                    DocSmith generates comprehensive, multi-language documentation that
+                    stays in sync with your codebase. Automatically. Intelligently. Effortlessly.
+                </p>
+                <div class="hero-cta">
+                    <form class="email-form" id="heroForm">
+                        <input
+                            type="email"
+                            class="email-input"
+                            placeholder="Enter your email"
+                            required
+                            id="heroEmail"
+                        >
+                        <button type="submit" class="btn btn-primary">Get Started Free</button>
+                    </form>
+                </div>
+                <div class="trust-signals">
+                    <div class="trust-signal">
+                        <div class="trust-signal-number">12</div>
+                        <div class="trust-signal-label">Languages Supported</div>
+                    </div>
+                    <div class="trust-signal">
+                        <div class="trust-signal-number">500+</div>
+                        <div class="trust-signal-label">Teams Using</div>
+                    </div>
+                    <div class="trust-signal">
+                        <div class="trust-signal-number">85%</div>
+                        <div class="trust-signal-label">Time Saved</div>
+                    </div>
+                    <div class="trust-signal">
+                        <div class="trust-signal-number">99.9%</div>
+                        <div class="trust-signal-label">Accuracy Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         2. SUCCESS SECTION (Hidden by default)
+    ============================================ -->
+    <section class="success-section" id="successSection">
+        <div class="container-narrow">
+            <div class="success-checkmark">✓</div>
+            <h2>Welcome to the Future of Documentation!</h2>
+            <p>Check your email for instant access to DocSmith</p>
+            <div class="deliverable-list">
+                <div class="deliverable-item">
+                    <span class="deliverable-icon">✓</span>
+                    <span>Quick start guide to generate your first docs in 5 minutes</span>
+                </div>
+                <div class="deliverable-item">
+                    <span class="deliverable-icon">✓</span>
+                    <span>Access to 12 languages with professional-grade translation</span>
+                </div>
+                <div class="deliverable-item">
+                    <span class="deliverable-icon">✓</span>
+                    <span>One-click publishing to share with your team</span>
+                </div>
+                <div class="deliverable-item">
+                    <span class="deliverable-icon">✓</span>
+                    <span>Smart updates that keep docs in sync with code changes</span>
+                </div>
+                <div class="deliverable-item">
+                    <span class="deliverable-icon">✓</span>
+                    <span>Direct support from our engineering team</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         3. PROBLEM-AGITATE SECTION
+    ============================================ -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Documentation Nightmare</h2>
+                <p>Sound familiar? You're not alone.</p>
+            </div>
+
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <span class="problem-icon">😫</span>
+                    <h3>Outdated Docs Everywhere</h3>
+                    <p>
+                        Your code evolves daily, but your documentation? It's stuck in last quarter.
+                        Developers waste hours debugging based on outdated docs, while your team
+                        scrambles to keep up with changes.
+                    </p>
+                    <p class="problem-agitation">
+                        "Every time someone asks 'is this doc current?' you die a little inside."
+                    </p>
+                </div>
+
+                <div class="problem-card">
+                    <span class="problem-icon">⏰</span>
+                    <h3>Time Sink, Not Time Well Spent</h3>
+                    <p>
+                        Writing documentation takes valuable engineering hours away from building
+                        features. You know docs are important, but so is shipping that critical update
+                        your customers are waiting for.
+                    </p>
+                    <p class="problem-agitation">
+                        "That feature you could've shipped? Delayed because someone had to write docs manually."
+                    </p>
+                </div>
+
+                <div class="problem-card">
+                    <span class="problem-icon">🌍</span>
+                    <h3>Global Teams, Language Barriers</h3>
+                    <p>
+                        Your product goes global, but your docs don't. Translation costs are astronomical,
+                        technical accuracy gets lost in translation, and maintaining consistency across
+                        12 languages? Impossible.
+                    </p>
+                    <p class="problem-agitation">
+                        "You're leaving money on the table because international teams can't understand your docs."
+                    </p>
+                </div>
+            </div>
+
+            <div class="transition-box">
+                <h3>There Has to Be a Better Way</h3>
+                <p>
+                    What if your documentation wrote itself? What if it stayed perfectly in sync with your code?
+                    What if it automatically translated into 12 languages with technical precision?
+                    <strong>That's exactly what DocSmith does.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         4. VALUE STACK SECTION
+    ============================================ -->
+    <section class="value-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Everything You Get with DocSmith</h2>
+                <p>More than just a tool. A complete documentation transformation.</p>
+            </div>
+
+            <div class="value-tiers">
+                <div class="value-tier">
+                    <div class="value-tier-content">
+                        <h3>🧠 AI-Powered Documentation Engine</h3>
+                        <p>Understands your code structure, patterns, and intent to generate comprehensive docs</p>
+                    </div>
+                    <div class="value-tier-price">
+                        $2,500
+                        <small>value</small>
+                    </div>
+                </div>
+
+                <div class="value-tier">
+                    <div class="value-tier-content">
+                        <h3>🌍 12-Language Professional Translation</h3>
+                        <p>Context-aware translations that maintain technical accuracy across all languages</p>
+                    </div>
+                    <div class="value-tier-price">
+                        $1,800
+                        <small>value</small>
+                    </div>
+                </div>
+
+                <div class="value-tier">
+                    <div class="value-tier-content">
+                        <h3>🔄 Smart Auto-Update System</h3>
+                        <p>Detects code changes and updates relevant documentation automatically</p>
+                    </div>
+                    <div class="value-tier-price">
+                        $1,200
+                        <small>value</small>
+                    </div>
+                </div>
+
+                <div class="value-tier">
+                    <div class="value-tier-content">
+                        <h3>🚀 One-Click Publishing Platform</h3>
+                        <p>Instant deployment with shareable links for seamless team collaboration</p>
+                    </div>
+                    <div class="value-tier-price">
+                        $800
+                        <small>value</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="value-summary">
+                <div class="value-total">Total Value</div>
+                <div class="value-total-amount">$6,300</div>
+                <div class="value-your-price">Your Investment</div>
+                <div class="value-your-price-amount">FREE</div>
+                <div class="value-savings">Save $6,300 • Open Source Forever</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         5. SOCIAL PROOF SECTION
+    ============================================ -->
+    <section class="social-proof-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Trusted by Teams Worldwide</h2>
+                <p>See how DocSmith transforms documentation workflows</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">
+                        "DocSmith reduced our documentation time from 2 weeks to 2 days.
+                        The AI understands our codebase better than some of our developers.
+                        It's not just a time-saver, it's a game-changer."
+                    </p>
+                    <div class="testimonial-result">
+                        ✓ Result: 85% reduction in documentation time, shipped 3 major features ahead of schedule
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SR</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Rodriguez</h4>
+                            <p>Engineering Manager, TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">
+                        "We went from English-only docs to supporting 8 languages overnight.
+                        The translation quality is incredible—technical terms are accurate,
+                        and our international teams finally have the resources they need."
+                    </p>
+                    <div class="testimonial-result">
+                        ✓ Result: 200% increase in international user adoption, $50k saved on translation costs
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MK</div>
+                        <div class="testimonial-info">
+                            <h4>Michael Kim</h4>
+                            <p>CTO, GlobalScale Inc</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">
+                        "The auto-update feature is pure magic. We refactored our entire API,
+                        and DocSmith kept our documentation perfectly in sync. No more outdated
+                        docs causing customer confusion."
+                    </p>
+                    <div class="testimonial-result">
+                        ✓ Result: 95% reduction in documentation-related support tickets, 40 hours/month saved
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AP</div>
+                        <div class="testimonial-info">
+                            <h4>Aisha Patel</h4>
+                            <p>Lead Developer, StartupXYZ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         6. TRANSFORMATION SECTION
+    ============================================ -->
+    <section class="transformation-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Your Documentation Transformation Journey</h2>
+                <p>From setup to 10x productivity in four simple stages</p>
+            </div>
+
+            <div class="transformation-timeline">
+                <div class="transformation-stage">
+                    <div class="transformation-content">
+                        <span class="transformation-number">1</span>
+                        <h3>Quick Win (Day 1)</h3>
+                        <p>
+                            Install DocSmith with one command. Generate your first comprehensive
+                            documentation in under 5 minutes. See immediate results—no configuration,
+                            no setup headaches, just instant docs.
+                        </p>
+                    </div>
+                    <div class="transformation-icon">⚡</div>
+                </div>
+
+                <div class="transformation-stage">
+                    <div class="transformation-content">
+                        <span class="transformation-number">2</span>
+                        <h3>Compound Effect (Week 1)</h3>
+                        <p>
+                            Your docs stay in sync automatically. Every code change updates relevant
+                            documentation. Your team stops asking "is this doc current?" and starts
+                            shipping features faster.
+                        </p>
+                    </div>
+                    <div class="transformation-icon">🔄</div>
+                </div>
+
+                <div class="transformation-stage">
+                    <div class="transformation-content">
+                        <span class="transformation-number">3</span>
+                        <h3>Competitive Advantage (Month 1)</h3>
+                        <p>
+                            Deploy multi-language docs to reach global markets. Your international
+                            adoption soars. Onboarding new developers becomes effortless with
+                            comprehensive, always-current documentation.
+                        </p>
+                    </div>
+                    <div class="transformation-icon">🌍</div>
+                </div>
+
+                <div class="transformation-stage">
+                    <div class="transformation-content">
+                        <span class="transformation-number">4</span>
+                        <h3>10x Productivity (Month 3+)</h3>
+                        <p>
+                            Your team reclaims 40+ hours per month previously spent on documentation.
+                            You're shipping features 3x faster. Customer support tickets drop by 50%.
+                            This is the 10x developer productivity everyone talks about.
+                        </p>
+                    </div>
+                    <div class="transformation-icon">🚀</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         7. SECONDARY CTA SECTION
+    ============================================ -->
+    <section class="secondary-cta-section">
+        <div class="container">
+            <div class="avatar-stack">
+                <div class="avatar-stack-item">SR</div>
+                <div class="avatar-stack-item">MK</div>
+                <div class="avatar-stack-item">AP</div>
+                <div class="avatar-stack-item">JD</div>
+                <div class="avatar-stack-item">TW</div>
+                <div class="avatar-stack-count">500+</div>
+            </div>
+            <h2>Ready to Transform Your Documentation?</h2>
+            <p>Join 500+ teams already saving 40+ hours per month</p>
+            <form class="email-form" id="secondaryForm">
+                <input
+                    type="email"
+                    class="email-input"
+                    placeholder="Enter your email"
+                    required
+                    id="secondaryEmail"
+                >
+                <button type="submit" class="btn btn-large" style="background: var(--white); color: var(--primary);">
+                    Yes, I Want This →
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ============================================
+         8. FOOTER SECTION
+    ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>DocSmith</h3>
+                    <p>
+                        AI-powered documentation that writes itself. Part of the AIGNE ecosystem—
+                        building the future of AI application development.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://twitter.com/arcblock_io" class="social-icon" aria-label="Twitter">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/AIGNE-io/aigne-doc-smith" class="social-icon" aria-label="GitHub">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://community.arcblock.io/discussions/boards/aigne" class="social-icon" aria-label="Community">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="https://docsmith.aigne.io/docs/">Documentation</a></li>
+                        <li><a href="https://github.com/AIGNE-io/aigne-doc-smith">GitHub</a></li>
+                        <li><a href="https://www.npmjs.com/package/@aigne/doc-smith">NPM Package</a></li>
+                        <li><a href="https://docsmith.aigne.io/app">Live Demo</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="https://www.aigne.io">About AIGNE</a></li>
+                        <li><a href="https://www.aigne.io/en/framework">Framework</a></li>
+                        <li><a href="https://www.aigne.io/en/hub">AIGNE Hub</a></li>
+                        <li><a href="https://www.aigne.io/contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://community.arcblock.io/discussions/boards/aigne">Community</a></li>
+                        <li><a href="https://github.com/AIGNE-io/aigne-doc-smith/discussions">Discussions</a></li>
+                        <li><a href="https://github.com/AIGNE-io/aigne-doc-smith/issues">Support</a></li>
+                        <li><a href="https://github.com/AIGNE-io/aigne-doc-smith/blob/main/CHANGELOG.md">Changelog</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <a href="https://github.com/AIGNE-io/aigne-doc-smith/blob/main/LICENSE">Elastic License 2.0</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <p>&copy; 2024 AIGNE DocSmith. Part of the <a href="https://www.aigne.io" style="color: var(--primary-light);">AIGNE</a> ecosystem by <a href="https://www.arcblock.io" style="color: var(--primary-light);">ArcBlock</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT
+    ============================================ -->
+    <script>
+        // Email form handlers
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            // Get the form and email input
+            const form = event.target;
+            const emailInput = form.querySelector('input[type="email"]');
+            const email = emailInput.value;
+
+            // Show success section
+            const successSection = document.getElementById('successSection');
+            successSection.classList.add('active');
+
+            // Scroll to success section
+            successSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Reset form
+            form.reset();
+
+            // Log for demo purposes (in production, this would send to your backend)
+            console.log('Email submitted:', email);
+
+            // Optional: Hide success section after 10 seconds
+            setTimeout(() => {
+                successSection.classList.remove('active');
+            }, 10000);
+        }
+
+        // Attach event listeners to both forms
+        document.getElementById('heroForm').addEventListener('submit', handleFormSubmit);
+        document.getElementById('secondaryForm').addEventListener('submit', handleFormSubmit);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections for animation
+        document.querySelectorAll('.problem-card, .value-tier, .testimonial-card, .transformation-stage').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
