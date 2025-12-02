@@ -11,7 +11,6 @@ export default async function generateDiagramImageByAspectRatio(
     diagramTypeRequirements,
     diagramStyleRequirements,
     negativePromptExclusions,
-    templateImage,
     locale,
   },
   options,
@@ -32,7 +31,6 @@ export default async function generateDiagramImageByAspectRatio(
     diagramTypeRequirements,
     diagramStyleRequirements,
     negativePromptExclusions,
-    templateImage,
     locale,
   });
 
@@ -50,7 +48,7 @@ generateDiagramImageByAspectRatio.input_schema = {
     documentContent: {
       type: "string",
       description:
-        "The document content that describes the system, process, or architecture to diagram",
+        "The full document content to be used for diagram generation. This contains the complete article text that will be analyzed by the image generator.",
     },
     diagramType: {
       type: "string",
@@ -78,21 +76,6 @@ generateDiagramImageByAspectRatio.input_schema = {
     negativePromptExclusions: {
       type: "string",
       description: "Additional negative prompt exclusions based on style",
-    },
-    templateImage: {
-      type: "object",
-      description: "Template image reference (optional)",
-      nullable: true,
-      properties: {
-        type: {
-          type: "string",
-          enum: ["local"],
-        },
-        path: {
-          type: "string",
-          description: "Absolute path to template image",
-        },
-      },
     },
     locale: {
       type: "string",

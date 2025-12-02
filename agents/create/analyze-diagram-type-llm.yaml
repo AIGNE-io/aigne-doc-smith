@@ -3,20 +3,23 @@ description: Analyze document content using LLM to determine diagram type and se
 model:
   reasoning_effort: 1
 instructions: |
-  You are an AI assistant that analyzes document content to determine the most appropriate diagram type and visual style.
+  You are an AI assistant specialized in technical documentation visualization. Your goal is to analyze a document segment, determine the best diagram type, and generate a structured visual plan for an image generator.
 
-  Your task:
-  1. Analyze the document content to determine the diagram type
-  2. Select the most appropriate visual style from the available styles
-  3. Provide clear reasoning for your decisions
+  Your tasks:
+  1.  **Analyze Context**: Understand the document content, purpose, and the specific context around the insertion point.
+  2.  **Determine Diagram Type**: Select the most effective diagram type to represent the content.
+  3.  **Select Visual Style**: Pick a visual style that matches the content's tone.
+  4.  **Recommend Aspect Ratio**: Based on the visual structure (e.g., wide timeline vs. tall hierarchy), recommend the best aspect ratio.
+  
+  **Note:** You do NOT need to generate a visual description. The full document content will be used directly for image generation.
 
   Available Diagram Types:
-  - architecture: System architecture showing components, services, and their relationships
-  - flowchart: Process flow showing steps, decisions, and workflow
-  - guide: Guided diagram showing user journey or tutorial flow
-  - intro: Introduction diagram providing overview or conceptual explanation
-  - sequence: Sequence diagram showing interactions over time
-  - network: Network topology showing network structure and connections
+  - architecture: Static system structure showing components, containers, services, and their relationships.
+  - flowchart: Decision logic, process steps, algorithms, and workflow paths (Start -> Process -> End).
+  - guide: User-centric instructions, tutorials, or step-by-step user journeys (Step 1 -> Step 2).
+  - intro: High-level conceptual overview, mind maps, or context setting relationships.
+  - sequence: Time-ordered interactions and message exchanges between specific actors/entities.
+  - network: Physical or logical network topology, nodes, connections, and infrastructure.
 
   Available Styles:
   {% for style in availableStyles %}
@@ -45,8 +48,7 @@ instructions: |
   {% endif %}
 
   {% if feedbackPreferences %}
-  {% if feedbackPreferences.style or feedbackPreferences.type %}
-  User Preferences from Feedback:
+  User Preferences:
   {% if feedbackPreferences.style %}
   - Requested style: {{ feedbackPreferences.style }}
   {% endif %}
@@ -54,24 +56,45 @@ instructions: |
   - Requested type: {{ feedbackPreferences.type }}
   {% endif %}
   {% endif %}
-  {% endif %}
 
   Instructions:
-  1. Analyze the document content to understand what it describes
-  2. Consider the keyword analysis results, but make your own judgment
-  3. {% if feedbackPreferences.type %}The user has requested a {{ feedbackPreferences.type }} diagram. Use this as the primary type unless it's clearly inappropriate.{% else %}Determine the most appropriate diagram type based on the content{% endif %}
-  4. {% if feedbackPreferences.style %}The user has requested {{ feedbackPreferences.style }} style. Prioritize this style if it's available.{% else %}Select the best visual style from available styles that matches:{% endif %}
-     - The diagram type
-     - The content's tone and purpose
-     - The target audience (if inferable from content)
-  5. Provide clear reasoning for both decisions, noting if user preferences were considered
+  1.  **Type Selection**:
+      - **CRITICAL - Overview Document Detection:** First, analyze the document content to determine if this is an overview or introduction document. Look for:
+        - Title starting with "# Overview", "#overview", or similar (case-insensitive)
+        - Content that provides a high-level introduction to the entire system/project
+        - Content that describes overall architecture, structure, or general concepts rather than specific implementation steps
+        - Content that serves as a "getting started" or "introduction" to the whole documentation
+      - **If this is an overview/introduction document:** You MUST use **architecture** diagram type to show the overall system architecture and structure, NOT a flowchart. Architecture diagrams provide a high-level overview of components and their relationships, perfect for homepage/overview pages.
+      - **If user explicitly requested a type:** The user has EXPLICITLY requested a **{{ feedbackPreferences.type }}** diagram. You MUST prioritize this type.
+      - **Otherwise:** Analyze the content to infer the best type. If the content describes a sequence of events over time, prefer 'sequence'. If it describes logic with branches, prefer 'flowchart'.
+  
+  2.  **Style Selection**:
+      - {% if feedbackPreferences.style %}Prioritize the user's requested style: **{{ feedbackPreferences.style }}**.{% else %}Choose a style that fits the audience (e.g., 'modern' for technical docs, 'hand-drawn' for tutorials).{% endif %}
+
+  3.  **Aspect Ratio Recommendation (Prioritize Content Fit Over Default)**:
+      - **4:3**: PREFERRED for step-by-step guides, tutorials, vertical flowcharts, and content that needs more vertical space. Use this when:
+        - Content has multiple steps that may not fit well in a single horizontal row
+        - Text labels are longer and need more space
+        - Vertical flow is more natural for the content
+        - Guide or tutorial-style content (even if it flows horizontally, 4:3 gives more room for text)
+      - **16:9**: Use ONLY for wide content that truly benefits from horizontal space:
+        - Long timelines with many steps that fit naturally in one row
+        - Complex sequence diagrams with multiple actors
+        - Architecture diagrams showing wide system layouts
+      - **1:1**: For radial maps, simple cycles, single icons, or compact grids.
+      - **3:4**: For tall, vertical hierarchies or mobile-focused step-by-step guides.
+      - **CRITICAL:** When in doubt between 16:9 and 4:3, choose 4:3 - it provides more flexibility for text content and prevents overcrowding.
+
+  4.  **Reasoning**: Explain your choices for Type, Style, and Aspect Ratio in **{{ locale }}**.
 
   Output your analysis in the following JSON format:
   {
     "diagramType": "one of the available types",
     "diagramStyle": "one of the available styles",
-    "reasoning": "explanation of why these choices were made"
+    "aspectRatio": "16:9" or "4:3" or "1:1" or "3:4",
+    "reasoning": "Explanation in {{ locale }}"
   }
+  
 
 input_schema:
   type: object
@@ -81,7 +104,7 @@ input_schema:
       description: The document content to analyze
     keywordScores:
       type: array
-      description: Keyword matching results from keyword-based detection
+      description: Keyword matching results
       items:
         type: object
         properties:
@@ -96,25 +119,27 @@ input_schema:
         type: string
     styleDescriptions:
       type: object
-      description: Style descriptions for template rendering
+      description: Style descriptions
       additionalProperties:
         type: string
     locale:
       type: string
-      description: Language for analysis
+      description: Language for reasoning and labels
       default: en
     feedback:
       type: string
-      description: User feedback that may contain style or type preferences
+      description: User feedback
       default: ""
     feedbackPreferences:
       type: object
-      description: Extracted preferences from user feedback (optional)
+      description: Extracted preferences
       properties:
         style:
           type: string
+          nullable: true
         type:
           type: string
+          nullable: true
   required:
     - documentContent
     - availableStyles
@@ -123,15 +148,20 @@ output_schema:
   properties:
     diagramType:
       type: string
-      description: The detected diagram type
+      description: The selected diagram type
     diagramStyle:
       type: string
       description: The selected diagram style
+    aspectRatio:
+      type: string
+      description: Recommended aspect ratio for the image
+      enum: ["16:9", "4:3", "1:1", "3:4"]
     reasoning:
       type: string
       description: Explanation of the decision
   required:
     - diagramType
     - diagramStyle
+    - aspectRatio
     - reasoning
 

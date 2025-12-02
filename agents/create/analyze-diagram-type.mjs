@@ -1,17 +1,7 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { dirname } from "node:path";
-import fs from "fs-extra";
 import {
   DIAGRAM_STYLES,
   DIAGRAM_TYPES,
-  DOC_SMITH_DIR,
-  TMP_DIR,
-  TMP_ASSETS_DIR,
 } from "../../utils/constants/index.mjs";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const DEFAULT_DIAGRAM_STYLE = "anthropomorphic";
 const DEFAULT_DIAGRAM_TYPE = "flowchart";
@@ -98,7 +88,7 @@ export default async function analyzeDiagramType(
   { documentContent, availableStyles = [], locale = "en", feedback = "" },
   options,
 ) {
-  // Step 0: Extract style and type preferences from user feedback (if provided)
+  // Step 0.5: Extract style and type preferences from user feedback (if provided)
   const feedbackPreferences = extractPreferencesFromFeedback(feedback || "");
 
   // Step 1: Keyword-based type detection
@@ -132,8 +122,12 @@ export default async function analyzeDiagramType(
       };
 
       // Only add feedbackPreferences if at least one field is not null
+      // Filter out null values to avoid schema validation errors
       if (feedbackPreferences && (feedbackPreferences.style || feedbackPreferences.type)) {
-        llmInput.feedbackPreferences = feedbackPreferences;
+        llmInput.feedbackPreferences = {
+          ...(feedbackPreferences.style && { style: feedbackPreferences.style }),
+          ...(feedbackPreferences.type && { type: feedbackPreferences.type }),
+        };
       }
 
       llmResult = await options.context.invoke(llmAgent, llmInput);
@@ -214,66 +208,30 @@ export default async function analyzeDiagramType(
     negativePromptExclusions += ", hand-drawn, sketch";
   }
 
-  // Step 7: Determine aspect ratio based on diagram type
-  // flowchart, guide: 4:3
-  // architecture, sequence, network, intro: 16:9
-  let aspectRatio = "16:9";
-  if (diagramType === "flowchart") {
+  // Step 7: Determine aspect ratio based on diagram type or LLM result
+  // Priority: LLM result > type-based default
+  // Default to 4:3 for better text content fit (changed from 16:9)
+  let aspectRatio = "4:3";
+  if (llmResult?.aspectRatio) {
+    aspectRatio = llmResult.aspectRatio;
+  } else if (diagramType === "flowchart" || diagramType === "guide") {
+    // Flowcharts and guides benefit from 4:3 for better vertical space
     aspectRatio = "4:3";
+  } else if (diagramType === "architecture" || diagramType === "sequence" || diagramType === "network") {
+    // These types may benefit from wider 16:9 format
+    aspectRatio = "16:9";
   }
 
-  // Step 8: Prepare template image for flowchart type
-  let templateImage = null;
-  if (diagramType === "flowchart") {
-    // Get project root directory (3 levels up from agents/create/)
-    // agents/create/ -> agents/ -> root/
-    const projectRoot = path.resolve(__dirname, "../..");
-    const templateImagePath = path.join(
-      projectRoot,
-      "assets",
-      "images",
-      "diagram-templates",
-      "flowchart-template.jpg",
-    );
-
-    // Check if template image exists, if not, fallback to temp directory
-    let finalTemplatePath = templateImagePath;
-    if (!(await fs.pathExists(templateImagePath))) {
-      // Fallback to temp directory (for backward compatibility)
-      const fallbackPath = path.join(
-        process.cwd(),
-        DOC_SMITH_DIR,
-        TMP_DIR,
-        TMP_ASSETS_DIR,
-        "image.jpg",
-      );
-      if (await fs.pathExists(fallbackPath)) {
-        finalTemplatePath = fallbackPath;
-      } else {
-        // Template not found, skip template image
-        console.warn(
-          `⚠️  Flowchart template image not found at ${templateImagePath} or ${fallbackPath}`,
-        );
-      }
-    }
-
-    if (finalTemplatePath && (await fs.pathExists(finalTemplatePath))) {
-      templateImage = {
-        type: "local",
-        path: finalTemplatePath,
-      };
-    }
-  }
-
+  // Step 8: Return document content for image generation
   return {
     diagramType,
     diagramStyle,
     aspectRatio,
+    documentContent, // The full document content to be used for diagram generation
     reasoning,
     diagramTypeRequirements,
     diagramStyleRequirements,
     negativePromptExclusions,
-    templateImage,
   };
 }
 
@@ -291,6 +249,10 @@ function detectDiagramTypeByKeywords(documentContent) {
     let score = 0;
     for (const keyword of typeInfo.keywords) {
       const keywordLower = keyword.toLowerCase();
+      // Skip empty keywords to avoid "Empty regular expressions are not allowed" error
+      if (!keywordLower) {
+        continue;
+      }
       // Count occurrences
       const matches = (content.match(new RegExp(keywordLower, "g")) || []).length;
       score += matches;
@@ -380,6 +342,7 @@ function extractPreferencesFromFeedback(feedback) {
 
   return preferences;
 }
+
 
 /**
  * Generate reasoning text for the decision
@@ -473,20 +436,9 @@ analyzeDiagramType.output_schema = {
       description: "Aspect ratio for the diagram (4:3 or 16:9)",
       enum: ["4:3", "16:9"],
     },
-    templateImage: {
-      type: "object",
-      description: "Template image reference for flowchart type (null for other types)",
-      properties: {
-        type: {
-          type: "string",
-          enum: ["local"],
-        },
-        path: {
-          type: "string",
-          description: "Absolute path to template image",
-        },
-      },
-      nullable: true,
+    documentContent: {
+      type: "string",
+      description: "The full document content to be used for diagram generation",
     },
   },
   required: [
@@ -497,5 +449,6 @@ analyzeDiagramType.output_schema = {
     "diagramTypeRequirements",
     "diagramStyleRequirements",
     "negativePromptExclusions",
+    "documentContent",
   ],
 };

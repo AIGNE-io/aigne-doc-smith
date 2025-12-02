@@ -149,7 +149,12 @@ async function updateDocument(input, options) {
 }
 
 export default async function updateSingleDocumentDetail(input, options) {
-  const intentType = await getIntentType(input, options);
+  // Use intentType from input if available (analyzed in parent flow),
+  // otherwise fall back to analyzing it here (for backward compatibility)
+  let intentType = input.intentType;
+  if (!intentType && input.feedback) {
+    intentType = await getIntentType(input, options);
+  }
 
   const fnMap = {
     addDiagram,

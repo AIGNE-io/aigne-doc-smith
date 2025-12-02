@@ -9,7 +9,6 @@ export default async function checkGenerateDiagram(
     feedback,
     detailFeedback,
     originalContent,
-    path: docPath,
     diagramming,
   },
   options,
@@ -71,7 +70,7 @@ export default async function checkGenerateDiagram(
       }
     } catch (error) {
       skipGenerateDiagram = true;
-      console.log(`⚠️  Skip generate any diagram for ${docPath}: ${error.message}`);
+      console.log(`⚠️  Skip generate any diagram: ${error.message}`);
       // On error, return original document content
       content = documentContent;
     }

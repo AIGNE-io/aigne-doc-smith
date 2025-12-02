@@ -6,62 +6,18 @@ image_model:
     aspectRatio: "16:9"
     imageSize: "1K"
 
-input_file_key: templateImage
-
-instructions: |
-  Generate a professional diagram image based on the document content, diagram type, and visual style.
-  
-  Diagram Type: {{ diagramType }}
-  Visual Style: {{ diagramStyle }}
-  
-  Content Requirements:
-  {{ diagramTypeRequirements }}
-  
-  Style Requirements:
-  {{ diagramStyleRequirements }}
-  
-  {% if templateImage %}
-  Template Image Reference:
-  - A template image is provided as a style reference
-  - **IMPORTANT**: Only mimic the template's visual style and appearance (colors, shapes, layout style, line styles, etc.)
-  - **DO NOT** copy the template's content - generate new content based on the document content below
-  - Match the template's artistic style, color palette, and visual design language
-  - Keep the same level of detail and visual complexity as the template
-  {% endif %}
-  
-  General Requirements:
-  - Accurately represent the content described in the document
-  - Include all key components, connections, and relationships
-  - Use clear, concise labels and annotations in the specified language
-  - **Keep labels SHORT and SIMPLE - avoid long text strings unless absolutely necessary for understanding**
-  - **DO NOT include any title, heading, or caption text at the top or bottom of the diagram**
-  - Maintain logical organization and flow
-  - Ensure readability and clarity
-  - **Important: Do NOT include any border, frame, or outer box around the diagram. The diagram should fill the entire image area without any decorative borders or frames.**
-  
-  Negative Prompt:
-  typography, letters, writing, words, watermark, signature, logo, signage, banner, username,
-  title, heading, caption, subtitle, text title, diagram title, chart title, image title,
-  long text labels, verbose labels, lengthy annotations, excessive text,
-  clutter, cluttered, messy, jumbled, superfluous detail, unwanted objects, lines, draft, sketch,
-  lowres, low quality, bad composition, artifacts, noise, grainy, pixelated, blurry, out of focus,
-  decorative elements, artistic style, abstract art, cartoon style,
-  border, frame, outer box, bounding box, decorative border, frame border, outer frame, border line, frame line, rectangular border, square border, rounded border{{ negativePromptExclusions }}.
-
-  You are an AI assistant that helps to generate diagram image based on document content.
-  {{ documentContent }}
-
-  Generate the diagram image in the following language:
-  {{ locale }}
-
-  Note: The document contains a DIAGRAM_PLACEHOLDER marker indicating where this diagram should be inserted. Generate a diagram that fits naturally at that location and complements the surrounding text.
+instructions:
+  - role: system
+    url: ../../prompts/detail/diagram/generate-image-system.md
+  - role: user
+    url: ../../prompts/detail/diagram/generate-image-user.md
 
 input_schema:
   type: object
   properties:
     documentContent:
       type: string
-      description: The document content that describes the system, process, or architecture to diagram
+      description: The full document content to be used for diagram generation
     diagramType:
       type: string
       description: The type of diagram to generate (architecture, flowchart, guide, intro, sequence, network)
@@ -74,20 +30,8 @@ input_schema:
       type: string
       description: Language for diagram labels
       default: en
-    templateImage:
-      type: object
-      description: Template image reference for style matching (optional, typically for flowchart type)
-      nullable: true
-      properties:
-        type:
-          type: string
-          enum: ["local"]
-        path:
-          type: string
-          description: Absolute path to template image
   required:
     - documentContent
     - diagramType
     - diagramStyle
 include_input_in_output: true
-

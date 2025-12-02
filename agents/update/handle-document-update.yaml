@@ -3,6 +3,13 @@ name: handleDocumentUpdate
 description: Update a document in a batch
 skills:
   - ../utils/transform-detail-data-sources.mjs
+  # If intentType is diagram-related, read current content and skip document generation
+  # Otherwise, proceed with document generation
+  - url: ../utils/read-current-document-content.mjs
+  # Check if document generation should be skipped (if content already exists)
+  # If content exists, mark skipGenerateDocument so generation can be short-circuited
+  - url: ../utils/skip-if-content-exists.mjs
+  # Generate document content (skipped when skipGenerateDocument is true and content exists)
   - type: team
     task_render_mode: collapse
     name: generateDocumentContent
@@ -10,24 +17,22 @@ skills:
       - url: ../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: document
-      - ../update/generate-document.yaml
-      - type: transform
-        jsonata: |
-          $merge([
-            $,
-            { "reviewContent": content }
-          ])
+      - ../utils/generate-document-or-skip.mjs
     reflection:
       reviewer: ../utils/check-detail-result.mjs
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true
     task_title: Generate document for '{{ title }}'
+  # Ensure content, documentContent, and originalContent are set
   - type: transform
     jsonata: |
       $merge([
         $,
-        { "documentContent": content }
+        { 
+          "documentContent": content,
+          "originalContent": content
+        }
       ])
   - ./check-generate-diagram.mjs
   # - ../generate/merge-diagram.yaml
