@@ -5,6 +5,7 @@
 export default async function transformForImageGeneration(input) {
   const {
     documentContent,
+    documentSummary, // Prefer the LLM-generated concise summary
     diagramType,
     diagramStyle,
     aspectRatio,
@@ -18,9 +19,12 @@ export default async function transformForImageGeneration(input) {
   } = input;
 
   // Return format expected by generateDiagramImage agent
+  // documentContent remains as original full content
+  // documentSummary is the focused summary for image generation
   // Also include pass-through parameters for downstream steps
   return {
-    documentContent,
+    documentContent, // Keep original full document content
+    documentSummary, // Pass the summary for image generation (preferred if available)
     diagramType,
     diagramStyle,
     locale,
@@ -40,7 +44,7 @@ transformForImageGeneration.input_schema = {
   properties: {
     documentContent: {
       type: "string",
-      description: "The full document content to be used for diagram generation",
+      description: "The full document content (kept for backward compatibility)",
     },
     diagramType: {
       type: "string",
@@ -55,7 +59,7 @@ transformForImageGeneration.input_schema = {
     aspectRatio: {
       type: "string",
       description: "Aspect ratio for the diagram (must match content flow direction)",
-      enum: ["1:1", "3:4", "4:3", "16:9"],
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"],
     },
     locale: {
       type: "string",
@@ -88,6 +92,11 @@ transformForImageGeneration.output_schema = {
   properties: {
     documentContent: {
       type: "string",
+      description: "The full original document content",
+    },
+    documentSummary: {
+      type: "string",
+      description: "A comprehensive summary of the document content for diagram generation (preferred over documentContent if available)",
     },
     diagramType: {
       type: "string",
@@ -100,11 +109,11 @@ transformForImageGeneration.output_schema = {
     },
     ratio: {
       type: "string",
-      enum: ["1:1", "3:4", "4:3", "16:9"],
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"],
     },
     aspectRatio: {
       type: "string",
-      enum: ["1:1", "3:4", "4:3", "16:9"],
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"],
     },
     size: {
       type: "string",

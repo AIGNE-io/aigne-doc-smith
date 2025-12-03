@@ -102,7 +102,7 @@ output_schema:
     aspectRatio:
       type: string
       description: The optimal aspect ratio for this diagram type based on content structure analysis (must match flow direction)
-      enum: ["1:1", "3:4", "4:3", "16:9"]
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
     reasoning:
       type: string
       description: Explanation of the decision

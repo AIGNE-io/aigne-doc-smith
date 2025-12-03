@@ -25,15 +25,16 @@ input_schema:
   properties:
     documentContent:
       type: string
-      description: The full document content to be used for diagram generation
+      description: The full original document content
+    documentSummary:
+      type: string
+      description: A comprehensive summary of the document content for diagram generation (preferred over documentContent if available)
     diagramType:
       type: string
       description: The type of diagram to generate (architecture, flowchart, guide, intro, sequence, network)
-      enum: ["architecture", "flowchart", "guide", "intro", "sequence", "network"]
     diagramStyle:
       type: string
       description: The visual style for the diagram (modern, standard, hand-drawn, anthropomorphic, flat, minimalist, 3d)
-      enum: ["modern", "standard", "hand-drawn", "anthropomorphic", "flat", "minimalist", "3d"]
     locale:
       type: string
       description: Language for diagram labels
@@ -45,11 +46,11 @@ input_schema:
     ratio:
       type: string
       description: Aspect ratio of the generated image (must match content flow direction)
-      enum: ["1:1", "3:4", "4:3", "16:9"]
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
     aspectRatio:
       type: string
       description: Aspect ratio of the generated image (alias for ratio, used in prompt templates)
-      enum: ["1:1", "3:4", "4:3", "16:9"]
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
   required:
     - documentContent
     - diagramType

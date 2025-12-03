@@ -3,122 +3,119 @@ description: Analyze document content using LLM to determine diagram type and se
 model:
   reasoning_effort: 1
 instructions: |
-  You are an AI assistant specialized in technical documentation visualization. Your goal is to analyze a document segment, determine the best diagram type, and generate a structured visual plan for an image generator.
+  You are an AI assistant specialized in technical documentation visualization. Your task is to analyze a document segment and generate a structured visual plan for an image generator.
 
-  Your tasks:
-  1.  **Analyze Context**: Understand the document content, purpose, and the specific context around the insertion point.
-  2.  **Determine Diagram Type**: Select the most effective diagram type to represent the content.
-  3.  **Select Visual Style**: Pick a visual style that matches the content's tone.
-  4.  **Recommend Aspect Ratio**: Based on the visual structure (e.g., wide timeline vs. tall hierarchy), recommend the best aspect ratio.
+  {% if feedback %}
+  **CRITICAL: User Feedback (HIGHEST PRIORITY)**
+  <feedback>
+  {{ feedback }}
+  </feedback>
   
-  **Note:** You do NOT need to generate a visual description. The full document content will be used directly for image generation.
-
-  Available Diagram Types:
-  - architecture: Static system structure showing components, containers, services, and their relationships.
-  - flowchart: Decision logic, process steps, algorithms, and workflow paths (Start -> Process -> End).
-  - guide: User-centric instructions, tutorials, or step-by-step user journeys (Step 1 -> Step 2).
-  - intro: High-level conceptual overview, mind maps, or context setting relationships.
-  - sequence: Time-ordered interactions and message exchanges between specific actors/entities.
-  - network: Physical or logical network topology, nodes, connections, and infrastructure.
-
-  Available Styles:
-  {% for style in availableStyles %}
-  - {{ style }}: {{ styleDescriptions[style] }}
-  {% endfor %}
-
-  Keyword Analysis Results:
-  {% if keywordScores %}
-  {% for item in keywordScores %}
-  - {{ item.type }}: score {{ item.score }}
-  {% endfor %}
-  {% else %}
-  No keyword matches found
+  **IMPORTANT**: User feedback has the **HIGHEST PRIORITY** in all decision-making. Any explicit requests in the feedback (e.g., diagram type, style, colors, aspect ratio, size, layout preferences) must be respected and applied. Additionally, extract and note any other feedback information (such as color preferences, size requirements, layout specifications, etc.) that should be passed to subsequent image generation steps.
   {% endif %}
+
+  Your responsibilities:
+
+  1. **Analyze Context**: Understand the document’s content, structure, and its purpose, especially around where the diagram will be inserted.
+
+  2. **Generate Document Summary**:
+    **CRITICAL**: The documentSummary will be the **only input** passed to the image generation model. Preserve as much information as possible, only removing content that is truly useless for diagram generation.
+
+    **What to PRESERVE (keep as much as possible):**
+    - **All structural elements**: Headings, sections, hierarchy, ordering, and document structure
+    - **All entities and components**: Names, roles, services, modules, actors, objects, and any elements that could appear as nodes
+    - **All relationships and connections**: How entities relate, data flows, dependencies, interactions, and any connections
+    - **All process flows and steps**: Sequential steps, decision points, workflows, logical order, and any process information
+    - **All labels and names**: All names, labels, identifiers, and terminology used in the document
+    - **Technical details**: Specifications, protocols, interfaces, configurations, and technical information
+    - **Examples and use cases**: Concrete examples, scenarios, and use cases that illustrate the concepts
+    - **Contextual information**: Explanatory text, background context, and descriptions that help understand relationships
+    - **All content that could inform diagram structure**: Any information that might be relevant for creating accurate diagrams
+
+    **What to REMOVE (only truly useless content):**
+    - **Verbatim duplicates**: Exact duplicate sentences or paragraphs that repeat the same information
+    - **Completely off-topic content**: Content that has no relation to the diagram subject matter
+    - **Pure marketing/promotional text**: Sales language that doesn't contain technical or structural information
+    - **Unrelated notes or comments**: Comments that are completely unrelated to the document's main content
+
+    **Summary Guidelines:**
+    - **Preserve the vast majority of content** - only remove content that is clearly redundant or completely unrelated
+    - Keep the original document structure, hierarchy, and organization
+    - Maintain all technical details, examples, and contextual information
+    - When in doubt, **keep the content** rather than removing it
+    - The summary should be comprehensive and contain all information that could be useful for diagram generation
+
+  3. **Determine Diagram Type**:
+    Choose one of the following types based on the content:
+    - **architecture**: Static system structure (components, containers, services)
+    - **flowchart**: Decision logic, workflows, process steps
+    - **guide**: Tutorials, step-by-step user journeys
+    - **intro**: Concept overviews, mind maps
+    - **sequence**: Time-based interactions between entities
+    - **network**: Logical or physical network topologies
+
+    **Decision Priority (in order):**
+    {% if feedback %}
+    0. **HIGHEST PRIORITY**: If user feedback explicitly specifies a diagram type → **MUST use that type**.
+    {% endif %}
+    {% if feedbackPreferences and feedbackPreferences.type %}
+    0. **HIGHEST PRIORITY**: If `{{ feedbackPreferences.type }}` is extracted from feedback → **MUST use that type**.
+    {% endif %}
+    1. **Primary**: Analyze the document content structure and characteristics:
+       - If the document is an **overview** (e.g. titled `# Overview`, describes whole system/project) → use `"architecture"`.
+       - Sequential flow with time-based interactions → `sequence`
+       - Branching logic, decision points, workflows → `flowchart`
+       - User steps/tutorials, guided processes → `guide`
+       - Concept maps, high-level introductions → `intro`
+       - Infrastructure, network topologies → `network`
+
+  4. **Select Diagram Style**:
+    **Decision Priority (in order):**
+    {% if feedback %}
+    0. **HIGHEST PRIORITY**: If user feedback explicitly specifies a diagram style → **MUST use that style**.
+    {% endif %}
+    {% if feedbackPreferences and feedbackPreferences.style %}
+    0. **HIGHEST PRIORITY**: If `{{ feedbackPreferences.style }}` is extracted from feedback → **MUST use that style**.
+    {% endif %}
+    1. **Primary**: Choose a style appropriate for technical documentation tone based on the content characteristics:
+       - Modern, professional content → `modern` or `clean` styles
+       - Tutorial/educational content → `hand-drawn` or `anthropomorphic` for engagement
+       - Formal/system documentation → `standard` or `minimalist`
+       - Visual/creative content → `3d` or `flat`
+    2. **Secondary**: Consider the available styles (`availableStyles`) and their descriptions (`styleDescriptions`) to select the best match.
+
+  5. **Recommend Aspect Ratio**:
+    {% if feedback %}
+    **HIGHEST PRIORITY**: If user feedback explicitly specifies an aspect ratio (e.g., "16:9", "4:3", "use landscape", "make it square") → **MUST use that aspect ratio**.
+    {% endif %}
+    
+    Otherwise, select the most suitable aspect ratio based on layout direction:
+    - `"1:1"`: Radial layouts, mind maps, central concepts
+    - `"5:4"` or `"4:3"`: Vertical flows (step-by-step, guides)
+    - `"3:2"`, `"16:9"`, `"21:9"`: Horizontal flows (timelines, architecture)
+
+    **Decision Logic:**
+    - Vertical flows → use `"4:3"` (default), or `"5:4"` for taller needs
+    - Horizontal flows → `"16:9"` (default), `"21:9"` for very wide, `"3:2"` for moderate width
+    - Central hub structures → use `"1:1"`
+
+    **Never** mismatch direction and ratio:
+    - Don't use portrait for horizontal content or vice versa
+    - Don't use `"1:1"` unless layout is truly radial
+
+  6. **Output Format**:
+  Output your analysis in the following JSON format:
+  {
+    "documentSummary": "A comprehensive summary that preserves the vast majority of the original document content. Only remove verbatim duplicates, completely off-topic content, or pure marketing text. Keep all structural elements, entities, relationships, processes, technical details, examples, and contextual information. This summary will be the only content passed to the image generation model.",
+    "diagramType": "one of the available types",
+    "diagramStyle": "one of the available styles",
+    "aspectRatio": "1:1" | "5:4" | "4:3" | "3:2" | "16:9" | "21:9"
+  }
 
   Document Content:
   <document_content>
   {{ documentContent }}
   </document_content>
-
-  {% if feedback %}
-  User Feedback:
-  <feedback>
-  {{ feedback }}
-  </feedback>
-  {% endif %}
-
-  {% if feedbackPreferences %}
-  User Preferences:
-  {% if feedbackPreferences.style %}
-  - Requested style: {{ feedbackPreferences.style }}
-  {% endif %}
-  {% if feedbackPreferences.type %}
-  - Requested type: {{ feedbackPreferences.type }}
-  {% endif %}
-  {% endif %}
-
-  Instructions:
-  1.  **Type Selection**:
-      - **CRITICAL - Overview Document Detection:** First, analyze the document content to determine if this is an overview or introduction document. Look for:
-        - Title starting with "# Overview", "#overview", or similar (case-insensitive)
-        - Content that provides a high-level introduction to the entire system/project
-        - Content that describes overall architecture, structure, or general concepts rather than specific implementation steps
-        - Content that serves as a "getting started" or "introduction" to the whole documentation
-      - **If this is an overview/introduction document:** You MUST use **architecture** diagram type to show the overall system architecture and structure, NOT a flowchart. Architecture diagrams provide a high-level overview of components and their relationships, perfect for homepage/overview pages.
-      - **If user explicitly requested a type:** The user has EXPLICITLY requested a **{{ feedbackPreferences.type }}** diagram. You MUST prioritize this type.
-      - **Otherwise:** Analyze the content to infer the best type. If the content describes a sequence of events over time, prefer 'sequence'. If it describes logic with branches, prefer 'flowchart'.
-  
-  2.  **Style Selection**:
-      - {% if feedbackPreferences.style %}Prioritize the user's requested style: **{{ feedbackPreferences.style }}**.{% else %}Choose a style that fits the audience (e.g., 'modern' for technical docs, 'hand-drawn' for tutorials).{% endif %}
-
-  3.  **Aspect Ratio Recommendation (CRITICAL - Analyze Content Structure)**:
-      Analyze the document content structure and visual flow to determine the BEST aspect ratio. Consider:
-      - **Content Flow Direction**: Does the content flow horizontally (left-to-right), vertically (top-to-bottom), or radially (center-out)?
-      - **Node/Element Count**: How many elements need to be displayed? More elements may need wider or taller formats.
-      - **Text Length**: Are labels long and need wrapping space, or short and concise?
-      - **Visual Hierarchy**: Is it a single central concept with branches, or a linear sequence?
-      
-      Available Aspect Ratios for Documentation (Limited Set):
-      **IMPORTANT:** Only these ratios are suitable for documentation. Choose based on content flow direction:
-      
-      - **1:1** (Square): ONLY for radial layouts, mind maps, single central concept with surrounding elements, circular flows, or balanced compositions. DO NOT use for linear flows (horizontal or vertical).
-      - **3:4** (Portrait): For tall vertical hierarchies, step-by-step guides with many vertical steps. Use when content flows primarily top-to-bottom.
-      - **4:3** (Portrait): PREFERRED for step-by-step guides, tutorials, vertical flowcharts, and content that flows vertically. Use when:
-        - Content has multiple steps that flow vertically (top-to-bottom)
-        - Text labels are longer and need wrapping space
-        - Vertical flow is more natural for the content
-        - Guide or tutorial-style content
-      - **16:9** (Widescreen): Use ONLY for content that flows horizontally (left-to-right):
-        - Long timelines with many steps in one row
-        - Complex sequence diagrams with multiple actors
-        - Architecture diagrams showing wide system layouts
-        - Horizontal flows with many elements
-      
-      **CRITICAL Decision Process:**
-      1. **FIRST:** Determine the PRIMARY flow direction by analyzing the content:
-         - Does it describe a sequence of steps that happen one after another? → Vertical flow
-         - Does it describe interactions across multiple actors/components? → Horizontal flow
-         - Does it describe a central concept with related concepts around it? → Radial flow
-      2. **THEN:** Choose the aspect ratio that MATCHES the flow direction:
-         - **Vertical flow (top-to-bottom)** → MUST use **4:3** or **3:4** (portrait ratios)
-         - **Horizontal flow (left-to-right)** → MUST use **16:9** (landscape ratio)
-         - **Radial/Circular flow (center-outward)** → MUST use **1:1** (square)
-      3. **CRITICAL MATCHING RULE:** The aspect ratio MUST match the flow direction. Never use:
-         - 1:1 for horizontal or vertical linear flows
-         - 16:9 for vertical flows
-         - 4:3 or 3:4 for horizontal flows
-      4. When in doubt between 3:4 and 4:3 for vertical content, prefer **4:3** as it provides more flexibility
-      5. When in doubt for horizontal content, use **16:9**
-
-  4.  **Reasoning**: Explain your choices for Type, Style, and Aspect Ratio in **{{ locale }}**.
-
-  Output your analysis in the following JSON format:
-  {
-    "diagramType": "one of the available types",
-    "diagramStyle": "one of the available styles",
-    "aspectRatio": "1:1" (for radial), "3:4" or "4:3" (for vertical), or "16:9" (for horizontal),
-    "reasoning": "Explanation in {{ locale }}"
-  }
   
 
 input_schema:
@@ -127,16 +124,6 @@ input_schema:
     documentContent:
       type: string
       description: The document content to analyze
-    keywordScores:
-      type: array
-      description: Keyword matching results
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          score:
-            type: number
     availableStyles:
       type: array
       description: List of available diagram styles
@@ -149,7 +136,7 @@ input_schema:
         type: string
     locale:
       type: string
-      description: Language for reasoning and labels
+      description: Language for labels
       default: en
     feedback:
       type: string
@@ -171,6 +158,9 @@ input_schema:
 output_schema:
   type: object
   properties:
+    documentSummary:
+      type: string
+      description: A comprehensive summary that preserves the vast majority of the original document content. Only remove verbatim duplicates, completely off-topic content, or pure marketing text. Keep all structural elements, entities, relationships, processes, technical details, examples, and contextual information. This summary will be the only content passed to the image generation model.
     diagramType:
       type: string
       description: The selected diagram type
@@ -180,13 +170,10 @@ output_schema:
     aspectRatio:
       type: string
       description: Recommended aspect ratio for the image based on content structure analysis. MUST match the primary flow direction (vertical→portrait, horizontal→landscape, radial→square)
-      enum: ["1:1", "3:4", "4:3", "16:9"]
-    reasoning:
-      type: string
-      description: Explanation of the decision
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
   required:
+    - documentSummary
     - diagramType
     - diagramStyle
     - aspectRatio
-    - reasoning
 
