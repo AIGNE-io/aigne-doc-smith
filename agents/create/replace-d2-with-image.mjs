@@ -35,7 +35,8 @@ async function calculateImageHash(absolutePath) {
 /**
  * Replace D2 code blocks with generated image in document content
  * This mimics the @image insertion pattern
- * Saves images to TMP_DIR/assets/diagram and replaces DIAGRAM_PLACEHOLDER with image reference
+ * Saves images to assets/diagram (relative to docsDir) and replaces DIAGRAM_PLACEHOLDER with image reference
+ * File naming: {documentName}-diagram-{index}.{ext}
  */
 export default async function replaceD2WithImage({
   imageResult,
@@ -47,6 +48,8 @@ export default async function replaceD2WithImage({
   diagramIndex,
   originalContent,
   feedback,
+  path: docPath,
+  docsDir,
 }) {
   // Determine which content to use for finding diagrams and final replacement
   // Priority:
@@ -135,13 +138,22 @@ export default async function replaceD2WithImage({
     return { content: finalContent };
   }
 
-  // Ensure temp directory exists
-  await ensureTmpDir();
-
-  // Save image to assets directory
-  // Path: .aigne/doc-smith/.tmp/assets/diagram
-  // Use process.cwd() to ensure absolute path
-  const assetDir = path.join(process.cwd(), DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "diagram");
+  // Determine asset directory: assets/diagram (relative to docsDir, not in .tmp)
+  // If docsDir is provided, use it; otherwise fallback to .tmp/assets/diagram for backward compatibility
+  let assetDir;
+  let relativePathPrefix;
+  
+  if (docsDir) {
+    // New approach: save to assets/diagram relative to docsDir (can be committed to git)
+    assetDir = path.join(process.cwd(), docsDir, "assets", "diagram");
+    relativePathPrefix = "assets/diagram";
+  } else {
+    // Fallback: use .tmp/assets/diagram for backward compatibility
+    await ensureTmpDir();
+    assetDir = path.join(process.cwd(), DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "diagram");
+    relativePathPrefix = path.posix.join("..", TMP_DIR, TMP_ASSETS_DIR, "diagram");
+  }
+  
   await fs.ensureDir(assetDir);
 
   // Get file extension from source path
@@ -163,19 +175,38 @@ export default async function replaceD2WithImage({
     ext = ".jpg";
   }
 
-  // Generate filename based on image file hash (for caching)
-  // Use image file content hash to ensure same image generates same filename
-  // This allows proper cache hits while ensuring new images get new filenames
+  // Find all diagram locations to determine the target index
+  const diagramLocations = findAllDiagramLocations(contentForFindingDiagrams);
+  let targetIndex = targetDiagramIndex !== undefined ? targetDiagramIndex : 0;
+  
+  if (targetIndex < 0 || targetIndex >= diagramLocations.length) {
+    // If index is out of range, use the next available index (for new diagrams)
+    targetIndex = diagramLocations.length;
+  }
+
+  // Generate filename based on document name and diagram index
+  // Format: {documentName}-diagram-{index}.{ext}
+  // This ensures:
+  // - Same document + same position = same filename (overwrite on update)
+  // - Different documents = different filenames
+  // - Different positions in same document = different filenames
   let fileName;
-  try {
-    // Calculate hash of the actual image file
-    const imageHash = await calculateImageHash(image.path);
-    fileName = `${imageHash}${ext}`;
-  } catch (error) {
-    // Fallback: Use hash of image path if file hash calculation fails
-    debug(`Failed to calculate image hash, using path hash: ${error.message}`);
-    const hash = getContentHash(image.path);
-    fileName = `${hash}${ext}`;
+  
+  if (docPath) {
+    // Extract document name from path (e.g., "guides/getting-started.md" -> "getting-started")
+    const pathWithoutExt = docPath.replace(/\.(md|markdown)$/i, "");
+    const documentName = path.basename(pathWithoutExt).toLowerCase().replace(/[^a-z0-9-]/g, "-");
+    fileName = `${documentName}-diagram-${targetIndex}${ext}`;
+  } else {
+    // Fallback: use hash-based naming if path is not provided
+    try {
+      const imageHash = await calculateImageHash(image.path);
+      fileName = `${imageHash}${ext}`;
+    } catch (error) {
+      debug(`Failed to calculate image hash, using path hash: ${error.message}`);
+      const hash = getContentHash(image.path);
+      fileName = `diagram-${hash}${ext}`;
+    }
   }
 
   const destPath = path.join(assetDir, fileName);
@@ -188,31 +219,30 @@ export default async function replaceD2WithImage({
       return { content: finalContent };
     }
 
-    // Check if destination already exists (cache hit)
-    // Since filename is based on file hash, if file exists, it's the same file
+    // Always overwrite existing file (since filename is based on document + position)
+    // This ensures updates replace old images
     if (await fs.pathExists(destPath)) {
-      debug(`Diagram image cache found, skipping copy: ${destPath}`);
-    } else {
-      // Compress the image directly to destination path
-      try {
-        debug(`Compressing image directly to destination: ${image.path} -> ${destPath}`);
-        const compressedPath = await compressImage(image.path, {
-          quality: 85,
-          outputPath: destPath,
-        });
+      debug(`Overwriting existing diagram image: ${destPath}`);
+    }
+    // Compress the image directly to destination path
+    try {
+      debug(`Compressing image directly to destination: ${image.path} -> ${destPath}`);
+      const compressedPath = await compressImage(image.path, {
+        quality: 85,
+        outputPath: destPath,
+      });
 
-        // If compression failed, fallback to copying original file
-        if (compressedPath === image.path) {
-          debug(`Compression failed, copying original file: ${image.path}`);
-          await copyFile(image.path, destPath);
-        }
-        debug(`✅ Diagram image saved to: ${destPath}`);
-      } catch (error) {
-        debug(`Image compression failed, copying original: ${error.message}`);
-        // Fallback to copying original file if compression fails
+      // If compression failed, fallback to copying original file
+      if (compressedPath === image.path) {
+        debug(`Compression failed, copying original file: ${image.path}`);
         await copyFile(image.path, destPath);
-        debug(`✅ Diagram image saved to: ${destPath}`);
       }
+      debug(`✅ Diagram image saved to: ${destPath}`);
+    } catch (error) {
+      debug(`Image compression failed, copying original: ${error.message}`);
+      // Fallback to copying original file if compression fails
+      await copyFile(image.path, destPath);
+      debug(`✅ Diagram image saved to: ${destPath}`);
     }
   } catch (error) {
     console.error(
@@ -227,12 +257,18 @@ export default async function replaceD2WithImage({
   // Generate alt text from document content
   const altText = extractAltText(documentContent);
 
-  // Create relative path from docs directory to assets directory
-  // Docs are in: .aigne/doc-smith/.tmp/docs/
-  // Assets are in: .aigne/doc-smith/.tmp/assets/diagram/
-  // So relative path from docs to assets: ../assets/diagram/filename
-  // If docs are not in .tmp/docs/, include .tmp in the path
-  const relativePath = path.posix.join("..", TMP_DIR, TMP_ASSETS_DIR, "diagram", fileName);
+  // Create relative path from markdown file to assets directory
+  // Documents are saved in docsDir root (flattened paths), images are in docsDir/assets/diagram/
+  // So relative path is always: assets/diagram/filename.jpg (same directory level)
+  let relativePath;
+  if (docsDir && docPath) {
+    // All documents are in docsDir root (paths are flattened), assets are in docsDir/assets/diagram/
+    // So relative path is simply: assets/diagram/filename.jpg
+    relativePath = path.posix.join("assets", "diagram", fileName);
+  } else {
+    // Fallback: use the relativePathPrefix determined earlier
+    relativePath = path.posix.join(relativePathPrefix, fileName);
+  }
 
   // Create markdown image reference with markers for easy replacement
   // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
@@ -240,10 +276,7 @@ export default async function replaceD2WithImage({
   const aspectRatioTag = aspectRatio || "unknown";
   const imageMarkdown = `<!-- DIAGRAM_IMAGE_START:${diagramTypeTag}:${aspectRatioTag} -->\n![${altText}](${relativePath})\n<!-- DIAGRAM_IMAGE_END -->`;
 
-  // Find all diagram locations in the content
-  // Use contentForFindingDiagrams which contains original diagrams (if originalContent provided)
-  // or documentContent which may contain DIAGRAM_PLACEHOLDER
-  const diagramLocations = findAllDiagramLocations(contentForFindingDiagrams);
+  // Note: diagramLocations was already found above for filename generation, reuse it
 
   // Debug: log found locations
   if (diagramLocations.length > 0) {
@@ -254,7 +287,7 @@ export default async function replaceD2WithImage({
   }
 
   // Determine which diagram to replace
-  let targetIndex = targetDiagramIndex !== undefined ? targetDiagramIndex : 0; // Default to first diagram (index 0)
+  // Note: targetIndex was already calculated above for filename generation, reuse it
 
   if (targetIndex < 0 || targetIndex >= diagramLocations.length) {
     // If index is out of range, default to first available or insert new
@@ -507,6 +540,18 @@ replaceD2WithImage.input_schema = {
       type: "string",
       description:
         "Original document content before any modifications. Used to find existing diagrams when updating.",
+    },
+    path: {
+      type: "string",
+      description: "Document path (e.g., 'guides/getting-started.md') used for generating image filename",
+    },
+    docsDir: {
+      type: "string",
+      description: "Documentation directory where assets will be saved (relative to project root)",
+    },
+    feedback: {
+      type: "string",
+      description: "User feedback (for extracting diagram index)",
     },
   },
   required: ["documentContent"],

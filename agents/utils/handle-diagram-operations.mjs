@@ -8,6 +8,7 @@ import {
   readFileContent,
 } from "../../utils/docs-finder-utils.mjs";
 import { userContextAt } from "../../utils/utils.mjs";
+import { debug } from "../../utils/debug.mjs";
 
 /**
  * Read current document content from file system
@@ -79,7 +80,7 @@ async function addDiagram(input, options) {
   }
 
   const generateDiagramResult = await options.context.invoke(generateDiagramAgent, {
-    ...pick(input, ["locale", "diagramming", "feedback"]),
+    ...pick(input, ["locale", "diagramming", "feedback", "path", "docsDir"]),
     documentContent: currentContent,
     originalContent: currentContent,
   });
@@ -120,6 +121,8 @@ async function updateDiagram(input, options) {
     diagramming: input.diagramming || {},
     feedback: input.feedback,
     originalContent: currentContent, // Pass original content to find existing diagrams
+    path: input.path,
+    docsDir: input.docsDir,
   });
 
   // generateDiagram now returns { content } with image already inserted
@@ -184,6 +187,20 @@ Your task is to remove ${DIAGRAM_PLACEHOLDER} and adjust the document context (b
     documentContent,
     feedback: input.feedback,
   });
+
+  // Delete associated diagram image files
+  if (input.docsDir) {
+    try {
+      const { deleteDiagramImages } = await import("../../utils/delete-diagram-images.mjs");
+      const { deleted } = await deleteDiagramImages(currentContent, input.path, input.docsDir);
+      if (deleted > 0) {
+        debug(`Deleted ${deleted} diagram image file(s) for ${input.path}`);
+      }
+    } catch (error) {
+      // Don't fail the operation if image deletion fails
+      console.warn(`Failed to delete diagram images: ${error.message}`);
+    }
+  }
 
   contentContext.set(content);
   await saveDoc(input, options, { content });

@@ -45,6 +45,12 @@ input_schema:
     diagramIndex:
       type: number
       description: Index of the diagram to replace (0-based). If not provided, will try to extract from feedback.
+    path:
+      type: string
+      description: Document path (e.g., "guides/getting-started.md") used for generating image filename
+    docsDir:
+      type: string
+      description: Documentation directory where assets will be saved (relative to project root)
   required:
     - documentContent
 output_schema:

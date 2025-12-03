@@ -10,6 +10,8 @@ export default async function checkGenerateDiagram(
     detailFeedback,
     originalContent,
     diagramming,
+    path,
+    docsDir,
   },
   options,
 ) {
@@ -58,6 +60,8 @@ export default async function checkGenerateDiagram(
         diagramming: diagramming || {},
         feedback: feedback || "",
         originalContent: originalContent || documentContent,
+        path,
+        docsDir,
       });
 
       // generateDiagram now returns { content } with image already inserted
