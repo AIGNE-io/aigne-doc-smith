@@ -15,14 +15,14 @@ importers:
         specifier: ^1.69.0
         version: 1.69.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@aigne/publish-docs':
-        specifier: ^0.14.1
-        version: 0.14.1(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)
+        specifier: ^0.14.2
+        version: 0.14.2(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)
       '@aigne/secrets':
         specifier: ^0.1.1-beta.3
         version: 0.1.1-beta.3(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
       '@blocklet/payment-broker-client':
-        specifier: ^1.22.24
-        version: 1.22.24
+        specifier: ^1.22.27
+        version: 1.22.27
       '@terrastruct/d2':
         specifier: ^0.1.33
         version: 0.1.33
@@ -208,8 +208,8 @@ packages:
   '@aigne/poe@1.1.0':
     resolution: {integrity: sha512-YoNjXjC1PfDETqrRzh16GZMqO+1S4ZlOYTfauUeq4y6RZ5rlx8Q2sBP0t1YPy+o2S1onGMRp+LEWQxvAG7VuYg==}
 
-  '@aigne/publish-docs@0.14.1':
-    resolution: {integrity: sha512-Blc+o0BTzg4q02IB4MHDPYDZdcXz80XBrZV3o3H+4XSXE4u3Kky8pf5m1N1hoM9/EpF/UHUS5miKHgs9aRH2Pw==}
+  '@aigne/publish-docs@0.14.2':
+    resolution: {integrity: sha512-7UGFuwjfcLuIdg8VNOF2nXxhkIFDN81atKV9HHPgrZeVtBKcdIquCPrGD6Qv1wu7uqrkF39Qb5bSNhd0EkR5Eg==}
 
   '@aigne/secrets@0.1.1-beta.3':
     resolution: {integrity: sha512-Uing8+lvaZQ5tPzYlnLc8SO5JxybbdcCD0G3zqeeJk6p8isHSRqcFGjtYkN+REYqqOg5d/z1hSbdVf9gvznkXw==}
@@ -439,8 +439,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@blocklet/payment-broker-client@1.22.24':
-    resolution: {integrity: sha512-btguOO+zToTj8Qj6RuizG+tj+7hMtPaL1+ZARojrUONAwjtj9erCGICADxmM/7uodzlDWqA75voWZxk5dppuwQ==}
+  '@blocklet/payment-broker-client@1.22.27':
+    resolution: {integrity: sha512-YPmRawIqFONlW/vIizi4CWlNojrNU0ePe93rwDsssyCnSgmimkud3e6rHuDbRvZZ9Gl0+UogR/T+6eAXCPLzTQ==}
     engines: {node: '>=14.0.0'}
 
   '@borewit/text-codec@0.1.1':
@@ -5474,7 +5474,7 @@ snapshots:
       - utf-8-validate
       - ws
 
-  '@aigne/publish-docs@0.14.1(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)':
+  '@aigne/publish-docs@0.14.2(react-dom@19.1.0(react@19.2.0))(react@19.2.0)(yjs@13.6.27)':
     dependencies:
       '@lexical/code': 0.33.1
       '@lexical/headless': 0.33.1
@@ -6144,7 +6144,7 @@ snapshots:
   '@biomejs/cli-win32-x64@2.2.4':
     optional: true
 
-  '@blocklet/payment-broker-client@1.22.24': {}
+  '@blocklet/payment-broker-client@1.22.27': {}
 
   '@borewit/text-codec@0.1.1': {}
 
