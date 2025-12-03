@@ -26,6 +26,35 @@ export default async function loadConfig({ config, appUrl }) {
     // Resolve file references (@ prefixed values)
     parsedConfig = await resolveFileReferences(parsedConfig);
 
+    // Read DOC-SMITH.md if exists in current working directory
+    const docSmithVariants = ["DOC-SMITH.md", "doc-smith.md", "DocSmith.md"];
+    let docSmithContent = "";
+    for (const variant of docSmithVariants) {
+      const docSmithPath = path.join(process.cwd(), variant);
+      try {
+        const content = await fs.readFile(docSmithPath, "utf-8");
+        if (content && content.trim()) {
+          docSmithContent = content.trim();
+          console.log(`✓ Found ${chalk.cyan(variant)}, custom rules loaded`);
+          break; // Use the first found file
+        }
+      } catch (error) {
+        if (error.code !== "ENOENT") {
+          // File exists but can't be read (permission issue, etc.)
+          console.warn(`⚠️  Found ${variant} but failed to read: ${error.message}`);
+        }
+        // ENOENT means file doesn't exist, continue to next variant
+      }
+    }
+
+    // Append DOC-SMITH content to rules if found
+    if (docSmithContent) {
+      const existingRules = parsedConfig.rules || "";
+      parsedConfig.rules = existingRules
+        ? `${existingRules}\n\n${docSmithContent}`
+        : docSmithContent;
+    }
+
     if (appUrl) {
       parsedConfig.appUrl = appUrl.includes("://") ? appUrl : `https://${appUrl}`;
     }

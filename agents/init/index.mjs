@@ -41,16 +41,13 @@ export default async function init(input, options) {
   };
 }
 
-async function _init(
-  {
-    outputPath = ".aigne/doc-smith",
-    fileName = "config.yaml",
-    skipIfExists = false,
-    appUrl,
-    checkOnly = false,
-  },
-  options,
-) {
+async function _init({
+  outputPath = ".aigne/doc-smith",
+  fileName = "config.yaml",
+  skipIfExists = false,
+  appUrl,
+  checkOnly = false,
+}) {
   // Check if we're in checkOnly mode
   if (checkOnly) {
     const filePath = join(outputPath, fileName);
