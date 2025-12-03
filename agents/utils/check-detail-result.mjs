@@ -1,5 +1,5 @@
-import { checkMarkdown } from "../../utils/markdown-checker.mjs";
 import { buildAllowedLinksFromStructure } from "../../utils/docs-finder-utils.mjs";
+import { checkMarkdown } from "../../utils/markdown-checker.mjs";
 
 export default async function checkDetailResult({ documentStructure, reviewContent, docsDir }) {
   if (!reviewContent || reviewContent.trim() === "") {

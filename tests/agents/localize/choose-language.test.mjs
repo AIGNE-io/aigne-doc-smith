@@ -54,7 +54,7 @@ describe("choose-language", () => {
 
     expect(result.selectedLanguages).toEqual(["zh", "ja"]);
     expect(result.selectedDocs).toHaveLength(2);
-    expect(result.selectedDocs[0].translates).toEqual([{ language: "zh" }, { language: "ja" }]);
+    expect(result.translates).toEqual([{ language: "zh" }, { language: "ja" }]);
     expect(mockOptions.prompts.checkbox).not.toHaveBeenCalled();
   });
 
@@ -71,7 +71,7 @@ describe("choose-language", () => {
 
     expect(mockOptions.prompts.checkbox).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: "Select translation languages:",
+        message: "Please select the languages you'd like to translate to:",
         choices: expect.any(Array),
         validate: expect.any(Function),
       }),
@@ -128,7 +128,7 @@ describe("choose-language", () => {
     await chooseLanguage({ locale: "en", selectedDocs }, mockOptions);
 
     const validateFn = mockOptions.prompts.checkbox.mock.calls[0][0].validate;
-    expect(validateFn([])).toBe("Please select at least one language");
+    expect(validateFn([])).toBe("You must select at least one language.");
     expect(validateFn(["zh"])).toBe(true);
   });
 
@@ -171,7 +171,7 @@ describe("choose-language", () => {
     const selectedDocs = [{ path: "/doc1", title: "Document 1" }];
 
     await expect(chooseLanguage({ locale: "en", selectedDocs }, mockOptions)).rejects.toThrow(
-      "No languages selected for translation",
+      "You must select at least one language to continue.",
     );
   });
 
@@ -231,7 +231,7 @@ describe("choose-language", () => {
   });
 
   // DOCUMENT PROCESSING TESTS
-  test("should add translation info to selected documents", async () => {
+  test("should return translates without modifying selectedDocs", async () => {
     const selectedDocs = [
       { path: "/doc1", title: "Document 1", existing: "data" },
       { path: "/doc2", title: "Document 2" },
@@ -246,19 +246,10 @@ describe("choose-language", () => {
       mockOptions,
     );
 
-    expect(result.selectedDocs).toEqual([
-      {
-        path: "/doc1",
-        title: "Document 1",
-        existing: "data",
-        translates: [{ language: "zh" }, { language: "ja" }],
-      },
-      {
-        path: "/doc2",
-        title: "Document 2",
-        translates: [{ language: "zh" }, { language: "ja" }],
-      },
-    ]);
+    // selectedDocs should remain unchanged
+    expect(result.selectedDocs).toEqual(selectedDocs);
+    // translates should be returned separately
+    expect(result.translates).toEqual([{ language: "zh" }, { language: "ja" }]);
   });
 
   // EDGE CASES

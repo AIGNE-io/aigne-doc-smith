@@ -668,7 +668,7 @@ describe("generateYAML", () => {
 
         // All values should be preserved exactly as input
         expect(config.projectName).toBe(projectName);
-        expect(config.projectDesc).toBe(projectDesc);
+        expect(config.projectDesc).toBe(projectDesc.trim());
         expect(config.projectLogo).toBe(projectLogo);
       });
     });
@@ -1000,7 +1000,12 @@ describe("init", () => {
         };
 
         const mockPrompts = createMockPrompts(mockResponses);
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           {
@@ -1033,6 +1038,8 @@ describe("init", () => {
         expect(config.documentationDepth).toBe("balancedCoverage");
         expect(config.locale).toBe("en");
         expect(config.translateLanguages).toEqual(["zh", "ja"]);
+        // Current implementation keeps translateLanguages only
+        expect(config.translates).toBeUndefined();
         expect(config.docsDir).toBe(join(tempDir, "docs"));
         expect(config.sourcesPath).toEqual(["./"]); // Default when no paths provided
       } finally {
@@ -1058,7 +1065,12 @@ describe("init", () => {
         };
 
         const mockPrompts = createMockPrompts(mockResponses);
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           {
@@ -1083,6 +1095,8 @@ describe("init", () => {
         expect(config.documentationDepth).toBe("comprehensive");
         expect(config.locale).toBe("zh-CN");
         expect(config.translateLanguages).toEqual(["en"]);
+        // Current implementation keeps translateLanguages only
+        expect(config.translates).toBeUndefined();
       } finally {
         await cleanupTempDir(tempDir);
       }
@@ -1105,7 +1119,12 @@ describe("init", () => {
         };
 
         const mockPrompts = createMockPrompts(mockResponses);
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           {
@@ -1154,7 +1173,12 @@ describe("init", () => {
           },
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         // First let's create the directories that will be searched for
         await fs.mkdir(join(process.cwd(), "src"), { recursive: true }).catch(() => {
@@ -1211,7 +1235,12 @@ describe("init", () => {
           search: () => Promise.resolve(""), // Immediately finish without adding paths
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1248,7 +1277,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: true },
@@ -1280,7 +1314,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: true },
@@ -1325,7 +1364,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1363,7 +1407,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1411,7 +1460,12 @@ describe("init", () => {
           search: () => Promise.resolve(""),
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1435,7 +1489,12 @@ describe("init", () => {
         search: () => Promise.resolve(""),
       };
 
-      const options = { prompts: mockPrompts };
+      const options = {
+        prompts: mockPrompts,
+        context: {
+          userContext: {},
+        },
+      };
 
       const result = await init(
         { outputPath: invalidPath, fileName: "config.yaml", skipIfExists: false },
@@ -1471,13 +1530,21 @@ targetAudienceTypes:
             fileName: "config.yaml",
             checkOnly: true,
           },
-          { prompts: {} }, // Options not needed for checkOnly
+          { prompts: {}, context: { userContext: {} } }, // Options not needed for checkOnly
         );
 
         // Should return loaded config
         expect(result).toBeDefined();
         expect(result.projectName).toBe("Test Project");
         expect(result.locale).toBe("en");
+        // Verify translates is converted from translateLanguages
+        if (result.translateLanguages && result.translateLanguages.length > 0) {
+          expect(result.translates).toEqual(
+            result.translateLanguages.map((lang) => ({ language: lang })),
+          );
+        } else {
+          expect(result.translates).toEqual([]);
+        }
       } finally {
         await cleanupTempDir(tempDir);
       }
@@ -1509,7 +1576,7 @@ targetAudienceTypes:
                 fileName: "config.yaml",
                 checkOnly: true,
               },
-              { prompts: {} },
+              { prompts: {}, context: {} },
             ),
           ).rejects.toThrow("process.exit called");
 
@@ -1544,7 +1611,12 @@ targetAudienceTypes:
           search: "",
         });
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           {
@@ -1600,7 +1672,12 @@ targetAudienceTypes:
           },
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },
@@ -1645,7 +1722,12 @@ targetAudienceTypes:
           },
         };
 
-        const options = { prompts: mockPrompts };
+        const options = {
+          prompts: mockPrompts,
+          context: {
+            userContext: {},
+          },
+        };
 
         const result = await init(
           { outputPath: tempDir, fileName: "config.yaml", skipIfExists: false },

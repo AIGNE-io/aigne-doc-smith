@@ -361,7 +361,7 @@ describe("transformDetailDataSource utility", () => {
     const options = {
       context: {
         userContext: {
-          httpFileList: [{ sourceId: remoteUrl, content: '{ "name": "remote" }' }],
+          remoteFileList: [{ sourceId: remoteUrl, content: '{ "name": "remote" }' }],
         },
       },
     };

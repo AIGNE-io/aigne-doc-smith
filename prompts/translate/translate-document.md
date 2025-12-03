@@ -24,6 +24,8 @@ Translation Requirements:
 - Translate Descriptions Only in <x-field>: All `<x-field>` component attributes must maintain the original format. Only translate the description content within `data-desc` attribute or `<x-field-desc>` elements.
 
 {% include "./code-block.md" %}
+
+{% include "./admonition.md" %}
 </translation_rules>
 
 {% if feedback %}

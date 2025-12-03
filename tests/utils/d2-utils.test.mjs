@@ -8,11 +8,14 @@ import Debug from "debug";
 
 import { DOC_SMITH_DIR, TMP_ASSETS_DIR, TMP_DIR } from "../../utils/constants/index.mjs";
 import {
+  DIAGRAM_PLACEHOLDER,
   beforePublishHook,
   checkContent,
   ensureTmpDir,
   getChart,
   isValidCode,
+  replaceD2WithPlaceholder,
+  replacePlaceholderWithD2,
   saveAssets,
   wrapCode,
 } from "../../utils/d2-utils.mjs";
@@ -432,6 +435,61 @@ E -> F
       const content = "A -> B";
       const expected = "```d2\nA -> B\n```";
       expect(wrapCode({ content })).toBe(expected);
+    });
+  });
+
+  describe("replaceD2WithPlaceholder", () => {
+    test("should replace D2 code block with placeholder", () => {
+      const content = "# Title\n\n```d2\nA -> B\n```\n\nSome text";
+      const [result, codeBlock] = replaceD2WithPlaceholder({ content });
+      expect(result).toBe(`# Title\n\n${DIAGRAM_PLACEHOLDER}\n\nSome text`);
+      expect(codeBlock).toBe("```d2\nA -> B\n```");
+    });
+
+    test("should return original content when no D2 block exists", () => {
+      const content = "# Title\n\nNo diagrams here";
+      const [result, codeBlock] = replaceD2WithPlaceholder({ content });
+      expect(result).toBe(content);
+      expect(codeBlock).toBe("");
+    });
+
+    test("should only replace first D2 block", () => {
+      const content = "```d2\nA -> B\n```\n\n```d2\nC -> D\n```";
+      const [result, codeBlock] = replaceD2WithPlaceholder({ content });
+      expect(result).toBe(`${DIAGRAM_PLACEHOLDER}\n\n\`\`\`d2\nC -> D\n\`\`\``);
+      expect(codeBlock).toBe("```d2\nA -> B\n```");
+    });
+  });
+
+  describe("replacePlaceholderWithD2", () => {
+    test("should replace placeholder with D2 code block", () => {
+      const content = `# Title\n\n${DIAGRAM_PLACEHOLDER}\n\nSome text`;
+      const result = replacePlaceholderWithD2({ content, diagramSourceCode: "A -> B" });
+      expect(result).toBe("# Title\n\n```d2\nA -> B\n```\n\nSome text");
+    });
+
+    test("should return original content when no placeholder exists", () => {
+      const content = "# Title\n\nNo placeholder here";
+      const result = replacePlaceholderWithD2({ content, diagramSourceCode: "A -> B" });
+      expect(result).toBe(content);
+    });
+
+    test("should return original content when diagramSourceCode is empty", () => {
+      const content = `# Title\n\n${DIAGRAM_PLACEHOLDER}`;
+      const result = replacePlaceholderWithD2({ content, diagramSourceCode: "" });
+      expect(result).toBe(content);
+    });
+
+    test("should add newline before code block if missing", () => {
+      const content = `# Title${DIAGRAM_PLACEHOLDER}\n\nSome text`;
+      const result = replacePlaceholderWithD2({ content, diagramSourceCode: "A -> B" });
+      expect(result).toContain("# Title\n```d2");
+    });
+
+    test("should add newline after code block if missing", () => {
+      const content = `# Title\n\n${DIAGRAM_PLACEHOLDER}Some text`;
+      const result = replacePlaceholderWithD2({ content, diagramSourceCode: "A -> B" });
+      expect(result).toContain("```\nSome text");
     });
   });
 });

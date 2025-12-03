@@ -15,4 +15,5 @@
 * [Configuration](/configuration.md)
   * [Initial Setup](/configuration-initial-setup.md)
   * [Manage Preferences](/configuration-managing-preferences.md)
+  * [Troubleshooting](/configuration-troubleshooting.md)
 * [Release Notes](/release-notes.md)

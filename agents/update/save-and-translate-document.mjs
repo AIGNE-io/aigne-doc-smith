@@ -61,7 +61,6 @@ export default async function saveAndTranslateDocument(input, options) {
         await options.context.invoke(translateAgent, {
           ...input, // context is required
           content: doc.content,
-          translates: doc.translates,
           title: doc.title,
           path: doc.path,
           docsDir,

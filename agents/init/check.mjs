@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import { getMainLanguageFiles } from "../../utils/docs-finder-utils.mjs";
 
-export default async function checkNeedGenerate({ docsDir, locale, documentExecutionStructure }) {
-  const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale, documentExecutionStructure);
+export default async function checkNeedGenerate({ docsDir, locale, documentStructure }) {
+  const mainLanguageFiles = await getMainLanguageFiles(docsDir, locale, documentStructure);
 
   if (mainLanguageFiles.length === 0) {
     console.log(

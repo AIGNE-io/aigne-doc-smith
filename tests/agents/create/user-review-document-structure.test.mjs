@@ -47,11 +47,12 @@ describe("user-review-document-structure", () => {
           updateDocumentStructure: {},
           checkFeedbackRefiner: {},
         },
-        invoke: mock(async () => ({
-          documentStructure: documentStructure,
-        })),
+        invoke: mock(async () => {
+          mockOptions.context.userContext.currentStructure = documentStructure;
+          return { message: "updated" };
+        }),
         userContext: {
-          currentStructure: [],
+          currentStructure: [...documentStructure],
         },
       },
     };
@@ -97,7 +98,10 @@ describe("user-review-document-structure", () => {
   test("should return original structure when user chooses not to review", async () => {
     mockOptions.prompts.select.mockImplementation(async () => "no");
 
-    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+    const result = await userReviewDocumentStructure(
+      { documentStructure, dataSources: [{ dataSourceChunk: "chunk" }] },
+      mockOptions,
+    );
 
     expect(result).toBeDefined();
     expect(result.documentStructure).toEqual(documentStructure);
@@ -109,7 +113,10 @@ describe("user-review-document-structure", () => {
     mockOptions.prompts.select.mockImplementation(async () => "yes");
     mockOptions.prompts.input.mockImplementation(async () => ""); // Empty feedback to exit loop
 
-    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+    const result = await userReviewDocumentStructure(
+      { documentStructure, dataSources: [{ dataSourceChunk: "chunk" }] },
+      mockOptions,
+    );
 
     expect(result).toBeDefined();
     expect(result.documentStructure).toEqual(documentStructure);
@@ -145,7 +152,10 @@ describe("user-review-document-structure", () => {
       };
     });
 
-    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+    const result = await userReviewDocumentStructure(
+      { documentStructure, dataSources: [{ dataSourceChunk: "chunk" }] },
+      mockOptions,
+    );
 
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       mockOptions.context.agents.updateDocumentStructure,
@@ -153,6 +163,7 @@ describe("user-review-document-structure", () => {
         feedback: feedback,
         documentStructure: documentStructure,
         userPreferences: "",
+        dataSourceChunk: "chunk",
       }),
     );
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
@@ -178,7 +189,10 @@ describe("user-review-document-structure", () => {
       .mockImplementationOnce(async () => "Add more examples")
       .mockImplementationOnce(async () => "");
 
-    await userReviewDocumentStructure({ documentStructure }, mockOptions);
+    await userReviewDocumentStructure(
+      { documentStructure, dataSources: [{ dataSourceChunk: "chunk" }] },
+      mockOptions,
+    );
 
     expect(getActiveRulesForScopeSpy).toHaveBeenCalledWith("structure", []);
     expect(getActiveRulesForScopeSpy).toHaveBeenCalledWith("global", []);
@@ -186,6 +200,7 @@ describe("user-review-document-structure", () => {
       mockOptions.context.agents.updateDocumentStructure,
       expect.objectContaining({
         userPreferences: expectedPreferences,
+        dataSourceChunk: "chunk",
       }),
     );
   });
@@ -195,7 +210,10 @@ describe("user-review-document-structure", () => {
     mockOptions.prompts.select.mockImplementation(async () => "yes");
     mockOptions.prompts.input.mockImplementation(async () => "Some feedback");
 
-    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+    const result = await userReviewDocumentStructure(
+      { documentStructure, dataSources: [{ dataSourceChunk: "chunk" }] },
+      mockOptions,
+    );
 
     expect(result.documentStructure).toEqual(documentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
@@ -213,7 +231,10 @@ describe("user-review-document-structure", () => {
       throw new Error("Agent failed");
     });
 
-    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+    const result = await userReviewDocumentStructure(
+      { documentStructure, dataSources: [{ dataSourceChunk: "chunk" }] },
+      mockOptions,
+    );
 
     expect(result.documentStructure).toEqual(documentStructure);
     expect(consoleSpy).toHaveBeenCalledWith(
@@ -271,7 +292,10 @@ describe("user-review-document-structure", () => {
       }
     });
 
-    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+    const result = await userReviewDocumentStructure(
+      { documentStructure, dataSources: [{ dataSourceChunk: "chunk" }] },
+      mockOptions,
+    );
 
     expect(mockOptions.context.invoke).toHaveBeenCalledTimes(4); // 2 refine + 2 feedback refiner calls
     expect(result.documentStructure).toEqual(finalRefinedStructure);
@@ -286,7 +310,10 @@ describe("user-review-document-structure", () => {
       .mockImplementationOnce(async () => feedback)
       .mockImplementationOnce(async () => "");
 
-    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+    const result = await userReviewDocumentStructure(
+      { documentStructure, dataSources: [{ dataSourceChunk: "chunk" }] },
+      mockOptions,
+    );
 
     expect(result.documentStructure).toEqual(documentStructure);
     expect(mockOptions.context.invoke).toHaveBeenCalledTimes(1); // Only refineDocumentStructure called
@@ -307,13 +334,55 @@ describe("user-review-document-structure", () => {
         throw new Error("Refiner failed");
       }); // checkFeedbackRefiner
 
-    const result = await userReviewDocumentStructure({ documentStructure }, mockOptions);
+    const result = await userReviewDocumentStructure(
+      { documentStructure, dataSources: [{ dataSourceChunk: "chunk" }] },
+      mockOptions,
+    );
 
     expect(result.documentStructure).toEqual(documentStructure);
+    expect(warnSpy).toHaveBeenCalledWith(
+      "Could not save feedback as a user preference:",
+      "Refiner failed",
+    );
     expect(warnSpy).toHaveBeenCalledWith(
       "Your feedback was applied but not saved as a preference.",
     );
 
     warnSpy.mockRestore();
+  });
+
+  test("should log error in chat mode when structure is unchanged", async () => {
+    const feedback = "No changes";
+    mockOptions.prompts.select.mockImplementation(async () => "yes");
+    mockOptions.prompts.input
+      .mockImplementationOnce(async () => feedback)
+      .mockImplementationOnce(async () => "");
+
+    mockOptions.context.invoke.mockImplementation(async () => {
+      // simulate refine agent returning same structure
+      mockOptions.context.userContext.currentStructure = documentStructure;
+      return { message: "No-op" };
+    });
+
+    const errorSpy = spyOn(console, "error").mockImplementation(() => {});
+
+    const result = await userReviewDocumentStructure(
+      {
+        documentStructure,
+        dataSources: [{ dataSourceChunk: "chunk" }],
+        isChat: true,
+        feedback,
+      },
+      mockOptions,
+    );
+
+    expect(result.documentStructure).toEqual(documentStructure);
+    expect(mockOptions.context.invoke).toHaveBeenCalledTimes(1);
+    expect(errorSpy).toHaveBeenCalledWith("Error processing your feedback:");
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining("did not modify the existing documentation structure"),
+    );
+
+    errorSpy.mockRestore();
   });
 });

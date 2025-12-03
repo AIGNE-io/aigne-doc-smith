@@ -48,7 +48,14 @@ export default async function init(input, options) {
     options,
   )?.reasoningEffort;
 
-  return config;
+  // for translation agent
+  if (config.translateLanguages) {
+    config.translates = config.translateLanguages.map((lang) => ({ language: lang }));
+  }
+
+  return {
+    ...config,
+  };
 }
 
 async function _init(
@@ -284,7 +291,9 @@ async function _init(
     `  1. Use paths like ${chalk.green("./src")}, ${chalk.green("./README.md")} or ${chalk.green("!./src/private")}.`,
   );
   console.log(
-    `  2. Use globs like ${chalk.green("src/**/*.js")} or ${chalk.green("!private/**/*.js")} for more specific file matching.`,
+    `  2. Use globs like ${chalk.green("src/**/*.js")} or ${chalk.green(
+      "!private/**/*.js",
+    )} for more specific file matching.`,
   );
   console.log(`  3. Use URLs like ${chalk.green("https://example.com/openapi.yaml")}.`);
   console.log("💡 If you leave this empty, we will scan the entire directory.");
@@ -601,7 +610,7 @@ ${modelSection}
 
   // Directory and source path configurations - safely serialize
   const docsDirSection = yamlStringify({ docsDir: config.docsDir }).trim();
-  yaml += `${docsDirSection.replace(/^docsDir:/, "docsDir:")}  # The directory where the generated documentation will be saved.\n`;
+  yaml += `${docsDirSection}  # The directory where the generated documentation will be saved.\n`;
 
   const sourcesPathSection = yamlStringify({ sourcesPath: config.sourcesPath }).trim();
   yaml += `${sourcesPathSection.replace(/^sourcesPath:/, "sourcesPath:  # The source code paths to analyze.")}\n`;

@@ -4,9 +4,12 @@ import updateDocument from "../../../../agents/create/document-structure-tools/u
 describe("update-document", () => {
   let consoleSpy;
   let baseDocumentStructure;
+  let options;
+  const runUpdate = (input) => updateDocument(input, options);
 
   beforeEach(() => {
     consoleSpy = spyOn(console, "log").mockImplementation(() => {});
+    options = { context: { userContext: {} } };
     baseDocumentStructure = [
       {
         title: "Getting Started",
@@ -45,7 +48,7 @@ describe("update-document", () => {
 
   // SUCCESSFUL UPDATE TESTS - TITLE
   test("should update document title successfully", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       title: "Quick Start Guide",
@@ -76,7 +79,7 @@ describe("update-document", () => {
 
   // SUCCESSFUL UPDATE TESTS - DESCRIPTION
   test("should update document description successfully", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api",
       description: "Comprehensive API documentation with examples",
@@ -95,7 +98,7 @@ describe("update-document", () => {
   // SUCCESSFUL UPDATE TESTS - SOURCE IDS
   test("should update document sourceIds successfully", async () => {
     const newSourceIds = ["new-auth.js", "updated-security.md", "examples.js"];
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api/auth",
       sourceIds: newSourceIds,
@@ -111,7 +114,7 @@ describe("update-document", () => {
 
   test("should create a copy of sourceIds array", async () => {
     const originalSourceIds = ["source1.js", "source2.md"];
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       sourceIds: originalSourceIds,
@@ -128,7 +131,7 @@ describe("update-document", () => {
 
   // SUCCESSFUL UPDATE TESTS - MULTIPLE FIELDS
   test("should update multiple fields simultaneously", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api/rate-limiting",
       title: "Advanced Rate Limiting",
@@ -156,7 +159,7 @@ describe("update-document", () => {
   });
 
   test("should update only specified fields, leaving others unchanged", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api/auth",
       title: "Advanced Authentication",
@@ -173,7 +176,7 @@ describe("update-document", () => {
 
   // VALIDATION ERROR TESTS
   test("should return error when path is missing", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       title: "New Title",
     });
@@ -185,7 +188,7 @@ describe("update-document", () => {
   });
 
   test("should return error when path is empty string", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "",
       title: "New Title",
@@ -196,7 +199,7 @@ describe("update-document", () => {
   });
 
   test("should return error when no update fields are provided", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
     });
@@ -208,7 +211,7 @@ describe("update-document", () => {
   });
 
   test("should return error when all update fields are undefined", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       title: undefined,
@@ -223,7 +226,7 @@ describe("update-document", () => {
   });
 
   test("should return error when document does not exist", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/nonexistent-document",
       title: "New Title",
@@ -237,7 +240,7 @@ describe("update-document", () => {
 
   // SOURCE IDS VALIDATION TESTS
   test("should return error when sourceIds is not an array", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       sourceIds: "not-an-array",
@@ -250,7 +253,7 @@ describe("update-document", () => {
   });
 
   test("should return error when sourceIds is empty array", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       sourceIds: [],
@@ -263,7 +266,7 @@ describe("update-document", () => {
   });
 
   test("should return error when sourceIds is null", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       sourceIds: null,
@@ -280,7 +283,7 @@ describe("update-document", () => {
 
   // EDGE CASES
   test("should return error when updating with empty strings (falsy values)", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       title: "",
@@ -308,7 +311,7 @@ describe("update-document", () => {
       },
     ];
 
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: nestedStructure,
       path: "/api/auth/oauth",
       title: "OAuth 2.0 Implementation",
@@ -320,7 +323,7 @@ describe("update-document", () => {
   });
 
   test("should handle empty documentation structure", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: [],
       path: "/any-path",
       title: "New Title",
@@ -343,7 +346,7 @@ describe("update-document", () => {
       },
     ];
 
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: singleDocStructure,
       path: "/only",
       title: "Updated Only Document",
@@ -366,7 +369,7 @@ describe("update-document", () => {
       },
     ];
 
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: specialStructure,
       path: "/api/special-chars_and.numbers123",
       title: "Updated Special Document",
@@ -380,7 +383,7 @@ describe("update-document", () => {
   test("should not modify original documentation structure", async () => {
     const originalStructure = [...baseDocumentStructure];
 
-    await updateDocument({
+    await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       title: "Updated Title",
@@ -390,7 +393,7 @@ describe("update-document", () => {
   });
 
   test("should update only the specified document", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api/auth",
       title: "Updated Authentication",
@@ -410,7 +413,7 @@ describe("update-document", () => {
   });
 
   test("should preserve document order in array", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api",
       description: "Updated API documentation",
@@ -430,7 +433,7 @@ describe("update-document", () => {
   });
 
   test("should preserve parentId and path when updating other fields", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api/auth",
       title: "New Authentication Title",
@@ -446,7 +449,7 @@ describe("update-document", () => {
 
   // RETURN VALUE TESTS
   test("should return complete original and updated document information", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api/rate-limiting",
       title: "Enhanced Rate Limiting",
@@ -485,7 +488,7 @@ describe("update-document", () => {
       "examples/example2.js",
     ];
 
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       sourceIds: multipleSourceIds,
@@ -498,7 +501,7 @@ describe("update-document", () => {
 
   // PARTIAL UPDATE TESTS
   test("should handle partial updates with mixed defined/undefined values", async () => {
-    const result = await updateDocument({
+    const result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       title: "New Title",
@@ -517,7 +520,7 @@ describe("update-document", () => {
 
   test("should correctly identify when any update field is provided", async () => {
     // Test with only title
-    let result = await updateDocument({
+    let result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/getting-started",
       title: "Only Title Updated",
@@ -527,7 +530,7 @@ describe("update-document", () => {
 
     // Test with only description
     consoleSpy.mockClear();
-    result = await updateDocument({
+    result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api",
       description: "Only Description Updated",
@@ -537,7 +540,7 @@ describe("update-document", () => {
 
     // Test with only sourceIds
     consoleSpy.mockClear();
-    result = await updateDocument({
+    result = await runUpdate({
       documentStructure: baseDocumentStructure,
       path: "/api/auth",
       sourceIds: ["only-sources-updated.js"],

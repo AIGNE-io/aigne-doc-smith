@@ -18,26 +18,26 @@ descriptions:
   9871bff567cc5f1b73e99b84c03781bffc7f531635b9bd40f23a2aee5f9885e5:
     path: ../assets/screenshots/doc-update.png
     description: This image is a screenshot depicting a user interface for updating
-      document content. It showcases a main text editing area, likely with
-      rich text formatting capabilities, accompanied by buttons for actions such
-      as saving, previewing, or publishing changes. The layout suggests a
-      content management system or a wiki-style editing environment.
+      document content. It showcases a main text editing area, likely with rich
+      text formatting capabilities, accompanied by buttons for actions such as
+      saving, previewing, or publishing changes. The layout suggests a content
+      management system or a wiki-style editing environment.
     generatedAt: 2025-10-13T10:16:56.301Z
   31353781ba6d1572359823faa399af9f5deca7b994f24939cb5f5143fcc96b14:
     path: ../assets/screenshots/doc-translate-langs.png
     description: This screenshot depicts a user interface element focused on
-      language selection for document translation. It displays a list or
-      menu of languages, allowing users to choose or configure the target
-      languages for translating document content. The image highlights the
-      functionality for managing multilingual documents.
+      language selection for document translation. It displays a list or menu of
+      languages, allowing users to choose or configure the target languages for
+      translating document content. The image highlights the functionality for
+      managing multilingual documents.
     generatedAt: 2025-10-13T10:16:56.301Z
   a42903e87ae020dcb81991e672b2a2990b94eb0e92d6c1cc87f3bf6223355344:
     path: ../assets/screenshots/doc-publish.png
-    description: This is a screenshot of a "Publish Document" dialog box from a
-      user interface. It presents options for selecting documents to publish
-      and configuring various publication settings, including checkboxes for
-      search indexing and versioning. The dialog features "Cancel" and "Publish"
-      action buttons at the bottom right.
+    description: This is a screenshot of a "Publish Document" dialog box from a user
+      interface. It presents options for selecting documents to publish and
+      configuring various publication settings, including checkboxes for search
+      indexing and versioning. The dialog features "Cancel" and "Publish" action
+      buttons at the bottom right.
     generatedAt: 2025-10-13T10:16:56.301Z
   c055a80de6c1120765757fd3ef91ef05718f77beb7d6dfdac41d8e234361a68a:
     path: ../assets/screenshots/doc-generated-successfully.png
@@ -50,17 +50,17 @@ descriptions:
     generatedAt: 2025-10-13T10:16:56.301Z
   f786c36289e0e5bfea866c9384edc7d44996c42adfad0cb6f613f46e27f0f2be:
     path: ../assets/screenshots/doc-generate.png
-    description: This screenshot displays a "Generate Document" dialog,
-      presenting various options for outputting document files. Users can
-      specify an output path, choose to include example content, overwrite
-      existing files, and generate the document in dark mode, before
-      confirming with "Generate" or "Cancel."
+    description: This screenshot displays a "Generate Document" dialog, presenting
+      various options for outputting document files. Users can specify an output
+      path, choose to include example content, overwrite existing files, and
+      generate the document in dark mode, before confirming with "Generate" or
+      "Cancel."
     generatedAt: 2025-10-13T10:16:56.301Z
   2b41c70c6a61942727984b2d99010cbe7e1d9b4c75686f65af8b5a245e9b800d:
     path: ../assets/screenshots/doc-generate-docs.png
     description: This image is a screenshot illustrating a user interface for a
-      document generation process. It depicts a dialog or panel with
-      various configuration options and controls, likely including output format
+      document generation process. It depicts a dialog or panel with various
+      configuration options and controls, likely including output format
       selections and a prominent "Generate" button to initiate the creation of
       documents.
     generatedAt: 2025-10-13T10:16:56.301Z
@@ -74,11 +74,11 @@ descriptions:
     generatedAt: 2025-10-13T10:16:56.301Z
   13a9073d16762909e189af4e53ceb004abe1c55681d12726fceb262205fbf180:
     path: ../assets/screenshots/doc-generate.png
-    description: This screenshot displays a user interface for generating
-      documents. It features various input fields and controls, likely for
-      configuring options such as output format, target location, and content
-      selection. The image serves to illustrate the steps or settings involved
-      in the document generation process.
+    description: This screenshot displays a user interface for generating documents.
+      It features various input fields and controls, likely for configuring
+      options such as output format, target location, and content selection. The
+      image serves to illustrate the steps or settings involved in the document
+      generation process.
     generatedAt: 2025-10-13T14:07:35.096Z
   90c0daa8347df01c8154b6a5b30879b691c4a94b49c970b0480435591603bf55:
     path: ../assets/screenshots/doc-complete-setup.png
@@ -91,28 +91,47 @@ descriptions:
   061eb4104702c643f0d75a4d6c3754b244899b8c34603db90c04541ddffc90b8:
     path: ../assets/screenshots/doc-evaluate.png
     description: This screenshot displays an "Overview" dashboard for document
-      quality, showing an overall "Document Quality Score" of 82.3/100 with
-      a "Gold" integrity level. It presents scores for Accuracy, Readability,
-      and Structure, alongside sections detailing "Issues Requiring Attention"
-      and "Outstanding Highlights" of the documents.
+      quality, showing an overall "Document Quality Score" of 82.3/100 with a
+      "Gold" integrity level. It presents scores for Accuracy, Readability, and
+      Structure, alongside sections detailing "Issues Requiring Attention" and
+      "Outstanding Highlights" of the documents.
     generatedAt: 2025-11-11T15:44:05.107Z
   fbe77223e6e440d03902aa3bec5f274fac4c93a12292344d3161516feedd7e61:
     path: ../assets/screenshots/doc-generate-feedback.png
     description: This screenshot depicts a command-line interface (CLI) showing a
       hierarchical "Current Document Structure" with various topics and
       sub-topics. Below the structure, the CLI prompts the user to refine the
-      documents, offering examples for improvements such as renaming
-      sections, adding new documents, or reordering existing ones, indicating an
+      documents, offering examples for improvements such as renaming sections,
+      adding new documents, or reordering existing ones, indicating an
       interactive tool for document management.
     generatedAt: 2025-11-11T15:44:05.108Z
   a9e1c9e2d0d32ae92505b1ce64b9d5b25cedbedaf46bf6fbe3d78c3708bc0460:
     path: ../assets/screenshots/doc-complete-setup.png
     description: This screenshot displays a terminal interface showing the
       successful completion of the AIGNE DocSmith document setup wizard. It
-      features a series of nine questions regarding document preferences,
-      such as target audience, detail level, and data sources, each marked with
-      a green checkmark indicating successful input. The image concludes with a
+      features a series of nine questions regarding document preferences, such
+      as target audience, detail level, and data sources, each marked with a
+      green checkmark indicating successful input. The image concludes with a
       "Setup complete!" message confirming the configuration has been saved and
       instructions to generate documents.
     generatedAt: 2025-11-11T16:03:30.971Z
-lastUpdated: 2025-11-11T16:03:30.977Z
+  9792f99c6b2f0f4402fb45dde9a108a369654c68f14eaf57b1fd72a7ffedbd6e:
+    path: ../../../assets/screenshots/doc-observe-dashboard.png
+    description: This screenshot displays an observability dashboard, focusing on a
+      "Trace Timeline" that visualizes the execution flow of a process with
+      several functions like `publish`, `loadSources`, and
+      `ensureDocumentIcons`. The right panel details the selected
+      `ensureDocumentIcons` function, showing its ID, timing, and a JSON input
+      payload containing project configuration, documentation parameters, and
+      linguistic settings. This image demonstrates how to inspect specific
+      function calls and their input within a larger application trace.
+    generatedAt: 2025-11-25T12:32:41.963Z
+  3e2fe3b7648f3bac02876e8d05188fd1f81d91218d15b6f345a5a15b72fe67f1:
+    path: ../../../assets/screenshots/doc-aigne-observe.png
+    description: This screenshot depicts a terminal window showing the execution of
+      the `aigne observe` command. The output details the observability database
+      path and confirms that an observability server is running on
+      `http://localhost:7892`. This image is useful for documenting how to start
+      the observability server and verifying its successful launch.
+    generatedAt: 2025-11-25T12:32:41.963Z
+lastUpdated: 2025-11-25T12:32:41.964Z

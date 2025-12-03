@@ -12,9 +12,24 @@ describe("chat Agent", () => {
   afterAll(() => {
     delete process.env.AIGNE_OBSERVABILITY_DISABLED;
   });
+
+  const afsOptions = {
+    afs: {
+      availableModules: [
+        { module: "history", create: () => ({ name: "history" }), options: {} },
+        {
+          module: "system-fs",
+          create: (opts) => ({ name: opts?.name || "system-fs" }),
+          options: {},
+        },
+      ],
+    },
+  };
+
   test("should load agent correctly with proper configuration", async () => {
-    const agent = await loadAgent(join(import.meta.dirname, "../../../agents/chat/index.yaml"), {
+    const agent = await loadAgent(join(import.meta.dirname, "../../../agents/chat/index.mjs"), {
       model: loadModel,
+      ...afsOptions,
     });
 
     expect(agent).toBeDefined();
@@ -26,8 +41,9 @@ describe("chat Agent", () => {
   });
 
   test("should have instructions loaded correctly", async () => {
-    const agent = await loadAgent(join(import.meta.dirname, "../../../agents/chat/index.yaml"), {
+    const agent = await loadAgent(join(import.meta.dirname, "../../../agents/chat/index.mjs"), {
       model: loadModel,
+      ...afsOptions,
     });
 
     expect(agent).toBeDefined();

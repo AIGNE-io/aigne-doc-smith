@@ -293,7 +293,7 @@ describe("conflict-detector", () => {
   });
 
   describe("processConfigFields integration", () => {
-    test("should integrate conflict resolution into config processing", () => {
+    test("should integrate conflict resolution into config processing", async () => {
       const config = {
         documentPurpose: ["getStarted", "findAnswers"],
         targetAudienceTypes: ["endUsers", "developers"],
@@ -301,7 +301,7 @@ describe("conflict-detector", () => {
         documentationDepth: "balancedCoverage",
       };
 
-      const result = processConfigFields(config);
+      const result = await processConfigFields(config);
 
       // Should detect conflicts
       expect(result.detectedConflicts).toBeDefined();
@@ -319,14 +319,14 @@ describe("conflict-detector", () => {
       expect(result.rules).toContain("Reader Knowledge Level:");
     });
 
-    test("should work without conflicts", () => {
+    test("should work without conflicts", async () => {
       const config = {
         documentPurpose: ["completeTasks"],
         targetAudienceTypes: ["developers"],
         readerKnowledgeLevel: "domainFamiliar",
       };
 
-      const result = processConfigFields(config);
+      const result = await processConfigFields(config);
 
       // Should not detect conflicts
       expect(result.detectedConflicts).toBeUndefined();
@@ -339,13 +339,13 @@ describe("conflict-detector", () => {
       expect(result.rules).toContain("Target Audience - Developers integrating your product/API:");
     });
 
-    test("should preserve target audience field processing", () => {
+    test("should preserve target audience field processing", async () => {
       const config = {
         targetAudienceTypes: ["developers", "devops"],
         targetAudience: "Existing audience description",
       };
 
-      const result = processConfigFields(config);
+      const result = await processConfigFields(config);
 
       expect(result.targetAudience).toContain("Existing audience description");
       expect(result.targetAudience).toContain("Developers integrating your product/API");

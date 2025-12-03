@@ -10,7 +10,7 @@ XField is structured data field, suitable for displaying API parameters, return 
 - `data-default` (optional): Default value for the field
 - `data-required` (optional): Whether the field is required ("true" or "false")
 - `data-deprecated` (optional): Whether the field is deprecated ("true" or "false")
-- `data-desc` (optional): Simple description of the field (plain text only)
+- `data-desc` (optional): Simple description of the field. Do not use any Markdown syntax (see `<markdown_syntax_rules>` for the full list).
 
 ### Children
 

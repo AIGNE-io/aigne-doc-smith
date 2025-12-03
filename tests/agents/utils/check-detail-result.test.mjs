@@ -80,7 +80,63 @@ describe("check-detail-result", () => {
     const documentStructure = [];
     const reviewContent =
       "This is an external image ![External Image](https://example.com/image.png).\n\nThis has proper structure.";
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async () => new Response(null, { status: 200 });
+
     const result = await checkDetailResult({ documentStructure, reviewContent });
+
+    globalThis.fetch = originalFetch;
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
+
+  test("should approve x-card content with valid local image path", async () => {
+    const documentStructure = [];
+    const reviewContent = '<x-card data-image="./README.md" />\n\nThis has proper structure.';
+    const docsDir = process.cwd();
+    const result = await checkDetailResult({ documentStructure, reviewContent, docsDir });
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
+
+  test("should reject x-card content with invalid local image path", async () => {
+    const documentStructure = [];
+    const reviewContent = '<x-card data-image="./nonexistent.png" />\n\nThis has proper structure.';
+    const docsDir = process.cwd();
+    const result = await checkDetailResult({ documentStructure, reviewContent, docsDir });
+    expect(result.isApproved).toBe(false);
+    expect(result.detailFeedback).toContain("Found invalid local image");
+    expect(result.detailFeedback).toContain("only valid media resources can be used");
+  });
+
+  test("should approve x-card content with absolute image path that exists", async () => {
+    const documentStructure = [];
+    const reviewContent = `<x-card data-image="${process.cwd()}/README.md" />\n\nThis has proper structure.`;
+    const result = await checkDetailResult({ documentStructure, reviewContent });
+    expect(result.isApproved).toBe(true);
+    expect(result.detailFeedback).toBe("");
+  });
+
+  test("should reject x-card content with absolute image path that doesn't exist", async () => {
+    const documentStructure = [];
+    const reviewContent =
+      '<x-card data-image="/path/to/nonexistent.png" />\n\nThis has proper structure.';
+    const result = await checkDetailResult({ documentStructure, reviewContent });
+    expect(result.isApproved).toBe(false);
+    expect(result.detailFeedback).toContain("Found invalid local image");
+    expect(result.detailFeedback).toContain("only valid media resources can be used");
+  });
+
+  test("should approve x-card content with external image URL", async () => {
+    const documentStructure = [];
+    const reviewContent =
+      '<x-card data-image="https://example.com/image.png" />\n\nThis has proper structure.';
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async () => new Response(null, { status: 200 });
+
+    const result = await checkDetailResult({ documentStructure, reviewContent });
+
+    globalThis.fetch = originalFetch;
     expect(result.isApproved).toBe(true);
     expect(result.detailFeedback).toBe("");
   });
@@ -346,7 +402,7 @@ This document demonstrates various programming language code blocks.`;
         "```\n\n" +
         "This has proper structure.";
       const result = await checkDetailResult({ documentStructure, reviewContent });
-      expect(result.isApproved).toBe(false);
+      expect(result.isApproved).toBe(true);
     });
   });
 

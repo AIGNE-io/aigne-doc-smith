@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.9.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta.3...v0.9.7) (2025-11-28)
+
+## [0.9.7-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta.2...v0.9.7-beta.3) (2025-11-28)
+
+
+### Bug Fixes
+
+* ensure x-card data-image is accessible ([#341](https://github.com/AIGNE-io/aigne-doc-smith/issues/341)) ([9209990](https://github.com/AIGNE-io/aigne-doc-smith/commit/92099909d9b1a0d5760a9b9977c940287af1aaec))
+
+## [0.9.7-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta.1...v0.9.7-beta.2) (2025-11-28)
+
+
+### Features
+
+* support secret store for publish config ([#339](https://github.com/AIGNE-io/aigne-doc-smith/issues/339)) ([31bb282](https://github.com/AIGNE-io/aigne-doc-smith/commit/31bb282065707ad718d68d65722a9ced70047c91))
+
+## [0.9.7-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta...v0.9.7-beta.1) (2025-11-27)
+
+
+### Bug Fixes
+
+* **ci:** ensure pipeline fails on test failures ([#328](https://github.com/AIGNE-io/aigne-doc-smith/issues/328)) ([56fb4d5](https://github.com/AIGNE-io/aigne-doc-smith/commit/56fb4d5259a21a6cf76f67c6ac5a43a7c1403b99))
+* supports admonition syntax ([#338](https://github.com/AIGNE-io/aigne-doc-smith/issues/338)) ([db19661](https://github.com/AIGNE-io/aigne-doc-smith/commit/db19661e1c2d654181d932e0834e7e011a3ad8a5))
+
+## [0.9.7-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6...v0.9.7-beta) (2025-11-25)
+
+
+### Bug Fixes
+
+* documentExecutionStructure might be an object ([#332](https://github.com/AIGNE-io/aigne-doc-smith/issues/332)) ([337b350](https://github.com/AIGNE-io/aigne-doc-smith/commit/337b350d5fa045edb7b2db84f0892151aa8518ab))
+* update default exclusion patterns, keeping only the necessary items ([#334](https://github.com/AIGNE-io/aigne-doc-smith/issues/334)) ([f1431cf](https://github.com/AIGNE-io/aigne-doc-smith/commit/f1431cf3d600c77c05c8e346712f79aa689ffe27))
+
 ## [0.9.6](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6-beta.2...v0.9.6) (2025-11-21)
 
 ## [0.9.6-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.6-beta.1...v0.9.6-beta.2) (2025-11-20)

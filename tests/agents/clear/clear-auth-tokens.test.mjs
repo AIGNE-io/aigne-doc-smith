@@ -1,13 +1,10 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
-import * as fs from "node:fs";
-import * as fsPromises from "node:fs/promises";
 import clearAuthTokens from "../../../agents/clear/clear-auth-tokens.mjs";
+import * as storeModule from "../../../utils/store/index.mjs";
 
 describe("clear-auth-tokens", () => {
   let mockOptions;
-  let existsSyncSpy;
-  let readFileSpy;
-  let writeFileSpy;
+  let createStoreSpy;
 
   beforeEach(() => {
     mockOptions = {
@@ -15,11 +12,13 @@ describe("clear-auth-tokens", () => {
         checkbox: mock(async () => ["example.com"]),
       },
     };
-
-    // Mock file system operations
-    existsSyncSpy = spyOn(fs, "existsSync");
-    readFileSpy = spyOn(fsPromises, "readFile");
-    writeFileSpy = spyOn(fsPromises, "writeFile");
+    // Mock store by default to return empty list
+    const defaultStore = {
+      listMap: mock(() => Promise.resolve({})),
+      deleteItem: mock(() => Promise.resolve()),
+      clear: mock(() => Promise.resolve()),
+    };
+    createStoreSpy = spyOn(storeModule, "createStore").mockResolvedValue(defaultStore);
 
     // Clear mock call history
     mockOptions.prompts.checkbox.mockClear();
@@ -27,14 +26,12 @@ describe("clear-auth-tokens", () => {
 
   afterEach(() => {
     // Restore all mocks
-    existsSyncSpy.mockRestore();
-    readFileSpy.mockRestore();
-    writeFileSpy.mockRestore();
+    createStoreSpy.mockRestore();
   });
 
   test("should accept empty input", async () => {
-    // Mock file doesn't exist
-    existsSyncSpy.mockReturnValue(false);
+    // Store empty => no sites
+    createStoreSpy.mockResolvedValueOnce({ listMap: mock(() => Promise.resolve({})) });
 
     const result = await clearAuthTokens({}, {});
     expect(result).toBeDefined();
@@ -44,10 +41,13 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle missing prompts gracefully", async () => {
-    // Mock file exists with some data
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue('example.com:\n  token: "test-token"');
-    writeFileSpy.mockResolvedValue();
+    // Mock store has one site
+    const store = {
+      listMap: mock(() => Promise.resolve({ "example.com": { token: "test-token" } })),
+      deleteItem: mock(() => Promise.resolve()),
+      clear: mock(() => Promise.resolve()),
+    };
+    createStoreSpy.mockResolvedValueOnce(store);
 
     const result = await clearAuthTokens({}, {});
     expect(result).toBeDefined();
@@ -57,8 +57,8 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle empty options", async () => {
-    // Mock file doesn't exist
-    existsSyncSpy.mockReturnValue(false);
+    // Store empty
+    createStoreSpy.mockResolvedValueOnce({ listMap: mock(() => Promise.resolve({})) });
 
     const result = await clearAuthTokens({});
     expect(result).toBeDefined();
@@ -67,12 +67,13 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should return consistent result structure", async () => {
-    // Mock file exists with multiple sites
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue(
-      'example.com:\n  token: "test-token"\ntest.com:\n  token: "test-token2"',
-    );
-    writeFileSpy.mockResolvedValue();
+    // Mock store with multiple sites
+    const store = {
+      listMap: mock(() => Promise.resolve({ example: {}, test: {} })),
+      deleteItem: mock(() => Promise.resolve()),
+      clear: mock(() => Promise.resolve()),
+    };
+    createStoreSpy.mockResolvedValueOnce(store);
 
     const result = await clearAuthTokens({}, mockOptions);
     expect(result).toBeDefined();
@@ -92,10 +93,13 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle prompts correctly when file exists (integration test)", async () => {
-    // Mock file exists with data
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue('example.com:\n  token: "test-token"');
-    writeFileSpy.mockResolvedValue();
+    // Mock store with one site
+    const store = {
+      listMap: mock(() => Promise.resolve({ "example.com": { token: "test-token" } })),
+      deleteItem: mock(() => Promise.resolve()),
+      clear: mock(() => Promise.resolve()),
+    };
+    createStoreSpy.mockResolvedValueOnce(store);
 
     const result = await clearAuthTokens({}, mockOptions);
 
@@ -109,8 +113,8 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should provide meaningful error messages", async () => {
-    // Mock file doesn't exist
-    existsSyncSpy.mockReturnValue(false);
+    // Store empty
+    createStoreSpy.mockResolvedValueOnce({ listMap: mock(() => Promise.resolve({})) });
 
     const result = await clearAuthTokens({}, {});
 
@@ -122,8 +126,7 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle undefined input parameters", async () => {
-    // Mock file doesn't exist
-    existsSyncSpy.mockReturnValue(false);
+    createStoreSpy.mockResolvedValueOnce({ listMap: mock(() => Promise.resolve({})) });
 
     const result = await clearAuthTokens(undefined, undefined);
     expect(result).toBeDefined();
@@ -132,8 +135,7 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle null input parameters", async () => {
-    // Mock file doesn't exist
-    existsSyncSpy.mockReturnValue(false);
+    createStoreSpy.mockResolvedValueOnce({ listMap: mock(() => Promise.resolve({})) });
 
     const result = await clearAuthTokens(null, null);
     expect(result).toBeDefined();
@@ -142,8 +144,8 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle various option configurations", async () => {
-    // Mock file doesn't exist for all configurations
-    existsSyncSpy.mockReturnValue(false);
+    // Store empty for all configurations
+    createStoreSpy.mockResolvedValue({ listMap: mock(() => Promise.resolve({})) });
 
     const configs = [
       {},
@@ -161,8 +163,8 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should maintain consistent behavior across calls", async () => {
-    // Mock file doesn't exist for both calls
-    existsSyncSpy.mockReturnValue(false);
+    // Store empty for both calls
+    createStoreSpy.mockResolvedValue({ listMap: mock(() => Promise.resolve({})) });
 
     const result1 = await clearAuthTokens({}, {});
     const result2 = await clearAuthTokens({}, {});
@@ -175,10 +177,13 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle prompt validation function", async () => {
-    // Mock file exists with data to trigger prompts
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue('example.com:\n  token: "test-token"');
-    writeFileSpy.mockResolvedValue();
+    // Mock store has data to trigger prompts
+    const store = {
+      listMap: mock(() => Promise.resolve({ "example.com": { token: "test-token" } })),
+      deleteItem: mock(() => Promise.resolve()),
+      clear: mock(() => Promise.resolve()),
+    };
+    createStoreSpy.mockResolvedValueOnce(store);
 
     // Test that if prompts are called, they have proper validation
     try {
@@ -203,9 +208,10 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle file read errors gracefully", async () => {
-    // Mock file exists but reading fails
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockRejectedValue(new Error("Permission denied"));
+    // Simulate listMap throwing
+    createStoreSpy.mockResolvedValueOnce({
+      listMap: mock(() => Promise.reject(new Error("Permission denied"))),
+    });
 
     const result = await clearAuthTokens({}, {});
     expect(result).toBeDefined();
@@ -215,10 +221,13 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle file write errors gracefully", async () => {
-    // Mock file exists, reading succeeds, but writing fails
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue('example.com:\n  token: "test-token"');
-    writeFileSpy.mockRejectedValue(new Error("Disk full"));
+    // Simulate store.clear failing when clearing all sites
+    const store = {
+      listMap: mock(() => Promise.resolve({ "example.com": { token: "test-token" } })),
+      deleteItem: mock(() => Promise.resolve()),
+      clear: mock(() => Promise.reject(new Error("Disk full"))),
+    };
+    createStoreSpy.mockResolvedValueOnce(store);
 
     const result = await clearAuthTokens({}, {});
     expect(result).toBeDefined();
@@ -228,9 +237,8 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle empty file content", async () => {
-    // Mock file exists but is empty
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue("");
+    // Store has no entries
+    createStoreSpy.mockResolvedValueOnce({ listMap: mock(() => Promise.resolve({})) });
 
     const result = await clearAuthTokens({}, {});
     expect(result).toBeDefined();
@@ -239,9 +247,10 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle malformed YAML content", async () => {
-    // Mock file exists with invalid YAML
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue("invalid: yaml: content: [");
+    // Simulate listMap throwing a parse error
+    createStoreSpy.mockResolvedValueOnce({
+      listMap: mock(() => Promise.reject(new Error("Invalid data"))),
+    });
 
     const result = await clearAuthTokens({}, {});
     expect(result).toBeDefined();
@@ -251,9 +260,13 @@ describe("clear-auth-tokens", () => {
   });
 
   test("should handle empty selection from prompts", async () => {
-    // Mock file exists with data but user selects nothing
-    existsSyncSpy.mockReturnValue(true);
-    readFileSpy.mockResolvedValue('example.com:\n  token: "test-token"');
+    // Mock store with one site but user selects nothing
+    const store = {
+      listMap: mock(() => Promise.resolve({ "example.com": { token: "test-token" } })),
+      deleteItem: mock(() => Promise.resolve()),
+      clear: mock(() => Promise.resolve()),
+    };
+    createStoreSpy.mockResolvedValueOnce(store);
 
     const emptySelectionOptions = {
       prompts: {

@@ -37,4 +37,3 @@ output_schema:
       description: Merged content of the document with D2 diagram
   required:
     - content
-

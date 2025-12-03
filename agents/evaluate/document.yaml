@@ -3,9 +3,8 @@ description: Evaluates the quality of generated document content, ensuring compl
 instructions:
   url: ../../prompts/evaluate/document.md
 model:
-  model: openai/gpt-5
+  model: gpt-5
   temperature: 1
-# model: anthropic/claude-opus-4-0
 task_render_mode: collapse
 task_title: Evaluate document for '{{ title }}'
 input_schema:

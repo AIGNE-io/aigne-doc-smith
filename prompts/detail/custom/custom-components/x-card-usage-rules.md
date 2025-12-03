@@ -9,6 +9,7 @@ XCard is individual link display card, suitable for displaying individual links 
 - `data-icon` (optional): Icon identifier (e.g., lucide:icon-name or material-symbols:rocket-outline).
   - Icons should prioritize Lucide (lucide:icon-name). If not available in Lucide, use Iconify (collection:icon-name, e.g., material-symbols:rocket-outline).
 - `data-image` (optional): Image URL, can coexist with icon.
+  - Prefer to use image url from `<media_file_list>`.
   - **Requirement**: At least one of `data-icon` or `data-image` must be provided.
   - It's recommended to always provide data-icon.
 - `data-href` (optional): Navigation link for clicking the card or button.
@@ -18,7 +19,7 @@ XCard is individual link display card, suitable for displaying individual links 
 ### Children
 
 - Must be written within `<x-card>...</x-card>` children.
-- **Plain Text Only**: All markdown formatting is prohibited, including inline formats like `code`, **bold**, _italic_, [links](), and block-level formats like headers (# ##), lists (- \*), code blocks (```), tables (|), and any other markdown syntax. Only plain text content is allowed.
+- Plain Text Only: Do not use any Markdown syntax (see `<markdown_syntax_rules>` for the full list).
 
 ### Good Examples
 

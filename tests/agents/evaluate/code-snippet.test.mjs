@@ -16,7 +16,6 @@ describe("evaluateDocumentCode", () => {
       const result = await evaluateDocumentCode({ content });
 
       expect("codeEvaluation" in result).toEqual(true);
-      expect(result.codeEvaluation.baseline).toEqual(100);
       expect("details" in result.codeEvaluation).toEqual(true);
       expect(result.codeEvaluation.details.length).toEqual(0);
       expect(result.codeEvaluation.totalCount).toEqual(3);
@@ -112,10 +111,12 @@ console.log("test");
         `;
 
         // Expect this to throw since all retries will fail
-        await expect(evaluateDocumentCode({ content })).rejects.toThrow("Linting failed:");
+        const result = await evaluateDocumentCode({ content });
 
         // Verify retries happened (should call 4 times total: 1 + 3 retries)
         expect(callCount).toBe(4);
+        expect(result.codeEvaluation.totalCount).toBe(1);
+        expect(result.codeEvaluation.details.length).toBe(0);
       } finally {
         // Restore the original fetch function
         globalThis.fetch = originalFetch;

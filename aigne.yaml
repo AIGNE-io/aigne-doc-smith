@@ -1,13 +1,12 @@
 #!/usr/bin/env aigne
 
 model:
-  # model: aignehub/gpt-5
-  # model: aignehub/claude-sonnet-4-0
-  model: google/gemini-2.5-pro # reasoning_effort 128-32768
+  # model: gemini-3-pro-preview
+  model: gemini-2.5-pro
+  temperature: 0.8
   # https://github.com/AIGNE-io/aigne-framework/blob/main/models/gemini/src/gemini-chat-model.ts#L115
   reasoning_effort:
     $get: reasoningEffort
-  temperature: 0.8
 agents:
   - ./_exp_/index.yaml
 
@@ -70,7 +69,6 @@ agents:
   - ./agents/clear/clear-media-description.mjs
 
   # Utilities
-  - ./agents/utils/add-translates-to-structure.mjs
   - ./agents/utils/load-sources.mjs
   - ./agents/utils/post-generate.mjs
   - ./agents/utils/save-sidebar.mjs

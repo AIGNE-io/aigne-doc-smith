@@ -1,6 +1,6 @@
 {
   "name": "@aigne/doc-smith",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "AI-driven documentation generation tool built on the AIGNE Framework",
   "publishConfig": {
     "access": "public"
@@ -19,10 +19,12 @@
   ],
   "main": "index.js",
   "scripts": {
-    "test": "bun test",
-    "test:coverage2": "bun test --coverage",
-    "test:coverage": "bun test --coverage --coverage-reporter=lcov --coverage-reporter=text",
-    "test:watch": "bun test --watch",
+    "test": "bun test --preload ./tests/setup/mock-process-exit.mjs",
+    "test:coverage2": "bun test --preload ./tests/setup/mock-process-exit.mjs --coverage",
+    "test:coverage": "bun test --preload ./tests/setup/mock-process-exit.mjs --coverage --coverage-reporter=lcov --coverage-reporter=text",
+    "test:deploy": "bun test --preload ./tests/setup/mock-process-exit.mjs tests/utils/deploy.test.mjs --coverage --coverage-reporter=text",
+    "test:user-review": "bun test --preload ./tests/setup/mock-process-exit.mjs tests/agents/update/user-review-document.test.mjs --coverage --coverage-reporter=lcov --coverage-reporter=text",
+    "test:watch": "bun test --preload ./tests/setup/mock-process-exit.mjs --watch",
     "lint": "biome lint && biome format",
     "update:deps": "npx -y taze major -r -w -f -n '/@abtnode|@aigne|@arcblock|@blocklet|@did-connect|@did-pay|@did-space|@nft-store|@nft-studio|@ocap/' && pnpm install && pnpm run deduplicate",
     "deduplicate": "pnpm dedupe",
@@ -34,10 +36,11 @@
   "author": "Arcblock <blocklet@arcblock.io> https://github.com/blocklet",
   "license": "Elastic-2.0",
   "dependencies": {
-    "@aigne/cli": "^1.54.1",
-    "@aigne/core": "^1.67.0",
-    "@aigne/publish-docs": "^0.13.1",
-    "@blocklet/payment-broker-client": "^1.22.12",
+    "@aigne/cli": "^1.56.0",
+    "@aigne/core": "^1.69.0",
+    "@aigne/publish-docs": "^0.14.1",
+    "@aigne/secrets": "^0.1.1-beta.3",
+    "@blocklet/payment-broker-client": "^1.22.24",
     "@terrastruct/d2": "^0.1.33",
     "chalk": "^5.5.0",
     "debug": "^4.4.1",

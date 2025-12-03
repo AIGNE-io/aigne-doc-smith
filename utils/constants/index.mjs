@@ -1,5 +1,5 @@
 // Default file patterns for inclusion and exclusion
-export const DEFAULT_INCLUDE_PATTERNS = [
+export const DEFAULT_INCLUDE_PATTERNS = Object.freeze([
   // Python
   "*.py",
   "*.pyi",
@@ -100,42 +100,29 @@ export const DEFAULT_INCLUDE_PATTERNS = [
   "*.mkv",
   "*.webm",
   "*.m4v",
-];
+]);
 
-export const DEFAULT_EXCLUDE_PATTERNS = [
-  "**/aigne-docs/**",
+export const DEFAULT_EXCLUDE_PATTERNS = Object.freeze([
   "**/doc-smith/**",
   "**/.aigne/**",
-  "**/data/**",
-  "**/public/**",
-  "**/static/**",
   "**/vendor/**",
   "**/temp/**",
-  "**/*docs/**",
-  "**/*doc/**",
   "**/*venv/**",
   "*.venv/**",
-  "*test*",
-  "**/*test/**",
-  "**/*tests/**",
-  "**/*examples/**",
-  "**/playgrounds/**",
-  "v1/**",
   "**/dist/**",
   "**/*build/**",
   "**/*experimental/**",
   "**/*deprecated/**",
-  "**/*misc/**",
-  "**/*legacy/**",
+  "**/misc/**",
+  "**/legacy/**",
   ".git/**",
   ".github/**",
   ".next/**",
   ".vscode/**",
-  "**/*obj/**",
-  "**/*bin/**",
+  "**/obj/**",
+  "**/bin/**",
   "**/*node_modules/**",
   "*.log",
-  "**/*test.*",
   "**/pnpm-lock.yaml",
   "**/yarn.lock",
   "**/package-lock.json",
@@ -143,7 +130,7 @@ export const DEFAULT_EXCLUDE_PATTERNS = [
   "**/bun.lockb",
   "**/bun.lock",
   "**/bun.lockb",
-];
+]);
 
 // Supported languages for documentation
 export const SUPPORTED_LANGUAGES = [
