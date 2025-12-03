@@ -496,7 +496,7 @@ replaceD2WithImage.input_schema = {
     aspectRatio: {
       type: "string",
       description: "The aspect ratio of the diagram (for marking the image)",
-      enum: ["4:3", "16:9"],
+      enum: ["1:1", "3:4", "4:3", "16:9"],
     },
     diagramIndex: {
       type: "number",

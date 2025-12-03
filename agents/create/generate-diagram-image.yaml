@@ -1,10 +1,18 @@
 type: image
-name: generateDiagramImage4_3
+name: generateDiagramImage
 image_model:
-  model: gemini-3-pro-image-preview
+  model: google/gemini-3-pro-image-preview
+  #  The cues that come with thought patterns are actually not obvious
+  # thinkingConfig: 
+  #   includeThoughts: true      
+  # responseModalities: 
+  #   - 'TEXT'
+  #   - 'IMAGE'
   imageConfig:
-    aspectRatio: "4:3"
-    imageSize: "1K"
+    imageSize:
+      $get: size
+    aspectRatio:
+      $get: ratio
 
 instructions:
   - role: system
@@ -30,8 +38,22 @@ input_schema:
       type: string
       description: Language for diagram labels
       default: en
+    size:
+      type: string
+      description: Size of the generated image (e.g., "1K", "2K")
+      default: "1K"
+    ratio:
+      type: string
+      description: Aspect ratio of the generated image (must match content flow direction)
+      enum: ["1:1", "3:4", "4:3", "16:9"]
+    aspectRatio:
+      type: string
+      description: Aspect ratio of the generated image (alias for ratio, used in prompt templates)
+      enum: ["1:1", "3:4", "4:3", "16:9"]
   required:
     - documentContent
     - diagramType
     - diagramStyle
+    - ratio
 include_input_in_output: true
+

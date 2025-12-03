@@ -108,9 +108,8 @@ agents:
   - ./agents/create/merge-diagram.yaml
   - ./agents/create/analyze-diagram-type.mjs
   - ./agents/create/analyze-diagram-type-llm.yaml
-  - ./agents/create/generate-diagram-image-by-aspect-ratio.mjs
-  - ./agents/create/generate-diagram-image-16-9.yaml
-  - ./agents/create/generate-diagram-image-4-3.yaml
+  - ./agents/create/generate-diagram-image.yaml
+  - ./agents/create/transform-for-image-generation.mjs
   - ./agents/create/replace-d2-with-image.mjs
   - ./agents/update/generate-diagram.yaml
   - ./agents/update/check-generate-diagram.mjs

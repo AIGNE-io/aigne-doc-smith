@@ -44,9 +44,14 @@ instructions: |
      - The content's tone and purpose
      - The target audience (if inferable from content)
      - User feedback preferences (if provided)
-  4. Determine the optimal aspect ratio:
-     - flowchart, guide: 4:3
-     - architecture, sequence, network, intro: 16:9
+  4. Determine the optimal aspect ratio by analyzing the content structure:
+     - Analyze the primary flow direction (horizontal, vertical, or radial)
+     - Choose based on flow direction:
+       - Vertical flow (top-to-bottom) → 4:3 or 3:4 (portrait)
+       - Horizontal flow (left-to-right) → 16:9 (landscape)
+       - Radial flow (center-outward) → 1:1 (square)
+     - The aspect ratio MUST match the flow direction
+     - Default to 4:3 for vertical content or 16:9 for horizontal content when uncertain
   5. Provide clear reasoning for your decisions
 
   Output your analysis in the following JSON format:
@@ -96,8 +101,8 @@ output_schema:
       description: The selected diagram style
     aspectRatio:
       type: string
-      description: The optimal aspect ratio for this diagram type
-      enum: ["4:3", "16:9"]
+      description: The optimal aspect ratio for this diagram type based on content structure analysis (must match flow direction)
+      enum: ["1:1", "3:4", "4:3", "16:9"]
     reasoning:
       type: string
       description: Explanation of the decision

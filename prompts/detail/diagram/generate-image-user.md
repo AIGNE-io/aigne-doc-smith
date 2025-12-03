@@ -1,10 +1,45 @@
-**[Content Requirement - Full Document Content]**
-Create a diagram based on the following document content. Analyze the content to understand what should be drawn:
+**[Task & Requirements - Read First]**
 
-{{ documentContent }}
+**Your Task:**
+Create a professional diagram image based on document content. You will receive the full document content below. Your job is to:
+1. Analyze the document content to extract key concepts, processes, relationships, or flow steps
+2. Create a visual diagram that accurately represents this content
+3. Follow all the requirements and constraints specified below
 
-Generate the diagram image in the following language:
-{{ locale }}
+**Generate the diagram image in the following language:** {{ locale }}
+
+**Diagram Type:** {{ diagramType }}
+**Visual Style:** {{ diagramStyle }}
+**Aspect Ratio:** {{ aspectRatio }}
+
+**[Image Dimensions & Space Utilization - CRITICAL MATCHING RULES]**
+
+**⚠️ CRITICAL WARNING:** The aspect ratio MUST match your layout direction:
+- **Portrait (3:4, 4:3)** = Vertical flow (top-to-bottom) ONLY
+- **Landscape (16:9)** = Horizontal flow (left-to-right) ONLY
+- **Square (1:1)** = Radial flow (center-outward) ONLY
+
+**NEVER mismatch:** Do NOT draw horizontal flows in portrait ratios or vertical flows in landscape ratios.
+
+{% if aspectRatio == "1:1" %}
+- **Image Size:** ~1024×1024 pixels (1:1 SQUARE)
+- **Flow:** RADIAL ONLY - Use radial/circular layouts from center outward
+- **Fill:** Use BOTH width and height equally - fill the entire square canvas
+{% elif aspectRatio == "3:4" %}
+- **Image Size:** ~768×1024 pixels (3:4 PORTRAIT - TALL)
+- **Flow:** VERTICAL ONLY - Use top-to-bottom layouts
+- **Fill:** Use full HEIGHT - distribute nodes vertically, avoid empty top/bottom space
+{% elif aspectRatio == "4:3" %}
+- **Image Size:** ~1365×1024 pixels (4:3 PORTRAIT)
+- **Flow:** VERTICAL ONLY - Use top-to-bottom layouts
+- **Fill:** Use full HEIGHT - distribute nodes vertically, avoid empty top/bottom space
+{% elif aspectRatio == "16:9" %}
+- **Image Size:** ~1820×1024 pixels (16:9 WIDESCREEN)
+- **Flow:** HORIZONTAL ONLY - Use left-to-right layouts
+- **Fill:** Use full WIDTH - distribute nodes horizontally, avoid empty left/right space
+{% endif %}
+
+- **CRITICAL:** Match your layout direction to the aspect ratio. Fill the primary dimension (height for portrait, width for landscape, both for square).
 
 **Instructions for diagram generation:**
 - Analyze the document content to extract ALL key concepts, processes, relationships, or flow steps
@@ -40,5 +75,23 @@ Generate the diagram image in the following language:
 {% endif %}
 - Keep node labels concise (2-5 words maximum, preferably 2-3 words) but allow text wrapping if needed for clarity
 - Focus on clarity and readability while ensuring the complete process is represented
-{% if aspectRatio == "4:3" %}- If text is longer, allow it to wrap naturally - 4:3 aspect ratio provides more vertical space for accommodating more nodes{% endif %}
+{% if aspectRatio in ["3:4", "4:3"] %}
+- **CRITICAL - Vertical Flow Only:** Portrait ratios ({{ aspectRatio }}) are for VERTICAL flows ONLY. Arrange nodes top-to-bottom. Use the full HEIGHT - avoid leaving empty space at top or bottom. If you have a horizontal flowchart, you MUST arrange it vertically or merge steps to fit the vertical format.
+{% endif %}
+{% if aspectRatio == "16:9" %}
+- **CRITICAL - Horizontal Flow Only:** Landscape ratio ({{ aspectRatio }}) is for HORIZONTAL flows ONLY. Arrange nodes left-to-right. Use the full WIDTH - avoid leaving empty space on left or right sides. If you have a vertical flowchart, you MUST arrange it horizontally or merge steps to fit the horizontal format.
+{% endif %}
+{% if aspectRatio == "1:1" %}
+- **CRITICAL - Radial Flow Only:** Square format ({{ aspectRatio }}) is for RADIAL flows ONLY. Use radial/circular layouts from center outward. Fill BOTH dimensions equally - avoid linear horizontal or vertical flows.
+{% endif %}
+
+---
+
+**[Document Content - Analyze This]**
+
+Now analyze the following document content to understand what should be drawn:
+
+{{ documentContent }}
+
+**Remember:** Apply all the requirements and rules specified above when creating the diagram based on this content.
 

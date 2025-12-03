@@ -71,19 +71,44 @@ instructions: |
   2.  **Style Selection**:
       - {% if feedbackPreferences.style %}Prioritize the user's requested style: **{{ feedbackPreferences.style }}**.{% else %}Choose a style that fits the audience (e.g., 'modern' for technical docs, 'hand-drawn' for tutorials).{% endif %}
 
-  3.  **Aspect Ratio Recommendation (Prioritize Content Fit Over Default)**:
-      - **4:3**: PREFERRED for step-by-step guides, tutorials, vertical flowcharts, and content that needs more vertical space. Use this when:
-        - Content has multiple steps that may not fit well in a single horizontal row
-        - Text labels are longer and need more space
+  3.  **Aspect Ratio Recommendation (CRITICAL - Analyze Content Structure)**:
+      Analyze the document content structure and visual flow to determine the BEST aspect ratio. Consider:
+      - **Content Flow Direction**: Does the content flow horizontally (left-to-right), vertically (top-to-bottom), or radially (center-out)?
+      - **Node/Element Count**: How many elements need to be displayed? More elements may need wider or taller formats.
+      - **Text Length**: Are labels long and need wrapping space, or short and concise?
+      - **Visual Hierarchy**: Is it a single central concept with branches, or a linear sequence?
+      
+      Available Aspect Ratios for Documentation (Limited Set):
+      **IMPORTANT:** Only these ratios are suitable for documentation. Choose based on content flow direction:
+      
+      - **1:1** (Square): ONLY for radial layouts, mind maps, single central concept with surrounding elements, circular flows, or balanced compositions. DO NOT use for linear flows (horizontal or vertical).
+      - **3:4** (Portrait): For tall vertical hierarchies, step-by-step guides with many vertical steps. Use when content flows primarily top-to-bottom.
+      - **4:3** (Portrait): PREFERRED for step-by-step guides, tutorials, vertical flowcharts, and content that flows vertically. Use when:
+        - Content has multiple steps that flow vertically (top-to-bottom)
+        - Text labels are longer and need wrapping space
         - Vertical flow is more natural for the content
-        - Guide or tutorial-style content (even if it flows horizontally, 4:3 gives more room for text)
-      - **16:9**: Use ONLY for wide content that truly benefits from horizontal space:
-        - Long timelines with many steps that fit naturally in one row
+        - Guide or tutorial-style content
+      - **16:9** (Widescreen): Use ONLY for content that flows horizontally (left-to-right):
+        - Long timelines with many steps in one row
         - Complex sequence diagrams with multiple actors
         - Architecture diagrams showing wide system layouts
-      - **1:1**: For radial maps, simple cycles, single icons, or compact grids.
-      - **3:4**: For tall, vertical hierarchies or mobile-focused step-by-step guides.
-      - **CRITICAL:** When in doubt between 16:9 and 4:3, choose 4:3 - it provides more flexibility for text content and prevents overcrowding.
+        - Horizontal flows with many elements
+      
+      **CRITICAL Decision Process:**
+      1. **FIRST:** Determine the PRIMARY flow direction by analyzing the content:
+         - Does it describe a sequence of steps that happen one after another? → Vertical flow
+         - Does it describe interactions across multiple actors/components? → Horizontal flow
+         - Does it describe a central concept with related concepts around it? → Radial flow
+      2. **THEN:** Choose the aspect ratio that MATCHES the flow direction:
+         - **Vertical flow (top-to-bottom)** → MUST use **4:3** or **3:4** (portrait ratios)
+         - **Horizontal flow (left-to-right)** → MUST use **16:9** (landscape ratio)
+         - **Radial/Circular flow (center-outward)** → MUST use **1:1** (square)
+      3. **CRITICAL MATCHING RULE:** The aspect ratio MUST match the flow direction. Never use:
+         - 1:1 for horizontal or vertical linear flows
+         - 16:9 for vertical flows
+         - 4:3 or 3:4 for horizontal flows
+      4. When in doubt between 3:4 and 4:3 for vertical content, prefer **4:3** as it provides more flexibility
+      5. When in doubt for horizontal content, use **16:9**
 
   4.  **Reasoning**: Explain your choices for Type, Style, and Aspect Ratio in **{{ locale }}**.
 
@@ -91,7 +116,7 @@ instructions: |
   {
     "diagramType": "one of the available types",
     "diagramStyle": "one of the available styles",
-    "aspectRatio": "16:9" or "4:3" or "1:1" or "3:4",
+    "aspectRatio": "1:1" (for radial), "3:4" or "4:3" (for vertical), or "16:9" (for horizontal),
     "reasoning": "Explanation in {{ locale }}"
   }
   
@@ -154,8 +179,8 @@ output_schema:
       description: The selected diagram style
     aspectRatio:
       type: string
-      description: Recommended aspect ratio for the image
-      enum: ["16:9", "4:3", "1:1", "3:4"]
+      description: Recommended aspect ratio for the image based on content structure analysis. MUST match the primary flow direction (vertical→portrait, horizontal→landscape, radial→square)
+      enum: ["1:1", "3:4", "4:3", "16:9"]
     reasoning:
       type: string
       description: Explanation of the decision

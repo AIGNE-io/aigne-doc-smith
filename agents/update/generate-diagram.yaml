@@ -4,9 +4,12 @@ name: generateDiagram
 skills:
   # Step 1: Analyze document content to determine diagram type and style
   - ../create/analyze-diagram-type.mjs
-  # Step 2: Generate diagram image based on type and style (routes to 16:9 or 4:3 agent)
-  - ../create/generate-diagram-image-by-aspect-ratio.mjs
-  # Step 3: Replace placeholder with generated image
+  # Step 2: Transform output for image generation agent
+  - ../create/transform-for-image-generation.mjs
+  # Step 3: Generate diagram image directly with unified agent
+  - type: agent
+    url: ../create/generate-diagram-image.yaml
+  # Step 4: Replace placeholder with generated image
   - ../create/replace-d2-with-image.mjs
 input_schema:
   type: object

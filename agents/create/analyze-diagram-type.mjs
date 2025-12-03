@@ -208,18 +208,17 @@ export default async function analyzeDiagramType(
     negativePromptExclusions += ", hand-drawn, sketch";
   }
 
-  // Step 7: Determine aspect ratio based on diagram type or LLM result
-  // Priority: LLM result > type-based default
-  // Default to 4:3 for better text content fit (changed from 16:9)
-  let aspectRatio = "4:3";
-  if (llmResult?.aspectRatio) {
-    aspectRatio = llmResult.aspectRatio;
-  } else if (diagramType === "flowchart" || diagramType === "guide") {
-    // Flowcharts and guides benefit from 4:3 for better vertical space
+  // Step 7: Determine aspect ratio from LLM result
+  // The LLM analyzes the content structure and recommends the best aspect ratio
+  // We trust the LLM's judgment as it has analyzed the actual content
+  // If LLM doesn't provide aspectRatio (shouldn't happen, but fallback for safety), use 4:3 as safe default
+  let aspectRatio = llmResult?.aspectRatio || "4:3";
+  
+  // Validate that the aspectRatio is one of the supported values
+  const supportedRatios = ["1:1", "3:4", "4:3", "16:9"];
+  if (!supportedRatios.includes(aspectRatio)) {
+    console.warn(`Invalid aspectRatio "${aspectRatio}" from LLM, falling back to "4:3"`);
     aspectRatio = "4:3";
-  } else if (diagramType === "architecture" || diagramType === "sequence" || diagramType === "network") {
-    // These types may benefit from wider 16:9 format
-    aspectRatio = "16:9";
   }
 
   // Step 8: Return document content for image generation
@@ -433,8 +432,8 @@ analyzeDiagramType.output_schema = {
     },
     aspectRatio: {
       type: "string",
-      description: "Aspect ratio for the diagram (4:3 or 16:9)",
-      enum: ["4:3", "16:9"],
+      description: "Aspect ratio for the diagram (must match content flow direction)",
+      enum: ["1:1", "3:4", "4:3", "16:9"],
     },
     documentContent: {
       type: "string",
