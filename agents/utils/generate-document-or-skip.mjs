@@ -5,7 +5,8 @@
 export default async function generateDocumentOrSkip(input, options) {
   const { intentType, content, skipGenerateDocument } = input;
 
-  const isDiagramIntent = intentType && ["addDiagram", "updateDiagram", "deleteDiagram"].includes(intentType);
+  const isDiagramIntent =
+    intentType && ["addDiagram", "updateDiagram", "deleteDiagram"].includes(intentType);
   const shouldSkip = Boolean(skipGenerateDocument || (isDiagramIntent && content));
 
   if (shouldSkip) {

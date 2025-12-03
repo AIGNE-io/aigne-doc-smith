@@ -142,7 +142,7 @@ export default async function replaceD2WithImage({
   // If docsDir is provided, use it; otherwise fallback to .tmp/assets/diagram for backward compatibility
   let assetDir;
   let relativePathPrefix;
-  
+
   if (docsDir) {
     // New approach: save to assets/diagram relative to docsDir (can be committed to git)
     assetDir = path.join(process.cwd(), docsDir, "assets", "diagram");
@@ -153,7 +153,7 @@ export default async function replaceD2WithImage({
     assetDir = path.join(process.cwd(), DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "diagram");
     relativePathPrefix = path.posix.join("..", TMP_DIR, TMP_ASSETS_DIR, "diagram");
   }
-  
+
   await fs.ensureDir(assetDir);
 
   // Get file extension from source path
@@ -178,7 +178,7 @@ export default async function replaceD2WithImage({
   // Find all diagram locations to determine the target index
   const diagramLocations = findAllDiagramLocations(contentForFindingDiagrams);
   let targetIndex = targetDiagramIndex !== undefined ? targetDiagramIndex : 0;
-  
+
   if (targetIndex < 0 || targetIndex >= diagramLocations.length) {
     // If index is out of range, use the next available index (for new diagrams)
     targetIndex = diagramLocations.length;
@@ -191,11 +191,14 @@ export default async function replaceD2WithImage({
   // - Different documents = different filenames
   // - Different positions in same document = different filenames
   let fileName;
-  
+
   if (docPath) {
     // Extract document name from path (e.g., "guides/getting-started.md" -> "getting-started")
     const pathWithoutExt = docPath.replace(/\.(md|markdown)$/i, "");
-    const documentName = path.basename(pathWithoutExt).toLowerCase().replace(/[^a-z0-9-]/g, "-");
+    const documentName = path
+      .basename(pathWithoutExt)
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, "-");
     fileName = `${documentName}-diagram-${targetIndex}${ext}`;
   } else {
     // Fallback: use hash-based naming if path is not provided
@@ -543,7 +546,8 @@ replaceD2WithImage.input_schema = {
     },
     path: {
       type: "string",
-      description: "Document path (e.g., 'guides/getting-started.md') used for generating image filename",
+      description:
+        "Document path (e.g., 'guides/getting-started.md') used for generating image filename",
     },
     docsDir: {
       type: "string",

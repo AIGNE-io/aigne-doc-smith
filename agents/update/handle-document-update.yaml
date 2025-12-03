@@ -3,11 +3,8 @@ name: handleDocumentUpdate
 description: Update a document in a batch
 skills:
   - ../utils/transform-detail-data-sources.mjs
-  # If intentType is diagram-related, read current content and skip document generation
-  # Otherwise, proceed with document generation
-  - url: ../utils/read-current-document-content.mjs
   # Check if document generation should be skipped (if content already exists)
-  # If content exists, mark skipGenerateDocument so generation can be short-circuited
+  # If intentType is diagram-related and content exists, mark skipGenerateDocument so generation can be short-circuited
   - url: ../utils/skip-if-content-exists.mjs
   # Generate document content (skipped when skipGenerateDocument is true and content exists)
   - type: team

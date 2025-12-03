@@ -1,14 +1,12 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
-import { getFileName } from "../../utils/utils.mjs";
 import { readFileContent } from "../../utils/docs-finder-utils.mjs";
+import { getFileName } from "../../utils/utils.mjs";
 
 /**
  * Read current document content from file system
  * Used when skipping document generation (e.g., for diagram-only updates)
  * Only reads content if intentType is diagram-related, otherwise returns input unchanged
  */
-export default async function readCurrentDocumentContent(input, options) {
+export default async function readCurrentDocumentContent(input) {
   const { path, docsDir, locale = "en", intentType } = input;
 
   // Only read content if intentType is diagram-related
@@ -46,4 +44,3 @@ export default async function readCurrentDocumentContent(input, options) {
 }
 
 readCurrentDocumentContent.task_render_mode = "hide";
-

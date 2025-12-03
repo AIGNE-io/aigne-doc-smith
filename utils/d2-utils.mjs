@@ -24,14 +24,14 @@ export const DIAGRAM_PLACEHOLDER = "DIAGRAM_PLACEHOLDER";
 export async function getChart({ content, strict }) {
   const d2 = new D2();
   const iconUrlList = Object.keys(iconMap);
-  
+
   // Only create regex if iconMap is not empty to avoid "Empty regular expressions are not allowed" error
   let contentWithBase64Img = content;
   if (iconUrlList.length > 0) {
     const escapedUrls = iconUrlList.map((url) => url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
     const regexPattern = escapedUrls.join("|");
     const regex = new RegExp(regexPattern, "g");
-    
+
     contentWithBase64Img = content.replace(regex, (match) => {
       return iconMap[match];
     });

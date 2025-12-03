@@ -6,7 +6,8 @@
 export default async function skipIfContentExists(input) {
   const { intentType, content } = input;
 
-  const isDiagramIntent = intentType && ["addDiagram", "updateDiagram", "deleteDiagram"].includes(intentType);
+  const isDiagramIntent =
+    intentType && ["addDiagram", "updateDiagram", "deleteDiagram"].includes(intentType);
   const shouldSkipGeneration = Boolean(isDiagramIntent && content);
 
   return {

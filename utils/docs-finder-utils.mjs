@@ -114,7 +114,6 @@ export async function findItemByPath(documentStructure, docPath, boardId, docsDi
  * 1. They significantly increase token usage without providing useful information to LLM
  * 2. Normal image references (file paths) are preserved and should be used instead
  * 3. Base64 images are typically temporary or erroneous entries
- * 
  * @param {string} content - Markdown content that may contain base64 images
  * @returns {string} - Content with base64 images completely removed
  */
@@ -141,7 +140,7 @@ export async function readFileContent(docsDir, fileName) {
   try {
     const filePath = join(docsDir, fileName);
     const content = await readFile(filePath, "utf-8");
-    
+
     // Remove base64 encoded images to reduce token usage
     // Base64 image data is not useful for LLM processing and significantly increases token count
     return removeBase64Images(content);

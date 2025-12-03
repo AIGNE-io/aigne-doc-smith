@@ -10,7 +10,7 @@ const docsDir = path.join(process.cwd(), "./.aigne/doc-smith", "docs");
  * 1. They significantly increase token usage without providing useful information to LLM
  * 2. Normal image references (file paths) are preserved and should be used instead
  * 3. Base64 images are typically temporary or erroneous entries
- * 
+ *
  * @param {string} content - Markdown content that may contain base64 images
  * @returns {string} - Content with base64 images completely removed
  */
@@ -42,7 +42,7 @@ export default async function readDocContent({ relevantDocPaths, docsDir: custom
 
       // Read the markdown file
       let content = await fs.readFile(filePath, "utf8");
-      
+
       // Remove base64 encoded images to reduce token usage
       content = removeBase64Images(content);
 

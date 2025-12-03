@@ -17,41 +17,42 @@ export async function extractDiagramImagePaths(content, path, docsDir) {
   }
 
   const imagePaths = [];
-  
+
   // Pattern to match: <!-- DIAGRAM_IMAGE_START:... -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
-  const diagramPattern = /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*!\[[^\]]*\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
-  
+  const diagramPattern =
+    /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*!\[[^\]]*\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
+
   diagramPattern.lastIndex = 0; // Reset regex
   let match = diagramPattern.exec(content);
   while (match !== null) {
     const imagePath = match[1];
-    
+
     // Resolve absolute path
     // If imagePath is relative, resolve from document location
     // If imagePath is absolute or starts with http, skip
     if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
       continue; // Skip remote URLs
     }
-    
+
     // Calculate relative path from document to image
     const docDir = dirname(path);
-    const imageRelativePath = imagePath.startsWith("../") 
-      ? imagePath 
+    const imageRelativePath = imagePath.startsWith("../")
+      ? imagePath
       : join(docDir, imagePath).replace(/\\/g, "/");
-    
+
     // Resolve absolute path
     const absolutePath = join(process.cwd(), docsDir, imageRelativePath);
-    
+
     // Normalize path (remove .. and .)
     const normalizedPath = normalize(absolutePath);
-    
+
     if (await fs.pathExists(normalizedPath)) {
       imagePaths.push(normalizedPath);
     }
-    
+
     match = diagramPattern.exec(content);
   }
-  
+
   return imagePaths;
 }
 
@@ -69,7 +70,7 @@ export async function deleteDiagramImages(content, path, docsDir) {
 
   try {
     const imagePaths = await extractDiagramImagePaths(content, path, docsDir);
-    
+
     if (imagePaths.length === 0) {
       return { deleted: 0, failed: 0 };
     }
@@ -100,4 +101,3 @@ export async function deleteDiagramImages(content, path, docsDir) {
     return { deleted: 0, failed: 0 };
   }
 }
-

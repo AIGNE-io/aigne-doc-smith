@@ -96,7 +96,8 @@ transformForImageGeneration.output_schema = {
     },
     documentSummary: {
       type: "string",
-      description: "A comprehensive summary of the document content for diagram generation (preferred over documentContent if available)",
+      description:
+        "A comprehensive summary of the document content for diagram generation (preferred over documentContent if available)",
     },
     diagramType: {
       type: "string",
@@ -130,4 +131,3 @@ transformForImageGeneration.output_schema = {
   },
   required: ["documentContent", "diagramType", "diagramStyle", "ratio"],
 };
-
