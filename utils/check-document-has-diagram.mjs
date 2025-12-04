@@ -77,3 +77,23 @@ export function formatDiagramTypeSuffix(labels) {
   return ` [${labels.join(", ")}]`;
 }
 
+/**
+ * Check if document content contains banana images (AI-generated images)
+ * Only checks for DIAGRAM_IMAGE_START markers, excludes D2 code blocks and placeholders
+ * @param {string} content - Document content to check
+ * @returns {boolean} - True if document contains banana images
+ */
+export function hasBananaImages(content) {
+  if (!content || typeof content !== "string") {
+    return false;
+  }
+
+  // Check for existing diagram images (DIAGRAM_IMAGE_START markers)
+  const imageMatches = Array.from(content.matchAll(diagramImageRegex));
+  if (imageMatches.length > 0) {
+    return true;
+  }
+
+  return false;
+}
+

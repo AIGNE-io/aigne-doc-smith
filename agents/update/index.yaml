@@ -2,7 +2,7 @@ type: team
 name: update
 alias:
   - up
-description: Update specific documents and their translations. Use --diagram to filter and select documents with diagrams, or --diagram-all to auto-update all diagrams.
+description: Update specific documents and their translations. Use --diagram to filter and select documents with diagrams, --diagram-all to auto-update all diagrams, or --diagram-sync to sync existing images to translations.
 skills:
   - url: ../init/index.mjs
     default_input:
@@ -19,8 +19,8 @@ skills:
           'documentStructure': originalDocumentStructure
         }
       ])
-  # Check if --diagram flag is set
   - url: ../update/check-diagram-flag.mjs
+  - url: ../update/check-sync-image-flag.mjs
   - url: ../utils/choose-docs.mjs
     default_input:
       requiredFeedback: false
@@ -28,6 +28,7 @@ skills:
   - ../utils/ensure-document-icons.mjs
   - ../media/load-media-description.mjs
   - ../utils/analyze-feedback-intent.mjs
+  - ../update/sync-images-and-exit.mjs
   - ../update/check-update-is-single.mjs
   - ../update/save-and-translate-document.mjs
   - url: ../utils/action-success.mjs
@@ -53,6 +54,9 @@ input_schema:
     diagram:
       type: ["boolean", "string"]
       description: "Flag to update diagrams: 'all' for auto-select all, true for user selection (can also use --diagram or --diagram-all CLI args)"
+    "diagram-sync":
+      type: ["boolean", "string"]
+      description: "Flag to sync existing banana images to translations (can also use --diagram-sync CLI arg or DOC_SMITH_SYNC_IMAGES env var)"
 output_schema:
   type: object
   properties:

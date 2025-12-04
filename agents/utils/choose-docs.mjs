@@ -9,6 +9,7 @@ import {
 } from "../../utils/docs-finder-utils.mjs";
 import {
   hasDiagramContent,
+  hasBananaImages,
   getDiagramTypeLabels,
   formatDiagramTypeSuffix,
 } from "../../utils/check-document-has-diagram.mjs";
@@ -36,6 +37,7 @@ export default async function chooseDocs(
     action,
     shouldUpdateDiagrams = false,
     shouldAutoSelectDiagrams = false,
+    shouldSyncImages = false,
   },
   options,
 ) {
@@ -57,10 +59,43 @@ export default async function chooseDocs(
         );
       }
 
+      // If --diagram-sync flag is set, filter documents by banana images only
+      if (shouldSyncImages) {
+        debug("🔄 Filtering documents with banana images...");
+
+        // Read content for all files and filter by banana images only
+        const filesWithImages = [];
+        for (const fileName of mainLanguageFiles) {
+          const content = await readFileContent(docsDir, fileName);
+          if (content && hasBananaImages(content)) {
+            filesWithImages.push(fileName);
+          }
+        }
+
+        if (filesWithImages.length === 0) {
+          debug("ℹ️  No documents found with banana images (DIAGRAM_IMAGE_START markers).");
+          return {
+            selectedDocs: [],
+            feedback: "",
+            selectedPaths: [],
+          };
+        }
+
+        debug(`✅ Found ${filesWithImages.length} document(s) with banana images.`);
+        debug("📋 Auto-selecting all documents with banana images...");
+        // Show diagram types for each document
+        for (const file of filesWithImages) {
+          const content = await readFileContent(docsDir, file);
+          const diagramLabels = content ? getDiagramTypeLabels(content) : [];
+          const diagramSuffix = formatDiagramTypeSuffix(diagramLabels);
+          debug(`   • ${file}${diagramSuffix}`);
+        }
+        selectedFiles = filesWithImages;
+      }
       // If --diagram flag is set, filter documents by diagram content
-      if (shouldUpdateDiagrams) {
+      else if (shouldUpdateDiagrams) {
         debug("🔄 Filtering documents with diagram content...");
-        
+
         // Read content for all files and filter by diagram content
         const filesWithDiagrams = [];
         for (const fileName of mainLanguageFiles) {
@@ -71,7 +106,9 @@ export default async function chooseDocs(
         }
 
         if (filesWithDiagrams.length === 0) {
-          debug("ℹ️  No documents found with diagram content (d2 code blocks, placeholders, or diagram images).");
+          debug(
+            "ℹ️  No documents found with diagram content (d2 code blocks, placeholders, or diagram images).",
+          );
           return {
             selectedDocs: [],
             feedback: "",
@@ -129,7 +166,9 @@ export default async function chooseDocs(
             source: (term) => {
               if (!term) return choices;
 
-              return choices.filter((choice) => choice.name.toLowerCase().includes(term.toLowerCase()));
+              return choices.filter((choice) =>
+                choice.name.toLowerCase().includes(term.toLowerCase()),
+              );
             },
             validate: (answer) => {
               if (answer.length === 0) {
@@ -174,7 +213,9 @@ export default async function chooseDocs(
           source: (term) => {
             if (!term) return choices;
 
-            return choices.filter((choice) => choice.name.toLowerCase().includes(term.toLowerCase()));
+            return choices.filter((choice) =>
+              choice.name.toLowerCase().includes(term.toLowerCase()),
+            );
           },
           validate: (answer) => {
             if (answer.length === 0) {
@@ -216,9 +257,14 @@ export default async function chooseDocs(
   }
 
   // Prompt for feedback if not provided
-  // Skip feedback prompt if --diagram or --diagram-all flag is set (we'll force updateDiagram intent)
+  // Skip feedback prompt if --diagram, --diagram-all, or --diagram-sync flag is set
   let userFeedback = feedback;
-  if (!userFeedback && (requiredFeedback || foundItems?.length > 1) && !shouldUpdateDiagrams) {
+  if (
+    !userFeedback &&
+    (requiredFeedback || foundItems?.length > 1) &&
+    !shouldUpdateDiagrams &&
+    !shouldSyncImages
+  ) {
     const feedbackMessage = getFeedbackMessage(docAction);
 
     userFeedback = await options.prompts.input({
