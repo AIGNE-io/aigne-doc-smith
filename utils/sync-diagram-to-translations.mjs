@@ -55,17 +55,18 @@ async function findTranslationFiles(docPath, docsDir, locale) {
  */
 function extractDiagramImagePaths(content) {
   const images = [];
-  let match;
 
   // Reset regex lastIndex
   diagramImageRegex.lastIndex = 0;
 
-  while ((match = diagramImageRegex.exec(content)) !== null) {
+  let match = diagramImageRegex.exec(content);
+  while (match !== null) {
     images.push({
       path: match[1],
       fullMatch: match[0],
       index: match.index,
     });
+    match = diagramImageRegex.exec(content);
   }
 
   return images;
@@ -74,19 +75,12 @@ function extractDiagramImagePaths(content) {
 /**
  * Replace diagram images in translation files
  * @param {string} mainContent - Main document content (already updated)
- * @param {string} originalMainContent - Original main document content (before update)
  * @param {string} docPath - Document path
  * @param {string} docsDir - Documentation directory
  * @param {string} locale - Main language locale
  * @returns {Promise<{updated: number, skipped: number, errors: Array}>} - Sync result
  */
-export async function syncDiagramToTranslations(
-  mainContent,
-  originalMainContent,
-  docPath,
-  docsDir,
-  locale = "en",
-) {
+export async function syncDiagramToTranslations(mainContent, docPath, docsDir, locale = "en") {
   const result = {
     updated: 0,
     skipped: 0,
@@ -103,7 +97,6 @@ export async function syncDiagramToTranslations(
 
   // Extract diagram images from updated main content
   const mainImages = extractDiagramImagePaths(mainContent);
-  const originalMainImages = extractDiagramImagePaths(originalMainContent);
 
   // If no diagrams in main content, nothing to sync
   if (mainImages.length === 0) {
@@ -112,10 +105,10 @@ export async function syncDiagramToTranslations(
   }
 
   // Process each translation file
-  for (const { language, fileName } of translationFiles) {
+  for (const { fileName } of translationFiles) {
     try {
       const translationFilePath = path.join(docsDir, fileName);
-      let translationContent = await readFileContent(docsDir, fileName);
+      const translationContent = await readFileContent(docsDir, fileName);
 
       if (!translationContent) {
         debug(`⚠️  Could not read translation file: ${fileName}`);
@@ -210,4 +203,3 @@ export async function syncDiagramToTranslations(
 
   return result;
 }
-

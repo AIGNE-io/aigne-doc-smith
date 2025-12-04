@@ -6,7 +6,7 @@ import { debug } from "../../utils/debug.mjs";
 /**
  * Sync images to translations and exit if shouldSyncImages is true
  * Otherwise, passes through input for normal update flow
- * 
+ *
  * This agent combines:
  * - Image synchronization logic
  * - Flow routing (sync vs normal update)
@@ -59,13 +59,7 @@ export default async function syncImagesAndExit(input, options) {
       }
 
       // Sync images to translation documents
-      const syncResult = await syncDiagramToTranslations(
-        mainContent,
-        mainContent,
-        doc.path,
-        docsDir,
-        locale,
-      );
+      const syncResult = await syncDiagramToTranslations(mainContent, doc.path, docsDir, locale);
 
       results.updated += syncResult.updated;
       results.skipped += syncResult.skipped;
@@ -74,7 +68,9 @@ export default async function syncImagesAndExit(input, options) {
       if (syncResult.updated > 0) {
         debug(`✅ Synced images from ${doc.path} to ${syncResult.updated} translation file(s)`);
       } else if (syncResult.skipped > 0) {
-        debug(`⏭️  No changes needed for ${doc.path} (${syncResult.skipped} translation file(s) already in sync)`);
+        debug(
+          `⏭️  No changes needed for ${doc.path} (${syncResult.skipped} translation file(s) already in sync)`,
+        );
       }
     } catch (error) {
       debug(`❌ Error syncing images for ${doc.path}: ${error.message}`);
@@ -150,4 +146,3 @@ syncImagesAndExit.output_schema = {
 };
 
 syncImagesAndExit.task_render_mode = "hide";
-

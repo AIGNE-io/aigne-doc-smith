@@ -96,4 +96,3 @@ export function hasBananaImages(content) {
 
   return false;
 }
-

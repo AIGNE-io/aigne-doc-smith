@@ -1,7 +1,7 @@
 /**
  * Check if --diagram or --diagram-all flag is set via command line arguments or environment variable
  * Returns the flag values and passes through all input
- * 
+ *
  * --diagram: Filter to show only documents with diagrams, let user select
  * --diagram-all: Auto-select all documents with diagrams, no user selection
  */
@@ -11,9 +11,9 @@ export default function checkDiagramFlag(input) {
 
   // Check command line arguments first (highest priority)
   if (process.argv) {
-    const hasDiagramAllFlag = process.argv.some(
-      (arg) => arg === "--diagram-all" || arg === "-da",
-    );
+    // Check for --diagram-all or -da (exact match)
+    const hasDiagramAllFlag = process.argv.some((arg) => arg === "--diagram-all" || arg === "-da");
+
     const hasDiagramFlag = process.argv.some((arg) => arg === "--diagram" || arg === "-d");
 
     if (hasDiagramAllFlag) {
@@ -25,8 +25,8 @@ export default function checkDiagramFlag(input) {
     }
   }
 
-  // Check input parameter
-  if (input.diagram === "all") {
+  // Check input parameter (highest priority - CLI framework might parse --diagram-all as separate parameter)
+  if (input["diagram-all"] === true || input["diagram-all"] === "true") {
     shouldUpdateDiagrams = true;
     shouldAutoSelectDiagrams = true;
   } else if (input.diagram === true || input.diagram === "true") {
@@ -64,7 +64,12 @@ checkDiagramFlag.input_schema = {
     diagram: {
       type: ["boolean", "string"],
       description:
-        "Flag to trigger diagram update: 'all' for auto-select all, true for user selection (can also use --diagram or --diagram-all CLI args)",
+        "Flag to trigger diagram update: true for user selection (can also use --diagram CLI arg)",
+    },
+    "diagram-all": {
+      type: ["boolean", "string"],
+      description:
+        "Flag to auto-select all documents with diagrams (can also use --diagram-all CLI arg)",
     },
   },
 };
@@ -78,9 +83,9 @@ checkDiagramFlag.output_schema = {
     },
     shouldAutoSelectDiagrams: {
       type: "boolean",
-      description: "Whether to auto-select all documents with diagrams (true for --diagram-all, false for --diagram)",
+      description:
+        "Whether to auto-select all documents with diagrams (true for --diagram-all, false for --diagram)",
     },
   },
   required: ["shouldUpdateDiagrams", "shouldAutoSelectDiagrams"],
 };
-

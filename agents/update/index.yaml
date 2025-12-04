@@ -19,7 +19,9 @@ skills:
           'documentStructure': originalDocumentStructure
         }
       ])
+  # Check if --diagram or --diagram-all flag is set
   - url: ../update/check-diagram-flag.mjs
+  # Check if --diagram-sync flag is set
   - url: ../update/check-sync-image-flag.mjs
   - url: ../utils/choose-docs.mjs
     default_input:
@@ -53,7 +55,10 @@ input_schema:
       description: Start fresh - ignore previous versions
     diagram:
       type: ["boolean", "string"]
-      description: "Flag to update diagrams: 'all' for auto-select all, true for user selection (can also use --diagram or --diagram-all CLI args)"
+      description: "Flag to update diagrams: true for user selection (can also use --diagram CLI arg)"
+    "diagram-all":
+      type: ["boolean", "string"]
+      description: "Flag to auto-select all documents with diagrams (can also use --diagram-all CLI arg)"
     "diagram-sync":
       type: ["boolean", "string"]
       description: "Flag to sync existing banana images to translations (can also use --diagram-sync CLI arg or DOC_SMITH_SYNC_IMAGES env var)"

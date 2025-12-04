@@ -55,11 +55,11 @@ export default async function replaceD2WithImage({
   // Extract locale from imageResult if not provided directly
   // imageResult contains all input parameters when include_input_in_output: true
   const locale = inputLocale || imageResult?.locale || "en";
-  
+
   // Extract path and docsDir from imageResult if not provided directly
   const finalDocPath = docPath || imageResult?.path;
   const finalDocsDir = docsDir || imageResult?.docsDir;
-  
+
   // Determine which content to use for finding diagrams and final replacement
   // Priority:
   // 1. documentContent (may contain DIAGRAM_PLACEHOLDER from replaceD2WithPlaceholder)
@@ -356,10 +356,11 @@ export default async function replaceD2WithImage({
   // Only sync if we actually replaced/added a diagram (not just returned original content)
   if (finalContent !== (originalContent || documentContent || content || "")) {
     try {
-      const { syncDiagramToTranslations } = await import("../../utils/sync-diagram-to-translations.mjs");
+      const { syncDiagramToTranslations } = await import(
+        "../../utils/sync-diagram-to-translations.mjs"
+      );
       const syncResult = await syncDiagramToTranslations(
         finalContent,
-        originalContent || documentContent || content || "",
         finalDocPath,
         finalDocsDir,
         locale,
