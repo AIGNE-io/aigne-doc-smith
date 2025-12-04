@@ -9,6 +9,7 @@ export default function checkDiagramFlag(input) {
   let shouldUpdateDiagrams = false;
   let shouldAutoSelectDiagrams = false;
 
+  // Priority order: command line args > input params > environment variables
   // Check command line arguments first (highest priority)
   if (process.argv) {
     // Check for --diagram-all or -da (exact match)
@@ -19,22 +20,46 @@ export default function checkDiagramFlag(input) {
     if (hasDiagramAllFlag) {
       shouldUpdateDiagrams = true;
       shouldAutoSelectDiagrams = true;
+      // Return early if CLI arg found (highest priority)
+      return {
+        ...input,
+        shouldUpdateDiagrams,
+        shouldAutoSelectDiagrams,
+      };
     } else if (hasDiagramFlag) {
       shouldUpdateDiagrams = true;
       shouldAutoSelectDiagrams = false;
+      // Return early if CLI arg found (highest priority)
+      return {
+        ...input,
+        shouldUpdateDiagrams,
+        shouldAutoSelectDiagrams,
+      };
     }
   }
 
-  // Check input parameter (highest priority - CLI framework might parse --diagram-all as separate parameter)
+  // Check input parameter (second priority - CLI framework might parse --diagram-all as separate parameter)
   if (input["diagram-all"] === true || input["diagram-all"] === "true") {
     shouldUpdateDiagrams = true;
     shouldAutoSelectDiagrams = true;
+    // Return early if input param found (second priority)
+    return {
+      ...input,
+      shouldUpdateDiagrams,
+      shouldAutoSelectDiagrams,
+    };
   } else if (input.diagram === true || input.diagram === "true") {
     shouldUpdateDiagrams = true;
     shouldAutoSelectDiagrams = false;
+    // Return early if input param found (second priority)
+    return {
+      ...input,
+      shouldUpdateDiagrams,
+      shouldAutoSelectDiagrams,
+    };
   }
 
-  // Check environment variable
+  // Check environment variable (lowest priority)
   if (
     process.env.DOC_SMITH_UPDATE_DIAGRAMS === "all" ||
     process.env.DOC_SMITH_UPDATE_DIAGRAMS_ALL === "true" ||

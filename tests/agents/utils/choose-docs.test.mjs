@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:
 import chooseDocs from "../../../agents/utils/choose-docs.mjs";
 import * as docsFinderUtils from "../../../utils/docs-finder-utils.mjs";
 import * as debugModule from "../../../utils/debug.mjs";
+import * as checkDiagramModule from "../../../utils/check-document-has-diagram.mjs";
 
 describe("chooseDocs utility", () => {
   let getMainLanguageFilesSpy;
@@ -12,6 +13,11 @@ describe("chooseDocs utility", () => {
   let consoleErrorSpy;
   let consoleWarnSpy;
   let debugSpy;
+  let hasBananaImagesSpy;
+  let hasDiagramContentSpy;
+  let getDiagramTypeLabelsSpy;
+  let formatDiagramTypeSuffixSpy;
+  let readFileContentSpy;
   let mockOptions;
 
   beforeEach(() => {
@@ -44,6 +50,16 @@ describe("chooseDocs utility", () => {
     // Spy on debug function
     debugSpy = spyOn(debugModule, "debug").mockImplementation(() => {});
 
+    // Spy on diagram checking functions
+    hasBananaImagesSpy = spyOn(checkDiagramModule, "hasBananaImages").mockReturnValue(false);
+    hasDiagramContentSpy = spyOn(checkDiagramModule, "hasDiagramContent").mockReturnValue(false);
+    getDiagramTypeLabelsSpy = spyOn(checkDiagramModule, "getDiagramTypeLabels").mockReturnValue([]);
+    formatDiagramTypeSuffixSpy = spyOn(
+      checkDiagramModule,
+      "formatDiagramTypeSuffix",
+    ).mockReturnValue("");
+    readFileContentSpy = spyOn(docsFinderUtils, "readFileContent").mockResolvedValue("");
+
     // Mock options with prompts
     mockOptions = {
       prompts: {
@@ -63,6 +79,11 @@ describe("chooseDocs utility", () => {
     consoleErrorSpy?.mockRestore();
     consoleWarnSpy?.mockRestore();
     debugSpy?.mockRestore();
+    hasBananaImagesSpy?.mockRestore();
+    hasDiagramContentSpy?.mockRestore();
+    getDiagramTypeLabelsSpy?.mockRestore();
+    formatDiagramTypeSuffixSpy?.mockRestore();
+    readFileContentSpy?.mockRestore();
   });
 
   // DOCS PROVIDED TESTS
@@ -434,5 +455,262 @@ describe("chooseDocs utility", () => {
     const result = await chooseDocs(input, mockOptions);
 
     expect(result.selectedPaths).toEqual(specialPaths);
+  });
+
+  // DIAGRAM SYNC FLAG TESTS
+  describe("shouldSyncImages flag", () => {
+    test("should filter documents with banana images when shouldSyncImages is true", async () => {
+      getMainLanguageFilesSpy.mockResolvedValue(["guide.md", "api.md", "tutorial.md"]);
+      readFileContentSpy
+        .mockResolvedValueOnce("content with image") // guide.md
+        .mockResolvedValueOnce("content without") // api.md
+        .mockResolvedValueOnce("content with image"); // tutorial.md
+      hasBananaImagesSpy
+        .mockReturnValueOnce(true) // guide.md
+        .mockReturnValueOnce(false) // api.md
+        .mockReturnValueOnce(true); // tutorial.md
+      getDiagramTypeLabelsSpy.mockReturnValue(["🍌 Image"]);
+      formatDiagramTypeSuffixSpy.mockReturnValue(" [🍌 Image]");
+      processSelectedFilesSpy.mockResolvedValue([
+        { path: "/guide", content: "content", title: "Guide" },
+        { path: "/tutorial", content: "content", title: "Tutorial" },
+      ]);
+
+      const input = {
+        docs: [],
+        documentStructure: [],
+        docsDir: "/project/docs",
+        isTranslate: false,
+        locale: "en",
+        shouldSyncImages: true,
+      };
+
+      const result = await chooseDocs(input, mockOptions);
+
+      expect(readFileContentSpy).toHaveBeenCalledTimes(5); // 3 for filtering + 2 for labels (only for files with images)
+      expect(hasBananaImagesSpy).toHaveBeenCalledTimes(3);
+      expect(result.selectedDocs).toHaveLength(2); // guide.md and tutorial.md
+      expect(debugSpy).toHaveBeenCalledWith("🔄 Filtering documents with banana images...");
+    });
+
+    test("should return empty when no documents have banana images", async () => {
+      getMainLanguageFilesSpy.mockResolvedValue(["guide.md", "api.md"]);
+      hasBananaImagesSpy.mockReturnValue(false);
+
+      const input = {
+        docs: [],
+        documentStructure: [],
+        docsDir: "/project/docs",
+        isTranslate: false,
+        locale: "en",
+        shouldSyncImages: true,
+      };
+
+      const result = await chooseDocs(input, mockOptions);
+
+      expect(result.selectedDocs).toEqual([]);
+      expect(result.feedback).toBe("");
+      expect(result.selectedPaths).toEqual([]);
+      expect(debugSpy).toHaveBeenCalledWith(
+        "ℹ️  No documents found with banana images (DIAGRAM_IMAGE_START markers).",
+      );
+    });
+
+    test("should skip feedback prompt when shouldSyncImages is true", async () => {
+      getMainLanguageFilesSpy.mockResolvedValue(["guide.md"]);
+      hasBananaImagesSpy.mockReturnValue(true);
+      getDiagramTypeLabelsSpy.mockReturnValue(["🍌 Image"]);
+      formatDiagramTypeSuffixSpy.mockReturnValue(" [🍌 Image]");
+
+      const input = {
+        docs: [],
+        documentStructure: [],
+        docsDir: "/project/docs",
+        isTranslate: false,
+        locale: "en",
+        shouldSyncImages: true,
+        requiredFeedback: true,
+      };
+
+      const result = await chooseDocs(input, mockOptions);
+
+      expect(mockOptions.prompts.input).not.toHaveBeenCalled();
+      expect(result.feedback).toBe("");
+    });
+  });
+
+  // DIAGRAM UPDATE FLAG TESTS
+  describe("shouldUpdateDiagrams flag", () => {
+    test("should filter documents with diagram content when shouldUpdateDiagrams is true", async () => {
+      getMainLanguageFilesSpy.mockResolvedValue(["guide.md", "api.md", "tutorial.md"]);
+      readFileContentSpy
+        .mockResolvedValueOnce("content with diagram") // guide.md
+        .mockResolvedValueOnce("content without") // api.md
+        .mockResolvedValueOnce("content with diagram"); // tutorial.md
+      hasDiagramContentSpy
+        .mockReturnValueOnce(true) // guide.md
+        .mockReturnValueOnce(false) // api.md
+        .mockReturnValueOnce(true); // tutorial.md
+      getDiagramTypeLabelsSpy.mockReturnValue(["⛔️ D2"]);
+      formatDiagramTypeSuffixSpy.mockReturnValue(" [⛔️ D2]");
+      processSelectedFilesSpy.mockResolvedValue([
+        { path: "/guide", content: "content", title: "Guide" },
+        { path: "/tutorial", content: "content", title: "Tutorial" },
+      ]);
+
+      const input = {
+        docs: [],
+        documentStructure: [],
+        docsDir: "/project/docs",
+        isTranslate: false,
+        locale: "en",
+        shouldUpdateDiagrams: true,
+        shouldAutoSelectDiagrams: false,
+      };
+
+      mockOptions.prompts.checkbox.mockResolvedValue(["guide.md", "tutorial.md"]);
+
+      const result = await chooseDocs(input, mockOptions);
+
+      expect(readFileContentSpy).toHaveBeenCalled();
+      expect(hasDiagramContentSpy).toHaveBeenCalledTimes(3);
+      expect(mockOptions.prompts.checkbox).toHaveBeenCalled();
+      expect(result.selectedDocs).toBeDefined();
+      expect(debugSpy).toHaveBeenCalledWith("🔄 Filtering documents with diagram content...");
+    });
+
+    test("should auto-select all when shouldAutoSelectDiagrams is true", async () => {
+      getMainLanguageFilesSpy.mockResolvedValue(["guide.md", "api.md"]);
+      readFileContentSpy.mockResolvedValue("content with diagram");
+      hasDiagramContentSpy.mockReturnValue(true);
+      getDiagramTypeLabelsSpy.mockReturnValue(["⛔️ D2", "🍌 Image"]);
+      formatDiagramTypeSuffixSpy.mockReturnValue(" [⛔️ D2, 🍌 Image]");
+      processSelectedFilesSpy.mockResolvedValue([
+        { path: "/guide", content: "content", title: "Guide" },
+        { path: "/api", content: "content", title: "API" },
+      ]);
+
+      const input = {
+        docs: [],
+        documentStructure: [],
+        docsDir: "/project/docs",
+        isTranslate: false,
+        locale: "en",
+        shouldUpdateDiagrams: true,
+        shouldAutoSelectDiagrams: true,
+      };
+
+      const result = await chooseDocs(input, mockOptions);
+
+      expect(result.selectedDocs).toHaveLength(2);
+      expect(mockOptions.prompts.checkbox).not.toHaveBeenCalled();
+      expect(debugSpy).toHaveBeenCalledWith("📋 Auto-selecting all documents with diagrams...");
+    });
+
+    test("should return empty when no documents have diagram content", async () => {
+      getMainLanguageFilesSpy.mockResolvedValue(["guide.md", "api.md"]);
+      hasDiagramContentSpy.mockReturnValue(false);
+
+      const input = {
+        docs: [],
+        documentStructure: [],
+        docsDir: "/project/docs",
+        isTranslate: false,
+        locale: "en",
+        shouldUpdateDiagrams: true,
+      };
+
+      const result = await chooseDocs(input, mockOptions);
+
+      expect(result.selectedDocs).toEqual([]);
+      expect(result.feedback).toBe("");
+      expect(result.selectedPaths).toEqual([]);
+      expect(debugSpy).toHaveBeenCalledWith(
+        "ℹ️  No documents found with diagram content (d2 code blocks, placeholders, or diagram images).",
+      );
+    });
+
+    test("should show diagram type labels in checkbox choices", async () => {
+      getMainLanguageFilesSpy.mockResolvedValue(["guide.md"]);
+      readFileContentSpy.mockResolvedValue("content with diagram");
+      hasDiagramContentSpy.mockReturnValue(true);
+      getDiagramTypeLabelsSpy.mockReturnValue(["⛔️ D2", "🍌 Image"]);
+      formatDiagramTypeSuffixSpy.mockReturnValue(" [⛔️ D2, 🍌 Image]");
+      processSelectedFilesSpy.mockResolvedValue([
+        { path: "/guide", content: "content", title: "Guide" },
+      ]);
+
+      const input = {
+        docs: [],
+        documentStructure: [{ path: "/guide", title: "Guide" }],
+        docsDir: "/project/docs",
+        isTranslate: false,
+        locale: "en",
+        shouldUpdateDiagrams: true,
+        shouldAutoSelectDiagrams: false,
+      };
+
+      mockOptions.prompts.checkbox.mockResolvedValue(["guide.md"]);
+
+      await chooseDocs(input, mockOptions);
+
+      const checkboxCall = mockOptions.prompts.checkbox.mock.calls[0][0];
+      const choices = await checkboxCall.source();
+      expect(choices[0].name).toContain("[⛔️ D2, 🍌 Image]");
+    });
+
+    test("should filter choices by search term", async () => {
+      getMainLanguageFilesSpy.mockResolvedValue(["guide.md", "api-guide.md"]);
+      readFileContentSpy.mockResolvedValue("content with diagram");
+      hasDiagramContentSpy.mockReturnValue(true);
+      getDiagramTypeLabelsSpy.mockReturnValue([]);
+      formatDiagramTypeSuffixSpy.mockReturnValue("");
+      processSelectedFilesSpy.mockResolvedValue([
+        { path: "/guide", content: "content", title: "Guide" },
+      ]);
+
+      const input = {
+        docs: [],
+        documentStructure: [],
+        docsDir: "/project/docs",
+        isTranslate: false,
+        locale: "en",
+        shouldUpdateDiagrams: true,
+        shouldAutoSelectDiagrams: false,
+      };
+
+      mockOptions.prompts.checkbox.mockResolvedValue(["guide.md"]);
+
+      await chooseDocs(input, mockOptions);
+
+      const checkboxCall = mockOptions.prompts.checkbox.mock.calls[0][0];
+      const allChoices = await checkboxCall.source();
+      const filteredChoices = await checkboxCall.source("api");
+      expect(filteredChoices.length).toBeLessThan(allChoices.length);
+      expect(filteredChoices[0].name).toContain("api");
+    });
+
+    test("should skip feedback prompt when shouldUpdateDiagrams is true", async () => {
+      getMainLanguageFilesSpy.mockResolvedValue(["guide.md"]);
+      hasDiagramContentSpy.mockReturnValue(true);
+      getDiagramTypeLabelsSpy.mockReturnValue([]);
+      formatDiagramTypeSuffixSpy.mockReturnValue("");
+
+      const input = {
+        docs: [],
+        documentStructure: [],
+        docsDir: "/project/docs",
+        isTranslate: false,
+        locale: "en",
+        shouldUpdateDiagrams: true,
+        shouldAutoSelectDiagrams: true,
+        requiredFeedback: true,
+      };
+
+      const result = await chooseDocs(input, mockOptions);
+
+      expect(mockOptions.prompts.input).not.toHaveBeenCalled();
+      expect(result.feedback).toBe("");
+    });
   });
 });
