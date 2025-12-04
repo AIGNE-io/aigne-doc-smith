@@ -46,6 +46,9 @@ describe("utils", () => {
   let consoleSpy;
   let processSpies;
   let fetchSpy;
+  let fsPromisesDefaultWriteFileSpy;
+  let fsPromisesDefaultMkdirSpy;
+  let fsPromisesDefaultReadFileSpy;
 
   beforeEach(() => {
     originalEnv = { ...process.env };
@@ -69,9 +72,12 @@ describe("utils", () => {
 
     // Also mock the default import that utils.mjs uses
     // Note: utils.mjs imports fs from "node:fs/promises" as default
-    spyOn(fsPromisesDefault, "writeFile").mockResolvedValue();
-    spyOn(fsPromisesDefault, "mkdir").mockResolvedValue();
-    spyOn(fsPromisesDefault, "readFile").mockResolvedValue("test content");
+    // IMPORTANT: Save references to these spies so they can be restored
+    fsPromisesDefaultWriteFileSpy = spyOn(fsPromisesDefault, "writeFile").mockResolvedValue();
+    fsPromisesDefaultMkdirSpy = spyOn(fsPromisesDefault, "mkdir").mockResolvedValue();
+    fsPromisesDefaultReadFileSpy = spyOn(fsPromisesDefault, "readFile").mockResolvedValue(
+      "test content",
+    );
 
     // Mock console
     consoleSpy = spyOn(console, "warn").mockImplementation(() => {});
@@ -105,6 +111,11 @@ describe("utils", () => {
     mkdirSpy?.mockRestore();
     consoleSpy?.mockRestore();
     fetchSpy?.mockRestore();
+
+    // Restore fsPromisesDefault spies - CRITICAL: these were missing before
+    fsPromisesDefaultWriteFileSpy?.mockRestore();
+    fsPromisesDefaultMkdirSpy?.mockRestore();
+    fsPromisesDefaultReadFileSpy?.mockRestore();
 
     // Restore process spies - important for isolation between test files
     Object.values(processSpies).forEach((spy) => {
