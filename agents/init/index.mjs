@@ -8,7 +8,6 @@ import {
   DEFAULT_THINKING_EFFORT_LEVEL,
   DEPTH_RECOMMENDATION_LOGIC,
   DIAGRAM_STYLES,
-  DIAGRAM_TYPES,
   DOCUMENT_STYLES,
   DOCUMENTATION_DEPTH,
   PURPOSE_TO_KNOWLEDGE_MAPPING,
@@ -630,26 +629,13 @@ ${modelSection}
   yaml += "diagramming:\n";
   yaml += "  effort: 5  # AI effort level for diagramming, 0-10, large is less diagram\n";
   yaml +=
-    "  # Diagram styles: Available visual styles for diagram generation (multiple selection supported)\n";
+    "  # Default diagram style: The primary style to use when no style is specified in feedback\n";
+  yaml += "  # This style will be applied if feedback doesn't specify a different style\n";
   yaml += "  # Available options:\n";
   Object.entries(DIAGRAM_STYLES).forEach(([key, style]) => {
     yaml += `  #   ${key.padEnd(16)} - ${style.name}: ${style.description}\n`;
   });
-  yaml += "  # styles:\n";
-  yaml += "  #   - modern\n";
-  yaml += "  #   - standard\n";
-  yaml += "  # Diagram types: Supported diagram types for intelligent type detection (optional)\n";
-  yaml += "  # Available options:\n";
-  Object.entries(DIAGRAM_TYPES).forEach(([key, type]) => {
-    yaml += `  #   ${key.padEnd(16)} - ${type.name}: ${type.description}\n`;
-  });
-  yaml += "  # types:\n";
-  yaml += "  #   - architecture\n";
-  yaml += "  #   - flowchart\n";
-  yaml += "  #   - guide\n";
-  yaml += "  #   - intro\n";
-  yaml += "  #   - sequence\n";
-  yaml += "  #   - network\n";
+  yaml += '  # style: "modern"\n';
 
   return yaml;
 }

@@ -23,18 +23,11 @@ input_schema:
       default: en
     diagramming:
       type: object
-      description: Diagramming configuration including available styles
+      description: Diagramming configuration
       properties:
-        styles:
-          type: array
-          description: Available diagram styles configured by user
-          items:
-            type: string
-        types:
-          type: array
-          description: Supported diagram types (optional, for reference)
-          items:
-            type: string
+        style:
+          type: string
+          description: Default diagram style to use when no style is specified in feedback
     feedback:
       type: string
       description: User feedback that may contain style or type preferences, or diagram index (e.g., 'use anthropomorphic style', 'update the second diagram')

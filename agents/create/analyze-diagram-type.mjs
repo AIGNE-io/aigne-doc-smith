@@ -1,6 +1,6 @@
-import { DIAGRAM_STYLES, DIAGRAM_TYPES } from "../../utils/constants/index.mjs";
+import { DIAGRAM_STYLES } from "../../utils/constants/index.mjs";
 
-const DEFAULT_DIAGRAM_STYLE = "anthropomorphic";
+const DEFAULT_DIAGRAM_STYLE = "modern";
 const DEFAULT_DIAGRAM_TYPE = "flowchart";
 
 // Type-specific content requirements
@@ -82,19 +82,29 @@ const STYLE_REQUIREMENTS = {
  * Supports extracting style and type preferences from user feedback
  */
 export default async function analyzeDiagramType(
-  { documentContent, availableStyles = [], locale = "en", feedback = "" },
+  {
+    documentContent,
+    availableStyles = [],
+    defaultStyle,
+    diagramming,
+    locale = "en",
+    feedback = "",
+  },
   options,
 ) {
-  // Step 0.5: Extract style and type preferences from user feedback (if provided)
-  const feedbackPreferences = extractPreferencesFromFeedback(feedback || "");
+  // Extract defaultStyle from diagramming object if not provided directly
+  if (!defaultStyle && diagramming?.style) {
+    defaultStyle = diagramming.style;
+  }
 
-  // Step 1: Use LLM to analyze and make final decision
+  // Step 1: Use LLM to analyze and make final decision (LLM will analyze feedback directly)
   const llmAgent = options.context?.agents?.["analyzeDiagramTypeLLM"];
   let llmResult = null;
 
   if (llmAgent) {
     try {
       // Build styleDescriptions object for template
+      // Include predefined styles as reference, but allow LLM to use any style
       const styleDescriptions = {};
       const stylesToUse =
         availableStyles.length > 0 ? availableStyles : Object.keys(DIAGRAM_STYLES);
@@ -104,24 +114,22 @@ export default async function analyzeDiagramType(
             DIAGRAM_STYLES[style].description || DIAGRAM_STYLES[style].name;
         }
       }
+      // Also include all predefined styles as reference even if not in availableStyles
+      // This helps LLM understand common style options but doesn't restrict it
+      for (const [style, styleInfo] of Object.entries(DIAGRAM_STYLES)) {
+        if (!styleDescriptions[style]) {
+          styleDescriptions[style] = styleInfo.description || styleInfo.name;
+        }
+      }
 
-      // Only include feedbackPreferences if it has non-null values
       const llmInput = {
         documentContent,
         availableStyles: stylesToUse,
         styleDescriptions,
         locale,
         feedback: feedback || "",
+        defaultStyle: defaultStyle || null,
       };
-
-      // Only add feedbackPreferences if at least one field is not null
-      // Filter out null values to avoid schema validation errors
-      if (feedbackPreferences && (feedbackPreferences.style || feedbackPreferences.type)) {
-        llmInput.feedbackPreferences = {
-          ...(feedbackPreferences.style && { style: feedbackPreferences.style }),
-          ...(feedbackPreferences.type && { type: feedbackPreferences.type }),
-        };
-      }
 
       llmResult = await options.context.invoke(llmAgent, llmInput);
     } catch (error) {
@@ -130,53 +138,18 @@ export default async function analyzeDiagramType(
   }
 
   // Step 2: Determine diagram type
-  // Priority: feedback preference > LLM result > default
-  let diagramType = DEFAULT_DIAGRAM_TYPE;
-  if (feedbackPreferences.type) {
-    diagramType = feedbackPreferences.type;
-  } else if (llmResult?.diagramType) {
-    diagramType = llmResult.diagramType;
-  }
+  // Priority: LLM result (which already analyzed feedback) > default
+  const diagramType = llmResult?.diagramType || DEFAULT_DIAGRAM_TYPE;
 
   // Step 3: Select style
-  // Priority: feedback preference > LLM result > single configured style > type-based selection > default
-  let diagramStyle = DEFAULT_DIAGRAM_STYLE;
+  // Trust LLM to always return a valid style (required in output_schema)
+  // LLM can return any style name, not limited to predefined styles
+  // Only use fallback if LLM completely failed
+  const diagramStyle = llmResult?.diagramStyle || defaultStyle || DEFAULT_DIAGRAM_STYLE;
 
-  // First check if user specified a style in feedback
-  if (feedbackPreferences.style) {
-    // Validate that the requested style is available
-    if (availableStyles.length === 0 || availableStyles.includes(feedbackPreferences.style)) {
-      diagramStyle = feedbackPreferences.style;
-    } else {
-      console.warn(
-        `⚠️  Requested style "${feedbackPreferences.style}" not in available styles, using fallback`,
-      );
-    }
-  }
-
-  // If no feedback preference, proceed with normal selection
-  if (!feedbackPreferences.style) {
-    if (availableStyles && availableStyles.length > 0) {
-      // If LLM provided a style recommendation and it's in available styles, use it
-      if (llmResult?.diagramStyle && availableStyles.includes(llmResult.diagramStyle)) {
-        diagramStyle = llmResult.diagramStyle;
-      } else if (availableStyles.length === 1) {
-        // If only one style is configured, use it
-        diagramStyle = availableStyles[0];
-      } else {
-        // Otherwise, let LLM choose from available styles
-        if (llmResult?.diagramStyle && availableStyles.includes(llmResult.diagramStyle)) {
-          diagramStyle = llmResult.diagramStyle;
-        } else {
-          // Fallback: choose based on diagram type
-          diagramStyle = selectStyleByType(diagramType, availableStyles);
-        }
-      }
-    } else {
-      // No styles configured, use LLM recommendation or default
-      diagramStyle = llmResult?.diagramStyle || DEFAULT_DIAGRAM_STYLE;
-    }
-  }
+  // Note: We allow any style name from LLM, even if not in availableStyles
+  // This enables creative styles beyond predefined ones (e.g., 'watercolor', 'cyberpunk', 'isometric')
+  // If availableStyles is provided and not empty, it serves as a preference guide, not a strict restriction
 
   // Step 4: Generate prompt requirements for image generation
   const diagramTypeRequirements =
@@ -227,81 +200,6 @@ export default async function analyzeDiagramType(
   };
 }
 
-/**
- * Select style based on diagram type when multiple styles are available
- */
-function selectStyleByType(diagramType, availableStyles) {
-  // Type-to-style preference mapping
-  const typeStylePreference = {
-    architecture: ["modern", "3d", "flat", "anthropomorphic"],
-    flowchart: ["standard", "modern", "flat", "minimalist"],
-    guide: ["hand-drawn", "modern", "flat", "anthropomorphic"],
-    intro: ["modern", "flat", "minimalist", "3d"],
-    sequence: ["standard", "modern", "flat", "minimalist"],
-    network: ["modern", "3d", "flat", "standard"],
-  };
-
-  const preferences = typeStylePreference[diagramType] || ["modern", "standard", "flat"];
-
-  // Find first available style from preferences
-  for (const preferredStyle of preferences) {
-    if (availableStyles.includes(preferredStyle)) {
-      return preferredStyle;
-    }
-  }
-
-  // Fallback: return first available style
-  return availableStyles[0] || DEFAULT_DIAGRAM_STYLE;
-}
-
-/**
- * Extract style and type preferences from user feedback
- * Returns { style: string | null, type: string | null }
- */
-function extractPreferencesFromFeedback(feedback) {
-  if (!feedback) return { style: null, type: null };
-
-  const feedbackLower = feedback.toLowerCase();
-  const preferences = { style: null, type: null };
-
-  // Extract style preferences
-  const styleKeywords = {
-    anthropomorphic: ["拟人", "anthropomorphic", "personified", "拟物", "personification"],
-    "hand-drawn": ["手绘", "hand-drawn", "hand drawn", "sketch", "手画", "草图"],
-    modern: ["现代", "modern", "contemporary"],
-    standard: ["标准", "standard", "traditional", "传统"],
-    flat: ["扁平", "flat", "flat design"],
-    minimalist: ["极简", "minimalist", "minimal", "简洁"],
-    "3d": ["3d", "3-d", "三维", "立体", "three-dimensional"],
-  };
-
-  for (const [style, keywords] of Object.entries(styleKeywords)) {
-    if (keywords.some((keyword) => feedbackLower.includes(keyword))) {
-      preferences.style = style;
-      break;
-    }
-  }
-
-  // Extract type preferences
-  const typeKeywords = {
-    architecture: ["架构", "architecture", "架构图", "系统架构"],
-    flowchart: ["流程", "flowchart", "流程图", "flow chart"],
-    guide: ["引导", "guide", "引导图", "教程图"],
-    intro: ["介绍", "introduction", "介绍图", "概述图"],
-    sequence: ["时序", "sequence", "时序图", "交互图"],
-    network: ["网络", "network", "网络图", "拓扑图", "topology"],
-  };
-
-  for (const [type, keywords] of Object.entries(typeKeywords)) {
-    if (keywords.some((keyword) => feedbackLower.includes(keyword))) {
-      preferences.type = type;
-      break;
-    }
-  }
-
-  return preferences;
-}
-
 analyzeDiagramType.input_schema = {
   type: "object",
   properties: {
@@ -311,10 +209,25 @@ analyzeDiagramType.input_schema = {
     },
     availableStyles: {
       type: "array",
-      description: "List of available diagram styles configured by user",
+      description:
+        "List of available diagram styles configured by user (optional restriction). If empty, any style is allowed.",
       items: {
         type: "string",
-        enum: Object.keys(DIAGRAM_STYLES),
+      },
+    },
+    defaultStyle: {
+      type: "string",
+      description:
+        "Default diagram style to use when no style is specified in feedback. Can be any style name, not limited to predefined styles.",
+    },
+    diagramming: {
+      type: "object",
+      description: "Diagramming configuration object (alternative way to pass style)",
+      properties: {
+        style: {
+          type: "string",
+          description: "Default diagram style",
+        },
       },
     },
     locale: {
@@ -338,12 +251,10 @@ analyzeDiagramType.output_schema = {
     diagramType: {
       type: "string",
       description: "The detected diagram type",
-      enum: Object.keys(DIAGRAM_TYPES),
     },
     diagramStyle: {
       type: "string",
       description: "The selected diagram style",
-      enum: Object.keys(DIAGRAM_STYLES),
     },
     diagramTypeRequirements: {
       type: "string",

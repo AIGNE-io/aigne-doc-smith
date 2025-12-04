@@ -56,12 +56,9 @@ instructions: |
 
     **Decision Priority (in order):**
     {% if feedback %}
-    0. **HIGHEST PRIORITY**: If user feedback explicitly specifies a diagram type → **MUST use that type**.
+    0. **HIGHEST PRIORITY**: Analyze the user feedback carefully. If the feedback explicitly or implicitly specifies a diagram type (e.g., "architecture diagram", "flowchart", "sequence diagram", "流程图", "架构图") → **MUST use that type and override any other considerations**. Use your understanding of natural language to identify the user's intent. The feedback type takes absolute precedence.
     {% endif %}
-    {% if feedbackPreferences and feedbackPreferences.type %}
-    0. **HIGHEST PRIORITY**: If `{{ feedbackPreferences.type }}` is extracted from feedback → **MUST use that type**.
-    {% endif %}
-    1. **Primary**: Analyze the document content structure and characteristics:
+    1. **Content Analysis**: If no type preference is found in feedback, analyze the document content structure and characteristics:
        - If the document is an **overview** (e.g. titled `# Overview`, describes whole system/project) → use `"architecture"`.
        - Sequential flow with time-based interactions → `sequence`
        - Branching logic, decision points, workflows → `flowchart`
@@ -72,17 +69,16 @@ instructions: |
   4. **Select Diagram Style**:
     **Decision Priority (in order):**
     {% if feedback %}
-    0. **HIGHEST PRIORITY**: If user feedback explicitly specifies a diagram style → **MUST use that style**.
+    0. **HIGHEST PRIORITY**: Analyze the user feedback carefully. If the feedback explicitly or implicitly specifies a diagram style (e.g., "modern style", "hand-drawn", "anthropomorphic", "3d", "flat design", "现代风格", "手绘风格") → **MUST use that style and override any default style**. Use your understanding of natural language to identify the user's style preference. The feedback style takes absolute precedence.
     {% endif %}
-    {% if feedbackPreferences and feedbackPreferences.style %}
-    0. **HIGHEST PRIORITY**: If `{{ feedbackPreferences.style }}` is extracted from feedback → **MUST use that style**.
+    {% if defaultStyle %}
+    1. **Default Style**: If no style preference is found in feedback, use the configured default style: `{{ defaultStyle }}`. This is the user's preferred default style from configuration.
     {% endif %}
-    1. **Primary**: Choose a style appropriate for technical documentation tone based on the content characteristics:
-       - Modern, professional content → `modern` or `clean` styles
-       - Tutorial/educational content → `hand-drawn` or `anthropomorphic` for engagement
-       - Formal/system documentation → `standard` or `minimalist`
-       - Visual/creative content → `3d` or `flat`
-    2. **Secondary**: Consider the available styles (`availableStyles`) and their descriptions (`styleDescriptions`) to select the best match.
+    2. **Content-Based Selection**: If no feedback style and no default style, choose a style appropriate for technical documentation tone based on the content characteristics. You can use any style name that best fits the content, including but not limited to:
+       - Common styles: `modern`, `standard`, `hand-drawn`, `anthropomorphic`, `flat`, `minimalist`, `3d`
+       - Other creative styles: `watercolor`, `sketch`, `vintage`, `cyberpunk`, `minimal`, `realistic`, `cartoon`, `isometric`, `neon`, `pastel`, etc.
+       - You are not limited to predefined styles - use your knowledge of visual styles to select the most appropriate one
+    3. **Available Styles Reference**: If `availableStyles` is provided and not empty, prefer styles from that list. However, if a better style is needed and not in the list, you can still use it. The `styleDescriptions` object provides descriptions of common styles for reference, but you are not restricted to only those styles.
 
   5. **Recommend Aspect Ratio**:
     {% if feedback %}
@@ -107,8 +103,8 @@ instructions: |
   Output your analysis in the following JSON format:
   {
     "documentSummary": "A comprehensive summary that preserves the vast majority of the original document content. Only remove verbatim duplicates, completely off-topic content, or pure marketing text. Keep all structural elements, entities, relationships, processes, technical details, examples, and contextual information. This summary will be the only content passed to the image generation model.",
-    "diagramType": "one of the available types",
-    "diagramStyle": "one of the available styles",
+    "diagramType": "one of: architecture, flowchart, guide, intro, sequence, network",
+    "diagramStyle": "any style name that best fits the content (e.g., 'modern', 'hand-drawn', 'watercolor', 'cyberpunk', 'isometric', etc.). You are not limited to predefined styles - use your knowledge of visual styles.",
     "aspectRatio": "1:1" | "5:4" | "4:3" | "3:2" | "16:9" | "21:9"
   }
 
@@ -140,18 +136,12 @@ input_schema:
       default: en
     feedback:
       type: string
-      description: User feedback
+      description: User feedback that may contain style, type, or other preferences. You should analyze this feedback carefully to extract any explicit or implicit preferences. If feedback specifies a style or type, it MUST override the defaultStyle.
       default: ""
-    feedbackPreferences:
-      type: object
-      description: Extracted preferences
-      properties:
-        style:
-          type: string
-          nullable: true
-        type:
-          type: string
-          nullable: true
+    defaultStyle:
+      type: string
+      description: Default diagram style from configuration. Use this only if no style preference is found in feedback. If feedback specifies a style, it takes precedence over this default.
+      nullable: true
   required:
     - documentContent
     - availableStyles
@@ -166,7 +156,7 @@ output_schema:
       description: The selected diagram type
     diagramStyle:
       type: string
-      description: The selected diagram style
+      description: The selected diagram style. Can be any style name (e.g., 'modern', 'hand-drawn', 'watercolor', 'cyberpunk', 'isometric', etc.). Not limited to predefined styles - use your knowledge of visual styles to select the most appropriate one.
     aspectRatio:
       type: string
       description: Recommended aspect ratio for the image based on content structure analysis. MUST match the primary flow direction (vertical→portrait, horizontal→landscape, radial→square)
