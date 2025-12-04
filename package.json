@@ -41,7 +41,6 @@
     "@aigne/publish-docs": "^0.14.2",
     "@aigne/secrets": "^0.1.1-beta.3",
     "@blocklet/payment-broker-client": "^1.22.27",
-    "@terrastruct/d2": "^0.1.33",
     "chalk": "^5.5.0",
     "debug": "^4.4.1",
     "diff": "^8.0.2",

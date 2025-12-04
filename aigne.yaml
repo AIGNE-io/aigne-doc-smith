@@ -105,7 +105,6 @@ agents:
   - ./agents/evaluate/code-snippet.mjs
 
   # Diagram
-  - ./agents/create/merge-diagram.yaml
   - ./agents/create/analyze-diagram-type.mjs
   - ./agents/create/analyze-diagram-type-llm.yaml
   - ./agents/create/generate-diagram-image.yaml

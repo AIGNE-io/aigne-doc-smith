@@ -23,9 +23,6 @@ importers:
       '@blocklet/payment-broker-client':
         specifier: ^1.22.27
         version: 1.22.27
-      '@terrastruct/d2':
-        specifier: ^0.1.33
-        version: 0.1.33
       chalk:
         specifier: ^5.5.0
         version: 5.6.2
@@ -1662,9 +1659,6 @@ packages:
   '@sqlite.org/sqlite-wasm@3.50.1-build1':
     resolution: {integrity: sha512-yH4M/SHN98NibniIwTVk6rwTJjy7n39l7zwWY3u+qsfZBGTi4lC1uEl2NDvIlkzsFtfCBvHBJJFJ1iuU3UzzEQ==}
     hasBin: true
-
-  '@terrastruct/d2@0.1.33':
-    resolution: {integrity: sha512-eK5hyfGIJFolC7sUsiKvWdY9xGFctTe3d+PSijo09IYDso8psztC+A4SammizXtlwYZpnnW0AtDjfBYauceSeA==}
 
   '@tokenizer/inflate@0.2.7':
     resolution: {integrity: sha512-MADQgmZT1eKjp06jpI2yozxaU9uVs4GzzgSL+uEq7bVcJ9V1ZXQkeGNql1fsSI0gMy1vhvNTNbUqrx+pZfJVmg==}
@@ -7933,8 +7927,6 @@ snapshots:
       tslib: 2.8.1
 
   '@sqlite.org/sqlite-wasm@3.50.1-build1': {}
-
-  '@terrastruct/d2@0.1.33': {}
 
   '@tokenizer/inflate@0.2.7':
     dependencies:
