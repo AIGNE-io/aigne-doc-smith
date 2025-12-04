@@ -6,69 +6,9 @@
 
 本指南详细介绍了如何列出、移除和切换已保存偏好设置的激活状态。
 
-```d2
-direction: down
-
-User: {
-  shape: c4-person
-}
-
-CLI-Interface: {
-  label: "CLI: aigne doc prefs"
-  shape: rectangle
-
-  List-Action: {
-    label: "--list"
-    shape: oval
-  }
-
-  Remove-Action: {
-    label: "--remove"
-    shape: diamond
-
-    Interactive-Remove: {
-      label: "交互模式"
-      shape: rectangle
-    }
-
-    Direct-Remove: {
-      label: "直接模式\n(使用 --id)"
-      shape: rectangle
-    }
-  }
-
-  Toggle-Action: {
-    label: "--toggle"
-    shape: diamond
-
-    Interactive-Toggle: {
-      label: "交互模式"
-      shape: rectangle
-    }
-
-    Direct-Toggle: {
-      label: "直接模式\n(使用 --id)"
-      shape: rectangle
-    }
-  }
-}
-
-Preference-Storage: {
-  label: "偏好设置存储"
-  shape: cylinder
-}
-
-User -> CLI-Interface: "执行命令"
-CLI-Interface.List-Action -> Preference-Storage: "读取"
-CLI-Interface.Remove-Action -> CLI-Interface.Interactive-Remove: "无 ID"
-CLI-Interface.Remove-Action -> CLI-Interface.Direct-Remove: "指定 ID"
-CLI-Interface.Interactive-Remove -> Preference-Storage: "删除所选"
-CLI-Interface.Direct-Remove -> Preference-Storage: "删除指定"
-CLI-Interface.Toggle-Action -> CLI-Interface.Interactive-Toggle: "无 ID"
-CLI-Interface.Toggle-Action -> CLI-Interface.Direct-Toggle: "指定 ID"
-CLI-Interface.Interactive-Toggle -> Preference-Storage: "更新所选"
-CLI-Interface.Direct-Toggle -> Preference-Storage: "更新指定"
-```
+<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+![Manage Preferences](assets/diagram/managing-preferences-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## 查看已保存的偏好设置
 

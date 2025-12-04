@@ -4,92 +4,9 @@
 
 以下の図は、インストールから生成までの主要なステップを示しています。
 
-```d2
-direction: down
-
-Developer: {
-  shape: c4-person
-}
-
-Terminal: {
-  label: "ターミナル"
-  shape: rectangle
-}
-
-Installation: {
-  label: "インストール"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
-
-  Install-CLI: {
-    label: "1. AIGNE CLI のインストール"
-    shape: oval
-  }
-
-  Verify-Installation: {
-    label: "2. インストールの確認"
-    shape: oval
-  }
-}
-
-Generation: {
-  label: "生成"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
-
-  Run-Generate: {
-    label: "3. 生成コマンドの実行"
-    shape: oval
-  }
-
-  Interactive-Setup: {
-    label: "4. 対話型セットアップの完了"
-    shape: diamond
-  }
-
-  Automated-Process: {
-    label: "5. 自動生成"
-    shape: rectangle
-
-    Analyze-Code: {
-      label: "コードベースの分析"
-    }
-
-    Plan-Structure: {
-      label: "構造の計画"
-    }
-
-    Generate-Content: {
-      label: "コンテンツの生成"
-    }
-  }
-
-  Output-Docs: {
-    label: "6. ドキュメント生成完了"
-    shape: oval
-  }
-
-  Analyze-Code -> Plan-Structure
-  Plan-Structure -> Generate-Content
-}
-
-Developer -> Terminal: "コマンドを実行"
-Terminal -> Installation.Install-CLI: "`npm install -g @aigne/cli`"
-Installation.Install-CLI -> Installation.Verify-Installation: "`aigne doc --help`"
-Installation.Verify-Installation -> Generation.Run-Generate: "`aigne doc create`"
-Generation.Run-Generate -> Generation.Interactive-Setup: "初回実行時"
-Generation.Interactive-Setup -> Generation.Automated-Process: "config.yaml を保存"
-Generation.Automated-Process -> Generation.Output-Docs: "docs/ フォルダに出力"
-Generation.Output-Docs -> Developer: "ドキュメントをレビュー"
-```
+<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+![Getting Started](assets/diagram/getting-started-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## 前提条件
 
