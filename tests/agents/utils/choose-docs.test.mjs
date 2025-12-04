@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
 import chooseDocs from "../../../agents/utils/choose-docs.mjs";
 import * as docsFinderUtils from "../../../utils/docs-finder-utils.mjs";
+import * as debugModule from "../../../utils/debug.mjs";
 
 describe("chooseDocs utility", () => {
   let getMainLanguageFilesSpy;
@@ -10,6 +11,7 @@ describe("chooseDocs utility", () => {
   let addFeedbackToItemsSpy;
   let consoleErrorSpy;
   let consoleWarnSpy;
+  let debugSpy;
   let mockOptions;
 
   beforeEach(() => {
@@ -39,6 +41,9 @@ describe("chooseDocs utility", () => {
     consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
     consoleWarnSpy = spyOn(console, "warn").mockImplementation(() => {});
 
+    // Spy on debug function
+    debugSpy = spyOn(debugModule, "debug").mockImplementation(() => {});
+
     // Mock options with prompts
     mockOptions = {
       prompts: {
@@ -57,6 +62,7 @@ describe("chooseDocs utility", () => {
     addFeedbackToItemsSpy?.mockRestore();
     consoleErrorSpy?.mockRestore();
     consoleWarnSpy?.mockRestore();
+    debugSpy?.mockRestore();
   });
 
   // DOCS PROVIDED TESTS
@@ -108,7 +114,7 @@ describe("chooseDocs utility", () => {
 
     const result = await chooseDocs(input, mockOptions);
 
-    expect(consoleWarnSpy).toHaveBeenCalledWith(
+    expect(debugSpy).toHaveBeenCalledWith(
       '⚠️  Item with path "/docs/missing.md" not found in documentStructure',
     );
     expect(result.selectedDocs).toHaveLength(2); // Only found items
@@ -186,7 +192,6 @@ describe("chooseDocs utility", () => {
     const exitSpy = spyOn(process, "exit").mockImplementation(() => {
       throw new Error("process.exit called");
     });
-    const consoleLogSpy = spyOn(console, "log").mockImplementation(() => {});
 
     try {
       await chooseDocs(input, mockOptions);
@@ -195,10 +200,9 @@ describe("chooseDocs utility", () => {
     }
 
     expect(exitSpy).toHaveBeenCalledWith(0);
-    expect(consoleLogSpy).toHaveBeenCalled();
+    expect(debugSpy).toHaveBeenCalled();
 
     exitSpy.mockRestore();
-    consoleLogSpy.mockRestore();
   });
 
   test("should handle no documents selected interactively by exiting gracefully", async () => {
@@ -215,7 +219,6 @@ describe("chooseDocs utility", () => {
     const exitSpy = spyOn(process, "exit").mockImplementation(() => {
       throw new Error("process.exit called");
     });
-    const consoleLogSpy = spyOn(console, "log").mockImplementation(() => {});
 
     try {
       await chooseDocs(input, mockOptions);
@@ -224,10 +227,9 @@ describe("chooseDocs utility", () => {
     }
 
     expect(exitSpy).toHaveBeenCalledWith(0);
-    expect(consoleLogSpy).toHaveBeenCalled();
+    expect(debugSpy).toHaveBeenCalled();
 
     exitSpy.mockRestore();
-    consoleLogSpy.mockRestore();
   });
 
   // CHECKBOX VALIDATION TESTS
