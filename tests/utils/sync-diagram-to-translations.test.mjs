@@ -135,8 +135,10 @@ describe("sync-diagram-to-translations", () => {
     test("should handle special characters in image paths", async () => {
       readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
 
-      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0(new).jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
-      const translationContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0(old).jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      // Use special characters that don't break the regex (avoid ) in path)
+      // Test with other special regex characters like . * + ? ^ $ { } [ ] \
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0-new.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.old.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
 
       readFileContentSpy.mockResolvedValue(translationContent);
 
@@ -144,6 +146,10 @@ describe("sync-diagram-to-translations", () => {
 
       expect(result.updated).toBe(1);
       expect(writeFileSpy).toHaveBeenCalled();
+      const writeCall = writeFileSpy.mock.calls[0];
+      const writtenContent = writeCall[1];
+      expect(writtenContent).toContain("guide-diagram-0-new.jpg");
+      expect(writtenContent).not.toContain("guide-diagram-0.old.jpg");
     });
 
     test("should not update when paths are the same", async () => {
