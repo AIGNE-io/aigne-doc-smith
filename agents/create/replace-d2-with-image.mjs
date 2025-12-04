@@ -50,7 +50,16 @@ export default async function replaceD2WithImage({
   feedback,
   path: docPath,
   docsDir,
+  locale: inputLocale,
 }) {
+  // Extract locale from imageResult if not provided directly
+  // imageResult contains all input parameters when include_input_in_output: true
+  const locale = inputLocale || imageResult?.locale || "en";
+  
+  // Extract path and docsDir from imageResult if not provided directly
+  const finalDocPath = docPath || imageResult?.path;
+  const finalDocsDir = docsDir || imageResult?.docsDir;
+  
   // Determine which content to use for finding diagrams and final replacement
   // Priority:
   // 1. documentContent (may contain DIAGRAM_PLACEHOLDER from replaceD2WithPlaceholder)
@@ -143,9 +152,9 @@ export default async function replaceD2WithImage({
   let assetDir;
   let relativePathPrefix;
 
-  if (docsDir) {
+  if (finalDocsDir) {
     // New approach: save to assets/diagram relative to docsDir (can be committed to git)
-    assetDir = path.join(process.cwd(), docsDir, "assets", "diagram");
+    assetDir = path.join(process.cwd(), finalDocsDir, "assets", "diagram");
     relativePathPrefix = "assets/diagram";
   } else {
     // Fallback: use .tmp/assets/diagram for backward compatibility
@@ -192,9 +201,9 @@ export default async function replaceD2WithImage({
   // - Different positions in same document = different filenames
   let fileName;
 
-  if (docPath) {
+  if (finalDocPath) {
     // Extract document name from path (e.g., "guides/getting-started.md" -> "getting-started")
-    const pathWithoutExt = docPath.replace(/\.(md|markdown)$/i, "");
+    const pathWithoutExt = finalDocPath.replace(/\.(md|markdown)$/i, "");
     const documentName = path
       .basename(pathWithoutExt)
       .toLowerCase()
@@ -264,7 +273,7 @@ export default async function replaceD2WithImage({
   // Documents are saved in docsDir root (flattened paths), images are in docsDir/assets/diagram/
   // So relative path is always: assets/diagram/filename.jpg (same directory level)
   let relativePath;
-  if (docsDir && docPath) {
+  if (finalDocsDir && finalDocPath) {
     // All documents are in docsDir root (paths are flattened), assets are in docsDir/assets/diagram/
     // So relative path is simply: assets/diagram/filename.jpg
     relativePath = path.posix.join("assets", "diagram", fileName);
@@ -341,6 +350,29 @@ export default async function replaceD2WithImage({
     const trimmedContent = finalContent.trimEnd();
     const separator = trimmedContent && !trimmedContent.endsWith("\n") ? "\n\n" : "\n";
     finalContent = trimmedContent + separator + imageMarkdown;
+  }
+
+  // Sync diagram images to translation files
+  // Only sync if we actually replaced/added a diagram (not just returned original content)
+  if (finalContent !== (originalContent || documentContent || content || "")) {
+    try {
+      const { syncDiagramToTranslations } = await import("../../utils/sync-diagram-to-translations.mjs");
+      const syncResult = await syncDiagramToTranslations(
+        finalContent,
+        originalContent || documentContent || content || "",
+        finalDocPath,
+        finalDocsDir,
+        locale,
+      );
+      if (syncResult.updated > 0) {
+        debug(
+          `✅ Synced diagram images to ${syncResult.updated} translation file(s)${syncResult.errors.length > 0 ? ` (${syncResult.errors.length} error(s))` : ""}`,
+        );
+      }
+    } catch (error) {
+      // Don't fail the whole operation if sync fails
+      debug(`⚠️  Failed to sync diagram to translations: ${error.message}`);
+    }
   }
 
   return { content: finalContent };
@@ -552,6 +584,11 @@ replaceD2WithImage.input_schema = {
     docsDir: {
       type: "string",
       description: "Documentation directory where assets will be saved (relative to project root)",
+    },
+    locale: {
+      type: "string",
+      description: "Main language locale (e.g., 'en', 'zh') for syncing to translations",
+      default: "en",
     },
     feedback: {
       type: "string",

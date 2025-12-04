@@ -6,7 +6,12 @@ import z from "zod";
  * Returns one of: "addDiagram", "deleteDiagram", "updateDiagram", "updateDocument"
  * Returns null if feedback is empty or invalid
  */
-export default async function analyzeFeedbackIntent({ feedback }, options) {
+export default async function analyzeFeedbackIntent({ feedback, shouldUpdateDiagrams }, options) {
+  // If --diagram flag is set, directly return updateDiagram intent
+  if (shouldUpdateDiagrams) {
+    return { intentType: "updateDiagram" };
+  }
+
   // Check if feedback exists and is not empty
   if (!feedback || typeof feedback !== "string" || !feedback.trim()) {
     return { intentType: null };

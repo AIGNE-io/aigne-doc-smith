@@ -2,7 +2,7 @@ type: team
 name: update
 alias:
   - up
-description: Update specific documents and their translations
+description: Update specific documents and their translations. Use --diagram to filter and select documents with diagrams, or --diagram-all to auto-update all diagrams.
 skills:
   - url: ../init/index.mjs
     default_input:
@@ -19,6 +19,8 @@ skills:
           'documentStructure': originalDocumentStructure
         }
       ])
+  # Check if --diagram flag is set
+  - url: ../update/check-diagram-flag.mjs
   - url: ../utils/choose-docs.mjs
     default_input:
       requiredFeedback: false
@@ -48,6 +50,9 @@ input_schema:
     reset:
       type: boolean
       description: Start fresh - ignore previous versions
+    diagram:
+      type: ["boolean", "string"]
+      description: "Flag to update diagrams: 'all' for auto-select all, true for user selection (can also use --diagram or --diagram-all CLI args)"
 output_schema:
   type: object
   properties:
