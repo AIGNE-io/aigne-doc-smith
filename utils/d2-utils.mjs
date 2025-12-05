@@ -83,3 +83,111 @@ export function replacePlaceholderWithD2({ content, diagramSourceCode }) {
 
   return content.replace(DIAGRAM_PLACEHOLDER, replacement);
 }
+
+/**
+ * Replace all diagrams (D2 code blocks and generated images) with DIAGRAM_PLACEHOLDER
+ * Used for deletion operations to normalize all diagram types to a single placeholder
+ * @param {string} content - Document content containing diagrams
+ * @param {number} [diagramIndex] - Optional index of diagram to replace (0-based). If not provided, replaces all diagrams.
+ * @returns {string} - Content with diagrams replaced by DIAGRAM_PLACEHOLDER
+ */
+export function replaceDiagramsWithPlaceholder({ content, diagramIndex }) {
+  if (!content) {
+    return content;
+  }
+
+  // Import regex from replace-d2-with-image.mjs to find all diagram locations
+  // We'll use a similar approach to findAllDiagramLocations
+  const diagramImageRegex = /<!-- DIAGRAM_IMAGE_START:[^>]+ -->[\s\S]*?<!-- DIAGRAM_IMAGE_END -->/g;
+  const mermaidCodeBlockRegex = /```mermaid.*\n([\s\S]*?)```/g;
+
+  // Find all diagram locations
+  const locations = [];
+
+  // 1. Find DIAGRAM_PLACEHOLDER (already a placeholder, keep as is)
+  let placeholderIndex = content.indexOf(DIAGRAM_PLACEHOLDER);
+  while (placeholderIndex !== -1) {
+    locations.push({
+      type: "placeholder",
+      start: placeholderIndex,
+      end: placeholderIndex + DIAGRAM_PLACEHOLDER.length,
+    });
+    placeholderIndex = content.indexOf(DIAGRAM_PLACEHOLDER, placeholderIndex + 1);
+  }
+
+  // 2. Find DIAGRAM_IMAGE_START markers (generated images)
+  let match = diagramImageRegex.exec(content);
+  while (match !== null) {
+    locations.push({
+      type: "image",
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    match = diagramImageRegex.exec(content);
+  }
+
+  // 3. Find D2 code blocks
+  match = d2CodeBlockRegex.exec(content);
+  while (match !== null) {
+    locations.push({
+      type: "d2",
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    match = d2CodeBlockRegex.exec(content);
+  }
+
+  // 4. Find Mermaid code blocks
+  match = mermaidCodeBlockRegex.exec(content);
+  while (match !== null) {
+    locations.push({
+      type: "mermaid",
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    match = mermaidCodeBlockRegex.exec(content);
+  }
+
+  // Sort by position (top to bottom)
+  locations.sort((a, b) => a.start - b.start);
+
+  if (locations.length === 0) {
+    return content;
+  }
+
+  // If diagramIndex is provided, only replace that specific diagram
+  if (diagramIndex !== undefined && diagramIndex >= 0 && diagramIndex < locations.length) {
+    const targetLocation = locations[diagramIndex];
+    const before = content.substring(0, targetLocation.start);
+    const after = content.substring(targetLocation.end);
+    // Add newlines if needed
+    let replacement = DIAGRAM_PLACEHOLDER;
+    if (before && !before.endsWith("\n")) {
+      replacement = `\n${replacement}`;
+    }
+    if (after && !after.startsWith("\n")) {
+      replacement = `${replacement}\n`;
+    }
+    return before + replacement + after;
+  }
+
+  // Replace all diagrams with placeholder (for deletion)
+  // Process from end to start to preserve indices
+  let result = content;
+  for (let i = locations.length - 1; i >= 0; i--) {
+    const location = locations[i];
+    const before = result.substring(0, location.start);
+    const after = result.substring(location.end);
+    // Add newlines if needed
+    let replacement = DIAGRAM_PLACEHOLDER;
+    if (before && !before.endsWith("\n")) {
+      replacement = `\n${replacement}`;
+    }
+    if (after && !after.startsWith("\n")) {
+      replacement = `${replacement}\n`;
+    }
+    result = before + replacement + after;
+  }
+
+  return result;
+}

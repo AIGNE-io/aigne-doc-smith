@@ -380,6 +380,7 @@ export default async function replaceD2WithImage({
         finalDocPath,
         finalDocsDir,
         locale,
+        "update", // Operation type: update - skip if main has 0 diagrams
       );
       if (syncResult.updated > 0) {
         debug(
@@ -464,12 +465,7 @@ function findAllDiagramLocations(content) {
  * Returns 0-based index, or null if not specified
  * Examples: "first diagram" -> 0, "second diagram" -> 1, "第2张图" -> 1
  */
-/**
- * Extract diagram index from feedback
- * Returns 0-based index, or null if not specified
- * Examples: "first diagram" -> 0, "second diagram" -> 1, "第2张图" -> 1
- */
-function extractDiagramIndexFromFeedback(feedback) {
+export function extractDiagramIndexFromFeedback(feedback) {
   if (!feedback) return null;
 
   const feedbackLower = feedback.toLowerCase();

@@ -1,7 +1,11 @@
 import { AIAgent } from "@aigne/core";
 import { pick } from "@aigne/core/utils/type-utils.js";
 import z from "zod";
-import { DIAGRAM_PLACEHOLDER, replaceD2WithPlaceholder } from "../../utils/d2-utils.mjs";
+import {
+  DIAGRAM_PLACEHOLDER,
+  replaceD2WithPlaceholder,
+  replaceDiagramsWithPlaceholder,
+} from "../../utils/d2-utils.mjs";
 import { readFileContent } from "../../utils/docs-finder-utils.mjs";
 import { getFileName, userContextAt } from "../../utils/utils.mjs";
 import { debug } from "../../utils/debug.mjs";
@@ -48,7 +52,7 @@ async function readCurrentContent(input, options) {
 /**
  * Save document content
  */
-async function saveDoc(input, options, { content }) {
+async function saveDoc(input, options, { content, intentType }) {
   const saveAgent = options.context?.agents?.["saveDoc"];
   if (!saveAgent) {
     console.warn("saveDoc agent not found");
@@ -57,6 +61,7 @@ async function saveDoc(input, options, { content }) {
   await options.context.invoke(saveAgent, {
     ...pick(input, ["path", "docsDir", "labels", "locale"]),
     content,
+    intentType, // Pass intentType so saveDoc can handle translation sync
   });
 }
 
@@ -85,7 +90,8 @@ async function addDiagram(input, options) {
 
   const content = generateDiagramResult.content;
   contentContext.set(content);
-  await saveDoc(input, options, { content });
+  // Pass intentType to saveDoc so it can handle translation sync automatically
+  await saveDoc(input, options, { content, intentType: "addDiagram" });
   return { content };
 }
 
@@ -127,7 +133,8 @@ async function updateDiagram(input, options) {
   }
 
   contentContext.set(content);
-  await saveDoc(input, options, { content });
+  // Pass intentType to saveDoc so it can handle translation sync automatically
+  await saveDoc(input, options, { content, intentType: "updateDiagram" });
   return { content };
 }
 
@@ -143,8 +150,25 @@ async function deleteDiagram(input, options) {
 
   const contentContext = userContextAt(options, `currentContents.${input.path}`);
 
-  const [documentContent] = replaceD2WithPlaceholder({
+  // Extract diagram index from feedback if provided
+  // This allows deleting a specific diagram when multiple diagrams exist
+  let diagramIndex = input.diagramIndex;
+  if (diagramIndex === undefined && input.feedback) {
+    // Import extractDiagramIndexFromFeedback from replace-d2-with-image.mjs
+    const { extractDiagramIndexFromFeedback } = await import("../create/replace-d2-with-image.mjs");
+    const extractedIndex = extractDiagramIndexFromFeedback(input.feedback);
+    if (extractedIndex !== null) {
+      diagramIndex = extractedIndex;
+      debug(`Extracted diagram index ${diagramIndex} from feedback: "${input.feedback}"`);
+    }
+  }
+
+  // Replace all diagrams (D2 code blocks, generated images, Mermaid) with placeholder
+  // If diagramIndex is provided, only replace that specific diagram
+  // This ensures LLM can identify and remove the diagram regardless of its type
+  const documentContent = replaceDiagramsWithPlaceholder({
     content: currentContent,
+    diagramIndex,
   });
 
   const instructions = `<role>
@@ -195,7 +219,8 @@ Your task is to remove ${DIAGRAM_PLACEHOLDER} and adjust the document context (b
   }
 
   contentContext.set(content);
-  await saveDoc(input, options, { content });
+  // Pass intentType to saveDoc so it can handle translation sync automatically
+  await saveDoc(input, options, { content, intentType: "deleteDiagram" });
 
   return { content };
 }

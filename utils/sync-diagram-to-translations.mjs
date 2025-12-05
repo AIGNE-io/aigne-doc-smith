@@ -77,9 +77,16 @@ function extractDiagramImagePaths(content) {
  * @param {string} docPath - Document path
  * @param {string} docsDir - Documentation directory
  * @param {string} locale - Main language locale
+ * @param {string} operationType - Operation type: "delete", "add", "update", or "sync" (default)
  * @returns {Promise<{updated: number, skipped: number, errors: Array}>} - Sync result
  */
-export async function syncDiagramToTranslations(mainContent, docPath, docsDir, locale = "en") {
+export async function syncDiagramToTranslations(
+  mainContent,
+  docPath,
+  docsDir,
+  locale = "en",
+  operationType = "sync",
+) {
   const result = {
     updated: 0,
     skipped: 0,
@@ -97,8 +104,10 @@ export async function syncDiagramToTranslations(mainContent, docPath, docsDir, l
   // Extract diagram images from updated main content
   const mainImages = extractDiagramImagePaths(mainContent);
 
-  // If no diagrams in main content, nothing to sync
-  if (mainImages.length === 0) {
+  // If no diagrams in main content and operation is not delete, skip sync
+  // For delete operations, we need to process translations even if main has 0 diagrams
+  // to remove diagrams from translation files
+  if (mainImages.length === 0 && operationType !== "delete") {
     debug("ℹ️  No diagram images in main content, skipping sync");
     return result;
   }
@@ -137,30 +146,32 @@ export async function syncDiagramToTranslations(mainContent, docPath, docsDir, l
 
       // Strategy 2: Replace old image paths with new ones (if paths changed)
       const translationImages = extractDiagramImagePaths(updatedContent); // Re-extract after D2 replacement
-      for (let i = 0; i < Math.min(translationImages.length, mainImages.length); i++) {
-        const translationImage = translationImages[i];
-        const mainImage = mainImages[i];
+      if (mainImages.length > 0) {
+        for (let i = 0; i < Math.min(translationImages.length, mainImages.length); i++) {
+          const translationImage = translationImages[i];
+          const mainImage = mainImages[i];
 
-        // If image path changed, update it
-        if (translationImage && mainImage && translationImage.path !== mainImage.path) {
-          // Replace old image path with new one (escape special regex characters)
-          const escapedPath = translationImage.path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-          const oldImagePattern = new RegExp(
-            `<!--\\s*DIAGRAM_IMAGE_START:[^>]+-->\\s*!\\[[^\\]]*\\]\\(${escapedPath}\\)\\s*<!--\\s*DIAGRAM_IMAGE_END\\s*-->`,
-            "g",
-          );
-          updatedContent = updatedContent.replace(oldImagePattern, mainImage.fullMatch);
-          hasChanges = true;
-          debug(
-            `🔄 Updated image path in ${fileName} (index ${i}): ${translationImage.path} -> ${mainImage.path}`,
-          );
+          // If image path changed, update it
+          if (translationImage && mainImage && translationImage.path !== mainImage.path) {
+            // Replace old image path with new one (escape special regex characters)
+            const escapedPath = translationImage.path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const oldImagePattern = new RegExp(
+              `<!--\\s*DIAGRAM_IMAGE_START:[^>]+-->\\s*!\\[[^\\]]*\\]\\(${escapedPath}\\)\\s*<!--\\s*DIAGRAM_IMAGE_END\\s*-->`,
+              "g",
+            );
+            updatedContent = updatedContent.replace(oldImagePattern, mainImage.fullMatch);
+            hasChanges = true;
+            debug(
+              `🔄 Updated image path in ${fileName} (index ${i}): ${translationImage.path} -> ${mainImage.path}`,
+            );
+          }
         }
       }
 
       // Strategy 3: If translation has fewer images than main, add missing ones
       // (This handles cases where new diagrams were added)
-      const finalTranslationImages = extractDiagramImagePaths(updatedContent); // Re-extract after all replacements
-      if (finalTranslationImages.length < mainImages.length) {
+      let finalTranslationImages = extractDiagramImagePaths(updatedContent); // Re-extract after all replacements
+      if (mainImages.length > 0 && finalTranslationImages.length < mainImages.length) {
         // Find the last diagram position in updated content
         const lastDiagramIndex =
           finalTranslationImages.length > 0
@@ -180,6 +191,49 @@ export async function syncDiagramToTranslations(mainContent, docPath, docsDir, l
           updatedContent.slice(lastDiagramIndex);
         hasChanges = true;
         debug(`➕ Added ${missingImages.length} missing diagram(s) to ${fileName}`);
+        // Re-extract after adding images
+        finalTranslationImages = extractDiagramImagePaths(updatedContent);
+      }
+
+      // Strategy 4: If translation has more images than main, remove excess ones
+      // (This handles cases where diagrams were deleted from main document, including all diagrams)
+      if (finalTranslationImages.length > mainImages.length) {
+        // Remove excess images from translation (keep only the first N images matching main)
+        // Process from end to start to preserve indices
+        const excessCount = finalTranslationImages.length - mainImages.length;
+        for (let i = finalTranslationImages.length - 1; i >= mainImages.length; i--) {
+          const imageToRemove = finalTranslationImages[i];
+          const before = updatedContent.substring(0, imageToRemove.index);
+          const after = updatedContent.substring(
+            imageToRemove.index + imageToRemove.fullMatch.length,
+          );
+          // Remove the image and clean up extra newlines
+          updatedContent = `${before.replace(/\n+$/, "")}\n${after.replace(/^\n+/, "")}`;
+          hasChanges = true;
+        }
+        debug(`➖ Removed ${excessCount} excess diagram(s) from ${fileName}`);
+      }
+
+      // Strategy 5: Remove D2 code blocks from translation if main has no diagrams
+      // (This handles cases where all diagrams were deleted from main document)
+      if (mainImages.length === 0) {
+        // Re-extract D2 blocks from updated content (in case some were already replaced)
+        const remainingD2Blocks = Array.from(updatedContent.matchAll(d2CodeBlockRegex));
+        if (remainingD2Blocks.length > 0) {
+          // Remove all D2 code blocks from translation
+          // Process from end to start to preserve indices
+          for (let i = remainingD2Blocks.length - 1; i >= 0; i--) {
+            const d2Match = remainingD2Blocks[i];
+            const before = updatedContent.substring(0, d2Match.index);
+            const after = updatedContent.substring(d2Match.index + d2Match[0].length);
+            // Remove the D2 block and clean up extra newlines
+            updatedContent = `${before.replace(/\n+$/, "")}\n${after.replace(/^\n+/, "")}`;
+            hasChanges = true;
+          }
+          // Clean up extra newlines
+          updatedContent = updatedContent.replace(/\n{3,}/g, "\n\n");
+          debug(`➖ Removed ${remainingD2Blocks.length} D2 code block(s) from ${fileName}`);
+        }
       }
 
       // Save updated translation file if there were changes
