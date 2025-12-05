@@ -160,7 +160,11 @@ describe("check-update-is-single", () => {
         customParam: "test",
       },
     );
-    expect(result).toEqual({ mockResult: true });
+    expect(result).toEqual({
+      customParam: "test",
+      selectedDocs: ["doc1", "doc2"],
+      result: { mockResult: true },
+    });
   });
 
   test("should route to batchUpdateDocument when selectedDocs has three items", async () => {
@@ -180,7 +184,10 @@ describe("check-update-is-single", () => {
   });
 
   test("should pass through all parameters to batch document agent", async () => {
-    await checkUpdateIsSingle(
+    const mockResult = { success: true };
+    mockOptions.context.invoke.mockResolvedValue(mockResult);
+
+    const result = await checkUpdateIsSingle(
       {
         selectedDocs: [
           { path: "/doc1", content: "content1" },
@@ -207,6 +214,50 @@ describe("check-update-is-single", () => {
         customSettings: { parallel: true },
       },
     );
+
+    // Verify that all rest parameters are preserved in the return value
+    expect(result).toEqual({
+      docsDir: "./docs",
+      forceRegenerate: false,
+      batchSize: 10,
+      customSettings: { parallel: true },
+      selectedDocs: [
+        { path: "/doc1", content: "content1" },
+        { path: "/doc2", content: "content2" },
+      ],
+      result: mockResult,
+    });
+  });
+
+  test("should route to batchUpdateDocument when reset is true even with single document", async () => {
+    const mockResult = { success: true };
+    mockOptions.context.invoke.mockResolvedValue(mockResult);
+
+    const result = await checkUpdateIsSingle(
+      {
+        selectedDocs: ["doc1"],
+        reset: true,
+        docsDir: "./docs",
+      },
+      mockOptions,
+    );
+
+    expect(mockOptions.context.invoke).toHaveBeenCalledWith(
+      { mockBatchAgent: true },
+      {
+        selectedDocs: ["doc1"],
+        reset: true,
+        docsDir: "./docs",
+      },
+    );
+
+    // Verify that reset and other rest parameters are preserved in the return value
+    expect(result).toEqual({
+      reset: true,
+      docsDir: "./docs",
+      selectedDocs: ["doc1"],
+      result: mockResult,
+    });
   });
 
   // ERROR HANDLING TESTS
@@ -295,6 +346,9 @@ describe("check-update-is-single", () => {
 
     const result = await checkUpdateIsSingle({ selectedDocs: ["doc1", "doc2"] }, mockOptions);
 
-    expect(result).toEqual(mockResult);
+    expect(result).toEqual({
+      selectedDocs: ["doc1", "doc2"],
+      result: mockResult,
+    });
   });
 });

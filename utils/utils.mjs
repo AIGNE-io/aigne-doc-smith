@@ -302,10 +302,18 @@ export function hasFileChangesBetweenCommits(
     return addedOrDeletedFiles.some((filePath) => {
       // Check if file matches any include pattern
       const matchesInclude = includePatterns.some((pattern) => {
+        // Skip empty patterns
+        if (!pattern || !pattern.trim()) {
+          return false;
+        }
         // First escape all regex special characters except * and ?
         const escapedPattern = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
         // Then convert glob wildcards to regex
         const regexPattern = escapedPattern.replace(/\*/g, ".*").replace(/\?/g, ".");
+        // Only create regex if pattern is not empty
+        if (!regexPattern) {
+          return false;
+        }
         const regex = new RegExp(regexPattern);
         return regex.test(filePath);
       });
@@ -316,10 +324,18 @@ export function hasFileChangesBetweenCommits(
 
       // Check if file matches any exclude pattern
       const matchesExclude = excludePatterns.some((pattern) => {
+        // Skip empty patterns
+        if (!pattern || !pattern.trim()) {
+          return false;
+        }
         // First escape all regex special characters except * and ?
         const escapedPattern = pattern.replace(/[.+^${}()|[\]\\]/g, "\\$&");
         // Then convert glob wildcards to regex
         const regexPattern = escapedPattern.replace(/\*/g, ".*").replace(/\?/g, ".");
+        // Only create regex if pattern is not empty
+        if (!regexPattern) {
+          return false;
+        }
         const regex = new RegExp(regexPattern);
         return regex.test(filePath);
       });
@@ -370,6 +386,10 @@ export async function loadConfigFromFile() {
  * @returns {string} Updated file content
  */
 function handleArrayValueUpdate(key, value, comment, fileContent) {
+  // Skip if key is empty to avoid "Empty regular expressions are not allowed" error
+  if (!key || !key.trim()) {
+    return fileContent;
+  }
   // Use yaml library to safely serialize the key-value pair
   const yamlObject = { [key]: value };
   const yamlContent = yamlStringify(yamlObject).trim();
@@ -455,6 +475,10 @@ function handleArrayValueUpdate(key, value, comment, fileContent) {
  * @returns {string} Updated file content
  */
 function handleStringValueUpdate(key, value, comment, fileContent) {
+  // Skip if key is empty to avoid "Empty regular expressions are not allowed" error
+  if (!key || !key.trim()) {
+    return fileContent;
+  }
   // Use yaml library to safely serialize the key-value pair
   const yamlObject = { [key]: value };
   const yamlContent = yamlStringify(yamlObject).trim();

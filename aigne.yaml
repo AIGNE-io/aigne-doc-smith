@@ -105,10 +105,15 @@ agents:
   - ./agents/evaluate/code-snippet.mjs
 
   # Diagram
-  - ./agents/create/merge-diagram.yaml
+  - ./agents/create/analyze-diagram-type.mjs
+  - ./agents/create/analyze-diagram-type-llm.yaml
+  - ./agents/create/generate-diagram-image.yaml
+  - ./agents/create/replace-d2-with-image.mjs
   - ./agents/update/generate-diagram.yaml
   - ./agents/update/check-generate-diagram.mjs
   - ./agents/update/pre-check-generate-diagram.yaml
+  - ./agents/update/check-sync-image-flag.mjs
+  - ./agents/update/sync-images-and-exit.mjs
 cli:
   chat: ./agents/chat/index.mjs
   agents:

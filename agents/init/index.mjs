@@ -7,6 +7,7 @@ import {
   DEFAULT_REASONING_EFFORT_LEVEL,
   DEFAULT_THINKING_EFFORT_LEVEL,
   DEPTH_RECOMMENDATION_LOGIC,
+  DIAGRAM_STYLES,
   DOCUMENT_STYLES,
   DOCUMENTATION_DEPTH,
   PURPOSE_TO_KNOWLEDGE_MAPPING,
@@ -620,6 +621,21 @@ ${modelSection}
     media: config.media,
   }).trim();
   yaml += `# minImageWidth: Only images wider than this value (in pixels) will be used in the page generation.\n${mediaInfoSection}\n`;
+
+  // Diagramming configuration
+  yaml += "\n# Diagramming Configuration\n";
+  yaml +=
+    "# diagramming.effort: AI effort level for diagramming, 0-10, larger value means fewer diagrams\n";
+  yaml += "diagramming:\n";
+  yaml += "  effort: 5  # AI effort level for diagramming, 0-10, large is less diagram\n";
+  yaml +=
+    "  # Default diagram style: The primary style to use when no style is specified in feedback\n";
+  yaml += "  # This style will be applied if feedback doesn't specify a different style\n";
+  yaml += "  # Available options:\n";
+  Object.entries(DIAGRAM_STYLES).forEach(([key, style]) => {
+    yaml += `  #   ${key.padEnd(16)} - ${style.name}: ${style.description}\n`;
+  });
+  yaml += '  # style: "modern"\n';
 
   return yaml;
 }

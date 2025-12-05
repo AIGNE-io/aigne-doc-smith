@@ -4,92 +4,9 @@ This guide provides a direct, step-by-step procedure for installing AIGNE DocSmi
 
 The following diagram illustrates the key steps from installation to creation:
 
-```d2
-direction: down
-
-Developer: {
-  shape: c4-person
-}
-
-Terminal: {
-  label: "Terminal"
-  shape: rectangle
-}
-
-Installation: {
-  label: "Installation"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
-
-  Install-CLI: {
-    label: "1. Install AIGNE CLI"
-    shape: oval
-  }
-
-  Verify-Installation: {
-    label: "2. Verify Installation"
-    shape: oval
-  }
-}
-
-Creation: {
-  label: "Creation"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
-
-  Run-Created: {
-    label: "3. Run Created Command"
-    shape: oval
-  }
-
-  Interactive-Setup: {
-    label: "4. Complete Interactive Setup"
-    shape: diamond
-  }
-
-  Automated-Process: {
-    label: "5. Automated Creation"
-    shape: rectangle
-
-    Analyze-Code: {
-      label: "Analyze Codebase"
-    }
-
-    Plan-Structure: {
-      label: "Plan Structure"
-    }
-
-    Created-Content: {
-      label: "Create Content"
-    }
-  }
-
-  Output-Docs: {
-    label: "6. Documents Created"
-    shape: oval
-  }
-
-  Analyze-Code -> Plan-Structure
-  Plan-Structure -> Created-Content
-}
-
-Developer -> Terminal: "Executes commands"
-Terminal -> Installation.Install-CLI: "`npm install -g @aigne/cli`"
-Installation.Install-CLI -> Installation.Verify-Installation: "`aigne doc --help`"
-Installation.Verify-Installation -> Creation.Run-Created: "`aigne doc create`"
-Creation.Run-Created -> Creation.Interactive-Setup: "First time run"
-Creation.Interactive-Setup -> Creation.Automated-Process: "Saves config.yaml"
-Creation.Automated-Process -> Creation.Output-Docs: "Outputs to docs/ folder"
-Creation.Output-Docs -> Developer: "Reviews documents"
-```
+<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+![Getting Started](assets/diagram/getting-started-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## Prerequisites
 

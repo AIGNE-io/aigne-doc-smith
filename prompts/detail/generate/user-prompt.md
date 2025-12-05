@@ -49,24 +49,38 @@ User feedback on previous generation:
 </feedback>
 {% endif %}
 
-{% if content %}
+{% if content or originalContent %}
+{% set previousContent = content or originalContent %}
 
 <previous_generation_content>
-{{content}}
+{{previousContent}}
 </previous_generation_content>
 
 <instructions>
-Analyze the previous document content and user feedback, then use available tools to implement the requested improvements while maintaining the document's integrity and style.
-</instructions>
+Analyze the user feedback carefully.
 
-{% elseif originalContent %}
+{% if intentType and intentType in ["addDiagram", "updateDiagram", "deleteDiagram"] %}
+**CRITICAL INSTRUCTION FOR DIAGRAM/IMAGE UPDATES:**
+The user intent is to {{ intentType }} (diagram-related operation). You MUST:
+1. **DO NOT** change the text content.
+2. **DO NOT** rewrite, summarize, or "improve" the existing text.
+3. **DO NOT** use any search tools.
+4. **OUTPUT the `previous_generation_content` VERBATIM (exactly as is).**
+   The system has a dedicated downstream agent that will handle the image generation based on your output. Your job is to preserve the text so the image agent can work on the same context.
+{% else %}
+**CRITICAL INSTRUCTION FOR DIAGRAM/IMAGE UPDATES:**
+If the user feedback is ONLY about updating diagrams, images, or visual styles (e.g., "update diagram", "change image", "use 16:9 ratio", "fix flowchart") and does NOT explicitly ask for text changes:
+1. **DO NOT** change the text content.
+2. **DO NOT** rewrite, summarize, or "improve" the existing text.
+3. **DO NOT** use any search tools.
+4. **OUTPUT the `previous_generation_content` VERBATIM (exactly as is).**
+   The system has a dedicated downstream agent that will handle the image generation based on your output. Your job is to preserve the text so the image agent can work on the same context.
 
-<previous_generation_content>
-{{originalContent}}
-</previous_generation_content>
-
-<instructions>
-Analyze the previous document content and user feedback, then use available tools to implement the requested improvements while maintaining the document's integrity and style.
+Only if the feedback explicitly requests changes to the text content (e.g., "fix typo", "rewrite introduction", "add info"):
+1. Analyze the previous document content and user feedback.
+2. Use available tools to implement the requested improvements.
+3. Maintain the document's integrity and style.
+{% endif %}
 </instructions>
 
 {% else %}

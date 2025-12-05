@@ -29,6 +29,17 @@ export default async function checkUpdateIsSingle({ selectedDocs, ...rest }, opt
       ...rest,
     });
 
+    // For batch updates, preserve selectedDocs and other context for save-and-translate-document
+    // batchUpdateDocument returns an array of results, but save-and-translate-document needs selectedDocs
+    if (agentName === "batchUpdateDocument") {
+      return {
+        ...rest,
+        selectedDocs, // Preserve selectedDocs for save-and-translate-document.mjs
+        result, // Include the batch update results
+      };
+    }
+
+    // For single document updates, return result as-is
     return result;
   } catch (error) {
     console.error(

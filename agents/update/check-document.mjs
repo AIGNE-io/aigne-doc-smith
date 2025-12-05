@@ -31,7 +31,6 @@ export default async function checkDocument(
   const filePath = join(docsDir, fileFullName);
   let detailGenerated = true;
   let fileContent = null;
-
   try {
     await access(filePath);
     // If file exists, read its content for validation

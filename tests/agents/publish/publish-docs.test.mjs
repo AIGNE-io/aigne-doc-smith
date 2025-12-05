@@ -62,7 +62,6 @@ describe("publish-docs", () => {
   let getAccessTokenSpy;
   let getCacheAccessTokenSpy;
   let getDiscussKitMountPointSpy;
-  let beforePublishHookSpy;
   let ensureTmpDirSpy;
   let getGithubRepoUrlSpy;
   let loadConfigFromFileSpy;
@@ -130,7 +129,6 @@ describe("publish-docs", () => {
     getDiscussKitMountPointSpy = spyOn(authUtils, "getDiscussKitMountPoint").mockResolvedValue(
       "/c",
     );
-    beforePublishHookSpy = spyOn(d2Utils, "beforePublishHook").mockResolvedValue();
     ensureTmpDirSpy = spyOn(d2Utils, "ensureTmpDir").mockResolvedValue();
     getGithubRepoUrlSpy = spyOn(utils, "getGithubRepoUrl").mockReturnValue(
       "https://github.com/user/repo",
@@ -166,7 +164,6 @@ describe("publish-docs", () => {
     getAccessTokenSpy?.mockRestore();
     getCacheAccessTokenSpy?.mockRestore();
     getDiscussKitMountPointSpy?.mockRestore();
-    beforePublishHookSpy?.mockRestore();
     ensureTmpDirSpy?.mockRestore();
     getGithubRepoUrlSpy?.mockRestore();
     loadConfigFromFileSpy?.mockRestore();
@@ -191,7 +188,6 @@ describe("publish-docs", () => {
 
     expect(ensureTmpDirSpy).toHaveBeenCalled();
     expect(mockFsExtra.cp).toHaveBeenCalled();
-    expect(beforePublishHookSpy).toHaveBeenCalled();
     expect(getDiscussKitMountPointSpy).toHaveBeenCalledWith("https://docsmith.aigne.io");
     expect(getAccessTokenSpy).toHaveBeenCalledWith("https://docsmith.aigne.io", "", undefined);
     expect(mockPublishDocs.publishDocs).toHaveBeenCalled();
@@ -599,20 +595,7 @@ describe("publish-docs", () => {
     );
   });
 
-  test("should call beforePublishHook with correct docsDir", async () => {
-    await publishDocs(
-      {
-        docsDir: "./docs",
-        appUrl: "https://example.com",
-        originalDocumentStructure: [],
-      },
-      mockOptions,
-    );
-
-    expect(beforePublishHookSpy).toHaveBeenCalledWith({
-      docsDir: expect.stringContaining(".aigne/doc-smith/.tmp/docs"),
-    });
-  });
+  // Note: beforePublishHook test removed - function no longer exists as we use AI image generation instead of D2
 
   test("should set DOC_ROOT_DIR environment variable", async () => {
     await publishDocs(

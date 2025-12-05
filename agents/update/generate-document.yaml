@@ -32,6 +32,9 @@ input_schema:
       type: string
     path:
       type: string
+    originalContent:
+      type: string
+      description: The original content of the document before update
     parentId:
       type:
         - string
@@ -42,6 +45,12 @@ input_schema:
     additionalInformation:
       type: string
       description: Additional supplementary information
+    intentType:
+      type:
+        - string
+        - "null"
+      description: User intent type analyzed from feedback (addDiagram, updateDiagram, deleteDiagram, updateDocument). Can be null if not specified.
+      enum: ["addDiagram", "updateDiagram", "deleteDiagram", "updateDocument", null]
   required:
     - rules
     - detailDataSource

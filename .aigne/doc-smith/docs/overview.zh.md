@@ -10,75 +10,9 @@ AIGNE DocSmith 是一款 AI 驱动的工具，可从您的项目源代码中自�
 
 DocSmith 通过分析您项目的源代码来理解其结构、组件和功能。基于此分析，它会生成一套完整的文档，从高级指南到详细的 API 参考都涵盖在内。
 
-```d2
-direction: down
-
-Source-Code: {
-  label: "源代码"
-  shape: rectangle
-}
-
-AIGNE-DocSmith: {
-  label: "AIGNE DocSmith"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
-
-  Analysis-Engine: {
-    label: "分析引擎"
-    shape: rectangle
-  }
-
-  Generation-Engine: {
-    label: "生成引擎"
-    shape: rectangle
-  }
-
-  Translation-Engine: {
-    label: "翻译引擎"
-    shape: rectangle
-  }
-
-  LLMs: {
-    label: "大语言模型"
-    shape: rectangle
-
-    AIGNE-Hub: {
-      label: "AIGNE Hub"
-    }
-
-    Direct-Access: {
-      label: "直接访问"
-      shape: rectangle
-      Google-Gemini: {}
-      OpenAI-GPT: {}
-    }
-  }
-}
-
-Published-Documentation: {
-  label: "已发布的文档"
-  shape: rectangle
-
-  DocSmith-Platform: {
-    label: "DocSmith 平台"
-  }
-
-  Discuss-Kit: {
-    label: "Discuss Kit"
-  }
-}
-
-Source-Code -> AIGNE-DocSmith.Analysis-Engine: "分析"
-AIGNE-DocSmith.Analysis-Engine -> AIGNE-DocSmith.Generation-Engine: "生成"
-AIGNE-DocSmith.Generation-Engine <-> AIGNE-DocSmith.LLMs: "利用"
-AIGNE-DocSmith.Generation-Engine -> AIGNE-DocSmith.Translation-Engine: "翻译"
-AIGNE-DocSmith.Translation-Engine -> Published-Documentation: "发布"
-
-```
+<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->
+![Overview](assets/diagram/overview-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## 核心功能
 

@@ -4,92 +4,9 @@
 
 下圖說明了從安裝到產生的關鍵步驟：
 
-```d2
-direction: down
-
-Developer: {
-  shape: c4-person
-}
-
-Terminal: {
-  label: "終端機"
-  shape: rectangle
-}
-
-Installation: {
-  label: "安裝"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
-
-  Install-CLI: {
-    label: "1. 安裝 AIGNE CLI"
-    shape: oval
-  }
-
-  Verify-Installation: {
-    label: "2. 驗證安裝"
-    shape: oval
-  }
-}
-
-Generation: {
-  label: "產生"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
-
-  Run-Generate: {
-    label: "3. 執行產生指令"
-    shape: oval
-  }
-
-  Interactive-Setup: {
-    label: "4. 完成互動式設定"
-    shape: diamond
-  }
-
-  Automated-Process: {
-    label: "5. 自動化產生"
-    shape: rectangle
-
-    Analyze-Code: {
-      label: "分析程式碼庫"
-    }
-
-    Plan-Structure: {
-      label: "規劃結構"
-    }
-
-    Generate-Content: {
-      label: "產生內容"
-    }
-  }
-
-  Output-Docs: {
-    label: "6. 文件已產生"
-    shape: oval
-  }
-
-  Analyze-Code -> Plan-Structure
-  Plan-Structure -> Generate-Content
-}
-
-Developer -> Terminal: "執行指令"
-Terminal -> Installation.Install-CLI: "`npm install -g @aigne/cli`"
-Installation.Install-CLI -> Installation.Verify-Installation: "`aigne doc --help`"
-Installation.Verify-Installation -> Generation.Run-Generate: "`aigne doc create`"
-Generation.Run-Generate -> Generation.Interactive-Setup: "首次執行"
-Generation.Interactive-Setup -> Generation.Automated-Process: "儲存 config.yaml"
-Generation.Automated-Process -> Generation.Output-Docs: "輸出至 docs/ 資料夾"
-Generation.Output-Docs -> Developer: "檢閱文件"
-```
+<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+![Getting Started](assets/diagram/getting-started-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## 先決條件
 

@@ -4,71 +4,11 @@ Have you ever wished your AI assistant would remember your instructions? This gu
 
 When you generate or update documents, you can provide feedback using the `--feedback` flag. This feedback is saved as a "preference" to be reused in future sessions, ensuring the AI maintains consistency with your previous instructions. The `aigne doc prefs` command provides a direct way to manage these saved preferences.
 
-This guide details how to list, remove, and toggle the active status of your saved preferences.
+This guide details how to list, remove, and toggle the active status of your saved preferences. The diagram below illustrates the workflow for managing these preferences.
 
-```d2
-direction: down
-
-User: {
-  shape: c4-person
-}
-
-CLI-Interface: {
-  label: "CLI: aigne doc prefs"
-  shape: rectangle
-
-  List-Action: {
-    label: "--list"
-    shape: oval
-  }
-
-  Remove-Action: {
-    label: "--remove"
-    shape: diamond
-
-    Interactive-Remove: {
-      label: "Interactive Mode (Beta)"
-      shape: rectangle
-    }
-
-    Direct-Remove: {
-      label: "Direct Mode\n(with --id)"
-      shape: rectangle
-    }
-  }
-
-  Toggle-Action: {
-    label: "--toggle"
-    shape: diamond
-
-    Interactive-Toggle: {
-      label: "Interactive Mode (Beta)"
-      shape: rectangle
-    }
-
-    Direct-Toggle: {
-      label: "Direct Mode\n(with --id)"
-      shape: rectangle
-    }
-  }
-}
-
-Preference-Storage: {
-  label: "Preference Storage"
-  shape: cylinder
-}
-
-User -> CLI-Interface: "Executes command"
-CLI-Interface.List-Action -> Preference-Storage: "Reads"
-CLI-Interface.Remove-Action -> CLI-Interface.Interactive-Remove: "No ID"
-CLI-Interface.Remove-Action -> CLI-Interface.Direct-Remove: "ID specified"
-CLI-Interface.Interactive-Remove -> Preference-Storage: "Deletes selected"
-CLI-Interface.Direct-Remove -> Preference-Storage: "Deletes specified"
-CLI-Interface.Toggle-Action -> CLI-Interface.Interactive-Toggle: "No ID"
-CLI-Interface.Toggle-Action -> CLI-Interface.Direct-Toggle: "ID specified"
-CLI-Interface.Interactive-Toggle -> Preference-Storage: "Updates selected"
-CLI-Interface.Direct-Toggle -> Preference-Storage: "Updates specified"
-```
+<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+![Manage Preferences](assets/diagram/managing-preferences-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## Viewing Saved Preferences
 

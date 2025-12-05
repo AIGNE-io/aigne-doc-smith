@@ -15,6 +15,7 @@ import {
   TMP_DIR,
 } from "./constants/index.mjs";
 import { getContentHash } from "./utils.mjs";
+import { d2CodeBlockRegex } from "./d2-utils.mjs";
 
 const debug = Debug("doc-smith");
 
@@ -59,11 +60,9 @@ export async function saveD2Assets({ markdown, docsDir }) {
     return markdown;
   }
 
-  const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
-
   const { replaced } = await runIterator({
     input: markdown,
-    regexp: codeBlockRegex,
+    regexp: d2CodeBlockRegex,
     replace: true,
     fn: async ([_match, _code]) => {
       const assetDir = path.join(docsDir, "../", TMP_ASSETS_DIR, "d2");

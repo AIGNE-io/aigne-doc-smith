@@ -1,22 +1,17 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { existsSync, mkdtemp, rmdir } from "node:fs";
-import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
-import Debug from "debug";
-
-import { DOC_SMITH_DIR, TMP_ASSETS_DIR, TMP_DIR } from "../../utils/constants/index.mjs";
+import { DOC_SMITH_DIR, TMP_DIR } from "../../utils/constants/index.mjs";
 import {
   DIAGRAM_PLACEHOLDER,
-  beforePublishHook,
-  checkContent,
   ensureTmpDir,
-  getChart,
   isValidCode,
   replaceD2WithPlaceholder,
+  replaceDiagramsWithPlaceholder,
   replacePlaceholderWithD2,
-  saveAssets,
   wrapCode,
 } from "../../utils/d2-utils.mjs";
 
@@ -38,326 +33,6 @@ describe("d2-utils", () => {
         rmdir(tempDir, { recursive: true }, () => resolve());
       });
     }
-  });
-
-  describe("getChart", () => {
-    test("should generate chart for valid d2 content", async () => {
-      const content = "A -> B";
-      const result = await getChart({ content });
-      expect(typeof result).toBe("string");
-      expect(result).toContain("<svg");
-    }, 15000);
-
-    test("should return null for invalid d2 content with strict=false", async () => {
-      const content = "A -> B -> C -> [invalid syntax";
-      const result = await getChart({ content, strict: false });
-      expect(result).toBe(null);
-    }, 15000);
-
-    test("should throw for invalid d2 content with strict=true", async () => {
-      const content = "A -> B -> C -> [invalid syntax";
-      await expect(getChart({ content, strict: true })).rejects.toThrow();
-    }, 15000);
-
-    test("should handle empty content", async () => {
-      const result = await getChart({ content: "" });
-      expect(typeof result).toBe("string");
-      expect(result).toContain("<svg");
-    }, 10000);
-
-    test("should add stroke-dash to container shapes", async () => {
-      const content = `
-        container {
-          A -> B
-        }
-      `;
-      const result = await getChart({ content });
-      expect(typeof result).toBe("string");
-      // d2 will convert `strokeDash: 3` to `stroke-dasharray:6.000000,5.919384;`
-      expect(result).toContain("stroke-dasharray:6.000000");
-    }, 15000);
-
-    test("should not add stroke-dash to sequence diagrams", async () => {
-      const content = `
-        shape: sequence_diagram
-        A -> B: Hello
-      `;
-      const result = await getChart({ content });
-      expect(typeof result).toBe("string");
-      // d2 will convert `strokeDash: 3` to `stroke-dasharray:6.000000,5.919384;`
-      expect(result).not.toContain("stroke-dasharray:6.000000");
-    }, 15000);
-  });
-
-  describe("saveAssets", () => {
-    test("should process markdown with D2 code blocks", async () => {
-      const docsDir = path.join(tempDir, "docs");
-      await mkdir(docsDir, { recursive: true });
-
-      const markdown = `# Test Document
-
-This is a test document with D2 diagram:
-
-\`\`\`d2
-A -> B: connection
-B -> C: another connection
-\`\`\`
-
-Some more content here.
-`;
-
-      const result = await saveAssets({ markdown, docsDir });
-
-      expect(typeof result).toBe("string");
-      expect(result).toContain("# Test Document");
-      expect(result).toContain("Some more content here");
-
-      // Should replace D2 code block with image reference
-      expect(result).not.toContain("```d2");
-      expect(result).toContain("![](../assets/d2/");
-      expect(result).toContain(".svg)");
-    });
-
-    test("should handle markdown without D2 blocks", async () => {
-      const docsDir = path.join(tempDir, "docs");
-      await mkdir(docsDir, { recursive: true });
-
-      const markdown = `# Test Document
-
-This document has no D2 diagrams.
-
-\`\`\`javascript
-console.log('hello world');
-\`\`\`
-`;
-
-      const result = await saveAssets({ markdown, docsDir });
-
-      expect(result).toBe(markdown); // Should remain unchanged
-    });
-
-    test("should handle multiple D2 blocks", async () => {
-      const docsDir = path.join(tempDir, "docs");
-      await mkdir(docsDir, { recursive: true });
-
-      const markdown = `# Test
-
-\`\`\`d2
-A -> B
-\`\`\`
-
-Some text.
-
-\`\`\`d2
-C -> D
-E -> F
-\`\`\`
-`;
-
-      const result = await saveAssets({ markdown, docsDir });
-
-      expect(typeof result).toBe("string");
-      expect(result).not.toContain("```d2");
-
-      // Should have two image references
-      const imageMatches = result.match(/!\[\]\(\.\.\/assets\/d2\/.*\.svg\)/g);
-      expect(imageMatches).toBeTruthy();
-      expect(imageMatches.length).toBe(2);
-    });
-
-    test("should handle empty markdown", async () => {
-      const docsDir = path.join(tempDir, "docs");
-      await mkdir(docsDir, { recursive: true });
-
-      const result = await saveAssets({ markdown: "", docsDir });
-      expect(result).toBe("");
-    });
-
-    test("should skip generation if SVG file already exists", async () => {
-      const docsDir = path.join(tempDir, "docs");
-      await mkdir(docsDir, { recursive: true });
-      const markdown = `\`\`\`d2\nA -> B\n\`\`\``;
-
-      // 1. First run to generate the file
-      await saveAssets({ markdown, docsDir });
-
-      // 2. Second run to check if cache is used
-      const debugLogs = [];
-      const originalWrite = process.stderr.write;
-      process.stderr.write = (chunk) => {
-        debugLogs.push(chunk.toString());
-        return true;
-      };
-      Debug.enable("doc-smith");
-
-      try {
-        const result = await saveAssets({ markdown, docsDir });
-
-        expect(typeof result).toBe("string");
-        expect(result).toContain(`![](${path.posix.join("..", TMP_ASSETS_DIR, "d2")}`);
-        expect(
-          debugLogs.some((log) => log.includes("Asset cache found, skipping generation")),
-        ).toBe(true);
-      } finally {
-        process.stderr.write = originalWrite;
-        Debug.disable();
-      }
-    });
-
-    test("should handle D2 generation errors gracefully", async () => {
-      const docsDir = path.join(tempDir, "docs");
-      await mkdir(docsDir, { recursive: true });
-
-      const markdown = `\`\`\`d2\nA -> B -> [invalid\n\`\`\``;
-
-      const result = await saveAssets({ markdown, docsDir });
-      expect(result).toContain("![](../assets/d2/");
-    });
-
-    test("should write .d2 file when debug is enabled", async () => {
-      const docsDir = path.join(tempDir, "docs");
-      await mkdir(docsDir, { recursive: true });
-
-      const markdown = `\`\`\`d2\nA -> B\n\`\`\``;
-
-      // Enable debug mode
-      Debug.enable("doc-smith");
-
-      try {
-        await saveAssets({ markdown, docsDir });
-
-        const assetDir = path.join(docsDir, "../", TMP_ASSETS_DIR, "d2");
-        const files = await readdir(assetDir);
-        const d2File = files.find((file) => file.endsWith(".d2"));
-        expect(d2File).toBeDefined();
-      } finally {
-        // Restore debug mode
-        Debug.disable();
-      }
-    });
-  });
-
-  describe("beforePublishHook", () => {
-    test("should process all markdown files in directory", async () => {
-      const docsDir = path.join(tempDir, "docs");
-      await mkdir(docsDir, { recursive: true });
-
-      // Create test markdown files
-      const file1Content = `# Doc 1\n\`\`\`d2\nA -> B\n\`\`\``;
-      const file2Content = `# Doc 2\n\`\`\`d2\nC -> D\n\`\`\``;
-      const file3Content = `# Doc 3\nNo diagrams here.`;
-
-      await writeFile(path.join(docsDir, "doc1.md"), file1Content);
-      await writeFile(path.join(docsDir, "doc2.md"), file2Content);
-      await writeFile(path.join(docsDir, "doc3.md"), file3Content);
-
-      await beforePublishHook({ docsDir });
-
-      // Check that files were processed
-      const processedFile1 = await readFile(path.join(docsDir, "doc1.md"), "utf8");
-      const processedFile2 = await readFile(path.join(docsDir, "doc2.md"), "utf8");
-      const processedFile3 = await readFile(path.join(docsDir, "doc3.md"), "utf8");
-
-      expect(processedFile1).not.toContain("```d2");
-      expect(processedFile2).not.toContain("```d2");
-      expect(processedFile3).toBe(file3Content); // Unchanged
-
-      expect(processedFile1).toContain("![](../assets/d2/");
-      expect(processedFile2).toContain("![](../assets/d2/");
-    });
-
-    test("should handle nested directories", async () => {
-      const docsDir = path.join(tempDir, "docs");
-      const subDir = path.join(docsDir, "subdir");
-      await mkdir(subDir, { recursive: true });
-
-      const fileContent = `# Nested Doc\n\`\`\`d2\nA -> B\n\`\`\``;
-      await writeFile(path.join(subDir, "nested.md"), fileContent);
-
-      await beforePublishHook({ docsDir });
-
-      const processedFile = await readFile(path.join(subDir, "nested.md"), "utf8");
-      expect(processedFile).not.toContain("```d2");
-      expect(processedFile).toContain("![](../assets/d2/");
-    });
-
-    test("should handle empty docs directory", async () => {
-      const docsDir = path.join(tempDir, "empty-docs");
-      await mkdir(docsDir, { recursive: true });
-
-      // Should not throw error
-      await expect(beforePublishHook({ docsDir })).resolves.toBeUndefined();
-    });
-
-    test("should handle non-existent directory", async () => {
-      const nonExistentDir = path.join(tempDir, "non-existent");
-      // glob will just return an empty array, so no error should be thrown.
-      await expect(beforePublishHook({ docsDir: nonExistentDir })).resolves.toBeUndefined();
-    });
-  });
-
-  describe("checkContent", () => {
-    test("should generate and cache D2 SVG", async () => {
-      const content = "A -> B: test connection";
-      await expect(checkContent({ content })).resolves.toBeUndefined();
-    });
-
-    test("should use cached file when available", async () => {
-      const content = "A -> B: cached test";
-
-      // First call should generate
-      await checkContent({ content });
-
-      // Second call should use cache
-      const debugLogs = [];
-      const originalWrite = process.stderr.write;
-      process.stderr.write = (chunk) => {
-        debugLogs.push(chunk.toString());
-        return true;
-      };
-      Debug.enable("doc-smith");
-
-      try {
-        const startTime = Date.now();
-        await checkContent({ content });
-        const endTime = Date.now();
-
-        // Cache hit should be very fast (< 100ms)
-        expect(endTime - startTime).toBeLessThan(100);
-        expect(
-          debugLogs.some((log) => log.includes("Asset cache found, skipping generation")),
-        ).toBe(true);
-      } finally {
-        process.stderr.write = originalWrite;
-        Debug.disable();
-      }
-    });
-
-    test("should handle generation errors in strict mode", async () => {
-      const malformedContent = "A -> B -> [invalid";
-      await expect(checkContent({ content: malformedContent })).rejects.toThrow();
-    });
-
-    test("should handle empty content", async () => {
-      await expect(checkContent({ content: "" })).resolves.toBeUndefined();
-    });
-
-    test("should write .d2 file when debug is enabled", async () => {
-      const content = "A -> B: debug test";
-
-      Debug.enable("doc-smith");
-
-      try {
-        await checkContent({ content });
-
-        const assetDir = path.join(process.cwd(), DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "d2");
-        const files = await readdir(assetDir);
-        const d2File = files.find((file) => file.endsWith(".d2"));
-        expect(d2File).toBeDefined();
-      } finally {
-        Debug.disable();
-      }
-    });
   });
 
   describe("ensureTmpDir", () => {
@@ -490,6 +165,199 @@ E -> F
       const content = `# Title\n\n${DIAGRAM_PLACEHOLDER}Some text`;
       const result = replacePlaceholderWithD2({ content, diagramSourceCode: "A -> B" });
       expect(result).toContain("```\nSome text");
+    });
+  });
+
+  describe("replaceDiagramsWithPlaceholder", () => {
+    test("should return original content when content is empty", () => {
+      expect(replaceDiagramsWithPlaceholder({ content: "" })).toBe("");
+      expect(replaceDiagramsWithPlaceholder({ content: null })).toBe(null);
+      expect(replaceDiagramsWithPlaceholder({ content: undefined })).toBe(undefined);
+    });
+
+    test("should return original content when no diagrams exist", () => {
+      const content = "# Title\n\nSome text without diagrams";
+      expect(replaceDiagramsWithPlaceholder({ content })).toBe(content);
+    });
+
+    test("should replace single DIAGRAM_PLACEHOLDER with itself (no change)", () => {
+      const content = `# Title\n\n${DIAGRAM_PLACEHOLDER}\n\nSome text`;
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+    });
+
+    test("should replace multiple DIAGRAM_PLACEHOLDERs", () => {
+      const content = `# Title\n\n${DIAGRAM_PLACEHOLDER}\n\nText\n\n${DIAGRAM_PLACEHOLDER}\n\nMore text`;
+      const result = replaceDiagramsWithPlaceholder({ content });
+      const matches = result.match(new RegExp(DIAGRAM_PLACEHOLDER, "g"));
+      expect(matches).toHaveLength(2);
+    });
+
+    test("should replace single D2 code block", () => {
+      const content = "# Title\n\n```d2\nA -> B\n```\n\nSome text";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+      expect(result).not.toContain("```d2");
+    });
+
+    test("should replace multiple D2 code blocks", () => {
+      const content = "```d2\nA -> B\n```\n\nText\n\n```d2\nC -> D\n```";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).not.toContain("```d2");
+      const matches = result.match(new RegExp(DIAGRAM_PLACEHOLDER, "g"));
+      expect(matches).toHaveLength(2);
+    });
+
+    test("should replace single diagram image", () => {
+      const content =
+        "# Title\n\n<!-- DIAGRAM_IMAGE_START:test -->\n![alt](path.png)\n<!-- DIAGRAM_IMAGE_END -->\n\nText";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+      expect(result).not.toContain("DIAGRAM_IMAGE_START");
+      expect(result).not.toContain("path.png");
+    });
+
+    test("should replace multiple diagram images", () => {
+      const content =
+        "<!-- DIAGRAM_IMAGE_START:test1 -->\n![alt1](path1.png)\n<!-- DIAGRAM_IMAGE_END -->\n\nText\n\n<!-- DIAGRAM_IMAGE_START:test2 -->\n![alt2](path2.png)\n<!-- DIAGRAM_IMAGE_END -->";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).not.toContain("DIAGRAM_IMAGE_START");
+      const matches = result.match(new RegExp(DIAGRAM_PLACEHOLDER, "g"));
+      expect(matches).toHaveLength(2);
+    });
+
+    test("should replace single Mermaid code block", () => {
+      const content = "# Title\n\n```mermaid\ngraph TD\nA --> B\n```\n\nText";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+      expect(result).not.toContain("```mermaid");
+    });
+
+    test("should replace multiple Mermaid code blocks", () => {
+      const content =
+        "```mermaid\ngraph TD\nA --> B\n```\n\nText\n\n```mermaid\nflowchart LR\nC --> D\n```";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).not.toContain("```mermaid");
+      const matches = result.match(new RegExp(DIAGRAM_PLACEHOLDER, "g"));
+      expect(matches).toHaveLength(2);
+    });
+
+    test("should replace mixed diagram types", () => {
+      const content =
+        "```d2\nA -> B\n```\n\n<!-- DIAGRAM_IMAGE_START:test -->\n![alt](path.png)\n<!-- DIAGRAM_IMAGE_END -->\n\n```mermaid\ngraph TD\nC --> D\n```\n\nText";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).not.toContain("```d2");
+      expect(result).not.toContain("DIAGRAM_IMAGE_START");
+      expect(result).not.toContain("```mermaid");
+      const matches = result.match(new RegExp(DIAGRAM_PLACEHOLDER, "g"));
+      expect(matches).toHaveLength(3);
+    });
+
+    test("should replace specific diagram by index", () => {
+      const content = "```d2\nA -> B\n```\n\nText\n\n```d2\nC -> D\n```\n\nMore text";
+      const result = replaceDiagramsWithPlaceholder({ content, diagramIndex: 1 });
+      // Should only replace the second D2 block
+      expect(result).toContain("```d2\nA -> B\n```");
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+      expect(result).not.toContain("```d2\nC -> D\n```");
+    });
+
+    test("should replace first diagram when diagramIndex is 0", () => {
+      const content = "```d2\nA -> B\n```\n\nText\n\n```d2\nC -> D\n```";
+      const result = replaceDiagramsWithPlaceholder({ content, diagramIndex: 0 });
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+      expect(result).toContain("```d2\nC -> D\n```");
+      expect(result).not.toContain("```d2\nA -> B\n```");
+    });
+
+    test("should not replace when diagramIndex is negative", () => {
+      const content = "```d2\nA -> B\n```\n\nText";
+      const result = replaceDiagramsWithPlaceholder({ content, diagramIndex: -1 });
+      // Should replace all (negative index is invalid, so all are replaced)
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+      expect(result).not.toContain("```d2");
+    });
+
+    test("should not replace when diagramIndex is out of range", () => {
+      const content = "```d2\nA -> B\n```\n\nText";
+      const result = replaceDiagramsWithPlaceholder({ content, diagramIndex: 10 });
+      // Should replace all (out of range index is invalid, so all are replaced)
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+      expect(result).not.toContain("```d2");
+    });
+
+    test("should add newline before placeholder if missing", () => {
+      const content = "# Title```d2\nA -> B\n```\n\nText";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toMatch(/# Title\nDIAGRAM_PLACEHOLDER/);
+    });
+
+    test("should add newline after placeholder if missing", () => {
+      const content = "# Title\n\n```d2\nA -> B\n```Text";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toMatch(/DIAGRAM_PLACEHOLDER\nText/);
+    });
+
+    test("should add newlines on both sides if missing", () => {
+      const content = "# Title```d2\nA -> B\n```Text";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toMatch(/# Title\nDIAGRAM_PLACEHOLDER\nText/);
+    });
+
+    test("should preserve existing newlines", () => {
+      const content = "# Title\n\n```d2\nA -> B\n```\n\nText";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toMatch(/# Title\n\nDIAGRAM_PLACEHOLDER\n\nText/);
+    });
+
+    test("should handle diagram image with title in DIAGRAM_IMAGE_START", () => {
+      const content =
+        "# Title\n\n<!-- DIAGRAM_IMAGE_START:test-diagram -->\n![alt](path.png)\n<!-- DIAGRAM_IMAGE_END -->\n\nText";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+      expect(result).not.toContain("DIAGRAM_IMAGE_START");
+    });
+
+    test("should handle D2 code block with title", () => {
+      const content = "# Title\n\n```d2 Vault 驗證流程\nA -> B\n```\n\nText";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      expect(result).toContain(DIAGRAM_PLACEHOLDER);
+      expect(result).not.toContain("```d2");
+    });
+
+    test("should handle complex content with multiple diagram types and text", () => {
+      const content =
+        "Introduction\n\n```d2\nFirst diagram\n```\n\nMiddle text\n\n<!-- DIAGRAM_IMAGE_START:img1 -->\n![alt](img1.png)\n<!-- DIAGRAM_IMAGE_END -->\n\nMore text\n\n```mermaid\ngraph TD\nA --> B\n```\n\nConclusion";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      const matches = result.match(new RegExp(DIAGRAM_PLACEHOLDER, "g"));
+      expect(matches).toHaveLength(3);
+      expect(result).toContain("Introduction");
+      expect(result).toContain("Middle text");
+      expect(result).toContain("More text");
+      expect(result).toContain("Conclusion");
+    });
+
+    test("should handle replacement with diagramIndex and newline adjustments", () => {
+      const content = "Text1```d2\nA -> B\n```Text2\n\n```d2\nC -> D\n```\n\nText3";
+      const result = replaceDiagramsWithPlaceholder({ content, diagramIndex: 0 });
+      // First diagram should be replaced with newlines
+      expect(result).toMatch(/Text1\nDIAGRAM_PLACEHOLDER\nText2/);
+      // Second diagram should remain
+      expect(result).toContain("```d2\nC -> D\n```");
+    });
+
+    test("should sort diagrams by position before replacement", () => {
+      // Create content where diagrams are not in order by type
+      const content =
+        "```d2\nFirst\n```\n\n<!-- DIAGRAM_IMAGE_START:test -->\n![alt](path.png)\n<!-- DIAGRAM_IMAGE_END -->\n\n```d2\nSecond\n```";
+      const result = replaceDiagramsWithPlaceholder({ content });
+      // All should be replaced in correct order
+      const matches = result.match(new RegExp(DIAGRAM_PLACEHOLDER, "g"));
+      expect(matches).toHaveLength(3);
+    });
+
+    test("should handle empty string content", () => {
+      expect(replaceDiagramsWithPlaceholder({ content: "" })).toBe("");
     });
   });
 });

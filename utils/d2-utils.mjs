@@ -1,189 +1,14 @@
 import path from "node:path";
 
-import { D2 } from "@terrastruct/d2";
 import fs from "fs-extra";
-import { glob } from "glob";
-import pMap from "p-map";
 
-import {
-  D2_CONCURRENCY,
-  D2_CONFIG,
-  DOC_SMITH_DIR,
-  FILE_CONCURRENCY,
-  TMP_ASSETS_DIR,
-  TMP_DIR,
-} from "./constants/index.mjs";
-import { debug } from "./debug.mjs";
-import { iconMap } from "./icon-map.mjs";
-import { getContentHash } from "./utils.mjs";
+import { DOC_SMITH_DIR, TMP_DIR } from "./constants/index.mjs";
 
-const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
+// Note: .* matches title or other text after ```d2 (e.g., ```d2 Vault 驗證流程)
+// Export regex for reuse across the codebase to avoid duplication
+export const d2CodeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 
 export const DIAGRAM_PLACEHOLDER = "DIAGRAM_PLACEHOLDER";
-
-export async function getChart({ content, strict }) {
-  const d2 = new D2();
-  const iconUrlList = Object.keys(iconMap);
-  const escapedUrls = iconUrlList.map((url) => url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  const regexPattern = escapedUrls.join("|");
-  const regex = new RegExp(regexPattern, "g");
-
-  const contentWithBase64Img = content.replace(regex, (match) => {
-    return iconMap[match];
-  });
-  try {
-    const { diagram, renderOptions, graph } = await d2.compile(contentWithBase64Img);
-
-    // Do not apply a stroke-dash to sequence diagrams.
-    if (
-      graph?.root?.attributes?.shape &&
-      graph.root.attributes.shape.value !== "sequence_diagram"
-    ) {
-      // Save the first-level container.
-      const firstLevelContainer = new Set();
-      diagram.shapes.forEach((x) => {
-        const idList = x.id.split(".");
-        if (idList.length > 1) {
-          const targetShape = diagram.shapes.find((x) => x.id === idList[0]);
-          if (targetShape && !["c4-person", "cylinder", "queue"].includes(targetShape.type)) {
-            firstLevelContainer.add(targetShape);
-          }
-        }
-      });
-      firstLevelContainer.forEach((shape) => {
-        if (!shape.strokeDash) {
-          // Note: The data structure here is different from the d2 source code.
-          shape.strokeDash = 3;
-        }
-      });
-    }
-
-    const svg = await d2.render(diagram, renderOptions);
-
-    return svg;
-  } catch (err) {
-    if (strict) throw err;
-
-    console.error("Failed to generate D2 diagram. Content:", content, "Error:", err);
-    return null;
-  } finally {
-    d2.worker.terminate();
-  }
-}
-
-export async function saveAssets({ markdown, docsDir }) {
-  if (!markdown) {
-    return markdown;
-  }
-
-  const { replaced } = await runIterator({
-    input: markdown,
-    regexp: codeBlockRegex,
-    replace: true,
-    fn: async ([_match, _code]) => {
-      const assetDir = path.join(docsDir, "../", TMP_ASSETS_DIR, "d2");
-      await fs.ensureDir(assetDir);
-      const d2Content = [D2_CONFIG, _code].join("\n");
-      const fileName = `${getContentHash(d2Content)}.svg`;
-      const svgPath = path.join(assetDir, fileName);
-
-      if (await fs.pathExists(svgPath)) {
-        debug("Asset cache found, skipping generation", svgPath);
-      } else {
-        try {
-          debug("Generating d2 diagram", svgPath);
-          if (debug.enabled) {
-            const d2FileName = `${getContentHash(d2Content)}.d2`;
-            const d2Path = path.join(assetDir, d2FileName);
-            await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
-          }
-
-          const svg = await getChart({ content: d2Content });
-          if (svg) {
-            await fs.writeFile(svgPath, svg, { encoding: "utf8" });
-          }
-        } catch (error) {
-          debug("Failed to generate D2 diagram. Content:", d2Content, "Error:", error);
-          return _code;
-        }
-      }
-      return `![](${path.posix.join("..", TMP_ASSETS_DIR, "d2", fileName)})`;
-    },
-    options: { concurrency: D2_CONCURRENCY },
-  });
-
-  return replaced;
-}
-
-export async function beforePublishHook({ docsDir }) {
-  // Process each markdown file to save d2 svg assets.
-  const mdFilePaths = await glob("**/*.md", { cwd: docsDir });
-  await pMap(
-    mdFilePaths,
-    async (filePath) => {
-      let finalContent = await fs.readFile(path.join(docsDir, filePath), { encoding: "utf8" });
-      finalContent = await saveAssets({ markdown: finalContent, docsDir });
-
-      await fs.writeFile(path.join(docsDir, filePath), finalContent, { encoding: "utf8" });
-    },
-    { concurrency: FILE_CONCURRENCY },
-  );
-}
-
-async function runIterator({ input, regexp, fn = () => {}, options, replace = false }) {
-  if (!input) return input;
-  const matches = [...input.matchAll(regexp)];
-  const results = [];
-  await pMap(
-    matches,
-    async (...args) => {
-      const resultItem = await fn(...args);
-      results.push(resultItem);
-    },
-    options,
-  );
-
-  let replaced = input;
-  if (replace) {
-    let index = 0;
-    replaced = replaced.replace(regexp, () => {
-      return results[index++];
-    });
-  }
-
-  return {
-    results,
-    replaced,
-  };
-}
-
-export async function checkContent({ content: _content }) {
-  const matches = Array.from(_content.matchAll(codeBlockRegex));
-  let content = _content;
-  if (matches.length > 0) {
-    content = matches[0][1];
-  }
-  await ensureTmpDir();
-  const assetDir = path.join(DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR, "d2");
-  await fs.ensureDir(assetDir);
-  const d2Content = [D2_CONFIG, content].join("\n");
-  const fileName = `${getContentHash(d2Content)}.svg`;
-  const svgPath = path.join(assetDir, fileName);
-
-  if (debug.enabled) {
-    const d2FileName = `${getContentHash(d2Content)}.d2`;
-    const d2Path = path.join(assetDir, d2FileName);
-    await fs.writeFile(d2Path, d2Content, { encoding: "utf8" });
-  }
-
-  if (await fs.pathExists(svgPath)) {
-    debug("Asset cache found, skipping generation", svgPath);
-    return;
-  }
-
-  const svg = await getChart({ content: d2Content, strict: true });
-  await fs.writeFile(svgPath, svg, { encoding: "utf8" });
-}
 
 export async function ensureTmpDir() {
   const tmpDir = path.join(DOC_SMITH_DIR, TMP_DIR);
@@ -198,7 +23,7 @@ export function isValidCode(lang) {
 }
 
 export function wrapCode({ content }) {
-  const matches = Array.from(content.matchAll(codeBlockRegex));
+  const matches = Array.from(content.matchAll(d2CodeBlockRegex));
   if (matches.length > 0) {
     return content;
   }
@@ -212,7 +37,7 @@ export function wrapCode({ content }) {
  * @returns {Array} - [contentWithPlaceholder, originalCodeBlock]
  */
 export function replaceD2WithPlaceholder({ content }) {
-  const [firstMatch] = Array.from(content.matchAll(codeBlockRegex));
+  const [firstMatch] = Array.from(content.matchAll(d2CodeBlockRegex));
   if (firstMatch) {
     const matchContent = firstMatch[0];
     const cleanContent = content.replace(matchContent, DIAGRAM_PLACEHOLDER);
@@ -254,4 +79,112 @@ export function replacePlaceholderWithD2({ content, diagramSourceCode }) {
   }
 
   return content.replace(DIAGRAM_PLACEHOLDER, replacement);
+}
+
+/**
+ * Replace all diagrams (D2 code blocks and generated images) with DIAGRAM_PLACEHOLDER
+ * Used for deletion operations to normalize all diagram types to a single placeholder
+ * @param {string} content - Document content containing diagrams
+ * @param {number} [diagramIndex] - Optional index of diagram to replace (0-based). If not provided, replaces all diagrams.
+ * @returns {string} - Content with diagrams replaced by DIAGRAM_PLACEHOLDER
+ */
+export function replaceDiagramsWithPlaceholder({ content, diagramIndex }) {
+  if (!content) {
+    return content;
+  }
+
+  // Import regex from replace-d2-with-image.mjs to find all diagram locations
+  // We'll use a similar approach to findAllDiagramLocations
+  const diagramImageRegex = /<!-- DIAGRAM_IMAGE_START:[^>]+ -->[\s\S]*?<!-- DIAGRAM_IMAGE_END -->/g;
+  const mermaidCodeBlockRegex = /```mermaid.*\n([\s\S]*?)```/g;
+
+  // Find all diagram locations
+  const locations = [];
+
+  // 1. Find DIAGRAM_PLACEHOLDER (already a placeholder, keep as is)
+  let placeholderIndex = content.indexOf(DIAGRAM_PLACEHOLDER);
+  while (placeholderIndex !== -1) {
+    locations.push({
+      type: "placeholder",
+      start: placeholderIndex,
+      end: placeholderIndex + DIAGRAM_PLACEHOLDER.length,
+    });
+    placeholderIndex = content.indexOf(DIAGRAM_PLACEHOLDER, placeholderIndex + 1);
+  }
+
+  // 2. Find DIAGRAM_IMAGE_START markers (generated images)
+  let match = diagramImageRegex.exec(content);
+  while (match !== null) {
+    locations.push({
+      type: "image",
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    match = diagramImageRegex.exec(content);
+  }
+
+  // 3. Find D2 code blocks
+  match = d2CodeBlockRegex.exec(content);
+  while (match !== null) {
+    locations.push({
+      type: "d2",
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    match = d2CodeBlockRegex.exec(content);
+  }
+
+  // 4. Find Mermaid code blocks
+  match = mermaidCodeBlockRegex.exec(content);
+  while (match !== null) {
+    locations.push({
+      type: "mermaid",
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    match = mermaidCodeBlockRegex.exec(content);
+  }
+
+  // Sort by position (top to bottom)
+  locations.sort((a, b) => a.start - b.start);
+
+  if (locations.length === 0) {
+    return content;
+  }
+
+  // If diagramIndex is provided, only replace that specific diagram
+  if (diagramIndex !== undefined && diagramIndex >= 0 && diagramIndex < locations.length) {
+    const targetLocation = locations[diagramIndex];
+    const before = content.substring(0, targetLocation.start);
+    const after = content.substring(targetLocation.end);
+    // Add newlines if needed
+    let replacement = DIAGRAM_PLACEHOLDER;
+    if (before && !before.endsWith("\n")) {
+      replacement = `\n${replacement}`;
+    }
+    if (after && !after.startsWith("\n")) {
+      replacement = `${replacement}\n`;
+    }
+    return before + replacement + after;
+  }
+
+  // Replace all diagrams with placeholder (for deletion)
+  // Process from end to start to preserve indices
+  let result = content;
+  for (let i = locations.length - 1; i >= 0; i--) {
+    const location = locations[i];
+    const before = result.substring(0, location.start);
+    const after = result.substring(location.end);
+    // Add newlines if needed
+    let replacement = DIAGRAM_PLACEHOLDER;
+    if (before && !before.endsWith("\n")) {
+      replacement = `\n${replacement}`;
+    }
+    if (after && !after.startsWith("\n")) {
+      replacement = `${replacement}\n`;
+    }
+    result = before + replacement + after;
+  }
+
+  return result;
 }
