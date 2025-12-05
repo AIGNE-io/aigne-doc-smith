@@ -8,9 +8,6 @@ import { DOC_SMITH_DIR, TMP_DIR } from "./constants/index.mjs";
 // Export regex for reuse across the codebase to avoid duplication
 export const d2CodeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 
-// Keep codeBlockRegex for backward compatibility (used internally in this file)
-const codeBlockRegex = d2CodeBlockRegex;
-
 export const DIAGRAM_PLACEHOLDER = "DIAGRAM_PLACEHOLDER";
 
 export async function ensureTmpDir() {
@@ -26,7 +23,7 @@ export function isValidCode(lang) {
 }
 
 export function wrapCode({ content }) {
-  const matches = Array.from(content.matchAll(codeBlockRegex));
+  const matches = Array.from(content.matchAll(d2CodeBlockRegex));
   if (matches.length > 0) {
     return content;
   }
@@ -40,7 +37,7 @@ export function wrapCode({ content }) {
  * @returns {Array} - [contentWithPlaceholder, originalCodeBlock]
  */
 export function replaceD2WithPlaceholder({ content }) {
-  const [firstMatch] = Array.from(content.matchAll(codeBlockRegex));
+  const [firstMatch] = Array.from(content.matchAll(d2CodeBlockRegex));
   if (firstMatch) {
     const matchContent = firstMatch[0];
     const cleanContent = content.replace(matchContent, DIAGRAM_PLACEHOLDER);
