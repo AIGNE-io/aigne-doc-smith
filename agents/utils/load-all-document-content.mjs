@@ -10,8 +10,7 @@ import { findItemByPath } from "../../utils/docs-finder-utils.mjs";
  * @param {string} params.docsDir - The root directory path where documents are located
  * @param {Array<Object>} params.documentStructure - The document structure array containing items with path information
  * @param {string} params.documentStructure[].path - The file path of each document item
- * @returns {Promise<Object>} A promise that resolves to an object containing allDocumentContent
- * @returns {Promise<Array>} returns.allDocumentContent - An array of document content items loaded from the file system
+ * @returns {Promise<Array>} returns.allDocumentContentList - An array of document content items loaded from the file system
  * @example
  * const result = await loadAllDocumentContent({
  *   docsDir: './docs',
@@ -25,7 +24,6 @@ export default async function loadAllDocumentContent({ docsDir, documentStructur
   });
   return {
     allDocumentContentList,
-    // allDocumentContent: allDocumentContentList.map(x => `# docPath: ${x.path}\n\n${x.content}`).join("\n\n---\n\n"), // All document content combined
   };
 }
 
