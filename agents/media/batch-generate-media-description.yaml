@@ -25,6 +25,8 @@ input_schema:
             type: string
           type:
             type: string
+          svgContent:
+            type: string
           mediaFile:
             type: array
             items:

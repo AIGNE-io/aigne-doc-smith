@@ -157,8 +157,8 @@ export default async function loadSources(
             mediaItem.width = dimensions.width;
             mediaItem.height = dimensions.height;
 
-            // Filter out images with width less than minImageWidth
-            if (dimensions.width < minImageWidth) {
+            // Filter out images with width less than minImageWidth, but not SVG images
+            if (dimensions.width < minImageWidth && mediaItem.mimeType !== "image/svg+xml") {
               filteredImageCount++;
               console.log(
                 `Ignored image: ${fileName} (${dimensions.width}x${dimensions.height}px < ${minImageWidth}px minimum)`,
