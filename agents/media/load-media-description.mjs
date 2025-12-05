@@ -111,7 +111,9 @@ export default async function loadMediaDescription(input, options) {
         try {
           const stats = await stat(absolutePath);
           if (stats.size > SVG_SIZE_THRESHOLD) {
-            console.warn(`SVG file ${mediaFile.path} exceeds ${SVG_SIZE_THRESHOLD / 1024}KB limit, skipping`);
+            console.warn(
+              `SVG file ${mediaFile.path} exceeds ${SVG_SIZE_THRESHOLD / 1024}KB limit, skipping`,
+            );
             continue;
           }
 
@@ -124,7 +126,6 @@ export default async function loadMediaDescription(input, options) {
           });
         } catch (error) {
           console.warn(`Failed to read SVG file ${mediaFile.path}:`, error.message);
-          continue;
         }
       } else {
         // For non-SVG media files, use mediaFile field
