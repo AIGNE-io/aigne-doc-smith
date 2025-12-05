@@ -99,15 +99,6 @@ instructions: |
     - Don't use portrait for horizontal content or vice versa
     - Don't use `"1:1"` unless layout is truly radial
 
-  6. **Output Format**:
-  Output your analysis in the following JSON format:
-  {
-    "documentSummary": "A comprehensive summary that preserves the vast majority of the original document content. Only remove verbatim duplicates, completely off-topic content, or pure marketing text. Keep all structural elements, entities, relationships, processes, technical details, examples, and contextual information. This summary will be the only content passed to the image generation model.",
-    "diagramType": "one of: architecture, flowchart, guide, intro, sequence, network",
-    "diagramStyle": "any style name that best fits the content (e.g., 'modern', 'hand-drawn', 'watercolor', 'cyberpunk', 'isometric', etc.). You are not limited to predefined styles - use your knowledge of visual styles.",
-    "aspectRatio": "1:1" | "5:4" | "4:3" | "3:2" | "16:9" | "21:9"
-  }
-
   Document Content:
   <document_content>
   {{ documentContent }}

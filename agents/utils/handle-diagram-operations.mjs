@@ -2,16 +2,13 @@ import { AIAgent } from "@aigne/core";
 import { pick } from "@aigne/core/utils/type-utils.js";
 import z from "zod";
 import { DIAGRAM_PLACEHOLDER, replaceD2WithPlaceholder } from "../../utils/d2-utils.mjs";
-import {
-  generateFileName,
-  pathToFlatName,
-  readFileContent,
-} from "../../utils/docs-finder-utils.mjs";
-import { userContextAt } from "../../utils/utils.mjs";
+import { readFileContent } from "../../utils/docs-finder-utils.mjs";
+import { getFileName, userContextAt } from "../../utils/utils.mjs";
 import { debug } from "../../utils/debug.mjs";
 
 /**
  * Read current document content from file system
+ * Uses getFileName utility to generate filename consistently
  */
 async function readCurrentContent(input, options) {
   const { path, docsDir, locale = "en" } = input;
@@ -21,9 +18,8 @@ async function readCurrentContent(input, options) {
   }
 
   try {
-    // Generate filename from document path
-    const flatName = pathToFlatName(path);
-    const fileName = generateFileName(flatName, locale);
+    // Generate filename using unified utility function
+    const fileName = getFileName(path, locale);
 
     // Read document content
     const content = await readFileContent(docsDir, fileName);

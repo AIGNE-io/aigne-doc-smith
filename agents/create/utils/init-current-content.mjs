@@ -1,13 +1,10 @@
-import {
-  generateFileName,
-  pathToFlatName,
-  readFileContent,
-} from "../../../utils/docs-finder-utils.mjs";
-import { userContextAt } from "../../../utils/utils.mjs";
+import { readFileContent } from "../../../utils/docs-finder-utils.mjs";
+import { getFileName, userContextAt } from "../../../utils/utils.mjs";
 
 /**
  * Initialize currentContents in userContext for document update
  * Reads document content from file system and sets it in userContext
+ * Uses getFileName utility to generate filename consistently
  */
 export default async function initCurrentContent(input, options) {
   const { path, docsDir, locale = "en" } = input;
@@ -16,9 +13,8 @@ export default async function initCurrentContent(input, options) {
     return {};
   }
 
-  // Generate filename from document path
-  const flatName = pathToFlatName(path);
-  const fileName = generateFileName(flatName, locale);
+  // Generate filename using unified utility function
+  const fileName = getFileName(path, locale);
 
   // Read document content
   const content = docsDir ? await readFileContent(docsDir, fileName) : null;
