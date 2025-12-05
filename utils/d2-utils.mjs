@@ -4,7 +4,12 @@ import fs from "fs-extra";
 
 import { DOC_SMITH_DIR, TMP_DIR } from "./constants/index.mjs";
 
-const codeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
+// Note: .* matches title or other text after ```d2 (e.g., ```d2 Vault 驗證流程)
+// Export regex for reuse across the codebase to avoid duplication
+export const d2CodeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
+
+// Keep codeBlockRegex for backward compatibility (used internally in this file)
+const codeBlockRegex = d2CodeBlockRegex;
 
 export const DIAGRAM_PLACEHOLDER = "DIAGRAM_PLACEHOLDER";
 

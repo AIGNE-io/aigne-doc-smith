@@ -1,7 +1,5 @@
-import { DIAGRAM_PLACEHOLDER } from "./d2-utils.mjs";
+import { DIAGRAM_PLACEHOLDER, d2CodeBlockRegex } from "./d2-utils.mjs";
 
-// Note: .* matches title or other text after ```d2 (e.g., ```d2 Vault 驗證流程)
-const d2CodeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 const diagramImageRegex = /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->/g;
 
 /**

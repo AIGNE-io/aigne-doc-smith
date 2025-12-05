@@ -3,9 +3,7 @@ import { readFileContent } from "./docs-finder-utils.mjs";
 import { debug } from "./debug.mjs";
 import path from "node:path";
 import fs from "fs-extra";
-
-// Note: .* matches title or other text after ```d2 (e.g., ```d2 Vault 驗證流程)
-const d2CodeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
+import { d2CodeBlockRegex } from "./d2-utils.mjs";
 const diagramImageRegex =
   /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*!\[[^\]]*\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
 

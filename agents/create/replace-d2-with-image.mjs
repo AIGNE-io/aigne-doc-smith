@@ -2,7 +2,7 @@ import { copyFile, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import fs from "fs-extra";
 import { createHash } from "node:crypto";
-import { DIAGRAM_PLACEHOLDER, ensureTmpDir } from "../../utils/d2-utils.mjs";
+import { DIAGRAM_PLACEHOLDER, d2CodeBlockRegex, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR } from "../../utils/constants/index.mjs";
 import { getContentHash, getFileName } from "../../utils/utils.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
@@ -430,7 +430,6 @@ function findAllDiagramLocations(content) {
 
   // 3. Find D2 code blocks
   // Note: .* matches title or other text after ```d2 (e.g., ```d2 Vault 驗證流程)
-  const d2CodeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
   match = d2CodeBlockRegex.exec(content);
   while (match !== null) {
     locations.push({
