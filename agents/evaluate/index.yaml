@@ -20,6 +20,7 @@ skills:
         }
       ])
   - ./document-structure.yaml
+  - ../utils/load-all-document-content.mjs
   - type: team
     name: batchEvaluateDocument
     skills:

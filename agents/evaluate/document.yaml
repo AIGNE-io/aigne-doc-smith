@@ -10,6 +10,9 @@ task_title: Evaluate document for '{{ title }}'
 input_schema:
   type: object
   properties:
+    path:
+      type: string
+      description: Document path to be evaluated
     content:
       type: string
       description: Document content to be evaluated
@@ -28,6 +31,9 @@ input_schema:
     readerKnowledgeLevel:
       type: string
       description: User-selected reader knowledge level
+    allDocumentContentList:
+      type: array
+      description: All document content list for better evaluate
   required:
     - content
     - description
