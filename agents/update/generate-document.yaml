@@ -46,9 +46,11 @@ input_schema:
       type: string
       description: Additional supplementary information
     intentType:
-      type: string
-      description: User intent type analyzed from feedback (addDiagram, updateDiagram, deleteDiagram, updateDocument)
-      enum: ["addDiagram", "updateDiagram", "deleteDiagram", "updateDocument"]
+      type:
+        - string
+        - "null"
+      description: User intent type analyzed from feedback (addDiagram, updateDiagram, deleteDiagram, updateDocument). Can be null if not specified.
+      enum: ["addDiagram", "updateDiagram", "deleteDiagram", "updateDocument", null]
   required:
     - rules
     - detailDataSource

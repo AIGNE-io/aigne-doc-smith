@@ -8,8 +8,13 @@ import z from "zod";
  */
 export default async function analyzeFeedbackIntent({ feedback, shouldUpdateDiagrams }, options) {
   // Check if feedback exists and is not empty
-  // If feedback is empty, return null (even if --diagram flag is set)
+  // If feedback is empty and --diagram flag is set, default to updateDiagram
+  // Otherwise return null
   if (!feedback || typeof feedback !== "string" || !feedback.trim()) {
+    // If --diagram flag is set, default to updateDiagram (user wants to update diagrams)
+    if (shouldUpdateDiagrams) {
+      return { intentType: "updateDiagram" };
+    }
     return { intentType: null };
   }
 

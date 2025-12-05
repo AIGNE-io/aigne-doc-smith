@@ -255,6 +255,13 @@ export default async function updateSingleDocumentDetail(input, options) {
     intentType = await getIntentType(input, options);
   }
 
+  // If intentType is still null or undefined, default to updateDocument
+  // This ensures that some operation is always performed, even if intent analysis failed
+  // or no explicit intent was provided
+  if (!intentType) {
+    intentType = "updateDocument";
+  }
+
   const fnMap = {
     addDiagram,
     updateDiagram,
@@ -266,5 +273,8 @@ export default async function updateSingleDocumentDetail(input, options) {
     const result = await fnMap[intentType](input, options);
     return result;
   }
-  return {};
+
+  // Fallback: if intentType is not in fnMap, default to updateDocument
+  console.warn(`Unknown intentType: ${intentType}, defaulting to updateDocument`);
+  return await updateDocument(input, options);
 }
