@@ -29,6 +29,9 @@ input_schema:
     type:
       type: string
       description: Media type (image/video)
+    svgContent:
+      type: string
+      description: SVG content
     mediaFile:
       type: array
       items:
