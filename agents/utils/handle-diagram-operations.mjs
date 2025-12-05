@@ -8,7 +8,8 @@ import { debug } from "../../utils/debug.mjs";
 
 /**
  * Read current document content from file system
- * Uses getFileName utility to generate filename consistently
+ * Reuses the same logic as initCurrentContent but returns the content
+ * First checks userContext, then reads from file if not in context
  */
 async function readCurrentContent(input, options) {
   const { path, docsDir, locale = "en" } = input;
@@ -17,11 +18,16 @@ async function readCurrentContent(input, options) {
     return null;
   }
 
-  try {
-    // Generate filename using unified utility function
-    const fileName = getFileName(path, locale);
+  // First check if content is already in userContext
+  const contentContext = userContextAt(options, `currentContents.${path}`);
+  const existingContent = contentContext.get();
+  if (existingContent) {
+    return existingContent;
+  }
 
-    // Read document content
+  // If not in context, read from file (same logic as initCurrentContent)
+  try {
+    const fileName = getFileName(path, locale);
     const content = await readFileContent(docsDir, fileName);
 
     if (!content) {
@@ -29,8 +35,7 @@ async function readCurrentContent(input, options) {
       return null;
     }
 
-    // Initialize currentContents[path] in userContext
-    const contentContext = userContextAt(options, `currentContents.${path}`);
+    // Set in userContext for future use
     contentContext.set(content);
 
     return content;
@@ -59,16 +64,13 @@ async function saveDoc(input, options, { content }) {
  * Handle addDiagram intent
  */
 async function addDiagram(input, options) {
-  const contentContext = userContextAt(options, `currentContents.${input.path}`);
-  let currentContent = contentContext.get();
-
-  // If content not in context, read from file
+  // readCurrentContent will check userContext first, then read from file if needed
+  const currentContent = await readCurrentContent(input, options);
   if (!currentContent) {
-    currentContent = await readCurrentContent(input, options);
-    if (!currentContent) {
-      throw new Error(`Could not read current content for ${input.path}`);
-    }
+    throw new Error(`Could not read current content for ${input.path}`);
   }
+
+  const contentContext = userContextAt(options, `currentContents.${input.path}`);
 
   const generateDiagramAgent = options.context.agents["checkGenerateDiagram"];
   if (!generateDiagramAgent) {
@@ -91,16 +93,13 @@ async function addDiagram(input, options) {
  * Handle updateDiagram intent
  */
 async function updateDiagram(input, options) {
-  const contentContext = userContextAt(options, `currentContents.${input.path}`);
-  let currentContent = contentContext.get();
-
-  // If content not in context, read from file
+  // readCurrentContent will check userContext first, then read from file if needed
+  const currentContent = await readCurrentContent(input, options);
   if (!currentContent) {
-    currentContent = await readCurrentContent(input, options);
-    if (!currentContent) {
-      throw new Error(`Could not read current content for ${input.path}`);
-    }
+    throw new Error(`Could not read current content for ${input.path}`);
   }
+
+  const contentContext = userContextAt(options, `currentContents.${input.path}`);
 
   let [content] = replaceD2WithPlaceholder({
     content: currentContent,
@@ -136,16 +135,13 @@ async function updateDiagram(input, options) {
  * Handle deleteDiagram intent
  */
 async function deleteDiagram(input, options) {
-  const contentContext = userContextAt(options, `currentContents.${input.path}`);
-  let currentContent = contentContext.get();
-
-  // If content not in context, read from file
+  // readCurrentContent will check userContext first, then read from file if needed
+  const currentContent = await readCurrentContent(input, options);
   if (!currentContent) {
-    currentContent = await readCurrentContent(input, options);
-    if (!currentContent) {
-      throw new Error(`Could not read current content for ${input.path}`);
-    }
+    throw new Error(`Could not read current content for ${input.path}`);
   }
+
+  const contentContext = userContextAt(options, `currentContents.${input.path}`);
 
   const [documentContent] = replaceD2WithPlaceholder({
     content: currentContent,
