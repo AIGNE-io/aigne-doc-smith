@@ -4,7 +4,7 @@ import fs from "fs-extra";
 import { createHash } from "node:crypto";
 import { DIAGRAM_PLACEHOLDER, ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR } from "../../utils/constants/index.mjs";
-import { getContentHash } from "../../utils/utils.mjs";
+import { getContentHash, getFileName } from "../../utils/utils.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
 import { debug } from "../../utils/debug.mjs";
 import { compressImage } from "../../utils/image-compress.mjs";
@@ -36,7 +36,16 @@ async function calculateImageHash(absolutePath) {
  * Replace D2 code blocks with generated image in document content
  * This mimics the @image insertion pattern
  * Saves images to assets/diagram (relative to docsDir) and replaces DIAGRAM_PLACEHOLDER with image reference
- * File naming: {documentName}-diagram-{index}.{ext}
+ *
+ * File naming: {documentFileNameWithoutExt}-{index:02d}.{ext} (e.g., "guides-getting-started-01.jpg")
+ * - Uses getFileName() to get the actual document filename, ensuring exact match
+ * - Example: document "guides-getting-started.md" → diagram "guides-getting-started-01.jpg"
+ * - Uses 2-digit zero-padded sequential numbering (01, 02, 03...) for easy sorting
+ * - Same document + same position = same filename (overwrites on update)
+ * - File name matches document filename (without extension) for easy tracking and identification
+ *
+ * Note: Images are saved immediately during replacement to ensure they exist before document save.
+ * This is necessary because the image path is embedded in the document content.
  */
 export default async function replaceD2WithImage({
   imageResult,
@@ -194,21 +203,28 @@ export default async function replaceD2WithImage({
   }
 
   // Generate filename based on document name and diagram index
-  // Format: {documentName}-diagram-{index}.{ext}
+  // Format: {flatDocumentName}-{index:02d}.{ext} (e.g., "guides-getting-started-01.jpg")
   // This ensures:
   // - Same document + same position = same filename (overwrite on update)
   // - Different documents = different filenames
   // - Different positions in same document = different filenames
+  // - File name matches the actual document filename (without extension) for easy tracking
+  // - Sequential numbering (01, 02, 03...) for easy sorting and identification
   let fileName;
 
   if (finalDocPath) {
-    // Extract document name from path (e.g., "guides/getting-started.md" -> "getting-started")
-    const pathWithoutExt = finalDocPath.replace(/\.(md|markdown)$/i, "");
-    const documentName = path
-      .basename(pathWithoutExt)
-      .toLowerCase()
-      .replace(/[^a-z0-9-]/g, "-");
-    fileName = `${documentName}-diagram-${targetIndex}${ext}`;
+    // Use getFileName() to get the actual document filename, then remove extension
+    // This ensures the diagram filename exactly matches the document filename format
+    // Example: docPath "guides/getting-started" + locale "en" -> "guides-getting-started.md"
+    // Remove .md extension -> "guides-getting-started"
+    const documentFileName = getFileName(finalDocPath, locale);
+    const documentNameWithoutExt = documentFileName.replace(/\.(md|markdown)$/i, "");
+
+    // Format: {documentNameWithoutExt}-{index:02d}.{ext}
+    // Example: guides-getting-started-01.jpg, guides-getting-started-02.jpg
+    // Using 2-digit zero-padded index for better sorting and readability
+    const indexStr = String(targetIndex + 1).padStart(2, "0"); // Convert 0-based to 1-based, pad to 2 digits
+    fileName = `${documentNameWithoutExt}-${indexStr}${ext}`;
   } else {
     // Fallback: use hash-based naming if path is not provided
     try {
@@ -413,7 +429,8 @@ function findAllDiagramLocations(content) {
   }
 
   // 3. Find D2 code blocks
-  const d2CodeBlockRegex = /```d2\s*\n([\s\S]*?)```/g;
+  // Note: .* matches title or other text after ```d2 (e.g., ```d2 Vault 驗證流程)
+  const d2CodeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
   match = d2CodeBlockRegex.exec(content);
   while (match !== null) {
     locations.push({
@@ -425,7 +442,8 @@ function findAllDiagramLocations(content) {
   }
 
   // 4. Find Mermaid code blocks
-  const mermaidCodeBlockRegex = /```mermaid\s*\n([\s\S]*?)```/g;
+  // Note: .* matches title or other text after ```mermaid (e.g., ```mermaid Flow Chart)
+  const mermaidCodeBlockRegex = /```mermaid.*\n([\s\S]*?)```/g;
   match = mermaidCodeBlockRegex.exec(content);
   while (match !== null) {
     locations.push({

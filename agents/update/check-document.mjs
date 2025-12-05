@@ -31,18 +31,10 @@ export default async function checkDocument(
   const filePath = join(docsDir, fileFullName);
   let detailGenerated = true;
   let fileContent = null;
-
   try {
     await access(filePath);
     // If file exists, read its content for validation
-    const rawContent = await readFile(filePath, "utf8");
-
-    // Remove base64 encoded images to reduce token usage
-    // Base64 image data is not useful for LLM processing and significantly increases token count
-    // Completely remove base64 images (not replace with placeholders) to maximize token reduction
-    // Normal image references (file paths) are preserved and should be used instead
-    const base64ImageRegex = /!\[([^\]]*)\]\(data:image\/[^)]+\)/g;
-    fileContent = rawContent.replace(base64ImageRegex, "");
+    fileContent = await readFile(filePath, "utf8");
   } catch {
     detailGenerated = false;
   }

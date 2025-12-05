@@ -4,11 +4,18 @@ name: generateDiagram
 skills:
   # Step 1: Analyze document content to determine diagram type and style
   - ../create/analyze-diagram-type.mjs
-  # Step 2: Transform output for image generation agent
-  - ../create/transform-for-image-generation.mjs
+  # Step 2: Transform output for image generation agent (map aspectRatio to ratio, add size)
+  - type: transform
+    jsonata: |
+      $merge([
+        $,
+        {
+          "ratio": aspectRatio,
+          "size": "1K"
+        }
+      ])
   # Step 3: Generate diagram image directly with unified agent
-  - type: agent
-    url: ../create/generate-diagram-image.yaml
+  - ../create/generate-diagram-image.yaml
   # Step 4: Replace placeholder with generated image
   - ../create/replace-d2-with-image.mjs
 input_schema:

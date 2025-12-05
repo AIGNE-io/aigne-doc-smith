@@ -4,7 +4,8 @@ import { debug } from "./debug.mjs";
 import path from "node:path";
 import fs from "fs-extra";
 
-const d2CodeBlockRegex = /```d2\s*\n([\s\S]*?)```/g;
+// Note: .* matches title or other text after ```d2 (e.g., ```d2 Vault 驗證流程)
+const d2CodeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 const diagramImageRegex =
   /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*!\[[^\]]*\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
 
