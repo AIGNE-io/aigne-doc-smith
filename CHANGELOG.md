@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.9.8-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7...v0.9.8-beta) (2025-12-05)
+
+
+### Features
+
+* use nano banana pro to generate doc diagrams ([#343](https://github.com/AIGNE-io/aigne-doc-smith/issues/343)) ([eaf9a06](https://github.com/AIGNE-io/aigne-doc-smith/commit/eaf9a06df8ecb57c1a39c3c338210f02b1b7ab94))
+
+
+### Bug Fixes
+
+* add global perspective for evaluate document ([#346](https://github.com/AIGNE-io/aigne-doc-smith/issues/346)) ([2f58699](https://github.com/AIGNE-io/aigne-doc-smith/commit/2f5869904db4aea9d8756bcbf0bf0710b8a14783))
+* add support for reading SVG content to generate media descriptions ([#347](https://github.com/AIGNE-io/aigne-doc-smith/issues/347)) ([a679604](https://github.com/AIGNE-io/aigne-doc-smith/commit/a6796040cfda58abe8a6c525b51605d8c5dcbd3d))
+
 ## [0.9.7](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta.3...v0.9.7) (2025-11-28)
 
 ## [0.9.7-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7-beta.2...v0.9.7-beta.3) (2025-11-28)
