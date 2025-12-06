@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.8-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.8-beta...v0.9.8-beta.1) (2025-12-06)
+
+
+### Features
+
+* **translation:** unify expressions and default to English for image info ([#349](https://github.com/AIGNE-io/aigne-doc-smith/issues/349)) ([c134b1a](https://github.com/AIGNE-io/aigne-doc-smith/commit/c134b1a0f38f5b7daf382b24cf5f71ecd2cccae7))
+
 ## [0.9.8-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.7...v0.9.8-beta) (2025-12-05)
 
 
