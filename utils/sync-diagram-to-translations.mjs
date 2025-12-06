@@ -121,7 +121,8 @@ export async function syncDiagramToTranslations(
       const translationFilePath = path.join(docsDir, fileName);
       const translationContent = await readFileContent(docsDir, fileName);
 
-      if (!translationContent) {
+      // Check for null or undefined (file read failure), but allow empty string (valid content)
+      if (translationContent === null || translationContent === undefined) {
         debug(`⚠️  Could not read translation file: ${fileName}`);
         result.skipped++;
         continue;

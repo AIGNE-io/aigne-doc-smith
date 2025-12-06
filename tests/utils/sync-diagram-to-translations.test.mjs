@@ -480,10 +480,17 @@ describe("sync-diagram-to-translations", () => {
 
       const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "en");
 
+      // When translation content is empty, Strategy 3 should add the image
+      // The image should be added at the end (index 0 for empty content)
       expect(result.updated).toBe(1);
+      expect(writeFileSpy).toHaveBeenCalled();
       const writeCall = writeFileSpy.mock.calls[0];
       const writtenContent = writeCall[1];
       expect(writtenContent).toContain("DIAGRAM_IMAGE_START");
+      expect(writtenContent).toContain("guide-diagram-0.jpg");
+      expect(debugSpy).toHaveBeenCalledWith(
+        expect.stringContaining("➕ Added 1 missing diagram(s)"),
+      );
     });
 
     test("should handle translation with only D2 blocks and no images", async () => {
