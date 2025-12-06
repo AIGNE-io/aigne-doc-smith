@@ -19,12 +19,10 @@ export async function extractDiagramImagePaths(content, path, docsDir) {
   const imagePaths = [];
 
   // Pattern to match: <!-- DIAGRAM_IMAGE_START:... -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
-  const diagramPattern =
-    /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*!\[[^\]]*\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
+  const { diagramImageWithPathRegex } = await import("./d2-utils.mjs");
+  const matches = Array.from(content.matchAll(diagramImageWithPathRegex));
 
-  diagramPattern.lastIndex = 0; // Reset regex
-  let match = diagramPattern.exec(content);
-  while (match !== null) {
+  for (const match of matches) {
     const imagePath = match[1];
 
     // Resolve absolute path
@@ -49,8 +47,6 @@ export async function extractDiagramImagePaths(content, path, docsDir) {
     if (await fs.pathExists(normalizedPath)) {
       imagePaths.push(normalizedPath);
     }
-
-    match = diagramPattern.exec(content);
   }
 
   return imagePaths;

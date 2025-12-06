@@ -1,6 +1,4 @@
-import { DIAGRAM_PLACEHOLDER, d2CodeBlockRegex } from "./d2-utils.mjs";
-
-const diagramImageRegex = /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->/g;
+import { DIAGRAM_PLACEHOLDER, d2CodeBlockRegex, diagramImageStartRegex } from "./d2-utils.mjs";
 
 /**
  * Check if document content contains diagram-related content
@@ -24,7 +22,7 @@ export function hasDiagramContent(content) {
   }
 
   // Check for existing diagram images (DIAGRAM_IMAGE_START markers)
-  const imageMatches = Array.from(content.matchAll(diagramImageRegex));
+  const imageMatches = Array.from(content.matchAll(diagramImageStartRegex));
   if (imageMatches.length > 0) {
     return true;
   }
@@ -51,7 +49,7 @@ export function getDiagramTypeLabels(content) {
   }
 
   // Check for existing diagram images (AI-generated images)
-  const imageMatches = Array.from(content.matchAll(diagramImageRegex));
+  const imageMatches = Array.from(content.matchAll(diagramImageStartRegex));
   if (imageMatches.length > 0) {
     labels.push("🍌 Image");
   }
@@ -88,7 +86,7 @@ export function hasBananaImages(content) {
   }
 
   // Check for existing diagram images (DIAGRAM_IMAGE_START markers)
-  const imageMatches = Array.from(content.matchAll(diagramImageRegex));
+  const imageMatches = Array.from(content.matchAll(diagramImageStartRegex));
   if (imageMatches.length > 0) {
     return true;
   }

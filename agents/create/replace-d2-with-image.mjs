@@ -2,7 +2,12 @@ import { copyFile, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import fs from "fs-extra";
 import { createHash } from "node:crypto";
-import { DIAGRAM_PLACEHOLDER, d2CodeBlockRegex, ensureTmpDir } from "../../utils/d2-utils.mjs";
+import {
+  DIAGRAM_PLACEHOLDER,
+  d2CodeBlockRegex,
+  diagramImageBlockRegex,
+  ensureTmpDir,
+} from "../../utils/d2-utils.mjs";
 import { DOC_SMITH_DIR, TMP_DIR, TMP_ASSETS_DIR } from "../../utils/constants/index.mjs";
 import { getContentHash, getFileName } from "../../utils/utils.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
@@ -418,40 +423,36 @@ function findAllDiagramLocations(content) {
   // 2. Find DIAGRAM_IMAGE_START markers
   // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->...<!-- DIAGRAM_IMAGE_END -->
   // Note: aspectRatio can contain colon (e.g., "16:9"), so we need to match until -->
-  const diagramImageRegex = /<!-- DIAGRAM_IMAGE_START:[^>]+ -->[\s\S]*?<!-- DIAGRAM_IMAGE_END -->/g;
-  let match = diagramImageRegex.exec(content);
-  while (match !== null) {
+  const imageMatches = Array.from(content.matchAll(diagramImageBlockRegex));
+  for (const match of imageMatches) {
     locations.push({
       type: "image",
       start: match.index,
       end: match.index + match[0].length,
     });
-    match = diagramImageRegex.exec(content);
   }
 
   // 3. Find D2 code blocks
   // Note: .* matches title or other text after ```d2 (e.g., ```d2 Vault 驗證流程)
-  match = d2CodeBlockRegex.exec(content);
-  while (match !== null) {
+  const d2Matches = Array.from(content.matchAll(d2CodeBlockRegex));
+  for (const match of d2Matches) {
     locations.push({
       type: "d2",
       start: match.index,
       end: match.index + match[0].length,
     });
-    match = d2CodeBlockRegex.exec(content);
   }
 
   // 4. Find Mermaid code blocks
   // Note: .* matches title or other text after ```mermaid (e.g., ```mermaid Flow Chart)
   const mermaidCodeBlockRegex = /```mermaid.*\n([\s\S]*?)```/g;
-  match = mermaidCodeBlockRegex.exec(content);
-  while (match !== null) {
+  const mermaidMatches = Array.from(content.matchAll(mermaidCodeBlockRegex));
+  for (const match of mermaidMatches) {
     locations.push({
       type: "mermaid",
       start: match.index,
       end: match.index + match[0].length,
     });
-    match = mermaidCodeBlockRegex.exec(content);
   }
 
   // Sort by position in document (top to bottom)

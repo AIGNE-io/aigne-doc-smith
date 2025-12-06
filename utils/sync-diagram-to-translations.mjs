@@ -3,9 +3,7 @@ import { readFileContent } from "./docs-finder-utils.mjs";
 import { debug } from "./debug.mjs";
 import path from "node:path";
 import fs from "fs-extra";
-import { d2CodeBlockRegex } from "./d2-utils.mjs";
-const diagramImageRegex =
-  /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*!\[[^\]]*\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
+import { d2CodeBlockRegex, diagramImageWithPathRegex } from "./d2-utils.mjs";
 
 /**
  * Find all translation files for a document
@@ -21,15 +19,24 @@ async function findTranslationFiles(docPath, docsDir, locale) {
   try {
     const files = readdirSync(docsDir);
     const translationFiles = [];
+    const mainFileName = locale === "en" ? `${flatName}.md` : `${flatName}.${locale}.md`;
 
     // Filter files to find translation files matching the pattern
     for (const file of files) {
-      if (
-        file.startsWith(`${flatName}.`) &&
-        file.endsWith(".md") &&
-        file !== `${flatName}.md` &&
-        file.match(/\.\w+(-\w+)?\.md$/)
-      ) {
+      if (!file.endsWith(".md")) continue;
+      if (file === mainFileName) continue; // Skip main language file
+
+      // Case 1: File without language suffix (xxx.md) - this is English translation when main language is not English
+      if (file === `${flatName}.md` && locale !== "en") {
+        translationFiles.push({
+          language: "en",
+          fileName: file,
+        });
+        continue;
+      }
+
+      // Case 2: File with language suffix (xxx.{lang}.md) - all other translations
+      if (file.startsWith(`${flatName}.`) && file.match(/\.\w+(-\w+)?\.md$/)) {
         const langMatch = file.match(/\.(\w+(-\w+)?)\.md$/);
         if (langMatch && langMatch[1] !== locale) {
           translationFiles.push({
@@ -54,18 +61,14 @@ async function findTranslationFiles(docPath, docsDir, locale) {
  */
 function extractDiagramImagePaths(content) {
   const images = [];
+  const matches = Array.from(content.matchAll(diagramImageWithPathRegex));
 
-  // Reset regex lastIndex
-  diagramImageRegex.lastIndex = 0;
-
-  let match = diagramImageRegex.exec(content);
-  while (match !== null) {
+  for (const match of matches) {
     images.push({
       path: match[1],
       fullMatch: match[0],
       index: match.index,
     });
-    match = diagramImageRegex.exec(content);
   }
 
   return images;
