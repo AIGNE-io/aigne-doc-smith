@@ -8,6 +8,8 @@ model:
   reasoning_effort:
     $get: reasoningEffort
 agents:
+  - ./_exp_/index.yaml
+
   # Initialization
   - ./agents/init/index.mjs
 
