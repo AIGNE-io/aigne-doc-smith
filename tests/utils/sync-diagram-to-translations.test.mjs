@@ -335,6 +335,258 @@ describe("sync-diagram-to-translations", () => {
     });
   });
 
+  describe("remove excess images", () => {
+    test("should remove excess images when translation has more than main", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt1](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt1](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->\n<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt2](assets/diagram/guide-diagram-1.jpg)\n<!-- DIAGRAM_IMAGE_END -->\n<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt3](assets/diagram/guide-diagram-2.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "en");
+
+      expect(result.updated).toBe(1);
+      const writeCall = writeFileSpy.mock.calls[0];
+      const writtenContent = writeCall[1];
+      expect(writtenContent).toContain("guide-diagram-0.jpg");
+      expect(writtenContent).not.toContain("guide-diagram-1.jpg");
+      expect(writtenContent).not.toContain("guide-diagram-2.jpg");
+      expect(debugSpy).toHaveBeenCalledWith(
+        expect.stringContaining("➖ Removed 2 excess diagram(s)"),
+      );
+    });
+  });
+
+  describe("delete operation", () => {
+    test("should process delete operation even when main has no diagrams", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = "Just regular text with no diagrams";
+      const translationContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(
+        mainContent,
+        "/guide",
+        mockDocsDir,
+        "en",
+        "delete",
+      );
+
+      expect(result.updated).toBe(1);
+      const writeCall = writeFileSpy.mock.calls[0];
+      const writtenContent = writeCall[1];
+      expect(writtenContent).not.toContain("DIAGRAM_IMAGE_START");
+      expect(debugSpy).toHaveBeenCalledWith(
+        expect.stringContaining("➖ Removed 1 excess diagram(s)"),
+      );
+    });
+
+    test("should remove D2 code blocks when main has no diagrams (delete operation)", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = "Just regular text with no diagrams";
+      const translationContent = `\`\`\`d2\nshape1 -> shape2\n\`\`\`\nSome text\n\`\`\`d2\nshape3 -> shape4\n\`\`\``;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(
+        mainContent,
+        "/guide",
+        mockDocsDir,
+        "en",
+        "delete",
+      );
+
+      expect(result.updated).toBe(1);
+      const writeCall = writeFileSpy.mock.calls[0];
+      const writtenContent = writeCall[1];
+      expect(writtenContent).not.toContain("```d2");
+      expect(writtenContent).toContain("Some text");
+      expect(debugSpy).toHaveBeenCalledWith(
+        expect.stringContaining("➖ Removed 2 D2 code block(s)"),
+      );
+    });
+
+    test("should clean up extra newlines after removing D2 blocks", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = "Just regular text";
+      const translationContent = `Text before\n\n\n\`\`\`d2\nshape1 -> shape2\n\`\`\`\n\n\nText after`;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(
+        mainContent,
+        "/guide",
+        mockDocsDir,
+        "en",
+        "delete",
+      );
+
+      expect(result.updated).toBe(1);
+      const writeCall = writeFileSpy.mock.calls[0];
+      const writtenContent = writeCall[1];
+      // Should not have more than 2 consecutive newlines
+      expect(writtenContent).not.toMatch(/\n{3,}/);
+    });
+  });
+
+  describe("non-English locale", () => {
+    test("should handle non-English main locale", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.zh.md", "guide.md", "guide.en.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `\`\`\`d2\nshape1 -> shape2\n\`\`\``;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "zh");
+
+      // Should sync to en (guide.md) and en.md (2 files)
+      expect(result.updated).toBe(2);
+      expect(writeFileSpy).toHaveBeenCalledTimes(2);
+    });
+
+    test("should exclude main locale file when finding translations", async () => {
+      readdirSyncSpy.mockReturnValue([
+        "guide.zh.md", // Main file (should be excluded)
+        "guide.md", // English translation
+        "guide.ja.md", // Japanese translation
+      ]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `\`\`\`d2\nshape1 -> shape2\n\`\`\``;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "zh");
+
+      // Should sync to en (guide.md) and ja (2 files), not zh
+      expect(result.updated).toBe(2);
+    });
+  });
+
+  describe("edge cases", () => {
+    test("should handle empty translation content", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = "";
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "en");
+
+      expect(result.updated).toBe(1);
+      const writeCall = writeFileSpy.mock.calls[0];
+      const writtenContent = writeCall[1];
+      expect(writtenContent).toContain("DIAGRAM_IMAGE_START");
+    });
+
+    test("should handle translation with only D2 blocks and no images", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `\`\`\`d2\nshape1 -> shape2\n\`\`\`\n\`\`\`d2\nshape3 -> shape4\n\`\`\``;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "en");
+
+      expect(result.updated).toBe(1);
+      const writeCall = writeFileSpy.mock.calls[0];
+      const writtenContent = writeCall[1];
+      // Should replace first D2 block with image
+      expect(writtenContent).toContain("DIAGRAM_IMAGE_START");
+      // Should still have second D2 block (only one image in main)
+      expect(writtenContent).toContain("```d2");
+    });
+
+    test("should handle path with leading slash", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `\`\`\`d2\nshape1 -> shape2\n\`\`\``;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "en");
+
+      expect(result.updated).toBe(1);
+    });
+
+    test("should handle path without leading slash", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `\`\`\`d2\nshape1 -> shape2\n\`\`\``;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(mainContent, "guide", mockDocsDir, "en");
+
+      expect(result.updated).toBe(1);
+    });
+
+    test("should handle operationType 'update'", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `\`\`\`d2\nshape1 -> shape2\n\`\`\``;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(
+        mainContent,
+        "/guide",
+        mockDocsDir,
+        "en",
+        "update",
+      );
+
+      expect(result.updated).toBe(1);
+    });
+
+    test("should handle operationType 'add'", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `\`\`\`d2\nshape1 -> shape2\n\`\`\``;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(
+        mainContent,
+        "/guide",
+        mockDocsDir,
+        "en",
+        "add",
+      );
+
+      expect(result.updated).toBe(1);
+    });
+
+    test("should skip sync when no diagrams and operationType is not delete", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = "Just regular text";
+      const result = await syncDiagramToTranslations(
+        mainContent,
+        "/guide",
+        mockDocsDir,
+        "en",
+        "sync",
+      );
+
+      expect(result.updated).toBe(0);
+      expect(result.skipped).toBe(0);
+      expect(debugSpy).toHaveBeenCalledWith("ℹ️  No diagram images in main content, skipping sync");
+    });
+  });
+
   describe("complex scenarios", () => {
     test("should handle all three strategies together", async () => {
       readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
@@ -358,6 +610,29 @@ describe("sync-diagram-to-translations", () => {
       // Should not have D2 or old image
       expect(writtenContent).not.toContain("```d2");
       expect(writtenContent).not.toContain("guide-diagram-0-old.jpg");
+    });
+
+    test("should handle multiple strategies with excess images removal", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      // Main has 1 image
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt1](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+
+      // Translation has 1 D2 block (will be replaced) and 2 extra images (will be removed)
+      const translationContent = `\`\`\`d2\nold d2\n\`\`\`\n<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt1](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->\n<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt2](assets/diagram/guide-diagram-1.jpg)\n<!-- DIAGRAM_IMAGE_END -->\n<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt3](assets/diagram/guide-diagram-2.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "en");
+
+      expect(result.updated).toBe(1);
+      const writeCall = writeFileSpy.mock.calls[0];
+      const writtenContent = writeCall[1];
+      // Should have only 1 image from main
+      expect(writtenContent).toContain("guide-diagram-0.jpg");
+      expect(writtenContent).not.toContain("guide-diagram-1.jpg");
+      expect(writtenContent).not.toContain("guide-diagram-2.jpg");
+      expect(writtenContent).not.toContain("```d2");
     });
   });
 });
