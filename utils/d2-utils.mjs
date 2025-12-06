@@ -10,6 +10,18 @@ export const d2CodeBlockRegex = /```d2.*\n([\s\S]*?)```/g;
 
 export const DIAGRAM_PLACEHOLDER = "DIAGRAM_PLACEHOLDER";
 
+// Diagram image regex patterns for reuse across the codebase
+// Pattern 1: Match only the start marker (for checking existence)
+export const diagramImageStartRegex = /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->/g;
+
+// Pattern 2: Match full diagram image block without capturing image path (for finding/replacing)
+export const diagramImageBlockRegex =
+  /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*[\s\S]*?<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
+
+// Pattern 3: Match full diagram image block with image path capture (for extracting paths)
+export const diagramImageWithPathRegex =
+  /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*!\[[^\]]*\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
+
 export async function ensureTmpDir() {
   const tmpDir = path.join(DOC_SMITH_DIR, TMP_DIR);
   if (!(await fs.pathExists(path.join(tmpDir, ".gitignore")))) {
@@ -93,9 +105,8 @@ export function replaceDiagramsWithPlaceholder({ content, diagramIndex }) {
     return content;
   }
 
-  // Import regex from replace-d2-with-image.mjs to find all diagram locations
+  // Use exported regex to find all diagram locations
   // We'll use a similar approach to findAllDiagramLocations
-  const diagramImageRegex = /<!-- DIAGRAM_IMAGE_START:[^>]+ -->[\s\S]*?<!-- DIAGRAM_IMAGE_END -->/g;
   const mermaidCodeBlockRegex = /```mermaid.*\n([\s\S]*?)```/g;
 
   // Find all diagram locations
@@ -113,36 +124,33 @@ export function replaceDiagramsWithPlaceholder({ content, diagramIndex }) {
   }
 
   // 2. Find DIAGRAM_IMAGE_START markers (generated images)
-  let match = diagramImageRegex.exec(content);
-  while (match !== null) {
+  const imageMatches = Array.from(content.matchAll(diagramImageBlockRegex));
+  for (const match of imageMatches) {
     locations.push({
       type: "image",
       start: match.index,
       end: match.index + match[0].length,
     });
-    match = diagramImageRegex.exec(content);
   }
 
   // 3. Find D2 code blocks
-  match = d2CodeBlockRegex.exec(content);
-  while (match !== null) {
+  const d2Matches = Array.from(content.matchAll(d2CodeBlockRegex));
+  for (const match of d2Matches) {
     locations.push({
       type: "d2",
       start: match.index,
       end: match.index + match[0].length,
     });
-    match = d2CodeBlockRegex.exec(content);
   }
 
   // 4. Find Mermaid code blocks
-  match = mermaidCodeBlockRegex.exec(content);
-  while (match !== null) {
+  const mermaidMatches = Array.from(content.matchAll(mermaidCodeBlockRegex));
+  for (const match of mermaidMatches) {
     locations.push({
       type: "mermaid",
       start: match.index,
       end: match.index + match[0].length,
     });
-    match = mermaidCodeBlockRegex.exec(content);
   }
 
   // Sort by position (top to bottom)

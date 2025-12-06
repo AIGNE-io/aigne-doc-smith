@@ -6,7 +6,7 @@ Please follow **all global rules, styles, aspect ratio logic, and diagram-type r
 - **Diagram Type:** {{ diagramType }}
 - **Visual Style:** {{ diagramStyle }}
 - **Aspect Ratio:** {{ aspectRatio }}
-- **Language:** {{ locale }}
+- **Language:** English
 
 # Your responsibilities:
 1. Read and analyze the document content.
