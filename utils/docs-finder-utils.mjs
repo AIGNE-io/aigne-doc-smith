@@ -107,10 +107,43 @@ export async function findItemByPath(documentStructure, docPath, boardId, docsDi
  * @param {string} fileName - File name to read
  * @returns {Promise<string|null>} File content or null if failed
  */
+/**
+ * Remove base64 encoded images from markdown content
+ * This prevents large binary data from being included in document content
+ * Base64 images are completely removed (not replaced with placeholders) because:
+ * 1. They significantly increase token usage without providing useful information to LLM
+ * 2. Normal image references (file paths) are preserved and should be used instead
+ * 3. Base64 images are typically temporary or erroneous entries
+ * @param {string} content - Markdown content that may contain base64 images
+ * @returns {string} - Content with base64 images completely removed
+ */
+function removeBase64Images(content) {
+  if (!content || typeof content !== "string") {
+    return content;
+  }
+
+  // Match markdown image syntax with data URLs: ![alt](data:image/...;base64,...)
+  // This regex matches:
+  // - ![alt text](data:image/type;base64,base64data...)
+  // - ![alt](data:image/type;base64,base64data...)
+  // - [![alt](data:image/type;base64,base64data...)](link)
+  const base64ImageRegex = /!\[([^\]]*)\]\(data:image\/[^)]+\)/g;
+
+  // Completely remove base64 images (including the entire markdown image syntax)
+  // This maximizes token reduction while preserving normal image references
+  const cleanedContent = content.replace(base64ImageRegex, "");
+
+  return cleanedContent;
+}
+
 export async function readFileContent(docsDir, fileName) {
   try {
     const filePath = join(docsDir, fileName);
-    return await readFile(filePath, "utf-8");
+    const content = await readFile(filePath, "utf-8");
+
+    // Remove base64 encoded images to reduce token usage
+    // Base64 image data is not useful for LLM processing and significantly increases token count
+    return removeBase64Images(content);
   } catch (readError) {
     console.warn(`⚠️  Could not read content from ${fileName}:`, readError.message);
     return null;

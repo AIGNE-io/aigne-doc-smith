@@ -6,69 +6,9 @@ AI アシスタントに指示を覚えておいてほしいと思ったこと�
 
 このガイドでは、保存されたプリファレンスのリスト表示、削除、アクティブ状態の切り替え方法について詳しく説明します。
 
-```d2
-direction: down
-
-User: {
-  shape: c4-person
-}
-
-CLI-Interface: {
-  label: "CLI: aigne doc prefs"
-  shape: rectangle
-
-  List-Action: {
-    label: "--list"
-    shape: oval
-  }
-
-  Remove-Action: {
-    label: "--remove"
-    shape: diamond
-
-    Interactive-Remove: {
-      label: "対話モード"
-      shape: rectangle
-    }
-
-    Direct-Remove: {
-      label: "直接モード\n(--id を使用)"
-      shape: rectangle
-    }
-  }
-
-  Toggle-Action: {
-    label: "--toggle"
-    shape: diamond
-
-    Interactive-Toggle: {
-      label: "対話モード"
-      shape: rectangle
-    }
-
-    Direct-Toggle: {
-      label: "直接モード\n(--id を使用)"
-      shape: rectangle
-    }
-  }
-}
-
-Preference-Storage: {
-  label: "プリファレンスストレージ"
-  shape: cylinder
-}
-
-User -> CLI-Interface: "コマンドを実行"
-CLI-Interface.List-Action -> Preference-Storage: "読み取り"
-CLI-Interface.Remove-Action -> CLI-Interface.Interactive-Remove: "ID なし"
-CLI-Interface.Remove-Action -> CLI-Interface.Direct-Remove: "ID 指定"
-CLI-Interface.Interactive-Remove -> Preference-Storage: "選択されたものを削除"
-CLI-Interface.Direct-Remove -> Preference-Storage: "指定されたものを削除"
-CLI-Interface.Toggle-Action -> CLI-Interface.Interactive-Toggle: "ID なし"
-CLI-Interface.Toggle-Action -> CLI-Interface.Direct-Toggle: "ID 指定"
-CLI-Interface.Interactive-Toggle -> Preference-Storage: "選択されたものを更新"
-CLI-Interface.Direct-Toggle -> Preference-Storage: "指定されたものを更新"
-```
+<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+![Manage Preferences](assets/diagram/managing-preferences-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## 保存されたプリファレンスの表示
 

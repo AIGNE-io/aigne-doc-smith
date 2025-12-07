@@ -10,75 +10,9 @@ The tool addresses the common challenges of manual document creation, such as be
 
 DocSmith operates by analyzing your project's source code to understand its structure, components, and functionality. Based on this analysis, it generates a complete documentation set, from high-level guides to detailed API references.
 
-```d2
-direction: down
-
-Source-Code: {
-  label: "Source Code"
-  shape: rectangle
-}
-
-AIGNE-DocSmith: {
-  label: "AIGNE DocSmith"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
-
-  Analysis-Engine: {
-    label: "Analysis Engine"
-    shape: rectangle
-  }
-
-  Generation-Engine: {
-    label: "Generation Engine"
-    shape: rectangle
-  }
-
-  Translation-Engine: {
-    label: "Translation Engine"
-    shape: rectangle
-  }
-
-  LLMs: {
-    label: "Large Language Models"
-    shape: rectangle
-
-    AIGNE-Hub: {
-      label: "AIGNE Hub"
-    }
-
-    Direct-Access: {
-      label: "Direct Access"
-      shape: rectangle
-      Google-Gemini: {}
-      OpenAI-GPT: {}
-    }
-  }
-}
-
-Published-Documents: {
-  label: "Published Documents"
-  shape: rectangle
-
-  DocSmith-Platform: {
-    label: "DocSmith Platform"
-  }
-
-  Discuss-Kit: {
-    label: "Discuss Kit"
-  }
-}
-
-Source-Code -> AIGNE-DocSmith.Analysis-Engine: "Analyzes"
-AIGNE-DocSmith.Analysis-Engine -> AIGNE-DocSmith.Generation-Engine: "Generates"
-AIGNE-DocSmith.Generation-Engine <-> AIGNE-DocSmith.LLMs: "Utilizes"
-AIGNE-DocSmith.Generation-Engine -> AIGNE-DocSmith.Translation-Engine: "Translates"
-AIGNE-DocSmith.Translation-Engine -> Published-Documents: "Publishes"
-
-```
+<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->
+![Overview](assets/diagram/overview-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## Core Features
 

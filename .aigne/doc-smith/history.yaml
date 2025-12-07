@@ -1,4 +1,14 @@
 entries:
+  - timestamp: 2025-12-04T08:30:23.054Z
+    operation: document_update
+    feedback: update image
+    docPaths:
+      - /overview
+  - timestamp: 2025-12-04T06:59:45.719Z
+    operation: document_update
+    feedback: update image
+    docPaths:
+      - /getting-started
   - timestamp: 2025-11-25T11:43:10.618Z
     operation: structure_update
     feedback: Add a Troubleshooting section under Configuration.

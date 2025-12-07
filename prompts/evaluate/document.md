@@ -17,27 +17,40 @@ Please **strictly adhere** to the evaluation standards defined in `<standards>` 
 
 - **Document content to be evaluated**:
 
+{% if allDocumentContentList %}
+<all_document_content>
+{% for documentItem in allDocumentContentList %}
+<document_content file_path="{{ documentItem.path }}">
+{{ documentItem.content }}
 <document_content>
-  {{ content }}
-</document_content>
+{% endfor %}
+</all_document_content>
 
-<document_content_plan>
-  {{ description }}
-</document_content_plan>
+<current_document_path>
+{{ path }}
+</current_document_path>
+{% else %}
+<current_document_content>
+{{ content }}
+</current_document_content>
+{% endif %}
 
+<current_document_content_plan>
+{{ description }}
+</current_document_content_plan>
 
 - **User Selection**:
 
 <purposes>
-  {{purposes}}
+{{ purposes }}
 </purposes>
 
 <audiences>
-  {{audiences}}
+{{ audiences }}
 </audiences>
 
 <reader_knowledge_level>
-  {{readerKnowledgeLevel}}
+{{ readerKnowledgeLevel }}
 </reader_knowledge_level>
 
 </context>

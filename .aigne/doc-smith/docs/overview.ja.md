@@ -10,75 +10,9 @@ AIGNE DocSmith は、プロジェクトのソースコードからドキュメ�
 
 DocSmith は、プロジェクトのソースコードを分析して、その構造、コンポーネント、および機能を理解することによって動作します。この分析に基づいて、高レベルのガイドから詳細な API リファレンスまで、完全なドキュメントセットを生成します。
 
-```d2
-direction: down
-
-Source-Code: {
-  label: "ソースコード"
-  shape: rectangle
-}
-
-AIGNE-DocSmith: {
-  label: "AIGNE DocSmith"
-  shape: rectangle
-  style: {
-    stroke: "#888"
-    stroke-width: 2
-    stroke-dash: 4
-  }
-
-  Analysis-Engine: {
-    label: "分析エンジン"
-    shape: rectangle
-  }
-
-  Generation-Engine: {
-    label: "生成エンジン"
-    shape: rectangle
-  }
-
-  Translation-Engine: {
-    label: "翻訳エンジン"
-    shape: rectangle
-  }
-
-  LLMs: {
-    label: "大規模言語モデル"
-    shape: rectangle
-
-    AIGNE-Hub: {
-      label: "AIGNE Hub"
-    }
-
-    Direct-Access: {
-      label: "直接アクセス"
-      shape: rectangle
-      Google-Gemini: {}
-      OpenAI-GPT: {}
-    }
-  }
-}
-
-Published-Documentation: {
-  label: "公開されたドキュメント"
-  shape: rectangle
-
-  DocSmith-Platform: {
-    label: "DocSmith プラットフォーム"
-  }
-
-  Discuss-Kit: {
-    label: "Discuss Kit"
-  }
-}
-
-Source-Code -> AIGNE-DocSmith.Analysis-Engine: "分析する"
-AIGNE-DocSmith.Analysis-Engine -> AIGNE-DocSmith.Generation-Engine: "生成する"
-AIGNE-DocSmith.Generation-Engine <-> AIGNE-DocSmith.LLMs: "利用する"
-AIGNE-DocSmith.Generation-Engine -> AIGNE-DocSmith.Translation-Engine: "翻訳する"
-AIGNE-DocSmith.Translation-Engine -> Published-Documentation: "公開する"
-
-```
+<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->
+![Overview](assets/diagram/overview-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_END -->
 
 ## 主な機能
 

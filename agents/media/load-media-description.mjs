@@ -6,6 +6,7 @@ import { parse, stringify } from "yaml";
 import { getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
 
 const SIZE_THRESHOLD = 10 * 1024 * 1024; // 10MB
+const SVG_SIZE_THRESHOLD = 50 * 1024; // 50KB for SVG files
 
 // Supported MIME types for Gemini AI
 const SUPPORTED_IMAGE_TYPES = new Set([
@@ -15,6 +16,8 @@ const SUPPORTED_IMAGE_TYPES = new Set([
   "image/heic",
   "image/heif",
 ]);
+
+const SUPPORTED_SVG_TYPES = new Set(["image/svg+xml"]);
 
 const SUPPORTED_VIDEO_TYPES = new Set([
   "video/mp4",
@@ -60,10 +63,10 @@ async function calculateMediaHash(absolutePath) {
 export default async function loadMediaDescription(input, options) {
   const { mediaFiles = [], docsDir } = input;
 
-  // Filter to get image and video files with supported MIME types
+  // Filter to get image, video and svg files with supported MIME types
   const mediaFilesToProcess = mediaFiles.filter((file) => {
     if (file.type === "image") {
-      return SUPPORTED_IMAGE_TYPES.has(file.mimeType);
+      return SUPPORTED_IMAGE_TYPES.has(file.mimeType) || SUPPORTED_SVG_TYPES.has(file.mimeType);
     }
     if (file.type === "video") {
       return SUPPORTED_VIDEO_TYPES.has(file.mimeType);
@@ -101,19 +104,45 @@ export default async function loadMediaDescription(input, options) {
     mediaHashMap.set(mediaFile.path, mediaHash);
 
     if (!cache[mediaHash]) {
-      mediaToDescribe.push({
-        ...mediaFile,
-        hash: mediaHash,
-        path: mediaFile.path,
-        mediaFile: [
-          {
-            type: "local",
-            path: absolutePath,
-            filename: mediaFile.name,
-            mimeType: mediaFile.mimeType,
-          },
-        ],
-      });
+      const isSvg = SUPPORTED_SVG_TYPES.has(mediaFile.mimeType);
+
+      if (isSvg) {
+        // For SVG files, check size and read content
+        try {
+          const stats = await stat(absolutePath);
+          if (stats.size > SVG_SIZE_THRESHOLD) {
+            console.warn(
+              `SVG file ${mediaFile.path} exceeds ${SVG_SIZE_THRESHOLD / 1024}KB limit, skipping`,
+            );
+            continue;
+          }
+
+          const svgContent = await readFile(absolutePath, "utf8");
+          mediaToDescribe.push({
+            ...mediaFile,
+            hash: mediaHash,
+            path: mediaFile.path,
+            svgContent,
+          });
+        } catch (error) {
+          console.warn(`Failed to read SVG file ${mediaFile.path}:`, error.message);
+        }
+      } else {
+        // For non-SVG media files, use mediaFile field
+        mediaToDescribe.push({
+          ...mediaFile,
+          hash: mediaHash,
+          path: mediaFile.path,
+          mediaFile: [
+            {
+              type: "local",
+              path: absolutePath,
+              filename: mediaFile.name,
+              mimeType: mediaFile.mimeType,
+            },
+          ],
+        });
+      }
     }
   }
 

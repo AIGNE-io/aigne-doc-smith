@@ -16,7 +16,7 @@ import {
   TMP_DIR,
   TMP_DOCS_DIR,
 } from "../../utils/constants/index.mjs";
-import { beforePublishHook, ensureTmpDir } from "../../utils/d2-utils.mjs";
+import { ensureTmpDir } from "../../utils/d2-utils.mjs";
 import { deploy } from "../../utils/deploy.mjs";
 import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 import updateBranding from "../utils/update-branding.mjs";
@@ -52,9 +52,6 @@ export default async function publishDocs(
       recursive: true,
     });
     await fs.cp(rawDocsDir, docsDir, { recursive: true });
-
-    // ----------------- trigger beforePublishHook -----------------------------
-    await beforePublishHook({ docsDir });
 
     // ----------------- main publish process flow -----------------------------
     // Check if DOC_DISCUSS_KIT_URL is set in environment variables

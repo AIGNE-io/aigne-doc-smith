@@ -1,0 +1,60 @@
+type: image
+name: generateDiagramImage
+image_model:
+  model: google/gemini-3-pro-image-preview
+  #  The cues that come with thought patterns are actually not obvious
+  # thinkingConfig: 
+  #   includeThoughts: true      
+  # responseModalities: 
+  #   - 'TEXT'
+  #   - 'IMAGE'
+  imageConfig:
+    imageSize:
+      $get: size
+    aspectRatio:
+      $get: ratio
+
+instructions:
+  - role: system
+    url: ../../prompts/detail/diagram/generate-image-system.md
+  - role: user
+    url: ../../prompts/detail/diagram/generate-image-user.md
+
+input_schema:
+  type: object
+  properties:
+    documentContent:
+      type: string
+      description: The full original document content
+    documentSummary:
+      type: string
+      description: A comprehensive summary of the document content for diagram generation (preferred over documentContent if available)
+    diagramType:
+      type: string
+      description: The type of diagram to generate (architecture, flowchart, guide, intro, sequence, network)
+    diagramStyle:
+      type: string
+      description: The visual style for the diagram (modern, standard, hand-drawn, anthropomorphic, flat, minimalist, 3d)
+    locale:
+      type: string
+      description: Language for diagram labels
+      default: en
+    size:
+      type: string
+      description: Size of the generated image (e.g., "1K", "2K")
+      default: "1K"
+    ratio:
+      type: string
+      description: Aspect ratio of the generated image (must match content flow direction)
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
+    aspectRatio:
+      type: string
+      description: Aspect ratio of the generated image (alias for ratio, used in prompt templates)
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
+  required:
+    - documentContent
+    - diagramType
+    - diagramStyle
+    - ratio
+include_input_in_output: true
+
