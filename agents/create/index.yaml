@@ -8,30 +8,31 @@ skills:
   - url: ../init/index.mjs
     default_input:
       skipIfExists: true
-  - ../utils/load-sources.mjs
-  - ./check-need-generate-structure.mjs
-  - url: ../utils/save-output.mjs
-    default_input:
-      saveKey: documentStructure
-      savePath:
-        $get: outputDir
-      fileName: structure-plan.json
-  - ./user-review-document-structure.mjs
-  - url: ../utils/save-output.mjs
-    default_input:
-      saveKey: documentStructure
-      savePath:
-        $get: outputDir
-      fileName: structure-plan.json
-  - ../utils/save-sidebar.mjs
-  - ../utils/ensure-document-icons.mjs
-  - ../utils/format-document-structure.mjs
-  - ../media/load-media-description.mjs
-  - ../update/batch-generate-document.yaml
-  - url: ../utils/check-feedback-refiner.mjs
-    default_input:
-      stage: document_structure
-  - ../utils/post-generate.mjs
+  - ../../agentic-agents/structure/index.yaml
+  # - ../utils/load-sources.mjs
+  # - ./check-need-generate-structure.mjs
+  # - url: ../utils/save-output.mjs
+  #   default_input:
+  #     saveKey: documentStructure
+  #     savePath:
+  #       $get: outputDir
+  #     fileName: structure-plan.json
+  # - ./user-review-document-structure.mjs
+  # - url: ../utils/save-output.mjs
+  #   default_input:
+  #     saveKey: documentStructure
+  #     savePath:
+  #       $get: outputDir
+  #     fileName: structure-plan.json
+  # - ../utils/save-sidebar.mjs
+  # - ../utils/ensure-document-icons.mjs
+  # - ../utils/format-document-structure.mjs
+  # - ../media/load-media-description.mjs
+  # - ../update/batch-generate-document.yaml
+  # - url: ../utils/check-feedback-refiner.mjs
+  #   default_input:
+  #     stage: document_structure
+  # - ../utils/post-generate.mjs
 
 input_schema:
   type: object

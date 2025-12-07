@@ -21,6 +21,7 @@ agents:
   - ./agents/create/check-document-structure.yaml
   - ./agents/create/user-review-document-structure.mjs
   - ./agents/create/index.yaml
+  - ./agentic-agents/structure/index.yaml
 
   # Documentation Structure Tools
   - ./agents/create/document-structure-tools/add-document.mjs
