@@ -1,0 +1,2 @@
+overrides:
+  '@aigne/agent-library': link:../../Library/pnpm/global/5/node_modules/@aigne/agent-library

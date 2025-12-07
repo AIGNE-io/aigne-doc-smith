@@ -10,6 +10,7 @@ model:
   temperature: 0.8
 agents:
   - ./_exp_/index.yaml
+  - ./_exp_/generateStructureOrchestrator.yaml
 
   # Initialization
   - ./agents/init/index.mjs

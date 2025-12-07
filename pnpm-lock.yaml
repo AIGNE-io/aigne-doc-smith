@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@aigne/agent-library': link:../../Library/pnpm/global/5/node_modules/@aigne/agent-library
+
 importers:
 
   .:
@@ -134,9 +137,6 @@ packages:
 
   '@aigne/afs@1.1.2':
     resolution: {integrity: sha512-ZsOczgRr4wjTIu433zZXct9fju9pVtXL1g56KLbbiz3w7Y4WHADwWdnGP5OWPM6FjkcfozdzGLEYxEbPqqUV/Q==}
-
-  '@aigne/agent-library@1.21.52':
-    resolution: {integrity: sha512-FOHtOayRR+eoh6+W/Lyx9DiWJhmRrJQJSJ38djepEVpxKnM+sfSo+Iw3e6vsLkzwcGBNRaO0ibQtSbE5LFFQ1w==}
 
   '@aigne/agentic-memory@1.0.52':
     resolution: {integrity: sha512-1lWZ7btnMy/38Q/xUKvm80Yngi4V+1D1NHC5Xa7CvLqgsXB0mGFuxmNtrh62rT+SZa3Eu1YBzjjFST/HWSdSlA==}
@@ -3075,9 +3075,6 @@ packages:
   jsonfile@6.2.0:
     resolution: {integrity: sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg==}
 
-  jsonschema@1.5.0:
-    resolution: {integrity: sha512-K+A9hhqbn0f3pJX17Q/7H6yQfD/5OXgdrR5UE12gMXCiN9D5Xq2o5mddV2QEcX/bjla99ASsAAQUyMCCRWAEhw==}
-
   jsonwebtoken@9.0.2:
     resolution: {integrity: sha512-PRp66vJ865SSqOlgqS8hujT5U4AOgMfhrwYIuIhfKaoSCZcirrmASQr8CX7cUg+RMih+hgznrjp99o+W4pJLHQ==}
     engines: {node: '>=12', npm: '>=6'}
@@ -4574,57 +4571,6 @@ snapshots:
       - sqlite3
       - utf-8-validate
 
-  '@aigne/agent-library@1.21.52(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
-    dependencies:
-      '@aigne/core': 1.67.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/openai': 0.16.6(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
-      '@aigne/sqlite': 0.4.4(@opentelemetry/api@1.9.0)
-      '@aigne/uuid': 13.0.1
-      drizzle-orm: 0.44.5(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)
-      fastq: 1.19.1
-      jsonata: 2.1.0
-      jsonschema: 1.5.0
-      yaml: 2.8.1
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - '@aws-sdk/client-rds-data'
-      - '@cloudflare/workers-types'
-      - '@electric-sql/pglite'
-      - '@libsql/client'
-      - '@libsql/client-wasm'
-      - '@neondatabase/serverless'
-      - '@op-engineering/op-sqlite'
-      - '@opentelemetry/api'
-      - '@planetscale/database'
-      - '@prisma/client'
-      - '@tidbcloud/serverless'
-      - '@types/better-sqlite3'
-      - '@types/node'
-      - '@types/pg'
-      - '@types/sql.js'
-      - '@upstash/redis'
-      - '@vercel/postgres'
-      - '@xata.io/client'
-      - bare-abort-controller
-      - better-sqlite3
-      - bufferutil
-      - bun-types
-      - chokidar
-      - expo-sqlite
-      - gel
-      - knex
-      - kysely
-      - mysql2
-      - pg
-      - postgres
-      - prisma
-      - react-native-b4a
-      - sql.js
-      - sqlite3
-      - supports-color
-      - utf-8-validate
-      - ws
-
   '@aigne/agentic-memory@1.0.52(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)':
     dependencies:
       '@aigne/core': 1.67.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
@@ -4820,7 +4766,7 @@ snapshots:
   '@aigne/cli@1.54.1(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(debug@4.4.3)(listr2@9.0.1)(ws@8.18.3)':
     dependencies:
       '@aigne/afs-system-fs': 1.0.5(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)
-      '@aigne/agent-library': 1.21.52(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
+      '@aigne/agent-library': link:../../Library/pnpm/global/5/node_modules/@aigne/agent-library
       '@aigne/agentic-memory': 1.0.52(@libsql/client@0.15.15)(@opentelemetry/api@1.9.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/aigne-hub': 0.10.6(@libsql/client@0.15.15)(@modelcontextprotocol/sdk@1.18.0)(@types/node@24.0.15)(chokidar@3.6.0)(ws@8.18.3)
       '@aigne/core': 1.67.0(@libsql/client@0.15.15)(@types/node@24.0.15)(chokidar@3.6.0)
@@ -9212,8 +9158,6 @@ snapshots:
       universalify: 2.0.1
     optionalDependencies:
       graceful-fs: 4.2.11
-
-  jsonschema@1.5.0: {}
 
   jsonwebtoken@9.0.2:
     dependencies:
