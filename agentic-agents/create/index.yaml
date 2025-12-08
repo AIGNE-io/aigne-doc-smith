@@ -1,0 +1,57 @@
+type: "@aigne/agent-library/orchestrator"
+name: DocSmith
+description: DocSmith entry point for documentation generation, editing, and translation
+input_schema:
+  type: object
+  properties:
+    feedback:
+      type: string
+      description: User feedback describing what documentation tasks to perform (natural language)
+    locale:
+      type: string
+      description: Primary language for documentation (e.g., zh, en, ja)
+      default: en
+  required: []
+
+objective:
+  url: objective.md
+
+planner:
+  type: ai
+  instructions:
+    url: planner.md
+
+worker:
+  type: ai
+  instructions:
+    url: worker.md
+  skills:
+    - url: ../structure/index.yaml
+      name: GenerateStructure
+    - url: ../../agents/update/batch-generate-document.yaml
+      name: BatchGenerateDocument
+    - url: ../../agents/localize/index.yaml
+      name: LocalizeDocumentation
+
+state_management:
+  max_iterations: 20
+  max_tokens: 100000
+  keep_recent: 20
+
+afs:
+  modules:
+    - module: local-fs
+      options:
+        name: workspace
+        localPath: .
+        description: The target repository containing source code and documentation
+    - module: local-fs
+      options:
+        name: docs-structure
+        localPath: .aigne/doc-smith/output
+        description: The directory containing the generated documentation structure
+    - module: local-fs
+      options:
+        name: generated-docs
+        localPath: .aigne/doc-smith/docs
+        description: The directory containing generated documentation files

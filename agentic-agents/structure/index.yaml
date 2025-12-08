@@ -15,6 +15,10 @@ input_schema:
       description: User feedback for structure modifications
 objective:
   url: objective.md
+planner:
+  type: ai
+  instructions:
+    url: planner.md
 afs:
   modules:
     - module: local-fs
