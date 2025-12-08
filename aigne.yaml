@@ -9,6 +9,7 @@ model:
     $get: reasoningEffort
 agents:
   - ./_exp_/index.yaml
+  - ./_exp_/generateStructureOrchestrator.yaml
 
   # Initialization
   - ./agents/init/index.mjs
