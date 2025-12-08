@@ -1,5 +1,7 @@
 type: "@aigne/agent-library/orchestrator"
 name: DocSmith
+alias:
+  - run
 description: DocSmith entry point for documentation generation, editing, and translation
 input_schema:
   type: object
@@ -20,18 +22,33 @@ planner:
   type: ai
   instructions:
     url: planner.md
+  input_schema:
+    type: object
+    properties:
+      feedback:
+        type: string
+        description: User feedback describing what documentation tasks to perform (natural language)
 
 worker:
   type: ai
   instructions:
     url: worker.md
+  input_schema:
+    type: object
+    properties:
+      feedback:
+        type: string
+        description: User feedback describing what documentation tasks to perform (natural language)
   skills:
-    - url: ../structure/index.yaml
-      name: GenerateStructure
-    - url: ../../agents/update/batch-generate-document.yaml
-      name: BatchGenerateDocument
+    - url: ../../agents/create/index.yaml
+      default_input:
+        isChat: true
+    - url: ../../agents/update/index.yaml
+      default_input:
+        isChat: true
     - url: ../../agents/localize/index.yaml
-      name: LocalizeDocumentation
+      default_input:
+        isChat: true
 
 state_management:
   max_iterations: 20

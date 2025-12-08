@@ -39,29 +39,32 @@ skills:
 input_schema:
   type: object
   properties:
-    glossary:
-      type: string
-      description: Glossary file for consistent terminology (use @filename.md)
+    # glossary:
+    #   type: string
+    #   description: Glossary file for consistent terminology (use @filename.md)
     docs:
       type: array
       items:
         type: string
-      description: Documents to update
+      description: Documents to update, use document path in document structure to specify, eg ["/getting-started", "/overview"]
     feedback:
       type: string
       description: Tell us what to change in this content
-    reset:
+    isChat:
       type: boolean
-      description: Start fresh - ignore previous versions
-    diagram:
-      type: ["boolean", "string"]
-      description: "Flag to update diagrams: true for user selection (can also use --diagram CLI arg)"
-    "diagram-all":
-      type: ["boolean", "string"]
-      description: "Flag to auto-select all documents with diagrams (can also use --diagram-all CLI arg)"
-    "diagram-sync":
-      type: ["boolean", "string"]
-      description: "Flag to sync existing banana images to translations (can also use --diagram-sync CLI arg or DOC_SMITH_SYNC_IMAGES env var)"
+      description: Whether the update is from chat
+    # reset:
+    #   type: boolean
+    #   description: Start fresh - ignore previous versions
+    # diagram:
+    #   type: ["boolean", "string"]
+    #   description: "Flag to update diagrams: true for user selection (can also use --diagram CLI arg)"
+    # "diagram-all":
+    #   type: ["boolean", "string"]
+    #   description: "Flag to auto-select all documents with diagrams (can also use --diagram-all CLI arg)"
+    # "diagram-sync":
+    #   type: ["boolean", "string"]
+    #   description: "Flag to sync existing banana images to translations (can also use --diagram-sync CLI arg or DOC_SMITH_SYNC_IMAGES env var)"
 output_schema:
   type: object
   properties:

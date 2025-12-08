@@ -39,14 +39,14 @@ skills:
 input_schema:
   type: object
   properties:
-    glossary:
-      type: string
-      description: Glossary file for consistent terminology (use @filename.md)
+    # glossary:
+    #   type: string
+    #   description: Glossary file for consistent terminology (use @filename.md)
     docs:
       type: array
       items:
         type: string
-      description: Documents to translate
+      description: Documents to update, use document path in document structure to specify
     langs:
       type: array
       items:
