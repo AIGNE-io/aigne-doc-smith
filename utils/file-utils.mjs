@@ -530,9 +530,38 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
   return results.filter((result) => result !== null);
 }
 
+/**
+ * Sanitize text by removing or escaping disallowed LLM special tokens
+ * This prevents errors when encoding text that contains special tokens like <|endoftext|>
+ * @param {string} text - Text to sanitize
+ * @returns {string} Sanitized text safe for tokenization
+ */
+function sanitizeForTokenization(text) {
+  if (typeof text !== "string") return text;
+  // Replace <|endoftext|> with a safe alternative that won't trigger special token parsing
+  // We replace it with a space-separated version to prevent tokenizer from recognizing it as a special token
+  return text.replace(/<\|endoftext\|>/g, "<| endoftext |>");
+}
+
 export function calculateTokens(text) {
-  const tokens = encode(text);
-  return tokens.length;
+  try {
+    // Sanitize text before encoding to avoid errors with special tokens
+    const sanitizedText = sanitizeForTokenization(text);
+    const tokens = encode(sanitizedText);
+    return tokens.length;
+  } catch (error) {
+    // If encoding still fails, try with more aggressive sanitization
+    console.warn(`Token calculation warning: ${error.message}`);
+    const fallbackText = sanitizeForTokenization(text).replace(/<\|[^|]+\|>/g, "");
+    try {
+      const tokens = encode(fallbackText);
+      return tokens.length;
+    } catch {
+      // Last resort: estimate tokens based on character count (rough approximation)
+      console.warn(`Token calculation fallback: using character-based estimation`);
+      return Math.ceil(fallbackText.length / 4); // Rough estimate: ~4 chars per token
+    }
+  }
 }
 
 /**
@@ -547,9 +576,15 @@ export function calculateFileStats(sourceFiles) {
   for (const source of sourceFiles) {
     const { content } = source;
     if (content) {
-      // Count tokens using gpt-tokenizer
-      const tokens = encode(content);
-      totalTokens += tokens.length;
+      // Count tokens using gpt-tokenizer with sanitization
+      try {
+        const sanitizedContent = sanitizeForTokenization(content);
+        const tokens = encode(sanitizedContent);
+        totalTokens += tokens.length;
+      } catch {
+        // Fallback: use calculateTokens which has its own error handling
+        totalTokens += calculateTokens(content);
+      }
 
       // Count lines (excluding empty lines)
       totalLines += content.split("\n").filter((line) => line.trim() !== "").length;
