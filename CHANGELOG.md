@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.9-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.8...v0.9.9-beta) (2025-12-09)
+
+
+### Bug Fixes
+
+* implement robust error handling for token calculation ([#352](https://github.com/AIGNE-io/aigne-doc-smith/issues/352)) ([e7ba726](https://github.com/AIGNE-io/aigne-doc-smith/commit/e7ba726e226c05a1ac2b40c74b101e1a2d972091))
+
 ## [0.9.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.8-beta.1...v0.9.8) (2025-12-07)
 
 ## [0.9.8-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.8-beta...v0.9.8-beta.1) (2025-12-06)
