@@ -38,6 +38,7 @@ export default async function chooseDocs(
     shouldUpdateDiagrams = false,
     shouldAutoSelectDiagrams = false,
     shouldSyncImages = false,
+    ...rest
   },
   options,
 ) {
@@ -263,7 +264,8 @@ export default async function chooseDocs(
     !userFeedback &&
     (requiredFeedback || foundItems?.length > 1) &&
     !shouldUpdateDiagrams &&
-    !shouldSyncImages
+    !shouldSyncImages &&
+    !rest.isChat
   ) {
     const feedbackMessage = getFeedbackMessage(docAction);
 
