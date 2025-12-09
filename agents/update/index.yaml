@@ -29,7 +29,6 @@ skills:
   - ../utils/format-document-structure.mjs
   - ../utils/ensure-document-icons.mjs
   - ../media/load-media-description.mjs
-  - ../utils/analyze-feedback-intent.mjs
   - ../update/sync-images-and-exit.mjs
   - ../update/check-update-is-single.mjs
   - ../update/save-and-translate-document.mjs

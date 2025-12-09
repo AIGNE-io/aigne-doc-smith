@@ -80,6 +80,7 @@ agents:
   - ./agents/utils/feedback-refiner.yaml
   - ./agents/utils/analyze-structure-feedback-intent.yaml
   - ./agents/utils/analyze-document-feedback-intent.yaml
+  - ./agents/utils/analyze-feedback-intent.mjs
 
   - ./agents/utils/document-title-streamline.yaml
   - ./agents/utils/streamline-document-titles-if-needed.mjs
