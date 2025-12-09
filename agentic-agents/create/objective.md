@@ -1,13 +1,13 @@
 <objective>
-# DocSmith - Documentation Creation and Management
+# DocSmith - 文档创建与管理
 
-## Goal
+## 目标
 
-Analyze user feedback and complete documentation-related tasks including generating/editing documentation structure, generating/editing documentation content, and translating documentation.
+分析用户反馈并完成文档相关任务,包括生成/编辑文档结构、生成/编辑文档内容以及翻译文档。
 
-## User Feedback
+## 用户反馈
 
-The user provides feedback in natural language describing what they want to accomplish:
+用户以自然语言提供反馈,描述他们想要完成的任务:
 
 {% if feedback %}
 <user_feedback>
@@ -15,12 +15,12 @@ The user provides feedback in natural language describing what they want to acco
 </user_feedback>
 {% endif %}
 
-## Output Requirements
+## 输出要求
 
-Provide a summary of completed operations including:
-- What tasks were performed
-- Which files were created/modified
-- Any important notes or warnings
-- Status of the overall operation (success/partial/failed)
+提供已完成操作的摘要,包括:
+- 执行了哪些任务
+- 创建/修改了哪些文件
+- 任何重要的注意事项或警告
+- 整体操作的状态(成功/部分成功/失败)
 
 </objective>

@@ -41,16 +41,20 @@ worker:
         description: User feedback describing what documentation tasks to perform (natural language)
   skills:
     - url: ../../agents/create/index.yaml
-      name: ManageDocumentStructure
       default_input:
         isChat: true
-    # - url: ../../agents/update/index.yaml
-    #   name: 
-    #   default_input:
-    #     isChat: true
+    - url: ../../agents/update/index.yaml
+      name: 
+      default_input:
+        isChat: true
     - url: ../../agents/localize/index.yaml
       default_input:
         isChat: true
+# completer:
+#   - type: function
+#     process: |
+#       console.log('completer');
+#       return {};
 
 state_management:
   max_iterations: 20
