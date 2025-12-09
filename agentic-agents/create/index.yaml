@@ -43,18 +43,18 @@ worker:
     - url: ../../agents/create/index.yaml
       default_input:
         isChat: true
-    - url: ../../agents/update/index.yaml
-      name: 
-      default_input:
-        isChat: true
+    # - url: ../../agents/update/index.yaml
+    #   name: 
+    #   default_input:
+    #     isChat: true
     - url: ../../agents/localize/index.yaml
       default_input:
         isChat: true
-# completer:
-#   - type: function
-#     process: |
-#       console.log('completer');
-#       return {};
+completer:
+  type: function
+  process: |
+    let message = 'All tasks have been completed.';
+    return { message };
 
 state_management:
   max_iterations: 20
@@ -67,7 +67,7 @@ afs:
       options:
         name: workspace
         localPath: .
-        description: The target repository containing source code and documentation
+        description: The target repository containing source code and documentation. Read-only, cannot be modified.
     - module: local-fs
       options:
         name: docs-structure

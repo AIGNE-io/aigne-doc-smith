@@ -16,6 +16,8 @@ export default async function postGenerate({
   translateLanguages = [],
   locale,
   projectInfoMessage,
+  isChat,
+  feedback,
 }) {
   const _results = [];
   // Save current git HEAD to config.yaml for change detection
@@ -33,12 +35,21 @@ export default async function postGenerate({
     console.error("Failed to cleanup invalid .md files:", err.message);
   }
 
-  const message = `
+  let message = `
 ✅ Documentation generated successfully! (\`${documentStructure.length}\` documents → \`${docsDir}\`)
-${projectInfoMessage || ""}
+${projectInfoMessage || ""} `;
+
+  if (!isChat) {
+    message += `
 🚀 Next: Make your documentation live and generate a shareable link, run: \`aigne doc publish\`
 💡 Optional: Update specific document (\`aigne doc update\`) or refine documentation structure (\`aigne doc create\`)
-  `;
+    `;
+  }
+
+  if (isChat && feedback) {
+    message = `User feedback: ${feedback}
+The documentation structure and relevant documents have been updated according to the user's feedback. All feedback has been fully processed.`;
+  }
 
   // Shutdown mermaid worker pool to ensure clean exit
   try {
