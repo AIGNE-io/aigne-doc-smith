@@ -774,8 +774,34 @@ export default async function translateDiagramImagesAgent(input, options) {
       debug(`ℹ️  No diagram images found or cached for ${currentLanguage}`);
     }
 
+    // In --diagram mode:
+    // - If translation document exists: use existing translation content (skip document translation, only replace images)
+    // - If translation document doesn't exist: allow document translation first, then replace images
+    let finalTranslation = input.translation;
+    let finalIsApproved = input.isApproved;
+
+    if (shouldTranslateDiagramsOnly) {
+      if (translationContent) {
+        // Translation document exists: use existing content, skip document translation
+        finalTranslation = translationContent;
+        finalIsApproved = true; // Skip document translation
+        debug(
+          `ℹ️  --diagram mode: using existing translation content for ${currentLanguage} (will only replace diagram images)`,
+        );
+      } else {
+        // Translation document doesn't exist: allow document translation first
+        finalTranslation = undefined; // Let translate-document-wrapper.mjs handle translation
+        finalIsApproved = false; // Allow document translation
+        debug(
+          `ℹ️  --diagram mode: translation document not found for ${currentLanguage}, will translate document first, then replace diagram images`,
+        );
+      }
+    }
+
     return {
       ...input,
+      translation: finalTranslation,
+      isApproved: finalIsApproved,
       cachedDiagramImages: cachedImages || null,
     };
   } catch (error) {

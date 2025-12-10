@@ -1,10 +1,12 @@
 /**
  * Conditionally call translateDocument agent
- * If translation is already set (--diagram mode), skip calling translateDocument
- * Otherwise, call translateDocument agent normally
+ * If translation is already set and approved (--diagram mode with existing translation), skip calling translateDocument
+ * Otherwise, call translateDocument agent normally (including --diagram mode when translation doesn't exist)
  */
 export default async function translateDocumentWrapper(input, options) {
-  // If translation is already set (by translate-or-skip-diagram when --diagram flag is set), skip
+  // If translation is already set and approved, skip document translation
+  // This happens in --diagram mode when translation document exists (translate-diagram-images.mjs sets isApproved: true)
+  // In --diagram mode when translation doesn't exist, translate-diagram-images.mjs sets isApproved: false to allow translation
   if (input.translation !== undefined && input.translation !== null && input.isApproved === true) {
     return input;
   }
