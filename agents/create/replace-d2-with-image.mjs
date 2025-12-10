@@ -383,31 +383,6 @@ export default async function replaceD2WithImage({
     finalContent = trimmedContent + separator + imageMarkdown;
   }
 
-  // Sync diagram images to translation files
-  // Only sync if we actually replaced/added a diagram (not just returned original content)
-  if (finalContent !== (originalContent || documentContent || content || "")) {
-    try {
-      const { syncDiagramToTranslations } = await import(
-        "../../utils/sync-diagram-to-translations.mjs"
-      );
-      const syncResult = await syncDiagramToTranslations(
-        finalContent,
-        finalDocPath,
-        finalDocsDir,
-        locale,
-        "update", // Operation type: update - skip if main has 0 diagrams
-      );
-      if (syncResult.updated > 0) {
-        debug(
-          `✅ Synced diagram images to ${syncResult.updated} translation file(s)${syncResult.errors.length > 0 ? ` (${syncResult.errors.length} error(s))` : ""}`,
-        );
-      }
-    } catch (error) {
-      // Don't fail the whole operation if sync fails
-      debug(`⚠️  Failed to sync diagram to translations: ${error.message}`);
-    }
-  }
-
   return { content: finalContent };
 }
 
