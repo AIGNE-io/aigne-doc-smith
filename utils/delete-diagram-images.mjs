@@ -23,7 +23,7 @@ export async function extractDiagramImagePaths(content, path, docsDir) {
   const matches = Array.from(content.matchAll(diagramImageWithPathRegex));
 
   for (const match of matches) {
-    const imagePath = match[1];
+    const imagePath = match[4]; // Path is in capture group 4 (groups: 1=type, 2=aspectRatio, 3=timestamp, 4=path)
 
     // Resolve absolute path
     // If imagePath is relative, resolve from document location

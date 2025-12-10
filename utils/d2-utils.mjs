@@ -16,8 +16,9 @@ export const diagramImageStartRegex =
   /<!--\s*DIAGRAM_IMAGE_START:([A-Za-z0-9_-]+):(\d+:\d+)(:\d+)?\s*-->/g;
 
 // Pattern 2: Match full diagram image block without capturing image path (for finding/replacing)
+// Supports both old format (without aspectRatio) and new format (with aspectRatio)
 export const diagramImageBlockRegex =
-  /<!--\s*DIAGRAM_IMAGE_START:([A-Za-z0-9_-]+):(\d+:\d+)(:\d+)?\s*-->\s*[\s\S]*?<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
+  /<!--\s*DIAGRAM_IMAGE_START:([A-Za-z0-9_-]+)(?::(\d+:\d+))?(:\d+)?\s*-->\s*[\s\S]*?<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
 
 // Pattern 3: Match full diagram image block with image path capture (for extracting paths)
 // Compatible with old format (without timestamp): <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->

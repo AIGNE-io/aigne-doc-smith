@@ -1,5 +1,5 @@
 import { debug } from "../../utils/debug.mjs";
-import { diagramImageFullRegex } from "../../utils/d2-utils.mjs";
+import { d2CodeBlockRegex, diagramImageFullRegex } from "../../utils/d2-utils.mjs";
 
 /**
  * Replace cached diagram images in translated document and set reviewContent
@@ -11,7 +11,6 @@ import { diagramImageFullRegex } from "../../utils/d2-utils.mjs";
 export default async function setReviewContent(input) {
   let translation = input.translation || "";
   const cachedImages = input.cachedDiagramImages || null;
-  const shouldTranslateDiagramsOnly = input.shouldTranslateDiagramsOnly || false;
 
   // Replace cached diagram image if any (each document has at most one image)
   if (cachedImages && cachedImages.length > 0) {
@@ -24,52 +23,24 @@ export default async function setReviewContent(input) {
       const imageMatch = translation.match(diagramImageFullRegex);
 
       if (imageMatch) {
-        // Always replace with cached image markdown to ensure language-specific image is used
-        // This is necessary because translation may have copied the main document's image
-        // Timestamp changes determine whether to generate new images, but we always replace
-        // the diagram in the translation document with the cached translatedMarkdown
         translation = translation.replace(diagramImageFullRegex, cachedImage.translatedMarkdown);
-
-        // Determine if image was newly generated or reused based on timestamp comparison
-        // If translatedMarkdown !== originalMatch, it means a new image was generated (timestamp changed)
-        // If translatedMarkdown === originalMatch, it means existing image was reused (timestamp matched)
-        const isNewlyGenerated = cachedImage.translatedMarkdown !== cachedImage.originalMatch;
-
-        if (shouldTranslateDiagramsOnly) {
-          // In --diagram mode, we always replace the diagram
-          if (isNewlyGenerated) {
-            // Newly generated translated image (timestamp changed)
-            debug(
-              `✅ Replaced diagram image in translation (--diagram mode: newly generated translated image)`,
-            );
-          } else {
-            // Reused existing translated image from translation document (timestamp matched)
-            debug(
-              `✅ Replaced diagram image in translation (--diagram mode: reused existing translated image from translation document)`,
-            );
-          }
-        } else {
-          // Normal translation mode
-          if (isNewlyGenerated) {
-            // Newly generated translated image (timestamp changed)
-            debug(`✅ Replaced diagram image in translation with new translated image`);
-          } else {
-            // Reused existing translated image from translation document (timestamp matched)
-            debug(
-              `✅ Replaced diagram image in translation with language-specific image (reused from translation document)`,
-            );
-          }
-        }
+        debug(`✅ Replaced diagram image in translation with language-specific image`);
       } else {
-        // No existing image, insert at the position from main document
-        const insertIndex = Math.min(cachedImage.mainImageIndex, translation.length);
-        translation =
-          translation.slice(0, insertIndex) +
-          "\n\n" +
-          cachedImage.translatedMarkdown +
-          "\n\n" +
-          translation.slice(insertIndex);
-        debug(`✅ Inserted diagram image at index ${insertIndex}`);
+        const d2Match = translation.match(d2CodeBlockRegex);
+        if (d2Match) {
+          translation = translation.replace(d2CodeBlockRegex, cachedImage.translatedMarkdown);
+          debug(`✅ Replaced D2 code block in translation with language-specific image`);
+        } else {
+          // No existing image, insert at the position from main document
+          const insertIndex = Math.min(cachedImage.mainImageIndex, translation.length);
+          translation =
+            translation.slice(0, insertIndex) +
+            "\n\n" +
+            cachedImage.translatedMarkdown +
+            "\n\n" +
+            translation.slice(insertIndex);
+          debug(`✅ Inserted diagram image at index ${insertIndex}`);
+        }
       }
     } catch (error) {
       debug(`⚠️  Failed to replace cached diagram image: ${error.message}`);

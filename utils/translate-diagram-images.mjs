@@ -546,43 +546,13 @@ export async function cacheDiagramImagesForTranslation(
       const translationImage = translationImages[i];
 
       let needsTranslation = false;
-      let useExistingImage = false;
 
       if (shouldTranslateDiagramsOnly) {
-        // When --diagram flag is set, we always need to replace the diagram in translation document
-        // But we can reuse existing translated image if timestamp matches (no need to regenerate)
-        if (translationImage) {
-          const translationImagePath = translationImage?.path || "";
-          const hasLanguageSuffix =
-            translationImagePath.includes(`.${language}.`) ||
-            translationImagePath.endsWith(`.${language}`);
-          const timestampMatches =
-            translationImage.timestamp &&
-            mainImage.timestamp &&
-            translationImage.timestamp === mainImage.timestamp;
-
-          // If translation image exists, has correct language suffix, and timestamp matches,
-          // we can reuse it without regenerating
-          if (hasLanguageSuffix && timestampMatches) {
-            useExistingImage = true;
-            needsTranslation = false;
-            debug(
-              `ℹ️  --diagram flag set: reusing existing translated image for ${language} diagram ${i} (timestamp matches)`,
-            );
-          } else {
-            // Need to regenerate because image doesn't exist, has wrong suffix, or timestamp doesn't match
-            needsTranslation = true;
-            debug(
-              `🔄 --diagram flag set: regenerating translation for ${language} diagram ${i} (timestamp mismatch or missing)`,
-            );
-          }
-        } else {
-          // No translation image exists, need to generate
-          needsTranslation = true;
-          debug(
-            `🔄 --diagram flag set: generating new translation for ${language} diagram ${i} (no existing image)`,
-          );
-        }
+        // When --diagram flag is set, always regenerate translation images regardless of existing images
+        needsTranslation = true;
+        debug(
+          `🔄 --diagram flag set: forcing regeneration of translation for ${language} diagram ${i}`,
+        );
       } else {
         // Normal mode: check if translation is needed based on timestamp and language suffix
         const translationImagePath = translationImage?.path || "";
@@ -606,13 +576,9 @@ export async function cacheDiagramImagesForTranslation(
             index: translationImage.index,
             mainImageIndex: mainImage.index,
           });
-          if (useExistingImage) {
-            debug(
-              `✅ Cached existing translated diagram image for ${language} (reused from translation document)`,
-            );
-          } else {
-            debug(`ℹ️  Cached existing diagram image for ${language} (no translation needed)`);
-          }
+          debug(
+            `💾 Cached existing diagram image for ${language} diagram ${i} (timestamp matches, no translation needed)`,
+          );
         }
         continue;
       }

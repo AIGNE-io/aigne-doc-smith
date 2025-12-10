@@ -65,7 +65,7 @@ function extractDiagramImagePaths(content) {
 
   for (const match of matches) {
     images.push({
-      path: match[1],
+      path: match[4], // Path is in capture group 4 (groups: 1=type, 2=aspectRatio, 3=timestamp, 4=path)
       fullMatch: match[0],
       index: match.index,
     });

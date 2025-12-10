@@ -20,7 +20,7 @@ function detectExistingDiagram(documentContent) {
   if (pathMatches.length > 0) {
     // Currently each document has only one diagram, so use the first one
     const firstPathMatch = pathMatches[0];
-    const imagePath = firstPathMatch[1];
+    const imagePath = firstPathMatch[4]; // Path is in capture group 4 (groups: 1=type, 2=aspectRatio, 3=timestamp, 4=path)
     const fullMatch = firstPathMatch[0];
 
     return {
