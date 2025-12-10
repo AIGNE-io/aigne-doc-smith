@@ -21,6 +21,8 @@ export default async function translateDocumentWrapper(input, options) {
       ...input,
       ...result,
       translation: result?.translation || result,
+      // Preserve shouldTranslateDiagramsOnly flag
+      shouldTranslateDiagramsOnly: input.shouldTranslateDiagramsOnly,
     };
   } catch (error) {
     throw new Error(`Failed to invoke translateDocument agent: ${error.message}`);

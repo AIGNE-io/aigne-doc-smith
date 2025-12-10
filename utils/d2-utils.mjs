@@ -17,16 +17,16 @@ export const diagramImageStartRegex =
 
 // Pattern 2: Match full diagram image block without capturing image path (for finding/replacing)
 export const diagramImageBlockRegex =
-  /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*[\s\S]*?<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
+  /<!--\s*DIAGRAM_IMAGE_START:([A-Za-z0-9_-]+):(\d+:\d+)(:\d+)?\s*-->\s*[\s\S]*?<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
 
 // Pattern 3: Match full diagram image block with image path capture (for extracting paths)
 // Compatible with old format (without timestamp): <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->
 export const diagramImageWithPathRegex =
-  /<!--\s*DIAGRAM_IMAGE_START:[^>]+-->\s*!\[[^\]]*\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
+  /<!--\s*DIAGRAM_IMAGE_START:([A-Za-z0-9_-]+):(\d+:\d+)(:\d+)?\s*-->\s*!\[[^\]]*\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
 
 // Pattern 4: Match full diagram image block with all details (type, aspectRatio, timestamp, path, altText)
 export const diagramImageFullRegex =
-  /<!--\s*DIAGRAM_IMAGE_START:([A-Za-z0-9_-]+):(.+?)(?::(\d{5,}))?\s*-->\s*!\[([^\]]*)\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
+  /<!--\s*DIAGRAM_IMAGE_START:([A-Za-z0-9_-]+):(\d+:\d+)(:\d+)?\s*-->\s*!\[([^\]]*)\]\(([^)]+)\)\s*<!--\s*DIAGRAM_IMAGE_END\s*-->/g;
 
 export async function ensureTmpDir() {
   const tmpDir = path.join(DOC_SMITH_DIR, TMP_DIR);

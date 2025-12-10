@@ -24,17 +24,25 @@ describe("save-doc-translation-or-skip", () => {
     // Cleanup if needed
   });
 
-  test("should skip saving when shouldTranslateDiagramsOnly is true", async () => {
+  test("should save translation even when shouldTranslateDiagramsOnly is true", async () => {
     const input = {
-      translation: "Translated content",
+      translation: "Translated content with updated diagram images",
+      path: "/test",
+      language: "zh",
       shouldTranslateDiagramsOnly: true,
+    };
+
+    mockContext.invoke = async (agent) => {
+      if (agent === mockContext.agents.saveDocTranslation) {
+        return { success: true };
+      }
+      return {};
     };
 
     const result = await saveDocTranslationOrSkip(input, { context: mockContext });
 
-    expect(result).toEqual({});
-    // invoke should not be called when shouldTranslateDiagramsOnly is true
-    expect(mockContext.invoke.mock.calls.length).toBe(0);
+    // Should still save even in --diagram mode because translation contains updated diagram images
+    expect(result.success).toBe(true);
   });
 
   test("should save translation when shouldTranslateDiagramsOnly is false", async () => {

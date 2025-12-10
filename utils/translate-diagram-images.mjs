@@ -546,10 +546,45 @@ export async function cacheDiagramImagesForTranslation(
       const translationImage = translationImages[i];
 
       let needsTranslation = false;
+      let useExistingImage = false;
 
       if (shouldTranslateDiagramsOnly) {
-        needsTranslation = true;
+        // When --diagram flag is set, we always need to replace the diagram in translation document
+        // But we can reuse existing translated image if timestamp matches (no need to regenerate)
+        if (translationImage) {
+          const translationImagePath = translationImage?.path || "";
+          const hasLanguageSuffix =
+            translationImagePath.includes(`.${language}.`) ||
+            translationImagePath.endsWith(`.${language}`);
+          const timestampMatches =
+            translationImage.timestamp &&
+            mainImage.timestamp &&
+            translationImage.timestamp === mainImage.timestamp;
+
+          // If translation image exists, has correct language suffix, and timestamp matches,
+          // we can reuse it without regenerating
+          if (hasLanguageSuffix && timestampMatches) {
+            useExistingImage = true;
+            needsTranslation = false;
+            debug(
+              `ℹ️  --diagram flag set: reusing existing translated image for ${language} diagram ${i} (timestamp matches)`,
+            );
+          } else {
+            // Need to regenerate because image doesn't exist, has wrong suffix, or timestamp doesn't match
+            needsTranslation = true;
+            debug(
+              `🔄 --diagram flag set: regenerating translation for ${language} diagram ${i} (timestamp mismatch or missing)`,
+            );
+          }
+        } else {
+          // No translation image exists, need to generate
+          needsTranslation = true;
+          debug(
+            `🔄 --diagram flag set: generating new translation for ${language} diagram ${i} (no existing image)`,
+          );
+        }
       } else {
+        // Normal mode: check if translation is needed based on timestamp and language suffix
         const translationImagePath = translationImage?.path || "";
         const hasLanguageSuffix =
           translationImagePath.includes(`.${language}.`) ||
@@ -563,7 +598,7 @@ export async function cacheDiagramImagesForTranslation(
 
       if (!needsTranslation) {
         // No translation needed, but we should cache the existing translation image
-        // to ensure it's preserved in the final document
+        // to ensure it's preserved in the final document (this applies to both normal and --diagram mode)
         if (translationImage) {
           cachedImages.push({
             originalMatch: translationImage.fullMatch,
@@ -571,7 +606,13 @@ export async function cacheDiagramImagesForTranslation(
             index: translationImage.index,
             mainImageIndex: mainImage.index,
           });
-          debug(`ℹ️  Cached existing diagram image for ${language} (no translation needed)`);
+          if (useExistingImage) {
+            debug(
+              `✅ Cached existing translated diagram image for ${language} (reused from translation document)`,
+            );
+          } else {
+            debug(`ℹ️  Cached existing diagram image for ${language} (no translation needed)`);
+          }
         }
         continue;
       }

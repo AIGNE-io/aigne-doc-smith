@@ -25,7 +25,6 @@ skills:
       max_iterations: 5
       return_last_on_max_iterations: true
     task_title: Translate '{{ title }}' to '{{ language }}'
-  # Save translated document (skipped if --diagram flag is set)
   - url: ./save-doc-translation-or-skip.mjs
 input_schema:
   type: object
