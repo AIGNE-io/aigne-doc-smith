@@ -70,11 +70,11 @@ afs:
         description: The target repository containing source code and documentation. Read-only, cannot be modified.
     - module: local-fs
       options:
-        name: docs-structure
-        localPath: .aigne/doc-smith/output
-        description: The directory containing the generated documentation structure
-    - module: local-fs
-      options:
-        name: generated-docs
-        localPath: .aigne/doc-smith/docs
-        description: The directory containing generated documentation files
+        name: docs-smith
+        localPath: .aigne/doc-smith
+        description: The Doc Smith workspace for storing intermediate and output files
+    # - module: local-fs
+    #   options:
+    #     name: generated-docs
+    #     localPath: .aigne/doc-smith/docs
+    #     description: The directory containing generated documentation files
