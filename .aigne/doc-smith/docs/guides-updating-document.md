@@ -76,7 +76,6 @@ The `update` command accepts several parameters to control its behavior. Here is
 | `--glossary` | Specifies the path to a glossary file (`@/path/to/glossary.md`) to ensure consistent terminology. | Optional |
 | `--diagram` | Filter to show only documents with diagrams (D2 code blocks, placeholders, or diagram images) and let user select which ones to update. | Optional |
 | `--diagram-all` | Auto-select all documents with diagrams (D2 code blocks, placeholders, or diagram images) and update them without user selection. | Optional |
-| `--diagram-sync` | Auto-select all documents with banana images (AI-generated images) and sync them to translation documents without generating new images. | Optional |
 
 ---
 

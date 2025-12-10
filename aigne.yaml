@@ -113,8 +113,6 @@ agents:
   - ./agents/update/generate-diagram.yaml
   - ./agents/update/check-generate-diagram.mjs
   - ./agents/update/pre-check-generate-diagram.yaml
-  - ./agents/update/check-sync-image-flag.mjs
-  - ./agents/update/sync-images-and-exit.mjs
   - ./agents/localize/translate-diagram.yaml
 cli:
   chat: ./agents/chat/index.mjs
