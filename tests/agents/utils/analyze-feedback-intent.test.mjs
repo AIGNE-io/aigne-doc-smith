@@ -35,37 +35,67 @@ describe("analyze-feedback-intent", () => {
   // INPUT VALIDATION TESTS
   test("should return null when feedback is not provided", async () => {
     const result = await analyzeFeedbackIntent({}, mockOptions);
-    expect(result).toEqual({ intentType: null });
+    expect(result).toEqual({
+      intentType: null,
+      diagramInfo: null,
+      generationMode: null,
+      changes: [],
+    });
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
   test("should return null when feedback is null", async () => {
     const result = await analyzeFeedbackIntent({ feedback: null }, mockOptions);
-    expect(result).toEqual({ intentType: null });
+    expect(result).toEqual({
+      intentType: null,
+      diagramInfo: null,
+      generationMode: null,
+      changes: [],
+    });
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
   test("should return null when feedback is undefined", async () => {
     const result = await analyzeFeedbackIntent({ feedback: undefined }, mockOptions);
-    expect(result).toEqual({ intentType: null });
+    expect(result).toEqual({
+      intentType: null,
+      diagramInfo: null,
+      generationMode: null,
+      changes: [],
+    });
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
   test("should return null when feedback is not a string", async () => {
     const result = await analyzeFeedbackIntent({ feedback: 123 }, mockOptions);
-    expect(result).toEqual({ intentType: null });
+    expect(result).toEqual({
+      intentType: null,
+      diagramInfo: null,
+      generationMode: null,
+      changes: [],
+    });
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
   test("should return null when feedback is empty string", async () => {
     const result = await analyzeFeedbackIntent({ feedback: "" }, mockOptions);
-    expect(result).toEqual({ intentType: null });
+    expect(result).toEqual({
+      intentType: null,
+      diagramInfo: null,
+      generationMode: null,
+      changes: [],
+    });
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
   test("should return null when feedback is only whitespace", async () => {
     const result = await analyzeFeedbackIntent({ feedback: "   \n\t  " }, mockOptions);
-    expect(result).toEqual({ intentType: null });
+    expect(result).toEqual({
+      intentType: null,
+      diagramInfo: null,
+      generationMode: null,
+      changes: [],
+    });
     expect(mockOptions.context.invoke).not.toHaveBeenCalled();
   });
 
@@ -78,11 +108,13 @@ describe("analyze-feedback-intent", () => {
       mockOptions,
     );
 
-    expect(result).toEqual({ intentType: "addDiagram" });
+    expect(result.intentType).toBe("addDiagram");
+    expect(result.generationMode).toBe("add-new");
+    expect(result.changes).toEqual([]);
     expect(aiAgentFromSpy).toHaveBeenCalled();
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       { name: "analyzeUpdateFeedbackIntent" },
-      { feedback: "Please add a diagram showing the architecture" },
+      { feedback: "Please add a diagram showing the architecture", diagramInfo: null },
     );
   });
 
@@ -94,10 +126,12 @@ describe("analyze-feedback-intent", () => {
       mockOptions,
     );
 
-    expect(result).toEqual({ intentType: "deleteDiagram" });
+    expect(result.intentType).toBe("deleteDiagram");
+    expect(result.generationMode).toBe("remove-image");
+    expect(result.changes).toEqual([]);
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       { name: "analyzeUpdateFeedbackIntent" },
-      { feedback: "Remove the diagram on page 3" },
+      { feedback: "Remove the diagram on page 3", diagramInfo: null },
     );
   });
 
@@ -109,10 +143,12 @@ describe("analyze-feedback-intent", () => {
       mockOptions,
     );
 
-    expect(result).toEqual({ intentType: "updateDiagram" });
+    expect(result.intentType).toBe("updateDiagram");
+    expect(result.generationMode).toBe("add-new"); // No diagramInfo, so default to add-new
+    expect(result.changes).toEqual([]);
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       { name: "analyzeUpdateFeedbackIntent" },
-      { feedback: "Update the flow diagram to show the new process" },
+      { feedback: "Update the flow diagram to show the new process", diagramInfo: null },
     );
   });
 
@@ -124,10 +160,12 @@ describe("analyze-feedback-intent", () => {
       mockOptions,
     );
 
-    expect(result).toEqual({ intentType: "updateDocument" });
+    expect(result.intentType).toBe("updateDocument");
+    expect(result.generationMode).toBeUndefined(); // updateDocument doesn't set generationMode
+    expect(result.changes).toEqual([]);
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       { name: "analyzeUpdateFeedbackIntent" },
-      { feedback: "Update the introduction section" },
+      { feedback: "Update the introduction section", diagramInfo: null },
     );
   });
 
@@ -139,10 +177,10 @@ describe("analyze-feedback-intent", () => {
       mockOptions,
     );
 
-    expect(result).toEqual({ intentType: "updateDocument" });
+    expect(result.intentType).toBe("updateDocument");
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       { name: "analyzeUpdateFeedbackIntent" },
-      { feedback: "Update the content" },
+      { feedback: "Update the content", diagramInfo: null },
     );
   });
 
@@ -153,9 +191,10 @@ describe("analyze-feedback-intent", () => {
 
     const result = await analyzeFeedbackIntent({ feedback: "Update the document" }, mockOptions);
 
-    expect(result).toEqual({ intentType: null });
+    expect(result.intentType).toBe("updateDocument"); // Falls back to updateDocument
+    expect(result.changes).toEqual([]);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Failed to analyze feedback intent: Network timeout",
+      "[analyzeFeedbackIntent] Failed to analyze feedback intent: Network timeout",
     );
   });
 
@@ -165,9 +204,10 @@ describe("analyze-feedback-intent", () => {
 
     const result = await analyzeFeedbackIntent({ feedback: "Add a new section" }, mockOptions);
 
-    expect(result).toEqual({ intentType: null });
+    expect(result.intentType).toBe("updateDocument"); // Falls back to updateDocument
+    expect(result.changes).toEqual([]);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      "Failed to analyze feedback intent: Invalid response format",
+      "[analyzeFeedbackIntent] Failed to analyze feedback intent: Invalid response format",
     );
   });
 
@@ -182,7 +222,7 @@ describe("analyze-feedback-intent", () => {
         name: "analyzeUpdateFeedbackIntent",
         description: expect.stringContaining("Analyze user feedback"),
         task_render_mode: "hide",
-        instructions: expect.stringContaining("You are a feedback intent analyzer"),
+        instructions: expect.stringContaining("Analyze the user feedback"),
       }),
     );
   });
@@ -218,10 +258,11 @@ describe("analyze-feedback-intent", () => {
       mockOptions,
     );
 
-    expect(result).toEqual({ intentType: "updateDocument" });
+    expect(result.intentType).toBe("updateDocument");
+    expect(result.changes).toEqual([]);
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       { name: "analyzeUpdateFeedbackIntent" },
-      { feedback: "Update with special chars: !@#$%^&*()" },
+      { feedback: "Update with special chars: !@#$%^&*()", diagramInfo: null },
     );
   });
 
@@ -231,10 +272,11 @@ describe("analyze-feedback-intent", () => {
 
     const result = await analyzeFeedbackIntent({ feedback: longFeedback }, mockOptions);
 
-    expect(result).toEqual({ intentType: "updateDocument" });
+    expect(result.intentType).toBe("updateDocument");
+    expect(result.changes).toEqual([]);
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       { name: "analyzeUpdateFeedbackIntent" },
-      { feedback: longFeedback },
+      { feedback: longFeedback, diagramInfo: null },
     );
   });
 
@@ -244,10 +286,11 @@ describe("analyze-feedback-intent", () => {
 
     const result = await analyzeFeedbackIntent({ feedback: feedbackWithNewlines }, mockOptions);
 
-    expect(result).toEqual({ intentType: "updateDocument" });
+    expect(result.intentType).toBe("updateDocument");
+    expect(result.changes).toEqual([]);
     expect(mockOptions.context.invoke).toHaveBeenCalledWith(
       { name: "analyzeUpdateFeedbackIntent" },
-      { feedback: feedbackWithNewlines },
+      { feedback: feedbackWithNewlines, diagramInfo: null },
     );
   });
 });
