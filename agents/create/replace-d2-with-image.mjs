@@ -13,6 +13,7 @@ import { getContentHash, getFileName } from "../../utils/utils.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
 import { debug } from "../../utils/debug.mjs";
 import { compressImage } from "../../utils/image-compress.mjs";
+import { calculateImageTimestamp } from "../../utils/diagram-version-utils.mjs";
 
 const SIZE_THRESHOLD = 1 * 1024 * 1024; // 1MB
 
@@ -304,10 +305,19 @@ export default async function replaceD2WithImage({
   }
 
   // Create markdown image reference with markers for easy replacement
-  // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
+  // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio:timestamp -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
   const diagramTypeTag = diagramType || "unknown";
   const aspectRatioTag = aspectRatio || "unknown";
-  const imageMarkdown = `<!-- DIAGRAM_IMAGE_START:${diagramTypeTag}:${aspectRatioTag} -->\n![${altText}](${relativePath})\n<!-- DIAGRAM_IMAGE_END -->`;
+  
+  // Calculate timestamp for the saved image (for version tracking)
+  let imageTimestamp = "0";
+  try {
+    imageTimestamp = await calculateImageTimestamp(destPath);
+  } catch (error) {
+    debug(`Failed to calculate image timestamp: ${error.message}, using default 0`);
+  }
+  
+  const imageMarkdown = `<!-- DIAGRAM_IMAGE_START:${diagramTypeTag}:${aspectRatioTag}:${imageTimestamp} -->\n![${altText}](${relativePath})\n<!-- DIAGRAM_IMAGE_END -->`;
 
   // Note: diagramLocations was already found above for filename generation, reuse it
 

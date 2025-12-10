@@ -1,0 +1,56 @@
+type: image
+name: translateDiagram
+image_model:
+  model: google/gemini-3-pro-image-preview
+  imageConfig:
+    imageSize:
+      $get: size
+    aspectRatio:
+      $get: ratio
+
+instructions: |
+  You are a multilingual diagram translator specializing in technical diagrams such as flowcharts, architecture diagrams, network topologies, and mind maps.
+  Your task is to regenerate the provided image by translating all label-style text into {{locale}}.
+  Preserve command-style, technical, or protocol-specific terms (e.g., "API", "TCP/IP", "POST") in English.
+  Maintain the original diagram’s structure, layout, visual style, and spatial relationships between elements.
+  Only the textual content in labels or annotations should be updated according to the language rule.
+  Return the result as a newly generated image in {{locale}}, identical in design but localized in text.
+
+input_file_key: existingImage
+
+input_schema:
+  type: object
+  properties:
+    existingImage:
+      type: array
+      description: Array of mediaFile objects for the source diagram image to translate
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+            description: File type, should be "local"
+          path:
+            type: string
+            description: Absolute path to the image file
+          filename:
+            type: string
+            description: Image filename
+          mimeType:
+            type: string
+            description: MIME type of the image (e.g., "image/png", "image/jpeg")
+    ratio:
+      type: string
+      description: Aspect ratio of the image
+    size:
+      type: string
+      description: Size of the generated image
+      default: "1K"
+    locale:
+      type: string
+      description: Target language code for translation
+  required:
+    - existingImage
+    - ratio
+    - locale
+include_input_in_output: true

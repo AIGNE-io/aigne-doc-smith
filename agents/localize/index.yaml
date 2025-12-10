@@ -19,6 +19,7 @@ skills:
           'documentStructure': originalDocumentStructure
         }
       ])
+  - url: ../update/check-diagram-flag.mjs
   - url: ../utils/choose-docs.mjs
     default_input:
       isTranslate: true
@@ -55,4 +56,7 @@ input_schema:
     feedback:
       type: string
       description: Tell us how to improve the translation style
+    diagram:
+      type: boolean
+      description: Translate only diagram images without translating document content (use --diagram flag)
 mode: sequential
