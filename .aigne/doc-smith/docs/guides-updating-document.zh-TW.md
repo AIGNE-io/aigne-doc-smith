@@ -1,82 +1,111 @@
 # 更新內容
 
-需要快速變更或徹底修改文件嗎？本指南將說明如何使用 `update` 指令來修改現有文件，無論是整合新的回饋、反映程式碼變更，還是從頭開始。此工具提供了用於引導式變更的互動模式，以及用於快速、指令列更新的直接模式。
+本指南說明如何使用 `update` 指令來修改現有文件。您可以更新文件內容、新增或更新圖表，以及透過回饋移除圖表。
 
-## 互動式更新
+## 基本用法
 
-若需引導式體驗，請在不帶任何參數的情況下執行 `update` 指令。這將啟動一個互動式會話，您可以在其中選擇要變更的文件並提供指示。
+### 互動模式
 
-1.  開始互動式更新流程：
-    ```bash aigne doc update icon=lucide:terminal
-    aigne doc update
-    ```
-2.  您將看到專案中的文件列表。使用方向鍵移動，使用空格鍵選擇一個或多個檔案，然後按 `Enter` 確認您的選擇。
+不帶任何參數執行指令以進入互動模式：
 
-    ![顯示使用者可從列表中選擇要更新的文件的互動式提示的螢幕截圖。](../../../assets/screenshots/doc-update.png)
+```bash icon=lucide:terminal
+aigne doc update
+```
 
-接下來的流程取決於您是選擇單一文件還是多個文件。
+選擇文件並提供回饋以更新它們。
 
-### 精修單一文件
+### 命令列模式
 
-當您選擇一份文件時，將進入一個專為進行精確調整而設計的迭代精修循環。您會看到一組選項：
+使用命令列旗標直接更新文件：
 
-*   **View document**：直接在您的終端機中顯示文件內容的目前版本。
-*   **Give feedback**：提示您輸入文字以描述您想要的變更。例如，「為非技術使用者簡化引言」或「為驗證函式新增一個程式碼範例」。
-*   **Done**：退出精修循環並儲存文件的最新版本。
-
-在您提交回饋後，工具會重新產生文件內容。然後，您可以查看新版本並提供更多回饋，重複此循環，直到您對結果滿意為止。
-
-### 批次更新多個文件
-
-如果您選擇兩個或更多文件，工具將執行批次更新。您將被提示提供單一的指示或回饋。此回饋將同時應用於所有選定的文件。這種方法對於在您的文件中進行一致的變更非常有效，例如更新一個重複出現的章節或標準化術語。
-
-## 使用指令列旗標進行直接更新
-
-當您已經知道需要進行哪些變更時，可以使用指令列旗標直接更新文件，從而跳過互動式提示。
-
-### 應用特定回饋
-
-若要將回饋應用於一個或多個文件，請使用 `--docs` 和 `--feedback` 旗標。`--docs` 旗標指定檔案路徑，而 `--feedback` 則提供更新的指示。
-
-```bash 更新單一文件 icon=lucide:terminal
+```bash icon=lucide:terminal
 aigne doc update --docs /overview --feedback "Add a more detailed explanation of the core features."
 ```
 
-您可以多次指定 `--docs` 旗標，以在一個指令中將相同的回饋應用於多個文件。
+## 更新圖表
 
-```bash 更新多個文件 icon=lucide:terminal
-aigne doc update --docs /overview --docs /getting-started --feedback "Ensure the tone is consistent across both documents."
+您可以透過提供回饋來更新文件中的圖表。此工具支援更新現有圖表或新增圖表。
+
+### 更新特定圖表
+
+提供回饋以更新圖表：
+
+```bash icon=lucide:terminal
+aigne doc update --docs /overview --feedback "Update the diagram to show the new architecture"
 ```
 
-### 重設文件
+### 更新所有圖表
 
-若要捨棄文件的目前版本並從原始碼重新產生，請使用 `--reset` 旗標。此操作會告知工具忽略現有內容，並從頭開始建立文件。
+使用 `--diagram` 旗標來篩選並選擇帶有圖表的文件：
 
-```bash 重設文件 icon=lucide:terminal
-aigne doc update --docs /overview --reset
+```bash icon=lucide:terminal
+aigne doc update --diagram
 ```
 
-當文件因專案程式碼庫的重大變更而嚴重過時時，此功能特別有用。
+或者使用 `--diagram-all` 自動更新所有帶有圖表的文件：
 
-## 新增與移除文件
+```bash icon=lucide:terminal
+aigne doc update --diagram-all
+```
 
-雖然 `update` 指令用於修改現有內容，但您可能還需要新增新文件或移除不再相關的文件。對於這些任務，DocSmith 提供了專門的指令：
+### 刪除圖表
 
-*   **若要新增一份新文件**，請參閱 [新增文件](./guides-adding-a-document.md) 指南。
-*   **若要移除一份現有文件**，請參考 [移除文件](./guides-removing-a-document.md) 指南。
+透過提供回饋來移除圖表：
+
+```bash icon=lucide:terminal
+aigne doc update --docs /overview --feedback "Remove the diagram"
+```
+
+## 圖表樣式
+
+DocSmith 支援多種圖表樣式。您可以在回饋中指定樣式或設定預設樣式。支援的樣式包括：
+
+### 現代風格
+簡潔、專業的風格，具備現代設計元素。
+
+![Modern Style](../../../assets/images/diagram-styles/modern.jpg)
+
+### 標準流程圖
+傳統的流程圖樣式，使用常規符號。
+
+![Standard Flowchart Style](../../../assets/images/diagram-styles/standard.jpg)
+
+### 手繪風格
+素描般的風格，線條自然、有機。
+
+![Hand-drawn Style](../../../assets/images/diagram-styles/hand-drawn.jpg)
+
+### 擬人風格
+將元素擬人化，具有生動、類人的特徵。
+
+![Anthropomorphic Style](../../../assets/images/diagram-styles/anthropomorphic.jpg)
+
+### 扁平化設計
+沒有陰影或 3D 效果的扁平化設計。
+
+![Flat Design Style](../../../assets/images/diagram-styles/flat.jpg)
+
+### 極簡風格
+以最少的元素達到最高的清晰度。
+
+![Minimalist Style](../../../assets/images/diagram-styles/minimalist.jpg)
+
+### 3D 風格
+具有深度和透視感的三維效果。
+
+![3D Style](../../../assets/images/diagram-styles/3d.jpg)
+
 ## 指令參數
 
-`update` 指令接受數個參數以控制其行為。以下是可用選項的摘要：
-
-| 參數 | 說明 | 必要 |
+| 參數 | 說明 | 必填 |
 | :--- | :--- | :--- |
-| `--docs` | 指定要更新的文件路徑。可多次使用。 | 選用 |
-| `--feedback` | 提供對指定文件進行變更的文字指示。 | 選用 |
-| `--reset` | 一個布林旗標，若存在，則會從頭重新建立文件，忽略現有內容。 | 選用 |
-| `--glossary` | 指定一個詞彙表檔案的路徑（`@/path/to/glossary.md`），以確保術語一致性。 | 選用 |
-| `--diagram` | 過濾並僅顯示包含圖表（D2 程式碼區塊、佔位符或圖表圖片）的文件，讓使用者選擇要更新的文件。 | 選用 |
-| `--diagram-all` | 自動選擇所有包含圖表（D2 程式碼區塊、佔位符或圖表圖片）的文件並更新，無需使用者選擇。 | 選用 |
+| `--docs` | 指定要更新的一或多個文件的路徑。可多次使用。 | 選填 |
+| `--feedback` | 提供要進行變更的文字說明。 | 選填 |
+| `--reset` | 從頭重新建立文件，忽略現有內容。 | 選填 |
+| `--glossary` | 指定詞彙表檔案的路徑 (`@/path/to/glossary.md`)。 | 選填 |
+| `--diagram` | 篩選僅顯示帶有圖表的文件，並讓使用者選擇要更新哪些文件。 | 選填 |
+| `--diagram-all` | 自動選擇所有帶有圖表的文件並更新它們，無需使用者選擇。 | 選填 |
 
 ---
 
-透過使用 `update`、`add-document` 和 `remove-document` 指令，您可以管理文件的完整生命週期，使其與您的專案開發保持一致。關於首次建立文件的資訊，請參閱 [建立文件](./guides-generating-documentation.md) 指南。
+有關新增或移除文件的資訊，請參閱[新增文件](./guides-adding-a-document.md)和[移除文件](./guides-removing-a-document.md)指南。
