@@ -41,9 +41,7 @@ describe("translate-diagram-images agent", () => {
     ];
 
     getFileNameSpy.mockReturnValue("test.md");
-    readFileContentSpy
-      .mockResolvedValueOnce(mainContent)
-      .mockResolvedValueOnce(translationContent);
+    readFileContentSpy.mockResolvedValueOnce(mainContent).mockResolvedValueOnce(translationContent);
     cacheDiagramImagesForTranslationSpy.mockResolvedValue(mockCachedImages);
 
     const result = await translateDiagramImagesAgent(
@@ -75,9 +73,7 @@ describe("translate-diagram-images agent", () => {
     const translationContent = "";
 
     getFileNameSpy.mockReturnValue("test.md");
-    readFileContentSpy
-      .mockResolvedValueOnce(mainContent)
-      .mockResolvedValueOnce(translationContent);
+    readFileContentSpy.mockResolvedValueOnce(mainContent).mockResolvedValueOnce(translationContent);
     cacheDiagramImagesForTranslationSpy.mockResolvedValue(null);
 
     const result = await translateDiagramImagesAgent(
@@ -153,9 +149,7 @@ describe("translate-diagram-images agent", () => {
     const translationContent = "";
 
     getFileNameSpy.mockReturnValue("test.md");
-    readFileContentSpy
-      .mockResolvedValueOnce(mainContent)
-      .mockResolvedValueOnce(translationContent);
+    readFileContentSpy.mockResolvedValueOnce(mainContent).mockResolvedValueOnce(translationContent);
     cacheDiagramImagesForTranslationSpy.mockResolvedValue([]);
 
     await translateDiagramImagesAgent(
@@ -197,7 +191,9 @@ describe("translate-diagram-images agent", () => {
     );
 
     expect(result.cachedDiagramImages).toBeNull();
-    expect(debugSpy).toHaveBeenCalledWith(expect.stringContaining("Failed to cache diagram images"));
+    expect(debugSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Failed to cache diagram images"),
+    );
   });
 
   test("should preserve input properties in result", async () => {
@@ -212,9 +208,7 @@ describe("translate-diagram-images agent", () => {
     };
 
     getFileNameSpy.mockReturnValue("test.md");
-    readFileContentSpy
-      .mockResolvedValueOnce(mainContent)
-      .mockResolvedValueOnce("");
+    readFileContentSpy.mockResolvedValueOnce(mainContent).mockResolvedValueOnce("");
     cacheDiagramImagesForTranslationSpy.mockResolvedValue(null);
 
     const result = await translateDiagramImagesAgent(input, { context: {} });
@@ -224,4 +218,3 @@ describe("translate-diagram-images agent", () => {
     expect(result.docsDir).toBe("/docs");
   });
 });
-

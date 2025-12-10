@@ -65,7 +65,6 @@ describe("save-doc-translation", () => {
   });
 
   describe("edge cases", () => {
-
     test("should handle empty labels array", async () => {
       await saveDocTranslation({
         path: "/guide",

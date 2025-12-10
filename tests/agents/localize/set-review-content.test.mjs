@@ -237,4 +237,3 @@ describe("set-review-content", () => {
     expect(result.translation).toContain("Some text");
   });
 });
-

@@ -9,7 +9,6 @@ import {
 } from "../../utils/docs-finder-utils.mjs";
 import {
   hasDiagramContent,
-  hasBananaImages,
   getDiagramTypeLabels,
   formatDiagramTypeSuffix,
 } from "../../utils/check-document-has-diagram.mjs";
@@ -225,11 +224,7 @@ export default async function chooseDocs(
   // Prompt for feedback if not provided
   // Skip feedback prompt if --diagram or --diagram-all flag is set
   let userFeedback = feedback;
-  if (
-    !userFeedback &&
-    (requiredFeedback || foundItems?.length > 1) &&
-    !shouldUpdateDiagrams
-  ) {
+  if (!userFeedback && (requiredFeedback || foundItems?.length > 1) && !shouldUpdateDiagrams) {
     const feedbackMessage = getFeedbackMessage(docAction);
 
     userFeedback = await options.prompts.input({

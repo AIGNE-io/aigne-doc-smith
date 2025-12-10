@@ -219,7 +219,9 @@ describe("cacheDiagramImagesForTranslation", () => {
     );
 
     expect(result).toBeNull();
-    expect(debugSpy).toHaveBeenCalledWith("⚠️  translateDiagram agent not found, skipping translation");
+    expect(debugSpy).toHaveBeenCalledWith(
+      "⚠️  translateDiagram agent not found, skipping translation",
+    );
   });
 
   test("should handle image generation failure gracefully", async () => {
@@ -271,9 +273,7 @@ describe("cacheDiagramImagesForTranslation", () => {
     );
 
     expect(result).toBeNull();
-    expect(debugSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Main image not found"),
-    );
+    expect(debugSpy).toHaveBeenCalledWith(expect.stringContaining("Main image not found"));
   });
 
   test("should cache image when translation image path points to main document (no language suffix)", async () => {
@@ -523,4 +523,3 @@ describe("cacheDiagramImagesForTranslation", () => {
     expect(result[0].originalMatch).toBeTruthy();
   });
 });
-
