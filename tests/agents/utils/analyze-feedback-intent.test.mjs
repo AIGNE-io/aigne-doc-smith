@@ -293,4 +293,261 @@ describe("analyze-feedback-intent", () => {
       { feedback: feedbackWithNewlines, diagramInfo: null },
     );
   });
+
+  describe("shouldUpdateDiagrams flag", () => {
+    test("should return updateDiagram when shouldUpdateDiagrams is true and feedback is empty", async () => {
+      const result = await analyzeFeedbackIntent(
+        { feedback: "", shouldUpdateDiagrams: true },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("updateDiagram");
+      expect(result.generationMode).toBe("add-new");
+      expect(mockOptions.context.invoke).not.toHaveBeenCalled();
+    });
+
+    test("should return updateDiagram when shouldUpdateDiagrams is true and feedback is whitespace", async () => {
+      const result = await analyzeFeedbackIntent(
+        { feedback: "   \n\t  ", shouldUpdateDiagrams: true },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("updateDiagram");
+      expect(result.generationMode).toBe("add-new");
+      expect(mockOptions.context.invoke).not.toHaveBeenCalled();
+    });
+
+    test("should override intentType to updateDiagram when shouldUpdateDiagrams is true", async () => {
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "updateDocument" });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update the document", shouldUpdateDiagrams: true },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("updateDiagram");
+    });
+
+    test("should not override deleteDiagram when shouldUpdateDiagrams is true", async () => {
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "deleteDiagram" });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Delete the diagram", shouldUpdateDiagrams: true },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("deleteDiagram");
+    });
+
+    test("should not override addDiagram when shouldUpdateDiagrams is true", async () => {
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "addDiagram" });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Add a new diagram", shouldUpdateDiagrams: true },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("addDiagram");
+    });
+  });
+
+  describe("documentContent mode", () => {
+    test("should detect existing diagram when documentContent is provided", async () => {
+      const documentContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "updateDiagram" });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update the diagram", documentContent },
+        mockOptions,
+      );
+
+      expect(result.diagramInfo).not.toBeNull();
+      expect(result.diagramInfo.path).toBe("assets/diagram/test.jpg");
+      expect(mockOptions.context.invoke).toHaveBeenCalledWith(
+        { name: "analyzeUpdateFeedbackIntent" },
+        {
+          feedback: "Update the diagram",
+          diagramInfo: expect.objectContaining({ path: "assets/diagram/test.jpg" }),
+        },
+      );
+    });
+
+    test("should return null diagramInfo when documentContent has no diagram", async () => {
+      const documentContent = "Just text, no diagram";
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "updateDocument" });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update content", documentContent },
+        mockOptions,
+      );
+
+      expect(result.diagramInfo).toBeNull();
+      expect(mockOptions.context.invoke).toHaveBeenCalledWith(
+        { name: "analyzeUpdateFeedbackIntent" },
+        { feedback: "Update content", diagramInfo: null },
+      );
+    });
+
+    test("should handle documentContent with whitespace only", async () => {
+      const documentContent = "   \n\t  ";
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "updateDocument" });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update", documentContent },
+        mockOptions,
+      );
+
+      expect(result.diagramInfo).toBeNull();
+    });
+
+    test("should handle documentContent that is not a string", async () => {
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "updateDocument" });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update", documentContent: 123 },
+        mockOptions,
+      );
+
+      expect(result.diagramInfo).toBeNull();
+    });
+  });
+
+  describe("LLM result handling", () => {
+    test("should handle LLM returning null result", async () => {
+      mockOptions.context.invoke.mockResolvedValue(null);
+
+      const result = await analyzeFeedbackIntent({ feedback: "Update" }, mockOptions);
+
+      expect(result.intentType).toBe("updateDocument");
+      expect(consoleWarnSpy).toHaveBeenCalled();
+    });
+
+    test("should handle LLM returning undefined result", async () => {
+      mockOptions.context.invoke.mockResolvedValue(undefined);
+
+      const result = await analyzeFeedbackIntent({ feedback: "Update" }, mockOptions);
+
+      expect(result.intentType).toBe("updateDocument");
+      expect(consoleWarnSpy).toHaveBeenCalled();
+    });
+
+    test("should handle LLM returning non-object result", async () => {
+      mockOptions.context.invoke.mockResolvedValue("string result");
+
+      const result = await analyzeFeedbackIntent({ feedback: "Update" }, mockOptions);
+
+      expect(result.intentType).toBe("updateDocument");
+      expect(consoleWarnSpy).toHaveBeenCalled();
+    });
+
+    test("should infer intentType when LLM returns null intentType", async () => {
+      mockOptions.context.invoke.mockResolvedValue({ intentType: null });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Add a diagram showing the architecture" },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("addDiagram");
+      expect(result.generationMode).toBe("add-new");
+    });
+
+    test("should infer updateDiagram when LLM returns null intentType and diagram exists", async () => {
+      const documentContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      mockOptions.context.invoke.mockResolvedValue({ intentType: null });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update the diagram", documentContent },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("updateDiagram");
+      expect(result.generationMode).toBe("image-to-image");
+    });
+
+    test("should set default generationMode when LLM doesn't provide it", async () => {
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "addDiagram" });
+
+      const result = await analyzeFeedbackIntent({ feedback: "Add a diagram" }, mockOptions);
+
+      expect(result.generationMode).toBe("add-new");
+    });
+
+    test("should set image-to-image mode for updateDiagram when diagram exists", async () => {
+      const documentContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "updateDiagram" });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update diagram", documentContent },
+        mockOptions,
+      );
+
+      expect(result.generationMode).toBe("image-to-image");
+    });
+
+    test("should set add-new mode for updateDiagram when no diagram exists", async () => {
+      mockOptions.context.invoke.mockResolvedValue({ intentType: "updateDiagram" });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update diagram", documentContent: "No diagram here" },
+        mockOptions,
+      );
+
+      expect(result.generationMode).toBe("add-new");
+    });
+  });
+
+  describe("Error fallback scenarios", () => {
+    test("should fallback to updateDiagram when error occurs and shouldUpdateDiagrams is true", async () => {
+      mockOptions.context.invoke.mockRejectedValue(new Error("Network error"));
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update", shouldUpdateDiagrams: true },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("updateDiagram");
+      expect(result.generationMode).toBe("add-new");
+    });
+
+    test("should fallback to updateDiagram with image-to-image when error occurs, shouldUpdateDiagrams is true, and diagram exists", async () => {
+      const documentContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      mockOptions.context.invoke.mockRejectedValue(new Error("Network error"));
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update", shouldUpdateDiagrams: true, documentContent },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("updateDiagram");
+      expect(result.generationMode).toBe("image-to-image");
+      expect(result.diagramInfo).not.toBeNull();
+    });
+
+    test("should infer intent from feedback when error occurs and shouldUpdateDiagrams is false", async () => {
+      mockOptions.context.invoke.mockRejectedValue(new Error("Network error"));
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Add a new diagram", shouldUpdateDiagrams: false },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("addDiagram");
+      expect(result.generationMode).toBe("add-new");
+    });
+
+    test("should infer updateDiagram from feedback when error occurs and diagram exists", async () => {
+      const documentContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      mockOptions.context.invoke.mockRejectedValue(new Error("Network error"));
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update the diagram", shouldUpdateDiagrams: false, documentContent },
+        mockOptions,
+      );
+
+      expect(result.intentType).toBe("updateDiagram");
+      expect(result.generationMode).toBe("image-to-image");
+      expect(result.diagramInfo).not.toBeNull();
+    });
+  });
 });

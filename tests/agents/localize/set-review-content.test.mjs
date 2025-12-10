@@ -236,4 +236,35 @@ describe("set-review-content", () => {
     expect(result.translation).toContain("test.zh.jpg");
     expect(result.translation).toContain("Some text");
   });
+
+  test("should handle error during image replacement and continue with original translation", async () => {
+    // Mock regex to throw an error
+    const originalMatch = String.prototype.match;
+    String.prototype.match = () => {
+      throw new Error("Regex error");
+    };
+
+    const input = {
+      translation: "Some text",
+      cachedDiagramImages: [
+        {
+          originalMatch: null,
+          translatedMarkdown: `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](test.zh.jpg)\n<!-- DIAGRAM_IMAGE_END -->`,
+          index: 0,
+          mainImageIndex: 0,
+        },
+      ],
+    };
+
+    const result = await setReviewContent(input);
+
+    expect(result.translation).toBe("Some text");
+    expect(result.reviewContent).toBe("Some text");
+    expect(debugSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Failed to replace cached diagram image"),
+    );
+
+    // Restore original method
+    String.prototype.match = originalMatch;
+  });
 });
