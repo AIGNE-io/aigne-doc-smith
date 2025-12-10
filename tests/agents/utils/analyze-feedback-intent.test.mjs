@@ -550,4 +550,32 @@ describe("analyze-feedback-intent", () => {
       expect(result.diagramInfo).not.toBeNull();
     });
   });
+
+  describe("Edge cases for intentType fallback", () => {
+    test("should default to updateDocument when intentType is undefined after all checks", async () => {
+      mockOptions.context.invoke.mockResolvedValue({ intentType: undefined });
+
+      const result = await analyzeFeedbackIntent(
+        { feedback: "Update the content", shouldUpdateDiagrams: false },
+        mockOptions,
+      );
+
+      // Should infer updateDocument (no diagram terms in "Update the content")
+      expect(result.intentType).toBe("updateDocument");
+      expect(result.generationMode).toBeUndefined();
+    });
+
+    test("should handle generationMode when intentType defaults to updateDocument after all checks", async () => {
+      // Mock LLM to return object with null intentType
+      // The code sets generationMode only for deleteDiagram, addDiagram, or updateDiagram
+      // For updateDocument, generationMode remains undefined unless explicitly set
+      mockOptions.context.invoke.mockResolvedValue({ intentType: null });
+
+      const result = await analyzeFeedbackIntent({ feedback: "Generic text" }, mockOptions);
+
+      expect(result.intentType).toBe("updateDocument");
+      // generationMode is not set for updateDocument, so it's undefined
+      expect(result.generationMode).toBeUndefined();
+    });
+  });
 });
