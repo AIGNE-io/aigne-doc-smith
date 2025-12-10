@@ -6,8 +6,8 @@
 
 本指南详细介绍了如何列出、移除和切换已保存偏好设置的激活状态。
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
-![Manage Preferences](assets/diagram/managing-preferences-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:guide:4:3:1765281225 -->
+![Manage Preferences](assets/diagram/managing-preferences-diagram-0.zh.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## 查看已保存的偏好设置

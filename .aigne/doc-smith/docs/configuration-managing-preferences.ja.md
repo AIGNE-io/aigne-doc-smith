@@ -6,8 +6,8 @@ AI アシスタントに指示を覚えておいてほしいと思ったこと�
 
 このガイドでは、保存されたプリファレンスのリスト表示、削除、アクティブ状態の切り替え方法について詳しく説明します。
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
-![Manage Preferences](assets/diagram/managing-preferences-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:guide:4:3:1765281225 -->
+![Manage Preferences](assets/diagram/managing-preferences-diagram-0.ja.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## 保存されたプリファレンスの表示

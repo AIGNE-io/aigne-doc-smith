@@ -6,7 +6,7 @@ When you generate or update documents, you can provide feedback using the `--fee
 
 This guide details how to list, remove, and toggle the active status of your saved preferences. The diagram below illustrates the workflow for managing these preferences.
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+<!-- DIAGRAM_IMAGE_START:guide:4:3:1765281225 -->
 ![Manage Preferences](assets/diagram/managing-preferences-diagram-0.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 

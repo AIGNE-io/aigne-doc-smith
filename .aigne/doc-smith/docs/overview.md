@@ -10,7 +10,7 @@ The tool addresses the common challenges of manual document creation, such as be
 
 DocSmith operates by analyzing your project's source code to understand its structure, components, and functionality. Based on this analysis, it generates a complete documentation set, from high-level guides to detailed API references.
 
-<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->
+<!-- DIAGRAM_IMAGE_START:architecture:16:9:1765020134 -->
 ![Overview](assets/diagram/overview-diagram-0.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 

@@ -4,8 +4,8 @@
 
 以下の図は、インストールから生成までの主要なステップを示しています。
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
-![Getting Started](assets/diagram/getting-started-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:guide:4:3:1765020134 -->
+![Getting Started](assets/diagram/getting-started-diagram-0.ja.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## 前提条件
