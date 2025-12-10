@@ -1,4 +1,4 @@
-type: "@aigne/agent-library/orchestrator"
+type: team
 name: DocSmith
 alias:
   - run
@@ -9,56 +9,59 @@ input_schema:
     message:
       type: string
       description: User feedback describing what documentation tasks to perform (natural language)
-    locale:
-      type: string
-      description: Primary language for documentation (e.g., zh, en, ja)
-      default: en
   required: []
 
-objective:
-  url: objective.md
+skills:
+  - url: ../../agents/init/index.mjs
+    default_input:
+      skipIfExists: true
+    
+  - ../utils/load-base-sources.mjs
+  - type: "@aigne/agent-library/orchestrator"
+    objective:
+      url: objective.md
 
-planner:
-  type: ai
-  instructions:
-    url: planner.md
-  input_schema:
-    type: object
-    properties:
-      feedback:
-        type: string
-        description: User feedback describing what documentation tasks to perform (natural language)
+    planner:
+      type: ai
+      instructions:
+        url: planner.md
+      input_schema:
+        type: object
+        properties:
+          feedback:
+            type: string
+            description: User feedback describing what documentation tasks to perform (natural language)
 
-worker:
-  type: ai
-  instructions:
-    url: worker.md
-  input_schema:
-    type: object
-    properties:
-      feedback:
-        type: string
-        description: User feedback describing what documentation tasks to perform (natural language)
-completer:
-  type: function
-  process: |
-    let message = 'All tasks have been completed.';
-    return { message };
+    worker:
+      type: ai
+      instructions:
+        url: worker.md
+      input_schema:
+        type: object
+        properties:
+          feedback:
+            type: string
+            description: User feedback describing what documentation tasks to perform (natural language)
+    completer:
+      type: function
+      process: |
+        let message = 'All tasks have been completed.';
+        return { message };
 
-state_management:
-  max_iterations: 20
-  max_tokens: 100000
-  keep_recent: 20
+    state_management:
+      max_iterations: 20
+      max_tokens: 100000
+      keep_recent: 20
 
-afs:
-  modules:
-    - module: local-fs
-      options:
-        name: workspace
-        localPath: .
-        description: The target repository containing source code and documentation. Read-only, cannot be modified.
-    - module: local-fs
-      options:
-        name: doc-smith
-        localPath: .aigne/doc-smith
-        description: The Doc Smith workspace for storing intermediate and output files
+    afs:
+      modules:
+        - module: local-fs
+          options:
+            name: workspace
+            localPath: .
+            description: The target repository containing source code and documentation. Read-only, cannot be modified.
+        - module: local-fs
+          options:
+            name: doc-smith
+            localPath: .aigne/doc-smith
+            description: The Doc Smith workspace for storing intermediate and output files

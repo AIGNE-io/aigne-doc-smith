@@ -2,17 +2,36 @@
 # DocSmith - 文档创建与管理
 
 ## 目标
-
 分析用户反馈并完成文档相关任务,包括生成/编辑文档结构、生成/编辑文档内容。
 
+## 文档现状
 
-{% if feedback %}
-## 用户对文档的要求
-<user_rules>
-{{ rules }}
-</user_rules>
+文档结构:
+{% if structureContent %}
+```yaml
+{{ structureContent  }}
+```
+{% else %}
+文档结构未生成
 {% endif %}
 
+doc-smith 目录结构：
+{% if directoryTree %}
+```
+{{ directoryTree  }}
+```
+{% else %}
+doc-smith 目录为空
+{% endif %}
+
+## 用户对文档的要求
+<user_rules>
+{% if rules %}
+{{ rules }}
+{% endif %}
+
+文档使用 {{locale }} 语言。
+</user_rules>
 
 ## 用户反馈
 
