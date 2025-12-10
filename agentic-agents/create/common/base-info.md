@@ -52,10 +52,4 @@ documents: // 文档列表
 ### 文档详情：/modules/doc-smith/docs/xxx.md
 文档详情以 markdown 的格式输出在 /modules/doc-smith/docs 目录中，根据文档的 `path` 生成文件名。
 
-### 文档翻译：/modules/doc-smith/docs/xxx.local.md
-文档翻译以 markdown 的格式输出在 /modules/doc-smith/docs 目录中，文件名是在主语言文件名基础上添加语言后缀。
-
-## 重要规则
-- 必须先规划生成文档结构
-- 为文档结构中的每一篇文档生成详情
 </doc-smith-base-info>

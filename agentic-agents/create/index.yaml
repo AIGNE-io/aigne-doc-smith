@@ -6,7 +6,7 @@ description: DocSmith entry point for documentation generation, editing, and tra
 input_schema:
   type: object
   properties:
-    feedback:
+    message:
       type: string
       description: User feedback describing what documentation tasks to perform (natural language)
     locale:
@@ -39,17 +39,6 @@ worker:
       feedback:
         type: string
         description: User feedback describing what documentation tasks to perform (natural language)
-  skills:
-    - url: ../../agents/create/index.yaml
-      default_input:
-        isChat: true
-    # - url: ../../agents/update/index.yaml
-    #   name: 
-    #   default_input:
-    #     isChat: true
-    - url: ../../agents/localize/index.yaml
-      default_input:
-        isChat: true
 completer:
   type: function
   process: |
@@ -70,11 +59,6 @@ afs:
         description: The target repository containing source code and documentation. Read-only, cannot be modified.
     - module: local-fs
       options:
-        name: docs-smith
+        name: doc-smith
         localPath: .aigne/doc-smith
         description: The Doc Smith workspace for storing intermediate and output files
-    # - module: local-fs
-    #   options:
-    #     name: generated-docs
-    #     localPath: .aigne/doc-smith/docs
-    #     description: The directory containing generated documentation files

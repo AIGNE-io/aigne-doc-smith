@@ -5,13 +5,22 @@
 
 分析用户反馈并完成文档相关任务,包括生成/编辑文档结构、生成/编辑文档内容以及翻译文档。
 
+
+{% if feedback %}
+## 用户对文档的要求
+<user_rules>
+{{ rules }}
+</user_rules>
+{% endif %}
+
+
 ## 用户反馈
 
 用户以自然语言提供反馈,描述他们想要完成的任务:
 
 {% if feedback %}
 <user_feedback>
-{{ feedback }}
+{{ message }}
 </user_feedback>
 {% endif %}
 
