@@ -18,12 +18,20 @@ export default async function setReviewContent(input) {
       const cachedImage = cachedImages[0]; // Only one image per document
 
       // Find existing image in translated content
+      // Note: Translation process may copy content from main document, so we always need to
+      // replace with cached image to ensure the final document uses the correct language-specific image
       const imageMatch = translation.match(diagramImageFullRegex);
 
       if (imageMatch) {
-        // Replace existing image
+        // Always replace with cached image markdown to ensure language-specific image is used
+        // This is necessary because translation may have copied the main document's image
         translation = translation.replace(imageMatch[0], cachedImage.translatedMarkdown);
-        debug(`✅ Replaced diagram image in translation`);
+
+        if (cachedImage.translatedMarkdown !== cachedImage.originalMatch) {
+          debug(`✅ Replaced diagram image in translation with new translated image`);
+        } else {
+          debug(`✅ Replaced diagram image in translation with language-specific image`);
+        }
       } else {
         // No existing image, insert at the position from main document
         const insertIndex = Math.min(cachedImage.mainImageIndex, translation.length);

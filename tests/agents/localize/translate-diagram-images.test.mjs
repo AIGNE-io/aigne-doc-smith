@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, spyOn, test } from "bun:test";
-import translateDiagramImagesAgent from "../../../agents/localize/translate-diagram-images.mjs";
+import translateDiagramImagesAgent from "../../../utils/translate-diagram-images.mjs";
+import * as translateDiagramImagesModule from "../../../utils/translate-diagram-images.mjs";
 import * as docsFinderUtils from "../../../utils/docs-finder-utils.mjs";
-import * as translateDiagramImagesUtils from "../../../utils/translate-diagram-images.mjs";
 import * as debugModule from "../../../utils/debug.mjs";
-import { getFileName } from "../../../utils/utils.mjs";
+import * as utilsModule from "../../../utils/utils.mjs";
 
 describe("translate-diagram-images agent", () => {
   let readFileContentSpy;
@@ -14,11 +14,11 @@ describe("translate-diagram-images agent", () => {
   beforeEach(() => {
     readFileContentSpy = spyOn(docsFinderUtils, "readFileContent");
     cacheDiagramImagesForTranslationSpy = spyOn(
-      translateDiagramImagesUtils,
+      translateDiagramImagesModule,
       "cacheDiagramImagesForTranslation",
     );
     debugSpy = spyOn(debugModule, "debug").mockImplementation(() => {});
-    getFileNameSpy = spyOn({ getFileName }, "getFileName");
+    getFileNameSpy = spyOn(utilsModule, "getFileName");
   });
 
   afterEach(() => {

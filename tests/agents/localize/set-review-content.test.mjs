@@ -54,7 +54,9 @@ describe("set-review-content", () => {
     expect(result.translation).toContain("new.zh.jpg");
     expect(result.translation).not.toContain("old.jpg");
     expect(result.reviewContent).toBe(result.translation);
-    expect(debugSpy).toHaveBeenCalledWith("✅ Replaced diagram image in translation");
+    expect(debugSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Replaced diagram image in translation"),
+    );
   });
 
   test("should insert diagram image when translation has no image", async () => {
@@ -196,7 +198,9 @@ describe("set-review-content", () => {
 
     expect(result.translation).toContain("test.zh.jpg");
     expect(result.translation).not.toContain("test.jpg");
-    expect(debugSpy).toHaveBeenCalledWith("✅ Replaced diagram image in translation");
+    expect(debugSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Replaced diagram image in translation"),
+    );
   });
 
   test("should handle insertion when mainImageIndex exceeds translation length", async () => {
@@ -235,6 +239,33 @@ describe("set-review-content", () => {
 
     expect(result.translation).toContain("test.zh.jpg");
     expect(result.translation).toContain("Some text");
+  });
+
+  test("should replace with cached image even when same as original (translation may have copied main doc)", async () => {
+    const existingImageMarkdown = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.zh.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+    const mainDocImageMarkdown = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+    const input = {
+      // Translation may have copied main document's image
+      translation: `Some text\n${mainDocImageMarkdown}\nMore text`,
+      cachedDiagramImages: [
+        {
+          originalMatch: existingImageMarkdown,
+          translatedMarkdown: existingImageMarkdown, // Language-specific image (no translation needed)
+          index: 0,
+          mainImageIndex: 0,
+        },
+      ],
+    };
+
+    const result = await setReviewContent(input);
+
+    // Should replace with language-specific image even if cached markdown is same as originalMatch
+    // This ensures translation document uses correct language image, not main document's image
+    expect(result.translation).toContain("test.zh.jpg");
+    expect(result.translation).not.toContain("test.jpg");
+    expect(debugSpy).toHaveBeenCalledWith(
+      expect.stringContaining("Replaced diagram image in translation with language-specific image"),
+    );
   });
 
   test("should handle error during image replacement and continue with original translation", async () => {

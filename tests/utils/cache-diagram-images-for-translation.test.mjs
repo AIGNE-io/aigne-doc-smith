@@ -125,7 +125,7 @@ describe("cacheDiagramImagesForTranslation", () => {
     expect(result[0].translatedMarkdown).toContain("1234567890");
   });
 
-  test("should not cache image when translation is not needed (timestamp matches)", async () => {
+  test("should cache existing image when translation is not needed (timestamp matches)", async () => {
     const mainContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
     const translationContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.zh.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
 
@@ -140,7 +140,12 @@ describe("cacheDiagramImagesForTranslation", () => {
       false,
     );
 
-    expect(result).toBeNull();
+    // Should cache existing image even though translation is not needed
+    expect(result).not.toBeNull();
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0].originalMatch).toBeTruthy();
+    expect(result[0].translatedMarkdown).toBe(result[0].originalMatch); // Should keep existing markdown
+    expect(debugSpy).toHaveBeenCalledWith(expect.stringContaining("Cached existing diagram image"));
   });
 
   test("should cache image when timestamps don't match", async () => {

@@ -14,7 +14,7 @@ skills:
           scope: translation
       # Step 2: Cache diagram images for translation (before document translation)
       # Checks --diagram flag and timestamps to determine if images need translation
-      - url: ./translate-diagram-images.mjs
+      - url: ../../utils/translate-diagram-images.mjs
       # Step 3: Translate document content
       - url: ./translate-document-wrapper.mjs
       # Step 4: Replace cached diagram images and set review content
