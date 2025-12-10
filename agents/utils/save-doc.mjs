@@ -1,6 +1,5 @@
 import { shutdownMermaidWorkerPool } from "../../utils/mermaid-worker-pool.mjs";
 import { saveDoc as _saveDoc } from "../../utils/utils.mjs";
-import { debug } from "../../utils/debug.mjs";
 
 export default async function saveDoc({
   path,

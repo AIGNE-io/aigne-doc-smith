@@ -308,7 +308,7 @@ export default async function replaceD2WithImage({
   // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio:timestamp -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
   const diagramTypeTag = diagramType || "unknown";
   const aspectRatioTag = aspectRatio || "unknown";
-  
+
   // Calculate timestamp for the saved image (for version tracking)
   let imageTimestamp = "0";
   try {
@@ -316,7 +316,7 @@ export default async function replaceD2WithImage({
   } catch (error) {
     debug(`Failed to calculate image timestamp: ${error.message}, using default 0`);
   }
-  
+
   const imageMarkdown = `<!-- DIAGRAM_IMAGE_START:${diagramTypeTag}:${aspectRatioTag}:${imageTimestamp} -->\n![${altText}](${relativePath})\n<!-- DIAGRAM_IMAGE_END -->`;
 
   // Note: diagramLocations was already found above for filename generation, reuse it

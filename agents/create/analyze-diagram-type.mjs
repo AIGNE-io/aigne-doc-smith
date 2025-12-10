@@ -94,7 +94,7 @@ async function convertDiagramInfoToMediaFile(diagramInfo, docPath, docsDir) {
   try {
     const imagePath = diagramInfo.path;
     const docDir = path.dirname(docPath);
-    
+
     // Resolve absolute path
     let absolutePath;
     if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
@@ -274,18 +274,9 @@ export default async function analyzeDiagramType(
   let existingImage = null;
   let useImageToImage = false;
 
-  if (
-    diagramInfo &&
-    generationMode === "image-to-image" &&
-    path &&
-    docsDir
-  ) {
+  if (diagramInfo && generationMode === "image-to-image" && path && docsDir) {
     // Convert diagramInfo to the format expected by image generation agent
-    existingImage = await convertDiagramInfoToMediaFile(
-      diagramInfo,
-      path,
-      docsDir,
-    );
+    existingImage = await convertDiagramInfoToMediaFile(diagramInfo, path, docsDir);
     useImageToImage = existingImage !== null;
   }
 
@@ -349,7 +340,8 @@ analyzeDiagramType.input_schema = {
     },
     path: {
       type: "string",
-      description: "Document path (e.g., 'guides/getting-started.md') used for extracting existing images",
+      description:
+        "Document path (e.g., 'guides/getting-started.md') used for extracting existing images",
     },
     docsDir: {
       type: "string",
@@ -419,8 +411,7 @@ analyzeDiagramType.output_schema = {
     },
     generationMode: {
       type: "string",
-      description:
-        "Generation mode determined from intentAnalysis (from analyzeFeedbackIntent).",
+      description: "Generation mode determined from intentAnalysis (from analyzeFeedbackIntent).",
     },
     intentAnalysis: {
       type: "object",

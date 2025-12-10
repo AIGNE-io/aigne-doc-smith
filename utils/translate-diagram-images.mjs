@@ -334,15 +334,16 @@ export async function translateDiagramImages(
           const translationImage = translationImages[i];
 
           const translationImagePath = translationImage?.path || "";
-          const hasLanguageSuffix = translationImagePath.includes(`.${language}.`) || 
-                                    translationImagePath.endsWith(`.${language}`);
-          
+          const hasLanguageSuffix =
+            translationImagePath.includes(`.${language}.`) ||
+            translationImagePath.endsWith(`.${language}`);
+
           const needsTranslation =
             mainImage &&
-            (!translationImage || 
-             !hasLanguageSuffix || 
-             !translationImage.timestamp || 
-             translationImage.timestamp !== mainImage.timestamp);
+            (!translationImage ||
+              !hasLanguageSuffix ||
+              !translationImage.timestamp ||
+              translationImage.timestamp !== mainImage.timestamp);
 
           if (!needsTranslation) {
             continue;
@@ -355,7 +356,9 @@ export async function translateDiagramImages(
           );
 
           if (!existingImage) {
-            debug(`⏭️  Main image not found: ${mainImage.path}, skipping translation for ${language}`);
+            debug(
+              `⏭️  Main image not found: ${mainImage.path}, skipping translation for ${language}`,
+            );
             continue;
           }
 
@@ -408,7 +411,11 @@ export async function translateDiagramImages(
             }
 
             const translatedImagePath = generateTranslatedImagePath(mainImage.path, language);
-            const translatedImageAbsolutePath = path.join(process.cwd(), docsDir, translatedImagePath);
+            const translatedImageAbsolutePath = path.join(
+              process.cwd(),
+              docsDir,
+              translatedImagePath,
+            );
             await fs.ensureDir(path.dirname(translatedImageAbsolutePath));
             await compressAndCopyImage(generatedImage, translatedImageAbsolutePath);
 
@@ -497,7 +504,7 @@ export async function cacheDiagramImagesForTranslation(
     const mainImages = extractDiagramImagesWithTimestamp(mainContent);
     let updatedMainContent = mainContent;
     let mainContentNeedsUpdate = false;
-    
+
     if (mainImages.length === 0) {
       debug("ℹ️  No diagram images in main content");
       return null;
@@ -544,12 +551,13 @@ export async function cacheDiagramImagesForTranslation(
         needsTranslation = true;
       } else {
         const translationImagePath = translationImage?.path || "";
-        const hasLanguageSuffix = translationImagePath.includes(`.${language}.`) || 
-                                  translationImagePath.endsWith(`.${language}`);
+        const hasLanguageSuffix =
+          translationImagePath.includes(`.${language}.`) ||
+          translationImagePath.endsWith(`.${language}`);
         needsTranslation =
-          !translationImage || 
-          !hasLanguageSuffix || 
-          !translationImage.timestamp || 
+          !translationImage ||
+          !hasLanguageSuffix ||
+          !translationImage.timestamp ||
           translationImage.timestamp !== mainImage.timestamp;
       }
 
@@ -592,9 +600,7 @@ export async function cacheDiagramImagesForTranslation(
         } else if (imageResult?.image || imageResult?.imageUrl || imageResult?.path) {
           generatedImage = {
             path: imageResult.image || imageResult.imageUrl || imageResult.path,
-            filename: path.basename(
-              imageResult.image || imageResult.imageUrl || imageResult.path,
-            ),
+            filename: path.basename(imageResult.image || imageResult.imageUrl || imageResult.path),
             mimeType: imageResult.mimeType || DEFAULT_MIME_TYPE,
             type: "local",
           };

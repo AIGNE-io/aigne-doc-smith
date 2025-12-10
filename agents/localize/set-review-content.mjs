@@ -22,10 +22,7 @@ export default async function setReviewContent(input) {
 
       if (imageMatch) {
         // Replace existing image
-        translation = translation.replace(
-          imageMatch[0],
-          cachedImage.translatedMarkdown,
-        );
+        translation = translation.replace(imageMatch[0], cachedImage.translatedMarkdown);
         debug(`✅ Replaced diagram image in translation`);
       } else {
         // No existing image, insert at the position from main document

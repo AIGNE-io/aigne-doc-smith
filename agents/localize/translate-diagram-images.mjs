@@ -25,7 +25,9 @@ export default async function translateDiagramImagesAgent(input, options) {
   const shouldTranslateDiagramsOnly = input.shouldTranslateDiagramsOnly || false;
 
   if (!docPath || !docsDir || !currentLanguage) {
-    debug("⚠️  Missing required parameters for diagram image translation (path, docsDir, or language)");
+    debug(
+      "⚠️  Missing required parameters for diagram image translation (path, docsDir, or language)",
+    );
     debug(`  - path: ${docPath}`);
     debug(`  - docsDir: ${docsDir}`);
     debug(`  - language: ${currentLanguage}`);

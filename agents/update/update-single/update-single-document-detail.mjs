@@ -15,18 +15,18 @@ async function getIntentType(input, options) {
   if (analyzeFeedbackIntentAgent) {
     const contentContext = userContextAt(options, `currentContents.${input.path}`);
     const currentContent = contentContext.get();
-    
+
     const result = await options.context.invoke(analyzeFeedbackIntentAgent, {
       feedback: input.feedback,
       documentContent: currentContent,
       shouldUpdateDiagrams: false,
     });
-    
+
     return result;
   }
-  
+
   console.warn("[getIntentType] analyzeFeedbackIntent agent not found, using fallback");
-  
+
   // Fallback to old method if analyzeFeedbackIntent agent not available
   const instructions = `<role>
 You are a feedback intent analyzer. Your task is to determine which type of content modifications are needed based on the user's feedback.
@@ -271,11 +271,11 @@ export default async function updateSingleDocumentDetail(input, options) {
   // Note: This is called AFTER userReviewDocument has collected the feedback
   let intentAnalysis = input.intentAnalysis;
   let intentType = input.intentType;
-  
+
   // If intentAnalysis not provided, analyze it here (with feedback from userReviewDocument)
   if (!intentAnalysis && input.feedback) {
     const analysisResult = await getIntentType(input, options);
-    
+
     // Check if result is the new format (with diagramInfo) or old format (just intentType)
     if (analysisResult && typeof analysisResult === "object" && "intentType" in analysisResult) {
       intentAnalysis = analysisResult;

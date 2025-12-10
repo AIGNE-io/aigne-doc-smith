@@ -1,7 +1,12 @@
 import { buildAllowedLinksFromStructure } from "../../utils/docs-finder-utils.mjs";
 import { checkMarkdown } from "../../utils/markdown-checker.mjs";
 
-export default async function checkDetailResult({ documentStructure, reviewContent, docsDir, isApproved: preApproved }) {
+export default async function checkDetailResult({
+  documentStructure,
+  reviewContent,
+  docsDir,
+  isApproved: preApproved,
+}) {
   // If already approved (e.g., --diagram mode), skip validation
   if (preApproved === true) {
     return {

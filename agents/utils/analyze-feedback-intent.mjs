@@ -16,7 +16,7 @@ function detectExistingDiagram(documentContent) {
   // Use generic regex to detect diagram image blocks with special markers
   // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
   const pathMatches = Array.from(documentContent.matchAll(diagramImageWithPathRegex));
-  
+
   if (pathMatches.length > 0) {
     // Currently each document has only one diagram, so use the first one
     const firstPathMatch = pathMatches[0];
@@ -159,13 +159,13 @@ Analyze the feedback and return the intent type, generationMode (if applicable),
     // If LLM returned null/undefined intentType, try to infer from feedback content
     if (!intentType) {
       const feedbackLower = feedback.toLowerCase();
-      const hasDiagramTerms = 
-        feedbackLower.includes("图") || 
-        feedbackLower.includes("diagram") || 
-        feedbackLower.includes("chart") || 
-        feedbackLower.includes("节点") || 
+      const hasDiagramTerms =
+        feedbackLower.includes("图") ||
+        feedbackLower.includes("diagram") ||
+        feedbackLower.includes("chart") ||
+        feedbackLower.includes("节点") ||
         feedbackLower.includes("node");
-      
+
       if (hasDiagramTerms && diagramInfo) {
         intentType = "updateDiagram";
       } else if (hasDiagramTerms && !diagramInfo) {
@@ -210,7 +210,7 @@ Analyze the feedback and return the intent type, generationMode (if applicable),
     };
   } catch (error) {
     console.warn(`[analyzeFeedbackIntent] Failed to analyze feedback intent: ${error.message}`);
-    
+
     // If analysis fails and --diagram flag is set, default to updateDiagram
     if (shouldUpdateDiagrams) {
       return {
@@ -220,19 +220,19 @@ Analyze the feedback and return the intent type, generationMode (if applicable),
         changes: [],
       };
     }
-    
+
     // Fallback: try to infer intent from feedback content
     const feedbackLower = feedback.toLowerCase();
-    const hasDiagramTerms = 
-      feedbackLower.includes("图") || 
-      feedbackLower.includes("diagram") || 
-      feedbackLower.includes("chart") || 
-      feedbackLower.includes("节点") || 
+    const hasDiagramTerms =
+      feedbackLower.includes("图") ||
+      feedbackLower.includes("diagram") ||
+      feedbackLower.includes("chart") ||
+      feedbackLower.includes("节点") ||
       feedbackLower.includes("node");
-    
+
     let fallbackIntentType = "updateDocument";
     let fallbackGenerationMode = null;
-    
+
     if (hasDiagramTerms && diagramInfo) {
       fallbackIntentType = "updateDiagram";
       fallbackGenerationMode = "image-to-image";
@@ -240,7 +240,7 @@ Analyze the feedback and return the intent type, generationMode (if applicable),
       fallbackIntentType = "addDiagram";
       fallbackGenerationMode = "add-new";
     }
-    
+
     return {
       intentType: fallbackIntentType,
       diagramInfo,
