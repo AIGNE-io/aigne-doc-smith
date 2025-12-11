@@ -188,9 +188,10 @@ function generateTranslatedImagePath(originalPath, language) {
  * Tries compression first, falls back to copying if compression fails
  * @param {Object} generatedImage - Generated image object with path
  * @param {string} targetPath - Target absolute path for the image
+ * @param {string} fileName - Translation file name for error reporting
  * @returns {Promise<void>}
  */
-async function compressAndCopyImage(generatedImage, targetPath) {
+async function compressAndCopyImage(generatedImage, targetPath, fileName = null) {
   try {
     const compressedPath = await compressImage(generatedImage.path, {
       quality: DEFAULT_IMAGE_QUALITY,
@@ -201,8 +202,9 @@ async function compressAndCopyImage(generatedImage, targetPath) {
       // Compression failed, copy original
       await copyFile(generatedImage.path, targetPath);
     }
-  } catch {
-    // Fallback to copying
+  } catch (error) {
+    console.error(`copy original image ${fileName} to ${targetPath}`);
+    debug(`copy original image ${fileName} to ${targetPath}`, error);
     await copyFile(generatedImage.path, targetPath);
   }
 }
@@ -417,7 +419,7 @@ export async function translateDiagramImages(
               translatedImagePath,
             );
             await fs.ensureDir(path.dirname(translatedImageAbsolutePath));
-            await compressAndCopyImage(generatedImage, translatedImageAbsolutePath);
+            await compressAndCopyImage(generatedImage, translatedImageAbsolutePath, fileName);
 
             const altText = translationImage?.altText || mainImage.altText || DEFAULT_ALT_TEXT;
             const newImageMarkdown = createImageMarkdown(
@@ -446,7 +448,8 @@ export async function translateDiagramImages(
 
             hasChanges = true;
           } catch (error) {
-            debug(`❌ Error translating diagram image ${i} for ${language}: ${error.message}`);
+            console.error(`❌ Error translating diagram image ${fileName} for ${language}`);
+            debug(`❌ Error translating diagram image ${fileName} for ${language}`, error);
             result.errors.push({
               file: fileName,
               imageIndex: i,
@@ -632,7 +635,12 @@ export async function cacheDiagramImagesForTranslation(
         const translatedImagePath = generateTranslatedImagePath(mainImage.path, language);
         const translatedImageAbsolutePath = path.join(process.cwd(), docsDir, translatedImagePath);
         await fs.ensureDir(path.dirname(translatedImageAbsolutePath));
-        await compressAndCopyImage(generatedImage, translatedImageAbsolutePath);
+        const translationFileName = getFileName(docPath, language);
+        await compressAndCopyImage(
+          generatedImage,
+          translatedImageAbsolutePath,
+          translationFileName,
+        );
 
         const altText = translationImage?.altText || mainImage.altText || DEFAULT_ALT_TEXT;
         const newImageMarkdown = createImageMarkdown(
@@ -650,7 +658,9 @@ export async function cacheDiagramImagesForTranslation(
           mainImageIndex: mainImage.index,
         });
       } catch (error) {
-        debug(`❌ Error translating diagram image ${i} for ${language}: ${error.message}`);
+        const translationFileName = getFileName(docPath, language);
+        console.error(`❌ Error translating diagram image ${translationFileName} for ${language}`);
+        debug(`❌ Error translating diagram image ${translationFileName} for ${language}`, error);
         // Continue processing other images even if one fails
       }
     }

@@ -501,7 +501,8 @@ describe("cacheDiagramImagesForTranslation", () => {
 
     expect(result).toBeNull();
     expect(debugSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Error translating diagram image"),
+      "❌ Error translating diagram image test.zh.md for zh",
+      expect.any(Error),
     );
   });
 
