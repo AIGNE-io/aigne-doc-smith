@@ -1,6 +1,3 @@
-# Documentation Structure Design Rules
-
-## Important Design Rules
 
 1. **sourcePaths Must Be Files**: This is CRITICAL - `sourcePaths` must contain only file paths, never directory paths
    - ✅ Correct: `["README.md", "src/index.ts", "docs/guide.md"]`

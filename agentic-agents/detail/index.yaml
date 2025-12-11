@@ -1,27 +1,53 @@
 type: team
 name: GenerateDetail
-description: Generate or update detailed content for a single documentation file
+description: Generate or update detailed content for multiple documentation files
 input_schema:
   type: object
   properties:
-    task:
-      type: string
-      description: Task describing which document to generate/update, including title, path, description, and sourcePaths
     rules:
       type: string
-      description: Your specific requirements for documentation content
+      description: Your specific requirements for documentation structure
     locale:
       type: string
       description: Primary language for documentation (e.g., zh, en, ja)
+    tasks:
+      type: array
+      description: Tasks describing which documents to generate/update, including title, path, description, sourcePaths, and task description
+      items:
+        type: object
+        properties:
+          task:
+            type: string
+            description: Task describing which document to generate/update, including title, path, description, sourcePaths, and task description
+iterate_on: tasks
+concurrency: 5
 skills:
   - ../utils/load-base-sources.mjs
+  - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
+    input_schema:
+      type: object
+      properties:
+        task:
+          type: string
+          description: Task describing which document to generate/update, including title, path, description, sourcePaths, and task description
+        rules:
+          type: string
+          description: Your specific requirements for documentation content
+        locale:
+          type: string
+          description: Primary language for documentation (e.g., zh, en, ja)
     objective:
       url: objective.md
     planner:
       type: ai
+      model: anthropic/claude-opus-4-5-20251101
       instructions:
-        url: planner.md
+        url: ../common/planner.md
+    worker:
+      type: ai
+      instructions:
+        url: ../common/worker.md
     afs:
       modules:
         - module: local-fs

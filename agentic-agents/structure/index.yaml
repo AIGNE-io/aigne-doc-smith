@@ -1,6 +1,6 @@
 type: team
 name: GenerateStructure
-model: anthropic/claude-opus-4-5-20251101
+# model: anthropic/claude-opus-4-5-20251101
 description: Generate the structure of your documentation
 input_schema:
   type: object
@@ -16,13 +16,19 @@ input_schema:
       description: Task related to this documentation structure
 skills:
   - ../utils/load-base-sources.mjs
+  - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
     objective:
       url: objective.md
     planner:
       type: ai
+      model: anthropic/claude-opus-4-5-20251101
       instructions:
-        url: planner.md
+        url: ../common/planner.md
+    worker:
+      type: ai
+      instructions:
+        url: ../common/worker.md
     afs:
       modules:
         - module: local-fs

@@ -1,6 +1,3 @@
-# Documentation Structure Review Criteria
-
-## Critical Validation Checks (Must Pass)
 
 1. **YAML Format Correctness** - Automatic rejection if:
    - Indentation is not exactly 2 spaces per level

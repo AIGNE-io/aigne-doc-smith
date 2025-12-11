@@ -18,32 +18,27 @@ skills:
   - url: ../../agents/init/index.mjs
     default_input:
       skipIfExists: true
-    
   - ../utils/load-base-sources.mjs
+  - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
     objective:
       url: objective.md
 
-    # planner:
-    #   type: ai
-    #   model: anthropic/claude-opus-4-5-20251101
-    #   instructions:
-    #     url: planner.md
+    planner:
+      type: ai
+      model: anthropic/claude-opus-4-5-20251101
+      instructions:
+        url: ../common/planner.md
 
     worker:
       type: ai
       # model: anthropic/claude-opus-4-5-20251101
       instructions:
-        url: worker.md
+        url: ../common/worker.md
       skills:
         - ../structure/index.yaml
-        - ../detail/index-ai.yaml
-      input_schema:
-        type: object
-        properties:
-          feedback:
-            type: string
-            description: User feedback describing what documentation tasks to perform (natural language)
+        - ../detail/index.yaml
+
     completer:
       type: function
       process: |
@@ -62,3 +57,8 @@ skills:
             name: doc-smith
             localPath: .aigne/doc-smith
             description: The Doc Smith workspace for storing intermediate and output files
+        - module: local-fs
+          options:
+            name: workspace
+            localPath: .
+            description: The target repository containing source code and documentation. Read-only, cannot be modified.
