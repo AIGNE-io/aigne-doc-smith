@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.9-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.1...v0.9.9-beta.2) (2025-12-11)
+
+
+### Bug Fixes
+
+* **core:** enhance data integrity and locale handling for improved reliability ([#358](https://github.com/AIGNE-io/aigne-doc-smith/issues/358)) ([db96031](https://github.com/AIGNE-io/aigne-doc-smith/commit/db9603182e19d57a155dcefee1e0b335efdaa244))
+
 ## [0.9.9-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta...v0.9.9-beta.1) (2025-12-11)
 
 
