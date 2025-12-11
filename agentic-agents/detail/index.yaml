@@ -1,18 +1,18 @@
 type: team
-name: GenerateStructure
-description: Generate the structure of your documentation
+name: GenerateDetail
+description: Generate or update detailed content for a single documentation file
 input_schema:
   type: object
   properties:
+    task:
+      type: string
+      description: Task describing which document to generate/update, including title, path, description, and sourcePaths
     rules:
       type: string
-      description: Your specific requirements for documentation structure
+      description: Your specific requirements for documentation content
     locale:
       type: string
       description: Primary language for documentation (e.g., zh, en, ja)
-    task:
-      type: string
-      description: Task related to this documentation structure
 skills:
   - ../utils/load-base-sources.mjs
   - type: "@aigne/agent-library/orchestrator"

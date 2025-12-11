@@ -23,6 +23,7 @@ skills:
 
     planner:
       type: ai
+      model: anthropic/claude-opus-4-5-20251101
       instructions:
         url: planner.md
       input_schema:
@@ -34,8 +35,12 @@ skills:
 
     worker:
       type: ai
+      model: anthropic/claude-opus-4-5-20251101
       instructions:
         url: worker.md
+      skills:
+        - ../structure/index.yaml
+        - ../detail/index.yaml
       input_schema:
         type: object
         properties:
