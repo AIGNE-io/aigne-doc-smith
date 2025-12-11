@@ -28,7 +28,7 @@ reasoning: "[决策说明]"
 - 必须按顺序执行,不可跳过
 
 ### 状态识别和任务规划
-- **检查现有状态**:
+- **检查文档现状**:
   - 文档结构是否存在
   - /modules/doc-smith/docs/ 目录下已生成哪些文档
 - **首次生成**: 如果没有 /modules/doc-smith/output/document_structure.yaml ,规划从零开始生成

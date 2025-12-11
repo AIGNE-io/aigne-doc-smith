@@ -8,8 +8,8 @@ model:
   reasoning_effort:
     $get: reasoningEffort
 agents:
-  - ./_exp_/index.yaml
-  - ./_exp_/generateStructureOrchestrator.yaml
+  # - ./_exp_/index.yaml
+  # - ./_exp_/generateStructureOrchestrator.yaml
 
   - ./agentic-agents/create/index.yaml
 

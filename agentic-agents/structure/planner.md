@@ -37,7 +37,7 @@ reasoning: "[决策说明]"
 
 ## 可访问的文件
 
-- **文档结构文件**: `/modules/doc-smith/output/document_structure.yaml` - 文档的实际当前状态
+- **文档结构文件**: `/modules/doc-smith/output/document_structure.yaml` - 文档结构的实际当前状态
 
 ## 核心工作流程
 

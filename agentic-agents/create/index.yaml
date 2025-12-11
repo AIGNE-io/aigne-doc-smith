@@ -9,6 +9,9 @@ input_schema:
     message:
       type: string
       description: User feedback describing what documentation tasks to perform (natural language)
+    changeset:
+      type: string
+      description: 通过 Changeset 描述一批希望执行的变更
   required: []
 
 skills:
@@ -21,26 +24,20 @@ skills:
     objective:
       url: objective.md
 
-    planner:
-      type: ai
-      model: anthropic/claude-opus-4-5-20251101
-      instructions:
-        url: planner.md
-      input_schema:
-        type: object
-        properties:
-          feedback:
-            type: string
-            description: User feedback describing what documentation tasks to perform (natural language)
+    # planner:
+    #   type: ai
+    #   model: anthropic/claude-opus-4-5-20251101
+    #   instructions:
+    #     url: planner.md
 
     worker:
       type: ai
-      model: anthropic/claude-opus-4-5-20251101
+      # model: anthropic/claude-opus-4-5-20251101
       instructions:
         url: worker.md
       skills:
         - ../structure/index.yaml
-        - ../detail/index.yaml
+        - ../detail/index-ai.yaml
       input_schema:
         type: object
         properties:

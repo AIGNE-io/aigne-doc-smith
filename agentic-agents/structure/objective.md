@@ -6,7 +6,7 @@
 
 ## 文档结构现状
 
-文档结构:
+文档结构(/modules/doc-smith/output/document_structure.yaml):
 {% if structureContent %}
 ```yaml
 {{ structureContent  }}
@@ -37,6 +37,7 @@ documents:
         sourcePaths: [string]  # 必须是文件,不是文件夹
         children: [...]
 ```
+输出路径：/modules/doc-smith/output/document_structure.yaml
 
 ## 成功标准
 
