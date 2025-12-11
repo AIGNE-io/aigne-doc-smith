@@ -22,7 +22,7 @@
 ### 可用技能
 {{ skills | yaml.stringify }}
 
-除用文档相关的 Skill 完成任务：
+使用用文档相关的 Skill 完成任务：
 文档结构相关的任务使用：GenerateStructure
 文档内容相关的任务使用：GenerateDetail
 
