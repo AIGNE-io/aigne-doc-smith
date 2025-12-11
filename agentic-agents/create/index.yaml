@@ -54,17 +54,12 @@ skills:
         return { message };
 
     state_management:
-      max_iterations: 20
-      max_tokens: 100000
-      keep_recent: 20
+      max_iterations: 50
+      max_tokens: 200000
+      keep_recent: 30
 
     afs:
       modules:
-        - module: local-fs
-          options:
-            name: workspace
-            localPath: .
-            description: The target repository containing source code and documentation. Read-only, cannot be modified.
         - module: local-fs
           options:
             name: doc-smith

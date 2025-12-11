@@ -22,13 +22,12 @@
 ### 可用技能
 {{ skills | yaml.stringify }}
 
+除用文档相关的 Skill 完成任务：
+文档结构相关的任务使用：GenerateStructure
+文档内容相关的任务使用：GenerateDetail
+
 ## AFS 访问
 
 你可以访问以下文件系统模块:
-- **workspace**(`/modules/workspace`) - 数据源目录
 - **doc-smith**(`/modules/doc-smith`) - DocSmith 工作目录
 
-## 业务规则
-
-### workspace 只读
-workspace 中的内容只用于分析上下文，**不能修改**。
