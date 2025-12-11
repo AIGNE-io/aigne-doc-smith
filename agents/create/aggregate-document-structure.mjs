@@ -5,7 +5,7 @@ export default async function aggregateDocumentStructure(input, options) {
   const projectName = input.projectName || options.context.userContext.projectName;
   const projectDesc = input.projectDesc || options.context.userContext.projectDesc;
 
-  if (!input.projectDesc) {
+  if (!input.projectDesc && projectDesc) {
     await saveValueToConfig("projectDesc", projectDesc, "Project description");
   }
 
