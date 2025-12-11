@@ -65,19 +65,7 @@ skills:
 
       - ./utils/merge-document-structures.mjs
 
-  - type: function
-    name: aggregateDocumentStructure
-    process: |
-      options.context.userContext.originalDocumentStructure ??= [];
-      return {
-        documentStructure: options.context.userContext.originalDocumentStructure.map((i, index) => ({
-          ...i,
-          id: i.title.toLowerCase().replace(/\s+/g, '-'),
-          index
-        })),
-        projectName: options.context.userContext.projectName,
-        projectDesc: options.context.userContext.projectDesc,
-      }
+  - ./aggregate-document-structure.mjs
 
   - type: ai
     name: refineStructure
