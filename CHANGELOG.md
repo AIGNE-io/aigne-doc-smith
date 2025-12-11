@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.9-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.2...v0.9.9-beta.3) (2025-12-11)
+
+
+### Bug Fixes
+
+* **diagram:** ensure accurate timestamp handling for images and generated content ([#360](https://github.com/AIGNE-io/aigne-doc-smith/issues/360)) ([b78f833](https://github.com/AIGNE-io/aigne-doc-smith/commit/b78f833bc413fb666b7481f4fa720d0656e0e1cc))
+
 ## [0.9.9-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.1...v0.9.9-beta.2) (2025-12-11)
 
 
