@@ -87,7 +87,7 @@ function extractDiagramImagesWithTimestamp(content) {
     images.push({
       type: match[1] || DEFAULT_DIAGRAM_TYPE, // Diagram type (e.g., "architecture", "guide")
       aspectRatio: match[2] || DEFAULT_ASPECT_RATIO, // Aspect ratio (e.g., "16:9", "4:3")
-      timestamp: (match[3] || "").replace(/:/, ""), // Timestamp without leading colon (null for old format)
+      timestamp: (match[3] || "").replace(/^:/, ""), // Timestamp without leading colon (null for old format)
       altText: match[4] || DEFAULT_ALT_TEXT, // Alt text from markdown
       path: match[5] || "", // Image path
       fullMatch: match[0] || "", // Full matched block
