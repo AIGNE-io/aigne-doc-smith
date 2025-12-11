@@ -9,7 +9,6 @@ import {
 } from "../../utils/docs-finder-utils.mjs";
 import {
   hasDiagramContent,
-  hasBananaImages,
   getDiagramTypeLabels,
   formatDiagramTypeSuffix,
 } from "../../utils/check-document-has-diagram.mjs";
@@ -37,7 +36,6 @@ export default async function chooseDocs(
     action,
     shouldUpdateDiagrams = false,
     shouldAutoSelectDiagrams = false,
-    shouldSyncImages = false,
   },
   options,
 ) {
@@ -59,41 +57,8 @@ export default async function chooseDocs(
         );
       }
 
-      // If --diagram-sync flag is set, filter documents by banana images only
-      if (shouldSyncImages) {
-        debug("🔄 Filtering documents with banana images...");
-
-        // Read content for all files and filter by banana images only
-        const filesWithImages = [];
-        for (const fileName of mainLanguageFiles) {
-          const content = await readFileContent(docsDir, fileName);
-          if (content && hasBananaImages(content)) {
-            filesWithImages.push(fileName);
-          }
-        }
-
-        if (filesWithImages.length === 0) {
-          debug("ℹ️  No documents found with banana images (DIAGRAM_IMAGE_START markers).");
-          return {
-            selectedDocs: [],
-            feedback: "",
-            selectedPaths: [],
-          };
-        }
-
-        debug(`✅ Found ${filesWithImages.length} document(s) with banana images.`);
-        debug("📋 Auto-selecting all documents with banana images...");
-        // Show diagram types for each document
-        for (const file of filesWithImages) {
-          const content = await readFileContent(docsDir, file);
-          const diagramLabels = content ? getDiagramTypeLabels(content) : [];
-          const diagramSuffix = formatDiagramTypeSuffix(diagramLabels);
-          debug(`   • ${file}${diagramSuffix}`);
-        }
-        selectedFiles = filesWithImages;
-      }
       // If --diagram flag is set, filter documents by diagram content
-      else if (shouldUpdateDiagrams) {
+      if (shouldUpdateDiagrams) {
         debug("🔄 Filtering documents with diagram content...");
 
         // Read content for all files and filter by diagram content
@@ -257,14 +222,9 @@ export default async function chooseDocs(
   }
 
   // Prompt for feedback if not provided
-  // Skip feedback prompt if --diagram, --diagram-all, or --diagram-sync flag is set
+  // Skip feedback prompt if --diagram or --diagram-all flag is set
   let userFeedback = feedback;
-  if (
-    !userFeedback &&
-    (requiredFeedback || foundItems?.length > 1) &&
-    !shouldUpdateDiagrams &&
-    !shouldSyncImages
-  ) {
+  if (!userFeedback && (requiredFeedback || foundItems?.length > 1) && !shouldUpdateDiagrams) {
     const feedbackMessage = getFeedbackMessage(docAction);
 
     userFeedback = await options.prompts.input({

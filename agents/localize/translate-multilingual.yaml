@@ -1,7 +1,10 @@
 type: team
 name: translateMultilingual
-description: Batch translate documents to multiple languages
+description: Batch translate documents to multiple languages. Use --diagram to translate only diagram images without translating document content.
 skills:
+  # Step 1: Check --diagram flag and determine if we should translate diagrams only
+  - url: ./translate-or-skip-diagram.mjs
+  # Translate document content (only if translation is not already set)
   - type: team
     task_render_mode: collapse
     name: translate
@@ -9,20 +12,20 @@ skills:
       - url: ../utils/find-user-preferences-by-path.mjs
         default_input:
           scope: translation
-      - ../localize/translate-document.yaml
-      - type: transform
-        jsonata: |
-          $merge([
-            $,
-            { "reviewContent": translation }
-          ])
+      # Step 2: Cache diagram images for translation (before document translation)
+      # Checks --diagram flag and timestamps to determine if images need translation
+      - url: ../../utils/translate-diagram-images.mjs
+      # Step 3: Translate document content
+      - url: ./translate-document-wrapper.mjs
+      # Step 4: Replace cached diagram images and set review content
+      - url: ./set-review-content.mjs
     reflection:
       reviewer: ../utils/check-detail-result.mjs
       is_approved: isApproved
       max_iterations: 5
       return_last_on_max_iterations: true
     task_title: Translate '{{ title }}' to '{{ language }}'
-  - ../utils/save-doc-translation.mjs
+  - url: ./save-doc-translation-or-skip.mjs
 input_schema:
   type: object
   properties:
@@ -35,6 +38,9 @@ input_schema:
             type: string
     content:
       type: string
+    diagram:
+      type: boolean
+      description: Translate only diagram images without translating document content
 output_schema:
   type: object
   properties:

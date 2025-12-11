@@ -52,6 +52,9 @@ The `localize` command accepts the following options to specify documents, langu
   <x-field data-name="--feedback" data-type="string" data-required="false">
     <x-field-desc markdown>Provide specific instructions to the AI to guide its translation style (e.g., "Use a formal tone and keep technical terms in English"). This feedback is also recorded in the document's history for future reference.</x-field-desc>
   </x-field>
+  <x-field data-name="--diagram" data-type="boolean" data-required="false">
+    <x-field-desc markdown>Translate only diagram images without translating document content. Use this option to update text labels in diagrams while keeping the document body unchanged.</x-field-desc>
+  </x-field>
 </x-field-group>
 
 #### Examples

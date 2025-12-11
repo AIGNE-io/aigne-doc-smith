@@ -68,7 +68,7 @@ export async function compressImage(inputPath, options = {}) {
 
     return finalOutputPath;
   } catch (error) {
-    debug(`⚠️  Failed to compress image ${inputPath}: ${error.message}`);
+    debug(`❌ Failed to compress image ${inputPath}`, error);
     // Return original path if compression fails
     return inputPath;
   }

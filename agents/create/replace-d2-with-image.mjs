@@ -13,6 +13,7 @@ import { getContentHash, getFileName } from "../../utils/utils.mjs";
 import { getExtnameFromContentType } from "../../utils/file-utils.mjs";
 import { debug } from "../../utils/debug.mjs";
 import { compressImage } from "../../utils/image-compress.mjs";
+import { calculateImageTimestamp } from "../../utils/diagram-version-utils.mjs";
 
 const SIZE_THRESHOLD = 1 * 1024 * 1024; // 1MB
 
@@ -304,10 +305,19 @@ export default async function replaceD2WithImage({
   }
 
   // Create markdown image reference with markers for easy replacement
-  // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
+  // Format: <!-- DIAGRAM_IMAGE_START:type:aspectRatio:timestamp -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
   const diagramTypeTag = diagramType || "unknown";
   const aspectRatioTag = aspectRatio || "unknown";
-  const imageMarkdown = `<!-- DIAGRAM_IMAGE_START:${diagramTypeTag}:${aspectRatioTag} -->\n![${altText}](${relativePath})\n<!-- DIAGRAM_IMAGE_END -->`;
+
+  // Calculate timestamp for the saved image (for version tracking)
+  let imageTimestamp = "0";
+  try {
+    imageTimestamp = await calculateImageTimestamp(destPath);
+  } catch (error) {
+    debug(`Failed to calculate image timestamp: ${error.message}, using default 0`);
+  }
+
+  const imageMarkdown = `<!-- DIAGRAM_IMAGE_START:${diagramTypeTag}:${aspectRatioTag}:${imageTimestamp} -->\n![${altText}](${relativePath})\n<!-- DIAGRAM_IMAGE_END -->`;
 
   // Note: diagramLocations was already found above for filename generation, reuse it
 
@@ -371,31 +381,6 @@ export default async function replaceD2WithImage({
     const trimmedContent = finalContent.trimEnd();
     const separator = trimmedContent && !trimmedContent.endsWith("\n") ? "\n\n" : "\n";
     finalContent = trimmedContent + separator + imageMarkdown;
-  }
-
-  // Sync diagram images to translation files
-  // Only sync if we actually replaced/added a diagram (not just returned original content)
-  if (finalContent !== (originalContent || documentContent || content || "")) {
-    try {
-      const { syncDiagramToTranslations } = await import(
-        "../../utils/sync-diagram-to-translations.mjs"
-      );
-      const syncResult = await syncDiagramToTranslations(
-        finalContent,
-        finalDocPath,
-        finalDocsDir,
-        locale,
-        "update", // Operation type: update - skip if main has 0 diagrams
-      );
-      if (syncResult.updated > 0) {
-        debug(
-          `✅ Synced diagram images to ${syncResult.updated} translation file(s)${syncResult.errors.length > 0 ? ` (${syncResult.errors.length} error(s))` : ""}`,
-        );
-      }
-    } catch (error) {
-      // Don't fail the whole operation if sync fails
-      debug(`⚠️  Failed to sync diagram to translations: ${error.message}`);
-    }
   }
 
   return { content: finalContent };

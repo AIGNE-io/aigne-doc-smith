@@ -58,12 +58,16 @@ export default async function saveAndTranslateDocument(input, options) {
         // Clear feedback to ensure translation is not affected by update feedback
         doc.feedback = "";
 
+        // Extract input properties excluding diagram to avoid passing invalid value
+        const { diagram, ...inputWithoutDiagram } = input;
+
         await options.context.invoke(translateAgent, {
-          ...input, // context is required
+          ...inputWithoutDiagram, // context is required (without diagram)
           content: doc.content,
           title: doc.title,
           path: doc.path,
           docsDir,
+          diagram: `${diagram}` === "true",
         });
       } catch (error) {
         console.error(`❌ Failed to translate document ${doc.path}:`, error.message);

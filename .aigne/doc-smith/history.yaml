@@ -1,4 +1,9 @@
 entries:
+  - timestamp: 2025-12-10T03:24:03.969Z
+    operation: document_update
+    feedback: update the diagram with simple and easily to understand
+    docPaths:
+      - /configuration/managing-preferences
   - timestamp: 2025-12-04T08:30:23.054Z
     operation: document_update
     feedback: update image
