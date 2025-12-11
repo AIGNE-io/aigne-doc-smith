@@ -8,6 +8,11 @@ model:
   reasoning_effort:
     $get: reasoningEffort
 agents:
+  - ./_exp_/index.yaml
+  - ./_exp_/generateStructureOrchestrator.yaml
+
+  - ./agentic-agents/create/index.yaml
+
   # Initialization
   - ./agents/init/index.mjs
 
@@ -19,6 +24,7 @@ agents:
   - ./agents/create/check-document-structure.yaml
   - ./agents/create/user-review-document-structure.mjs
   - ./agents/create/index.yaml
+  - ./agentic-agents/structure/index.yaml
 
   # Documentation Structure Tools
   - ./agents/create/document-structure-tools/add-document.mjs
@@ -138,6 +144,7 @@ cli:
       alias: ["remove", "rm"]
       url: ./agents/create/user-remove-document/index.yaml
     - ./agents/clear/index.yaml
+    - ./agentic-agents/create/index.yaml
 mcp_server:
   agents:
     - ./docs-mcp/get-docs-structure.mjs

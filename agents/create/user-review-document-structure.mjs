@@ -63,7 +63,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     }
 
     // Get the refineDocumentStructure agent
-    const refineAgent = options.context.agents["updateDocumentStructure"];
+    const refineAgent = options.context.agents["generateStructureExp"];
     if (!refineAgent) {
       console.log(
         "Unable to process your feedback - the documentation structure update feature is unavailable.",
@@ -81,15 +81,16 @@ export default async function userReviewDocumentStructure({ documentStructure, .
 
     try {
       // Call refineDocumentStructure agent with feedback
-      const { message } = await options.context.invoke(refineAgent, {
+      const { message, ...result } = await options.context.invoke(refineAgent, {
         ...rest,
-        dataSourceChunk: rest.dataSources[0].dataSourceChunk,
-        feedback: feedback.trim(),
-        documentStructure: currentStructure,
-        userPreferences,
+        // dataSourceChunk: rest.dataSources[0].dataSourceChunk,
+        userFeedback: feedback.trim(),
+        // documentStructure: currentStructure,
+        // userPreferences,
       });
 
-      currentStructure = options.context.userContext.currentStructure;
+      // currentStructure = options.context.userContext.currentStructure;
+      currentStructure = result.documentStructure;
 
       if (rest.isChat && equal(currentStructure, documentStructure)) {
         throw new Error(

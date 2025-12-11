@@ -1,0 +1,67 @@
+type: team
+name: DocSmith
+alias:
+  - run
+description: DocSmith entry point for documentation generation, editing, and translation
+input_schema:
+  type: object
+  properties:
+    message:
+      type: string
+      description: User feedback describing what documentation tasks to perform (natural language)
+  required: []
+
+skills:
+  - url: ../../agents/init/index.mjs
+    default_input:
+      skipIfExists: true
+    
+  - ../utils/load-base-sources.mjs
+  - type: "@aigne/agent-library/orchestrator"
+    objective:
+      url: objective.md
+
+    planner:
+      type: ai
+      model: anthropic/claude-opus-4-5-20251101
+      instructions:
+        url: planner.md
+      input_schema:
+        type: object
+        properties:
+          feedback:
+            type: string
+            description: User feedback describing what documentation tasks to perform (natural language)
+
+    worker:
+      type: ai
+      model: anthropic/claude-opus-4-5-20251101
+      instructions:
+        url: worker.md
+      skills:
+        - ../structure/index.yaml
+        - ../detail/index.yaml
+      input_schema:
+        type: object
+        properties:
+          feedback:
+            type: string
+            description: User feedback describing what documentation tasks to perform (natural language)
+    completer:
+      type: function
+      process: |
+        let message = 'All tasks have been completed.';
+        return { message };
+
+    state_management:
+      max_iterations: 50
+      max_tokens: 200000
+      keep_recent: 30
+
+    afs:
+      modules:
+        - module: local-fs
+          options:
+            name: doc-smith
+            localPath: .aigne/doc-smith
+            description: The Doc Smith workspace for storing intermediate and output files

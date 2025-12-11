@@ -1,0 +1,37 @@
+type: team
+name: GenerateDetail
+description: Generate or update detailed content for a single documentation file
+input_schema:
+  type: object
+  properties:
+    task:
+      type: string
+      description: Task describing which document to generate/update, including title, path, description, and sourcePaths
+    rules:
+      type: string
+      description: Your specific requirements for documentation content
+    locale:
+      type: string
+      description: Primary language for documentation (e.g., zh, en, ja)
+skills:
+  - ../utils/load-base-sources.mjs
+  - type: "@aigne/agent-library/orchestrator"
+    objective:
+      url: objective.md
+    planner:
+      type: ai
+      model: anthropic/claude-opus-4-5-20251101
+      instructions:
+        url: planner.md
+    afs:
+      modules:
+        - module: local-fs
+          options:
+            name: workspace
+            localPath: .
+            description: The target repository containing source code and documentation. Read-only, cannot be modified.
+        - module: local-fs
+          options:
+            name: doc-smith
+            localPath: .aigne/doc-smith
+            description: The Doc Smith workspace for storing intermediate and output files

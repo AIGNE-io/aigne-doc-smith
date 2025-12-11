@@ -8,6 +8,7 @@ skills:
   - url: ../init/index.mjs
     default_input:
       skipIfExists: true
+  # - ../../agentic-agents/structure/index.yaml
   - ../utils/load-sources.mjs
   - ./check-need-generate-structure.mjs
   - url: ../utils/save-output.mjs
@@ -36,10 +37,13 @@ skills:
 input_schema:
   type: object
   properties:
-    glossary:
+    feedback:
       type: string
-      description: Glossary file for consistent terminology (use @filename.md)
-    forceRegenerate:
-      type: boolean
-      description: Rebuild all documentation from scratch
+      description: User feedback describing what documentation tasks to perform (natural language)
+    # glossary:
+    #   type: string
+    #   description: Glossary file for consistent terminology (use @filename.md)
+    # forceRegenerate:
+    #   type: boolean
+    #   description: Rebuild all documentation from scratch
 mode: sequential

@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import { getActiveRulesForScope } from "../../utils/preferences-utils.mjs";
 import { getProjectInfo, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
 import streamlineDocumentTitlesIfNeeded from "../utils/streamline-document-titles-if-needed.mjs";
@@ -7,38 +6,6 @@ export default async function checkNeedGenerateStructure(
   { originalDocumentStructure, forceRegenerate, ...rest },
   options,
 ) {
-  // Check if originalDocumentStructure is empty and prompt user
-  if (!originalDocumentStructure) {
-    const choice = await options.prompts.select({
-      message: "Project configured. Generate documentation structure now?",
-      choices: [
-        {
-          name: "Yes, generate now",
-          value: "generate",
-        },
-        {
-          name: "No, review configuration first",
-          value: "later",
-        },
-      ],
-    });
-
-    if (choice === "later") {
-      console.log(`\nConfiguration file: ${chalk.cyan("./.aigne/doc-smith/config.yaml")}`);
-      console.log("Review and edit your configuration, then run `aigne doc create` to continue.");
-
-      // In test environment, return a special result instead of exiting
-      if (process.env.NODE_ENV === "test") {
-        return {
-          userDeferred: true,
-          documentStructure: null,
-        };
-      }
-
-      process.exit(0);
-    }
-  }
-
   let finalFeedback = "";
 
   // User requested regeneration
@@ -54,7 +21,7 @@ export default async function checkNeedGenerateStructure(
     };
   }
 
-  const generateStructureAgent = options.context.agents["generateStructure"];
+  const generateStructureAgent = options.context.agents["generateStructureExp"];
 
   const structureRules = getActiveRulesForScope("structure", []);
   const globalRules = getActiveRulesForScope("global", []);
