@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.9-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta...v0.9.9-beta.1) (2025-12-11)
+
+
+### Features
+
+* **diagram:** enhance localization with translated images ([#354](https://github.com/AIGNE-io/aigne-doc-smith/issues/354)) ([7abe041](https://github.com/AIGNE-io/aigne-doc-smith/commit/7abe04123005f72d919731b9a69ecbdfff794fb3))
+
+
+### Bug Fixes
+
+* ensure original document structure is initialized to avoid errors ([#356](https://github.com/AIGNE-io/aigne-doc-smith/issues/356)) ([885a46e](https://github.com/AIGNE-io/aigne-doc-smith/commit/885a46e83036d59df5ec41e7f034725d4ad781b0))
+
 ## [0.9.9-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.8...v0.9.9-beta) (2025-12-09)
 
 
