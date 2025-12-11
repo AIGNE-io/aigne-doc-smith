@@ -95,7 +95,7 @@ function parseGitignoreContent(content) {
   const lines = content
     .split("\n")
     .map((line) => line.trim())
-    .filter((line) => line && !line.startsWith("#") && line !== '.')
+    .filter((line) => line && !line.startsWith("#") && line !== ".") // A standalone dot (.) in .gitignore is ineffective and should be removed.
     .map((line) => line.replace(/^\//, "")); // Remove leading slash
 
   // Convert each gitignore pattern to glob patterns
