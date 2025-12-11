@@ -2,6 +2,7 @@ import { unlink } from "node:fs/promises";
 import { join, dirname, normalize } from "node:path";
 import fs from "fs-extra";
 import { debug } from "./debug.mjs";
+import { diagramImageWithPathRegex } from "./d2-utils.mjs";
 
 /**
  * Extract image file paths from markdown content
@@ -19,11 +20,10 @@ export async function extractDiagramImagePaths(content, path, docsDir) {
   const imagePaths = [];
 
   // Pattern to match: <!-- DIAGRAM_IMAGE_START:... -->![alt](path)<!-- DIAGRAM_IMAGE_END -->
-  const { diagramImageWithPathRegex } = await import("./d2-utils.mjs");
-  const matches = Array.from(content.matchAll(diagramImageWithPathRegex));
+  const matches = Array.from((content || "").matchAll(diagramImageWithPathRegex));
 
   for (const match of matches) {
-    const imagePath = match[4]; // Path is in capture group 4 (groups: 1=type, 2=aspectRatio, 3=timestamp, 4=path)
+    const imagePath = match[4] || ""; // Path is in capture group 4 (groups: 1=type, 2=aspectRatio, 3=timestamp, 4=path)
 
     // Resolve absolute path
     // If imagePath is relative, resolve from document location

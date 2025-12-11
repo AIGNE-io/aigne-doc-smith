@@ -61,12 +61,12 @@ async function findTranslationFiles(docPath, docsDir, locale) {
  */
 function extractDiagramImagePaths(content) {
   const images = [];
-  const matches = Array.from(content.matchAll(diagramImageWithPathRegex));
+  const matches = Array.from((content || "").matchAll(diagramImageWithPathRegex));
 
   for (const match of matches) {
     images.push({
-      path: match[4], // Path is in capture group 4 (groups: 1=type, 2=aspectRatio, 3=timestamp, 4=path)
-      fullMatch: match[0],
+      path: match[4] || "",
+      fullMatch: match[0] || "",
       index: match.index,
     });
   }

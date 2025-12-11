@@ -82,16 +82,16 @@ function extractDiagramImagesWithTimestamp(content) {
 
   // Use unified regex to match both old and new formats in one pass
   // Captures: type, aspectRatio, optional timestamp, altText, path, fullMatch
-  const matches = Array.from(content.matchAll(diagramImageFullRegex));
+  const matches = Array.from((content || "").matchAll(diagramImageFullRegex));
   for (const match of matches) {
     images.push({
-      type: match[1], // Diagram type (e.g., "architecture", "guide")
-      aspectRatio: match[2], // Aspect ratio (e.g., "16:9", "4:3")
+      type: match[1] || DEFAULT_DIAGRAM_TYPE, // Diagram type (e.g., "architecture", "guide")
+      aspectRatio: match[2] || DEFAULT_ASPECT_RATIO, // Aspect ratio (e.g., "16:9", "4:3")
       timestamp: match[3] || null, // Timestamp (null for old format)
       altText: match[4] || DEFAULT_ALT_TEXT, // Alt text from markdown
-      path: match[5], // Image path
-      fullMatch: match[0], // Full matched block
-      index: match.index, // Position in document
+      path: match[5] || "", // Image path
+      fullMatch: match[0] || "", // Full matched block
+      index: match.index || 0, // Position in document
     });
   }
 
