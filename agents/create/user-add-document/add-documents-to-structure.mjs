@@ -52,7 +52,7 @@ export default async function addDocumentsToStructure(input = {}, options = {}) 
 
       await options.context.invoke(updateDocumentStructure, {
         ...input,
-        dataSourceChunk: input.dataSources[0].dataSourceChunk,
+        dataSourceChunk: input.dataSources[0]?.dataSourceChunk || "",
         feedback,
         documentStructure: currentStructure,
         needDataSources: true,
