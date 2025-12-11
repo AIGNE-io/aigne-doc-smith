@@ -68,6 +68,7 @@ skills:
   - type: function
     name: aggregateDocumentStructure
     process: |
+      options.context.userContext.originalDocumentStructure ??= [];
       return {
         documentStructure: options.context.userContext.originalDocumentStructure.map((i, index) => ({
           ...i,
