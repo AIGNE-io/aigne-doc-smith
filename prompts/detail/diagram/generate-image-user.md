@@ -15,7 +15,7 @@ Your task is to **update an existing diagram** based on the current document con
 - **Diagram Type:** {{ diagramType }}
 - **Visual Style:** {{ diagramStyle }} (maintain consistency with existing image unless feedback requests change)
 - **Aspect Ratio:** {{ aspectRatio }}
-- **Language:** English
+- **Language:** {{ locale }}
 
 **Existing Diagram:**
 [The existing diagram image is provided as input to the model]
@@ -54,7 +54,7 @@ Please follow **all global rules, styles, aspect ratio logic, and diagram-type r
 - **Diagram Type:** {{ diagramType }}
 - **Visual Style:** {{ diagramStyle }}
 - **Aspect Ratio:** {{ aspectRatio }}
-- **Language:** English
+- **Language:** {{ locale }}
 
 # Your responsibilities:
 1. Read and analyze the document content.
