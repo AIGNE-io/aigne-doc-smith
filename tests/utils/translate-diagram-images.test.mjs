@@ -337,4 +337,37 @@ describe("translateDiagramImages", () => {
     expect(result.skipped).toBeGreaterThan(0);
     expect(result.updated).toBe(0);
   });
+
+  test("should handle timestamp with colon correctly (remove leading colon)", async () => {
+    // Test that timestamp format with colon (:timestamp) is correctly parsed
+    // The regex captures :timestamp, and the code removes the leading colon
+    const mainContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1765450843 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+    readdirSpy.mockResolvedValue(["test.md", "test.zh.md"]);
+
+    readFileContentSpy = spyOn(docsFinderUtils, "readFileContent").mockResolvedValue(
+      `<!-- DIAGRAM_IMAGE_START:architecture:16:9:9876543210 -->\n![Diagram](assets/diagram/test.zh.jpg)\n<!-- DIAGRAM_IMAGE_END -->`,
+    );
+    getFileNameSpy = spyOn(utilsModule, "getFileName").mockReturnValue("test.md");
+
+    const result = await translateDiagramImages(
+      mainContent,
+      "/test",
+      "/docs",
+      "en",
+      { context: mockContext },
+      ["zh"],
+    );
+
+    // Should process without errors
+    expect(result.errors.length).toBe(0);
+    // The generated markdown should have correct format (single colon before timestamp)
+    expect(result.updated).toBeGreaterThan(0);
+    // Verify the written content has correct format
+    const writeCall = writeFileSpy.mock.calls.find((call) => call[0].endsWith("test.zh.md"));
+    if (writeCall) {
+      const writtenContent = writeCall[1];
+      expect(writtenContent).toContain(":1765450843");
+      expect(writtenContent).not.toContain("::1765450843");
+    }
+  });
 });
