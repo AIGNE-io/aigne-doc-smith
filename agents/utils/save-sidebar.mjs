@@ -2,10 +2,14 @@ import { join } from "node:path";
 import fs from "fs-extra";
 import { buildDocumentTree } from "../../utils/docs-finder-utils.mjs";
 
-export default async function saveSidebar({ documentStructure, docsDir }) {
+export default async function saveSidebar({
+  documentStructure,
+  originalDocumentStructure,
+  docsDir,
+}) {
   // Generate _sidebar.md
   try {
-    const sidebar = generateSidebar(documentStructure);
+    const sidebar = generateSidebar(documentStructure || originalDocumentStructure);
     const sidebarPath = join(docsDir, "_sidebar.md");
 
     await fs.ensureDir(docsDir);
@@ -16,14 +20,23 @@ export default async function saveSidebar({ documentStructure, docsDir }) {
   return {};
 }
 
-// Recursively generate sidebar text, the link path is the flattened file name
+// Recursively generate sidebar text
 function walk(nodes, indent = "") {
   let out = "";
   for (const node of nodes) {
-    const relPath = node.path.replace(/^\//, "");
-    const flatFile = `${relPath.split("/").join("-")}.md`;
     const realIndent = node.parentId === null ? "" : indent;
-    out += `${realIndent}* [${node.title}](/${flatFile})\n`;
+
+    // If path already ends with .md, use it directly
+    let linkPath;
+    if (node.path.endsWith(".md")) {
+      linkPath = node.path.startsWith("/") ? node.path : `/${node.path}`;
+    } else {
+      // Otherwise, convert to flattened file name
+      const relPath = node.path.replace(/^\//, "");
+      linkPath = `/${relPath.split("/").join("-")}.md`;
+    }
+
+    out += `${realIndent}* [${node.title}](${linkPath})\n`;
 
     if (node.children && node.children.length > 0) {
       out += walk(node.children, `${indent}  `);

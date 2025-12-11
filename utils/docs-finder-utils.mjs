@@ -2,6 +2,7 @@ import { access, readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import chalk from "chalk";
 import pLimit from "p-limit";
+import yaml from "yaml";
 import { pathExists } from "./file-utils.mjs";
 
 /**
@@ -179,7 +180,8 @@ export async function getMainLanguageFiles(docsDir, locale, documentStructure = 
     }
 
     // If main language is English, return files without language suffix
-    if (locale === "en") {
+    // FIXME: 临时修改为 zh，后续需要优化
+    if (locale === "zh") {
       // Return files that don't have language suffixes (e.g., overview.md, not overview.zh.md)
       return !file.match(/\.\w+(-\w+)?\.md$/);
     } else {
@@ -307,8 +309,58 @@ export function addFeedbackToItems(items, feedback) {
 }
 
 /**
- * Load document execution structure from structure-plan.json
- * @param {string} outputDir - Output directory containing structure-plan.json
+ * Convert YAML document structure to flat array format
+ * @param {Object} yamlData - Parsed YAML data with documents array
+ * @returns {Array} Flat array of document structure items
+ */
+function convertYamlToStructure(yamlData) {
+  const result = [];
+
+  function flattenDocuments(documents, parentId = null) {
+    if (!Array.isArray(documents)) {
+      return;
+    }
+
+    for (const doc of documents) {
+      if (!doc.path || !doc.title) {
+        continue;
+      }
+
+      // Create structure item
+      const item = {
+        title: doc.title,
+        description: doc.description || "",
+        path: doc.path,
+      };
+
+      if (parentId) {
+        item.parentId = parentId;
+      }
+
+      if (doc.icon) {
+        item.icon = doc.icon;
+      }
+
+      if (doc.sourcePaths) {
+        item.sourcePaths = doc.sourcePaths;
+      }
+
+      result.push(item);
+
+      // Recursively process children
+      if (doc.children && Array.isArray(doc.children)) {
+        flattenDocuments(doc.children, doc.path);
+      }
+    }
+  }
+
+  flattenDocuments(yamlData.documents);
+  return result;
+}
+
+/**
+ * Load document execution structure from structure-plan.json or document_structure.yaml
+ * @param {string} outputDir - Output directory containing structure files
  * @returns {Promise<Array|null>} Document execution structure array or null if not found/failed
  */
 export async function loadDocumentStructure(outputDir) {
@@ -316,41 +368,64 @@ export async function loadDocumentStructure(outputDir) {
     return null;
   }
 
+  // Try loading structure-plan.json first
   try {
     const structurePlanPath = join(outputDir, "structure-plan.json");
     const structureExists = await pathExists(structurePlanPath);
 
-    if (!structureExists) {
-      return null;
-    }
-
-    const structureContent = await readFile(structurePlanPath, "utf8");
-    if (!structureContent?.trim()) {
-      return null;
-    }
-
-    try {
-      // Validate that the content looks like JSON before parsing
-      const trimmedContent = structureContent.trim();
-      if (!trimmedContent.startsWith("[") && !trimmedContent.startsWith("{")) {
-        console.warn("structure-plan.json contains non-JSON content, skipping parse");
-        return null;
+    if (structureExists) {
+      const structureContent = await readFile(structurePlanPath, "utf8");
+      if (structureContent?.trim()) {
+        try {
+          // Validate that the content looks like JSON before parsing
+          const trimmedContent = structureContent.trim();
+          if (trimmedContent.startsWith("[") || trimmedContent.startsWith("{")) {
+            const parsed = JSON.parse(structureContent);
+            // Return array if it's an array, otherwise return null
+            if (Array.isArray(parsed)) {
+              return parsed;
+            }
+          } else {
+            console.warn("structure-plan.json contains non-JSON content, skipping parse");
+          }
+        } catch (parseError) {
+          console.error(`Failed to parse structure-plan.json: ${parseError.message}`);
+        }
       }
-
-      const parsed = JSON.parse(structureContent);
-      // Return array if it's an array, otherwise return null
-      return Array.isArray(parsed) ? parsed : null;
-    } catch (parseError) {
-      console.error(`Failed to parse structure-plan.json: ${parseError.message}`);
-      return null;
     }
   } catch (readError) {
     // Only warn if it's not a "file not found" error
     if (readError.code !== "ENOENT") {
       console.warn(`Error reading structure-plan.json: ${readError.message}`);
     }
-    return null;
   }
+
+  // Try loading document_structure.yaml as fallback
+  try {
+    const yamlPath = join(outputDir, "document_structure.yaml");
+    const yamlExists = await pathExists(yamlPath);
+
+    if (yamlExists) {
+      const yamlContent = await readFile(yamlPath, "utf8");
+      if (yamlContent?.trim()) {
+        try {
+          const parsed = yaml.parse(yamlContent);
+          if (parsed && parsed.documents) {
+            return convertYamlToStructure(parsed);
+          }
+        } catch (parseError) {
+          console.error(`Failed to parse document_structure.yaml: ${parseError.message}`);
+        }
+      }
+    }
+  } catch (readError) {
+    // Only warn if it's not a "file not found" error
+    if (readError.code !== "ENOENT") {
+      console.warn(`Error reading document_structure.yaml: ${readError.message}`);
+    }
+  }
+
+  return null;
 }
 
 /**

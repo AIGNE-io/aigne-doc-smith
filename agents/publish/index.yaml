@@ -11,6 +11,7 @@ skills:
       checkOnly: true
   - url: ../init/check.mjs
   - url: ../utils/load-sources.mjs
+  - ../utils/save-sidebar.mjs
   - ../utils/ensure-document-icons.mjs
   - translate-meta.mjs
   - publish-docs.mjs
