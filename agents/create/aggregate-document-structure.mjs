@@ -1,4 +1,4 @@
-import { saveValueToConfig } from '../../utils/utils.mjs';
+import { saveValueToConfig } from "../../utils/utils.mjs";
 
 export default async function aggregateDocumentStructure(input, options) {
   options.context.userContext.originalDocumentStructure ??= [];
@@ -6,16 +6,16 @@ export default async function aggregateDocumentStructure(input, options) {
   const projectDesc = input.projectDesc || options.context.userContext.projectDesc;
 
   if (!input.projectDesc) {
-    await saveValueToConfig('projectDesc', projectDesc, 'Project description');
+    await saveValueToConfig("projectDesc", projectDesc, "Project description");
   }
 
   return {
     documentStructure: options.context.userContext.originalDocumentStructure.map((i, index) => ({
       ...i,
-      id: i.title.toLowerCase().replace(/\s+/g, '-'),
-      index
+      id: i.title.toLowerCase().replace(/\s+/g, "-"),
+      index,
     })),
     projectName,
     projectDesc,
-  }
+  };
 }
