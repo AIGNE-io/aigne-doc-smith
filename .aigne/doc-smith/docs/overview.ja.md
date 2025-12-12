@@ -4,7 +4,7 @@ AIGNE DocSmith は、AI を使用してプロジェクトのソースコード�
 
 ## 仕組み
 
-<!-- DIAGRAM_IMAGE_START:architecture:16:9::1765020134 -->
+<!-- DIAGRAM_IMAGE_START:architecture:16:9:1765020134 -->
 ![Overview](assets/diagram/overview-diagram-0.ja.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 

@@ -4,7 +4,7 @@ AIGNE DocSmith 是一款文档工具，它利用 AI 分析您项目的源代码�
 
 ## 工作原理
 
-<!-- DIAGRAM_IMAGE_START:architecture:16:9::1765020134 -->
+<!-- DIAGRAM_IMAGE_START:architecture:16:9:1765020134 -->
 ![Overview](assets/diagram/overview-diagram-0.zh.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
