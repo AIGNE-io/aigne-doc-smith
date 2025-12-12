@@ -23,6 +23,7 @@ describe("load-media-description", () => {
   let sharpMetadataMock;
   let mockContext;
   let mockInvoke;
+  let processCwdSpy;
 
   beforeEach(async () => {
     // Create test directory structure
@@ -36,7 +37,7 @@ describe("load-media-description", () => {
     await mkdir(cacheDir, { recursive: true });
 
     // Mock process.cwd to return testDir
-    spyOn(process, "cwd").mockReturnValue(testDir);
+    processCwdSpy = spyOn(process, "cwd").mockReturnValue(testDir);
 
     // Mock debug
     debugSpy = spyOn(debugModule, "debug").mockImplementation(() => {});
@@ -99,6 +100,7 @@ describe("load-media-description", () => {
     compressImageSpy?.mockRestore();
     ensureTmpDirSpy?.mockRestore();
     getMediaDescriptionCachePathSpy?.mockRestore();
+    processCwdSpy?.mockRestore();
   });
 
   describe("basic functionality", () => {
