@@ -55,6 +55,7 @@ skills:
             description: The custom planner prompt
     worker:
       type: ai
+      model: gemini-3-pro-preview
       instructions:
         url: ../common/worker.md
       input_schema:

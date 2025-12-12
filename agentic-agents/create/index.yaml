@@ -41,7 +41,7 @@ skills:
 
     worker:
       type: ai
-      # model: anthropic/claude-opus-4-5-20251101
+      model: anthropic/claude-opus-4-5-20251101
       instructions:
         url: ../common/worker.md
       input_schema:
