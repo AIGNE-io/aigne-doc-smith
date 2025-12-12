@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.9-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.3...v0.9.9-beta.4) (2025-12-12)
+
+
+### Bug Fixes
+
+* compress large images before sending them to llm ([#362](https://github.com/AIGNE-io/aigne-doc-smith/issues/362)) ([ffb21f0](https://github.com/AIGNE-io/aigne-doc-smith/commit/ffb21f0f29cb414bf3c09df387bd29abf7248ea7))
+
 ## [0.9.9-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.2...v0.9.9-beta.3) (2025-12-11)
 
 
