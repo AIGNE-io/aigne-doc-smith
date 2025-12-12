@@ -7,6 +7,10 @@ import path from "node:path";
 import { DOC_SMITH_DIR, TMP_DIR } from "../../utils/constants/index.mjs";
 import {
   DIAGRAM_PLACEHOLDER,
+  diagramImageBlockRegex,
+  diagramImageFullRegex,
+  diagramImageStartRegex,
+  diagramImageWithPathRegex,
   ensureTmpDir,
   isValidCode,
   replaceD2WithPlaceholder,
@@ -358,6 +362,134 @@ describe("d2-utils", () => {
 
     test("should handle empty string content", () => {
       expect(replaceDiagramsWithPlaceholder({ content: "" })).toBe("");
+    });
+  });
+
+  describe("diagram image regex patterns - timestamp compatibility", () => {
+    describe("diagramImageStartRegex", () => {
+      test("should match single colon timestamp format", () => {
+        const content = "<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->";
+        const matches = Array.from(content.matchAll(diagramImageStartRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBe(":1234567890");
+      });
+
+      test("should match double colon timestamp format (legacy support)", () => {
+        const content = "<!-- DIAGRAM_IMAGE_START:architecture:16:9::1765450843 -->";
+        const matches = Array.from(content.matchAll(diagramImageStartRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBe("::1765450843");
+      });
+
+      test("should match format without timestamp", () => {
+        const content = "<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->";
+        const matches = Array.from(content.matchAll(diagramImageStartRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBeUndefined();
+      });
+    });
+
+    describe("diagramImageFullRegex", () => {
+      test("should match single colon timestamp format with full block", () => {
+        const content =
+          "<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->";
+        const matches = Array.from(content.matchAll(diagramImageFullRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBe(":1234567890");
+        expect(matches[0][4]).toBe("Diagram");
+        expect(matches[0][5]).toBe("assets/diagram/test.jpg");
+      });
+
+      test("should match double colon timestamp format with full block (legacy support)", () => {
+        const content =
+          "<!-- DIAGRAM_IMAGE_START:architecture:16:9::1765450843 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->";
+        const matches = Array.from(content.matchAll(diagramImageFullRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBe("::1765450843");
+        expect(matches[0][4]).toBe("Diagram");
+        expect(matches[0][5]).toBe("assets/diagram/test.jpg");
+      });
+
+      test("should match format without timestamp with full block", () => {
+        const content =
+          "<!-- DIAGRAM_IMAGE_START:architecture:16:9 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->";
+        const matches = Array.from(content.matchAll(diagramImageFullRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBeUndefined();
+        expect(matches[0][4]).toBe("Diagram");
+        expect(matches[0][5]).toBe("assets/diagram/test.jpg");
+      });
+
+      test("should match multiple images with different timestamp formats", () => {
+        const content = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->
+![Diagram 1](assets/diagram/test1.jpg)
+<!-- DIAGRAM_IMAGE_END -->
+<!-- DIAGRAM_IMAGE_START:flowchart:4:3::1765450843 -->
+![Diagram 2](assets/diagram/test2.jpg)
+<!-- DIAGRAM_IMAGE_END -->`;
+        const matches = Array.from(content.matchAll(diagramImageFullRegex));
+        expect(matches.length).toBe(2);
+        expect(matches[0][3]).toBe(":1234567890");
+        expect(matches[1][3]).toBe("::1765450843");
+      });
+    });
+
+    describe("diagramImageBlockRegex", () => {
+      test("should match single colon timestamp format", () => {
+        const content =
+          "<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->";
+        const matches = Array.from(content.matchAll(diagramImageBlockRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBe(":1234567890");
+      });
+
+      test("should match double colon timestamp format (legacy support)", () => {
+        const content =
+          "<!-- DIAGRAM_IMAGE_START:architecture:16:9::1765450843 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->";
+        const matches = Array.from(content.matchAll(diagramImageBlockRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBe("::1765450843");
+      });
+    });
+
+    describe("diagramImageWithPathRegex", () => {
+      test("should match single colon timestamp format and capture path", () => {
+        const content =
+          "<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->";
+        const matches = Array.from(content.matchAll(diagramImageWithPathRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBe(":1234567890");
+        expect(matches[0][4]).toBe("assets/diagram/test.jpg");
+      });
+
+      test("should match double colon timestamp format and capture path (legacy support)", () => {
+        const content =
+          "<!-- DIAGRAM_IMAGE_START:architecture:16:9::1765450843 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->";
+        const matches = Array.from(content.matchAll(diagramImageWithPathRegex));
+        expect(matches.length).toBe(1);
+        expect(matches[0][1]).toBe("architecture");
+        expect(matches[0][2]).toBe("16:9");
+        expect(matches[0][3]).toBe("::1765450843");
+        expect(matches[0][4]).toBe("assets/diagram/test.jpg");
+      });
     });
   });
 });

@@ -4,9 +4,17 @@ import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { parse, stringify } from "yaml";
 import { getMediaDescriptionCachePath } from "../../utils/file-utils.mjs";
+import { compressImage } from "../../utils/image-compress.mjs";
+import sharp from "sharp";
+import { debug } from "../../utils/debug.mjs";
+import { DOC_SMITH_DIR, TMP_DIR } from "../../utils/constants/index.mjs";
+import { ensureTmpDir } from "../../utils/d2-utils.mjs";
+import pMap from "p-map";
 
 const SIZE_THRESHOLD = 10 * 1024 * 1024; // 10MB
 const SVG_SIZE_THRESHOLD = 50 * 1024; // 50KB for SVG files
+const MAX_IMAGE_SIZE = 1 * 1024 * 1024; // 1MB
+const MAX_IMAGE_RESOLUTION = 2048; // 2K
 
 // Supported MIME types for Gemini AI
 const SUPPORTED_IMAGE_TYPES = new Set([
@@ -128,6 +136,107 @@ export default async function loadMediaDescription(input, options) {
           console.warn(`Failed to read SVG file ${mediaFile.path}:`, error.message);
         }
       } else {
+        // For non-SVG media files, check if compression is needed
+        let finalImagePath = absolutePath;
+        let shouldCompress = false;
+
+        try {
+          // Check file size and dimensions
+          const fileStats = await stat(absolutePath);
+          const fileSize = fileStats.size;
+
+          // Get image dimensions
+          const metadata = await sharp(absolutePath).metadata();
+          const { width, height } = metadata;
+
+          // Determine if compression is needed
+          // Compression rules:
+          // 1. Only compress files larger than 1MB
+          // 2. Compressed file must have resolution <= 2K and size < 1MB
+          // 3. Files <= 1MB are never compressed, regardless of resolution
+          const exceedsSize = fileSize > MAX_IMAGE_SIZE;
+
+          // Only compress if file size > 1MB
+          // For files <= 1MB, skip compression regardless of resolution
+          if (exceedsSize) {
+            // Create temporary compressed file path in temp directory with same relative structure
+            // Example: docs/assets/images/photo.jpg -> .aigne/doc-smith/.tmp/docs/assets/images/photo.compressed.jpg
+            await ensureTmpDir();
+            const tmpBaseDir = path.join(process.cwd(), DOC_SMITH_DIR, TMP_DIR);
+
+            // Get relative path from docsDir to maintain structure
+            // mediaFile.path is already relative to docsDir (e.g., "assets/images/photo.jpg")
+            const relativePath = mediaFile.path;
+            const relativeDir = path.dirname(relativePath);
+            const fileName = path.basename(relativePath, path.extname(relativePath));
+            const fileExt = path.extname(relativePath);
+
+            // Normalize docsDir to handle both relative and absolute paths
+            // If docsDir is absolute, extract the relative part from cwd
+            let normalizedDocsDir = docsDir;
+            if (path.isAbsolute(docsDir)) {
+              const cwd = process.cwd();
+              if (docsDir.startsWith(cwd)) {
+                normalizedDocsDir = path.relative(cwd, docsDir);
+              } else {
+                // If docsDir is outside cwd, use just the basename
+                normalizedDocsDir = path.basename(docsDir);
+              }
+            }
+
+            // Create temp directory structure matching the relative path
+            // Structure: .aigne/doc-smith/.tmp/{docsDir}/{relativeDir}
+            const tempDir = path.join(tmpBaseDir, normalizedDocsDir, relativeDir);
+            await mkdir(tempDir, { recursive: true });
+
+            // Create compressed file path
+            const tempFileName = `${fileName}.compressed${fileExt}`;
+            const tempPath = path.join(tempDir, tempFileName);
+
+            // Check if compressed file already exists in cache directory
+            if (existsSync(tempPath)) {
+              debug(`Compressed file already exists for ${mediaFile.path}, skipping compression`);
+              finalImagePath = tempPath;
+              shouldCompress = true;
+            } else {
+              shouldCompress = true;
+              debug(
+                `Compressing image ${mediaFile.path} (size: ${(fileSize / 1024 / 1024).toFixed(2)}MB, resolution: ${width}x${height})`,
+              );
+
+              // Compress image with constraints
+              // For files > 1MB: compress to resolution <= 2K and size < 1MB
+              finalImagePath = await compressImage(absolutePath, {
+                maxWidth: MAX_IMAGE_RESOLUTION, // Always limit to 2K
+                maxHeight: MAX_IMAGE_RESOLUTION, // Always limit to 2K
+                maxSizeBytes: MAX_IMAGE_SIZE, // Always limit to 1MB
+                outputPath: tempPath,
+                quality: 70, // Start with good quality
+              });
+
+              // Verify compressed file size
+              const compressedStats = await stat(finalImagePath);
+              if (compressedStats.size > MAX_IMAGE_SIZE) {
+                console.warn(
+                  `Compressed image ${mediaFile.path} still exceeds ${MAX_IMAGE_SIZE / 1024 / 1024}MB (${(compressedStats.size / 1024 / 1024).toFixed(2)}MB), using compressed version anyway`,
+                );
+              } else {
+                debug(
+                  `✅ Image compressed: ${mediaFile.path} -> ${(compressedStats.size / 1024 / 1024).toFixed(2)}MB`,
+                );
+              }
+            }
+          } else {
+            debug(
+              `Image ${mediaFile.path} is <= 1MB (size: ${(fileSize / 1024 / 1024).toFixed(2)}MB, resolution: ${width}x${height}), skipping compression`,
+            );
+          }
+        } catch (error) {
+          console.warn(`Failed to compress image ${mediaFile.path}:`, error.message);
+          // Use original path if compression fails
+          finalImagePath = absolutePath;
+        }
+
         // For non-SVG media files, use mediaFile field
         mediaToDescribe.push({
           ...mediaFile,
@@ -136,55 +245,144 @@ export default async function loadMediaDescription(input, options) {
           mediaFile: [
             {
               type: "local",
-              path: absolutePath,
+              path: finalImagePath,
               filename: mediaFile.name,
               mimeType: mediaFile.mimeType,
             },
           ],
+          _compressed: shouldCompress, // Track if compression was applied for cleanup
+          _originalPath: shouldCompress ? absolutePath : undefined, // Store original path for cleanup
         });
       }
     }
   }
 
-  // Generate descriptions for media files without cache - use team agent for concurrent processing
+  // Generate descriptions for media files without cache - batch processing with incremental save
   const newDescriptions = {};
-  if (mediaToDescribe.length > 0) {
-    try {
-      // Use batch team agent for concurrent processing
-      const results = await options.context.invoke(
-        options.context.agents["batchGenerateMediaDescription"],
-        {
-          mediaToDescribe,
-        },
-      );
+  const results = []; // Track all results for accurate counting
 
-      // Process results - results is an array of individual results
-      if (Array.isArray(results?.mediaToDescribe)) {
-        for (const result of results.mediaToDescribe) {
-          if (result?.hash && result?.description) {
-            newDescriptions[result.hash] = {
-              path: result.path,
-              description: result.description,
+  if (mediaToDescribe.length > 0) {
+    // Ensure cache directory exists
+    await mkdir(path.dirname(cacheFilePath), { recursive: true });
+
+    // Create a write lock queue to ensure thread-safe cache updates
+    let writeQueue = Promise.resolve();
+    // Keep in-memory cache in sync to avoid unnecessary file reads
+    const inMemoryCache = { ...cache };
+
+    // Helper function to save cache with lock
+    // Optimized: Use in-memory cache to reduce file I/O
+    const saveCacheWithLock = async (newEntry) => {
+      // Add to write queue to ensure sequential writes
+      writeQueue = writeQueue
+        .then(async () => {
+          try {
+            // Merge new entry into in-memory cache
+            Object.assign(inMemoryCache, newEntry);
+
+            // Save to disk
+            const cacheYaml = stringify({
+              descriptions: inMemoryCache,
+              lastUpdated: new Date().toISOString(),
+            });
+            await writeFile(cacheFilePath, cacheYaml, "utf8");
+            // Only update in-memory cache after successful write
+            return true;
+          } catch (error) {
+            // Rollback: remove the entry from in-memory cache if write failed
+            for (const key of Object.keys(newEntry)) {
+              delete inMemoryCache[key];
+            }
+            console.error(`Failed to save cache: ${error.message}`);
+            throw error;
+          }
+        })
+        .catch(() => {
+          // Don't let one write failure break the queue
+          // Error is already logged above
+          return false;
+        });
+      await writeQueue;
+    };
+
+    // Process media files concurrently with incremental save
+    // Use pMap for concurrent processing with controlled concurrency
+    const CONCURRENCY = 5; // Process 5 files concurrently
+
+    await pMap(
+      mediaToDescribe,
+      async (mediaItem, index) => {
+        const result = { success: false, path: mediaItem.path, error: null };
+
+        try {
+          // Generate description for single media file
+          // Note: If compression was applied, mediaItem.mediaFile[0].path points to compressed file
+          // This compressed file is used for upload, but cache uses original file hash and path
+          const agentResult = await options.context.invoke(
+            options.context.agents["generateMediaDescription"],
+            mediaItem,
+          );
+
+          // Check if description was generated successfully
+          // Note: agentResult.hash and agentResult.path come from the agent, but we need to ensure
+          // we use the original file path and hash for caching, not the compressed file path
+          if (agentResult?.hash && agentResult?.description) {
+            // Use original file path and hash for cache entry
+            // The compressed file is only used for upload, but cache should reference original file
+            const originalPath = mediaItem.path;
+            const originalHash = mediaItem.hash;
+
+            const descriptionEntry = {
+              path: originalPath, // Use original file path, not compressed file path
+              description: agentResult.description,
               generatedAt: new Date().toISOString(),
             };
+
+            // Immediately save to cache using lock mechanism
+            await saveCacheWithLock({ [originalHash]: descriptionEntry });
+
+            // Track in memory for summary
+            newDescriptions[originalHash] = descriptionEntry;
+            result.success = true;
+
+            debug(
+              `✅ Generated and saved description for ${mediaItem.path} (${index + 1}/${mediaToDescribe.length})`,
+            );
+          } else {
+            result.error = "No description in result";
+            console.warn(
+              `Failed to generate description for ${mediaItem.path}: No description in result`,
+            );
           }
+        } catch (error) {
+          result.error = error.message;
+          console.error(`Failed to generate description for ${mediaItem.path}:`, error.message);
+          // Continue processing other files even if one fails
         }
-      }
 
-      // Merge new descriptions into cache
-      Object.assign(cache, newDescriptions);
+        results.push(result);
+        return result;
+      },
+      { concurrency: CONCURRENCY },
+    );
 
-      // Save updated cache
-      await mkdir(path.dirname(cacheFilePath), { recursive: true });
-      const cacheYaml = stringify({
-        descriptions: cache,
-        lastUpdated: new Date().toISOString(),
-      });
-      await writeFile(cacheFilePath, cacheYaml, "utf8");
+    // Calculate accurate counts from results
+    const successCount = results.filter((r) => r.success).length;
+    const errorCount = results.filter((r) => !r.success).length;
 
-      console.log(`Generated descriptions for ${Object.keys(newDescriptions).length} media files`);
-    } catch (error) {
-      console.error("Failed to generate media descriptions:", error.message);
+    // Update cache reference to in-memory cache
+    Object.assign(cache, inMemoryCache);
+
+    // Log summary
+    if (successCount > 0) {
+      console.log(
+        `Generated descriptions for ${successCount} media files (${errorCount} errors, ${mediaToDescribe.length - successCount - errorCount} skipped)`,
+      );
+    }
+    if (errorCount > 0) {
+      console.warn(
+        `⚠️  Failed to generate descriptions for ${errorCount} media files. Completed descriptions have been saved.`,
+      );
     }
   }
 
