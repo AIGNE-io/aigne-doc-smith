@@ -28,6 +28,7 @@
 ```
 {% endif %}
 
+{% if structureContent %}
 检查并处理 PATCH
 搜索文档中的 patch (::: PATCH)，根据 patch 中的要求修改文档，修改完成后删除对应的 patch。
 
@@ -40,3 +41,4 @@ DocSmith 直接修改用户文档并写回到原项目。
 DocSmith 永远不直接 touch 用户原始 repo，而是
 在独立 workspace 中生成版本化产物，再通过 patch 合并。
 :::
+{% endif %}

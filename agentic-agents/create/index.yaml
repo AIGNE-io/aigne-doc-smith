@@ -29,12 +29,27 @@ skills:
       model: anthropic/claude-opus-4-5-20251101
       instructions:
         url: ../common/planner.md
+      input_schema:
+        type: object
+        properties:
+          plannerInitState:
+            type: string
+            description: The initial state of the planner
+          customPlannerPrompt:
+            type: string
+            description: The custom planner prompt
 
     worker:
       type: ai
       # model: anthropic/claude-opus-4-5-20251101
       instructions:
         url: ../common/worker.md
+      input_schema:
+        type: object
+        properties:
+          domainKnowledge:
+            type: string
+            description: The domain knowledge
       skills:
         - ../structure/index.yaml
         - ../detail/index.yaml

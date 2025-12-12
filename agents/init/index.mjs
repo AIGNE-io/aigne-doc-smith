@@ -91,8 +91,9 @@ async function _init({
   const input = {};
 
   // 5. Language settings - use system language detection as default
-  const systemLanguage = detectSystemLanguage();
-  input.locale = systemLanguage;
+  // const systemLanguage = detectSystemLanguage();
+  // FIXME: 临时使用中文，框架优化后需要修改
+  input.locale = "zh";
 
   // 6. Translation languages - default to empty
   input.translateLanguages = [];

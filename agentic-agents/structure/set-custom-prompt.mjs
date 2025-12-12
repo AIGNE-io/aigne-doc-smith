@@ -6,19 +6,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // FIXME: 临时使用这种方式设置自定义变量，框架优化后需要修改
-export default function getCustomPrompt({ structureContent }, options) {
+export default function getCustomPrompt({ structureContent }) {
   let finalStructureContent = "文档结构未生成";
   if (structureContent) {
     finalStructureContent = `
-    \`\`\`yaml\n${structureContent}\n\`\`\`
-`;
+\`\`\`yaml\n${structureContent}\n\`\`\`
+    `;
   }
-  options.context.userContext.plannerInitState = `
+  const plannerInitState = `
 文档结构(/modules/doc-smith/output/document_structure.yaml):
 ${finalStructureContent}
   `;
 
-  options.context.userContext.customPlannerPrompt = `
+  const customPlannerPrompt = `
 - 文档结构生成之后，需要按照'质量审查标准'，进行质量审查，并修复发现的问题
 - 关键: 在保存 YAML 文件之前,严格验证格式:
 
@@ -62,7 +62,7 @@ documents:
   const baseInfoPath = path.join(__dirname, "../common/base-info.md");
   const baseInfo = fs.readFileSync(baseInfoPath, "utf-8");
 
-  options.context.userContext.domainKnowledge = `
+  const domainKnowledge = `
   ${baseInfo}
 
   ### 使用用文档相关的 Skill 完成任务
@@ -70,5 +70,9 @@ documents:
   文档内容相关的任务使用：GenerateDetail
     `;
 
-  return {};
+  return {
+    plannerInitState,
+    customPlannerPrompt,
+    domainKnowledge,
+  };
 }

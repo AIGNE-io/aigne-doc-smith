@@ -6,19 +6,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // FIXME: 临时使用这种方式设置自定义变量，框架优化后需要修改
-export default function getCustomPrompt({ structureContent }, options) {
+export default function getCustomPrompt({ structureContent }) {
   let finalStructureContent = "文档结构未生成";
   if (structureContent) {
     finalStructureContent = `
-    \`\`\`yaml\n${structureContent}\n\`\`\`
-`;
+\`\`\`yaml\n${structureContent}\n\`\`\`
+    `;
   }
 
-  options.context.userContext.plannerInitState = `
+  const plannerInitState = `
 文档结构(/modules/doc-smith/output/document_structure.yaml):
 ${finalStructureContent}
   `;
-  options.context.userContext.customPlannerPrompt = `
+  const customPlannerPrompt = `
 - 首先确定需要处理的是文档结构中的哪一篇文档
 - 检查文档是否已存在,决定是生成新文档还是更新现有文档
 - 文档详情以 markdown 的格式输出在 /modules/doc-smith/docs 目录中，根据文档的 \`path\` 生成文件名。
@@ -30,7 +30,7 @@ ${finalStructureContent}
   const baseInfoPath = path.join(__dirname, "../common/base-info.md");
   const baseInfo = fs.readFileSync(baseInfoPath, "utf-8");
 
-  options.context.userContext.domainKnowledge = `
+  const domainKnowledge = `
 ${baseInfo}
 
 ### 文档质量标准
@@ -80,5 +80,9 @@ ${baseInfo}
 
   `;
 
-  return {};
+  return {
+    plannerInitState,
+    customPlannerPrompt,
+    domainKnowledge,
+  };
 }
