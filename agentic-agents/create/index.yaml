@@ -18,6 +18,7 @@ skills:
   - url: ../../agents/init/index.mjs
     default_input:
       skipIfExists: true
+  - ../utils/init-workspace-cache.mjs
   - ../utils/load-base-sources.mjs
   - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
@@ -26,7 +27,7 @@ skills:
 
     planner:
       type: ai
-      model: anthropic/claude-opus-4-5-20251101
+      model: anthropic/claude-opus-4-5
       instructions:
         url: ../common/planner.md
       input_schema:
@@ -41,7 +42,7 @@ skills:
 
     worker:
       type: ai
-      model: anthropic/claude-opus-4-5-20251101
+      model: anthropic/claude-opus-4-5
       instructions:
         url: ../common/worker.md
       input_schema:

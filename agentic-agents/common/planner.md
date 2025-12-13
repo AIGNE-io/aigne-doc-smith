@@ -22,6 +22,26 @@ You are the Planner in the Orchestrator. The entire Orchestrator completes tasks
 The workspace directory is located at: `/modules/workspace/`
 The DocSmith directory is located at: `/modules/doc-smith/`
 
+## Workspace Directory Structure Cache
+
+To reduce redundant `afs_list` calls, the following is a cached overview of the workspace directory structure (up to 3 levels deep):
+
+{% if workspaceCache.static.tree %}
+```
+{{ workspaceCache.static.tree }}
+```
+
+**Important Notes**:
+- Refer to the above directory structure first to avoid redundant `afs_list` calls
+- If you need deeper levels or filtered directories, you can still use the `afs_list` tool
+- If you need to read the contents of multiple files, use multiple afs_read calls at once to read them in batch.
+- Cache generated at: {{ workspaceCache.static.metadata.cachedAt }}
+- Cache size: {{ workspaceCache.static.metadata.size }} characters, max depth: {{ workspaceCache.static.metadata.maxDepth }}
+
+{% else %}
+Directory structure cache is not available. Please use the `afs_list` tool as needed.
+{% endif %}
+
 ## Interaction History
 
 ```yaml alt="The history of interactions provide context for planning"

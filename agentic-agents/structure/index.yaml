@@ -1,6 +1,5 @@
 type: team
 name: GenerateStructure
-# model: anthropic/claude-opus-4-5-20251101
 description: Generate the structure of your documentation
 input_schema:
   type: object
@@ -22,7 +21,7 @@ skills:
       url: objective.md
     planner:
       type: ai
-      model: anthropic/claude-opus-4-5-20251101
+      model: anthropic/claude-opus-4-5
       instructions:
         url: ../common/planner.md
       input_schema:
