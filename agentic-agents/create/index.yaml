@@ -16,13 +16,14 @@ input_schema:
 default_input:
   workspace: /modules/workspace
   doc_smith_workspace: /modules/doc-smith
+  document_structure_path: /modules/doc-smith/output/document_structure.yaml
 
 skills:
   - url: ../../agents/init/index.mjs
     default_input:
       skipIfExists: true
   # - ../utils/init-workspace-cache.mjs
-  - ../utils/load-base-sources.mjs
+  # - ../utils/load-base-sources.mjs
   - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
     objective:
@@ -42,12 +43,15 @@ skills:
           doc_smith_workspace:
             type: string
             description: The Doc Smith workspace path
-          plannerInitState:
+          document_structure_path:
             type: string
-            description: The initial state of the planner
+            description: The document structure path
           customPlannerPrompt:
             type: string
             description: The custom planner prompt
+          domainKnowledge:
+            type: string
+            description: The domain knowledge
 
     worker:
       type: ai

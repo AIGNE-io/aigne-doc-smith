@@ -35,14 +35,6 @@ To reduce redundant `afs_list` calls, the following is a cached overview of the 
 {{ $afs.list(doc_smith_workspace, { maxChildren: 50, maxDepth: 10, format: 'tree' }) | yaml.stringify }}
 ```
 
-{% if isStructureGenerator %}
-## Prefetched File Contents for Reference
-
-```yaml alt="The prefetched file contents that may help planning"
-{{ $afs.search(workspace, "找出对于生成文档结构最有用的 5 个文件，如 README 或其他项目的配置文件", {preset: "predict-resources"}) | yaml.stringify }}
-```
-{% endif %}
-
 **Important Notes**:
 - Refer to the above directory structure first to avoid redundant `afs_list` calls
 - If you need deeper levels or filtered directories, you can still use the `afs_list` tool
@@ -65,9 +57,6 @@ To reduce redundant `afs_list` calls, the following is a cached overview of the 
 ```yaml alt="The latest execution state"
 {{ executionState | yaml.stringify }}
 ```
-
-## 初始数据状态
-{{ plannerInitState }}
 
 ## How to Plan the Next Task
 
@@ -129,6 +118,8 @@ Flexibly decide the next step based on current progress:
 ### Supplementary rules
 {{ customPlannerPrompt }}
 
+## Domain Knowledge
+{{ domainKnowledge }}
 
 ## Output Format
 

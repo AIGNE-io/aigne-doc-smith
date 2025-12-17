@@ -6,18 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // FIXME: 临时使用这种方式设置自定义变量，框架优化后需要修改
-export default function getCustomPrompt({ structureContent }) {
-  let finalStructureContent = "文档结构未生成";
-  if (structureContent) {
-    finalStructureContent = `
-\`\`\`yaml\n${structureContent}\n\`\`\`
-    `;
-  }
-  const plannerInitState = `
-文档结构(/modules/doc-smith/output/document_structure.yaml):
-${finalStructureContent}
-  `;
-
+export default function getCustomPrompt() {
   const customPlannerPrompt = `
 - 文档结构相关的任务与文档内容相关的任务需要拆分为独立的任务
 - 你只需要读取少量信息来规划任务，深度的信息读取由 Worker 完成
@@ -32,7 +21,6 @@ ${baseInfo}
   `;
 
   return {
-    plannerInitState,
     customPlannerPrompt,
     domainKnowledge,
   };

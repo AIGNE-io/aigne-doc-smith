@@ -24,6 +24,12 @@ To reduce redundant `afs_list` calls, the following is a cached overview of the 
 ```yaml alt="The cached directory structure of the Doc Smith workspace"
 {{ $afs.list(doc_smith_workspace, { maxChildren: 50, maxDepth: 10 }) | yaml.stringify }}
 ```
+
+**Important Notes**:
+- Refer to the above directory structure first to avoid redundant `afs_list` calls
+- If you need deeper levels or filtered directories, you can still use the `afs_list` tool
+- If you need to read the contents of multiple files, use multiple afs_read calls at once to read them in batch.
+
 ## Prefetched File Contents for Reference
 
 ```yaml alt="The prefetched file contents that may help planning"
@@ -31,9 +37,9 @@ To reduce redundant `afs_list` calls, the following is a cached overview of the 
 ```
 
 **Important Notes**:
-- Refer to the above directory structure first to avoid redundant `afs_list` calls
-- If you need deeper levels or filtered directories, you can still use the `afs_list` tool
-- If you need to read the contents of multiple files, use multiple afs_read calls at once to read them in batch.
+- Refer to the above prefetched file contents first to avoid redundant `afs_read` calls
+- The files above have been intelligently predicted based on your task and are most likely to be relevant
+- If you need to read additional files not listed above, you can still use the `afs_read` tool
 
 ## User's Objective
 
