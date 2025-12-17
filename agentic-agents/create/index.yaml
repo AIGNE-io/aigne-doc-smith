@@ -23,7 +23,7 @@ skills:
     default_input:
       skipIfExists: true
   # - ../utils/init-workspace-cache.mjs
-  # - ../utils/load-base-sources.mjs
+  - ../utils/load-base-sources.mjs
   - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
     objective:
@@ -70,6 +70,9 @@ skills:
           domainKnowledge:
             type: string
             description: The domain knowledge
+          document_structure_path:
+            type: string
+            description: The document structure path
       # skills:
       #   - ../structure/index.yaml
       #   - ../detail/index.yaml

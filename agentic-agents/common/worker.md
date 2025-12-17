@@ -73,6 +73,18 @@ To reduce redundant `afs_list` calls, the following is a cached overview of the 
 - Use the available tools and skills to accomplish this specific task
 - Return a clear result that the planner can use to decide the next step
 
+### Efficient Information Retrieval Strategy
+When your task requires checking directories or reading files:
+1. Check prefetched information first: Review the "Workspace Directory Structure Cache" and "Prefetched File Contents" sections above
+2. Only use tools when necessary: If the required information is already provided, use it directly without making redundant `afs_list` or `afs_read` calls
+3. Batch operations when needed: If you need additional information not already provided, make multiple tool calls at once for efficiency
+
+## Current Data State
+
+```yaml alt="The latest document structure"
+{{ $afs.read(document_structure_path) | yaml.stringify }}
+```
+
 ## Domain Knowledge
 {{ domainKnowledge }}
 

@@ -48,3 +48,6 @@ documents: // 文档列表
 
 ##### 文档详情：/modules/doc-smith/docs/xxx.md
 文档详情以 markdown 的格式输出在 /modules/doc-smith/docs 目录中，根据文档的 `path` 生成文件名。
+
+文档详情要求：
+- 在开头和结尾引导阅读关联文档，并提供关联文档链接
