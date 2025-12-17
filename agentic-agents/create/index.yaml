@@ -77,11 +77,22 @@ skills:
       #   - ../structure/index.yaml
       #   - ../detail/index.yaml
 
-    # completer:
-    #   type: function
-    #   process: |
-    #     let message = 'All tasks have been completed.';
-    #     return { message };
+    completer:
+      type: ai
+      instructions:
+        url: ../common/completer.md
+      input_schema:
+        type: object
+        properties:
+          workspace:
+            type: string
+            description: The workspace path
+          doc_smith_workspace:
+            type: string
+            description: The Doc Smith workspace path
+          document_structure_path:
+            type: string
+            description: The document structure path
 
     state_management:
       max_iterations: 50
