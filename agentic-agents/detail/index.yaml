@@ -22,7 +22,7 @@ input_schema:
 iterate_on: tasks
 concurrency: 5
 skills:
-  - ../utils/load-base-sources.mjs
+  # - ../utils/load-base-sources.mjs
   - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
     input_schema:

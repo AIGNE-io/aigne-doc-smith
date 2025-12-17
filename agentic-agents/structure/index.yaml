@@ -14,7 +14,7 @@ input_schema:
       type: string
       description: Task related to this documentation structure
 skills:
-  - ../utils/load-base-sources.mjs
+  # - ../utils/load-base-sources.mjs
   - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
     objective:
@@ -46,7 +46,7 @@ skills:
         isStructureGenerator: true
     worker:
       type: ai
-      # model: gemini-3-pro-preview
+      model: gemini-3-pro-preview
       instructions:
         url: ../common/worker.md
       input_schema:
