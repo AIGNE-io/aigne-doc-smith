@@ -67,10 +67,19 @@ function buildTreeView(entries) {
   return renderTree(tree);
 }
 
-export default async function loadBaseSources() {
+export default async function loadBaseSources(_, options) {
   const cwd = process.cwd();
   const docSmithPath = join(cwd, ".aigne/doc-smith");
   const structureFilePath = join(docSmithPath, "output/document_structure.yaml");
+
+  const result = await this.afs.read("/modules/doc-smith/docs/getting-started.md", {
+    view: {
+      language: "en",
+    },
+    context: options.context,
+  });
+
+  console.log(result);
 
   // 读取 document_structure.yaml 文件内容
   let structureContent = "";
@@ -94,3 +103,24 @@ export default async function loadBaseSources() {
     directoryTree,
   };
 }
+
+loadBaseSources.afs = {
+  modules: [
+    {
+      module: "local-fs",
+      options: {
+        name: "doc-smith",
+        localPath: ".aigne/doc-smith",
+        description: "The Doc Smith workspace for storing intermediate and output files",
+      },
+    },
+  ],
+  drivers: [
+    {
+      driver: "i18n",
+      options: {
+        defaultSourceLanguage: "zh",
+      },
+    },
+  ],
+};

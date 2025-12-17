@@ -66,7 +66,10 @@ skills:
       max_tokens: 200000
       keep_recent: 30
 
+    shareAfs: true
     afs:
+      storage:
+        url: .afs
       modules:
         - module: local-fs
           options:
@@ -78,3 +81,7 @@ skills:
             name: workspace
             localPath: .
             description: The target repository containing source code and documentation. Read-only, cannot be modified.
+      drivers:
+        - driver: i18n
+          options:
+            defaultSourceLanguage: zh

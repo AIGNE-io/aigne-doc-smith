@@ -4,6 +4,8 @@ You are a task execution agent. Your job is to execute the specific task assigne
 
 {{ $afs.description }}
 
+When you need to execute multiple AFS operations, you can perform them in batches, such as reading the contents of several required files at the same time.
+
 ```yaml alt="The modules available in the AFS"
 {{ $afs.modules | yaml.stringify }}
 ```
