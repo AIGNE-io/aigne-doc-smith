@@ -24,23 +24,28 @@ The DocSmith directory is located at: `/modules/doc-smith/`
 
 ## Workspace Directory Structure Cache
 
-To reduce redundant `afs_list` calls, the following is a cached overview of the workspace directory structure (up to 3 levels deep):
+To reduce redundant `afs_list` calls, the following is a cached overview of the workspace directory structure:
 
-{% if workspaceCache.static.tree %}
+```yaml alt="The cached directory structure of the workspace"
+{{ $afs.list(workspace, { maxChildren: 50, maxDepth: 10, format: 'tree' }) | yaml.stringify }}
 ```
-{{ workspaceCache.static.tree }}
+
+```yaml alt="The cached directory structure of the Doc Smith workspace"
+{{ $afs.list(doc_smith_workspace, { maxChildren: 50, maxDepth: 10, format: 'tree' }) | yaml.stringify }}
 ```
+
+{% if isStructureGenerator %}
+## Prefetched File Contents for Reference
+
+```yaml alt="The prefetched file contents that may help planning"
+{{ $afs.search(workspace, "找出对于生成文档结构最有用的 5 个文件，如 README 或其他项目的配置文件", {preset: "predict-resources"}) | yaml.stringify }}
+```
+{% endif %}
 
 **Important Notes**:
 - Refer to the above directory structure first to avoid redundant `afs_list` calls
 - If you need deeper levels or filtered directories, you can still use the `afs_list` tool
 - If you need to read the contents of multiple files, use multiple afs_read calls at once to read them in batch.
-- Cache generated at: {{ workspaceCache.static.metadata.cachedAt }}
-- Cache size: {{ workspaceCache.static.metadata.size }} characters, max depth: {{ workspaceCache.static.metadata.maxDepth }}
-
-{% else %}
-Directory structure cache is not available. Please use the `afs_list` tool as needed.
-{% endif %}
 
 ## Interaction History
 

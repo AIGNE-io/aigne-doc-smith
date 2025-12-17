@@ -47,6 +47,12 @@ skills:
       input_schema:
         type: object
         properties:
+          workspace:
+            type: string
+            description: The workspace path
+          doc_smith_workspace:
+            type: string
+            description: The Doc Smith workspace path
           plannerInitState:
             type: string
             description: The initial state of the planner
@@ -61,6 +67,12 @@ skills:
       input_schema:
         type: object
         properties:
+          workspace:
+            type: string
+            description: The workspace path
+          doc_smith_workspace:
+            type: string
+            description: The Doc Smith workspace path
           domainKnowledge:
             type: string
             description: The domain knowledge

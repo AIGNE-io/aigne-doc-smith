@@ -1,0 +1,36 @@
+type: ai
+name: predictResources
+description: Predict necessary resources for documentation task
+
+instructions:
+  url: ./instructions.md
+
+input_schema:
+  type: object
+  properties:
+    query:
+      type: string
+      description: The user's documentation objective to predict resources for
+    workspace:
+      type: string
+      description: The workspace path
+
+default_input:
+  workspace: "/modules/workspace"
+
+output_schema:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        type: string
+      description: A list of predicted resources needed for the documentation task, must be absolute file paths within the workspace.
+
+afs:
+  modules:
+    - module: local-fs
+      options:
+        name: workspace
+        localPath: .
+        description: The target repository containing source code and documentation. Read-only, cannot be modified.
