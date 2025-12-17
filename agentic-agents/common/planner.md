@@ -30,7 +30,8 @@ To reduce redundant `afs_list` calls, the following is a cached overview of the 
 {{ $afs.list(workspace, { maxChildren: 50, maxDepth: 10, format: 'tree' }) | yaml.stringify }}
 ```
 
-```yaml alt="The cached directory structure of the Doc Smith workspace"
+To reduce redundant `afs_list` calls, the following is a cached overview of the doc-smith directory structure:
+```yaml alt="The cached directory structure of the doc-smith"
 {{ $afs.list(doc_smith_workspace, { maxChildren: 50, maxDepth: 10, format: 'tree' }) | yaml.stringify }}
 ```
 

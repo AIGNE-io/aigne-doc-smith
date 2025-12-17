@@ -24,6 +24,11 @@ To reduce redundant `afs_list` calls, the following is a cached overview of the 
 ```yaml alt="The cached directory structure of the Doc Smith workspace"
 {{ $afs.list(doc_smith_workspace, { maxChildren: 50, maxDepth: 10 }) | yaml.stringify }}
 ```
+## Prefetched File Contents for Reference
+
+```yaml alt="The prefetched file contents that may help planning"
+{{ $afs.search("/", task, {preset: "predict-resources"}) | yaml.stringify }}
+```
 
 **Important Notes**:
 - Refer to the above directory structure first to avoid redundant `afs_list` calls

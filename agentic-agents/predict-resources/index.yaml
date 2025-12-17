@@ -11,12 +11,12 @@ input_schema:
     query:
       type: string
       description: The user's documentation objective to predict resources for
-    workspace:
+    path:
       type: string
       description: The workspace path
 
 default_input:
-  workspace: "/modules/workspace"
+  path: "/modules/workspace"
 
 output_schema:
   type: object
@@ -34,3 +34,11 @@ afs:
         name: workspace
         localPath: .
         description: The target repository containing source code and documentation. Read-only, cannot be modified.
+        ignore:
+          - ".git"
+          - ".aigne"
+    - module: local-fs
+      options:
+        name: doc-smith
+        localPath: .aigne/doc-smith
+        description: The Doc Smith workspace for storing intermediate and output files

@@ -10,7 +10,11 @@ Given a workspace directory structure and a user's documentation objective, you 
 ## Workspace Directory Structure
 
 ```yaml alt="The cached directory structure of the workspace"
-{{ $afs.list(workspace, { maxChildren: 50, maxDepth: 10 }) | yaml.stringify }}
+{{ $afs.list("/modules/workspace", { maxChildren: 50, maxDepth: 10 }) | yaml.stringify }}
+```
+
+```yaml alt="The cached directory structure of the doc-smith"
+{{ $afs.list("/modules/doc-smith", { maxChildren: 50, maxDepth: 10 }) | yaml.stringify }}
 ```
 
 ## Documentation Objective
