@@ -27,12 +27,23 @@ skills:
       input_schema:
         type: object
         properties:
+          isStructureGenerator:
+            type: boolean
+            description: Flag indicating if this is for structure generation
+          workspace:
+            type: string
+            description: The workspace path
+          doc_smith_workspace:
+            type: string
+            description: The Doc Smith workspace path
           plannerInitState:
             type: string
             description: The initial state of the planner
           customPlannerPrompt:
             type: string
             description: The custom planner prompt
+      default_input:
+        isStructureGenerator: true
     worker:
       type: ai
       model: gemini-3-pro-preview
@@ -41,14 +52,20 @@ skills:
       input_schema:
         type: object
         properties:
+          workspace:
+            type: string
+            description: The workspace path
+          doc_smith_workspace:
+            type: string
+            description: The Doc Smith workspace path
           domainKnowledge:
             type: string
             description: The domain knowledge
     completer:
       type: function
       process: |
-        let message = 'All tasks have been completed.';
-        return { message };
+        let message = 'Structure generation completed.';
+        return { task: input.task, message };
     afs:
       modules:
         - module: local-fs
@@ -61,3 +78,9 @@ skills:
             name: doc-smith
             localPath: .aigne/doc-smith
             description: The Doc Smith workspace for storing intermediate and output files
+      context:
+        search:
+          presets:
+            predict-resources:
+              select:
+                agent: "../predict-resources/index.yaml"

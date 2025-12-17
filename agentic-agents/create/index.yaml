@@ -13,6 +13,9 @@ input_schema:
       type: string
       description: 通过 Changeset 描述一批希望执行的变更
   required: []
+default_input:
+  workspace: /modules/workspace
+  doc_smith_workspace: /modules/doc-smith
 
 skills:
   - url: ../../agents/init/index.mjs
@@ -33,6 +36,12 @@ skills:
       input_schema:
         type: object
         properties:
+          workspace:
+            type: string
+            description: The workspace path
+          doc_smith_workspace:
+            type: string
+            description: The Doc Smith workspace path
           plannerInitState:
             type: string
             description: The initial state of the planner
@@ -48,6 +57,12 @@ skills:
       input_schema:
         type: object
         properties:
+          workspace:
+            type: string
+            description: The workspace path
+          doc_smith_workspace:
+            type: string
+            description: The Doc Smith workspace path
           domainKnowledge:
             type: string
             description: The domain knowledge
