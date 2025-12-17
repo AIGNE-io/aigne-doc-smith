@@ -51,7 +51,7 @@ skills:
 
     worker:
       type: ai
-      model: anthropic/claude-opus-4-5
+      model: gemini-3-pro-preview
       instructions:
         url: ../common/worker.md
       input_schema:
@@ -66,15 +66,15 @@ skills:
           domainKnowledge:
             type: string
             description: The domain knowledge
-      skills:
-        - ../structure/index.yaml
-        - ../detail/index.yaml
+      # skills:
+      #   - ../structure/index.yaml
+      #   - ../detail/index.yaml
 
-    completer:
-      type: function
-      process: |
-        let message = 'All tasks have been completed.';
-        return { message };
+    # completer:
+    #   type: function
+    #   process: |
+    #     let message = 'All tasks have been completed.';
+    #     return { message };
 
     state_management:
       max_iterations: 50
@@ -83,8 +83,8 @@ skills:
 
     # shareAfs: true
     afs:
-      storage:
-        url: .afs
+      # storage:
+      #   url: .afs
       modules:
         - module: local-fs
           options:
@@ -96,7 +96,7 @@ skills:
             name: workspace
             localPath: .
             description: The target repository containing source code and documentation. Read-only, cannot be modified.
-      drivers:
-        - driver: i18n
-          options:
-            defaultSourceLanguage: zh
+      # drivers:
+      #   - driver: i18n
+      #     options:
+      #       defaultSourceLanguage: zh

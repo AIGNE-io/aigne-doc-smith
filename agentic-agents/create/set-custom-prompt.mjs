@@ -21,7 +21,6 @@ ${finalStructureContent}
   const customPlannerPrompt = `
 - 文档结构相关的任务与文档内容相关的任务需要拆分为独立的任务
 - 你只需要读取少量信息来规划任务，深度的信息读取由 Worker 完成
-- 可以在同一个任务中规划多篇文档的生成任务，Worker 中可以批量处理提升效率
 - changeset 中要求的变更，拆分为独立的任务，由 Worker 完成
   `;
 
@@ -30,10 +29,6 @@ ${finalStructureContent}
 
   const domainKnowledge = `
 ${baseInfo}
-
-### 使用用文档相关的 Skill 完成任务
-文档结构相关的任务使用：GenerateStructure
-文档内容相关的任务使用：GenerateDetail
   `;
 
   return {
