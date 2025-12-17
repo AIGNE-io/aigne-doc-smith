@@ -67,19 +67,10 @@ function buildTreeView(entries) {
   return renderTree(tree);
 }
 
-export default async function loadBaseSources(_, options) {
+export default async function loadBaseSources() {
   const cwd = process.cwd();
   const docSmithPath = join(cwd, ".aigne/doc-smith");
   const structureFilePath = join(docSmithPath, "output/document_structure.yaml");
-
-  const result = await this.afs.read("/modules/doc-smith/docs/getting-started.md", {
-    view: {
-      language: "en",
-    },
-    context: options.context,
-  });
-
-  console.log(result);
 
   // 读取 document_structure.yaml 文件内容
   let structureContent = "";
