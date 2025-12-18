@@ -19,12 +19,12 @@ The DocSmith directory is located at: `/modules/doc-smith/`
 To reduce redundant `afs_list` calls, the following is a cached overview of the workspace directory structure:
 
 ```yaml alt="The cached directory structure of the workspace"
-{{ $afs.list(workspace, { maxChildren: 50, maxDepth: 10, format: 'tree' }) | yaml.stringify }}
+{{ $afs.list(workspace, { maxChildren: 50, maxDepth: 10 }) | yaml.stringify }}
 ```
 
 To reduce redundant `afs_list` calls, the following is a cached overview of the doc-smith directory structure:
 ```yaml alt="The cached directory structure of the doc-smith"
-{{ $afs.list(doc_smith_workspace, { maxChildren: 50, maxDepth: 10, format: 'tree' }) | yaml.stringify }}
+{{ $afs.list(doc_smith_workspace, { maxChildren: 50, maxDepth: 10 }) | yaml.stringify }}
 ```
 
 **Important Notes**:
