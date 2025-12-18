@@ -7,6 +7,7 @@ import { diagramImageFullRegex } from "./d2-utils.mjs";
 import { calculateImageTimestamp } from "./diagram-version-utils.mjs";
 import { getFileName } from "./utils.mjs";
 import { compressImage } from "./image-compress.mjs";
+import { pathExists } from "./file-utils.mjs";
 
 // Constants
 const DEFAULT_DIAGRAM_TYPE = "architecture";
@@ -321,6 +322,15 @@ export async function translateDiagramImages(
     for (const { language, fileName } of translationFiles) {
       try {
         const translationFilePath = path.join(docsDir, fileName);
+
+        // Check if translation file exists before reading to avoid unnecessary warnings
+        const fileExists = await pathExists(translationFilePath);
+        if (!fileExists) {
+          debug(`ℹ️  Translation file does not exist yet: ${fileName} (skipping)`);
+          result.skipped++;
+          continue;
+        }
+
         const translationContent = await readFileContent(docsDir, fileName);
 
         if (translationContent === null || translationContent === undefined) {
@@ -715,7 +725,13 @@ export default async function translateDiagramImagesAgent(input, options) {
 
     // Read current translation file content (if exists) to check timestamps
     const translationFileName = getFileName(docPath, currentLanguage);
-    const translationContent = await readFileContent(docsDir, translationFileName);
+    const translationFilePath = path.join(docsDir, translationFileName);
+
+    // Check if translation file exists before reading to avoid unnecessary warnings
+    const translationFileExists = await pathExists(translationFilePath);
+    const translationContent = translationFileExists
+      ? await readFileContent(docsDir, translationFileName)
+      : null;
 
     // Cache diagram images for translation
     // This function will:
