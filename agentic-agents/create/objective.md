@@ -1,4 +1,4 @@
-{% if structureContent %}
+{% if isDocumentGenerated %}
 文档已在 `/modules/doc-smith`目录下生成：
 1. 检查文档结构中的每篇都已生成了详情，如果有缺失，请为缺失的文档生成详情
 2. 根据我的反馈修改文档
@@ -28,7 +28,7 @@
 ```
 {% endif %}
 
-{% if structureContent %}
+{% if isDocumentGenerated %}
 检查并处理 PATCH
 搜索文档中的 patch (::: PATCH)，根据 patch 中的要求修改文档，修改完成后删除对应的 patch。
 

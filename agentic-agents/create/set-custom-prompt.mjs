@@ -20,8 +20,22 @@ export default function getCustomPrompt() {
 ${baseInfo}
   `;
 
+  // 检查文档结构是否已生成
+  const cwd = process.cwd();
+  const docSmithPath = path.join(cwd, ".aigne/doc-smith");
+  const structureFilePath = path.join(docSmithPath, "output/document_structure.yaml");
+
+  let isDocumentGenerated = false;
+  try {
+    fs.accessSync(structureFilePath, fs.constants.F_OK);
+    isDocumentGenerated = true;
+  } catch {
+    // 文件不存在
+  }
+
   return {
     customPlannerPrompt,
     domainKnowledge,
+    isDocumentGenerated,
   };
 }
