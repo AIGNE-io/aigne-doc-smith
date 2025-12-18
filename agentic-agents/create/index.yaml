@@ -22,8 +22,6 @@ skills:
   - url: ../../agents/init/index.mjs
     default_input:
       skipIfExists: true
-  # - ../utils/init-workspace-cache.mjs
-  # - ../utils/load-base-sources.mjs
   - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
     objective:

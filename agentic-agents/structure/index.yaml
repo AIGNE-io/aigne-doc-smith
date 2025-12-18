@@ -14,7 +14,6 @@ input_schema:
       type: string
       description: Task related to this documentation structure
 skills:
-  # - ../utils/load-base-sources.mjs
   - ./set-custom-prompt.mjs
   - type: "@aigne/agent-library/orchestrator"
     objective:
