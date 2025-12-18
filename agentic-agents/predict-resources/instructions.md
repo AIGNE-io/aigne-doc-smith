@@ -27,6 +27,7 @@ Given a workspace directory structure and a user's documentation objective, you 
 
 ### What to Include
 
+- **Text files only**: Only include files that can be read as plain text
 - **Entry points**: Main files, index files, configuration files that define project structure
 - **Core modules**: Files that implement the main functionality related to the objective
 - **Type definitions**: TypeScript types, interfaces, schemas that define data structures
@@ -36,8 +37,10 @@ Given a workspace directory structure and a user's documentation objective, you 
 
 ### What to Exclude
 
+- **Media files**: Images (.png, .jpg, .jpeg, .gif, .svg, .webp, etc.), videos (.mp4, .mov, .avi, etc.), audio files
+- **UI-related code**: CSS files, style modules, component styling files, visual design files
 - **Generated files**: Build outputs, compiled code, node_modules contents
-- **Binary files**: Images, fonts, compiled assets (unless specifically relevant)
+- **Binary files**: Fonts, compiled assets, executables
 - **Lock files**: package-lock.json, yarn.lock, pnpm-lock.yaml
 - **Cache/temp files**: .cache, .tmp, dist directories
 - **Redundant files**: If multiple files serve similar purposes, select the most representative ones
