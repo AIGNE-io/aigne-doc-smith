@@ -531,7 +531,7 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
 }
 
 export function calculateTokens(text) {
-  const tokens = encode(text);
+  const tokens = encode(text, { allowedSpecial: 'all'});
   return tokens.length;
 }
 
@@ -548,7 +548,7 @@ export function calculateFileStats(sourceFiles) {
     const { content } = source;
     if (content) {
       // Count tokens using gpt-tokenizer
-      const tokens = encode(content);
+      const tokens = encode(content, { allowedSpecial: 'all'});
       totalTokens += tokens.length;
 
       // Count lines (excluding empty lines)
