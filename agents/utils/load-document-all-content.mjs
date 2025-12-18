@@ -1,5 +1,7 @@
 import { readdirSync } from "node:fs";
+import { join } from "node:path";
 import { findItemByPath, readFileContent } from "../../utils/docs-finder-utils.mjs";
+import { pathExists } from "../../utils/file-utils.mjs";
 
 /**
  * Loads a document's content along with all its translations from the docs directory.
@@ -49,7 +51,17 @@ export default async function loadDocumentAllContent({ path, docsDir, documentSt
     );
 
     // Process each translation file
+    // Note: translationFiles are already filtered by readdirSync, but we check existence again for safety
     for (const file of translationFiles) {
+      const filePath = join(docsDir, file);
+
+      // Check if file exists before reading to avoid unnecessary warnings
+      // (though readdirSync should already filter existing files)
+      const fileExists = await pathExists(filePath);
+      if (!fileExists) {
+        continue;
+      }
+
       const content = await readFileContent(docsDir, file);
       if (content) {
         // Extract language code from filename (e.g., "en" from "doc.en.md" or "zh-CN" from "doc.zh-CN.md")

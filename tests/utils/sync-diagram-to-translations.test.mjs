@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import { syncDiagramToTranslations } from "../../utils/sync-diagram-to-translations.mjs";
 import * as docsFinderUtils from "../../utils/docs-finder-utils.mjs";
 import * as debugModule from "../../utils/debug.mjs";
+import * as fileUtils from "../../utils/file-utils.mjs";
 import { readdirSync } from "node:fs";
 
 describe("sync-diagram-to-translations", () => {
@@ -10,6 +11,7 @@ describe("sync-diagram-to-translations", () => {
   let readFileContentSpy;
   let writeFileSpy;
   let debugSpy;
+  let pathExistsSpy;
   let mockDocsDir;
 
   beforeEach(() => {
@@ -22,6 +24,8 @@ describe("sync-diagram-to-translations", () => {
     readFileContentSpy = spyOn(docsFinderUtils, "readFileContent").mockResolvedValue("");
     writeFileSpy = spyOn(fs, "writeFile").mockResolvedValue();
     debugSpy = spyOn(debugModule, "debug").mockImplementation(() => {});
+    // Mock pathExists to return true by default (file exists)
+    pathExistsSpy = spyOn(fileUtils, "pathExists").mockResolvedValue(true);
   });
 
   afterEach(() => {
@@ -29,6 +33,7 @@ describe("sync-diagram-to-translations", () => {
     readFileContentSpy?.mockRestore();
     writeFileSpy?.mockRestore();
     debugSpy?.mockRestore();
+    pathExistsSpy?.mockRestore();
   });
 
   describe("no translation files", () => {

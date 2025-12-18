@@ -5,6 +5,7 @@ import * as imageCompressModule from "../../utils/image-compress.mjs";
 import * as diagramVersionUtils from "../../utils/diagram-version-utils.mjs";
 import * as docsFinderUtils from "../../utils/docs-finder-utils.mjs";
 import * as utilsModule from "../../utils/utils.mjs";
+import * as fileUtils from "../../utils/file-utils.mjs";
 import fs from "fs-extra";
 
 describe("translateDiagramImages", () => {
@@ -13,6 +14,8 @@ describe("translateDiagramImages", () => {
   let writeFileSpy;
   let ensureDirSpy;
   let pathExistsSpy;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Used in afterEach
+  let fsPathExistsSpy;
   let compressImageSpy;
   let calculateImageTimestampSpy;
   let copyFileMock;
@@ -25,7 +28,10 @@ describe("translateDiagramImages", () => {
     readdirSpy = spyOn(fs, "readdir").mockResolvedValue([]);
     writeFileSpy = spyOn(fs, "writeFile").mockResolvedValue();
     ensureDirSpy = spyOn(fs, "ensureDir").mockResolvedValue();
-    pathExistsSpy = spyOn(fs, "pathExists").mockResolvedValue(true);
+    // Mock pathExists from file-utils.mjs (used in translate-diagram-images.mjs for translation files)
+    pathExistsSpy = spyOn(fileUtils, "pathExists").mockResolvedValue(true);
+    // Also mock fs.pathExists (used in convertDiagramInfoToMediaFile)
+    fsPathExistsSpy = spyOn(fs, "pathExists").mockResolvedValue(true);
     compressImageSpy = spyOn(imageCompressModule, "compressImage").mockResolvedValue(
       "/mock/compressed.jpg",
     );
@@ -73,6 +79,7 @@ describe("translateDiagramImages", () => {
     writeFileSpy?.mockRestore();
     ensureDirSpy?.mockRestore();
     pathExistsSpy?.mockRestore();
+    fsPathExistsSpy?.mockRestore(); // Restore fs.pathExists to avoid affecting other tests
     compressImageSpy?.mockRestore();
     calculateImageTimestampSpy?.mockRestore();
     readFileContentSpy?.mockRestore();
