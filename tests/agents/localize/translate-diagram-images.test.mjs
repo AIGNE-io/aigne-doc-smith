@@ -4,12 +4,14 @@ import * as translateDiagramImagesModule from "../../../utils/translate-diagram-
 import * as docsFinderUtils from "../../../utils/docs-finder-utils.mjs";
 import * as debugModule from "../../../utils/debug.mjs";
 import * as utilsModule from "../../../utils/utils.mjs";
+import * as fileUtils from "../../../utils/file-utils.mjs";
 
 describe("translate-diagram-images agent", () => {
   let readFileContentSpy;
   let cacheDiagramImagesForTranslationSpy;
   let debugSpy;
   let getFileNameSpy;
+  let pathExistsSpy;
 
   beforeEach(() => {
     readFileContentSpy = spyOn(docsFinderUtils, "readFileContent");
@@ -19,6 +21,8 @@ describe("translate-diagram-images agent", () => {
     );
     debugSpy = spyOn(debugModule, "debug").mockImplementation(() => {});
     getFileNameSpy = spyOn(utilsModule, "getFileName");
+    // Mock pathExists to return true by default (file exists)
+    pathExistsSpy = spyOn(fileUtils, "pathExists").mockResolvedValue(true);
   });
 
   afterEach(() => {
@@ -26,6 +30,7 @@ describe("translate-diagram-images agent", () => {
     cacheDiagramImagesForTranslationSpy?.mockRestore();
     debugSpy?.mockRestore();
     getFileNameSpy?.mockRestore();
+    pathExistsSpy?.mockRestore();
   });
 
   test("should return cached images when main document has images", async () => {
@@ -107,6 +112,52 @@ describe("translate-diagram-images agent", () => {
 
     expect(result.cachedDiagramImages).toBeNull();
     expect(debugSpy).toHaveBeenCalledWith("⚠️  Could not read main document: test.md");
+  });
+
+  test("should handle translation file that does not exist", async () => {
+    const mainContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+    const mockCachedImages = [
+      {
+        originalMatch: null,
+        translatedMarkdown: `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.zh.jpg)\n<!-- DIAGRAM_IMAGE_END -->`,
+        index: 0,
+        mainImageIndex: 0,
+      },
+    ];
+
+    getFileNameSpy
+      .mockReturnValueOnce("test.md") // Main file
+      .mockReturnValueOnce("test.zh.md"); // Translation file
+    readFileContentSpy.mockResolvedValueOnce(mainContent);
+    // Mock pathExists to return false (translation file does not exist)
+    pathExistsSpy.mockResolvedValue(false);
+    cacheDiagramImagesForTranslationSpy.mockResolvedValue(mockCachedImages);
+
+    const result = await translateDiagramImagesAgent(
+      {
+        path: "/test",
+        docsDir: "/docs",
+        locale: "en",
+        language: "zh",
+        shouldTranslateDiagramsOnly: false,
+      },
+      { context: {} },
+    );
+
+    expect(result.cachedDiagramImages).toEqual(mockCachedImages);
+    // Verify readFileContent was not called for translation file (since it doesn't exist)
+    expect(readFileContentSpy).toHaveBeenCalledTimes(1); // Only called for main file
+    // Verify cacheDiagramImagesForTranslation was called with empty translation content
+    expect(cacheDiagramImagesForTranslationSpy).toHaveBeenCalledWith(
+      mainContent,
+      "", // Empty string when translation file doesn't exist
+      "/test",
+      "/docs",
+      "en",
+      "zh",
+      { context: {} },
+      false,
+    );
   });
 
   test("should return null when missing required parameters", async () => {

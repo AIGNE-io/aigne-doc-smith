@@ -229,6 +229,33 @@ describe("sync-diagram-to-translations", () => {
       expect(writeFileSpy).toHaveBeenCalledTimes(3);
     });
 
+    test("should skip files that do not exist and process existing ones", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md", "guide.ja.md", "guide.fr.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+      const translationContent = `\`\`\`d2\nshape1 -> shape2\n\`\`\``;
+
+      // Mock pathExists to return false for zh.md (doesn't exist), true for others
+      pathExistsSpy.mockImplementation((filePath) => {
+        if (filePath.includes("guide.zh.md")) {
+          return Promise.resolve(false);
+        }
+        return Promise.resolve(true);
+      });
+      readFileContentSpy.mockResolvedValue(translationContent);
+
+      const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "en");
+
+      expect(result.updated).toBe(2); // ja, fr (zh was skipped)
+      expect(result.skipped).toBe(1); // zh was skipped
+      expect(writeFileSpy).toHaveBeenCalledTimes(2); // Only for ja and fr
+      expect(debugSpy).toHaveBeenCalledWith(
+        "ℹ️  Translation file does not exist yet: guide.zh.md (skipping)",
+      );
+      // Verify readFileContent was not called for zh.md
+      expect(readFileContentSpy).toHaveBeenCalledTimes(2); // Only for ja and fr
+    });
+
     test("should handle mixed success and skip", async () => {
       readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md", "guide.ja.md"]);
 
@@ -246,6 +273,27 @@ describe("sync-diagram-to-translations", () => {
   });
 
   describe("error handling", () => {
+    test("should skip translation file when it does not exist", async () => {
+      readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
+
+      const mainContent = `<!-- DIAGRAM_IMAGE_START:flowchart:4:3 -->\n![alt](assets/diagram/guide-diagram-0.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+
+      // Mock pathExists to return false (file does not exist)
+      pathExistsSpy.mockResolvedValue(false);
+
+      const result = await syncDiagramToTranslations(mainContent, "/guide", mockDocsDir, "en");
+
+      expect(result.updated).toBe(0);
+      expect(result.skipped).toBe(1);
+      expect(result.errors).toEqual([]);
+      // Verify debug message is called for missing file
+      expect(debugSpy).toHaveBeenCalledWith(
+        "ℹ️  Translation file does not exist yet: guide.zh.md (skipping)",
+      );
+      // Verify readFileContent is not called when file doesn't exist
+      expect(readFileContentSpy).not.toHaveBeenCalled();
+    });
+
     test("should handle readFileContent failure", async () => {
       readdirSyncSpy.mockReturnValue(["guide.md", "guide.zh.md"]);
 

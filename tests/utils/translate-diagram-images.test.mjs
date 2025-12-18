@@ -286,6 +286,69 @@ describe("translateDiagramImages", () => {
     expect(result.errors[0].error).toContain("Translation failed");
   });
 
+  test("should skip translation file when it does not exist", async () => {
+    const mainContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+    readdirSpy.mockResolvedValue(["test.md", "test.zh.md"]);
+
+    // Mock pathExists to return false (file does not exist)
+    pathExistsSpy.mockResolvedValue(false);
+    // Initialize readFileContentSpy to track calls
+    readFileContentSpy = spyOn(docsFinderUtils, "readFileContent");
+
+    const result = await translateDiagramImages(
+      mainContent,
+      "/test",
+      "/docs",
+      "en",
+      { context: mockContext },
+      ["zh"],
+    );
+
+    expect(result.updated).toBe(0);
+    expect(result.skipped).toBe(1);
+    expect(result.errors).toEqual([]);
+    // Verify debug message is called for missing file
+    expect(debugSpy).toHaveBeenCalledWith(
+      "ℹ️  Translation file does not exist yet: test.zh.md (skipping)",
+    );
+    // Verify readFileContent is not called when file doesn't exist
+    expect(readFileContentSpy).not.toHaveBeenCalled();
+  });
+
+  test("should skip files that do not exist and process existing ones", async () => {
+    const mainContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
+    readdirSpy.mockResolvedValue(["test.md", "test.zh.md", "test.ja.md"]);
+
+    // Mock pathExists to return false for zh.md (doesn't exist), true for ja.md
+    pathExistsSpy.mockImplementation((filePath) => {
+      if (filePath.includes("test.zh.md")) {
+        return Promise.resolve(false);
+      }
+      return Promise.resolve(true);
+    });
+
+    readFileContentSpy = spyOn(docsFinderUtils, "readFileContent").mockResolvedValue(
+      `<!-- DIAGRAM_IMAGE_START:architecture:16:9:9876543210 -->\n![Diagram](assets/diagram/test.ja.jpg)\n<!-- DIAGRAM_IMAGE_END -->`,
+    );
+
+    const result = await translateDiagramImages(
+      mainContent,
+      "/test",
+      "/docs",
+      "en",
+      { context: mockContext },
+      ["zh", "ja"],
+    );
+
+    expect(result.updated).toBe(1); // Only ja was processed
+    expect(result.skipped).toBe(1); // zh was skipped
+    expect(debugSpy).toHaveBeenCalledWith(
+      "ℹ️  Translation file does not exist yet: test.zh.md (skipping)",
+    );
+    // Verify readFileContent was only called for ja.md
+    expect(readFileContentSpy).toHaveBeenCalledTimes(1);
+  });
+
   test("should handle error reading translation file", async () => {
     const mainContent = `<!-- DIAGRAM_IMAGE_START:architecture:16:9:1234567890 -->\n![Diagram](assets/diagram/test.jpg)\n<!-- DIAGRAM_IMAGE_END -->`;
     readdirSpy.mockResolvedValue(["test.md", "test.zh.md"]);
