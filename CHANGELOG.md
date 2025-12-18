@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.10-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9...v0.9.10-beta) (2025-12-18)
+
+
+### Bug Fixes
+
+* more robust translation processing and token handling ([#366](https://github.com/AIGNE-io/aigne-doc-smith/issues/366)) ([0a634ef](https://github.com/AIGNE-io/aigne-doc-smith/commit/0a634ef46b4da1204368af63fddff126c3d4f45d))
+
 ## [0.9.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.4...v0.9.9) (2025-12-13)
 
 ## [0.9.9-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.3...v0.9.9-beta.4) (2025-12-12)
