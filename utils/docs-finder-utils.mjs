@@ -179,16 +179,18 @@ export async function getMainLanguageFiles(docsDir, locale, documentStructure = 
       return false;
     }
 
+    return !file.match(/\.\w+(-\w+)?\.md$/);
+
     // If main language is English, return files without language suffix
-    // FIXME: 临时修改为 zh，后续需要优化
-    if (locale === "zh") {
-      // Return files that don't have language suffixes (e.g., overview.md, not overview.zh.md)
-      return !file.match(/\.\w+(-\w+)?\.md$/);
-    } else {
-      // For non-English main language, return files with the exact locale suffix
-      const localePattern = new RegExp(`\\.${locale}\\.md$`);
-      return localePattern.test(file);
-    }
+    // FIXME: 暂时不考虑多语言。 .locale.md 是 Discuss Kit 中的实现
+    // if (locale === "zh") {
+    //   // Return files that don't have language suffixes (e.g., overview.md, not overview.zh.md)
+    //   return !file.match(/\.\w+(-\w+)?\.md$/);
+    // } else {
+    //   // For non-English main language, return files with the exact locale suffix
+    //   const localePattern = new RegExp(`\\.${locale}\\.md$`);
+    //   return localePattern.test(file);
+    // }
   });
 
   // If documentStructure is provided, sort files according to the order in documentStructure

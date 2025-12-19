@@ -115,6 +115,8 @@ skills:
             ignore:
               - ".git"
               - ".aigne"
+              - "DOCSMITH.md"
+              - "DOC-SMITH.md"
       context:
         search:
           presets:

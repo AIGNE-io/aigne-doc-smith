@@ -37,6 +37,8 @@ afs:
         ignore:
           - ".git"
           - ".aigne"
+          - "DOCSMITH.md"
+          - "DOC-SMITH.md"
     - module: local-fs
       options:
         name: doc-smith
