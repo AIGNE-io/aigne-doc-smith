@@ -4,6 +4,7 @@ import { debug } from "./debug.mjs";
 import path from "node:path";
 import fs from "fs-extra";
 import { d2CodeBlockRegex, diagramImageWithPathRegex } from "./d2-utils.mjs";
+import { pathExists } from "./file-utils.mjs";
 
 /**
  * Find all translation files for a document
@@ -61,12 +62,12 @@ async function findTranslationFiles(docPath, docsDir, locale) {
  */
 function extractDiagramImagePaths(content) {
   const images = [];
-  const matches = Array.from(content.matchAll(diagramImageWithPathRegex));
+  const matches = Array.from((content || "").matchAll(diagramImageWithPathRegex));
 
   for (const match of matches) {
     images.push({
-      path: match[1],
-      fullMatch: match[0],
+      path: match[4] || "",
+      fullMatch: match[0] || "",
       index: match.index,
     });
   }
@@ -119,6 +120,15 @@ export async function syncDiagramToTranslations(
   for (const { fileName } of translationFiles) {
     try {
       const translationFilePath = path.join(docsDir, fileName);
+
+      // Check if translation file exists before reading to avoid unnecessary warnings
+      const fileExists = await pathExists(translationFilePath);
+      if (!fileExists) {
+        debug(`ℹ️  Translation file does not exist yet: ${fileName} (skipping)`);
+        result.skipped++;
+        continue;
+      }
+
       const translationContent = await readFileContent(docsDir, fileName);
 
       // Check for null or undefined (file read failure), but allow empty string (valid content)

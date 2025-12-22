@@ -9,6 +9,25 @@ import {
 import { userContextAt } from "../../../utils/utils.mjs";
 
 async function getIntentType(input, options) {
+  // Single document mode: Get current document content and perform full analysis
+  // This is called AFTER userReviewDocument has collected the feedback
+  const analyzeFeedbackIntentAgent = options.context?.agents?.["analyzeFeedbackIntent"];
+  if (analyzeFeedbackIntentAgent) {
+    const contentContext = userContextAt(options, `currentContents.${input.path}`);
+    const currentContent = contentContext.get();
+
+    const result = await options.context.invoke(analyzeFeedbackIntentAgent, {
+      feedback: input.feedback,
+      documentContent: currentContent,
+      shouldUpdateDiagrams: false,
+    });
+
+    return result;
+  }
+
+  console.warn("[getIntentType] analyzeFeedbackIntent agent not found, using fallback");
+
+  // Fallback to old method if analyzeFeedbackIntent agent not available
   const instructions = `<role>
 You are a feedback intent analyzer. Your task is to determine which type of content modifications are needed based on the user's feedback.
 
@@ -113,7 +132,7 @@ async function addDiagram(input, options) {
   const generateDiagramResult = await options.context.invoke(generateDiagramAgent, {
     ...pick(input, ["locale", "path", "docsDir", "diagramming", "feedback"]),
     documentContent: currentContent,
-    originalContent: currentContent,
+    intentAnalysis: input.intentAnalysis, // Pass intent analysis from first layer
   });
   const content = generateDiagramResult.content;
   contentContext.set(content);
@@ -134,9 +153,9 @@ async function updateDiagram(input, options) {
     locale: input.locale,
     diagramming: input.diagramming || {},
     feedback: input.feedback,
-    originalContent: currentContent, // Pass original content to find existing diagrams
     path: input.path,
     docsDir: input.docsDir,
+    intentAnalysis: input.intentAnalysis, // Pass intent analysis from first layer
   });
 
   // generateDiagram now returns { content } with image already inserted
@@ -248,18 +267,42 @@ async function updateDocument(input, options) {
 }
 
 export default async function updateSingleDocumentDetail(input, options) {
-  // Use intentType from input if available (analyzed in parent flow),
-  // otherwise fall back to analyzing it here (for backward compatibility)
+  // Get intent analysis (may include full analysis result with diagramInfo, generationMode, etc.)
+  // Note: This is called AFTER userReviewDocument has collected the feedback
+  let intentAnalysis = input.intentAnalysis;
   let intentType = input.intentType;
-  if (!intentType && input.feedback) {
-    intentType = await getIntentType(input, options);
+
+  // If intentAnalysis not provided, analyze it here (with feedback from userReviewDocument)
+  if (!intentAnalysis && input.feedback) {
+    const analysisResult = await getIntentType(input, options);
+
+    // Check if result is the new format (with diagramInfo) or old format (just intentType)
+    if (analysisResult && typeof analysisResult === "object" && "intentType" in analysisResult) {
+      intentAnalysis = analysisResult;
+      intentType = analysisResult.intentType;
+    } else {
+      // Old format: just intentType string
+      intentType = analysisResult;
+      intentAnalysis = {
+        intentType: analysisResult,
+        diagramInfo: null,
+        generationMode: null,
+        changes: [],
+      };
+    }
   }
 
   // If intentType is still null or undefined, default to updateDocument
-  // This ensures that some operation is always performed, even if intent analysis failed
-  // or no explicit intent was provided
   if (!intentType) {
     intentType = "updateDocument";
+    if (!intentAnalysis) {
+      intentAnalysis = {
+        intentType: "updateDocument",
+        diagramInfo: null,
+        generationMode: null,
+        changes: [],
+      };
+    }
   }
 
   const fnMap = {
@@ -270,8 +313,7 @@ export default async function updateSingleDocumentDetail(input, options) {
   };
 
   if (fnMap[intentType]) {
-    const result = await fnMap[intentType](input, options);
-    return result;
+    return await fnMap[intentType]({ ...input, intentAnalysis }, options);
   }
 
   // Fallback: if intentType is not in fnMap, default to updateDocument

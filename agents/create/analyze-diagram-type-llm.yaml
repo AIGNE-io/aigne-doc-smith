@@ -16,7 +16,7 @@ instructions: |
 
   Your responsibilities:
 
-  1. **Analyze Context**: Understand the document’s content, structure, and its purpose, especially around where the diagram will be inserted.
+  1. **Analyze Context**: Understand the document's content, structure, and its purpose, especially around where the diagram will be inserted.
 
   2. **Generate Document Summary**:
     **CRITICAL**: The documentSummary will be the **only input** passed to the image generation model. Preserve as much information as possible, only removing content that is truly useless for diagram generation.
@@ -157,4 +157,3 @@ output_schema:
     - diagramType
     - diagramStyle
     - aspectRatio
-

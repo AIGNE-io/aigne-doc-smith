@@ -4,14 +4,17 @@ name: generateDiagram
 skills:
   # Step 1: Analyze document content to determine diagram type and style
   - ../create/analyze-diagram-type.mjs
-  # Step 2: Transform output for image generation agent (map aspectRatio to ratio, add size)
+  # Step 2: Transform output for image generation agent (map aspectRatio to ratio, add size, pass existingImage and feedback)
   - type: transform
     jsonata: |
       $merge([
         $,
         {
           "ratio": aspectRatio,
-          "size": "1K"
+          "size": "1K",
+          "existingImage": existingImage,
+          "useImageToImage": useImageToImage,
+          "feedback": feedback
         }
       ])
   # Step 3: Generate diagram image directly with unified agent
@@ -39,18 +42,32 @@ input_schema:
       type: string
       description: User feedback that may contain style or type preferences, or diagram index (e.g., 'use anthropomorphic style', 'update the second diagram')
       default: ""
-    originalContent:
-      type: string
-      description: Original document content before modifications. Used to find existing diagrams when updating (may contain DIAGRAM_IMAGE_START, ```d2, or ```mermaid code blocks)
-    diagramIndex:
-      type: number
-      description: Index of the diagram to replace (0-based). If not provided, will try to extract from feedback.
     path:
       type: string
       description: Document path (e.g., "guides/getting-started.md") used for generating image filename
     docsDir:
       type: string
       description: Documentation directory where assets will be saved (relative to project root)
+    intentAnalysis:
+      type: object
+      description: Analysis results from analyzeFeedbackIntent containing intentType, diagramInfo, generationMode, and changes
+      properties:
+        intentType:
+          type: string
+          enum: ["addDiagram", "updateDiagram", "deleteDiagram", "updateDocument"]
+        diagramInfo:
+          type: object
+          nullable: true
+          properties:
+            path: { type: "string" }
+            index: { type: "number" }
+            markdown: { type: "string" }
+        generationMode:
+          type: string
+          enum: ["image-to-image", "text-only", "add-new", "remove-image"]
+        changes:
+          type: array
+          items: { type: "string" }
   required:
     - documentContent
 output_schema:

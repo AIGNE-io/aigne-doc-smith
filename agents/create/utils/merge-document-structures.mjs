@@ -1,4 +1,5 @@
 export default async function mergeDocumentStructures(input, options) {
+  // Save projectName and projectDesc to userContext if provided
   if (input.projectName) {
     options.context.userContext.projectName = input.projectName;
   }
@@ -6,8 +7,9 @@ export default async function mergeDocumentStructures(input, options) {
     options.context.userContext.projectDesc = input.projectDesc;
   }
 
-  input.projectName = options.context.userContext.projectName;
-  input.projectDesc = options.context.userContext.projectDesc;
+  // Get the final values (either from input or existing userContext)
+  const projectName = options.context.userContext.projectName;
+  const projectDesc = options.context.userContext.projectDesc;
 
   options.context.userContext.originalDocumentStructure ??= [];
 
@@ -26,5 +28,9 @@ export default async function mergeDocumentStructures(input, options) {
 
   options.context.userContext.originalDocumentStructure = originalStructures;
 
-  return {};
+  // Return projectName and projectDesc to ensure they flow through the pipeline
+  return {
+    projectName,
+    projectDesc,
+  };
 }

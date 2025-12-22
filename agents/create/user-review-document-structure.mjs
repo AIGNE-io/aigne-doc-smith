@@ -83,10 +83,10 @@ export default async function userReviewDocumentStructure({ documentStructure, .
       // Call refineDocumentStructure agent with feedback
       const { message, ...result } = await options.context.invoke(refineAgent, {
         ...rest,
-        // dataSourceChunk: rest.dataSources[0].dataSourceChunk,
-        userFeedback: feedback.trim(),
-        // documentStructure: currentStructure,
-        // userPreferences,
+        dataSourceChunk: rest.dataSources[0]?.dataSourceChunk || "",
+        feedback: feedback.trim(),
+        documentStructure: currentStructure,
+        userPreferences,
       });
 
       // currentStructure = options.context.userContext.currentStructure;

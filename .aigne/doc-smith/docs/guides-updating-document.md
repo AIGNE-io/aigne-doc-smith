@@ -1,83 +1,111 @@
 # Update Content
 
-Need to make a quick change or overhaul a document? This guide explains how to use the `update` command to modify existing documents, whether you're incorporating new feedback, reflecting code changes, or starting from scratch. The tool provides both an interactive mode for guided changes and a direct mode for quick, command-line updates.
+This guide explains how to use the `update` command to modify existing documents. You can update document content, add or update diagrams, and remove diagrams through feedback.
 
-## Interactive Updates
+## Basic Usage
 
-For a guided experience, run the `update` command without any arguments. This launches an interactive session where you can select the documents you want to change and provide instructions.
+### Interactive Mode
 
-1.  Start the interactive update process:
-    ```bash aigne doc update icon=lucide:terminal
-    aigne doc update
-    ```
-2.  You will see a list of your project's documents. Use the arrow keys to move, the spacebar to select one or more files, and `Enter` to confirm your selection.
+Run the command without arguments to enter interactive mode:
 
-    ![A screenshot showing the interactive prompt where a user can select documents to update from a list.](../../../assets/screenshots/doc-update.png)
+```bash icon=lucide:terminal
+aigne doc update
+```
 
-The process that follows depends on whether you select a single document or multiple documents.
+Select documents and provide feedback to update them.
 
-### Refining a Single Document
+### Command-Line Mode
 
-When you select one document, you enter an iterative refinement loop designed for making precise adjustments. You'll be presented with a set of choices:
+Update documents directly with command-line flags:
 
-*   **View document**: Displays the current version of the document's content directly in your terminal.
-*   **Give feedback**: Prompts you to enter text describing the changes you want. For example, "Simplify the introduction for non-technical users" or "Add a code example for the authentication function."
-*   **Done**: Exits the refinement loop and saves the latest version of the document.
-
-After you submit feedback, the tool regenerates the document content. You can then view the new version and provide more feedback, repeating the cycle until you are satisfied with the result.
-
-### Batch Updating Multiple Documents
-
-If you select two or more documents, the tool performs a batch update. You will be prompted to provide a single instruction or piece of feedback. This feedback is then applied to all the selected documents simultaneously. This method is efficient for making consistent changes across your documentation, such as updating a recurring section or standardizing terminology.
-
-## Direct Updates with Command-Line Flags
-
-When you already know what changes are needed, you can use command-line flags to update documents directly, bypassing the interactive prompts.
-
-### Applying Specific Feedback
-
-To apply feedback to one or more documents, use the `--docs` and `--feedback` flags. The `--docs` flag specifies the file path, and `--feedback` provides the instructions for the update.
-
-```bash Update a single document icon=lucide:terminal
+```bash icon=lucide:terminal
 aigne doc update --docs /overview --feedback "Add a more detailed explanation of the core features."
 ```
 
-You can specify the `--docs` flag multiple times to apply the same feedback to several documents in one command.
+## Updating Diagrams
 
-```bash Update multiple documents icon=lucide:terminal
-aigne doc update --docs /overview --docs /getting-started --feedback "Ensure the tone is consistent across both documents."
+You can update diagrams in documents by providing feedback. The tool supports updating existing diagrams or adding new ones.
+
+### Update a Specific Diagram
+
+Provide feedback to update a diagram:
+
+```bash icon=lucide:terminal
+aigne doc update --docs /overview --feedback "Update the diagram to show the new architecture"
 ```
 
-### Resetting a Document
+### Update All Diagrams
 
-To discard the current version of a document and regenerate it from the source code, use the `--reset` flag. This action tells the tool to ignore the existing content and create the document from scratch.
+Use the `--diagram` flag to filter and select documents with diagrams:
 
-```bash Reset a document icon=lucide:terminal
-aigne doc update --docs /overview --reset
+```bash icon=lucide:terminal
+aigne doc update --diagram
 ```
 
-This is particularly useful when a document is significantly out of date due to major changes in the project's codebase.
+Or use `--diagram-all` to automatically update all documents with diagrams:
 
-## Adding and Removing Documents
+```bash icon=lucide:terminal
+aigne doc update --diagram-all
+```
 
-While the `update` command modifies existing content, you may also need to add new documents or remove ones that are no longer relevant. For these tasks, DocSmith provides dedicated commands:
+### Delete a Diagram
 
-*   **To add a new document**, see the [Add a Document](./guides-adding-a-document.md) guide.
-*   **To remove an existing document**, refer to the [Remove a Document](./guides-removing-a-document.md) guide.
+Remove a diagram by providing feedback:
+
+```bash icon=lucide:terminal
+aigne doc update --docs /overview --feedback "Remove the diagram"
+```
+
+## Diagram Styles
+
+DocSmith supports multiple diagram styles. You can specify a style in your feedback or configure a default style. The supported styles include:
+
+### Modern
+Clean, professional style with contemporary design elements.
+
+![Modern Style](../../../assets/images/diagram-styles/modern.jpg)
+
+### Standard Flowchart
+Traditional flowchart style with conventional symbols.
+
+![Standard Flowchart Style](../../../assets/images/diagram-styles/standard.jpg)
+
+### Hand-drawn
+Sketch-like style with natural, organic lines.
+
+![Hand-drawn Style](../../../assets/images/diagram-styles/hand-drawn.jpg)
+
+### Anthropomorphic
+Personified elements with vivid, human-like features.
+
+![Anthropomorphic Style](../../../assets/images/diagram-styles/anthropomorphic.jpg)
+
+### Flat Design
+Flat design without shadows or 3D effects.
+
+![Flat Design Style](../../../assets/images/diagram-styles/flat.jpg)
+
+### Minimalist
+Minimal elements with maximum clarity.
+
+![Minimalist Style](../../../assets/images/diagram-styles/minimalist.jpg)
+
+### 3D
+Three-dimensional effects with depth and perspective.
+
+![3D Style](../../../assets/images/diagram-styles/3d.jpg)
+
 ## Command Parameters
-
-The `update` command accepts several parameters to control its behavior. Here is a summary of the available options:
 
 | Parameter | Description | Required |
 | :--- | :--- | :--- |
 | `--docs` | Specifies the path(s) of the document(s) to update. Can be used multiple times. | Optional |
-| `--feedback` | Provides textual instructions for the changes to be made to the specified document(s). | Optional |
-| `--reset` | A boolean flag that, when present, recreate the document(s) from scratch, ignoring existing content. | Optional |
-| `--glossary` | Specifies the path to a glossary file (`@/path/to/glossary.md`) to ensure consistent terminology. | Optional |
-| `--diagram` | Filter to show only documents with diagrams (D2 code blocks, placeholders, or diagram images) and let user select which ones to update. | Optional |
-| `--diagram-all` | Auto-select all documents with diagrams (D2 code blocks, placeholders, or diagram images) and update them without user selection. | Optional |
-| `--diagram-sync` | Auto-select all documents with banana images (AI-generated images) and sync them to translation documents without generating new images. | Optional |
+| `--feedback` | Provides textual instructions for the changes to be made. | Optional |
+| `--reset` | Recreate the document(s) from scratch, ignoring existing content. | Optional |
+| `--glossary` | Specifies the path to a glossary file (`@/path/to/glossary.md`). | Optional |
+| `--diagram` | Filter to show only documents with diagrams and let user select which ones to update. | Optional |
+| `--diagram-all` | Auto-select all documents with diagrams and update them without user selection. | Optional |
 
 ---
 
-By using the `update`, `add-document`, and `remove-document` commands, you can manage the complete lifecycle of your documentation, keeping it aligned with your project's development. For information on creating documents for the first time, see the [Create Document](./guides-generating-documentation.md) guide.
+For information on adding or removing documents, see the [Add a Document](./guides-adding-a-document.md) and [Remove a Document](./guides-removing-a-document.md) guides.

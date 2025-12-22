@@ -796,4 +796,45 @@ This document demonstrates escaped pipe handling.
       expect(result.detailFeedback).toBe("Review content is empty");
     });
   });
+
+  describe("Pre-approved mode", () => {
+    test("should skip validation when preApproved is true", async () => {
+      const documentStructure = [];
+      const reviewContent = "This content has issues but should be approved";
+      const result = await checkDetailResult({
+        documentStructure,
+        reviewContent,
+        isApproved: true,
+      });
+
+      expect(result.isApproved).toBe(true);
+      expect(result.detailFeedback).toBe("");
+    });
+
+    test("should skip validation even with invalid content when preApproved is true", async () => {
+      const documentStructure = [];
+      const reviewContent = "Single line content without proper structure";
+      const result = await checkDetailResult({
+        documentStructure,
+        reviewContent,
+        isApproved: true,
+      });
+
+      expect(result.isApproved).toBe(true);
+      expect(result.detailFeedback).toBe("");
+    });
+
+    test("should skip validation even with empty content when preApproved is true", async () => {
+      const documentStructure = [];
+      const reviewContent = "";
+      const result = await checkDetailResult({
+        documentStructure,
+        reviewContent,
+        isApproved: true,
+      });
+
+      expect(result.isApproved).toBe(true);
+      expect(result.detailFeedback).toBe("");
+    });
+  });
 });

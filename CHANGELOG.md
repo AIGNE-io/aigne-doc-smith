@@ -1,5 +1,56 @@
 # Changelog
 
+## [0.9.10-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9...v0.9.10-beta) (2025-12-18)
+
+
+### Bug Fixes
+
+* more robust translation processing and token handling ([#366](https://github.com/AIGNE-io/aigne-doc-smith/issues/366)) ([0a634ef](https://github.com/AIGNE-io/aigne-doc-smith/commit/0a634ef46b4da1204368af63fddff126c3d4f45d))
+
+## [0.9.9](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.4...v0.9.9) (2025-12-13)
+
+## [0.9.9-beta.4](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.3...v0.9.9-beta.4) (2025-12-12)
+
+
+### Bug Fixes
+
+* compress large images before sending them to llm ([#362](https://github.com/AIGNE-io/aigne-doc-smith/issues/362)) ([ffb21f0](https://github.com/AIGNE-io/aigne-doc-smith/commit/ffb21f0f29cb414bf3c09df387bd29abf7248ea7))
+
+## [0.9.9-beta.3](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.2...v0.9.9-beta.3) (2025-12-11)
+
+
+### Bug Fixes
+
+* **diagram:** ensure accurate timestamp handling for images and generated content ([#360](https://github.com/AIGNE-io/aigne-doc-smith/issues/360)) ([b78f833](https://github.com/AIGNE-io/aigne-doc-smith/commit/b78f833bc413fb666b7481f4fa720d0656e0e1cc))
+
+## [0.9.9-beta.2](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta.1...v0.9.9-beta.2) (2025-12-11)
+
+
+### Bug Fixes
+
+* **core:** enhance data integrity and locale handling for improved reliability ([#358](https://github.com/AIGNE-io/aigne-doc-smith/issues/358)) ([db96031](https://github.com/AIGNE-io/aigne-doc-smith/commit/db9603182e19d57a155dcefee1e0b335efdaa244))
+
+## [0.9.9-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9-beta...v0.9.9-beta.1) (2025-12-11)
+
+
+### Features
+
+* **diagram:** enhance localization with translated images ([#354](https://github.com/AIGNE-io/aigne-doc-smith/issues/354)) ([7abe041](https://github.com/AIGNE-io/aigne-doc-smith/commit/7abe04123005f72d919731b9a69ecbdfff794fb3))
+
+
+### Bug Fixes
+
+* ensure original document structure is initialized to avoid errors ([#356](https://github.com/AIGNE-io/aigne-doc-smith/issues/356)) ([885a46e](https://github.com/AIGNE-io/aigne-doc-smith/commit/885a46e83036d59df5ec41e7f034725d4ad781b0))
+
+## [0.9.9-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.8...v0.9.9-beta) (2025-12-09)
+
+
+### Bug Fixes
+
+* implement robust error handling for token calculation ([#352](https://github.com/AIGNE-io/aigne-doc-smith/issues/352)) ([e7ba726](https://github.com/AIGNE-io/aigne-doc-smith/commit/e7ba726e226c05a1ac2b40c74b101e1a2d972091))
+
+## [0.9.8](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.8-beta.1...v0.9.8) (2025-12-07)
+
 ## [0.9.8-beta.1](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.8-beta...v0.9.8-beta.1) (2025-12-06)
 
 

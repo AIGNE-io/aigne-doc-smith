@@ -4,8 +4,8 @@
 
 下图说明了从安装到生成的关键步骤：
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
-![Getting Started](assets/diagram/getting-started-diagram-0.jpg)
+<!-- DIAGRAM_IMAGE_START:guide:4:3:1765020134 -->
+![Getting Started](assets/diagram/getting-started-diagram-0.zh.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 
 ## 先决条件

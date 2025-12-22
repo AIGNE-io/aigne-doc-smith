@@ -4,7 +4,7 @@ This guide provides a direct, step-by-step procedure for installing AIGNE DocSmi
 
 The following diagram illustrates the key steps from installation to creation:
 
-<!-- DIAGRAM_IMAGE_START:guide:4:3 -->
+<!-- DIAGRAM_IMAGE_START:guide:4:3:1765020134 -->
 ![Getting Started](assets/diagram/getting-started-diagram-0.jpg)
 <!-- DIAGRAM_IMAGE_END -->
 

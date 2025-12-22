@@ -1,4 +1,6 @@
 import { DIAGRAM_STYLES } from "../../utils/constants/index.mjs";
+import path from "node:path";
+import fs from "fs-extra";
 
 const DEFAULT_DIAGRAM_STYLE = "modern";
 const DEFAULT_DIAGRAM_TYPE = "flowchart";
@@ -77,9 +79,79 @@ const STYLE_REQUIREMENTS = {
 };
 
 /**
+ * Convert diagramInfo from analyzeFeedbackIntent to mediaFile format
+ * @param {Object} diagramInfo - Diagram info from analyzeFeedbackIntent (contains path, index, markdown)
+ * @param {string} docPath - Document path
+ * @param {string} docsDir - Documentation directory
+ * @returns {Promise<Array|null>} - Array of mediaFile objects or null if conversion fails
+ * Note: Currently each document has only one diagram, so we always use the first (and only) image
+ */
+async function convertDiagramInfoToMediaFile(diagramInfo, docPath, docsDir) {
+  if (!diagramInfo || !diagramInfo.path) {
+    return null;
+  }
+
+  try {
+    const imagePath = diagramInfo.path;
+    const docDir = path.dirname(docPath);
+
+    // Resolve absolute path
+    let absolutePath;
+    if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+      // Remote URL, cannot convert to local file
+      return null;
+    } else if (path.isAbsolute(imagePath)) {
+      absolutePath = imagePath;
+    } else {
+      // Relative path - resolve from document location
+      const imageRelativePath = imagePath.startsWith("../")
+        ? imagePath
+        : path.join(docDir, imagePath).replace(/\\/g, "/");
+      absolutePath = path.join(process.cwd(), docsDir, imageRelativePath);
+    }
+
+    // Normalize path
+    const normalizedPath = path.normalize(absolutePath);
+
+    // Check if file exists
+    if (!(await fs.pathExists(normalizedPath))) {
+      return null;
+    }
+
+    // Get file info
+    const ext = path.extname(normalizedPath).toLowerCase().slice(1);
+    const filename = path.basename(normalizedPath);
+
+    // Determine MIME type
+    const mimeTypes = {
+      jpg: "image/jpeg",
+      jpeg: "image/jpeg",
+      png: "image/png",
+      webp: "image/webp",
+      gif: "image/gif",
+    };
+    const mimeType = mimeTypes[ext] || "image/png";
+
+    // Return mediaFile format (array as required by input_file_key)
+    return [
+      {
+        type: "local",
+        path: normalizedPath,
+        filename,
+        mimeType,
+      },
+    ];
+  } catch (error) {
+    console.warn(`Failed to convert diagramInfo to mediaFile: ${error.message}`);
+    return null;
+  }
+}
+
+/**
  * Analyze document content to determine diagram type and select appropriate style
  * Uses LLM analysis to determine diagram type and style
  * Supports extracting style and type preferences from user feedback
+ * Now also detects existing images and determines if image-to-image generation should be used
  */
 export default async function analyzeDiagramType(
   {
@@ -89,6 +161,10 @@ export default async function analyzeDiagramType(
     diagramming,
     locale = "en",
     feedback = "",
+    path,
+    docsDir,
+    // Analysis results from first layer (analyzeFeedbackIntent)
+    intentAnalysis,
   },
   options,
 ) {
@@ -97,7 +173,7 @@ export default async function analyzeDiagramType(
     defaultStyle = diagramming.style;
   }
 
-  // Step 1: Use LLM to analyze and make final decision (LLM will analyze feedback directly)
+  // Step 1: Use LLM to analyze document content (chart detection and intent analysis already done in first layer)
   const llmAgent = options.context?.agents?.["analyzeDiagramTypeLLM"];
   let llmResult = null;
 
@@ -129,6 +205,8 @@ export default async function analyzeDiagramType(
         locale,
         feedback: feedback || "",
         defaultStyle: defaultStyle || null,
+        // Note: We only analyze current documentContent, no originalContent comparison
+        // User feedback is the only indicator for whether diagram needs update
       };
 
       llmResult = await options.context.invoke(llmAgent, llmInput);
@@ -187,7 +265,22 @@ export default async function analyzeDiagramType(
     aspectRatio = "4:3";
   }
 
-  // Step 7: Return document content and summary for image generation
+  // Step 2: Use analysis results from first layer (analyzeFeedbackIntent)
+  // Get generationMode and diagramInfo from intentAnalysis
+  const generationMode = intentAnalysis?.generationMode || "add-new";
+  const diagramInfo = intentAnalysis?.diagramInfo || null;
+
+  // Step 3: Convert diagramInfo to mediaFile format if needed for image-to-image generation
+  let existingImage = null;
+  let useImageToImage = false;
+
+  if (diagramInfo && generationMode === "image-to-image" && path && docsDir) {
+    // Convert diagramInfo to the format expected by image generation agent
+    existingImage = await convertDiagramInfoToMediaFile(diagramInfo, path, docsDir);
+    useImageToImage = existingImage !== null;
+  }
+
+  // Step 3: Return document content and summary for image generation
   return {
     diagramType,
     diagramStyle,
@@ -197,6 +290,10 @@ export default async function analyzeDiagramType(
     diagramTypeRequirements,
     diagramStyleRequirements,
     negativePromptExclusions,
+    // Image-to-image generation support (from LLM analysis)
+    existingImage, // Array of mediaFile objects or null
+    useImageToImage, // Boolean indicating if image-to-image mode should be used
+    generationMode, // Generation mode from LLM: "text-only", "image-to-image", "remove-image", "add-new"
   };
 }
 
@@ -241,6 +338,15 @@ analyzeDiagramType.input_schema = {
         "User feedback that may contain style or type preferences (e.g., 'use anthropomorphic style', 'create architecture diagram')",
       default: "",
     },
+    path: {
+      type: "string",
+      description:
+        "Document path (e.g., 'guides/getting-started.md') used for extracting existing images",
+    },
+    docsDir: {
+      type: "string",
+      description: "Documentation directory where diagram images are stored",
+    },
   },
   required: ["documentContent"],
 };
@@ -283,6 +389,57 @@ analyzeDiagramType.output_schema = {
       description:
         "A concise summary of the document content focusing on key elements needed for diagram generation. This summary is generated by the analysis LLM to ensure consistent understanding between analysis and image generation models.",
     },
+    existingImage: {
+      type: "array",
+      nullable: true,
+      description:
+        "Array of mediaFile objects for existing diagram image (for image-to-image generation). Null if no existing image or text-only regeneration requested.",
+      items: {
+        type: "object",
+        properties: {
+          type: { type: "string" },
+          path: { type: "string" },
+          filename: { type: "string" },
+          mimeType: { type: "string" },
+        },
+      },
+    },
+    useImageToImage: {
+      type: "boolean",
+      description:
+        "Whether to use image-to-image generation mode. True if existing image found and generationMode is 'image-to-image'.",
+    },
+    generationMode: {
+      type: "string",
+      description: "Generation mode determined from intentAnalysis (from analyzeFeedbackIntent).",
+    },
+    intentAnalysis: {
+      type: "object",
+      description:
+        "Analysis results from analyzeFeedbackIntent containing intentType, diagramInfo, generationMode, and changes.",
+      properties: {
+        intentType: {
+          type: "string",
+          enum: ["addDiagram", "updateDiagram", "deleteDiagram", "updateDocument"],
+        },
+        diagramInfo: {
+          type: "object",
+          nullable: true,
+          properties: {
+            path: { type: "string" },
+            index: { type: "number" },
+            markdown: { type: "string" },
+          },
+        },
+        generationMode: {
+          type: "string",
+        },
+        changes: {
+          type: "array",
+          items: { type: "string" },
+        },
+      },
+    },
   },
   required: [
     "diagramType",
@@ -293,5 +450,6 @@ analyzeDiagramType.output_schema = {
     "diagramStyleRequirements",
     "negativePromptExclusions",
     "documentContent",
+    "useImageToImage",
   ],
 };

@@ -95,7 +95,7 @@ function parseGitignoreContent(content) {
   const lines = content
     .split("\n")
     .map((line) => line.trim())
-    .filter((line) => line && !line.startsWith("#"))
+    .filter((line) => line && !line.startsWith("#") && line !== ".") // A standalone dot (.) in .gitignore is ineffective and should be removed.
     .map((line) => line.replace(/^\//, "")); // Remove leading slash
 
   // Convert each gitignore pattern to glob patterns
@@ -531,7 +531,7 @@ export async function readFileContents(files, baseDir = process.cwd(), options =
 }
 
 export function calculateTokens(text) {
-  const tokens = encode(text);
+  const tokens = encode(text, { allowedSpecial: "all" });
   return tokens.length;
 }
 
@@ -548,7 +548,7 @@ export function calculateFileStats(sourceFiles) {
     const { content } = source;
     if (content) {
       // Count tokens using gpt-tokenizer
-      const tokens = encode(content);
+      const tokens = encode(content, { allowedSpecial: "all" });
       totalTokens += tokens.length;
 
       // Count lines (excluding empty lines)

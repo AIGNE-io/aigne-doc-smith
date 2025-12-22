@@ -1,83 +1,111 @@
 # 更新内容
 
-需要快速修改或彻底修订文档吗？本指南将解释如何使用 `update` 命令来修改现有文档，无论您是需要采纳新反馈、反映代码变更，还是从头开始。该工具提供了交互模式以进行引导式更改，也提供了直接模式以通过命令行快速更新。
+本指南介绍如何使用 `update` 命令修改现有文档。您可以通过反馈更新文档内容、添加或更新图表以及移除图表。
 
-## 交互式更新
+## 基本用法
 
-要获得引导式体验，请在不带任何参数的情况下运行 `update` 命令。这将启动一个交互式会话，您可以在其中选择要更改的文档并提供说明。
+### 交互模式
 
-1.  启动交互式更新流程：
-    ```bash aigne doc update icon=lucide:terminal
-    aigne doc update
-    ```
-2.  您将看到项目文档的列表。使用箭头键移动，使用空格键选择一个或多个文件，然后按 `Enter` 键确认您的选择。
+不带任何参数运行该命令以进入交互模式：
 
-    ![一张截图，展示了用户可以从列表中选择要更新的文档的交互式提示。](../../../assets/screenshots/doc-update.png)
+```bash icon=lucide:terminal
+aigne doc update
+```
 
-接下来的流程取决于您选择的是单个文档还是多个文档。
+选择文档并提供反馈以进行更新。
 
-### 优化单个文档
+### 命令行模式
 
-当您选择一个文档时，您将进入一个为精确调整而设计的迭代优化循环。您将看到一组选项：
+使用命令行标志直接更新文档：
 
-*   **查看文档 (View document)**：直接在终端中显示文档内容的当前版本。
-*   **提供反馈 (Give feedback)**：提示您输入文本以描述您想要的更改。例如，“为非技术用户简化引言”或“为身份验证函数添加一个代码示例”。
-*   **完成 (Done)**：退出优化循环并保存文档的最新版本。
-
-提交反馈后，该工具会重新生成文档内容。然后，您可以查看新版本并提供更多反馈，重复此循环，直到您对结果满意为止。
-
-### 批量更新多个文档
-
-如果您选择两个或更多文档，该工具将执行批量更新。系统会提示您提供一条指令或反馈。此反馈将同时应用于所有选定的文档。此方法对于在文档中进行一致性更改非常高效，例如更新重复出现的部分或规范术语。
-
-## 使用命令行标志直接更新
-
-当您已经知道需要进行哪些更改时，可以使用命令行标志直接更新文档，从而绕过交互式提示。
-
-### 应用特定反馈
-
-要将反馈应用于一个或多个文档，请使用 `--docs` 和 `--feedback` 标志。`--docs` 标志指定文件路径，而 `--feedback` 则提供更新说明。
-
-```bash 更新单个文档 icon=lucide:terminal
+```bash icon=lucide:terminal
 aigne doc update --docs /overview --feedback "Add a more detailed explanation of the core features."
 ```
 
-您可以多次指定 `--docs` 标志，以便在一个命令中将相同的反馈应用于多个文档。
+## 更新图表
 
-```bash 更新多个文档 icon=lucide:terminal
-aigne doc update --docs /overview --docs /getting-started --feedback "Ensure the tone is consistent across both documents."
+您可以通过提供反馈来更新文档中的图表。该工具支持更新现有图表或添加新图表。
+
+### 更新特定图表
+
+提供反馈以更新图表：
+
+```bash icon=lucide:terminal
+aigne doc update --docs /overview --feedback "Update the diagram to show the new architecture"
 ```
 
-### 重置文档
+### 更新所有图表
 
-要放弃文档的当前版本并从源代码重新生成它，请使用 `--reset` 标志。此操作会告诉工具忽略现有内容，并从头开始创建文档。
+使用 `--diagram` 标志来筛选和选择包含图表的文档：
 
-```bash 重置文档 icon=lucide:terminal
-aigne doc update --docs /overview --reset
+```bash icon=lucide:terminal
+aigne doc update --diagram
 ```
 
-当文档因项目代码库的重大变更而严重过时时，此功能特别有用。
+或者使用 `--diagram-all` 自动更新所有包含图表的文档：
 
-## 添加和删除文档
+```bash icon=lucide:terminal
+aigne doc update --diagram-all
+```
 
-虽然 `update` 命令用于修改现有内容，但您可能还需要添加新文档或删除不再相关的文档。对于这些任务，DocSmith 提供了专门的命令：
+### 删除图表
 
-*   **要添加新文档**，请参阅[添加文档](./guides-adding-a-document.md)指南。
-*   **要删除现有文档**，请参阅[删除文档](./guides-removing-a-document.md)指南。
+通过提供反馈来移除图表：
+
+```bash icon=lucide:terminal
+aigne doc update --docs /overview --feedback "Remove the diagram"
+```
+
+## 图表样式
+
+DocSmith 支持多种图表样式。您可以在反馈中指定样式或配置默认样式。支持的样式包括：
+
+### 现代风格
+简洁、专业的风格，具有现代设计元素。
+
+![Modern Style](../../../assets/images/diagram-styles/modern.jpg)
+
+### 标准流程图
+采用传统符号的传统流程图样式。
+
+![Standard Flowchart Style](../../../assets/images/diagram-styles/standard.jpg)
+
+### 手绘风格
+素描般的风格，线条自然、有机。
+
+![Hand-drawn Style](../../../assets/images/diagram-styles/hand-drawn.jpg)
+
+### 拟人化风格
+生动、拟人化的元素，具有类人特征。
+
+![Anthropomorphic Style](../../../assets/images/diagram-styles/anthropomorphic.jpg)
+
+### 扁平化设计
+没有阴影或 3D 效果的扁平化设计。
+
+![Flat Design Style](../../../assets/images/diagram-styles/flat.jpg)
+
+### 极简风格
+以最少的元素实现最高的清晰度。
+
+![Minimalist Style](../../../assets/images/diagram-styles/minimalist.jpg)
+
+### 3D 风格
+具有深度和透视感的三维效果。
+
+![3D Style](../../../assets/images/diagram-styles/3d.jpg)
+
 ## 命令参数
-
-`update` 命令接受多个参数以控制其行为。以下是可用选项的摘要：
 
 | 参数 | 描述 | 是否必需 |
 | :--- | :--- | :--- |
-| `--docs` | 指定要更新的文档的路径。可多次使用。 | 可选 |
-| `--feedback` | 提供对指定文档进行更改的文本说明。 | 可选 |
-| `--reset` | 一个布尔标志，存在时会从头开始重新创建文档，忽略现有内容。 | 可选 |
-| `--glossary` | 指定词汇表文件的路径（`@/path/to/glossary.md`），以确保术语一致。 | 可选 |
-| `--diagram` | 过滤并仅显示包含图表（D2 代码块、占位符或图表图片）的文档，让用户选择要更新的文档。 | 可选 |
-| `--diagram-all` | 自动选择所有包含图表（D2 代码块、占位符或图表图片）的文档并更新，无需用户选择。 | 可选 |
-| `--diagram-sync` | 自动选择所有包含香蕉图片（AI 生成的图片）的文档，并将它们同步到翻译文档，不生成新图片。 | 可选 |
+| `--docs` | 指定要更新的一个或多个文档的路径。可多次使用。 | 可选 |
+| `--feedback` | 提供文本指令，说明要进行的更改。 | 可选 |
+| `--reset` | 从头开始重新创建文档，忽略现有内容。 | 可选 |
+| `--glossary` | 指定术语表文件的路径（`@/path/to/glossary.md`）。 | 可选 |
+| `--diagram` | 筛选以仅显示包含图表的文档，并让用户选择要更新的文档。 | 可选 |
+| `--diagram-all` | 自动选择所有包含图表的文档并进行更新，无需用户选择。 | 可选 |
 
 ---
 
-通过使用 `update`、`add-document` 和 `remove-document` 命令，您可以管理文档的完整生命周期，使其与您的项目开发保持一致。有关首次创建文档的信息，请参阅[创建文档](./guides-generating-documentation.md)指南。
+有关添加或删除文档的信息，请参阅[添加文档](./guides-adding-a-document.md)和[删除文档](./guides-removing-a-document.md)指南。
