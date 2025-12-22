@@ -63,7 +63,7 @@ export default async function userReviewDocumentStructure({ documentStructure, .
     }
 
     // Get the refineDocumentStructure agent
-    const refineAgent = options.context.agents["generateStructureExp"];
+    const refineAgent = options.context.agents["updateDocumentStructure"];
     if (!refineAgent) {
       console.log(
         "Unable to process your feedback - the documentation structure update feature is unavailable.",

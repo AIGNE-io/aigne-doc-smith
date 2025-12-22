@@ -21,7 +21,7 @@ export default async function checkNeedGenerateStructure(
     };
   }
 
-  const generateStructureAgent = options.context.agents["generateStructureExp"];
+  const generateStructureAgent = options.context.agents["generateStructure"];
 
   const structureRules = getActiveRulesForScope("structure", []);
   const globalRules = getActiveRulesForScope("global", []);

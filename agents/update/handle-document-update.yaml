@@ -31,7 +31,7 @@ skills:
           "originalContent": content
         }
       ])
-  - ./check-generate-diagram.mjs
+  # - ./check-generate-diagram.mjs
   # - ../generate/merge-diagram.yaml
   - ../utils/save-doc.mjs
 input_schema:

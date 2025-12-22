@@ -173,25 +173,39 @@ export async function getMainLanguageFiles(docsDir, locale, documentStructure = 
   const files = await readdir(docsDir);
 
   // Filter for main language .md files (exclude _sidebar.md)
-  const filteredFiles = files.filter((file) => {
+  const filteredFiles = [];
+  const filesSet = new Set(files);
+  const processedBaseNames = new Set();
+
+  for (const file of files) {
     // Skip non-markdown files and _sidebar.md
     if (!file.endsWith(".md") || file === "_sidebar.md") {
-      return false;
+      continue;
     }
 
-    return !file.match(/\.\w+(-\w+)?\.md$/);
+    // Check if file has language suffix (e.g., .zh.md, .en-US.md)
+    // Pattern matches: .locale.md or .locale-region.md
+    const localeMatch = file.match(/^(.+)\.\w{2}(-\w+)?\.md$/);
 
-    // If main language is English, return files without language suffix
-    // FIXME: 暂时不考虑多语言。 .locale.md 是 Discuss Kit 中的实现
-    // if (locale === "zh") {
-    //   // Return files that don't have language suffixes (e.g., overview.md, not overview.zh.md)
-    //   return !file.match(/\.\w+(-\w+)?\.md$/);
-    // } else {
-    //   // For non-English main language, return files with the exact locale suffix
-    //   const localePattern = new RegExp(`\\.${locale}\\.md$`);
-    //   return localePattern.test(file);
-    // }
-  });
+    if (localeMatch) {
+      // This is a file with language suffix (e.g., example.zh.md)
+      const baseName = localeMatch[1]; // e.g., "example"
+      const baseFileName = `${baseName}.md`; // e.g., "example.md"
+
+      // Only include language-suffixed file if base version doesn't exist
+      if (!filesSet.has(baseFileName) && !processedBaseNames.has(baseName)) {
+        filteredFiles.push(file);
+        processedBaseNames.add(baseName);
+      }
+    } else {
+      // This is a file without language suffix (e.g., example.md)
+      const baseName = file.replace(/\.md$/, "");
+      if (!processedBaseNames.has(baseName)) {
+        filteredFiles.push(file);
+        processedBaseNames.add(baseName);
+      }
+    }
+  }
 
   // If documentStructure is provided, sort files according to the order in documentStructure
   if (documentStructure && Array.isArray(documentStructure)) {
