@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 export default function getCustomPrompt() {
   const customPlannerPrompt = `
 - 文档结构相关的任务与文档内容相关的任务需要拆分为独立的任务
+- 每篇文档的生成任务需要拆分为独立的任务
 - 你只需要读取少量信息来规划任务，深度的信息读取由 Worker 完成
 - changeset 中要求的变更，拆分为独立的任务，由 Worker 完成
   `;
