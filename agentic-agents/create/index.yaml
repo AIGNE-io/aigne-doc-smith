@@ -16,7 +16,7 @@ input_schema:
 default_input:
   workspace: /modules/workspace
   doc_smith_workspace: /modules/doc-smith
-  document_structure_path: /modules/doc-smith/output/document_structure.yaml
+  document_structure_path: /modules/doc-smith/output/document-structure.yaml
 
 skills:
   - url: ../../agents/init/index.mjs

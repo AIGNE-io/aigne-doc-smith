@@ -375,7 +375,7 @@ function convertYamlToStructure(yamlData) {
 }
 
 /**
- * Load document execution structure from structure-plan.json or document_structure.yaml
+ * Load document execution structure from structure-plan.json or document-structure.yaml
  * @param {string} outputDir - Output directory containing structure files
  * @returns {Promise<Array|null>} Document execution structure array or null if not found/failed
  */
@@ -416,9 +416,9 @@ export async function loadDocumentStructure(outputDir) {
     }
   }
 
-  // Try loading document_structure.yaml as fallback
+  // Try loading document-structure.yaml as fallback
   try {
-    const yamlPath = join(outputDir, "document_structure.yaml");
+    const yamlPath = join(outputDir, "document-structure.yaml");
     const yamlExists = await pathExists(yamlPath);
 
     if (yamlExists) {
@@ -430,14 +430,14 @@ export async function loadDocumentStructure(outputDir) {
             return convertYamlToStructure(parsed);
           }
         } catch (parseError) {
-          console.error(`Failed to parse document_structure.yaml: ${parseError.message}`);
+          console.error(`Failed to parse document-structure.yaml: ${parseError.message}`);
         }
       }
     }
   } catch (readError) {
     // Only warn if it's not a "file not found" error
     if (readError.code !== "ENOENT") {
-      console.warn(`Error reading document_structure.yaml: ${readError.message}`);
+      console.warn(`Error reading document-structure.yaml: ${readError.message}`);
     }
   }
 

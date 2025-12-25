@@ -24,7 +24,7 @@ ${baseInfo}
   // 检查文档结构是否已生成
   const cwd = process.cwd();
   const docSmithPath = path.join(cwd, ".aigne/doc-smith");
-  const structureFilePath = path.join(docSmithPath, "output/document_structure.yaml");
+  const structureFilePath = path.join(docSmithPath, "output/document-structure.yaml");
 
   let isDocumentGenerated = false;
   try {

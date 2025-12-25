@@ -19,7 +19,7 @@ DocSmith 的所有输出都在 /modules/doc-smith 中，包含以下输出：
 - 文档结构
 - 文档内容
 
-##### 文档结构：/modules/doc-smith/output/document_structure.yaml
+##### 文档结构：/modules/doc-smith/output/document-structure.yaml
 规划需要生成的文档列表、层级关系、每篇文档计划展示的内容。
 数据格式：
 ```yaml

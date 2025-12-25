@@ -15,7 +15,7 @@ export default function getCustomPrompt({ structureContent }) {
   }
 
   const plannerInitState = `
-文档结构(/modules/doc-smith/output/document_structure.yaml):
+文档结构(/modules/doc-smith/output/document-structure.yaml):
 ${finalStructureContent}
   `;
   const customPlannerPrompt = `
