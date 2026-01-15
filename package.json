@@ -77,5 +77,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.4"
+  },
+  "overrides": {
+    "jaison": "2.0.2"
   }
 }
