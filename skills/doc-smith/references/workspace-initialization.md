@@ -134,9 +134,9 @@ sources:
 
 **必须存在的字段**：
 - `workspaceVersion`
-- `projectName`(为空需要分析项目信息，生成并保存)
-- `projectDesc` (为空需要分析项目信息，生成并保存)
 - `locale` (为空需要向用户询问并保存)
+- `projectName`(为空需要分析项目信息，生成并保存，使用 `config.yaml` 中 `local` 指定的语言)
+- `projectDesc` (为空需要分析项目信息，生成并保存，使用 `config.yaml` 中 `local` 指定的语言)
 - `sources`（可为空数组，后续添加）
 
 **如果字段缺失**：
