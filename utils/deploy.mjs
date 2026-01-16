@@ -1,9 +1,9 @@
 import { BrokerClient, STEPS } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import open from "open";
-import { getOfficialAccessToken } from "./auth-utils.mjs";
-import { CLOUD_SERVICE_URL_PROD } from "./constants/index.mjs";
-import { saveValueToConfig } from "./utils.mjs";
+import { getOfficialAccessToken } from "./auth.mjs";
+import { CLOUD_SERVICE_URL_PROD } from "./constants.mjs";
+import { saveValueToConfig } from "./config.mjs";
 
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 const SUCCESS_MESSAGE = {

@@ -2,12 +2,8 @@ type: team
 name: clear
 alias:
   - clear
-description: Clear various types of data including documentation structure, generated documents, configuration, and authorization tokens
+description: Clear authorization tokens and deployment configuration from Doc-Smith workspace
 skills:
-  - url: ../init/index.mjs
-    default_input:
-      skipIfExists: true
-      checkOnly: true
   - ./choose-contents.mjs
 input_schema:
   type: object
@@ -18,9 +14,5 @@ input_schema:
       items:
         type: string
         enum:
-          - documentStructure
-          - generatedDocs
-          - documentConfig
           - authTokens
           - deploymentConfig
-          - mediaDescription

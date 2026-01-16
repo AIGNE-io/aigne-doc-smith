@@ -1,0 +1,10 @@
+type: team
+name: translateToLanguages
+description: 为单个文档翻译成多种语言，并翻译文档中的图片
+skills:
+  - url: ./translate-document-to-language.mjs # 检查 hash、执行翻译、保存结果
+  - url: ../translate-images/translate-doc-images.yaml # 检测并翻译文档中的图片
+iterate_on: targetLanguages
+concurrency: 1
+mode: parallel
+include_input_in_output: true

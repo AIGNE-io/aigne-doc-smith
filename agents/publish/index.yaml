@@ -3,23 +3,18 @@ name: publish
 alias:
   - pub
   - p
-description: Publish your documentation online
+description: Publish DocSmith generated documentation to the online platform
 skills:
-  - url: ../init/index.mjs
-    default_input:
-      skipIfExists: true
-      checkOnly: true
-  - url: ../init/check.mjs
-  - url: ../utils/load-sources.mjs
-  - ../utils/ensure-document-icons.mjs
-  - translate-meta.mjs
-  - publish-docs.mjs
+  - url: ./check.mjs
+  - url: ./translate-meta.mjs
+  - url: ./publish-docs.mjs
+
 input_schema:
   type: object
   properties:
     appUrl:
       type: string
-      description: Website URL where docs will be published (optional - leave empty for interactive setup)
-    with-branding:
-      type: boolean
-      description: Update your website branding (title, description, logo)
+      description: |
+        Website URL where docs will be published. 
+        The URL from the last publish will be saved in config.yaml `appUrl` and used as the default for the next publish.
+        Optional: Only used if a specific website URL is provided by the user.

@@ -1,0 +1,56 @@
+type: team
+name: generateDocumentDetails
+description: |
+  批量生成多个文档的详细内容。
+  - 输入文档路径列表，每个路径对应 planning/document-structure.yaml 中的一个文档
+  - 支持为每个文档指定自定义要求
+  - 并行生成多个文档，提高效率
+  - 返回每个文档的生成摘要和校验结果
+
+skills:
+  - type: team
+    name: processAllDocuments
+    skills:
+      - url: ./index.mjs
+    iterate_on: documents
+    concurrency: 5                    # 并发生成 5 个文档
+
+input_schema:
+  type: object
+  required:
+    - documents
+  properties:
+    documents:
+      type: array
+      items:
+        type: object
+        required:
+          - path
+        properties:
+          path:
+            type: string
+            description: 文档路径，必须在 planning/document-structure.yaml 中存在（如 "/overview" 或 "/api/auth"）
+          customRequirements:
+            type: string
+            description: 用户在对话中提出的额外要求，或补充的关联源数据路径，用于指导该文档生成内容的侧重点，可选
+      description: |
+        要生成的文档列表。每个文档包含：
+        - path: 文档路径（必需）
+        - customRequirements: 自定义要求（可选）
+
+mode: sequential
+afs:
+  modules:
+    - module: history
+      options:
+        storage:
+          url: file:./.aigne/history.db
+
+    - module: local-fs
+      options:
+        name: workspace
+        localPath: ${CWD}
+        description: |
+          Current working directory for the agent
+          - Read-write access to project files
+          - Use absolute path for file operations

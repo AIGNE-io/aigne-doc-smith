@@ -1,68 +1,80 @@
-import { basename, join } from "node:path";
+import { basename, join, relative } from "node:path";
 import { publishDocs as publishDocsFn } from "@aigne/publish-docs";
 import { BrokerClient } from "@blocklet/payment-broker-client/node";
 import chalk from "chalk";
 import fs from "fs-extra";
+import { joinURL } from "ufo";
 
 import {
   getAccessToken,
   getCachedAccessToken,
   getDiscussKitMountPoint,
-} from "../../utils/auth-utils.mjs";
-import {
-  CLOUD_SERVICE_URL_PROD,
-  DISCUSS_KIT_STORE_URL,
-  DOC_SMITH_DIR,
-  TMP_DIR,
-  TMP_DOCS_DIR,
-} from "../../utils/constants/index.mjs";
-import { ensureTmpDir } from "../../utils/d2-utils.mjs";
+} from "../../utils/auth.mjs";
+import { CLOUD_SERVICE_URL_PROD, DISCUSS_KIT_STORE_URL } from "../../utils/constants.mjs";
+import { PATHS } from "../../utils/agent-constants.mjs";
 import { deploy } from "../../utils/deploy.mjs";
-import { getGithubRepoUrl, loadConfigFromFile, saveValueToConfig } from "../../utils/utils.mjs";
-import updateBranding from "../utils/update-branding.mjs";
-import { isRemoteFile, downloadAndUploadImage } from "../../utils/file-utils.mjs";
-import { joinURL } from "ufo";
+import { loadConfigFromFile, saveValueToConfig } from "../../utils/config.mjs";
+import { ensureTmpDir } from "../../utils/files.mjs";
+import { getGithubRepoUrl, isValidGithubUrl } from "../../utils/git.mjs";
+import updateBranding from "../../utils/branding.mjs";
+import { generateSidebar, loadDocumentStructure } from "../../utils/docs.mjs";
+import { copyDocumentsToTemp } from "../../utils/docs-converter.mjs";
 
 const BASE_URL = process.env.DOC_SMITH_BASE_URL || CLOUD_SERVICE_URL_PROD;
 
 export default async function publishDocs(
   {
-    docsDir: rawDocsDir,
     appUrl,
-    boardId,
-    projectName,
-    projectDesc,
-    projectLogo,
-    translatedMetadata,
-    originalDocumentStructure,
+    outputDir = PATHS.PLANNING_DIR,
     "with-branding": withBrandingOption,
+    config,
+    translatedMetadata,
   },
   options,
 ) {
+  // Note: Document validation is now done in check.mjs which throws errors on failure
+
+  // Absolute path for file operations (reading docs)
+  const docsAbsolutePath = PATHS.DOCS_DIR;
+  // Relative path for mediaFolder (relative to cwd for publish-docs library)
+  const docsRelativePath = relative(process.cwd(), PATHS.DOCS_DIR) || "./docs";
+  // Relative path for tmp directory
+  const tmpDirRelative = relative(process.cwd(), PATHS.TMP_DIR) || ".tmp";
+  const docsDir = join(tmpDirRelative, "docs");
   let message;
   let shouldWithBranding = withBrandingOption || false;
 
   try {
+    // Load document structure from output directory
+    const documentStructure = await loadDocumentStructure(outputDir);
+    if (!documentStructure || documentStructure.length === 0) {
+      console.warn("⚠️  No document structure found. Sidebar generation may be limited.");
+    }
+
     // move work dir to tmp-dir
     await ensureTmpDir();
-
-    const docsDir = join(DOC_SMITH_DIR, TMP_DIR, TMP_DOCS_DIR);
     await fs.rm(docsDir, { recursive: true, force: true });
     await fs.mkdir(docsDir, {
       recursive: true,
     });
-    await fs.cp(rawDocsDir, docsDir, { recursive: true });
+
+    // Convert documents from new directory format to publish format
+    await copyDocumentsToTemp(docsAbsolutePath, docsDir);
+
+    // Generate _sidebar.md in tmp directory
+    const sidebar = generateSidebar(documentStructure || []);
+    const tmpSidebarPath = join(docsDir, "_sidebar.md");
+    await fs.writeFile(tmpSidebarPath, sidebar, "utf8");
 
     // ----------------- main publish process flow -----------------------------
     // Check if DOC_DISCUSS_KIT_URL is set in environment variables
-    const useEnvAppUrl = !!(
-      process.env.DOC_SMITH_PUBLISH_URL ||
-      process.env.DOC_DISCUSS_KIT_URL ||
-      appUrl
-    );
+    const useEnvAppUrl = !!(process.env.DOC_SMITH_PUBLISH_URL || process.env.DOC_DISCUSS_KIT_URL);
 
-    // Check if appUrl is default and not saved in config (only when not using env variable)
-    const config = await loadConfigFromFile();
+    // Use config from parameters or load from file as fallback
+    if (!config) {
+      config = await loadConfigFromFile();
+    }
+    const { projectName, projectDesc, projectLogo, boardId } = config || {};
     appUrl =
       process.env.DOC_SMITH_PUBLISH_URL ||
       process.env.DOC_DISCUSS_KIT_URL ||
@@ -81,7 +93,10 @@ export default async function publishDocs(
 
       sessionId = "";
       if (officialAccessToken) {
-        client = new BrokerClient({ baseUrl: BASE_URL, authToken: officialAccessToken });
+        client = new BrokerClient({
+          baseUrl: BASE_URL,
+          authToken: officialAccessToken,
+        });
         const info = await client.checkCacheSession({
           needShortUrl: true,
           sessionId: config?.checkoutId,
@@ -185,7 +200,9 @@ export default async function publishDocs(
           locale = data?.preferredLocale || locale;
         } catch (error) {
           const errorMsg = error?.message || "Unknown error occurred";
-          return { message: `${chalk.red("❌ Failed to create website:")} ${errorMsg}` };
+          return {
+            message: `${chalk.red("❌ Failed to create website:")} ${errorMsg}`,
+          };
         }
       }
     }
@@ -204,7 +221,7 @@ export default async function publishDocs(
     process.env.DOC_ROOT_DIR = docsDir;
 
     const sidebarPath = join(docsDir, "_sidebar.md");
-    const publishCacheFilePath = join(DOC_SMITH_DIR, "upload-cache.yaml");
+    const publishCacheFilePath = join(PATHS.CACHE, "upload-cache.yaml");
 
     // Get project info from config
     const projectInfo = {
@@ -212,46 +229,39 @@ export default async function publishDocs(
       description: projectDesc || config?.projectDesc || "",
       icon: projectLogo || config?.projectLogo || "",
     };
-    let finalPath = null;
 
     console.log(`Publishing docs collection: ${chalk.cyan(projectInfo.name || boardId)}\n`);
 
-    // Handle project logo download if it's a URL
-    if (projectInfo.icon && isRemoteFile(projectInfo.icon)) {
-      const { url: uploadedImageUrl, downloadFinalPath } = await downloadAndUploadImage(
-        projectInfo.icon,
-        docsDir,
-        discussKitUrl,
-        accessToken,
-      );
-      projectInfo.icon = uploadedImageUrl;
-      finalPath = downloadFinalPath;
-    }
-
+    // Skip image download - use icon URL directly
     if (shouldWithBranding) {
-      updateBranding({ appUrl: discussKitUrl, projectInfo, accessToken, finalPath });
-    }
-
-    const iconMap = {};
-    for (const item of originalDocumentStructure) {
-      if (item.icon) {
-        iconMap[item.title] = item.icon;
-      }
+      updateBranding({ appUrl: discussKitUrl, projectInfo, accessToken });
     }
 
     // Construct boardMeta object
+    // In standalone mode, get GitHub URL from git-clone type source in sources array
+    // In project mode, use current git repo URL (even if git-clone sources exist as supplements)
+    let githubRepoUrl = getGithubRepoUrl();
+    if (config?.mode === "standalone") {
+      const gitCloneSource = config?.sources?.find((s) => s.type === "git-clone");
+      const configUrl = gitCloneSource?.url;
+      // Only use config URL if it's a valid GitHub URL
+      githubRepoUrl = isValidGithubUrl(configUrl) ? configUrl : "";
+    }
     const boardMeta = {
       category: config?.documentPurpose || [],
-      githubRepoUrl: getGithubRepoUrl(),
+      githubRepoUrl,
       commitSha: config?.lastGitHead || "",
       languages: [
         ...(config?.locale ? [config.locale] : []),
         ...(config?.translateLanguages || []),
       ].filter((lang, index, arr) => arr.indexOf(lang) === index), // Remove duplicates
     };
+
+    // Add translatedMetadata if available
     if (translatedMetadata) {
       boardMeta.translation = translatedMetadata;
     }
+
     const {
       success,
       boardId: newBoardId,
@@ -267,10 +277,9 @@ export default async function publishDocs(
       boardName: projectInfo.name,
       boardDesc: projectInfo.description,
       boardCover: projectInfo.icon,
-      mediaFolder: rawDocsDir,
+      mediaFolder: docsRelativePath,
       cacheFilePath: publishCacheFilePath,
       boardMeta,
-      iconMap,
     });
 
     // Save values to config.yaml if publish was successful
@@ -303,14 +312,13 @@ export default async function publishDocs(
     }
 
     // clean up tmp work dir
-    await fs.rm(docsDir, { recursive: true, force: true });
+    await fs.rm(tmpDirRelative, { recursive: true, force: true });
   } catch (error) {
     message = `❌ Sorry, I encountered an error while publishing your documentation: \n\n${error.message}`;
 
     // clean up tmp work dir in case of error
     try {
-      const docsDir = join(DOC_SMITH_DIR, TMP_DIR, TMP_DOCS_DIR);
-      await fs.rm(docsDir, { recursive: true, force: true });
+      await fs.rm(tmpDirRelative, { recursive: true, force: true });
     } catch {
       // Ignore cleanup errors
     }
@@ -322,9 +330,17 @@ export default async function publishDocs(
 publishDocs.input_schema = {
   type: "object",
   properties: {
+    config: {
+      type: "object",
+      description: "Configuration object from check step.",
+    },
     docsDir: {
       type: "string",
       description: "The directory of the documentation.",
+    },
+    outputDir: {
+      type: "string",
+      description: "Output directory containing document structure file (default: ./planning).",
     },
     appUrl: {
       type: "string",
@@ -349,6 +365,10 @@ publishDocs.input_schema = {
     projectLogo: {
       type: "string",
       description: "The logo or icon of the project.",
+    },
+    translatedMetadata: {
+      type: "object",
+      description: "Translated metadata (title and description) for multiple languages.",
     },
   },
 };

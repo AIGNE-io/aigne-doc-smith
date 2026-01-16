@@ -1,0 +1,75 @@
+type: image
+name: generateSlotDiagramImage
+image_model:
+  model: google/gemini-3-pro-image-preview
+  imageConfig:
+    imageSize:
+      $get: size
+    aspectRatio:
+      $get: aspectRatio
+
+instructions:
+  - role: system
+    url: ./prompts/system.md
+  - role: user
+    url: ./prompts/user.md
+
+# Support image-to-image generation by passing existing image via input_file_key
+# If existingImage is provided (array of mediaFile objects), it will be passed to the model
+input_file_key: existingImage
+
+input_schema:
+  type: object
+  properties:
+    documentContent:
+      type: string
+      description: The full document content for context
+    desc:
+      type: string
+      description: The AFS slot description that describes what should be illustrated
+    locale:
+      type: string
+      description: Language for diagram labels
+      default: zh
+    size:
+      type: string
+      description: Size of the generated image
+      default: "2K"
+    aspectRatio:
+      type: string
+      description: Aspect ratio of the generated image
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
+      default: "4:3"
+    existingImage:
+      type: array
+      nullable: true
+      description: Array of mediaFile objects for existing diagram image (for image-to-image generation)
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+            description: File type, should be "local"
+          path:
+            type: string
+            description: Absolute path to the image file
+          filename:
+            type: string
+            description: Image filename
+          mimeType:
+            type: string
+            description: MIME type of the image (e.g., "image/png", "image/jpeg")
+    useImageToImage:
+      type: boolean
+      description: Whether to use image-to-image generation mode
+      default: false
+    feedback:
+      type: string
+      description: User feedback for image editing (used in image-to-image mode to guide modifications)
+      default: ""
+  required:
+    - documentContent
+    - desc
+    - aspectRatio
+
+include_input_in_output: true

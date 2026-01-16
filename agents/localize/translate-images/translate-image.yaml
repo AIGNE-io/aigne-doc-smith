@@ -1,0 +1,73 @@
+type: image
+name: translateSlotImage
+description: 使用 image-to-image 模式将图片翻译成目标语言
+image_model:
+  model: google/gemini-3-pro-image-preview
+  imageConfig:
+    imageSize:
+      $get: size
+    aspectRatio:
+      $get: ratio
+
+instructions: |
+  You are a multilingual diagram translator specializing in technical diagrams such as flowcharts, architecture diagrams, network topologies, and mind maps.
+
+  Your task is to regenerate the provided image by translating all label-style text from {{sourceLanguage}} into {{targetLocale}}.
+
+  Requirements:
+  - Retain all command-style, technical, or protocol-specific terms (e.g., "API", "TCP/IP", "POST") in English;
+  - Maintain the original diagram's structure, layout, visual style, and spatial relationships between elements;
+  - Only translate label or annotation text — all graphical elements should remain unchanged;
+  - **If {{targetLocale}} is Simplified Chinese, Traditional Chinese, Japanese, or Korean, use the font "Microsoft YaHei" (微软雅黑)** to ensure optimal readability, proper character rendering, and consistent typographic style across Latin and CJK scripts;
+  - For other languages, use a clean sans-serif font that best fits the visual style of the original image;
+
+  Your final output should be a regenerated image identical in design but localized in text according to {{targetLocale}}.
+
+input_file_key: existingImage
+
+input_schema:
+  type: object
+  properties:
+    existingImage:
+      type: array
+      description: 源语言图片（主语言）的 mediaFile 对象数组
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+            description: 文件类型，应为 "local"
+          path:
+            type: string
+            description: 图片文件的绝对路径
+          filename:
+            type: string
+            description: 图片文件名
+          mimeType:
+            type: string
+            description: MIME 类型（如 "image/png", "image/jpeg"）
+    desc:
+      type: string
+      description: AFS slot 的描述，说明图片的内容
+    sourceLanguage:
+      type: string
+      description: 源语言代码（如 "zh", "en"）
+    targetLocale:
+      type: string
+      description: 目标语言代码
+    ratio:
+      type: string
+      description: 图片宽高比
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
+      default: "4:3"
+    size:
+      type: string
+      description: 生成图片的尺寸
+      default: "2K"
+  required:
+    - existingImage
+    - sourceLanguage
+    - targetLocale
+    - ratio
+
+include_input_in_output: true

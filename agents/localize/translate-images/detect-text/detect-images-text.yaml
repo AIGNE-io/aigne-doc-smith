@@ -1,0 +1,21 @@
+type: team
+name: detectImagesText
+description: 检测图片是否包含文字并更新 shared 字段
+skills:
+  - url: ./detect-and-update-shared.mjs # 准备检测任务
+  - type: team
+    name: processTextDetections # 批量检测图片文字
+    skills:
+      - type: team
+        name: detectSingleImageText
+        description: 检测单个图片是否包含文字并保存结果
+        skills:
+          - url: ./detect-image-text.yaml # 检测图片文字
+          - url: ./save-text-detection.mjs # 保存检测结果
+        mode: sequential
+        include_input_in_output: true
+
+    iterate_on: detectionTasks
+    concurrency: 1
+mode: sequential
+include_input_in_output: true

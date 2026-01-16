@@ -1,0 +1,37 @@
+name: analyzeFeedback
+description: 分析用户反馈，提取图片编辑相关的意图信息（如宽高比修改）
+model: gemini-2.5-flash
+instructions:
+  - role: system
+    url: ./prompts/analyze-feedback-system.md
+  - role: user
+    url: ./prompts/analyze-feedback-user.md
+
+include_input_in_output: true
+
+input_schema:
+  type: object
+  properties:
+    feedback:
+      type: string
+      description: 用户反馈（自然语言）
+    currentAspectRatio:
+      type: string
+      description: 当前图片的宽高比
+      default: "4:3"
+  required:
+    - feedback
+
+output_schema:
+  type: object
+  properties:
+    hasRatioChange:
+      type: boolean
+      description: 是否检测到宽高比修改意图
+    aspectRatio:
+      type: string
+      description: 最终使用的宽高比（如果有修改则为新值，否则为当前值）
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
+  required:
+    - hasRatioChange
+    - aspectRatio

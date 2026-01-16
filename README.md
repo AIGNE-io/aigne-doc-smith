@@ -1,302 +1,358 @@
-[![GitHub stars](https://img.shields.io/github/stars/AIGNE-io/aigne-doc-smith?style=flat-square)](https://github.com/AIGNE-io/aigne-doc-smith/stargazers)
-[![NPM Version](https://img.shields.io/npm/v/@aigne/doc-smith?style=flat-square)](https://www.npmjs.com/package/@aigne/doc-smith)
-[![NPM Downloads](https://img.shields.io/npm/dm/@aigne/doc-smith?style=flat-square)](https://www.npmjs.com/package/@aigne/doc-smith)
-[![Open Issues](https://img.shields.io/github/issues-raw/AIGNE-io/aigne-doc-smith?style=flat-square)](https://github.com/AIGNE-io/aigne-doc-smith/issues)
-[![License](https://img.shields.io/github/license/AIGNE-io/aigne-doc-smith?style=flat-square)](https://github.com/AIGNE-io/aigne-doc-smith/blob/main/LICENSE)
-[![codecov](https://codecov.io/gh/AIGNE-io/aigne-doc-smith/graph/badge.svg?token=95TQO2NKYC)](https://codecov.io/gh/AIGNE-io/aigne-doc-smith)
+# DocSmith
 
-# AIGNE DocSmith
+AI 驱动的文档生成工具，基于 Aigne Framework 构建。
 
-> 🚀 **AI-powered documentation that understands your code**
+## 功能特性
 
-AIGNE DocSmith is a powerful, AI-driven documentation tool built on the [AIGNE Framework](https://www.aigne.io/en/framework). It automatically analyzes your codebase to generate comprehensive, structured, and multi-language documentation that stays in sync with your code.
+DocSmith 是一个完整的文档生成系统，提供：
+- 📚 从代码仓库、文本文件和媒体资源生成全面的文档
+- 🏗️ 构建有组织的文档结构和文档站点
+- 📝 智能分析工作区内容并生成结构化的文档
+- 🔄 将代码/项目内容转换为可读的文档
+- 🌍 多语言支持和文档本地化
+- 🖼️ 自动生成和更新文档图片
+- 📤 一键发布文档到多个平台
 
-## 🎯 Why DocSmith?
+支持生成：
+- 技术文档
+- 用户指南
+- API 参考
+- 教程和示例
+- 产品文档
 
-- **🧠 Intelligent Analysis**: Understands your code's structure, patterns, and intent.
-- **📚 Comprehensive Coverage**: Generates everything from API references to user guides.
-- **🌍 Global Ready**: Supports 12 languages with professional-grade translation.
-- **🔄 Always Current**: Automatically detects changes and updates documentation accordingly.
-- **⚡ Zero Config**: Works out of the box with smart defaults and auto-detection.
+### 用户意图分析
 
-## AIGNE Ecosystem
+DocSmith 会自动分析工作区内容，推断：
+- **目标用户** - 文档的主要受众（开发者、运维人员、最终用户等）
+- **使用场景** - 用户查阅文档的情境（首次接触、开发集成、问题排查等）
+- **文档侧重点** - 文档类型（使用指南、API 参考、快速上手、架构说明等）
 
-DocSmith is part of the [AIGNE](https://www.aigne.io) ecosystem, a comprehensive AI application development platform.
+推断结果会展示给用户确认，支持多轮调整直到满意。
 
-![AIGNE Ecosystem Architecture](https://docsmith.aigne.io/image-bin/uploads/def424c20bbdb3c77483894fe0e22819.png)
+### 结构确认机制
 
-As shown in the diagram, DocSmith integrates seamlessly with other [AIGNE](https://www.aigne.io) components, leveraging the platform's AI capabilities and infrastructure.
+在生成文档前，DocSmith 会展示规划的文档结构：
+- 文档总数和层次关系
+- 每个文档的标题、描述和来源文件
+- 清晰的 emoji 标识便于快速浏览
 
-## ✨ Features
+用户可以：
+- 删除/添加文档
+- 调整层次结构（合并、拆分、调整父子关系）
+- 修改内容范围
 
-### 🤖 AI-Powered Generation
+只有在用户确认结构后，才会开始生成实际内容。
 
-- **Smart Structure Planning**: Analyzes your codebase to create a logical and comprehensive documentation structure.
-- **Intelligent Content Creation**: Generates detailed, contextual content that explains both the "what" and the "why."
-- **Adaptive Writing Styles**: Supports multiple documentation styles, including Technical, User-Friendly, and Developer-Focused.
+## 项目结构
 
-### 🌍 Multi-Language Support
-
-- **12 Language Support**: English, Chinese (Simplified & Traditional), Japanese, Korean, Spanish, French, German, Portuguese, Russian, Italian, and Arabic.
-- **Professional Translation**: Provides context-aware translations that maintain technical accuracy.
-- **Glossary Integration**: Ensures consistent terminology across all languages.
-
-### 🔗 Seamless Integration
-
-- **AIGNE Hub Integration**: Use the [AIGNE Hub](https://www.aigne.io/en/hub) without API keys and switch between Google Gemini, OpenAI GPT, Claude, and more.
-- **Multiple LLM Support**: Bring your own API keys for OpenAI, Anthropic, Google, and other providers.
-- **One-Click Publishing**: Publish your docs and generate shareable links for your team. Publish to [docsmith.aigne.io](https://docsmith.aigne.io/app/) or your own [Discuss Kit](https://www.web3kit.rocks/discuss-kit) instance.
-
-### 🔄 Smart Updates
-
-- **Change Detection**: Automatically identifies code changes and updates the relevant documentation.
-- **Targeted Regeneration**: Updates specific sections with custom feedback and requirements.
-- **Version Awareness**: Maintains a history of your documentation and tracks changes over time.
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js 20+ and npm/pnpm
-- No API keys required (uses the AIGNE Hub by default).
-
-### 📦 Installation
-
-Install the AIGNE CLI globally:
-
-```bash
-npm install -g @aigne/cli
+```
+doc-smith-skill/
+├── aigne.yaml                # Aigne 框架配置
+├── package.json              # 项目依赖和元信息
+├── CLAUDE.md                 # Claude Code 项目说明
+├── README.md                 # 本文件
+│
+├── skills/                   # Claude Code Skills
+│   └── doc-smith/            # DocSmith Skill 定义
+│       ├── SKILL.md          # Skill 主文档（中文）
+│       └── references/       # 参考文档
+│           ├── document-structure-schema.md   # 文档结构 Schema
+│           ├── structure-confirmation-guide.md # 结构确认指南
+│           ├── structure-planning-guide.md    # 结构规划指南
+│           ├── user-intent-guide.md           # 用户意图指南
+│           └── ... (更多参考文档)
+│
+├── skills-entry/             # Aigne 框架入口配置
+│   └── doc-smith/
+│       ├── index.yaml        # 主入口配置
+│       └── prompt.md         # 提示词模板
+│
+├── agents/                   # 专用 Agents
+│   ├── publish/              # 文档发布 agent
+│   ├── localize/             # 文档本地化 agent
+│   ├── generate-images/      # 图片生成 agent
+│   ├── update-image/         # 图片更新 agent
+│   ├── content-checker/      # 内容检查 agent
+│   ├── structure-checker/    # 结构检查 agent
+│   └── save-document/        # 文档保存 agent
+│
+├── utils/                    # 工具函数库
+│   ├── config.mjs            # 配置管理
+│   ├── docs.mjs              # 文档处理
+│   ├── git.mjs               # Git 操作
+│   ├── image-utils.mjs       # 图片工具
+│   └── ... (更多工具)
+│
+├── feature-design/           # 功能设计文档
+│   ├── workspace.md          # Workspace 设计
+│   ├── image-generation.md   # 图片生成设计
+│   ├── localize-agent.md     # 本地化设计
+│   └── ... (更多设计文档)
+│
+└── scripts/                  # 安装/卸载脚本
+    ├── install.sh            # 安装脚本
+    ├── uninstall.sh          # 卸载脚本
+    └── README.md             # 脚本使用说明
 ```
 
-Verify the installation:
+## 快速开始
+
+### 1. 安装依赖
 
 ```bash
-aigne doc --help
-```
-
-### 🎉 Generate Your First Documentation
-
-Navigate to your project directory and run:
-
-```bash
-# One command to generate your documentation
-aigne doc create
-```
-
-DocSmith will:
-
-1. 🔍 Auto-detect your project's structure and tech stack.
-2. 🎯 Guide you through an interactive setup (first time only).
-3. 📝 Generate comprehensive documentation.
-4. 🌍 Optionally translate it into multiple languages.
-5. 🚀 Publish it to your preferred platform.
-
-## 🔧 Advanced Configuration
-
-### LLM Providers
-
-DocSmith supports multiple AI providers:
-
-**🎯 AIGNE Hub (Recommended)**
-
-- ✅ No API keys required.
-- ✅ Easy model switching.
-- ✅ Built-in rate limiting and optimization.
-
-```bash
-# Switch models effortlessly
-aigne doc create --model google:gemini-2.5-pro
-aigne doc create --model anthropic:claude-sonnet-4-5
-aigne doc create --model openai:gpt-4o
-```
-
-**🔑 Custom API Keys**
-Configure your own API keys for direct provider access:
-
-- OpenAI GPT models
-- Anthropic Claude models
-- Google Gemini models
-- and more...
-
-## 📖 Usage Guide
-
-### Core Commands
-
-#### 📝 Generate Documentation
-
-```bash
-# Smart generation with auto-configuration
-aigne doc create
-
-# Force a complete regeneration of the documentation
-aigne doc create --forceRegenerate
-
-# Generate with custom feedback
-aigne doc create --feedback "Add more API examples and troubleshooting sections"
-```
-
-#### 🔄 Update Existing Documents
-
-```bash
-# Interactively select and update a document
-aigne doc update
-
-# Update specific document with feedback
-aigne doc update --docs overview.md --feedback "Add comprehensive FAQ section"
-```
-
-#### 🌍 Multi-Language Translation
-
-```bash
-# Interactive translation with smart language selection
-aigne doc localize
-
-# Translate specific documents into multiple languages
-aigne doc localize --langs zh --langs ja --docs examples.md --docs overview.md
-
-# Translate with a custom glossary for consistent terminology
-aigne doc localize --glossary @path/to/glossary.md --feedback "Use technical terminology consistently"
-```
-
-#### 🚀 Publishing & Deployment
-
-```bash
-# Interactive publishing with platform selection
-aigne doc publish
-
-# Publish to a custom Discuss Kit instance
-aigne doc publish --appUrl https://your-discuss-kit-instance.com
-```
-
-#### ⚙️ Configuration Management
-
-```bash
-# Interactive configuration setup
-aigne doc init
-
-# View the current configuration
-aigne doc prefs
-```
-
-### Configuration Options
-
-DocSmith automatically detects your project's structure, but you can customize it to your needs:
-
-- **📝 Documentation Styles**: Technical, User-Friendly, Developer-Focused, Academic
-- **🎯 Target Audiences**: Developers, End Users, System Administrators, Business Users
-- **🌍 Languages**: Choose from 12 supported languages.
-- **📁 Source Paths**: Customize which files and directories to analyze.
-- **📤 Output Settings**: Configure the documentation structure and formatting.
-
-## 🌐 Supported Languages
-
-DocSmith provides professional-grade translations for 12 languages:
-
-| Language  | Code    | Support Level |
-| --------- | ------- | ------------- |
-| English   | `en`    | ✅ Native     |
-| 简体中文  | `zh-CN` | ✅ Full       |
-| 繁體中文  | `zh-TW` | ✅ Full       |
-| 日本語    | `ja`    | ✅ Full       |
-| 한국어    | `ko`    | ✅ Full       |
-| Español   | `es`    | ✅ Full       |
-| Français  | `fr`    | ✅ Full       |
-| Deutsch   | `de`    | ✅ Full       |
-| Português | `pt-BR` | ✅ Full       |
-| Русский   | `ru`    | ✅ Full       |
-| Italiano  | `it`    | ✅ Full       |
-| العربية   | `ar`    | ✅ Full       |
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-### 🐛 Reporting Issues
-
-- 🔍 [Search existing issues](https://github.com/AIGNE-io/aigne-doc-smith/issues) first.
-- 📝 Use our issue templates for bug reports and feature requests.
-- 🚨 Include clear reproduction steps and details about your environment.
-
-### 💡 Feature Requests
-
-- 🌟 Share your ideas in [GitHub Discussions](https://github.com/AIGNE-io/aigne-doc-smith/discussions).
-- 📋 Check our [roadmap](https://github.com/AIGNE-io/aigne-doc-smith/projects) for planned features.
-- 🗳️ Vote on existing feature requests.
-
-### 🔧 Development Setup
-
-```bash
-# Clone the repository
-git clone https://github.com/AIGNE-io/aigne-doc-smith.git
-cd aigne-doc-smith
-
-# Install dependencies
 pnpm install
+```
 
-# Run tests
-pnpm test
+### 2. 使用方式
 
-# Run the linter
+DocSmith 提供两种使用方式：
+
+#### 方式 A：作为 Claude Code Skill 使用
+
+安装 skill 到全局目录：
+
+```bash
+./scripts/install.sh -y
+```
+
+然后在任何地方的 Claude Code 中使用：
+
+```bash
+/doc-smith
+```
+
+#### 方式 B：作为 Aigne CLI 使用
+
+在项目目录中使用 Aigne CLI：
+
+```bash
+aigne doc create --interactive
+```
+
+这将启动交互式文档生成流程，引导你完成 workspace 初始化和文档生成的全过程。
+
+### 3. 开始生成文档
+
+#### Workspace 模式 (推荐)
+
+DocSmith 现在使用独立 workspace 目录，不会污染源仓库。
+
+**创建并使用 workspace：**
+
+```bash
+# 1. 创建空目录作为 workspace
+mkdir my-docs-workspace
+cd my-docs-workspace
+
+# 2. 打开 Claude Code 并执行 doc-smith
+# 输入: 使用 doc-smith 生成文档
+```
+
+**初始化流程：**
+DocSmith 会引导你完成初始化：
+1. 询问输出语言（如：zh、en）
+2. 询问源仓库 Git URL（可选，如果源代码在本地可不提供）
+3. 自动创建目录结构
+4. 自动添加源仓库为 git submodule（如果提供了 URL）
+5. 生成 config.yaml 配置文件
+6. 初始化 git 仓库并提交
+
+**后续操作：**
+DocSmith 会：
+1. 分析源仓库内容
+2. 推断用户意图
+3. 规划文档结构
+4. 生成结构化的 Markdown 文档
+5. 询问是否提交到 Git
+
+### 3. Workspace 目录结构
+
+```
+my-docs-workspace/              # 独立 workspace 目录
+├── config.yaml                 # workspace 配置文件
+├── sources/                    # 源仓库 (git submodule)
+│   └── my-project/
+├── intent/
+│   └── user-intent.md          # 用户意图描述
+├── planning/
+│   └── document-structure.yaml # 文档结构计划
+├── docs/                       # 生成的文档
+│   ├── overview.md
+│   ├── getting-started.md
+│   └── api/
+│       └── authentication.md
+└── cache/                      # 临时数据 (不纳入 git)
+```
+
+### 4. 版本管理
+
+Workspace 是一个独立的 Git 仓库，支持完整的版本管理：
+
+```bash
+# 查看历史
+git log
+
+# 查看变更
+git diff
+
+# 回滚版本
+git revert <commit-hash>
+
+# 推送到远程仓库（可选）
+git remote add origin <your-repo-url>
+git push -u origin main
+```
+
+## 核心功能
+
+### 文档生成
+- 智能分析源代码和项目结构
+- 自动推断用户意图和目标受众
+- 生成结构化的 Markdown 文档
+- 支持文档层次结构规划和确认
+
+### 图片管理
+- 自动生成文档所需的图片
+- 支持图片占位符系统
+- 批量更新和编辑图片
+- 多种图片生成模型支持
+
+### 多语言支持
+- 文档本地化和翻译
+- 多语言文档结构管理
+- 自动同步不同语言版本
+
+### 发布和部署
+- 一键发布到多个平台
+- 支持自定义发布配置
+- 文档站点构建和部署
+
+## 文档说明
+
+### Skill 文档
+- **skills/doc-smith/SKILL.md** - Skill 完整使用指南，包含工作流程、最佳实践等
+- **skills/doc-smith/references/** - 参考文档目录
+  - **document-structure-schema.md** - 文档结构 YAML 的完整 Schema 说明
+  - **structure-planning-guide.md** - 文档结构规划指南
+  - **structure-confirmation-guide.md** - 结构确认流程指南
+  - **user-intent-guide.md** - 用户意图理解指南
+  - 更多参考文档...
+
+### 设计文档
+- **feature-design/** - 功能设计和架构文档
+  - **workspace.md** - Workspace 设计方案
+  - **image-generation.md** - 图片生成功能设计
+  - **localize-agent.md** - 本地化功能设计
+  - 更多设计文档...
+
+所有文档均使用中文编写，方便理解和编辑。
+
+## 卸载
+
+如需移除 skill：
+
+```bash
+./scripts/uninstall.sh
+```
+
+## 手动安装 Skill
+
+如果安装脚本无法使用，可以手动安装：
+
+```bash
+mkdir -p ~/.claude/skills
+cp -r skills/doc-smith ~/.claude/skills/
+```
+
+## 开发和自定义
+
+### 修改 Skill
+
+如果你想修改或扩展 doc-smith skill：
+
+1. 编辑 `skills/doc-smith/SKILL.md` 中的 Skill 主文档
+2. 修改 `skills/doc-smith/references/` 中的参考文档
+3. 运行 `./scripts/install.sh -y` 重新安装
+
+### 开发 Agents
+
+添加或修改 agents：
+
+1. 在 `agents/` 目录下创建或修改 agent
+2. 在 `aigne.yaml` 中注册新的 agent
+3. 编写 agent 的提示词和配置文件
+
+### 修改工具函数
+
+扩展或优化工具函数：
+
+1. 在 `utils/` 目录下添加或修改工具函数
+2. 确保使用 ES 模块语法（`.mjs` 文件）
+3. 在需要的地方导入使用
+
+### 代码质量
+
+项目使用 Biome 进行代码检查和格式化：
+
+```bash
+# 检查代码
 pnpm run lint
 
-# Automatically fix lint errors
+# 自动修复
 pnpm run lint:fix
 ```
 
-### 📜 Code of Conduct
+## 技术栈
 
-Please follow our community guidelines and maintain respectful, constructive communication.
+- **Aigne Framework** - AI agent 编排框架
+- **Claude Code** - Anthropic 的 AI 编程助手
+- **Node.js** - 运行时环境（ES 模块）
+- **pnpm** - 包管理器
+- **Biome** - 代码检查和格式化
+- **YAML** - 配置和数据格式
 
-## 💼 Enterprise & Production Use
+## 注意事项
 
-### 🏢 Enterprise Features
+### 作为 Claude Code Skill 使用
+- 确保 Claude Code 已正确安装
+- Workspace 需要在空目录中初始化
+- 生成的文档在独立的 workspace 目录中，不会污染源仓库
 
-- **Team Collaboration**: Multi-user workflows with role-based access.
-- **Custom Branding**: White-label your documentation with your brand's identity.
-- **API Integration**: Use REST APIs for automated documentation pipelines.
-- **Analytics**: Track documentation usage and effectiveness.
+### 作为 Aigne CLI 使用
+- 确保已安装 Node.js (v18+) 和 pnpm
+- 确保 Git 已安装（用于 submodule 和版本管理）
+- 需要配置 Anthropic API key 或其他 LLM provider
+- 图片生成功能需要配置相应的 API key
 
-### 🔒 Security & Compliance
+## 迁移说明
 
-- **Private Cloud**: Deploy on your own infrastructure.
-- **SSO Integration**: Connect with your existing identity providers.
-- **Audit Logs**: Complete activity tracking and compliance reporting.
-- **Data Privacy**: Your code never leaves your environment in private deployments.
+如果你之前使用过旧版本（`.aigne/doc-smith/` 目录结构），建议：
+1. 创建新的 workspace 目录
+2. 重新生成文档
+3. 旧版本数据可以手动迁移到新的 workspace 目录结构中
 
-### 📞 Support & Services
+## 版本信息
 
-- **Priority Support**: Get direct access to our engineering team.
-- **Custom Training**: We offer team onboarding and best practices workshops.
-- **Professional Services**: We provide custom integrations and deployment assistance.
+当前版本：`0.9.8-alpha.13`
 
-[Contact us](https://www.aigne.io/contact) for enterprise licensing and deployment options.
+这是一个 alpha 版本，功能和 API 可能会有变化。
 
-## 📊 Community & Resources
+## 支持
 
-### 📚 Documentation & Tutorials
+如有问题或建议，请在项目中提出 issue。
 
-- 📖 [Documentation](https://docsmith.aigne.io/docs/)
+## 作者
 
-### 💬 Community Support
+**Arcblock** - [blocklet@arcblock.io](mailto:blocklet@arcblock.io)
 
-- 🐦 [Twitter](https://twitter.com/arcblock_io) - For updates and announcements.
-- 🎮 [Community](https://community.arcblock.io/discussions/boards/aigne) - For real-time community chat.
+GitHub: [@blocklet](https://github.com/blocklet)
 
-### 🏆 Showcase
+## 许可
 
-See DocSmith in action with these real-world examples:
+Elastic-2.0 License
 
-- [Docs Repository](https://docsmith.aigne.io/app) - Generated with DocSmith.
+## 相关链接
 
-## 📄 License
-
-This project is licensed under the **Elastic License 2.0**. See the [LICENSE](LICENSE) file for details.
-
-### What does this mean?
-
-- ✅ **Free for most use cases**: Including personal projects, internal use, and most commercial applications.
-- ✅ **Open source**: The full source code is available for review and contributions.
-- ✅ **Commercial friendly**: Use it in your business applications and services.
-- ❌ **Restrictions**: You cannot offer DocSmith as a competing hosted service.
-
-[Learn more about the Elastic License 2.0](https://www.elastic.co/licensing/elastic-license)
+- [Aigne Framework](https://www.npmjs.com/package/@aigne/cli)
+- [Claude Code](https://claude.com/claude-code)
+- [Arcblock](https://www.arcblock.io/)

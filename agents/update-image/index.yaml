@@ -1,0 +1,78 @@
+type: team
+name: updateImage
+description: |
+  根据用户反馈编辑已生成的图片，支持：
+  - 修改图片宽高比（aspect ratio）
+  - 根据自然语言反馈调整图片内容
+
+skills:
+  # Step 1: 加载现有图片和 slot 信息
+  - url: ./load-existing-image.mjs
+
+  # Step 2: 分析用户反馈，提取 ratio 修改意图（使用 LLM）
+  - url: ./analyze-feedback.yaml
+
+  # Step 3: 准备图片生成参数
+  - type: transform
+    jsonata: |
+      $merge([
+        $,
+        {
+          "id": slotId,
+          "documentContent": content,
+          "size": "2K",
+          "useImageToImage": true,
+          "documents": [{
+            "path": doc,
+            "hash": hash,
+            "content": content
+          }],
+          "isUpdate": true
+        }
+      ])
+
+  # Step 4: 使用图生图模式生成新图片
+  - url: ../generate-images/generate-image.yaml
+
+  # Step 5: 保存更新后的图片
+  - url: ../generate-images/save-image-result.mjs
+
+input_schema:
+  type: object
+  properties:
+    doc:
+      type: string
+      description: 文档路径（如 "overview" 或 "/overview"）
+    slotId:
+      type: string
+      description: 图片 slot 的 id
+    feedback:
+      type: string
+      description: |
+        用户反馈（自然语言），可以包含：
+        - 宽高比修改（如 "改为 16:9"）
+        - 图片内容调整（如 "使用更现代的风格"）
+  required:
+    - doc
+    - slotId
+    - feedback
+
+output_schema:
+  type: object
+  properties:
+    success:
+      type: boolean
+      description: 操作是否成功
+    key:
+      type: string
+      description: 图片 key
+    imagePath:
+      type: string
+      description: 更新后的图片路径
+    message:
+      type: string
+      description: 操作结果描述
+  required:
+    - success
+
+mode: sequential

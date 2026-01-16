@@ -1,49 +1,58 @@
 import { readFile, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import yaml from "yaml";
-import { pathExists, toDisplayPath, getConfigFilePath } from "../../utils/file-utils.mjs";
 
 export default async function clearDeploymentConfig(input = {}) {
-  const { workDir } = input;
+  const { configPath } = input;
 
-  const configFilePath = getConfigFilePath(workDir);
-  const displayPath = toDisplayPath(configFilePath);
+  if (!configPath) {
+    return {
+      error: true,
+      message: "Config path is required.",
+    };
+  }
 
   try {
-    // Check if config file exists
-    const exists = await pathExists(configFilePath);
-    if (!exists) {
+    if (!existsSync(configPath)) {
       return {
-        message: `📦 Config file not found (${displayPath}). No need to clear appUrl.`,
+        message: "Config file not found. No need to clear appUrl.",
+        cleared: false,
       };
     }
 
-    // Remove appUrl field while preserving comments
-    const configContent = await readFile(configFilePath, "utf-8");
+    const configContent = await readFile(configPath, "utf-8");
     const doc = yaml.parseDocument(configContent);
 
-    if (doc.has("appUrl")) {
-      doc.delete("appUrl");
-      await writeFile(
-        configFilePath,
-        doc.toString({
-          keepSourceTokens: true,
-          indent: 2,
-          lineWidth: 0,
-          minContentWidth: 0,
-        }),
-        "utf-8",
-      );
+    if (!doc.has("appUrl")) {
+      return {
+        message: "No appUrl found in config file. Nothing to clear.",
+        cleared: false,
+      };
     }
 
+    doc.delete("appUrl");
+    await writeFile(
+      configPath,
+      doc.toString({
+        keepSourceTokens: true,
+        indent: 2,
+        lineWidth: 0,
+        minContentWidth: 0,
+      }),
+      "utf-8",
+    );
+
     return {
-      message: `📦 Cleared appUrl from config file (${displayPath})`,
+      message: "Cleared appUrl from config file.",
+      cleared: true,
     };
   } catch (error) {
     return {
       error: true,
-      message: `⚠️ Failed to clear deployment config: ${error.message}`,
+      message: `Failed to clear deployment config: ${error.message}`,
     };
   }
 }
 
 clearDeploymentConfig.taskTitle = "Clear deployment configuration";
+clearDeploymentConfig.description = "Clear appUrl from the config file";

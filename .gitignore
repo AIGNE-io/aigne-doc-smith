@@ -1,11 +1,5 @@
-*.local
-node_modules
+node_modules/
 
+.vscode/
 .DS_Store
-
-.vscode
-
-.claude
-
-# testing
-coverage
+*.local

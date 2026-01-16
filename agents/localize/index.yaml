@@ -2,61 +2,38 @@ type: team
 name: localize
 alias:
   - translate
-description: Translate documents into other languages
+description: |
+  将文档批量翻译成多种语言，支持一次翻译多个文档，一次翻译多种语言。
 skills:
-  - url: ../init/index.mjs
-    default_input:
-      skipIfExists: true
-      checkOnly: true
-  - ../utils/load-sources.mjs
-  - url: ../init/check.mjs
-  - type: transform
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        $,
-        {
-          'documentStructure': originalDocumentStructure
-        }
-      ])
-  - url: ../update/check-diagram-flag.mjs
-  - url: ../utils/choose-docs.mjs
-    default_input:
-      isTranslate: true
-  - ../localize/choose-language.mjs
+  - url: ./translate-documents/prepare-translation.mjs  # 检查和准备翻译任务
+  - url: ./translate-documents/load-glossary.mjs        # 读取术语表（一次）
   - type: team
-    name: batchTranslateDocument
+    name: processAllDocuments       # 处理所有文档
     skills:
-      - ../localize/translate-multilingual.yaml
-    iterate_on: selectedDocs
-    concurrency: 5
-  - url: ../utils/check-feedback-refiner.mjs
-    default_input:
-      stage: translation_refine
-  - url: ./record-translation-history.mjs
-  - url: ../utils/action-success.mjs
-    default_input:
-      action: '✅ Translation completed'
+      - url: ./translate-documents/translate-to-languages.yaml
+    iterate_on: translationTasks
+    concurrency: 3
+  - url: ./translate-documents/generate-summary.mjs     # 生成最终总结报告
 input_schema:
   type: object
   properties:
-    glossary:
-      type: string
-      description: Glossary file for consistent terminology (use @filename.md)
     docs:
       type: array
       items:
         type: string
-      description: Documents to translate
+      description: |
+        要翻译的文档路径列表（可选，如 ["/overview", "/api/auth"]），必须在 planning/document-structure.yaml 中存在。
+        如果不传或为空数组，则翻译所有文档；如果传入路径列表，只翻译指定文档并验证路径有效性。
     langs:
       type: array
       items:
         type: string
-      description: 'Target languages (available: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar)'
-    feedback:
-      type: string
-      description: Tell us how to improve the translation style
-    diagram:
+      description: |
+        目标语言列表（必需，如 ["en", "ja", "fr"]），使用标准语言代码。
+    force:
       type: boolean
-      description: Translate only diagram images without translating document content (use --diagram flag)
+      description: |
+        是否强制重新翻译（可选，默认 false）。设为 true 时，即使源文档未变化也会重新翻译所有文档。
+  required:
+    - langs
 mode: sequential

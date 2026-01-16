@@ -1,0 +1,39 @@
+type: team
+name: generateImages
+alias:
+  - gen-images
+description: |
+  扫描主语言文档中的 AFS image slot 并批量生成主语言图片。支持以下功能：
+  - 扫描所有文档中的 slot 并生成图片
+  - 扫描指定文档中的 slot 并生成图片
+  - 支持强制重新生成已有图片
+
+skills:
+  - url: ./scan-image-slots.mjs       # 扫描主语言文档中的 slot
+  - url: ./prepare-generation.mjs     # 准备生图任务（去重、检查已有图片）
+  - type: team
+    name: processAllSlots             # 批量生成图片
+    skills:
+      - url: ./prepare-image-generation.mjs
+      - url: ./generate-image.yaml
+      - url: ./save-image-result.mjs
+    iterate_on: generationTasks
+    concurrency: 5                    # 并发生成
+  - url: ./generate-summary.mjs       # 生成总结报告
+
+input_schema:
+  type: object
+  properties:
+    docs:
+      type: array
+      items:
+        type: string
+      description: |
+        要处理的文档路径列表（可选）,必须是文档结构 yaml 中的 path 字段。如果不传或为空数组，则处理所有文档。
+    force:
+      type: boolean
+      default: false
+      description: |
+        是否强制重新生成已有图片（默认只生成缺失的图片）
+
+mode: sequential
