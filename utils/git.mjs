@@ -22,7 +22,7 @@ export function getGithubRepoUrl() {
       stdio: ["pipe", "pipe", "ignore"],
     }).trim();
 
-    if (gitRemote.includes("github.com")) {
+    if (isValidGithubUrl(gitRemote)) {
       return gitRemote;
     }
 

@@ -2,7 +2,7 @@ import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { SUPPORTED_LANGUAGES } from "./constants.mjs";
-import { getGitHubRepoInfo } from "./git.mjs";
+import { getGitHubRepoInfo, isValidGithubUrl } from "./git.mjs";
 
 /**
  * Get project information from Git or directory
@@ -42,7 +42,7 @@ export async function getProjectInfo() {
     const repoName = gitRemote.split("/").pop().replace(".git", "");
     defaultName = repoName;
 
-    if (gitRemote.includes("github.com")) {
+    if (isValidGithubUrl(gitRemote)) {
       repoInfo = await getGitHubRepoInfo(gitRemote);
       if (repoInfo) {
         defaultDescription = repoInfo.description;
