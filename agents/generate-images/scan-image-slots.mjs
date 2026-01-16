@@ -100,7 +100,9 @@ export default async function scanImageSlots(input) {
       locale = await loadLocale();
     } catch (error) {
       if (error.message === ERROR_CODES.MISSING_CONFIG_FILE) {
-        throw new Error(`Config file does not exist: ${PATHS.CONFIG}, please ensure executing this command in doc-smith project root directory`);
+        throw new Error(
+          `Config file does not exist: ${PATHS.CONFIG}, please ensure executing this command in doc-smith project root directory`,
+        );
       }
       if (error.message === ERROR_CODES.MISSING_LOCALE) {
         throw new Error(

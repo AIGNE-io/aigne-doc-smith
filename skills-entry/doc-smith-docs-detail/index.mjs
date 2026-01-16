@@ -9,7 +9,8 @@ const afsModules = await generateDocsDetailAfsModules();
 export default {
   type: "@aigne/agent-library/agent-skill-manager",
   name: "generateDocumentDetail",
-  description: "Generate detailed content for a single document based on document path and user requirements",
+  description:
+    "Generate detailed content for a single document based on document path and user requirements",
   instructions: {
     url: "./prompt.md",
   },
@@ -42,7 +43,8 @@ export default {
       },
       customRequirements: {
         type: "string",
-        description: "Additional requirements from user conversation (optional), used to guide content generation focus",
+        description:
+          "Additional requirements from user conversation (optional), used to guide content generation focus",
       },
     },
   },

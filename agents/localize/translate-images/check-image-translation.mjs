@@ -191,7 +191,10 @@ checkImageTranslation.output_schema = {
           sourceHash: { type: "string", description: "Source image hash" },
           aspectRatio: { type: "string", description: "Aspect ratio" },
           size: { type: "string", description: "Image size" },
-          reason: { type: "string", description: "Translation reason (missing/no_hash/source_updated)" },
+          reason: {
+            type: "string",
+            description: "Translation reason (missing/no_hash/source_updated)",
+          },
         },
       },
     },

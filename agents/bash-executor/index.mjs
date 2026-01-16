@@ -337,7 +337,8 @@ executeSafeShellCommands.output_schema = {
           },
           error: {
             type: "string",
-            description: "Error message, empty string on success, contains error details on failure",
+            description:
+              "Error message, empty string on success, contains error details on failure",
           },
         },
       },

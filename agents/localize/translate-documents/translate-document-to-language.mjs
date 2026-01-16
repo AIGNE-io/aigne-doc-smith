@@ -36,7 +36,9 @@ export default async function translateDocumentToLanguage(input, options) {
       await access(sourceFile, constants.F_OK | constants.R_OK);
       content = await readFile(sourceFile, "utf8");
     } catch (_error) {
-      throw new Error(`Source document does not exist: ${sourceFile}, document path: ${docPath}, please ensure source language document has been created`);
+      throw new Error(
+        `Source document does not exist: ${sourceFile}, document path: ${docPath}, please ensure source language document has been created`,
+      );
     }
 
     // 3. Calculate source document hash

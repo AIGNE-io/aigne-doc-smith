@@ -106,12 +106,15 @@ export default async function loadExistingImage(input) {
       message: `Successfully loaded image: ${imagePath}`,
     };
   } catch (error) {
-    throw new Error(`Failed to load existing image: ${error.message}, please check document path and slotId are correct`);
+    throw new Error(
+      `Failed to load existing image: ${error.message}, please check document path and slotId are correct`,
+    );
   }
 }
 
 // Add description
-loadExistingImage.description = "Load existing image based on document path and slotId, return image path and related metadata.";
+loadExistingImage.description =
+  "Load existing image based on document path and slotId, return image path and related metadata.";
 
 // Define input schema
 loadExistingImage.input_schema = {

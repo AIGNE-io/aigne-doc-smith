@@ -84,7 +84,8 @@ export default async function detectAndUpdateShared(input) {
 
 // Add description
 detectAndUpdateShared.description =
-  "Detect if images contain text, prepare batch detection tasks. " + "Only detect images without generation.shared field set.";
+  "Detect if images contain text, prepare batch detection tasks. " +
+  "Only detect images without generation.shared field set.";
 
 // Define input schema
 detectAndUpdateShared.input_schema = {

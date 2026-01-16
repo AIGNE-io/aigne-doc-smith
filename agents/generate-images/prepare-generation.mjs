@@ -91,7 +91,9 @@ export default async function prepareGeneration(input) {
     const { locale, slots, force = false } = input;
 
     if (!locale) {
-      throw new Error("Missing main language parameter, please check if doc-smith workspace has been initialized and files have been generated!");
+      throw new Error(
+        "Missing main language parameter, please check if doc-smith workspace has been initialized and files have been generated!",
+      );
     }
 
     if (!slots || slots.length === 0) {
@@ -181,7 +183,8 @@ export default async function prepareGeneration(input) {
 
 // Add description
 prepareGeneration.description =
-  "Check existing image directories and meta information, compare document hashes, " + "determine which images need generation or update, and generate task list.";
+  "Check existing image directories and meta information, compare document hashes, " +
+  "determine which images need generation or update, and generate task list.";
 
 // Define input schema
 prepareGeneration.input_schema = {

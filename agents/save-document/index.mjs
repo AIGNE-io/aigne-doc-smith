@@ -205,7 +205,8 @@ saveDocument.input_schema = {
       properties: {
         language: {
           type: "string",
-          description: "Language code (e.g., zh, en, ja), must be read from locale field in config.yaml",
+          description:
+            "Language code (e.g., zh, en, ja), must be read from locale field in config.yaml",
         },
       },
     },

@@ -34,7 +34,8 @@ export default async function prepareTranslation(input) {
           success: false,
           error: ERROR_CODES.MISSING_CONFIG_FILE,
           message: `Config file does not exist: ${PATHS.CONFIG}`,
-          suggestion: "Please ensure you are executing this command in the document project root directory",
+          suggestion:
+            "Please ensure you are executing this command in the document project root directory",
         };
       }
       if (error.message === ERROR_CODES.MISSING_LOCALE) {
@@ -169,7 +170,8 @@ prepareTranslation.input_schema = {
     docs: {
       type: "array",
       items: { type: "string" },
-      description: "Document paths to translate (optional, translates all documents if not provided)",
+      description:
+        "Document paths to translate (optional, translates all documents if not provided)",
     },
     langs: {
       type: "array",
@@ -178,7 +180,8 @@ prepareTranslation.input_schema = {
     },
     force: {
       type: "boolean",
-      description: "Whether to force re-translation (optional, default false. When true, re-translate even if source document unchanged)",
+      description:
+        "Whether to force re-translation (optional, default false. When true, re-translate even if source document unchanged)",
     },
   },
   required: ["langs"],

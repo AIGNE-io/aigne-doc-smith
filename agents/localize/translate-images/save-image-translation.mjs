@@ -26,7 +26,8 @@ export default async function saveImageTranslation(input) {
         key,
         error: "GENERATION_FAILED",
         message: "Translated image data not found",
-        suggestion: "Check the output format of the image translation agent, expecting images array",
+        suggestion:
+          "Check the output format of the image translation agent, expecting images array",
         availableKeys: Object.keys(input),
       };
     }

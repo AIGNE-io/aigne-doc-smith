@@ -149,7 +149,8 @@ export default async function saveImageResult(input) {
 
 // Add description
 saveImageResult.description =
-  "Save image generation agent results to assets directory, " + "including image file and .meta.yaml metadata file.";
+  "Save image generation agent results to assets directory, " +
+  "including image file and .meta.yaml metadata file.";
 
 // Define input schema
 saveImageResult.input_schema = {
