@@ -10,15 +10,15 @@ import {
 const CWD = "$" + "{CWD}";
 
 /**
- * 生成基础 AFS 模块（workspace 和 sources）
- * @param {string} mode - workspace 模式 (project | standalone)
- * @returns {Array} - AFS 模块配置数组
+ * Generate base AFS modules (workspace and sources)
+ * @param {string} mode - Workspace mode (project | standalone)
+ * @returns {Array} - AFS module configuration array
  */
 function generateBaseModules(mode) {
   const modules = [];
 
   if (mode === WORKSPACE_MODES.PROJECT) {
-    // Project 模式：workspace 是 .aigne/doc-smith，sources 是 CWD
+    // Project mode: workspace is .aigne/doc-smith, sources is CWD
     modules.push({
       module: "local-fs",
       options: {
@@ -43,7 +43,7 @@ function generateBaseModules(mode) {
       },
     });
   } else {
-    // Standalone 模式：workspace 是 CWD，sources 是 CWD/sources
+    // Standalone mode: workspace is CWD, sources is CWD/sources
     modules.push({
       module: "local-fs",
       options: {
@@ -73,11 +73,11 @@ function generateBaseModules(mode) {
 }
 
 /**
- * 生成 skill 模块配置
- * @param {string} skillName - skill 名称
- * @param {string} skillPath - skill 相对路径
- * @param {string} description - skill 描述
- * @returns {Object} - AFS 模块配置
+ * Generate skill module configuration
+ * @param {string} skillName - Skill name
+ * @param {string} skillPath - Skill relative path
+ * @param {string} description - Skill description
+ * @returns {Object} - AFS module configuration
  */
 function generateSkillModule(skillName, skillPath, description) {
   return {
@@ -95,8 +95,8 @@ function generateSkillModule(skillName, skillPath, description) {
 }
 
 /**
- * 生成 history 模块配置
- * @returns {Object} - history 模块配置
+ * Generate history module configuration
+ * @returns {Object} - History module configuration
  */
 function generateHistoryModule() {
   return {
@@ -110,14 +110,14 @@ function generateHistoryModule() {
 }
 
 /**
- * 生成完整的 AFS 模块配置
- * @param {Object} options - 配置选项
- * @param {Object} options.workspace - workspace 信息 { mode, configPath }
- * @param {string} options.skillName - skill 名称
- * @param {string} options.skillPath - skill 相对路径
- * @param {string} options.skillDescription - skill 描述
- * @param {boolean} options.includeHistory - 是否包含 history 模块
- * @returns {Promise<Array>} - AFS 模块配置数组
+ * Generate complete AFS module configuration
+ * @param {Object} options - Configuration options
+ * @param {Object} options.workspace - Workspace info { mode, configPath }
+ * @param {string} options.skillName - Skill name
+ * @param {string} options.skillPath - Skill relative path
+ * @param {string} options.skillDescription - Skill description
+ * @param {boolean} options.includeHistory - Whether to include history module
+ * @returns {Promise<Array>} - AFS module configuration array
  */
 export async function generateAfsModules({
   workspace,
@@ -126,7 +126,7 @@ export async function generateAfsModules({
   skillDescription = "Agent skill for document operations",
   includeHistory = false,
 } = {}) {
-  // 确定 workspace 模式
+  // Determine workspace mode
   let mode;
   if (workspace) {
     const config = await loadConfig(workspace.configPath);
@@ -138,15 +138,15 @@ export async function generateAfsModules({
 
   const modules = [];
 
-  // 添加 history 模块（如果需要）
+  // Add history module (if needed)
   if (includeHistory) {
     modules.push(generateHistoryModule());
   }
 
-  // 添加基础模块（workspace 和 sources）
+  // Add base modules (workspace and sources)
   modules.push(...generateBaseModules(mode));
 
-  // 添加 skill 模块
+  // Add skill module
   if (skillName && skillPath) {
     modules.push(generateSkillModule(skillName, skillPath, skillDescription));
   }
@@ -155,9 +155,9 @@ export async function generateAfsModules({
 }
 
 /**
- * 为 doc-smith 主 agent 生成 AFS 模块
- * @param {Object} workspace - workspace 信息
- * @returns {Promise<Array>} - AFS 模块配置数组
+ * Generate AFS modules for doc-smith main agent
+ * @param {Object} workspace - Workspace info
+ * @returns {Promise<Array>} - AFS module configuration array
  */
 export async function generateDocSmithAfsModules(workspace) {
   return generateAfsModules({
@@ -170,8 +170,8 @@ export async function generateDocSmithAfsModules(workspace) {
 }
 
 /**
- * 为 doc-smith-docs-detail agent 生成 AFS 模块
- * @returns {Promise<Array>} - AFS 模块配置数组
+ * Generate AFS modules for doc-smith-docs-detail agent
+ * @returns {Promise<Array>} - AFS module configuration array
  */
 export async function generateDocsDetailAfsModules() {
   return generateAfsModules({

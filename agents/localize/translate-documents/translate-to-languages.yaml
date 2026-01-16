@@ -1,9 +1,9 @@
 type: team
 name: translateToLanguages
-description: 为单个文档翻译成多种语言，并翻译文档中的图片
+description: Translate a single document to multiple languages, and translate images in the document
 skills:
-  - url: ./translate-document-to-language.mjs # 检查 hash、执行翻译、保存结果
-  - url: ../translate-images/translate-doc-images.yaml # 检测并翻译文档中的图片
+  - url: ./translate-document-to-language.mjs # Check hash, execute translation, save result
+  - url: ../translate-images/translate-doc-images.yaml # Detect and translate images in the document
 iterate_on: targetLanguages
 concurrency: 1
 mode: parallel

@@ -3,28 +3,28 @@ import { PATHS, ERROR_CODES } from "../../../utils/agent-constants.mjs";
 import { loadLocale, loadConfigFromFile, saveValueToConfig } from "../../../utils/config.mjs";
 
 /**
- * 准备翻译任务
- * @param {Object} input - 输入参数
- * @param {string[]} input.docs - 要翻译的文档路径列表（可选）
- * @param {string[]} input.langs - 目标语言列表（必需）
- * @param {boolean} input.force - 是否强制重新翻译（可选，默认 false）
- * @returns {Promise<Object>} - 翻译任务列表或错误信息
+ * Prepare translation tasks
+ * @param {Object} input - Input parameters
+ * @param {string[]} input.docs - Document paths to translate (optional)
+ * @param {string[]} input.langs - Target language list (required)
+ * @param {boolean} input.force - Whether to force re-translation (optional, default false)
+ * @returns {Promise<Object>} - Translation task list or error message
  */
 export default async function prepareTranslation(input) {
   try {
-    // 1. 验证 langs 参数
+    // 1. Validate langs parameter
     const { docs, langs, force = false } = input;
 
     if (!langs || !Array.isArray(langs) || langs.length === 0) {
       return {
         success: false,
         error: ERROR_CODES.MISSING_LANGS,
-        message: "目标语言列表不能为空",
-        suggestion: '请提供至少一个目标语言（如 ["en", "ja"]）',
+        message: "Target language list cannot be empty",
+        suggestion: 'Please provide at least one target language (e.g., ["en", "ja"])',
       };
     }
 
-    // 2. 读取源语言
+    // 2. Read source language
     let sourceLanguage;
     try {
       sourceLanguage = await loadLocale();
@@ -33,22 +33,22 @@ export default async function prepareTranslation(input) {
         return {
           success: false,
           error: ERROR_CODES.MISSING_CONFIG_FILE,
-          message: `配置文件不存在: ${PATHS.CONFIG}`,
-          suggestion: "请确保在文档项目根目录执行此命令",
+          message: `Config file does not exist: ${PATHS.CONFIG}`,
+          suggestion: "Please ensure you are executing this command in the document project root directory",
         };
       }
       if (error.message === ERROR_CODES.MISSING_LOCALE) {
         return {
           success: false,
           error: ERROR_CODES.MISSING_LOCALE,
-          message: `${PATHS.CONFIG} 中缺少 locale 字段`,
-          suggestion: `请在 ${PATHS.CONFIG} 中添加 locale 字段`,
+          message: `Missing locale field in ${PATHS.CONFIG}`,
+          suggestion: `Please add locale field to ${PATHS.CONFIG}`,
         };
       }
       throw error;
     }
 
-    // 3. 过滤掉与源语言相同的语言
+    // 3. Filter out languages same as source language
     const targetLanguages = langs.filter((lang) => lang !== sourceLanguage);
 
     if (targetLanguages.length === 0) {
@@ -57,11 +57,11 @@ export default async function prepareTranslation(input) {
         skipped: true,
         translationTasks: [],
         sourceLanguage,
-        message: `所有目标语言都与源语言 (${sourceLanguage}) 相同，跳过翻译`,
+        message: `All target languages are the same as source language (${sourceLanguage}), skipping translation`,
       };
     }
 
-    // 4. 加载文档结构
+    // 4. Load document structure
     let validPaths;
     try {
       validPaths = await loadDocumentPaths();
@@ -70,36 +70,36 @@ export default async function prepareTranslation(input) {
         return {
           success: false,
           error: ERROR_CODES.MISSING_STRUCTURE_FILE,
-          message: `文档结构文件不存在: ${PATHS.DOCUMENT_STRUCTURE}`,
-          suggestion: "请先生成文档结构文件",
+          message: `Document structure file does not exist: ${PATHS.DOCUMENT_STRUCTURE}`,
+          suggestion: "Please generate document structure file first",
         };
       }
       if (error.message === ERROR_CODES.INVALID_STRUCTURE_FILE) {
         return {
           success: false,
           error: ERROR_CODES.INVALID_STRUCTURE_FILE,
-          message: "文档结构文件格式无效",
-          suggestion: `请确保 ${PATHS.DOCUMENT_STRUCTURE} 包含有效的 documents 数组`,
+          message: "Invalid document structure file format",
+          suggestion: `Please ensure ${PATHS.DOCUMENT_STRUCTURE} contains a valid documents array`,
         };
       }
       throw error;
     }
 
-    // 5. 收集或验证文档路径
+    // 5. Collect or validate document paths
     let docPaths;
     if (!docs || docs.length === 0) {
-      // 翻译所有文档
+      // Translate all documents
       docPaths = Array.from(validPaths);
     } else {
-      // 验证指定的文档路径
+      // Validate specified document paths
       const { validPaths: validDocPaths, invalidPaths } = filterValidPaths(docs, validPaths);
 
       if (invalidPaths.length > 0) {
         return {
           success: false,
           error: ERROR_CODES.INVALID_DOC_PATHS,
-          message: `以下文档路径不存在于文档结构中: ${invalidPaths.join(", ")}`,
-          suggestion: `请检查文档路径是否正确，或在 ${PATHS.DOCUMENT_STRUCTURE} 中添加这些路径`,
+          message: `The following document paths do not exist in document structure: ${invalidPaths.join(", ")}`,
+          suggestion: `Please check if document paths are correct, or add these paths to ${PATHS.DOCUMENT_STRUCTURE}`,
           invalidPaths,
         };
       }
@@ -107,15 +107,15 @@ export default async function prepareTranslation(input) {
       docPaths = validDocPaths;
     }
 
-    // 6. 更新 config.yaml 中的 translateLanguages（只处理新增）
+    // 6. Update translateLanguages in config.yaml (only handle additions)
     try {
       const config = await loadConfigFromFile();
       const existingLanguages = config?.translateLanguages || [];
 
-      // 找出新增的语言（在 targetLanguages 中但不在 existingLanguages 中）
+      // Find new languages (in targetLanguages but not in existingLanguages)
       const newLanguages = targetLanguages.filter((lang) => !existingLanguages.includes(lang));
 
-      // 如果有新语言，更新配置
+      // If there are new languages, update config
       if (newLanguages.length > 0) {
         const updatedLanguages = [...existingLanguages, ...newLanguages];
         await saveValueToConfig(
@@ -125,12 +125,12 @@ export default async function prepareTranslation(input) {
         );
       }
     } catch (error) {
-      // 如果更新失败，记录警告但不影响主流程
+      // If update fails, log warning but don't affect main flow
       console.warn(`Failed to update translateLanguages in config.yaml: ${error.message}`);
     }
 
-    // 7. 生成翻译任务
-    // 将 targetLanguages 转换为对象数组，以便 iterate_on 可以使用
+    // 7. Generate translation tasks
+    // Convert targetLanguages to object array so iterate_on can use
     const translationTasks = docPaths.map((path) => ({
       path,
       sourceLanguage,
@@ -144,58 +144,58 @@ export default async function prepareTranslation(input) {
       sourceLanguage,
       targetLanguages,
       totalDocs: docPaths.length,
-      message: `准备翻译 ${docPaths.length} 个文档到 ${targetLanguages.length} 种语言 (${targetLanguages.join(", ")})`,
+      message: `Preparing to translate ${docPaths.length} documents to ${targetLanguages.length} languages (${targetLanguages.join(", ")})`,
     };
   } catch (error) {
     return {
       success: false,
       error: ERROR_CODES.UNEXPECTED_ERROR,
-      message: `准备翻译任务时发生错误: ${error.message}`,
-      suggestion: "请检查文件系统权限和文件格式",
+      message: `Error preparing translation tasks: ${error.message}`,
+      suggestion: "Check file system permissions and file formats",
     };
   }
 }
 
-// 添加描述信息
+// Add description
 prepareTranslation.description =
-  "检查翻译参数、过滤目标语言、收集文档路径，为批量翻译做准备。" +
-  "自动从 config.yaml 读取源语言，过滤与源语言相同的目标语言，" +
-  "验证文档路径是否在 planning/document-structure.yaml 中存在。";
+  "Check translation parameters, filter target languages, collect document paths, prepare for batch translation. " +
+  "Automatically read source language from config.yaml, filter target languages same as source language, " +
+  "validate document paths exist in planning/document-structure.yaml.";
 
-// 定义输入 schema
+// Define input schema
 prepareTranslation.input_schema = {
   type: "object",
   properties: {
     docs: {
       type: "array",
       items: { type: "string" },
-      description: "要翻译的文档路径列表（可选，不传则翻译所有文档）",
+      description: "Document paths to translate (optional, translates all documents if not provided)",
     },
     langs: {
       type: "array",
       items: { type: "string" },
-      description: "目标语言列表（必需，至少一个）",
+      description: "Target language list (required, at least one)",
     },
     force: {
       type: "boolean",
-      description: "是否强制重新翻译（可选，默认 false。设为 true 时即使源文档未变化也重新翻译）",
+      description: "Whether to force re-translation (optional, default false. When true, re-translate even if source document unchanged)",
     },
   },
   required: ["langs"],
 };
 
-// 定义输出 schema
+// Define output schema
 prepareTranslation.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     translationTasks: {
       type: "array",
-      description: "翻译任务列表（成功时存在）",
+      description: "Translation task list (present on success)",
       items: {
         type: "object",
         properties: {
@@ -210,37 +210,37 @@ prepareTranslation.output_schema = {
     },
     sourceLanguage: {
       type: "string",
-      description: "源语言代码",
+      description: "Source language code",
     },
     targetLanguages: {
       type: "array",
       items: { type: "string" },
-      description: "过滤后的目标语言列表",
+      description: "Filtered target language list",
     },
     totalDocs: {
       type: "number",
-      description: "总文档数",
+      description: "Total document count",
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
     skipped: {
       type: "boolean",
-      description: "是否跳过翻译",
+      description: "Whether translation was skipped",
     },
     error: {
       type: "string",
-      description: "错误代码（失败时存在）",
+      description: "Error code (present on failure)",
     },
     suggestion: {
       type: "string",
-      description: "建议操作（失败时存在）",
+      description: "Suggested action (present on failure)",
     },
     invalidPaths: {
       type: "array",
       items: { type: "string" },
-      description: "无效的文档路径列表（失败时存在）",
+      description: "Invalid document paths list (present on failure)",
     },
   },
 };

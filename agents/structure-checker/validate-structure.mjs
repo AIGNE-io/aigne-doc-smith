@@ -3,7 +3,7 @@ import { parse as yamlParse } from "yaml";
 import { PATHS } from "../../utils/agent-constants.mjs";
 
 /**
- * 文档结构校验器类
+ * Document Structure Validator Class
  */
 class DocumentStructureValidator {
   constructor(yamlContent) {
@@ -14,101 +14,101 @@ class DocumentStructureValidator {
   }
 
   /**
-   * 执行完整校验
+   * Execute complete validation
    */
   async validate() {
-    // Layer 1: YAML 解析
+    // Layer 1: YAML parsing
     try {
       this.data = yamlParse(this.yamlContent);
     } catch (e) {
       this.errors.fatal.push({
         type: "YAML_PARSE_ERROR",
-        message: `YAML 解析错误: ${e.message}`,
+        message: `YAML parse error: ${e.message}`,
         line: e.linePos?.start.line,
       });
       return this.getResult();
     }
 
-    // Layer 2: Schema 结构
+    // Layer 2: Schema structure
     this.validateSchema();
 
-    // Layer 3: 文档字段（递归校验）
+    // Layer 3: Document fields (recursive validation)
     if (this.data.documents && Array.isArray(this.data.documents)) {
       this.data.documents.forEach((doc, idx) => {
         this.validateDocument(doc, `documents[${idx}]`, true);
       });
     }
 
-    // Layer 4: 高级规则
+    // Layer 4: Advanced rules
     this.validateAdvancedRules();
 
     return this.getResult();
   }
 
   /**
-   * 校验 Schema 结构
+   * Validate Schema structure
    */
   validateSchema() {
-    // 检查 project 字段
+    // Check project field
     if (!this.data.project) {
       this.errors.fatal.push({
         type: "MISSING_FIELD",
         path: "project",
-        message: "缺少必需字段: project",
+        message: "Missing required field: project",
       });
     } else {
       if (!this.data.project.title || typeof this.data.project.title !== "string") {
         this.errors.fatal.push({
           type: "MISSING_FIELD",
           path: "project.title",
-          message: "缺少或无效的 project.title",
-          suggestion: "请添加项目标题",
+          message: "Missing or invalid project.title",
+          suggestion: "Please add project title",
         });
       }
       if (!this.data.project.description || typeof this.data.project.description !== "string") {
         this.errors.fatal.push({
           type: "MISSING_FIELD",
           path: "project.description",
-          message: "缺少或无效的 project.description",
-          suggestion: "请添加项目描述",
+          message: "Missing or invalid project.description",
+          suggestion: "Please add project description",
         });
       }
     }
 
-    // 检查 documents 字段
+    // Check documents field
     if (!this.data.documents) {
       this.errors.fatal.push({
         type: "MISSING_FIELD",
         path: "documents",
-        message: "缺少必需字段: documents",
+        message: "Missing required field: documents",
       });
     } else if (!Array.isArray(this.data.documents)) {
       this.errors.fatal.push({
         type: "INVALID_TYPE",
         path: "documents",
-        message: "documents 必须是数组",
+        message: "documents must be an array",
       });
     } else if (this.data.documents.length === 0) {
       this.errors.fatal.push({
         type: "EMPTY_DOCUMENTS",
         path: "documents",
-        message: "documents 数组不能为空",
+        message: "documents array cannot be empty",
       });
     }
   }
 
   /**
-   * 递归校验文档
+   * Recursively validate document
    */
   validateDocument(doc, path, isTopLevel = false) {
     this.documentCount++;
 
-    // 校验必需字段
+    // Validate required fields
     if (!doc.title || typeof doc.title !== "string") {
       this.errors.fatal.push({
         type: "MISSING_FIELD",
         path: `${path}.title`,
-        message: "缺少或无效的 title",
+        message: "Missing or invalid title",
       });
     }
 
@@ -116,51 +116,51 @@ class DocumentStructureValidator {
       this.errors.fatal.push({
         type: "MISSING_FIELD",
         path: `${path}.description`,
-        message: "缺少或无效的 description",
+        message: "Missing or invalid description",
       });
     }
 
-    // 校验 path
+    // Validate path
     if (!doc.path) {
       this.errors.fatal.push({
         type: "MISSING_FIELD",
         path: `${path}.path`,
-        message: "缺少 path 字段",
+        message: "Missing path field",
       });
     } else {
       const pathErrors = this.validatePath(doc.path, path);
       this.errors.fixable.push(...pathErrors);
 
-      // 检查 path 不能以 .md 结尾（这是 FATAL 错误）
+      // Check path should not end with .md (this is a FATAL error)
       if (doc.path.endsWith(".md")) {
         this.errors.fatal.push({
           type: "PATH_FORMAT",
           path: `${path}.path`,
           current: doc.path,
           expected: doc.path.slice(0, -3),
-          message: "path 不应以 .md 结尾（应指向文件夹）",
-          suggestion: `将 path 改为 "${doc.path.slice(0, -3)}"`,
+          message: "path should not end with .md (should point to folder)",
+          suggestion: `Change path to "${doc.path.slice(0, -3)}"`,
         });
       }
 
-      // 检查 path 唯一性
+      // Check path uniqueness
       if (this.pathSet.has(doc.path)) {
         this.errors.fatal.push({
           type: "DUPLICATE_PATH",
           path: `${path}.path`,
           value: doc.path,
-          message: `重复的路径: ${doc.path}`,
+          message: `Duplicate path: ${doc.path}`,
         });
       }
       this.pathSet.add(doc.path);
     }
 
-    // 校验 sourcePaths
+    // Validate sourcePaths
     if (doc.sourcePaths === undefined) {
       this.errors.fatal.push({
         type: "MISSING_FIELD",
         path: `${path}.sourcePaths`,
-        message: "缺少 sourcePaths 字段",
+        message: "Missing sourcePaths field",
       });
     } else {
       const sourceErrors = this.validateSourcePaths(doc.sourcePaths, path);
@@ -168,18 +168,18 @@ class DocumentStructureValidator {
       this.errors.warnings.push(...sourceErrors.warnings);
     }
 
-    // 校验 icon
+    // Validate icon
     const iconErrors = this.validateIcon(doc.icon, isTopLevel, path, doc.title);
     this.errors.fixable.push(...iconErrors.fixable);
     this.errors.fatal.push(...iconErrors.fatal);
 
-    // 递归校验 children
+    // Recursively validate children
     if (doc.children) {
       if (!Array.isArray(doc.children)) {
         this.errors.fatal.push({
           type: "INVALID_TYPE",
           path: `${path}.children`,
-          message: "children 必须是数组",
+          message: "children must be an array",
         });
       } else {
         doc.children.forEach((child, idx) => {
@@ -190,7 +190,7 @@ class DocumentStructureValidator {
   }
 
   /**
-   * 校验 path 格式
+   * Validate path format
    */
   validatePath(path, location) {
     const errors = [];
@@ -206,7 +206,7 @@ class DocumentStructureValidator {
         current: path,
         expected: `/${path}`,
         fix: "add_leading_slash",
-        message: "path 必须以 / 开头",
+        message: "path must start with /",
       });
     }
 
@@ -214,7 +214,7 @@ class DocumentStructureValidator {
   }
 
   /**
-   * 校验 sourcePaths
+   * Validate sourcePaths
    */
   validateSourcePaths(sourcePaths, location) {
     const errors = { fixable: [], warnings: [] };
@@ -226,7 +226,7 @@ class DocumentStructureValidator {
         current: typeof sourcePaths,
         expected: "array",
         fix: "convert_to_array",
-        message: "sourcePaths 必须是数组",
+        message: "sourcePaths must be an array",
       });
       return errors;
     }
@@ -235,7 +235,7 @@ class DocumentStructureValidator {
       errors.warnings.push({
         type: "EMPTY_SOURCES",
         path: `${location}.sourcePaths`,
-        message: "sourcePaths 为空数组 - 没有引用源文件",
+        message: "sourcePaths is empty array - no source files referenced",
       });
     }
 
@@ -244,7 +244,7 @@ class DocumentStructureValidator {
         errors.fixable.push({
           type: "INVALID_TYPE",
           path: `${location}.sourcePaths[${idx}]`,
-          message: "源文件路径必须是字符串",
+          message: "Source file path must be a string",
         });
       } else if (srcPath.startsWith("workspace:")) {
         errors.fixable.push({
@@ -253,7 +253,7 @@ class DocumentStructureValidator {
           current: srcPath,
           expected: srcPath.replace("workspace:", ""),
           fix: "remove_workspace_prefix",
-          message: "移除 workspace: 前缀",
+          message: "Remove workspace: prefix",
         });
       }
     });
@@ -262,27 +262,27 @@ class DocumentStructureValidator {
   }
 
   /**
-   * 校验 icon
+   * Validate icon
    */
   validateIcon(icon, isTopLevel, location, docTitle) {
     const errors = { fixable: [], fatal: [] };
 
     if (isTopLevel) {
-      // 顶层文档必须有 icon
+      // Top-level documents must have icon
       if (!icon) {
         errors.fatal.push({
           type: "MISSING_ICON",
           path: `${location}.icon`,
-          docTitle: docTitle || "未知文档",
-          message: `顶层文档 "${docTitle || "未知文档"}" 缺少 icon`,
-          suggestion: `请根据文档内容选择合适的 icon，常用选项：
-  - lucide:book-open (文档、概述)
-  - lucide:rocket (快速开始、入门)
-  - lucide:code (API、代码参考)
-  - lucide:settings (配置、设置)
-  - lucide:file-text (指南、教程)
-  - lucide:package (组件、模块)
-更多图标请参考：https://lucide.dev/icons`,
+          docTitle: docTitle || "Unknown document",
+          message: `Top-level document "${docTitle || "Unknown document"}" missing icon`,
+          suggestion: `Please select an appropriate icon based on document content, common options:
+  - lucide:book-open (documentation, overview)
+  - lucide:rocket (quick start, getting started)
+  - lucide:code (API, code reference)
+  - lucide:settings (configuration, settings)
+  - lucide:file-text (guide, tutorial)
+  - lucide:package (component, module)
+More icons at: https://lucide.dev/icons`,
         });
       } else if (!icon.startsWith("lucide:")) {
         errors.fixable.push({
@@ -291,18 +291,18 @@ class DocumentStructureValidator {
           current: icon,
           expected: `lucide:${icon}`,
           fix: "add_lucide_prefix",
-          message: "icon 必须以 lucide: 开头",
+          message: "icon must start with lucide:",
         });
       }
     } else {
-      // 子文档不应该有 icon
+      // Child documents should not have icon
       if (icon) {
         errors.fixable.push({
           type: "EXTRA_ICON",
           path: `${location}.icon`,
           current: icon,
           fix: "remove_icon",
-          message: "子文档不应该包含 icon 字段",
+          message: "Child documents should not contain icon field",
         });
       }
     }
@@ -311,21 +311,21 @@ class DocumentStructureValidator {
   }
 
   /**
-   * 高级规则校验
+   * Advanced rules validation
    */
   validateAdvancedRules() {
-    // 检查嵌套深度
+    // Check nesting depth
     const maxDepth = this.getMaxDepth(this.data.documents);
     if (maxDepth > 3) {
       this.errors.warnings.push({
         type: "DEEP_NESTING",
-        message: `文档结构嵌套了 ${maxDepth} 层（建议 ≤3 层）`,
+        message: `Document structure nested ${maxDepth} levels deep (recommended ≤3 levels)`,
       });
     }
   }
 
   /**
-   * 获取最大嵌套深度
+   * Get maximum nesting depth
    */
   getMaxDepth(docs, currentDepth = 1) {
     if (!docs || !Array.isArray(docs) || docs.length === 0) {
@@ -343,7 +343,7 @@ class DocumentStructureValidator {
   }
 
   /**
-   * 获取校验结果
+   * Get validation result
    */
   getResult() {
     const hasErrors = this.errors.fatal.length > 0 || this.errors.fixable.length > 0;
@@ -363,7 +363,7 @@ class DocumentStructureValidator {
 }
 
 /**
- * 格式化输出
+ * Format output
  */
 function formatOutput(result) {
   let output = "";
@@ -384,20 +384,20 @@ function formatOutput(result) {
   output += `  Fixable Errors: ${result.summary.fixableCount}\n`;
   output += `  Warnings: ${result.summary.warningCount}\n\n`;
 
-  // FATAL 错误
+  // FATAL errors
   if (result.errors.fatal.length > 0) {
     output += "FATAL ERRORS (must fix before proceeding):\n\n";
     result.errors.fatal.forEach((err, idx) => {
       output += `${idx + 1}. ${err.type} at ${err.path || "unknown"}\n`;
       output += `   ${err.message}\n`;
       if (err.suggestion) {
-        output += `   建议: ${err.suggestion}\n`;
+        output += `   Suggestion: ${err.suggestion}\n`;
       }
       output += "\n";
     });
   }
 
-  // FIXABLE 错误
+  // FIXABLE errors
   if (result.errors.fixable.length > 0) {
     output += "FIXABLE ERRORS (can be auto-corrected):\n\n";
     result.errors.fixable.forEach((err, idx) => {
@@ -426,21 +426,21 @@ function formatOutput(result) {
 }
 
 /**
- * 主函数 - Function Agent
+ * Main function - Function Agent
  * @param {Object} params
- * @param {string} params.yamlPath - YAML 文件路径
- * @returns {Promise<Object>} - 校验结果
+ * @param {string} params.yamlPath - YAML file path
+ * @returns {Promise<Object>} - Validation result
  */
 export default async function validateYamlStructure({ yamlPath = PATHS.DOCUMENT_STRUCTURE }) {
   try {
-    // 读取 YAML 文件
+    // Read YAML file
     const content = await readFile(yamlPath, "utf8");
 
-    // 执行校验
+    // Execute validation
     const validator = new DocumentStructureValidator(content);
     const result = await validator.validate();
 
-    // 格式化输出
+    // Format output
     const formattedOutput = formatOutput(result);
 
     return {
@@ -453,7 +453,7 @@ export default async function validateYamlStructure({ yamlPath = PATHS.DOCUMENT_
     if (error.code === "ENOENT") {
       return {
         valid: false,
-        message: `❌ FAIL: 文件不存在: ${yamlPath}`,
+        message: `❌ FAIL: File not found: ${yamlPath}`,
       };
     }
     return {

@@ -1,11 +1,11 @@
 /**
- * AFS Image Slot 相关的工具函数
- * 用于解析和处理文档中的图片 slot
+ * AFS Image Slot utility functions
+ * For parsing and processing image slots in documents
  */
 
 /**
- * Slot 正则表达式（用于替换操作）
- * 支持以下格式：
+ * Slot regex (for replacement operations)
+ * Supports the following formats:
  * - <!-- afs:image id="..." key="..." desc="..." -->
  * - <!-- afs:image id="..." desc="..." -->
  * - <!-- afs:image id=\"...\" key=\"...\" desc=\"...\" -->
@@ -15,39 +15,39 @@ export const SLOT_REGEX =
   /<!--\s*afs:image\s+id=\\?"([^\\"]+)\\?"(?:\s+key=\\?"([^\\"]+)\\?")?\s+desc=\\?"([^\\"]+)\\?"\s*-->/g;
 
 /**
- * 生成 key（如果 slot 未提供）
- * @param {string} docPath - 文档路径（如 "/overview"）
+ * Generate key (if slot doesn't provide one)
+ * @param {string} docPath - Document path (e.g., "/overview")
  * @param {string} id - slot id
- * @returns {string} - 生成的 key
+ * @returns {string} - Generated key
  */
 export function generateKey(docPath, id) {
-  // 去掉开头的 /
+  // Remove leading /
   const normalizedPath = docPath.startsWith("/") ? docPath.slice(1) : docPath;
-  // 将 / 替换为 -
+  // Replace / with -
   const pathPart = normalizedPath.replace(/\//g, "-");
   return `${pathPart}-${id}`;
 }
 
 /**
- * 解析文档中的 AFS image slots
- * @param {string} content - 文档内容
- * @param {string} docPath - 文档路径（用于生成 key）
- * @returns {Array<{id: string, key: string, desc: string, raw: string}>} - Slot 数组
+ * Parse AFS image slots from document
+ * @param {string} content - Document content
+ * @param {string} docPath - Document path (used for generating key)
+ * @returns {Array<{id: string, key: string, desc: string, raw: string}>} - Slot array
  */
 export function parseSlots(content, docPath) {
-  // Slot 格式：<!-- afs:image id="..." key="..." desc="..." -->
-  // key 是可选的
+  // Slot format: <!-- afs:image id="..." key="..." desc="..." -->
+  // key is optional
   const slotRegex = SLOT_REGEX;
 
   const slots = [];
 
   for (const match of content.matchAll(slotRegex)) {
     const id = match[1];
-    const userKey = match[2]; // 可能是 undefined
+    const userKey = match[2]; // May be undefined
     const desc = match[3];
-    const raw = match[0]; // 完整的 slot 字符串
+    const raw = match[0]; // Complete slot string
 
-    // 如果用户没提供 key，自动生成
+    // Auto-generate key if user didn't provide one
     const key = userKey || generateKey(docPath, id);
 
     slots.push({ id, key, desc, raw });

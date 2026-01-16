@@ -1,6 +1,6 @@
 type: image
 name: translateSlotImage
-description: 使用 image-to-image 模式将图片翻译成目标语言
+description: Translate image to target language using image-to-image mode
 image_model:
   model: google/gemini-3-pro-image-preview
   imageConfig:
@@ -30,39 +30,39 @@ input_schema:
   properties:
     existingImage:
       type: array
-      description: 源语言图片（主语言）的 mediaFile 对象数组
+      description: Array of mediaFile objects for source language image (main language)
       items:
         type: object
         properties:
           type:
             type: string
-            description: 文件类型，应为 "local"
+            description: File type, should be "local"
           path:
             type: string
-            description: 图片文件的绝对路径
+            description: Absolute path to the image file
           filename:
             type: string
-            description: 图片文件名
+            description: Image filename
           mimeType:
             type: string
-            description: MIME 类型（如 "image/png", "image/jpeg"）
+            description: MIME type (e.g., "image/png", "image/jpeg")
     desc:
       type: string
-      description: AFS slot 的描述，说明图片的内容
+      description: AFS slot description, explaining the image content
     sourceLanguage:
       type: string
-      description: 源语言代码（如 "zh", "en"）
+      description: Source language code (e.g., "zh", "en")
     targetLocale:
       type: string
-      description: 目标语言代码
+      description: Target language code
     ratio:
       type: string
-      description: 图片宽高比
+      description: Image aspect ratio
       enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
       default: "4:3"
     size:
       type: string
-      description: 生成图片的尺寸
+      description: Generated image size
       default: "2K"
   required:
     - existingImage

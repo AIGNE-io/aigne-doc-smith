@@ -5,8 +5,8 @@ import { parse as yamlParse } from "yaml";
 import { PATHS } from "../../utils/agent-constants.mjs";
 
 /**
- * 检查图片目录是否存在
- * @param {string} key - 图片 key
+ * Check if image directory exists
+ * @param {string} key - Image key
  * @returns {Promise<boolean>}
  */
 async function imageDirectoryExists(key) {
@@ -20,9 +20,9 @@ async function imageDirectoryExists(key) {
 }
 
 /**
- * 读取图片的 meta 信息
- * @param {string} key - 图片 key
- * @returns {Promise<Object|null>} - meta 信息或 null（文件不存在）
+ * Read image meta information
+ * @param {string} key - Image key
+ * @returns {Promise<Object|null>} - Meta information or null (if file does not exist)
  */
 async function readImageMeta(key) {
   const metaPath = join(PATHS.ASSETS_DIR, key, ".meta.yaml");
@@ -37,10 +37,10 @@ async function readImageMeta(key) {
 }
 
 /**
- * 检查图片文件是否存在
- * @param {string} key - 图片 key
- * @param {string} locale - 语言代码
- * @returns {Promise<string|null>} - 图片路径或 null（不存在）
+ * Check if image file exists
+ * @param {string} key - Image key
+ * @param {string} locale - Language code
+ * @returns {Promise<string|null>} - Image path or null (if not exists)
  */
 async function getExistingImagePath(key, locale) {
   const imagePath = join(PATHS.ASSETS_DIR, key, "images", `${locale}.png`);
@@ -54,24 +54,24 @@ async function getExistingImagePath(key, locale) {
 }
 
 /**
- * 判断文档 hash 是否发生变化
- * @param {Array} currentDocs - 当前文档列表
- * @param {Array} metaDocs - meta 中记录的文档列表
- * @returns {boolean} - 是否有变化
+ * Determine if document hash has changed
+ * @param {Array} currentDocs - Current document list
+ * @param {Array} metaDocs - Document list recorded in meta
+ * @returns {boolean} - Whether there are changes
  */
 function hasDocumentChanges(currentDocs, metaDocs) {
   if (!metaDocs || metaDocs.length === 0) {
     return true;
   }
 
-  // 将 meta 文档转换为 map（path -> hash）
+  // Convert meta documents to map (path -> hash)
   const metaHashMap = new Map(metaDocs.map((doc) => [doc.path, doc.hash]));
 
-  // 检查每个当前文档的 hash
+  // Check hash of each current document
   for (const doc of currentDocs) {
     const metaHash = metaHashMap.get(doc.path);
     if (!metaHash || metaHash !== doc.hash) {
-      return true; // hash 不同或新文档
+      return true; // Hash differs or new document
     }
   }
 
@@ -79,19 +79,19 @@ function hasDocumentChanges(currentDocs, metaDocs) {
 }
 
 /**
- * 准备生图任务
- * @param {Object} input - 输入参数
- * @param {string} input.locale - 主语言
- * @param {Array} input.slots - 扫描到的 slot 列表
- * @param {boolean} input.force - 是否强制重新生成
- * @returns {Promise<Object>} - 任务列表
+ * Prepare image generation tasks
+ * @param {Object} input - Input parameters
+ * @param {string} input.locale - Main language
+ * @param {Array} input.slots - Scanned slot list
+ * @param {boolean} input.force - Whether to force regeneration
+ * @returns {Promise<Object>} - Task list
  */
 export default async function prepareGeneration(input) {
   try {
     const { locale, slots, force = false } = input;
 
     if (!locale) {
-      throw new Error("缺少主语言参数， 请检查 doc-smith 工作目录是否已初始化，且文件已生成！");
+      throw new Error("Missing main language parameter, please check if doc-smith workspace has been initialized and files have been generated!");
     }
 
     if (!slots || slots.length === 0) {
@@ -99,18 +99,18 @@ export default async function prepareGeneration(input) {
         success: true,
         locale,
         generationTasks: [],
-        message: "没有找到需要生成的图片 slot",
+        message: "No image slots found to generate",
       };
     }
 
     const generationTasks = [];
     let skippedCount = 0;
 
-    // 检查每个 slot
+    // Check each slot
     for (const slot of slots) {
       const { key, id, desc, documents } = slot;
 
-      // 检查图片目录是否存在
+      // Check if image directory exists
       const dirExists = await imageDirectoryExists(key);
 
       let needsGeneration = false;
@@ -118,34 +118,34 @@ export default async function prepareGeneration(input) {
       let existingImagePath = null;
 
       if (force) {
-        // 强制重新生成
+        // Force regeneration
         needsGeneration = true;
         isUpdate = dirExists;
         if (isUpdate) {
           existingImagePath = await getExistingImagePath(key, locale);
         }
       } else if (!dirExists) {
-        // 图片目录不存在，需要生成
+        // Image directory does not exist, needs generation
         needsGeneration = true;
         isUpdate = false;
       } else {
-        // 图片目录存在，检查 hash 是否变化
+        // Image directory exists, check if hash changed
         const meta = await readImageMeta(key);
 
         if (!meta) {
-          // meta 文件不存在，重新生成
+          // Meta file does not exist, regenerate
           needsGeneration = true;
           isUpdate = false;
         } else {
           const hasChanges = hasDocumentChanges(documents, meta.documents);
 
           if (hasChanges) {
-            // 文档有变化，更新图片
+            // Document has changes, update image
             needsGeneration = true;
             isUpdate = true;
             existingImagePath = await getExistingImagePath(key, locale);
           } else {
-            // 没有变化，跳过
+            // No changes, skip
             needsGeneration = false;
             skippedCount++;
           }
@@ -172,28 +172,28 @@ export default async function prepareGeneration(input) {
       newTasks: generationTasks.filter((t) => !t.isUpdate).length,
       updateTasks: generationTasks.filter((t) => t.isUpdate).length,
       skippedTasks: skippedCount,
-      message: `准备生成 ${generationTasks.length} 个图片（新增 ${generationTasks.filter((t) => !t.isUpdate).length}，更新 ${generationTasks.filter((t) => t.isUpdate).length}，跳过 ${skippedCount}）`,
+      message: `Preparing to generate ${generationTasks.length} images (new: ${generationTasks.filter((t) => !t.isUpdate).length}, update: ${generationTasks.filter((t) => t.isUpdate).length}, skip: ${skippedCount})`,
     };
   } catch (error) {
-    throw new Error(`准备生图任务时发生错误: ${error.message}`);
+    throw new Error(`Error preparing image generation tasks: ${error.message}`);
   }
 }
 
-// 添加描述信息
+// Add description
 prepareGeneration.description =
-  "检查已有图片目录和 meta 信息，对比文档 hash，" + "判断哪些图片需要生成或更新，生成任务列表。";
+  "Check existing image directories and meta information, compare document hashes, " + "determine which images need generation or update, and generate task list.";
 
-// 定义输入 schema
+// Define input schema
 prepareGeneration.input_schema = {
   type: "object",
   properties: {
     locale: {
       type: "string",
-      description: "主语言代码",
+      description: "Main language code",
     },
     slots: {
       type: "array",
-      description: "扫描到的 slot 列表",
+      description: "Scanned slot list",
       items: {
         type: "object",
         properties: {
@@ -216,29 +216,29 @@ prepareGeneration.input_schema = {
     },
     force: {
       type: "boolean",
-      description: "是否强制重新生成所有图片",
+      description: "Whether to force regenerate all images",
       default: false,
     },
   },
   required: ["locale", "slots"],
 };
 
-// 定义输出 schema
+// Define output schema
 prepareGeneration.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     locale: {
       type: "string",
-      description: "主语言代码",
+      description: "Main language code",
     },
     generationTasks: {
       type: "array",
-      description: "需要生成的任务列表",
+      description: "List of tasks to generate",
       items: {
         type: "object",
         properties: {
@@ -253,31 +253,31 @@ prepareGeneration.output_schema = {
     },
     totalSlots: {
       type: "number",
-      description: "总 slot 数量",
+      description: "Total slot count",
     },
     newTasks: {
       type: "number",
-      description: "新增任务数量",
+      description: "Number of new tasks",
     },
     updateTasks: {
       type: "number",
-      description: "更新任务数量",
+      description: "Number of update tasks",
     },
     skippedTasks: {
       type: "number",
-      description: "跳过的任务数量",
+      description: "Number of skipped tasks",
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
     error: {
       type: "string",
-      description: "错误代码（失败时存在）",
+      description: "Error code (present on failure)",
     },
     suggestion: {
       type: "string",
-      description: "建议操作（失败时存在）",
+      description: "Suggested action (present on failure)",
     },
   },
 };

@@ -2,18 +2,18 @@ import { basename } from "node:path";
 import { ERROR_CODES } from "../../../utils/agent-constants.mjs";
 
 /**
- * 准备图片翻译的输入参数
- * @param {Object} input - 输入参数（来自 translationTasks 的单个任务）
- * @param {string} input.key - 图片 key
- * @param {string} input.desc - 图片描述
- * @param {string} input.assetDir - 图片资源目录
- * @param {string} input.sourceImagePath - 源图片路径
- * @param {string} input.sourceHash - 源图片 hash
- * @param {string} input.aspectRatio - 宽高比
- * @param {string} input.size - 图片尺寸
- * @param {string} input.sourceLanguage - 源语言（来自父级）
- * @param {string} input.targetLanguage - 目标语言（来自父级）
- * @returns {Promise<Object>} - 准备好的输入参数
+ * Prepare input parameters for image translation
+ * @param {Object} input - Input parameters (single task from translationTasks)
+ * @param {string} input.key - Image key
+ * @param {string} input.desc - Image description
+ * @param {string} input.assetDir - Image asset directory
+ * @param {string} input.sourceImagePath - Source image path
+ * @param {string} input.sourceHash - Source image hash
+ * @param {string} input.aspectRatio - Aspect ratio
+ * @param {string} input.size - Image size
+ * @param {string} input.sourceLanguage - Source language (from parent)
+ * @param {string} input.targetLanguage - Target language (from parent)
+ * @returns {Promise<Object>} - Prepared input parameters
  */
 export default async function prepareImageInput(input) {
   const {
@@ -29,7 +29,7 @@ export default async function prepareImageInput(input) {
   } = input;
 
   try {
-    // 准备 existingImage 参数（mediaFile 格式）
+    // Prepare existingImage parameter (mediaFile format)
     const existingImage = [
       {
         type: "local",
@@ -41,36 +41,36 @@ export default async function prepareImageInput(input) {
 
     return {
       success: true,
-      // 传递给 translate-image.yaml 的参数
+      // Parameters for translate-image.yaml
       existingImage,
       desc,
       sourceLanguage,
       targetLocale: targetLanguage,
       ratio: aspectRatio,
       size,
-      // 传递给 save-image-translation.mjs 的参数
+      // Parameters for save-image-translation.mjs
       key,
       assetDir,
       targetLanguage,
       sourceHash,
-      message: `准备翻译图片: ${key} (${sourceLanguage} → ${targetLanguage})`,
+      message: `Preparing image translation: ${key} (${sourceLanguage} → ${targetLanguage})`,
     };
   } catch (error) {
     return {
       success: false,
       error: ERROR_CODES.UNEXPECTED_ERROR,
-      message: `准备图片翻译输入时发生错误: ${error.message}`,
+      message: `Error preparing image translation input: ${error.message}`,
       key,
     };
   }
 }
 
-// 添加描述信息
+// Add description
 prepareImageInput.description =
-  "准备图片翻译的输入参数，将翻译任务转换为 translate-image.yaml 所需的格式。" +
-  "构建 sourceImage mediaFile 对象数组，传递必要的参数。";
+  "Prepare input parameters for image translation, converting translation tasks to the format required by translate-image.yaml. " +
+  "Build sourceImage mediaFile object array and pass necessary parameters.";
 
-// 定义输入 schema
+// Define input schema
 prepareImageInput.input_schema = {
   type: "object",
   required: [
@@ -85,40 +85,40 @@ prepareImageInput.input_schema = {
     "targetLanguage",
   ],
   properties: {
-    key: { type: "string", description: "图片 key" },
-    desc: { type: "string", description: "图片描述" },
-    assetDir: { type: "string", description: "图片资源目录" },
-    sourceImagePath: { type: "string", description: "源图片路径" },
-    sourceHash: { type: "string", description: "源图片 hash" },
-    aspectRatio: { type: "string", description: "宽高比" },
-    size: { type: "string", description: "图片尺寸" },
-    sourceLanguage: { type: "string", description: "源语言代码" },
-    targetLanguage: { type: "string", description: "目标语言代码" },
-    reason: { type: "string", description: "翻译原因" },
+    key: { type: "string", description: "Image key" },
+    desc: { type: "string", description: "Image description" },
+    assetDir: { type: "string", description: "Image asset directory" },
+    sourceImagePath: { type: "string", description: "Source image path" },
+    sourceHash: { type: "string", description: "Source image hash" },
+    aspectRatio: { type: "string", description: "Aspect ratio" },
+    size: { type: "string", description: "Image size" },
+    sourceLanguage: { type: "string", description: "Source language code" },
+    targetLanguage: { type: "string", description: "Target language code" },
+    reason: { type: "string", description: "Translation reason" },
   },
 };
 
-// 定义输出 schema
+// Define output schema
 prepareImageInput.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
-    success: { type: "boolean", description: "操作是否成功" },
+    success: { type: "boolean", description: "Whether operation succeeded" },
     existingImage: {
       type: "array",
-      description: "源图片 mediaFile 对象数组",
+      description: "Source image mediaFile object array",
       items: { type: "object" },
     },
-    desc: { type: "string", description: "图片描述" },
-    sourceLanguage: { type: "string", description: "源语言代码" },
-    targetLocale: { type: "string", description: "目标语言代码" },
-    ratio: { type: "string", description: "宽高比" },
-    size: { type: "string", description: "图片尺寸" },
-    key: { type: "string", description: "图片 key" },
-    assetDir: { type: "string", description: "图片资源目录" },
-    targetLanguage: { type: "string", description: "目标语言代码" },
-    sourceHash: { type: "string", description: "源图片 hash" },
-    message: { type: "string", description: "操作结果描述" },
-    error: { type: "string", description: "错误代码（失败时存在）" },
+    desc: { type: "string", description: "Image description" },
+    sourceLanguage: { type: "string", description: "Source language code" },
+    targetLocale: { type: "string", description: "Target language code" },
+    ratio: { type: "string", description: "Aspect ratio" },
+    size: { type: "string", description: "Image size" },
+    key: { type: "string", description: "Image key" },
+    assetDir: { type: "string", description: "Image asset directory" },
+    targetLanguage: { type: "string", description: "Target language code" },
+    sourceHash: { type: "string", description: "Source image hash" },
+    message: { type: "string", description: "Operation result description" },
+    error: { type: "string", description: "Error code (present on failure)" },
   },
 };

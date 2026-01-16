@@ -12,9 +12,9 @@ import {
 import { loadConfigFromFile } from "./config.mjs";
 
 /**
- * 扫描文档目录，识别所有包含 .meta.yaml 的文档目录
- * @param {string} docsDir - 文档根目录路径
- * @returns {Promise<Array>} 文档列表，每个文档包含 {dirPath, dirName, locale, content, depth}
+ * Scan document directory and identify all document directories containing .meta.yaml
+ * @param {string} docsDir - Document root directory path
+ * @returns {Promise<Array>} Document list, each containing {dirPath, dirName, locale, content, depth}
  */
 export async function scanDocuments(docsDir) {
   const documents = [];
@@ -22,14 +22,14 @@ export async function scanDocuments(docsDir) {
   async function scanDir(currentPath) {
     const entries = await fs.readdir(currentPath, { withFileTypes: true });
 
-    // 检查是否包含 .meta.yaml
+    // Check if directory contains .meta.yaml
     const hasMetaFile = entries.some((entry) => entry.isFile() && entry.name === ".meta.yaml");
 
     if (hasMetaFile) {
-      // 这是一个文档目录，读取所有语言文件
+      // This is a document directory, read all language files
       const markdownFiles = entries.filter((entry) => entry.isFile() && entry.name.endsWith(".md"));
 
-      // 计算文档深度（相对于 docs/ 的层级）
+      // Calculate document depth (level relative to docs/)
       const relativePath = relative(docsDir, currentPath);
       const depth = relativePath === "" ? 0 : relativePath.split("/").length;
 
@@ -51,7 +51,7 @@ export async function scanDocuments(docsDir) {
       }
     }
 
-    // 递归扫描子目录
+    // Recursively scan subdirectories
     const subDirs = entries.filter((entry) => entry.isDirectory());
     for (const subDir of subDirs) {
       await scanDir(join(currentPath, subDir.name));
@@ -63,65 +63,65 @@ export async function scanDocuments(docsDir) {
 }
 
 /**
- * 根据文档深度和语言计算目标路径
- * @param {string} relativePath - 相对于 docs/ 的路径
- * @param {string} dirName - 文档目录名
- * @param {string} locale - 语言代码
- * @param {number} depth - 文档深度
- * @returns {string} 目标文件路径（相对于目标目录）
+ * Calculate target path based on document depth and language
+ * @param {string} relativePath - Path relative to docs/
+ * @param {string} dirName - Document directory name
+ * @param {string} locale - Language code
+ * @param {number} depth - Document depth
+ * @returns {string} Target file path (relative to target directory)
  */
 export function getTargetPath(relativePath, dirName, locale, depth) {
-  // 英文文档不带语言后缀，其他语言带后缀
+  // English documents have no language suffix, other languages have suffix
   const suffix = locale === "en" ? ".md" : `.${locale}.md`;
   const fileName = `${dirName}${suffix}`;
 
   if (depth === 1) {
-    // 单级路径：文件移到根目录
+    // Single level path: move file to root directory
     return fileName;
   }
 
-  // 多级路径：保留父级目录，文件名使用目录名
+  // Multi-level path: keep parent directory, use directory name as file name
   const parentPath = dirname(relativePath);
   return join(parentPath, fileName);
 }
 
 /**
- * 为内部链接添加 .md 后缀
- * @param {string} content - 文档内容
- * @returns {string} 处理后的内容
+ * Add .md suffix to internal links
+ * @param {string} content - Document content
+ * @returns {string} Processed content
  */
 export function addMarkdownSuffixToLinks(content) {
-  // 匹配 Markdown 链接：[text](path)
-  // 但不匹配图片：![alt](path)
-  // 不匹配外部链接（http:// 或 https://）
-  // 不匹配已有 .md 后缀的链接
-  // 不匹配媒体文件链接（图片、视频等）
+  // Match Markdown links: [text](path)
+  // But not images: ![alt](path)
+  // Not external links (http:// or https://)
+  // Not links that already have .md suffix
+  // Not media file links (images, videos, etc.)
 
-  // 媒体文件扩展名
+  // Media file extensions
   const mediaExtensions = /\.(jpg|jpeg|png|gif|webp|svg|mp4|webm|mov|avi|pdf)$/i;
 
   return content.replace(/(?<!!)\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
-    // 跳过外部链接
+    // Skip external links
     if (url.startsWith("http://") || url.startsWith("https://")) {
       return match;
     }
 
-    // 跳过已有 .md 后缀的链接
+    // Skip links that already have .md suffix
     if (url.includes(".md")) {
       return match;
     }
 
-    // 跳过非文档链接（如 mailto:, #anchor 等）
+    // Skip non-document links (such as mailto:, #anchor, etc.)
     if (url.includes(":") || url.startsWith("#")) {
       return match;
     }
 
-    // 跳过媒体文件链接（图片、视频、PDF 等）
+    // Skip media file links (images, videos, PDFs, etc.)
     if (mediaExtensions.test(url)) {
       return match;
     }
 
-    // 分离路径和锚点
+    // Separate path and anchor
     const hashIndex = url.indexOf("#");
     if (hashIndex !== -1) {
       const path = url.substring(0, hashIndex);
@@ -129,41 +129,41 @@ export function addMarkdownSuffixToLinks(content) {
       return `[${text}](${path}.md${hash})`;
     }
 
-    // 添加 .md 后缀
+    // Add .md suffix
     return `[${text}](${url}.md)`;
   });
 }
 
 /**
- * 调整图片路径（根据文档深度）
- * @param {string} content - 文档内容
- * @param {number} depth - 文档深度
- * @returns {string} 处理后的内容
+ * Adjust image paths (based on document depth)
+ * @param {string} content - Document content
+ * @param {number} depth - Document depth
+ * @returns {string} Processed content
  */
 export function adjustImagePaths(content, depth) {
-  // 深度 1 的文档向上移动一层，需要移除一个 ../
-  // 深度 2+ 的文档路径保持不变
+  // Documents at depth 1 move up one level, need to remove one ../
+  // Documents at depth 2+ keep paths unchanged
 
   if (depth !== 1) {
     return content;
   }
 
-  // 匹配图片链接：![alt](path)
+  // Match image links: ![alt](path)
   return content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, path) => {
-    // 只处理相对路径（包含 ../ 的路径）
+    // Only process relative paths (paths containing ../)
     if (!path.startsWith("../")) {
       return match;
     }
 
-    // 移除一个 ../
+    // Remove one ../
     const newPath = path.replace(/^\.\.\//, "");
     return `![${alt}](${newPath})`;
   });
 }
 
 /**
- * 从配置文件读取主语言
- * @returns {Promise<string|null>} - 主语言代码，如果读取失败返回 null
+ * Read primary language from config file
+ * @returns {Promise<string|null>} - Primary language code, returns null if read fails
  */
 async function loadMainLocale() {
   try {
@@ -180,14 +180,14 @@ async function loadMainLocale() {
 }
 
 /**
- * 替换文档中的 AFS image slots 为真实图片引用
- * @param {string} content - 文档内容
- * @param {string} docPath - 文档路径（用于计算相对路径和生成 key）
- * @param {string} locale - 当前文档语言
- * @param {string} mainLocale - 主语言
- * @param {number} depth - 文档深度（用于计算相对路径）
- * @param {string} assetsDir - assets 目录路径
- * @returns {Promise<string>} - 替换后的内容
+ * Replace AFS image slots in document with actual image references
+ * @param {string} content - Document content
+ * @param {string} docPath - Document path (for calculating relative paths and generating keys)
+ * @param {string} locale - Current document language
+ * @param {string} mainLocale - Primary language
+ * @param {number} depth - Document depth (for calculating relative paths)
+ * @param {string} assetsDir - Assets directory path
+ * @returns {Promise<string>} - Content with replacements
  */
 async function replaceImageSlots(
   content,
@@ -197,49 +197,49 @@ async function replaceImageSlots(
   depth,
   assetsDir = PATHS.ASSETS_DIR,
 ) {
-  // 解析所有 slots
+  // Parse all slots
   const slots = parseSlots(content, docPath);
 
   if (slots.length === 0) {
     return content;
   }
 
-  // 替换每个 slot
+  // Replace each slot
   let result = content;
   for (const slot of slots) {
     const { key, desc, raw } = slot;
 
-    // 查找图片
+    // Find image
     const imagePath = await findImageWithFallback(key, locale, mainLocale, assetsDir);
 
     if (imagePath) {
-      // 计算相对路径前缀
-      // 目标文档至少在 targetDir 根目录下，需要至少 1 个 ../ 来访问与 targetDir 平级的 assets/
-      // depth 0/1: ../assets/{key}/images/{lang}.jpg  (从 tmp-docs/overview.md 访问 assets/)
-      // depth 2: ../../assets/{key}/images/{lang}.jpg  (从 tmp-docs/api/auth.md 访问 assets/)
-      // depth N: N 个 ../ (最少 1 个)
+      // Calculate relative path prefix
+      // Target document is at least in targetDir root, needs at least 1 ../ to access assets/ parallel to targetDir
+      // depth 0/1: ../assets/{key}/images/{lang}.jpg  (from tmp-docs/overview.md to assets/)
+      // depth 2: ../../assets/{key}/images/{lang}.jpg  (from tmp-docs/api/auth.md to assets/)
+      // depth N: N ../'s (minimum 1)
       const pathPrefix = "../".repeat(Math.max(depth, 1));
       const imageRef = `${pathPrefix}assets/${imagePath}`;
 
-      // 替换 slot 为图片引用
+      // Replace slot with image reference
       const imageMarkdown = `![${desc}](${imageRef})`;
       result = result.replace(raw, imageMarkdown);
     }
-    // 如果图片不存在，保持 slot 不变（或者可以选择移除）
+    // If image doesn't exist, keep slot unchanged (or could choose to remove)
   }
 
   return result;
 }
 
 /**
- * 处理单个 /sources/... 图片路径
- * @param {string} imagePath - 图片路径
- * @param {number} depth - 文档深度
- * @param {string} targetDir - 目标目录
- * @param {Array} sourcesConfig - sources 配置
- * @param {string} workspaceBase - workspace 基础路径
- * @param {Set} processedImages - 已处理的图片集合
- * @returns {Promise<{newPath: string, copied: boolean} | null>} - 新路径和是否复制了文件
+ * Process single /sources/... image path
+ * @param {string} imagePath - Image path
+ * @param {number} depth - Document depth
+ * @param {string} targetDir - Target directory
+ * @param {Array} sourcesConfig - Sources configuration
+ * @param {string} workspaceBase - Workspace base path
+ * @param {Set} processedImages - Set of processed images
+ * @returns {Promise<{newPath: string, copied: boolean} | null>} - New path and whether file was copied
  */
 async function processSourcesImagePath(
   imagePath,
@@ -253,14 +253,14 @@ async function processSourcesImagePath(
     return null;
   }
 
-  // 解析路径，获取相对路径部分
+  // Parse path, get relative path portion
   const relativePath = parseSourcesPath(imagePath);
   if (!relativePath) {
     console.warn(`⚠️  Invalid sources path format: ${imagePath}`);
     return null;
   }
 
-  // 获取物理路径（自动在各个 source 中查找）
+  // Get physical path (automatically search in each source)
   const resolved = await resolveSourcesPath(imagePath, sourcesConfig, workspaceBase);
   if (!resolved) {
     console.warn(`⚠️  Cannot find image in any source: ${imagePath}`);
@@ -269,8 +269,8 @@ async function processSourcesImagePath(
 
   const { physicalPath } = resolved;
 
-  // 复制到临时目录的 sources 子目录
-  // 保持与执行层相同的路径结构: targetDir/../sources/<relativePath>
+  // Copy to sources subdirectory in temp directory
+  // Maintain same path structure as execution layer: targetDir/../sources/<relativePath>
   const targetImagePath = join(dirname(targetDir), "sources", relativePath);
 
   let copied = false;
@@ -281,7 +281,7 @@ async function processSourcesImagePath(
     copied = true;
   }
 
-  // 计算相对路径
+  // Calculate relative path
   // depth 0/1: ../sources/path/to/image.png
   // depth 2: ../../sources/path/to/image.png
   const pathPrefix = "../".repeat(Math.max(depth, 1));
@@ -291,23 +291,23 @@ async function processSourcesImagePath(
 }
 
 /**
- * 处理文档中的 /sources/... 绝对路径图片
- * 支持两种格式：
+ * Process /sources/... absolute path images in document
+ * Supports two formats:
  * - Markdown: ![alt](/sources/path/to/image.png)
  * - HTML: <img src="/sources/path/to/image.png" ... />
- * @param {string} content - 文档内容
- * @param {number} depth - 文档深度（用于计算相对路径）
- * @param {string} targetDir - 目标目录（临时目录）
- * @param {Array} sourcesConfig - config.yaml 中的 sources 配置
- * @param {string} workspaceBase - workspace 基础路径
- * @returns {Promise<{content: string, copiedCount: number}>} - 处理后的内容和复制的图片数量
+ * @param {string} content - Document content
+ * @param {number} depth - Document depth (for calculating relative paths)
+ * @param {string} targetDir - Target directory (temp directory)
+ * @param {Array} sourcesConfig - sources configuration from config.yaml
+ * @param {string} workspaceBase - Workspace base path
+ * @returns {Promise<{content: string, copiedCount: number}>} - Processed content and count of copied images
  */
 async function processSourcesImages(content, depth, targetDir, sourcesConfig, workspaceBase) {
   let result = content;
   const processedImages = new Set();
   let copiedCount = 0;
 
-  // 1. 处理 Markdown 格式图片: ![alt](/sources/path/to/image.png)
+  // 1. Process Markdown format images: ![alt](/sources/path/to/image.png)
   const markdownImageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
   const markdownMatches = [...content.matchAll(markdownImageRegex)];
 
@@ -330,7 +330,7 @@ async function processSourcesImages(content, depth, targetDir, sourcesConfig, wo
     }
   }
 
-  // 2. 处理 HTML img 标签: <img src="/sources/path/to/image.png" ... />
+  // 2. Process HTML img tags: <img src="/sources/path/to/image.png" ... />
   const htmlImgRegex = /<img\s+([^>]*?)src=["']([^"']+)["']([^>]*?)\/?>/gi;
   const htmlMatches = [...result.matchAll(htmlImgRegex)];
 
@@ -349,7 +349,7 @@ async function processSourcesImages(content, depth, targetDir, sourcesConfig, wo
     if (processResult) {
       const { newPath, copied } = processResult;
       if (copied) copiedCount++;
-      // 重建 img 标签，保持其他属性不变
+      // Rebuild img tag, keeping other attributes unchanged
       const newImgTag = `<img ${beforeSrc}src="${newPath}"${afterSrc}/>`;
       result = result.replace(fullMatch, newImgTag);
     }
@@ -359,13 +359,13 @@ async function processSourcesImages(content, depth, targetDir, sourcesConfig, wo
 }
 
 /**
- * 复制文档到临时目录并进行转换
- * @param {string} sourceDir - 源文档目录
- * @param {string} targetDir - 目标目录
- * @returns {Promise<Object>} 转换统计信息
+ * Copy documents to temp directory and perform conversion
+ * @param {string} sourceDir - Source document directory
+ * @param {string} targetDir - Target directory
+ * @returns {Promise<Object>} Conversion statistics
  */
 export async function copyDocumentsToTemp(sourceDir, targetDir) {
-  // 扫描所有文档
+  // Scan all documents
   const documents = await scanDocuments(sourceDir);
 
   if (documents.length === 0) {
@@ -373,10 +373,10 @@ export async function copyDocumentsToTemp(sourceDir, targetDir) {
     return { total: 0, converted: 0 };
   }
 
-  // 读取主语言（用于图片回退）
+  // Read primary language (for image fallback)
   const mainLocale = await loadMainLocale();
 
-  // 加载 sources 配置（用于处理 /sources/... 绝对路径）
+  // Load sources config (for processing /sources/... absolute paths)
   const config = await loadConfigFromFile();
   const sourcesConfig = config?.sources || [];
 
@@ -389,22 +389,22 @@ export async function copyDocumentsToTemp(sourceDir, targetDir) {
     sourcesCopied: 0,
   };
 
-  // 处理每个文档
+  // Process each document
   for (const doc of documents) {
     const { relativePath, dirName, locale, content, depth } = doc;
 
-    // 计算目标路径
+    // Calculate target path
     const targetPath = getTargetPath(relativePath, dirName, locale, depth);
     const fullTargetPath = join(targetDir, targetPath);
 
-    // 处理内容
+    // Process content
     let processedContent = content;
 
-    // 1. 调整原始文档中的图片路径（必须在 replaceImageSlots 之前，避免处理新生成的路径）
+    // 1. Adjust image paths in original document (must be before replaceImageSlots to avoid processing newly generated paths)
     processedContent = adjustImagePaths(processedContent, depth);
 
-    // 2. 替换 AFS image slots 为真实图片引用
-    // 使用相对路径 relativePath 作为 docPath（需要添加前导 /）
+    // 2. Replace AFS image slots with actual image references
+    // Use relativePath as docPath (need to add leading /)
     const docPath = relativePath ? `/${relativePath}` : `/${dirName}`;
     const contentBeforeSlotReplace = processedContent;
     processedContent = await replaceImageSlots(
@@ -415,14 +415,14 @@ export async function copyDocumentsToTemp(sourceDir, targetDir) {
       depth,
       PATHS.ASSETS_DIR,
     );
-    // 统计替换的 slot 数量
+    // Count replaced slots
     if (contentBeforeSlotReplace !== processedContent) {
       const slotsBefore = (contentBeforeSlotReplace.match(/<!--\s*afs:image/g) || []).length;
       const slotsAfter = (processedContent.match(/<!--\s*afs:image/g) || []).length;
       stats.slotsReplaced += slotsBefore - slotsAfter;
     }
 
-    // 3. 处理 /sources/... 绝对路径图片
+    // 3. Process /sources/... absolute path images
     if (sourcesConfig.length > 0) {
       const sourcesResult = await processSourcesImages(
         processedContent,
@@ -435,10 +435,10 @@ export async function copyDocumentsToTemp(sourceDir, targetDir) {
       stats.sourcesCopied += sourcesResult.copiedCount;
     }
 
-    // 4. 为内部链接添加 .md 后缀
+    // 4. Add .md suffix to internal links
     processedContent = addMarkdownSuffixToLinks(processedContent);
 
-    // 创建目标目录并写入文件
+    // Create target directory and write file
     await fs.ensureDir(dirname(fullTargetPath));
     await fs.writeFile(fullTargetPath, processedContent, "utf8");
 

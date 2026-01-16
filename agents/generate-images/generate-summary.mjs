@@ -1,21 +1,21 @@
 /**
- * 生成图片生成任务的最终总结报告
- * @param {Object} input - 输入参数
- * @param {string} input.locale - 主语言
- * @param {Array} input.generationTasks - 生成任务列表（来自 prepare-generation）
- * @param {Array} input.processAllSlots - 执行结果列表（来自 team 的 iterate）
- * @param {number} input.newTasks - 新增任务数量
- * @param {number} input.updateTasks - 更新任务数量
- * @param {number} input.skippedTasks - 跳过的任务数量
- * @returns {Object} - 包含格式化消息和统计数据的对象
+ * Generate final summary report for image generation tasks
+ * @param {Object} input - Input parameters
+ * @param {string} input.locale - Main language
+ * @param {Array} input.generationTasks - Generation task list (from prepare-generation)
+ * @param {Array} input.processAllSlots - Execution result list (from team iterate)
+ * @param {number} input.newTasks - Number of new tasks
+ * @param {number} input.updateTasks - Number of update tasks
+ * @param {number} input.skippedTasks - Number of skipped tasks
+ * @returns {Object} - Object containing formatted message and statistics
  */
 export default function generateSummary(input) {
   const { locale, generationTasks, processAllSlots, newTasks, updateTasks, skippedTasks } = input;
 
-  // 如果没有任务
+  // If no tasks
   if (!generationTasks || generationTasks.length === 0) {
     return {
-      message: `⏭️  没有需要生成的图片 slot`,
+      message: `⏭️  No image slots to generate`,
       summary: {
         locale,
         totalTasks: 0,
@@ -29,7 +29,7 @@ export default function generateSummary(input) {
     };
   }
 
-  // 统计成功和失败的任务
+  // Count successful and failed tasks
   const results = processAllSlots || [];
   const successTasks = results.filter((r) => r?.success);
   const failedTasks = results.filter((r) => r && !r.success);
@@ -37,51 +37,51 @@ export default function generateSummary(input) {
   const successCount = successTasks.length;
   const failedCount = failedTasks.length;
 
-  // 生成成功的图片路径列表（最多显示10个）
+  // Generate list of successful image paths (show up to 10)
   const successPaths = successTasks.map((r) => r.imagePath).filter(Boolean);
   const displayPaths =
     successPaths.length > 10
-      ? [...successPaths.slice(0, 10), `... 还有 ${successPaths.length - 10} 个图片`]
+      ? [...successPaths.slice(0, 10), `... and ${successPaths.length - 10} more images`]
       : successPaths;
 
-  // 生成失败的任务列表
+  // Generate list of failed tasks
   const failedKeys = failedTasks.map((r) => ({
     key: r.key,
-    error: r.message || r.error || "未知错误",
+    error: r.message || r.error || "Unknown error",
   }));
 
-  // 生成格式化的消息
+  // Generate formatted message
   let message = `
-✅ 图片生成任务已完成
+✅ Image generation tasks completed
 
-📊 **生成统计**：
-   - 主语言：${locale}
-   - 总任务数：${generationTasks.length}
-   - 新增图片：${newTasks || 0}
-   - 更新图片：${updateTasks || 0}
-   - 跳过图片：${skippedTasks || 0}
-   - 成功：${successCount}
-   - 失败：${failedCount}
+📊 **Generation Statistics**:
+   - Main language: ${locale}
+   - Total tasks: ${generationTasks.length}
+   - New images: ${newTasks || 0}
+   - Updated images: ${updateTasks || 0}
+   - Skipped images: ${skippedTasks || 0}
+   - Succeeded: ${successCount}
+   - Failed: ${failedCount}
 `;
 
   if (successPaths.length > 0) {
     message += `
-📷 **生成的图片**：
+📷 **Generated Images**:
 ${displayPaths.map((path) => `   - ${path}`).join("\n")}
 `;
   }
 
   if (failedKeys.length > 0) {
     message += `
-❌ **失败的任务**：
+❌ **Failed Tasks**:
 ${failedKeys.map((f) => `   - ${f.key}: ${f.error}`).join("\n")}
 `;
   }
 
   message += `
-💡 **提示**：
-   - 图片已保存到 assets/{key}/images/${locale}.png
-   - 元信息已保存到 assets/{key}/.meta.yaml
+💡 **Tips**:
+   - Images saved to assets/{key}/images/${locale}.png
+   - Metadata saved to assets/{key}/.meta.yaml
   `;
 
   return {
@@ -100,30 +100,30 @@ ${failedKeys.map((f) => `   - ${f.key}: ${f.error}`).join("\n")}
   };
 }
 
-// 添加描述信息
+// Add description
 generateSummary.description =
-  "生成图片生成任务的最终总结报告。" +
-  "汇总生成统计数据（主语言、新增/更新/跳过数量、成功/失败任务等），生成易读的格式化消息。" +
-  "列出生成的图片路径和失败的任务信息。";
+  "Generate final summary report for image generation tasks. " +
+  "Aggregate generation statistics (main language, new/update/skip counts, success/failure tasks, etc.), generate readable formatted message. " +
+  "List generated image paths and failed task information.";
 
-// 定义输入 schema
+// Define input schema
 generateSummary.input_schema = {
   type: "object",
   properties: {
     locale: {
       type: "string",
-      description: "主语言代码",
+      description: "Main language code",
     },
     generationTasks: {
       type: "array",
-      description: "生成任务列表",
+      description: "Generation task list",
       items: {
         type: "object",
       },
     },
     processAllSlots: {
       type: "array",
-      description: "执行结果列表",
+      description: "Execution result list",
       items: {
         type: "object",
         properties: {
@@ -137,64 +137,64 @@ generateSummary.input_schema = {
     },
     newTasks: {
       type: "number",
-      description: "新增任务数量",
+      description: "Number of new tasks",
     },
     updateTasks: {
       type: "number",
-      description: "更新任务数量",
+      description: "Number of update tasks",
     },
     skippedTasks: {
       type: "number",
-      description: "跳过的任务数量",
+      description: "Number of skipped tasks",
     },
   },
 };
 
-// 定义输出 schema
+// Define output schema
 generateSummary.output_schema = {
   type: "object",
   required: ["message", "summary"],
   properties: {
     message: {
       type: "string",
-      description: "格式化的总结消息，包含生成统计和提示信息",
+      description: "Formatted summary message containing generation statistics and tips",
     },
     summary: {
       type: "object",
-      description: "结构化的统计数据",
+      description: "Structured statistics data",
       properties: {
         locale: {
           type: "string",
-          description: "主语言代码",
+          description: "Main language code",
         },
         totalTasks: {
           type: "number",
-          description: "总任务数",
+          description: "Total task count",
         },
         newImages: {
           type: "number",
-          description: "新增图片数量",
+          description: "Number of new images",
         },
         updatedImages: {
           type: "number",
-          description: "更新图片数量",
+          description: "Number of updated images",
         },
         skippedImages: {
           type: "number",
-          description: "跳过图片数量",
+          description: "Number of skipped images",
         },
         successTasks: {
           type: "number",
-          description: "成功任务数量",
+          description: "Number of successful tasks",
         },
         failedTasks: {
           type: "number",
-          description: "失败任务数量",
+          description: "Number of failed tasks",
         },
         generatedImages: {
           type: "array",
           items: { type: "string" },
-          description: "生成的图片路径列表",
+          description: "List of generated image paths",
         },
         failedKeys: {
           type: "array",
@@ -205,7 +205,7 @@ generateSummary.output_schema = {
               error: { type: "string" },
             },
           },
-          description: "失败的任务列表",
+          description: "List of failed tasks",
         },
       },
     },

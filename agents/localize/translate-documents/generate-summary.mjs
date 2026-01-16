@@ -1,20 +1,20 @@
 /**
- * 生成翻译任务的最终总结报告
- * @param {Object} input - 输入参数
- * @param {Array} input.translationTasks - 翻译任务列表
- * @param {string} input.sourceLanguage - 源语言代码
- * @param {Array} input.targetLanguages - 目标语言列表
- * @param {number} input.totalDocs - 总文档数
- * @param {boolean} input.skipped - 是否跳过翻译
- * @returns {Object} - 包含格式化消息和统计数据的对象
+ * Generate final summary report for translation tasks
+ * @param {Object} input - Input parameters
+ * @param {Array} input.translationTasks - Translation task list
+ * @param {string} input.sourceLanguage - Source language code
+ * @param {Array} input.targetLanguages - Target language list
+ * @param {number} input.totalDocs - Total document count
+ * @param {boolean} input.skipped - Whether translation was skipped
+ * @returns {Object} - Object containing formatted message and statistics
  */
 export default function generateSummary(input) {
   const { translationTasks, sourceLanguage, targetLanguages, totalDocs, skipped } = input;
 
-  // 如果跳过了翻译
+  // If translation was skipped
   if (skipped) {
     return {
-      message: `⏭️  翻译已跳过：所有目标语言都与源语言 (${sourceLanguage}) 相同`,
+      message: `⏭️  Translation skipped: All target languages are the same as source language (${sourceLanguage})`,
       summary: {
         skipped: true,
         sourceLanguage,
@@ -25,34 +25,34 @@ export default function generateSummary(input) {
     };
   }
 
-  // 计算统计数据
+  // Calculate statistics
   const totalLanguages = targetLanguages.length;
   const totalTranslations = totalDocs * totalLanguages;
 
-  // 生成文档路径列表（最多显示5个）
+  // Generate document path list (show at most 5)
   const docPaths = translationTasks.map((task) => task.path);
   const displayDocs =
     docPaths.length > 5
-      ? [...docPaths.slice(0, 5), `... 还有 ${docPaths.length - 5} 个文档`]
+      ? [...docPaths.slice(0, 5), `... and ${docPaths.length - 5} more documents`]
       : docPaths;
 
-  // 生成格式化的消息
+  // Generate formatted message
   const message = `
-✅ 翻译任务已完成
+✅ Translation tasks completed
 
-📊 **翻译统计**：
-   - 源语言：${sourceLanguage}
-   - 目标语言：${targetLanguages.join(", ")} (${totalLanguages} 种语言)
-   - 文档数量：${totalDocs} 个
-   - 总翻译数：${totalTranslations} 个翻译
+📊 **Translation Statistics**:
+   - Source language: ${sourceLanguage}
+   - Target languages: ${targetLanguages.join(", ")} (${totalLanguages} languages)
+   - Document count: ${totalDocs}
+   - Total translations: ${totalTranslations}
 
-📄 **翻译文档**：
+📄 **Translated Documents**:
 ${displayDocs.map((doc) => `   - ${doc}`).join("\n")}
 
-💡 **提示**：
-   - 翻译文件已保存到 docs/{path}/{language}.md
-   - 文档的 .meta.yaml 已自动更新 languages 字段
-   - 如需查看翻译结果，请检查对应的语言文件
+💡 **Tips**:
+   - Translation files saved to docs/{path}/{language}.md
+   - Document .meta.yaml languages field has been automatically updated
+   - Check the corresponding language files to view translation results
   `.trim();
 
   return {
@@ -69,19 +69,19 @@ ${displayDocs.map((doc) => `   - ${doc}`).join("\n")}
   };
 }
 
-// 添加描述信息
+// Add description
 generateSummary.description =
-  "生成翻译任务的最终总结报告。" +
-  "汇总翻译统计数据（源语言、目标语言、文档数量等），生成易读的格式化消息。" +
-  "如果翻译被跳过，会生成相应的跳过提示。";
+  "Generate final summary report for translation tasks. " +
+  "Summarize translation statistics (source language, target languages, document count, etc.) and generate readable formatted message. " +
+  "If translation was skipped, generate corresponding skip notice.";
 
-// 定义输入 schema
+// Define input schema
 generateSummary.input_schema = {
   type: "object",
   properties: {
     translationTasks: {
       type: "array",
-      description: "翻译任务列表",
+      description: "Translation task list",
       items: {
         type: "object",
         properties: {
@@ -96,66 +96,66 @@ generateSummary.input_schema = {
     },
     sourceLanguage: {
       type: "string",
-      description: "源语言代码",
+      description: "Source language code",
     },
     targetLanguages: {
       type: "array",
       items: { type: "string" },
-      description: "目标语言列表",
+      description: "Target language list",
     },
     totalDocs: {
       type: "number",
-      description: "总文档数",
+      description: "Total document count",
     },
     skipped: {
       type: "boolean",
-      description: "是否跳过翻译",
+      description: "Whether translation was skipped",
     },
   },
 };
 
-// 定义输出 schema
+// Define output schema
 generateSummary.output_schema = {
   type: "object",
   required: ["message", "summary"],
   properties: {
     message: {
       type: "string",
-      description: "格式化的总结消息，包含翻译统计和提示信息",
+      description: "Formatted summary message containing translation statistics and tips",
     },
     summary: {
       type: "object",
-      description: "结构化的统计数据",
+      description: "Structured statistics data",
       properties: {
         skipped: {
           type: "boolean",
-          description: "是否跳过翻译",
+          description: "Whether translation was skipped",
         },
         sourceLanguage: {
           type: "string",
-          description: "源语言代码",
+          description: "Source language code",
         },
         targetLanguages: {
           type: "array",
           items: { type: "string" },
-          description: "目标语言列表",
+          description: "Target language list",
         },
         totalDocs: {
           type: "number",
-          description: "总文档数",
+          description: "Total document count",
         },
         totalLanguages: {
           type: "number",
-          description: "目标语言总数",
+          description: "Total target language count",
         },
         totalTranslations: {
           type: "number",
-          description: "总翻译数（文档数 × 语言数）",
+          description: "Total translation count (documents × languages)",
         },
         documentPaths: {
           type: "array",
           items: { type: "string" },
-          description: "所有翻译的文档路径列表",
+          description: "List of all translated document paths",
         },
       },
     },

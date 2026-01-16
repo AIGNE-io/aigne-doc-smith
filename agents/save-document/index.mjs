@@ -11,19 +11,19 @@ import { PATHS, ERROR_CODES, FILE_TYPES, DOC_META_DEFAULTS } from "../../utils/a
 import { loadLocale } from "../../utils/config.mjs";
 
 /**
- * 创建文档文件夹和文件
- * @param {string} filePath - 文件路径（不带斜杠）
- * @param {string} language - 语言代码
- * @param {string} content - 文档内容
- * @returns {Promise<Object>} - 创建的文件路径
+ * Create document folder and files
+ * @param {string} filePath - File path (without slash)
+ * @param {string} language - Language code
+ * @param {string} content - Document content
+ * @returns {Promise<Object>} - Created file paths
  */
 async function createDocumentFiles(filePath, language, content) {
   const docFolder = path.join(PATHS.DOCS_DIR, filePath);
 
-  // 1. 创建文件夹（递归创建，如果已存在则忽略）
+  // 1. Create folder (recursive creation, ignore if already exists)
   await mkdir(docFolder, { recursive: true });
 
-  // 2. 生成 .meta.yaml
+  // 2. Generate .meta.yaml
   const metaContent = yamlStringify({
     kind: DOC_META_DEFAULTS.KIND,
     source: language,
@@ -32,7 +32,7 @@ async function createDocumentFiles(filePath, language, content) {
   const metaPath = path.join(docFolder, FILE_TYPES.META);
   await writeFile(metaPath, metaContent, "utf8");
 
-  // 3. 保存语言文件
+  // 3. Save language file
   const langFile = `${language}${FILE_TYPES.MARKDOWN}`;
   const langPath = path.join(docFolder, langFile);
   await writeFile(langPath, content, "utf8");
@@ -45,62 +45,62 @@ async function createDocumentFiles(filePath, language, content) {
 }
 
 /**
- * 保存文档到 docs 目录
- * @param {Object} params - 参数
- * @param {string} params.path - 文档路径（可带或不带斜杠）
- * @param {string} params.content - 文档内容（Markdown 格式）
- * @param {Object} params.options - 选项
- * @param {string} params.options.language - 语言代码（如 zh, en, ja）
- * @returns {Promise<Object>} - 操作结果
+ * Save document to docs directory
+ * @param {Object} params - Parameters
+ * @param {string} params.path - Document path (with or without slash)
+ * @param {string} params.content - Document content (Markdown format)
+ * @param {Object} params.options - Options
+ * @param {string} params.options.language - Language code (e.g., zh, en, ja)
+ * @returns {Promise<Object>} - Operation result
  */
 export default async function saveDocument({ path: rawPath, content, options = {} }) {
   try {
-    // 1. 参数校验：content
+    // 1. Parameter validation: content
     if (!content || typeof content !== "string" || content.trim().length === 0) {
       return {
         success: false,
         error: ERROR_CODES.EMPTY_CONTENT,
-        message: "文档内容不能为空",
-        suggestion: "请提供有效的文档内容",
+        message: "Document content cannot be empty",
+        suggestion: "Please provide valid document content",
       };
     }
 
-    // 2. 参数校验：language
+    // 2. Parameter validation: language
     const language = options.language;
     if (!language || typeof language !== "string") {
       return {
         success: false,
         error: ERROR_CODES.INVALID_LANGUAGE,
-        message: `语言代码无效: ${language}`,
-        suggestion: "请提供有效的语言代码（如 zh, en, ja）",
+        message: `Invalid language code: ${language}`,
+        suggestion: "Please provide a valid language code (e.g., zh, en, ja)",
       };
     }
 
-    // 校验语言代码格式（如 zh, en, zh-CN, en-US）
+    // Validate language code format (e.g., zh, en, zh-CN, en-US)
     const languagePattern = /^[a-z]{2}(-[A-Z]{2})?$/;
     if (!languagePattern.test(language)) {
       return {
         success: false,
         error: ERROR_CODES.INVALID_LANGUAGE,
-        message: `语言代码格式不正确: ${language}`,
-        suggestion: "语言代码应符合格式：zh, en, ja 或 zh-CN, en-US 等",
+        message: `Invalid language code format: ${language}`,
+        suggestion: "Language code should follow format: zh, en, ja or zh-CN, en-US, etc.",
       };
     }
 
-    // 3. 参数校验：path
+    // 3. Parameter validation: path
     if (!rawPath || typeof rawPath !== "string") {
       return {
         success: false,
         error: ERROR_CODES.INVALID_PATH,
-        message: "文档路径无效",
-        suggestion: "请提供有效的文档路径",
+        message: "Invalid document path",
+        suggestion: "Please provide a valid document path",
       };
     }
 
-    // 4. 标准化路径
+    // 4. Normalize path
     const { filePath, displayPath } = normalizePath(rawPath);
 
-    // 5. 加载并校验文档结构
+    // 5. Load and validate document structure
     let validPaths;
     try {
       validPaths = await loadDocumentPaths({ includeBothFormats: true });
@@ -109,24 +109,24 @@ export default async function saveDocument({ path: rawPath, content, options = {
         return {
           success: false,
           error: ERROR_CODES.MISSING_STRUCTURE_FILE,
-          message: `文档结构文件不存在: ${PATHS.DOCUMENT_STRUCTURE}`,
-          suggestion: "请先生成文档结构文件",
+          message: `Document structure file not found: ${PATHS.DOCUMENT_STRUCTURE}`,
+          suggestion: "Please generate the document structure file first",
         };
       }
       throw error;
     }
 
-    // 6. 校验 path 是否在文档结构中
+    // 6. Validate path exists in document structure
     if (!isValidDocumentPath(rawPath, validPaths)) {
       return {
         success: false,
         error: ERROR_CODES.PATH_NOT_IN_STRUCTURE,
-        message: `文档路径 ${displayPath} 不存在于文档结构中`,
-        suggestion: `请先在 ${PATHS.DOCUMENT_STRUCTURE} 中添加此路径，或检查路径是否正确`,
+        message: `Document path ${displayPath} does not exist in document structure`,
+        suggestion: `Please add this path to ${PATHS.DOCUMENT_STRUCTURE} first, or check if the path is correct`,
       };
     }
 
-    // 7. 检查新建文档时 language 必须等于项目 locale
+    // 7. Check that language must equal project locale when creating new document
     const docFolder = path.join(PATHS.DOCS_DIR, filePath);
     const metaPath = path.join(docFolder, FILE_TYPES.META);
     const isNewDocument = !existsSync(metaPath);
@@ -139,8 +139,8 @@ export default async function saveDocument({ path: rawPath, content, options = {
         return {
           success: false,
           error: ERROR_CODES.MISSING_CONFIG_FILE,
-          message: "无法读取项目配置文件",
-          suggestion: "请确保 config.yaml 存在且包含 locale 字段",
+          message: "Cannot read project configuration file",
+          suggestion: "Please ensure config.yaml exists and contains the locale field",
         };
       }
 
@@ -148,16 +148,16 @@ export default async function saveDocument({ path: rawPath, content, options = {
         return {
           success: false,
           error: ERROR_CODES.INVALID_LANGUAGE,
-          message: `新建文档时必须使用项目主语言: ${projectLocale}，当前传入: ${language}`,
-          suggestion: `请将 language 参数改为 "${projectLocale}"（项目 locale），首先生成主语言版本`,
+          message: `New documents must use project main language: ${projectLocale}, provided: ${language}`,
+          suggestion: `Please change language parameter to "${projectLocale}" (project locale), generate main language version first`,
         };
       }
     }
 
-    // 8. 创建文件夹和文件
+    // 8. Create folder and files
     const files = await createDocumentFiles(filePath, language, content);
 
-    // 9. 返回成功响应
+    // 9. Return success response
     return {
       success: true,
       path: displayPath,
@@ -166,38 +166,38 @@ export default async function saveDocument({ path: rawPath, content, options = {
         meta: files.metaFile,
         content: files.contentFile,
       },
-      message: `文档保存成功: ${displayPath} (${language})`,
+      message: `Document saved successfully: ${displayPath} (${language})`,
     };
   } catch (error) {
-    // 捕获未预期的错误
+    // Catch unexpected errors
     return {
       success: false,
       error: ERROR_CODES.FILE_OPERATION_ERROR,
-      message: `文件操作失败: ${error.message}`,
-      suggestion: "检查文件系统权限或路径是否正确",
+      message: `File operation failed: ${error.message}`,
+      suggestion: "Check file system permissions or if path is correct",
     };
   }
 }
 
-// 添加描述信息
+// Add description
 saveDocument.description =
-  `保存文档到 ${PATHS.DOCS_DIR} 目录，自动创建文件夹结构、元信息文件和语言版本文件。` +
-  "【重要限制】此工具仅用于新增文档时调用。编辑已有文档时，请直接使用 Edit 工具修改对应的语言文件。" +
-  `使用前必须确保 ${PATHS.DOCUMENT_STRUCTURE} 已存在且包含目标文档路径。` +
-  `【强制要求】新建文档时 language 必须等于项目 locale（config.yaml 中的 locale 字段），系统会自动验证。`;
+  `Save document to ${PATHS.DOCS_DIR} directory, automatically create folder structure, meta info file and language version file. ` +
+  "[Important restriction] This tool is only for creating new documents. When editing existing documents, use the Edit tool to modify the corresponding language file directly. " +
+  `Must ensure ${PATHS.DOCUMENT_STRUCTURE} exists and contains the target document path before use. ` +
+  "[Mandatory requirement] When creating new documents, language must equal project locale (locale field in config.yaml), the system will auto-validate.";
 
-// 定义输入 schema
+// Define input schema
 saveDocument.input_schema = {
   type: "object",
   required: ["path", "content", "options"],
   properties: {
     path: {
       type: "string",
-      description: "文档路径，必须在 planning/document-structure.yaml 中存在",
+      description: "Document path, must exist in planning/document-structure.yaml",
     },
     content: {
       type: "string",
-      description: "文档内容（Markdown 格式），不能为空",
+      description: "Document content (Markdown format), cannot be empty",
     },
     options: {
       type: "object",
@@ -205,55 +205,55 @@ saveDocument.input_schema = {
       properties: {
         language: {
           type: "string",
-          description: "语言代码（如 zh, en, ja），必须从 config.yaml 的 locale 字段读取",
+          description: "Language code (e.g., zh, en, ja), must be read from locale field in config.yaml",
         },
       },
     },
   },
 };
 
-// 定义输出 schema
+// Define output schema
 saveDocument.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     path: {
       type: "string",
-      description: "标准化后的文档路径（成功时存在）",
+      description: "Normalized document path (present on success)",
     },
     folder: {
       type: "string",
-      description: "创建的文件夹路径（成功时存在）",
+      description: "Created folder path (present on success)",
     },
     files: {
       type: "object",
-      description: "创建的文件路径（成功时存在）",
+      description: "Created file paths (present on success)",
       properties: {
         meta: {
           type: "string",
-          description: "元信息文件路径",
+          description: "Meta info file path",
         },
         content: {
           type: "string",
-          description: "语言文件路径",
+          description: "Language file path",
         },
       },
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
     error: {
       type: "string",
-      description: "错误代码（失败时存在）",
+      description: "Error code (present on failure)",
     },
     suggestion: {
       type: "string",
-      description: "建议操作（失败时存在）",
+      description: "Suggested action (present on failure)",
     },
   },
 };

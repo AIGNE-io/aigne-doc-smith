@@ -1,5 +1,5 @@
 name: analyzeFeedback
-description: 分析用户反馈，提取图片编辑相关的意图信息（如宽高比修改）
+description: Analyze user feedback and extract image editing intent information (e.g., aspect ratio modification)
 model: gemini-2.5-flash
 instructions:
   - role: system
@@ -14,10 +14,10 @@ input_schema:
   properties:
     feedback:
       type: string
-      description: 用户反馈（自然语言）
+      description: User feedback (natural language)
     currentAspectRatio:
       type: string
-      description: 当前图片的宽高比
+      description: Current aspect ratio of the image
       default: "4:3"
   required:
     - feedback
@@ -27,10 +27,10 @@ output_schema:
   properties:
     hasRatioChange:
       type: boolean
-      description: 是否检测到宽高比修改意图
+      description: Whether aspect ratio modification intent was detected
     aspectRatio:
       type: string
-      description: 最终使用的宽高比（如果有修改则为新值，否则为当前值）
+      description: Final aspect ratio to use (new value if modified, otherwise current value)
       enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
   required:
     - hasRatioChange

@@ -7,74 +7,74 @@ import { findImageFile, getImageMimeType, calculateContentHash } from "../../uti
 import { loadLocale } from "../../utils/config.mjs";
 
 /**
- * 加载现有图片
- * @param {Object} input - 输入参数
- * @param {string} input.doc - 文档路径（如 "overview" 或 "/overview"）
+ * Load existing image
+ * @param {Object} input - Input parameters
+ * @param {string} input.doc - Document path (e.g., "overview" or "/overview")
  * @param {string} input.slotId - slot id
- * @returns {Promise<Object>} - 加载结果
+ * @returns {Promise<Object>} - Load result
  */
 export default async function loadExistingImage(input) {
   try {
     const { doc, slotId } = input;
 
-    // 验证参数
+    // Validate parameters
     if (!doc || !slotId) {
-      throw new Error("缺少必需参数: doc 和 slotId");
+      throw new Error("Missing required parameters: doc and slotId");
     }
 
-    // 1. 读取主语言
+    // 1. Read main language
     const locale = await loadLocale();
 
-    // 2. 构建文档文件路径
+    // 2. Build document file path
     const normalizedPath = doc.startsWith("/") ? doc.slice(1) : doc;
     const filePath = join(PATHS.DOCS_DIR, normalizedPath, `${locale}.md`);
 
-    // 检查文件是否存在
+    // Check if file exists
     try {
       await access(filePath, constants.F_OK | constants.R_OK);
     } catch (_error) {
       throw new Error(
-        `文档不存在或无法读取: ${filePath}, 请检查文档路径是否在 document-structure.yaml 中，并且文档已生成。`,
+        `Document does not exist or cannot be read: ${filePath}, please check if document path is in document-structure.yaml and document has been generated.`,
       );
     }
 
-    // 3. 读取文档内容
+    // 3. Read document content
     const content = await readFile(filePath, "utf8");
 
-    // 4. 计算文档内容的 hash
+    // 4. Calculate document content hash
     const hash = calculateContentHash(content);
 
-    // 5. 解析 slots，找到指定的 slotId
+    // 5. Parse slots, find specified slotId
     const slots = parseSlots(content, doc);
     const targetSlot = slots.find((s) => s.id === slotId);
 
     if (!targetSlot) {
-      throw new Error(`在文档 ${doc} 中未找到 slotId="${slotId}" 的图片 slot`);
+      throw new Error(`Image slot with slotId="${slotId}" not found in document ${doc}`);
     }
 
     const { key, desc } = targetSlot;
 
-    // 6. 加载图片文件
+    // 6. Load image file
     const imagesDir = join(PATHS.ASSETS_DIR, key, "images");
     const imagePath = await findImageFile(imagesDir, locale);
 
     if (!imagePath) {
       throw new Error(
-        `未找到 slot "${slotId}" 对应的图片文件（key: ${key}），请向用户确认是否先使用 generateImages Tool 生成图片。`,
+        `Image file for slot "${slotId}" not found (key: ${key}), please confirm with user whether to use generateImages Tool to generate image first.`,
       );
     }
 
-    // 7. 读取 .meta.yaml
+    // 7. Read .meta.yaml
     const metaPath = join(PATHS.ASSETS_DIR, key, ".meta.yaml");
     let meta = null;
     try {
       const metaContent = await readFile(metaPath, "utf8");
       meta = yamlParse(metaContent);
     } catch (_error) {
-      // meta 文件不存在或无法读取，继续执行
+      // meta file does not exist or cannot be read, continue execution
     }
 
-    // 8. 构建图片信息（用于 existingImage 参数）
+    // 8. Build image info (for existingImage parameter)
     const mimeType = getImageMimeType(imagePath);
     const filename = imagePath.split("/").pop();
 
@@ -87,7 +87,7 @@ export default async function loadExistingImage(input) {
       },
     ];
 
-    // 9. 获取当前的 aspectRatio（从 meta 或使用默认值）
+    // 9. Get current aspectRatio (from meta or use default)
     const currentAspectRatio = meta?.generation?.aspectRatio || "4:3";
 
     return {
@@ -103,40 +103,40 @@ export default async function loadExistingImage(input) {
       currentAspectRatio,
       imagePath,
       meta,
-      message: `成功加载图片: ${imagePath}`,
+      message: `Successfully loaded image: ${imagePath}`,
     };
   } catch (error) {
-    throw new Error(`加载现有图片失败: ${error.message}, 请检查文档路径和 slotId 是否正确`);
+    throw new Error(`Failed to load existing image: ${error.message}, please check document path and slotId are correct`);
   }
 }
 
-// 添加描述信息
-loadExistingImage.description = "根据文档路径和 slotId 加载现有图片，返回图片路径和相关元信息。";
+// Add description
+loadExistingImage.description = "Load existing image based on document path and slotId, return image path and related metadata.";
 
-// 定义输入 schema
+// Define input schema
 loadExistingImage.input_schema = {
   type: "object",
   properties: {
     doc: {
       type: "string",
-      description: "文档路径（如 'overview' 或 '/overview'）",
+      description: "Document path (e.g., 'overview' or '/overview')",
     },
     slotId: {
       type: "string",
-      description: "图片 slot 的 id",
+      description: "Image slot id",
     },
   },
   required: ["doc", "slotId"],
 };
 
-// 定义输出 schema
+// Define output schema
 loadExistingImage.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     slotId: {
       type: "string",
@@ -144,31 +144,31 @@ loadExistingImage.output_schema = {
     },
     key: {
       type: "string",
-      description: "图片 key（目录名）",
+      description: "Image key (directory name)",
     },
     desc: {
       type: "string",
-      description: "slot 描述",
+      description: "slot description",
     },
     doc: {
       type: "string",
-      description: "文档路径",
+      description: "Document path",
     },
     locale: {
       type: "string",
-      description: "主语言代码",
+      description: "Main language code",
     },
     content: {
       type: "string",
-      description: "文档内容",
+      description: "Document content",
     },
     hash: {
       type: "string",
-      description: "文档内容的 SHA256 hash",
+      description: "SHA256 hash of document content",
     },
     existingImage: {
       type: "array",
-      description: "现有图片信息（用于 image-to-image 生成）",
+      description: "Existing image info (for image-to-image generation)",
       items: {
         type: "object",
         properties: {
@@ -181,28 +181,28 @@ loadExistingImage.output_schema = {
     },
     currentAspectRatio: {
       type: "string",
-      description: "当前图片的宽高比",
+      description: "Current image aspect ratio",
     },
     imagePath: {
       type: "string",
-      description: "图片文件路径",
+      description: "Image file path",
     },
     meta: {
       type: "object",
       nullable: true,
-      description: "图片元信息（.meta.yaml 内容）",
+      description: "Image metadata (.meta.yaml content)",
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
     error: {
       type: "string",
-      description: "错误代码（失败时存在）",
+      description: "Error code (present on failure)",
     },
     suggestion: {
       type: "string",
-      description: "建议操作（失败时存在）",
+      description: "Suggested action (present on failure)",
     },
   },
 };

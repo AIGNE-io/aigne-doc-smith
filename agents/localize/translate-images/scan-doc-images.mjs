@@ -5,32 +5,32 @@ import { parseSlots } from "../../../utils/image-slots.mjs";
 import { PATHS, ERROR_CODES } from "../../../utils/agent-constants.mjs";
 
 /**
- * 扫描文档中的图片 slots
- * @param {Object} input - 输入参数
- * @param {string} input.path - 文档路径
- * @param {string} input.sourceLanguage - 源语言代码
- * @param {string} input.language - 目标语言
- * @returns {Promise<Object>} - 扫描结果
+ * Scan image slots in document
+ * @param {Object} input - Input parameters
+ * @param {string} input.path - Document path
+ * @param {string} input.sourceLanguage - Source language code
+ * @param {string} input.language - Target language
+ * @returns {Promise<Object>} - Scan result
  */
 export default async function scanDocImages(input) {
   const { path: docPath, sourceLanguage, language } = input;
   const targetLanguage = language;
 
   try {
-    // 1. 构建源文档文件路径
+    // 1. Build source document file path
     const docFolder = path.join(PATHS.DOCS_DIR, docPath);
     const sourceFile = path.join(docFolder, `${sourceLanguage}.md`);
 
-    // 2. 读取源文档内容
+    // 2. Read source document content
     let content;
     try {
       await access(sourceFile, constants.F_OK | constants.R_OK);
       content = await readFile(sourceFile, "utf-8");
     } catch (_error) {
-      throw new Error(`源文档不存在: ${sourceFile}, 文档路径: ${docPath}`);
+      throw new Error(`Source document does not exist: ${sourceFile}, document path: ${docPath}`);
     }
 
-    // 3. 解析文档中的 slots
+    // 3. Parse slots in document
     const slots = parseSlots(content, docPath);
 
     if (slots.length === 0) {
@@ -40,16 +40,16 @@ export default async function scanDocImages(input) {
         slots: [],
         targetLanguage,
         path: docPath,
-        message: `文档中没有图片 slot`,
+        message: `No image slots in document`,
       };
     }
 
-    // 4. 检查每个 slot 的源图片信息
+    // 4. Check source image info for each slot
     const slotsWithInfo = [];
     for (const slot of slots) {
       const { key, desc } = slot;
 
-      // 检查图片目录是否存在
+      // Check if image directory exists
       const assetDir = path.join(PATHS.ASSETS_DIR, key);
       const metaPath = path.join(assetDir, ".meta.yaml");
 
@@ -64,7 +64,7 @@ export default async function scanDocImages(input) {
           exists: true,
         });
       } catch (_error) {
-        // 图片资源不存在，跳过
+        // Image asset does not exist, skip
         slotsWithInfo.push({
           key,
           desc,
@@ -81,85 +81,85 @@ export default async function scanDocImages(input) {
       slots: slotsWithInfo,
       targetLanguage,
       path: docPath,
-      message: `文档中找到 ${slots.length} 个图片 slot，其中 ${slotsWithInfo.filter((s) => s.exists).length} 个存在源图片`,
+      message: `Found ${slots.length} image slots in document, ${slotsWithInfo.filter((s) => s.exists).length} have source images`,
     };
   } catch (error) {
     return {
       success: false,
       error: ERROR_CODES.UNEXPECTED_ERROR,
-      message: `扫描文档图片时发生错误: ${error.message}`,
+      message: `Error scanning document images: ${error.message}`,
       path: docPath,
     };
   }
 }
 
-// 添加描述信息
+// Add description
 scanDocImages.description =
-  "扫描主语言文档内容，提取其中的 AFS image slot，并检查对应的图片资源是否存在。" +
-  "返回需要检查翻译状态的图片列表。";
+  "Scan main language document content, extract AFS image slots, and check if corresponding image assets exist. " +
+  "Return list of images that need translation status check.";
 
-// 定义输入 schema
+// Define input schema
 scanDocImages.input_schema = {
   type: "object",
   required: ["path", "sourceLanguage", "language"],
   properties: {
     path: {
       type: "string",
-      description: "文档路径",
+      description: "Document path",
     },
     sourceLanguage: {
       type: "string",
-      description: "源语言代码",
+      description: "Source language code",
     },
     language: {
       type: "string",
-      description: "目标语言代码",
+      description: "Target language code",
     },
   },
 };
 
-// 定义输出 schema
+// Define output schema
 scanDocImages.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     hasSlots: {
       type: "boolean",
-      description: "文档中是否包含图片 slot",
+      description: "Whether document contains image slots",
     },
     slots: {
       type: "array",
-      description: "图片 slot 列表",
+      description: "Image slot list",
       items: {
         type: "object",
         properties: {
-          key: { type: "string", description: "图片 key" },
-          desc: { type: "string", description: "图片描述" },
-          assetDir: { type: "string", description: "图片资源目录路径", nullable: true },
-          metaPath: { type: "string", description: ".meta.yaml 文件路径", nullable: true },
-          exists: { type: "boolean", description: "图片资源是否存在" },
+          key: { type: "string", description: "Image key" },
+          desc: { type: "string", description: "Image description" },
+          assetDir: { type: "string", description: "Image asset directory path", nullable: true },
+          metaPath: { type: "string", description: ".meta.yaml file path", nullable: true },
+          exists: { type: "boolean", description: "Whether image asset exists" },
         },
       },
     },
     targetLanguage: {
       type: "string",
-      description: "目标语言代码",
+      description: "Target language code",
     },
     path: {
       type: "string",
-      description: "文档路径",
+      description: "Document path",
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
     error: {
       type: "string",
-      description: "错误代码（失败时存在）",
+      description: "Error code (present on failure)",
     },
   },
 };

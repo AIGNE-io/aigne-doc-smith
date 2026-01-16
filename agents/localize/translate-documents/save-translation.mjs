@@ -10,36 +10,36 @@ import {
 } from "../../../utils/agent-constants.mjs";
 
 /**
- * 保存翻译结果并更新 .meta.yaml
- * @param {Object} input - 输入参数
- * @param {string} input.path - 文档路径
- * @param {string} input.targetFile - 目标文件路径
- * @param {string} input.targetLanguage - 目标语言代码
- * @param {string} input.sourceHash - 源文档的 hash
- * @param {string} input.translation - 翻译内容
- * @returns {Promise<Object>} - 操作结果
+ * Save translation result and update .meta.yaml
+ * @param {Object} input - Input parameters
+ * @param {string} input.path - Document path
+ * @param {string} input.targetFile - Target file path
+ * @param {string} input.targetLanguage - Target language code
+ * @param {string} input.sourceHash - Source document hash
+ * @param {string} input.translation - Translation content
+ * @returns {Promise<Object>} - Operation result
  */
 export default async function saveTranslation(input) {
   const { path: docPath, targetFile, targetLanguage, sourceHash, translation } = input;
   try {
-    // 1. 保存翻译文件
+    // 1. Save translation file
     await writeFile(targetFile, translation, "utf8");
 
-    // 2. 更新 .meta.yaml
+    // 2. Update .meta.yaml
     const docFolder = path.join(PATHS.DOCS_DIR, docPath);
     const metaPath = path.join(docFolder, FILE_TYPES.META);
 
     let meta = {};
     let metaExists = false;
 
-    // 尝试读取现有的 .meta.yaml
+    // Try to read existing .meta.yaml
     try {
       await access(metaPath, constants.F_OK | constants.R_OK);
       const metaContent = await readFile(metaPath, "utf8");
       meta = yamlParse(metaContent);
       metaExists = true;
     } catch (_error) {
-      // .meta.yaml 不存在，使用默认值
+      // .meta.yaml does not exist, use defaults
       meta = {
         kind: DOC_META_DEFAULTS.KIND,
         source: targetLanguage,
@@ -47,29 +47,29 @@ export default async function saveTranslation(input) {
       };
     }
 
-    // 3. 初始化或更新 languages 数组
+    // 3. Initialize or update languages array
     if (!meta.languages || !Array.isArray(meta.languages)) {
-      // 初始化 languages 数组，包含源语言
+      // Initialize languages array, including source language
       meta.languages = meta.source ? [meta.source] : [];
     }
 
-    // 4. 添加目标语言（避免重复）
+    // 4. Add target language (avoid duplicates)
     if (!meta.languages.includes(targetLanguage)) {
       meta.languages.push(targetLanguage);
     }
 
-    // 5. 初始化或更新 translations 对象
+    // 5. Initialize or update translations object
     if (!meta.translations || typeof meta.translations !== "object") {
       meta.translations = {};
     }
 
-    // 6. 记录翻译信息（sourceHash 和翻译时间）
+    // 6. Record translation info (sourceHash and translation time)
     meta.translations[targetLanguage] = {
       sourceHash,
       translatedAt: new Date().toISOString(),
     };
 
-    // 7. 保存更新后的 .meta.yaml
+    // 7. Save updated .meta.yaml
     const updatedMetaContent = yamlStringify(meta);
     await writeFile(metaPath, updatedMetaContent, "utf8");
 
@@ -80,8 +80,8 @@ export default async function saveTranslation(input) {
       metaUpdated: true,
       languages: meta.languages,
       message: metaExists
-        ? `翻译已保存并更新元信息: ${targetFile}`
-        : `翻译已保存并创建元信息: ${targetFile}`,
+        ? `Translation saved and metadata updated: ${targetFile}`
+        : `Translation saved and metadata created: ${targetFile}`,
       path: docPath,
     };
   } catch (error) {
@@ -89,83 +89,83 @@ export default async function saveTranslation(input) {
       path: docPath,
       success: false,
       error: ERROR_CODES.SAVE_ERROR,
-      message: `保存翻译时发生错误: ${error.message}`,
-      suggestion: "请检查文件系统权限",
+      message: `Error saving translation: ${error.message}`,
+      suggestion: "Check file system permissions",
     };
   }
 }
 
-// 添加描述信息
+// Add description
 saveTranslation.description =
-  "保存翻译结果到目标文件，并更新文档的 .meta.yaml 文件。" +
-  "自动将目标语言添加到 languages 数组中，" +
-  "记录源文档的 hash 和翻译时间到 translations 对象，用于后续判断是否需要重新翻译。";
+  "Save translation result to target file and update document's .meta.yaml file. " +
+  "Automatically add target language to languages array, " +
+  "record source document hash and translation time to translations object for determining if re-translation is needed later.";
 
-// 定义输入 schema
+// Define input schema
 saveTranslation.input_schema = {
   type: "object",
   required: ["path", "targetFile", "targetLanguage", "sourceHash", "translation"],
   properties: {
     path: {
       type: "string",
-      description: "文档路径",
+      description: "Document path",
     },
     targetFile: {
       type: "string",
-      description: "目标文件路径",
+      description: "Target file path",
     },
     targetLanguage: {
       type: "string",
-      description: "目标语言代码",
+      description: "Target language code",
     },
     sourceHash: {
       type: "string",
-      description: "源文档的 SHA256 hash",
+      description: "Source document SHA256 hash",
     },
     translation: {
       type: "string",
-      description: "翻译内容",
+      description: "Translation content",
     },
   },
 };
 
-// 定义输出 schema
+// Define output schema
 saveTranslation.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     targetFile: {
       type: "string",
-      description: "目标文件路径（成功时存在）",
+      description: "Target file path (present on success)",
     },
     targetLanguage: {
       type: "string",
-      description: "目标语言代码（成功时存在）",
+      description: "Target language code (present on success)",
     },
     metaUpdated: {
       type: "boolean",
-      description: "元信息是否已更新（成功时存在）",
+      description: "Whether metadata was updated (present on success)",
     },
     languages: {
       type: "array",
       items: { type: "string" },
-      description: "更新后的语言列表（成功时存在）",
+      description: "Updated language list (present on success)",
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
     error: {
       type: "string",
-      description: "错误代码（失败时存在）",
+      description: "Error code (present on failure)",
     },
     suggestion: {
       type: "string",
-      description: "建议操作（失败时存在）",
+      description: "Suggested action (present on failure)",
     },
   },
 };

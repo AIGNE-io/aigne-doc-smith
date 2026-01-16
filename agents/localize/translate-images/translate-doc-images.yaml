@@ -1,20 +1,20 @@
 type: team
 name: translateDocImages
-description: 检测文档中的图片并翻译成目标语言
+description: Detect images in document and translate to target language
 skills:
-  - url: ./scan-doc-images.mjs # 扫描文档中的图片 slots
-  - url: ./detect-text/detect-images-text.yaml # 检测图片是否包含文字并更新 shared 字段
-  - url: ./check-image-translation.mjs # 检查哪些图片需要翻译
+  - url: ./scan-doc-images.mjs # Scan image slots in document
+  - url: ./detect-text/detect-images-text.yaml # Detect if images contain text and update shared field
+  - url: ./check-image-translation.mjs # Check which images need translation
   - type: team
-    name: processImageTranslations # 处理所有图片翻译任务
+    name: processImageTranslations # Process all image translation tasks
     skills:
       - type: team
         name: translateSingleImage
-        description: 翻译单个图片（从源语言到目标语言）
+        description: Translate a single image (from source language to target language)
         skills:
-          - url: ./prepare-image-input.mjs # 准备图片翻译的输入参数
-          - url: ./translate-image.yaml # 执行图片翻译
-          - url: ./save-image-translation.mjs # 保存翻译结果
+          - url: ./prepare-image-input.mjs # Prepare input parameters for image translation
+          - url: ./translate-image.yaml # Execute image translation
+          - url: ./save-image-translation.mjs # Save translation result
         mode: sequential
         include_input_in_output: true
 

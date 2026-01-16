@@ -4,9 +4,9 @@ import { parse as yamlParse } from "yaml";
 import { PATHS, ERROR_CODES } from "./agent-constants.mjs";
 
 /**
- * 标准化路径
- * @param {string} rawPath - 原始路径（可能带或不带斜杠）
- * @returns {Object} - { filePath: 不带斜杠的路径, displayPath: 带斜杠的路径 }
+ * Normalize path
+ * @param {string} rawPath - Raw path (may or may not have leading slash)
+ * @returns {Object} - { filePath: path without slash, displayPath: path with slash }
  */
 export function normalizePath(rawPath) {
   if (!rawPath || typeof rawPath !== "string") {
@@ -15,29 +15,29 @@ export function normalizePath(rawPath) {
 
   let normalized = rawPath.trim();
 
-  // 移除开头的斜杠
+  // Remove leading slash
   if (normalized.startsWith("/")) {
     normalized = normalized.slice(1);
   }
 
-  // 移除结尾的斜杠
+  // Remove trailing slash
   if (normalized.endsWith("/")) {
     normalized = normalized.slice(0, -1);
   }
 
   return {
-    filePath: normalized, // "overview" 或 "api/authentication"
-    displayPath: `/${normalized}`, // "/overview" 或 "/api/authentication"
+    filePath: normalized, // "overview" or "api/authentication"
+    displayPath: `/${normalized}`, // "/overview" or "/api/authentication"
   };
 }
 
 /**
- * 递归收集文档路径
- * @param {Array} docs - 文档数组
- * @param {Object} options - 收集选项
- * @param {boolean} options.includeBothFormats - 是否同时包含带斜杠和不带斜杠的版本
- * @param {boolean} options.collectMetadata - 是否收集额外的元数据
- * @returns {Set|Array} - 路径集合或路径对象数组
+ * Recursively collect document paths
+ * @param {Array} docs - Document array
+ * @param {Object} options - Collection options
+ * @param {boolean} options.includeBothFormats - Whether to include both formats with and without leading slash
+ * @param {boolean} options.collectMetadata - Whether to collect additional metadata
+ * @returns {Set|Array} - Path set or path object array
  */
 export function collectDocumentPaths(docs, options = {}) {
   const { includeBothFormats = false, collectMetadata = false } = options;
@@ -47,11 +47,11 @@ export function collectDocumentPaths(docs, options = {}) {
   function collect(documents) {
     for (const doc of documents) {
       if (doc.path) {
-        // 标准化路径
+        // Normalize path
         const normalized = doc.path.startsWith("/") ? doc.path.slice(1) : doc.path;
 
         if (collectMetadata) {
-          // 收集路径和元数据
+          // Collect path and metadata
           paths.push({
             path: normalized,
             displayPath: `/${normalized}`,
@@ -59,7 +59,7 @@ export function collectDocumentPaths(docs, options = {}) {
             description: doc.description || "",
           });
         } else {
-          // 只收集路径
+          // Only collect paths
           paths.add(normalized);
           if (includeBothFormats) {
             paths.add(`/${normalized}`);
@@ -67,7 +67,7 @@ export function collectDocumentPaths(docs, options = {}) {
         }
       }
 
-      // 递归处理子文档
+      // Recursively process child documents
       if (doc.children && Array.isArray(doc.children)) {
         collect(doc.children);
       }
@@ -79,13 +79,13 @@ export function collectDocumentPaths(docs, options = {}) {
 }
 
 /**
- * 加载文档结构中的所有路径
- * @param {Object} options - 加载选项
- * @param {string} options.yamlPath - YAML 文件路径
- * @param {boolean} options.includeBothFormats - 是否同时包含带斜杠和不带斜杠的版本
- * @param {boolean} options.collectMetadata - 是否收集额外的元数据
- * @param {boolean} options.throwOnInvalid - 当文档格式无效时是否抛出错误
- * @returns {Promise<Set|Array>} - 所有有效路径的集合或路径对象数组
+ * Load all paths from document structure
+ * @param {Object} options - Loading options
+ * @param {string} options.yamlPath - YAML file path
+ * @param {boolean} options.includeBothFormats - Whether to include both formats with and without leading slash
+ * @param {boolean} options.collectMetadata - Whether to collect additional metadata
+ * @param {boolean} options.throwOnInvalid - Whether to throw error when document format is invalid
+ * @returns {Promise<Set|Array>} - Set of all valid paths or path object array
  */
 export async function loadDocumentPaths(options = {}) {
   const {
@@ -95,14 +95,14 @@ export async function loadDocumentPaths(options = {}) {
     throwOnInvalid = true,
   } = options;
 
-  // 检查文件是否存在
+  // Check if file exists
   try {
     await access(yamlPath, constants.F_OK | constants.R_OK);
   } catch (_error) {
     throw new Error(ERROR_CODES.MISSING_STRUCTURE_FILE);
   }
 
-  // 读取并解析 YAML
+  // Read and parse YAML
   const content = await readFile(yamlPath, "utf8");
   const data = yamlParse(content);
 
@@ -114,7 +114,7 @@ export async function loadDocumentPaths(options = {}) {
     }
   }
 
-  // 递归收集所有 path
+  // Recursively collect all paths
   return collectDocumentPaths(data.documents, {
     includeBothFormats,
     collectMetadata,
@@ -122,10 +122,10 @@ export async function loadDocumentPaths(options = {}) {
 }
 
 /**
- * 验证路径是否在文档结构中
- * @param {string} path - 要验证的路径
- * @param {Set|Array} validPaths - 有效路径集合
- * @returns {boolean} - 路径是否有效
+ * Validate whether a path exists in the document structure
+ * @param {string} path - The path to validate
+ * @param {Set|Array} validPaths - Set of valid paths
+ * @returns {boolean} - Whether the path is valid
  */
 export function isValidDocumentPath(path, validPaths) {
   if (!path) return false;
@@ -147,9 +147,9 @@ export function isValidDocumentPath(path, validPaths) {
 }
 
 /**
- * 从路径数组中过滤出有效的路径
- * @param {string[]} paths - 要验证的路径数组
- * @param {Set|Array} validPaths - 有效路径集合
+ * Filter valid paths from a path array
+ * @param {string[]} paths - Array of paths to validate
+ * @param {Set|Array} validPaths - Set of valid paths
  * @returns {Object} - { validPaths: [], invalidPaths: [] }
  */
 export function filterValidPaths(paths, validPaths) {

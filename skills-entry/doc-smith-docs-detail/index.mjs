@@ -9,7 +9,7 @@ const afsModules = await generateDocsDetailAfsModules();
 export default {
   type: "@aigne/agent-library/agent-skill-manager",
   name: "generateDocumentDetail",
-  description: "根据文档路径和用户要求生成单个文档的详细内容",
+  description: "Generate detailed content for a single document based on document path and user requirements",
   instructions: {
     url: "./prompt.md",
   },
@@ -27,8 +27,8 @@ export default {
   },
 
   skills: [
-    "../../agents/save-document/index.mjs", // 保存文档工具
-    "../../agents/content-checker/index.mjs", // 内容校验工具
+    "../../agents/save-document/index.mjs", // Document saving tool
+    "../../agents/content-checker/index.mjs", // Content validation tool
   ],
 
   input_schema: {
@@ -38,11 +38,11 @@ export default {
       path: {
         type: "string",
         description:
-          '文档路径，与 planning/document-structure.yaml 中的 path 字段一致（如 "/overview" 或 "/api/auth"）',
+          'Document path, matching the path field in planning/document-structure.yaml (e.g., "/overview" or "/api/auth")',
       },
       customRequirements: {
         type: "string",
-        description: "用户在对话中提出的额外要求（可选），用于指导生成内容的侧重点",
+        description: "Additional requirements from user conversation (optional), used to guide content generation focus",
       },
     },
   },
@@ -52,37 +52,37 @@ export default {
     properties: {
       success: {
         type: "boolean",
-        description: "操作是否成功",
+        description: "Whether the operation succeeded",
       },
       path: {
         type: "string",
-        description: "文档路径（成功时存在）",
+        description: "Document path (present on success)",
       },
       summary: {
         type: "string",
-        description: "文档摘要，200-300字（成功时存在）",
+        description: "Document summary, 200-300 characters (present on success)",
       },
       sections: {
         type: "array",
         items: {
           type: "string",
         },
-        description: "主要章节列表（成功时存在）",
+        description: "List of main sections (present on success)",
       },
       imageSlots: {
         type: "array",
         items: {
           type: "string",
         },
-        description: "生成的 AFS image slots ID 列表（成功时存在）",
+        description: "List of generated AFS image slot IDs (present on success)",
       },
       validationResult: {
         type: "object",
-        description: "checkContent 的校验结果（成功时存在）",
+        description: "Validation result from checkContent (present on success)",
       },
       error: {
         type: "string",
-        description: "错误信息（失败时存在）",
+        description: "Error message (present on failure)",
       },
     },
   },

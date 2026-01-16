@@ -9,7 +9,7 @@ import { parse as yamlParse, stringify as yamlStringify } from "yaml";
 const execAsync = promisify(exec);
 
 /**
- * Workspace 模式常量
+ * Workspace mode constants
  */
 export const WORKSPACE_MODES = {
   PROJECT: "project",
@@ -17,7 +17,7 @@ export const WORKSPACE_MODES = {
 };
 
 /**
- * 目录结构常量
+ * Directory structure constants
  */
 export const AIGNE_DIR = ".aigne";
 export const DOC_SMITH_DIR = ".aigne/doc-smith";
@@ -25,7 +25,7 @@ export const SOURCES_DIR = "sources";
 export const WORKSPACE_SUBDIRS = ["intent", "planning", "docs"];
 
 /**
- * doc-smith workspace 的 .gitignore 内容
+ * .gitignore content for doc-smith workspace
  */
 export const GITIGNORE_CONTENT = `\
 # Ignore sources directory
@@ -38,8 +38,8 @@ temp/
 `;
 
 /**
- * 检查路径是否存在
- * @param {string} path - 路径
+ * Check if path exists
+ * @param {string} path - Path
  * @returns {Promise<boolean>}
  */
 export async function pathExists(path) {
@@ -52,8 +52,8 @@ export async function pathExists(path) {
 }
 
 /**
- * 检查路径是否存在（同步版本）
- * @param {string} path - 路径
+ * Check if path exists (synchronous version)
+ * @param {string} path - Path
  * @returns {boolean}
  */
 export function pathExistsSync(path) {
@@ -61,8 +61,8 @@ export function pathExistsSync(path) {
 }
 
 /**
- * 检查是否在 git 仓库内（支持子目录）
- * @param {string} cwd - 工作目录
+ * Check if inside a git repository (supports subdirectories)
+ * @param {string} cwd - Working directory
  * @returns {Promise<boolean>}
  */
 export async function isGitRepo(cwd = ".") {
@@ -71,9 +71,9 @@ export async function isGitRepo(cwd = ".") {
 }
 
 /**
- * 执行 git 命令
- * @param {string} command - git 命令（不包含 git 前缀）
- * @param {string} cwd - 工作目录
+ * Execute git command
+ * @param {string} command - git command (without git prefix)
+ * @param {string} cwd - Working directory
  * @returns {Promise<{success: boolean, output?: string, error?: string}>}
  */
 export async function gitExec(command, cwd = ".") {
@@ -86,18 +86,18 @@ export async function gitExec(command, cwd = ".") {
 }
 
 /**
- * 获取 git 仓库信息（url、branch、commit）
- * @param {string} cwd - 工作目录
+ * Get git repository info (url, branch, commit)
+ * @param {string} cwd - Working directory
  * @returns {Promise<{ url: string, branch: string, commit: string }>}
  */
 export async function getGitInfo(cwd = ".") {
-  // 获取远程仓库 URL（优先 origin）
+  // Get remote repository URL (prefer origin)
   let url = "";
   const urlResult = await gitExec("remote get-url origin", cwd);
   if (urlResult.success) {
     url = urlResult.output;
   } else {
-    // 尝试获取第一个可用的远程仓库
+    // Try to get the first available remote
     const remotesResult = await gitExec("remote", cwd);
     if (remotesResult.success && remotesResult.output) {
       const firstRemote = remotesResult.output.split("\n")[0];
@@ -108,14 +108,14 @@ export async function getGitInfo(cwd = ".") {
     }
   }
 
-  // 获取当前分支名
+  // Get current branch name
   let branch = "";
   const branchResult = await gitExec("branch --show-current", cwd);
   if (branchResult.success) {
     branch = branchResult.output;
   }
 
-  // 获取当前 commit hash（短格式）
+  // Get current commit hash (short format)
   let commit = "";
   const commitResult = await gitExec("rev-parse --short HEAD", cwd);
   if (commitResult.success) {
@@ -126,8 +126,8 @@ export async function getGitInfo(cwd = ".") {
 }
 
 /**
- * 获取 git 仓库根目录
- * @param {string} cwd - 起始目录
+ * Get git repository root directory
+ * @param {string} cwd - Starting directory
  * @returns {Promise<string | null>}
  */
 export async function getGitRoot(cwd = ".") {
@@ -139,27 +139,27 @@ export async function getGitRoot(cwd = ".") {
 }
 
 /**
- * 向 .gitignore 添加忽略规则（如果不存在）
- * @param {string} gitRoot - git 仓库根目录
- * @param {string} pattern - 要忽略的模式
- * @returns {Promise<boolean>} 是否添加成功
+ * Add ignore rule to .gitignore (if not exists)
+ * @param {string} gitRoot - Git repository root directory
+ * @param {string} pattern - Pattern to ignore
+ * @returns {Promise<boolean>} Whether addition was successful
  */
 export async function addToGitignore(gitRoot, pattern) {
   const gitignorePath = join(gitRoot, ".gitignore");
 
   try {
-    // 检查 .gitignore 是否存在
+    // Check if .gitignore exists
     if (await pathExists(gitignorePath)) {
-      // 读取现有内容，检查是否已包含该模式
+      // Read existing content, check if pattern already exists
       const content = await readFile(gitignorePath, "utf8");
       if (content.includes(pattern)) {
-        return true; // 已存在，无需添加
+        return true; // Already exists, no need to add
       }
-      // 追加到文件末尾（确保换行）
+      // Append to end of file (ensure newline)
       const prefix = content.endsWith("\n") ? "" : "\n";
       await appendFile(gitignorePath, `${prefix}${pattern}\n`, "utf8");
     } else {
-      // 创建新的 .gitignore
+      // Create new .gitignore
       await writeFile(gitignorePath, `${pattern}\n`, "utf8");
     }
     return true;
@@ -169,8 +169,8 @@ export async function addToGitignore(gitRoot, pattern) {
 }
 
 /**
- * 检测 workspace 模式（同步版本）
- * 用于需要在模块加载时同步判断的场景
+ * Detect workspace mode (synchronous version)
+ * Used for scenarios requiring synchronous judgment at module load time
  * @returns {{ mode: string, workspaceBase: string }}
  */
 export function detectWorkspaceModeSync() {
@@ -191,7 +191,7 @@ export function detectWorkspaceModeSync() {
 }
 
 /**
- * 检测 workspace 模式（异步版本）
+ * Detect workspace mode (asynchronous version)
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string } | null>}
  */
 export async function detectWorkspaceMode() {
@@ -218,8 +218,8 @@ export async function detectWorkspaceMode() {
 }
 
 /**
- * 加载并解析 config.yaml
- * @param {string} configPath - 配置文件路径
+ * Load and parse config.yaml
+ * @param {string} configPath - Config file path
  * @returns {Promise<Object | null>}
  */
 export async function loadConfig(configPath) {
@@ -232,8 +232,8 @@ export async function loadConfig(configPath) {
 }
 
 /**
- * 生成 config.yaml 内容
- * @param {{ mode: string, sources: Array }} options - 配置选项
+ * Generate config.yaml content
+ * @param {{ mode: string, sources: Array }} options - Configuration options
  * @returns {string}
  */
 export function generateConfig(options) {
@@ -242,9 +242,9 @@ export function generateConfig(options) {
 }
 
 /**
- * 创建目录结构
- * @param {string} baseDir - 基础目录
- * @param {boolean} includeSources - 是否创建 sources 目录
+ * Create directory structure
+ * @param {string} baseDir - Base directory
+ * @param {boolean} includeSources - Whether to create sources directory
  */
 export async function createDirectoryStructure(baseDir, includeSources = false) {
   await mkdir(baseDir, { recursive: true });
@@ -259,35 +259,35 @@ export async function createDirectoryStructure(baseDir, includeSources = false) 
 }
 
 /**
- * 初始化 project 模式 workspace
- * 在项目根目录下创建 .aigne/doc-smith/ 目录结构
+ * Initialize project mode workspace
+ * Create .aigne/doc-smith/ directory structure under project root
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string }>}
  */
 export async function initProjectMode() {
   console.log("\n📂 Initializing doc-smith workspace...\n");
 
-  // 创建 .aigne/doc-smith 目录
+  // Create .aigne/doc-smith directory
   await mkdir(DOC_SMITH_DIR, { recursive: true });
 
-  // 在 .aigne/doc-smith 中初始化 git
+  // Initialize git in .aigne/doc-smith
   await gitExec("init", DOC_SMITH_DIR);
 
-  // 创建目录结构
+  // Create directory structure
   await createDirectoryStructure(DOC_SMITH_DIR);
 
-  // 创建 .gitignore
+  // Create .gitignore
   await writeFile(join(DOC_SMITH_DIR, ".gitignore"), GITIGNORE_CONTENT, "utf8");
 
-  // 获取项目 git 信息
+  // Get project git info
   const gitInfo = await getGitInfo(".");
 
-  // 生成 config.yaml（包含 git 信息，与 git-clone 格式一致）
+  // Generate config.yaml (include git info, consistent with git-clone format)
   const sourceConfig = {
     type: "local-path",
     path: "../../",
   };
 
-  // 添加 git 信息到根级别（与 git-clone 格式一致）
+  // Add git info at root level (consistent with git-clone format)
   if (gitInfo.url) sourceConfig.url = gitInfo.url;
   if (gitInfo.branch) sourceConfig.branch = gitInfo.branch;
   if (gitInfo.commit) sourceConfig.commit = gitInfo.commit;
@@ -298,7 +298,7 @@ export async function initProjectMode() {
   });
   await writeFile(join(DOC_SMITH_DIR, "config.yaml"), configContent, "utf8");
 
-  // 在 doc-smith repo 中创建初始提交
+  // Create initial commit in doc-smith repo
   await gitExec("add .", DOC_SMITH_DIR);
   const commitResult = await gitExec(
     'commit -m "Initial commit: doc-smith workspace"',
@@ -318,23 +318,23 @@ export async function initProjectMode() {
 }
 
 /**
- * 初始化 standalone 模式 workspace
- * 在当前目录下创建 workspace 结构
+ * Initialize standalone mode workspace
+ * Create workspace structure in current directory
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string }>}
  */
 export async function initStandaloneMode() {
   console.log("\n📂 Initializing doc-smith workspace...\n");
 
-  // 在当前目录初始化 git
+  // Initialize git in current directory
   await gitExec("init");
 
-  // 创建 .gitignore
+  // Create .gitignore
   await writeFile(".gitignore", GITIGNORE_CONTENT, "utf8");
 
-  // 创建目录结构（包括 sources/）
+  // Create directory structure (including sources/)
   await createDirectoryStructure(".", true);
 
-  // 生成 config.yaml（sources 为空，在对话中添加）
+  // Generate config.yaml (sources empty, to be added during conversation)
   const configContent = generateConfig({
     mode: WORKSPACE_MODES.STANDALONE,
     sources: [],
@@ -351,21 +351,21 @@ export async function initStandaloneMode() {
 }
 
 /**
- * 检测目录状态并在需要时初始化 workspace
+ * Detect directory state and initialize workspace when needed
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string }>}
  */
 export async function detectAndInitialize() {
-  // 检查是否已初始化
+  // Check if already initialized
   const existing = await detectWorkspaceMode();
   if (existing) {
     return existing;
   }
 
-  // 检查是否是 git 仓库（project 模式）
+  // Check if inside git repository (project mode)
   if (await isGitRepo()) {
     return await initProjectMode();
   }
 
-  // 否则，初始化为 standalone 模式
+  // Otherwise, initialize as standalone mode
   return await initStandaloneMode();
 }

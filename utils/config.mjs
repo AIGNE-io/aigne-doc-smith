@@ -237,9 +237,9 @@ export function generateConfigYAML(input) {
 }
 
 /**
- * 加载配置文件获取主语言 locale
- * @returns {Promise<string>} - 主语言代码
- * @throws {Error} - 配置文件不存在或 locale 字段缺失时抛出错误
+ * Load config file to get the primary locale
+ * @returns {Promise<string>} - Primary language code
+ * @throws {Error} - Throws when config file doesn't exist or locale field is missing
  */
 export async function loadLocale() {
   try {

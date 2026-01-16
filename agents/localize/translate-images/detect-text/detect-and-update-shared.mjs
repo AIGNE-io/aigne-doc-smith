@@ -4,11 +4,11 @@ import { parse as yamlParse } from "yaml";
 import { findImageFile, getImageMimeType } from "../../../../utils/image-utils.mjs";
 
 /**
- * 检测图片是否包含文字并更新 .meta.yaml 的 shared 字段
- * @param {Object} input - 输入参数
- * @param {Array} input.slots - 图片 slot 列表（从 scan-doc-images 输出）
- * @param {string} input.sourceLanguage - 源语言（主语言）
- * @returns {Promise<Object>} - 处理结果
+ * Detect if image contains text and update .meta.yaml shared field
+ * @param {Object} input - Input parameters
+ * @param {Array} input.slots - Image slot list (from scan-doc-images output)
+ * @param {string} input.sourceLanguage - Source language (main language)
+ * @returns {Promise<Object>} - Processing result
  */
 export default async function detectAndUpdateShared(input) {
   const { slots, sourceLanguage } = input;
@@ -17,7 +17,7 @@ export default async function detectAndUpdateShared(input) {
     return {
       success: true,
       detectionTasks: [],
-      message: "没有需要检测的图片",
+      message: "No images to detect",
     };
   }
 
@@ -26,43 +26,43 @@ export default async function detectAndUpdateShared(input) {
   for (const slot of slots) {
     const { key, assetDir, metaPath, exists } = slot;
 
-    // 如果图片资源不存在，跳过
+    // If image asset does not exist, skip
     if (!exists) {
       continue;
     }
 
-    // 读取 .meta.yaml
+    // Read .meta.yaml
     let meta;
     try {
       const metaContent = await readFile(metaPath, "utf8");
       meta = yamlParse(metaContent);
     } catch (_error) {
-      // .meta.yaml 读取失败，跳过
+      // Failed to read .meta.yaml, skip
       continue;
     }
 
-    // 检查是否已经检测过 shared 字段
+    // Check if shared field has already been detected
     if (meta.generation?.shared === true) {
-      // 已经检测过，跳过共享图
+      // Already detected, skip shared images
       continue;
     }
 
-    // 查找主语言图片
+    // Find main language image
     const imagesDir = join(assetDir, "images");
     const sourceImagePath = await findImageFile(imagesDir, sourceLanguage);
 
     if (!sourceImagePath) {
-      // 主语言图片不存在，跳过
+      // Main language image does not exist, skip
       continue;
     }
 
-    // 添加到检测任务列表
+    // Add to detection task list
     detectionTasks.push({
       key,
       assetDir,
       metaPath,
       sourceImagePath,
-      // 准备 imageFile 参数（mediaFile 格式）
+      // Prepare imageFile parameter (mediaFile format)
       imageFile: [
         {
           type: "local",
@@ -78,22 +78,22 @@ export default async function detectAndUpdateShared(input) {
     success: true,
     detectionTasks,
     sourceLanguage,
-    message: `需要检测 ${detectionTasks.length} 个图片是否包含文字`,
+    message: `${detectionTasks.length} images need text detection`,
   };
 }
 
-// 添加描述信息
+// Add description
 detectAndUpdateShared.description =
-  "检测图片是否包含文字，准备批量检测任务。" + "只检测尚未设置 generation.shared 字段的图片。";
+  "Detect if images contain text, prepare batch detection tasks. " + "Only detect images without generation.shared field set.";
 
-// 定义输入 schema
+// Define input schema
 detectAndUpdateShared.input_schema = {
   type: "object",
   required: ["slots", "sourceLanguage"],
   properties: {
     slots: {
       type: "array",
-      description: "图片 slot 列表（从 scan-doc-images 输出）",
+      description: "Image slot list (from scan-doc-images output)",
       items: {
         type: "object",
         properties: {
@@ -107,41 +107,41 @@ detectAndUpdateShared.input_schema = {
     },
     sourceLanguage: {
       type: "string",
-      description: "源语言代码（主语言）",
+      description: "Source language code (main language)",
     },
   },
 };
 
-// 定义输出 schema
+// Define output schema
 detectAndUpdateShared.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     detectionTasks: {
       type: "array",
-      description: "需要检测的图片任务列表",
+      description: "List of image detection tasks",
       items: {
         type: "object",
         properties: {
-          key: { type: "string", description: "图片 key" },
-          assetDir: { type: "string", description: "图片资源目录" },
-          metaPath: { type: "string", description: ".meta.yaml 文件路径" },
-          sourceImagePath: { type: "string", description: "主语言图片路径" },
-          imageFile: { type: "array", description: "imageFile mediaFile 对象数组" },
+          key: { type: "string", description: "Image key" },
+          assetDir: { type: "string", description: "Image asset directory" },
+          metaPath: { type: "string", description: ".meta.yaml file path" },
+          sourceImagePath: { type: "string", description: "Main language image path" },
+          imageFile: { type: "array", description: "imageFile mediaFile object array" },
         },
       },
     },
     sourceLanguage: {
       type: "string",
-      description: "源语言代码",
+      description: "Source language code",
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
   },
 };

@@ -1,5 +1,5 @@
 name: detectImageText
-description: 检测图片中是否包含文字内容
+description: Detect if image contains text content
 model: gemini-2.5-flash
 modalities: ["text", "image"]
 instructions:
@@ -14,25 +14,25 @@ input_schema:
   properties:
     key:
       type: string
-      description: 图片 key
+      description: Image key
     imageFile:
       type: array
-      description: 图片文件的 mediaFile 对象数组
+      description: Array of mediaFile objects for image files
       items:
         type: object
         properties:
           type:
             type: string
-            description: 文件类型，应为 "local"
+            description: File type, should be "local"
           path:
             type: string
-            description: 图片文件的绝对路径
+            description: Absolute path to the image file
           filename:
             type: string
-            description: 图片文件名
+            description: Image filename
           mimeType:
             type: string
-            description: MIME 类型（如 "image/png", "image/jpeg"）
+            description: MIME type (e.g., "image/png", "image/jpeg")
   required:
     - key
     - imageFile
@@ -41,4 +41,4 @@ output_schema:
   properties:
     hasText:
       type: boolean
-      description: 图片是否包含文字
+      description: Whether the image contains text

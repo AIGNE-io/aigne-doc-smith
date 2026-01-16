@@ -1,18 +1,18 @@
 type: team
 name: updateImage
 description: |
-  根据用户反馈编辑已生成的图片，支持：
-  - 修改图片宽高比（aspect ratio）
-  - 根据自然语言反馈调整图片内容
+  Edit already generated images based on user feedback, supports:
+  - Modify image aspect ratio
+  - Adjust image content based on natural language feedback
 
 skills:
-  # Step 1: 加载现有图片和 slot 信息
+  # Step 1: Load existing image and slot information
   - url: ./load-existing-image.mjs
 
-  # Step 2: 分析用户反馈，提取 ratio 修改意图（使用 LLM）
+  # Step 2: Analyze user feedback, extract ratio modification intent (using LLM)
   - url: ./analyze-feedback.yaml
 
-  # Step 3: 准备图片生成参数
+  # Step 3: Prepare image generation parameters
   - type: transform
     jsonata: |
       $merge([
@@ -31,10 +31,10 @@ skills:
         }
       ])
 
-  # Step 4: 使用图生图模式生成新图片
+  # Step 4: Generate new image using image-to-image mode
   - url: ../generate-images/generate-image.yaml
 
-  # Step 5: 保存更新后的图片
+  # Step 5: Save the updated image
   - url: ../generate-images/save-image-result.mjs
 
 input_schema:
@@ -42,16 +42,16 @@ input_schema:
   properties:
     doc:
       type: string
-      description: 文档路径（如 "overview" 或 "/overview"）
+      description: Document path (e.g., "overview" or "/overview")
     slotId:
       type: string
-      description: 图片 slot 的 id
+      description: Image slot id
     feedback:
       type: string
       description: |
-        用户反馈（自然语言），可以包含：
-        - 宽高比修改（如 "改为 16:9"）
-        - 图片内容调整（如 "使用更现代的风格"）
+        User feedback (natural language), can include:
+        - Aspect ratio modification (e.g., "change to 16:9")
+        - Image content adjustment (e.g., "use a more modern style")
   required:
     - doc
     - slotId
@@ -62,16 +62,16 @@ output_schema:
   properties:
     success:
       type: boolean
-      description: 操作是否成功
+      description: Whether operation succeeded
     key:
       type: string
-      description: 图片 key
+      description: Image key
     imagePath:
       type: string
-      description: 更新后的图片路径
+      description: Path of the updated image
     message:
       type: string
-      description: 操作结果描述
+      description: Operation result description
   required:
     - success
 

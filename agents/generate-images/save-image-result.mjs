@@ -5,33 +5,33 @@ import { PATHS, ERROR_CODES } from "../../utils/agent-constants.mjs";
 import { getExtensionFromMimeType } from "../../utils/image-utils.mjs";
 
 /**
- * 保存图片文件
- * @param {string} key - 图片 key
- * @param {string} locale - 语言代码
- * @param {Object} imageInfo - 图片信息 { path, mimeType, ... }
- * @returns {Promise<string>} - 保存的图片路径
+ * Save image file
+ * @param {string} key - Image key
+ * @param {string} locale - Language code
+ * @param {Object} imageInfo - Image information { path, mimeType, ... }
+ * @returns {Promise<string>} - Saved image path
  */
 async function saveImage(key, locale, imageInfo) {
   const ext = getExtensionFromMimeType(imageInfo.mimeType);
   const imagePath = join(PATHS.ASSETS_DIR, key, "images", `${locale}.${ext}`);
 
-  // 确保目录存在
+  // Ensure directory exists
   await mkdir(dirname(imagePath), { recursive: true });
 
-  // 从临时文件复制到目标位置
+  // Copy from temporary file to target location
   await copyFile(imageInfo.path, imagePath);
 
   return imagePath;
 }
 
 /**
- * 生成或更新 .meta.yaml
- * @param {string} key - 图片 key
- * @param {string} id - slot id
- * @param {string} desc - slot 描述
- * @param {Array} documents - 关联文档列表
- * @param {string} locale - 主语言
- * @param {string} model - 使用的模型
+ * Generate or update .meta.yaml
+ * @param {string} key - Image key
+ * @param {string} id - Slot id
+ * @param {string} desc - Slot description
+ * @param {Array} documents - Associated document list
+ * @param {string} locale - Main language
+ * @param {string} model - Model used
  * @returns {Promise<void>}
  */
 async function saveMeta(key, id, desc, documents, locale, model) {
@@ -47,7 +47,7 @@ async function saveMeta(key, id, desc, documents, locale, model) {
     generation: {
       model,
       createdAt: new Date().toISOString(),
-      shared: false, // 默认 false，翻译时由 LLM 判断
+      shared: false, // Default false, determined by LLM during translation
     },
     documents: documents.map((doc) => ({
       path: doc.path,
@@ -56,30 +56,30 @@ async function saveMeta(key, id, desc, documents, locale, model) {
     languages: [locale],
   };
 
-  // 确保目录存在
+  // Ensure directory exists
   await mkdir(dirname(metaPath), { recursive: true });
 
-  // 保存 meta
+  // Save meta
   await writeFile(metaPath, yamlStringify(meta), "utf8");
 }
 
 /**
- * 保存图片生成结果
- * @param {Object} input - 输入参数（包含生图结果）
- * @returns {Promise<Object>} - 保存结果
+ * Save image generation result
+ * @param {Object} input - Input parameters (containing generation result)
+ * @returns {Promise<Object>} - Save result
  */
 export default async function saveImageResult(input) {
   try {
     const { key, id, desc, documents, locale, isUpdate, imageGenParams } = input;
 
-    // 验证参数
+    // Validate parameters
     if (!key || !id || !desc || !documents || !locale) {
       return {
         success: false,
         key,
         error: "MISSING_PARAMETERS",
-        message: "缺少必需参数",
-        suggestion: "请确保传入了 key, id, desc, documents, locale",
+        message: "Missing required parameters",
+        suggestion: "Please ensure key, id, desc, documents, locale are provided",
       };
     }
 
@@ -88,13 +88,13 @@ export default async function saveImageResult(input) {
         success: false,
         key,
         error: "INVALID_DOCUMENTS",
-        message: "documents 参数无效或为空",
-        suggestion: "请确保至少有一个关联文档",
+        message: "documents parameter is invalid or empty",
+        suggestion: "Please ensure at least one associated document exists",
       };
     }
 
-    // 从 input.images 获取生图结果
-    // 格式: [{ filename, mimeType, type, path }, ...]
+    // Get generation result from input.images
+    // Format: [{ filename, mimeType, type, path }, ...]
     const images = input.images;
 
     if (!images || !Array.isArray(images) || images.length === 0) {
@@ -102,30 +102,30 @@ export default async function saveImageResult(input) {
         success: false,
         key,
         error: "GENERATION_FAILED",
-        message: "未找到生成的图片数据",
-        suggestion: "请检查生图 agent 的输出格式，期望 images 数组",
+        message: "Generated image data not found",
+        suggestion: "Please check the image generation agent output format, expecting images array",
         availableKeys: Object.keys(input),
       };
     }
 
-    // 使用第一张图片
+    // Use the first image
     const imageInfo = images[0];
     if (!imageInfo.path) {
       return {
         success: false,
         key,
         error: "INVALID_IMAGE_DATA",
-        message: "图片数据缺少 path 字段",
-        suggestion: "请检查生图 agent 返回的 images 格式",
+        message: "Image data missing path field",
+        suggestion: "Please check the images format returned by the image generation agent",
       };
     }
 
     const model = imageGenParams?.model;
 
-    // 保存图片（从临时路径复制到 assets 目录）
+    // Save image (copy from temporary path to assets directory)
     const imagePath = await saveImage(key, locale, imageInfo);
 
-    // 保存或更新 meta
+    // Save or update meta
     await saveMeta(key, id, desc, documents, locale, model);
 
     return {
@@ -133,43 +133,43 @@ export default async function saveImageResult(input) {
       key,
       imagePath,
       isUpdate,
-      message: `成功${isUpdate ? "更新" : "生成"}图片: ${imagePath}`,
+      message: `Successfully ${isUpdate ? "updated" : "generated"} image: ${imagePath}`,
     };
   } catch (error) {
     return {
       success: false,
       key: input.key,
       error: ERROR_CODES.UNEXPECTED_ERROR,
-      message: `保存图片时发生错误: ${error.message}`,
-      suggestion: "请检查文件系统权限和生图 agent 配置",
+      message: `Error saving image: ${error.message}`,
+      suggestion: "Please check file system permissions and image generation agent configuration",
       stack: error.stack,
     };
   }
 }
 
-// 添加描述信息
+// Add description
 saveImageResult.description =
-  "保存生图 agent 的结果到 assets 目录，" + "包括图片文件和 .meta.yaml 元信息文件。";
+  "Save image generation agent results to assets directory, " + "including image file and .meta.yaml metadata file.";
 
-// 定义输入 schema
+// Define input schema
 saveImageResult.input_schema = {
   type: "object",
   properties: {
     key: {
       type: "string",
-      description: "图片 key（目录名）",
+      description: "Image key (directory name)",
     },
     id: {
       type: "string",
-      description: "slot id",
+      description: "Slot id",
     },
     desc: {
       type: "string",
-      description: "slot 描述",
+      description: "Slot description",
     },
     documents: {
       type: "array",
-      description: "关联文档列表",
+      description: "Associated document list",
       items: {
         type: "object",
         properties: {
@@ -181,27 +181,27 @@ saveImageResult.input_schema = {
     },
     locale: {
       type: "string",
-      description: "主语言代码",
+      description: "Main language code",
     },
     isUpdate: {
       type: "boolean",
-      description: "是否为更新模式",
+      description: "Whether in update mode",
     },
     imageGenParams: {
       type: "object",
-      description: "传递给生图 agent 的参数",
+      description: "Parameters passed to image generation agent",
     },
-    // 以下字段由生图 agent 返回
+    // Following fields are returned by image generation agent
     images: {
       type: "array",
-      description: "生图 agent 返回的图片列表",
+      description: "Image list returned by image generation agent",
       items: {
         type: "object",
         properties: {
-          filename: { type: "string", description: "文件名" },
-          mimeType: { type: "string", description: "MIME 类型" },
-          type: { type: "string", description: "类型（local）" },
-          path: { type: "string", description: "临时文件路径" },
+          filename: { type: "string", description: "Filename" },
+          mimeType: { type: "string", description: "MIME type" },
+          type: { type: "string", description: "Type (local)" },
+          path: { type: "string", description: "Temporary file path" },
         },
       },
     },
@@ -209,38 +209,38 @@ saveImageResult.input_schema = {
   required: ["key", "id", "desc", "documents", "locale"],
 };
 
-// 定义输出 schema
+// Define output schema
 saveImageResult.output_schema = {
   type: "object",
   required: ["success", "key"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     key: {
       type: "string",
-      description: "图片 key",
+      description: "Image key",
     },
     imagePath: {
       type: "string",
-      description: "生成的图片路径",
+      description: "Generated image path",
     },
     isUpdate: {
       type: "boolean",
-      description: "是否为更新操作",
+      description: "Whether this is an update operation",
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
     error: {
       type: "string",
-      description: "错误代码（失败时存在）",
+      description: "Error code (present on failure)",
     },
     suggestion: {
       type: "string",
-      description: "建议操作（失败时存在）",
+      description: "Suggested action (present on failure)",
     },
   },
 };

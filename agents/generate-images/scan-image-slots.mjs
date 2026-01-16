@@ -7,31 +7,31 @@ import { calculateContentHash } from "../../utils/image-utils.mjs";
 import { loadLocale } from "../../utils/config.mjs";
 
 /**
- * 扫描单个文档的 slots
- * @param {string} docPath - 文档路径
- * @param {string} locale - 主语言
- * @returns {Promise<Object|null>} - { path, hash, content, slots } 或 null（文件不存在）
+ * Scan slots in a single document
+ * @param {string} docPath - Document path
+ * @param {string} locale - Main language
+ * @returns {Promise<Object|null>} - { path, hash, content, slots } or null (if file does not exist)
  */
 async function scanDocument(docPath, locale) {
-  // 构建文档文件路径：docs/{path}/{locale}.md
+  // Build document file path: docs/{path}/{locale}.md
   const normalizedPath = docPath.startsWith("/") ? docPath.slice(1) : docPath;
   const filePath = join(PATHS.DOCS_DIR, normalizedPath, `${locale}.md`);
 
-  // 检查文件是否存在
+  // Check if file exists
   try {
     await access(filePath, constants.F_OK | constants.R_OK);
   } catch (_error) {
-    // 文件不存在，跳过（可能是尚未生成的文档）
+    // File does not exist, skip (may be a document not yet generated)
     return null;
   }
 
-  // 读取文档内容
+  // Read document content
   const content = await readFile(filePath, "utf8");
 
-  // 计算 hash
+  // Calculate hash
   const hash = calculateContentHash(content);
 
-  // 解析 slots
+  // Parse slots
   const slots = parseSlots(content, docPath);
 
   return {
@@ -43,8 +43,8 @@ async function scanDocument(docPath, locale) {
 }
 
 /**
- * 按 key 分组 slots
- * @param {Array} scanResults - 扫描结果数组
+ * Group slots by key
+ * @param {Array} scanResults - Scan results array
  * @returns {Map} - key -> { key, id, desc, documents }
  */
 function groupSlotsByKey(scanResults) {
@@ -67,12 +67,12 @@ function groupSlotsByKey(scanResults) {
         });
       }
 
-      // 如果同一个 key 被多次使用，使用最后一个的 id 和 desc
+      // If the same key is used multiple times, use the last id and desc
       const existing = slotMap.get(key);
       existing.id = id;
       existing.desc = desc;
 
-      // 添加文档引用
+      // Add document reference
       existing.documents.push({
         path: result.path,
         hash: result.hash,
@@ -85,130 +85,130 @@ function groupSlotsByKey(scanResults) {
 }
 
 /**
- * 扫描文档中的 AFS image slots
- * @param {Object} input - 输入参数
- * @param {string[]} input.docs - 要扫描的文档路径列表（可选）
- * @returns {Promise<Object>} - 扫描结果
+ * Scan AFS image slots in documents
+ * @param {Object} input - Input parameters
+ * @param {string[]} input.docs - Document path list to scan (optional)
+ * @returns {Promise<Object>} - Scan result
  */
 export default async function scanImageSlots(input) {
   try {
     const { docs } = input;
 
-    // 1. 读取主语言
+    // 1. Read main language
     let locale;
     try {
       locale = await loadLocale();
     } catch (error) {
       if (error.message === ERROR_CODES.MISSING_CONFIG_FILE) {
-        throw new Error(`配置文件不存在: ${PATHS.CONFIG} ,请确保在 doc-smith 项目根目录执行此命令`);
+        throw new Error(`Config file does not exist: ${PATHS.CONFIG}, please ensure executing this command in doc-smith project root directory`);
       }
       if (error.message === ERROR_CODES.MISSING_LOCALE) {
         throw new Error(
-          `${PATHS.CONFIG} 中缺少 locale 字段,请向用户询问生成图片的主语言，并在 ${PATHS.CONFIG} 中添加 locale 字段，后再尝试重新执行命令`,
+          `Missing locale field in ${PATHS.CONFIG}, please ask the user for the main language for image generation, add the locale field to ${PATHS.CONFIG}, then try executing the command again`,
         );
       }
       throw error;
     }
 
-    // 2. 加载文档结构
+    // 2. Load document structure
     let validPaths;
     try {
       validPaths = await loadDocumentPaths();
     } catch (error) {
       if (error.message === ERROR_CODES.MISSING_STRUCTURE_FILE) {
         throw new Error(
-          `文档结构文件不存在: ${PATHS.DOCUMENT_STRUCTURE} ,请先 doc-smith skill 生成文档`,
+          `Document structure file does not exist: ${PATHS.DOCUMENT_STRUCTURE}, please generate documents using doc-smith skill first`,
         );
       }
       if (error.message === ERROR_CODES.INVALID_STRUCTURE_FILE) {
         throw new Error(
-          `文档结构文件格式无效,请确保 ${PATHS.DOCUMENT_STRUCTURE} 包含有效的 documents 数组，否则无法扫描文档中的图片 slot，请参考 references/document-structure-schema.md 文件结构`,
+          `Invalid document structure file format, please ensure ${PATHS.DOCUMENT_STRUCTURE} contains a valid documents array, otherwise cannot scan image slots in documents, please refer to references/document-structure-schema.md for file structure`,
         );
       }
       throw error;
     }
 
-    // 3. 收集或验证文档路径
+    // 3. Collect or validate document paths
     let docPaths;
     if (!docs || docs.length === 0) {
-      // 扫描所有文档
+      // Scan all documents
       docPaths = Array.from(validPaths);
     } else {
-      // 验证指定的文档路径
+      // Validate specified document paths
       const { validPaths: validDocPaths, invalidPaths } = filterValidPaths(docs, validPaths);
 
       if (invalidPaths.length > 0) {
         throw new Error(
-          `以下文档路径不存在于文档结构中: ${invalidPaths.join(", ")} ,请检查文档路径是否正确`,
+          `The following document paths do not exist in document structure: ${invalidPaths.join(", ")}, please check if document paths are correct`,
         );
       }
 
       docPaths = validDocPaths;
     }
 
-    // 4. 扫描所有文档
+    // 4. Scan all documents
     const scanResults = await Promise.all(docPaths.map((path) => scanDocument(path, locale)));
 
-    // 5. 按 key 分组
+    // 5. Group by key
     const slotMap = groupSlotsByKey(scanResults);
     const slots = Array.from(slotMap.values());
 
-    // 6. 返回结果
+    // 6. Return result
     return {
       success: true,
       locale,
       slots,
       totalDocs: docPaths.length,
       totalSlots: slots.length,
-      message: `扫描了 ${docPaths.length} 个文档，找到 ${slots.length} 个图片 slot`,
+      message: `Scanned ${docPaths.length} documents, found ${slots.length} image slots`,
     };
   } catch (error) {
-    throw new Error(`扫描图片 slot 时发生错误: ${error.message}`);
+    throw new Error(`Error scanning image slots: ${error.message}`);
   }
 }
 
-// 添加描述信息
+// Add description
 scanImageSlots.description =
-  "扫描主语言文档中的 AFS image slot，解析 id、key、desc，" +
-  "计算文档内容 hash，按 key 分组并返回所有 slot 信息。";
+  "Scan AFS image slots in main language documents, parse id, key, desc, " +
+  "calculate document content hash, group by key and return all slot information.";
 
-// 定义输入 schema
+// Define input schema
 scanImageSlots.input_schema = {
   type: "object",
   properties: {
     docs: {
       type: "array",
       items: { type: "string" },
-      description: "要扫描的文档路径列表（可选，不传则扫描所有文档）",
+      description: "Document path list to scan (optional, scans all documents if not provided)",
     },
   },
 };
 
-// 定义输出 schema
+// Define output schema
 scanImageSlots.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     locale: {
       type: "string",
-      description: "主语言代码",
+      description: "Main language code",
     },
     slots: {
       type: "array",
-      description: "按 key 分组的 slot 列表",
+      description: "Slot list grouped by key",
       items: {
         type: "object",
         properties: {
-          key: { type: "string", description: "图片目录名" },
-          id: { type: "string", description: "最后一个使用该 key 的 slot id" },
-          desc: { type: "string", description: "slot 描述" },
+          key: { type: "string", description: "Image directory name" },
+          id: { type: "string", description: "Slot id of the last usage of this key" },
+          desc: { type: "string", description: "Slot description" },
           documents: {
             type: "array",
-            description: "引用该 key 的文档列表",
+            description: "Document list referencing this key",
             items: {
               type: "object",
               properties: {
@@ -223,23 +223,23 @@ scanImageSlots.output_schema = {
     },
     totalDocs: {
       type: "number",
-      description: "扫描的文档总数",
+      description: "Total documents scanned",
     },
     totalSlots: {
       type: "number",
-      description: "找到的 slot 总数",
+      description: "Total slots found",
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
     error: {
       type: "string",
-      description: "错误代码（失败时存在）",
+      description: "Error code (present on failure)",
     },
     suggestion: {
       type: "string",
-      description: "建议操作（失败时存在）",
+      description: "Suggested action (present on failure)",
     },
   },
 };

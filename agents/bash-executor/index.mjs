@@ -3,87 +3,87 @@ import { spawnSync } from "node:child_process";
 import { PATHS } from "../../utils/agent-constants.mjs";
 
 /**
- * 虚拟 Bash 执行器 - Git 专用
- * 支持的命令类型:
- * - Git 操作: init, clone, config, status, log, diff, branch, show, add, commit, fetch, pull, submodule
+ * Virtual Bash Executor - Git Dedicated
+ * Supported command types:
+ * - Git operations: init, clone, config, status, log, diff, branch, show, add, commit, fetch, pull, submodule
  *
- * 安全限制:
- * - 仅支持 git 命令,不支持其他 shell 命令
- * - 所有命令必须来自预定义的安全枚举
- * - 命令在 WORKSPACE_BASE 目录执行(自动适配 project 和 standalone 模式)
+ * Security restrictions:
+ * - Only supports git commands, no other shell commands
+ * - All commands must come from predefined safe enums
+ * - Commands execute in WORKSPACE_BASE directory (auto-adapts to project and standalone modes)
  */
 
-// 支持的命令枚举
+// Supported command enums
 const ALLOWED_COMMANDS = {
-  // Git 命令
+  // Git commands
   git: {
-    // 初始化和克隆
+    // Initialization and cloning
     init: true,
     clone: true,
 
-    // 配置命令
+    // Configuration commands
     config: true,
 
-    // 查询命令
+    // Query commands
     status: true,
     log: true,
     diff: true,
     branch: true,
     show: true,
 
-    // 提交命令
+    // Commit commands
     add: true,
     commit: true,
 
-    // 远程命令
+    // Remote commands
     fetch: true,
     pull: true,
 
-    // 子模块命令
+    // Submodule commands
     submodule: true,
   },
 };
 
-// 需要重试的命令配置
+// Retry configuration for specific commands
 const RETRY_COMMANDS = {
   git: {
     submodule: {
       update: {
-        maxRetries: 3, // 最大重试次数
-        retryDelay: 2000, // 重试间隔(毫秒)
+        maxRetries: 3, // Maximum retry count
+        retryDelay: 2000, // Retry interval (milliseconds)
       },
     },
   },
 };
 
 /**
- * 验证命令是否在允许列表中
+ * Validate if command is in the allowed list
  */
 function validateCommand(command, args = []) {
   const cmd = command.toLowerCase();
 
-  // 只支持 git 命令
+  // Only supports git commands
   if (cmd !== "git") {
-    throw new Error(`不支持的命令: ${cmd},仅支持 git 命令`);
+    throw new Error(`Unsupported command: ${cmd}, only git commands are supported`);
   }
 
   if (args.length === 0) {
-    throw new Error("Git 命令需要指定子命令");
+    throw new Error("Git command requires a subcommand");
   }
 
   const subCommand = args[0].toLowerCase();
   if (!ALLOWED_COMMANDS.git[subCommand]) {
-    throw new Error(`不支持的 git 子命令: ${subCommand}`);
+    throw new Error(`Unsupported git subcommand: ${subCommand}`);
   }
 
   return true;
 }
 
 /**
- * 检查命令是否需要重试
- * @param {string} command - 命令名称(如 "git")
- * @param {Array} args - 参数列表
- * @returns {Object|null} - 重试配置或 null
+ * Check if command requires retry
+ * @param {string} command - Command name (e.g., "git")
+ * @param {Array} args - Argument list
+ * @returns {Object|null} - Retry configuration or null
  */
 function getRetryConfig(command, args) {
   if (command !== "git" || args.length < 2) {
@@ -93,83 +93,83 @@ function getRetryConfig(command, args) {
   const subCommand = args[0].toLowerCase();
   const subSubCommand = args[1]?.toLowerCase();
 
-  // 检查是否在重试配置中
+  // Check if in retry configuration
   const retryConfig = RETRY_COMMANDS.git?.[subCommand]?.[subSubCommand];
   return retryConfig || null;
 }
 
 /**
- * 延迟执行
- * @param {number} ms - 延迟毫秒数
+ * Delay execution
+ * @param {number} ms - Delay in milliseconds
  */
 function sleep(ms) {
   const start = Date.now();
   while (Date.now() - start < ms) {
-    // 忙等待
+    // Busy wait
   }
 }
 
 /**
- * 执行单个命令(带重试机制)
+ * Execute single command (with retry mechanism)
  */
 function executeCommand(command, args = []) {
   try {
-    // 验证命令
+    // Validate command
     validateCommand(command, args);
 
-    // 构建完整命令用于显示和日志
+    // Build full command for display and logging
     const fullCommand = [command, ...args].join(" ");
 
-    // 检查是否需要重试
+    // Check if retry is needed
     const retryConfig = getRetryConfig(command, args);
     const maxRetries = retryConfig ? retryConfig.maxRetries : 0;
     const retryDelay = retryConfig ? retryConfig.retryDelay : 0;
 
     let lastResult = null;
 
-    // 执行命令,失败时重试
+    // Execute command, retry on failure
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
-      // 如果是重试(不是第一次),先等待
+      // If retrying (not first attempt), wait first
       if (attempt > 0) {
         sleep(retryDelay);
       }
 
-      // 使用 spawnSync 可以同时捕获 stdout 和 stderr
-      // 在 WORKSPACE_BASE 目录执行，支持 project 和 standalone 两种模式
+      // Use spawnSync to capture both stdout and stderr
+      // Execute in WORKSPACE_BASE directory, supports both project and standalone modes
       const result = spawnSync(command, args, {
         cwd: PATHS.WORKSPACE_BASE,
         encoding: "utf-8",
         maxBuffer: 10 * 1024 * 1024, // 10MB
-        timeout: 600000, // 600秒超时(10分钟),克隆大型仓库可能需要更长时间
+        timeout: 600000, // 600 second timeout (10 minutes), cloning large repos may need more time
       });
 
-      // 检查是否执行成功
-      // 注意:Git 命令(如 submodule)会将进度信息输出到 stderr
-      // 因此不能根据 stderr 是否有内容判断失败,只能根据退出码
+      // Check if execution succeeded
+      // Note: Git commands (like submodule) output progress info to stderr
+      // So we cannot judge failure by stderr content, only by exit code
       if (result.status === 0 && !result.error) {
         return {
           success: true,
           command: fullCommand,
           output: result.stdout?.trim() || "",
-          error: result.stderr?.trim() || "", // stderr 可能包含进度信息或警告
+          error: result.stderr?.trim() || "", // stderr may contain progress info or warnings
         };
       }
 
-      // 记录失败结果,继续重试
+      // Record failed result, continue retrying
       lastResult = result;
     }
 
-    // 所有重试都失败了,返回最后一次的错误
+    // All retries failed, return last error
     return {
       success: false,
       command: fullCommand,
       output: lastResult.stdout?.trim() || "",
-      error: lastResult.stderr?.trim() || lastResult.error?.message || "命令执行失败",
+      error: lastResult.stderr?.trim() || lastResult.error?.message || "Command execution failed",
     };
   } catch (error) {
-    // 验证失败或其他异常
+    // Validation failed or other exception
     const fullCommand = [command, ...args].join(" ");
-    console.log(`[bash-executor] 异常: ${error.message}`);
+    console.log(`[bash-executor] Exception: ${error.message}`);
     return {
       success: false,
       command: fullCommand,
@@ -180,8 +180,8 @@ function executeCommand(command, args = []) {
 }
 
 /**
- * 按顺序执行多个命令
- * 如果某个命令失败,立即停止执行后续命令
+ * Execute multiple commands sequentially
+ * If any command fails, immediately stop executing subsequent commands
  */
 function executeBatch(commands) {
   const results = [];
@@ -194,17 +194,17 @@ function executeBatch(commands) {
         success: false,
         command: "",
         output: "",
-        error: "命令不能为空",
+        error: "Command cannot be empty",
       };
       results.push(errorResult);
-      // 命令为空视为失败,停止执行
+      // Empty command is treated as failure, stop execution
       break;
     }
 
     const result = executeCommand(command, args);
     results.push(result);
 
-    // 如果命令失败,立即停止执行后续命令
+    // If command failed, immediately stop executing subsequent commands
     if (!result.success) {
       break;
     }
@@ -214,17 +214,17 @@ function executeBatch(commands) {
 }
 
 /**
- * 安全执行预定义的 Shell 命令
- * @param {Object} params - 输入参数
- * @param {Array} params.commands - 命令列表
- * @returns {Object} - 执行结果
+ * Safely execute predefined shell commands
+ * @param {Object} params - Input parameters
+ * @param {Array} params.commands - Command list
+ * @returns {Object} - Execution result
  */
 export default function executeSafeShellCommands({ commands }) {
-  // 验证输入
+  // Validate input
   if (!Array.isArray(commands)) {
     return {
       success: false,
-      error: "参数 commands 必须是一个数组",
+      error: "Parameter commands must be an array",
       results: [],
     };
   }
@@ -232,15 +232,15 @@ export default function executeSafeShellCommands({ commands }) {
   if (commands.length === 0) {
     return {
       success: false,
-      error: "命令列表不能为空",
+      error: "Command list cannot be empty",
       results: [],
     };
   }
 
-  // 执行命令批次
+  // Execute command batch
   const results = executeBatch(commands);
 
-  // 统计执行结果
+  // Count execution results
   const successCount = results.filter((r) => r.success).length;
   const failureCount = results.length - successCount;
 
@@ -253,32 +253,32 @@ export default function executeSafeShellCommands({ commands }) {
   };
 }
 
-// 添加描述信息,帮助 LLM 理解何时调用此 agent
+// Add description to help LLM understand when to call this agent
 executeSafeShellCommands.description =
-  "安全执行 Git 命令,支持的子命令包括: init/clone/config/status/log/diff/branch/show/add/commit/fetch/pull/submodule。" +
-  "适用于需要批量执行多个有顺序依赖的 git 操作,如果某个命令失败会立即停止执行后续命令。";
+  "Safely execute Git commands, supported subcommands include: init/clone/config/status/log/diff/branch/show/add/commit/fetch/pull/submodule. " +
+  "Suitable for batch executing multiple git operations with sequential dependencies; if any command fails, subsequent commands stop immediately.";
 
-// 定义输入 schema
+// Define input schema
 executeSafeShellCommands.input_schema = {
   type: "object",
   required: ["commands"],
   properties: {
     commands: {
       type: "array",
-      description: "要执行的 Git 命令列表,按顺序执行",
+      description: "List of Git commands to execute, executed sequentially",
       items: {
         type: "object",
         required: ["command"],
         properties: {
           command: {
             type: "string",
-            description: "命令名称,必须是 git",
+            description: "Command name, must be git",
             enum: ["git"],
           },
           args: {
             type: "array",
             description:
-              "Git 子命令和参数列表,第一个参数必须是支持的子命令(init/clone/config/status/log/diff/branch/show/add/commit/fetch/pull/submodule)。命令将在 workspace 目录执行",
+              "Git subcommand and argument list, first argument must be a supported subcommand (init/clone/config/status/log/diff/branch/show/add/commit/fetch/pull/submodule). Commands execute in workspace directory",
             items: {
               type: "string",
             },
@@ -291,53 +291,53 @@ executeSafeShellCommands.input_schema = {
   },
 };
 
-// 定义输出 schema
+// Define output schema
 executeSafeShellCommands.output_schema = {
   type: "object",
   required: ["success", "results"],
   properties: {
     success: {
       type: "boolean",
-      description: "是否至少有一个命令执行成功",
+      description: "Whether at least one command executed successfully",
     },
     total: {
       type: "integer",
-      description: "总命令数(执行命令时存在)",
+      description: "Total number of commands (present when executing commands)",
     },
     succeeded: {
       type: "integer",
-      description: "成功执行的命令数(执行命令时存在)",
+      description: "Number of commands executed successfully (present when executing commands)",
     },
     failed: {
       type: "integer",
-      description: "失败的命令数(执行命令时存在)",
+      description: "Number of failed commands (present when executing commands)",
     },
     error: {
       type: "string",
-      description: "全局错误信息(验证失败时存在)",
+      description: "Global error message (present when validation fails)",
     },
     results: {
       type: "array",
-      description: "每个命令的执行结果",
+      description: "Execution result for each command",
       items: {
         type: "object",
         required: ["success", "command", "output", "error"],
         properties: {
           success: {
             type: "boolean",
-            description: "该命令是否执行成功",
+            description: "Whether this command executed successfully",
           },
           command: {
             type: "string",
-            description: "执行的完整命令",
+            description: "Full command executed",
           },
           output: {
             type: "string",
-            description: "命令的标准输出",
+            description: "Standard output of the command",
           },
           error: {
             type: "string",
-            description: "错误信息,成功时为空字符串,失败时包含错误详情",
+            description: "Error message, empty string on success, contains error details on failure",
           },
         },
       },

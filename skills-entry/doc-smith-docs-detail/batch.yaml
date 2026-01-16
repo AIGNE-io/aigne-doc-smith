@@ -1,11 +1,11 @@
 type: team
 name: generateDocumentDetails
 description: |
-  批量生成多个文档的详细内容。
-  - 输入文档路径列表，每个路径对应 planning/document-structure.yaml 中的一个文档
-  - 支持为每个文档指定自定义要求
-  - 并行生成多个文档，提高效率
-  - 返回每个文档的生成摘要和校验结果
+  Batch generate detailed content for multiple documents.
+  - Input document path list, each path corresponds to a document in planning/document-structure.yaml
+  - Supports specifying custom requirements for each document
+  - Generates multiple documents in parallel for efficiency
+  - Returns generation summary and validation results for each document
 
 skills:
   - type: team
@@ -13,7 +13,7 @@ skills:
     skills:
       - url: ./index.mjs
     iterate_on: documents
-    concurrency: 5                    # 并发生成 5 个文档
+    concurrency: 5                    # Generate 5 documents concurrently
 
 input_schema:
   type: object
@@ -29,14 +29,14 @@ input_schema:
         properties:
           path:
             type: string
-            description: 文档路径，必须在 planning/document-structure.yaml 中存在（如 "/overview" 或 "/api/auth"）
+            description: Document path, must exist in planning/document-structure.yaml (e.g., "/overview" or "/api/auth")
           customRequirements:
             type: string
-            description: 用户在对话中提出的额外要求，或补充的关联源数据路径，用于指导该文档生成内容的侧重点，可选
+            description: Additional requirements from user conversation, or supplementary related source data paths, used to guide the focus of document generation, optional
       description: |
-        要生成的文档列表。每个文档包含：
-        - path: 文档路径（必需）
-        - customRequirements: 自定义要求（可选）
+        List of documents to generate. Each document contains:
+        - path: Document path (required)
+        - customRequirements: Custom requirements (optional)
 
 mode: sequential
 afs:

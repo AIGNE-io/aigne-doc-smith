@@ -1,5 +1,5 @@
 /**
- * 图片处理相关的通用工具函数
+ * Common utility functions for image processing
  */
 
 import { readFile } from "node:fs/promises";
@@ -8,8 +8,8 @@ import { join } from "node:path";
 import fs from "fs-extra";
 
 /**
- * 计算文件的 SHA256 hash
- * @param {string} filePath - 文件路径
+ * Calculate SHA256 hash of a file
+ * @param {string} filePath - File path
  * @returns {Promise<string>} - SHA256 hash (hex)
  */
 export async function calculateFileHash(filePath) {
@@ -18,8 +18,8 @@ export async function calculateFileHash(filePath) {
 }
 
 /**
- * 计算字符串内容的 SHA256 hash
- * @param {string} content - 字符串内容
+ * Calculate SHA256 hash of string content
+ * @param {string} content - String content
  * @returns {string} - SHA256 hash (hex)
  */
 export function calculateContentHash(content) {
@@ -27,16 +27,16 @@ export function calculateContentHash(content) {
 }
 
 /**
- * 支持的图片扩展名
+ * Supported image extensions
  */
 export const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
 
 /**
- * 查找图片文件（支持多种扩展名）
- * @param {string} imagesDir - 图片目录路径
- * @param {string} locale - 语言代码
- * @param {string[]} extensions - 支持的扩展名列表（可选，默认使用 IMAGE_EXTENSIONS）
- * @returns {Promise<string|null>} - 图片文件路径，如果不存在返回 null
+ * Find image file (supports multiple extensions)
+ * @param {string} imagesDir - Image directory path
+ * @param {string} locale - Language code
+ * @param {string[]} extensions - Supported extension list (optional, defaults to IMAGE_EXTENSIONS)
+ * @returns {Promise<string|null>} - Image file path, returns null if not found
  */
 export async function findImageFile(imagesDir, locale, extensions = IMAGE_EXTENSIONS) {
   for (const ext of extensions) {
@@ -49,25 +49,25 @@ export async function findImageFile(imagesDir, locale, extensions = IMAGE_EXTENS
 }
 
 /**
- * 查找图片文件（带语言回退）
- * @param {string} key - 图片 key
- * @param {string} locale - 当前语言代码
- * @param {string} mainLocale - 主语言代码（用于回退）
- * @param {string} assetsDir - assets 目录路径
- * @returns {Promise<string|null>} - 图片相对路径（相对于 assets），如果不存在返回 null
+ * Find image file (with language fallback)
+ * @param {string} key - Image key
+ * @param {string} locale - Current language code
+ * @param {string} mainLocale - Primary language code (for fallback)
+ * @param {string} assetsDir - Assets directory path
+ * @returns {Promise<string|null>} - Image relative path (relative to assets), returns null if not found
  */
 export async function findImageWithFallback(key, locale, mainLocale, assetsDir = "./assets") {
   const keyDir = join(assetsDir, key, "images");
 
-  // 1. 尝试查找当前语言的图片
+  // 1. Try to find image for current language
   const currentLocaleImage = await findImageFile(keyDir, locale);
   if (currentLocaleImage) {
-    // 返回相对于 assets 的路径
+    // Return path relative to assets
     const filename = currentLocaleImage.split("/").pop();
     return join(key, "images", filename);
   }
 
-  // 2. 如果当前语言不存在，回退到主语言
+  // 2. If current language doesn't exist, fall back to primary language
   if (mainLocale && locale !== mainLocale) {
     const mainLocaleImage = await findImageFile(keyDir, mainLocale);
     if (mainLocaleImage) {
@@ -76,14 +76,14 @@ export async function findImageWithFallback(key, locale, mainLocale, assetsDir =
     }
   }
 
-  // 3. 图片不存在
+  // 3. Image doesn't exist
   return null;
 }
 
 /**
- * 获取图片的 MIME 类型
- * @param {string} filePath - 图片文件路径
- * @returns {string} - MIME 类型
+ * Get image MIME type
+ * @param {string} filePath - Image file path
+ * @returns {string} - MIME type
  */
 export function getImageMimeType(filePath) {
   const ext = filePath.toLowerCase().split(".").pop();
@@ -98,9 +98,9 @@ export function getImageMimeType(filePath) {
 }
 
 /**
- * 根据 MIME 类型获取文件扩展名
- * @param {string} mimeType - MIME 类型
- * @returns {string} - 文件扩展名
+ * Get file extension from MIME type
+ * @param {string} mimeType - MIME type
+ * @returns {string} - File extension
  */
 export function getExtensionFromMimeType(mimeType) {
   const mimeToExt = {

@@ -7,42 +7,42 @@ import { calculateContentHash } from "../../../utils/image-utils.mjs";
 import saveTranslation from "./save-translation.mjs";
 
 /**
- * 翻译单个文档到单个目标语言
- * @param {Object} input - 输入参数
- * @param {string} input.path - 文档路径
- * @param {string} input.sourceLanguage - 源语言代码
- * @param {string} input.language - 当前迭代的目标语言代码（来自 iterate_on）
- * @param {boolean} input.force - 是否强制重新翻译
- * @param {string} input.glossary - 术语表内容
- * @param {Object} options - 选项参数
- * @param {Object} options.context - 上下文对象，包含 invoke 方法
- * @returns {Promise<Object>} - 翻译结果
+ * Translate a single document to a single target language
+ * @param {Object} input - Input parameters
+ * @param {string} input.path - Document path
+ * @param {string} input.sourceLanguage - Source language code
+ * @param {string} input.language - Current iteration target language code (from iterate_on)
+ * @param {boolean} input.force - Whether to force re-translation
+ * @param {string} input.glossary - Glossary content
+ * @param {Object} options - Options parameters
+ * @param {Object} options.context - Context object containing invoke method
+ * @returns {Promise<Object>} - Translation result
  */
 export default async function translateDocumentToLanguage(input, options) {
   try {
     const { path: docPath, sourceLanguage, language, force = false, glossary = "" } = input;
 
-    // 当使用 iterate_on 时，对象属性会被展开，直接接收 language 字段
+    // When using iterate_on, object properties are spread, directly receiving language field
     const targetLanguage = language;
 
-    // 1. 构建文件路径
+    // 1. Build file paths
     const docFolder = path.join(PATHS.DOCS_DIR, docPath);
     const sourceFile = path.join(docFolder, `${sourceLanguage}.md`);
     const targetFile = path.join(docFolder, `${targetLanguage}.md`);
 
-    // 2. 读取源文档
+    // 2. Read source document
     let content;
     try {
       await access(sourceFile, constants.F_OK | constants.R_OK);
       content = await readFile(sourceFile, "utf8");
     } catch (_error) {
-      throw new Error(`源文档不存在: ${sourceFile}, 文档路径: ${docPath}, 请确保源语言文档已创建`);
+      throw new Error(`Source document does not exist: ${sourceFile}, document path: ${docPath}, please ensure source language document has been created`);
     }
 
-    // 3. 计算源文档 hash
+    // 3. Calculate source document hash
     const sourceHash = calculateContentHash(content);
 
-    // 4. 检查是否需要翻译（除非强制翻译）
+    // 4. Check if translation is needed (unless forced)
     if (!force) {
       const metaPath = path.join(docFolder, FILE_TYPES.META);
       try {
@@ -50,37 +50,37 @@ export default async function translateDocumentToLanguage(input, options) {
         const metaContent = await readFile(metaPath, "utf8");
         const meta = yamlParse(metaContent);
 
-        // 检查是否已有该语言的翻译记录
+        // Check if translation record exists for this language
         if (meta.translations?.[targetLanguage]) {
           const translationInfo = meta.translations[targetLanguage];
 
-          // 如果 hash 相同，跳过翻译
+          // If hash is the same, skip translation
           if (translationInfo.sourceHash === sourceHash) {
             return {
               success: true,
               skipped: true,
               reason: "hash_unchanged",
               targetLanguage,
-              message: `源文档未变化，跳过翻译: ${docPath} (${sourceLanguage} -> ${targetLanguage})`,
+              message: `Source document unchanged, skipping translation: ${docPath} (${sourceLanguage} -> ${targetLanguage})`,
               path: docPath,
             };
           }
         }
       } catch (_error) {
-        // .meta.yaml 不存在或读取失败，继续翻译
+        // .meta.yaml does not exist or failed to read, continue translation
       }
     }
 
-    // 5. 尝试读取旧翻译（作为参考）
+    // 5. Try to read old translation (as reference)
     let previousTranslation = "";
     try {
       await access(targetFile, constants.F_OK | constants.R_OK);
       previousTranslation = await readFile(targetFile, "utf8");
     } catch (_error) {
-      // 旧翻译不存在，这是正常的
+      // Old translation does not exist, this is normal
     }
 
-    // 6. 调用翻译 agent
+    // 6. Call translation agent
     const translateDocumentAgent = options.context?.agents?.["translateDocument"];
     const translateResult = await options.context.invoke(translateDocumentAgent, {
       language: targetLanguage,
@@ -91,11 +91,11 @@ export default async function translateDocumentToLanguage(input, options) {
 
     if (!translateResult || !translateResult.translation) {
       throw new Error(
-        `翻译失败: ${docPath} (${sourceLanguage} -> ${targetLanguage}), 请尝试重新翻译`,
+        `Translation failed: ${docPath} (${sourceLanguage} -> ${targetLanguage}), please try again`,
       );
     }
 
-    // 7. 保存翻译结果
+    // 7. Save translation result
     const saveResult = await saveTranslation({
       path: docPath,
       targetFile,
@@ -112,96 +112,96 @@ export default async function translateDocumentToLanguage(input, options) {
     return {
       success: false,
       error: ERROR_CODES.UNEXPECTED_ERROR,
-      message: `翻译过程中发生错误: ${error.message}`,
-      suggestion: "请检查文件系统权限和翻译配置",
+      message: `Error during translation: ${error.message}`,
+      suggestion: "Check file system permissions and translation configuration",
     };
   }
 }
 
-// 添加描述信息
+// Add description
 translateDocumentToLanguage.description =
-  "翻译单个文档到单个目标语言。" +
-  "计算源文档 hash，检查是否需要重新翻译（通过比较 .meta.yaml 中保存的 sourceHash）。" +
-  "如果源文档未变化且非强制模式，跳过翻译。" +
-  "否则调用翻译 agent 执行翻译，并保存结果和 sourceHash。";
+  "Translate a single document to a single target language. " +
+  "Calculate source document hash, check if re-translation is needed (by comparing sourceHash saved in .meta.yaml). " +
+  "If source document is unchanged and not in force mode, skip translation. " +
+  "Otherwise call translation agent to execute translation and save result and sourceHash.";
 
-// 定义输入 schema
+// Define input schema
 translateDocumentToLanguage.input_schema = {
   type: "object",
   required: ["path", "sourceLanguage", "language"],
   properties: {
     path: {
       type: "string",
-      description: "文档路径",
+      description: "Document path",
     },
     sourceLanguage: {
       type: "string",
-      description: "源语言代码",
+      description: "Source language code",
     },
     language: {
       type: "string",
-      description: "目标语言代码（来自 iterate_on，对象属性已展开）",
+      description: "Target language code (from iterate_on, object properties spread)",
     },
     force: {
       type: "boolean",
-      description: "是否强制重新翻译（可选，默认 false）",
+      description: "Whether to force re-translation (optional, default false)",
     },
     glossary: {
       type: "string",
-      description: "术语表内容（可选）",
+      description: "Glossary content (optional)",
     },
   },
 };
 
-// 定义输出 schema
+// Define output schema
 translateDocumentToLanguage.output_schema = {
   type: "object",
   required: ["success"],
   properties: {
     success: {
       type: "boolean",
-      description: "操作是否成功",
+      description: "Whether operation succeeded",
     },
     skipped: {
       type: "boolean",
-      description: "是否跳过了翻译（当源文档 hash 未变化时）",
+      description: "Whether translation was skipped (when source document hash unchanged)",
     },
     reason: {
       type: "string",
-      description: "跳过原因（skipped=true 时存在）",
+      description: "Skip reason (present when skipped=true)",
     },
     targetFile: {
       type: "string",
-      description: "目标文件路径（成功且未跳过时存在）",
+      description: "Target file path (present when succeeded and not skipped)",
     },
     targetLanguage: {
       type: "string",
-      description: "目标语言代码",
+      description: "Target language code",
     },
     metaUpdated: {
       type: "boolean",
-      description: "元信息是否已更新（成功且未跳过时存在）",
+      description: "Whether metadata was updated (present when succeeded and not skipped)",
     },
     languages: {
       type: "array",
       items: { type: "string" },
-      description: "更新后的语言列表（成功且未跳过时存在）",
+      description: "Updated language list (present when succeeded and not skipped)",
     },
     message: {
       type: "string",
-      description: "操作结果描述",
+      description: "Operation result description",
     },
     path: {
       type: "string",
-      description: "文档路径",
+      description: "Document path",
     },
     error: {
       type: "string",
-      description: "错误代码（失败时存在）",
+      description: "Error code (present on failure)",
     },
     suggestion: {
       type: "string",
-      description: "建议操作（失败时存在）",
+      description: "Suggested action (present on failure)",
     },
   },
 };

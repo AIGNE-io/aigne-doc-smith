@@ -1,17 +1,17 @@
 /**
- * 此文件为向后兼容保留，所有实现已迁移到 utils/workspace.mjs
- * 请直接使用 utils/workspace.mjs 中的导出
+ * This file is kept for backward compatibility, all implementations have been migrated to utils/workspace.mjs
+ * Please use exports from utils/workspace.mjs directly
  */
 
-// 重新导出所有工具函数和常量
+// Re-export all utility functions and constants
 export {
-  // 常量
+  // Constants
   WORKSPACE_MODES,
   AIGNE_DIR,
   DOC_SMITH_DIR,
   SOURCES_DIR,
   WORKSPACE_SUBDIRS,
-  // 函数
+  // Functions
   pathExists,
   pathExistsSync,
   isGitRepo,

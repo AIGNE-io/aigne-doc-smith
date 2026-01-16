@@ -5,15 +5,15 @@ import { loadDocumentPaths } from "../../utils/document-paths.mjs";
 import { PATHS } from "../../utils/agent-constants.mjs";
 
 /**
- * 无效文档清理器
- * 在内容检查前删除不应存在的文档文件和文件夹
+ * Invalid Document Cleaner
+ * Delete document files and folders that should not exist before content checking
  */
 
 /**
- * 递归扫描 docs 目录，收集所有文档文件夹路径
- * @param {string} docsDir - 文档根目录
- * @param {string} relativePath - 当前相对路径
- * @returns {Promise<string[]>} - 文档路径数组（不带斜杠前缀）
+ * Recursively scan docs directory, collect all document folder paths
+ * @param {string} docsDir - Document root directory
+ * @param {string} relativePath - Current relative path
+ * @returns {Promise<string[]>} - Document path array (without slash prefix)
  */
 async function scanDocsFolders(docsDir, relativePath = "") {
   const folders = [];
@@ -24,36 +24,36 @@ async function scanDocsFolders(docsDir, relativePath = "") {
 
     for (const entry of entries) {
       if (!entry.isDirectory()) continue;
-      if (entry.name.startsWith(".")) continue; // 跳过隐藏文件夹
+      if (entry.name.startsWith(".")) continue; // Skip hidden folders
 
       const folderRelativePath = relativePath ? `${relativePath}/${entry.name}` : entry.name;
       const folderFullPath = path.join(currentDir, entry.name);
 
-      // 检查是否是文档文件夹（包含 .meta.yaml）
+      // Check if it's a document folder (contains .meta.yaml)
       const metaPath = path.join(folderFullPath, ".meta.yaml");
       try {
         await stat(metaPath);
-        // 存在 .meta.yaml，是文档文件夹
+        // .meta.yaml exists, it's a document folder
         folders.push(folderRelativePath);
       } catch (_error) {
-        // 不存在 .meta.yaml，可能是中间目录，继续递归
+        // .meta.yaml doesn't exist, may be an intermediate directory, continue recursion
       }
 
-      // 递归扫描子目录
+      // Recursively scan subdirectories
       const subFolders = await scanDocsFolders(docsDir, folderRelativePath);
       folders.push(...subFolders);
     }
   } catch (_error) {
-    // 目录不存在或无法读取，返回空数组
+    // Directory doesn't exist or cannot be read, return empty array
   }
 
   return folders;
 }
 
 /**
- * 获取 .meta.yaml 中定义的有效语言列表
- * @param {string} metaPath - .meta.yaml 文件路径
- * @returns {Promise<Set<string>|null>} - 有效语言集合，解析失败返回 null
+ * Get valid language list defined in .meta.yaml
+ * @param {string} metaPath - .meta.yaml file path
+ * @returns {Promise<Set<string>|null>} - Valid language set, returns null if parsing fails
  */
 async function getValidLanguages(metaPath) {
   try {
@@ -62,11 +62,11 @@ async function getValidLanguages(metaPath) {
 
     const languages = new Set();
 
-    // 从 source 和 default 字段获取语言
+    // Get languages from source and default fields
     if (meta.source) languages.add(meta.source);
     if (meta.default) languages.add(meta.default);
 
-    // 如果有 languages 字段，也添加进来
+    // If there's a languages field, add those too
     if (meta.languages && Array.isArray(meta.languages)) {
       for (const lang of meta.languages) {
         languages.add(lang);
@@ -80,23 +80,23 @@ async function getValidLanguages(metaPath) {
 }
 
 /**
- * 从文件名提取语言代码
- * @param {string} filename - 文件名
- * @returns {string|null} - 语言代码（去掉 .md 后缀的文件名），如 "zh", "en", "claude-code"
+ * Extract language code from filename
+ * @param {string} filename - Filename
+ * @returns {string|null} - Language code (filename without .md suffix), e.g., "zh", "en", "claude-code"
  */
 function extractLanguageFromFilename(filename) {
   if (!filename.endsWith(".md")) return null;
-  // 返回去掉 .md 后缀的文件名作为语言标识
+  // Return filename without .md suffix as language identifier
   return filename.slice(0, -3);
 }
 
 /**
- * 清理无效文档
- * @param {Object} options - 清理选项
- * @param {string} options.yamlPath - 文档结构文件路径
- * @param {string} options.docsDir - 文档目录路径
- * @param {boolean} options.dryRun - 是否为预览模式（只报告不删除）
- * @returns {Promise<Object>} - 清理结果
+ * Clean invalid documents
+ * @param {Object} options - Clean options
+ * @param {string} options.yamlPath - Document structure file path
+ * @param {string} options.docsDir - Document directory path
+ * @param {boolean} options.dryRun - Whether in preview mode (only report, don't delete)
+ * @returns {Promise<Object>} - Clean result
  */
 export async function cleanInvalidDocs({
   yamlPath = PATHS.DOCUMENT_STRUCTURE,
@@ -111,26 +111,26 @@ export async function cleanInvalidDocs({
   };
 
   try {
-    // 1. 加载文档结构中的有效路径
+    // 1. Load valid paths from document structure
     let validPaths;
     try {
       validPaths = await loadDocumentPaths({ yamlPath, includeBothFormats: false });
     } catch (_error) {
-      // 文档结构文件不存在，无法清理
+      // Document structure file doesn't exist, cannot clean
       return result;
     }
 
-    // 2. 扫描 docs 目录中实际存在的文档文件夹
+    // 2. Scan docs directory for actually existing document folders
     const existingFolders = await scanDocsFolders(docsDir);
 
-    // 3. 找出无效的文档文件夹（存在于文件系统但不在 document-structure.yaml 中）
+    // 3. Find invalid document folders (exist in filesystem but not in document-structure.yaml)
     const invalidFolders = existingFolders.filter((folder) => !validPaths.has(folder));
 
-    // 4. 删除无效的文档文件夹（或在 dry-run 模式下只记录）
+    // 4. Delete invalid document folders (or only record in dry-run mode)
     for (const folder of invalidFolders) {
       const folderPath = path.join(docsDir, folder);
       if (dryRun) {
-        // dry-run 模式：只记录，不删除
+        // dry-run mode: only record, don't delete
         result.deletedFolders.push(folder);
       } else {
         try {
@@ -146,33 +146,33 @@ export async function cleanInvalidDocs({
       }
     }
 
-    // 5. 对于有效的文档文件夹，清理无效的语言文件
+    // 5. For valid document folders, clean invalid language files
     const validFolders = existingFolders.filter((folder) => validPaths.has(folder));
 
     for (const folder of validFolders) {
       const folderPath = path.join(docsDir, folder);
       const metaPath = path.join(folderPath, ".meta.yaml");
 
-      // 获取有效语言列表
+      // Get valid language list
       const validLanguages = await getValidLanguages(metaPath);
-      if (!validLanguages) continue; // 无法解析 meta，跳过
+      if (!validLanguages) continue; // Cannot parse meta, skip
 
-      // 扫描文件夹中的所有 .md 文件
+      // Scan all .md files in folder
       try {
         const files = await readdir(folderPath);
 
         for (const file of files) {
-          // 跳过非 .md 文件和隐藏文件
+          // Skip non-.md files and hidden files
           if (!file.endsWith(".md") || file.startsWith(".")) continue;
 
           const lang = extractLanguageFromFilename(file);
-          if (!lang) continue; // 不是语言文件格式，跳过
+          if (!lang) continue; // Not a language file format, skip
 
-          // 检查语言是否在有效列表中
+          // Check if language is in valid list
           if (!validLanguages.has(lang)) {
             const filePath = path.join(folderPath, file);
             if (dryRun) {
-              // dry-run 模式：只记录，不删除
+              // dry-run mode: only record, don't delete
               result.deletedFiles.push(`${folder}/${file}`);
             } else {
               try {
@@ -207,9 +207,9 @@ export async function cleanInvalidDocs({
 }
 
 /**
- * 格式化清理结果为字符串
- * @param {Object} result - 清理结果
- * @returns {string} - 格式化的输出
+ * Format clean result as string
+ * @param {Object} result - Clean result
+ * @returns {string} - Formatted output
  */
 export function formatCleanResult(result) {
   const { dryRun, deletedFolders, deletedFiles, errors } = result;
@@ -219,21 +219,21 @@ export function formatCleanResult(result) {
   }
 
   let output = "";
-  const actionVerb = dryRun ? "将删除" : "删除";
-  const modeIndicator = dryRun ? " [预览模式]" : "";
+  const actionVerb = dryRun ? "Will delete" : "Deleted";
+  const modeIndicator = dryRun ? " [Preview Mode]" : "";
 
   if (deletedFolders.length > 0 || deletedFiles.length > 0) {
-    output += `Layer 0: 无效文档清理${modeIndicator}\n`;
+    output += `Layer 0: Invalid document cleanup${modeIndicator}\n`;
 
     if (deletedFolders.length > 0) {
-      output += `  ${actionVerb}无效文档文件夹: ${deletedFolders.length}\n`;
+      output += `  ${actionVerb} invalid document folders: ${deletedFolders.length}\n`;
       for (const folder of deletedFolders) {
         output += `    - ${folder}/\n`;
       }
     }
 
     if (deletedFiles.length > 0) {
-      output += `  ${actionVerb}无效语言文件: ${deletedFiles.length}\n`;
+      output += `  ${actionVerb} invalid language files: ${deletedFiles.length}\n`;
       for (const file of deletedFiles) {
         output += `    - ${file}\n`;
       }
@@ -243,7 +243,7 @@ export function formatCleanResult(result) {
   }
 
   if (errors.length > 0) {
-    output += "清理错误:\n";
+    output += "Cleanup errors:\n";
     for (const error of errors) {
       output += `  - ${error.path || ""}: ${error.message}\n`;
     }

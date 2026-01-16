@@ -1,25 +1,25 @@
 import { basename } from "node:path";
 
 /**
- * 准备图片生成参数
- * @param {Object} input - 输入参数
- * @param {string} input.key - 图片 key
- * @param {string} input.id - slot id
- * @param {string} input.desc - slot 描述
- * @param {Array} input.documents - 关联文档列表
- * @param {string} input.locale - 主语言
- * @param {boolean} input.isUpdate - 是否为更新模式
- * @param {string|null} input.existingImagePath - 已有图片路径
- * @returns {Object} - 包含原始输入和生图参数
+ * Prepare image generation parameters
+ * @param {Object} input - Input parameters
+ * @param {string} input.key - Image key
+ * @param {string} input.id - Slot id
+ * @param {string} input.desc - Slot description
+ * @param {Array} input.documents - Associated document list
+ * @param {string} input.locale - Main language
+ * @param {boolean} input.isUpdate - Whether in update mode
+ * @param {string|null} input.existingImagePath - Existing image path
+ * @returns {Object} - Object containing original input and image generation parameters
  */
 export default function prepareImageGeneration(input) {
   const { desc, documents, locale, isUpdate, existingImagePath } = input;
 
-  // 使用第一篇文档的内容
+  // Use content from the first document
   const firstDoc = documents[0];
   const documentContent = firstDoc.content;
 
-  // 准备生图参数
+  // Prepare image generation parameters
   const imageGenParams = {
     documentContent,
     desc,
@@ -29,7 +29,7 @@ export default function prepareImageGeneration(input) {
     useImageToImage: isUpdate || false,
   };
 
-  // 如果是更新模式且有已有图片，添加 existingImage 参数
+  // If in update mode and existing image exists, add existingImage parameter
   if (isUpdate && existingImagePath) {
     imageGenParams.existingImage = [
       {
@@ -42,36 +42,36 @@ export default function prepareImageGeneration(input) {
   }
 
   return {
-    ...input, // 保留所有原始输入
-    ...imageGenParams, // 添加生图参数
+    ...input, // Keep all original inputs
+    ...imageGenParams, // Add image generation parameters
   };
 }
 
-// 添加描述信息
+// Add description
 prepareImageGeneration.description =
-  "准备图片生成参数，从关联文档中提取第一篇文档的内容，" +
-  "配置生图参数（desc, locale, size, aspectRatio），" +
-  "如果是更新模式，添加已有图片路径用于 image-to-image 生成。";
+  "Prepare image generation parameters, extract content from the first associated document, " +
+  "configure image generation parameters (desc, locale, size, aspectRatio), " +
+  "if in update mode, add existing image path for image-to-image generation.";
 
-// 定义输入 schema
+// Define input schema
 prepareImageGeneration.input_schema = {
   type: "object",
   properties: {
     key: {
       type: "string",
-      description: "图片 key（目录名）",
+      description: "Image key (directory name)",
     },
     id: {
       type: "string",
-      description: "slot id",
+      description: "Slot id",
     },
     desc: {
       type: "string",
-      description: "slot 描述",
+      description: "Slot description",
     },
     documents: {
       type: "array",
-      description: "关联文档列表",
+      description: "Associated document list",
       items: {
         type: "object",
         properties: {
@@ -83,22 +83,22 @@ prepareImageGeneration.input_schema = {
     },
     locale: {
       type: "string",
-      description: "主语言代码",
+      description: "Main language code",
     },
     isUpdate: {
       type: "boolean",
-      description: "是否为更新模式",
+      description: "Whether in update mode",
     },
     existingImagePath: {
       type: "string",
       nullable: true,
-      description: "已有图片路径（更新模式时使用）",
+      description: "Existing image path (used in update mode)",
     },
   },
   required: ["key", "id", "desc", "documents", "locale"],
 };
 
-// 定义输出 schema
+// Define output schema
 prepareImageGeneration.output_schema = {
   type: "object",
   properties: {
@@ -111,7 +111,7 @@ prepareImageGeneration.output_schema = {
     existingImagePath: { type: "string", nullable: true },
     imageGenParams: {
       type: "object",
-      description: "传递给生图 agent 的参数",
+      description: "Parameters passed to image generation agent",
       properties: {
         documentContent: { type: "string" },
         desc: { type: "string" },

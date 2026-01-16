@@ -2,8 +2,8 @@ import { resolve } from "node:path";
 import fs from "fs-extra";
 
 /**
- * 判断是否为 /sources/... 绝对路径
- * @param {string} imagePath - 图片路径
+ * Check if path is a /sources/... absolute path
+ * @param {string} imagePath - Image path
  * @returns {boolean}
  */
 export function isSourcesAbsolutePath(imagePath) {
@@ -11,9 +11,9 @@ export function isSourcesAbsolutePath(imagePath) {
 }
 
 /**
- * 解析 /sources/... 绝对路径，提取相对路径部分
- * @param {string} absolutePath - 绝对路径，格式: /sources/<relativePath>
- * @returns {string | null} - 相对路径，解析失败或路径不安全返回 null
+ * Parse /sources/... absolute path and extract relative path portion
+ * @param {string} absolutePath - Absolute path, format: /sources/<relativePath>
+ * @returns {string | null} - Relative path, returns null if parsing fails or path is unsafe
  */
 export function parseSourcesPath(absolutePath) {
   // /sources/assets/screenshot.png → assets/screenshot.png
@@ -22,8 +22,8 @@ export function parseSourcesPath(absolutePath) {
 
   const relativePath = match[1];
 
-  // 安全检查：拒绝包含路径遍历序列的路径
-  // 防止通过 /sources/../../../etc/passwd 等路径访问 sources 目录之外的文件
+  // Security check: reject paths containing path traversal sequences
+  // Prevent accessing files outside sources directory via paths like /sources/../../../etc/passwd
   if (relativePath.includes("..")) {
     return null;
   }
@@ -32,41 +32,41 @@ export function parseSourcesPath(absolutePath) {
 }
 
 /**
- * 根据 config.yaml 的 sources 配置，将虚拟绝对路径解析为物理路径
- * 会依次在每个 source 中查找文件，返回第一个存在的路径
+ * Resolve virtual absolute path to physical path based on config.yaml sources configuration
+ * Searches each source in order and returns the first existing path
  *
- * 执行层视角（AFS 挂载后）：
- *   modules/workspace/ 和 modules/sources/ 平级
- *   文档中使用 /sources/<path> 格式引用
+ * Execution layer perspective (after AFS mount):
+ *   modules/workspace/ and modules/sources/ are at same level
+ *   Documents reference using /sources/<path> format
  *
- * 物理磁盘视角：
- *   - local-path: 相对于 workspace 的路径
- *   - git-clone: workspace/sources/<name>/ 目录
+ * Physical disk perspective:
+ *   - local-path: path relative to workspace
+ *   - git-clone: workspace/sources/<name>/ directory
  *
- * @param {string} absolutePath - 虚拟绝对路径，格式: /sources/<relativePath>
- * @param {Array} sourcesConfig - config.yaml 中的 sources 配置数组
- * @param {string} workspaceBase - workspace 物理根目录
- * @returns {Promise<{physicalPath: string, sourceName: string} | null>} - 物理路径和 source 名称，解析失败返回 null
+ * @param {string} absolutePath - Virtual absolute path, format: /sources/<relativePath>
+ * @param {Array} sourcesConfig - sources configuration array from config.yaml
+ * @param {string} workspaceBase - Workspace physical root directory
+ * @returns {Promise<{physicalPath: string, sourceName: string} | null>} - Physical path and source name, returns null if resolution fails
  */
 export async function resolveSourcesPath(absolutePath, sourcesConfig, workspaceBase) {
   const relativePath = parseSourcesPath(absolutePath);
   if (!relativePath) return null;
 
-  // 依次在每个 source 中查找
+  // Search in each source in order
   for (const source of sourcesConfig) {
     let physicalPath;
 
     if (source.type === "local-path") {
-      // local-path: 相对于 workspace 的路径
+      // local-path: path relative to workspace
       physicalPath = resolve(workspaceBase, source.path, relativePath);
     } else if (source.type === "git-clone") {
-      // git-clone: 克隆到 workspace/sources/<name>/ 目录
+      // git-clone: cloned to workspace/sources/<name>/ directory
       physicalPath = resolve(workspaceBase, "sources", source.name, relativePath);
     } else {
       continue;
     }
 
-    // 检查文件是否存在
+    // Check if file exists
     if (await fs.pathExists(physicalPath)) {
       return { physicalPath, sourceName: source.name };
     }

@@ -1,5 +1,5 @@
 name: translateDocument
-description: 使用翻译提示词将文档翻译成目标语言
+description: Translate document to target language using translation prompts
 instructions:
   url: ../prompts/translate-document.md
 input_schema:
@@ -7,16 +7,16 @@ input_schema:
   properties:
     language:
       type: string
-      description: 目标语言代码（如 "en", "ja", "fr" 等）
+      description: Target language code (e.g., "en", "ja", "fr", etc.)
     content:
       type: string
-      description: 要翻译的文档内容（Markdown 格式）
+      description: Document content to translate (Markdown format)
     glossary:
       type: string
-      description: 术语表内容（可选，用于保持专有词汇翻译一致性）
+      description: Glossary content (optional, for maintaining consistent translation of proper nouns)
     previousTranslation:
       type: string
-      description: 已有的翻译版本（可选，作为参考上下文提高翻译质量）
+      description: Existing translation version (optional, as reference context to improve translation quality)
   required:
     - language
     - content
