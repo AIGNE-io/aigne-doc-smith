@@ -1,7 +1,0 @@
-type: team
-name: updateSingleDocument
-skills:
-  - ../utils/transform-detail-data-sources.mjs
-  - ../update/user-review-document.mjs
-iterate_on: selectedDocs
-concurrency: 1

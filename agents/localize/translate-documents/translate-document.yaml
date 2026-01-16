@@ -1,0 +1,23 @@
+name: translateDocument
+description: Translate document to target language using translation prompts
+instructions:
+  url: ../prompts/translate-document.md
+input_schema:
+  type: object
+  properties:
+    language:
+      type: string
+      description: Target language code (e.g., "en", "ja", "fr", etc.)
+    content:
+      type: string
+      description: Document content to translate (Markdown format)
+    glossary:
+      type: string
+      description: Glossary content (optional, for maintaining consistent translation of proper nouns)
+    previousTranslation:
+      type: string
+      description: Existing translation version (optional, as reference context to improve translation quality)
+  required:
+    - language
+    - content
+output_key: translation

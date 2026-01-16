@@ -2,61 +2,38 @@ type: team
 name: localize
 alias:
   - translate
-description: Translate documents into other languages
+description: |
+  Batch translate documents to multiple languages, supports translating multiple documents and multiple languages at once.
 skills:
-  - url: ../init/index.mjs
-    default_input:
-      skipIfExists: true
-      checkOnly: true
-  - ../utils/load-sources.mjs
-  - url: ../init/check.mjs
-  - type: transform
-    task_render_mode: hide
-    jsonata: |
-      $merge([
-        $,
-        {
-          'documentStructure': originalDocumentStructure
-        }
-      ])
-  - url: ../update/check-diagram-flag.mjs
-  - url: ../utils/choose-docs.mjs
-    default_input:
-      isTranslate: true
-  - ../localize/choose-language.mjs
+  - url: ./translate-documents/prepare-translation.mjs  # Check and prepare translation tasks
+  - url: ./translate-documents/load-glossary.mjs        # Load glossary (once)
   - type: team
-    name: batchTranslateDocument
+    name: processAllDocuments       # Process all documents
     skills:
-      - ../localize/translate-multilingual.yaml
-    iterate_on: selectedDocs
-    concurrency: 5
-  - url: ../utils/check-feedback-refiner.mjs
-    default_input:
-      stage: translation_refine
-  - url: ./record-translation-history.mjs
-  - url: ../utils/action-success.mjs
-    default_input:
-      action: '✅ Translation completed'
+      - url: ./translate-documents/translate-to-languages.yaml
+    iterate_on: translationTasks
+    concurrency: 3
+  - url: ./translate-documents/generate-summary.mjs     # Generate final summary report
 input_schema:
   type: object
   properties:
-    glossary:
-      type: string
-      description: Glossary file for consistent terminology (use @filename.md)
     docs:
       type: array
       items:
         type: string
-      description: Documents to translate
+      description: |
+        List of document paths to translate (optional, e.g., ["/overview", "/api/auth"]), must exist in planning/document-structure.yaml.
+        If not provided or empty array, translates all documents; if paths are provided, only translates specified documents and validates path validity.
     langs:
       type: array
       items:
         type: string
-      description: 'Target languages (available: en, zh, zh-TW, ja, fr, de, es, it, ru, ko, pt, ar)'
-    feedback:
-      type: string
-      description: Tell us how to improve the translation style
-    diagram:
+      description: |
+        Target language list (required, e.g., ["en", "ja", "fr"]), using standard language codes.
+    force:
       type: boolean
-      description: Translate only diagram images without translating document content (use --diagram flag)
+      description: |
+        Whether to force re-translation (optional, default false). When set to true, re-translates all documents even if source documents haven't changed.
+  required:
+    - langs
 mode: sequential

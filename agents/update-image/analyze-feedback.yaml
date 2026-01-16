@@ -1,0 +1,37 @@
+name: analyzeFeedback
+description: Analyze user feedback and extract image editing intent information (e.g., aspect ratio modification)
+model: gemini-2.5-flash
+instructions:
+  - role: system
+    url: ./prompts/analyze-feedback-system.md
+  - role: user
+    url: ./prompts/analyze-feedback-user.md
+
+include_input_in_output: true
+
+input_schema:
+  type: object
+  properties:
+    feedback:
+      type: string
+      description: User feedback (natural language)
+    currentAspectRatio:
+      type: string
+      description: Current aspect ratio of the image
+      default: "4:3"
+  required:
+    - feedback
+
+output_schema:
+  type: object
+  properties:
+    hasRatioChange:
+      type: boolean
+      description: Whether aspect ratio modification intent was detected
+    aspectRatio:
+      type: string
+      description: Final aspect ratio to use (new value if modified, otherwise current value)
+      enum: ["1:1", "5:4", "4:3", "3:2", "16:9", "21:9"]
+  required:
+    - hasRatioChange
+    - aspectRatio

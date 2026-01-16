@@ -1,0 +1,39 @@
+type: team
+name: generateImages
+alias:
+  - gen-images
+description: |
+  Scan AFS image slots in main language documents and batch generate main language images. Supports the following features:
+  - Scan all documents for slots and generate images
+  - Scan specified documents for slots and generate images
+  - Support force regeneration of existing images
+
+skills:
+  - url: ./scan-image-slots.mjs       # Scan slots in main language documents
+  - url: ./prepare-generation.mjs     # Prepare image generation tasks (dedup, check existing images)
+  - type: team
+    name: processAllSlots             # Batch generate images
+    skills:
+      - url: ./prepare-image-generation.mjs
+      - url: ./generate-image.yaml
+      - url: ./save-image-result.mjs
+    iterate_on: generationTasks
+    concurrency: 5                    # Concurrent generation
+  - url: ./generate-summary.mjs       # Generate summary report
+
+input_schema:
+  type: object
+  properties:
+    docs:
+      type: array
+      items:
+        type: string
+      description: |
+        Document path list to process (optional), must be path field from document structure yaml. Processes all documents if not provided or empty array.
+    force:
+      type: boolean
+      default: false
+      description: |
+        Whether to force regenerate existing images (defaults to only generating missing images)
+
+mode: sequential

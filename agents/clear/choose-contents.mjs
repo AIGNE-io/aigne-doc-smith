@@ -1,33 +1,6 @@
-import {
-  getConfigFilePath,
-  getMediaDescriptionCachePath,
-  getStructurePlanPath,
-  toDisplayPath,
-} from "../../utils/file-utils.mjs";
+import { PATHS } from "../../utils/agent-constants.mjs";
 
 const TARGET_METADATA = {
-  generatedDocs: {
-    label: "Generated Documents",
-    description: ({ docsDir }) =>
-      `Select and delete specific generated documents in './${toDisplayPath(docsDir)}'. The documentation structure will be preserved.`,
-    agent: "clearGeneratedDocs",
-  },
-  documentStructure: {
-    label: "Documentation Structure",
-    description: ({ docsDir, workDir }) =>
-      `Delete all generated documents in './${toDisplayPath(docsDir)}' and the documentation structure in './${toDisplayPath(
-        getStructurePlanPath(workDir),
-      )}'.`,
-    agent: "clearDocumentStructure",
-  },
-  documentConfig: {
-    label: "Document Configuration",
-    description: ({ workDir }) =>
-      `Delete the configuration file in './${toDisplayPath(
-        getConfigFilePath(workDir),
-      )}'. You will need to run \`aigne doc init\` to regenerate it.`,
-    agent: "clearDocumentConfig",
-  },
   authTokens: {
     label: "Authorizations",
     description: () =>
@@ -36,17 +9,9 @@ const TARGET_METADATA = {
   },
   deploymentConfig: {
     label: "Deployment Config",
-    description: ({ workDir }) =>
-      `Delete the appUrl from './${toDisplayPath(getConfigFilePath(workDir))}'.`,
-    agent: "clearDeploymentConfig",
-  },
-  mediaDescription: {
-    label: "Media File Descriptions",
     description: () =>
-      `Delete AI-generated descriptions in './${toDisplayPath(
-        getMediaDescriptionCachePath(),
-      )}'. They will be regenerated on the next run.`,
-    agent: "clearMediaDescription",
+      `Delete the appUrl from config file. You will need to re-configure the publish target.`,
+    agent: "clearDeploymentConfig",
   },
 };
 
@@ -75,7 +40,7 @@ export default async function chooseContents(input = {}, options = {}) {
       const choices = Object.entries(TARGET_METADATA).map(([value, def]) => ({
         name: def.label,
         value,
-        description: def.description({ docsDir: input.docsDir, workDir: input.workDir }),
+        description: def.description(),
       }));
 
       selectedTargets = await options.prompts.checkbox({
@@ -99,7 +64,6 @@ export default async function chooseContents(input = {}, options = {}) {
 
   const results = [];
   let hasError = false;
-  let configCleared = false;
 
   for (const target of selectedTargets) {
     const metadata = TARGET_METADATA[target];
@@ -118,7 +82,10 @@ export default async function chooseContents(input = {}, options = {}) {
         throw new Error(`The clear agent '${metadata.agent}' was not found.`);
       }
 
-      const result = await options.context.invoke(clearAgent, rest);
+      const result = await options.context.invoke(clearAgent, {
+        ...rest,
+        configPath: PATHS.CONFIG,
+      });
 
       if (result.error) {
         hasError = true;
@@ -131,13 +98,7 @@ export default async function chooseContents(input = {}, options = {}) {
         results.push({
           status,
           message: result.message,
-          path: result.path,
-          suggestions: result.suggestions,
         });
-
-        if (target === "documentConfig" && result.cleared) {
-          configCleared = true;
-        }
       }
     } catch (error) {
       hasError = true;
@@ -149,24 +110,11 @@ export default async function chooseContents(input = {}, options = {}) {
   }
 
   const header = hasError
-    ? "🧹 Cleanup finished with some issues.\n"
-    : "🧹 Cleanup completed successfully!\n";
+    ? "Cleanup finished with some issues.\n"
+    : "Cleanup completed successfully!\n";
   const detailLines = results.map((item) => `${item.message}`).join("\n\n");
 
-  const suggestions = [];
-  results.forEach((result) => {
-    if (result.suggestions) {
-      suggestions.push(...result.suggestions);
-    }
-  });
-
-  if (configCleared && !suggestions.some((s) => s.includes("aigne doc init"))) {
-    suggestions.push("Run `aigne doc init` to generate a fresh configuration file.");
-  }
-
-  const message = [header, "", detailLines, suggestions.length ? "" : null, suggestions.join("\n")]
-    .filter(Boolean)
-    .join("\n");
+  const message = [header, "", detailLines].filter(Boolean).join("\n");
 
   return {
     message,
@@ -187,6 +135,6 @@ chooseContents.input_schema = {
   },
 };
 
-chooseContents.taskTitle = "Select and clear project contents";
+chooseContents.taskTitle = "Select and clear workspace contents";
 chooseContents.description =
-  "Select and clear project contents, such as generated documents, configuration, and authorization tokens.";
+  "Select and clear workspace contents, such as authorization tokens and deployment configuration.";

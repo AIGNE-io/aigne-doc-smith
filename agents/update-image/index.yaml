@@ -1,0 +1,78 @@
+type: team
+name: updateImage
+description: |
+  Edit already generated images based on user feedback, supports:
+  - Modify image aspect ratio
+  - Adjust image content based on natural language feedback
+
+skills:
+  # Step 1: Load existing image and slot information
+  - url: ./load-existing-image.mjs
+
+  # Step 2: Analyze user feedback, extract ratio modification intent (using LLM)
+  - url: ./analyze-feedback.yaml
+
+  # Step 3: Prepare image generation parameters
+  - type: transform
+    jsonata: |
+      $merge([
+        $,
+        {
+          "id": slotId,
+          "documentContent": content,
+          "size": "2K",
+          "useImageToImage": true,
+          "documents": [{
+            "path": doc,
+            "hash": hash,
+            "content": content
+          }],
+          "isUpdate": true
+        }
+      ])
+
+  # Step 4: Generate new image using image-to-image mode
+  - url: ../generate-images/generate-image.yaml
+
+  # Step 5: Save the updated image
+  - url: ../generate-images/save-image-result.mjs
+
+input_schema:
+  type: object
+  properties:
+    doc:
+      type: string
+      description: Document path (e.g., "overview" or "/overview")
+    slotId:
+      type: string
+      description: Image slot id
+    feedback:
+      type: string
+      description: |
+        User feedback (natural language), can include:
+        - Aspect ratio modification (e.g., "change to 16:9")
+        - Image content adjustment (e.g., "use a more modern style")
+  required:
+    - doc
+    - slotId
+    - feedback
+
+output_schema:
+  type: object
+  properties:
+    success:
+      type: boolean
+      description: Whether operation succeeded
+    key:
+      type: string
+      description: Image key
+    imagePath:
+      type: string
+      description: Path of the updated image
+    message:
+      type: string
+      description: Operation result description
+  required:
+    - success
+
+mode: sequential

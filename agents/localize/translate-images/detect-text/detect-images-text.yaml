@@ -1,0 +1,21 @@
+type: team
+name: detectImagesText
+description: Detect if images contain text and update shared field
+skills:
+  - url: ./detect-and-update-shared.mjs # Prepare detection tasks
+  - type: team
+    name: processTextDetections # Batch detect image text
+    skills:
+      - type: team
+        name: detectSingleImageText
+        description: Detect if a single image contains text and save result
+        skills:
+          - url: ./detect-image-text.yaml # Detect image text
+          - url: ./save-text-detection.mjs # Save detection result
+        mode: sequential
+        include_input_in_output: true
+
+    iterate_on: detectionTasks
+    concurrency: 1
+mode: sequential
+include_input_in_output: true

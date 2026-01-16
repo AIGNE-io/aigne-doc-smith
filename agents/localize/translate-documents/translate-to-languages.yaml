@@ -1,0 +1,10 @@
+type: team
+name: translateToLanguages
+description: Translate a single document to multiple languages, and translate images in the document
+skills:
+  - url: ./translate-document-to-language.mjs # Check hash, execute translation, save result
+  - url: ../translate-images/translate-doc-images.yaml # Detect and translate images in the document
+iterate_on: targetLanguages
+concurrency: 1
+mode: parallel
+include_input_in_output: true

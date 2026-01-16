@@ -1,0 +1,24 @@
+type: team
+name: translateDocImages
+description: Detect images in document and translate to target language
+skills:
+  - url: ./scan-doc-images.mjs # Scan image slots in document
+  - url: ./detect-text/detect-images-text.yaml # Detect if images contain text and update shared field
+  - url: ./check-image-translation.mjs # Check which images need translation
+  - type: team
+    name: processImageTranslations # Process all image translation tasks
+    skills:
+      - type: team
+        name: translateSingleImage
+        description: Translate a single image (from source language to target language)
+        skills:
+          - url: ./prepare-image-input.mjs # Prepare input parameters for image translation
+          - url: ./translate-image.yaml # Execute image translation
+          - url: ./save-image-translation.mjs # Save translation result
+        mode: sequential
+        include_input_in_output: true
+
+    iterate_on: translationTasks
+    concurrency: 1
+mode: sequential
+include_input_in_output: true

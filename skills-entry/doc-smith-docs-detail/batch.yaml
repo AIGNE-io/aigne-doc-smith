@@ -1,0 +1,56 @@
+type: team
+name: generateDocumentDetails
+description: |
+  Batch generate detailed content for multiple documents.
+  - Input document path list, each path corresponds to a document in planning/document-structure.yaml
+  - Supports specifying custom requirements for each document
+  - Generates multiple documents in parallel for efficiency
+  - Returns generation summary and validation results for each document
+
+skills:
+  - type: team
+    name: processAllDocuments
+    skills:
+      - url: ./index.mjs
+    iterate_on: documents
+    concurrency: 5                    # Generate 5 documents concurrently
+
+input_schema:
+  type: object
+  required:
+    - documents
+  properties:
+    documents:
+      type: array
+      items:
+        type: object
+        required:
+          - path
+        properties:
+          path:
+            type: string
+            description: Document path, must exist in planning/document-structure.yaml (e.g., "/overview" or "/api/auth")
+          customRequirements:
+            type: string
+            description: Additional requirements from user conversation, or supplementary related source data paths, used to guide the focus of document generation, optional
+      description: |
+        List of documents to generate. Each document contains:
+        - path: Document path (required)
+        - customRequirements: Custom requirements (optional)
+
+mode: sequential
+afs:
+  modules:
+    - module: history
+      options:
+        storage:
+          url: file:./.aigne/history.db
+
+    - module: local-fs
+      options:
+        name: workspace
+        localPath: ${CWD}
+        description: |
+          Current working directory for the agent
+          - Read-write access to project files
+          - Use absolute path for file operations
