@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.11-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.10...v0.9.11-beta) (2026-01-16)
+
+
+### Features
+
+* migrate to new skills-based architecture ([#370](https://github.com/AIGNE-io/aigne-doc-smith/issues/370)) ([bcd706a](https://github.com/AIGNE-io/aigne-doc-smith/commit/bcd706a29cf8df4d013df4f49c1d30a28ce856c4))
+
+
+### Bug Fixes
+
+* pin jaison to 2.0.2 ([d70901d](https://github.com/AIGNE-io/aigne-doc-smith/commit/d70901dcc9f914408a0ffa9dff820e5f9a3cd25f))
+
 ## [0.9.10](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.10-beta...v0.9.10) (2025-12-22)
 
 ## [0.9.10-beta](https://github.com/AIGNE-io/aigne-doc-smith/compare/v0.9.9...v0.9.10-beta) (2025-12-18)
