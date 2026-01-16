@@ -46,161 +46,122 @@ DocSmith 会自动分析工作区内容，推断：
 ## 项目结构
 
 ```
-doc-smith-skill/
+aigne-doc-smith/
 ├── aigne.yaml                # Aigne 框架配置
 ├── package.json              # 项目依赖和元信息
 ├── CLAUDE.md                 # Claude Code 项目说明
 ├── README.md                 # 本文件
 │
-├── skills/                   # Claude Code Skills
-│   └── doc-smith/            # DocSmith Skill 定义
-│       ├── SKILL.md          # Skill 主文档（中文）
+├── agents/                   # 专用 Agents
+│   ├── bash-executor/        # Bash 命令执行 agent
+│   ├── clear/                # 清理配置 agent
+│   ├── content-checker/      # 内容检查 agent
+│   ├── generate-images/      # 图片生成 agent
+│   ├── localize/             # 文档本地化 agent
+│   ├── publish/              # 文档发布 agent
+│   ├── save-document/        # 文档保存 agent
+│   ├── structure-checker/    # 结构检查 agent
+│   └── update-image/         # 图片更新 agent
+│
+├── skills/                   # Skill 定义
+│   └── doc-smith/            # DocSmith Skill
+│       ├── SKILL.md          # Skill 主文档
 │       └── references/       # 参考文档
-│           ├── document-structure-schema.md   # 文档结构 Schema
-│           ├── structure-confirmation-guide.md # 结构确认指南
-│           ├── structure-planning-guide.md    # 结构规划指南
-│           ├── user-intent-guide.md           # 用户意图指南
-│           └── ... (更多参考文档)
 │
 ├── skills-entry/             # Aigne 框架入口配置
 │   └── doc-smith/
 │       ├── index.yaml        # 主入口配置
 │       └── prompt.md         # 提示词模板
 │
-├── agents/                   # 专用 Agents
-│   ├── publish/              # 文档发布 agent
-│   ├── localize/             # 文档本地化 agent
-│   ├── generate-images/      # 图片生成 agent
-│   ├── update-image/         # 图片更新 agent
-│   ├── content-checker/      # 内容检查 agent
-│   ├── structure-checker/    # 结构检查 agent
-│   └── save-document/        # 文档保存 agent
-│
 ├── utils/                    # 工具函数库
 │   ├── config.mjs            # 配置管理
 │   ├── docs.mjs              # 文档处理
 │   ├── git.mjs               # Git 操作
 │   ├── image-utils.mjs       # 图片工具
-│   └── ... (更多工具)
+│   ├── workspace.mjs         # Workspace 管理
+│   └── ...                   # 更多工具
 │
-├── feature-design/           # 功能设计文档
-│   ├── workspace.md          # Workspace 设计
-│   ├── image-generation.md   # 图片生成设计
-│   ├── localize-agent.md     # 本地化设计
-│   └── ... (更多设计文档)
-│
-└── scripts/                  # 安装/卸载脚本
-    ├── install.sh            # 安装脚本
-    ├── uninstall.sh          # 卸载脚本
-    └── README.md             # 脚本使用说明
+└── scripts/                  # 辅助脚本
+    └── ...
 ```
 
 ## 快速开始
 
-### 1. 安装依赖
+### 1. 安装 Aigne CLI
 
 ```bash
-pnpm install
+npm install -g @aigne/cli
 ```
 
-### 2. 使用方式
+### 2. 启动 DocSmith
 
-DocSmith 提供两种使用方式：
-
-#### 方式 A：作为 Claude Code Skill 使用
-
-安装 skill 到全局目录：
+在项目根目录直接执行：
 
 ```bash
-./scripts/install.sh -y
+cd my-project
+aigne doc
 ```
 
-然后在任何地方的 Claude Code 中使用：
+首次执行时，Aigne CLI 会自动安装 DocSmith 并启动交互式文档生成流程。
+
+**自动初始化：**
+
+DocSmith 会自动完成：
+- 检测当前项目
+- 在 `.aigne/doc-smith/` 目录创建工作空间
+- 生成 config.yaml 配置文件
+
+**对话中完成：**
+
+DocSmith 会在对话中引导你：
+1. 询问输出语言（如用户未指定）
+2. 分析项目内容
+3. 推断用户意图
+4. 规划文档结构
+5. 生成结构化的 Markdown 文档
+
+### 3. 生成的目录结构
+
+```
+my-project/
+├── .aigne/
+│   └── doc-smith/              # DocSmith 工作空间
+│       ├── config.yaml         # 配置文件
+│       ├── intent/             # 用户意图
+│       ├── planning/           # 文档结构规划
+│       ├── docs/               # 生成的文档
+│       │   ├── overview.md
+│       │   ├── getting-started.md
+│       │   └── api/
+│       │       └── authentication.md
+│       └── cache/              # 临时数据
+└── (项目其他文件...)
+```
+
+### 4. 独立 Workspace 模式（可选）
+
+如需将文档项目与源代码分离，可使用独立 workspace：
 
 ```bash
-/doc-smith
+# 创建独立 workspace
+mkdir my-docs
+cd my-docs
+aigne doc
 ```
 
-#### 方式 B：作为 Aigne CLI 使用
+独立模式支持多数据源配置：
 
-在项目目录中使用 Aigne CLI：
+```yaml
+# config.yaml
+sources:
+  - name: "main"
+    type: local-path
+    path: "../my-project"
 
-```bash
-aigne doc create --interactive
-```
-
-这将启动交互式文档生成流程，引导你完成 workspace 初始化和文档生成的全过程。
-
-### 3. 开始生成文档
-
-#### Workspace 模式 (推荐)
-
-DocSmith 现在使用独立 workspace 目录，不会污染源仓库。
-
-**创建并使用 workspace：**
-
-```bash
-# 1. 创建空目录作为 workspace
-mkdir my-docs-workspace
-cd my-docs-workspace
-
-# 2. 打开 Claude Code 并执行 doc-smith
-# 输入: 使用 doc-smith 生成文档
-```
-
-**初始化流程：**
-DocSmith 会引导你完成初始化：
-1. 询问输出语言（如：zh、en）
-2. 询问源仓库 Git URL（可选，如果源代码在本地可不提供）
-3. 自动创建目录结构
-4. 自动添加源仓库为 git submodule（如果提供了 URL）
-5. 生成 config.yaml 配置文件
-6. 初始化 git 仓库并提交
-
-**后续操作：**
-DocSmith 会：
-1. 分析源仓库内容
-2. 推断用户意图
-3. 规划文档结构
-4. 生成结构化的 Markdown 文档
-5. 询问是否提交到 Git
-
-### 3. Workspace 目录结构
-
-```
-my-docs-workspace/              # 独立 workspace 目录
-├── config.yaml                 # workspace 配置文件
-├── sources/                    # 源仓库 (git submodule)
-│   └── my-project/
-├── intent/
-│   └── user-intent.md          # 用户意图描述
-├── planning/
-│   └── document-structure.yaml # 文档结构计划
-├── docs/                       # 生成的文档
-│   ├── overview.md
-│   ├── getting-started.md
-│   └── api/
-│       └── authentication.md
-└── cache/                      # 临时数据 (不纳入 git)
-```
-
-### 4. 版本管理
-
-Workspace 是一个独立的 Git 仓库，支持完整的版本管理：
-
-```bash
-# 查看历史
-git log
-
-# 查看变更
-git diff
-
-# 回滚版本
-git revert <commit-hash>
-
-# 推送到远程仓库（可选）
-git remote add origin <your-repo-url>
-git push -u origin main
+  - name: "other-repo"
+    type: git-clone
+    url: "https://github.com/example/repo.git"
+    branch: "main"
 ```
 
 ## 核心功能
@@ -227,54 +188,27 @@ git push -u origin main
 - 支持自定义发布配置
 - 文档站点构建和部署
 
-## 文档说明
+## 开发
 
-### Skill 文档
-- **skills/doc-smith/SKILL.md** - Skill 完整使用指南，包含工作流程、最佳实践等
-- **skills/doc-smith/references/** - 参考文档目录
-  - **document-structure-schema.md** - 文档结构 YAML 的完整 Schema 说明
-  - **structure-planning-guide.md** - 文档结构规划指南
-  - **structure-confirmation-guide.md** - 结构确认流程指南
-  - **user-intent-guide.md** - 用户意图理解指南
-  - 更多参考文档...
-
-### 设计文档
-- **feature-design/** - 功能设计和架构文档
-  - **workspace.md** - Workspace 设计方案
-  - **image-generation.md** - 图片生成功能设计
-  - **localize-agent.md** - 本地化功能设计
-  - 更多设计文档...
-
-所有文档均使用中文编写，方便理解和编辑。
-
-## 卸载
-
-如需移除 skill：
+### 安装依赖
 
 ```bash
-./scripts/uninstall.sh
+pnpm install
 ```
 
-## 手动安装 Skill
+### 代码质量
 
-如果安装脚本无法使用，可以手动安装：
+项目使用 Biome 进行代码检查和格式化：
 
 ```bash
-mkdir -p ~/.claude/skills
-cp -r skills/doc-smith ~/.claude/skills/
+# 检查代码
+pnpm run lint
+
+# 自动修复
+pnpm run lint:fix
 ```
 
-## 开发和自定义
-
-### 修改 Skill
-
-如果你想修改或扩展 doc-smith skill：
-
-1. 编辑 `skills/doc-smith/SKILL.md` 中的 Skill 主文档
-2. 修改 `skills/doc-smith/references/` 中的参考文档
-3. 运行 `./scripts/install.sh -y` 重新安装
-
-### 开发 Agents
+### 修改 Agents
 
 添加或修改 agents：
 
@@ -290,22 +224,9 @@ cp -r skills/doc-smith ~/.claude/skills/
 2. 确保使用 ES 模块语法（`.mjs` 文件）
 3. 在需要的地方导入使用
 
-### 代码质量
-
-项目使用 Biome 进行代码检查和格式化：
-
-```bash
-# 检查代码
-pnpm run lint
-
-# 自动修复
-pnpm run lint:fix
-```
-
 ## 技术栈
 
 - **Aigne Framework** - AI agent 编排框架
-- **Claude Code** - Anthropic 的 AI 编程助手
 - **Node.js** - 运行时环境（ES 模块）
 - **pnpm** - 包管理器
 - **Biome** - 代码检查和格式化
@@ -313,12 +234,6 @@ pnpm run lint:fix
 
 ## 注意事项
 
-### 作为 Claude Code Skill 使用
-- 确保 Claude Code 已正确安装
-- Workspace 需要在空目录中初始化
-- 生成的文档在独立的 workspace 目录中，不会污染源仓库
-
-### 作为 Aigne CLI 使用
 - 确保已安装 Node.js (v18+) 和 pnpm
 - 确保 Git 已安装（用于 submodule 和版本管理）
 - 需要配置 Anthropic API key 或其他 LLM provider
@@ -333,9 +248,7 @@ pnpm run lint:fix
 
 ## 版本信息
 
-当前版本：`0.9.8-alpha.13`
-
-这是一个 alpha 版本，功能和 API 可能会有变化。
+当前版本：`0.9.11`
 
 ## 支持
 
@@ -354,5 +267,4 @@ Elastic-2.0 License
 ## 相关链接
 
 - [Aigne Framework](https://www.npmjs.com/package/@aigne/cli)
-- [Claude Code](https://claude.com/claude-code)
 - [Arcblock](https://www.arcblock.io/)
