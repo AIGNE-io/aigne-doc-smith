@@ -1,155 +1,157 @@
 # DocSmith
 
-AI 驱动的文档生成工具，基于 Aigne Framework 构建。
+AI-powered documentation generation tool built on the Aigne Framework.
 
-## 功能特性
+[中文文档](./README.zh.md)
 
-DocSmith 是一个完整的文档生成系统，提供：
-- 📚 从代码仓库、文本文件和媒体资源生成全面的文档
-- 🏗️ 构建有组织的文档结构和文档站点
-- 📝 智能分析工作区内容并生成结构化的文档
-- 🔄 将代码/项目内容转换为可读的文档
-- 🌍 多语言支持和文档本地化
-- 🖼️ 自动生成和更新文档图片
-- 📤 一键发布文档到多个平台
+## Features
 
-支持生成：
-- 技术文档
-- 用户指南
-- API 参考
-- 教程和示例
-- 产品文档
+DocSmith is a complete documentation generation system that provides:
+- 📚 Generate comprehensive documentation from code repositories, text files, and media resources
+- 🏗️ Build organized documentation structures and documentation sites
+- 📝 Intelligently analyze workspace content and generate structured documentation
+- 🔄 Convert code/project content into readable documentation
+- 🌍 Multi-language support and documentation localization
+- 🖼️ Automatic generation and updating of documentation images
+- 📤 One-click publishing to multiple platforms
 
-### 用户意图分析
+Supports generating:
+- Technical documentation
+- User guides
+- API references
+- Tutorials and examples
+- Product documentation
 
-DocSmith 会自动分析工作区内容，推断：
-- **目标用户** - 文档的主要受众（开发者、运维人员、最终用户等）
-- **使用场景** - 用户查阅文档的情境（首次接触、开发集成、问题排查等）
-- **文档侧重点** - 文档类型（使用指南、API 参考、快速上手、架构说明等）
+### User Intent Analysis
 
-推断结果会展示给用户确认，支持多轮调整直到满意。
+DocSmith automatically analyzes workspace content to infer:
+- **Target audience** - Primary readers of the documentation (developers, operators, end users, etc.)
+- **Use cases** - Context in which users consult the documentation (first contact, development integration, troubleshooting, etc.)
+- **Documentation focus** - Documentation type (user guide, API reference, quick start, architecture overview, etc.)
 
-### 结构确认机制
+Inference results are presented to users for confirmation, with support for multiple rounds of adjustments until satisfied.
 
-在生成文档前，DocSmith 会展示规划的文档结构：
-- 文档总数和层次关系
-- 每个文档的标题、描述和来源文件
-- 清晰的 emoji 标识便于快速浏览
+### Structure Confirmation Mechanism
 
-用户可以：
-- 删除/添加文档
-- 调整层次结构（合并、拆分、调整父子关系）
-- 修改内容范围
+Before generating documentation, DocSmith displays the planned documentation structure:
+- Total number of documents and hierarchy
+- Title, description, and source files for each document
+- Clear emoji indicators for quick browsing
 
-只有在用户确认结构后，才会开始生成实际内容。
+Users can:
+- Delete/add documents
+- Adjust hierarchy (merge, split, adjust parent-child relationships)
+- Modify content scope
 
-## 项目结构
+Actual content generation begins only after user confirms the structure.
+
+## Project Structure
 
 ```
 aigne-doc-smith/
-├── aigne.yaml                # Aigne 框架配置
-├── package.json              # 项目依赖和元信息
-├── CLAUDE.md                 # Claude Code 项目说明
-├── README.md                 # 本文件
+├── aigne.yaml                # Aigne framework configuration
+├── package.json              # Project dependencies and metadata
+├── CLAUDE.md                 # Claude Code project description
+├── README.md                 # This file
 │
-├── agents/                   # 专用 Agents
-│   ├── bash-executor/        # Bash 命令执行 agent
-│   ├── clear/                # 清理配置 agent
-│   ├── content-checker/      # 内容检查 agent
-│   ├── generate-images/      # 图片生成 agent
-│   ├── localize/             # 文档本地化 agent
-│   ├── publish/              # 文档发布 agent
-│   ├── save-document/        # 文档保存 agent
-│   ├── structure-checker/    # 结构检查 agent
-│   └── update-image/         # 图片更新 agent
+├── agents/                   # Specialized Agents
+│   ├── bash-executor/        # Bash command execution agent
+│   ├── clear/                # Configuration cleanup agent
+│   ├── content-checker/      # Content checking agent
+│   ├── generate-images/      # Image generation agent
+│   ├── localize/             # Documentation localization agent
+│   ├── publish/              # Documentation publishing agent
+│   ├── save-document/        # Document saving agent
+│   ├── structure-checker/    # Structure checking agent
+│   └── update-image/         # Image update agent
 │
-├── skills/                   # Skill 定义
+├── skills/                   # Skill definitions
 │   └── doc-smith/            # DocSmith Skill
-│       ├── SKILL.md          # Skill 主文档
-│       └── references/       # 参考文档
+│       ├── SKILL.md          # Skill main document
+│       └── references/       # Reference documents
 │
-├── skills-entry/             # Aigne 框架入口配置
+├── skills-entry/             # Aigne framework entry configuration
 │   └── doc-smith/
-│       ├── index.yaml        # 主入口配置
-│       └── prompt.md         # 提示词模板
+│       ├── index.yaml        # Main entry configuration
+│       └── prompt.md         # Prompt template
 │
-├── utils/                    # 工具函数库
-│   ├── config.mjs            # 配置管理
-│   ├── docs.mjs              # 文档处理
-│   ├── git.mjs               # Git 操作
-│   ├── image-utils.mjs       # 图片工具
-│   ├── workspace.mjs         # Workspace 管理
-│   └── ...                   # 更多工具
+├── utils/                    # Utility library
+│   ├── config.mjs            # Configuration management
+│   ├── docs.mjs              # Document processing
+│   ├── git.mjs               # Git operations
+│   ├── image-utils.mjs       # Image utilities
+│   ├── workspace.mjs         # Workspace management
+│   └── ...                   # More utilities
 │
-└── scripts/                  # 辅助脚本
+└── scripts/                  # Helper scripts
     └── ...
 ```
 
-## 快速开始
+## Quick Start
 
-### 1. 安装 Aigne CLI
+### 1. Install Aigne CLI
 
 ```bash
 npm install -g @aigne/cli
 ```
 
-### 2. 启动 DocSmith
+### 2. Start DocSmith
 
-在项目根目录直接执行：
+Run directly in your project root:
 
 ```bash
 cd my-project
 aigne doc
 ```
 
-首次执行时，Aigne CLI 会自动安装 DocSmith 并启动交互式文档生成流程。
+On first execution, Aigne CLI will automatically install DocSmith and start the interactive documentation generation process.
 
-**自动初始化：**
+**Automatic Initialization:**
 
-DocSmith 会自动完成：
-- 检测当前项目
-- 在 `.aigne/doc-smith/` 目录创建工作空间
-- 生成 config.yaml 配置文件
+DocSmith will automatically:
+- Detect the current project
+- Create workspace in `.aigne/doc-smith/` directory
+- Generate config.yaml configuration file
 
-**对话中完成：**
+**Completed During Conversation:**
 
-DocSmith 会在对话中引导你：
-1. 询问输出语言（如用户未指定）
-2. 分析项目内容
-3. 推断用户意图
-4. 规划文档结构
-5. 生成结构化的 Markdown 文档
+DocSmith will guide you through:
+1. Ask for output language (if not specified)
+2. Analyze project content
+3. Infer user intent
+4. Plan documentation structure
+5. Generate structured Markdown documentation
 
-### 3. 生成的目录结构
+### 3. Generated Directory Structure
 
 ```
 my-project/
 ├── .aigne/
-│   └── doc-smith/              # DocSmith 工作空间
-│       ├── config.yaml         # 配置文件
-│       ├── intent/             # 用户意图
-│       ├── planning/           # 文档结构规划
-│       ├── docs/               # 生成的文档
+│   └── doc-smith/              # DocSmith workspace
+│       ├── config.yaml         # Configuration file
+│       ├── intent/             # User intent
+│       ├── planning/           # Documentation structure planning
+│       ├── docs/               # Generated documentation
 │       │   ├── overview.md
 │       │   ├── getting-started.md
 │       │   └── api/
 │       │       └── authentication.md
-│       └── cache/              # 临时数据
-└── (项目其他文件...)
+│       └── cache/              # Temporary data
+└── (other project files...)
 ```
 
-### 4. 独立 Workspace 模式（可选）
+### 4. Independent Workspace Mode (Optional)
 
-如需将文档项目与源代码分离，可使用独立 workspace：
+To separate documentation project from source code, use independent workspace:
 
 ```bash
-# 创建独立 workspace
+# Create independent workspace
 mkdir my-docs
 cd my-docs
 aigne doc
 ```
 
-独立模式支持多数据源配置：
+Independent mode supports multiple data source configuration:
 
 ```yaml
 # config.yaml
@@ -164,107 +166,107 @@ sources:
     branch: "main"
 ```
 
-## 核心功能
+## Core Features
 
-### 文档生成
-- 智能分析源代码和项目结构
-- 自动推断用户意图和目标受众
-- 生成结构化的 Markdown 文档
-- 支持文档层次结构规划和确认
+### Documentation Generation
+- Intelligent analysis of source code and project structure
+- Automatic inference of user intent and target audience
+- Generation of structured Markdown documentation
+- Support for documentation hierarchy planning and confirmation
 
-### 图片管理
-- 自动生成文档所需的图片
-- 支持图片占位符系统
-- 批量更新和编辑图片
-- 多种图片生成模型支持
+### Image Management
+- Automatic generation of documentation images
+- Image placeholder system support
+- Batch update and edit images
+- Multiple image generation model support
 
-### 多语言支持
-- 文档本地化和翻译
-- 多语言文档结构管理
-- 自动同步不同语言版本
+### Multi-language Support
+- Documentation localization and translation
+- Multi-language documentation structure management
+- Automatic synchronization of different language versions
 
-### 发布和部署
-- 一键发布到多个平台
-- 支持自定义发布配置
-- 文档站点构建和部署
+### Publishing and Deployment
+- One-click publishing to multiple platforms
+- Custom publishing configuration support
+- Documentation site building and deployment
 
-## 开发
+## Development
 
-### 安装依赖
+### Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-### 代码质量
+### Code Quality
 
-项目使用 Biome 进行代码检查和格式化：
+Project uses Biome for code linting and formatting:
 
 ```bash
-# 检查代码
+# Check code
 pnpm run lint
 
-# 自动修复
+# Auto fix
 pnpm run lint:fix
 ```
 
-### 修改 Agents
+### Modifying Agents
 
-添加或修改 agents：
+To add or modify agents:
 
-1. 在 `agents/` 目录下创建或修改 agent
-2. 在 `aigne.yaml` 中注册新的 agent
-3. 编写 agent 的提示词和配置文件
+1. Create or modify agent in `agents/` directory
+2. Register new agent in `aigne.yaml`
+3. Write agent prompts and configuration files
 
-### 修改工具函数
+### Modifying Utility Functions
 
-扩展或优化工具函数：
+To extend or optimize utility functions:
 
-1. 在 `utils/` 目录下添加或修改工具函数
-2. 确保使用 ES 模块语法（`.mjs` 文件）
-3. 在需要的地方导入使用
+1. Add or modify utility functions in `utils/` directory
+2. Ensure ES module syntax (`.mjs` files)
+3. Import and use where needed
 
-## 技术栈
+## Tech Stack
 
-- **Aigne Framework** - AI agent 编排框架
-- **Node.js** - 运行时环境（ES 模块）
-- **pnpm** - 包管理器
-- **Biome** - 代码检查和格式化
-- **YAML** - 配置和数据格式
+- **Aigne Framework** - AI agent orchestration framework
+- **Node.js** - Runtime environment (ES modules)
+- **pnpm** - Package manager
+- **Biome** - Code linting and formatting
+- **YAML** - Configuration and data format
 
-## 注意事项
+## Notes
 
-- 确保已安装 Node.js (v18+) 和 pnpm
-- 确保 Git 已安装（用于 submodule 和版本管理）
-- 需要配置 Anthropic API key 或其他 LLM provider
-- 图片生成功能需要配置相应的 API key
+- Ensure Node.js (v18+) and pnpm are installed
+- Ensure Git is installed (for submodule and version management)
+- Anthropic API key or other LLM provider configuration required
+- Image generation features require corresponding API key configuration
 
-## 迁移说明
+## Migration Guide
 
-如果你之前使用过旧版本（`.aigne/doc-smith/` 目录结构），建议：
-1. 创建新的 workspace 目录
-2. 重新生成文档
-3. 旧版本数据可以手动迁移到新的 workspace 目录结构中
+If you previously used an older version (`.aigne/doc-smith/` directory structure), we recommend:
+1. Create a new workspace directory
+2. Regenerate documentation
+3. Old version data can be manually migrated to the new workspace directory structure
 
-## 版本信息
+## Version
 
-当前版本：`0.9.11`
+Current version: `0.9.11`
 
-## 支持
+## Support
 
-如有问题或建议，请在项目中提出 issue。
+For issues or suggestions, please open an issue in the project.
 
-## 作者
+## Author
 
 **Arcblock** - [blocklet@arcblock.io](mailto:blocklet@arcblock.io)
 
 GitHub: [@blocklet](https://github.com/blocklet)
 
-## 许可
+## License
 
 Elastic-2.0 License
 
-## 相关链接
+## Related Links
 
 - [Aigne Framework](https://www.npmjs.com/package/@aigne/cli)
 - [Arcblock](https://www.arcblock.io/)
