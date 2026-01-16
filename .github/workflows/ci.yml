@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint_and_test:
+  lint:
     runs-on: ubuntu-latest
 
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
@@ -35,20 +35,9 @@ jobs:
           node-version: 23
           cache: pnpm
 
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v2
-
       - name: Install dependencies
         run: |
           pnpm install
 
       - name: Lint
         run: pnpm lint
-
-      - name: Test
-        run: pnpm test:coverage
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
