@@ -61,15 +61,15 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `utils/auth.mjs` | 272 | `utils/auth.test.mjs` | ⬜ TODO | 认证流程、token 管理 |
-| `utils/branding.mjs` | 83 | `utils/branding.test.mjs` | ⬜ TODO | 品牌信息处理 |
-| `utils/deploy.mjs` | 86 | `utils/deploy.test.mjs` | ⬜ TODO | 部署工具函数 |
-| `utils/git.mjs` | 65 | `utils/git.test.mjs` | ⬜ TODO | Git 操作工具 |
-| `utils/http.mjs` | 122 | `utils/http.test.mjs` | ⬜ TODO | HTTP 请求工具 |
-| `utils/project.mjs` | 95 | `utils/project.test.mjs` | ⬜ TODO | 项目信息工具 |
-| `utils/upload.mjs` | 231 | `utils/upload.test.mjs` | ⬜ TODO | 上传功能 |
-| `utils/afs-factory.mjs` | 186 | `utils/afs-factory.test.mjs` | ⬜ TODO | AFS 模块生成 |
-| `utils/store/index.mjs` | ~100 | `utils/store.test.mjs` | ⬜ TODO | 数据存储管理 |
+| `utils/auth.mjs` | 272 | `utils/auth.test.mjs` | ✅ DONE | 认证流程、token 管理 |
+| `utils/branding.mjs` | 83 | `utils/branding.test.mjs` | ✅ DONE | 品牌信息处理 |
+| `utils/deploy.mjs` | 86 | `utils/deploy.test.mjs` | ✅ DONE | 部署工具函数 |
+| `utils/git.mjs` | 65 | `utils/git.test.mjs` | ✅ DONE | Git 操作工具 |
+| `utils/http.mjs` | 122 | `utils/http.test.mjs` | ✅ DONE | HTTP 请求工具 |
+| `utils/project.mjs` | 95 | `utils/project.test.mjs` | ✅ DONE | 项目信息工具 |
+| `utils/upload.mjs` | 231 | `utils/upload.test.mjs` | ✅ DONE | 上传功能 |
+| `utils/afs-factory.mjs` | 186 | `utils/afs-factory.test.mjs` | ✅ DONE | AFS 模块生成 |
+| `utils/store/index.mjs` | ~100 | `utils/store.test.mjs` | ✅ DONE | 数据存储管理 |
 
 ### 第四阶段：Agent 模块 - bash-executor (优先级: 高)
 
@@ -380,7 +380,7 @@ pnpm test:watch
 |------|--------|--------|------|
 | 第一阶段 | 5 | 5 | 100% |
 | 第二阶段 | 6 | 6 | 100% |
-| 第三阶段 | 9 | 0 | 0% |
+| 第三阶段 | 9 | 9 | 100% |
 | 第四阶段 | 1 | 0 | 0% |
 | 第五阶段 | 3 | 0 | 0% |
 | 第六阶段 | 2 | 0 | 0% |
@@ -390,7 +390,7 @@ pnpm test:watch
 | 第十阶段 | 3 | 0 | 0% |
 | 第十一阶段 | 2 | 0 | 0% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **11** | **21%** |
+| **总计** | **52** | **20** | **38%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第三阶段
+**下一个待执行阶段**: 第四阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-19 (第二阶段完成)
+最后更新: 2026-01-19 (第三阶段完成)

@@ -65,20 +65,26 @@ describe("clear agents", () => {
 
     describe("Unhappy Path", () => {
       test("should return available targets when no prompts available", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         const result = await chooseContents({}, {});
         expect(result).toHaveProperty("availableTargets");
         expect(Array.isArray(result.availableTargets)).toBe(true);
       });
 
       test("should handle empty targets array", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         const result = await chooseContents({ targets: [] }, {});
         expect(result).toHaveProperty("message");
       });
 
       test("should handle null input", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         // null input may cause destructuring error, so check for any result or error
         let result;
         try {
@@ -91,7 +97,9 @@ describe("clear agents", () => {
       });
 
       test("should handle undefined options", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         const result = await chooseContents({});
         expect(result).toHaveProperty("message");
       });
@@ -99,7 +107,9 @@ describe("clear agents", () => {
 
     describe("Critical Error Scenarios", () => {
       test("should handle unknown target", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         const result = await chooseContents(
           { targets: ["unknownTarget"] },
           { context: { agents: {} } },
@@ -108,7 +118,9 @@ describe("clear agents", () => {
       });
 
       test("should handle missing agent in context", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         const result = await chooseContents(
           { targets: ["authTokens"] },
           { context: { agents: {} } },
@@ -119,7 +131,9 @@ describe("clear agents", () => {
       });
 
       test("should normalize case-insensitive targets", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         // Should normalize but fail since no agent
         const result = await chooseContents(
           { targets: ["AUTHTOKENS"] },
@@ -131,19 +145,25 @@ describe("clear agents", () => {
 
     describe("Security Scenarios", () => {
       test("should handle injection in targets", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         const result = await chooseContents({ targets: ["<script>alert(1)</script>"] }, {});
         expect(result).toHaveProperty("message");
       });
 
       test("should handle path traversal in targets", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         const result = await chooseContents({ targets: ["../../etc/passwd"] }, {});
         expect(result).toHaveProperty("message");
       });
 
       test("should handle null bytes in targets", async () => {
-        const { default: chooseContents } = await import("../../../agents/clear/choose-contents.mjs");
+        const { default: chooseContents } = await import(
+          "../../../agents/clear/choose-contents.mjs"
+        );
         const result = await chooseContents({ targets: ["auth\x00Tokens"] }, {});
         expect(result).toHaveProperty("message");
       });
