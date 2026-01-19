@@ -38,11 +38,11 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `utils/constants.mjs` | 32 | `utils/constants.test.mjs` | ⬜ TODO | 常量值验证 |
-| `utils/agent-constants.mjs` | 97 | `utils/agent-constants.test.mjs` | ⬜ TODO | PATHS 常量、工作目录检测 |
-| `utils/files.mjs` | 74 | `utils/files.test.mjs` | ⬜ TODO | 文件操作工具函数 |
-| `utils/config.mjs` | 261 | `utils/config.test.mjs` | ⬜ TODO | 配置读取、写入、更新 |
-| `utils/workspace.mjs` | 465 | `utils/workspace.test.mjs` | ⬜ TODO | workspace 检测、初始化、模式判断 |
+| `utils/constants.mjs` | 32 | `utils/constants.test.mjs` | ✅ DONE | 常量值验证 |
+| `utils/agent-constants.mjs` | 97 | `utils/agent-constants.test.mjs` | ✅ DONE | PATHS 常量、工作目录检测 |
+| `utils/files.mjs` | 74 | `utils/files.test.mjs` | ✅ DONE | 文件操作工具函数 |
+| `utils/config.mjs` | 261 | `utils/config.test.mjs` | ✅ DONE | 配置读取、写入、更新 |
+| `utils/workspace.mjs` | 465 | `utils/workspace.test.mjs` | ✅ DONE | workspace 检测、初始化、模式判断 |
 
 ### 第二阶段：核心工具模块 (优先级: 高)
 
@@ -378,7 +378,7 @@ pnpm test:watch
 
 | 阶段 | 模块数 | 完成数 | 进度 |
 |------|--------|--------|------|
-| 第一阶段 | 5 | 0 | 0% |
+| 第一阶段 | 5 | 5 | 100% |
 | 第二阶段 | 6 | 0 | 0% |
 | 第三阶段 | 9 | 0 | 0% |
 | 第四阶段 | 1 | 0 | 0% |
@@ -390,7 +390,7 @@ pnpm test:watch
 | 第十阶段 | 3 | 0 | 0% |
 | 第十一阶段 | 2 | 0 | 0% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **0** | **0%** |
+| **总计** | **52** | **5** | **10%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第一阶段
+**下一个待执行阶段**: 第二阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-19
+最后更新: 2026-01-19 (第一阶段完成)
