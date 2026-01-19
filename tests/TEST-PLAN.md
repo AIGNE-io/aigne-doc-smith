@@ -109,8 +109,8 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `agents/structure-checker/index.mjs` | 307 | `agents/structure-checker/index.test.mjs` | ⬜ TODO | 结构检查入口 |
-| `agents/structure-checker/validate-structure.mjs` | 477 | `agents/structure-checker/validate-structure.test.mjs` | ⬜ TODO | 结构验证逻辑 |
+| `agents/structure-checker/index.mjs` | 307 | `agents/structure-checker/index.test.mjs` | ✅ DONE | 结构检查入口 |
+| `agents/structure-checker/validate-structure.mjs` | 477 | `agents/structure-checker/validate-structure.test.mjs` | ✅ DONE | 结构验证逻辑 |
 
 ### 第七阶段：Agent 模块 - clear (优先级: 中)
 
@@ -383,14 +383,14 @@ pnpm test:watch
 | 第三阶段 | 9 | 9 | 100% |
 | 第四阶段 | 1 | 1 | 100% |
 | 第五阶段 | 3 | 3 | 100% |
-| 第六阶段 | 2 | 0 | 0% |
+| 第六阶段 | 2 | 2 | 100% |
 | 第七阶段 | 3 | 0 | 0% |
 | 第八阶段 | 5 | 0 | 0% |
 | 第九阶段 | 10 | 0 | 0% |
 | 第十阶段 | 3 | 0 | 0% |
 | 第十一阶段 | 2 | 0 | 0% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **24** | **46%** |
+| **总计** | **52** | **26** | **50%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第六阶段
+**下一个待执行阶段**: 第七阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-19 (第五阶段完成)
+最后更新: 2026-01-20 (第六阶段完成)
