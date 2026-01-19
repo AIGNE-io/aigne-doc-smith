@@ -134,16 +134,16 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `agents/localize/translate-documents/generate-summary.mjs` | 163 | `agents/localize/translate-documents/generate-summary.test.mjs` | ⬜ TODO | 翻译摘要 |
-| `agents/localize/translate-documents/load-glossary.mjs` | 52 | `agents/localize/translate-documents/load-glossary.test.mjs` | ⬜ TODO | 词汇表加载 |
-| `agents/localize/translate-documents/prepare-translation.mjs` | 249 | `agents/localize/translate-documents/prepare-translation.test.mjs` | ⬜ TODO | 翻译准备 |
-| `agents/localize/translate-documents/save-translation.mjs` | 171 | `agents/localize/translate-documents/save-translation.test.mjs` | ⬜ TODO | 翻译保存 |
-| `agents/localize/translate-documents/translate-document-to-language.mjs` | 209 | `agents/localize/translate-documents/translate-document-to-language.test.mjs` | ⬜ TODO | 单文档翻译 |
-| `agents/localize/translate-images/check-image-translation.mjs` | 225 | `agents/localize/translate-images/check-image-translation.test.mjs` | ⬜ TODO | 图片翻译检查 |
-| `agents/localize/translate-images/prepare-image-input.mjs` | 124 | `agents/localize/translate-images/prepare-image-input.test.mjs` | ⬜ TODO | 图片输入准备 |
-| `agents/localize/translate-images/save-image-translation.mjs` | 172 | `agents/localize/translate-images/save-image-translation.test.mjs` | ⬜ TODO | 图片翻译保存 |
-| `agents/localize/translate-images/scan-doc-images.mjs` | 165 | `agents/localize/translate-images/scan-doc-images.test.mjs` | ⬜ TODO | 文档图片扫描 |
-| `agents/localize/translate-images/detect-text/*.mjs` | ~250 | `agents/localize/translate-images/detect-text/*.test.mjs` | ⬜ TODO | 文字检测 |
+| `agents/localize/translate-documents/generate-summary.mjs` | 163 | `agents/localize/translate-documents/index.test.mjs` | ✅ DONE | 翻译摘要 |
+| `agents/localize/translate-documents/load-glossary.mjs` | 52 | `agents/localize/translate-documents/index.test.mjs` | ✅ DONE | 词汇表加载 |
+| `agents/localize/translate-documents/prepare-translation.mjs` | 249 | `agents/localize/translate-documents/index.test.mjs` | ✅ DONE | 翻译准备 |
+| `agents/localize/translate-documents/save-translation.mjs` | 171 | `agents/localize/translate-documents/index.test.mjs` | ✅ DONE | 翻译保存 |
+| `agents/localize/translate-documents/translate-document-to-language.mjs` | 209 | `agents/localize/translate-documents/index.test.mjs` | ✅ DONE | 单文档翻译 |
+| `agents/localize/translate-images/check-image-translation.mjs` | 225 | `agents/localize/translate-images/index.test.mjs` | ✅ DONE | 图片翻译检查 |
+| `agents/localize/translate-images/prepare-image-input.mjs` | 124 | `agents/localize/translate-images/index.test.mjs` | ✅ DONE | 图片输入准备 |
+| `agents/localize/translate-images/save-image-translation.mjs` | 172 | `agents/localize/translate-images/index.test.mjs` | ✅ DONE | 图片翻译保存 |
+| `agents/localize/translate-images/scan-doc-images.mjs` | 165 | `agents/localize/translate-images/index.test.mjs` | ✅ DONE | 文档图片扫描 |
+| `agents/localize/translate-images/detect-text/*.mjs` | ~250 | `agents/localize/translate-images/index.test.mjs` | ✅ DONE | 文字检测 |
 
 ### 第十阶段：Agent 模块 - publish (优先级: 中)
 
@@ -386,11 +386,11 @@ pnpm test:watch
 | 第六阶段 | 2 | 2 | 100% |
 | 第七阶段 | 3 | 3 | 100% |
 | 第八阶段 | 5 | 5 | 100% |
-| 第九阶段 | 10 | 0 | 0% |
+| 第九阶段 | 10 | 10 | 100% |
 | 第十阶段 | 3 | 0 | 0% |
 | 第十一阶段 | 2 | 0 | 0% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **34** | **65%** |
+| **总计** | **52** | **44** | **85%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第九阶段
+**下一个待执行阶段**: 第十阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-20 (第八阶段完成)
+最后更新: 2026-01-20 (第九阶段完成)

@@ -292,6 +292,25 @@ describe("localize/translate-documents agents", () => {
         );
         expect(module.default.description).toContain("GLOSSARY");
       });
+
+      test("should not expose file system internals in output schema", async () => {
+        const module = await import(
+          "../../../../agents/localize/translate-documents/load-glossary.mjs"
+        );
+        // Output should only contain glossary content and message, not paths
+        const props = Object.keys(module.default.output_schema.properties);
+        expect(props).not.toContain("filePath");
+        expect(props).not.toContain("absolutePath");
+      });
+
+      test("should have safe output types", async () => {
+        const module = await import(
+          "../../../../agents/localize/translate-documents/load-glossary.mjs"
+        );
+        // Glossary should be string type (not object that could be exploited)
+        expect(module.default.output_schema.properties.glossary.type).toBe("string");
+        expect(module.default.output_schema.properties.message.type).toBe("string");
+      });
     });
   });
 
@@ -509,6 +528,19 @@ describe("localize/translate-documents agents", () => {
           "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default.input_schema.properties.sourceHash).toBeDefined();
+      });
+
+      test("should not expose internal file paths in output", async () => {
+        const module = await import(
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
+        );
+        // Output should be limited to success indicators
+        const required = module.default.output_schema.required;
+        expect(required).toContain("success");
+        // Should not expose internal implementation details
+        const props = Object.keys(module.default.output_schema.properties);
+        expect(props).not.toContain("absolutePath");
+        expect(props).not.toContain("internalPath");
       });
     });
   });
