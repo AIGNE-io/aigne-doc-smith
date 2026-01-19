@@ -1,23 +1,20 @@
-import { detectAndInitialize, DOC_SMITH_DIR, WORKSPACE_MODES } from "../../utils/workspace.mjs";
+import { detectWorkspaceMode, isGitRepo, WORKSPACE_MODES } from "../../utils/workspace.mjs";
 import { generateDocSmithAfsModules } from "../../utils/afs-factory.mjs";
 
-// Initialize workspace and generate config at module load time
-console.log("\n🚀 Welcome to DocSmith!");
-
-const workspace = await detectAndInitialize();
-const afsModules = await generateDocSmithAfsModules(workspace);
-
-// Print workspace info
-console.log(`Project: ${process.cwd()}`);
-if (workspace.mode === WORKSPACE_MODES.PROJECT) {
-  console.log(`DocSmith workspace: ${DOC_SMITH_DIR}`);
-  console.log(`Docs output: ${DOC_SMITH_DIR}/docs`);
-} else {
-  console.log(`DocSmith workspace: .`);
-  console.log(`Docs output: ./docs`);
+// Detect workspace mode at module load time (no initialization side effects)
+// If config exists, read mode from it; otherwise infer from git status
+let workspace = await detectWorkspaceMode();
+if (!workspace) {
+  // Not initialized yet, infer mode from git status
+  const isGit = await isGitRepo();
+  workspace = {
+    mode: isGit ? WORKSPACE_MODES.PROJECT : WORKSPACE_MODES.STANDALONE,
+    configPath: null,
+    workspacePath: isGit ? "./.aigne/doc-smith" : ".",
+  };
 }
 
-console.log("\n🎯 Ready for documentation generation...\n");
+const afsModules = await generateDocSmithAfsModules(workspace);
 
 /**
  * Main agent configuration

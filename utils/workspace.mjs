@@ -1,6 +1,5 @@
-import { existsSync } from "node:fs";
-import { access, readFile, mkdir, writeFile, appendFile } from "node:fs/promises";
-import { constants } from "node:fs";
+import { access, readFile, mkdir, writeFile, appendFile, rename } from "node:fs/promises";
+import { constants, existsSync } from "node:fs";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import { join } from "node:path";
@@ -21,6 +20,7 @@ export const WORKSPACE_MODES = {
  */
 export const AIGNE_DIR = ".aigne";
 export const DOC_SMITH_DIR = ".aigne/doc-smith";
+export const DOC_SMITH_BAK_DIR = ".aigne/doc-smith-bak";
 export const SOURCES_DIR = "sources";
 export const WORKSPACE_SUBDIRS = ["intent", "planning", "docs"];
 
@@ -101,9 +101,13 @@ export async function getGitInfo(cwd = ".") {
     const remotesResult = await gitExec("remote", cwd);
     if (remotesResult.success && remotesResult.output) {
       const firstRemote = remotesResult.output.split("\n")[0];
-      const fallbackResult = await gitExec(`remote get-url ${firstRemote}`, cwd);
-      if (fallbackResult.success) {
-        url = fallbackResult.output;
+      // Validate remote name to prevent command injection
+      const safeRemotePattern = /^[a-zA-Z0-9_.-]+$/;
+      if (safeRemotePattern.test(firstRemote)) {
+        const fallbackResult = await gitExec(`remote get-url ${firstRemote}`, cwd);
+        if (fallbackResult.success) {
+          url = fallbackResult.output;
+        }
       }
     }
   }
@@ -169,30 +173,16 @@ export async function addToGitignore(gitRoot, pattern) {
 }
 
 /**
- * Detect workspace mode (synchronous version)
- * Used for scenarios requiring synchronous judgment at module load time
- * @returns {{ mode: string, workspaceBase: string }}
- */
-export function detectWorkspaceModeSync() {
-  const cwd = process.cwd();
-  const projectConfigPath = join(cwd, DOC_SMITH_DIR, "config.yaml");
-
-  if (existsSync(projectConfigPath)) {
-    return {
-      mode: WORKSPACE_MODES.PROJECT,
-      workspaceBase: join(cwd, DOC_SMITH_DIR),
-    };
-  }
-
-  return {
-    mode: WORKSPACE_MODES.STANDALONE,
-    workspaceBase: cwd,
-  };
-}
-
-/**
  * Detect workspace mode (asynchronous version)
+ *
+ * Returns null if workspace is not initialized (no config.yaml found).
+ * Callers should handle the null case by inferring mode or triggering initialization.
+ *
+ * Note: Unlike detectWorkspaceModeSync(), this version does NOT provide a default
+ * when not initialized, allowing callers to decide how to handle the uninitialized state.
+ *
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string } | null>}
+ *   - workspacePath: Path with "./" prefix (e.g., "./.aigne/doc-smith" or ".")
  */
 export async function detectWorkspaceMode() {
   const configInDocSmith = join(DOC_SMITH_DIR, "config.yaml");
@@ -218,6 +208,51 @@ export async function detectWorkspaceMode() {
 }
 
 /**
+ * Detect workspace mode (sync version)
+ *
+ * Used by modules that need workspace information at load time (e.g., agent-constants.mjs).
+ * Unlike the async version, this ALWAYS returns a valid object (defaults to STANDALONE
+ * when not initialized) because sync callers need concrete values immediately.
+ *
+ * Note: This version includes an additional `workspaceBase` field for backward compatibility
+ * with agent-constants.mjs which needs the path without "./" prefix.
+ *
+ * @returns {{ mode: string, configPath: string | null, workspacePath: string, workspaceBase: string }}
+ *   - workspacePath: Path with "./" prefix (e.g., "./.aigne/doc-smith" or ".")
+ *   - workspaceBase: Path without "./" prefix (e.g., ".aigne/doc-smith" or ".")
+ */
+export function detectWorkspaceModeSync() {
+  const configInDocSmith = join(DOC_SMITH_DIR, "config.yaml");
+  const configInRoot = "config.yaml";
+
+  if (pathExistsSync(configInDocSmith)) {
+    return {
+      mode: WORKSPACE_MODES.PROJECT,
+      configPath: configInDocSmith,
+      workspacePath: `./${DOC_SMITH_DIR}`,
+      workspaceBase: DOC_SMITH_DIR,
+    };
+  }
+
+  if (pathExistsSync(configInRoot)) {
+    return {
+      mode: WORKSPACE_MODES.STANDALONE,
+      configPath: configInRoot,
+      workspacePath: ".",
+      workspaceBase: ".",
+    };
+  }
+
+  // Default to standalone if not initialized
+  return {
+    mode: WORKSPACE_MODES.STANDALONE,
+    configPath: null,
+    workspacePath: ".",
+    workspaceBase: ".",
+  };
+}
+
+/**
  * Load and parse config.yaml
  * @param {string} configPath - Config file path
  * @returns {Promise<Object | null>}
@@ -228,6 +263,46 @@ export async function loadConfig(configPath) {
     return yamlParse(content);
   } catch {
     return null;
+  }
+}
+
+/**
+ * Check if config is new version format
+ * New version: config has `mode` field with valid value (project/standalone)
+ * @param {Object | null} config - Parsed config object
+ * @returns {boolean}
+ */
+export function isNewVersionConfig(config) {
+  if (!config || typeof config !== "object") {
+    return false;
+  }
+  const validModes = Object.values(WORKSPACE_MODES);
+  return validModes.includes(config.mode);
+}
+
+/**
+ * Backup old version workspace directory
+ * Rename .aigne/doc-smith to .aigne/doc-smith-bak
+ * @returns {Promise<{ success: boolean, error?: string }>}
+ */
+export async function backupOldWorkspace() {
+  // Check if backup directory already exists
+  if (await pathExists(DOC_SMITH_BAK_DIR)) {
+    return {
+      success: false,
+      error: `Backup directory ${DOC_SMITH_BAK_DIR} already exists, please handle it manually and retry`,
+    };
+  }
+
+  try {
+    await rename(DOC_SMITH_DIR, DOC_SMITH_BAK_DIR);
+    console.log(`\n⚠️  Old workspace detected, backed up to ${DOC_SMITH_BAK_DIR}\n`);
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: `Failed to rename directory: ${error.message}`,
+    };
   }
 }
 
@@ -352,13 +427,32 @@ export async function initStandaloneMode() {
 
 /**
  * Detect directory state and initialize workspace when needed
+ * Handles old version backup and migration if necessary
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string }>}
  */
 export async function detectAndInitialize() {
-  // Check if already initialized
+  // Check if already initialized with new version config
   const existing = await detectWorkspaceMode();
   if (existing) {
-    return existing;
+    // Verify it's new version config
+    const config = await loadConfig(existing.configPath);
+    if (isNewVersionConfig(config)) {
+      return existing;
+    }
+  }
+
+  // Check if .aigne/doc-smith directory exists (might be old version)
+  if (await pathExists(DOC_SMITH_DIR)) {
+    const configPath = join(DOC_SMITH_DIR, "config.yaml");
+    const config = await loadConfig(configPath);
+
+    // If config exists but is not new version, backup and reinitialize
+    if (!isNewVersionConfig(config)) {
+      const backupResult = await backupOldWorkspace();
+      if (!backupResult.success) {
+        throw new Error(backupResult.error);
+      }
+    }
   }
 
   // Check if inside git repository (project mode)

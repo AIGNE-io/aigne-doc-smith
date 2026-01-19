@@ -30,6 +30,7 @@
   "license": "Elastic-2.0",
   "dependencies": {
     "@aigne/cli": "^1.59.0-beta.27",
+    "@aigne/core": "^1.72.0",
     "@aigne/publish-docs": "^0.15.0",
     "@aigne/secrets": "^0.1.5",
     "@blocklet/payment-broker-client": "^1.24.1",
@@ -37,8 +38,10 @@
     "fs-extra": "^11.3.1",
     "open": "^10.2.0",
     "p-limit": "^7.2.0",
+    "p-retry": "^7.1.1",
     "ufo": "^1.6.1",
-    "yaml": "^2.8.0"
+    "yaml": "^2.8.0",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.4"
