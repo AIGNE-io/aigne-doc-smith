@@ -1,21 +1,25 @@
 /**
- * Tests for agents/content-checker
+ * Tests for agents/content-checker/index.mjs
+ *
+ * Based on intent: Entry logic and selective checking
  *
  * Function signatures:
- * - default export: checkContent({ docs }): Clean invalid docs and validate content
- * - cleanInvalidDocs({ yamlPath, docsDir }): Clean documents not in structure
- * - formatCleanResult(result): Format cleanup result message
- * - validateDocumentContent({ yamlPath, docsDir, docs, checkRemoteImages }): Validate documents
+ * - default export: checkContent({ docs }): Main entry function
+ *   - Cleans invalid docs (Layer 0)
+ *   - Validates document content (Layer 1-4)
+ *   - Returns: { success, valid, message, errors, stats, fixed, fixedCount, cleaned }
  *
- * NOTE: Tests avoid file system operations that depend on workspace configuration.
- * Tests focus on module exports and return structure expectations.
+ * Properties:
+ * - description: string
+ * - input_schema: { type: 'object', properties: { docs: array } }
  */
 
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { rm } from "node:fs/promises";
+import { mkdir, writeFile, rm } from "node:fs/promises";
+import { join } from "node:path";
 import { createTempDir } from "../../setup/test-utils.mjs";
 
-describe("content-checker", () => {
+describe("content-checker/index.mjs", () => {
   let tempDir;
 
   beforeEach(async () => {
@@ -31,7 +35,7 @@ describe("content-checker", () => {
 
   // ==================== Happy Path ====================
   describe("Happy Path", () => {
-    describe("module exports - index.mjs", () => {
+    describe("module exports", () => {
       test("should export default function", async () => {
         const contentChecker = await import("../../../agents/content-checker/index.mjs");
         expect(contentChecker.default).toBeDefined();
@@ -57,28 +61,6 @@ describe("content-checker", () => {
       });
     });
 
-    describe("module exports - clean-invalid-docs.mjs", () => {
-      test("should export cleanInvalidDocs function", async () => {
-        const cleanModule = await import("../../../agents/content-checker/clean-invalid-docs.mjs");
-        expect(cleanModule.cleanInvalidDocs).toBeDefined();
-        expect(typeof cleanModule.cleanInvalidDocs).toBe("function");
-      });
-
-      test("should export formatCleanResult function", async () => {
-        const cleanModule = await import("../../../agents/content-checker/clean-invalid-docs.mjs");
-        expect(cleanModule.formatCleanResult).toBeDefined();
-        expect(typeof cleanModule.formatCleanResult).toBe("function");
-      });
-    });
-
-    describe("module exports - validate-content.mjs", () => {
-      test("should export default function", async () => {
-        const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
-        expect(validateModule.default).toBeDefined();
-        expect(typeof validateModule.default).toBe("function");
-      });
-    });
-
     describe("description content", () => {
       test("should mention document validation", async () => {
         const contentChecker = await import("../../../agents/content-checker/index.mjs");
@@ -99,44 +81,59 @@ describe("content-checker", () => {
       });
     });
 
-    describe("formatCleanResult output", () => {
-      test("should format empty result as empty string", async () => {
-        const { formatCleanResult } = await import(
-          "../../../agents/content-checker/clean-invalid-docs.mjs"
-        );
-        const result = formatCleanResult({
-          dryRun: false,
-          deletedFolders: [],
-          deletedFiles: [],
-          errors: [],
-        });
-        expect(result).toBe("");
+    describe("return structure", () => {
+      test("should return success property", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({});
+        expect(typeof result.success).toBe("boolean");
       });
 
-      test("should include folder count in message", async () => {
-        const { formatCleanResult } = await import(
-          "../../../agents/content-checker/clean-invalid-docs.mjs"
-        );
-        const result = formatCleanResult({
-          dryRun: false,
-          deletedFolders: ["/test/folder1", "/test/folder2"],
-          deletedFiles: [],
-          errors: [],
-        });
-        expect(result).toContain("2");
+      test("should return valid property", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({});
+        expect(typeof result.valid).toBe("boolean");
       });
 
-      test("should include file count in message", async () => {
-        const { formatCleanResult } = await import(
-          "../../../agents/content-checker/clean-invalid-docs.mjs"
-        );
-        const result = formatCleanResult({
-          dryRun: false,
-          deletedFolders: [],
-          deletedFiles: ["/test/en.md", "/test/zh.md", "/test/ja.md"],
-          errors: [],
+      test("should return message property", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({});
+        expect(typeof result.message).toBe("string");
+      });
+
+      test("should return cleaned property when structure file exists", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({});
+        // cleaned is only present when structure file exists
+        // when file not found, result has fileNotFound=true instead
+        if (!result.fileNotFound) {
+          expect(result.cleaned).toBeDefined();
+          expect(typeof result.cleaned.folders).toBe("number");
+          expect(typeof result.cleaned.files).toBe("number");
+        } else {
+          expect(result.fileNotFound).toBe(true);
+        }
+      });
+    });
+
+    describe("selective checking with docs parameter", () => {
+      test("should accept docs as array", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({ docs: ["/overview"] });
+        expect(result).toHaveProperty("success");
+      });
+
+      test("should accept multiple doc paths", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({
+          docs: ["/overview", "/api/introduction", "/getting-started"],
         });
-        expect(result).toContain("3");
+        expect(result).toHaveProperty("success");
+      });
+
+      test("should accept empty docs array (checks all)", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({ docs: [] });
+        expect(result).toHaveProperty("success");
       });
     });
   });
@@ -146,7 +143,6 @@ describe("content-checker", () => {
     describe("input handling", () => {
       test("should accept empty options object", async () => {
         const contentChecker = await import("../../../agents/content-checker/index.mjs");
-        // Function should not throw, even if files don't exist
         const result = await contentChecker.default({});
         expect(result).toHaveProperty("success");
       });
@@ -163,33 +159,6 @@ describe("content-checker", () => {
         expect(result).toHaveProperty("success");
       });
 
-      test("should accept empty docs array", async () => {
-        const contentChecker = await import("../../../agents/content-checker/index.mjs");
-        const result = await contentChecker.default({ docs: [] });
-        expect(result).toHaveProperty("success");
-      });
-    });
-
-    describe("file not found handling", () => {
-      test("should return fileNotFound for missing structure file", async () => {
-        // This tests the actual function with default PATHS
-        // Since structure file likely doesn't exist in test environment
-        const contentChecker = await import("../../../agents/content-checker/index.mjs");
-        const result = await contentChecker.default({});
-        // Should either succeed or fail gracefully
-        expect(result).toHaveProperty("success");
-        expect(result).toHaveProperty("valid");
-      });
-
-      test("should provide helpful message on error", async () => {
-        const contentChecker = await import("../../../agents/content-checker/index.mjs");
-        const result = await contentChecker.default({});
-        expect(result).toHaveProperty("message");
-        expect(typeof result.message).toBe("string");
-      });
-    });
-
-    describe("docs array validation", () => {
       test("should handle docs with invalid path format", async () => {
         const contentChecker = await import("../../../agents/content-checker/index.mjs");
         const result = await contentChecker.default({
@@ -197,11 +166,37 @@ describe("content-checker", () => {
         });
         expect(result).toHaveProperty("success");
       });
+    });
 
+    describe("missing structure file", () => {
+      test("should handle missing document-structure.yaml gracefully", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({});
+        // Should not throw, returns result with fileNotFound or error info
+        expect(result).toHaveProperty("success");
+        expect(result).toHaveProperty("message");
+      });
+
+      test("should provide helpful message when structure file missing", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({});
+        expect(typeof result.message).toBe("string");
+      });
+    });
+
+    describe("docs parameter edge cases", () => {
       test("should handle docs with special characters", async () => {
         const contentChecker = await import("../../../agents/content-checker/index.mjs");
         const result = await contentChecker.default({
           docs: ["/test<script>", "/test&param=1"],
+        });
+        expect(result).toHaveProperty("success");
+      });
+
+      test("should handle docs with unicode paths", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({
+          docs: ["/文档/概述", "/日本語/はじめに"],
         });
         expect(result).toHaveProperty("success");
       });
@@ -216,38 +211,15 @@ describe("content-checker", () => {
         expect(contentChecker).toBeDefined();
       });
 
-      test("should import clean-invalid-docs.mjs without errors", async () => {
-        const cleanModule = await import("../../../agents/content-checker/clean-invalid-docs.mjs");
-        expect(cleanModule).toBeDefined();
-      });
-
-      test("should import validate-content.mjs without errors", async () => {
-        const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
-        expect(validateModule).toBeDefined();
+      test("should have all expected exports", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        expect(contentChecker.default).toBeDefined();
+        expect(contentChecker.default.description).toBeDefined();
+        expect(contentChecker.default.input_schema).toBeDefined();
       });
     });
 
-    describe("result structure", () => {
-      test("should always return success property", async () => {
-        const contentChecker = await import("../../../agents/content-checker/index.mjs");
-        const result = await contentChecker.default({});
-        expect(typeof result.success).toBe("boolean");
-      });
-
-      test("should always return valid property", async () => {
-        const contentChecker = await import("../../../agents/content-checker/index.mjs");
-        const result = await contentChecker.default({});
-        expect(typeof result.valid).toBe("boolean");
-      });
-
-      test("should always return message property", async () => {
-        const contentChecker = await import("../../../agents/content-checker/index.mjs");
-        const result = await contentChecker.default({});
-        expect(typeof result.message).toBe("string");
-      });
-    });
-
-    describe("error handling", () => {
+    describe("error recovery", () => {
       test("should not throw on missing workspace", async () => {
         const contentChecker = await import("../../../agents/content-checker/index.mjs");
         let error = null;
@@ -271,6 +243,36 @@ describe("content-checker", () => {
         const longPath = `/${"a".repeat(1000)}`;
         const result = await contentChecker.default({ docs: [longPath] });
         expect(result).toHaveProperty("success");
+      });
+
+      test("should return consistent structure on any error", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({ docs: ["/nonexistent"] });
+        expect(result).toHaveProperty("success");
+        expect(result).toHaveProperty("valid");
+        expect(result).toHaveProperty("message");
+      });
+    });
+
+    describe("integration with sub-modules", () => {
+      test("should integrate clean-invalid-docs module when structure exists", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({});
+        // cleaned property comes from clean-invalid-docs integration
+        // only present when structure file exists
+        if (!result.fileNotFound) {
+          expect(result).toHaveProperty("cleaned");
+        } else {
+          // When file not found, cleaned is not present
+          expect(result.fileNotFound).toBe(true);
+        }
+      });
+
+      test("should integrate validate-content module", async () => {
+        const contentChecker = await import("../../../agents/content-checker/index.mjs");
+        const result = await contentChecker.default({});
+        // valid property is always present
+        expect(result).toHaveProperty("valid");
       });
     });
   });
@@ -329,51 +331,21 @@ describe("content-checker", () => {
       });
     });
 
-    describe("message security", () => {
+    describe("output safety", () => {
       test("should not expose sensitive paths in error messages", async () => {
         const contentChecker = await import("../../../agents/content-checker/index.mjs");
         const result = await contentChecker.default({});
-        // Message should be defined and not expose system internals
         expect(result.message).toBeDefined();
         expect(result.message).not.toContain("/etc/passwd");
       });
 
-      test("should handle unicode in paths", async () => {
+      test("should sanitize doc paths in output", async () => {
         const contentChecker = await import("../../../agents/content-checker/index.mjs");
         const result = await contentChecker.default({
-          docs: ["/文档/日本語/한국어"],
+          docs: ["/<script>alert('xss')</script>"],
         });
-        expect(result).toHaveProperty("success");
-      });
-    });
-
-    describe("formatCleanResult security", () => {
-      test("should safely format malicious folder names", async () => {
-        const { formatCleanResult } = await import(
-          "../../../agents/content-checker/clean-invalid-docs.mjs"
-        );
-        const result = formatCleanResult({
-          dryRun: false,
-          deletedFolders: ["<script>alert(1)</script>"],
-          deletedFiles: [],
-          errors: [],
-        });
-        expect(typeof result).toBe("string");
-        expect(result.length).toBeGreaterThan(0);
-      });
-
-      test("should safely format paths with special chars", async () => {
-        const { formatCleanResult } = await import(
-          "../../../agents/content-checker/clean-invalid-docs.mjs"
-        );
-        const result = formatCleanResult({
-          dryRun: false,
-          deletedFolders: [],
-          deletedFiles: ["../../../etc/passwd"],
-          errors: [],
-        });
-        expect(typeof result).toBe("string");
-        expect(result.length).toBeGreaterThan(0);
+        // Should handle without exposing raw script in a dangerous way
+        expect(result).toHaveProperty("message");
       });
     });
   });

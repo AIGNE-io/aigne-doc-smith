@@ -93,9 +93,9 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `agents/content-checker/index.mjs` | 191 | `agents/content-checker/index.test.mjs` | ⬜ TODO | 入口逻辑、选择性检查 |
-| `agents/content-checker/validate-content.mjs` | 983 | `agents/content-checker/validate-content.test.mjs` | ⬜ TODO | 内容验证逻辑 |
-| `agents/content-checker/clean-invalid-docs.mjs` | 254 | `agents/content-checker/clean-invalid-docs.test.mjs` | ⬜ TODO | 无效文档清理 |
+| `agents/content-checker/index.mjs` | 191 | `agents/content-checker/index.test.mjs` | ✅ DONE | 入口逻辑、选择性检查 |
+| `agents/content-checker/validate-content.mjs` | 983 | `agents/content-checker/validate-content.test.mjs` | ✅ DONE | 内容验证逻辑 |
+| `agents/content-checker/clean-invalid-docs.mjs` | 254 | `agents/content-checker/clean-invalid-docs.test.mjs` | ✅ DONE | 无效文档清理 |
 
 **关键测试场景**:
 - Layer 0: 无效文档检测和清理
@@ -382,7 +382,7 @@ pnpm test:watch
 | 第二阶段 | 6 | 6 | 100% |
 | 第三阶段 | 9 | 9 | 100% |
 | 第四阶段 | 1 | 1 | 100% |
-| 第五阶段 | 3 | 0 | 0% |
+| 第五阶段 | 3 | 3 | 100% |
 | 第六阶段 | 2 | 0 | 0% |
 | 第七阶段 | 3 | 0 | 0% |
 | 第八阶段 | 5 | 0 | 0% |
@@ -390,7 +390,7 @@ pnpm test:watch
 | 第十阶段 | 3 | 0 | 0% |
 | 第十一阶段 | 2 | 0 | 0% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **21** | **40%** |
+| **总计** | **52** | **24** | **46%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第五阶段
+**下一个待执行阶段**: 第六阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-19 (第四阶段完成)
+最后更新: 2026-01-19 (第五阶段完成)
