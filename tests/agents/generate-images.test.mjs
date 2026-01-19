@@ -12,8 +12,7 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdir, rm, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { rm } from "node:fs/promises";
 import { createTempDir } from "../setup/test-utils.mjs";
 
 describe("generate-images agents", () => {
@@ -34,9 +33,7 @@ describe("generate-images agents", () => {
   describe("generate-summary.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/generate-images/generate-summary.mjs"
-        );
+        const module = await import("../../agents/generate-images/generate-summary.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
@@ -102,9 +99,7 @@ describe("generate-images agents", () => {
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import(
-          "../../agents/generate-images/generate-summary.mjs"
-        );
+        const module = await import("../../agents/generate-images/generate-summary.mjs");
         expect(module).toBeDefined();
       });
 
@@ -146,44 +141,34 @@ describe("generate-images agents", () => {
   describe("prepare-generation.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/generate-images/prepare-generation.mjs"
-        );
+        const module = await import("../../agents/generate-images/prepare-generation.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should be async function", async () => {
-        const module = await import(
-          "../../agents/generate-images/prepare-generation.mjs"
-        );
+        const module = await import("../../agents/generate-images/prepare-generation.mjs");
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
     });
 
     describe("Unhappy Path", () => {
       test("should accept options parameter", async () => {
-        const module = await import(
-          "../../agents/generate-images/prepare-generation.mjs"
-        );
+        const module = await import("../../agents/generate-images/prepare-generation.mjs");
         expect(module.default.length).toBeGreaterThanOrEqual(0);
       });
     });
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import(
-          "../../agents/generate-images/prepare-generation.mjs"
-        );
+        const module = await import("../../agents/generate-images/prepare-generation.mjs");
         expect(module).toBeDefined();
       });
     });
 
     describe("Security Scenarios", () => {
       test("should exist as module", async () => {
-        const module = await import(
-          "../../agents/generate-images/prepare-generation.mjs"
-        );
+        const module = await import("../../agents/generate-images/prepare-generation.mjs");
         expect(typeof module.default).toBe("function");
       });
     });
@@ -193,9 +178,7 @@ describe("generate-images agents", () => {
   describe("prepare-image-generation.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/generate-images/prepare-image-generation.mjs"
-        );
+        const module = await import("../../agents/generate-images/prepare-image-generation.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
@@ -259,9 +242,7 @@ describe("generate-images agents", () => {
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import(
-          "../../agents/generate-images/prepare-image-generation.mjs"
-        );
+        const module = await import("../../agents/generate-images/prepare-image-generation.mjs");
         expect(module).toBeDefined();
       });
 
@@ -307,44 +288,34 @@ describe("generate-images agents", () => {
   describe("save-image-result.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/generate-images/save-image-result.mjs"
-        );
+        const module = await import("../../agents/generate-images/save-image-result.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should be async function", async () => {
-        const module = await import(
-          "../../agents/generate-images/save-image-result.mjs"
-        );
+        const module = await import("../../agents/generate-images/save-image-result.mjs");
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
     });
 
     describe("Unhappy Path", () => {
       test("should accept input parameter", async () => {
-        const module = await import(
-          "../../agents/generate-images/save-image-result.mjs"
-        );
+        const module = await import("../../agents/generate-images/save-image-result.mjs");
         expect(module.default.length).toBeGreaterThanOrEqual(1);
       });
     });
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import(
-          "../../agents/generate-images/save-image-result.mjs"
-        );
+        const module = await import("../../agents/generate-images/save-image-result.mjs");
         expect(module).toBeDefined();
       });
     });
 
     describe("Security Scenarios", () => {
       test("should exist as async function", async () => {
-        const module = await import(
-          "../../agents/generate-images/save-image-result.mjs"
-        );
+        const module = await import("../../agents/generate-images/save-image-result.mjs");
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
     });
@@ -354,44 +325,34 @@ describe("generate-images agents", () => {
   describe("scan-image-slots.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/generate-images/scan-image-slots.mjs"
-        );
+        const module = await import("../../agents/generate-images/scan-image-slots.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should be async function", async () => {
-        const module = await import(
-          "../../agents/generate-images/scan-image-slots.mjs"
-        );
+        const module = await import("../../agents/generate-images/scan-image-slots.mjs");
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
     });
 
     describe("Unhappy Path", () => {
       test("should accept options parameter", async () => {
-        const module = await import(
-          "../../agents/generate-images/scan-image-slots.mjs"
-        );
+        const module = await import("../../agents/generate-images/scan-image-slots.mjs");
         expect(module.default.length).toBeGreaterThanOrEqual(0);
       });
     });
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import(
-          "../../agents/generate-images/scan-image-slots.mjs"
-        );
+        const module = await import("../../agents/generate-images/scan-image-slots.mjs");
         expect(module).toBeDefined();
       });
     });
 
     describe("Security Scenarios", () => {
       test("should exist as async function", async () => {
-        const module = await import(
-          "../../agents/generate-images/scan-image-slots.mjs"
-        );
+        const module = await import("../../agents/generate-images/scan-image-slots.mjs");
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
     });

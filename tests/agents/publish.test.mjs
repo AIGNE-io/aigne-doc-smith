@@ -11,8 +11,7 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdir, rm, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { rm } from "node:fs/promises";
 import { createTempDir } from "../setup/test-utils.mjs";
 
 describe("publish agents", () => {
@@ -85,9 +84,7 @@ describe("publish agents", () => {
     describe("Security Scenarios", () => {
       test("should have fileName parameter for flexibility", async () => {
         const module = await import("../../agents/publish/check.mjs");
-        expect(
-          module.default.input_schema.properties.fileName
-        ).toBeDefined();
+        expect(module.default.input_schema.properties.fileName).toBeDefined();
       });
     });
   });
@@ -129,9 +126,7 @@ describe("publish agents", () => {
 
       test("should define with-branding in schema", async () => {
         const module = await import("../../agents/publish/publish-docs.mjs");
-        expect(
-          module.default.input_schema.properties["with-branding"]
-        ).toBeDefined();
+        expect(module.default.input_schema.properties["with-branding"]).toBeDefined();
       });
     });
 
@@ -151,9 +146,7 @@ describe("publish agents", () => {
 
       test("should define translatedMetadata in schema", async () => {
         const module = await import("../../agents/publish/publish-docs.mjs");
-        expect(
-          module.default.input_schema.properties.translatedMetadata
-        ).toBeDefined();
+        expect(module.default.input_schema.properties.translatedMetadata).toBeDefined();
       });
     });
 
@@ -165,9 +158,7 @@ describe("publish agents", () => {
 
       test("should have config type as object", async () => {
         const module = await import("../../agents/publish/publish-docs.mjs");
-        expect(module.default.input_schema.properties.config.type).toBe(
-          "object"
-        );
+        expect(module.default.input_schema.properties.config.type).toBe("object");
       });
     });
   });
@@ -221,9 +212,7 @@ describe("publish agents", () => {
     describe("Security Scenarios", () => {
       test("should have config as object type", async () => {
         const module = await import("../../agents/publish/translate-meta.mjs");
-        expect(module.default.input_schema.properties.config.type).toBe(
-          "object"
-        );
+        expect(module.default.input_schema.properties.config.type).toBe("object");
       });
 
       test("should mention metadata in description", async () => {

@@ -14,7 +14,7 @@
  * and cache functions that don't require network.
  */
 
-import { describe, test, expect, beforeEach } from "bun:test";
+import { describe, test, expect } from "bun:test";
 
 describe("http.mjs", () => {
   // ==================== Happy Path ====================
@@ -218,7 +218,7 @@ describe("http.mjs", () => {
         const error = new InvalidBlockletError(
           "https://example.com/admin/secret",
           403,
-          "Forbidden"
+          "Forbidden",
         );
         // Should contain URL but message should be generic
         expect(error.message).toBeDefined();
@@ -226,10 +226,7 @@ describe("http.mjs", () => {
 
       test("ComponentNotFoundError should not expose internal paths", async () => {
         const { ComponentNotFoundError } = await import("../../utils/http.mjs");
-        const error = new ComponentNotFoundError(
-          "did:internal:secret",
-          "https://example.com"
-        );
+        const error = new ComponentNotFoundError("did:internal:secret", "https://example.com");
         expect(error.message).toBeDefined();
       });
     });

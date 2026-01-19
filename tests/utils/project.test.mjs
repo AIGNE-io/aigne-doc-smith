@@ -150,11 +150,7 @@ describe("project.mjs", () => {
       });
 
       test("should handle concurrent calls", async () => {
-        const promises = [
-          getProjectInfo(),
-          getProjectInfo(),
-          getProjectInfo(),
-        ];
+        const promises = [getProjectInfo(), getProjectInfo(), getProjectInfo()];
 
         const results = await Promise.all(promises);
         expect(results.length).toBe(3);

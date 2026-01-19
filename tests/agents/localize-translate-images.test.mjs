@@ -14,7 +14,7 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdir, rm, writeFile } from "node:fs/promises";
+import { rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { createTempDir } from "../setup/test-utils.mjs";
 
@@ -763,31 +763,23 @@ describe("localize/translate-images agents", () => {
   describe("scan-doc-images.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should be async function", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.description).toBeDefined();
       });
 
       test("should require path, sourceLanguage, language", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         const required = module.default.input_schema.required;
         expect(required).toContain("path");
         expect(required).toContain("sourceLanguage");
@@ -810,41 +802,31 @@ describe("localize/translate-images agents", () => {
       });
 
       test("should accept 1 parameter", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.length).toBe(1);
       });
     });
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module).toBeDefined();
       });
 
       test("should have output_schema", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.output_schema).toBeDefined();
       });
 
       test("should define hasSlots in output", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.output_schema.properties.hasSlots).toBeDefined();
       });
     });
 
     describe("Security Scenarios", () => {
       test("should mention slots in description", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.description.toLowerCase()).toContain("slot");
       });
 
@@ -861,9 +843,7 @@ describe("localize/translate-images agents", () => {
       });
 
       test("should define error in output schema", async () => {
-        const module = await import(
-          "../../agents/localize/translate-images/scan-doc-images.mjs"
-        );
+        const module = await import("../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.output_schema.properties.error).toBeDefined();
       });
     });

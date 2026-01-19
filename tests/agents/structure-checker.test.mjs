@@ -9,7 +9,7 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdir, rm, writeFile } from "node:fs/promises";
+import { rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { createTempDir } from "../setup/test-utils.mjs";
 
@@ -31,32 +31,24 @@ describe("structure-checker", () => {
   describe("index.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/structure-checker/index.mjs"
-        );
+        const module = await import("../../agents/structure-checker/index.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should have description property", async () => {
-        const module = await import(
-          "../../agents/structure-checker/index.mjs"
-        );
+        const module = await import("../../agents/structure-checker/index.mjs");
         expect(module.default.description).toBeDefined();
         expect(typeof module.default.description).toBe("string");
       });
 
       test("should mention YAML in description", async () => {
-        const module = await import(
-          "../../agents/structure-checker/index.mjs"
-        );
+        const module = await import("../../agents/structure-checker/index.mjs");
         expect(module.default.description.toLowerCase()).toContain("yaml");
       });
 
       test("should mention document structure in description", async () => {
-        const module = await import(
-          "../../agents/structure-checker/index.mjs"
-        );
+        const module = await import("../../agents/structure-checker/index.mjs");
         expect(module.default.description.toLowerCase()).toContain("structure");
       });
     });
@@ -84,9 +76,7 @@ describe("structure-checker", () => {
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import(
-          "../../agents/structure-checker/index.mjs"
-        );
+        const module = await import("../../agents/structure-checker/index.mjs");
         expect(module).toBeDefined();
       });
 
@@ -151,17 +141,13 @@ describe("structure-checker", () => {
   describe("validate-structure.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
-        );
+        const module = await import("../../agents/structure-checker/validate-structure.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should accept yamlPath parameter", async () => {
-        const module = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
-        );
+        const module = await import("../../agents/structure-checker/validate-structure.mjs");
         expect(module.default.length).toBeGreaterThanOrEqual(1);
       });
     });
@@ -203,9 +189,7 @@ describe("structure-checker", () => {
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
-        );
+        const module = await import("../../agents/structure-checker/validate-structure.mjs");
         expect(module).toBeDefined();
       });
 

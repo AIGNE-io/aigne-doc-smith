@@ -8,7 +8,7 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdir, rm, writeFile } from "node:fs/promises";
+import { rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { createTempDir } from "../setup/test-utils.mjs";
 
@@ -161,10 +161,7 @@ describe("upload.mjs", () => {
         const options = {
           url: "https://example.com",
           accessToken: "token",
-          files: [
-            join(tempDir, "file1.png"),
-            join(tempDir, "file2.png"),
-          ],
+          files: [join(tempDir, "file1.png"), join(tempDir, "file2.png")],
         };
         expect(options.files.length).toBe(2);
       });

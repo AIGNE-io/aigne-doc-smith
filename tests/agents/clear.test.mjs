@@ -32,41 +32,31 @@ describe("clear agents", () => {
   describe("choose-contents.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const module = await import("../../agents/clear/choose-contents.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should have input_schema property", async () => {
-        const module = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const module = await import("../../agents/clear/choose-contents.mjs");
         expect(module.default.input_schema).toBeDefined();
         expect(module.default.input_schema.type).toBe("object");
       });
 
       test("should have taskTitle property", async () => {
-        const module = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const module = await import("../../agents/clear/choose-contents.mjs");
         expect(module.default.taskTitle).toBeDefined();
         expect(typeof module.default.taskTitle).toBe("string");
       });
 
       test("should have description property", async () => {
-        const module = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const module = await import("../../agents/clear/choose-contents.mjs");
         expect(module.default.description).toBeDefined();
         expect(typeof module.default.description).toBe("string");
       });
 
       test("should define targets in schema", async () => {
-        const module = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const module = await import("../../agents/clear/choose-contents.mjs");
         const schema = module.default.input_schema;
         expect(schema.properties.targets).toBeDefined();
         expect(schema.properties.targets.type).toBe("array");
@@ -75,26 +65,20 @@ describe("clear agents", () => {
 
     describe("Unhappy Path", () => {
       test("should return available targets when no prompts available", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
         const result = await chooseContents({}, {});
         expect(result).toHaveProperty("availableTargets");
         expect(Array.isArray(result.availableTargets)).toBe(true);
       });
 
       test("should handle empty targets array", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
         const result = await chooseContents({ targets: [] }, {});
         expect(result).toHaveProperty("message");
       });
 
       test("should handle null input", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
         // null input may cause destructuring error, so check for any result or error
         let result;
         try {
@@ -107,9 +91,7 @@ describe("clear agents", () => {
       });
 
       test("should handle undefined options", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
         const result = await chooseContents({});
         expect(result).toHaveProperty("message");
       });
@@ -117,23 +99,19 @@ describe("clear agents", () => {
 
     describe("Critical Error Scenarios", () => {
       test("should handle unknown target", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
         const result = await chooseContents(
           { targets: ["unknownTarget"] },
-          { context: { agents: {} } }
+          { context: { agents: {} } },
         );
         expect(result).toHaveProperty("message");
       });
 
       test("should handle missing agent in context", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
         const result = await chooseContents(
           { targets: ["authTokens"] },
-          { context: { agents: {} } }
+          { context: { agents: {} } },
         );
         // Message should mention issue or error
         expect(result.message).toBeDefined();
@@ -141,13 +119,11 @@ describe("clear agents", () => {
       });
 
       test("should normalize case-insensitive targets", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
         // Should normalize but fail since no agent
         const result = await chooseContents(
           { targets: ["AUTHTOKENS"] },
-          { context: { agents: {} } }
+          { context: { agents: {} } },
         );
         expect(result).toHaveProperty("message");
       });
@@ -155,35 +131,20 @@ describe("clear agents", () => {
 
     describe("Security Scenarios", () => {
       test("should handle injection in targets", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
-        const result = await chooseContents(
-          { targets: ["<script>alert(1)</script>"] },
-          {}
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
+        const result = await chooseContents({ targets: ["<script>alert(1)</script>"] }, {});
         expect(result).toHaveProperty("message");
       });
 
       test("should handle path traversal in targets", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
-        const result = await chooseContents(
-          { targets: ["../../etc/passwd"] },
-          {}
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
+        const result = await chooseContents({ targets: ["../../etc/passwd"] }, {});
         expect(result).toHaveProperty("message");
       });
 
       test("should handle null bytes in targets", async () => {
-        const { default: chooseContents } = await import(
-          "../../agents/clear/choose-contents.mjs"
-        );
-        const result = await chooseContents(
-          { targets: ["auth\x00Tokens"] },
-          {}
-        );
+        const { default: chooseContents } = await import("../../agents/clear/choose-contents.mjs");
+        const result = await chooseContents({ targets: ["auth\x00Tokens"] }, {});
         expect(result).toHaveProperty("message");
       });
     });
@@ -193,52 +154,38 @@ describe("clear agents", () => {
   describe("clear-auth-tokens.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/clear/clear-auth-tokens.mjs"
-        );
+        const module = await import("../../agents/clear/clear-auth-tokens.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should have taskTitle property", async () => {
-        const module = await import(
-          "../../agents/clear/clear-auth-tokens.mjs"
-        );
+        const module = await import("../../agents/clear/clear-auth-tokens.mjs");
         expect(module.default.taskTitle).toBeDefined();
         expect(typeof module.default.taskTitle).toBe("string");
       });
 
       test("should have description property", async () => {
-        const module = await import(
-          "../../agents/clear/clear-auth-tokens.mjs"
-        );
+        const module = await import("../../agents/clear/clear-auth-tokens.mjs");
         expect(module.default.description).toBeDefined();
         expect(typeof module.default.description).toBe("string");
       });
 
       test("should mention authorization in description", async () => {
-        const module = await import(
-          "../../agents/clear/clear-auth-tokens.mjs"
-        );
-        expect(module.default.description.toLowerCase()).toContain(
-          "authorization"
-        );
+        const module = await import("../../agents/clear/clear-auth-tokens.mjs");
+        expect(module.default.description.toLowerCase()).toContain("authorization");
       });
     });
 
     describe("Unhappy Path", () => {
       // NOTE: We don't call the function as it accesses keychain
       test("should accept empty input", async () => {
-        const module = await import(
-          "../../agents/clear/clear-auth-tokens.mjs"
-        );
+        const module = await import("../../agents/clear/clear-auth-tokens.mjs");
         expect(module.default.length).toBeGreaterThanOrEqual(0);
       });
 
       test("should accept options parameter", async () => {
-        const module = await import(
-          "../../agents/clear/clear-auth-tokens.mjs"
-        );
+        const module = await import("../../agents/clear/clear-auth-tokens.mjs");
         // Function has 2 parameters: input, options
         expect(module.default.length).toBeLessThanOrEqual(2);
       });
@@ -246,18 +193,14 @@ describe("clear agents", () => {
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import(
-          "../../agents/clear/clear-auth-tokens.mjs"
-        );
+        const module = await import("../../agents/clear/clear-auth-tokens.mjs");
         expect(module).toBeDefined();
       });
     });
 
     describe("Security Scenarios", () => {
       test("should have taskTitle for visibility", async () => {
-        const module = await import(
-          "../../agents/clear/clear-auth-tokens.mjs"
-        );
+        const module = await import("../../agents/clear/clear-auth-tokens.mjs");
         // Task title helps user understand what operation will happen
         expect(module.default.taskTitle).toBeTruthy();
       });
@@ -268,24 +211,18 @@ describe("clear agents", () => {
   describe("clear-deployment-config.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import(
-          "../../agents/clear/clear-deployment-config.mjs"
-        );
+        const module = await import("../../agents/clear/clear-deployment-config.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should have taskTitle property", async () => {
-        const module = await import(
-          "../../agents/clear/clear-deployment-config.mjs"
-        );
+        const module = await import("../../agents/clear/clear-deployment-config.mjs");
         expect(module.default.taskTitle).toBeDefined();
       });
 
       test("should have description property", async () => {
-        const module = await import(
-          "../../agents/clear/clear-deployment-config.mjs"
-        );
+        const module = await import("../../agents/clear/clear-deployment-config.mjs");
         expect(module.default.description).toBeDefined();
       });
 
@@ -387,7 +324,7 @@ describe("clear agents", () => {
         const configPath = join(tempDir, "config.yaml");
         await writeFile(
           configPath,
-          "appUrl: https://example.com\nlocale: en\nsources:\n  - name: test\n"
+          "appUrl: https://example.com\nlocale: en\nsources:\n  - name: test\n",
         );
 
         await clearDeploymentConfig({ configPath });

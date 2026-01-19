@@ -7,10 +7,7 @@
  * - getGitHubRepoInfo(repoUrl): Get GitHub repository information
  */
 
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdir, rm, writeFile } from "node:fs/promises";
-import { join } from "node:path";
-import { createTempDir } from "../setup/test-utils.mjs";
+import { describe, test, expect } from "bun:test";
 
 import { isValidGithubUrl, getGithubRepoUrl, getGitHubRepoInfo } from "../../utils/git.mjs";
 
@@ -138,7 +135,7 @@ describe("git.mjs", () => {
       test("should handle non-existent repository", async () => {
         try {
           const result = await getGitHubRepoInfo(
-            "https://github.com/nonexistent-owner-12345/nonexistent-repo-67890"
+            "https://github.com/nonexistent-owner-12345/nonexistent-repo-67890",
           );
           expect(result === null || result === undefined).toBe(true);
         } catch (error) {
@@ -183,14 +180,11 @@ describe("git.mjs", () => {
     describe("getGitHubRepoInfo", () => {
       test("should handle network timeout", async () => {
         const timeout = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("test timeout")), 5000)
+          setTimeout(() => reject(new Error("test timeout")), 5000),
         );
 
         try {
-          await Promise.race([
-            getGitHubRepoInfo("https://github.com/owner/repo"),
-            timeout,
-          ]);
+          await Promise.race([getGitHubRepoInfo("https://github.com/owner/repo"), timeout]);
         } catch (error) {
           expect(error).toBeDefined();
         }

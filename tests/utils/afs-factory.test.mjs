@@ -77,9 +77,7 @@ describe("afs-factory.mjs", () => {
           skillPath: tempDir,
         });
 
-        const workspaceModule = modules.find(
-          (m) => m.options?.name === "workspace"
-        );
+        const workspaceModule = modules.find((m) => m.options?.name === "workspace");
         expect(workspaceModule).toBeDefined();
       });
 
@@ -91,9 +89,7 @@ describe("afs-factory.mjs", () => {
           skillPath: tempDir,
         });
 
-        const sourcesModule = modules.find(
-          (m) => m.options?.name === "sources"
-        );
+        const sourcesModule = modules.find((m) => m.options?.name === "sources");
         expect(sourcesModule).toBeDefined();
       });
     });
@@ -282,9 +278,24 @@ describe("afs-factory.mjs", () => {
 
       test("should handle concurrent generation calls", async () => {
         const promises = [
-          generateAfsModules({ mode: "project", workspace: tempDir, skills: [], skillPath: tempDir }),
-          generateAfsModules({ mode: "standalone", workspace: tempDir, skills: [], skillPath: tempDir }),
-          generateAfsModules({ mode: "project", workspace: tempDir, skills: [], skillPath: tempDir }),
+          generateAfsModules({
+            mode: "project",
+            workspace: tempDir,
+            skills: [],
+            skillPath: tempDir,
+          }),
+          generateAfsModules({
+            mode: "standalone",
+            workspace: tempDir,
+            skills: [],
+            skillPath: tempDir,
+          }),
+          generateAfsModules({
+            mode: "project",
+            workspace: tempDir,
+            skills: [],
+            skillPath: tempDir,
+          }),
         ];
 
         const results = await Promise.all(promises);
@@ -298,10 +309,7 @@ describe("afs-factory.mjs", () => {
     describe("generateDocSmithAfsModules", () => {
       test("should handle workspace with config file", async () => {
         await mkdir(join(tempDir, ".aigne", "doc-smith"), { recursive: true });
-        await writeFile(
-          join(tempDir, ".aigne", "doc-smith", "config.yaml"),
-          "version: 1"
-        );
+        await writeFile(join(tempDir, ".aigne", "doc-smith", "config.yaml"), "version: 1");
 
         const modules = await generateDocSmithAfsModules(tempDir);
         expect(Array.isArray(modules)).toBe(true);
@@ -339,9 +347,7 @@ describe("afs-factory.mjs", () => {
         const modules = await generateAfsModules({
           mode: "project",
           workspace: tempDir,
-          skills: [
-            { name: "test", path: "/etc/passwd", description: "Test" },
-          ],
+          skills: [{ name: "test", path: "/etc/passwd", description: "Test" }],
           skillPath: tempDir,
         });
 
@@ -384,7 +390,7 @@ describe("afs-factory.mjs", () => {
       test("should handle null bytes in paths", async () => {
         const modules = await generateAfsModules({
           mode: "project",
-          workspace: tempDir + "\x00/etc/passwd",
+          workspace: `${tempDir}\x00/etc/passwd`,
           skills: [],
           skillPath: tempDir,
         });
@@ -416,9 +422,7 @@ describe("afs-factory.mjs", () => {
           skillPath: tempDir,
         });
 
-        const workspaceModule = modules.find(
-          (m) => m.options?.name === "workspace"
-        );
+        const workspaceModule = modules.find((m) => m.options?.name === "workspace");
         expect(workspaceModule?.options?.description).toBeDefined();
       });
 

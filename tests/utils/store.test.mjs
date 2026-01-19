@@ -8,10 +8,7 @@
  * The actual createStore function uses @aigne/secrets which may access system keychain.
  */
 
-import { describe, test, expect, beforeEach, afterEach, mock } from "bun:test";
-import { mkdir, rm, writeFile, access } from "node:fs/promises";
-import { join } from "node:path";
-import { createTempDir } from "../setup/test-utils.mjs";
+import { describe, test, expect } from "bun:test";
 
 // Mock store implementation for testing
 function createMockStore() {
