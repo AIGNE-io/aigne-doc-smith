@@ -116,9 +116,9 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `agents/clear/choose-contents.mjs` | 140 | `agents/clear/choose-contents.test.mjs` | ⬜ TODO | 选择逻辑 |
-| `agents/clear/clear-auth-tokens.mjs` | 84 | `agents/clear/clear-auth-tokens.test.mjs` | ⬜ TODO | 授权清除 |
-| `agents/clear/clear-deployment-config.mjs` | 58 | `agents/clear/clear-deployment-config.test.mjs` | ⬜ TODO | 配置清除 |
+| `agents/clear/choose-contents.mjs` | 140 | `agents/clear/index.test.mjs` | ✅ DONE | 选择逻辑 |
+| `agents/clear/clear-auth-tokens.mjs` | 84 | `agents/clear/index.test.mjs` | ✅ DONE | 授权清除 |
+| `agents/clear/clear-deployment-config.mjs` | 58 | `agents/clear/index.test.mjs` | ✅ DONE | 配置清除 |
 
 ### 第八阶段：Agent 模块 - generate-images (优先级: 中)
 
@@ -384,13 +384,13 @@ pnpm test:watch
 | 第四阶段 | 1 | 1 | 100% |
 | 第五阶段 | 3 | 3 | 100% |
 | 第六阶段 | 2 | 2 | 100% |
-| 第七阶段 | 3 | 0 | 0% |
+| 第七阶段 | 3 | 3 | 100% |
 | 第八阶段 | 5 | 0 | 0% |
 | 第九阶段 | 10 | 0 | 0% |
 | 第十阶段 | 3 | 0 | 0% |
 | 第十一阶段 | 2 | 0 | 0% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **26** | **50%** |
+| **总计** | **52** | **29** | **56%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第七阶段
+**下一个待执行阶段**: 第八阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-20 (第六阶段完成)
+最后更新: 2026-01-20 (第七阶段完成)

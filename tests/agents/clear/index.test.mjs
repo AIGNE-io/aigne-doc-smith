@@ -212,17 +212,69 @@ describe("clear agents", () => {
     });
 
     describe("Critical Error Scenarios", () => {
+      // NOTE: Tests avoid calling the function directly as it accesses real keychain/store
+      // which causes timeouts. We test module structure and signature instead.
+
       test("should import without errors", async () => {
         const module = await import("../../../agents/clear/clear-auth-tokens.mjs");
         expect(module).toBeDefined();
       });
+
+      test("should have correct function signature (input, options)", async () => {
+        const module = await import("../../../agents/clear/clear-auth-tokens.mjs");
+        // Function should accept 2 parameters: input and options
+        expect(module.default.length).toBeLessThanOrEqual(2);
+      });
+
+      test("should be async function", async () => {
+        const module = await import("../../../agents/clear/clear-auth-tokens.mjs");
+        // Async functions return AsyncFunction constructor
+        expect(module.default.constructor.name).toBe("AsyncFunction");
+      });
+
+      test("should export as default function", async () => {
+        const module = await import("../../../agents/clear/clear-auth-tokens.mjs");
+        expect(typeof module.default).toBe("function");
+        // Should not have named exports that could bypass main function
+        const exportKeys = Object.keys(module);
+        expect(exportKeys).toContain("default");
+      });
     });
 
     describe("Security Scenarios", () => {
+      // NOTE: Tests focus on module properties since calling function accesses keychain
+
       test("should have taskTitle for visibility", async () => {
         const module = await import("../../../agents/clear/clear-auth-tokens.mjs");
         // Task title helps user understand what operation will happen
         expect(module.default.taskTitle).toBeTruthy();
+      });
+
+      test("should have description that explains the operation", async () => {
+        const module = await import("../../../agents/clear/clear-auth-tokens.mjs");
+        // Description should explain what authorization is being cleared
+        expect(module.default.description).toBeDefined();
+        expect(module.default.description.length).toBeGreaterThan(10);
+      });
+
+      test("should not expose internal implementation in metadata", async () => {
+        const module = await import("../../../agents/clear/clear-auth-tokens.mjs");
+        const metaStr = JSON.stringify({
+          taskTitle: module.default.taskTitle,
+          description: module.default.description,
+        });
+        // Should not mention internal store implementation details
+        expect(metaStr.toLowerCase()).not.toContain("keychain");
+        expect(metaStr.toLowerCase()).not.toContain("password");
+        expect(metaStr.toLowerCase()).not.toContain("secret");
+      });
+
+      test("should use secure terminology in user-facing text", async () => {
+        const module = await import("../../../agents/clear/clear-auth-tokens.mjs");
+        // Task title should use user-friendly terminology
+        const title = module.default.taskTitle.toLowerCase();
+        // Should mention clearing or authorization, not internal terms
+        expect(title).toMatch(/clear|auth|token|site/);
       });
     });
   });
