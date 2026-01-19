@@ -1,4 +1,4 @@
-import { access, readFile, mkdir, writeFile, appendFile } from "node:fs/promises";
+import { access, readFile, mkdir, writeFile, appendFile, rename } from "node:fs/promises";
 import { constants, existsSync } from "node:fs";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
@@ -20,6 +20,7 @@ export const WORKSPACE_MODES = {
  */
 export const AIGNE_DIR = ".aigne";
 export const DOC_SMITH_DIR = ".aigne/doc-smith";
+export const DOC_SMITH_BAK_DIR = ".aigne/doc-smith-bak";
 export const SOURCES_DIR = "sources";
 export const WORKSPACE_SUBDIRS = ["intent", "planning", "docs"];
 
@@ -266,6 +267,46 @@ export async function loadConfig(configPath) {
 }
 
 /**
+ * Check if config is new version format
+ * New version: config has `mode` field with valid value (project/standalone)
+ * @param {Object | null} config - Parsed config object
+ * @returns {boolean}
+ */
+export function isNewVersionConfig(config) {
+  if (!config || typeof config !== "object") {
+    return false;
+  }
+  const validModes = Object.values(WORKSPACE_MODES);
+  return validModes.includes(config.mode);
+}
+
+/**
+ * Backup old version workspace directory
+ * Rename .aigne/doc-smith to .aigne/doc-smith-bak
+ * @returns {Promise<{ success: boolean, error?: string }>}
+ */
+export async function backupOldWorkspace() {
+  // Check if backup directory already exists
+  if (await pathExists(DOC_SMITH_BAK_DIR)) {
+    return {
+      success: false,
+      error: `Backup directory ${DOC_SMITH_BAK_DIR} already exists, please handle it manually and retry`,
+    };
+  }
+
+  try {
+    await rename(DOC_SMITH_DIR, DOC_SMITH_BAK_DIR);
+    console.log(`\n⚠️  Old workspace detected, backed up to ${DOC_SMITH_BAK_DIR}\n`);
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: `Failed to rename directory: ${error.message}`,
+    };
+  }
+}
+
+/**
  * Generate config.yaml content
  * @param {{ mode: string, sources: Array }} options - Configuration options
  * @returns {string}
@@ -386,13 +427,32 @@ export async function initStandaloneMode() {
 
 /**
  * Detect directory state and initialize workspace when needed
+ * Handles old version backup migration if necessary
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string }>}
  */
 export async function detectAndInitialize() {
-  // Check if already initialized
+  // Check if already initialized with new version config
   const existing = await detectWorkspaceMode();
   if (existing) {
-    return existing;
+    // Verify it's new version config
+    const config = await loadConfig(existing.configPath);
+    if (isNewVersionConfig(config)) {
+      return existing;
+    }
+  }
+
+  // Check if .aigne/doc-smith directory exists (might be old version)
+  if (await pathExists(DOC_SMITH_DIR)) {
+    const configPath = join(DOC_SMITH_DIR, "config.yaml");
+    const config = await loadConfig(configPath);
+
+    // If config exists but is not new version, backup and reinitialize
+    if (!isNewVersionConfig(config)) {
+      const backupResult = await backupOldWorkspace();
+      if (!backupResult.success) {
+        throw new Error(backupResult.error);
+      }
+    }
   }
 
   // Check if inside git repository (project mode)
