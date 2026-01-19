@@ -1,5 +1,5 @@
 import { access, readFile, mkdir, writeFile, appendFile } from "node:fs/promises";
-import { constants } from "node:fs";
+import { constants, existsSync } from "node:fs";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import { join } from "node:path";
@@ -48,6 +48,15 @@ export async function pathExists(path) {
   } catch {
     return false;
   }
+}
+
+/**
+ * Check if path exists (sync version)
+ * @param {string} path - Path
+ * @returns {boolean}
+ */
+export function pathExistsSync(path) {
+  return existsSync(path);
 }
 
 /**
@@ -183,6 +192,42 @@ export async function detectWorkspaceMode() {
   }
 
   return null;
+}
+
+/**
+ * Detect workspace mode (sync version)
+ * Used by modules that need workspace info at load time (e.g., agent-constants.mjs)
+ * @returns {{ mode: string, configPath: string, workspacePath: string, workspaceBase: string }}
+ */
+export function detectWorkspaceModeSync() {
+  const configInDocSmith = join(DOC_SMITH_DIR, "config.yaml");
+  const configInRoot = "config.yaml";
+
+  if (pathExistsSync(configInDocSmith)) {
+    return {
+      mode: WORKSPACE_MODES.PROJECT,
+      configPath: configInDocSmith,
+      workspacePath: `./${DOC_SMITH_DIR}`,
+      workspaceBase: DOC_SMITH_DIR,
+    };
+  }
+
+  if (pathExistsSync(configInRoot)) {
+    return {
+      mode: WORKSPACE_MODES.STANDALONE,
+      configPath: configInRoot,
+      workspacePath: ".",
+      workspaceBase: ".",
+    };
+  }
+
+  // Default to standalone if not initialized
+  return {
+    mode: WORKSPACE_MODES.STANDALONE,
+    configPath: null,
+    workspacePath: ".",
+    workspaceBase: ".",
+  };
 }
 
 /**

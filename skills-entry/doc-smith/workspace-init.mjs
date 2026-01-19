@@ -28,11 +28,7 @@ async function workspaceInit() {
     }
     console.log("\n🎯 Ready for documentation generation...\n");
 
-    return {
-      success: true,
-      initialized: true,
-      mode: existing.mode,
-    };
+    return {};
   }
 
   // Not initialized, determine mode and initialize
@@ -54,11 +50,7 @@ async function workspaceInit() {
   }
   console.log("\n🎯 Ready for documentation generation...\n");
 
-  return {
-    success: true,
-    initialized: false,
-    mode: workspace.mode,
-  };
+  return {};
 }
 
 workspaceInit.description = "Initialize DocSmith workspace";
