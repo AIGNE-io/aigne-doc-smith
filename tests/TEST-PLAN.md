@@ -50,12 +50,12 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `utils/docs.mjs` | 212 | `utils/docs.test.mjs` | ⬜ TODO | 文档结构读取、语言处理 |
-| `utils/document-paths.mjs` | 172 | `utils/document-paths.test.mjs` | ⬜ TODO | 路径收集、格式化 |
-| `utils/docs-converter.mjs` | 454 | `utils/docs-converter.test.mjs` | ⬜ TODO | 文档转换逻辑 |
-| `utils/sources-path-resolver.mjs` | 76 | `utils/sources-path-resolver.test.mjs` | ⬜ TODO | sources 路径解析 |
-| `utils/image-slots.mjs` | 57 | `utils/image-slots.test.mjs` | ⬜ TODO | 图片槽位检测 |
-| `utils/image-utils.mjs` | 114 | `utils/image-utils.test.mjs` | ⬜ TODO | 图片处理工具 |
+| `utils/docs.mjs` | 212 | `utils/docs.test.mjs` | ✅ DONE | 文档结构读取、语言处理 |
+| `utils/document-paths.mjs` | 172 | `utils/document-paths.test.mjs` | ✅ DONE | 路径收集、格式化 |
+| `utils/docs-converter.mjs` | 454 | `utils/docs-converter.test.mjs` | ✅ DONE | 文档转换逻辑 |
+| `utils/sources-path-resolver.mjs` | 76 | `utils/sources-path-resolver.test.mjs` | ✅ DONE | sources 路径解析 |
+| `utils/image-slots.mjs` | 57 | `utils/image-slots.test.mjs` | ✅ DONE | 图片槽位检测 |
+| `utils/image-utils.mjs` | 114 | `utils/image-utils.test.mjs` | ✅ DONE | 图片处理工具 |
 
 ### 第三阶段：辅助工具模块 (优先级: 中)
 
@@ -379,7 +379,7 @@ pnpm test:watch
 | 阶段 | 模块数 | 完成数 | 进度 |
 |------|--------|--------|------|
 | 第一阶段 | 5 | 5 | 100% |
-| 第二阶段 | 6 | 0 | 0% |
+| 第二阶段 | 6 | 6 | 100% |
 | 第三阶段 | 9 | 0 | 0% |
 | 第四阶段 | 1 | 0 | 0% |
 | 第五阶段 | 3 | 0 | 0% |
@@ -390,7 +390,7 @@ pnpm test:watch
 | 第十阶段 | 3 | 0 | 0% |
 | 第十一阶段 | 2 | 0 | 0% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **5** | **10%** |
+| **总计** | **52** | **11** | **21%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第二阶段
+**下一个待执行阶段**: 第三阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-19 (第一阶段完成)
+最后更新: 2026-01-19 (第二阶段完成)
