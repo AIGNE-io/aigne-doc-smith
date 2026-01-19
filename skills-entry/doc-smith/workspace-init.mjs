@@ -1,11 +1,16 @@
-import {
-  detectWorkspaceMode,
-  isGitRepo,
-  initProjectMode,
-  initStandaloneMode,
-  WORKSPACE_MODES,
-  DOC_SMITH_DIR,
-} from "../../utils/workspace.mjs";
+import { detectAndInitialize, WORKSPACE_MODES, DOC_SMITH_DIR } from "../../utils/workspace.mjs";
+
+/**
+ * Print workspace information to console
+ * @param {{ mode: string }} workspace - Workspace info
+ */
+function printWorkspaceInfo(workspace) {
+  console.log(`Project: ${process.cwd()}`);
+  const isProject = workspace.mode === WORKSPACE_MODES.PROJECT;
+  console.log(`DocSmith workspace: ${isProject ? DOC_SMITH_DIR : "."}`);
+  console.log(`Docs output: ${isProject ? `${DOC_SMITH_DIR}/docs` : "./docs"}`);
+  console.log("\n🎯 Ready for documentation generation...\n");
+}
 
 /**
  * Workspace initialization function agent
@@ -14,41 +19,8 @@ import {
 async function workspaceInit() {
   console.log("\n🚀 Welcome to DocSmith!");
 
-  // Check if already initialized
-  const existing = await detectWorkspaceMode();
-  if (existing) {
-    // Already initialized, print info and skip
-    console.log(`Project: ${process.cwd()}`);
-    if (existing.mode === WORKSPACE_MODES.PROJECT) {
-      console.log(`DocSmith workspace: ${DOC_SMITH_DIR}`);
-      console.log(`Docs output: ${DOC_SMITH_DIR}/docs`);
-    } else {
-      console.log(`DocSmith workspace: .`);
-      console.log(`Docs output: ./docs`);
-    }
-    console.log("\n🎯 Ready for documentation generation...\n");
-
-    return {};
-  }
-
-  // Not initialized, determine mode and initialize
-  let workspace;
-  if (await isGitRepo()) {
-    workspace = await initProjectMode();
-  } else {
-    workspace = await initStandaloneMode();
-  }
-
-  // Print workspace info
-  console.log(`Project: ${process.cwd()}`);
-  if (workspace.mode === WORKSPACE_MODES.PROJECT) {
-    console.log(`DocSmith workspace: ${DOC_SMITH_DIR}`);
-    console.log(`Docs output: ${DOC_SMITH_DIR}/docs`);
-  } else {
-    console.log(`DocSmith workspace: .`);
-    console.log(`Docs output: ./docs`);
-  }
-  console.log("\n🎯 Ready for documentation generation...\n");
+  const workspace = await detectAndInitialize();
+  printWorkspaceInfo(workspace);
 
   return {};
 }

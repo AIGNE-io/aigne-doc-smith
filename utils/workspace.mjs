@@ -100,9 +100,13 @@ export async function getGitInfo(cwd = ".") {
     const remotesResult = await gitExec("remote", cwd);
     if (remotesResult.success && remotesResult.output) {
       const firstRemote = remotesResult.output.split("\n")[0];
-      const fallbackResult = await gitExec(`remote get-url ${firstRemote}`, cwd);
-      if (fallbackResult.success) {
-        url = fallbackResult.output;
+      // Validate remote name to prevent command injection
+      const safeRemotePattern = /^[a-zA-Z0-9_.-]+$/;
+      if (safeRemotePattern.test(firstRemote)) {
+        const fallbackResult = await gitExec(`remote get-url ${firstRemote}`, cwd);
+        if (fallbackResult.success) {
+          url = fallbackResult.output;
+        }
       }
     }
   }
@@ -168,8 +172,16 @@ export async function addToGitignore(gitRoot, pattern) {
 }
 
 /**
- * Detect workspace mode
+ * Detect workspace mode (async version)
+ *
+ * Returns null if workspace is not initialized (no config.yaml found).
+ * Callers should handle the null case by inferring mode or triggering initialization.
+ *
+ * Note: Unlike detectWorkspaceModeSync(), this version does NOT provide a default
+ * when not initialized, allowing callers to decide how to handle the uninitialized state.
+ *
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string } | null>}
+ *   - workspacePath: Path with "./" prefix (e.g., "./.aigne/doc-smith" or ".")
  */
 export async function detectWorkspaceMode() {
   const configInDocSmith = join(DOC_SMITH_DIR, "config.yaml");
@@ -196,8 +208,17 @@ export async function detectWorkspaceMode() {
 
 /**
  * Detect workspace mode (sync version)
- * Used by modules that need workspace info at load time (e.g., agent-constants.mjs)
- * @returns {{ mode: string, configPath: string, workspacePath: string, workspaceBase: string }}
+ *
+ * Used by modules that need workspace info at load time (e.g., agent-constants.mjs).
+ * Unlike the async version, this ALWAYS returns a valid object (defaults to STANDALONE
+ * when not initialized) because sync callers need concrete values immediately.
+ *
+ * Note: This version includes an additional `workspaceBase` field for backward compatibility
+ * with agent-constants.mjs which needs the path without "./" prefix.
+ *
+ * @returns {{ mode: string, configPath: string | null, workspacePath: string, workspaceBase: string }}
+ *   - workspacePath: Path with "./" prefix (e.g., "./.aigne/doc-smith" or ".")
+ *   - workspaceBase: Path without "./" prefix (e.g., ".aigne/doc-smith" or ".")
  */
 export function detectWorkspaceModeSync() {
   const configInDocSmith = join(DOC_SMITH_DIR, "config.yaml");

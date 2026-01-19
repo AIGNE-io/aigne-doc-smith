@@ -2,11 +2,11 @@
 
 ## 功能概述
 
-Doc-Smith 主入口 Agent，在启动时自动检测并初始化工作空间，然后进入文档生成对话模式。整个流程通过单一 index.mjs 文件实现，导出一个 JS 配置对象。启动阶段不做任何用户询问，所有交互在对话流程中处理。
+Doc-Smith 主入口 Agent，采用延迟初始化策略：加载时仅检测工作空间模式用于生成 AFS 配置，运行时由框架自动执行初始化 agent 完成工作空间创建，然后进入文档生成对话模式。
 
 ## 功能意图
 
-DocSmith 需要在启动时自动检测工作空间状态，根据不同场景完成初始化，然后进入文档生成对话。由于 AIGNE 框架的实现限制，初始化逻辑和主 agent 配置需要合并在同一个 index.mjs 文件中。
+DocSmith 需要根据工作空间状态完成初始化，然后进入文档生成对话。加载阶段不执行副作用操作（如创建目录、git init），仅检测模式用于生成正确的 AFS modules 配置。初始化操作通过框架的 `cli.init` 机制在运行时自动执行。
 
 ## 工作流程
 
@@ -15,23 +15,48 @@ DocSmith 需要在启动时自动检测工作空间状态，根据不同场景�
 ```
 doc-smith 启动
   ↓
-加载 index.mjs（使用 top-level await）
+加载 index.mjs（同步检测模式，生成 AFS modules）
   ↓
-检测当前目录状态
+框架执行 cli.init 注册的 workspace-init agent
   ↓
-├─ config.yaml 已存在 → 读取配置，生成 AFS modules
-├─ 是 git 仓库（无 config.yaml）→ 执行项目内初始化，生成 AFS modules
-├─ 是空目录或非 git 目录 → 执行独立初始化，生成 AFS modules
-└─ 其他情况 → 报错退出
+  ├─ 检测是否已初始化
+  ├─ 已初始化 → 跳过，返回成功
+  └─ 未初始化 → 执行初始化流程
   ↓
-导出配置对象（含动态生成的 AFS modules）
+执行主 docsmith agent
   ↓
 进入文档生成对话模式
 ```
 
-### 流程 A：项目内启动
+### 加载阶段（index.mjs 同步检测）
 
-**触发条件**：当前目录是 git 仓库，且 `.aigne/doc-smith/config.yaml` 不存在
+**目的**：确定工作空间模式，生成正确的 AFS modules 配置
+
+**检测逻辑**：
+1. 检查 `.aigne/doc-smith/config.yaml` 是否存在
+   - 存在 → 读取 mode 字段，模式为 project
+   - 不存在 → 继续检测
+2. 检查 `./config.yaml` 是否存在
+   - 存在 → 读取 mode 字段，模式为 standalone
+   - 不存在 → 继续检测
+3. 检查是否在 git 仓库中（检测 .git 目录）
+   - 是 → 推断为 project 模式
+   - 否 → 推断为 standalone 模式
+
+**输出**：根据 mode 生成对应的 AFS modules 配置
+
+### 运行阶段（workspace-init agent）
+
+workspace-init agent 是一个 function agent，负责检测并执行初始化操作。
+
+**执行逻辑**：
+1. 重新检测工作空间状态（调用异步检测函数）
+2. 如果已初始化（config.yaml 存在），跳过初始化，直接返回
+3. 如果未初始化，根据检测到的模式执行对应的初始化流程
+
+### 流程 A：项目内初始化
+
+**触发条件**：未初始化，且当前目录在 git 仓库中
 
 **步骤**：
 1. 创建 `.aigne/doc-smith/` 目录
@@ -40,45 +65,54 @@ doc-smith 启动
 4. 创建 `.gitignore` 文件（忽略 sources/ 目录）
 5. 获取项目 git 信息（远程仓库 URL、当前分支、当前 commit）
 6. 生成 config.yaml（mode: project，sources 配置为 local-path 类型，同时记录 git 信息）
-7. 生成 AFS modules 配置
+7. 创建初始 git commit
 
-### 流程 B：独立启动
+### 流程 B：独立初始化
 
-**触发条件**：当前目录是空目录或非 git 目录
+**触发条件**：未初始化，且当前目录不在 git 仓库中
 
 **步骤**：
 1. 执行 `git init` 初始化当前目录
 2. 创建 `.gitignore`，添加 `sources/` 到忽略列表
 3. 创建目录结构（intent/、planning/、docs/、sources/）
 4. 生成 config.yaml（mode: standalone，sources 配置为空数组，后续对话中添加）
-5. 生成 AFS modules 配置
 
 **注意**：独立启动时不询问仓库地址，源仓库的添加在后续对话流程中处理。
 
 ### 流程 C：已初始化
 
-**触发条件**：`config.yaml` 已存在（通过检测 `.aigne/doc-smith/config.yaml` 或 `./config.yaml`）
+**触发条件**：config.yaml 已存在
 
-**步骤**：
-1. 读取现有配置
-2. 根据 config.yaml 中的 mode 字段生成 AFS modules 配置
+**行为**：workspace-init agent 直接返回成功，不执行任何操作
 
 ## 核心能力
 
 ### 1. 目录状态检测
 
-- 检测 workspace 是否已初始化（`.aigne/doc-smith/config.yaml` 或 `./config.yaml` 存在）
-- 检测当前目录是否为 git 仓库（`.git/` 目录存在）
-- 检测当前目录是否为空目录
-- 获取 git 仓库信息（远程 URL、当前分支、当前 commit）用于记录生成文档时的仓库状态
+**同步检测（加载阶段，index.mjs）**：
+- 使用 existsSync 检测配置文件是否存在
+- 确定工作空间模式（project 或 standalone）
+- 生成对应的 AFS modules 配置
 
-### 2. 用户交互
+**异步检测（运行阶段，workspace-init agent）**：
+- 检测 workspace 是否已初始化
+- 检测当前目录是否为 git 仓库
+- 返回检测结果用于决定是否执行初始化
+
+### 2. 工作空间初始化
+
+- 根据检测结果决定是否需要初始化
+- 根据模式执行对应的初始化流程
+- 获取 git 仓库信息（远程 URL、当前分支、当前 commit）用于记录生成文档时的仓库状态
+- 创建目录结构和配置文件
+
+### 3. 用户交互
 
 启动阶段不做任何用户询问。所有配置（如源仓库地址、语言等）在对话流程中处理。
 
-### 3. 目录结构创建
+### 4. 目录结构创建
 
-**项目内启动创建的结构**：
+**项目内模式创建的结构**：
 ```
 .aigne/
 └── doc-smith/
@@ -90,7 +124,7 @@ doc-smith 启动
     └── docs/                # 生成的文档目录
 ```
 
-**独立启动创建的结构**：
+**独立模式创建的结构**：
 ```
 ./                           # 当前目录
 ├── .git/
@@ -102,15 +136,15 @@ doc-smith 启动
 └── docs/
 ```
 
-### 4. 配置文件内容
+### 5. 配置文件内容
 
 config.yaml 包含：
 - `mode`：工作模式标识
-  - `project`：项目内启动
-  - `standalone`：独立启动
+  - `project`：项目内模式
+  - `standalone`：独立模式
 - `sources`：数据源配置数组
-  - 项目内启动：`local-path` 类型，包含相对路径和 git 信息
-  - 独立启动：`[]`（空数组，后续对话中添加）
+  - 项目内模式：`local-path` 类型，包含相对路径和 git 信息
+  - 独立模式：`[]`（空数组，后续对话中添加）
 
 **config.yaml 示例（项目内模式）**：
 ```yaml
@@ -136,7 +170,7 @@ sources: []
 - `branch`：当前分支名
 - `commit`：当前 commit hash（短格式，7 位）
 
-### 5. 动态 AFS Modules 生成
+### 6. 动态 AFS Modules 生成
 
 根据工作空间模式动态生成 AFS modules，两种模式保持一致的 AFS 结构：
 
@@ -154,7 +188,7 @@ sources: []
 
 这样两种模式对内部执行是一致的，都有 workspace 和 sources 两个 AFS 模块。
 
-### 6. Git 操作
+### 7. Git 操作
 
 - `git init`：初始化仓库
 - `git remote get-url origin`：获取远程仓库 URL
@@ -171,25 +205,23 @@ sources: []
 
 ### 输入
 
-- 模块加载时自动执行初始化检测
-- 启动阶段不接受用户输入
+- **加载阶段**：无输入，自动执行同步检测
+- **运行阶段**：框架自动执行 init agent，然后执行主 agent
 
 ### 输出
 
-导出一个 JS 配置对象，包含：
-- `type`：agent 类型
-- `name`：agent 名称
-- `instructions`：指令文件路径
-- `skills`：可用技能列表
-- `afs.modules`：动态生成的 AFS 模块配置
+**index.mjs 导出**：主 agent 配置对象（agent-skill-manager 类型）
+
+**workspace-init agent 输出**：
+- `{ success: true, initialized: boolean, mode: string }`
 
 ## 约束条件
 
 ### 必须遵循的规范
 
-1. **单文件实现**：所有逻辑在 index.mjs 中实现
-2. **导出 JS 对象**：默认导出必须是配置对象，不能是函数
-3. **top-level await**：使用 top-level await 在模块加载时执行异步初始化
+1. **延迟初始化**：加载阶段只做同步检测，不执行初始化操作
+2. **cli.init 机制**：通过 aigne.yaml 的 `cli.init` 注册初始化 agent
+3. **同步检测**：加载阶段的检测必须是同步的（使用 existsSync 等）
 4. **目录结构**：严格遵循定义的目录结构
 5. **配置格式**：config.yaml 遵循统一的 schema，必须包含 mode 字段
 6. **无启动询问**：启动阶段不做任何用户询问
@@ -197,31 +229,30 @@ sources: []
 
 ### 职责边界
 
-- **必须执行**：
-  - 检测当前目录状态
-  - 获取 git 仓库信息（项目内模式）
-  - 创建目录结构和配置文件（首次启动）
-  - 执行必要的 git 操作
-  - 动态生成 AFS modules 配置
+**index.mjs（加载阶段）**：
+- 必须执行：同步检测工作空间模式，生成 AFS modules 配置
+- 不应执行：创建目录、写文件、执行 git 命令等副作用操作
 
-- **不应执行**：
-  - 不在启动阶段询问用户
-  - 不在启动阶段克隆仓库
-  - 不生成文档内容（由对话模式处理）
-  - 不创建远程仓库
-  - 不推送到远程
+**workspace-init agent（运行阶段）**：
+- 必须执行：异步检测是否已初始化，按需执行初始化流程
+- 不应执行：询问用户、克隆仓库、生成文档内容
+
+**主 agent（运行阶段）**：
+- 必须执行：文档生成对话
+- 不应执行：工作空间初始化
 
 ## 预期结果
 
 ### 成功标准
 
-1. 正确检测目录状态并选择对应流程
-2. 目录结构和配置文件正确创建
-3. Git 操作正确执行
-4. 项目内模式正确获取并记录 git 仓库状态（url、branch、commit）
-5. AFS modules 根据模式正确生成（workspace + sources）
-6. 成功导出配置对象进入对话模式
-7. 启动过程无用户交互
+1. 加载阶段无副作用，仅检测模式并生成 AFS 配置
+2. 已初始化的工作空间跳过初始化，直接进入对话
+3. 未初始化的工作空间在运行时正确初始化
+4. 目录结构和配置文件正确创建
+5. Git 操作正确执行
+6. 项目内模式正确获取并记录 git 仓库状态（url、branch、commit）
+7. AFS modules 根据模式正确生成（workspace + sources）
+8. 启动过程无用户交互
 
 ## 错误处理
 
@@ -243,17 +274,42 @@ sources: []
 
 ```
 skills-entry/doc-smith/
-├── index.mjs            # 主入口（含初始化逻辑和配置导出）
-├── utils.mjs            # 共享工具函数
-├── prompt.md            # agent 指令文件
+├── index.mjs              # 主 agent（含同步检测和 AFS 生成）
+├── workspace-init.mjs     # 初始化 function agent
+├── prompt.md              # 主 agent 指令文件
 └── ai/
-    └── intent/
-        └── doc-smith.md # 本文档
+    └── intent.md          # 本文档
+
+utils/
+├── workspace.mjs          # 工作空间检测和初始化工具函数
+└── afs-factory.mjs        # AFS modules 生成工具
 ```
+
+### 组件说明
+
+**index.mjs**：
+- 同步检测工作空间模式
+- 生成 AFS modules 配置
+- 导出主 agent 配置（agent-skill-manager 类型）
+
+**workspace-init.mjs**：
+- Function agent，负责执行初始化
+- 异步检测是否已初始化
+- 调用 utils/workspace.mjs 中的初始化函数
+
+**utils/workspace.mjs**：
+- 提供同步检测函数（用于加载阶段）
+- 提供异步检测和初始化函数（用于运行阶段）
 
 ### 注册到 aigne.yaml
 
-在 `aigne.yaml` 的 cli.agents 配置中，将 index.mjs 设置为 doc-smith 的入口。
+```yaml
+cli:
+  init: workspace-init.mjs
+  agents:
+    - name: doc-smith
+      url: skills-entry/doc-smith/index.mjs
+```
 
 ---
 
