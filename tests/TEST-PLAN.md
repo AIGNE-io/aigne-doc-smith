@@ -124,11 +124,11 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `agents/generate-images/generate-summary.mjs` | 213 | `agents/generate-images/generate-summary.test.mjs` | ⬜ TODO | 摘要生成 |
-| `agents/generate-images/prepare-generation.mjs` | 286 | `agents/generate-images/prepare-generation.test.mjs` | ⬜ TODO | 生成准备 |
-| `agents/generate-images/prepare-image-generation.mjs` | 130 | `agents/generate-images/prepare-image-generation.test.mjs` | ⬜ TODO | 图片生成准备 |
-| `agents/generate-images/save-image-result.mjs` | 247 | `agents/generate-images/save-image-result.test.mjs` | ⬜ TODO | 结果保存 |
-| `agents/generate-images/scan-image-slots.mjs` | 247 | `agents/generate-images/scan-image-slots.test.mjs` | ⬜ TODO | 槽位扫描 |
+| `agents/generate-images/generate-summary.mjs` | 213 | `agents/generate-images/index.test.mjs` | ✅ DONE | 摘要生成 |
+| `agents/generate-images/prepare-generation.mjs` | 286 | `agents/generate-images/index.test.mjs` | ✅ DONE | 生成准备 |
+| `agents/generate-images/prepare-image-generation.mjs` | 130 | `agents/generate-images/index.test.mjs` | ✅ DONE | 图片生成准备 |
+| `agents/generate-images/save-image-result.mjs` | 247 | `agents/generate-images/index.test.mjs` | ✅ DONE | 结果保存 |
+| `agents/generate-images/scan-image-slots.mjs` | 247 | `agents/generate-images/index.test.mjs` | ✅ DONE | 槽位扫描 |
 
 ### 第九阶段：Agent 模块 - localize (优先级: 中)
 
@@ -385,12 +385,12 @@ pnpm test:watch
 | 第五阶段 | 3 | 3 | 100% |
 | 第六阶段 | 2 | 2 | 100% |
 | 第七阶段 | 3 | 3 | 100% |
-| 第八阶段 | 5 | 0 | 0% |
+| 第八阶段 | 5 | 5 | 100% |
 | 第九阶段 | 10 | 0 | 0% |
 | 第十阶段 | 3 | 0 | 0% |
 | 第十一阶段 | 2 | 0 | 0% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **29** | **56%** |
+| **总计** | **52** | **34** | **65%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第八阶段
+**下一个待执行阶段**: 第九阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-20 (第七阶段完成)
+最后更新: 2026-01-20 (第八阶段完成)
