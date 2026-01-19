@@ -11,7 +11,7 @@
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
 import { rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { createTempDir } from "../setup/test-utils.mjs";
+import { createTempDir } from "../../setup/test-utils.mjs";
 
 describe("structure-checker", () => {
   let tempDir;
@@ -31,24 +31,24 @@ describe("structure-checker", () => {
   describe("index.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import("../../agents/structure-checker/index.mjs");
+        const module = await import("../../../agents/structure-checker/index.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should have description property", async () => {
-        const module = await import("../../agents/structure-checker/index.mjs");
+        const module = await import("../../../agents/structure-checker/index.mjs");
         expect(module.default.description).toBeDefined();
         expect(typeof module.default.description).toBe("string");
       });
 
       test("should mention YAML in description", async () => {
-        const module = await import("../../agents/structure-checker/index.mjs");
+        const module = await import("../../../agents/structure-checker/index.mjs");
         expect(module.default.description.toLowerCase()).toContain("yaml");
       });
 
       test("should mention document structure in description", async () => {
-        const module = await import("../../agents/structure-checker/index.mjs");
+        const module = await import("../../../agents/structure-checker/index.mjs");
         expect(module.default.description.toLowerCase()).toContain("structure");
       });
     });
@@ -56,7 +56,7 @@ describe("structure-checker", () => {
     describe("Unhappy Path", () => {
       test("should handle missing structure file", async () => {
         const { default: checkStructure } = await import(
-          "../../agents/structure-checker/index.mjs"
+          "../../../agents/structure-checker/index.mjs"
         );
         // Will use default PATHS which likely doesn't exist in test
         const result = await checkStructure();
@@ -66,7 +66,7 @@ describe("structure-checker", () => {
 
       test("should return fileNotFound for missing file", async () => {
         const { default: checkStructure } = await import(
-          "../../agents/structure-checker/index.mjs"
+          "../../../agents/structure-checker/index.mjs"
         );
         const result = await checkStructure();
         // Should either succeed or indicate file not found
@@ -76,13 +76,13 @@ describe("structure-checker", () => {
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import("../../agents/structure-checker/index.mjs");
+        const module = await import("../../../agents/structure-checker/index.mjs");
         expect(module).toBeDefined();
       });
 
       test("should always return success property", async () => {
         const { default: checkStructure } = await import(
-          "../../agents/structure-checker/index.mjs"
+          "../../../agents/structure-checker/index.mjs"
         );
         const result = await checkStructure();
         expect(typeof result.success).toBe("boolean");
@@ -90,7 +90,7 @@ describe("structure-checker", () => {
 
       test("should always return valid property", async () => {
         const { default: checkStructure } = await import(
-          "../../agents/structure-checker/index.mjs"
+          "../../../agents/structure-checker/index.mjs"
         );
         const result = await checkStructure();
         expect(typeof result.valid).toBe("boolean");
@@ -98,7 +98,7 @@ describe("structure-checker", () => {
 
       test("should always return message property", async () => {
         const { default: checkStructure } = await import(
-          "../../agents/structure-checker/index.mjs"
+          "../../../agents/structure-checker/index.mjs"
         );
         const result = await checkStructure();
         expect(typeof result.message).toBe("string");
@@ -108,7 +108,7 @@ describe("structure-checker", () => {
     describe("Security Scenarios", () => {
       test("should not throw on missing workspace", async () => {
         const { default: checkStructure } = await import(
-          "../../agents/structure-checker/index.mjs"
+          "../../../agents/structure-checker/index.mjs"
         );
         let error = null;
         try {
@@ -121,7 +121,7 @@ describe("structure-checker", () => {
 
       test("should provide helpful message in error case", async () => {
         const { default: checkStructure } = await import(
-          "../../agents/structure-checker/index.mjs"
+          "../../../agents/structure-checker/index.mjs"
         );
         const result = await checkStructure();
         expect(result.message.length).toBeGreaterThan(0);
@@ -129,7 +129,7 @@ describe("structure-checker", () => {
 
       test("should not expose sensitive paths in error", async () => {
         const { default: checkStructure } = await import(
-          "../../agents/structure-checker/index.mjs"
+          "../../../agents/structure-checker/index.mjs"
         );
         const result = await checkStructure();
         expect(result.message).not.toContain("/etc/passwd");
@@ -141,13 +141,13 @@ describe("structure-checker", () => {
   describe("validate-structure.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import("../../agents/structure-checker/validate-structure.mjs");
+        const module = await import("../../../agents/structure-checker/validate-structure.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should accept yamlPath parameter", async () => {
-        const module = await import("../../agents/structure-checker/validate-structure.mjs");
+        const module = await import("../../../agents/structure-checker/validate-structure.mjs");
         expect(module.default.length).toBeGreaterThanOrEqual(1);
       });
     });
@@ -155,7 +155,7 @@ describe("structure-checker", () => {
     describe("Unhappy Path", () => {
       test("should handle missing file", async () => {
         const { default: validateYamlStructure } = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
+          "../../../agents/structure-checker/validate-structure.mjs"
         );
         const result = await validateYamlStructure({
           yamlPath: join(tempDir, "nonexistent.yaml"),
@@ -166,7 +166,7 @@ describe("structure-checker", () => {
 
       test("should handle empty file", async () => {
         const { default: validateYamlStructure } = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
+          "../../../agents/structure-checker/validate-structure.mjs"
         );
         const yamlPath = join(tempDir, "empty.yaml");
         await writeFile(yamlPath, "");
@@ -177,7 +177,7 @@ describe("structure-checker", () => {
 
       test("should handle invalid YAML syntax", async () => {
         const { default: validateYamlStructure } = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
+          "../../../agents/structure-checker/validate-structure.mjs"
         );
         const yamlPath = join(tempDir, "invalid.yaml");
         await writeFile(yamlPath, "invalid: yaml: [");
@@ -189,13 +189,13 @@ describe("structure-checker", () => {
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import("../../agents/structure-checker/validate-structure.mjs");
+        const module = await import("../../../agents/structure-checker/validate-structure.mjs");
         expect(module).toBeDefined();
       });
 
       test("should return errors array on validation failure", async () => {
         const { default: validateYamlStructure } = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
+          "../../../agents/structure-checker/validate-structure.mjs"
         );
         const yamlPath = join(tempDir, "test.yaml");
         await writeFile(yamlPath, "key: value\n");
@@ -206,7 +206,7 @@ describe("structure-checker", () => {
 
       test("should handle YAML with only comments", async () => {
         const { default: validateYamlStructure } = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
+          "../../../agents/structure-checker/validate-structure.mjs"
         );
         const yamlPath = join(tempDir, "comments.yaml");
         await writeFile(yamlPath, "# just a comment\n# another comment\n");
@@ -219,7 +219,7 @@ describe("structure-checker", () => {
     describe("Security Scenarios", () => {
       test("should handle path traversal", async () => {
         const { default: validateYamlStructure } = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
+          "../../../agents/structure-checker/validate-structure.mjs"
         );
         const result = await validateYamlStructure({
           yamlPath: "../../../etc/passwd",
@@ -229,7 +229,7 @@ describe("structure-checker", () => {
 
       test("should handle YAML bomb attempt", async () => {
         const { default: validateYamlStructure } = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
+          "../../../agents/structure-checker/validate-structure.mjs"
         );
         const yamlPath = join(tempDir, "bomb.yaml");
         // Create a small nested structure (not actual bomb)
@@ -241,7 +241,7 @@ describe("structure-checker", () => {
 
       test("should handle YAML with special tags", async () => {
         const { default: validateYamlStructure } = await import(
-          "../../agents/structure-checker/validate-structure.mjs"
+          "../../../agents/structure-checker/validate-structure.mjs"
         );
         const yamlPath = join(tempDir, "tags.yaml");
         await writeFile(yamlPath, "!!python/object/apply:os.system ['ls']\n");

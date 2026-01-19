@@ -16,7 +16,7 @@
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
 import { rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { createTempDir } from "../../setup/test-utils.mjs";
+import { createTempDir } from "../../../setup/test-utils.mjs";
 
 describe("localize/translate-images agents", () => {
   let tempDir;
@@ -37,7 +37,7 @@ describe("localize/translate-images agents", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
@@ -45,21 +45,21 @@ describe("localize/translate-images agents", () => {
 
       test("should be async function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         expect(module.default.description).toBeDefined();
       });
 
       test("should have input_schema property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         expect(module.default.input_schema).toBeDefined();
         expect(module.default.input_schema.type).toBe("object");
@@ -67,7 +67,7 @@ describe("localize/translate-images agents", () => {
 
       test("should require slots, targetLanguage, sourceLanguage", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         const required = module.default.input_schema.required;
         expect(required).toContain("slots");
@@ -77,7 +77,7 @@ describe("localize/translate-images agents", () => {
 
       test("should handle empty slots", async () => {
         const { default: checkImageTranslation } = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         const result = await checkImageTranslation({
           slots: [],
@@ -92,7 +92,7 @@ describe("localize/translate-images agents", () => {
     describe("Unhappy Path", () => {
       test("should handle null slots", async () => {
         const { default: checkImageTranslation } = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         const result = await checkImageTranslation({
           slots: null,
@@ -105,7 +105,7 @@ describe("localize/translate-images agents", () => {
 
       test("should handle undefined slots", async () => {
         const { default: checkImageTranslation } = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         const result = await checkImageTranslation({
           slots: undefined,
@@ -119,21 +119,21 @@ describe("localize/translate-images agents", () => {
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         expect(module).toBeDefined();
       });
 
       test("should have output_schema with success", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         expect(module.default.output_schema.required).toContain("success");
       });
 
       test("should define stats in output", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         expect(module.default.output_schema.properties.stats).toBeDefined();
       });
@@ -142,14 +142,14 @@ describe("localize/translate-images agents", () => {
     describe("Security Scenarios", () => {
       test("should mention shared images in description", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         expect(module.default.description.toLowerCase()).toContain("shared");
       });
 
       test("should handle XSS in targetLanguage", async () => {
         const { default: checkImageTranslation } = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         const result = await checkImageTranslation({
           slots: [],
@@ -161,7 +161,7 @@ describe("localize/translate-images agents", () => {
 
       test("should handle path traversal in slot key", async () => {
         const { default: checkImageTranslation } = await import(
-          "../../../agents/localize/translate-images/check-image-translation.mjs"
+          "../../../../agents/localize/translate-images/check-image-translation.mjs"
         );
         const result = await checkImageTranslation({
           slots: [{ key: "../../../etc/passwd", exists: false }],
@@ -178,7 +178,7 @@ describe("localize/translate-images agents", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
@@ -186,28 +186,28 @@ describe("localize/translate-images agents", () => {
 
       test("should be async function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         expect(module.default.description).toBeDefined();
       });
 
       test("should have input_schema property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         expect(module.default.input_schema).toBeDefined();
       });
 
       test("should require slots and sourceLanguage", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         const required = module.default.input_schema.required;
         expect(required).toContain("slots");
@@ -216,7 +216,7 @@ describe("localize/translate-images agents", () => {
 
       test("should handle empty slots", async () => {
         const { default: detectAndUpdateShared } = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         const result = await detectAndUpdateShared({
           slots: [],
@@ -230,7 +230,7 @@ describe("localize/translate-images agents", () => {
     describe("Unhappy Path", () => {
       test("should handle null slots", async () => {
         const { default: detectAndUpdateShared } = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         const result = await detectAndUpdateShared({
           slots: null,
@@ -241,7 +241,7 @@ describe("localize/translate-images agents", () => {
 
       test("should handle slots with no existing images", async () => {
         const { default: detectAndUpdateShared } = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         const result = await detectAndUpdateShared({
           slots: [{ key: "test", exists: false }],
@@ -255,21 +255,21 @@ describe("localize/translate-images agents", () => {
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         expect(module).toBeDefined();
       });
 
       test("should have output_schema", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         expect(module.default.output_schema).toBeDefined();
       });
 
       test("should define detectionTasks in output", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         expect(module.default.output_schema.properties.detectionTasks).toBeDefined();
       });
@@ -278,21 +278,21 @@ describe("localize/translate-images agents", () => {
     describe("Security Scenarios", () => {
       test("should mention text detection in description", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         expect(module.default.description.toLowerCase()).toContain("detect");
       });
 
       test("should mention shared in description", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         expect(module.default.description.toLowerCase()).toContain("shared");
       });
 
       test("should handle injection in sourceLanguage", async () => {
         const { default: detectAndUpdateShared } = await import(
-          "../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
+          "../../../../agents/localize/translate-images/detect-text/detect-and-update-shared.mjs"
         );
         const result = await detectAndUpdateShared({
           slots: [],
@@ -308,7 +308,7 @@ describe("localize/translate-images agents", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
@@ -316,28 +316,28 @@ describe("localize/translate-images agents", () => {
 
       test("should be async function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         expect(module.default.description).toBeDefined();
       });
 
       test("should have input_schema property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         expect(module.default.input_schema).toBeDefined();
       });
 
       test("should require key, metaPath, hasText", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         const required = module.default.input_schema.required;
         expect(required).toContain("key");
@@ -349,7 +349,7 @@ describe("localize/translate-images agents", () => {
     describe("Unhappy Path", () => {
       test("should return error on missing metaPath file", async () => {
         const { default: saveTextDetection } = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         const result = await saveTextDetection({
           key: "test",
@@ -361,7 +361,7 @@ describe("localize/translate-images agents", () => {
 
       test("should return error on invalid YAML", async () => {
         const { default: saveTextDetection } = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         const metaPath = join(tempDir, "invalid.yaml");
         await writeFile(metaPath, "invalid: yaml: [");
@@ -377,21 +377,21 @@ describe("localize/translate-images agents", () => {
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         expect(module).toBeDefined();
       });
 
       test("should define shared in output", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         expect(module.default.output_schema.properties.shared).toBeDefined();
       });
 
       test("should save correct YAML on success", async () => {
         const { default: saveTextDetection } = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         const metaPath = join(tempDir, "meta.yaml");
         await writeFile(metaPath, "key: test\n");
@@ -408,7 +408,7 @@ describe("localize/translate-images agents", () => {
     describe("Security Scenarios", () => {
       test("should handle path traversal in metaPath", async () => {
         const { default: saveTextDetection } = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         const result = await saveTextDetection({
           key: "test",
@@ -420,7 +420,7 @@ describe("localize/translate-images agents", () => {
 
       test("should handle XSS in key", async () => {
         const { default: saveTextDetection } = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         const metaPath = join(tempDir, "meta.yaml");
         await writeFile(metaPath, "key: test\n");
@@ -434,7 +434,7 @@ describe("localize/translate-images agents", () => {
 
       test("should handle null bytes in metaPath", async () => {
         const { default: saveTextDetection } = await import(
-          "../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
+          "../../../../agents/localize/translate-images/detect-text/save-text-detection.mjs"
         );
         const result = await saveTextDetection({
           key: "test",
@@ -451,7 +451,7 @@ describe("localize/translate-images agents", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
@@ -459,21 +459,21 @@ describe("localize/translate-images agents", () => {
 
       test("should be async function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         expect(module.default.description).toBeDefined();
       });
 
       test("should have input_schema with required fields", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         const required = module.default.input_schema.required;
         expect(required).toContain("key");
@@ -485,7 +485,7 @@ describe("localize/translate-images agents", () => {
 
       test("should prepare image input successfully", async () => {
         const { default: prepareImageInput } = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         const result = await prepareImageInput({
           key: "test-key",
@@ -507,7 +507,7 @@ describe("localize/translate-images agents", () => {
     describe("Unhappy Path", () => {
       test("should set mimeType based on extension", async () => {
         const { default: prepareImageInput } = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         const resultPng = await prepareImageInput({
           key: "test",
@@ -540,21 +540,21 @@ describe("localize/translate-images agents", () => {
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         expect(module).toBeDefined();
       });
 
       test("should have output_schema", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         expect(module.default.output_schema).toBeDefined();
       });
 
       test("should pass through key and assetDir", async () => {
         const { default: prepareImageInput } = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         const result = await prepareImageInput({
           key: "my-key",
@@ -575,7 +575,7 @@ describe("localize/translate-images agents", () => {
     describe("Security Scenarios", () => {
       test("should handle path traversal in sourceImagePath", async () => {
         const { default: prepareImageInput } = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         const result = await prepareImageInput({
           key: "test",
@@ -594,7 +594,7 @@ describe("localize/translate-images agents", () => {
 
       test("should handle XSS in desc", async () => {
         const { default: prepareImageInput } = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         const result = await prepareImageInput({
           key: "test",
@@ -613,7 +613,7 @@ describe("localize/translate-images agents", () => {
 
       test("should include error code in output schema", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/prepare-image-input.mjs"
+          "../../../../agents/localize/translate-images/prepare-image-input.mjs"
         );
         expect(module.default.output_schema.properties.error).toBeDefined();
       });
@@ -625,7 +625,7 @@ describe("localize/translate-images agents", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
@@ -633,21 +633,21 @@ describe("localize/translate-images agents", () => {
 
       test("should be async function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         expect(module.default.description).toBeDefined();
       });
 
       test("should require key, assetDir, targetLanguage, sourceHash, images", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         const required = module.default.input_schema.required;
         expect(required).toContain("key");
@@ -661,7 +661,7 @@ describe("localize/translate-images agents", () => {
     describe("Unhappy Path", () => {
       test("should fail on empty images array", async () => {
         const { default: saveImageTranslation } = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         const result = await saveImageTranslation({
           key: "test",
@@ -676,7 +676,7 @@ describe("localize/translate-images agents", () => {
 
       test("should fail on null images", async () => {
         const { default: saveImageTranslation } = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         const result = await saveImageTranslation({
           key: "test",
@@ -690,7 +690,7 @@ describe("localize/translate-images agents", () => {
 
       test("should fail on missing path in images", async () => {
         const { default: saveImageTranslation } = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         const result = await saveImageTranslation({
           key: "test",
@@ -707,21 +707,21 @@ describe("localize/translate-images agents", () => {
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         expect(module).toBeDefined();
       });
 
       test("should have output_schema with success", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         expect(module.default.output_schema.required).toContain("success");
       });
 
       test("should define targetImagePath in output", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         expect(module.default.output_schema.properties.targetImagePath).toBeDefined();
       });
@@ -730,21 +730,21 @@ describe("localize/translate-images agents", () => {
     describe("Security Scenarios", () => {
       test("should mention hash in description", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         expect(module.default.description.toLowerCase()).toContain("hash");
       });
 
       test("should define error in output schema", async () => {
         const module = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         expect(module.default.output_schema.properties.error).toBeDefined();
       });
 
       test("should handle path traversal in assetDir", async () => {
         const { default: saveImageTranslation } = await import(
-          "../../../agents/localize/translate-images/save-image-translation.mjs"
+          "../../../../agents/localize/translate-images/save-image-translation.mjs"
         );
         const result = await saveImageTranslation({
           key: "test",
@@ -763,23 +763,23 @@ describe("localize/translate-images agents", () => {
   describe("scan-doc-images.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should be async function", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.description).toBeDefined();
       });
 
       test("should require path, sourceLanguage, language", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         const required = module.default.input_schema.required;
         expect(required).toContain("path");
         expect(required).toContain("sourceLanguage");
@@ -790,7 +790,7 @@ describe("localize/translate-images agents", () => {
     describe("Unhappy Path", () => {
       test("should return error for nonexistent document", async () => {
         const { default: scanDocImages } = await import(
-          "../../../agents/localize/translate-images/scan-doc-images.mjs"
+          "../../../../agents/localize/translate-images/scan-doc-images.mjs"
         );
         const result = await scanDocImages({
           path: "/nonexistent",
@@ -802,37 +802,37 @@ describe("localize/translate-images agents", () => {
       });
 
       test("should accept 1 parameter", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.length).toBe(1);
       });
     });
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module).toBeDefined();
       });
 
       test("should have output_schema", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.output_schema).toBeDefined();
       });
 
       test("should define hasSlots in output", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.output_schema.properties.hasSlots).toBeDefined();
       });
     });
 
     describe("Security Scenarios", () => {
       test("should mention slots in description", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.description.toLowerCase()).toContain("slot");
       });
 
       test("should handle path traversal in path", async () => {
         const { default: scanDocImages } = await import(
-          "../../../agents/localize/translate-images/scan-doc-images.mjs"
+          "../../../../agents/localize/translate-images/scan-doc-images.mjs"
         );
         const result = await scanDocImages({
           path: "../../../etc/passwd",
@@ -843,7 +843,7 @@ describe("localize/translate-images agents", () => {
       });
 
       test("should define error in output schema", async () => {
-        const module = await import("../../../agents/localize/translate-images/scan-doc-images.mjs");
+        const module = await import("../../../../agents/localize/translate-images/scan-doc-images.mjs");
         expect(module.default.output_schema.properties.error).toBeDefined();
       });
     });

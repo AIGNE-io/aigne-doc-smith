@@ -34,12 +34,12 @@ describe("store/index.mjs", () => {
   describe("Happy Path", () => {
     describe("createStore module", () => {
       test("should export createStore function", async () => {
-        const { createStore } = await import("../../utils/store/index.mjs");
+        const { createStore } = await import("../../../utils/store/index.mjs");
         expect(typeof createStore).toBe("function");
       });
 
       test("createStore should return a promise", async () => {
-        const { createStore } = await import("../../utils/store/index.mjs");
+        const { createStore } = await import("../../../utils/store/index.mjs");
         const result = createStore();
         expect(result).toBeInstanceOf(Promise);
         // Clean up - let the promise resolve/reject
@@ -270,7 +270,7 @@ describe("store/index.mjs", () => {
 
     describe("store module exports", () => {
       test("should export createStore as named export", async () => {
-        const storeModule = await import("../../utils/store/index.mjs");
+        const storeModule = await import("../../../utils/store/index.mjs");
         expect(storeModule).toHaveProperty("createStore");
         expect(typeof storeModule.createStore).toBe("function");
       });

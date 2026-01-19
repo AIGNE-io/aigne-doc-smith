@@ -14,7 +14,7 @@
 
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
 import { rm } from "node:fs/promises";
-import { createTempDir } from "../../setup/test-utils.mjs";
+import { createTempDir } from "../../../setup/test-utils.mjs";
 
 describe("localize/translate-documents agents", () => {
   let tempDir;
@@ -35,7 +35,7 @@ describe("localize/translate-documents agents", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
@@ -43,7 +43,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should have description property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         expect(module.default.description).toBeDefined();
         expect(typeof module.default.description).toBe("string");
@@ -51,7 +51,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should have input_schema property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         expect(module.default.input_schema).toBeDefined();
         expect(module.default.input_schema.type).toBe("object");
@@ -59,7 +59,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should have output_schema property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         expect(module.default.output_schema).toBeDefined();
         expect(module.default.output_schema.type).toBe("object");
@@ -67,7 +67,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should generate summary for completed tasks", async () => {
         const { default: generateSummary } = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         const result = generateSummary({
           translationTasks: [
@@ -85,7 +85,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should handle skipped translation", async () => {
         const { default: generateSummary } = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         const result = generateSummary({
           translationTasks: [],
@@ -102,7 +102,7 @@ describe("localize/translate-documents agents", () => {
     describe("Unhappy Path", () => {
       test("should handle empty tasks array", async () => {
         const { default: generateSummary } = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         const result = generateSummary({
           translationTasks: [],
@@ -117,7 +117,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should handle more than 5 documents", async () => {
         const { default: generateSummary } = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         const tasks = Array.from({ length: 10 }, (_, i) => ({
           path: `/doc-${i}`,
@@ -138,14 +138,14 @@ describe("localize/translate-documents agents", () => {
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         expect(module).toBeDefined();
       });
 
       test("should calculate total translations correctly", async () => {
         const { default: generateSummary } = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         const result = generateSummary({
           translationTasks: [{ path: "/a" }, { path: "/b" }],
@@ -159,7 +159,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should include documentPaths in summary", async () => {
         const { default: generateSummary } = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         const result = generateSummary({
           translationTasks: [{ path: "/overview" }],
@@ -175,7 +175,7 @@ describe("localize/translate-documents agents", () => {
     describe("Security Scenarios", () => {
       test("should handle XSS in path", async () => {
         const { default: generateSummary } = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         const result = generateSummary({
           translationTasks: [{ path: "<script>alert(1)</script>" }],
@@ -189,7 +189,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should handle special characters in language", async () => {
         const { default: generateSummary } = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         const result = generateSummary({
           translationTasks: [],
@@ -203,7 +203,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should handle null bytes in path", async () => {
         const { default: generateSummary } = await import(
-          "../../../agents/localize/translate-documents/generate-summary.mjs"
+          "../../../../agents/localize/translate-documents/generate-summary.mjs"
         );
         const result = generateSummary({
           translationTasks: [{ path: "/test\x00evil" }],
@@ -221,24 +221,24 @@ describe("localize/translate-documents agents", () => {
   describe("load-glossary.mjs", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
-        const module = await import("../../../agents/localize/translate-documents/load-glossary.mjs");
+        const module = await import("../../../../agents/localize/translate-documents/load-glossary.mjs");
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
       });
 
       test("should be async function", async () => {
-        const module = await import("../../../agents/localize/translate-documents/load-glossary.mjs");
+        const module = await import("../../../../agents/localize/translate-documents/load-glossary.mjs");
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
-        const module = await import("../../../agents/localize/translate-documents/load-glossary.mjs");
+        const module = await import("../../../../agents/localize/translate-documents/load-glossary.mjs");
         expect(module.default.description).toBeDefined();
         expect(module.default.description.toLowerCase()).toContain("glossary");
       });
 
       test("should have output_schema property", async () => {
-        const module = await import("../../../agents/localize/translate-documents/load-glossary.mjs");
+        const module = await import("../../../../agents/localize/translate-documents/load-glossary.mjs");
         expect(module.default.output_schema).toBeDefined();
         expect(module.default.output_schema.required).toContain("glossary");
         expect(module.default.output_schema.required).toContain("message");
@@ -247,31 +247,31 @@ describe("localize/translate-documents agents", () => {
 
     describe("Unhappy Path", () => {
       test("should accept no parameters", async () => {
-        const module = await import("../../../agents/localize/translate-documents/load-glossary.mjs");
+        const module = await import("../../../../agents/localize/translate-documents/load-glossary.mjs");
         expect(module.default.length).toBe(0);
       });
     });
 
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
-        const module = await import("../../../agents/localize/translate-documents/load-glossary.mjs");
+        const module = await import("../../../../agents/localize/translate-documents/load-glossary.mjs");
         expect(module).toBeDefined();
       });
 
       test("should define glossary as string in output", async () => {
-        const module = await import("../../../agents/localize/translate-documents/load-glossary.mjs");
+        const module = await import("../../../../agents/localize/translate-documents/load-glossary.mjs");
         expect(module.default.output_schema.properties.glossary.type).toBe("string");
       });
 
       test("should define message in output", async () => {
-        const module = await import("../../../agents/localize/translate-documents/load-glossary.mjs");
+        const module = await import("../../../../agents/localize/translate-documents/load-glossary.mjs");
         expect(module.default.output_schema.properties.message.type).toBe("string");
       });
     });
 
     describe("Security Scenarios", () => {
       test("should mention GLOSSARY.md in description", async () => {
-        const module = await import("../../../agents/localize/translate-documents/load-glossary.mjs");
+        const module = await import("../../../../agents/localize/translate-documents/load-glossary.mjs");
         expect(module.default.description).toContain("GLOSSARY");
       });
     });
@@ -282,7 +282,7 @@ describe("localize/translate-documents agents", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
@@ -290,21 +290,21 @@ describe("localize/translate-documents agents", () => {
 
       test("should be async function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         expect(module.default.description).toBeDefined();
       });
 
       test("should have input_schema property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         expect(module.default.input_schema).toBeDefined();
         expect(module.default.input_schema.type).toBe("object");
@@ -312,7 +312,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should require langs in input", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         expect(module.default.input_schema.required).toContain("langs");
       });
@@ -321,7 +321,7 @@ describe("localize/translate-documents agents", () => {
     describe("Unhappy Path", () => {
       test("should reject missing langs", async () => {
         const { default: prepareTranslation } = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         const result = await prepareTranslation({ docs: [] });
         expect(result.success).toBe(false);
@@ -330,7 +330,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should reject empty langs array", async () => {
         const { default: prepareTranslation } = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         const result = await prepareTranslation({ langs: [] });
         expect(result.success).toBe(false);
@@ -338,7 +338,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should reject null langs", async () => {
         const { default: prepareTranslation } = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         const result = await prepareTranslation({ langs: null });
         expect(result.success).toBe(false);
@@ -348,21 +348,21 @@ describe("localize/translate-documents agents", () => {
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         expect(module).toBeDefined();
       });
 
       test("should have output_schema with success", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         expect(module.default.output_schema.required).toContain("success");
       });
 
       test("should define force in input schema", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         expect(module.default.input_schema.properties.force).toBeDefined();
         expect(module.default.input_schema.properties.force.type).toBe("boolean");
@@ -372,7 +372,7 @@ describe("localize/translate-documents agents", () => {
     describe("Security Scenarios", () => {
       test("should handle injection in langs", async () => {
         const { default: prepareTranslation } = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         const result = await prepareTranslation({ langs: ["<script>"] });
         // Should return error since config file likely doesn't exist
@@ -381,7 +381,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should handle path traversal in docs", async () => {
         const { default: prepareTranslation } = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         const result = await prepareTranslation({
           docs: ["../../../etc/passwd"],
@@ -392,7 +392,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should handle null bytes in langs", async () => {
         const { default: prepareTranslation } = await import(
-          "../../../agents/localize/translate-documents/prepare-translation.mjs"
+          "../../../../agents/localize/translate-documents/prepare-translation.mjs"
         );
         const result = await prepareTranslation({ langs: ["en\x00zh"] });
         expect(result).toHaveProperty("success");
@@ -405,7 +405,7 @@ describe("localize/translate-documents agents", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
@@ -413,28 +413,28 @@ describe("localize/translate-documents agents", () => {
 
       test("should be async function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default.description).toBeDefined();
       });
 
       test("should have input_schema property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default.input_schema).toBeDefined();
       });
 
       test("should require all necessary parameters", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         const required = module.default.input_schema.required;
         expect(required).toContain("path");
@@ -448,7 +448,7 @@ describe("localize/translate-documents agents", () => {
     describe("Unhappy Path", () => {
       test("should accept 5 required parameters", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default.input_schema.required.length).toBe(5);
       });
@@ -457,21 +457,21 @@ describe("localize/translate-documents agents", () => {
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module).toBeDefined();
       });
 
       test("should have output_schema with success", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default.output_schema.required).toContain("success");
       });
 
       test("should mention metadata in description", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default.description.toLowerCase()).toContain("meta");
       });
@@ -480,7 +480,7 @@ describe("localize/translate-documents agents", () => {
     describe("Security Scenarios", () => {
       test("should define targetFile path property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default.input_schema.properties.targetFile).toBeDefined();
         expect(module.default.input_schema.properties.targetFile.type).toBe("string");
@@ -488,7 +488,7 @@ describe("localize/translate-documents agents", () => {
 
       test("should define sourceHash property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/save-translation.mjs"
+          "../../../../agents/localize/translate-documents/save-translation.mjs"
         );
         expect(module.default.input_schema.properties.sourceHash).toBeDefined();
       });
@@ -500,7 +500,7 @@ describe("localize/translate-documents agents", () => {
     describe("Happy Path", () => {
       test("should export default function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default).toBeDefined();
         expect(typeof module.default).toBe("function");
@@ -508,28 +508,28 @@ describe("localize/translate-documents agents", () => {
 
       test("should be async function", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
       test("should have description property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.description).toBeDefined();
       });
 
       test("should have input_schema property", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.input_schema).toBeDefined();
       });
 
       test("should require path, sourceLanguage, language", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         const required = module.default.input_schema.required;
         expect(required).toContain("path");
@@ -541,21 +541,21 @@ describe("localize/translate-documents agents", () => {
     describe("Unhappy Path", () => {
       test("should accept 2 parameters (input, options)", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.length).toBe(2);
       });
 
       test("should define optional force parameter", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.input_schema.properties.force).toBeDefined();
       });
 
       test("should define optional glossary parameter", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.input_schema.properties.glossary).toBeDefined();
       });
@@ -564,21 +564,21 @@ describe("localize/translate-documents agents", () => {
     describe("Critical Error Scenarios", () => {
       test("should import without errors", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module).toBeDefined();
       });
 
       test("should have output_schema with success", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.output_schema.required).toContain("success");
       });
 
       test("should define skipped in output schema", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.output_schema.properties.skipped).toBeDefined();
       });
@@ -587,21 +587,21 @@ describe("localize/translate-documents agents", () => {
     describe("Security Scenarios", () => {
       test("should mention hash in description", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.description.toLowerCase()).toContain("hash");
       });
 
       test("should define error code in output", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.output_schema.properties.error).toBeDefined();
       });
 
       test("should define suggestion in output", async () => {
         const module = await import(
-          "../../../agents/localize/translate-documents/translate-document-to-language.mjs"
+          "../../../../agents/localize/translate-documents/translate-document-to-language.mjs"
         );
         expect(module.default.output_schema.properties.suggestion).toBeDefined();
       });
