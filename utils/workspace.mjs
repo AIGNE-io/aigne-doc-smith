@@ -52,7 +52,7 @@ export async function pathExists(path) {
 }
 
 /**
- * Check if path exists (sync version)
+ * Check if path exists (synchronous version)
  * @param {string} path - Path
  * @returns {boolean}
  */
@@ -173,7 +173,7 @@ export async function addToGitignore(gitRoot, pattern) {
 }
 
 /**
- * Detect workspace mode (async version)
+ * Detect workspace mode (asynchronous version)
  *
  * Returns null if workspace is not initialized (no config.yaml found).
  * Callers should handle the null case by inferring mode or triggering initialization.
@@ -210,7 +210,7 @@ export async function detectWorkspaceMode() {
 /**
  * Detect workspace mode (sync version)
  *
- * Used by modules that need workspace info at load time (e.g., agent-constants.mjs).
+ * Used by modules that need workspace information at load time (e.g., agent-constants.mjs).
  * Unlike the async version, this ALWAYS returns a valid object (defaults to STANDALONE
  * when not initialized) because sync callers need concrete values immediately.
  *
@@ -427,7 +427,7 @@ export async function initStandaloneMode() {
 
 /**
  * Detect directory state and initialize workspace when needed
- * Handles old version backup migration if necessary
+ * Handles old version backup and migration if necessary
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string }>}
  */
 export async function detectAndInitialize() {
