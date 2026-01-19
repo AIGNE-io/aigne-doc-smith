@@ -1,4 +1,3 @@
-import { existsSync } from "node:fs";
 import { access, readFile, mkdir, writeFile, appendFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { exec } from "node:child_process";
@@ -49,15 +48,6 @@ export async function pathExists(path) {
   } catch {
     return false;
   }
-}
-
-/**
- * Check if path exists (synchronous version)
- * @param {string} path - Path
- * @returns {boolean}
- */
-export function pathExistsSync(path) {
-  return existsSync(path);
 }
 
 /**
@@ -169,29 +159,7 @@ export async function addToGitignore(gitRoot, pattern) {
 }
 
 /**
- * Detect workspace mode (synchronous version)
- * Used for scenarios requiring synchronous judgment at module load time
- * @returns {{ mode: string, workspaceBase: string }}
- */
-export function detectWorkspaceModeSync() {
-  const cwd = process.cwd();
-  const projectConfigPath = join(cwd, DOC_SMITH_DIR, "config.yaml");
-
-  if (existsSync(projectConfigPath)) {
-    return {
-      mode: WORKSPACE_MODES.PROJECT,
-      workspaceBase: join(cwd, DOC_SMITH_DIR),
-    };
-  }
-
-  return {
-    mode: WORKSPACE_MODES.STANDALONE,
-    workspaceBase: cwd,
-  };
-}
-
-/**
- * Detect workspace mode (asynchronous version)
+ * Detect workspace mode
  * @returns {Promise<{ mode: string, configPath: string, workspacePath: string } | null>}
  */
 export async function detectWorkspaceMode() {

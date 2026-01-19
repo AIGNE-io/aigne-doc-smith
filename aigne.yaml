@@ -20,6 +20,7 @@ agents:
   - agents/clear/clear-deployment-config.mjs
 
 cli:
+  init: skills-entry/doc-smith/workspace-init.mjs
   chat: skills-entry/doc-smith/index.mjs
   agents:
     - name: doc-smith
