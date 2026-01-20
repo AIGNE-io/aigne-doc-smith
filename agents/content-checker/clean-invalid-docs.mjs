@@ -84,7 +84,7 @@ async function getValidLanguages(metaPath) {
  * @param {string} filename - Filename
  * @returns {string|null} - Language code (filename without .md suffix), e.g., "zh", "en", "claude-code"
  */
-function extractLanguageFromFilename(filename) {
+export function extractLanguageFromFilename(filename) {
   if (!filename.endsWith(".md")) return null;
   // Return filename without .md suffix as language identifier
   return filename.slice(0, -3);

@@ -127,10 +127,13 @@ export async function generateAfsModules({
   includeHistory = false,
 } = {}) {
   // Determine workspace mode
+  // Trust caller-provided workspace.mode to avoid redundant config reads
   let mode;
-  if (workspace) {
+  if (workspace?.mode) {
+    mode = workspace.mode;
+  } else if (workspace?.configPath) {
     const config = await loadConfig(workspace.configPath);
-    mode = config?.mode || workspace.mode;
+    mode = config?.mode || WORKSPACE_MODES.STANDALONE;
   } else {
     const detected = await detectWorkspaceMode();
     mode = detected?.mode || WORKSPACE_MODES.STANDALONE;
