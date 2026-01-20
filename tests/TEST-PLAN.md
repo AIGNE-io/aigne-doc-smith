@@ -164,9 +164,9 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `skills-entry/doc-smith/index.mjs` | 63 | `skills-entry/doc-smith/index.test.mjs` | ⬜ TODO | CLI 入口 |
-| `skills-entry/doc-smith/workspace-init.mjs` | 31 | `skills-entry/doc-smith/workspace-init.test.mjs` | ⬜ TODO | workspace 初始化 |
-| `skills-entry/doc-smith-docs-detail/index.mjs` | 95 | `skills-entry/doc-smith-docs-detail/index.test.mjs` | ⬜ TODO | 详情入口 |
+| `skills-entry/doc-smith/index.mjs` | 63 | `skills-entry/doc-smith/index.test.mjs` | ✅ DONE | CLI 入口 |
+| `skills-entry/doc-smith/workspace-init.mjs` | 31 | `skills-entry/doc-smith/index.test.mjs` | ✅ DONE | workspace 初始化 |
+| `skills-entry/doc-smith-docs-detail/index.mjs` | 95 | `skills-entry/doc-smith-docs-detail/index.test.mjs` | ✅ DONE | 详情入口 |
 
 ## 测试核心原则
 
@@ -389,8 +389,8 @@ pnpm test:watch
 | 第九阶段 | 10 | 10 | 100% |
 | 第十阶段 | 3 | 3 | 100% |
 | 第十一阶段 | 2 | 2 | 100% |
-| 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **49** | **94%** |
+| 第十二阶段 | 3 | 3 | 100% |
+| **总计** | **52** | **52** | **100%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第十二阶段
+**所有阶段已完成** ✅
 
-**启动命令**: `继续执行测试计划`
+**测试覆盖率**: 52/52 模块 (100%)
 
 ---
 
-最后更新: 2026-01-20 (第十一阶段完成)
+最后更新: 2026-01-20 (全部完成)

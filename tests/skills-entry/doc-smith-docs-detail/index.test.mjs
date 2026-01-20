@@ -8,7 +8,7 @@
  * Actual generation depends on workspace state and AI capabilities.
  */
 
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { rm } from "node:fs/promises";
 import { createTempDir } from "../../setup/test-utils.mjs";
 

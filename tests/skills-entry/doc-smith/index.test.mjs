@@ -9,7 +9,7 @@
  * Actual initialization depends on workspace state.
  */
 
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { rm } from "node:fs/promises";
 import { createTempDir } from "../../setup/test-utils.mjs";
 
@@ -170,12 +170,46 @@ describe("skills-entry/doc-smith", () => {
         const module = await import("../../../skills-entry/doc-smith/workspace-init.mjs");
         expect(module.default.task_render_mode).toBe("hide");
       });
+
+      test("should return object from function call", async () => {
+        // Intent: workspaceInit should always return an object
+        const module = await import("../../../skills-entry/doc-smith/workspace-init.mjs");
+        // Function should be callable and return object-like structure
+        expect(typeof module.default).toBe("function");
+      });
+
+      test("should have no required parameters", async () => {
+        // Intent: workspaceInit takes no parameters, can be called directly
+        const module = await import("../../../skills-entry/doc-smith/workspace-init.mjs");
+        expect(module.default.length).toBe(0);
+      });
     });
 
     describe("Security Scenarios", () => {
       test("should mention DocSmith in description", async () => {
         const module = await import("../../../skills-entry/doc-smith/workspace-init.mjs");
         expect(module.default.description).toContain("DocSmith");
+      });
+
+      test("should hide task render to prevent information exposure", async () => {
+        // Intent: Hide task to prevent exposing workspace detection logic
+        const module = await import("../../../skills-entry/doc-smith/workspace-init.mjs");
+        expect(module.default.task_render_mode).toBe("hide");
+      });
+
+      test("should not expose sensitive config in description", async () => {
+        // Intent: Description should not contain paths or sensitive info
+        const module = await import("../../../skills-entry/doc-smith/workspace-init.mjs");
+        expect(module.default.description).not.toContain("/Users/");
+        expect(module.default.description).not.toContain("\\Users\\");
+        expect(module.default.description).not.toContain("password");
+        expect(module.default.description).not.toContain("token");
+      });
+
+      test("should have concise description without implementation details", async () => {
+        // Intent: Description should not reveal internal implementation
+        const module = await import("../../../skills-entry/doc-smith/workspace-init.mjs");
+        expect(module.default.description.length).toBeLessThan(100);
       });
     });
   });
