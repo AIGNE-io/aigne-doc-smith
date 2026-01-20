@@ -9,7 +9,6 @@
 
 import { describe, test, expect } from "bun:test";
 import { getMimeType, ensureTmpDir, isRemoteFile } from "../../utils/files.mjs";
-import { existsSync } from "node:fs";
 
 describe("files.mjs", () => {
   // ==================== Happy Path ====================
@@ -45,30 +44,15 @@ describe("files.mjs", () => {
     });
 
     describe("ensureTmpDir", () => {
-      test("should return a path string or undefined", async () => {
-        const result = await ensureTmpDir();
-        // NOTE: Function returns undefined - potential bug or design issue
-        // Expected: string path to temp directory
-        // Actual: undefined
-        // Recording as potential bug for review
-        expect(result === undefined || typeof result === "string").toBe(true);
+      test("should complete without error", async () => {
+        // Function returns void (ensures directory exists as side effect)
+        await expect(ensureTmpDir()).resolves.toBeUndefined();
       });
 
-      test("should create a directory that exists if path returned", async () => {
-        const tmpDir = await ensureTmpDir();
-        // NOTE: tmpDir is undefined - function may not be working as expected
-        if (typeof tmpDir === "string") {
-          expect(existsSync(tmpDir)).toBe(true);
-        } else {
-          // Record: ensureTmpDir returns undefined instead of path
-          expect(tmpDir).toBeUndefined();
-        }
-      });
-
-      test("should return consistent result on multiple calls", async () => {
-        const dir1 = await ensureTmpDir();
-        const dir2 = await ensureTmpDir();
-        expect(dir1).toBe(dir2);
+      test("should not throw on multiple calls", async () => {
+        await ensureTmpDir();
+        await ensureTmpDir();
+        // Multiple calls should succeed without error
       });
     });
 
@@ -158,11 +142,9 @@ describe("files.mjs", () => {
     describe("ensureTmpDir", () => {
       test("should not throw on repeated calls", async () => {
         // Call multiple times, should not error
-        const result1 = await ensureTmpDir();
-        const _result2 = await ensureTmpDir();
-        const _result3 = await ensureTmpDir();
-        // All calls should return the same directory or valid paths
-        expect(typeof result1 === "string" || result1 === undefined).toBe(true);
+        await ensureTmpDir();
+        await ensureTmpDir();
+        await ensureTmpDir();
       });
     });
 
@@ -225,15 +207,9 @@ describe("files.mjs", () => {
     });
 
     describe("ensureTmpDir - Directory Safety", () => {
-      test("should return a path within temp directory if defined", async () => {
-        const tmpDir = await ensureTmpDir();
-        // Should be in system temp or project temp, not arbitrary location
-        if (typeof tmpDir === "string") {
-          expect(tmpDir).not.toMatch(/^\/etc/);
-          expect(tmpDir).not.toMatch(/^\/usr/);
-        }
-        // May return undefined if temp dir not needed
-        expect(tmpDir === undefined || typeof tmpDir === "string").toBe(true);
+      test("should not throw when ensuring temp directory", async () => {
+        // Function returns void, just ensure it completes without error
+        await expect(ensureTmpDir()).resolves.toBeUndefined();
       });
     });
   });
