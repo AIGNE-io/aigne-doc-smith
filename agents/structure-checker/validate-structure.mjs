@@ -475,3 +475,6 @@ validateYamlStructure.input_schema = {
     },
   },
 };
+
+// Export for testing - allows testing internal utility methods
+export { DocumentStructureValidator, formatOutput };

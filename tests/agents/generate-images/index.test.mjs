@@ -542,20 +542,161 @@ describe("generate-images agents", () => {
         expect(module.default.constructor.name).toBe("AsyncFunction");
       });
 
-      test("should not expose internal helper functions", async () => {
+      test("should not expose internal helper functions (except groupSlotsByKey for testing)", async () => {
         const module = await import("../../../agents/generate-images/scan-image-slots.mjs");
         const exports = Object.keys(module);
         expect(exports).toContain("default");
-        // Internal functions should not be exported
+        // scanDocument should not be exported
         expect(exports).not.toContain("scanDocument");
-        expect(exports).not.toContain("groupSlotsByKey");
+        // groupSlotsByKey is exported for testing
+        expect(exports).toContain("groupSlotsByKey");
       });
 
       test("should have limited exports for encapsulation", async () => {
         const module = await import("../../../agents/generate-images/scan-image-slots.mjs");
         const exports = Object.keys(module);
-        // Should only export default and possibly types
-        expect(exports.length).toBeLessThanOrEqual(2);
+        // Should have limited exports: default and groupSlotsByKey
+        expect(exports.length).toBeLessThanOrEqual(3);
+      });
+    });
+
+    // ==================== Internal Utility Methods Tests ====================
+    describe("Internal Utility Methods", () => {
+      describe("groupSlotsByKey", () => {
+        let groupSlotsByKey;
+
+        beforeEach(async () => {
+          const module = await import("../../../agents/generate-images/scan-image-slots.mjs");
+          groupSlotsByKey = module.groupSlotsByKey;
+        });
+
+        test("should return empty Map for empty input", () => {
+          const result = groupSlotsByKey([]);
+          expect(result.size).toBe(0);
+        });
+
+        test("should return empty Map for null results", () => {
+          const result = groupSlotsByKey([null, null]);
+          expect(result.size).toBe(0);
+        });
+
+        test("should return empty Map for results with no slots", () => {
+          const result = groupSlotsByKey([
+            { path: "/doc1", hash: "abc", slots: [] },
+            { path: "/doc2", hash: "def", slots: [] },
+          ]);
+          expect(result.size).toBe(0);
+        });
+
+        test("should group single slot", () => {
+          const result = groupSlotsByKey([
+            {
+              path: "/doc1",
+              hash: "abc123",
+              content: "# Test",
+              slots: [{ key: "hero-image", id: "slot1", desc: "Hero image" }],
+            },
+          ]);
+          expect(result.size).toBe(1);
+          expect(result.has("hero-image")).toBe(true);
+          const slot = result.get("hero-image");
+          expect(slot.key).toBe("hero-image");
+          expect(slot.id).toBe("slot1");
+          expect(slot.desc).toBe("Hero image");
+          expect(slot.documents.length).toBe(1);
+        });
+
+        test("should group multiple slots with different keys", () => {
+          const result = groupSlotsByKey([
+            {
+              path: "/doc1",
+              hash: "abc",
+              content: "content1",
+              slots: [
+                { key: "key1", id: "id1", desc: "desc1" },
+                { key: "key2", id: "id2", desc: "desc2" },
+              ],
+            },
+          ]);
+          expect(result.size).toBe(2);
+          expect(result.has("key1")).toBe(true);
+          expect(result.has("key2")).toBe(true);
+        });
+
+        test("should merge slots with same key from different documents", () => {
+          const result = groupSlotsByKey([
+            {
+              path: "/doc1",
+              hash: "hash1",
+              content: "content1",
+              slots: [{ key: "shared-key", id: "id1", desc: "desc1" }],
+            },
+            {
+              path: "/doc2",
+              hash: "hash2",
+              content: "content2",
+              slots: [{ key: "shared-key", id: "id2", desc: "desc2" }],
+            },
+          ]);
+          expect(result.size).toBe(1);
+          const slot = result.get("shared-key");
+          expect(slot.documents.length).toBe(2);
+          // Uses the last id and desc
+          expect(slot.id).toBe("id2");
+          expect(slot.desc).toBe("desc2");
+        });
+
+        test("should include document metadata in grouped result", () => {
+          const result = groupSlotsByKey([
+            {
+              path: "/docs/intro",
+              hash: "hashvalue",
+              content: "# Introduction\n\nSome content",
+              slots: [{ key: "intro-image", id: "slot1", desc: "Introduction image" }],
+            },
+          ]);
+          const slot = result.get("intro-image");
+          expect(slot.documents[0].path).toBe("/docs/intro");
+          expect(slot.documents[0].hash).toBe("hashvalue");
+          expect(slot.documents[0].content).toBe("# Introduction\n\nSome content");
+        });
+
+        test("should handle mixed null and valid results", () => {
+          const result = groupSlotsByKey([
+            null,
+            {
+              path: "/doc1",
+              hash: "abc",
+              content: "content",
+              slots: [{ key: "key1", id: "id1", desc: "desc1" }],
+            },
+            null,
+            { path: "/doc2", hash: "def", content: "content2", slots: [] },
+          ]);
+          expect(result.size).toBe(1);
+          expect(result.has("key1")).toBe(true);
+        });
+
+        test("should handle slot with same key used multiple times in same document", () => {
+          const result = groupSlotsByKey([
+            {
+              path: "/doc1",
+              hash: "abc",
+              content: "content",
+              slots: [
+                { key: "repeated", id: "first-id", desc: "first-desc" },
+                { key: "repeated", id: "second-id", desc: "second-desc" },
+              ],
+            },
+          ]);
+          expect(result.size).toBe(1);
+          const slot = result.get("repeated");
+          // Uses last id and desc
+          expect(slot.id).toBe("second-id");
+          expect(slot.desc).toBe("second-desc");
+          // But documents array has same doc added twice
+          expect(slot.documents.length).toBe(2);
+        });
       });
     });
   });

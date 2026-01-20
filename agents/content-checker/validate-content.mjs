@@ -981,3 +981,6 @@ export default async function validateDocumentContent({
 
 // Note: This function is for internal use only, not directly exposed as a skill
 // External calls are made through the checkContent function in content-checker.mjs
+
+// Export for testing - allows testing internal utility methods
+export { DocumentContentValidator };

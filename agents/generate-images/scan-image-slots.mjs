@@ -47,7 +47,7 @@ async function scanDocument(docPath, locale) {
  * @param {Array} scanResults - Scan results array
  * @returns {Map} - key -> { key, id, desc, documents }
  */
-function groupSlotsByKey(scanResults) {
+export function groupSlotsByKey(scanResults) {
   const slotMap = new Map();
 
   for (const result of scanResults) {

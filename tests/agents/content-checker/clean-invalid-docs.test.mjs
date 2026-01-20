@@ -529,4 +529,72 @@ describe("content-checker/clean-invalid-docs.mjs", () => {
       });
     });
   });
+
+  // ==================== Internal Utility Methods Tests ====================
+  describe("Internal Utility Methods", () => {
+    describe("extractLanguageFromFilename", () => {
+      let extractLanguageFromFilename;
+
+      beforeEach(async () => {
+        const module = await import("../../../agents/content-checker/clean-invalid-docs.mjs");
+        extractLanguageFromFilename = module.extractLanguageFromFilename;
+      });
+
+      test("should extract 'en' from 'en.md'", () => {
+        const result = extractLanguageFromFilename("en.md");
+        expect(result).toBe("en");
+      });
+
+      test("should extract 'zh' from 'zh.md'", () => {
+        const result = extractLanguageFromFilename("zh.md");
+        expect(result).toBe("zh");
+      });
+
+      test("should extract 'zh-TW' from 'zh-TW.md'", () => {
+        const result = extractLanguageFromFilename("zh-TW.md");
+        expect(result).toBe("zh-TW");
+      });
+
+      test("should extract 'ja' from 'ja.md'", () => {
+        const result = extractLanguageFromFilename("ja.md");
+        expect(result).toBe("ja");
+      });
+
+      test("should extract compound names like 'claude-code'", () => {
+        const result = extractLanguageFromFilename("claude-code.md");
+        expect(result).toBe("claude-code");
+      });
+
+      test("should return null for non-.md files", () => {
+        expect(extractLanguageFromFilename("en.txt")).toBeNull();
+        expect(extractLanguageFromFilename("en.yaml")).toBeNull();
+        expect(extractLanguageFromFilename("readme")).toBeNull();
+      });
+
+      test("should return null for hidden files", () => {
+        const result = extractLanguageFromFilename(".meta.yaml");
+        expect(result).toBeNull();
+      });
+
+      test("should handle empty string", () => {
+        const result = extractLanguageFromFilename("");
+        expect(result).toBeNull();
+      });
+
+      test("should handle filename with multiple dots", () => {
+        const result = extractLanguageFromFilename("file.name.md");
+        expect(result).toBe("file.name");
+      });
+
+      test("should handle just '.md' extension", () => {
+        const result = extractLanguageFromFilename(".md");
+        expect(result).toBe("");
+      });
+
+      test("should extract long language codes", () => {
+        const result = extractLanguageFromFilename("pt-BR.md");
+        expect(result).toBe("pt-BR");
+      });
+    });
+  });
 });

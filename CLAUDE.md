@@ -17,6 +17,7 @@
 3. **开发规范**
    - 创建或修改 Skill 时，必须使用 `/skill-creator` 获取最佳实践和开发指导
    - 遵循 skill-creator 中定义的所有规范和要求
+   - commit 信息中不要包含 `Co-Authored-By` 信息
 
 ## 工作流程
 

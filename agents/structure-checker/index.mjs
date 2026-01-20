@@ -305,3 +305,6 @@ export default async function checkStructure() {
 
 checkStructure.description =
   "Check and validate document structure YAML file at planning/document-structure.yaml, automatically fix format errors";
+
+// Export for testing - allows testing internal utility methods
+export { DocumentStructureFixer, formatRemainingErrors };

@@ -484,4 +484,330 @@ documents:
       });
     });
   });
+
+  // ==================== Internal Utility Methods Tests ====================
+  describe("Internal Utility Methods", () => {
+    let DocumentStructureValidator;
+    let formatOutput;
+
+    beforeEach(async () => {
+      const module = await import("../../../agents/structure-checker/validate-structure.mjs");
+      DocumentStructureValidator = module.DocumentStructureValidator;
+      formatOutput = module.formatOutput;
+    });
+
+    describe("DocumentStructureValidator.validatePath", () => {
+      test("should return error for path without leading slash", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validatePath("test/path", "documents[0]");
+        expect(errors.length).toBe(1);
+        expect(errors[0].type).toBe("PATH_FORMAT");
+        expect(errors[0].fix).toBe("add_leading_slash");
+      });
+
+      test("should return no error for valid path", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validatePath("/test/path", "documents[0]");
+        expect(errors.length).toBe(0);
+      });
+
+      test("should return empty array for non-string path", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validatePath(123, "documents[0]");
+        expect(errors).toEqual([]);
+      });
+
+      test("should include current and expected values in error", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validatePath("mypath", "loc");
+        expect(errors[0].current).toBe("mypath");
+        expect(errors[0].expected).toBe("/mypath");
+      });
+    });
+
+    describe("DocumentStructureValidator.validateSourcePaths", () => {
+      test("should return error for non-array sourcePaths", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateSourcePaths("not-array", "documents[0]");
+        expect(errors.fixable.length).toBe(1);
+        expect(errors.fixable[0].type).toBe("INVALID_TYPE");
+      });
+
+      test("should return warning for empty sourcePaths", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateSourcePaths([], "documents[0]");
+        expect(errors.warnings.length).toBe(1);
+        expect(errors.warnings[0].type).toBe("EMPTY_SOURCES");
+      });
+
+      test("should return error for workspace: prefix", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateSourcePaths(["workspace:src/file.md"], "documents[0]");
+        expect(errors.fixable.length).toBe(1);
+        expect(errors.fixable[0].type).toBe("SOURCE_PATH_PREFIX");
+      });
+
+      test("should return error for non-string source path", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateSourcePaths([123], "documents[0]");
+        expect(errors.fixable.length).toBe(1);
+        expect(errors.fixable[0].type).toBe("INVALID_TYPE");
+      });
+
+      test("should accept valid sourcePaths", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateSourcePaths(["src/file.md", "src/other.md"], "documents[0]");
+        expect(errors.fixable.length).toBe(0);
+        expect(errors.warnings.length).toBe(0);
+      });
+    });
+
+    describe("DocumentStructureValidator.validateIcon", () => {
+      test("should require icon for top-level document", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateIcon(undefined, true, "documents[0]", "Test Doc");
+        expect(errors.fatal.length).toBe(1);
+        expect(errors.fatal[0].type).toBe("MISSING_ICON");
+      });
+
+      test("should return error for icon without lucide prefix at top level", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateIcon("book-open", true, "documents[0]", "Test Doc");
+        expect(errors.fixable.length).toBe(1);
+        expect(errors.fixable[0].type).toBe("ICON_FORMAT");
+      });
+
+      test("should accept valid icon at top level", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateIcon("lucide:book-open", true, "documents[0]", "Test Doc");
+        expect(errors.fatal.length).toBe(0);
+        expect(errors.fixable.length).toBe(0);
+      });
+
+      test("should return error for icon on child document", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateIcon("lucide:test", false, "documents[0].children[0]", "Child");
+        expect(errors.fixable.length).toBe(1);
+        expect(errors.fixable[0].type).toBe("EXTRA_ICON");
+      });
+
+      test("should accept no icon on child document", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateIcon(undefined, false, "documents[0].children[0]", "Child");
+        expect(errors.fatal.length).toBe(0);
+        expect(errors.fixable.length).toBe(0);
+      });
+
+      test("should include suggestion with icon examples in missing icon error", () => {
+        const validator = new DocumentStructureValidator("");
+        const errors = validator.validateIcon(undefined, true, "documents[0]", "Test");
+        expect(errors.fatal[0].suggestion).toContain("lucide:");
+      });
+    });
+
+    describe("DocumentStructureValidator.getMaxDepth", () => {
+      test("should return 1 for flat documents", () => {
+        const validator = new DocumentStructureValidator("");
+        const docs = [{ path: "/a" }, { path: "/b" }];
+        expect(validator.getMaxDepth(docs)).toBe(1);
+      });
+
+      test("should return 2 for one level of nesting", () => {
+        const validator = new DocumentStructureValidator("");
+        const docs = [
+          {
+            path: "/a",
+            children: [{ path: "/a/child" }],
+          },
+        ];
+        expect(validator.getMaxDepth(docs)).toBe(2);
+      });
+
+      test("should return 3 for two levels of nesting", () => {
+        const validator = new DocumentStructureValidator("");
+        const docs = [
+          {
+            path: "/a",
+            children: [
+              {
+                path: "/a/b",
+                children: [{ path: "/a/b/c" }],
+              },
+            ],
+          },
+        ];
+        expect(validator.getMaxDepth(docs)).toBe(3);
+      });
+
+      test("should find deepest branch in tree", () => {
+        const validator = new DocumentStructureValidator("");
+        const docs = [
+          { path: "/shallow" },
+          {
+            path: "/deep",
+            children: [
+              {
+                path: "/deep/deeper",
+                children: [{ path: "/deep/deeper/deepest" }],
+              },
+            ],
+          },
+        ];
+        expect(validator.getMaxDepth(docs)).toBe(3);
+      });
+
+      test("should handle empty array", () => {
+        const validator = new DocumentStructureValidator("");
+        expect(validator.getMaxDepth([])).toBe(1);
+      });
+
+      test("should handle null/undefined", () => {
+        const validator = new DocumentStructureValidator("");
+        expect(validator.getMaxDepth(null)).toBe(1);
+        expect(validator.getMaxDepth(undefined)).toBe(1);
+      });
+
+      test("should handle empty children array", () => {
+        const validator = new DocumentStructureValidator("");
+        const docs = [{ path: "/a", children: [] }];
+        expect(validator.getMaxDepth(docs)).toBe(1);
+      });
+    });
+
+    describe("formatOutput", () => {
+      test("should format valid result with checkmark", () => {
+        const result = {
+          valid: true,
+          summary: { totalDocuments: 5, warningCount: 0 },
+        };
+        const output = formatOutput(result);
+        expect(output).toContain("✅");
+        expect(output).toContain("PASS");
+        expect(output).toContain("5");
+      });
+
+      test("should include warnings count in valid result", () => {
+        const result = {
+          valid: true,
+          summary: { totalDocuments: 5, warningCount: 2 },
+        };
+        const output = formatOutput(result);
+        expect(output).toContain("Warnings: 2");
+      });
+
+      test("should format invalid result with X mark", () => {
+        const result = {
+          valid: false,
+          summary: {
+            totalDocuments: 3,
+            fatalCount: 1,
+            fixableCount: 2,
+            warningCount: 0,
+          },
+          errors: { fatal: [], fixable: [], warnings: [] },
+        };
+        const output = formatOutput(result);
+        expect(output).toContain("❌");
+        expect(output).toContain("FAIL");
+      });
+
+      test("should format fatal errors section", () => {
+        const result = {
+          valid: false,
+          summary: {
+            totalDocuments: 1,
+            fatalCount: 1,
+            fixableCount: 0,
+            warningCount: 0,
+          },
+          errors: {
+            fatal: [{ type: "MISSING_FIELD", path: "project.title", message: "Missing title" }],
+            fixable: [],
+            warnings: [],
+          },
+        };
+        const output = formatOutput(result);
+        expect(output).toContain("FATAL ERRORS");
+        expect(output).toContain("MISSING_FIELD");
+        expect(output).toContain("Missing title");
+      });
+
+      test("should format fixable errors section", () => {
+        const result = {
+          valid: false,
+          summary: {
+            totalDocuments: 1,
+            fatalCount: 0,
+            fixableCount: 1,
+            warningCount: 0,
+          },
+          errors: {
+            fatal: [],
+            fixable: [
+              {
+                type: "PATH_FORMAT",
+                path: "documents[0].path",
+                message: "No leading slash",
+                current: "test",
+                expected: "/test",
+                fix: "add_leading_slash",
+              },
+            ],
+            warnings: [],
+          },
+        };
+        const output = formatOutput(result);
+        expect(output).toContain("FIXABLE ERRORS");
+        expect(output).toContain("Current:");
+        expect(output).toContain("Expected:");
+      });
+
+      test("should format warnings section", () => {
+        const result = {
+          valid: false,
+          summary: {
+            totalDocuments: 1,
+            fatalCount: 0,
+            fixableCount: 0,
+            warningCount: 1,
+          },
+          errors: {
+            fatal: [],
+            fixable: [],
+            warnings: [{ type: "DEEP_NESTING", message: "Document nested 4 levels deep" }],
+          },
+        };
+        const output = formatOutput(result);
+        expect(output).toContain("WARNINGS");
+        expect(output).toContain("DEEP_NESTING");
+      });
+
+      test("should include suggestion when present", () => {
+        const result = {
+          valid: false,
+          summary: {
+            totalDocuments: 1,
+            fatalCount: 1,
+            fixableCount: 0,
+            warningCount: 0,
+          },
+          errors: {
+            fatal: [
+              {
+                type: "MISSING_ICON",
+                path: "documents[0].icon",
+                message: "Missing icon",
+                suggestion: "Add lucide:book-open",
+              },
+            ],
+            fixable: [],
+            warnings: [],
+          },
+        };
+        const output = formatOutput(result);
+        expect(output).toContain("Suggestion:");
+        expect(output).toContain("Add lucide:book-open");
+      });
+    });
+  });
 });

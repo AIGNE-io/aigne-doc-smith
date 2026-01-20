@@ -20,8 +20,7 @@
     "lint": "biome lint && biome format",
     "lint:fix": "biome lint --write && biome format --write",
     "test": "bun test --preload ./tests/setup/mock-process-exit.mjs",
-    "test:coverage": "bun test --preload ./tests/setup/mock-process-exit.mjs --coverage",
-    "test:coverage:lcov": "bun test --preload ./tests/setup/mock-process-exit.mjs --coverage --coverage-reporter=lcov --coverage-reporter=text",
+    "test:coverage": "bun test --preload ./tests/setup/mock-process-exit.mjs --coverage --coverage-reporter=lcov --coverage-reporter=text",
     "test:watch": "bun test --preload ./tests/setup/mock-process-exit.mjs --watch",
     "update:deps": "npx -y taze major -r -w -f -n '/@abtnode|@aigne|@arcblock|@blocklet|@did-connect|@did-pay|@did-space|@nft-store|@nft-studio|@ocap/' && pnpm install && pnpm run deduplicate",
     "deduplicate": "pnpm dedupe"

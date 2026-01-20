@@ -20,7 +20,7 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdir, writeFile, rm } from "node:fs/promises";
+import { writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { createTempDir } from "../../setup/test-utils.mjs";
 
@@ -404,6 +404,453 @@ children:
           checkRemoteImages: true,
         });
         expect(result).toHaveProperty("valid");
+      });
+    });
+  });
+
+  // ==================== Internal Utility Methods Tests ====================
+  describe("Internal Utility Methods", () => {
+    let DocumentContentValidator;
+
+    beforeEach(async () => {
+      const module = await import("../../../agents/content-checker/validate-content.mjs");
+      DocumentContentValidator = module.DocumentContentValidator;
+    });
+
+    describe("removeCodeBlocks", () => {
+      test("should remove fenced code blocks", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# Title
+
+Some text before.
+
+\`\`\`javascript
+const code = "test";
+# This heading should be removed
+\`\`\`
+
+Some text after.`;
+
+        const result = validator.removeCodeBlocks(content);
+        expect(result).toContain("# Title");
+        expect(result).toContain("Some text before.");
+        expect(result).toContain("Some text after.");
+        expect(result).not.toContain("const code");
+        expect(result).not.toContain("# This heading should be removed");
+      });
+
+      test("should remove indented code blocks", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# Title
+
+    indented code line 1
+    indented code line 2
+
+Normal text.`;
+
+        const result = validator.removeCodeBlocks(content);
+        expect(result).toContain("# Title");
+        expect(result).toContain("Normal text.");
+        expect(result).not.toContain("indented code line");
+      });
+
+      test("should handle multiple code blocks", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# Title
+
+\`\`\`js
+code1
+\`\`\`
+
+Middle text.
+
+\`\`\`python
+code2
+\`\`\`
+
+End text.`;
+
+        const result = validator.removeCodeBlocks(content);
+        expect(result).toContain("Middle text.");
+        expect(result).toContain("End text.");
+        expect(result).not.toContain("code1");
+        expect(result).not.toContain("code2");
+      });
+
+      test("should handle content without code blocks", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# Title
+
+Just normal text here.
+
+## Another heading`;
+
+        const result = validator.removeCodeBlocks(content);
+        expect(result).toBe(content);
+      });
+
+      test("should handle empty content", () => {
+        const validator = new DocumentContentValidator();
+        const result = validator.removeCodeBlocks("");
+        expect(result).toBe("");
+      });
+    });
+
+    describe("getCodeBlockRanges", () => {
+      test("should detect fenced code block ranges", () => {
+        const validator = new DocumentContentValidator();
+        const content = `Start
+
+\`\`\`js
+code
+\`\`\`
+
+End`;
+
+        const ranges = validator.getCodeBlockRanges(content);
+        expect(ranges.length).toBeGreaterThan(0);
+        // The fenced block should be in the ranges
+        const hasCodeBlock = ranges.some((r) => {
+          const blockContent = content.substring(r.start, r.end);
+          return blockContent.includes("```");
+        });
+        expect(hasCodeBlock).toBe(true);
+      });
+
+      test("should detect inline code ranges", () => {
+        const validator = new DocumentContentValidator();
+        const content = "This is `inline code` in text.";
+
+        const ranges = validator.getCodeBlockRanges(content);
+        expect(ranges.length).toBe(1);
+        expect(content.substring(ranges[0].start, ranges[0].end)).toBe("`inline code`");
+      });
+
+      test("should detect multiple inline codes", () => {
+        const validator = new DocumentContentValidator();
+        const content = "Use `code1` and `code2` here.";
+
+        const ranges = validator.getCodeBlockRanges(content);
+        expect(ranges.length).toBe(2);
+      });
+
+      test("should return empty array for content without code", () => {
+        const validator = new DocumentContentValidator();
+        const content = "Just plain text.";
+
+        const ranges = validator.getCodeBlockRanges(content);
+        // No fenced or inline code blocks
+        expect(ranges.filter((r) => content.substring(r.start, r.end).includes("`")).length).toBe(
+          0,
+        );
+      });
+    });
+
+    describe("isInCodeBlock", () => {
+      test("should return true for position inside range", () => {
+        const validator = new DocumentContentValidator();
+        const ranges = [
+          { start: 10, end: 20 },
+          { start: 30, end: 40 },
+        ];
+
+        expect(validator.isInCodeBlock(15, ranges)).toBe(true);
+        expect(validator.isInCodeBlock(35, ranges)).toBe(true);
+      });
+
+      test("should return false for position outside ranges", () => {
+        const validator = new DocumentContentValidator();
+        const ranges = [
+          { start: 10, end: 20 },
+          { start: 30, end: 40 },
+        ];
+
+        expect(validator.isInCodeBlock(5, ranges)).toBe(false);
+        expect(validator.isInCodeBlock(25, ranges)).toBe(false);
+        expect(validator.isInCodeBlock(45, ranges)).toBe(false);
+      });
+
+      test("should return true for position at range start", () => {
+        const validator = new DocumentContentValidator();
+        const ranges = [{ start: 10, end: 20 }];
+
+        expect(validator.isInCodeBlock(10, ranges)).toBe(true);
+      });
+
+      test("should return false for position at range end", () => {
+        const validator = new DocumentContentValidator();
+        const ranges = [{ start: 10, end: 20 }];
+
+        // End position is exclusive
+        expect(validator.isInCodeBlock(20, ranges)).toBe(false);
+      });
+
+      test("should handle empty ranges array", () => {
+        const validator = new DocumentContentValidator();
+        expect(validator.isInCodeBlock(10, [])).toBe(false);
+      });
+    });
+
+    describe("isResourceFile", () => {
+      test("should identify image files", () => {
+        const validator = new DocumentContentValidator();
+        expect(validator.isResourceFile("image.png")).toBe(true);
+        expect(validator.isResourceFile("photo.jpg")).toBe(true);
+        expect(validator.isResourceFile("icon.svg")).toBe(true);
+        expect(validator.isResourceFile("animation.gif")).toBe(true);
+        expect(validator.isResourceFile("picture.webp")).toBe(true);
+      });
+
+      test("should identify document files", () => {
+        const validator = new DocumentContentValidator();
+        expect(validator.isResourceFile("document.pdf")).toBe(true);
+        expect(validator.isResourceFile("report.doc")).toBe(true);
+        expect(validator.isResourceFile("spreadsheet.xlsx")).toBe(true);
+      });
+
+      test("should identify code files", () => {
+        const validator = new DocumentContentValidator();
+        expect(validator.isResourceFile("script.js")).toBe(true);
+        expect(validator.isResourceFile("module.ts")).toBe(true);
+        expect(validator.isResourceFile("style.css")).toBe(true);
+        expect(validator.isResourceFile("main.py")).toBe(true);
+      });
+
+      test("should identify archive files", () => {
+        const validator = new DocumentContentValidator();
+        expect(validator.isResourceFile("archive.zip")).toBe(true);
+        expect(validator.isResourceFile("backup.tar")).toBe(true);
+        expect(validator.isResourceFile("compressed.gz")).toBe(true);
+      });
+
+      test("should return false for document links", () => {
+        const validator = new DocumentContentValidator();
+        expect(validator.isResourceFile("/overview")).toBe(false);
+        expect(validator.isResourceFile("/api/introduction")).toBe(false);
+        expect(validator.isResourceFile("../getting-started")).toBe(false);
+      });
+
+      test("should handle URLs with query parameters", () => {
+        const validator = new DocumentContentValidator();
+        expect(validator.isResourceFile("image.png?v=123")).toBe(true);
+        expect(validator.isResourceFile("photo.jpg?size=large")).toBe(true);
+      });
+
+      test("should handle URLs with anchors", () => {
+        const validator = new DocumentContentValidator();
+        expect(validator.isResourceFile("image.png#section")).toBe(true);
+      });
+
+      test("should be case insensitive", () => {
+        const validator = new DocumentContentValidator();
+        expect(validator.isResourceFile("IMAGE.PNG")).toBe(true);
+        expect(validator.isResourceFile("Photo.JPG")).toBe(true);
+        expect(validator.isResourceFile("Document.PDF")).toBe(true);
+      });
+    });
+
+    describe("checkEmptyDocument", () => {
+      test("should detect document with insufficient content", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# Title
+
+Short.`;
+        const doc = { path: "/test" };
+
+        validator.checkEmptyDocument(content, doc, "en.md");
+
+        expect(validator.errors.fatal.length).toBe(1);
+        expect(validator.errors.fatal[0].type).toBe("EMPTY_DOCUMENT");
+      });
+
+      test("should accept document with sufficient content", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# Title
+
+This is a document with sufficient content to pass the validation check.
+It needs to have at least 50 characters after removing the title and whitespace.
+
+## Another Section
+
+More content here to ensure we have enough.`;
+        const doc = { path: "/test" };
+
+        validator.checkEmptyDocument(content, doc, "en.md");
+
+        expect(validator.errors.fatal.length).toBe(0);
+      });
+
+      test("should not count headings as content", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# Heading 1
+
+## Heading 2
+
+### Heading 3
+
+#### Heading 4
+
+Short`;
+        const doc = { path: "/test" };
+
+        validator.checkEmptyDocument(content, doc, "en.md");
+
+        // Headings are removed, so only "Short" remains which is < 50 chars
+        expect(validator.errors.fatal.length).toBe(1);
+      });
+    });
+
+    describe("checkHeadingHierarchy", () => {
+      test("should detect heading level skip", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# H1 Title
+
+### H3 Skipped H2
+
+Content here.`;
+        const doc = { path: "/test" };
+
+        validator.checkHeadingHierarchy(content, doc, "en.md");
+
+        expect(validator.errors.fatal.length).toBe(1);
+        expect(validator.errors.fatal[0].type).toBe("HEADING_SKIP");
+      });
+
+      test("should accept valid heading hierarchy", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# H1 Title
+
+## H2 Section
+
+### H3 Subsection
+
+## H2 Another Section
+
+Content here.`;
+        const doc = { path: "/test" };
+
+        validator.checkHeadingHierarchy(content, doc, "en.md");
+
+        expect(validator.errors.fatal.length).toBe(0);
+      });
+
+      test("should allow going up multiple levels", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# H1 Title
+
+## H2 Section
+
+### H3 Subsection
+
+#### H4 Deep
+
+## H2 Back to Level 2
+
+Content here.`;
+        const doc = { path: "/test" };
+
+        validator.checkHeadingHierarchy(content, doc, "en.md");
+
+        expect(validator.errors.fatal.length).toBe(0);
+      });
+
+      test("should ignore headings in code blocks", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# H1 Title
+
+\`\`\`markdown
+### H3 in code block should be ignored
+\`\`\`
+
+## H2 After Code
+
+Content here.`;
+        const doc = { path: "/test" };
+
+        validator.checkHeadingHierarchy(content, doc, "en.md");
+
+        // H3 in code block is ignored, so H1 -> H2 is valid
+        expect(validator.errors.fatal.length).toBe(0);
+      });
+
+      test("should detect multiple heading skips", () => {
+        const validator = new DocumentContentValidator();
+        const content = `# H1
+
+### H3 Skip 1
+
+##### H5 Skip 2
+
+Content.`;
+        const doc = { path: "/test" };
+
+        validator.checkHeadingHierarchy(content, doc, "en.md");
+
+        expect(validator.errors.fatal.length).toBe(2);
+      });
+    });
+
+    describe("calculateExpectedRelativePath", () => {
+      test("should calculate path for top-level document", () => {
+        const validator = new DocumentContentValidator();
+        // Document at overview/en.md (depth 2) linking to workspace root image
+        const result = validator.calculateExpectedRelativePath(
+          "overview/en.md",
+          `${process.cwd()}/assets/image.png`,
+        );
+
+        expect(result).toContain("../");
+        expect(result).toContain("assets/image.png");
+      });
+
+      test("should calculate path for nested document", () => {
+        const validator = new DocumentContentValidator();
+        // Document at api/auth/en.md (depth 3)
+        const result = validator.calculateExpectedRelativePath(
+          "api/auth/en.md",
+          `${process.cwd()}/assets/image.png`,
+        );
+
+        expect(result).toContain("../");
+        expect(result).toContain("assets/image.png");
+      });
+    });
+
+    describe("checkRemoteImage", () => {
+      test("should return accessible true for valid URL", async () => {
+        const validator = new DocumentContentValidator();
+        // Use a reliable URL - but this test depends on network
+        // For unit tests, we mainly verify the return structure
+        const result = await validator.checkRemoteImage("https://www.google.com/favicon.ico", 5000);
+
+        expect(result).toHaveProperty("accessible");
+        if (result.accessible) {
+          expect(result).toHaveProperty("statusCode");
+        } else {
+          // Network might be unavailable, still valid test
+          expect(result).toHaveProperty("error");
+        }
+      });
+
+      test("should return accessible false for invalid URL", async () => {
+        const validator = new DocumentContentValidator();
+        const result = await validator.checkRemoteImage(
+          "https://nonexistent.invalid.domain/image.png",
+          1000,
+        );
+
+        expect(result.accessible).toBe(false);
+        expect(result).toHaveProperty("error");
+      });
+
+      test("should timeout on slow responses", async () => {
+        const validator = new DocumentContentValidator();
+        // Very short timeout to trigger timeout behavior
+        const result = await validator.checkRemoteImage("https://httpbin.org/delay/10", 100);
+
+        expect(result.accessible).toBe(false);
+        // Should either timeout or have an error
+        expect(result.error || result.isTimeout).toBeTruthy();
       });
     });
   });
