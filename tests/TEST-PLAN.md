@@ -157,8 +157,8 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `agents/save-document/index.mjs` | 260 | `agents/save-document/index.test.mjs` | ⬜ TODO | 文档保存 |
-| `agents/update-image/load-existing-image.mjs` | 211 | `agents/update-image/load-existing-image.test.mjs` | ⬜ TODO | 图片加载 |
+| `agents/save-document/index.mjs` | 260 | `agents/save-document/index.test.mjs` | ✅ DONE | 文档保存 |
+| `agents/update-image/load-existing-image.mjs` | 211 | `agents/update-image/index.test.mjs` | ✅ DONE | 图片加载 |
 
 ### 第十二阶段：Skills Entry 模块 (优先级: 中)
 
@@ -388,9 +388,9 @@ pnpm test:watch
 | 第八阶段 | 5 | 5 | 100% |
 | 第九阶段 | 10 | 10 | 100% |
 | 第十阶段 | 3 | 3 | 100% |
-| 第十一阶段 | 2 | 0 | 0% |
+| 第十一阶段 | 2 | 2 | 100% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **47** | **90%** |
+| **总计** | **52** | **49** | **94%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第十一阶段
+**下一个待执行阶段**: 第十二阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-20 (第十阶段完成)
+最后更新: 2026-01-20 (第十一阶段完成)

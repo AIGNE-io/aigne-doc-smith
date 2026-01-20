@@ -8,7 +8,7 @@
  * Actual file saving depends on workspace configuration.
  */
 
-import { describe, test, expect, beforeEach, afterEach } from "bun:test";
+import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { rm } from "node:fs/promises";
 import { createTempDir } from "../../setup/test-utils.mjs";
 
