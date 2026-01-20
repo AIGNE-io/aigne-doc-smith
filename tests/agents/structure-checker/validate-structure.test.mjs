@@ -556,7 +556,10 @@ documents:
 
       test("should accept valid sourcePaths", () => {
         const validator = new DocumentStructureValidator("");
-        const errors = validator.validateSourcePaths(["src/file.md", "src/other.md"], "documents[0]");
+        const errors = validator.validateSourcePaths(
+          ["src/file.md", "src/other.md"],
+          "documents[0]",
+        );
         expect(errors.fixable.length).toBe(0);
         expect(errors.warnings.length).toBe(0);
       });
@@ -586,14 +589,24 @@ documents:
 
       test("should return error for icon on child document", () => {
         const validator = new DocumentStructureValidator("");
-        const errors = validator.validateIcon("lucide:test", false, "documents[0].children[0]", "Child");
+        const errors = validator.validateIcon(
+          "lucide:test",
+          false,
+          "documents[0].children[0]",
+          "Child",
+        );
         expect(errors.fixable.length).toBe(1);
         expect(errors.fixable[0].type).toBe("EXTRA_ICON");
       });
 
       test("should accept no icon on child document", () => {
         const validator = new DocumentStructureValidator("");
-        const errors = validator.validateIcon(undefined, false, "documents[0].children[0]", "Child");
+        const errors = validator.validateIcon(
+          undefined,
+          false,
+          "documents[0].children[0]",
+          "Child",
+        );
         expect(errors.fatal.length).toBe(0);
         expect(errors.fixable.length).toBe(0);
       });

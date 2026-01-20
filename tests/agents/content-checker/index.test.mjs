@@ -15,8 +15,7 @@
  */
 
 import { describe, test, expect, beforeEach, afterEach } from "bun:test";
-import { mkdir, writeFile, rm } from "node:fs/promises";
-import { join } from "node:path";
+import { rm } from "node:fs/promises";
 import { createTempDir } from "../../setup/test-utils.mjs";
 
 describe("content-checker/index.mjs", () => {

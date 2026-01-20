@@ -348,50 +348,72 @@ describe("workspace.mjs", () => {
   // ==================== Security Scenarios ====================
   describe("Security Scenarios", () => {
     describe("pathExists - Path Traversal", () => {
-      test("should handle path traversal attempts", async () => {
-        // Should not allow escaping intended directories
+      test("should handle path traversal attempts without crashing", async () => {
+        // pathExists is a low-level utility that doesn't restrict paths
+        // It simply checks if the path exists - security validation is caller's responsibility
         const result = await pathExists("../../../etc/passwd");
         expect(typeof result).toBe("boolean");
-        // Function should work but user should validate paths
+        // On most systems, this relative path won't resolve to actual /etc/passwd
+        // because it's relative to cwd, not root
       });
 
-      test("should handle symlink-based traversal", async () => {
-        // Symlinks could be used to escape directories
+      test("should handle symlink-based traversal without crashing", async () => {
+        // pathExists follows symlinks by design (uses fs.access)
+        // This is expected behavior - callers should validate paths if needed
         const result = await pathExists("/tmp");
         expect(typeof result).toBe("boolean");
+        // /tmp should exist on Unix systems
+        if (process.platform !== "win32") {
+          expect(result).toBe(true);
+        }
       });
     });
 
     describe("isGitRepo - Command Injection", () => {
       test("should safely handle paths with shell metacharacters", async () => {
-        // Should not allow command injection via path
+        // isGitRepo passes path as cwd option to spawn, not interpolated into shell
+        // This should return false (not a git repo) without executing injected commands
         const maliciousPath = "/tmp; rm -rf /";
         const result = await isGitRepo(maliciousPath);
         expect(typeof result).toBe("boolean");
+        // Path with semicolon is not a valid directory, should return false
+        expect(result).toBe(false);
       });
 
       test("should handle paths with backticks", async () => {
+        // Backticks should be treated as literal characters, not shell substitution
         const maliciousPath = "/tmp`whoami`/test";
         const result = await isGitRepo(maliciousPath);
         expect(typeof result).toBe("boolean");
+        // This invalid path should return false without executing whoami
+        expect(result).toBe(false);
       });
 
       test("should handle paths with $() command substitution", async () => {
+        // $() should be treated as literal characters, not shell substitution
         const maliciousPath = "/tmp$(whoami)/test";
         const result = await isGitRepo(maliciousPath);
         expect(typeof result).toBe("boolean");
+        // This invalid path should return false without executing the substitution
+        expect(result).toBe(false);
       });
     });
 
     describe("createDirectoryStructure - Path Injection", () => {
-      test("should not create directories outside intended location", async () => {
+      test("should handle path traversal in base directory", async () => {
         const temp = await createTempDir();
         try {
-          // Attempt to escape the base directory
-          await createDirectoryStructure(join(temp.path, "../../../tmp/evil"));
+          // Attempt to escape the base directory using path traversal
+          // createDirectoryStructure doesn't validate paths - it trusts the caller
+          // This is acceptable as it's an internal utility, not user-facing
+          const escapedPath = join(temp.path, `../../../tmp/evil-test-dir-${Date.now()}`);
+          await createDirectoryStructure(escapedPath);
+          // If it succeeds, clean up the created directory
+          await rm(escapedPath, { recursive: true, force: true }).catch(() => {});
         } catch (error) {
-          // Should either reject or fail safely
-          expect(error !== undefined || true).toBe(true);
+          // Permission denied or other errors are expected for some paths
+          expect(error).toBeDefined();
+          expect(error.message).toBeDefined();
         } finally {
           await temp.cleanup();
         }
@@ -426,9 +448,9 @@ describe("workspace.mjs", () => {
         }
       });
 
-      test("should safely handle YAML anchors and aliases", async () => {
+      test("should safely handle YAML anchors and aliases (Billion Laughs prevention)", async () => {
         const configPath = join(tempDir, "config.yaml");
-        // Billion laughs attack variant
+        // Billion laughs attack variant - exponential expansion via anchors/aliases
         await writeFile(
           configPath,
           `
@@ -438,11 +460,18 @@ c: &c [*b,*b]
 d: [*c,*c]
 `,
         );
+        const startTime = Date.now();
         try {
-          await loadConfig(configPath);
+          const result = await loadConfig(configPath);
+          const elapsed = Date.now() - startTime;
+          // Should complete quickly (under 1 second) without exponential memory growth
+          expect(elapsed).toBeLessThan(1000);
+          // Result should be parsed (yaml library handles this safely)
+          expect(result).toBeDefined();
         } catch (error) {
-          // Should handle without hanging or crashing
-          expect(error !== undefined || true).toBe(true);
+          // Rejecting overly complex YAML is also acceptable security behavior
+          expect(error).toBeDefined();
+          expect(error.message).toBeDefined();
         }
       });
 

@@ -308,50 +308,74 @@ describe("docs.mjs", () => {
       }
     });
 
-    test("should handle path traversal in document paths", () => {
+    test("should handle path traversal in document paths without throwing", () => {
       const structure = [{ path: "/../../../etc/passwd", title: "Malicious", parentId: null }];
-      // Should not throw, paths should be validated by caller
-      expect(() => buildDocumentTree(structure)).not.toThrow();
+      // buildDocumentTree doesn't validate paths - it's a pure data transformation
+      // Path validation is the responsibility of calling code
+      const result = buildDocumentTree(structure);
+      expect(result).toBeDefined();
+      expect(result.rootNodes).toBeDefined();
+      expect(result.rootNodes[0].path).toBe("/../../../etc/passwd");
     });
 
-    test("should handle script injection in titles", () => {
+    test("should treat HTML in titles as literal strings", () => {
       const structure = [{ path: "/test", title: "<script>alert('xss')</script>", parentId: null }];
       const result = buildDocumentTree(structure);
       expect(result).toBeDefined();
+      // Title should be preserved as-is (HTML escaping is renderer's responsibility)
+      expect(result.rootNodes[0].title).toBe("<script>alert('xss')</script>");
     });
 
-    test("should handle null bytes in paths", () => {
+    test("should handle null bytes in paths without throwing", () => {
       const structure = [{ path: "/test\x00evil", title: "Test", parentId: null }];
-      expect(() => buildDocumentTree(structure)).not.toThrow();
+      // Should not crash - path validation is caller's responsibility
+      const result = buildDocumentTree(structure);
+      expect(result).toBeDefined();
+      expect(result.rootNodes[0].path).toBe("/test\x00evil");
     });
 
-    test("should not execute YAML tags during load", async () => {
+    test("should not execute YAML tags during load (safe YAML parsing)", async () => {
       await writeFile(
         join(tempDir, "document-structure.yaml"),
         "!!python/object/apply:os.system ['echo pwned']",
       );
+      const startTime = Date.now();
       try {
-        await loadDocumentStructure(tempDir);
+        const result = await loadDocumentStructure(tempDir);
+        const elapsed = Date.now() - startTime;
+        // Should complete quickly (not hang or cause infinite loop)
+        expect(elapsed).toBeLessThan(1000);
+        // If it parses, the tag should be treated as data, not executed
+        expect(result).toBeDefined();
       } catch (error) {
-        // Should fail to parse or return safely
-        expect(error !== undefined || true).toBe(true);
+        // Rejecting malformed YAML is acceptable safe behavior
+        expect(error).toBeDefined();
+        expect(error.message).toBeDefined();
       }
     });
 
-    test("should handle paths with shell metacharacters", () => {
+    test("should handle paths with shell metacharacters as literal strings", () => {
       const structure = [{ path: "/test; rm -rf /", title: "Dangerous", parentId: null }];
-      expect(() => buildDocumentTree(structure)).not.toThrow();
+      // Shell metacharacters should be treated as literal path characters
+      const result = buildDocumentTree(structure);
+      expect(result).toBeDefined();
+      expect(result.rootNodes[0].path).toBe("/test; rm -rf /");
     });
 
-    test("should sanitize output for sidebar generation", () => {
+    test("should preserve backticks in titles (no command execution)", () => {
       const structure = [{ path: "/test", title: "Test`whoami`", parentId: null }];
       const result = generateSidebar(structure);
       expect(result).toBeDefined();
+      // Backticks should be preserved as-is, not executed
+      expect(typeof result).toBe("string");
     });
 
-    test("should handle markdown injection in titles", () => {
+    test("should handle markdown injection patterns in titles", () => {
       const structure = [{ path: "/test", title: "[Evil](javascript:alert(1))", parentId: null }];
-      expect(() => generateSidebar(structure)).not.toThrow();
+      // Should not crash; markdown rendering is downstream concern
+      const result = generateSidebar(structure);
+      expect(result).toBeDefined();
+      expect(typeof result).toBe("string");
     });
   });
 });

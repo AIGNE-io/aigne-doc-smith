@@ -305,21 +305,26 @@ describe("content-checker/validate-content.mjs", () => {
 
   // ==================== Security Scenarios ====================
   describe("Security Scenarios", () => {
-    describe("path traversal prevention", () => {
-      test("should handle path traversal in yamlPath", async () => {
+    describe("path traversal handling", () => {
+      test("should mark validation as failed for nonexistent path traversal yamlPath", async () => {
         const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
         const result = await validateModule.default({
           yamlPath: "../../../etc/passwd",
         });
-        expect(result).toHaveProperty("valid");
+        // Path traversal to /etc/passwd won't find a valid YAML structure file
+        // so validation should fail (not because of security, but because file doesn't exist or isn't valid)
+        expect(result.valid).toBe(false);
+        expect(result.message).toBeTruthy();
       });
 
-      test("should handle path traversal in docsDir", async () => {
+      test("should handle path traversal in docsDir gracefully", async () => {
         const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
         const result = await validateModule.default({
           docsDir: "../../../etc",
         });
+        // Should complete without crashing; validation depends on finding valid structure
         expect(result).toHaveProperty("valid");
+        expect(typeof result.valid).toBe("boolean");
       });
 
       test("should handle path traversal in docs filter", async () => {
@@ -327,49 +332,60 @@ describe("content-checker/validate-content.mjs", () => {
         const result = await validateModule.default({
           docs: ["/../../../etc/passwd"],
         });
+        // Path filter with traversal should be handled (docs won't match anything)
         expect(result).toHaveProperty("valid");
+        expect(typeof result.valid).toBe("boolean");
       });
     });
 
     describe("input sanitization", () => {
-      test("should handle null bytes in paths", async () => {
+      test("should handle null bytes in paths without crashing", async () => {
         const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
         const result = await validateModule.default({
           yamlPath: "test\x00.yaml",
         });
+        // Null bytes in path should cause file not found or invalid path
         expect(result).toHaveProperty("valid");
+        expect(result.valid).toBe(false);
       });
 
-      test("should handle shell metacharacters in paths", async () => {
+      test("should handle shell metacharacters in paths as literal strings", async () => {
         const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
         const result = await validateModule.default({
           docsDir: "$(rm -rf /)",
         });
+        // Shell metacharacters should be treated as literal path, not executed
+        // Directory won't exist, so should handle gracefully
         expect(result).toHaveProperty("valid");
+        expect(typeof result.valid).toBe("boolean");
       });
 
-      test("should handle unicode normalization attacks", async () => {
+      test("should handle unicode characters in paths", async () => {
         const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
         const result = await validateModule.default({
           docs: ["/doc\u202e/hidden"],
         });
+        // Unicode characters (including RTL override) should be handled as literal
         expect(result).toHaveProperty("valid");
+        expect(typeof result.valid).toBe("boolean");
       });
     });
 
     describe("output safety", () => {
-      test("should not expose full filesystem paths in errors", async () => {
+      test("should return meaningful error message for invalid yamlPath", async () => {
         const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
         const result = await validateModule.default({
           yamlPath: "/etc/passwd",
         });
-        // Should not expose /etc/passwd in the main message in a dangerous way
+        // Should provide a message explaining the failure
         expect(result.message).toBeDefined();
+        expect(result.message.length).toBeGreaterThan(0);
+        expect(result.valid).toBe(false);
       });
 
       test("should handle malicious yaml content safely", async () => {
         const yamlPath = join(tempDir, "malicious.yaml");
-        // YAML with potential injection
+        // YAML with potential injection patterns
         await writeFile(
           yamlPath,
           `
@@ -382,28 +398,33 @@ children:
 
         const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
         const result = await validateModule.default({ yamlPath });
-        // Should process without executing malicious content
+        // Should parse YAML without executing content - XSS/SQL payloads are just strings
         expect(result).toHaveProperty("valid");
+        expect(typeof result.valid).toBe("boolean");
       });
     });
 
     describe("remote image checking safety", () => {
-      test("should not follow redirects to internal networks", async () => {
+      test("should complete remote image check without hanging", async () => {
         const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
-        // This tests that the function doesn't crash or hang
+        const startTime = Date.now();
         const result = await validateModule.default({
           checkRemoteImages: true,
         });
+        const elapsed = Date.now() - startTime;
+        // Should complete in reasonable time (not hang on network issues)
+        expect(elapsed).toBeLessThan(30000); // 30 seconds max
         expect(result).toHaveProperty("valid");
       });
 
-      test("should timeout on slow remote images", async () => {
+      test("should handle remote image check flag gracefully", async () => {
         const validateModule = await import("../../../agents/content-checker/validate-content.mjs");
-        // Function should respect timeout settings
         const result = await validateModule.default({
           checkRemoteImages: true,
         });
+        // Function should complete without crash
         expect(result).toHaveProperty("valid");
+        expect(typeof result.valid).toBe("boolean");
       });
     });
   });

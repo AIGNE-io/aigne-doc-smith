@@ -537,9 +537,7 @@ describe("structure-checker/index.mjs", () => {
       test("should format fixable errors", () => {
         const errors = {
           fatal: [],
-          fixable: [
-            { path: "documents[0].path", message: "No leading slash", expected: "/test" },
-          ],
+          fixable: [{ path: "documents[0].path", message: "No leading slash", expected: "/test" }],
         };
         const result = formatRemainingErrors(errors);
         expect(result.length).toBe(1);
