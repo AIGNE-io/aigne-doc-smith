@@ -149,9 +149,9 @@ tests/
 
 | 文件 | 行数 | 测试文件 | 状态 | 测试要点 |
 |------|------|----------|------|----------|
-| `agents/publish/check.mjs` | 107 | `agents/publish/check.test.mjs` | ⬜ TODO | 发布前检查 |
-| `agents/publish/publish-docs.mjs` | 376 | `agents/publish/publish-docs.test.mjs` | ⬜ TODO | 文档发布 |
-| `agents/publish/translate-meta.mjs` | 176 | `agents/publish/translate-meta.test.mjs` | ⬜ TODO | 元数据翻译 |
+| `agents/publish/check.mjs` | 107 | `agents/publish/index.test.mjs` | ✅ DONE | 发布前检查 |
+| `agents/publish/publish-docs.mjs` | 376 | `agents/publish/index.test.mjs` | ✅ DONE | 文档发布 |
+| `agents/publish/translate-meta.mjs` | 176 | `agents/publish/index.test.mjs` | ✅ DONE | 元数据翻译 |
 
 ### 第十一阶段：其他 Agent 模块 (优先级: 低)
 
@@ -387,10 +387,10 @@ pnpm test:watch
 | 第七阶段 | 3 | 3 | 100% |
 | 第八阶段 | 5 | 5 | 100% |
 | 第九阶段 | 10 | 10 | 100% |
-| 第十阶段 | 3 | 0 | 0% |
+| 第十阶段 | 3 | 3 | 100% |
 | 第十一阶段 | 2 | 0 | 0% |
 | 第十二阶段 | 3 | 0 | 0% |
-| **总计** | **52** | **44** | **85%** |
+| **总计** | **52** | **47** | **90%** |
 
 ## 自动化执行流程
 
@@ -513,10 +513,10 @@ git commit -m "test: fix flaky test in workspace.test.mjs"
 
 ## 当前状态
 
-**下一个待执行阶段**: 第十阶段
+**下一个待执行阶段**: 第十一阶段
 
 **启动命令**: `继续执行测试计划`
 
 ---
 
-最后更新: 2026-01-20 (第九阶段完成)
+最后更新: 2026-01-20 (第十阶段完成)
