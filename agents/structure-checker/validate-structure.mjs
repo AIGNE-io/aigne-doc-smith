@@ -456,6 +456,12 @@ export default async function validateYamlStructure({ yamlPath = PATHS.DOCUMENT_
         message: `❌ FAIL: File not found: ${yamlPath}`,
       };
     }
+    if (error.code === "EACCES") {
+      return {
+        valid: false,
+        message: `❌ FAIL: Cannot read file (access denied)`,
+      };
+    }
     return {
       valid: false,
       message: `❌ FAIL: ${error.message}`,
